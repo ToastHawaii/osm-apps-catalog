@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   text-align: center;
+  color: #333;
 }
 
 .app {
@@ -30,6 +31,10 @@ body {
 .app .header {
   text-align: center;
 }
+.app .header a {
+  text-decoration: none;
+  color: #333;
+}
 
 .app .name {
   font-weight: bold;
@@ -38,6 +43,7 @@ body {
 .app .img {
   max-width: 250px;
   max-height: 250px;
+  margin: 6px 0;
 }
 
 .app .description {
@@ -47,6 +53,13 @@ body {
 .app .themes {
   font-size: small;
   padding-top: 4px;
+}
+
+.app .link {
+  font-size: 22px;
+  padding: 4px 3px;
+  display: inline-block;
+  color: forestgreen;
 }
 
 .app .thema {

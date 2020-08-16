@@ -148,9 +148,19 @@ function render(obj: {
   const element = createElement(
     "div",
     `<div class="header">
-        <div class="name">${obj.name}</div>
+        <div class="name">${
+          obj.website
+            ? `<a href="${obj.website}" target="_blank">${obj.name}</a>`
+            : obj.name
+        }</div>
         ${
-          obj.image
+          obj.website
+            ? `<a href="${obj.website}" target="_blank">${
+                obj.image
+                  ? `<img class="img" src="${obj.image}"/>`
+                  : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+              }</a>`
+            : obj.image
             ? `<img class="img" src="${obj.image}"/>`
             : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
         }
@@ -158,10 +168,14 @@ function render(obj: {
       <div class="description">${obj.description}</div>
       ${
         obj.website
-          ? `<a target="_blank" href="${obj.website}">Website</a>`
+          ? `<a class="link" href="${obj.website}" target="_blank"><i class="far fa-map"></i></a>`
           : ""
       }
-      ${obj.wiki ? `<a target="_blank" href="${obj.wiki}">Wiki</a>` : ""}
+      ${
+        obj.wiki
+          ? `<a class="link" href="${obj.wiki}" target="_blank"><i class="fas fa-atlas"></i></a>`
+          : ""
+      }
       <div class="themes">${obj.themes
         .map(t => {
           const background = textToColor(t);

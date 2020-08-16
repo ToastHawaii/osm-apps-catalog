@@ -27,5 +27,5 @@ export function toWikimediaUrl(source: string) {
   return `https://wiki.openstreetmap.org/w/images/thumb/${hash.substring(
     0,
     1
-  )}/${hash.substring(0, 2)}/${fileName}/320px-${fileName}`;
+  )}/${hash.substring(0, 2)}/${fileName}/250px-${fileName}`;
 }
