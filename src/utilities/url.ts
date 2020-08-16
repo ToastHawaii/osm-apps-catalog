@@ -8,12 +8,12 @@ export function toUrl(url: string | undefined) {
   return url;
 }
 
-export function toWikipediaUrl(wikipedia: string) {
-  if (!wikipedia) return undefined;
+export function toWikiUrl(wiki: string) {
+  if (!wiki) return undefined;
 
-  if (httpRegex.test(wikipedia)) return wikipedia;
+  if (httpRegex.test(wiki)) return wiki;
 
-  return `https://wikipedia.org/wiki/${wikipedia}`;
+  return `https://wiki.openstreetmap.org/wiki/${wiki}`;
 }
 
 export function utilQsString(obj: any, noencode?: boolean) {

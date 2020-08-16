@@ -1,28 +1,158 @@
 import { getJson } from "./utilities/jsonRequest";
+import { findClosingBracketIndex } from "./utilities/string";
+import { createElement } from "./utilities/html";
+import { toWikimediaUrl } from "./utilities/image";
+import { toWikiUrl, toUrl } from "./utilities/url";
 
-function findClosingBracketIndex(str: string, pos: number) {
-  if (str[pos] !== "{") {
-    throw new Error("The position must contain an opening bracket");
-  }
-  let level = 1;
-  for (let index = pos + 1; index < str.length; index++) {
-    if (str[index] === "{") {
-      level++;
-    } else if (str[index] === "}") {
-      level--;
-    }
+function processNameWebsiteWiki(value: string = "") {
+  const obj: {
+    name: string;
+    website?: string;
+    wiki?: string;
+  } = { name: value };
 
-    if (level === 0) {
-      return index;
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      obj.website = match[2];
+      value = value.replace(regex, "");
     }
   }
-  return -1;
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      obj.name = match[6];
+      obj.website = match[2];
+      value = value.replace(regex, "");
+    }
+  }
+  {
+    const regex = /\[\[(.*)\]\]/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      obj.name = match[1];
+      obj.wiki = toWikiUrl(match[1]);
+      value = value.replace(regex, "");
+    }
+  }
+
+  return obj;
 }
 
-loadPagesByTemplate("Service item");
-loadPagesByTemplate("Software");
+(async function () {
+  const softwareRequest = requestTemplates("Software", source => {
+    const obj: {
+      name: string;
+      description: string;
+      image?: string;
+      website?: string;
+      wiki?: string;
+      languages: string[];
+      themes: string[];
+    } = {
+      name: source["name"] || "",
+      description: source["description"] || "",
+      image: toWikimediaUrl(source["screenshot"]),
+      website: toUrl(source["web"]),
+      wiki: toWikiUrl(source["wiki"]),
+      languages: [],
+      themes: []
+    };
 
-function parseTemplate(content: string) {
+    let name = processNameWebsiteWiki(source["name"]);
+    obj.name = name.name || obj.name;
+    obj.website = obj.website || name.website;
+    obj.wiki = obj.wiki || name.wiki;
+
+    name = processNameWebsiteWiki(source["web"]);
+    obj.name = obj.name || name.name;
+    obj.website = name.website || obj.website;
+    obj.wiki = obj.wiki || name.wiki;
+
+    name = processNameWebsiteWiki(source["wiki"]);
+    obj.name = obj.name || name.name;
+    obj.website = obj.website || name.website;
+    obj.wiki = name.wiki || obj.wiki;
+
+    const element = createElement(
+      "div",
+      `<div class="header">
+        <div class="name">${obj.name}</div>
+        ${obj.image ? `<img class="img" src="${obj.image}"/>` : ""}
+      </div>
+      <div class="description">${obj.description}</div>
+       ${
+         obj.website
+           ? `<a target="_blank" href="${obj.website}">Website</a>`
+           : ""
+       }
+      ${obj.wiki ? `<a target="_blank" href="${obj.wiki}">Wiki</a>` : ""}`,
+      ["app"]
+    );
+
+    document.body.appendChild(element);
+
+    console.info(obj);
+  });
+  const serviceItemRequest = requestTemplates("Service item", source => {
+    const obj: {
+      name: string;
+      description: string;
+      image?: string;
+      website?: string;
+      wiki?: string;
+      languages: string[];
+      themes: string[];
+    } = {
+      name: source["name"] || "",
+      description: source["descr"] || "",
+      image: toWikimediaUrl(source["image"]),
+      languages: [],
+      themes: []
+    };
+    debugger;
+    let name = processNameWebsiteWiki(source["name"]);
+    obj.name = name.name || obj.name;
+    obj.website = name.website;
+    obj.wiki = name.wiki;
+
+    const element = createElement(
+      "div",
+      `<div class="header">
+        <div class="name">${obj.name}</div>
+        ${obj.image ? `<img class="img" src="${obj.image}"/>` : ""}
+      </div>
+      <div class="description">${obj.description}</div>
+      ${
+        obj.website
+          ? `<a target="_blank" href="${obj.website}">Website</a>`
+          : ""
+      }
+      ${obj.wiki ? `<a target="_blank" href="${obj.wiki}">Wiki</a>` : ""}`,
+      ["app"]
+    );
+
+    document.body.appendChild(element);
+
+    console.info(obj);
+  });
+
+  await softwareRequest;
+  await serviceItemRequest;
+})();
+
+function parseTemplateToObject(
+  content: string,
+  transform: (obj: { [name: string]: string }) => void
+) {
   const obj: { [name: string]: string } = {};
   const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
   props.shift();
@@ -36,10 +166,14 @@ function parseTemplate(content: string) {
     if (value) obj[name] = value;
   }
 
-  console.info(obj);
+  transform(obj);
 }
 
-function parsePage(content: string, template: string) {
+function parsePage(
+  content: string,
+  template: string,
+  transform: (obj: { [name: string]: string }) => void
+) {
   const start = content.indexOf("{{" + template);
 
   if (start === -1) return;
@@ -55,13 +189,17 @@ function parsePage(content: string, template: string) {
     .substring(templateContent.indexOf("|"), templateContent.length - 2)
     .trim();
 
-  //console.info(templateContent);
-  parseTemplate(templateContent);
+  console.info(templateContent);
+  parseTemplateToObject(templateContent, transform);
 
-  parsePage(rest, template);
+  parsePage(rest, template, transform);
 }
 
-async function loadPages(ids: string[], template: string) {
+async function loadPages(
+  ids: string[],
+  template: string,
+  transform: (obj: { [name: string]: string }) => void
+) {
   const params: { [name: string]: string } = {
     prop: "revisions",
     rvprop: "content",
@@ -75,7 +213,7 @@ async function loadPages(ids: string[], template: string) {
   for (const p in pages) {
     const content = pages[p].revisions[0].slots.main.content;
 
-    parsePage(content, template);
+    parsePage(content, template, transform);
   }
 }
 
@@ -90,7 +228,10 @@ async function osmMediaApiQuery(params: { [name: string]: string }) {
   return await getJson(base, params);
 }
 
-async function loadPagesByTemplate(template: string) {
+async function requestTemplates(
+  template: string,
+  transform: (obj: { [name: string]: string }) => void
+) {
   const params = {
     list: "embeddedin",
     eititle: "Template:" + template,
@@ -99,32 +240,38 @@ async function loadPagesByTemplate(template: string) {
 
   const response = await osmMediaApiQuery(params);
 
-  processPagesByTemplateResult(response, template);
+  if (response.continue && response.continue.eicontinue)
+    loadPagesByTemplatePage(response.continue.eicontinue, template, transform);
+
+  return processPagesByTemplateResult(response, template, transform);
 }
 
 function processPagesByTemplateResult(
   response: { continue: { eicontinue: any }; query: { embeddedin: any } },
-  template: string
+  template: string,
+  transform: (obj: { [name: string]: string }) => void
 ) {
-  if (response.continue && response.continue.eicontinue)
-    loadPagesByTemplatePage(response.continue.eicontinue, template);
   const pages = response.query.embeddedin;
   let ids = [];
   for (const p in pages) {
     if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
 
     if (ids.length >= 50) {
-      loadPages(ids, template);
+      loadPages(ids, template, transform);
       ids = [];
     }
   }
 
   if (ids.length > 0) {
-    loadPages(ids, template);
+    loadPages(ids, template, transform);
   }
 }
 
-async function loadPagesByTemplatePage(con: string, template: string) {
+async function loadPagesByTemplatePage(
+  con: string,
+  template: string,
+  transform: (obj: { [name: string]: string }) => void
+) {
   const params = {
     list: "embeddedin",
     eititle: "Template:" + template,
@@ -134,5 +281,5 @@ async function loadPagesByTemplatePage(con: string, template: string) {
 
   const response = await osmMediaApiQuery(params);
 
-  processPagesByTemplateResult(response, template);
+  processPagesByTemplateResult(response, template, transform);
 }
