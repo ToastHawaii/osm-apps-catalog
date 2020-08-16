@@ -86,7 +86,11 @@ function processNameWebsiteWiki(value: string = "") {
       "div",
       `<div class="header">
         <div class="name">${obj.name}</div>
-        ${obj.image ? `<img class="img" src="${obj.image}"/>` : ""}
+        ${
+          obj.image
+            ? `<img class="img" src="${obj.image}"/>`
+            : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+        }
       </div>
       <div class="description">${obj.description}</div>
        ${
@@ -118,7 +122,7 @@ function processNameWebsiteWiki(value: string = "") {
       languages: [],
       themes: []
     };
-    debugger;
+
     let name = processNameWebsiteWiki(source["name"]);
     obj.name = name.name || obj.name;
     obj.website = name.website;
@@ -128,7 +132,11 @@ function processNameWebsiteWiki(value: string = "") {
       "div",
       `<div class="header">
         <div class="name">${obj.name}</div>
-        ${obj.image ? `<img class="img" src="${obj.image}"/>` : ""}
+        ${
+          obj.image
+            ? `<img class="img" src="${obj.image}"/>`
+            : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+        }
       </div>
       <div class="description">${obj.description}</div>
       ${
