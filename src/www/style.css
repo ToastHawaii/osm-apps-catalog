@@ -29,6 +29,20 @@ body {
   font-size: small;
 }
 
+.app .themes {
+  font-size: small;
+  padding-top: 4px;
+}
+
+.app .thema {
+  float: left;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(100%) hue-rotate(180deg);
