@@ -1,0 +1,53 @@
+{
+  "name": "osm-apps-catalog",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:development": "webpack --config src/webpack.development.config.js --watch",
+    "build:production": "webpack --config src/webpack.production.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToastHawaii/osm-apps-catalog"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToastHawaii/osm-apps-catalog/issues"
+  },
+  "homepage": "https://github.com/ToastHawaii/osm-apps-catalog#readme",
+  "dependencies": {
+    "@types/leaflet": "1.5.5",
+    "@types/md5": "2.1.33",
+    "@types/moment": "2.13.0",
+    "details-element-polyfill": "2.4.0",
+    "i18next-client": "1.11.4",
+    "leaflet-overpass-layer": "github:ToastHawaii/leaflet-overpass-layer",
+    "md5": "2.2.1",
+    "moment": "2.24.0",
+    "opening_hours": "3.5.0",
+    "bignumber.js": "9.0.0"
+  },
+  "devDependencies": {
+    "@types/clean-webpack-plugin": "0.1.3",
+    "@types/html-webpack-plugin": "3.2.1",
+    "@types/webpack": "4.1.3",
+    "@types/webpack-dev-server": "2.9.4",
+    "awesome-typescript-loader": "5.2.1",
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.4",
+    "clean-webpack-plugin": "3.0.0",
+    "copy-webpack-plugin": "6.0.3",
+    "css-loader": "3.2.0",
+    "file-loader": "4.2.0",
+    "html-webpack-plugin": "3.2.0",
+    "source-map-loader": "0.2.4",
+    "style-loader": "1.0.0",
+    "typescript": "3.8.3",
+    "uglify-es-webpack-plugin": "0.10.0",
+    "url-loader": "2.1.0",
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  }
+}

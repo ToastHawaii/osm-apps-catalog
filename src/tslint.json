@@ -1,0 +1,53 @@
+{
+  "rules": {
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "max-line-length": [
+      true,
+      120
+    ],
+    "no-console": false,
+    "no-namespace": false,
+    "object-literal-sort-keys": false,
+    "switch-default": false,
+    "member-access": true,
+    "no-any": false,
+    "label-position": true,
+    "no-bitwise": true,
+    "no-eval": true,
+    "no-null-keyword": true,
+    "no-unsafe-finally": true,
+    "no-var-keyword": true,
+    "radix": true,
+    "triple-equals": true,
+    "use-isnan": true,
+    "class-name": true,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "no-angle-bracket-type-assertion": true,
+    "one-variable-per-declaration": true,
+    "quotemark": [
+      true,
+      "double",
+      "avoid-escape"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ]
+  }
+}

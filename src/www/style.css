@@ -1,0 +1,596 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.closed {
+  color: red;
+}
+
+.open {
+  color: green;
+}
+
+h1 {
+  font-size: 20px;
+  position: fixed;
+  top: 0;
+  right: 10px;
+  z-index: 1000;
+  color: #333;
+}
+
+.box {
+  width: 250px;
+  height: 30px;
+
+  position: fixed;
+  z-index: 1000;
+  top: 40px;
+  right: 10px;
+}
+
+.container {
+  overflow: hidden;
+  width: 250px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.container input#osm-search {
+  width: 250px;
+  height: 30px;
+  background: #ffffff;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #333;
+  padding-left: 15px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  outline: none;
+
+  -webkit-transition: all 0.55s ease;
+  -moz-transition: all 0.55s ease;
+  -ms-transition: all 0.55s ease;
+  -o-transition: all 0.55s ease;
+  transition: all 0.55s ease;
+}
+
+.container input#osm-search::-webkit-input-placeholder {
+  color: #999;
+}
+
+.container input#osm-search:-moz-placeholder {
+  /* Firefox 18- */
+  color: #999;
+}
+
+.container input#osm-search::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #999;
+}
+
+.container input#osm-search:-ms-input-placeholder {
+  color: #999;
+}
+
+.container button.geo {
+  position: absolute;
+  left: -32px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
+  background: #eee;
+  height: 30px;
+  width: 30px;
+  color: #666;
+  font-size: 10pt;
+}
+
+.container button.icon {
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -moz-border-radius-bottomright: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border: none;
+  background: #eee;
+  height: 30px;
+  width: 30px;
+  color: #666;
+  opacity: 0;
+  font-size: 10pt;
+  -webkit-transition: all 0.55s ease;
+  -moz-transition: all 0.55s ease;
+  -ms-transition: all 0.55s ease;
+  -o-transition: all 0.55s ease;
+  transition: all 0.55s ease;
+}
+
+.container:hover button.icon,
+.container:active button.icon,
+.container:focus button.icon {
+  opacity: 1;
+  margin-left: -30px;
+}
+
+.leaflet-control.leaflet-control-minZoomIndicator {
+  display: block;
+  padding: 2px 9px;
+  font-size: 12px;
+  max-width: 110px;
+}
+
+#filters {
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  z-index: 999999;
+  width: 210px;
+  padding: 10px;
+  max-height: calc(100% - 100px);
+  overflow: auto;
+  padding-right: 34px;
+}
+
+#filters .right-collapse {
+  background: white;
+  width: 30px;
+  height: 30px;
+  left: auto;
+  right: 0;
+  top: 10px;
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  line-height: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 1px;
+}
+
+#filters.right-collapsed {
+  width: 0px;
+  height: 30px;
+}
+#filters.right-collapsed .right-collapse {
+  right: auto;
+  left: 10px;
+}
+
+#filters.right-collapsed details {
+  display: none;
+}
+
+summary,
+button {
+  cursor: pointer;
+}
+
+#filters .filter {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+#filters a,
+#filters .filter-sub {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  float: right;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 6px;
+  padding-bottom: 7px;
+  font-size: 14px;
+  text-align: center;
+  min-width: 8px;
+  display: inline-block;
+}
+
+#filters a {
+  padding-right: 1px;
+}
+
+#filters .filter i {
+  height: 14px;
+}
+
+#filters .filter-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#filters .filter input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0px;
+  width: 0px;
+}
+
+#filters .filter:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+#filters .filter input:checked ~ .filter-background {
+  background-color: rgb(238, 238, 238);
+}
+
+#filters .filter-sub:hover {
+  background-color: rgb(229, 229, 229);
+}
+
+#filters .filter input:checked ~ .filter-sub-background {
+  background-color: rgb(220, 220, 220);
+}
+
+#filters .filter input:checked ~ .filter-background {
+  position: absolute;
+  z-index: 0;
+  top: 1px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#filters .filter input:checked ~ .filter-sub-background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#filters .filter .filter-label {
+  z-index: -1;
+  padding: 6px;
+  padding-right: 2px;
+  padding-left: 1px;
+  margin-left: 5px;
+}
+
+#filters .filter .filter-label span {
+  position: relative;
+}
+
+#filters details:last-child .filter:last-child .filter-label {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#filters .filter img {
+  height: 18px;
+  margin-top: -2px;
+  margin-bottom: -2px;
+  position: relative;
+  top: 2px;
+}
+
+#filters a {
+  margin-right: 5px;
+  display: block;
+  height: 15px;
+}
+
+details + details {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+details {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background: white;
+}
+
+details:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+summary {
+  padding: 4px 9px;
+}
+
+summary:focus {
+  outline-style: none;
+}
+
+.marker-pin {
+  width: 36px;
+  height: 36px;
+  border-radius: 50% 50% 50% 0;
+  background: #c30b82;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -21px 0 0 -18px;
+}
+
+.marker-pin::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  margin: 3px 0 0 3px;
+  background: #fff;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.custom-div-icon .marker-icon {
+  height: 22px;
+  width: 22px;
+  left: auto;
+  right: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 9.5px;
+}
+
+.leaflet-control-zoom {
+  background: none;
+  border: none !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  border-radius: 50% !important;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 22px;
+}
+
+.leaflet-bar {
+  box-shadow: none;
+}
+
+.name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+button.menu {
+  right: 10px;
+  bottom: 25px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
+  background: #eee;
+  height: 30px;
+  width: 30px;
+  color: #666;
+  font-size: 10pt;
+  position: fixed;
+  z-index: 1000;
+}
+button.menu.donate {
+  bottom: 25px;
+}
+button.menu.about {
+  bottom: 60px;
+}
+button.menu.share {
+  bottom: 95px;
+  z-index: 1001;
+}
+button.menu.edit {
+  bottom: 130px;
+}
+button.menu.note {
+  bottom: 165px;
+}
+
+button {
+  position: relative;
+  text-align: center;
+}
+
+button i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.attribut {
+  float: right;
+  padding: 0 2px;
+  text-align: center;
+  min-width: 8px;
+}
+
+.info-container {
+  position: absolute;
+  top: 80px;
+  right: 0px;
+  z-index: 999999;
+  width: 650px;
+  padding: 10px;
+  max-height: calc(100% - 100px);
+  overflow: auto;
+  max-width: calc(100% - 268px);
+  display: none;
+}
+
+.external {
+  display: block;
+}
+.part-area-hidden {
+  display: none;
+}
+
+#filters.right-collapsed a {
+  display: none;
+}
+
+#filters.right-collapsed ~ .info-container {
+  max-width: calc(100% - 56px);
+}
+
+.info {
+  border-radius: 15px;
+  background: white;
+  padding: 10px;
+}
+
+.info h4 {
+  margin: 0 0 4px 0;
+}
+
+.info summary {
+  padding: 8px 0 0 0;
+}
+
+.info .query {
+  margin-top: 3px;
+  display: block;
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  word-break: break-all;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 4px 0;
+  border: none;
+  text-align: center;
+  width: 18px;
+  height: 14px;
+  font: 16px/14px Tahoma, Verdana, sans-serif;
+  color: #c3c3c3;
+  text-decoration: none;
+  font-weight: bold;
+  background: transparent;
+}
+
+button {
+  outline: none;
+}
+
+.close-button:hover {
+  color: #999;
+}
+
+.taglist {
+  overflow-x: auto;
+}
+
+.img {
+  max-width: 300px;
+  max-height: 300px;
+  image-orientation: from-image;
+}
+
+h1 a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Fix details-element-polyfill */
+details:not([open]) > *:not(summary) {
+  display: none !important;
+}
+
+.attribut,
+.share {
+  position: relative;
+}
+
+.attribut .title,
+.share .title,
+button.menu .title {
+  position: absolute;
+  top: 20px;
+  background: white;
+  border: 1px solid #333;
+  color: #333;
+  padding: 4px 6px;
+  left: 0;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1100;
+}
+button.menu .title {
+  right: 0;
+  left: auto;
+}
+
+.leaflet-control-emptyIndicator {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  background: #fff;
+  padding: 5px 14px;
+  color: #333;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+
+  html img,
+  html input[type="image"] {
+    filter: invert(100%) hue-rotate(-180deg);
+  }
+
+  #filters .filter:hover {
+    background-color: rgb(229, 229, 229);
+  }
+
+  #filters .filter input:checked ~ .filter-background {
+    background-color: rgb(220, 220, 220);
+  }
+
+  #filters .filter-sub:hover {
+    background-color: rgb(211, 211, 211);
+  }
+
+  #filters .filter input:checked ~ .filter-sub-background {
+    background-color: rgb(202, 202, 202);
+  }
+}

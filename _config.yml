@@ -1,0 +1,8 @@
+defaults:
+  - scope:
+      path: "README.md"
+    values:
+      permalink: ""
+      lang: "en"
+      title: "OSM Apps"
+      description: "Experience the world in a creative, productive and unexpected way."
