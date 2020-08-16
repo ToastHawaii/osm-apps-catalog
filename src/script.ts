@@ -1,4 +1,6 @@
-function findClosingBracketIndex(str, pos) {
+import { getJson } from "./utilities/jsonRequest";
+
+function findClosingBracketIndex(str: string, pos: number) {
   if (str[pos] !== "{") {
     throw new Error("The position must contain an opening bracket");
   }
@@ -17,21 +19,19 @@ function findClosingBracketIndex(str, pos) {
   return -1;
 }
 
-var base = "https://wiki.openstreetmap.org/w/api.php";
-
 loadPagesByTemplate("Service item");
 loadPagesByTemplate("Software");
 
-function parseTemplate(content) {
-  var obj = {};
-  var props = content.split(/\|(?![^{\[]*[}\]])/g);
+function parseTemplate(content: string) {
+  const obj: { [name: string]: string } = {};
+  const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
   props.shift();
 
-  for (var p in props) {
-    var pair = props[p].trim();
-    var start = pair.indexOf("=");
-    var name = pair.substring(0, start).trim();
-    var value = pair.substring(start + 1).trim();
+  for (const p in props) {
+    const pair = props[p].trim();
+    const start = pair.indexOf("=");
+    const name = pair.substring(0, start).trim();
+    const value = pair.substring(start + 1).trim();
 
     if (value) obj[name] = value;
   }
@@ -39,94 +39,78 @@ function parseTemplate(content) {
   console.info(obj);
 }
 
-function parsePage(content, template) {
-  var start = content.indexOf("{{" + template);
+function parsePage(content: string, template: string) {
+  const start = content.indexOf("{{" + template);
 
   if (start === -1) return;
 
-  var software = content.substring(start);
+  let templateContent = content.substring(start);
 
-  var closing = findClosingBracketIndex(software, 0);
+  const closing = findClosingBracketIndex(templateContent, 0);
 
-  var rest = software.substring(closing + 1);
-  software = software.substring(0, closing + 1);
+  const rest = templateContent.substring(closing + 1);
+  templateContent = templateContent.substring(0, closing + 1);
 
-  software = software
-    .substring(software.indexOf("|"), software.length - 2)
+  templateContent = templateContent
+    .substring(templateContent.indexOf("|"), templateContent.length - 2)
     .trim();
 
-  //console.info(software);
-  parseTemplate(software);
+  //console.info(templateContent);
+  parseTemplate(templateContent);
 
   parsePage(rest, template);
 }
 
-function loadPages(ids, template) {
-  var params = {
-    action: "query",
+async function loadPages(ids: string[], template: string) {
+  const params: { [name: string]: string } = {
     prop: "revisions",
     rvprop: "content",
     pageids: ids.join("|"),
-    rvslots: "*",
-    formatversion: "2",
-    format: "json"
+    rvslots: "*"
   };
 
-  var url = base + "?origin=*";
-  Object.keys(params).forEach(function (key) {
-    url += "&" + key + "=" + params[key];
-  });
+  const response = await osmMediaApiQuery(params);
 
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      var pages = response.query.pages;
-      for (var p in pages) {
-        var content = pages[p].revisions[0].slots.main.content;
+  const pages = response.query.pages;
+  for (const p in pages) {
+    const content = pages[p].revisions[0].slots.main.content;
 
-        parsePage(content, template);
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    parsePage(content, template);
+  }
 }
 
-function loadPagesByTemplate(template) {
-  var params = {
-    action: "query",
+async function osmMediaApiQuery(params: { [name: string]: string }) {
+  const base = "https://wiki.openstreetmap.org/w/api.php";
+
+  params["origin"] = "*";
+  params["action"] = "query";
+  params["formatversion"] = "2";
+  params["format"] = "json";
+
+  return await getJson(base, params);
+}
+
+async function loadPagesByTemplate(template: string) {
+  const params = {
     list: "embeddedin",
     eititle: "Template:" + template,
-    eilimit: "500",
-    formatversion: "2",
-    format: "json"
+    eilimit: "500"
   };
 
-  var url = base + "?origin=*";
-  Object.keys(params).forEach(function (key) {
-    url += "&" + key + "=" + params[key];
-  });
+  const response = await osmMediaApiQuery(params);
 
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      processPagesByTemplateResult(response, template);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  processPagesByTemplateResult(response, template);
 }
 
-function processPagesByTemplateResult(response, template) {
+function processPagesByTemplateResult(
+  response: { continue: { eicontinue: any }; query: { embeddedin: any } },
+  template: string
+) {
   if (response.continue && response.continue.eicontinue)
     loadPagesByTemplatePage(response.continue.eicontinue, template);
-  var pages = response.query.embeddedin;
-  var ids = [];
-  for (var p in pages) {
+  const pages = response.query.embeddedin;
+  let ids = [];
+  for (const p in pages) {
     if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
 
     if (ids.length >= 50) {
@@ -140,30 +124,15 @@ function processPagesByTemplateResult(response, template) {
   }
 }
 
-function loadPagesByTemplatePage(con, template) {
-  var params = {
-    action: "query",
+async function loadPagesByTemplatePage(con: string, template: string) {
+  const params = {
     list: "embeddedin",
     eititle: "Template:" + template,
     eicontinue: con,
-    eilimit: "500",
-    formatversion: "2",
-    format: "json"
+    eilimit: "500"
   };
 
-  var url = base + "?origin=*";
-  Object.keys(params).forEach(function (key) {
-    url += "&" + key + "=" + params[key];
-  });
+  const response = await osmMediaApiQuery(params);
 
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      processPagesByTemplateResult(response, template);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  processPagesByTemplateResult(response, template);
 }

@@ -51,9 +51,6 @@
     />
     <meta name="theme-color" content="#ffffff" />
 
-    <link rel="stylesheet" href="lib/leaflet.css" type="text/css" />
-    <link rel="stylesheet" href="lib/OverPassLayer.css" type="text/css" />
-
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
       rel="stylesheet"
@@ -64,81 +61,6 @@
   </head>
 
   <body>
-    <div id="map"></div>
-    <h1>
-      <a href="/docs">
-        <img
-          class="community-centre-icon"
-          src="https://wiki.openstreetmap.org/w/images/0/0b/Community_centre-14.svg"
-          style="width: 24px; vertical-align: text-bottom;"
-        />
-        OSM Apps
-      </a>
-    </h1>
-    <div id="filters">
-      <div
-        class="right-collapse"
-        onclick="if(document.getElementById('filters').className) { document.getElementById('filters').classList.remove('right-collapsed');} else { document.getElementById('filters').classList.add('right-collapsed');}"
-      >
-        <i class="fas fa-list"></i>
-      </div>
-    </div>
-    <div class="box">
-      <div class="container">
-        <form class="search">
-          <button class="geo" type="button">
-            <i class="far fa-dot-circle"></i>
-          </button>
-          <input type="search" id="osm-search" placeholder="Search" />
-          <button class="icon" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="info-container">
-      <div class="info">
-        <h4></h4>
-        <span class="text"></span>
-        <hr />
-        <small>
-          <details>
-            <summary><strong>Documentation</strong></summary>
-            <br />
-            <span class="wiki"></span>
-            <strong>Query</strong>
-            <code class="query"></code>
-            <a class="link" target="_blank">overpass-turbo</a>
-          </details>
-        </small>
-        <small class="external"></small>
-      </div>
-      <button class="close-button">×</button>
-    </div>
-    <button class="menu note" type="button" title="Add note">
-      <i class="fas fa-comment-alt"></i>
-    </button>
-    <button class="menu edit" type="button" title="Edit">
-      <i class="fas fa-pencil-alt"></i>
-    </button>
-    <button class="menu share" type="button" title="Share">
-      <i class="fas fa-share-alt"></i>
-    </button>
-    <button class="menu about" type="button" title="About this site">
-      <i class="fas fa-info"></i>
-    </button>
-    <button class="menu donate" type="button" title="Support me">
-      <i class="fas fa-mug-hot"></i>
-    </button>
-    <script
-      src="https://code.jquery.com/jquery-1.9.0.min.js"
-      integrity="sha256-f6DVw/U4x2+HjgEqw5BZf67Kq/5vudRZuRkljnbF344="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://taginfo.openstreetmap.org/js/taglists.js"
-    ></script>
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
