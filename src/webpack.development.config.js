@@ -16,7 +16,14 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin({
-      patterns: [{ from: "src/www" }]
+      patterns: [
+        { from: "src/www" },
+        {
+          from: "*.css*",
+          to: "lib/",
+          context: "node_modules/slim-select/dist/"
+        }
+      ]
     })
   ],
   mode: "development",

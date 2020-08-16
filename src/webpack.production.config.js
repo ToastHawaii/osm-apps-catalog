@@ -27,6 +27,11 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: "src/www" },
+        {
+          from: "*.css*",
+          to: "lib/",
+          context: "node_modules/slim-select/dist/"
+        }
       ]
     })
   ],

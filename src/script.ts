@@ -1,8 +1,155 @@
 import { getJson } from "./utilities/jsonRequest";
 import { findClosingBracketIndex } from "./utilities/string";
-import { createElement } from "./utilities/html";
+import { createElement, getHtmlElement } from "./utilities/html";
 import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
+
+import * as SlimSelect from "slim-select";
+
+type App = {
+  name: string;
+  description: string;
+  image?: string;
+  website?: string;
+  wiki: string;
+  languages: string[];
+  themes: string[];
+};
+
+let onUpdate = false;
+const apps: App[] = [];
+const themeSelect = new (SlimSelect as any)({
+  select: "#theme",
+  placeholder: "Theme",
+  onChange: () => {
+    if (!onUpdate) {
+      onUpdate = true;
+      update(
+        (document.getElementById("search") as HTMLInputElement).value,
+        themeSelect.selected(),
+        languageSelect.selected()
+      );
+      onUpdate = false;
+    }
+  }
+});
+const languageSelect = new (SlimSelect as any)({
+  select: "#language",
+  placeholder: "Language",
+  onChange: () => {
+    if (!onUpdate) {
+      onUpdate = true;
+      update(
+        (document.getElementById("search") as HTMLInputElement).value,
+        themeSelect.selected(),
+        languageSelect.selected()
+      );
+      onUpdate = false;
+    }
+  }
+});
+
+(document.getElementById("search") as HTMLInputElement).addEventListener(
+  "input",
+  () => {
+    if (!onUpdate) {
+      onUpdate = true;
+      update(
+        (document.getElementById("search") as HTMLInputElement).value,
+        themeSelect.selected(),
+        languageSelect.selected()
+      );
+      onUpdate = false;
+    }
+  }
+);
+
+function includesArray(arr: any[], target: any[]) {
+  return target.every(v => arr.includes(v));
+}
+
+function update(
+  search: string = "",
+  theme: string[] = [],
+  language: string[] = []
+) {
+  getHtmlElement(".apps").innerHTML = "";
+
+  let themeData: string[] = [];
+  let languageData: string[] = [];
+
+  let filteredApps = apps;
+
+  search = search.toUpperCase();
+  const themeUp = theme.map(t => t.toUpperCase());
+  const languageUp = language.map(t => t.toUpperCase());
+
+  if (search)
+    filteredApps = filteredApps.filter(
+      a =>
+        a.name.toUpperCase().search(search) !== -1 ||
+        a.description.toUpperCase().search(search) !== -1 ||
+        a.themes.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+    );
+
+  if (themeUp.length > 0)
+    filteredApps = filteredApps.filter(a =>
+      includesArray(
+        a.themes.map(t => t.toUpperCase()),
+        themeUp
+      )
+    );
+
+  if (languageUp.length > 0)
+    filteredApps = filteredApps.filter(a =>
+      includesArray(
+        a.languages.map(t => t.toUpperCase()),
+        languageUp
+      )
+    );
+
+  if (search)
+    filteredApps = filteredApps.filter(
+      a =>
+        a.name.toUpperCase().search(search) !== -1 ||
+        a.description.toUpperCase().search(search) !== -1 ||
+        a.themes.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+    );
+
+  for (const a of filteredApps) {
+    themeData.push(...a.themes.map(t => t));
+    languageData.push(...a.languages.map(l => l));
+  }
+
+  themeData = themeData.filter((c, index) => {
+    return themeData.indexOf(c) === index;
+  });
+
+  languageData = languageData.filter((c, index) => {
+    return languageData.indexOf(c) === index;
+  });
+
+  themeData.sort();
+  languageData.sort();
+
+  themeSelect.setData(
+    themeData.map(t => {
+      return { value: t, text: t };
+    })
+  );
+  themeSelect.set(theme);
+
+  languageSelect.setData(
+    languageData.map(t => {
+      return { value: t, text: t };
+    })
+  );
+  languageSelect.set(language);
+
+  for (const a of filteredApps.slice(0, 20)) {
+    render(a);
+  }
+}
 
 function processNameWebsiteWiki(value: string = "") {
   const obj: {
@@ -49,23 +196,20 @@ function processNameWebsiteWiki(value: string = "") {
 
 (async function () {
   const softwareRequest = requestTemplates("Software", (source, wiki) => {
-    const obj: {
-      name: string;
-      description: string;
-      image?: string;
-      website?: string;
-      wiki: string;
-      languages: string[];
-      themes: string[];
-    } = {
+    const obj: App = {
       name: source["name"] || "",
       description: source["description"] || "",
       image: toWikimediaUrl(source["screenshot"]),
       website: toUrl(source["web"]),
       wiki: toWikiUrl(source["wiki"] || wiki) || "",
-      languages: (source["languages"] || "").split(/;/).filter(v => v),
+      languages: (source["languages"] || "")
+        .split(/[;,]/)
+        .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
+        .filter(v => v)
+        .map(v => v.toLowerCase()),
       themes: (source["genre"] || "")
-        .split(";")
+        .split(/[;,]/)
+        .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
         .filter(v => v)
         .map(v => `${v[0].toUpperCase()}${v.slice(1)}`)
     };
@@ -85,22 +229,14 @@ function processNameWebsiteWiki(value: string = "") {
     obj.website = obj.website || name.website;
     obj.wiki = name.wiki || obj.wiki;
 
-    render(obj);
+    apps.push(obj);
 
-    console.info(obj);
+    update((document.getElementById("search") as HTMLInputElement).value);
   });
   const serviceItemRequest = requestTemplates(
     "Service item",
     (source, wiki) => {
-      const obj: {
-        name: string;
-        description: string;
-        image?: string;
-        website?: string;
-        wiki: string;
-        languages: string[];
-        themes: string[];
-      } = {
+      const obj: App = {
         name: source["name"] || "",
         description: source["descr"] || "",
         image: toWikimediaUrl(source["image"]),
@@ -113,7 +249,9 @@ function processNameWebsiteWiki(value: string = "") {
             if (match) return match[1];
             return v;
           })
-          .filter(v => v),
+          .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
+          .filter(v => v)
+          .map(v => v.toLowerCase()),
         themes: (source["genre"] || "")
           .split(/,+(?![^\(]*\))/)
           .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
@@ -126,9 +264,9 @@ function processNameWebsiteWiki(value: string = "") {
       obj.website = name.website;
       obj.wiki = obj.wiki || name.wiki || "";
 
-      render(obj);
+      apps.push(obj);
 
-      console.info(obj);
+      update((document.getElementById("search") as HTMLInputElement).value);
     }
   );
 
@@ -194,7 +332,7 @@ function render(obj: {
     ["app"]
   );
 
-  document.body.appendChild(element);
+  getHtmlElement(".apps").appendChild(element);
 }
 
 function textToColor(s: string) {

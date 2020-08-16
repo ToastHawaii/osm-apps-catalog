@@ -28,6 +28,26 @@ body {
   overflow: hidden;
 }
 
+#search {
+  position: relative;
+  color: #666;
+  display: inline-block;
+  flex-direction: row;
+  min-height: 30px;
+  width: 300px;
+  border: 1px solid #dcdee2;
+  border-radius: 4px;
+  background-color: #fff;
+  outline: 0;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
+  font-size: 16px;
+  padding: 4px 6px;
+}
+.ss-main {
+  width: 300px;
+}
+
 .app .header {
   text-align: center;
 }

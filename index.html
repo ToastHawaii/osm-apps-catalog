@@ -51,9 +51,7 @@
     />
     <meta name="theme-color" content="#ffffff" />
 
-    <link rel="stylesheet" href="lib/leaflet.css" type="text/css" />
-    <link rel="stylesheet" href="lib/OverPassLayer.css" type="text/css" />
-
+    <link rel="stylesheet" href="lib/slimselect.min.css" type="text/css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
       rel="stylesheet"
@@ -65,5 +63,17 @@
 
   <body>
     <h1>OSM Apps Catalog</h1>
+    <input type="search" id="search" placeholder="Search" />
+    <select id="theme" multiple>
+      <option value="value 1">Value 1</option>
+      <option value="value 2">Value 2</option>
+      <option value="value 3">Value 3</option>
+    </select>
+    <select id="language" multiple>
+      <option value="value 1">Value 1</option>
+      <option value="value 2">Value 2</option>
+      <option value="value 3">Value 3</option>
+    </select>
+    <div class="apps"></div>
   <script type="text/javascript" src="script.js"></script></body>
 </html>

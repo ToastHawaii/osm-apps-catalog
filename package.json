@@ -18,7 +18,8 @@
   "homepage": "https://github.com/ToastHawaii/osm-apps-catalog#readme",
   "dependencies": {
     "@types/md5": "2.1.33",
-    "md5": "2.2.1"
+    "md5": "2.2.1",
+    "slim-select": "1.26.0"
   },
   "devDependencies": {
     "@types/clean-webpack-plugin": "0.1.3",
