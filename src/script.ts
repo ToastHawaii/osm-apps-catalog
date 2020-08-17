@@ -1,10 +1,9 @@
-import { getJson } from "./utilities/jsonRequest";
-import { findClosingBracketIndex } from "./utilities/string";
 import { createElement, getHtmlElement } from "./utilities/html";
 import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
 
 import * as SlimSelect from "slim-select";
+import { requestTemplates } from "./crawler";
 
 type App = {
   name: string;
@@ -13,20 +12,20 @@ type App = {
   website?: string;
   wiki: string;
   languages: string[];
-  themes: string[];
+  topics: string[];
 };
 
 let onUpdate = false;
 const apps: App[] = [];
-const themeSelect = new (SlimSelect as any)({
-  select: "#theme",
-  placeholder: "Theme",
+const topicSelect = new (SlimSelect as any)({
+  select: "#topic",
+  placeholder: "Topic",
   onChange: () => {
     if (!onUpdate) {
       onUpdate = true;
       update(
         (document.getElementById("search") as HTMLInputElement).value,
-        themeSelect.selected(),
+        topicSelect.selected(),
         languageSelect.selected()
       );
       onUpdate = false;
@@ -41,7 +40,7 @@ const languageSelect = new (SlimSelect as any)({
       onUpdate = true;
       update(
         (document.getElementById("search") as HTMLInputElement).value,
-        themeSelect.selected(),
+        topicSelect.selected(),
         languageSelect.selected()
       );
       onUpdate = false;
@@ -56,7 +55,7 @@ const languageSelect = new (SlimSelect as any)({
       onUpdate = true;
       update(
         (document.getElementById("search") as HTMLInputElement).value,
-        themeSelect.selected(),
+        topicSelect.selected(),
         languageSelect.selected()
       );
       onUpdate = false;
@@ -70,18 +69,18 @@ function includesArray(arr: any[], target: any[]) {
 
 function update(
   search: string = "",
-  theme: string[] = [],
+  topic: string[] = [],
   language: string[] = []
 ) {
   getHtmlElement(".apps").innerHTML = "";
 
-  let themeData: string[] = [];
+  let topicData: string[] = [];
   let languageData: string[] = [];
 
   let filteredApps = apps;
 
   search = search.toUpperCase();
-  const themeUp = theme.map(t => t.toUpperCase());
+  const topicUp = topic.map(t => t.toUpperCase());
   const languageUp = language.map(t => t.toUpperCase());
 
   if (search)
@@ -89,14 +88,14 @@ function update(
       a =>
         a.name.toUpperCase().search(search) !== -1 ||
         a.description.toUpperCase().search(search) !== -1 ||
-        a.themes.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length > 0
     );
 
-  if (themeUp.length > 0)
+  if (topicUp.length > 0)
     filteredApps = filteredApps.filter(a =>
       includesArray(
-        a.themes.map(t => t.toUpperCase()),
-        themeUp
+        a.topics.map(t => t.toUpperCase()),
+        topicUp
       )
     );
 
@@ -113,31 +112,31 @@ function update(
       a =>
         a.name.toUpperCase().search(search) !== -1 ||
         a.description.toUpperCase().search(search) !== -1 ||
-        a.themes.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length > 0
     );
 
   for (const a of filteredApps) {
-    themeData.push(...a.themes.map(t => t));
+    topicData.push(...a.topics.map(t => t));
     languageData.push(...a.languages.map(l => l));
   }
 
-  themeData = themeData.filter((c, index) => {
-    return themeData.indexOf(c) === index;
+  topicData = topicData.filter((c, index) => {
+    return topicData.indexOf(c) === index;
   });
 
   languageData = languageData.filter((c, index) => {
     return languageData.indexOf(c) === index;
   });
 
-  themeData.sort();
+  topicData.sort();
   languageData.sort();
 
-  themeSelect.setData(
-    themeData.map(t => {
+  topicSelect.setData(
+    topicData.map(t => {
       return { value: t, text: t };
     })
   );
-  themeSelect.set(theme);
+  topicSelect.set(topic);
 
   languageSelect.setData(
     languageData.map(t => {
@@ -195,19 +194,61 @@ function processNameWebsiteWiki(value: string = "") {
 }
 
 (async function () {
-  const softwareRequest = requestTemplates("Software", (source, wiki) => {
+  const serviceItemObjects = await requestTemplates("Service item");
+  for (const source of serviceItemObjects) {
+    const obj: App = {
+      name: source["name"] || "",
+      description: source["descr"] || "",
+      image: toWikimediaUrl(source["image"]),
+      wiki: toWikiUrl(source.sourceWiki) || "",
+      languages: (source["lang"] || "")
+        .split(/,+(?![^\(]*\))/)
+        .map(v => {
+          const match = /:(\w{2})/.exec(v);
+
+          if (match) return match[1];
+          return v;
+        })
+        .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
+        .filter(v => v)
+        .map(v => v.toLowerCase()),
+      topics: (source["genre"] || "")
+        .split(/,+(?![^\(]*\))/)
+        .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
+        .filter(v => v)
+        .map(v => `${v[0].toUpperCase()}${v.slice(1)}`)
+    };
+
+    let name = processNameWebsiteWiki(source["name"]);
+    obj.name = name.name || obj.name;
+    obj.website = name.website;
+    obj.wiki = obj.wiki || name.wiki || "";
+
+    apps.push(obj);
+  }
+  update((document.getElementById("search") as HTMLInputElement).value);
+
+  const softwareObjects = await requestTemplates("Software");
+
+  for (const source of softwareObjects) {
     const obj: App = {
       name: source["name"] || "",
       description: source["description"] || "",
       image: toWikimediaUrl(source["screenshot"]),
       website: toUrl(source["web"]),
-      wiki: toWikiUrl(source["wiki"] || wiki) || "",
+      wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
       languages: (source["languages"] || "")
         .split(/[;,]/)
         .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
+        .map(v => {
+          const match = /(\w{2,3})-/.exec(v);
+
+          if (match) return match[1];
+          return v;
+        })
         .filter(v => v)
         .map(v => v.toLowerCase()),
-      themes: (source["genre"] || "")
+      topics: (source["genre"] || "")
         .split(/[;,]/)
         .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
         .filter(v => v)
@@ -230,48 +271,8 @@ function processNameWebsiteWiki(value: string = "") {
     obj.wiki = name.wiki || obj.wiki;
 
     apps.push(obj);
-
-    update((document.getElementById("search") as HTMLInputElement).value);
-  });
-  const serviceItemRequest = requestTemplates(
-    "Service item",
-    (source, wiki) => {
-      const obj: App = {
-        name: source["name"] || "",
-        description: source["descr"] || "",
-        image: toWikimediaUrl(source["image"]),
-        wiki: toWikiUrl(wiki) || "",
-        languages: (source["lang"] || "")
-          .split(/,+(?![^\(]*\))/)
-          .map(v => {
-            const match = /:(\w{2})/.exec(v);
-
-            if (match) return match[1];
-            return v;
-          })
-          .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
-          .filter(v => v)
-          .map(v => v.toLowerCase()),
-        themes: (source["genre"] || "")
-          .split(/,+(?![^\(]*\))/)
-          .map(v => v.replace(/^[\.\s]+|[\.\s]+$/gm, ""))
-          .filter(v => v)
-          .map(v => `${v[0].toUpperCase()}${v.slice(1)}`)
-      };
-
-      let name = processNameWebsiteWiki(source["name"]);
-      obj.name = name.name || obj.name;
-      obj.website = name.website;
-      obj.wiki = obj.wiki || name.wiki || "";
-
-      apps.push(obj);
-
-      update((document.getElementById("search") as HTMLInputElement).value);
-    }
-  );
-
-  await softwareRequest;
-  await serviceItemRequest;
+  }
+  update((document.getElementById("search") as HTMLInputElement).value);
 })();
 
 function render(obj: {
@@ -281,7 +282,7 @@ function render(obj: {
   website?: string | undefined;
   wiki?: string | undefined;
   languages: string[];
-  themes: string[];
+  topics: string[];
 }) {
   const element = createElement(
     "div",
@@ -314,7 +315,7 @@ function render(obj: {
           ? `<a class="link" href="${obj.wiki}" target="_blank"><i class="fas fa-atlas"></i></a>`
           : ""
       }
-      <div class="themes">${obj.themes
+      <div class="topics">${obj.topics
         .map(t => {
           const background = textToColor(t);
 
@@ -322,7 +323,7 @@ function render(obj: {
             (background.r * 299 + background.g * 587 + background.b * 114) /
             1000;
 
-          return `<span class="thema" style="background: rgb(${background.r},${
+          return `<span class="topic" style="background: rgb(${background.r},${
             background.g
           },${background.b}); color:${
             yiq >= 128 ? "black" : "white"
@@ -345,143 +346,4 @@ function textToColor(s: string) {
     else b = (b + s.charCodeAt(i)) % 256;
   }
   return { r, g, b };
-}
-
-function parseTemplateToObject(
-  title: string,
-  content: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  const obj: { [name: string]: string } = {};
-  const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
-  props.shift();
-
-  for (const p in props) {
-    const pair = props[p].trim();
-    const start = pair.indexOf("=");
-    const name = pair.substring(0, start).trim();
-    const value = pair.substring(start + 1).trim();
-
-    if (value) obj[name] = value;
-  }
-
-  transform(obj, title);
-}
-
-function parsePage(
-  title: string,
-  content: string,
-  template: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  //console.info(content);
-  const start = content.search(
-    new RegExp("{{" + template.replace(" ", "[_ ]"), "gi")
-  );
-
-  if (start === -1) return;
-
-  let templateContent = content.substring(start);
-
-  const closing = findClosingBracketIndex(templateContent, 0);
-
-  const rest = templateContent.substring(closing + 1);
-  templateContent = templateContent.substring(0, closing + 1);
-
-  templateContent = templateContent
-    .substring(templateContent.indexOf("|"), templateContent.length - 2)
-    .trim();
-
-  console.info(templateContent);
-  parseTemplateToObject(title, templateContent, transform);
-
-  parsePage(title, rest, template, transform);
-}
-
-async function loadPages(
-  ids: string[],
-  template: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  const params: { [name: string]: string } = {
-    prop: "revisions",
-    rvprop: "content",
-    pageids: ids.join("|"),
-    rvslots: "*"
-  };
-
-  const response = await osmMediaApiQuery(params);
-
-  const pages = response.query.pages;
-  for (const p in pages) {
-    const content = pages[p].revisions[0].slots.main.content;
-    parsePage(pages[p].title, content, template, transform);
-  }
-}
-
-async function osmMediaApiQuery(params: { [name: string]: string }) {
-  const base = "https://wiki.openstreetmap.org/w/api.php";
-
-  params["origin"] = "*";
-  params["action"] = "query";
-  params["formatversion"] = "2";
-  params["format"] = "json";
-
-  return await getJson(base, params);
-}
-
-async function requestTemplates(
-  template: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  const params = {
-    list: "embeddedin",
-    eititle: "Template:" + template,
-    eilimit: "500"
-  };
-
-  const response = await osmMediaApiQuery(params);
-
-  if (response.continue && response.continue.eicontinue)
-    loadPagesByTemplatePage(response.continue.eicontinue, template, transform);
-
-  return processPagesByTemplateResult(response, template, transform);
-}
-
-function processPagesByTemplateResult(
-  response: { continue: { eicontinue: any }; query: { embeddedin: any } },
-  template: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  const pages = response.query.embeddedin;
-  let ids = [];
-  for (const p in pages) {
-    if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
-
-    if (ids.length >= 50) {
-      loadPages(ids, template, transform);
-      ids = [];
-    }
-  }
-
-  if (ids.length > 0) {
-    loadPages(ids, template, transform);
-  }
-}
-
-async function loadPagesByTemplatePage(
-  con: string,
-  template: string,
-  transform: (obj: { [name: string]: string }, title: string) => void
-) {
-  const params = {
-    list: "embeddedin",
-    eititle: "Template:" + template,
-    eicontinue: con,
-    eilimit: "500"
-  };
-
-  const response = await osmMediaApiQuery(params);
-
-  processPagesByTemplateResult(response, template, transform);
 }
