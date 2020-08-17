@@ -10,6 +10,13 @@ body {
   color: #333;
 }
 
+.info {
+  float: right;
+  color: black;
+  font-size: 26px;
+  padding: 4px;
+}
+
 .app {
   width: 320px;
   display: inline-block;
