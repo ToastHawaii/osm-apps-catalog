@@ -145,9 +145,11 @@ function update(
   );
   languageSelect.set(language);
 
-  for (const a of filteredApps.slice(0, 20)) {
+  for (const a of filteredApps) {
     render(a);
   }
+
+  lazyLoadImages();
 }
 
 function processNameWebsiteWiki(value: string = "") {
@@ -199,7 +201,7 @@ function processNameWebsiteWiki(value: string = "") {
     const obj: App = {
       name: source["name"] || "",
       description: source["descr"] || "",
-      image: toWikimediaUrl(source["image"]),
+      image: toWikimediaUrl(source["image"], 250),
       wiki: toWikiUrl(source.sourceWiki) || "",
       languages: (source["lang"] || "")
         .split(/,+(?![^\(]*\))/)
@@ -234,7 +236,7 @@ function processNameWebsiteWiki(value: string = "") {
     const obj: App = {
       name: source["name"] || "",
       description: source["description"] || "",
-      image: toWikimediaUrl(source["screenshot"]),
+      image: toWikimediaUrl(source["screenshot"], 250),
       website: toUrl(source["web"]),
       wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
       languages: (source["languages"] || "")
@@ -296,12 +298,12 @@ function render(obj: {
           obj.website
             ? `<a href="${obj.website}" target="_blank">${
                 obj.image
-                  ? `<img class="img" src="${obj.image}"/>`
-                  : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+                  ? `<img class="img" dynamic-src="${obj.image}"/>`
+                  : `<img class="img" dynamic-src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
               }</a>`
             : obj.image
-            ? `<img class="img" src="${obj.image}"/>`
-            : `<img class="img" src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+            ? `<img class="img" dynamic-src="${obj.image}"/>`
+            : `<img class="img" dynamic-src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
         }
       </div>
       <div class="description">${obj.description}</div>
@@ -347,3 +349,24 @@ function textToColor(s: string) {
   }
   return { r, g, b };
 }
+
+function lazyLoadImages() {
+  const elements = document.querySelectorAll("*[dynamic-src]");
+  for (let i = 0; i < elements.length; i++) {
+    const boundingClientRect = elements[i].getBoundingClientRect();
+    if (
+      elements[i].hasAttribute("dynamic-src") &&
+      boundingClientRect.top < window.innerHeight * 2
+    ) {
+      elements[i].setAttribute(
+        "src",
+        elements[i].getAttribute("dynamic-src") || ""
+      );
+      elements[i].removeAttribute("dynamic-src");
+    }
+  }
+}
+
+window.addEventListener("scroll", lazyLoadImages);
+window.addEventListener("load", lazyLoadImages);
+window.addEventListener("resize", lazyLoadImages);
