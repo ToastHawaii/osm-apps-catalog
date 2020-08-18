@@ -61,6 +61,11 @@ const languageSelect = new (SlimSelect as any)({
 function includesArray(arr: any[], target: any[]) {
   return target.every(v => arr.includes(v));
 }
+function removeDuplicates<T>(arr: T[]) {
+  return arr.filter((c, index) => {
+    return arr.indexOf(c) === index;
+  });
+}
 
 function update(
   search: string = "",
@@ -117,13 +122,8 @@ function update(
     languageData.push(...a.languages.map(l => l));
   }
 
-  topicData = topicData.filter((c, index) => {
-    return topicData.indexOf(c) === index;
-  });
-
-  languageData = languageData.filter((c, index) => {
-    return languageData.indexOf(c) === index;
-  });
+  topicData = removeDuplicates(topicData);
+  languageData = removeDuplicates(languageData);
 
   topicData.sort();
   languageData.sort();
@@ -149,6 +149,28 @@ function update(
   lazyLoadImages();
 }
 
+function addApp(obj: App) {
+  const duplicates = apps.filter(
+    a => a.name.toUpperCase() === obj.name.toUpperCase()
+  );
+
+  if (duplicates.length === 0) apps.push(obj);
+  else {
+    const app = duplicates[0];
+
+    app.description = app.description || obj.description;
+    app.image = app.image || obj.image;
+    app.languages.push(...obj.languages);
+    app.languages = removeDuplicates(app.languages);
+
+    app.topics.push(...obj.topics);
+    app.topics = removeDuplicates(app.topics);
+
+    app.website = app.website || obj.website;
+    app.wiki = app.wiki || obj.wiki;
+  }
+}
+
 (async function () {
   const serviceItemObjects = await requestTemplates("Service item");
   for (const source of serviceItemObjects.filter(
@@ -156,7 +178,7 @@ function update(
   )) {
     const obj: App = transformServiceItem(source);
 
-    apps.push(obj);
+    addApp(obj);
   }
   update((document.getElementById("search") as HTMLInputElement).value);
 
@@ -171,7 +193,7 @@ function update(
   )) {
     const obj: App = transformSoftware(source);
 
-    apps.push(obj);
+    addApp(obj);
   }
   update((document.getElementById("search") as HTMLInputElement).value);
 })();
