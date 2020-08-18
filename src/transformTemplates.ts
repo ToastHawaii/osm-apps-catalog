@@ -14,7 +14,7 @@ export type App = {
 export function transformSoftware(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    description: source["description"] || "",
+    description: processWikiText(source["description"] || ""),
     image: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
@@ -32,19 +32,19 @@ export function transformSoftware(source: { [name: string]: string }) {
   };
 
   {
-    const name = processNameWebsiteWiki(source["name"]);
+    const name = extractNameWebsiteWiki(source["name"]);
     obj.name = name.name || obj.name;
     obj.website = obj.website || name.website;
     obj.wiki = obj.wiki || name.wiki || "";
   }
   {
-    const name = processNameWebsiteWiki(source["web"]);
+    const name = extractNameWebsiteWiki(source["web"]);
     obj.name = obj.name || name.name;
     obj.website = name.website || obj.website;
     obj.wiki = obj.wiki || name.wiki || "";
   }
   {
-    const name = processNameWebsiteWiki(source["wiki"]);
+    const name = extractNameWebsiteWiki(source["wiki"]);
     obj.name = obj.name || name.name;
     obj.website = obj.website || name.website;
     obj.wiki = name.wiki || obj.wiki;
@@ -52,23 +52,10 @@ export function transformSoftware(source: { [name: string]: string }) {
   return obj;
 }
 
-const splitByCommaButNotInsideBraceRegex = /,+(?![^\(]*\))/;
-
-export function containsOfflineLink(value: string) {
-  return /<s(trike)?>/gi.test(value);
-}
-
-function extractLanguageCodeFromLocal(value: string): string {
-  const match = /(\w{2,3})-/.exec(value);
-
-  if (match) return match[1];
-  return value;
-}
-
 export function transformServiceItem(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    description: source["descr"] || "",
+    description: processWikiText(source["descr"] || ""),
     image: toWikimediaUrl(source["image"], 250),
     wiki: toWikiUrl(source.sourceWiki) || "",
     languages: (source["lang"] || "")
@@ -84,11 +71,24 @@ export function transformServiceItem(source: { [name: string]: string }) {
       .map(firstLetterToUpperCase)
   };
 
-  let name = processNameWebsiteWiki(source["name"]);
+  let name = extractNameWebsiteWiki(source["name"]);
   obj.name = name.name || obj.name;
   obj.website = name.website;
   obj.wiki = obj.wiki || name.wiki || "";
   return obj;
+}
+
+const splitByCommaButNotInsideBraceRegex = /,+(?![^\(]*\))/;
+
+export function containsOfflineLink(value: string) {
+  return /<s(trike)?>/gi.test(value);
+}
+
+function extractLanguageCodeFromLocal(value: string): string {
+  const match = /(\w{2,3})-/.exec(value);
+
+  if (match) return match[1];
+  return value;
 }
 
 function extractLanguageCodeFromTemplate(value: string): string {
@@ -106,7 +106,7 @@ function trim(value: string): string {
   return value.replace(/^[\.\s]+|[\.\s]+$/gm, "");
 }
 
-function processNameWebsiteWiki(value: string = "") {
+function extractNameWebsiteWiki(value: string = "") {
   const obj: {
     name: string;
     website?: string;
@@ -120,7 +120,8 @@ function processNameWebsiteWiki(value: string = "") {
 
     if (match) {
       obj.website = match[2];
-      value = value.replace(regex, "");
+      value = value.replace(regex, "").trim();
+      if (value) obj.name = value;
     }
   }
   {
@@ -135,6 +136,19 @@ function processNameWebsiteWiki(value: string = "") {
     }
   }
   {
+    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      if (match[3]) obj.name = match[3];
+      else obj.name = match[1];
+      obj.wiki = toWikiUrl(match[1]);
+      value = value.replace(regex, "");
+    }
+  }
+
+  {
     const regex = /\[\[(.*)\]\]/g;
 
     const match = regex.exec(value);
@@ -147,4 +161,83 @@ function processNameWebsiteWiki(value: string = "") {
   }
 
   return obj;
+}
+
+function processWikiText(text: string = "") {
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="${match[2]}">${match[2]}</a>`
+      );
+    }
+  }
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="${match[2]}">${match[6]}</a>`
+      );
+    }
+  }
+
+
+  {
+    const regex = /\[\[:wikipedia:(.*(?![^\|]))(\|(.*))?\]\]/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="https://en.wikipedia.org/wiki/${match[1]}">${match[3]}</a>`
+      );
+    }
+  }
+  {
+    const regex = /\[\[:wikipedia:(.*)\]\]/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="https://en.wikipedia.org/wiki/${match[1]}">${match[1]}</a>`
+      );
+    }
+  }
+  {
+    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="${toWikiUrl(match[1])}">${match[3]}</a>`
+      );
+    }
+  }
+  {
+    const regex = /\[\[(.*)\]\]/g;
+
+    const match = regex.exec(text);
+
+    if (match) {
+      text = text.replace(
+        regex,
+        `<a target="_blank" href="${toWikiUrl(match[1])}">${match[1]}</a>`
+      );
+    }
+  }
+
+  return text;
 }
