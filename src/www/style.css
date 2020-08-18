@@ -59,6 +59,11 @@ body {
   width: 300px;
 }
 
+#search,
+.ss-main {
+  margin: 3px 0;
+}
+
 .app .header {
   text-align: center;
 }
