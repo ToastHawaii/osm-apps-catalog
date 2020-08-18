@@ -2,13 +2,13 @@
 
 Experience the world in a creative, productive and unexpected way.
 
-[Click here for the map](https://osm-apps.zottelig.ch)
+[Click here for the catalog](https://osm-apps.zottelig.ch)
 
 This website shows applications and services that use OSM data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application.
 
-## Is this map also available as an app?
+## Is this catalog also available as an app?
 
-You can add this map to your homescreen from your smartphone. Use the "add to homescreen" function in your browser (iOS, Android, etc.)
+You can add this catalog to your homescreen from your smartphone. Use the "add to homescreen" function in your browser (iOS, Android, etc.)
 
 ## How can I add a application to the list?
 
