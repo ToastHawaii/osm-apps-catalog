@@ -54,6 +54,10 @@ export function transformSoftware(source: { [name: string]: string }) {
 
 const splitByCommaButNotInsideBraceRegex = /,+(?![^\(]*\))/;
 
+export function containsOfflineLink(value: string) {
+  return /<s(trike)?>/gi.test(value);
+}
+
 function extractLanguageCodeFromLocal(value: string): string {
   const match = /(\w{2,3})-/.exec(value);
 

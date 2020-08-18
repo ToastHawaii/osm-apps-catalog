@@ -1,4 +1,4 @@
-function lazyLoadImages() {
+export function lazyLoadImages() {
   const elements = document.querySelectorAll("*[dynamic-src]");
   for (let i = 0; i < elements.length; i++) {
     const boundingClientRect = elements[i].getBoundingClientRect();

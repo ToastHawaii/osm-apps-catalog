@@ -5,8 +5,10 @@ import "./lazyLoadImages";
 import {
   transformServiceItem,
   transformSoftware,
-  App
+  App,
+  containsOfflineLink
 } from "./transformTemplates";
+import { lazyLoadImages } from "./lazyLoadImages";
 
 let onUpdate = false;
 const apps: App[] = [];
@@ -147,7 +149,9 @@ function update(
 
 (async function () {
   const serviceItemObjects = await requestTemplates("Service item");
-  for (const source of serviceItemObjects) {
+  for (const source of serviceItemObjects.filter(
+    s => !containsOfflineLink(s["name"] || "")
+  )) {
     const obj: App = transformServiceItem(source);
 
     apps.push(obj);
@@ -156,7 +160,13 @@ function update(
 
   const softwareObjects = await requestTemplates("Software");
 
-  for (const source of softwareObjects) {
+  for (const source of softwareObjects.filter(
+    s =>
+      !(
+        containsOfflineLink(s["name"] || "") ||
+        containsOfflineLink(s["web"] || "")
+      )
+  )) {
     const obj: App = transformSoftware(source);
 
     apps.push(obj);
