@@ -74,6 +74,8 @@ function update(
 
   let filteredApps = apps;
 
+  shuffleArray(filteredApps);
+
   search = search.toUpperCase();
   const topicUp = topic.map(t => t.toUpperCase());
   const languageUp = language.map(t => t.toUpperCase());
@@ -177,12 +179,15 @@ function update(
 function render(obj: {
   name: string;
   description: string;
-  image?: string | undefined;
-  website?: string | undefined;
-  wiki?: string | undefined;
+  image: { thumb?: string; orginal?: string };
+  website?: string;
+  wiki?: string;
   languages: string[];
   topics: string[];
 }) {
+  const defaultImage =
+    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+
   const element = createElement(
     "div",
     `<div class="header">
@@ -194,13 +199,13 @@ function render(obj: {
         ${
           obj.website
             ? `<a href="${obj.website}" target="_blank">${
-                obj.image
-                  ? `<img class="img" dynamic-src="${obj.image}"/>`
-                  : `<img class="img" dynamic-src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+                obj.image.thumb
+                  ? `<img class="img" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+                  : `<img class="img" dynamic-src="${defaultImage}"/>`
               }</a>`
-            : obj.image
-            ? `<img class="img" dynamic-src="${obj.image}"/>`
-            : `<img class="img" dynamic-src="https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png"/>`
+            : obj.image.thumb
+            ? `<img class="img" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+            : `<img class="img" dynamic-src="${defaultImage}"/>`
         }
       </div>
       <div class="description">${obj.description}</div>
@@ -245,4 +250,11 @@ function textToColor(s: string) {
     else b = (b + s.charCodeAt(i)) % 256;
   }
   return { r, g, b };
+}
+
+function shuffleArray(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }

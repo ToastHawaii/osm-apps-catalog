@@ -4,7 +4,7 @@ import { toWikiUrl, toUrl } from "./utilities/url";
 export type App = {
   name: string;
   description: string;
-  image?: string;
+  image: { thumb?: string; orginal?: string };
   website?: string;
   wiki: string;
   languages: string[];
@@ -15,7 +15,10 @@ export function transformSoftware(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     description: processWikiText(source["description"] || ""),
-    image: toWikimediaUrl(source["screenshot"], 250),
+    image: {
+      thumb: toWikimediaUrl(source["screenshot"], 250),
+      orginal: toWikimediaUrl(source["screenshot"])
+    },
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     languages: (source["languages"] || "")
@@ -56,7 +59,10 @@ export function transformServiceItem(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     description: processWikiText(source["descr"] || ""),
-    image: toWikimediaUrl(source["image"], 250),
+    image: {
+      thumb: toWikimediaUrl(source["image"], 250),
+      orginal: toWikimediaUrl(source["image"])
+    },
     wiki: toWikiUrl(source.sourceWiki) || "",
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
@@ -188,7 +194,6 @@ function processWikiText(text: string = "") {
       );
     }
   }
-
 
   {
     const regex = /\[\[:wikipedia:(.*(?![^\|]))(\|(.*))?\]\]/g;
