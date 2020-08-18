@@ -14,7 +14,7 @@ You can add this map to your homescreen from your smartphone. Use the "add to ho
 
 Thank you very much for your commitment!
 
-Create a wiki Page about your app in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and use the [Software template](https://wiki.openstreetmap.org/wiki/Template:Software) to descripte your app. Or add your app to the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) by using the [Service item template](https://wiki.openstreetmap.org/wiki/Template:Service_item).
+Create a wiki Page about your app in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and use the [Software template](https://wiki.openstreetmap.org/wiki/Template:Software) to describe your app. Or add your app to the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) by using the [Service item template](https://wiki.openstreetmap.org/wiki/Template:Service_item).
 
 ## How can I remove a application from the list?
 
@@ -27,7 +27,7 @@ Sure, helping hands are always welcome and there is something for everyone to do
 ### Do you like to check and clean up?
 Improve the documentation about Software in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the Service items in the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services).
 
-* Move servcies that are offline, but whose source code still exists, to the offline section (otherwise remove it)
+* Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it)
 * Mark regional maps with local
 * Reorganize the categories and services
 * Add missing services
