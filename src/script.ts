@@ -9,9 +9,10 @@ import {
   containsOfflineLink
 } from "./transformTemplates";
 import { lazyLoadImages } from "./lazyLoadImages";
+import { set, get } from "./utilities/storage";
 
 let onUpdate = false;
-const apps: App[] = [];
+let apps: App[] = [];
 const topicSelect = new (SlimSelect as any)({
   select: "#topic",
   placeholder: "Topic",
@@ -78,8 +79,6 @@ function update(
   let languageData: string[] = [];
 
   let filteredApps = apps;
-
-  shuffleArray(filteredApps);
 
   search = search.toUpperCase();
   const topicUp = topic.map(t => t.toUpperCase());
@@ -149,6 +148,30 @@ function update(
   lazyLoadImages();
 }
 
+function saveAppCatalog() {
+  set("apps", apps);
+  set("apps-date", new Date());
+  console.info("add catalog to cache");
+}
+
+function getAppCatalog() {
+  const date = get<Date>("apps-date");
+
+  const day = 24 * 1000 * 60 * 60;
+
+  if (date && new Date(date).valueOf() > Date.now() - day) {
+    console.info("get catalog from cache");
+
+    apps = get("apps") || [];
+    update((document.getElementById("search") as HTMLInputElement).value);
+  }
+
+  if (apps.length === 0) {
+    console.info("load catalog from wiki");
+    loadAppCatalog();
+  }
+}
+
 function addApp(obj: App) {
   const duplicates = apps.filter(
     a => a.name.toUpperCase() === obj.name.toUpperCase()
@@ -171,7 +194,7 @@ function addApp(obj: App) {
   }
 }
 
-(async function () {
+async function loadAppCatalog() {
   const serviceItemObjects = await requestTemplates("Service item");
   for (const source of serviceItemObjects.filter(
     s => !containsOfflineLink(s["name"] || "")
@@ -196,7 +219,13 @@ function addApp(obj: App) {
     addApp(obj);
   }
   update((document.getElementById("search") as HTMLInputElement).value);
-})();
+
+  shuffleArray(apps);
+
+  saveAppCatalog();
+}
+
+getAppCatalog();
 
 function render(obj: {
   name: string;
