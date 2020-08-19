@@ -62,7 +62,7 @@ const languageSelect = new (SlimSelect as any)({
 function includesArray(arr: any[], target: any[]) {
   return target.every(v => arr.includes(v));
 }
-function removeDuplicates<T>(arr: T[]) {
+export function removeDuplicates<T>(arr: T[]) {
   return arr.filter((c, index) => {
     return arr.indexOf(c) === index;
   });
@@ -251,12 +251,12 @@ function render(obj: {
           obj.website
             ? `<a href="${obj.website}" target="_blank">${
                 obj.image.thumb
-                  ? `<img class="img" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
-                  : `<img class="img" dynamic-src="${defaultImage}"/>`
+                  ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+                  : `<img class="img" src="${defaultImage}"/>`
               }</a>`
             : obj.image.thumb
-            ? `<img class="img" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
-            : `<img class="img" dynamic-src="${defaultImage}"/>`
+            ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+            : `<img class="img" src="${defaultImage}"/>`
         }
       </div>
       <div class="description">${obj.description}</div>

@@ -1,5 +1,6 @@
 import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
+import { removeDuplicates } from "./script";
 
 export type App = {
   name: string;
@@ -33,6 +34,82 @@ export function transformSoftware(source: { [name: string]: string }) {
       .filter(v => v)
       .map(firstLetterToUpperCase)
   };
+  obj.topics.push(
+    ...(source["platform"] || "")
+      .split(/[;,]/)
+      .map(trim)
+      .filter(v => v)
+      .map(firstLetterToUpperCase)
+  );
+  if (
+    (source["tracking"] || "") &&
+    (source["tracking"] || "").toUpperCase() !== "YES" &&
+    (source["tracking"] || "").toUpperCase() !== "NO" &&
+    (source["tracking"] || "").toUpperCase() !== "?"
+  )
+    obj.topics.push(
+      ...(source["profiles"] || "")
+        .split(/[;,]/)
+        .map(trim)
+        .filter(v => v)
+        .map(firstLetterToUpperCase)
+    );
+
+  if (
+    (source["accessibility"] || "") &&
+    (source["accessibility"] || "").toUpperCase() !== "YES" &&
+    (source["accessibility"] || "").toUpperCase() !== "NO" &&
+    (source["accessibility"] || "").toUpperCase() !== "?"
+  ) {
+    obj.topics.push(
+      ...(source["accessibility"] || "")
+        .split(/[;,]/)
+        .map(trim)
+        .filter(v => v)
+        .map(firstLetterToUpperCase)
+    );
+    obj.topics.push("Accessibility");
+  }
+  if ((source["accessibility"] || "").toUpperCase() === "YES")
+    obj.topics.push("Accessibility");
+
+  if ((source["tracking"] || "").toUpperCase() === "YES")
+    obj.topics.push("Tracking");
+
+  if ((source["monitoring"] || "").toUpperCase() === "YES")
+    obj.topics.push("Monitoring ");
+
+  if (
+    (source["navigating"] || "").toUpperCase() === "YES" ||
+    (source["navToPoint"] || "").toUpperCase() === "YES"
+  )
+    obj.topics.push("Navigating");
+
+  if (
+    (source["routing"] || "").toUpperCase() === "YES" ||
+    (source["calculateRoute"] || "").toUpperCase() === "YES" ||
+    (source["calculateRouteOffline"] || "").toUpperCase() === "YES"
+  )
+    obj.topics.push("Routing");
+
+  if ((source["3D"] || "").toUpperCase() === "YES") obj.topics.push("3D");
+
+  if ((source["findLocation"] || "").toUpperCase() === "YES")
+    obj.topics.push("Search");
+  if ((source["findNearbyPOI"] || "").toUpperCase() === "YES")
+    obj.topics.push("POI");
+
+  if (
+    (source["addPOI"] || "").toUpperCase() === "YES" ||
+    (source["addWay"] || "").toUpperCase() === "YES" ||
+    (source["editPOI"] || "").toUpperCase() === "YES" ||
+    (source["editTags"] || "").toUpperCase() === "YES" ||
+    (source["editGeom"] || "").toUpperCase() === "YES" ||
+    (source["editRelations"] || "").toUpperCase() === "YES"
+  )
+    obj.topics.push("Editor");
+
+  obj.topics = removeDuplicates(obj.topics);
 
   {
     const name = extractNameWebsiteWiki(source["name"]);
