@@ -8,6 +8,7 @@ export type App = {
   image: { thumb?: string; orginal?: string };
   website?: string;
   wiki: string;
+  sourceCode?: string;
   languages: string[];
   topics: string[];
 };
@@ -22,6 +23,7 @@ export function transformSoftware(source: { [name: string]: string }) {
     },
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
+    sourceCode: toUrl(source["repo"] || source["git"] || source["svn"]),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -141,6 +143,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
       orginal: toWikimediaUrl(source["image"])
     },
     wiki: toWikiUrl(source.sourceWiki) || "",
+    sourceCode: extractWebsite(source["material"]),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)
@@ -245,6 +248,29 @@ function extractNameWebsiteWiki(value: string = "") {
   }
 
   return obj;
+}
+
+function extractWebsite(value: string = "") {
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return match[2];
+    }
+  }
+  {
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return match[2];
+    }
+  }
+
+  return undefined;
 }
 
 function processWikiText(text: string = "") {

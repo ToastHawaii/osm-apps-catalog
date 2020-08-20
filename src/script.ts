@@ -190,7 +190,8 @@ function addApp(obj: App) {
     app.topics = removeDuplicates(app.topics);
 
     app.website = app.website || obj.website;
-    app.wiki = app.wiki || obj.wiki;
+    app.wiki = obj.wiki || app.wiki;
+    app.sourceCode = app.sourceCode || obj.sourceCode;
   }
 }
 
@@ -233,6 +234,7 @@ function render(obj: {
   image: { thumb?: string; orginal?: string };
   website?: string;
   wiki?: string;
+  sourceCode?: string;
   languages: string[];
   topics: string[];
 }) {
@@ -268,6 +270,11 @@ function render(obj: {
       ${
         obj.wiki
           ? `<a class="link" href="${obj.wiki}" target="_blank"><i class="fas fa-atlas"></i></a>`
+          : ""
+      }
+      ${
+        obj.sourceCode
+          ? `<a class="link" href="${obj.sourceCode}" target="_blank"><i class="far fa-file-code"></i></a>`
           : ""
       }
       <div class="topics">${obj.topics
