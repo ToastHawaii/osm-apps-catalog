@@ -23,20 +23,20 @@ export function transformSoftware(source: { [name: string]: string }) {
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     languages: (source["languages"] || "")
-      .split(/[;,]/)
+      .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .map(extractLanguageCodeFromLocal)
       .filter(v => v)
       .map(v => v.toLowerCase()),
     topics: (source["genre"] || "")
-      .split(/[;,]/)
+      .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
   };
   obj.topics.push(
     ...(source["platform"] || "")
-      .split(/[;,]/)
+      .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
@@ -49,7 +49,7 @@ export function transformSoftware(source: { [name: string]: string }) {
   )
     obj.topics.push(
       ...(source["profiles"] || "")
-        .split(/[;,]/)
+        .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter(v => v)
         .map(firstLetterToUpperCase)
@@ -63,7 +63,7 @@ export function transformSoftware(source: { [name: string]: string }) {
   ) {
     obj.topics.push(
       ...(source["accessibility"] || "")
-        .split(/[;,]/)
+        .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter(v => v)
         .map(firstLetterToUpperCase)
@@ -109,7 +109,7 @@ export function transformSoftware(source: { [name: string]: string }) {
   )
     obj.topics.push("Editor");
 
-  obj.topics = removeDuplicates(obj.topics);
+  obj.topics = removeDuplicates(obj.topics).sort();
 
   {
     const name = extractNameWebsiteWiki(source["name"]);
@@ -152,6 +152,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
+      .sort()
   };
 
   let name = extractNameWebsiteWiki(source["name"]);
@@ -161,7 +162,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
   return obj;
 }
 
-const splitByCommaButNotInsideBraceRegex = /,+(?![^\(]*\))/;
+const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
 
 export function containsOfflineLink(value: string) {
   return /<s(trike)?>/gi.test(value);
