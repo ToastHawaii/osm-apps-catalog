@@ -5,7 +5,7 @@ type Template = {
   [name: string]: string;
 };
 
-export async function requestTemplates(template: string) {
+export async function requestTemplates(template: string, language: string) {
   const objects: Template[] = [];
   let con;
 
@@ -21,7 +21,9 @@ export async function requestTemplates(template: string) {
 
     const response = await osmMediaApiQuery(params);
 
-    objects.push(...(await processPagesByTemplateResult(response, template)));
+    objects.push(
+      ...(await processPagesByTemplateResult(response, template, language))
+    );
 
     con = response.continue?.eicontinue;
   } while (con);
@@ -42,14 +44,18 @@ async function osmMediaApiQuery(params: { [name: string]: string }) {
 
 async function processPagesByTemplateResult(
   response: { continue: { eicontinue: any }; query: { embeddedin: any } },
-  template: string
+  template: string,
+  language: string
 ) {
   const pages = response.query.embeddedin;
 
   const objects: Template[] = [];
   let ids = [];
   for (const p in pages) {
-    if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
+    if (language.toUpperCase() === "EN") {
+      if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
+    } else if (new RegExp(`^${language}:`, "ig").test(pages[p].title))
+      ids.push(pages[p].pageid);
 
     if (ids.length >= 50) {
       objects.push(...(await loadPages(ids, template)));

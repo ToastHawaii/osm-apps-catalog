@@ -148,27 +148,31 @@ function update(
   lazyLoadImages();
 }
 
+const lang = (findGetParameter("lang") || "en").toLowerCase();
+
 function saveAppCatalog() {
-  set("apps", apps);
-  set("apps-date", new Date());
+  set(`${lang}-apps`, apps);
+  set(`${lang}-apps-date`, new Date());
   console.info("add catalog to cache");
 }
 
-function getAppCatalog() {
-  const date = get<Date>("apps-date");
+async function getAppCatalog() {
+  const date = get<Date>(`${lang}-apps-date`);
 
   const day = 24 * 1000 * 60 * 60;
 
   if (date && new Date(date).valueOf() > Date.now() - day) {
     console.info("get catalog from cache");
 
-    apps = get("apps") || [];
+    apps = get(`${lang}-apps`) || [];
     update((document.getElementById("search") as HTMLInputElement).value);
   }
 
   if (apps.length === 0) {
     console.info("load catalog from wiki");
-    loadAppCatalog();
+
+    if (lang !== "en") await loadAppCatalog(lang);
+    await loadAppCatalog();
   }
 }
 
@@ -190,13 +194,15 @@ function addApp(obj: App) {
     app.topics = removeDuplicates(app.topics);
 
     app.website = app.website || obj.website;
-    app.wiki = obj.wiki || app.wiki;
+
+    if (/List_of_OSM-based_services/g.test(app.wiki))
+      app.wiki = obj.wiki || app.wiki;
     app.sourceCode = app.sourceCode || obj.sourceCode;
   }
 }
 
-async function loadAppCatalog() {
-  const serviceItemObjects = await requestTemplates("Service item");
+async function loadAppCatalog(language = "en") {
+  const serviceItemObjects = await requestTemplates("Service item", language);
   for (const source of serviceItemObjects.filter(
     s => !containsOfflineLink(s["name"] || "")
   )) {
@@ -206,7 +212,7 @@ async function loadAppCatalog() {
   }
   update((document.getElementById("search") as HTMLInputElement).value);
 
-  const softwareObjects = await requestTemplates("Software");
+  const softwareObjects = await requestTemplates("Software", language);
 
   for (const source of softwareObjects.filter(
     s =>
@@ -315,4 +321,17 @@ function shuffleArray(array: any[]) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+}
+
+function findGetParameter(parameterName: string) {
+  let result: string | undefined;
+  let tmp = [];
+  location.search
+    .substr(1)
+    .split("&")
+    .forEach(function (item) {
+      tmp = item.split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+  return result;
 }

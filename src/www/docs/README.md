@@ -29,16 +29,17 @@ Delete the Software or Service item template about the app from the wiki page or
 Sure, helping hands are always welcome and there is something for everyone to do.
 
 ### Do you like to check and clean up?
+
 Improve the documentation about Software in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the Service items in the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services).
 
-* Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it)
-* Mark regional maps with local
-* Reorganize the categories and services
-* Add missing services
-* Replace http with https where possible
-* Clean up names, replace domains/url with description from the website title
-* Add missing screenshots
-* Sort the tables
+- Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it)
+- Mark regional maps with local
+- Reorganize the categories and services
+- Add missing services
+- Replace http with https where possible
+- Clean up names, replace domains/url with description from the website title
+- Add missing screenshots
+- Sort the tables
 
 ### Can you program?
 
@@ -52,6 +53,84 @@ Try one of the following services:
 - [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
 - [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
 
+---
+
+By default the catalog only contains apps from the English version of the wiki. To include apps from other translations use one of the following links:
+
+[Afrikaans](/?lang=af),
+[asturianu](/?lang=ast),
+[azərbaycanca](/?lang=az),
+[Bahasa Indonesia](/?lang=id),
+[Bahasa Melayu](/?lang=ms),
+[bosanski](/?lang=bs),
+[brezhoneg](/?lang=br),
+[català](/?lang=ca),
+[čeština](/?lang=cs),
+[dansk](/?lang=da),
+[Deutsch](/?lang=de),
+[eesti](/?lang=et),
+[English](/?lang=en),
+[español](/?lang=es),
+[Esperanto](/?lang=eo),
+[euskara](/?lang=eu),
+[français](/?lang=fr),
+[Frysk](/?lang=fy),
+[galego](/?lang=gl),
+[hrvatski](/?lang=hr),
+[interlingua](/?lang=ia),
+[íslenska](/?lang=is),
+[italiano](/?lang=it),
+[Kreyòl ayisyen](/?lang=ht),
+[kréyòl gwadloupéyen](/?lang=gcf),
+[kurdî](/?lang=ku),
+[latviešu](/?lang=lv),
+[Lëtzebuergesch](/?lang=lb),
+[lietuvių](/?lang=lt),
+[magyar](/?lang=hu),
+[Nederlands](/?lang=nl),
+[norsk](/?lang=no),
+[norsk nynorsk](/?lang=nn),
+[occitan](/?lang=oc),
+[polski](/?lang=pl),
+[português](/?lang=pt),
+[română](/?lang=ro),
+[shqip](/?lang=sq),
+[slovenčina](/?lang=sk),
+[slovenščina](/?lang=sl),
+[srpski (latinica)](/?lang=sr-latn),
+[suomi](/?lang=fi),
+[svenska](/?lang=sv),
+[Tagalog](/?lang=tl),
+[Tiếng Việt](/?lang=vi),
+[Türkçe](/?lang=tr),
+[Zazaki](/?lang=diq),
+[Ελληνικά](/?lang=el),
+[беларуская](/?lang=be),
+[български](/?lang=bg),
+[македонски](/?lang=mk),
+[монгол](/?lang=mn),
+[русский](/?lang=ru),
+[српски / srpski](/?lang=sr),
+[українська](/?lang=uk),
+[հայերեն](/?lang=hy),
+[עברית](/?lang=he),
+[العربية](/?lang=ar),
+[فارسی](/?lang=fa),
+[پښتو](/?lang=ps),
+[नेपाली](/?lang=ne),
+[বাংলা](/?lang=bn),
+[தமிழ்](/?lang=ta),
+[മലയാളം](/?lang=ml),
+[සිංහල](/?lang=si),
+[ไทย](/?lang=th),
+[မြန်မာဘာသာ](/?lang=my),
+[ქართული](/?lang=ka),
+[한국어](/?lang=ko),
+[ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm),
+[中文（简体）](/?lang=zh-hans),
+[中文（繁體）](/?lang=zh-hant),
+[日本語](/?lang=ja),
+[粵語](/?lang=yue)
 
 ---
 
