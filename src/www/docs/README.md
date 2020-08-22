@@ -53,7 +53,7 @@ Try one of the following services:
 - [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
 - [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
 
----
+## Other languages
 
 By default the catalog only contains apps from the English version of the wiki. To include apps from other translations use one of the following links:
 

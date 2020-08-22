@@ -97,6 +97,8 @@ async function loadPages(ids: string[], template: string) {
 function parsePage(content: string, template: string) {
   const objects: Template[] = [];
 
+  content = content.replace(/(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)/g, "");
+
   const regexTemplate = new RegExp("{{" + template.replace(" ", "[_ ]"), "gi");
   let start = content.search(regexTemplate);
 
