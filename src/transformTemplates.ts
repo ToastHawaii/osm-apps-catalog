@@ -23,7 +23,9 @@ export function transformSoftware(source: { [name: string]: string }) {
     },
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
-    sourceCode: toUrl(extractRepo(source["repo"] || source["git"] || source["svn"])),
+    sourceCode: toUrl(
+      extractRepo(source["repo"] || source["git"] || source["svn"])
+    ),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -305,7 +307,7 @@ function extractURL(value: string = "") {
     }
   }
 
-  return undefined;
+  return value;
 }
 
 function extractRepo(value: string = "") {
