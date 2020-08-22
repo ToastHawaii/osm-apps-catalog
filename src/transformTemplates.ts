@@ -143,7 +143,7 @@ export function transformLayer(source: { [name: string]: string }) {
       thumb: toWikimediaUrl(source["screenshot"], 250),
       orginal: toWikimediaUrl(source["screenshot"])
     },
-    website: toUrl(extractURL(source["slippy_web"])),
+    website: toUrl(extractWebsite(source["slippy_web"])),
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractRepo(source["repo"])),
     languages: (source["lang"] || "")
@@ -191,7 +191,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
 const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
 
 export function containsOfflineLink(value: string) {
-  return /<s(trike)?>/gi.test(value);
+  return /<((s(trike)?)|(del))>/gi.test(value);
 }
 
 function extractLanguageCodeFromLocal(value: string): string {
@@ -292,11 +292,15 @@ function extractWebsite(value: string = "") {
       return match[2];
     }
   }
+  {
+    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
 
-  return undefined;
-}
+    const match = regex.exec(value);
 
-function extractURL(value: string = "") {
+    if (match) {
+      return toWikiUrl(match[1]);
+    }
+  }
   {
     const regex = /{{URL\|((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
 
@@ -306,8 +310,17 @@ function extractURL(value: string = "") {
       return match[1];
     }
   }
+  {
+    const regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/g;
 
-  return value;
+    const match = regex.exec(value);
+
+    if (match) {
+      return match[1];
+    }
+  }
+
+  return undefined;
 }
 
 function extractRepo(value: string = "") {
