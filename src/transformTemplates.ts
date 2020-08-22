@@ -23,7 +23,7 @@ export function transformSoftware(source: { [name: string]: string }) {
     },
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
-    sourceCode: toUrl(source["repo"] || source["git"] || source["svn"]),
+    sourceCode: toUrl(extractRepo(source["repo"] || source["git"] || source["svn"])),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -131,6 +131,27 @@ export function transformSoftware(source: { [name: string]: string }) {
     obj.website = obj.website || name.website;
     obj.wiki = name.wiki || obj.wiki;
   }
+  return obj;
+}
+export function transformLayer(source: { [name: string]: string }) {
+  const obj: App = {
+    name: source["name"] || "",
+    description: processWikiText(source["description"] || ""),
+    image: {
+      thumb: toWikimediaUrl(source["screenshot"], 250),
+      orginal: toWikimediaUrl(source["screenshot"])
+    },
+    website: toUrl(extractURL(source["slippy_web"])),
+    wiki: toWikiUrl(source.sourceWiki) || "",
+    sourceCode: toUrl(extractRepo(source["repo"])),
+    languages: (source["lang"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .map(extractLanguageCodeFromLocal)
+      .filter(v => v)
+      .map(v => v.toLowerCase()),
+    topics: []
+  };
   return obj;
 }
 
@@ -271,6 +292,34 @@ function extractWebsite(value: string = "") {
   }
 
   return undefined;
+}
+
+function extractURL(value: string = "") {
+  {
+    const regex = /{{URL\|((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return match[1];
+    }
+  }
+
+  return undefined;
+}
+
+function extractRepo(value: string = "") {
+  {
+    const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return `https://github.com/${match[1]}`;
+    }
+  }
+
+  return value;
 }
 
 function processWikiText(text: string = "") {

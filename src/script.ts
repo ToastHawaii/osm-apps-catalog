@@ -6,7 +6,8 @@ import {
   transformServiceItem,
   transformSoftware,
   App,
-  containsOfflineLink
+  containsOfflineLink,
+  transformLayer
 } from "./transformTemplates";
 import { lazyLoadImages } from "./lazyLoadImages";
 import { set, get } from "./utilities/storage";
@@ -173,6 +174,10 @@ async function getAppCatalog() {
 
     if (lang !== "en") await loadAppCatalog(lang);
     await loadAppCatalog();
+
+    shuffleArray(apps);
+
+    saveAppCatalog();
   }
 }
 
@@ -212,6 +217,21 @@ async function loadAppCatalog(language = "en") {
   }
   update((document.getElementById("search") as HTMLInputElement).value);
 
+  const layerObjects = await requestTemplates("Layer", language);
+
+  for (const source of layerObjects.filter(
+    s =>
+      !(
+        containsOfflineLink(s["name"] || "") ||
+        containsOfflineLink(s["slippy_web"] || "")
+      ) && !((s["discontinued"] || "").toUpperCase() === "YES")
+  )) {
+    const obj: App = transformLayer(source);
+
+    addApp(obj);
+  }
+  update((document.getElementById("search") as HTMLInputElement).value);
+
   const softwareObjects = await requestTemplates("Software", language);
 
   for (const source of softwareObjects.filter(
@@ -226,10 +246,6 @@ async function loadAppCatalog(language = "en") {
     addApp(obj);
   }
   update((document.getElementById("search") as HTMLInputElement).value);
-
-  shuffleArray(apps);
-
-  saveAppCatalog();
 }
 
 getAppCatalog();
