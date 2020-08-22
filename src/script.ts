@@ -219,7 +219,7 @@ async function loadAppCatalog(language = "en") {
       !(
         containsOfflineLink(s["name"] || "") ||
         containsOfflineLink(s["web"] || "")
-      )
+      ) && !((s["status"] || "").toUpperCase() === "BROKEN")
   )) {
     const obj: App = transformSoftware(source);
 

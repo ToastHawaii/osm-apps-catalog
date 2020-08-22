@@ -172,7 +172,7 @@ export function containsOfflineLink(value: string) {
 }
 
 function extractLanguageCodeFromLocal(value: string): string {
-  const match = /(\w{2,3})-/.exec(value);
+  const match = /(\w{2,3}(\-\w{2,4})?)/g.exec(value);
 
   if (match) return match[1];
   return value;

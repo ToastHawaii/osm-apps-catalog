@@ -53,7 +53,12 @@ async function processPagesByTemplateResult(
   let ids = [];
   for (const p in pages) {
     if (language.toUpperCase() === "EN") {
-      if (!/^\w{2}:/g.test(pages[p].title)) ids.push(pages[p].pageid);
+      if (
+        !/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/ig.test(
+          pages[p].title
+        )
+      )
+        ids.push(pages[p].pageid);
     } else if (new RegExp(`^${language}:`, "ig").test(pages[p].title))
       ids.push(pages[p].pageid);
 
