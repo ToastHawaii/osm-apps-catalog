@@ -191,7 +191,8 @@ function addApp(obj: App) {
     const app = duplicates[0];
 
     app.description = app.description || obj.description;
-    app.image = app.image || obj.image;
+    app.images.push(...obj.images);
+    app.images = removeDuplicates(app.images);
     app.languages.push(...obj.languages);
     app.languages = removeDuplicates(app.languages);
 
@@ -253,7 +254,7 @@ getAppCatalog();
 function render(obj: {
   name: string;
   description: string;
-  image: { thumb?: string; orginal?: string };
+  images: string[];
   website?: string;
   wiki?: string;
   sourceCode?: string;
@@ -274,12 +275,16 @@ function render(obj: {
         ${
           obj.website
             ? `<a href="${obj.website}" target="_blank">${
-                obj.image.thumb
-                  ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+                obj.images.length > 0
+                  ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
+                      " "
+                    )} ${defaultImage}"/>`
                   : `<img class="img" src="${defaultImage}"/>`
               }</a>`
-            : obj.image.thumb
-            ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.image.thumb} ${obj.image.orginal} ${defaultImage}"/>`
+            : obj.images.length > 0
+            ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
+                " "
+              )} ${defaultImage}"/>`
             : `<img class="img" src="${defaultImage}"/>`
         }
       </div>

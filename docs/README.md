@@ -69,7 +69,6 @@ By default the catalog only contains apps from the English version of
 [dansk](/?lang=da),
 [Deutsch](/?lang=de),
 [eesti](/?lang=et),
-[English](/?lang=en),
 [español](/?lang=es),
 [Esperanto](/?lang=eo),
 [euskara](/?lang=eu),
@@ -134,7 +133,7 @@ By default the catalog only contains apps from the English version of
 
 ---
 
-Support me with coffee and cake:
+Support me with coffee ☕ and cake 🍰:
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick" />

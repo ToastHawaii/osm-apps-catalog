@@ -5,7 +5,7 @@ import { removeDuplicates } from "./script";
 export type App = {
   name: string;
   description: string;
-  image: { thumb?: string; orginal?: string };
+  images: string[];
   website?: string;
   wiki: string;
   sourceCode?: string;
@@ -17,10 +17,7 @@ export function transformSoftware(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     description: processWikiText(source["description"] || ""),
-    image: {
-      thumb: toWikimediaUrl(source["screenshot"], 250),
-      orginal: toWikimediaUrl(source["screenshot"])
-    },
+    images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     sourceCode: toUrl(
@@ -139,10 +136,7 @@ export function transformLayer(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     description: processWikiText(source["description"] || ""),
-    image: {
-      thumb: toWikimediaUrl(source["screenshot"], 250),
-      orginal: toWikimediaUrl(source["screenshot"])
-    },
+    images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractRepo(source["repo"])),
@@ -161,10 +155,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     description: processWikiText(source["descr"] || ""),
-    image: {
-      thumb: toWikimediaUrl(source["image"], 250),
-      orginal: toWikimediaUrl(source["image"])
-    },
+    images: toWikimediaUrl(source["image"], 250),
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: extractWebsite(source["material"]),
     languages: (source["lang"] || "")
