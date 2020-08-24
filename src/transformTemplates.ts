@@ -1,6 +1,7 @@
 import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
 import { removeDuplicates } from "./script";
+import { platformValueToDisplay } from "./platform";
 
 export type App = {
   name: string;
@@ -59,6 +60,7 @@ export function transformSoftware(source: { [name: string]: string }) {
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
+      .map(v => platformValueToDisplay(v))
   );
   if (
     (source["tracking"] || "") &&
@@ -96,7 +98,7 @@ export function transformSoftware(source: { [name: string]: string }) {
     obj.topics.push("Tracking");
 
   if ((source["monitoring"] || "").toUpperCase() === "YES")
-    obj.topics.push("Monitoring ");
+    obj.topics.push("Monitoring");
 
   if (
     (source["navigating"] || "").toUpperCase() === "YES" ||
