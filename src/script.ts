@@ -216,6 +216,8 @@ async function loadAppCatalog(language = "en") {
 
     addApp(obj);
   }
+
+  shuffleArray(apps);
   update((document.getElementById("search") as HTMLInputElement).value);
 
   const layerObjects = await requestTemplates("Layer", language);
