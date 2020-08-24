@@ -42,19 +42,7 @@ const platforms: {
       { name: "ArOS", synonym: ["aros"] }
     ]
   },
-  {
-    name: "Windows",
-    synonym: ["windows", "win"],
-    version: [
-      { name: "Windows XP", synonym: ["windows xp", "winxp"] },
-      { name: "Windows 2000", synonym: ["windows 2000", "win2k"] },
-      { name: "Windows Vista", synonym: ["windows vista", "vista"] },
-      { name: "Windows 7", synonym: ["windows 7", "win7"] },
-      { name: "Windows 8", synonym: ["windows 8", "win8"] },
-      { name: "Windows 8.1", synonym: ["windows 8.1", "win8.1"] },
-      { name: "Windows 10", synonym: ["windows 10", "win10"] }
-    ]
-  },
+
   { name: "Windows CE", synonym: ["windows ce", "wince"], version: [] },
   {
     name: "Windows Mobile",
@@ -79,6 +67,19 @@ const platforms: {
     version: []
   },
   {
+    name: "Windows",
+    synonym: ["windows", "win"],
+    version: [
+      { name: "Windows XP", synonym: ["windows xp", "winxp"] },
+      { name: "Windows 2000", synonym: ["windows 2000", "win2k"] },
+      { name: "Windows Vista", synonym: ["windows vista", "vista"] },
+      { name: "Windows 7", synonym: ["windows 7", "win7"] },
+      { name: "Windows 8", synonym: ["windows 8", "win8"] },
+      { name: "Windows 8.1", synonym: ["windows 8.1", "win8.1"] },
+      { name: "Windows 10", synonym: ["windows 10", "win10"] }
+    ]
+  },
+  {
     name: "BlackBerry OS",
     synonym: ["blackberry os", "blackberry", "bbos"],
     version: []
@@ -91,9 +92,9 @@ const platforms: {
     synonym: ["cross-platform", "cross platform"],
     version: []
   },
-  { name: "Java", synonym: ["java"], version: [] },
   { name: "Java ME", synonym: ["j2me", "java me"], version: [] },
   { name: "Java SE", synonym: ["j2se", "java se"], version: [] },
+  { name: "Java", synonym: ["java"], version: [] },
   { name: "Node.js", synonym: ["node", "node.js"], version: [] },
   { name: "Qt", synonym: ["qt"], version: [] },
   { name: "React Native", synonym: ["react native"], version: [] },
@@ -108,12 +109,6 @@ const platforms: {
 
 export function platformValueToDisplay(value: string) {
   for (const platform of platforms) {
-    if (
-      platform.synonym.filter(s => s.toUpperCase() === value.toUpperCase())
-        .length > 0
-    )
-      return platform.name;
-
     for (const version of platform.version) {
       if (
         version.synonym.filter(s => s.toUpperCase() === value.toUpperCase())
@@ -121,6 +116,12 @@ export function platformValueToDisplay(value: string) {
       )
         return platform.name;
     }
+
+    if (
+      platform.synonym.filter(s => s.toUpperCase() === value.toUpperCase())
+        .length > 0
+    )
+      return platform.name;
   }
   return value;
 }

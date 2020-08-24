@@ -2,6 +2,7 @@ import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
 import { removeDuplicates } from "./script";
 import { platformValueToDisplay } from "./platform";
+import { languageValueToDisplay } from "./language";
 
 export type App = {
   name: string;
@@ -12,6 +13,7 @@ export type App = {
   sourceCode?: string;
   languages: string[];
   topics: string[];
+  platform: string[];
   install: {
     asin?: string;
     bbWorldID?: string;
@@ -36,14 +38,18 @@ export function transformSoftware(source: { [name: string]: string }) {
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .map(extractLanguageCodeFromLocal)
       .filter(v => v)
-      .map(v => v.toLowerCase()),
+      .map(v => languageValueToDisplay(v)),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase),
+    platform: (source["platform"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter(v => v)
+      .map(v => platformValueToDisplay(v)),
     install: {
       asin: source["asin"],
       bbWorldID: source["bbWorldID"],
@@ -54,14 +60,7 @@ export function transformSoftware(source: { [name: string]: string }) {
       microsoftAppID: source["microsoftAppID"]
     }
   };
-  obj.topics.push(
-    ...(source["platform"] || "")
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter(v => v)
-      .map(firstLetterToUpperCase)
-      .map(v => platformValueToDisplay(v))
-  );
+
   if (
     (source["tracking"] || "") &&
     (source["tracking"] || "").toUpperCase() !== "YES" &&
@@ -163,10 +162,10 @@ export function transformLayer(source: { [name: string]: string }) {
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .map(extractLanguageCodeFromLocal)
       .filter(v => v)
-      .map(v => v.toLowerCase()),
+      .map(v => languageValueToDisplay(v)),
     topics: [],
+    platform: ["Web"],
     install: {}
   };
   return obj;
@@ -184,13 +183,14 @@ export function transformServiceItem(source: { [name: string]: string }) {
       .map(extractLanguageCodeFromTemplate)
       .map(trim)
       .filter(v => v)
-      .map(v => v.toLowerCase()),
+      .map(v => languageValueToDisplay(v)),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
       .sort(),
+    platform: [],
     install: {}
   };
 
@@ -207,12 +207,12 @@ export function containsOfflineLink(value: string) {
   return /<((s(trike)?)|(del))>/gi.test(value);
 }
 
-function extractLanguageCodeFromLocal(value: string): string {
-  const match = /(\w{2,3}(\-\w{2,4})?)/g.exec(value);
+// function extractLanguageCodeFromLocal(value: string): string {
+//   const match = /(\w{2,3}(\-\w{2,4})?)/g.exec(value);
 
-  if (match) return match[1];
-  return value;
-}
+//   if (match) return match[1];
+//   return value;
+// }
 
 function extractLanguageCodeFromTemplate(value: string): string {
   const match = /:(\w{2})/.exec(value);

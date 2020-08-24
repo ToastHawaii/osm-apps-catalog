@@ -19,47 +19,43 @@ const topicSelect = new (SlimSelect as any)({
   select: "#topic",
   placeholder: "Topic",
   onChange: () => {
-    if (!onUpdate) {
-      onUpdate = true;
-      update(
-        (document.getElementById("search") as HTMLInputElement).value,
-        topicSelect.selected(),
-        languageSelect.selected()
-      );
-      onUpdate = false;
-    }
+    doUpdate();
+  }
+});
+const platformSelect = new (SlimSelect as any)({
+  select: "#platform",
+  placeholder: "Platform",
+  onChange: () => {
+    doUpdate();
   }
 });
 const languageSelect = new (SlimSelect as any)({
   select: "#language",
   placeholder: "Language",
   onChange: () => {
-    if (!onUpdate) {
-      onUpdate = true;
-      update(
-        (document.getElementById("search") as HTMLInputElement).value,
-        topicSelect.selected(),
-        languageSelect.selected()
-      );
-      onUpdate = false;
-    }
+    doUpdate();
   }
 });
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
   () => {
-    if (!onUpdate) {
-      onUpdate = true;
-      update(
-        (document.getElementById("search") as HTMLInputElement).value,
-        topicSelect.selected(),
-        languageSelect.selected()
-      );
-      onUpdate = false;
-    }
+    doUpdate();
   }
 );
+
+function doUpdate() {
+  if (!onUpdate) {
+    onUpdate = true;
+    update(
+      (document.getElementById("search") as HTMLInputElement).value,
+      topicSelect.selected(),
+      platformSelect.selected(),
+      languageSelect.selected()
+    );
+    onUpdate = false;
+  }
+}
 
 function includesArray(arr: any[], target: any[]) {
   return target.every(v => arr.includes(v));
@@ -73,17 +69,16 @@ export function removeDuplicates<T>(arr: T[]) {
 function update(
   search: string = "",
   topic: string[] = [],
+  platform: string[] = [],
   language: string[] = []
 ) {
   getHtmlElement(".apps").innerHTML = "";
-
-  let topicData: string[] = [];
-  let languageData: string[] = [];
 
   let filteredApps = apps;
 
   search = search.toUpperCase();
   const topicUp = topic.map(t => t.toUpperCase());
+  const platformUp = platform.map(t => t.toUpperCase());
   const languageUp = language.map(t => t.toUpperCase());
 
   if (search)
@@ -91,7 +86,9 @@ function update(
       a =>
         a.name.toUpperCase().search(search) !== -1 ||
         a.description.toUpperCase().search(search) !== -1 ||
-        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length >
+          0 ||
+        a.platform.filter(t => t.toUpperCase().search(search) !== -1).length > 0
     );
 
   if (topicUp.length > 0)
@@ -99,6 +96,14 @@ function update(
       includesArray(
         a.topics.map(t => t.toUpperCase()),
         topicUp
+      )
+    );
+
+  if (platformUp.length > 0)
+    filteredApps = filteredApps.filter(a =>
+      includesArray(
+        a.platform.map(t => t.toUpperCase()),
+        platformUp
       )
     );
 
@@ -110,23 +115,22 @@ function update(
       )
     );
 
-  if (search)
-    filteredApps = filteredApps.filter(
-      a =>
-        a.name.toUpperCase().search(search) !== -1 ||
-        a.description.toUpperCase().search(search) !== -1 ||
-        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length > 0
-    );
+  let topicData: string[] = [];
+  let platformData: string[] = [];
+  let languageData: string[] = [];
 
   for (const a of filteredApps) {
     topicData.push(...a.topics.map(t => t));
+    platformData.push(...a.platform.map(t => t));
     languageData.push(...a.languages.map(l => l));
   }
 
   topicData = removeDuplicates(topicData);
+  platformData = removeDuplicates(platformData);
   languageData = removeDuplicates(languageData);
 
   topicData.sort();
+  platformData.sort();
   languageData.sort();
 
   topicSelect.setData(
@@ -135,6 +139,13 @@ function update(
     })
   );
   topicSelect.set(topic);
+
+  platformSelect.setData(
+    platformData.map(t => {
+      return { value: t, text: t };
+    })
+  );
+  platformSelect.set(platform);
 
   languageSelect.setData(
     languageData.map(t => {
@@ -167,7 +178,8 @@ async function getAppCatalog() {
     console.info("get catalog from cache");
 
     apps = get(`${lang}-apps`) || [];
-    update((document.getElementById("search") as HTMLInputElement).value);
+
+    doUpdate();
   }
 
   if (apps.length === 0) {
@@ -219,7 +231,7 @@ async function loadAppCatalog(language = "en") {
   }
 
   shuffleArray(apps);
-  update((document.getElementById("search") as HTMLInputElement).value);
+  doUpdate();
 
   const layerObjects = await requestTemplates("Layer", language);
 
@@ -234,7 +246,7 @@ async function loadAppCatalog(language = "en") {
 
     addApp(obj);
   }
-  update((document.getElementById("search") as HTMLInputElement).value);
+  doUpdate();
 
   const softwareObjects = await requestTemplates("Software", language);
 
@@ -249,7 +261,7 @@ async function loadAppCatalog(language = "en") {
 
     addApp(obj);
   }
-  update((document.getElementById("search") as HTMLInputElement).value);
+  doUpdate();
 }
 
 getAppCatalog();
