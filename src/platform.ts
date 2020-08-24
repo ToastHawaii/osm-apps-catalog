@@ -99,7 +99,11 @@ const platforms: {
   { name: "Qt", synonym: ["qt"], version: [] },
   { name: "React Native", synonym: ["react native"], version: [] },
   { name: "Unity", synonym: ["unity"], version: [] },
-  { name: "Web", synonym: ["web", "web-based", "browser"], version: [] },
+  {
+    name: "Web",
+    synonym: ["web", "web-based", "webapp", "web-app", "browser"],
+    version: []
+  },
   {
     name: "Software for miscellaneous platforms",
     synonym: ["other"],
