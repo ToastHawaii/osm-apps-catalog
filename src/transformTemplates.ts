@@ -11,6 +11,15 @@ export type App = {
   sourceCode?: string;
   languages: string[];
   topics: string[];
+  install: {
+    asin?: string;
+    bbWorldID?: string;
+    fDroidID?: string;
+    googlePlayID?: string;
+    appleStoreID?: string;
+    macAppStoreID?: string;
+    microsoftAppID?: string;
+  };
 };
 
 export function transformSoftware(source: { [name: string]: string }) {
@@ -33,7 +42,16 @@ export function transformSoftware(source: { [name: string]: string }) {
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
-      .map(firstLetterToUpperCase)
+      .map(firstLetterToUpperCase),
+    install: {
+      asin: source["asin"],
+      bbWorldID: source["bbWorldID"],
+      fDroidID: source["fDroidID"],
+      googlePlayID: source["googlePlayID"],
+      appleStoreID: source["appleStoreID"],
+      macAppStoreID: source["macAppStoreID"],
+      microsoftAppID: source["microsoftAppID"]
+    }
   };
   obj.topics.push(
     ...(source["platform"] || "")
@@ -146,7 +164,8 @@ export function transformLayer(source: { [name: string]: string }) {
       .map(extractLanguageCodeFromLocal)
       .filter(v => v)
       .map(v => v.toLowerCase()),
-    topics: []
+    topics: [],
+    install: {}
   };
   return obj;
 }
@@ -169,7 +188,8 @@ export function transformServiceItem(source: { [name: string]: string }) {
       .map(trim)
       .filter(v => v)
       .map(firstLetterToUpperCase)
-      .sort()
+      .sort(),
+    install: {}
   };
 
   let name = extractNameWebsiteWiki(source["name"]);
