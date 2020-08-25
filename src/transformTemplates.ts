@@ -220,7 +220,7 @@ export function transformServiceItem(source: { [name: string]: string }) {
   let name = extractNameWebsiteWiki(source["name"]);
   obj.name = name.name || obj.name;
   obj.website = name.website;
-  obj.wiki = obj.wiki || name.wiki || "";
+  obj.wiki = name.wiki || obj.wiki;
   return obj;
 }
 
@@ -271,7 +271,7 @@ function extractNameWebsiteWiki(value: string = "") {
     }
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
 
     const match = regex.exec(value);
 
@@ -282,7 +282,7 @@ function extractNameWebsiteWiki(value: string = "") {
     }
   }
   {
-    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
+    const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
     const match = regex.exec(value);
 
@@ -295,7 +295,7 @@ function extractNameWebsiteWiki(value: string = "") {
   }
 
   {
-    const regex = /\[\[(.*)\]\]/g;
+    const regex = /\[\[([^\]]*)\]\]/g;
 
     const match = regex.exec(value);
 
@@ -320,7 +320,7 @@ function extractWebsite(value: string = "") {
     }
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
 
     const match = regex.exec(value);
 
@@ -329,7 +329,7 @@ function extractWebsite(value: string = "") {
     }
   }
   {
-    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
+    const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
     const match = regex.exec(value);
 
@@ -375,7 +375,7 @@ function extractRepo(value: string = "") {
 
 function processWikiText(text: string = "") {
   {
-    const regex = /\[\[:wikipedia:(.*(?![^\|]))(\|(.*))?\]\]/g;
+    const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
     const match = regex.exec(text);
 
@@ -387,7 +387,7 @@ function processWikiText(text: string = "") {
     }
   }
   {
-    const regex = /\[\[:wikipedia:(.*)\]\]/g;
+    const regex = /\[\[:wikipedia:([^\]]*)\]\]/g;
 
     const match = regex.exec(text);
 
@@ -399,7 +399,7 @@ function processWikiText(text: string = "") {
     }
   }
   {
-    const regex = /\[\[(.*(?![^\|]))(\|(.*))?\]\]/g;
+    const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
     const match = regex.exec(text);
 
@@ -411,7 +411,7 @@ function processWikiText(text: string = "") {
     }
   }
   {
-    const regex = /\[\[(.*)\]\]/g;
+    const regex = /\[\[([^\]]*)\]\]/g;
 
     const match = regex.exec(text);
 
@@ -436,7 +436,7 @@ function processWikiText(text: string = "") {
     }
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) (.*)\])/g;
+    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
 
     const match = regex.exec(text);
 
