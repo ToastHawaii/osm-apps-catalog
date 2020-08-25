@@ -10,6 +10,11 @@ body {
   color: #333;
 }
 
+a {
+  text-decoration: none;
+  color: #007aff;
+}
+
 .info {
   float: right;
   color: black;

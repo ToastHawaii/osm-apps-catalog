@@ -29,15 +29,14 @@ export function render(obj: App) {
             : `<img class="img" src="${defaultImage}"/>`
         }
       </div>
-      <div class="description">${obj.description}</div>
+      <div class="description">${obj.description} ${
+      obj.wiki
+        ? `<a href="${obj.wiki}" target="_blank">Wiki</a>`
+        : ""
+    }</div>
       ${
         obj.website
           ? `<a class="link" href="${obj.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
-          : ""
-      }
-      ${
-        obj.wiki
-          ? `<a class="link" href="${obj.wiki}" target="_blank" title="Wiki"><i class="fas fa-atlas"></i></a>`
           : ""
       }
       ${
