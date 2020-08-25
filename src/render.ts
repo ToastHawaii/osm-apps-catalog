@@ -30,18 +30,11 @@ export function render(obj: App) {
         }
       </div>
       <div class="description">${obj.description} ${
-      obj.wiki
-        ? `<a href="${obj.wiki}" target="_blank">Wiki</a>`
-        : ""
+      obj.wiki ? `<a href="${obj.wiki}" target="_blank">Wiki</a>` : ""
     }</div>
       ${
         obj.website
           ? `<a class="link" href="${obj.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
-          : ""
-      }
-      ${
-        obj.sourceCode
-          ? `<a class="link" href="${obj.sourceCode}" target="_blank" title="Source code"><i class="far fa-file-code"></i></a>`
           : ""
       }
 
@@ -103,9 +96,48 @@ export function render(obj: App) {
             yiq >= 128 ? "black" : "white"
           };">${t}</span>`;
         })
-        .join("")}</div>`,
+        .join("")}</div>
+
+        ${
+          obj.author || obj.sourceCode
+            ? `
+            <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
+            <div class="more-infos" style="display:none;">
+        <div class="more-infos-title">Informations</div>
+        ${
+          obj.author
+            ? `<div class="more-info">
+          <span class="more-info-title">Author</span> <span class="more-info-text">${obj.author}</span>
+        </div>`
+            : ""
+        }
+        ${
+          obj.sourceCode
+            ? `<a class="more-info" href="${obj.sourceCode}" target="_blank">
+          <span class="more-info-title">Source code</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
+        </a>`
+            : ""
+        }
+        </div>`
+            : ""
+        }
+
+        `,
     ["app"]
   );
+
+  const moreButton = element.querySelector(
+    ".more-infos-button"
+  ) as HTMLButtonElement;
+
+  const moreInfos = element.querySelector(".more-infos") as HTMLElement;
+
+  moreButton?.addEventListener("click", ev => {
+    moreButton?.setAttribute("style", "display: none;");
+    moreInfos?.setAttribute("style", "");
+
+    ev.preventDefault();
+  });
 
   getHtmlElement(".apps").appendChild(element);
 }

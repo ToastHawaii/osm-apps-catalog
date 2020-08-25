@@ -92,6 +92,51 @@ a {
 .app .topics {
   font-size: small;
   padding-top: 4px;
+  display: block;
+}
+
+.app .more-infos {
+  clear: both;
+  padding-top: 12px;
+}
+
+.app .more-infos-button {
+  background: none;
+  border: none;
+  display: block;
+  clear: both;
+  text-align: center;
+  width: 100%;
+  padding-top: 8px;
+
+  color: gray;
+}
+
+.app .more-infos-title {
+  font-weight: bold;
+}
+
+.app .more-info {
+  border-bottom: 1px solid lightgray;
+  padding: 10px 2px;
+  font-size: small;
+  display: block;
+}
+
+.app .more-infos .more-info:last-child {
+  border-bottom: none;
+  padding: 10px 2px 0 2px;
+}
+
+.app .more-info-title {
+  color: gray;
+}
+.app a .more-info-title {
+  text-decoration: none;
+  color: #007aff;
+}
+.app .more-info-text {
+  float: right;
 }
 
 .app .link {
