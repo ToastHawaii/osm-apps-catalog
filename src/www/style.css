@@ -123,6 +123,12 @@ a {
   display: block;
 }
 
+.app .more-info::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
 .app .more-infos .more-info:last-child {
   border-bottom: none;
   padding: 10px 2px 0 2px;

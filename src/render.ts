@@ -99,7 +99,7 @@ export function render(obj: App) {
         .join("")}</div>
 
         ${
-          obj.author || obj.sourceCode
+          obj.author || obj.platform.length > 0 || obj.languages.length > 0 || obj.sourceCode
             ? `
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">
@@ -108,6 +108,20 @@ export function render(obj: App) {
           obj.author
             ? `<div class="more-info">
           <span class="more-info-title">Author</span> <span class="more-info-text">${obj.author}</span>
+        </div>`
+            : ""
+        }
+        ${
+          obj.platform.length > 0
+            ? `<div class="more-info">
+          <span class="more-info-title">Platforms</span> <span class="more-info-text">${obj.platform.join(", ")}</span>
+        </div>`
+            : ""
+        }
+        ${
+          obj.languages.length > 0
+            ? `<div class="more-info">
+          <span class="more-info-title">Languages</span> <span class="more-info-text">${obj.languages.join(", ")}</span>
         </div>`
             : ""
         }

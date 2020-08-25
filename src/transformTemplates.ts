@@ -53,6 +53,8 @@ export function transformSoftware(source: { [name: string]: string }) {
       .filter(v => v)
       .map(firstLetterToUpperCase),
     platform: (source["platform"] || "")
+      .replace(/\[\[/g, "")
+      .replace(/\]\]/g, "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
@@ -67,6 +69,9 @@ export function transformSoftware(source: { [name: string]: string }) {
       microsoftAppID: source["microsoftAppID"]
     }
   };
+
+  obj.platform = removeDuplicates(obj.platform).sort();
+  obj.languages = removeDuplicates(obj.languages).sort();
 
   if (
     (source["tracking"] || "") &&
@@ -167,11 +172,11 @@ export function transformLayer(source: { [name: string]: string }) {
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractRepo(source["repo"])),
     author: (source["author"] || "")
-    .split(splitByCommaButNotInsideBraceRegex)
-    .map(trim)
-    .filter(v => v)
-    .map(v => processWikiText(v))
-    .join(", "),
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter(v => v)
+      .map(v => processWikiText(v))
+      .join(", "),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -181,6 +186,8 @@ export function transformLayer(source: { [name: string]: string }) {
     platform: ["Web"],
     install: {}
   };
+
+  obj.languages = removeDuplicates(obj.languages).sort();
   return obj;
 }
 
@@ -206,6 +213,9 @@ export function transformServiceItem(source: { [name: string]: string }) {
     platform: [],
     install: {}
   };
+
+  obj.languages = removeDuplicates(obj.languages).sort();
+  obj.topics = removeDuplicates(obj.topics).sort();
 
   let name = extractNameWebsiteWiki(source["name"]);
   obj.name = name.name || obj.name;
