@@ -166,6 +166,12 @@ export function transformLayer(source: { [name: string]: string }) {
     website: toUrl(extractWebsite(source["slippy_web"])),
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractRepo(source["repo"])),
+    author: (source["author"] || "")
+    .split(splitByCommaButNotInsideBraceRegex)
+    .map(trim)
+    .filter(v => v)
+    .map(v => processWikiText(v))
+    .join(", "),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
