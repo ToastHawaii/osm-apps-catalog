@@ -54,6 +54,12 @@
     />
 
     <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        // sw.js can literally be empty, but must exist
+        navigator.serviceWorker.register("/sw.js");
+      }
+    </script>
   </head>
   <body>
     <a class="info" href="/docs"><i class="fas fa-info-circle"></i></a>
