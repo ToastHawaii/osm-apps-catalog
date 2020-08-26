@@ -3,16 +3,27 @@
   <head>
     <title>OSM Apps Catalog</title>
     <meta charset="utf-8" />
+    <link rel="manifest" href="https://osm-apps.zottelig.ch/icons/manifest.json" />
     <meta
       name="viewport"
-      content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta
       name="description"
       content="Experience the world in a creative, productive and unexpected way."
     />
 
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="OSM Apps" />
+    <meta name="apple-mobile-web-app-title" content="OSM Apps" />
+    <meta name="theme-color" content="#90ee90" />
+    <meta name="msapplication-navbutton-color" content="#90ee90" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="msapplication-starturl" content="/" />
 
     <link
       rel="apple-touch-icon"
@@ -32,25 +43,19 @@
       href="https://osm-apps.zottelig.ch/icons/favicon-16x16.png"
     />
     <link
-      rel="manifest"
-      href="https://osm-apps.zottelig.ch/icons/site.webmanifest"
-    />
-    <link
       rel="mask-icon"
       href="https://osm-apps.zottelig.ch/icons/safari-pinned-tab.svg"
-      color="#da532c"
+      color="#90ee90"
     />
     <link
       rel="shortcut icon"
       href="https://osm-apps.zottelig.ch/icons/favicon.ico"
     />
-    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-TileColor" content="#90ee90" />
     <meta
       name="msapplication-config"
       content="https://osm-apps.zottelig.ch/icons/browserconfig.xml"
     />
-    <meta name="theme-color" content="#ffffff" />
-
     <link rel="stylesheet" href="lib/slimselect.min.css" type="text/css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
@@ -64,9 +69,10 @@
     <a class="info" href="/docs"><i class="fas fa-info-circle"></i></a>
     <h1>OSM Apps Catalog</h1>
     <input type="search" id="search" placeholder="Search" />
-    <select id="topic" multiple> </select>
-    <select id="platform" multiple> </select>
-    <select id="language" multiple> </select>
+    <select id="topic" multiple></select>
+    <select id="platform" multiple></select>
+    <select id="language" multiple></select>
     <div class="apps"></div>
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
