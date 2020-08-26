@@ -29,7 +29,7 @@ export type App = {
 export function transformSoftware(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    description: processWikiText(source["description"] || ""),
+    description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
     wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
@@ -166,7 +166,7 @@ export function transformSoftware(source: { [name: string]: string }) {
 export function transformLayer(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    description: processWikiText(source["description"] || ""),
+    description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),
     wiki: toWikiUrl(source.sourceWiki) || "",
@@ -194,7 +194,7 @@ export function transformLayer(source: { [name: string]: string }) {
 export function transformServiceItem(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    description: processWikiText(source["descr"] || ""),
+    description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
     wiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: extractWebsite(source["material"]),
@@ -246,6 +246,11 @@ function extractLanguageCodeFromTemplate(value: string): string {
 
 function firstLetterToUpperCase(value: string): string {
   return `${value[0].toUpperCase()}${value.slice(1)}`;
+}
+
+function appendFullStop(value: string): string {
+  if (value && value[value.length - 1] !== ".") return `${value}.`;
+  return value;
 }
 
 function trim(value: string): string {
