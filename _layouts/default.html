@@ -3,13 +3,22 @@
   <head>
     <title>{{ page.title }}</title>
     <meta charset="utf-8" />
+    <link rel="manifest" href="/manifest.json" />
     <meta
       name="viewport"
-      content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="description" content="{{ page.description }}" />
 
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="OSM Apps" />
+    <meta name="apple-mobile-web-app-title" content="OSM Apps" />
+    <meta name="theme-color" content="#90ee90" />
+    <meta name="msapplication-navbutton-color" content="#90ee90" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="msapplication-starturl" content="/" />
+
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -27,18 +36,17 @@
       sizes="16x16"
       href="/icons/favicon-16x16.png"
     />
-    <link rel="manifest" href="/icons/site.webmanifest" />
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#734a08" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#90ee90" />
     <link rel="shortcut icon" href="/icons/favicon.ico" />
-    <meta name="msapplication-TileColor" content="#ffc40d" />
+    <meta name="msapplication-TileColor" content="#90ee90" />
     <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-    <meta name="theme-color" content="#ffffff" />
 
     {% seo %}
 
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
       rel="stylesheet"
+      type="text/css"
     />
     <link
       rel="stylesheet"
@@ -48,26 +56,11 @@
           | relative_url
       }}"
     />
-    <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
-    <style>
-      @media (prefers-color-scheme: dark) {
-        html {
-          filter: invert(100%) hue-rotate(180deg);
-        }
 
-        html img,
-        html input[type="image"] {
-          filter: invert(100%) hue-rotate(-180deg);
-        }
-      }
-    </style>
+    <script src="/serviceWorkerRegister.js"></script>
   </head>
   <body>
-    <div class="container-lg px-3 my-5 markdown-body">
-      {{ content }}
-    </div>
+    <div class="container-lg px-3 my-5 markdown-body">{{ content }}</div>
 
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
   </body>
