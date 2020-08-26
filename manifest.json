@@ -4,6 +4,7 @@
     "description": "Experience the world in a creative, productive and unexpected way.",
     "lang": "en",
     "start_url": "/",
+    "scope": "/",
     "display": "standalone",
     "theme_color": "#90ee90",
     "background_color": "#ffffff",
