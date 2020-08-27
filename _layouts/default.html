@@ -12,8 +12,8 @@
 
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="OSM Apps" />
-    <meta name="apple-mobile-web-app-title" content="OSM Apps" />
+    <meta name="application-name" content="{{ page.title }}" />
+    <meta name="apple-mobile-web-app-title" content="{{ page.title }}" />
     <meta name="theme-color" content="#90ee90" />
     <meta name="msapplication-navbutton-color" content="#90ee90" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -56,7 +56,18 @@
           | relative_url
       }}"
     />
+    <style>
+      @media (prefers-color-scheme: dark) {
+        html {
+          filter: invert(100%) hue-rotate(180deg);
+        }
 
+        html img,
+        html input[type="image"] {
+          filter: invert(100%) hue-rotate(-180deg);
+        }
+      }
+    </style>
     <script src="/serviceWorkerRegister.js"></script>
   </head>
   <body>
