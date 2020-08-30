@@ -375,92 +375,70 @@ function extractWebsite(value: string = "") {
 }
 
 function extractRepo(value: string = "") {
-  {
-    const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+  const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
 
-    const match = regex.exec(value);
-
-    if (match) {
-      return `https://github.com/${match[1]}`;
-    }
-  }
-
-  return value;
+  return value.replace(regex, `https://github.com/$1`);
 }
 
 function processWikiText(text: string = "") {
   {
     const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
-    const match = regex.exec(text);
-
-    if (match) {
-      text = text.replace(
-        regex,
-        `<a target="_blank" href="https://en.wikipedia.org/wiki/${match[1]}">${match[3]}</a>`
-      );
-    }
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://en.wikipedia.org/wiki/$1">$3</a>`
+    );
   }
   {
     const regex = /\[\[:wikipedia:([^\]]*)\]\]/g;
 
-    const match = regex.exec(text);
-
-    if (match) {
-      text = text.replace(
-        regex,
-        `<a target="_blank" href="https://en.wikipedia.org/wiki/${match[1]}">${match[1]}</a>`
-      );
-    }
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://en.wikipedia.org/wiki/$1">$1</a>`
+    );
   }
   {
-    const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+    const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
 
-    const match = regex.exec(text);
-
-    if (match) {
+    let match = regex.exec(text);
+    while (match) {
       text = text.replace(
         regex,
         `<a target="_blank" href="${toWikiUrl(match[1])}">${match[3]}</a>`
       );
+
+      match = regex.exec(text);
     }
   }
   {
-    const regex = /\[\[([^\]]*)\]\]/g;
+    const regex = /\[\[([^\]]*)\]\]/;
 
-    const match = regex.exec(text);
-
-    if (match) {
+    let match = regex.exec(text);
+    while (match) {
       text = text.replace(
         regex,
         `<a target="_blank" href="${toWikiUrl(match[1])}">${match[1]}</a>`
       );
+
+      match = regex.exec(text);
     }
   }
 
   {
     const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
 
-    const match = regex.exec(text);
-
-    if (match) {
-      text = text.replace(
-        regex,
-        `<a target="_blank" href="${match[2]}">${match[2]}</a>`
-      );
-    }
+    text = text.replace(regex, `<a target="_blank" href="$2">$2</a>`);
   }
   {
     const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
 
-    const match = regex.exec(text);
+    text = text.replace(regex, `<a target="_blank" href="$2">$6</a>`);
+  }
 
-    if (match) {
-      text = text.replace(
-        regex,
-        `<a target="_blank" href="${match[2]}">${match[6]}</a>`
-      );
-    }
+  {
+    const regex = /'''([^(''')]*)'''/g;
+
+    text = text.replace(regex, `<strong>$1</strong>`);
   }
 
   return text;
