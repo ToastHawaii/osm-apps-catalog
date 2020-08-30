@@ -74,10 +74,10 @@ export function transformSoftware(source: { [name: string]: string }) {
   obj.languages = removeDuplicates(obj.languages).sort();
 
   if (
-    (source["tracking"] || "") &&
-    (source["tracking"] || "").toUpperCase() !== "YES" &&
-    (source["tracking"] || "").toUpperCase() !== "NO" &&
-    (source["tracking"] || "").toUpperCase() !== "?"
+    (source["profiles"] || "") &&
+    (source["profiles"] || "").toUpperCase() !== "YES" &&
+    (source["profiles"] || "").toUpperCase() !== "NO" &&
+    (source["profiles"] || "").toUpperCase() !== "?"
   )
     obj.topics.push(
       ...(source["profiles"] || "")
@@ -115,14 +115,14 @@ export function transformSoftware(source: { [name: string]: string }) {
     (source["navigating"] || "").toUpperCase() === "YES" ||
     (source["navToPoint"] || "").toUpperCase() === "YES"
   )
-    obj.topics.push("Navigating");
+    obj.topics.push("Navi");
 
   if (
     (source["routing"] || "").toUpperCase() === "YES" ||
     (source["calculateRoute"] || "").toUpperCase() === "YES" ||
     (source["calculateRouteOffline"] || "").toUpperCase() === "YES"
   )
-    obj.topics.push("Routing");
+    obj.topics.push("Router");
 
   if ((source["3D"] || "").toUpperCase() === "YES") obj.topics.push("3D");
 

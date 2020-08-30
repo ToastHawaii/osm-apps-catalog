@@ -123,6 +123,21 @@ function update(
     languageData.push(...a.languages.map(l => l));
   }
 
+  const a: { name: string; count: number }[] = [];
+  for (const t of topicData) {
+    const b = a.filter(a => a.name.toUpperCase() === t.toUpperCase());
+
+    if (b.length > 0) {
+      b[0].count++;
+    } else {
+      a.push({ name: t, count: 1 });
+    }
+  }
+
+  for (const c of a) {
+    console.info(`${c.name}\t${c.count}`);
+  }
+
   topicData = removeDuplicates(topicData);
   platformData = removeDuplicates(platformData);
   languageData = removeDuplicates(languageData);
