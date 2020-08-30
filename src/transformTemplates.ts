@@ -214,6 +214,16 @@ export function transformServiceItem(source: { [name: string]: string }) {
     install: {}
   };
 
+  if (source["region"])
+    obj.topics.push(
+      `Local (${source["region"]
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter(v => v)
+        .map(firstLetterToUpperCase)
+        .join(", ")})`
+    );
+
   obj.languages = removeDuplicates(obj.languages).sort();
   obj.topics = removeDuplicates(obj.topics).sort();
 
