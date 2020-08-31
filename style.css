@@ -25,16 +25,13 @@ a {
 
 .app {
   width: 320px;
-  display: inline-block;
-  border: 1px solid gray;
+  max-width: calc(100% - 40px);
   padding: 10px;
   margin: 10px;
   vertical-align: top;
   text-align: left;
   display: inline-block;
   border: 1px solid rgba(34, 36, 38, 0.1);
-  padding: 10px;
-  margin: 10px;
   -webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
     0 2px 10px 0 rgba(34, 36, 38, 0.15);
   box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
@@ -50,6 +47,7 @@ a {
   flex-direction: row;
   min-height: 30px;
   width: 300px;
+  max-width: 100%;
   border: 1px solid #dcdee2;
   border-radius: 4px;
   background-color: #fff;
@@ -61,6 +59,7 @@ a {
 }
 .ss-main {
   width: 300px;
+  max-width: 100%;
 }
 
 #search,
@@ -74,14 +73,14 @@ a {
 .app .header a {
   text-decoration: none;
   color: #333;
+  max-width: 250px;
 }
 
 .app .name {
   font-weight: bold;
 }
-
 .app .img {
-  max-width: 250px;
+  max-width: 100%;
   max-height: 250px;
   margin: 6px 0;
 }
