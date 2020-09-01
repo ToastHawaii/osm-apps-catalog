@@ -14,6 +14,7 @@ export type App = {
   author?: string;
   sourceCode?: string;
   languages: string[];
+  languagesUrl?: string;
   platform: string[];
   install: {
     asin?: string;
@@ -47,6 +48,7 @@ export function transformSoftware(source: { [name: string]: string }) {
       .map(trim)
       .filter(v => v)
       .map(v => languageValueToDisplay(v)),
+    languagesUrl: toUrl(source["languagesurl"]),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -177,11 +179,12 @@ export function transformLayer(source: { [name: string]: string }) {
       .filter(v => v)
       .map(v => processWikiText(v))
       .join(", "),
-    languages: (source["lang"] || "")
+    languages: (source["tiles_languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(v => v)
       .map(v => languageValueToDisplay(v)),
+    languagesUrl: toUrl(source["tiles_languagesurl"]),
     topics: [],
     platform: ["Web"],
     install: {}
@@ -197,13 +200,14 @@ export function transformServiceItem(source: { [name: string]: string }) {
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
     wiki: toWikiUrl(source.sourceWiki) || "",
-    sourceCode: extractWebsite(source["material"]),
+    sourceCode: toUrl(extractWebsite(source["material"])),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)
       .map(trim)
       .filter(v => v)
       .map(v => languageValueToDisplay(v)),
+    languagesUrl: toUrl(extractWebsite(source["lang"])),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -248,7 +252,7 @@ export function containsOfflineLink(value: string) {
 // }
 
 function extractLanguageCodeFromTemplate(value: string): string {
-  const match = /:(\w{2})/.exec(value);
+  const match = /:([\w-]+)/.exec(value);
 
   if (match) return match[1];
   return value;
@@ -275,7 +279,7 @@ function extractNameWebsiteWiki(value: string = "") {
   } = { name: value };
 
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
 
     const match = regex.exec(value);
 
@@ -286,12 +290,12 @@ function extractNameWebsiteWiki(value: string = "") {
     }
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
 
     const match = regex.exec(value);
 
     if (match) {
-      obj.name = match[6];
+      obj.name = match[5];
       obj.website = match[2];
       value = value.replace(regex, "");
     }
@@ -326,7 +330,7 @@ function extractNameWebsiteWiki(value: string = "") {
 
 function extractWebsite(value: string = "") {
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
 
     const match = regex.exec(value);
 
@@ -335,7 +339,7 @@ function extractWebsite(value: string = "") {
     }
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
 
     const match = regex.exec(value);
 
@@ -353,7 +357,7 @@ function extractWebsite(value: string = "") {
     }
   }
   {
-    const regex = /{{URL\|((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+    const regex = /{{URL\|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
 
     const match = regex.exec(value);
 
@@ -362,7 +366,7 @@ function extractWebsite(value: string = "") {
     }
   }
   {
-    const regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/g;
+    const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
 
     const match = regex.exec(value);
 
@@ -425,14 +429,13 @@ function processWikiText(text: string = "") {
   }
 
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)\])/g;
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
 
     text = text.replace(regex, `<a target="_blank" href="$2">$2</a>`);
   }
   {
-    const regex = /(\[((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?) ([^\]]*)\])/g;
-
-    text = text.replace(regex, `<a target="_blank" href="$2">$6</a>`);
+    const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+    text = text.replace(regex, `<a target="_blank" href="$2">$5</a>`);
   }
 
   {

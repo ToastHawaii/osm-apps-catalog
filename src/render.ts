@@ -4,7 +4,6 @@ import { App } from "./transformTemplates";
 export function render(obj: App) {
   const defaultImage =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
-
   const element = createElement(
     "div",
     `<div class="header">
@@ -81,7 +80,6 @@ export function render(obj: App) {
           ? `<a class="link" href="http://www.windowsphone.com/s?appid=${obj.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
-
       <div class="topics">${obj.topics
         .map(t => {
           const background = textToColor(t);
@@ -99,7 +97,10 @@ export function render(obj: App) {
         .join("")}</div>
 
         ${
-          obj.author || obj.platform.length > 0 || obj.languages.length > 0 || obj.sourceCode
+          obj.author ||
+          obj.platform.length > 0 ||
+          obj.languages.length > 0 ||
+          obj.sourceCode
             ? `
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">
@@ -114,14 +115,26 @@ export function render(obj: App) {
         ${
           obj.platform.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Platforms</span> <span class="more-info-text">${obj.platform.join(", ")}</span>
+          <span class="more-info-title">Platforms</span> <span class="more-info-text">${obj.platform.join(
+            ", "
+          )}</span>
         </div>`
             : ""
         }
         ${
-          obj.languages.length > 0
+          obj.languagesUrl
+            ? `<a class="more-info" href="${obj.languagesUrl}" target="_blank">
+                <span class="more-info-title">Languages</span> <span class="more-info-text">${
+                  obj.languages.length > 0
+                    ? obj.languages.join(", ")
+                    : `<i class="fas fa-language"></i>`
+                }</span>
+              </a>`
+            : obj.languages.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Languages</span> <span class="more-info-text">${obj.languages.join(", ")}</span>
+          <span class="more-info-title">Languages</span> <span class="more-info-text">${obj.languages.join(
+            ", "
+          )}</span>
         </div>`
             : ""
         }
