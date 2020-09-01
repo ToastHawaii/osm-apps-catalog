@@ -216,12 +216,12 @@ export function transformServiceItem(source: { [name: string]: string }) {
 
   if (source["region"])
     obj.topics.push(
-      `Local (${source["region"]
+      `Coverage: ${source["region"]
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter(v => v)
         .map(firstLetterToUpperCase)
-        .join(", ")})`
+        .join(", ")}`
     );
 
   obj.languages = removeDuplicates(obj.languages).sort();
