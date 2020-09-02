@@ -1,3 +1,5 @@
+import { equalsIgnoreCase } from "./utilities/string";
+
 const languages: {
   code: string;
   display: string;
@@ -81,8 +83,7 @@ const languages: {
 
 export function languageValueToDisplay(value: string) {
   for (const language of languages) {
-    if (language.code.toUpperCase() === value.toUpperCase())
-      return language.display;
+    if (equalsIgnoreCase(language.code, value)) return language.display;
   }
   return value;
 }

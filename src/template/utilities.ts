@@ -25,7 +25,7 @@ export type App = {
 
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
 
-export function containsOfflineLink(value: string) {
+export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);
 }
 

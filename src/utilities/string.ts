@@ -44,3 +44,15 @@ export function appendFullStop(value: string): string {
 export function trim(value: string): string {
   return value.replace(/^[\.\s]+|[\.\s]+$/gm, "");
 }
+
+export function textToColor(s: string) {
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (i % 3 === 0) r = (r + s.charCodeAt(i)) % 256;
+    else if (i % 3 === 1) g = (g + s.charCodeAt(i)) % 256;
+    else b = (b + s.charCodeAt(i)) % 256;
+  }
+  return { r, g, b };
+}

@@ -1,3 +1,5 @@
+import { equalsIgnoreCase } from "./utilities/string";
+
 const platforms: {
   name: string;
   synonym: string[];
@@ -114,17 +116,11 @@ const platforms: {
 export function platformValueToDisplay(value: string) {
   for (const platform of platforms) {
     for (const version of platform.version) {
-      if (
-        version.synonym.filter(s => s.toUpperCase() === value.toUpperCase())
-          .length > 0
-      )
+      if (version.synonym.filter(s => equalsIgnoreCase(s, value)).length > 0)
         return platform.name;
     }
 
-    if (
-      platform.synonym.filter(s => s.toUpperCase() === value.toUpperCase())
-        .length > 0
-    )
+    if (platform.synonym.filter(s => equalsIgnoreCase(s, value)).length > 0)
       return platform.name;
   }
   return value;

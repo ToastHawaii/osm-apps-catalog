@@ -10,6 +10,7 @@ import { render } from "./render";
 import { removeDuplicates, shuffle, includes } from "./utilities/array";
 import { equalsIgnoreCase } from "./utilities/string";
 import { App, containsOfflineLink } from "./template/utilities";
+import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 let onUpdate = false;
 let apps: App[] = [];
 
@@ -104,9 +105,9 @@ function update(
       )
     );
 
-  let topicData: string[] = [];
-  let platformData: string[] = [];
-  let languageData: string[] = [];
+  const topicData: string[] = [];
+  const platformData: string[] = [];
+  const languageData: string[] = [];
 
   for (const a of filteredApps) {
     topicData.push(...a.topics.map(t => t));
@@ -130,7 +131,7 @@ function update(
   lazyLoadImages();
 }
 
-const lang = (findGetParameter("lang") || "en").toLowerCase();
+const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
 
 function saveAppCatalog() {
   set(`${lang}-apps`, apps);
@@ -164,9 +165,7 @@ async function getAppCatalog() {
 }
 
 function addApp(obj: App) {
-  const duplicates = apps.filter(
-    a => a.name.toUpperCase() === obj.name.toUpperCase()
-  );
+  const duplicates = apps.filter(a => equalsIgnoreCase(a.name, obj.name));
 
   if (duplicates.length === 0) apps.push(obj);
   else {
@@ -209,7 +208,7 @@ function addApp(obj: App) {
 async function loadAppCatalog(language = "en") {
   const serviceItemObjects = await requestTemplates("Service item", language);
   for (const source of serviceItemObjects.filter(
-    s => !containsOfflineLink(s["name"] || "")
+    s => !containsOfflineLink(s["name"])
   )) {
     const obj: App = transformServiceItem(source);
 
@@ -224,9 +223,8 @@ async function loadAppCatalog(language = "en") {
   for (const source of layerObjects.filter(
     s =>
       !(
-        containsOfflineLink(s["name"] || "") ||
-        containsOfflineLink(s["slippy_web"] || "")
-      ) && !((s["discontinued"] || "").toUpperCase() === "YES")
+        containsOfflineLink(s["name"]) || containsOfflineLink(s["slippy_web"])
+      ) && !equalsIgnoreCase(s["discontinued"], "YES")
   )) {
     const obj: App = transformLayer(source);
 
@@ -238,29 +236,14 @@ async function loadAppCatalog(language = "en") {
 
   for (const source of softwareObjects.filter(
     s =>
-      !(
-        containsOfflineLink(s["name"] || "") ||
-        containsOfflineLink(s["web"] || "")
-      ) && !((s["status"] || "").toUpperCase() === "BROKEN")
+      !(containsOfflineLink(s["name"]) || containsOfflineLink(s["web"])) &&
+      !equalsIgnoreCase(s["status"], "BROKEN")
   )) {
     const obj: App = transformSoftware(source);
 
     addApp(obj);
   }
   doUpdate();
-}
-
-function findGetParameter(parameterName: string) {
-  let result: string | undefined;
-  let tmp = [];
-  location.search
-    .substr(1)
-    .split("&")
-    .forEach(function (item) {
-      tmp = item.split("=");
-      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-    });
-  return result;
 }
 
 getAppCatalog();

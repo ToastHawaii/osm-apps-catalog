@@ -1,5 +1,6 @@
 import { createElement, getHtmlElement } from "./utilities/html";
 import { App } from "./template/utilities";
+import { textToColor } from "./utilities/string";
 
 export function render(obj: App) {
   const defaultImage =
@@ -167,16 +168,4 @@ export function render(obj: App) {
   });
 
   getHtmlElement(".apps").appendChild(element);
-}
-
-export function textToColor(s: string) {
-  let r = 0;
-  let g = 0;
-  let b = 0;
-  for (let i = 0; i < s.length; i++) {
-    if (i % 3 === 0) r = (r + s.charCodeAt(i)) % 256;
-    else if (i % 3 === 1) g = (g + s.charCodeAt(i)) % 256;
-    else b = (b + s.charCodeAt(i)) % 256;
-  }
-  return { r, g, b };
 }

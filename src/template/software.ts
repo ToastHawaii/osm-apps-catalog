@@ -64,12 +64,7 @@ export function transform(source: { [name: string]: string }) {
   obj.platform = removeDuplicates(obj.platform).sort();
   obj.languages = removeDuplicates(obj.languages).sort();
 
-  if (
-    (source["profiles"] || "") &&
-    (source["profiles"] || "").toUpperCase() !== "YES" &&
-    (source["profiles"] || "").toUpperCase() !== "NO" &&
-    (source["profiles"] || "").toUpperCase() !== "?"
-  )
+  if (hasValue(source["profiles"]))
     obj.topics.push(
       ...(source["profiles"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
@@ -78,12 +73,7 @@ export function transform(source: { [name: string]: string }) {
         .map(firstLetterToUpperCase)
     );
 
-  if (
-    (source["accessibility"] || "") &&
-    (source["accessibility"] || "").toUpperCase() !== "YES" &&
-    (source["accessibility"] || "").toUpperCase() !== "NO" &&
-    (source["accessibility"] || "").toUpperCase() !== "?"
-  ) {
+  if (hasValue(source["accessibility"])) {
     obj.topics.push(
       ...(source["accessibility"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
@@ -93,42 +83,37 @@ export function transform(source: { [name: string]: string }) {
     );
     obj.topics.push("Accessibility");
   }
-  if ((source["accessibility"] || "").toUpperCase() === "YES")
-    obj.topics.push("Accessibility");
+  if (equalsYes(source["accessibility"])) obj.topics.push("Accessibility");
 
-  if ((source["tracking"] || "").toUpperCase() === "YES")
-    obj.topics.push("Tracking");
+  if (equalsYes(source["tracking"])) obj.topics.push("Tracking");
 
-  if ((source["monitoring"] || "").toUpperCase() === "YES")
-    obj.topics.push("Monitoring");
+  if (equalsYes(source["monitoring"])) obj.topics.push("Monitoring");
 
-  if (
-    (source["navigating"] || "").toUpperCase() === "YES" ||
-    (source["navToPoint"] || "").toUpperCase() === "YES"
-  )
+  if (equalsYes(source["navigating"], source["navToPoint"]))
     obj.topics.push("Navi");
 
   if (
-    (source["routing"] || "").toUpperCase() === "YES" ||
-    (source["calculateRoute"] || "").toUpperCase() === "YES" ||
-    (source["calculateRouteOffline"] || "").toUpperCase() === "YES"
+    equalsYes(
+      source["routing"],
+      source["calculateRoute"],
+      source["calculateRouteOffline"]
+    )
   )
     obj.topics.push("Router");
 
-  if ((source["3D"] || "").toUpperCase() === "YES") obj.topics.push("3D");
-
-  if ((source["findLocation"] || "").toUpperCase() === "YES")
-    obj.topics.push("Search");
-  if ((source["findNearbyPOI"] || "").toUpperCase() === "YES")
-    obj.topics.push("POI");
+  if (equalsYes(source["3D"])) obj.topics.push("3D");
+  if (equalsYes(source["findLocation"])) obj.topics.push("Search");
+  if (equalsYes(source["findNearbyPOI"])) obj.topics.push("POI");
 
   if (
-    (source["addPOI"] || "").toUpperCase() === "YES" ||
-    (source["addWay"] || "").toUpperCase() === "YES" ||
-    (source["editPOI"] || "").toUpperCase() === "YES" ||
-    (source["editTags"] || "").toUpperCase() === "YES" ||
-    (source["editGeom"] || "").toUpperCase() === "YES" ||
-    (source["editRelations"] || "").toUpperCase() === "YES"
+    equalsYes(
+      source["addPOI"],
+      source["addWay"],
+      source["editPOI"],
+      source["editTags"],
+      source["editGeom"],
+      source["editRelations"]
+    )
   )
     obj.topics.push("Editor");
 
@@ -153,4 +138,15 @@ export function transform(source: { [name: string]: string }) {
     obj.wiki = name.wiki || obj.wiki;
   }
   return obj;
+}
+
+function hasValue(value: string = "") {
+  value = value.toUpperCase();
+  return value && value !== "YES" && value !== "NO" && value !== "?";
+}
+
+function equalsYes(...values: (string | undefined)[]) {
+  for (const value of values) if (value?.toUpperCase() === "YES") return true;
+
+  return false;
 }
