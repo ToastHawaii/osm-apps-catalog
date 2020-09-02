@@ -1,8 +1,8 @@
 import { toWikimediaUrl } from "./utilities/image";
 import { toWikiUrl, toUrl } from "./utilities/url";
-import { removeDuplicates } from "./script";
 import { platformValueToDisplay } from "./platform";
 import { languageValueToDisplay } from "./language";
+import { removeDuplicates } from "./utilities/array";
 
 export type App = {
   name: string;

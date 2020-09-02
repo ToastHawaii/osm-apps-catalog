@@ -11,6 +11,8 @@ import {
 import { lazyLoadImages } from "./lazyLoadImages";
 import { set, get } from "./utilities/storage";
 import { render } from "./render";
+import { removeDuplicates, shuffle, include } from "./utilities/array";
+import { equalsIgnoreCase } from "./utilities/string";
 let onUpdate = false;
 let apps: App[] = [];
 const topicSelect = new (SlimSelect as any)({
@@ -55,15 +57,6 @@ function doUpdate() {
   }
 }
 
-function includesArray(arr: any[], target: any[]) {
-  return target.every(v => arr.includes(v));
-}
-export function removeDuplicates<T>(arr: T[]) {
-  return arr.filter((c, index) => {
-    return arr.indexOf(c) === index;
-  });
-}
-
 function update(
   search: string = "",
   topic: string[] = [],
@@ -91,7 +84,7 @@ function update(
 
   if (topicUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      includesArray(
+      include(
         a.topics.map(t => t.toUpperCase()),
         topicUp
       )
@@ -99,7 +92,7 @@ function update(
 
   if (platformUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      includesArray(
+      include(
         a.platform.map(t => t.toUpperCase()),
         platformUp
       )
@@ -107,7 +100,7 @@ function update(
 
   if (languageUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      includesArray(
+      include(
         a.languages.map(t => t.toUpperCase()),
         languageUp
       )
@@ -123,48 +116,13 @@ function update(
     languageData.push(...a.languages.map(l => l));
   }
 
-  const a: { name: string; count: number }[] = [];
-  for (const t of topicData) {
-    const b = a.filter(a => a.name.toUpperCase() === t.toUpperCase());
-
-    if (b.length > 0) {
-      b[0].count++;
-    } else {
-      a.push({ name: t, count: 1 });
-    }
-  }
-
-  for (const c of a) {
-    console.info(`${c.name}\t${c.count}`);
-  }
-
-  topicData = removeDuplicates(topicData);
-  platformData = removeDuplicates(platformData);
-  languageData = removeDuplicates(languageData);
-
-  topicData.sort();
-  platformData.sort();
-  languageData.sort();
-
-  topicSelect.setData(
-    topicData.map(t => {
-      return { value: t, text: t };
-    })
-  );
+  topicSelect.setData(prepareArrayForSelect(topicData));
   topicSelect.set(topic);
 
-  platformSelect.setData(
-    platformData.map(t => {
-      return { value: t, text: t };
-    })
-  );
+  platformSelect.setData(prepareArrayForSelect(platformData));
   platformSelect.set(platform);
 
-  languageSelect.setData(
-    languageData.map(t => {
-      return { value: t, text: t };
-    })
-  );
+  languageSelect.setData(prepareArrayForSelect(languageData));
   languageSelect.set(language);
 
   for (const a of filteredApps) {
@@ -201,7 +159,7 @@ async function getAppCatalog() {
     if (lang !== "en") await loadAppCatalog(lang);
     await loadAppCatalog();
 
-    shuffleArray(apps);
+    shuffle(apps);
 
     saveAppCatalog();
   }
@@ -260,7 +218,7 @@ async function loadAppCatalog(language = "en") {
     addApp(obj);
   }
 
-  shuffleArray(apps);
+  shuffle(apps);
   doUpdate();
 
   const layerObjects = await requestTemplates("Layer", language);
@@ -294,13 +252,6 @@ async function loadAppCatalog(language = "en") {
   doUpdate();
 }
 
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
 function findGetParameter(parameterName: string) {
   let result: string | undefined;
   let tmp = [];
@@ -315,3 +266,23 @@ function findGetParameter(parameterName: string) {
 }
 
 getAppCatalog();
+
+function prepareArrayForSelect(names: string[]) {
+  names.sort();
+  const nameCounts: { name: string; count: number }[] = [];
+  for (const name of names) {
+    const nameCountFiltered = nameCounts.filter(nc =>
+      equalsIgnoreCase(nc.name, name)
+    );
+
+    if (nameCountFiltered.length > 0) {
+      nameCountFiltered[0].count++;
+    } else {
+      nameCounts.push({ name: name, count: 1 });
+    }
+  }
+
+  return nameCounts.map(t => {
+    return { value: t.name, text: `${t.name} (${t.count})` };
+  });
+}
