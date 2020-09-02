@@ -1,20 +1,18 @@
 import { getHtmlElement } from "./utilities/html";
 import * as SlimSelect from "slim-select";
 import { requestTemplates } from "./crawler";
-import {
-  transformServiceItem,
-  transformSoftware,
-  App,
-  containsOfflineLink,
-  transformLayer
-} from "./transformTemplates";
+import { transform as transformSoftware } from "./template/software";
+import { transform as transformServiceItem } from "./template/serviceItem";
+import { transform as transformLayer } from "./template/layer";
 import { lazyLoadImages } from "./lazyLoadImages";
 import { set, get } from "./utilities/storage";
 import { render } from "./render";
-import { removeDuplicates, shuffle, include } from "./utilities/array";
+import { removeDuplicates, shuffle, includes } from "./utilities/array";
 import { equalsIgnoreCase } from "./utilities/string";
+import { App, containsOfflineLink } from "./template/utilities";
 let onUpdate = false;
 let apps: App[] = [];
+
 const topicSelect = new (SlimSelect as any)({
   select: "#topic",
   placeholder: "Topic",
@@ -84,7 +82,7 @@ function update(
 
   if (topicUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      include(
+      includes(
         a.topics.map(t => t.toUpperCase()),
         topicUp
       )
@@ -92,7 +90,7 @@ function update(
 
   if (platformUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      include(
+      includes(
         a.platform.map(t => t.toUpperCase()),
         platformUp
       )
@@ -100,7 +98,7 @@ function update(
 
   if (languageUp.length > 0)
     filteredApps = filteredApps.filter(a =>
-      include(
+      includes(
         a.languages.map(t => t.toUpperCase()),
         languageUp
       )

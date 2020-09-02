@@ -1,5 +1,5 @@
 import { createElement, getHtmlElement } from "./utilities/html";
-import { App } from "./transformTemplates";
+import { App } from "./template/utilities";
 
 export function render(obj: App) {
   const defaultImage =

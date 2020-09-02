@@ -1,4 +1,4 @@
-export function include<T>(arr: T[], target: T[]) {
+export function includes<T>(arr: T[], target: T[]) {
   return target.every(v => arr.includes(v));
 }
 

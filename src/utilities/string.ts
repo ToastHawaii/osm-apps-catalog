@@ -31,3 +31,16 @@ export function findClosingBracketIndex(str: string, pos: number) {
   }
   return -1;
 }
+
+export function firstLetterToUpperCase(value: string): string {
+  return `${value[0].toUpperCase()}${value.slice(1)}`;
+}
+
+export function appendFullStop(value: string): string {
+  if (value && value[value.length - 1] !== ".") return `${value}.`;
+  return value;
+}
+
+export function trim(value: string): string {
+  return value.replace(/^[\.\s]+|[\.\s]+$/gm, "");
+}
