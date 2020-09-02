@@ -116,13 +116,13 @@ function update(
     languageData.push(...a.languages.map(l => l));
   }
 
-  topicSelect.setData(prepareArrayForSelect(topicData));
+  topicSelect.setData(prepareArrayForSelect(topicData, topic));
   topicSelect.set(topic);
 
-  platformSelect.setData(prepareArrayForSelect(platformData));
+  platformSelect.setData(prepareArrayForSelect(platformData, platform));
   platformSelect.set(platform);
 
-  languageSelect.setData(prepareArrayForSelect(languageData));
+  languageSelect.setData(prepareArrayForSelect(languageData, language));
   languageSelect.set(language);
 
   for (const a of filteredApps) {
@@ -267,7 +267,7 @@ function findGetParameter(parameterName: string) {
 
 getAppCatalog();
 
-function prepareArrayForSelect(names: string[]) {
+function prepareArrayForSelect(names: string[], selected: string[]) {
   names.sort();
   const nameCounts: { name: string; count: number }[] = [];
   for (const name of names) {
@@ -283,6 +283,8 @@ function prepareArrayForSelect(names: string[]) {
   }
 
   return nameCounts.map(t => {
-    return { value: t.name, text: `${t.name} (${t.count})` };
+    if (selected.filter(s => equalsIgnoreCase(t.name, s)).length > 0)
+      return { value: t.name, text: t.name };
+    else return { value: t.name, text: `${t.name} (${t.count})` };
   });
 }
