@@ -270,18 +270,30 @@ const languages: {
   { code: "za", display: "Cuengh / Tôô / 壮语" },
   { code: "zh", display: "中文" },
   { code: "zh-classical", display: "文言" },
-  { code: "zh-hans", display: "中文（简体）" },
-  { code: "zh-hant", display: "中文（繁體）" },
+  { code: "zh-hans", display: "中文 (简体)" },
+  { code: "zh-hant", display: "中文 (繁體)" },
   { code: "zh-min-nan", display: "Bân-lâm-gú" },
   { code: "zh-tw", display: "‪中文(台灣)‬" },
   { code: "zh-yue", display: "粵語 / 粤语" },
-  { code: "zu", display: "isiZulu" },
-
+  { code: "zu", display: "isiZulu" }
 ];
 
 export function languageValueToDisplay(value: string) {
   for (const language of languages) {
     if (equalsIgnoreCase(language.code, value)) return language.display;
   }
+
+  value = extractLanguageCodeFromLocal(value);
+  for (const language of languages) {
+    if (equalsIgnoreCase(language.code, value)) return language.display;
+  }
+
+  return value;
+}
+
+function extractLanguageCodeFromLocal(value: string): string {
+  const match = /(\w+)/g.exec(value);
+  debugger;
+  if (match) return match[1];
   return value;
 }

@@ -29,15 +29,8 @@ export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);
 }
 
-//export function extractLanguageCodeFromLocal(value: string): string {
-//   const match = /(\w{2,3}(\-\w{2,4})?)/g.exec(value);
-
-//   if (match) return match[1];
-//   return value;
-// }
-
 export function extractLanguageCodeFromTemplate(value: string): string {
-  const match = /:([\w-]+)/.exec(value);
+  const match = /{{#language:([\w-]+)/.exec(value);
 
   if (match) return match[1];
   return value;
