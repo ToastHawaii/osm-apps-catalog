@@ -1,4 +1,4 @@
-import { getHtmlElement } from "./utilities/html";
+import { createElement, getHtmlElement } from "./utilities/html";
 import * as SlimSelect from "slim-select";
 import { requestTemplates } from "./crawler";
 import { transform as transformSoftware } from "./template/software";
@@ -126,6 +126,54 @@ function update(
 
   for (const a of filteredApps) {
     render(a);
+  }
+
+  if (topicUp.length > 0) {
+    let similarApps = apps.filter(a => !filteredApps.includes(a));
+
+    similarApps = similarApps.filter(a =>
+      topicUp.every(
+        t =>
+          a.name.toUpperCase().search(t) !== -1 ||
+          a.description.toUpperCase().search(t) !== -1
+      )
+    );
+
+    if (search)
+      similarApps = similarApps.filter(
+        a =>
+          a.name.toUpperCase().search(search) !== -1 ||
+          a.description.toUpperCase().search(search) !== -1 ||
+          a.topics.filter(t => t.toUpperCase().search(search) !== -1).length >
+            0 ||
+          a.platform.filter(t => t.toUpperCase().search(search) !== -1).length >
+            0
+      );
+
+    if (platformUp.length > 0)
+      similarApps = similarApps.filter(a =>
+        includes(
+          a.platform.map(t => t.toUpperCase()),
+          platformUp
+        )
+      );
+
+    if (languageUp.length > 0)
+      similarApps = similarApps.filter(a =>
+        includes(
+          a.languages.map(t => t.toUpperCase()),
+          languageUp
+        )
+      );
+
+    if (similarApps.length > 0) {
+      const similarTag = createElement("h2", "Related apps");
+      getHtmlElement(".apps").appendChild(similarTag);
+
+      for (const a of similarApps) {
+        render(a);
+      }
+    }
   }
 
   lazyLoadImages();
