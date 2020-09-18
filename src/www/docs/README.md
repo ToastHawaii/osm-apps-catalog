@@ -45,10 +45,17 @@ Improve the documentation about Software in the [OpenStreetMap Wiki](https://wik
 
 Then improve this app catalog and send me a Pull Requests. [Click here to go to the project website of the osm apps catalog](https://github.com/ToastHawaii/osm-apps-catalog)
 
-## I cannot program, how can I create my own theme map?
+## License
+
+Yes. The app is licensed under the [GNU Affero General Public License v3.0](/LICENSE). The code is free for use, copying and modification if you publish under the same license.
+
+[View source code of this map on GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
+
+### I cannot program, how can I create my own theme map?
 
 Try one of the following services:
 
+- [MapComplete](https://pietervdvn.github.io/MapComplete/index.html) ([Wiki](https://wiki.openstreetmap.org/wiki/MapComplete))
 - [MapContrib](https://www.mapcontrib.xyz/) ([Wiki](https://wiki.openstreetmap.org/wiki/MapContrib))
 - [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
 - [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
