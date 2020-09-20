@@ -1,9 +1,12 @@
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
-  entry: "./src/script.ts",
+  context: path.join(__dirname, "./"),
+  entry: "./script.ts",
   output: {
     filename: "script.js",
     path: __dirname + "/.."
@@ -11,17 +14,16 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // Load a custom template
-      template: "src/index.html",
-      filename: "index.html"
+      template: "./index.html",
+      filename: "./index.html"
     }),
-    new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { from: "src/www" },
+        { from: "./www" },
         {
           from: "*.css*",
-          to: "lib/",
-          context: "node_modules/slim-select/dist/"
+          to: "../lib/",
+          context: "../node_modules/slim-select/dist/"
         }
       ]
     })
@@ -37,21 +39,19 @@ module.exports = {
 
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      // When using TypeScript, Babel is not required, but React Hot Loader will not work (properly) without it.
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
             options: {
-              babelrc: true
-            }
-          },
-          {
-            loader: "awesome-typescript-loader",
-            options: {
-              configFileName: "src/tsconfig.json"
+              presets: ["@babel/env", "@babel/typescript"],
+              plugins: [
+                ["@babel/transform-runtime"],
+                "@babel/proposal-class-properties",
+                "@babel/proposal-object-rest-spread"
+              ]
             }
           }
         ]
