@@ -3,11 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 <url>
-<loc>https://osm-apps.zottelig.ch/docs</loc>
-
+<loc>https://osm-apps.zottelig.ch/docs/</loc>
+<xhtml:link
+               rel="alternate"
+               hreflang="en"
+               href="https://osm-apps.zottelig.ch/docs/"/>
 </url>
 <url>
 <loc>https://osm-apps.zottelig.ch</loc>
+<xhtml:link
+               rel="alternate"
+               hreflang="en"
+               href="https://osm-apps.zottelig.ch"/>
 
 </url>
 </urlset>
