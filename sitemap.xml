@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-<url>
-<loc>https://osm-apps.zottelig.ch/docs/</loc>
-<xhtml:link
-               rel="alternate"
-               hreflang="en"
-               href="https://osm-apps.zottelig.ch/docs/"/>
-</url>
-<url>
-<loc>https://osm-apps.zottelig.ch</loc>
-<xhtml:link
-               rel="alternate"
-               hreflang="en"
-               href="https://osm-apps.zottelig.ch"/>
-
-</url>
+  <url>
+    <loc>https://osm-apps.zottelig.ch</loc>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://osm-apps.zottelig.ch"/>
+  </url>
+  <url>
+    <loc>https://osm-apps.zottelig.ch/docs/</loc>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://osm-apps.zottelig.ch/docs/"/>
+  </url>
 </urlset>
