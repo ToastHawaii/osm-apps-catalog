@@ -47,7 +47,7 @@ Then improve this app catalog and send me a Pull Requests. [Click here to go to 
 
 ## License
 
-Yes. The app is licensed under the [GNU Affero General Public License v3.0](/LICENSE). The code is free for use, copying and modification if you publish under the same license.
+Yes. The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The code is free for use, copying and modification if you publish under the same license.
 
 [View source code of this catalog on GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
 
