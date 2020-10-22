@@ -128,7 +128,7 @@ export function transform(source: { [name: string]: string }) {
       source["calculateRouteOffline"]
     )
   )
-    obj.topics.push("Router");
+    obj.topics.push("Routing");
 
   if (equalsYes(source["3D"])) obj.topics.push("3D");
   if (equalsYes(source["findLocation"])) obj.topics.push("Search");

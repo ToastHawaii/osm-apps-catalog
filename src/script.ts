@@ -68,13 +68,13 @@ const categorySelect = new (SlimSelect as any)({
       innerHTML:
         "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> On the road",
       text: "On the road"
+    },
+    {
+      value: "navigation",
+      innerHTML:
+        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
+      text: "Find your way"
     }
-    // {
-    //   value: "navigation",
-    //   innerHTML:
-    //     "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
-    //   text: "Find your way"
-    // },
     // {
     //   value: "edit",
     //   innerHTML:
@@ -233,6 +233,16 @@ function update(
           a.install.googlePlayID ||
           a.install.fDroidID ||
           a.install.appleStoreID
+      )
+    );
+
+    filteredApps = categoriedApps;
+  } else if (category === "navigation") {
+    categoriedApps.push(
+      ...filteredApps.filter(a =>
+        a.topics
+          .map(t => t.toUpperCase())
+          .some(t => ["NAVI", "ROUTING", "ROUTER"].includes(t))
       )
     );
 
