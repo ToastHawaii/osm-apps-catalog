@@ -30,7 +30,22 @@ import { App, containsOfflineLink } from "./template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 let onUpdate = false;
 let apps: App[] = [];
-
+const mobilePlatforms = [
+  "ANDROID",
+  "GARMIN",
+  "KINDLE",
+  "MAEMO",
+  "MEEGO",
+  "PALM OS",
+  "SYMBIAN",
+  "UBUNTU PHONE",
+  "UBUNTU TOUCH",
+  "WEBOS",
+  "WINDOWS MOBILE",
+  "WINDOWS PHONE",
+  "IOS",
+  "ZAURUS"
+];
 const categorySelect = new (SlimSelect as any)({
   select: "#category",
   showSearch: false,
@@ -47,13 +62,13 @@ const categorySelect = new (SlimSelect as any)({
       innerHTML:
         "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
       text: "Latest"
+    },
+    {
+      value: "mobile",
+      innerHTML:
+        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> On the road",
+      text: "On the road"
     }
-    // {
-    //   value: "mobile",
-    //   innerHTML:
-    //     "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> On the road",
-    //   text: "On the road"
-    // },
     // {
     //   value: "navigation",
     //   innerHTML:
@@ -64,7 +79,7 @@ const categorySelect = new (SlimSelect as any)({
     //   value: "edit",
     //   innerHTML:
     //     "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribution",
-    //   text: "Contribution"
+    //   text: "Contribute"
     // }
   ],
   onChange: () => {
@@ -191,6 +206,38 @@ function update(
         languageUp
       )
     );
+
+  const categoriedApps = [];
+
+  if (category === "mobile") {
+    categoriedApps.push(
+      ...filteredApps.filter(a =>
+        a.topics
+          .map(t => t.toUpperCase())
+          .some(t => ["OFFLINE", "CACHE"].includes(t))
+      )
+    );
+    categoriedApps.push(
+      ...filteredApps.filter(a =>
+        a.platform
+          .map(t => t.toUpperCase())
+          .some(t => mobilePlatforms.includes(t))
+      )
+    );
+
+    categoriedApps.push(
+      ...filteredApps.filter(
+        a =>
+          a.install.asin ||
+          a.install.bbWorldID ||
+          a.install.googlePlayID ||
+          a.install.fDroidID ||
+          a.install.appleStoreID
+      )
+    );
+
+    filteredApps = categoriedApps;
+  }
 
   const topicData: string[] = [];
   const platformData: string[] = [];

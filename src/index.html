@@ -79,9 +79,14 @@
     <script src="/serviceWorkerRegister.js"></script>
   </head>
   <body>
-    <a class="info" href="/docs/"><i class="fas fa-info-circle"></i></a>
-    <h1>OSM Apps Catalog</h1>
-    <select id="category"></select>
+    <select
+      id="category"
+      style="width: 160px; float: right; margin: 4px"
+    ></select>
+    <h1 style="clear: both">
+      OSM Apps Catalog
+      <a class="info" href="/docs/"><i class="fas fa-info-circle"></i></a>
+    </h1>
     <input type="search" id="search" placeholder="Search" />
     <select id="topic" multiple></select>
     <select id="platform" multiple></select>
