@@ -207,7 +207,7 @@ function saveAppCatalog() {
 async function getAppCatalog() {
   const date = get<Date>(`${lang}-apps-date`);
 
-  const day = 24 * 1000 * 60 * 60;
+  const day = 24 * 60 * 60 * 1000;
 
   if (date && new Date(date).valueOf() > Date.now() - day) {
     console.info("get catalog from cache");
@@ -236,6 +236,10 @@ function addApp(obj: App) {
   else {
     const app = duplicates[0];
 
+    if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+      app.lastRelease = obj.lastRelease;
+    else app.lastRelease = app.lastRelease || obj.lastRelease;
+
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
     app.images = removeDuplicates(app.images);
@@ -249,7 +253,7 @@ function addApp(obj: App) {
     app.platform = removeDuplicates(app.platform);
 
     app.website = app.website || obj.website;
-    
+
     if (/List.of.OSM.based.services/gi.test(app.wiki))
       app.wiki = obj.wiki || app.wiki;
 
@@ -284,7 +288,6 @@ async function loadAppCatalog(language = "en") {
   doUpdate();
 
   const layerObjects = await requestTemplates("Layer", language);
-
   for (const source of layerObjects.filter(
     s =>
       !(
@@ -298,7 +301,6 @@ async function loadAppCatalog(language = "en") {
   doUpdate();
 
   const softwareObjects = await requestTemplates("Software", language);
-
   for (const source of softwareObjects.filter(
     s =>
       !(containsOfflineLink(s["name"]) || containsOfflineLink(s["web"])) &&

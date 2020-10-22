@@ -1,17 +1,17 @@
 // Copyright (C) 2020 Markus Peloso
-// 
+//
 // This file is part of OSM Apps Catalog.
-// 
+//
 // OSM Apps Catalog is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
-// 
+//
 // OSM Apps Catalog is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -95,7 +95,7 @@ async function processPagesByTemplateResult(
 async function loadPages(ids: string[], template: string) {
   const params: { [name: string]: string } = {
     prop: "revisions",
-    rvprop: "content",
+    rvprop: "content|timestamp",
     pageids: ids.join("|"),
     rvslots: "*"
   };
@@ -110,6 +110,7 @@ async function loadPages(ids: string[], template: string) {
     const pageObjects = parsePage(content, template);
     for (const o of pageObjects) {
       o.sourceWiki = pages[p].title;
+      o.timestamp = pages[p].revisions[0].timestamp;
     }
     objects.push(...pageObjects);
   }
