@@ -19,7 +19,7 @@ import { toWikimediaUrl } from "../utilities/image";
 import { toWikiUrl, toUrl } from "../utilities/url";
 import { languageValueToDisplay } from "../language";
 import { removeDuplicates } from "../utilities/array";
-import { appendFullStop, trim } from "../utilities/string";
+import { appendFullStop, toDate, trim } from "../utilities/string";
 import {
   App,
   processWikiText,
@@ -32,7 +32,7 @@ export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     lastChange: source["timestamp"] || "",
-    lastRelease: source["date"] || "",
+    lastRelease: toDate(source["date"] )|| "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),

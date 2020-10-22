@@ -31,6 +31,46 @@ import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 let onUpdate = false;
 let apps: App[] = [];
 
+const categorySelect = new (SlimSelect as any)({
+  select: "#category",
+  showSearch: false,
+  placeholder: "Category",
+  data: [
+    {
+      value: "all",
+      innerHTML:
+        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> All",
+      text: "All"
+    },
+    {
+      value: "latest",
+      innerHTML:
+        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
+      text: "Latest"
+    }
+    // {
+    //   value: "mobile",
+    //   innerHTML:
+    //     "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> On the road",
+    //   text: "On the road"
+    // },
+    // {
+    //   value: "navigation",
+    //   innerHTML:
+    //     "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
+    //   text: "Find your way"
+    // },
+    // {
+    //   value: "edit",
+    //   innerHTML:
+    //     "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribution",
+    //   text: "Contribution"
+    // }
+  ],
+  onChange: () => {
+    doUpdate();
+  }
+});
 const topicSelect = new (SlimSelect as any)({
   select: "#topic",
   placeholder: "Topic",
@@ -67,7 +107,8 @@ function doUpdate() {
       (document.getElementById("search") as HTMLInputElement).value,
       topicSelect.selected(),
       platformSelect.selected(),
-      languageSelect.selected()
+      languageSelect.selected(),
+      categorySelect.selected()
     );
     onUpdate = false;
   }
@@ -77,11 +118,40 @@ function update(
   search: string = "",
   topic: string[] = [],
   platform: string[] = [],
-  language: string[] = []
+  language: string[] = [],
+  category: "all" | "latest" | "mobile" | "navigation" | "edit"
 ) {
   getHtmlElement(".apps").innerHTML = "";
 
-  let filteredApps = apps;
+  let filteredApps = apps.slice();
+
+  if (category === "latest") {
+    filteredApps = filteredApps.sort(function (a, b) {
+      const nameA = a.lastChange.toUpperCase() || "";
+      const nameB = b.lastChange.toUpperCase() || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    filteredApps = filteredApps.sort(function (a, b) {
+      const nameA = a.lastRelease?.toUpperCase() || "";
+      const nameB = b.lastRelease?.toUpperCase() || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
 
   search = search.toUpperCase();
   const topicUp = topic.map(t => t.toUpperCase());
