@@ -74,13 +74,13 @@ const categorySelect = new (SlimSelect as any)({
       innerHTML:
         "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
       text: "Find your way"
+    },
+    {
+      value: "edit",
+      innerHTML:
+        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribution",
+      text: "Contribute"
     }
-    // {
-    //   value: "edit",
-    //   innerHTML:
-    //     "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribution",
-    //   text: "Contribute"
-    // }
   ],
   onChange: () => {
     doUpdate();
@@ -243,6 +243,33 @@ function update(
         a.topics
           .map(t => t.toUpperCase())
           .some(t => ["NAVI", "ROUTING", "ROUTER"].includes(t))
+      )
+    );
+
+    filteredApps = categoriedApps;
+  } else if (category === "edit") {
+    categoriedApps.push(
+      ...filteredApps.filter(a =>
+        a.topics
+          .map(t => t.toUpperCase())
+          .some(t =>
+            [
+              "ADD POIS",
+              "EDIT",
+              "EDITING",
+              "EDITOR",
+              "ANALYSE",
+              "ANALYSER",
+              "ANALYSIS",
+              "TRACK RECORDING",
+              "TRACKER",
+              "TRACKING",
+              "VALIDATOR",
+              "OSM TOOL",
+              "QA",
+              "QUALITY CONTROL"
+            ].includes(t)
+          )
       )
     );
 
