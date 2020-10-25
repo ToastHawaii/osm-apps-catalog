@@ -18,10 +18,10 @@
 import { createElement, getHtmlElement } from "./utilities/html";
 import { App } from "./template/utilities";
 import { textToColor } from "./utilities/string";
+import { Solver } from "./utilities/coloriz/Solver";
+import { Color } from "./utilities/coloriz/Color";
 
 export function render(obj: App) {
-  const defaultImage =
-    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
   const element = createElement(
     "div",
     `<div class="header">
@@ -32,18 +32,8 @@ export function render(obj: App) {
         }</div>
         ${
           obj.website
-            ? `<a href="${obj.website}" target="_blank">${
-                obj.images.length > 0
-                  ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
-                      " "
-                    )} ${defaultImage}"/>`
-                  : `<img class="img" src="${defaultImage}"/>`
-              }</a>`
-            : obj.images.length > 0
-            ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
-                " "
-              )} ${defaultImage}"/>`
-            : `<img class="img" src="${defaultImage}"/>`
+            ? `<a href="${obj.website}" target="_blank">${renderImage(obj)}</a>`
+            : renderImage(obj)
         }
       </div>
       <div class="description">${obj.description} ${
@@ -192,4 +182,21 @@ export function render(obj: App) {
   });
 
   getHtmlElement(".apps").appendChild(element);
+}
+
+function renderImage(obj: App) {
+  const defaultImage =
+    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+  const defaultColor = textToColor(obj.name);
+  const filter = new Solver(
+    new Color(defaultColor.r, defaultColor.g, defaultColor.b)
+  )
+    .solve()
+    .filter.replace(/filter:/gi, "filter: brightness(0%)");
+
+  return obj.images.length > 0
+    ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
+        " "
+      )} ${defaultImage}"/>`
+    : `<img class="img" style="${filter}" src="${defaultImage}"/>`;
 }
