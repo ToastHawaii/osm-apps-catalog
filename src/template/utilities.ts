@@ -24,6 +24,7 @@ export type App = {
   images: string[];
   description: string;
   wiki: string;
+  sourceWiki: string;
   website?: string;
   topics: string[];
   author?: string;
@@ -165,7 +166,7 @@ export function extractWebsite(value: string = "") {
 export function extractRepo(value: string = "") {
   const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
 
-  value = value.replace(regex, `https://github.com/$1`);
+  return value.replace(regex, `https://github.com/$1`);
 }
 
 export function processWikiText(text: string = "") {
@@ -231,12 +232,18 @@ export function processWikiText(text: string = "") {
   {
     const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
 
-    text = text.replace(regex, `<a target="_blank" href="https://github.com/$1">$1</a>`);
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://github.com/$1">$1</a>`
+    );
   }
   {
     const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
 
-    text = text.replace(regex, `<a target="_blank" href="https://github.com/$1">$5</a>`);
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://github.com/$1">$5</a>`
+    );
   }
 
   return text;

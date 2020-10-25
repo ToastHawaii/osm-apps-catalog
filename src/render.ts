@@ -130,7 +130,7 @@ export function render(obj: App) {
             : ""
         }
         ${
-          obj.platform.length > 0
+          obj.lastRelease
             ? `<div class="more-info">
           <span class="more-info-title">Last release</span> <span class="more-info-text">${obj.lastRelease}</span>
         </div>`

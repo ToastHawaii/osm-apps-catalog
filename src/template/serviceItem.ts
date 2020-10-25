@@ -40,6 +40,7 @@ export function transform(source: { [name: string]: string }) {
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
     wiki: toWikiUrl(source.sourceWiki) || "",
+    sourceWiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractWebsite(source["material"])),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

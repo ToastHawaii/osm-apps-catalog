@@ -58,6 +58,12 @@ const categorySelect = new (SlimSelect as any)({
       text: "All"
     },
     {
+      value: "focus",
+      innerHTML:
+        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> Focus",
+      text: "Focus"
+    },
+    {
       value: "latest",
       innerHTML:
         "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
@@ -134,14 +140,14 @@ function update(
   topic: string[] = [],
   platform: string[] = [],
   language: string[] = [],
-  category: "all" | "latest" | "mobile" | "navigation" | "edit"
+  category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
 ) {
   getHtmlElement(".apps").innerHTML = "";
 
-  let filteredApps = apps.slice();
+  let filteredApps: App[];
 
   if (category === "latest") {
-    filteredApps = filteredApps.sort(function (a, b) {
+    filteredApps = apps.slice().sort(function (a, b) {
       const nameA = a.lastChange.toUpperCase() || "";
       const nameB = b.lastChange.toUpperCase() || "";
       if (nameA < nameB) {
@@ -166,6 +172,36 @@ function update(
 
       return 0;
     });
+  } else if (category === "focus") {
+    let latestApps = apps.slice().sort(function (a, b) {
+      const nameA = a.lastChange.toUpperCase() || "";
+      const nameB = b.lastChange.toUpperCase() || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    filteredApps = [];
+    for (const app of latestApps) {
+      if (filteredApps.length < 10) {
+        if (
+          !filteredApps.some(
+            a => a.sourceWiki.toUpperCase() === app.sourceWiki.toUpperCase()
+          )
+        ) {
+          filteredApps.push(app);
+        }
+      } else {
+        break;
+      }
+    }
+  } else {
+    filteredApps = apps.slice();
   }
 
   search = search.toUpperCase();
@@ -408,8 +444,14 @@ function addApp(obj: App) {
 
     app.website = app.website || obj.website;
 
-    if (/List.of.OSM.based.services/gi.test(app.wiki))
+    if (/List.of.OSM.based.services/gi.test(app.wiki)) {
       app.wiki = obj.wiki || app.wiki;
+    }
+
+    if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
+      app.wiki = obj.sourceWiki || app.sourceWiki;
+      app.lastChange = obj.lastChange || app.lastChange;
+    }
 
     app.author = app.author || obj.author;
     app.sourceCode = app.sourceCode || obj.sourceCode;
