@@ -187,16 +187,19 @@ export function render(obj: App) {
 function renderImage(obj: App) {
   const defaultImage =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
-  const defaultColor = textToColor(obj.name);
-  const filter = new Solver(
-    new Color(defaultColor.r, defaultColor.g, defaultColor.b)
-  )
-    .solve()
-    .filter.replace(/filter:/gi, "filter: brightness(0%)");
 
-  return obj.images.length > 0
-    ? `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
-        " "
-      )} ${defaultImage}"/>`
-    : `<img class="img" style="${filter}" src="${defaultImage}"/>`;
+  if (obj.images.length > 0) {
+    return `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
+      " "
+    )} ${defaultImage}"/>`;
+  } else {
+    const defaultColor = textToColor(obj.name);
+    const filter = new Solver(
+      new Color(defaultColor.r, defaultColor.g, defaultColor.b)
+    )
+      .solve()
+      .filter.replace(/filter:/gi, "filter: brightness(0%)");
+
+    return `<img class="img" style="${filter}" src="${defaultImage}"/>`;
+  }
 }
