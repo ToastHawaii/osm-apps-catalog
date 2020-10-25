@@ -72,8 +72,8 @@ const categorySelect = new (SlimSelect as any)({
     {
       value: "mobile",
       innerHTML:
-        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> On the road",
-      text: "On the road"
+        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> To go",
+      text: "To go"
     },
     {
       value: "navigation",
@@ -84,7 +84,7 @@ const categorySelect = new (SlimSelect as any)({
     {
       value: "edit",
       innerHTML:
-        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribution",
+        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
       text: "Contribute"
     }
   ],
