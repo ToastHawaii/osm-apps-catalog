@@ -18,8 +18,6 @@
 import { createElement, getHtmlElement } from "./utilities/html";
 import { App } from "./template/utilities";
 import { textToColor } from "./utilities/string";
-import { Solver } from "./utilities/coloriz/Solver";
-import { Color } from "./utilities/coloriz/Color";
 
 export function render(obj: App) {
   const element = createElement(
@@ -193,13 +191,6 @@ function renderImage(obj: App) {
       " "
     )} ${defaultImage}"/>`;
   } else {
-    const defaultColor = textToColor(obj.name);
-    const filter = new Solver(
-      new Color(defaultColor.r, defaultColor.g, defaultColor.b)
-    )
-      .solve()
-      .filter.replace(/filter:/gi, "filter: brightness(0%)");
-
-    return `<img class="img" style="${filter}" src="${defaultImage}"/>`;
+    return `<img class="img" style="${obj.filter}" src="${defaultImage}"/>`;
   }
 }

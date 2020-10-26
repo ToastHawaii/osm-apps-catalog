@@ -25,9 +25,11 @@ import { lazyLoadImages } from "./lazyLoadImages";
 import { set, get } from "./utilities/storage";
 import { render } from "./render";
 import { removeDuplicates, shuffle, includes } from "./utilities/array";
-import { equalsIgnoreCase } from "./utilities/string";
+import { equalsIgnoreCase, textToColor } from "./utilities/string";
 import { App, containsOfflineLink } from "./template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./utilities/url";
+import { Solver } from "./utilities/coloriz/Solver";
+import { Color } from "./utilities/coloriz/Color";
 let onUpdate = false;
 let apps: App[] = [];
 const mobilePlatforms = [
@@ -422,8 +424,10 @@ async function getAppCatalog() {
 function addApp(obj: App) {
   const duplicates = apps.filter(a => equalsIgnoreCase(a.name, obj.name));
 
-  if (duplicates.length === 0) apps.push(obj);
-  else {
+  if (duplicates.length === 0) {
+    apps.push(obj);
+    extendFilter(obj);
+  } else {
     const app = duplicates[0];
 
     if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
@@ -467,6 +471,19 @@ function addApp(obj: App) {
       app.install.macAppStoreID || obj.install.macAppStoreID;
     app.install.microsoftAppID =
       app.install.microsoftAppID || obj.install.microsoftAppID;
+
+    extendFilter(app);
+  }
+}
+
+function extendFilter(app: App) {
+  if (app.images.length === 0 && !app.filter) {
+    const defaultColor = textToColor(app.name);
+    app.filter = new Solver(
+      new Color(defaultColor.r, defaultColor.g, defaultColor.b)
+    )
+      .solve()
+      .filter.replace(/filter:/gi, "filter: brightness(0%)");
   }
 }
 

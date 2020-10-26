@@ -41,6 +41,7 @@ export type App = {
     macAppStoreID?: string;
     microsoftAppID?: string;
   };
+  filter?:string;
 };
 
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
