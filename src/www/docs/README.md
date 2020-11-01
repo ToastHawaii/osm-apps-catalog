@@ -10,25 +10,25 @@ The catalog is updated every day.
 
 A special thanks goes to Dmytro Ovdiienko for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
 
-## Is this catalog also available as an app?
+## 📱 Is this catalog also available as an app?
 
 You can add this catalog to your homescreen from your smartphone. Use the "add to homescreen" function in your browser (iOS, Android, etc.)
 
-## How can I add a application to the list?
+## ➕ How can I add a application to the list?
 
 Thank you very much for your commitment!
 
 Create a wiki Page about your app in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and use the [Software template](https://wiki.openstreetmap.org/wiki/Template:Software) to describe your app. Or add your app to the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) by using the [Service item template](https://wiki.openstreetmap.org/wiki/Template:Service_item).
 
-## How can I remove a application from the list?
+## ➖ How can I remove a application from the list?
 
 Delete the Software or Service item template about the app from the wiki page or mark the website link to the app as offline with `<s>...</s>` or `<strike>...</strike>`. You can also add `status = broken` on the Software template.
 
-## Is there anything else to do?
+## 💪 Is there anything else to do?
 
 Sure, helping hands are always welcome and there is something for everyone to do.
 
-### Do you like to check and clean up?
+### 🧹 Do you like to check and clean up?
 
 Improve the documentation about Software in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the Service items in the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services).
 
@@ -41,17 +41,17 @@ Improve the documentation about Software in the [OpenStreetMap Wiki](https://wik
 - Add missing screenshots
 - Sort the tables
 
-### Can you program?
+### 💻 Can you program?
 
 Then improve this app catalog and send me a Pull Requests. [Click here to go to the project website of the osm apps catalog](https://github.com/ToastHawaii/osm-apps-catalog)
 
-## License
+## 📜 License
 
-Yes. The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The code is free for use, copying and modification if you publish under the same license.
+The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The code is free for use, copying and modification if you publish under the same license.
 
 [View source code of this catalog on GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
 
-### I cannot program, how can I create my own theme map?
+### 🖊️ I cannot program, how can I create my own theme map?
 
 Try one of the following services:
 
@@ -60,7 +60,7 @@ Try one of the following services:
 - [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
 - [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
 
-## Other languages
+## 🌐 Other languages
 
 By default the catalog only contains apps from the English version of the wiki. To include apps from other translations use one of the following links:
 
