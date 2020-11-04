@@ -41,7 +41,7 @@ export type App = {
     macAppStoreID?: string;
     microsoftAppID?: string;
   };
-  filter?:string;
+  filter?: string;
 };
 
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
@@ -171,6 +171,7 @@ export function extractRepo(value: string = "") {
 }
 
 export function processWikiText(text: string = "") {
+  // Wikipedia
   {
     const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
 
@@ -187,6 +188,7 @@ export function processWikiText(text: string = "") {
       `<a target="_blank" href="https://en.wikipedia.org/wiki/$1">$1</a>`
     );
   }
+  // Url
   {
     const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
 
@@ -225,11 +227,35 @@ export function processWikiText(text: string = "") {
   }
 
   {
+    const regex = /{{(Key|Tag|TagKey)\|([^}|]*)(\|([^}|]*))?}}/gi;
+
+    let match = regex.exec(text);
+    while (match) {
+      if (!match[4]) {
+        text = text.replace(
+          regex,
+          `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=*`
+        );
+      } else {
+        debugger;
+        text = text.replace(
+          regex,
+          `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4">$4</a>`
+        );
+      }
+
+      match = regex.exec(text);
+    }
+  }
+
+  // Format
+  {
     const regex = /'''([^(''')]*)'''/g;
 
     text = text.replace(regex, `<strong>$1</strong>`);
   }
 
+  // GitHub
   {
     const regex = /{{GitHub link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
 
