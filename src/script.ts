@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { createElement, getHtmlElement } from "./utilities/html";
-import * as SlimSelect from "slim-select";
+import SlimSelect from "slim-select";
 import { requestTemplates } from "./crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
@@ -46,74 +46,28 @@ const mobilePlatforms = [
   "WINDOWS MOBILE",
   "WINDOWS PHONE",
   "IOS",
-  "ZAURUS"
+  "ZAURUS",
 ];
-const categorySelect = new (SlimSelect as any)({
-  select: "#category",
-  showSearch: false,
-  placeholder: "Category",
-  data: [
-    {
-      value: "all",
-      innerHTML:
-        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> All",
-      text: "All"
-    },
-    {
-      value: "focus",
-      innerHTML:
-        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> Focus",
-      text: "Focus"
-    },
-    {
-      value: "latest",
-      innerHTML:
-        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
-      text: "Latest"
-    },
-    {
-      value: "mobile",
-      innerHTML:
-        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> To go",
-      text: "To go"
-    },
-    {
-      value: "navigation",
-      innerHTML:
-        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
-      text: "Find your way"
-    },
-    {
-      value: "edit",
-      innerHTML:
-        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
-      text: "Contribute"
-    }
-  ],
-  onChange: () => {
-    doUpdate();
-  }
-});
-const topicSelect = new (SlimSelect as any)({
+const topicSelect = new SlimSelect({
   select: "#topic",
   placeholder: "Topic",
   onChange: () => {
     doUpdate();
-  }
+  },
 });
-const platformSelect = new (SlimSelect as any)({
+const platformSelect = new SlimSelect({
   select: "#platform",
   placeholder: "Platform",
   onChange: () => {
     doUpdate();
-  }
+  },
 });
-const languageSelect = new (SlimSelect as any)({
+const languageSelect = new SlimSelect({
   select: "#language",
   placeholder: "Language",
   onChange: () => {
     doUpdate();
-  }
+  },
 });
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
@@ -122,10 +76,62 @@ const languageSelect = new (SlimSelect as any)({
     doUpdate();
   }
 );
+const categorySelect = new SlimSelect({
+  select: "#category",
+  showSearch: false,
+  placeholder: "Category",
+  data: [
+    {
+      value: "all",
+      innerHTML:
+        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> All",
+      text: "All",
+    },
+    {
+      value: "focus",
+      innerHTML:
+        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> Focus",
+      text: "Focus",
+    },
+    {
+      value: "latest",
+      innerHTML:
+        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
+      text: "Latest",
+    },
+    {
+      value: "mobile",
+      innerHTML:
+        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> To go",
+      text: "To go",
+    },
+    {
+      value: "navigation",
+      innerHTML:
+        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
+      text: "Find your way",
+    },
+    {
+      value: "edit",
+      innerHTML:
+        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
+      text: "Contribute",
+    },
+  ],
+  onChange: () => {
+    doUpdate(true);
+  },
+});
 
-function doUpdate() {
+function doUpdate(reset?: boolean) {
   if (!onUpdate) {
     onUpdate = true;
+    if (reset) {
+      (document.getElementById("search") as HTMLInputElement).value = "";
+      topicSelect.set([]);
+      platformSelect.set([]);
+      languageSelect.set([]);
+    }
     update(
       (document.getElementById("search") as HTMLInputElement).value,
       topicSelect.selected(),
@@ -193,7 +199,7 @@ function update(
       if (filteredApps.length < 10) {
         if (
           !filteredApps.some(
-            a => a.sourceWiki.toUpperCase() === app.sourceWiki.toUpperCase()
+            (a) => a.sourceWiki.toUpperCase() === app.sourceWiki.toUpperCase()
           )
         ) {
           filteredApps.push(app);
@@ -207,40 +213,41 @@ function update(
   }
 
   search = search.toUpperCase();
-  const topicUp = topic.map(t => t.toUpperCase());
-  const platformUp = platform.map(t => t.toUpperCase());
-  const languageUp = language.map(t => t.toUpperCase());
+  const topicUp = topic.map((t) => t.toUpperCase());
+  const platformUp = platform.map((t) => t.toUpperCase());
+  const languageUp = language.map((t) => t.toUpperCase());
 
   if (search)
     filteredApps = filteredApps.filter(
-      a =>
+      (a) =>
         a.name.toUpperCase().search(search) !== -1 ||
         a.description.toUpperCase().search(search) !== -1 ||
-        a.topics.filter(t => t.toUpperCase().search(search) !== -1).length >
+        a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
           0 ||
-        a.platform.filter(t => t.toUpperCase().search(search) !== -1).length > 0
+        a.platform.filter((t) => t.toUpperCase().search(search) !== -1).length >
+          0
     );
 
   if (topicUp.length > 0)
-    filteredApps = filteredApps.filter(a =>
+    filteredApps = filteredApps.filter((a) =>
       includes(
-        a.topics.map(t => t.toUpperCase()),
+        a.topics.map((t) => t.toUpperCase()),
         topicUp
       )
     );
 
   if (platformUp.length > 0)
-    filteredApps = filteredApps.filter(a =>
+    filteredApps = filteredApps.filter((a) =>
       includes(
-        a.platform.map(t => t.toUpperCase()),
+        a.platform.map((t) => t.toUpperCase()),
         platformUp
       )
     );
 
   if (languageUp.length > 0)
-    filteredApps = filteredApps.filter(a =>
+    filteredApps = filteredApps.filter((a) =>
       includes(
-        a.languages.map(t => t.toUpperCase()),
+        a.languages.map((t) => t.toUpperCase()),
         languageUp
       )
     );
@@ -249,23 +256,23 @@ function update(
 
   if (category === "mobile") {
     categoriedApps.push(
-      ...filteredApps.filter(a =>
+      ...filteredApps.filter((a) =>
         a.topics
-          .map(t => t.toUpperCase())
-          .some(t => ["OFFLINE", "CACHE"].includes(t))
+          .map((t) => t.toUpperCase())
+          .some((t) => ["OFFLINE", "CACHE"].includes(t))
       )
     );
     categoriedApps.push(
-      ...filteredApps.filter(a =>
+      ...filteredApps.filter((a) =>
         a.platform
-          .map(t => t.toUpperCase())
-          .some(t => mobilePlatforms.includes(t))
+          .map((t) => t.toUpperCase())
+          .some((t) => mobilePlatforms.includes(t))
       )
     );
 
     categoriedApps.push(
       ...filteredApps.filter(
-        a =>
+        (a) =>
           a.install.asin ||
           a.install.bbWorldID ||
           a.install.googlePlayID ||
@@ -277,20 +284,20 @@ function update(
     filteredApps = categoriedApps;
   } else if (category === "navigation") {
     categoriedApps.push(
-      ...filteredApps.filter(a =>
+      ...filteredApps.filter((a) =>
         a.topics
-          .map(t => t.toUpperCase())
-          .some(t => ["NAVI", "ROUTING", "ROUTER"].includes(t))
+          .map((t) => t.toUpperCase())
+          .some((t) => ["NAVI", "ROUTING", "ROUTER"].includes(t))
       )
     );
 
     filteredApps = categoriedApps;
   } else if (category === "edit") {
     categoriedApps.push(
-      ...filteredApps.filter(a =>
+      ...filteredApps.filter((a) =>
         a.topics
-          .map(t => t.toUpperCase())
-          .some(t =>
+          .map((t) => t.toUpperCase())
+          .some((t) =>
             [
               "ADD POIS",
               "EDIT",
@@ -305,7 +312,7 @@ function update(
               "VALIDATOR",
               "OSM TOOL",
               "QA",
-              "QUALITY CONTROL"
+              "QUALITY CONTROL",
             ].includes(t)
           )
       )
@@ -319,9 +326,9 @@ function update(
   const languageData: string[] = [];
 
   for (const a of filteredApps) {
-    topicData.push(...a.topics.map(t => t));
-    platformData.push(...a.platform.map(t => t));
-    languageData.push(...a.languages.map(l => l));
+    topicData.push(...a.topics.map((t) => t));
+    platformData.push(...a.platform.map((t) => t));
+    languageData.push(...a.languages.map((l) => l));
   }
 
   topicSelect.setData(prepareArrayForSelect(topicData, topic));
@@ -338,11 +345,11 @@ function update(
   }
 
   if (topicUp.length > 0) {
-    let similarApps = apps.filter(a => !filteredApps.includes(a));
+    let similarApps = apps.filter((a) => !filteredApps.includes(a));
 
-    similarApps = similarApps.filter(a =>
+    similarApps = similarApps.filter((a) =>
       topicUp.every(
-        t =>
+        (t) =>
           a.name.toUpperCase().search(t) !== -1 ||
           a.description.toUpperCase().search(t) !== -1
       )
@@ -350,27 +357,27 @@ function update(
 
     if (search)
       similarApps = similarApps.filter(
-        a =>
+        (a) =>
           a.name.toUpperCase().search(search) !== -1 ||
           a.description.toUpperCase().search(search) !== -1 ||
-          a.topics.filter(t => t.toUpperCase().search(search) !== -1).length >
+          a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
             0 ||
-          a.platform.filter(t => t.toUpperCase().search(search) !== -1).length >
-            0
+          a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
+            .length > 0
       );
 
     if (platformUp.length > 0)
-      similarApps = similarApps.filter(a =>
+      similarApps = similarApps.filter((a) =>
         includes(
-          a.platform.map(t => t.toUpperCase()),
+          a.platform.map((t) => t.toUpperCase()),
           platformUp
         )
       );
 
     if (languageUp.length > 0)
-      similarApps = similarApps.filter(a =>
+      similarApps = similarApps.filter((a) =>
         includes(
-          a.languages.map(t => t.toUpperCase()),
+          a.languages.map((t) => t.toUpperCase()),
           languageUp
         )
       );
@@ -422,7 +429,7 @@ async function getAppCatalog() {
 }
 
 function addApp(obj: App) {
-  const duplicates = apps.filter(a => equalsIgnoreCase(a.name, obj.name));
+  const duplicates = apps.filter((a) => equalsIgnoreCase(a.name, obj.name));
 
   if (duplicates.length === 0) {
     apps.push(obj);
@@ -490,7 +497,7 @@ function extendFilter(app: App) {
 async function loadAppCatalog(language = "en") {
   const serviceItemObjects = await requestTemplates("Service item", language);
   for (const source of serviceItemObjects.filter(
-    s => !containsOfflineLink(s["name"])
+    (s) => !containsOfflineLink(s["name"])
   )) {
     const obj: App = transformServiceItem(source);
 
@@ -502,7 +509,7 @@ async function loadAppCatalog(language = "en") {
 
   const layerObjects = await requestTemplates("Layer", language);
   for (const source of layerObjects.filter(
-    s =>
+    (s) =>
       !(
         containsOfflineLink(s["name"]) || containsOfflineLink(s["slippy_web"])
       ) && !equalsIgnoreCase(s["discontinued"], "YES")
@@ -515,7 +522,7 @@ async function loadAppCatalog(language = "en") {
 
   const softwareObjects = await requestTemplates("Software", language);
   for (const source of softwareObjects.filter(
-    s =>
+    (s) =>
       !(containsOfflineLink(s["name"]) || containsOfflineLink(s["web"])) &&
       !equalsIgnoreCase(s["status"], "BROKEN")
   )) {
@@ -532,7 +539,7 @@ function prepareArrayForSelect(names: string[], selected: string[]) {
   names.sort();
   const nameCounts: { name: string; count: number }[] = [];
   for (const name of names) {
-    const nameCountFiltered = nameCounts.filter(nc =>
+    const nameCountFiltered = nameCounts.filter((nc) =>
       equalsIgnoreCase(nc.name, name)
     );
 
@@ -543,8 +550,8 @@ function prepareArrayForSelect(names: string[], selected: string[]) {
     }
   }
 
-  return nameCounts.map(t => {
-    if (selected.filter(s => equalsIgnoreCase(t.name, s)).length > 0)
+  return nameCounts.map((t) => {
+    if (selected.filter((s) => equalsIgnoreCase(t.name, s)).length > 0)
       return { value: t.name, text: t.name };
     else return { value: t.name, text: `${t.name} (${t.count})` };
   });
