@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ToastHawaii/osm-apps-catalog#readme",
   "dependencies": {
-    "@babel/runtime": "7.19.4",
+    "@babel/runtime": "7.20.7",
     "@types/md5": "2.3.2",
     "md5": "2.3.0",
     "slim-select": "1.27.1"
