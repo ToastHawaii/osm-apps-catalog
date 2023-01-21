@@ -152,7 +152,32 @@ function update(
   language: string[] = [],
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
 ) {
-  document.location.hash = "#" + category;
+  if (category === "all") {
+    document.location.hash = "";
+  } else {
+    document.location.hash = category;
+  }
+
+  let description = "";
+  if (category === "all") {
+    description =
+      "Shows all apps found on the OpenStreetMap wiki in random order.";
+  } else if (category === "focus") {
+    description =
+      "Shows ten apps from the most recently updated OpenStreetMap wiki pages.";
+  } else if (category === "latest") {
+    description =
+      "Shows all apps found on the OpenStreetMap wiki, ordered by last release date.";
+  } else if (category === "mobile") {
+    description =
+      "Shows apps developed for mobile devices or that support offline use.";
+  } else if (category === "navigation") {
+    description = "Shows apps that support routing or navigation.";
+  } else if (category === "edit") {
+    description =
+      "Shows apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.";
+  }
+  getHtmlElement(".description").innerHTML = description;
 
   getHtmlElement(".apps").innerHTML = "";
 
