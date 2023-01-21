@@ -1,10 +1,10 @@
-# OSM Apps
+# OpenStreetMap Apps
 
 Experience the world in a creative, productive and unexpected way.
 
 [Click here for the catalog](https://osm-apps.zottelig.ch)
 
-This website shows applications and services that use OSM data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application.
+This website shows applications and services that use OpenStreetMap data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application.
 
 The catalog is updated every day.
 
