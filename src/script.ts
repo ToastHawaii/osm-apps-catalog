@@ -30,24 +30,10 @@ import { App, containsOfflineLink } from "./template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 import { Solver } from "./utilities/coloriz/Solver";
 import { Color } from "./utilities/coloriz/Color";
+import { edit, mobile, navigation } from "./utilities/filter";
 let onUpdate = false;
 let apps: App[] = [];
-const mobilePlatforms = [
-  "ANDROID",
-  "GARMIN",
-  "KINDLE",
-  "MAEMO",
-  "MEEGO",
-  "PALM OS",
-  "SYMBIAN",
-  "UBUNTU PHONE",
-  "UBUNTU TOUCH",
-  "WEBOS",
-  "WINDOWS MOBILE",
-  "WINDOWS PHONE",
-  "IOS",
-  "ZAURUS",
-];
+
 const topicSelect = new SlimSelect({
   select: "#topic",
   placeholder: "Topic",
@@ -284,68 +270,15 @@ function update(
   const categoriedApps = [];
 
   if (category === "mobile") {
-    categoriedApps.push(
-      ...filteredApps.filter((a) =>
-        a.topics
-          .map((t) => t.toUpperCase())
-          .some((t) => ["OFFLINE", "CACHE"].includes(t))
-      )
-    );
-    categoriedApps.push(
-      ...filteredApps.filter((a) =>
-        a.platform
-          .map((t) => t.toUpperCase())
-          .some((t) => mobilePlatforms.includes(t))
-      )
-    );
-
-    categoriedApps.push(
-      ...filteredApps.filter(
-        (a) =>
-          a.install.asin ||
-          a.install.bbWorldID ||
-          a.install.googlePlayID ||
-          a.install.fDroidID ||
-          a.install.appleStoreID
-      )
-    );
+    categoriedApps.push(...filteredApps.filter(mobile));
 
     filteredApps = categoriedApps;
   } else if (category === "navigation") {
-    categoriedApps.push(
-      ...filteredApps.filter((a) =>
-        a.topics
-          .map((t) => t.toUpperCase())
-          .some((t) => ["NAVI", "ROUTING", "ROUTER"].includes(t))
-      )
-    );
+    categoriedApps.push(...filteredApps.filter(navigation));
 
     filteredApps = categoriedApps;
   } else if (category === "edit") {
-    categoriedApps.push(
-      ...filteredApps.filter((a) =>
-        a.topics
-          .map((t) => t.toUpperCase())
-          .some((t) =>
-            [
-              "ADD POIS",
-              "EDIT",
-              "EDITING",
-              "EDITOR",
-              "ANALYSE",
-              "ANALYSER",
-              "ANALYSIS",
-              "TRACK RECORDING",
-              "TRACKER",
-              "TRACKING",
-              "VALIDATOR",
-              "OSM TOOL",
-              "QA",
-              "QUALITY CONTROL",
-            ].includes(t)
-          )
-      )
-    );
+    categoriedApps.push(...filteredApps.filter(edit));
 
     filteredApps = categoriedApps;
   }

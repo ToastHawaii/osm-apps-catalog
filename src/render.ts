@@ -34,7 +34,9 @@ export function render(obj: App) {
             : renderImage(obj)
         }
       </div>
-      <div class="description"><span itemprop="description">${obj.description}</span> ${
+      <div class="description"><span itemprop="description">${
+        obj.description
+      }</span> ${
       obj.wiki ? `<a href="${obj.wiki}" target="_blank">Wiki</a>` : ""
     }</div>
       ${
@@ -86,21 +88,23 @@ export function render(obj: App) {
           ? `<a class="link" href="http://www.windowsphone.com/s?appid=${obj.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
-      <div class="topics" itemprop="applicationCategory">${obj.topics
-        .map((t) => {
-          const background = textToColor(t);
+      <div class="topics" itemprop="applicationCategory" content="${[
+        ...["Map"],
+        ...obj.topics,
+      ].join(", ")}">${obj.topics
+      .map((t) => {
+        const background = textToColor(t);
 
-          const yiq =
-            (background.r * 299 + background.g * 587 + background.b * 114) /
-            1000;
+        const yiq =
+          (background.r * 299 + background.g * 587 + background.b * 114) / 1000;
 
-          return `<span class="topic" style="background: rgb(${background.r},${
-            background.g
-          },${background.b}); color:${
-            yiq >= 128 ? "black" : "white"
-          };">${t}</span>`;
-        })
-        .join("")}</div>
+        return `<span class="topic" style="background: rgb(${background.r},${
+          background.g
+        },${background.b}); color:${
+          yiq >= 128 ? "black" : "white"
+        };">${t}</span>`;
+      })
+      .join("")}</div>
 
         ${
           obj.author ||
