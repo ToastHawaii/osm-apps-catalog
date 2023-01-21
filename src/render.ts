@@ -25,8 +25,8 @@ export function render(obj: App) {
     `<div class="header">
         <div class="name">${
           obj.website
-            ? `<a href="${obj.website}" target="_blank">${obj.name}</a>`
-            : obj.name
+            ? `<a href="${obj.website}" target="_blank" itemprop="name">${obj.name}</a>`
+            : `<span itemprop="name">${obj.name}</span>`
         }</div>
         ${
           obj.website
@@ -34,33 +34,33 @@ export function render(obj: App) {
             : renderImage(obj)
         }
       </div>
-      <div class="description">${obj.description} ${
+      <div class="description"><span itemprop="description">${obj.description}</span> ${
       obj.wiki ? `<a href="${obj.wiki}" target="_blank">Wiki</a>` : ""
     }</div>
       ${
         obj.website
-          ? `<a class="link" href="${obj.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
+          ? `<a class="link" href="${obj.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
           : ""
       }
 
       ${
         obj.install.asin
-          ? `<a class="link" href="https://www.amazon.com/dp/${obj.install.asin}" target="_blank" title="Amazon Appstore"><i class="fab fa-amazon"></i></a>`
+          ? `<a class="link" href="https://www.amazon.com/dp/${obj.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
           : ""
       }
       ${
         obj.install.bbWorldID
-          ? `<a class="link" href="https://appworld.blackberry.com/webstore/content/${obj.install.bbWorldID}/" target="_blank" title="BlackBerry World"><i class="fab fa-blackberry"></i></a>`
+          ? `<a class="link" href="https://appworld.blackberry.com/webstore/content/${obj.install.bbWorldID}/" target="_blank" title="BlackBerry World" itemprop="installUrl"><i class="fab fa-blackberry"></i></a>`
           : ""
       }
       ${
         obj.install.fDroidID
-          ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${obj.install.fDroidID}" target="_blank" title="F-Droid"><i class="fab fa-android"></i></a>`
+          ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${obj.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
           : ""
       }
       ${
         obj.install.googlePlayID
-          ? `<a class="link" href="https://play.google.com/store/apps/details?id=${obj.install.googlePlayID}" target="_blank" title="Google Play"><i class="fab fa-google-play"></i></a>`
+          ? `<a class="link" href="https://play.google.com/store/apps/details?id=${obj.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
           : ""
       }
       ${
@@ -69,7 +69,7 @@ export function render(obj: App) {
               obj.install.appleStoreID.toUpperCase().startsWith("ID")
                 ? obj.install.appleStoreID
                 : `id${obj.install.appleStoreID}`
-            }" target="_blank" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
+            }" target="_blank" title="iTunes App Store" itemprop="installUrl"><i class="fab fa-app-store-ios"></i></a>`
           : ""
       }
       ${
@@ -78,16 +78,16 @@ export function render(obj: App) {
               obj.install.macAppStoreID.toUpperCase().startsWith("ID")
                 ? obj.install.macAppStoreID
                 : `id${obj.install.macAppStoreID}`
-            }" target="_blank" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
+            }" target="_blank" title="Mac App Store" itemprop="installUrl"><i class="fab fa-app-store"></i></a>`
           : ""
       }
       ${
         obj.install.microsoftAppID
-          ? `<a class="link" href="http://www.windowsphone.com/s?appid=${obj.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="link" href="http://www.windowsphone.com/s?appid=${obj.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
-      <div class="topics">${obj.topics
-        .map(t => {
+      <div class="topics" itemprop="applicationCategory">${obj.topics
+        .map((t) => {
           const background = textToColor(t);
 
           const yiq =
@@ -114,14 +114,14 @@ export function render(obj: App) {
         ${
           obj.author
             ? `<div class="more-info">
-          <span class="more-info-title">Author</span> <span class="more-info-text">${obj.author}</span>
+          <span class="more-info-title">Author</span> <span class="more-info-text" itemprop="author">${obj.author}</span>
         </div>`
             : ""
         }
         ${
           obj.platform.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Platforms</span> <span class="more-info-text">${obj.platform.join(
+          <span class="more-info-title">Platforms</span> <span class="more-info-text" itemprop="operatingSystem">${obj.platform.join(
             ", "
           )}</span>
         </div>`
@@ -130,7 +130,7 @@ export function render(obj: App) {
         ${
           obj.lastRelease
             ? `<div class="more-info">
-          <span class="more-info-title">Last release</span> <span class="more-info-text">${obj.lastRelease}</span>
+          <span class="more-info-title">Last release</span> <span class="more-info-text" itemprop="softwareVersion">${obj.lastRelease}</span>
         </div>`
             : ""
         }
@@ -165,6 +165,8 @@ export function render(obj: App) {
         `,
     ["app"]
   );
+  element.setAttribute("itemscope", "");
+  element.setAttribute("itemtype", "https://schema.org/SoftwareApplication");
 
   const moreButton = element.querySelector(
     ".more-infos-button"
@@ -172,7 +174,7 @@ export function render(obj: App) {
 
   const moreInfos = element.querySelector(".more-infos") as HTMLElement;
 
-  moreButton?.addEventListener("click", ev => {
+  moreButton?.addEventListener("click", (ev) => {
     moreButton?.setAttribute("style", "display: none;");
     moreInfos?.setAttribute("style", "");
 
