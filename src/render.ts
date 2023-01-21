@@ -25,7 +25,7 @@ export function render(obj: App) {
     `<div class="header">
         <div class="name">${
           obj.website
-            ? `<a href="${obj.website}" target="_blank" itemprop="name">${obj.name}</a>`
+            ? `<a href="${obj.website}" target="_blank"><span itemprop="name">${obj.name}</span></a>`
             : `<span itemprop="name">${obj.name}</span>`
         }</div>
         ${
