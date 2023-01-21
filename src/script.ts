@@ -117,7 +117,9 @@ const categorySelect = new SlimSelect({
         "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
       text: "Contribute",
     },
-  ],
+  ].map((c) => {
+    return { ...c, selected: c.value === document.location.hash.slice(1) };
+  }),
   onChange: () => {
     doUpdate(true);
   },
@@ -150,6 +152,8 @@ function update(
   language: string[] = [],
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
 ) {
+  document.location.hash = "#" + category;
+
   getHtmlElement(".apps").innerHTML = "";
 
   let filteredApps: App[];
