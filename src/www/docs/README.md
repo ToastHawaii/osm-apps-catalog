@@ -22,7 +22,7 @@ Create a wiki Page about your app in the [OpenStreetMap Wiki](https://wiki.opens
 
 ## ➖ How can I remove a application from the list?
 
-Delete the Software or Service item template about the app from the wiki page or mark the website link to the app as offline with `<s>...</s>` or `<strike>...</strike>`. You can also add `status = broken` on the Software template.
+Delete the Software or Service item template about the app from the wiki page or mark the website link to the app as offline with `<s>...</s>` or `<strike>...</strike>`. You can also add `status = unfinished`, `status = unmaintained` or `status = broken` on the Software template.
 
 ## 💪 Is there anything else to do?
 

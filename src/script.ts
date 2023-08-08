@@ -472,9 +472,9 @@ async function loadAppCatalog(language = "en") {
   const layerObjects = await requestTemplates("Layer", language);
   for (const source of layerObjects.filter(
     (s) =>
-      !(
-        containsOfflineLink(s["name"]) || containsOfflineLink(s["slippy_web"])
-      ) && !equalsIgnoreCase(s["discontinued"], "YES")
+      !containsOfflineLink(s["name"]) && 
+      !containsOfflineLink(s["slippy_web"]) && 
+      !equalsIgnoreCase(s["discontinued"], "YES")
   )) {
     const obj: App = transformLayer(source);
 
@@ -485,8 +485,11 @@ async function loadAppCatalog(language = "en") {
   const softwareObjects = await requestTemplates("Software", language);
   for (const source of softwareObjects.filter(
     (s) =>
-      !(containsOfflineLink(s["name"]) || containsOfflineLink(s["web"])) &&
-      !equalsIgnoreCase(s["status"], "BROKEN")
+      !containsOfflineLink(s["name"]) && 
+      !containsOfflineLink(s["web"]) &&
+      !equalsIgnoreCase(s["status"], "unfinished") &&
+      !equalsIgnoreCase(s["status"], "unmaintained") &&
+      !equalsIgnoreCase(s["status"], "broken")
   )) {
     const obj: App = transformSoftware(source);
 
