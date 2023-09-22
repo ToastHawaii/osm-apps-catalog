@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { getJson } from "./utilities/jsonRequest";
+import { getJson, getJsonCORS } from "./utilities/jsonRequest";
 import { findClosingBracketIndex, equalsIgnoreCase } from "./utilities/string";
 
 type Template = {
@@ -60,7 +60,7 @@ async function osmMediaApiQuery(params: { [name: string]: string }) {
 }
 
 export async function requestTagInfoProjects() {
-  const response = (await getJson(
+  const response = (await getJsonCORS(
     "https://taginfo.openstreetmap.org/api/4/projects/all",
     {}
   )) as {

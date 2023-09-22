@@ -22,6 +22,14 @@ export async function getJson(url: string, params: any) {
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
+    },
+  });
+
+  return await response.json();
+}
+export async function getJsonCORS(url: string, params: any) {
+  const response = await fetch(`${url}?${utilQsString(params)}`, {
+    headers: {
       "Access-Control-Allow-Origin": "*",
     },
   });
