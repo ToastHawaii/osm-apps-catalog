@@ -90,5 +90,13 @@
     <select id="platform" multiple></select>
     <select id="language" multiple></select>
     <div class="apps"></div>
+    <script>
+      function getTagInfoProjects(response) {
+        window.tagInfoProjects = response.data;
+      }
+    </script>
+    <script type="application/javascript"
+        src="https://taginfo.openstreetmap.org/api/4/projects/all?callback=getTagInfoProjects">
+    </script>
   </body>
 </html>

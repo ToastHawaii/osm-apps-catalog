@@ -17,7 +17,7 @@
 
 import { createElement, getHtmlElement } from "./utilities/html";
 import SlimSelect from "slim-select";
-import { requestTagInfoProjects, requestTemplates } from "./crawler";
+import { requestTemplates } from "./crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
@@ -417,11 +417,15 @@ function addApp(obj: App) {
 
     app.website = app.website || obj.website;
 
-    if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+    if (!app.documentation) {
+      app.documentation = obj.documentation;
+    } else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
       app.documentation = obj.documentation || app.documentation;
     }
 
-    if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
+    if (!app.sourceWiki) {
+      app.sourceWiki = obj.sourceWiki;
+    } else if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
       app.documentation = obj.sourceWiki || app.sourceWiki;
       app.lastChange = obj.lastChange || app.lastChange;
     }
@@ -457,54 +461,65 @@ function extendFilter(app: App) {
 }
 
 async function loadAppCatalog(language = "en") {
-  // const serviceItemObjects = await requestTemplates("Service item", language);
-  // for (const source of serviceItemObjects.filter(
-  //   (s) => !containsOfflineLink(s["name"])
-  // )) {
-  //   const obj: App = transformServiceItem(source);
+  const serviceItemObjects = await requestTemplates("Service item", language);
+  for (const source of serviceItemObjects.filter(
+    (s) => !containsOfflineLink(s["name"])
+  )) {
+    const obj: App = transformServiceItem(source);
 
-  //   addApp(obj);
-  // }
+    addApp(obj);
+  }
 
-  // shuffle(apps);
-  // doUpdate();
+  shuffle(apps);
+  doUpdate();
 
-  // const layerObjects = await requestTemplates("Layer", language);
-  // for (const source of layerObjects.filter(
-  //   (s) =>
-  //     !containsOfflineLink(s["name"]) &&
-  //     !containsOfflineLink(s["slippy_web"]) &&
-  //     !equalsIgnoreCase(s["discontinued"], "YES")
-  // )) {
-  //   const obj: App = transformLayer(source);
+  const layerObjects = await requestTemplates("Layer", language);
+  for (const source of layerObjects.filter(
+    (s) =>
+      !containsOfflineLink(s["name"]) &&
+      !containsOfflineLink(s["slippy_web"]) &&
+      !equalsIgnoreCase(s["discontinued"], "YES")
+  )) {
+    const obj: App = transformLayer(source);
 
-  //   addApp(obj);
-  // }
-  // doUpdate();
+    addApp(obj);
+  }
+  doUpdate();
 
-  // const softwareObjects = await requestTemplates("Software", language);
-  // for (const source of softwareObjects.filter(
-  //   (s) =>
-  //     !containsOfflineLink(s["name"]) &&
-  //     !containsOfflineLink(s["web"]) &&
-  //     !equalsIgnoreCase(s["status"], "unfinished") &&
-  //     !equalsIgnoreCase(s["status"], "unmaintained") &&
-  //     !equalsIgnoreCase(s["status"], "broken")
-  // )) {
-  //   const obj: App = transformSoftware(source);
+  const softwareObjects = await requestTemplates("Software", language);
+  for (const source of softwareObjects.filter(
+    (s) =>
+      !containsOfflineLink(s["name"]) &&
+      !containsOfflineLink(s["web"]) &&
+      !equalsIgnoreCase(s["status"], "unfinished") &&
+      !equalsIgnoreCase(s["status"], "unmaintained") &&
+      !equalsIgnoreCase(s["status"], "broken")
+  )) {
+    const obj: App = transformSoftware(source);
 
-  //   addApp(obj);
-  // }
-  // doUpdate();
+    addApp(obj);
+  }
+  doUpdate();
 
-  const projectObjects = await requestTagInfoProjects();
+  const projectObjects = window.tagInfoProjects as {
+    id: string;
+    name: string;
+    project_url: string;
+    icon_url: string;
+    doc_url: string;
+    description: string;
+    key_entries: number;
+    tag_entries: number;
+    unique_keys: number;
+    unique_tags: number;
+  }[];
   for (const source of projectObjects) {
     const obj: App = {
       name: source.name,
       website: source.project_url,
-      images: [source.icon_url],
+      images: source.icon_url ? [source.icon_url] : [],
       documentation: source.doc_url,
-      sourceWiki: source.doc_url,
+      sourceWiki: "",
       description: source.description,
       topics: [],
       languages: [],

@@ -6,6 +6,8 @@ Experience the world in a creative, productive and unexpected way.
 
 This website shows applications and services that use OpenStreetMap data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application.
 
+The list is completed with the [taginfo.openstreetmap.org projects list](https://taginfo.openstreetmap.org/projects).
+
 The catalog is updated every day.
 
 A special thanks goes to Dmytro Ovdiienko for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
