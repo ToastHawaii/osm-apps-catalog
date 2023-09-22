@@ -501,25 +501,30 @@ async function loadAppCatalog(language = "en") {
   }
   doUpdate();
 
-  const projectObjects = window.tagInfoProjects as {
-    id: string;
-    name: string;
-    project_url: string;
-    icon_url: string;
-    doc_url: string;
-    description: string;
-    key_entries: number;
-    tag_entries: number;
-    unique_keys: number;
-    unique_tags: number;
-  }[];
-  for (const source of projectObjects) {
+  const projectObjects = window.tagInfoProjectsResponse as {
+    url: string;
+    data_until: string;
+    data: {
+      id: string;
+      name: string;
+      project_url: string;
+      icon_url: string;
+      doc_url: string;
+      description: string;
+      key_entries: number;
+      tag_entries: number;
+      unique_keys: number;
+      unique_tags: number;
+    }[];
+  };
+  for (const source of projectObjects.data) {
     const obj: App = {
       name: source.name,
       website: source.project_url,
       images: source.icon_url ? [source.icon_url] : [],
       documentation: source.doc_url,
-      sourceWiki: "",
+      lastChange: projectObjects.data_until,
+      sourceWiki: projectObjects.url,
       description: source.description,
       topics: [],
       languages: [],
