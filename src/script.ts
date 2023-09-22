@@ -421,7 +421,7 @@ function addApp(obj: App) {
       app.documentation = obj.documentation || app.documentation;
     }
 
-    if ( /List.of.OSM.based.services/gi.test(app.sourceWiki)) {
+    if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
       app.documentation = obj.sourceWiki || app.sourceWiki;
       app.lastChange = obj.lastChange || app.lastChange;
     }
