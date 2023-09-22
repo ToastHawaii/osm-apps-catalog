@@ -33,7 +33,7 @@ Sure, helping hands are always welcome and there is something for everyone to do
 Improve the documentation about Software in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the Service items in the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services).
 
 - Add missing or undocumented services to the wiki. Create a wiki page and document with [Software Template](https://wiki.openstreetmap.org/wiki/Template:Software)
-- Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it), or mark them als broken
+- Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it), or mark them as unfinished, unmaintained or broken
 - Reorganize the categories and services
 - Mark regional maps with local
 - Clean up names, replace domains/url with description from the website title
