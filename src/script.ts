@@ -17,7 +17,7 @@
 
 import { createElement, getHtmlElement } from "./utilities/html";
 import SlimSelect from "slim-select";
-import { requestTemplates } from "./crawler";
+import { requestTagInfoProjects, requestTemplates } from "./crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
@@ -171,8 +171,8 @@ function update(
 
   if (category === "latest") {
     filteredApps = apps.slice().sort(function (a, b) {
-      const nameA = a.lastChange.toUpperCase() || "";
-      const nameB = b.lastChange.toUpperCase() || "";
+      const nameA = a.lastChange?.toUpperCase() || "";
+      const nameB = b.lastChange?.toUpperCase() || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -197,8 +197,8 @@ function update(
     });
   } else if (category === "focus") {
     let latestApps = apps.slice().sort(function (a, b) {
-      const nameA = a.lastChange.toUpperCase() || "";
-      const nameB = b.lastChange.toUpperCase() || "";
+      const nameA = a.lastChange?.toUpperCase() || "";
+      const nameB = b.lastChange?.toUpperCase() || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -421,7 +421,7 @@ function addApp(obj: App) {
       app.documentation = obj.documentation || app.documentation;
     }
 
-    if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
+    if ( /List.of.OSM.based.services/gi.test(app.sourceWiki)) {
       app.documentation = obj.sourceWiki || app.sourceWiki;
       app.lastChange = obj.lastChange || app.lastChange;
     }
@@ -492,6 +492,25 @@ async function loadAppCatalog(language = "en") {
       !equalsIgnoreCase(s["status"], "broken")
   )) {
     const obj: App = transformSoftware(source);
+
+    addApp(obj);
+  }
+  doUpdate();
+
+  const projectObjects = await requestTagInfoProjects();
+  for (const source of projectObjects) {
+    const obj: App = {
+      name: source.name,
+      website: source.project_url,
+      images: [source.icon_url],
+      documentation: source.doc_url,
+      sourceWiki: source.doc_url,
+      description: source.description,
+      topics: [],
+      languages: [],
+      platform: [],
+      install: {},
+    };
 
     addApp(obj);
   }

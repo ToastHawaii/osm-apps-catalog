@@ -32,7 +32,7 @@ export async function requestTemplates(template: string, language: string) {
     } = {
       list: "embeddedin",
       eititle: "Template:" + template,
-      eilimit: "500"
+      eilimit: "500",
     };
     if (con) params.eicontinue = con;
 
@@ -57,6 +57,28 @@ async function osmMediaApiQuery(params: { [name: string]: string }) {
   params["format"] = "json";
 
   return await getJson(base, params);
+}
+
+export async function requestTagInfoProjects() {
+  const response = (await getJson(
+    "https://taginfo.openstreetmap.org/api/4/projects/all",
+    {}
+  )) as {
+    data: {
+      id: string;
+      name: string;
+      project_url: string;
+      icon_url: string;
+      doc_url: string;
+      description: string;
+      key_entries: number;
+      tag_entries: number;
+      unique_keys: number;
+      unique_tags: number;
+    }[];
+  };
+
+  return response.data;
 }
 
 async function processPagesByTemplateResult(
@@ -97,7 +119,7 @@ async function loadPages(ids: string[], template: string) {
     prop: "revisions",
     rvprop: "content|timestamp",
     pageids: ids.join("|"),
-    rvslots: "*"
+    rvslots: "*",
   };
 
   const response = await osmMediaApiQuery(params);
