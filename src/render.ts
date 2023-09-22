@@ -37,7 +37,9 @@ export function render(obj: App) {
       <div class="description"><span itemprop="description">${
         obj.description
       }</span> ${
-      obj.wiki ? `<a href="${obj.wiki}" target="_blank">Wiki</a>` : ""
+      obj.documentation
+        ? `<a href="${obj.documentation}" target="_blank">Documentation</a>`
+        : ""
     }</div>
       ${
         obj.website

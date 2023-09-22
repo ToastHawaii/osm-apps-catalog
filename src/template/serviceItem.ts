@@ -22,7 +22,7 @@ import { removeDuplicates } from "../utilities/array";
 import {
   appendFullStop,
   trim,
-  firstLetterToUpperCase
+  firstLetterToUpperCase,
 } from "../utilities/string";
 import {
   App,
@@ -30,7 +30,7 @@ import {
   splitByCommaButNotInsideBraceRegex,
   extractNameWebsiteWiki,
   extractWebsite,
-  extractLanguageCodeFromTemplate
+  extractLanguageCodeFromTemplate,
 } from "./utilities";
 
 export function transform(source: { [name: string]: string }) {
@@ -39,24 +39,24 @@ export function transform(source: { [name: string]: string }) {
     lastChange: source["timestamp"] || "",
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
-    wiki: toWikiUrl(source.sourceWiki) || "",
+    documentation: toWikiUrl(source.sourceWiki) || "",
     sourceWiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractWebsite(source["material"])),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)
       .map(trim)
-      .filter(v => v)
-      .map(v => languageValueToDisplay(v)),
+      .filter((v) => v)
+      .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(extractWebsite(source["lang"])),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
+      .filter((v) => v)
       .map(firstLetterToUpperCase)
       .sort(),
     platform: [],
-    install: {}
+    install: {},
   };
 
   if (source["region"])
@@ -64,7 +64,7 @@ export function transform(source: { [name: string]: string }) {
       `Coverage: ${source["region"]
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
-        .filter(v => v)
+        .filter((v) => v)
         .map(firstLetterToUpperCase)
         .join(", ")}`
     );
@@ -75,6 +75,6 @@ export function transform(source: { [name: string]: string }) {
   let name = extractNameWebsiteWiki(source["name"]);
   obj.name = name.name || obj.name;
   obj.website = name.website;
-  obj.wiki = name.wiki || obj.wiki;
+  obj.documentation = name.wiki || obj.documentation;
   return obj;
 }

@@ -25,35 +25,35 @@ import {
   processWikiText,
   extractRepo,
   splitByCommaButNotInsideBraceRegex,
-  extractWebsite
+  extractWebsite,
 } from "./utilities";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
     lastChange: source["timestamp"] || "",
-    lastRelease: toDate(source["date"] )|| "",
+    lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),
-    wiki: toWikiUrl(source.sourceWiki) || "",
+    documentation: toWikiUrl(source.sourceWiki) || "",
     sourceWiki: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractRepo(source["repo"])),
     author: (source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
-      .map(v => processWikiText(v))
+      .filter((v) => v)
+      .map((v) => processWikiText(v))
       .join(", "),
     languages: (source["tiles_languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
-      .map(v => languageValueToDisplay(v)),
+      .filter((v) => v)
+      .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["tiles_languagesurl"]),
     topics: [],
     platform: ["Web"],
-    install: {}
+    install: {},
   };
 
   obj.languages = removeDuplicates(obj.languages).sort();

@@ -417,12 +417,12 @@ function addApp(obj: App) {
 
     app.website = app.website || obj.website;
 
-    if (/List.of.OSM.based.services/gi.test(app.wiki)) {
-      app.wiki = obj.wiki || app.wiki;
+    if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+      app.documentation = obj.documentation || app.documentation;
     }
 
     if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
-      app.wiki = obj.sourceWiki || app.sourceWiki;
+      app.documentation = obj.sourceWiki || app.sourceWiki;
       app.lastChange = obj.lastChange || app.lastChange;
     }
 
@@ -472,8 +472,8 @@ async function loadAppCatalog(language = "en") {
   const layerObjects = await requestTemplates("Layer", language);
   for (const source of layerObjects.filter(
     (s) =>
-      !containsOfflineLink(s["name"]) && 
-      !containsOfflineLink(s["slippy_web"]) && 
+      !containsOfflineLink(s["name"]) &&
+      !containsOfflineLink(s["slippy_web"]) &&
       !equalsIgnoreCase(s["discontinued"], "YES")
   )) {
     const obj: App = transformLayer(source);
@@ -485,7 +485,7 @@ async function loadAppCatalog(language = "en") {
   const softwareObjects = await requestTemplates("Software", language);
   for (const source of softwareObjects.filter(
     (s) =>
-      !containsOfflineLink(s["name"]) && 
+      !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["web"]) &&
       !equalsIgnoreCase(s["status"], "unfinished") &&
       !equalsIgnoreCase(s["status"], "unmaintained") &&

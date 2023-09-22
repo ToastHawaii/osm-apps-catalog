@@ -24,14 +24,14 @@ import {
   appendFullStop,
   trim,
   firstLetterToUpperCase,
-  toDate
+  toDate,
 } from "../utilities/string";
 import {
   App,
   processWikiText,
   extractRepo,
   splitByCommaButNotInsideBraceRegex,
-  extractNameWebsiteWiki
+  extractNameWebsiteWiki,
 } from "./utilities";
 
 export function transform(source: { [name: string]: string }) {
@@ -42,13 +42,13 @@ export function transform(source: { [name: string]: string }) {
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
-    wiki: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
+    documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     sourceWiki: toWikiUrl(source.sourceWiki) || "",
     author: (source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
-      .map(v => processWikiText(v))
+      .filter((v) => v)
+      .map((v) => processWikiText(v))
       .join(", "),
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
@@ -56,21 +56,21 @@ export function transform(source: { [name: string]: string }) {
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
-      .map(v => languageValueToDisplay(v)),
+      .filter((v) => v)
+      .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["languagesurl"]),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
+      .filter((v) => v)
       .map(firstLetterToUpperCase),
     platform: (source["platform"] || "")
       .replace(/\[\[/g, "")
       .replace(/\]\]/g, "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter(v => v)
-      .map(v => platformValueToDisplay(v)),
+      .filter((v) => v)
+      .map((v) => platformValueToDisplay(v)),
     install: {
       asin: source["asin"],
       bbWorldID: source["bbWorldID"],
@@ -78,8 +78,8 @@ export function transform(source: { [name: string]: string }) {
       googlePlayID: source["googlePlayID"],
       appleStoreID: source["appleStoreID"],
       macAppStoreID: source["macAppStoreID"],
-      microsoftAppID: source["microsoftAppID"]
-    }
+      microsoftAppID: source["microsoftAppID"],
+    },
   };
 
   obj.platform = removeDuplicates(obj.platform).sort();
@@ -90,7 +90,7 @@ export function transform(source: { [name: string]: string }) {
       ...(source["profiles"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
-        .filter(v => v)
+        .filter((v) => v)
         .map(firstLetterToUpperCase)
     );
 
@@ -99,7 +99,7 @@ export function transform(source: { [name: string]: string }) {
       ...(source["datasource"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
-        .filter(v => v)
+        .filter((v) => v)
         .map(firstLetterToUpperCase)
     );
 
@@ -108,7 +108,7 @@ export function transform(source: { [name: string]: string }) {
       ...(source["accessibility"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
-        .filter(v => v)
+        .filter((v) => v)
         .map(firstLetterToUpperCase)
     );
     obj.topics.push("Accessibility");
@@ -153,19 +153,19 @@ export function transform(source: { [name: string]: string }) {
     const name = extractNameWebsiteWiki(source["name"]);
     obj.name = name.name || obj.name;
     obj.website = obj.website || name.website;
-    obj.wiki = obj.wiki || name.wiki || "";
+    obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["web"]);
     obj.name = obj.name || name.name;
     obj.website = name.website || obj.website;
-    obj.wiki = obj.wiki || name.wiki || "";
+    obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["wiki"]);
     obj.name = obj.name || name.name;
     obj.website = obj.website || name.website;
-    obj.wiki = name.wiki || obj.wiki;
+    obj.documentation = name.wiki || obj.documentation;
   }
   return obj;
 }
