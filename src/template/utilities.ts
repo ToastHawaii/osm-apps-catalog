@@ -246,7 +246,6 @@ export function processWikiText(text: string = "") {
           `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=*`
         );
       } else {
-        debugger;
         text = text.replace(
           regex,
           `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4">$4</a>`

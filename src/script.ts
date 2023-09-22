@@ -457,45 +457,45 @@ function extendFilter(app: App) {
 }
 
 async function loadAppCatalog(language = "en") {
-  const serviceItemObjects = await requestTemplates("Service item", language);
-  for (const source of serviceItemObjects.filter(
-    (s) => !containsOfflineLink(s["name"])
-  )) {
-    const obj: App = transformServiceItem(source);
+  // const serviceItemObjects = await requestTemplates("Service item", language);
+  // for (const source of serviceItemObjects.filter(
+  //   (s) => !containsOfflineLink(s["name"])
+  // )) {
+  //   const obj: App = transformServiceItem(source);
 
-    addApp(obj);
-  }
+  //   addApp(obj);
+  // }
 
-  shuffle(apps);
-  doUpdate();
+  // shuffle(apps);
+  // doUpdate();
 
-  const layerObjects = await requestTemplates("Layer", language);
-  for (const source of layerObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["slippy_web"]) &&
-      !equalsIgnoreCase(s["discontinued"], "YES")
-  )) {
-    const obj: App = transformLayer(source);
+  // const layerObjects = await requestTemplates("Layer", language);
+  // for (const source of layerObjects.filter(
+  //   (s) =>
+  //     !containsOfflineLink(s["name"]) &&
+  //     !containsOfflineLink(s["slippy_web"]) &&
+  //     !equalsIgnoreCase(s["discontinued"], "YES")
+  // )) {
+  //   const obj: App = transformLayer(source);
 
-    addApp(obj);
-  }
-  doUpdate();
+  //   addApp(obj);
+  // }
+  // doUpdate();
 
-  const softwareObjects = await requestTemplates("Software", language);
-  for (const source of softwareObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["web"]) &&
-      !equalsIgnoreCase(s["status"], "unfinished") &&
-      !equalsIgnoreCase(s["status"], "unmaintained") &&
-      !equalsIgnoreCase(s["status"], "broken")
-  )) {
-    const obj: App = transformSoftware(source);
+  // const softwareObjects = await requestTemplates("Software", language);
+  // for (const source of softwareObjects.filter(
+  //   (s) =>
+  //     !containsOfflineLink(s["name"]) &&
+  //     !containsOfflineLink(s["web"]) &&
+  //     !equalsIgnoreCase(s["status"], "unfinished") &&
+  //     !equalsIgnoreCase(s["status"], "unmaintained") &&
+  //     !equalsIgnoreCase(s["status"], "broken")
+  // )) {
+  //   const obj: App = transformSoftware(source);
 
-    addApp(obj);
-  }
-  doUpdate();
+  //   addApp(obj);
+  // }
+  // doUpdate();
 
   const projectObjects = await requestTagInfoProjects();
   for (const source of projectObjects) {
