@@ -467,7 +467,11 @@ function extendFilter(app: App) {
 }
 
 async function loadAppCatalog(language = "en") {
-  const serviceItemObjects = await requestTemplates("Service item", language);
+  const serviceItemObjectsRequest = requestTemplates("Service item", language);
+  const layerObjectsRequest = requestTemplates("Layer", language);
+  const softwareObjectsRequest = requestTemplates("Software", language);
+
+  const serviceItemObjects = await serviceItemObjectsRequest;
   for (const source of serviceItemObjects.filter(
     (s) => !containsOfflineLink(s["name"])
   )) {
@@ -479,7 +483,7 @@ async function loadAppCatalog(language = "en") {
   shuffle(apps);
   doUpdate();
 
-  const layerObjects = await requestTemplates("Layer", language);
+  const layerObjects = await layerObjectsRequest;
   for (const source of layerObjects.filter(
     (s) =>
       !containsOfflineLink(s["name"]) &&
@@ -492,7 +496,7 @@ async function loadAppCatalog(language = "en") {
   }
   doUpdate();
 
-  const softwareObjects = await requestTemplates("Software", language);
+  const softwareObjects = await softwareObjectsRequest;
   for (const source of softwareObjects.filter(
     (s) =>
       !containsOfflineLink(s["name"]) &&
