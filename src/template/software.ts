@@ -37,13 +37,18 @@ import {
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    lastChange: source["timestamp"] || "",
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
     documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
-    source: toWikiUrl(source.sourceWiki) || "",
+    source: [
+      {
+        name: "Wiki (Software)",
+        url: toWikiUrl(source.sourceWiki) || "",
+        lastChange: source["timestamp"] || "",
+      },
+    ],
     author: (source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)

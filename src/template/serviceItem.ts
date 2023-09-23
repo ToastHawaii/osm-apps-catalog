@@ -33,13 +33,19 @@ import {
   extractLanguageCodeFromTemplate,
 } from "./utilities";
 
-export function transform(source: { [name: string]: string }) { 
+export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    lastChange: source["timestamp"] || "",
+
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
-    source: toWikiUrl(source.sourceWiki) || "",
+    source: [
+      {
+        name: "Wiki (ServiceItem)",
+        url: toWikiUrl(source.sourceWiki) || "",
+        lastChange: source["timestamp"] || "",
+      },
+    ],
     sourceCode: toUrl(extractWebsite(source["material"])),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

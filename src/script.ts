@@ -31,6 +31,7 @@ import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 import { Solver } from "./utilities/coloriz/Solver";
 import { Color } from "./utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./utilities/filter";
+
 let onUpdate = false;
 let apps: App[] = [];
 
@@ -147,13 +148,13 @@ function update(
   let description = "";
   if (category === "all") {
     description =
-      "Shows all apps found on the OpenStreetMap wiki and TagInfos in random order.";
+      "Shows all apps found on the OpenStreetMap wiki and taginfo in random order.";
   } else if (category === "focus") {
     description =
-      "Shows ten apps from the most recently updated OpenStreetMap wiki pages and TagInfos.";
+      "Shows ten apps from the most recently updated pages.";
   } else if (category === "latest") {
     description =
-      "Shows all apps found on the OpenStreetMap wiki and TagInfos, ordered by last release date.";
+      "Shows all apps ordered by last release date.";
   } else if (category === "mobile") {
     description =
       "Shows apps developed for mobile devices or that support offline use.";
@@ -171,8 +172,8 @@ function update(
 
   if (category === "latest") {
     filteredApps = apps.slice().sort(function (a, b) {
-      const nameA = a.lastChange?.toUpperCase() || "";
-      const nameB = b.lastChange?.toUpperCase() || "";
+      const nameA = a.source[0].lastChange.toUpperCase() || "";
+      const nameB = b.source[0].lastChange.toUpperCase() || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -197,8 +198,8 @@ function update(
     });
   } else if (category === "focus") {
     let latestApps = apps.slice().sort(function (a, b) {
-      const nameA = a.lastChange?.toUpperCase() || "";
-      const nameB = b.lastChange?.toUpperCase() || "";
+      const nameA = a.source[0].lastChange.toUpperCase() || "";
+      const nameB = b.source[0].lastChange.toUpperCase() || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -214,7 +215,8 @@ function update(
       if (filteredApps.length < 10) {
         if (
           !filteredApps.some(
-            (a) => a.source.toUpperCase() === app.source.toUpperCase()
+            (a) =>
+              a.source[0].url.toUpperCase() === app.source[0].url.toUpperCase()
           )
         ) {
           filteredApps.push(app);
@@ -427,13 +429,14 @@ function addApp(obj: App) {
       app.documentation = obj.documentation || app.documentation;
     }
 
-    if (!app.source) {
-      app.source = obj.source;
-    } else if (/List.of.OSM.based.services/gi.test(app.source)) {
-      if (!/taginfo.openstreetmap.org/gi.test(obj.source)) {
-        app.source = obj.source || app.source;
-        app.lastChange = obj.lastChange || app.lastChange;
-      }
+    // make the first source the newest
+    if (
+      app.source[0].lastChange.toUpperCase() >
+      obj.source[0].lastChange.toUpperCase()
+    ) {
+      app.source = [...app.source, ...obj.source];
+    } else {
+      app.source = [...obj.source, ...app.source];
     }
 
     app.author = app.author || obj.author;
@@ -530,8 +533,9 @@ async function loadAppCatalog(language = "en") {
       website: obj.project_url,
       images: obj.icon_url ? [obj.icon_url] : [],
       documentation: obj.doc_url,
-      lastChange: projectObjects.data_until,
-      source,
+      source: [
+        { name: "taginfo", url: source, lastChange: projectObjects.data_until },
+      ],
       description: obj.description,
       topics: [],
       languages: [],

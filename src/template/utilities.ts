@@ -19,12 +19,11 @@ import { toWikiUrl } from "../utilities/url";
 
 export type App = {
   name: string;
-  lastChange?: string;
   lastRelease?: string;
   images: string[];
   description: string;
   documentation?: string;
-  source: string;
+  source: { name: string; url: string; lastChange: string }[];
   website?: string;
   topics: string[];
   author?: string;

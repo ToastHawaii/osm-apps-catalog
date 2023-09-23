@@ -158,9 +158,10 @@ export function render(app: App) {
         </a>`
             : ""
         }
-          <a class="more-info" href="${app.source}" target="_blank">
-            <span class="more-info-title">Source</span> <span class="more-info-text"></span>
-          </a>
+        <div class="more-info">
+        <span class="more-info-title">Source</span> <span class="more-info-text">${app.source
+          .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
+          .join(", ")}</span>
         </div>
         `,
     ["app"]

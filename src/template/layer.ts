@@ -31,13 +31,18 @@ import {
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: source["name"] || "",
-    lastChange: source["timestamp"] || "",
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",
-    source: toWikiUrl(source.sourceWiki) || "",
+    source: [
+      {
+        name: "Wiki (Layer)",
+        url: toWikiUrl(source.sourceWiki) || "",
+        lastChange: source["timestamp"] || "",
+      },
+    ],
     sourceCode: toUrl(extractRepo(source["repo"])),
     author: (source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
