@@ -182,7 +182,7 @@ export function render(app: App) {
     ev.preventDefault();
   });
 
-  getHtmlElement(".apps").appendChild(element);
+  getHtmlElement("#apps").appendChild(element);
 }
 
 function renderImage(obj: App) {

@@ -15,11 +15,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-export function equalsIgnoreCase(
-  s1: string | undefined,
-  s2: string | undefined
-) {
-  return (s1 || "").toUpperCase() === (s2 || "").toUpperCase();
+export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
+  return typeof a === "string" && typeof b === "string"
+    ? a.localeCompare(b, undefined, { sensitivity: "accent" }) === 0
+    : a === b;
 }
 
 export function startsWithIgnoreCase(

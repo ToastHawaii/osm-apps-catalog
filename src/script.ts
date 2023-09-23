@@ -150,11 +150,9 @@ function update(
     description =
       "Shows all apps found on the OpenStreetMap wiki and taginfo in random order.";
   } else if (category === "focus") {
-    description =
-      "Shows ten apps from the most recently updated pages.";
+    description = "Shows ten apps from the most recently updated pages.";
   } else if (category === "latest") {
-    description =
-      "Shows all apps ordered by last release date.";
+    description = "Shows all apps ordered by last release date.";
   } else if (category === "mobile") {
     description =
       "Shows apps developed for mobile devices or that support offline use.";
@@ -166,7 +164,7 @@ function update(
   }
   getHtmlElement(".description").innerHTML = description;
 
-  getHtmlElement(".apps").innerHTML = "";
+  getHtmlElement("#apps").innerHTML = "";
 
   let filteredApps: App[];
 
@@ -214,9 +212,8 @@ function update(
     for (const app of latestApps) {
       if (filteredApps.length < 10) {
         if (
-          !filteredApps.some(
-            (a) =>
-              a.source[0].url.toUpperCase() === app.source[0].url.toUpperCase()
+          !filteredApps.some((a) =>
+            equalsIgnoreCase(a.source[0].url, app.source[0].url)
           )
         ) {
           filteredApps.push(app);
@@ -348,7 +345,7 @@ function update(
 
     if (similarApps.length > 0) {
       const similarTag = createElement("h2", "Related apps");
-      getHtmlElement(".apps").appendChild(similarTag);
+      getHtmlElement("#apps").appendChild(similarTag);
 
       for (const a of similarApps) {
         render(a);
@@ -487,7 +484,7 @@ async function loadAppCatalog(language = "en") {
     (s) =>
       !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["slippy_web"]) &&
-      !equalsIgnoreCase(s["discontinued"], "YES")
+      (s["discontinued"] || "").toUpperCase() !== "YES"
   )) {
     const obj: App = transformLayer(source);
 
@@ -495,14 +492,13 @@ async function loadAppCatalog(language = "en") {
   }
   doUpdate();
 
+  const status = ["unfinished", "unmaintained", "broken"];
   const softwareObjects = await requestTemplates("Software", language);
   for (const source of softwareObjects.filter(
     (s) =>
       !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["web"]) &&
-      !equalsIgnoreCase(s["status"], "unfinished") &&
-      !equalsIgnoreCase(s["status"], "unmaintained") &&
-      !equalsIgnoreCase(s["status"], "broken")
+      !status.some((st) => st === (s["status"] || "").toLowerCase())
   )) {
     const obj: App = transformSoftware(source);
 

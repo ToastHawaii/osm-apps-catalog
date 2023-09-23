@@ -15,8 +15,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { equalsIgnoreCase } from "./utilities/string";
-
 const languages: {
   code: string;
   display: string;
@@ -292,17 +290,19 @@ const languages: {
   { code: "zh-min-nan", display: "Bân-lâm-gú" },
   { code: "zh-tw", display: "‪中文(台灣)‬" },
   { code: "zh-yue", display: "粵語 / 粤语" },
-  { code: "zu", display: "isiZulu" }
+  { code: "zu", display: "isiZulu" },
 ];
 
 export function languageValueToDisplay(value: string) {
+  value = value.replaceAll("_", "-").toLowerCase();
+  
   for (const language of languages) {
-    if (equalsIgnoreCase(language.code, value)) return language.display;
+    if (language.code === value) return language.display;
   }
 
   value = extractLanguageCodeFromLocal(value);
   for (const language of languages) {
-    if (equalsIgnoreCase(language.code, value)) return language.display;
+    if (language.code === value) return language.display;
   }
 
   return value;

@@ -22,7 +22,7 @@
     "noEmitOnError": true, // Do not emit outputs if any errors were reported.
     "sourceMap": true,
     "module": "commonjs",
-    "target": "es5",
+    "target": "ES2021",
     "allowJs": true,
     "typeRoots": [
       "../node_modules/@types"
