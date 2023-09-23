@@ -147,13 +147,13 @@ function update(
   let description = "";
   if (category === "all") {
     description =
-      "Shows all apps found on the OpenStreetMap wiki in random order.";
+      "Shows all apps found on the OpenStreetMap wiki and TagInfos in random order.";
   } else if (category === "focus") {
     description =
-      "Shows ten apps from the most recently updated OpenStreetMap wiki pages.";
+      "Shows ten apps from the most recently updated OpenStreetMap wiki pages and TagInfos.";
   } else if (category === "latest") {
     description =
-      "Shows all apps found on the OpenStreetMap wiki, ordered by last release date.";
+      "Shows all apps found on the OpenStreetMap wiki and TagInfos, ordered by last release date.";
   } else if (category === "mobile") {
     description =
       "Shows apps developed for mobile devices or that support offline use.";
@@ -214,7 +214,7 @@ function update(
       if (filteredApps.length < 10) {
         if (
           !filteredApps.some(
-            (a) => a.sourceWiki.toUpperCase() === app.sourceWiki.toUpperCase()
+            (a) => a.source.toUpperCase() === app.source.toUpperCase()
           )
         ) {
           filteredApps.push(app);
@@ -391,7 +391,11 @@ async function getAppCatalog() {
 }
 
 function addApp(obj: App) {
-  const duplicates = apps.filter((a) => equalsIgnoreCase(a.name, obj.name));
+  const duplicates = apps.filter(
+    (app) =>
+      equalsIgnoreCase(app.name, obj.name) ||
+      (app.website && obj.website && equalsIgnoreCase(app.website, obj.website))
+  );
 
   if (duplicates.length === 0) {
     apps.push(obj);
@@ -423,11 +427,13 @@ function addApp(obj: App) {
       app.documentation = obj.documentation || app.documentation;
     }
 
-    if (!app.sourceWiki) {
-      app.sourceWiki = obj.sourceWiki;
-    } else if (/List.of.OSM.based.services/gi.test(app.sourceWiki)) {
-      app.documentation = obj.sourceWiki || app.sourceWiki;
-      app.lastChange = obj.lastChange || app.lastChange;
+    if (!app.source) {
+      app.source = obj.source;
+    } else if (/List.of.OSM.based.services/gi.test(app.source)) {
+      if (!/taginfo.openstreetmap.org/gi.test(obj.source)) {
+        app.source = obj.source || app.source;
+        app.lastChange = obj.lastChange || app.lastChange;
+      }
     }
 
     app.author = app.author || obj.author;
@@ -517,22 +523,23 @@ async function loadAppCatalog(language = "en") {
       unique_tags: number;
     }[];
   };
-  for (const source of projectObjects.data) {
-    const obj: App = {
-      name: source.name,
-      website: source.project_url,
-      images: source.icon_url ? [source.icon_url] : [],
-      documentation: source.doc_url,
+  const source = "https://taginfo.openstreetmap.org/projects";
+  for (const obj of projectObjects.data) {
+    const app: App = {
+      name: obj.name,
+      website: obj.project_url,
+      images: obj.icon_url ? [obj.icon_url] : [],
+      documentation: obj.doc_url || source,
       lastChange: projectObjects.data_until,
-      sourceWiki: projectObjects.url,
-      description: source.description,
+      source,
+      description: obj.description,
       topics: [],
       languages: [],
       platform: [],
       install: {},
     };
 
-    addApp(obj);
+    addApp(app);
   }
   doUpdate();
 }

@@ -24,7 +24,7 @@ export type App = {
   images: string[];
   description: string;
   documentation: string;
-  sourceWiki: string;
+  source: string;
   website?: string;
   topics: string[];
   author?: string;

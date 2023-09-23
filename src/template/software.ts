@@ -43,7 +43,7 @@ export function transform(source: { [name: string]: string }) {
     images: toWikimediaUrl(source["screenshot"], 250),
     website: toUrl(source["web"]),
     documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
-    sourceWiki: toWikiUrl(source.sourceWiki) || "",
+    source: toWikiUrl(source.sourceWiki) || "",
     author: (source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
