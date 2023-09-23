@@ -23,7 +23,7 @@ export type App = {
   lastRelease?: string;
   images: string[];
   description: string;
-  documentation: string;
+  documentation?: string;
   source: string;
   website?: string;
   topics: string[];

@@ -33,13 +33,12 @@ import {
   extractLanguageCodeFromTemplate,
 } from "./utilities";
 
-export function transform(source: { [name: string]: string }) {
+export function transform(source: { [name: string]: string }) { 
   const obj: App = {
     name: source["name"] || "",
     lastChange: source["timestamp"] || "",
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
-    documentation: toWikiUrl(source.sourceWiki) || "",
     source: toWikiUrl(source.sourceWiki) || "",
     sourceCode: toUrl(extractWebsite(source["material"])),
     languages: (source["lang"] || "")

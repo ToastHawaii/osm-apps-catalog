@@ -529,7 +529,7 @@ async function loadAppCatalog(language = "en") {
       name: obj.name,
       website: obj.project_url,
       images: obj.icon_url ? [obj.icon_url] : [],
-      documentation: obj.doc_url || source,
+      documentation: obj.doc_url,
       lastChange: projectObjects.data_until,
       source,
       description: obj.description,

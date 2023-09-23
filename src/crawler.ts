@@ -149,7 +149,7 @@ function parseTemplateToObject(content: string) {
   const obj: Template = {};
   const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
   props.shift();
-
+  
   for (const p in props) {
     const pair = props[p].trim();
     const start = pair.indexOf("=");

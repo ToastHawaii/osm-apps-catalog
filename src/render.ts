@@ -19,81 +19,81 @@ import { createElement, getHtmlElement } from "./utilities/html";
 import { App } from "./template/utilities";
 import { textToColor } from "./utilities/string";
 
-export function render(obj: App) {
+export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
         <div class="name">${
-          obj.website
-            ? `<a href="${obj.website}" target="_blank"><span itemprop="name">${obj.name}</span></a>`
-            : `<span itemprop="name">${obj.name}</span>`
+          app.website
+            ? `<a href="${app.website}" target="_blank"><span itemprop="name">${app.name}</span></a>`
+            : `<span itemprop="name">${app.name}</span>`
         }</div>
         ${
-          obj.website
-            ? `<a href="${obj.website}" target="_blank">${renderImage(obj)}</a>`
-            : renderImage(obj)
+          app.website
+            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
+            : renderImage(app)
         }
       </div>
       <div class="description"><span itemprop="description">${
-        obj.description
+        app.description
       }</span> ${
-      obj.documentation
-        ? `<a href="${obj.documentation}" target="_blank">Documentation</a>`
+      app.documentation
+        ? `<a href="${app.documentation}" target="_blank">Documentation</a>`
         : ""
     }</div>
       ${
-        obj.website
-          ? `<a class="link" href="${obj.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
+        app.website
+          ? `<a class="link" href="${app.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
           : ""
       }
 
       ${
-        obj.install.asin
-          ? `<a class="link" href="https://www.amazon.com/dp/${obj.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
+        app.install.asin
+          ? `<a class="link" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
           : ""
       }
       ${
-        obj.install.bbWorldID
-          ? `<a class="link" href="https://appworld.blackberry.com/webstore/content/${obj.install.bbWorldID}/" target="_blank" title="BlackBerry World" itemprop="installUrl"><i class="fab fa-blackberry"></i></a>`
+        app.install.bbWorldID
+          ? `<a class="link" href="https://appworld.blackberry.com/webstore/content/${app.install.bbWorldID}/" target="_blank" title="BlackBerry World" itemprop="installUrl"><i class="fab fa-blackberry"></i></a>`
           : ""
       }
       ${
-        obj.install.fDroidID
-          ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${obj.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
+        app.install.fDroidID
+          ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
           : ""
       }
       ${
-        obj.install.googlePlayID
-          ? `<a class="link" href="https://play.google.com/store/apps/details?id=${obj.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
+        app.install.googlePlayID
+          ? `<a class="link" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
           : ""
       }
       ${
-        obj.install.appleStoreID
+        app.install.appleStoreID
           ? `<a class="link" href="https://itunes.apple.com/app/${
-              obj.install.appleStoreID.toUpperCase().startsWith("ID")
-                ? obj.install.appleStoreID
-                : `id${obj.install.appleStoreID}`
+              app.install.appleStoreID.toUpperCase().startsWith("ID")
+                ? app.install.appleStoreID
+                : `id${app.install.appleStoreID}`
             }" target="_blank" title="iTunes App Store" itemprop="installUrl"><i class="fab fa-app-store-ios"></i></a>`
           : ""
       }
       ${
-        obj.install.macAppStoreID
+        app.install.macAppStoreID
           ? `<a class="link" href="https://itunes.apple.com/app/${
-              obj.install.macAppStoreID.toUpperCase().startsWith("ID")
-                ? obj.install.macAppStoreID
-                : `id${obj.install.macAppStoreID}`
+              app.install.macAppStoreID.toUpperCase().startsWith("ID")
+                ? app.install.macAppStoreID
+                : `id${app.install.macAppStoreID}`
             }" target="_blank" title="Mac App Store" itemprop="installUrl"><i class="fab fa-app-store"></i></a>`
           : ""
       }
       ${
-        obj.install.microsoftAppID
-          ? `<a class="link" href="http://www.windowsphone.com/s?appid=${obj.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
+        app.install.microsoftAppID
+          ? `<a class="link" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
       <div class="topics" itemprop="applicationCategory" content="${[
         ...["Map"],
-        ...obj.topics,
-      ].join(", ")}">${obj.topics
+        ...app.topics,
+      ].join(", ")}">${app.topics
       .map((t) => {
         const background = textToColor(t);
 
@@ -108,66 +108,60 @@ export function render(obj: App) {
       })
       .join("")}</div>
 
-        ${
-          obj.author ||
-          obj.platform.length > 0 ||
-          obj.languages.length > 0 ||
-          obj.sourceCode
-            ? `
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">
         <div class="more-infos-title">Informations</div>
         ${
-          obj.author
+          app.author
             ? `<div class="more-info">
-          <span class="more-info-title">Author</span> <span class="more-info-text" itemprop="author">${obj.author}</span>
+          <span class="more-info-title">Author</span> <span class="more-info-text" itemprop="author">${app.author}</span>
         </div>`
             : ""
         }
         ${
-          obj.platform.length > 0
+          app.platform.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Platforms</span> <span class="more-info-text" itemprop="operatingSystem">${obj.platform.join(
+          <span class="more-info-title">Platforms</span> <span class="more-info-text" itemprop="operatingSystem">${app.platform.join(
             ", "
           )}</span>
         </div>`
             : ""
         }
         ${
-          obj.lastRelease
+          app.lastRelease
             ? `<div class="more-info">
-          <span class="more-info-title">Last release</span> <span class="more-info-text" itemprop="softwareVersion">${obj.lastRelease}</span>
+          <span class="more-info-title">Last release</span> <span class="more-info-text" itemprop="softwareVersion">${app.lastRelease}</span>
         </div>`
             : ""
         }
         ${
-          obj.languagesUrl
-            ? `<a class="more-info" href="${obj.languagesUrl}" target="_blank">
+          app.languagesUrl
+            ? `<a class="more-info" href="${app.languagesUrl}" target="_blank">
                 <span class="more-info-title">Languages</span> <span class="more-info-text">${
-                  obj.languages.length > 0
-                    ? obj.languages.join(", ")
+                  app.languages.length > 0
+                    ? app.languages.join(", ")
                     : `<i class="fas fa-language"></i>`
                 }</span>
               </a>`
-            : obj.languages.length > 0
+            : app.languages.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Languages</span> <span class="more-info-text">${obj.languages.join(
+          <span class="more-info-title">Languages</span> <span class="more-info-text">${app.languages.join(
             ", "
           )}</span>
         </div>`
             : ""
         }
         ${
-          obj.sourceCode
-            ? `<a class="more-info" href="${obj.sourceCode}" target="_blank">
+          app.sourceCode
+            ? `<a class="more-info" href="${app.sourceCode}" target="_blank">
           <span class="more-info-title">Source code</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
         </a>`
             : ""
         }
-        </div>`
-            : ""
-        }
-
+          <a class="more-info" href="${app.source}" target="_blank">
+            <span class="more-info-title">Source</span> <span class="more-info-text"></span>
+          </a>
+        </div>
         `,
     ["app"]
   );
