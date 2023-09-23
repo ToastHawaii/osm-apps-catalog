@@ -25,6 +25,7 @@ import {
   trim,
   firstLetterToUpperCase,
   toDate,
+  equalsYes,
 } from "../utilities/string";
 import {
   App,
@@ -178,10 +179,4 @@ export function transform(source: { [name: string]: string }) {
 function hasValue(value: string = "") {
   value = value.toUpperCase();
   return value && value !== "YES" && value !== "NO" && value !== "?";
-}
-
-function equalsYes(...values: (string | undefined)[]) {
-  for (const value of values) if (value?.toUpperCase() === "YES") return true;
-
-  return false;
 }

@@ -49,8 +49,8 @@ module.exports = {
               presets: ["@babel/env", "@babel/typescript"],
               plugins: [
                 ["@babel/transform-runtime"],
-                "@babel/proposal-class-properties",
-                "@babel/proposal-object-rest-spread"
+                "@babel/transform-class-properties",
+                "@babel/transform-object-rest-spread"
               ]
             }
           }

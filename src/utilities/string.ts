@@ -17,8 +17,14 @@
 
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
-    ? a.localeCompare(b, undefined, { sensitivity: "accent" }) === 0
+    ? a.toUpperCase() === b.toUpperCase()
     : a === b;
+}
+
+export function equalsYes(...values: (string | undefined)[]) {
+  for (const value of values) if (value?.toUpperCase() === "YES") return true;
+
+  return false;
 }
 
 export function startsWithIgnoreCase(

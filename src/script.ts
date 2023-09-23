@@ -25,7 +25,7 @@ import { lazyLoadImages } from "./lazyLoadImages";
 import { set, get } from "./utilities/storage";
 import { render } from "./render";
 import { removeDuplicates, shuffle, includes } from "./utilities/array";
-import { equalsIgnoreCase, textToColor } from "./utilities/string";
+import { equalsIgnoreCase, equalsYes, textToColor } from "./utilities/string";
 import { App, containsOfflineLink } from "./template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 import { Solver } from "./utilities/coloriz/Solver";
@@ -484,7 +484,7 @@ async function loadAppCatalog(language = "en") {
     (s) =>
       !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["slippy_web"]) &&
-      (s["discontinued"] || "").toUpperCase() !== "YES"
+      !equalsYes(s["discontinued"])
   )) {
     const obj: App = transformLayer(source);
 
@@ -492,13 +492,14 @@ async function loadAppCatalog(language = "en") {
   }
   doUpdate();
 
-  const status = ["unfinished", "unmaintained", "broken"];
   const softwareObjects = await requestTemplates("Software", language);
   for (const source of softwareObjects.filter(
     (s) =>
       !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["web"]) &&
-      !status.some((st) => st === (s["status"] || "").toLowerCase())
+      !equalsIgnoreCase(s["status"], "unfinished") &&
+      !equalsIgnoreCase(s["status"], "unmaintained") &&
+      !equalsIgnoreCase(s["status"], "broken")
   )) {
     const obj: App = transformSoftware(source);
 

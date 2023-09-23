@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   context: path.join(__dirname, "./"),
@@ -38,6 +39,11 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
 
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+
   module: {
     rules: [
       {
@@ -50,8 +56,8 @@ module.exports = {
               presets: ["@babel/env", "@babel/typescript"],
               plugins: [
                 ["@babel/transform-runtime"],
-                "@babel/proposal-class-properties",
-                "@babel/proposal-object-rest-spread"
+                "@babel/transform-class-properties",
+                "@babel/transform-object-rest-spread"
               ]
             }
           }
