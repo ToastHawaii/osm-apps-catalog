@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { getJson } from "./utilities/jsonRequest";
-import { findClosingBracketIndex, equalsIgnoreCase } from "./utilities/string";
+import { findClosingBracketIndex } from "./utilities/string";
 
 type Template = {
   [name: string]: string;
@@ -149,7 +149,7 @@ function parseTemplateToObject(content: string) {
   const obj: Template = {};
   const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
   props.shift();
-  
+
   for (const p in props) {
     const pair = props[p].trim();
     const start = pair.indexOf("=");

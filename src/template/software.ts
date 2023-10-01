@@ -37,7 +37,7 @@ import {
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
-    name: source["name"] || "",
+    name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),
@@ -156,19 +156,19 @@ export function transform(source: { [name: string]: string }) {
   obj.topics = removeDuplicates(obj.topics).sort();
 
   {
-    const name = extractNameWebsiteWiki(source["name"]);
+    const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
     obj.name = name.name || obj.name;
     obj.website = obj.website || name.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
-    const name = extractNameWebsiteWiki(source["web"]);
+    const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
     obj.name = obj.name || name.name;
     obj.website = name.website || obj.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
-    const name = extractNameWebsiteWiki(source["wiki"]);
+    const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
     obj.name = obj.name || name.name;
     obj.website = obj.website || name.website;
     obj.documentation = name.wiki || obj.documentation;

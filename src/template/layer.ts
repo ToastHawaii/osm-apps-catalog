@@ -26,11 +26,12 @@ import {
   extractRepo,
   splitByCommaButNotInsideBraceRegex,
   extractWebsite,
+  extractNameWebsiteWiki,
 } from "./utilities";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
-    name: source["name"] || "",
+    name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: toWikimediaUrl(source["screenshot"], 250),

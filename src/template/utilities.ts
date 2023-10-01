@@ -56,7 +56,12 @@ export function extractLanguageCodeFromTemplate(value: string): string {
   return value;
 }
 
-export function extractNameWebsiteWiki(value: string = "") {
+export function extractNameWebsiteWiki(
+  value: string | undefined,
+  pageName: string | undefined
+) {
+  value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
+
   const obj: {
     name: string;
     website?: string;
