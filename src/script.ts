@@ -552,7 +552,11 @@ async function loadAppCatalog(language = "en") {
 getAppCatalog();
 
 function prepareArrayForSelect(names: string[], selected: string[]) {
-  names.sort();
+  names.sort(function (a, b) {
+    if (a.toUpperCase() < b.toUpperCase()) return -1;
+    if (a.toUpperCase() > b.toUpperCase()) return 1;
+    return 0;
+  });
   const nameCounts: { name: string; count: number }[] = [];
   for (const name of names) {
     const nameCountFiltered = nameCounts.filter((nc) =>
