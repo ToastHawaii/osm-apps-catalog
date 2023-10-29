@@ -34,7 +34,7 @@ export function transform(source: { [name: string]: string }) {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: toWikimediaUrl(source["screenshot"], 250),
+    images: toWikimediaUrl(source["screenshot"] || source["logo"], 250),
     website: toUrl(extractWebsite(source["slippy_web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
