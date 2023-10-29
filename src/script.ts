@@ -440,10 +440,11 @@ function addApp(obj: App) {
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
     app.install.asin = app.install.asin || obj.install.asin;
-    app.install.bbWorldID = app.install.bbWorldID || obj.install.bbWorldID;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
     app.install.googlePlayID =
       app.install.googlePlayID || obj.install.googlePlayID;
+    app.install.huaweiAppGalleryID =
+      app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
     app.install.appleStoreID =
       app.install.appleStoreID || obj.install.appleStoreID;
     app.install.macAppStoreID =

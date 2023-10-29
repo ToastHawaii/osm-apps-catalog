@@ -43,9 +43,9 @@ export function mobile(a: App) {
       .map((t) => t.toUpperCase())
       .some((t) => mobilePlatforms.includes(t)) ||
     a.install.asin ||
-    a.install.bbWorldID ||
-    a.install.googlePlayID ||
     a.install.fDroidID ||
+    a.install.googlePlayID ||
+    a.install.huaweiAppGalleryID ||
     a.install.appleStoreID
   );
 }

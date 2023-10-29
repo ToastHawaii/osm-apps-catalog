@@ -40,7 +40,7 @@ export function transform(source: { [name: string]: string }) {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: toWikimediaUrl(source["screenshot"], 250),
+    images: toWikimediaUrl(source["screenshot"] || source["logo"], 250),
     website: toUrl(source["web"]),
     documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     source: [
@@ -79,9 +79,9 @@ export function transform(source: { [name: string]: string }) {
       .map((v) => platformValueToDisplay(v)),
     install: {
       asin: source["asin"],
-      bbWorldID: source["bbWorldID"],
       fDroidID: source["fDroidID"],
       googlePlayID: source["googlePlayID"],
+      huaweiAppGalleryID: source["huaweiAppGalleryID"],
       appleStoreID: source["appleStoreID"],
       macAppStoreID: source["macAppStoreID"],
       microsoftAppID: source["microsoftAppID"],

@@ -29,7 +29,7 @@ export function toWikimediaUrl(source: string, size: number) {
 
     return [
       ...generateOsmWikimediaUrls(fileName, size),
-      ...generateCommonsWikimediaUrls(fileName, size)
+      ...generateCommonsWikimediaUrls(fileName, size),
     ];
   } else if (
     startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:")
@@ -56,7 +56,7 @@ export function toWikimediaUrl(source: string, size: number) {
   else
     return [
       ...generateOsmWikimediaUrls(source, size),
-      ...generateCommonsWikimediaUrls(source, size)
+      ...generateCommonsWikimediaUrls(source, size),
     ];
 }
 
@@ -79,12 +79,15 @@ function generateCommonsWikimediaUrls(fileName: string, size: number) {
 function generateWikimediaUrls(base: string, fileName: string, size: number) {
   fileName = decodeURI(fileName).replace(/ /g, "_");
   const hash = md5(fileName);
+
   return [
     `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(
       0,
       2
-    )}/${fileName}/${size}px-${fileName}`,
+    )}/${fileName}/${size}px-${fileName}${
+      fileName.toUpperCase().endsWith(".SVG") ? ".png" : ""
+    }`,
 
-    `${base}/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}`
+    `${base}/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}`,
   ];
 }

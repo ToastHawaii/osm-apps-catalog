@@ -53,11 +53,6 @@ export function render(app: App) {
           : ""
       }
       ${
-        app.install.bbWorldID
-          ? `<a class="link" href="https://appworld.blackberry.com/webstore/content/${app.install.bbWorldID}/" target="_blank" title="BlackBerry World" itemprop="installUrl"><i class="fab fa-blackberry"></i></a>`
-          : ""
-      }
-      ${
         app.install.fDroidID
           ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
           : ""
@@ -65,6 +60,11 @@ export function render(app: App) {
       ${
         app.install.googlePlayID
           ? `<a class="link" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
+          : ""
+      }
+      ${
+        app.install.huaweiAppGalleryID
+          ? `<a class="link" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" itemprop="installUrl"><i class="fas fa-shopping-bag"></i></a>`
           : ""
       }
       ${

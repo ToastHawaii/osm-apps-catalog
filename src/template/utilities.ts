@@ -33,9 +33,9 @@ export type App = {
   platform: string[];
   install: {
     asin?: string;
-    bbWorldID?: string;
     fDroidID?: string;
     googlePlayID?: string;
+    huaweiAppGalleryID: string;
     appleStoreID?: string;
     macAppStoreID?: string;
     microsoftAppID?: string;
