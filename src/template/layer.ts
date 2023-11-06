@@ -60,6 +60,12 @@ export function transform(source: { [name: string]: string }) {
     topics: [],
     platform: ["Web"],
     install: {},
+    license: (source["tiles_license"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map((v) => processWikiText(v))
+      .join(", "),
   };
 
   obj.languages = removeDuplicates(obj.languages).sort();

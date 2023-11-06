@@ -28,6 +28,7 @@ export type App = {
   topics: string[];
   author?: string;
   sourceCode?: string;
+  license?: string;
   languages: string[];
   languagesUrl?: string;
   platform: string[];
@@ -35,7 +36,7 @@ export type App = {
     asin?: string;
     fDroidID?: string;
     googlePlayID?: string;
-    huaweiAppGalleryID: string;
+    huaweiAppGalleryID?: string;
     appleStoreID?: string;
     macAppStoreID?: string;
     microsoftAppID?: string;

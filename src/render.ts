@@ -158,6 +158,13 @@ export function render(app: App) {
         </a>`
             : ""
         }
+        ${
+          app.license
+            ? `<div class="more-info">
+          <span class="more-info-title">License</span> <span class="more-info-text" itemprop="license">${app.license}</span>
+        </div>`
+            : ""
+        }
         <div class="more-info">
         <span class="more-info-title">Source</span> <span class="more-info-text">${app.source
           .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)

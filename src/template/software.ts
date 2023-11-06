@@ -59,6 +59,12 @@ export function transform(source: { [name: string]: string }) {
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
     ),
+    license: (source["license"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map((v) => processWikiText(v))
+      .join(", "),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -108,16 +114,6 @@ export function transform(source: { [name: string]: string }) {
         .filter((v) => v)
         .map(firstLetterToUpperCase)
     );
-
-  if (hasValue(source["license"])) {
-    obj.topics.push(
-      ...(source["license"] || "")
-        .split(splitByCommaButNotInsideBraceRegex)
-        .map(trim)
-        .filter((v) => v)
-        .map(firstLetterToUpperCase)
-    );
-  }
 
   if (hasValue(source["accessibility"])) {
     obj.topics.push(
