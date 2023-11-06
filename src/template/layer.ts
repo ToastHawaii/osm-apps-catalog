@@ -45,11 +45,10 @@ export function transform(source: { [name: string]: string }) {
       },
     ],
     sourceCode: toUrl(extractRepo(source["repo"])),
-    author: (source["author"] || "")
+    author: processWikiText(source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => processWikiText(v))
       .join(", "),
     languages: (source["tiles_languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
@@ -60,11 +59,10 @@ export function transform(source: { [name: string]: string }) {
     topics: [],
     platform: ["Web"],
     install: {},
-    license: (source["tiles_license"] || "")
+    license: processWikiText(source["tiles_license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => processWikiText(v))
       .join(", "),
   };
 

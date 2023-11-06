@@ -183,6 +183,13 @@ export function extractRepo(value: string = "") {
 }
 
 export function processWikiText(text: string = "") {
+  // clean up <ref>
+  {
+    const regex = /<ref>([^<]*)<\/ref>/g;
+
+    text = text.replace(regex, ``);
+  }
+
   // Wikipedia
   {
     const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;

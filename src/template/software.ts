@@ -50,20 +50,18 @@ export function transform(source: { [name: string]: string }) {
         lastChange: source["timestamp"] || "",
       },
     ],
-    author: (source["author"] || "")
+    author: processWikiText(source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => processWikiText(v))
       .join(", "),
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
     ),
-    license: (source["license"] || "")
+    license: processWikiText(source["license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => processWikiText(v))
       .join(", "),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

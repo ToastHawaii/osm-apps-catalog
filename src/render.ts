@@ -152,17 +152,17 @@ export function render(app: App) {
             : ""
         }
         ${
-          app.sourceCode
-            ? `<a class="more-info" href="${app.sourceCode}" target="_blank">
-          <span class="more-info-title">Source code</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
-        </a>`
-            : ""
-        }
-        ${
           app.license
             ? `<div class="more-info">
           <span class="more-info-title">License</span> <span class="more-info-text" itemprop="license">${app.license}</span>
         </div>`
+            : ""
+        }
+        ${
+          app.sourceCode
+            ? `<a class="more-info" href="${app.sourceCode}" target="_blank">
+          <span class="more-info-title">Source code</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
+        </a>`
             : ""
         }
         <div class="more-info">
