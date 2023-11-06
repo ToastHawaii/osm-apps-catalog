@@ -75,6 +75,7 @@ export function edit(a: App) {
         "OSM TOOL",
         "QA",
         "QUALITY CONTROL",
+        "NOTES"
       ].includes(t)
     );
 }
