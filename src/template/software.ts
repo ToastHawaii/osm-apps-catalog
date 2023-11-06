@@ -109,6 +109,16 @@ export function transform(source: { [name: string]: string }) {
         .map(firstLetterToUpperCase)
     );
 
+  if (hasValue(source["license"])) {
+    obj.topics.push(
+      ...(source["license"] || "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v)
+        .map(firstLetterToUpperCase)
+    );
+  }
+
   if (hasValue(source["accessibility"])) {
     obj.topics.push(
       ...(source["accessibility"] || "")
@@ -152,6 +162,15 @@ export function transform(source: { [name: string]: string }) {
     )
   )
     obj.topics.push("Editor");
+
+  if (
+    equalsYes(
+      source["createNotes"],
+      source["viewNotes"],
+      source["editNotes"],
+    )
+  )
+    obj.topics.push("Notes");
 
   obj.topics = removeDuplicates(obj.topics).sort();
 
