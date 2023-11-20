@@ -35,28 +35,10 @@ a {
   color: #007aff;
 }
 
-
 .info {
   color: black;
   font-size: 26px;
   padding: 4px;
-}
-
-.app {
-  width: 320px;
-  max-width: calc(100% - 40px);
-  padding: 10px;
-  margin: 10px;
-  vertical-align: top;
-  text-align: left;
-  display: inline-block;
-  border: 1px solid rgba(34, 36, 38, 0.1);
-  -webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
-    0 2px 10px 0 rgba(34, 36, 38, 0.15);
-  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
-    0 2px 10px 0 rgba(34, 36, 38, 0.15);
-  border-radius: 0.28571429rem;
-  overflow: hidden;
 }
 
 #search {
@@ -84,6 +66,29 @@ a {
 #search,
 .ss-main {
   margin: 3px 0;
+}
+
+#category {
+  width: 160px;
+  float: right;
+  margin: 4px;
+}
+
+.app {
+  width: 320px;
+  max-width: calc(100% - 40px);
+  padding: 10px;
+  margin: 10px;
+  vertical-align: top;
+  text-align: left;
+  display: inline-block;
+  border: 1px solid rgba(34, 36, 38, 0.1);
+  -webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
+    0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 0 0 1px #d4d4d5, 0 2px 4px 0 rgba(34, 36, 38, 0.12),
+    0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  border-radius: 0.28571429rem;
+  overflow: hidden;
 }
 
 .app .header {

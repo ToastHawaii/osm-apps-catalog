@@ -221,7 +221,7 @@ function update(
   }
   getHtmlElement(".description").innerHTML = description;
 
-  getHtmlElement("#apps").innerHTML = "";
+  getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
 
   let filteredApps: App[];
@@ -408,7 +408,7 @@ function update(
 
       if (similarApps.length > 0) {
         const similarTag = createElement("h2", "Related apps");
-        getHtmlElement("#apps").appendChild(similarTag);
+        getHtmlElement("#list").appendChild(similarTag);
 
         for (const a of similarApps) {
           render(a);
@@ -425,13 +425,16 @@ const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
 function compare(filteredApps: App[]) {
   for (const p of Object.entries(template.params)) {
     const element = createElement(
-      "tr",
+      "div",
       [
-        `<td title="${getLocalizedValue(p[1].description, "en") || ""}">${
-          getLocalizedValue(p[1].label, "en") || p[0]
-        }</td>`,
-        ...filteredApps.map((a) => `<td>${a.params?.[p[0]] || ""}</td>`),
-      ].join("")
+        `<div class="cell" title="${
+          getLocalizedValue(p[1].description, "en") || ""
+        }">${getLocalizedValue(p[1].label, "en") || p[0]}</div>`,
+        ...filteredApps.map(
+          (a) => `<div class="cell">${a.params?.[p[0]] || ""}</div>`
+        ),
+      ].join(""),
+      ["row"]
     );
 
     getHtmlElement("#compare").appendChild(element);
