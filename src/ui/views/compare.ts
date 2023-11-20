@@ -110,6 +110,29 @@ export function render(apps: App[]) {
   renderParam(apps, "Description", (app) => app.description);
   renderParam(apps, "Author", (app) => app.author);
   renderParam(apps, "Platforms", (app) => app.platform.join(", "));
+  renderParam(apps, "Last release", (app) => app.lastRelease);
+  renderParam(apps, "Languages", (app) =>
+    app.languagesUrl
+      ? `<a href="${app.languagesUrl}" target="_blank">
+      ${
+        app.languages.length > 0
+          ? app.languages.join(", ")
+          : `<i class="fas fa-language"></i>`
+      }
+    </a>`
+      : app.languages.join(", ")
+  );
+  renderParam(apps, "License", (app) => app.license);
+  renderParam(apps, "Source code", (app) =>
+    app.sourceCode
+      ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
+      : ""
+  );
+  renderParam(apps, "Source", (app) =>
+    app.source
+      .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
+      .join(", ")
+  );
 }
 
 function renderParam(
