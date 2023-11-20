@@ -61,8 +61,7 @@ export function transform(source: { [name: string]: string }) {
       .map(firstLetterToUpperCase)
       .sort(),
     platform: [],
-    install: {},
-    params: source
+    install: {}
   };
 
   if (source["region"])

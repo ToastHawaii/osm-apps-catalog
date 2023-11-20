@@ -42,7 +42,6 @@ export type App = {
     microsoftAppID?: string;
   };
   filter?: string;
-  params: { [name: string]: any };
 };
 
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;

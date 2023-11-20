@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { createElement, getHtmlElement } from "./utilities/html";
-import { App } from "./template/utilities";
-import { textToColor } from "./utilities/string";
+import { createElement, getHtmlElement } from "../utilities/html";
+import { App } from "../../data/template/utilities";
+import { textToColor } from "../utilities/string";
 
 export function render(app: App) {
   const element = createElement(

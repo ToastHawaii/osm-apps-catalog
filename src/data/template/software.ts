@@ -92,8 +92,7 @@ export function transform(source: { [name: string]: string }) {
       appleStoreID: source["appleStoreID"],
       macAppStoreID: source["macAppStoreID"],
       microsoftAppID: source["microsoftAppID"],
-    },
-    params: source,
+    }
   };
 
   obj.platform = removeDuplicates(obj.platform).sort();

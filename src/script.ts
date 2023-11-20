@@ -17,69 +17,61 @@
 
 import { createElement, getHtmlElement } from "./ui/utilities/html";
 import SlimSelect from "slim-select";
-import { requestTemplates } from "./data/crawler";
-import { transform as transformSoftware } from "./data/template/software";
-import { transform as transformServiceItem } from "./data/template/serviceItem";
-import { transform as transformLayer } from "./data/template/layer";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { set, get } from "./ui/utilities/storage";
-import { render } from "./ui/render";
-import { removeDuplicates, shuffle, includes } from "./ui/utilities/array";
-import {
-  equalsIgnoreCase,
-  equalsYes,
-  textToColor,
-} from "./ui/utilities/string";
-import { App, containsOfflineLink } from "./data/template/utilities";
+import { render as renderListView } from "./ui/views/list";
+import { shuffle, includes } from "./ui/utilities/array";
+import { equalsIgnoreCase, textToColor } from "./ui/utilities/string";
+import { App } from "./data/template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./ui/utilities/url";
 import { Solver } from "./ui/utilities/coloriz/Solver";
 import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
-import { template } from "./ui/templateData";
-import { getLocalizedValue } from "./ui/getLocalizedValue";
+import { render as renderCompareView } from "./ui/views/compare";
+import { loadAppCatalog } from "./data/loadAppCatalog";
 
 let onUpdate = false;
-let apps: App[] = [];
+export let apps: App[] = [];
 
 const topicSelect = new SlimSelect({
   select: "#topic",
   placeholder: "Topic",
   onChange: () => {
-    doUpdate();
+    doUpdate(apps);
   },
 });
 const platformSelect = new SlimSelect({
   select: "#platform",
   placeholder: "Platform",
   onChange: () => {
-    doUpdate();
+    doUpdate(apps);
   },
 });
 const languageSelect = new SlimSelect({
   select: "#language",
   placeholder: "Language",
   onChange: () => {
-    doUpdate();
+    doUpdate(apps);
   },
 });
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
   () => {
-    doUpdate();
+    doUpdate(apps);
   }
 );
 
 (document.getElementById("listView") as HTMLInputElement).addEventListener(
   "input",
   () => {
-    doUpdate();
+    doUpdate(apps);
   }
 );
 (document.getElementById("compareView") as HTMLInputElement).addEventListener(
   "input",
   () => {
-    doUpdate();
+    doUpdate(apps);
   }
 );
 
@@ -132,7 +124,8 @@ const categorySelect = new SlimSelect({
   },
 });
 
-function doUpdate(reset?: boolean) {
+function doUpdate(newApps: App[], reset?: boolean) {
+  apps = newApps;
   if (!onUpdate) {
     onUpdate = true;
     if (reset) {
@@ -323,12 +316,12 @@ function update(
   languageSelect.set(language);
 
   if ((document.getElementById("compareView") as HTMLInputElement).checked) {
-    compare(filteredApps);
+    renderCompareView(filteredApps);
   }
 
   if ((document.getElementById("listView") as HTMLInputElement).checked) {
     for (const a of filteredApps) {
-      render(a);
+      renderListView(a);
     }
 
     if (topicUp.length > 0) {
@@ -374,7 +367,7 @@ function update(
         getHtmlElement("#list").appendChild(similarTag);
 
         for (const a of similarApps) {
-          render(a);
+          renderListView(a);
         }
       }
     }
@@ -384,25 +377,6 @@ function update(
 }
 
 const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
-
-function compare(filteredApps: App[]) {
-  for (const p of Object.entries(template.params)) {
-    const element = createElement(
-      "div",
-      [
-        `<div class="cell" title="${
-          getLocalizedValue(p[1].description, "en") || ""
-        }">${getLocalizedValue(p[1].label, "en") || p[0]}</div>`,
-        ...filteredApps.map(
-          (a) => `<div class="cell">${a.params?.[p[0]] || ""}</div>`
-        ),
-      ].join(""),
-      ["row"]
-    );
-
-    getHtmlElement("#compare").appendChild(element);
-  }
-}
 
 function saveAppCatalog() {
   set(`${lang}-apps`, apps);
@@ -420,14 +394,14 @@ async function getAppCatalog() {
 
     apps = get(`${lang}-apps`) || [];
 
-    doUpdate();
+    doUpdate(apps);
   }
 
   if (apps.length === 0) {
     console.info("load catalog from wiki");
 
-    if (lang !== "en") await loadAppCatalog(lang);
-    await loadAppCatalog();
+    if (lang !== "en") await loadAppCatalog(doUpdate, lang);
+    await loadAppCatalog(doUpdate);
 
     shuffle(apps);
 
@@ -435,76 +409,7 @@ async function getAppCatalog() {
   }
 }
 
-function addApp(obj: App) {
-  const duplicates = apps.filter(
-    (app) =>
-      equalsIgnoreCase(app.name, obj.name) ||
-      (app.website && obj.website && equalsIgnoreCase(app.website, obj.website))
-  );
-
-  if (duplicates.length === 0) {
-    apps.push(obj);
-    extendFilter(obj);
-  } else {
-    const app = duplicates[0];
-
-    if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
-      app.lastRelease = obj.lastRelease;
-    else app.lastRelease = app.lastRelease || obj.lastRelease;
-
-    app.description = app.description || obj.description;
-    app.images.push(...obj.images);
-    app.images = removeDuplicates(app.images);
-    app.languages.push(...obj.languages);
-    app.languages = removeDuplicates(app.languages);
-
-    app.topics.push(...obj.topics);
-    app.topics = removeDuplicates(app.topics);
-
-    app.platform.push(...obj.platform);
-    app.platform = removeDuplicates(app.platform);
-
-    app.website = app.website || obj.website;
-
-    if (!app.documentation) {
-      app.documentation = obj.documentation;
-    } else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
-      app.documentation = obj.documentation || app.documentation;
-    }
-
-    // make the first source the newest
-    if (
-      app.source[0].lastChange.toUpperCase() >
-      obj.source[0].lastChange.toUpperCase()
-    ) {
-      app.source = [...app.source, ...obj.source];
-    } else {
-      app.source = [...obj.source, ...app.source];
-    }
-
-    app.author = app.author || obj.author;
-    app.sourceCode = app.sourceCode || obj.sourceCode;
-
-    app.install.asin = app.install.asin || obj.install.asin;
-    app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-    app.install.googlePlayID =
-      app.install.googlePlayID || obj.install.googlePlayID;
-    app.install.huaweiAppGalleryID =
-      app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
-    app.install.appleStoreID =
-      app.install.appleStoreID || obj.install.appleStoreID;
-    app.install.macAppStoreID =
-      app.install.macAppStoreID || obj.install.macAppStoreID;
-    app.install.microsoftAppID =
-      app.install.microsoftAppID || obj.install.microsoftAppID;
-
-    app.params = { ...obj, ...app };
-
-    extendFilter(app);
-  }
-}
-
-function extendFilter(app: App) {
+export function extendFilter(app: App) {
   if (app.images.length === 0 && !app.filter) {
     const defaultColor = textToColor(app.name);
     app.filter = new Solver(
@@ -513,90 +418,6 @@ function extendFilter(app: App) {
       .solve()
       .filter.replace(/filter:/gi, "filter: brightness(0%)");
   }
-}
-
-async function loadAppCatalog(language = "en") {
-  const serviceItemObjectsRequest = requestTemplates("Service item", language);
-  const layerObjectsRequest = requestTemplates("Layer", language);
-  const softwareObjectsRequest = requestTemplates("Software", language);
-
-  const serviceItemObjects = await serviceItemObjectsRequest;
-  for (const source of serviceItemObjects.filter(
-    (s) => !containsOfflineLink(s["name"])
-  )) {
-    const obj: App = transformServiceItem(source);
-
-    addApp(obj);
-  }
-
-  shuffle(apps);
-  doUpdate();
-
-  const layerObjects = await layerObjectsRequest;
-  for (const source of layerObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["slippy_web"]) &&
-      !equalsYes(s["discontinued"])
-  )) {
-    const obj: App = transformLayer(source);
-
-    addApp(obj);
-  }
-  doUpdate();
-
-  const softwareObjects = await softwareObjectsRequest;
-  for (const source of softwareObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["web"]) &&
-      !equalsIgnoreCase(s["status"], "unfinished") &&
-      !equalsIgnoreCase(s["status"], "unmaintained") &&
-      !equalsIgnoreCase(s["status"], "broken")
-  )) {
-    const obj: App = transformSoftware(source);
-
-    addApp(obj);
-  }
-  doUpdate();
-
-  const projectObjects = window.tagInfoProjectsResponse as {
-    url: string;
-    data_until: string;
-    data: {
-      id: string;
-      name: string;
-      project_url: string;
-      icon_url: string;
-      doc_url: string;
-      description: string;
-      key_entries: number;
-      tag_entries: number;
-      unique_keys: number;
-      unique_tags: number;
-    }[];
-  };
-  const source = "https://taginfo.openstreetmap.org/projects";
-  for (const obj of projectObjects.data) {
-    const app: App = {
-      name: obj.name,
-      website: obj.project_url,
-      images: obj.icon_url ? [obj.icon_url] : [],
-      documentation: obj.doc_url,
-      source: [
-        { name: "taginfo", url: source, lastChange: projectObjects.data_until },
-      ],
-      description: obj.description,
-      topics: [],
-      languages: [],
-      platform: [],
-      install: {},
-      params: obj,
-    };
-
-    addApp(app);
-  }
-  doUpdate();
 }
 
 getAppCatalog();
