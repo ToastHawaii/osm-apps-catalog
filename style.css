@@ -35,7 +35,11 @@ a {
 }
 
 .align-middle {
-  vertical-align: middle;
+  vertical-align: middle !important;
+}
+
+.text-center {
+  text-align: center !important;
 }
 
 .table {
@@ -44,9 +48,14 @@ a {
 .cell {
   display: table-cell;
   vertical-align: top;
+  text-align: start;
 }
 .row {
   display: table-row;
+}
+
+.table .header{
+  font-weight: bold;
 }
 
 .page-header {
@@ -66,11 +75,17 @@ a {
 
 #compare .cell {
   min-width: 160px;
-  padding: 5px;
+  padding: 8px;
   border-right: 1px solid #dcdee2;
   max-width: 270px;
   width: 33vw;
   box-sizing: border-box;
+}
+
+#compare .cell.header{
+  min-width: auto;
+  max-width: none;
+  width: auto;
 }
 
 #compare .header a {

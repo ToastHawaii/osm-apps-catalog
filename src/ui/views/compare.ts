@@ -6,16 +6,17 @@ export function render(apps: App[]) {
   {
     const element = createElement(
       "div",
-      apps
-        .map(
+      [
+        `<div class="cell header"></div>`,
+        ...apps.map(
           (app) =>
-            `<div class="cell header"><strong>${
+            `<div class="cell header text-center">${
               app.website
-                ? `<a href="${app.website}" target="_blank"><span itemprop="name">${app.name}</span></a>`
-                : `<span itemprop="name">${app.name}</span>`
-            }</strong></div>`
-        )
-        .join(""),
+                ? `<a href="${app.website}" target="_blank">${app.name}</a>`
+                : app.name
+            }</div>`
+        ),
+      ].join(""),
       ["row"]
     );
 
@@ -24,36 +25,54 @@ export function render(apps: App[]) {
   {
     const element = createElement(
       "div",
-      apps
-        .map(
-          (app) => `<div class="cell align-middle">
+      [
+        `<div class="cell header"></div>`,
+        ...apps.map(
+          (app) => `<div class="cell align-middle text-center">
         ${
           app.website
             ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
             : renderImage(app)
         }
       </div>`
-        )
-        .join(""),
+        ),
+      ].join(""),
       ["row"]
     );
 
     getHtmlElement("#compare").appendChild(element);
   }
+
+  renderParam(
+    apps,
+    "Description",
+    (app) => `<small>${app.description}</small>`
+  );
+  renderParam(apps, "Author", (app) => app.author);
+  renderParam(apps, "Platforms", (app) => app.platform.join(", "));
+}
+
+function renderParam(
+  apps: App[],
+  label: string,
+  value: (app: App) => string | undefined
+) {
   {
     const element = createElement(
       "div",
-      apps
-        .map(
-          (app) =>
-            `<div class="cell"><small itemprop="description">${
-              app.description
-            }</small></div>`
-        )
-        .join(""),
+      [
+        `<div class="cell header">${label}</div>`,
+        ...apps.map(
+          (app) => `<div class="cell">${value(app) || unknown()}</div>`
+        ),
+      ].join(""),
       ["row"]
     );
 
     getHtmlElement("#compare").appendChild(element);
   }
+}
+
+function unknown() {
+  return `unknown`;
 }

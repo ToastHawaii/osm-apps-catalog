@@ -41,7 +41,7 @@ export function transform(source: { [name: string]: string }) {
     images: toWikimediaUrl(source["image"], 250),
     source: [
       {
-        name: "Wiki (ServiceItem)",
+        name: `Wiki (ServiceItem) <i class="fas fa-pen"></i>`,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },
