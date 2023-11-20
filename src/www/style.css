@@ -54,10 +54,6 @@ a {
   display: table-row;
 }
 
-.table .header{
-  font-weight: bold;
-}
-
 .page-header {
   left: 0;
   position: sticky;
@@ -83,11 +79,11 @@ a {
   box-sizing: border-box;
 }
 
-#compare .cell:last-child{
+#compare .cell:last-child {
   border-right: none;
 }
 
-#compare .cell.header{
+#compare .cell.header {
   min-width: auto;
   max-width: none;
   width: auto;
@@ -97,10 +93,6 @@ a {
   text-decoration: none;
   color: #333;
 }
-
-
-
-
 
 #compare .params-group {
   clear: both;
@@ -126,11 +118,6 @@ a {
 #compare .param-text {
   font-size: small;
 }
-
-
-
-
-
 
 .info {
   color: black;
@@ -263,6 +250,10 @@ a {
   padding: 4px 3px;
   display: inline-block;
   color: forestgreen;
+}
+
+.unknown {
+  color: gray;
 }
 
 .app .topic {

@@ -10,11 +10,11 @@ export function render(apps: App[]) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center">${
+            `<div class="cell header text-center"><strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
-            }</div>`
+            }</strong></div>`
         ),
       ].join(""),
       ["row"]
@@ -158,5 +158,5 @@ function renderParam(
 }
 
 function unknown() {
-  return `unknown`;
+  return `<span class="unknown">unknown</span>`;
 }
