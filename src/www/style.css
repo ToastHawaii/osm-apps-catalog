@@ -61,6 +61,7 @@ a {
 .page-header {
   left: 0;
   position: sticky;
+  z-index: 1;
 }
 
 #content {
@@ -82,6 +83,10 @@ a {
   box-sizing: border-box;
 }
 
+#compare .cell:last-child{
+  border-right: none;
+}
+
 #compare .cell.header{
   min-width: auto;
   max-width: none;
@@ -92,6 +97,40 @@ a {
   text-decoration: none;
   color: #333;
 }
+
+
+
+
+
+#compare .params-group {
+  clear: both;
+  padding-top: 12px;
+}
+
+#compare .params-title {
+  font-weight: bold;
+}
+
+#compare .param-title {
+  color: gray;
+  font-size: small;
+  position: sticky;
+  left: 0;
+  background: white;
+  z-index: 1;
+}
+#compare a .param-title {
+  text-decoration: none;
+  color: #007aff;
+}
+#compare .param-text {
+  font-size: small;
+}
+
+
+
+
+
 
 .info {
   color: black;
@@ -219,7 +258,7 @@ a {
   float: right;
 }
 
-.app .link {
+.download {
   font-size: 22px;
   padding: 4px 3px;
   display: inline-block;

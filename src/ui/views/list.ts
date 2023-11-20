@@ -37,40 +37,40 @@ export function render(app: App) {
       </div>
       <div><small><span itemprop="description">${
         app.description
-      }</small></span> ${
+      }</span> ${
       app.documentation
         ? `<a href="${app.documentation}" target="_blank">Documentation</a>`
         : ""
-    }</div>
+    }</small></div>
       ${
         app.website
-          ? `<a class="link" href="${app.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
+          ? `<a class="download" href="${app.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
           : ""
       }
 
       ${
         app.install.asin
-          ? `<a class="link" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
+          ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
           : ""
       }
       ${
         app.install.fDroidID
-          ? `<a class="link" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
+          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
           : ""
       }
       ${
         app.install.googlePlayID
-          ? `<a class="link" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
+          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
           : ""
       }
       ${
         app.install.huaweiAppGalleryID
-          ? `<a class="link" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" itemprop="installUrl"><i class="fas fa-shopping-bag"></i></a>`
+          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" itemprop="installUrl"><i class="fas fa-shopping-bag"></i></a>`
           : ""
       }
       ${
         app.install.appleStoreID
-          ? `<a class="link" href="https://itunes.apple.com/app/${
+          ? `<a class="download" href="https://itunes.apple.com/app/${
               app.install.appleStoreID.toUpperCase().startsWith("ID")
                 ? app.install.appleStoreID
                 : `id${app.install.appleStoreID}`
@@ -79,7 +79,7 @@ export function render(app: App) {
       }
       ${
         app.install.macAppStoreID
-          ? `<a class="link" href="https://itunes.apple.com/app/${
+          ? `<a class="download" href="https://itunes.apple.com/app/${
               app.install.macAppStoreID.toUpperCase().startsWith("ID")
                 ? app.install.macAppStoreID
                 : `id${app.install.macAppStoreID}`
@@ -88,7 +88,7 @@ export function render(app: App) {
       }
       ${
         app.install.microsoftAppID
-          ? `<a class="link" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
       <div class="topics" itemprop="applicationCategory" content="${[
