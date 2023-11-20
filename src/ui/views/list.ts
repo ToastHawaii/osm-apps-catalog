@@ -17,8 +17,8 @@
 
 import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
-import { textToColor } from "../utilities/string";
 import { renderImage } from "../utilities/renderImage";
+import { renderBadges } from "./renderBadges";
 
 export function render(app: App) {
   const element = createElement(
@@ -35,9 +35,7 @@ export function render(app: App) {
             : renderImage(app)
         }
       </div>
-      <div><small><span itemprop="description">${
-        app.description
-      }</span> ${
+      <div><small><span itemprop="description">${app.description}</span> ${
       app.documentation
         ? `<a href="${app.documentation}" target="_blank">Documentation</a>`
         : ""
@@ -91,23 +89,10 @@ export function render(app: App) {
           ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
-      <div class="topics" itemprop="applicationCategory" content="${[
+      <div class="badges" itemprop="applicationCategory" content="${[
         ...["Map"],
         ...app.topics,
-      ].join(", ")}">${app.topics
-      .map((t) => {
-        const background = textToColor(t);
-
-        const yiq =
-          (background.r * 299 + background.g * 587 + background.b * 114) / 1000;
-
-        return `<span class="topic" style="background: rgb(${background.r},${
-          background.g
-        },${background.b}); color:${
-          yiq >= 128 ? "black" : "white"
-        };">${t}</span>`;
-      })
-      .join("")}</div>
+      ].join(", ")}">${renderBadges(app.topics)}</div>
 
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">

@@ -1,8 +1,11 @@
 import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
+import { renderBadges } from "./renderBadges";
+import { templateData } from "../templateData";
+import { getLocalizedValue } from "../getLocalizedValue";
 
-export function render(apps: App[]) {
+export function render(apps: App[], lang: string) {
   {
     const element = createElement(
       "div",
@@ -133,26 +136,115 @@ export function render(apps: App[]) {
       .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
       .join(", ")
   );
+
+  // Map
+  let elements = [
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["mapData"].label, lang),
+      (app) => renderBadges(app.map?.mapData),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["datasource"].label, lang),
+      (app) => renderBadges(app.map?.datasource),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["rotateMap"].label, lang),
+      (app) => renderBadges(app.map?.rotateMap),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["3D"].label, lang),
+      (app) => renderBadges(app.map?.["3D"]),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["showWebsite"].label, lang),
+      (app) => renderBadges(app.map?.showWebsite),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["showPhoneNumber"].label, lang),
+      (app) => renderBadges(app.map?.showPhoneNumber),
+      "map-detail"
+    ),
+    createParamElement(
+      apps,
+      getLocalizedValue(templateData.params["showOpeningHours"].label, lang),
+      (app) => renderBadges(app.map?.showOpeningHours),
+      "map-detail"
+    ),
+  ];
+
+  elements = elements.filter((e) => e);
+
+  if (elements.length) {
+    const element = createElement(
+      "div",
+      `<div class="cell header params-title">
+        <a class="group" data-target=".map-detail" href="#"><i class="fas fa-caret-down map-detail"></i><i class="fas fa-caret-right map-detail hidden"></i> Map</a>
+      </div>`,
+      ["row"]
+    );
+
+    getHtmlElement(".group", element).addEventListener("click", (e) => {
+      document
+        .querySelectorAll(
+          (e.currentTarget as HTMLDivElement).dataset["target"] || ""
+        )
+        .forEach((e) => e.classList.toggle("hidden"));
+    });
+
+    getHtmlElement("#compare").appendChild(element);
+
+    elements.forEach((element) => {
+      getHtmlElement("#compare").appendChild(element as HTMLDivElement);
+    });
+  }
+}
+
+function createParamElement(
+  apps: App[],
+  label: string | undefined,
+  value: (app: App) => string | undefined,
+  group: string = ""
+) {
+  const values = apps.map((app) => value(app));
+
+  if (values.filter((v) => v).length === 0) {
+    return undefined;
+  }
+
+  const element = createElement(
+    "div",
+    [
+      `<div class="cell header param-title">${label}</div>`,
+      ...values.map(
+        (v) => `<div class="cell param-text">${v || unknown()}</div>`
+      ),
+    ].join(""),
+    ["row", group]
+  );
+
+  return element;
 }
 
 function renderParam(
   apps: App[],
-  label: string,
-  value: (app: App) => string | undefined
+  label: string | undefined,
+  value: (app: App) => string | undefined,
+  group: string = ""
 ) {
-  {
-    const element = createElement(
-      "div",
-      [
-        `<div class="cell header param-title">${label}</div>`,
-        ...apps.map(
-          (app) =>
-            `<div class="cell param-text">${value(app) || unknown()}</div>`
-        ),
-      ].join(""),
-      ["row"]
-    );
+  const element = createParamElement(apps, label, value, group);
 
+  if (element) {
     getHtmlElement("#compare").appendChild(element);
   }
 }

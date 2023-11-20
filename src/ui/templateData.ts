@@ -1,6 +1,6 @@
 import { LocalizedValue } from "./getLocalizedValue";
 
-export let template: {
+export const templateData: {
   params: {
     [param: string]: {
       label?: LocalizedValue;
@@ -10,6 +10,7 @@ export let template: {
       description?: LocalizedValue;
       example?: LocalizedValue;
       default?: string;
+      autovalue?: string;
       suggestedvalues?: string[];
       aliases?: string[];
       deprecated?: boolean;
@@ -20,6 +21,21 @@ export let template: {
   description?: string;
 } = {
   params: {
+    lang: {
+      label: {
+        de: "Sprache der Vorlage",
+        en: "Template language",
+        "zh-hans": "模板语言",
+      },
+      type: "string",
+      description: {
+        de: "Sprache, in der die Texte der Vorlage angezeigt werden",
+      },
+      example: {
+        de: "de",
+        en: "en",
+      },
+    },
     name: {
       label: {
         en: "Name",
@@ -31,14 +47,65 @@ export let template: {
         de: "Offizieller Name, ansonsten der verbreitetste",
       },
       type: "string",
+      required: true,
+      autovalue: "{{subst:PAGENAME}}",
     },
-    screenshot: {
+    status: {
+      description: "current status of the project",
+      suggestedvalues: ["active", "unmaintained", "broken", "unfinished"],
+      type: "string",
+      default: "active",
+      suggested: true,
+    },
+    license: {
+      description: "what free license or proprietary?",
+      example: "GPL",
       label: {
-        de: "Bildschirmfoto",
-        en: "Screenshot",
-        "zh-hans": "截图",
+        en: "License",
+        de: "Lizenz",
       },
-      type: "wiki-file-name",
+      suggestedvalues: ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"],
+    },
+    price: {
+      description:
+        "Costs if proprietary. If price is empty, application is for free.",
+      example: "free;20$;35€;in-app purchases",
+      label: {
+        en: "Price",
+        de: "Preis",
+      },
+      type: "string",
+      suggestedvalues: ["free", "in-app purchases"],
+    },
+    web: {
+      description: "Web address",
+      example: "https://www.example.org",
+      suggested: true,
+      type: "url",
+    },
+    repo: {
+      label: {
+        de: "Quellcode",
+        en: "Source code",
+        "zh-hans": "源代码",
+      },
+      aliases: ["git", "svn"],
+      description:
+        "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
+      example: "https://git.example.org",
+      type: "url",
+    },
+    description: {
+      label: {
+        de: "Beschreibung",
+        en: "Description",
+        "zh-hans": "描述",
+      },
+      type: "string",
+      suggested: true,
+      description:
+        "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
+      example: "Easy to use, nice UI",
     },
     author: {
       label: {
@@ -51,52 +118,387 @@ export let template: {
         en: "Name of the author or a link to their OSM-wiki user page",
       },
       type: "string",
-    },
-    license: {
-      description: "what free license or proprietary?",
-      label: {
-        en: "License",
-        de: "Lizenz",
-      },
-    },
-    price: {
-      description:
-        "Costs if proprietary. If price is empty, application is for free.",
-      label: {
-        en: "Price",
-        de: "Preis",
-      },
-      type: "string",
+      suggested: true,
     },
     platform: {
       description: "list of platforms it runs on",
+      suggested: true,
       type: "string",
+      suggestedvalues: [
+        "Linux",
+        "Android",
+        "Firefox OS",
+        "Maemo",
+        "MeeGo",
+        "Openmoko Linux",
+        "Tizen",
+        "WebOS",
+        "iOS",
+        "iPhone",
+        "iPad",
+        "iPod touch",
+        "macOS",
+        "Unix",
+        "Bada OS",
+        "BSD",
+        "FreeBSD",
+        "Amiga OS",
+        "MorphOS",
+        "ArOS",
+        "Windows",
+        "Windows XP",
+        "Windows 2000",
+        "Windows Vista",
+        "Windows 7",
+        "Windows 8",
+        "Windows 8.1",
+        "Windows 10",
+        "Windows CE",
+        "Windows Mobile",
+        "Windows Mobile 5",
+        "Windows Mobile 6",
+        "Windows Mobile 2000",
+        "Windows Mobile 2003",
+        "Pocket PC",
+        "Windows Phone",
+        "BlackBerry OS",
+        "Brew",
+        "Palm OS",
+        "Symbian",
+        "Cross-platform",
+        "Java",
+        "Java ME",
+        "Java SE",
+        "Node.js",
+        "Qt",
+        "React Native",
+        "Unity",
+        "Web",
+      ],
+      example: "Android;iOS",
       label: {
         en: "Platform",
         de: "Plattform",
       },
     },
-    version: {
-      label: {
-        en: "Version",
-        "zh-hans": "版本",
-        de: "Version",
-      },
-      description: "latest version",
+    code: {
+      description: "List of programming languages used",
       type: "string",
-    },
-    date: {
+      suggestedvalues: [
+        "C",
+        "Objective-C",
+        "Objective-C++",
+        "C++",
+        "C#",
+        "Visual Basic .NET",
+        "Pascal",
+        "Java",
+        "JavaScript",
+        "ActionScript",
+        "HTML",
+        "CSS",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Lua",
+        "SQL",
+        "Swift",
+        "TypeScript",
+        ".NET",
+        "Node.js",
+      ],
       label: {
-        en: "Release date",
-        "zh-hans": "日期",
+        de: "Code",
       },
-      description: "latest release date",
-      type: "date",
+    },
+    framework: {
+      description: "list of frameworks used",
+      example: "GTK+;mono;J2ME;OpenGL",
+      suggestedvalues: ["GTK+", "mono", "J2ME", "OpenGL"],
+      label: {
+        en: "Framework",
+        de: "Framework",
+      },
     },
     languages: {
       description:
         'supported languages (list of valid language codes separated by commas or semicolons, which are then displayed using {{Languagename}}; use "mul" in the list for "multiple languages")',
+      example: "DE;EN;MUL",
       type: "string",
+      suggestedvalues: [
+        "aa",
+        "ab",
+        "af",
+        "ak",
+        "als",
+        "am",
+        "an",
+        "ang",
+        "ar",
+        "arc",
+        "as",
+        "ast",
+        "av",
+        "awa",
+        "ay",
+        "az",
+        "ba",
+        "bar",
+        "bat-smg",
+        "bcl",
+        "be",
+        "be-x-old",
+        "bg",
+        "bh",
+        "bi",
+        "bm",
+        "bn",
+        "bo",
+        "bpy",
+        "br",
+        "bs",
+        "bug",
+        "bxr",
+        "ca",
+        "cdo",
+        "ce",
+        "ceb",
+        "ch",
+        "cho",
+        "chr",
+        "chy",
+        "closed-zh-tw",
+        "co",
+        "cr",
+        "cs",
+        "csb",
+        "cu",
+        "cv",
+        "cy",
+        "da",
+        "de",
+        "diq",
+        "dsb",
+        "dv",
+        "dz",
+        "ee",
+        "el",
+        "en",
+        "eo",
+        "es",
+        "et",
+        "eu",
+        "ext",
+        "fa",
+        "ff",
+        "fi",
+        "fiu-vro",
+        "fj",
+        "fo",
+        "fr",
+        "frp",
+        "fur",
+        "fy",
+        "ga",
+        "gan",
+        "gbm",
+        "gcf",
+        "gd",
+        "gil",
+        "gl",
+        "gn",
+        "got",
+        "gu",
+        "gv",
+        "ha",
+        "hak",
+        "haw",
+        "he",
+        "hi",
+        "ho",
+        "hr",
+        "ht",
+        "hu",
+        "hy",
+        "hz",
+        "ia",
+        "id",
+        "ie",
+        "ig",
+        "ii",
+        "ik",
+        "ilo",
+        "inh",
+        "io",
+        "is",
+        "it",
+        "iu",
+        "ja",
+        "jbo",
+        "jv",
+        "ka",
+        "kg",
+        "khw",
+        "ki",
+        "kj",
+        "kk",
+        "kl",
+        "km",
+        "kn",
+        "ko",
+        "kr",
+        "ks",
+        "ksh",
+        "ku",
+        "kv",
+        "kw",
+        "ky",
+        "la",
+        "lad",
+        "lan",
+        "lb",
+        "lg",
+        "li",
+        "lij",
+        "lmo",
+        "ln",
+        "lo",
+        "lt",
+        "lv",
+        "lzz",
+        "man",
+        "map-bms",
+        "mg",
+        "mh",
+        "mi",
+        "min",
+        "mk",
+        "ml",
+        "mn",
+        "mo",
+        "mr",
+        "mrh",
+        "ms",
+        "mt",
+        "mul",
+        "mus",
+        "mwl",
+        "my",
+        "na",
+        "nah",
+        "nap",
+        "nb",
+        "nd",
+        "nds",
+        "nds-nl",
+        "ne",
+        "new",
+        "ng",
+        "nl",
+        "nn",
+        "no",
+        "nr",
+        "nrm",
+        "nso",
+        "nv",
+        "ny",
+        "oc",
+        "oj",
+        "om",
+        "or",
+        "os",
+        "pa",
+        "pag",
+        "pam",
+        "pap",
+        "pdc",
+        "pi",
+        "pih",
+        "pl",
+        "pms",
+        "ps",
+        "pt",
+        "qu",
+        "rm",
+        "rmy",
+        "rn",
+        "ro",
+        "roa-rup",
+        "ru",
+        "rw",
+        "sa",
+        "sc",
+        "scn",
+        "sco",
+        "sd",
+        "se",
+        "sg",
+        "sh",
+        "si",
+        "simple",
+        "sk",
+        "sl",
+        "sm",
+        "sn",
+        "so",
+        "sq",
+        "sr-latn",
+        "sr",
+        "ss",
+        "st",
+        "su",
+        "sv",
+        "sw",
+        "ta",
+        "te",
+        "tet",
+        "tg",
+        "th",
+        "ti",
+        "tk",
+        "tl",
+        "tlh",
+        "tn",
+        "to",
+        "tokipona",
+        "tpi",
+        "tr",
+        "ts",
+        "tt",
+        "tum",
+        "tw",
+        "ty",
+        "tzm",
+        "udm",
+        "ug",
+        "uk",
+        "ur",
+        "uz",
+        "ve",
+        "vec",
+        "vi",
+        "vls",
+        "vo",
+        "wa",
+        "war",
+        "wo",
+        "xal",
+        "xh",
+        "xmf",
+        "yi",
+        "yo",
+        "yue",
+        "za",
+        "zh",
+        "zh-classical",
+        "zh-hans",
+        "zh-hant",
+        "zh-min-nan",
+        "zh-tw",
+        "zh-yue",
+        "zu",
+      ],
       label: {
         en: "Languages",
         de: "Sprachen",
@@ -107,101 +509,161 @@ export let template: {
         "link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)",
       type: "url",
     },
-    web: {
-      description: "Web address",
-      type: "url",
+    genre: {
+      description: "main category for this tool",
+      suggested: true,
+      label: "Genre",
+      suggestedvalues: [
+        "display",
+        "navi",
+        "logger",
+        "router",
+        "editor",
+        "renderer",
+        "converter",
+        "analyser",
+      ],
     },
+    version: {
+      label: {
+        en: "Version",
+        "zh-hans": "版本",
+        de: "Version",
+      },
+      description: "latest version",
+      example: "1.0",
+      type: "string",
+    },
+    date: {
+      label: {
+        en: "Release date",
+        "zh-hans": "日期",
+      },
+      description: "latest release date",
+      example: "2010-12-24",
+      type: "date",
+    },
+    logo: {
+      example: "xyz.png",
+      type: "wiki-file-name",
+    },
+    screenshot: {
+      label: {
+        de: "Bildschirmfoto",
+        en: "Screenshot",
+        "zh-hans": "截图",
+      },
+      suggested: true,
+      type: "wiki-file-name",
+      example: "xyz.jpg",
+    },
+
+    // Install options
     asin: {
       description:
         "Amazon Standard Identification Number for the Amazon Appstore for Android",
+      example: "XXXXXXXXXX",
       type: "string",
     },
     bbWorldID: {
       description: "BlackBerry World application ID",
-      type: "string",
-    },
-    fDroidID: {
-      description: "F-Droid application ID",
-      type: "string",
-    },
-    firefoxMarketplaceID: {
-      description: "Mozilla Firefox Marketplace application ID",
-      type: "string",
-    },
-    huaweiAppGalleryID: {
-      description: "Huawei AppGallery application ID",
+      deprecated: true,
+      example: "XXX",
       type: "string",
     },
     googlePlayID: {
       description: "Google Play Store application ID",
+      example: "org.example",
+      type: "string",
+    },
+    fDroidID: {
+      description: "F-Droid application ID",
+      example: "org.example",
+      type: "string",
+    },
+    firefoxMarketplaceID: {
+      description: "Mozilla Firefox Marketplace application ID",
+      deprecated: true,
+      type: "string",
+    },
+    huaweiAppGalleryID: {
+      description: "Huawei AppGallery application ID",
+      example: "CXXXXXXXXX",
       type: "string",
     },
     appleStoreID: {
       description: "iTunes App Store application ID",
+      example: "id12344556",
       type: "string",
     },
     macAppStoreID: {
       description: "Mac App Store application ID",
+      example: "id12344556",
       type: "string",
     },
     microsoftAppID: {
       description: "Microsoft Store Windows application UUID",
+      example: "XXXXXXXXXXXX",
       type: "string",
     },
-    description: {
-      label: {
-        de: "Beschreibung",
-        en: "Description",
-        "zh-hans": "描述",
-      },
-      type: "string",
-      description:
-        "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
-    },
-    framework: {
-      description: "list of frameworks used",
-      label: {
-        en: "Framework",
-        de: "Framework",
-      },
-    },
-    status: {
-      description: "current status of the project",
-      type: "string",
-    },
-    genre: {
-      description: "main category for this tool",
-      label: "Genre",
-    },
-    repo: {
-      label: {
-        de: "Quellcode",
-        en: "Source code",
-        "zh-hans": "源代码",
-      },
-      aliases: ["git", "svn"],
-      description:
-        "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
-      type: "url",
-    },
-    code: {
-      description: "List of programming languages used",
-      type: "string",
 
+    // Features
+    map: {
+      description: "Features: Can it show a map?",
       label: {
-        de: "Code",
+        en: "Display map",
+        de: "Karte anzeigen",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    navigating: {
+      description: "Features: Can you navigate in a compass like way?",
+      label: {
+        en: "Navigate",
+        de: "Navigieren",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    routing: {
+      description: "Features: Can you route along a road network?",
+      label: "Routing",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    tracking: {
+      description: "Features: Can it record a GPS track?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+      label: {
+        en: "Make track",
+        de: "Track aufzeichnen",
       },
     },
+    monitoring: {
+      description: "Features: Can you monitor GPS datas?",
+      label: {
+        en: "Monitor",
+        de: "Monitoring",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+
+    // Map
     mapData: {
       description:
         'Map display: Maps drawn using pre-calculated/rasterized images (raster) or "on the fly" (vector)?',
       type: "string",
+      suggestedvalues: ["raster", "vector"],
     },
     datasource: {
       description:
         "Map display: Can you store all map data offline? Download a separate file?",
       example: "online;cache",
       type: "string",
+      suggestedvalues: ["online", "cache", "offline"],
     },
     rotateMap: {
       description: "Map display: Does it turn the map in driving direction?",
@@ -210,6 +672,38 @@ export let template: {
         de: "Karte drehen",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    "3D": {
+      description: "Map display: Is there some 3D or 2.5D view?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+      label: {
+        en: "3D view",
+        de: "3D-Ansicht",
+      },
+    },
+    showWebsite: {
+      description: "Map display: Shows link to the website from POI",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    showPhoneNumber: {
+      description: "Map display: Shows phone number from POI",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    showOpeningHours: {
+      description: "Map display: Shows hours of operation from POI",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+
+    // Navigating & Routing
+    turnLanes: {
+      description: "Navigation: Does it support lane guidance?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     navToPoint: {
       description: "Navigation: Can it guide you to a point somewhere?",
@@ -218,10 +712,7 @@ export let template: {
         de: "Navigiere zu einem Punkt",
       },
       type: "string",
-    },
-    turnLanes: {
-      description: "Navigation: Does it support lane guidance?",
-      type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     findLocation: {
       description: "Navigation: Can it search for a street/place?",
@@ -230,6 +721,7 @@ export let template: {
         de: "Finde eine Position",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     findNearbyPOI: {
       description: "Navigation: Can it discover/display Points of interests?",
@@ -238,6 +730,7 @@ export let template: {
         de: "Finde POI in der Nähe",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     predefinedRoute: {
       description: "Navigation: Can it follow other GPS tracks?",
@@ -246,6 +739,21 @@ export let template: {
         de: "Folge einer vordefinierten Route",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    createRouteManually: {
+      description: "Navigation: ?",
+      label: {
+        en: "Create route manually",
+        de: "Route von Hand eingeben",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    createRouteViaWaypoints: {
+      description: "Navigation: ?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     calculateRoute: {
       description: "Navigation: Can it calculate a route using routing?",
@@ -254,6 +762,7 @@ export let template: {
         de: "Route berechnen",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     calculateRouteOffline: {
       description: "Navigation: Does it need internet to calculate a route?",
@@ -262,10 +771,13 @@ export let template: {
         de: "Route berechnen ohne Internet",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     profiles: {
       description: "Navigation: What profiles supported if it makes routing?",
+      example: "car;bike;foot;wheelchair",
       type: "string",
+      suggestedvalues: ["car", "bike", "foot", "wheelchair"],
     },
     turnRestrictions: {
       description: "Navigation: Can it deal with turn restrictions",
@@ -274,6 +786,7 @@ export let template: {
         de: "Abbiegebeschränkungen",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     voice: {
       description:
@@ -283,12 +796,14 @@ export let template: {
         de: "Navigation mit Sprachansage",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     keepOnRoad: {
       description:
         "Navigation: Can it assist you to keep your vehicle on the calculated route?",
       label: "Keep on road",
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     withoutGPS: {
       description: "Navigation: Does it work even without a GPS?",
@@ -297,18 +812,32 @@ export let template: {
         de: "Funktioniert ohne GPS",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    routingProviders: {
+      description: "Navigation: What routing service(s) does it use?",
+      example: "OpenRouteService;Yours",
+      type: "string",
+      suggestedvalues: [
+        "OpenRouteService",
+        "Yours",
+        "CloudMade",
+        "MapQuest",
+        "Graphhopper",
+        "OSRM",
+        "Valhalla",
+      ],
     },
     avoidTraffic: {
       description: "Navigation: Does app optimize route to avoid traffic jams?",
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     trafficProvider: {
       description: "Navigation: Traffic data source provider",
     },
-    routingProviders: {
-      description: "Navigation: What routing service(s) does it use?",
-      type: "string",
-    },
+
+    // Tracking
     customInterval: {
       description: "Track logging: Can you tune the interval manually?",
       label: {
@@ -316,21 +845,25 @@ export let template: {
         de: "Einstellbares Aufzeichnungsintervall",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     trackFormats: {
       description:
         "Track logging: What formats for storage can you save your GPS track?",
+      example: "gpx;csv",
       aliases: ["formats"],
       label: {
         en: "All Formats",
         de: "Alle formate",
       },
       type: "string",
+      suggestedvalues: ["gpx", "kml", "nmea", "csv", "trk"],
     },
     geotagging: {
       description: "Track logging: Are further Mapping Techniques supported",
       example: "note;photo",
       type: "string",
+      suggestedvalues: ["note", "photo", "audio"],
     },
     fastWayPointAdding: {
       description: "Track logging: Easy to add a new Waypoint?",
@@ -339,20 +872,16 @@ export let template: {
         de: "Knöpfe zum schnellen Setzen von Wegpunkten",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     uploadGPX: {
       description: "Track logging: Can it send tracks directly to OSM?",
       type: "string",
+      suggestedvalues: ["yes", "no"],
       label: "Upload GPX to OSM",
     },
-    sendPosition: {
-      description: "Track monitoring: Can it send position to others?",
-      label: {
-        en: "Send current position",
-        de: "Sende aktuelle Position",
-      },
-      type: "string",
-    },
+
+    // Monitoring
     showTrack: {
       description: "Track monitoring: Show your current track?",
       label: {
@@ -360,6 +889,7 @@ export let template: {
         de: "Zeige aktuellen Track",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     showExistingTrack: {
       description:
@@ -369,6 +899,7 @@ export let template: {
         de: "Öffne existierenden Track",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     showAltitudeDiagram: {
       description: "Track monitoring: ?",
@@ -377,6 +908,7 @@ export let template: {
         de: "Höhendiagramm",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     showDOP: {
       description: "Track monitoring: Shows signal quality?",
@@ -385,6 +917,7 @@ export let template: {
         de: "Zeige DOP-Wert",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     showSatellites: {
       description: "Track monitoring: Displays satellites?",
@@ -393,6 +926,7 @@ export let template: {
         de: "Zeige Satelliten",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     showNMEAlive: {
       description: "Track monitoring: Can you see the raw GPS stream?",
@@ -401,11 +935,124 @@ export let template: {
         de: "Zeige NMEA-Livedaten",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
+    showSpeed: {
+      description: "Track monitoring: ?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    sendPosition: {
+      description: "Track monitoring: Can it send position to others?",
+      example: "yes;mail;www",
+      label: {
+        en: "Send current position",
+        de: "Sende aktuelle Position",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no", "sms", "mail", "www"],
+    },
+
+    // Editing
+    addPOI: {
+      description: "Editor: Can you add a node?",
+      label: {
+        en: "Add POIs",
+        de: "POI hinzufügen",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editPOI: {
+      description: "Editor: Can you edit a node?",
+      label: {
+        en: "Edit / Delete POIs",
+        de: "POI bearbeiten/löschen",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    addWay: {
+      description: "Editor: Can you add a way?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editTags: {
+      description: "Editor: Can you edit existing tags?",
+      label: {
+        en: "Edit arbitrary tags of existing OSM objects",
+        de: "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editGeom: {
+      description: "Editor: Can you edit nodes/ways?",
+      label: {
+        en: "Edit geometries",
+        de: "Geometrie bearbeiten",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editRelations: {
+      description: "Editor: Can you edit relations?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    viewNotes: {
+      description: "Editor: Can you view OSM Notes?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    createNotes: {
+      description: "Editor: Can you create OSM Notes?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editNotes: {
+      description: "Editor: Can you comment/close OSM Notes?",
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    editSource: {
+      description: "Editor: Can you work offline?",
+      example: "online;cache",
+      type: "string",
+      suggestedvalues: ["online", "cache", "offline"],
+    },
+    offsetDBsupport: {
+      description: "Editor: Does it support the imagery offset DB?",
+      label: {
+        en: "Support imagery offset DB",
+        de: "Unterstützt Luftbildversatz DB",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+    uploadOSMData: {
+      description: "Editor: Can you send changes to OSM directly?",
+      label: {
+        en: "Upload to OSM",
+        de: "Zu OSM hochladen",
+      },
+      type: "string",
+      suggestedvalues: ["yes", "no"],
+    },
+
+    // Rendering
+    rendererOutputFormats: {
+      description: "Renderer: supported output formats",
+      example: "svg;pdf;png",
+    },
+
+    // Accessibility
     accessibility: {
       description: "Accessibility: Does it help disabled people in some kind?",
+      example: "blind;wheelchair",
       label: "Targeted at ...",
       type: "string",
+      suggestedvalues: ["blind", "wheelchair"],
     },
     textOnlyUI: {
       description: "Accessibility: Text so braille compatible interface?",
@@ -414,6 +1061,7 @@ export let template: {
         de: "Komplett ohne Grafik bedienbar",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     brailleUI: {
       description: "Accessibility: A special braille interface?",
@@ -422,6 +1070,7 @@ export let template: {
         de: "Braille-Oberfläche",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     explorerMode: {
       description:
@@ -431,6 +1080,7 @@ export let template: {
         de: "Erkundungsmodus",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     publicTransportMode: {
       description: "Accessibility: Supports routing with public transport?",
@@ -439,6 +1089,7 @@ export let template: {
         de: "ÖPNV-Modus",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     dangerWarnings: {
       description: "Accessibility: ?",
@@ -447,6 +1098,7 @@ export let template: {
         de: "Gefahrenwarnungen",
       },
       type: "string",
+      suggestedvalues: ["yes", "no"],
     },
     screenReader: {
       description: "Accessibility: List of supported Screenreaders",
@@ -464,158 +1116,9 @@ export let template: {
         de: "Screenreader-Sprachen",
       },
     },
-    addPOI: {
-      description: "Editor: Can you add a node?",
-      label: {
-        en: "Add POIs",
-        de: "POI hinzufügen",
-      },
-      type: "string",
-    },
-    addWay: {
-      description: "Editor: Can you add a way?",
-      type: "string",
-    },
-    editSource: {
-      description: "Editor: Can you work offline?",
-      example: "online;cache",
-      type: "string",
-    },
-    editPOI: {
-      description: "Editor: Can you edit a node?",
-      label: {
-        en: "Edit / Delete POIs",
-        de: "POI bearbeiten/löschen",
-      },
-      type: "string",
-    },
-    editTags: {
-      description: "Editor: Can you edit existing tags?",
-      label: {
-        en: "Edit arbitrary tags of existing OSM objects",
-        de: "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
-      },
-      type: "string",
-    },
-    editGeom: {
-      description: "Editor: Can you edit nodes/ways?",
-      label: {
-        en: "Edit geometries",
-        de: "Geometrie bearbeiten",
-      },
-      type: "string",
-    },
-    editRelations: {
-      description: "Editor: Can you edit relations?",
-      type: "string",
-    },
-    createNotes: {
-      description: "Editor: Can you create OSM Notes?",
-      type: "string",
-    },
-    viewNotes: {
-      description: "Editor: Can you view OSM Notes?",
-      type: "string",
-    },
-    editNotes: {
-      description: "Editor: Can you comment/close OSM Notes?",
-      type: "string",
-    },
-    offsetDBsupport: {
-      description: "Editor: Does it support the imagery offset DB?",
-      label: {
-        en: "Support imagery offset DB",
-        de: "Unterstützt Luftbildversatz DB",
-      },
-      type: "string",
-    },
-    uploadOSMData: {
-      description: "Editor: Can you send changes to OSM directly?",
-      label: {
-        en: "Upload to OSM",
-        de: "Zu OSM hochladen",
-      },
-      type: "string",
-    },
-    rendererOutputFormats: {
-      description: "Renderer: supported output formats",
-    },
-    showSpeed: {
-      description: "Analysis: ?",
-      type: "string",
-    },
-    showPhoneNumber: {
-      description: "POI Information: Shows phone number",
-      type: "string",
-    },
-    showOpeningHours: {
-      description: "POI Information: Shows hours of operation",
-      type: "string",
-    },
-    showWebsite: {
-      description: "POI Information: Shows link to the website",
-      type: "string",
-    },
-    map: {
-      description: "Features: Can it show a map?",
-      label: {
-        en: "Display map",
-        de: "Karte anzeigen",
-      },
-      type: "string",
-    },
-    tracking: {
-      description: "Features: Can it record a GPS track?",
-      type: "string",
-      label: {
-        en: "Make track",
-        de: "Track aufzeichnen",
-      },
-    },
-    monitoring: {
-      description: "Features: Can you monitor GPS datas?",
-      label: {
-        en: "Monitor",
-        de: "Monitoring",
-      },
-      type: "string",
-    },
-    navigating: {
-      description: "Features: Can you navigate in a compass like way?",
-      label: {
-        en: "Navigate",
-        de: "Navigieren",
-      },
-      type: "string",
-    },
-    routing: {
-      description: "Features: Can you route along a road network?",
-      label: "Routing",
-      type: "string",
-    },
-    createRouteViaWaypoints: {
-      type: "string",
-    },
-    createRouteManually: {
-      label: {
-        en: "Create route manually",
-        de: "Route von Hand eingeben",
-      },
-      type: "string",
-    },
-    "3D": {
-      description: "Map display: Is there some 3D or 2.5D view?",
-      type: "string",
-      label: {
-        en: "3D view",
-        de: "3D-Ansicht",
-      },
-    },
-    logo: {
-      type: "wiki-file-name",
-    },
   },
   paramOrder: [
+    "lang",
     "name",
     "status",
     "license",
@@ -634,6 +1137,8 @@ export let template: {
     "date",
     "logo",
     "screenshot",
+
+    // Install options
     "asin",
     "bbWorldID",
     "googlePlayID",
@@ -643,15 +1148,24 @@ export let template: {
     "appleStoreID",
     "macAppStoreID",
     "microsoftAppID",
+
+    // Features
     "map",
     "navigating",
+    "routing",
     "tracking",
     "monitoring",
-    "routing",
+
+    // Map
     "mapData",
     "datasource",
     "rotateMap",
     "3D",
+    "showWebsite",
+    "showPhoneNumber",
+    "showOpeningHours",
+
+    // Navigating & Routing
     "turnLanes",
     "navToPoint",
     "findLocation",
@@ -669,42 +1183,52 @@ export let template: {
     "routingProviders",
     "avoidTraffic",
     "trafficProvider",
+
+    // Tracking
     "customInterval",
     "trackFormats",
     "geotagging",
     "fastWayPointAdding",
     "uploadGPX",
+
+    // Monitoring
     "showTrack",
     "showExistingTrack",
     "showAltitudeDiagram",
     "showDOP",
     "showSatellites",
     "showNMEAlive",
+    "showSpeed",
     "sendPosition",
+
+    // Editing
+    "addPOI",
+    "editPOI",
+    "addWay",
+    "editTags",
+    "editGeom",
+    "editRelations",
+    "viewNotes",
+    "createNotes",
+    "editNotes",
+    "editSource",
+    "offsetDBsupport",
+    "uploadOSMData",
+
+    // Rendering
+    "rendererOutputFormats",
+
+    // Accessibility
     "accessibility",
     "textOnlyUI",
     "brailleUI",
     "explorerMode",
-    "dangerWarnings",
     "publicTransportMode",
+    "dangerWarnings",
     "screenReader",
     "screenReaderLang",
-    "addPOI",
-    "addWay",
-    "editSource",
-    "editPOI",
-    "editTags",
-    "editGeom",
-    "editRelations",
-    "createNotes",
-    "viewNotes",
-    "editNotes",
-    "offsetDBsupport",
-    "uploadOSMData",
-    "rendererOutputFormats",
-    "showSpeed",
-    "showWebsite",
-    "showPhoneNumber",
-    "showOpeningHours",
   ],
+  format: "block",
+  description:
+    "This template collects all notes of a software together. Some common information is displayed as an infobox.",
 };

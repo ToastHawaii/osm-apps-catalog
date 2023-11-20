@@ -72,11 +72,7 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["languagesurl"]),
-    topics: (source["genre"] || "")
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .map(firstLetterToUpperCase),
+    topics: toValues(source["genre"]),
     platform: (source["platform"] || "")
       .replace(/\[\[/g, "")
       .replace(/\]\]/g, "")
@@ -92,7 +88,16 @@ export function transform(source: { [name: string]: string }) {
       appleStoreID: source["appleStoreID"],
       macAppStoreID: source["macAppStoreID"],
       microsoftAppID: source["microsoftAppID"],
-    }
+    },
+    map: {
+      mapData: toValues(source["mapData"]),
+      datasource: toValues(source["datasource"]),
+      rotateMap: toValues(source["rotateMap"]),
+      "3D": toValues(source["3D"]),
+      showWebsite: toValues(source["showWebsite"]),
+      showPhoneNumber: toValues(source["showPhoneNumber"]),
+      showOpeningHours: toValues(source["showOpeningHours"]),
+    },
   };
 
   obj.platform = removeDuplicates(obj.platform).sort();
@@ -191,4 +196,12 @@ export function transform(source: { [name: string]: string }) {
 function hasValue(value: string = "") {
   value = value.toUpperCase();
   return value && value !== "YES" && value !== "NO" && value !== "?";
+}
+
+function toValues(value: string = "") {
+  return value
+    .split(splitByCommaButNotInsideBraceRegex)
+    .map(trim)
+    .filter((v) => v)
+    .map(firstLetterToUpperCase);
 }

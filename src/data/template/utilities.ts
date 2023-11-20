@@ -41,6 +41,15 @@ export type App = {
     macAppStoreID?: string;
     microsoftAppID?: string;
   };
+  map?: {
+    mapData: string[];
+    datasource: string[];
+    rotateMap: string[];
+    "3D": string[];
+    showWebsite: string[];
+    showPhoneNumber: string[];
+    showOpeningHours: string[];
+  };
   filter?: string;
 };
 

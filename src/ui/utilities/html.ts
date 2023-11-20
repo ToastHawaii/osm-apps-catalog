@@ -57,6 +57,6 @@ export function createElement<K extends keyof HTMLElementTagNameMap>(
 ) {
   const element = document.createElement(tag);
   element.innerHTML = innerHTML;
-  element.classList.add(...classNames);
+  element.classList.add(...classNames.filter(c => c));
   return element;
 }

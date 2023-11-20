@@ -316,7 +316,7 @@ function update(
   languageSelect.set(language);
 
   if ((document.getElementById("compareView") as HTMLInputElement).checked) {
-    renderCompareView(filteredApps);
+    renderCompareView(filteredApps, lang);
   }
 
   if ((document.getElementById("listView") as HTMLInputElement).checked) {

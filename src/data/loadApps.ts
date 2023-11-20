@@ -12,34 +12,34 @@ export async function loadApps(
   doUpdate: (apps: App[]) => void,
   language = "en"
 ) {
-  const serviceItemObjectsRequest = requestTemplates("Service item", language);
-  const layerObjectsRequest = requestTemplates("Layer", language);
+  // const serviceItemObjectsRequest = requestTemplates("Service item", language);
+  // const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
 
-  const serviceItemObjects = await serviceItemObjectsRequest;
-  for (const source of serviceItemObjects.filter(
-    (s) => !containsOfflineLink(s["name"])
-  )) {
-    const obj: App = transformServiceItem(source);
+  // const serviceItemObjects = await serviceItemObjectsRequest;
+  // for (const source of serviceItemObjects.filter(
+  //   (s) => !containsOfflineLink(s["name"])
+  // )) {
+  //   const obj: App = transformServiceItem(source);
 
-    addApp(obj);
-  }
+  //   addApp(obj);
+  // }
 
-  shuffle(apps);
-  doUpdate(apps);
+  // shuffle(apps);
+  // doUpdate(apps);
 
-  const layerObjects = await layerObjectsRequest;
-  for (const source of layerObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["slippy_web"]) &&
-      !equalsYes(s["discontinued"])
-  )) {
-    const obj: App = transformLayer(source);
+  // const layerObjects = await layerObjectsRequest;
+  // for (const source of layerObjects.filter(
+  //   (s) =>
+  //     !containsOfflineLink(s["name"]) &&
+  //     !containsOfflineLink(s["slippy_web"]) &&
+  //     !equalsYes(s["discontinued"])
+  // )) {
+  //   const obj: App = transformLayer(source);
 
-    addApp(obj);
-  }
-  doUpdate(apps);
+  //   addApp(obj);
+  // }
+  // doUpdate(apps);
 
   const softwareObjects = await softwareObjectsRequest;
   for (const source of softwareObjects.filter(
