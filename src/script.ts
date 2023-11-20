@@ -17,10 +17,10 @@
 
 import { createElement, getHtmlElement } from "./ui/utilities/html";
 import SlimSelect from "slim-select";
-import { requestTemplates } from "./ui/crawler";
-import { transform as transformSoftware } from "./ui/template/software";
-import { transform as transformServiceItem } from "./ui/template/serviceItem";
-import { transform as transformLayer } from "./ui/template/layer";
+import { requestTemplates } from "./data/crawler";
+import { transform as transformSoftware } from "./data/template/software";
+import { transform as transformServiceItem } from "./data/template/serviceItem";
+import { transform as transformLayer } from "./data/template/layer";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { set, get } from "./ui/utilities/storage";
 import { render } from "./ui/render";
@@ -30,7 +30,7 @@ import {
   equalsYes,
   textToColor,
 } from "./ui/utilities/string";
-import { App, containsOfflineLink } from "./ui/template/utilities";
+import { App, containsOfflineLink } from "./data/template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./ui/utilities/url";
 import { Solver } from "./ui/utilities/coloriz/Solver";
 import { Color } from "./ui/utilities/coloriz/Color";

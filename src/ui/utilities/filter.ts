@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { App } from "../template/utilities";
+import { App } from "../../data/template/utilities";
 
 const mobilePlatforms = [
   "ANDROID",
