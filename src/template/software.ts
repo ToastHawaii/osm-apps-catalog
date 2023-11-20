@@ -40,7 +40,10 @@ export function transform(source: { [name: string]: string }) {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: toWikimediaUrl(source["screenshot"] || source["logo"], 250),
+    images: [
+      ...toWikimediaUrl(source["screenshot"], 250),
+      ...toWikimediaUrl(source["logo"], 250),
+    ],
     website: toUrl(source["web"]),
     documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     source: [
@@ -90,6 +93,7 @@ export function transform(source: { [name: string]: string }) {
       macAppStoreID: source["macAppStoreID"],
       microsoftAppID: source["microsoftAppID"],
     },
+    params: source,
   };
 
   obj.platform = removeDuplicates(obj.platform).sort();
@@ -158,11 +162,7 @@ export function transform(source: { [name: string]: string }) {
     obj.topics.push("Editor");
 
   if (
-    equalsYes(
-      source["createNotes"],
-      source["viewNotes"],
-      source["editNotes"],
-    )
+    equalsYes(source["createNotes"], source["viewNotes"], source["editNotes"])
   )
     obj.topics.push("Notes");
 

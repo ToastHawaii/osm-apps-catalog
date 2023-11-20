@@ -30,11 +30,32 @@ import {
 } from "./utilities";
 
 export function transform(source: { [name: string]: string }) {
+  const params = {
+    name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
+    date: toDate(source["date"]) || "",
+    description: appendFullStop(processWikiText(source["description"] || "")),
+    screenshot: toWikimediaUrl(source["screenshot"], 250),
+    logo: toWikimediaUrl(source["logo"], 250),
+    website: toUrl(extractWebsite(source["slippy_web"])),
+    author: processWikiText(source["author"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .join(", "),
+    languages: (source["tiles_languages"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map((v) => languageValueToDisplay(v)),
+  };
   const obj: App = {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: toWikimediaUrl(source["screenshot"] || source["logo"], 250),
+    images: [
+      ...toWikimediaUrl(source["screenshot"], 250),
+      ...toWikimediaUrl(source["logo"], 250),
+    ],
     website: toUrl(extractWebsite(source["slippy_web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
@@ -64,6 +85,7 @@ export function transform(source: { [name: string]: string }) {
       .map(trim)
       .filter((v) => v)
       .join(", "),
+    params,
   };
 
   obj.languages = removeDuplicates(obj.languages).sort();

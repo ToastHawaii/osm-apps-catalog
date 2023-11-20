@@ -31,6 +31,49 @@ import { findGetParameter as getParameterFromUrl } from "./utilities/url";
 import { Solver } from "./utilities/coloriz/Solver";
 import { Color } from "./utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./utilities/filter";
+import { template } from "./templateData";
+
+export type LocalizedValue =
+  | string
+  | {
+      [x: string]: string | undefined;
+    };
+
+/**
+ * Returns a loacalised value based on the current set locale. 
+ * @example {
+			"en": "https://about.openki.net/en/ueber-uns/spenden/",
+			"de": "https://about.openki.net/ueber-uns/spenden/"
+		}
+ */
+export function getLocalizedValue(
+  setting: LocalizedValue | undefined | null,
+  locale: string
+) {
+  if (!setting) {
+    return undefined;
+  }
+
+  if (typeof setting === "string") {
+    return setting;
+  }
+
+  if (setting[locale]) {
+    // excact match found
+    return setting[locale];
+  }
+
+  const parts = locale.split("-");
+  if (parts.length > 1) {
+    if (setting[parts[0]]) {
+      // found eg. "de" for "de-CH"
+      return setting[locale];
+    }
+  }
+
+  // fallback take first
+  return setting[Object.keys(setting)[0]];
+}
 
 let onUpdate = false;
 let apps: App[] = [];
@@ -63,6 +106,20 @@ const languageSelect = new SlimSelect({
     doUpdate();
   }
 );
+
+(document.getElementById("listView") as HTMLInputElement).addEventListener(
+  "input",
+  () => {
+    doUpdate();
+  }
+);
+(document.getElementById("compareView") as HTMLInputElement).addEventListener(
+  "input",
+  () => {
+    doUpdate();
+  }
+);
+
 const categorySelect = new SlimSelect({
   select: "#category",
   showSearch: false,
@@ -165,6 +222,7 @@ function update(
   getHtmlElement(".description").innerHTML = description;
 
   getHtmlElement("#apps").innerHTML = "";
+  getHtmlElement("#compare").innerHTML = "";
 
   let filteredApps: App[];
 
@@ -301,54 +359,60 @@ function update(
   languageSelect.setData(prepareArrayForSelect(languageData, language));
   languageSelect.set(language);
 
-  for (const a of filteredApps) {
-    render(a);
+  if ((document.getElementById("compareView") as HTMLInputElement).checked) {
+    compare(filteredApps);
   }
 
-  if (topicUp.length > 0) {
-    let similarApps = apps.filter((a) => !filteredApps.includes(a));
+  if ((document.getElementById("listView") as HTMLInputElement).checked) {
+    for (const a of filteredApps) {
+      render(a);
+    }
 
-    similarApps = similarApps.filter((a) =>
-      topicUp.every(
-        (t) =>
-          a.name.toUpperCase().search(t) !== -1 ||
-          a.description.toUpperCase().search(t) !== -1
-      )
-    );
+    if (topicUp.length > 0) {
+      let similarApps = apps.filter((a) => !filteredApps.includes(a));
 
-    if (search)
-      similarApps = similarApps.filter(
-        (a) =>
-          a.name.toUpperCase().search(search) !== -1 ||
-          a.description.toUpperCase().search(search) !== -1 ||
-          a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
-            0 ||
-          a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
-            .length > 0
-      );
-
-    if (platformUp.length > 0)
       similarApps = similarApps.filter((a) =>
-        includes(
-          a.platform.map((t) => t.toUpperCase()),
-          platformUp
+        topicUp.every(
+          (t) =>
+            a.name.toUpperCase().search(t) !== -1 ||
+            a.description.toUpperCase().search(t) !== -1
         )
       );
 
-    if (languageUp.length > 0)
-      similarApps = similarApps.filter((a) =>
-        includes(
-          a.languages.map((t) => t.toUpperCase()),
-          languageUp
-        )
-      );
+      if (search)
+        similarApps = similarApps.filter(
+          (a) =>
+            a.name.toUpperCase().search(search) !== -1 ||
+            a.description.toUpperCase().search(search) !== -1 ||
+            a.topics.filter((t) => t.toUpperCase().search(search) !== -1)
+              .length > 0 ||
+            a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
+              .length > 0
+        );
 
-    if (similarApps.length > 0) {
-      const similarTag = createElement("h2", "Related apps");
-      getHtmlElement("#apps").appendChild(similarTag);
+      if (platformUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          includes(
+            a.platform.map((t) => t.toUpperCase()),
+            platformUp
+          )
+        );
 
-      for (const a of similarApps) {
-        render(a);
+      if (languageUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          includes(
+            a.languages.map((t) => t.toUpperCase()),
+            languageUp
+          )
+        );
+
+      if (similarApps.length > 0) {
+        const similarTag = createElement("h2", "Related apps");
+        getHtmlElement("#apps").appendChild(similarTag);
+
+        for (const a of similarApps) {
+          render(a);
+        }
       }
     }
   }
@@ -357,6 +421,22 @@ function update(
 }
 
 const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
+
+function compare(filteredApps: App[]) {
+  for (const p of Object.entries(template.params)) {
+    const element = createElement(
+      "tr",
+      [
+        `<td title="${getLocalizedValue(p[1].description, "en") || ""}">${
+          getLocalizedValue(p[1].label, "en") || p[0]
+        }</td>`,
+        ...filteredApps.map((a) => `<td>${a.params?.[p[0]] || ""}</td>`),
+      ].join("")
+    );
+
+    getHtmlElement("#compare").appendChild(element);
+  }
+}
 
 function saveAppCatalog() {
   set(`${lang}-apps`, apps);
@@ -452,6 +532,8 @@ function addApp(obj: App) {
     app.install.microsoftAppID =
       app.install.microsoftAppID || obj.install.microsoftAppID;
 
+    app.params = { ...obj, ...app };
+
     extendFilter(app);
   }
 }
@@ -543,6 +625,7 @@ async function loadAppCatalog(language = "en") {
       languages: [],
       platform: [],
       install: {},
+      params: obj,
     };
 
     addApp(app);

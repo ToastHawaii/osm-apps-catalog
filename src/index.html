@@ -89,6 +89,13 @@
     <select id="topic" multiple></select>
     <select id="platform" multiple></select>
     <select id="language" multiple></select>
+    <form>
+      <input type="radio" id="listView" name="view" value="List" checked="checked">
+      <label for="listView">List</label>
+      <input type="radio" id="compareView" name="view" value="Compare">
+      <label for="compareView">Compare</label>
+    </form>
+    <table id="compare"></table>
     <div id="apps"></div>
     <script>
       function getTagInfoProjects(response) {

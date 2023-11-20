@@ -62,6 +62,7 @@ export function transform(source: { [name: string]: string }) {
       .sort(),
     platform: [],
     install: {},
+    params: source
   };
 
   if (source["region"])
