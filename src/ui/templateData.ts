@@ -1,4 +1,4 @@
-import { LocalizedValue } from "./script";
+import { LocalizedValue } from "./getLocalizedValue";
 
 export let template: {
   params: {
