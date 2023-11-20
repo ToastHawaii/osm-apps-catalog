@@ -35,6 +35,16 @@ a {
   color: #007aff;
 }
 
+.table {
+  display: table;
+}
+.cell {
+  display: table-cell;
+}
+.row {
+  display: table-row;
+}
+
 .info {
   color: black;
   font-size: 26px;
@@ -68,10 +78,8 @@ a {
   margin: 3px 0;
 }
 
-#category {
-  width: 160px;
-  float: right;
-  margin: 4px;
+.ss-main .ss-multi-selected .ss-values .ss-disabled {
+  color: #666;
 }
 
 .app {

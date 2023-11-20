@@ -15,23 +15,27 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { createElement, getHtmlElement } from "./utilities/html";
+import { createElement, getHtmlElement } from "./ui/utilities/html";
 import SlimSelect from "slim-select";
-import { requestTemplates } from "./crawler";
-import { transform as transformSoftware } from "./template/software";
-import { transform as transformServiceItem } from "./template/serviceItem";
-import { transform as transformLayer } from "./template/layer";
-import { lazyLoadImages } from "./lazyLoadImages";
-import { set, get } from "./utilities/storage";
-import { render } from "./render";
-import { removeDuplicates, shuffle, includes } from "./utilities/array";
-import { equalsIgnoreCase, equalsYes, textToColor } from "./utilities/string";
-import { App, containsOfflineLink } from "./template/utilities";
-import { findGetParameter as getParameterFromUrl } from "./utilities/url";
-import { Solver } from "./utilities/coloriz/Solver";
-import { Color } from "./utilities/coloriz/Color";
-import { edit, mobile, navigation } from "./utilities/filter";
-import { template } from "./templateData";
+import { requestTemplates } from "./ui/crawler";
+import { transform as transformSoftware } from "./ui/template/software";
+import { transform as transformServiceItem } from "./ui/template/serviceItem";
+import { transform as transformLayer } from "./ui/template/layer";
+import { lazyLoadImages } from "./ui/lazyLoadImages";
+import { set, get } from "./ui/utilities/storage";
+import { render } from "./ui/render";
+import { removeDuplicates, shuffle, includes } from "./ui/utilities/array";
+import {
+  equalsIgnoreCase,
+  equalsYes,
+  textToColor,
+} from "./ui/utilities/string";
+import { App, containsOfflineLink } from "./ui/template/utilities";
+import { findGetParameter as getParameterFromUrl } from "./ui/utilities/url";
+import { Solver } from "./ui/utilities/coloriz/Solver";
+import { Color } from "./ui/utilities/coloriz/Color";
+import { edit, mobile, navigation } from "./ui/utilities/filter";
+import { template } from "./ui/templateData";
 
 export type LocalizedValue =
   | string
@@ -39,13 +43,6 @@ export type LocalizedValue =
       [x: string]: string | undefined;
     };
 
-/**
- * Returns a loacalised value based on the current set locale. 
- * @example {
-			"en": "https://about.openki.net/en/ueber-uns/spenden/",
-			"de": "https://about.openki.net/ueber-uns/spenden/"
-		}
- */
 export function getLocalizedValue(
   setting: LocalizedValue | undefined | null,
   locale: string
