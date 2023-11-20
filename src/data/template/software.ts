@@ -98,6 +98,25 @@ export function transform(source: { [name: string]: string }) {
       showPhoneNumber: toValues(source["showPhoneNumber"]),
       showOpeningHours: toValues(source["showOpeningHours"]),
     },
+    navigatingAndRouting: {
+      turnLanes: toValues(source["turnLanes"]),
+      navToPoint: toValues(source["navToPoint"]),
+      findLocation: toValues(source["findLocation"]),
+      findNearbyPOI: toValues(source["findNearbyPOI"]),
+      predefinedRoute: toValues(source["predefinedRoute"]),
+      createRouteManually: toValues(source["createRouteManually"]),
+      createRouteViaWaypoints: toValues(source["createRouteViaWaypoints"]),
+      calculateRoute: toValues(source["calculateRoute"]),
+      calculateRouteOffline: toValues(source["calculateRouteOffline"]),
+      profiles: toValues(source["profiles"]),
+      turnRestrictions: toValues(source["turnRestrictions"]),
+      voice: toValues(source["voice"]),
+      keepOnRoad: toValues(source["keepOnRoad"]),
+      withoutGPS: toValues(source["withoutGPS"]),
+      routingProviders: toValues(source["routingProviders"]),
+      avoidTraffic: toValues(source["avoidTraffic"]),
+      trafficProvider: toValues(source["trafficProvider"]),
+    },
   };
 
   obj.platform = removeDuplicates(obj.platform).sort();

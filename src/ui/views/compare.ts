@@ -138,58 +138,73 @@ export function render(apps: App[], lang: string) {
   );
 
   // Map
-  let elements = [
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["mapData"].label, lang),
-      (app) => renderBadges(app.map?.mapData),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["datasource"].label, lang),
-      (app) => renderBadges(app.map?.datasource),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["rotateMap"].label, lang),
-      (app) => renderBadges(app.map?.rotateMap),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["3D"].label, lang),
-      (app) => renderBadges(app.map?.["3D"]),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["showWebsite"].label, lang),
-      (app) => renderBadges(app.map?.showWebsite),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["showPhoneNumber"].label, lang),
-      (app) => renderBadges(app.map?.showPhoneNumber),
-      "map-detail"
-    ),
-    createParamElement(
-      apps,
-      getLocalizedValue(templateData.params["showOpeningHours"].label, lang),
-      (app) => renderBadges(app.map?.showOpeningHours),
-      "map-detail"
-    ),
-  ];
+  renderGroup(
+    "map",
+    "Display map",
+    [
+      "mapData",
+      "datasource",
+      "rotateMap",
+      "3D",
+      "showWebsite",
+      "showPhoneNumber",
+      "showOpeningHours",
+    ],
+    apps,
+    lang
+  );
 
-  elements = elements.filter((e) => e);
+  // Navigating & Routing
+  renderGroup(
+    "navigatingAndRouting",
+    "Navigating and routing",
+    [
+      "turnLanes",
+      "navToPoint",
+      "findLocation",
+      "findNearbyPOI",
+      "predefinedRoute",
+      "createRouteManually",
+      "createRouteViaWaypoints",
+      "calculateRoute",
+      "calculateRouteOffline",
+      "profiles",
+      "turnRestrictions",
+      "voice",
+      "keepOnRoad",
+      "withoutGPS",
+      "routingProviders",
+      "avoidTraffic",
+      "trafficProvider",
+    ],
+    apps,
+    lang
+  );
+}
+
+function renderGroup(
+  id: string,
+  display: string,
+  params: string[],
+  apps: App[],
+  lang: string
+) {
+  let elements = params
+    .map((p) =>
+      createParamElement(
+        apps,
+        getLocalizedValue(templateData.params[p].label, lang),
+        (app) => renderBadges((app as any)[id]?.[p]),
+        id + "-detail"
+      )
+    )
+    .filter((e) => e);
 
   if (elements.length) {
     const element = createElement(
       "div",
       `<div class="cell header params-title">
-        <a class="group" data-target=".map-detail" href="#"><i class="fas fa-caret-down map-detail"></i><i class="fas fa-caret-right map-detail hidden"></i> Map</a>
+        <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-caret-down ${id}-detail"></i><i class="fas fa-caret-right ${id}-detail hidden"></i> ${display}</a>
       </div>`,
       ["row"]
     );

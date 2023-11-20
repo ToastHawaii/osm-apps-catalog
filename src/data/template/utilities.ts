@@ -50,6 +50,25 @@ export type App = {
     showPhoneNumber: string[];
     showOpeningHours: string[];
   };
+  navigatingAndRouting?: {
+    turnLanes: string[];
+    navToPoint: string[];
+    findLocation: string[];
+    findNearbyPOI: string[];
+    predefinedRoute: string[];
+    createRouteManually: string[];
+    createRouteViaWaypoints: string[];
+    calculateRoute: string[];
+    calculateRouteOffline: string[];
+    profiles: string[];
+    turnRestrictions: string[];
+    voice: string[];
+    keepOnRoad: string[];
+    withoutGPS: string[];
+    routingProviders: string[];
+    avoidTraffic: string[];
+    trafficProvider: string[];
+  };
   filter?: string;
 };
 

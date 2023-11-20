@@ -655,12 +655,14 @@ export const templateData: {
     mapData: {
       description:
         'Map display: Maps drawn using pre-calculated/rasterized images (raster) or "on the fly" (vector)?',
+      label: "Shows map as vector or bitmap (rasterized images)",
       type: "string",
       suggestedvalues: ["raster", "vector"],
     },
     datasource: {
       description:
         "Map display: Can you store all map data offline? Download a separate file?",
+      label: "Stores map-data onboard or off-board (downloads from internet)",
       example: "online;cache",
       type: "string",
       suggestedvalues: ["online", "cache", "offline"],
@@ -685,16 +687,19 @@ export const templateData: {
     },
     showWebsite: {
       description: "Map display: Shows link to the website from POI",
+      label: "Shows website link from POI",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
     showPhoneNumber: {
       description: "Map display: Shows phone number from POI",
+      label: "Shows phone number from POI",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
     showOpeningHours: {
       description: "Map display: Shows hours of operation from POI",
+      label: "Shows hours of operation from POI",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
@@ -702,6 +707,7 @@ export const templateData: {
     // Navigating & Routing
     turnLanes: {
       description: "Navigation: Does it support lane guidance?",
+      label: "Support lane guidance",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
@@ -751,7 +757,8 @@ export const templateData: {
       suggestedvalues: ["yes", "no"],
     },
     createRouteViaWaypoints: {
-      description: "Navigation: ?",
+      description: "Navigation: Able to calculate route via Waypoints",
+      label: "Create route via Waypoints",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
@@ -775,6 +782,7 @@ export const templateData: {
     },
     profiles: {
       description: "Navigation: What profiles supported if it makes routing?",
+      label: "Supported routing profiles",
       example: "car;bike;foot;wheelchair",
       type: "string",
       suggestedvalues: ["car", "bike", "foot", "wheelchair"],
@@ -816,6 +824,7 @@ export const templateData: {
     },
     routingProviders: {
       description: "Navigation: What routing service(s) does it use?",
+      label: "Routing service(s)",
       example: "OpenRouteService;Yours",
       type: "string",
       suggestedvalues: [
@@ -830,11 +839,14 @@ export const templateData: {
     },
     avoidTraffic: {
       description: "Navigation: Does app optimize route to avoid traffic jams?",
+      label: "Avoid Traffic",
       type: "string",
       suggestedvalues: ["yes", "no"],
     },
     trafficProvider: {
       description: "Navigation: Traffic data source provider",
+      label: "Traffic data source provider",
+      type: "string",
     },
 
     // Tracking
