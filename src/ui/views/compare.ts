@@ -1,20 +1,56 @@
 import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
-import { template } from "../templateData";
-import { getLocalizedValue } from "../getLocalizedValue";
+import { renderImage } from "../utilities/renderImage";
 
-export function render(filteredApps: App[]) {
-  for (const p of Object.entries(template.params)) {
+export function render(apps: App[]) {
+  {
     const element = createElement(
       "div",
-      [
-        `<div class="cell" title="${
-          getLocalizedValue(p[1].description, "en") || ""
-        }">${getLocalizedValue(p[1].label, "en") || p[0]}</div>`,
-        ...filteredApps.map(
-          (a) => `<div class="cell">${a.params?.[p[0]] || ""}</div>`
-        ),
-      ].join(""),
+      apps
+        .map(
+          (app) =>
+            `<div class="cell header"><strong>${
+              app.website
+                ? `<a href="${app.website}" target="_blank"><span itemprop="name">${app.name}</span></a>`
+                : `<span itemprop="name">${app.name}</span>`
+            }</strong></div>`
+        )
+        .join(""),
+      ["row"]
+    );
+
+    getHtmlElement("#compare").appendChild(element);
+  }
+  {
+    const element = createElement(
+      "div",
+      apps
+        .map(
+          (app) => `<div class="cell align-middle">
+        ${
+          app.website
+            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
+            : renderImage(app)
+        }
+      </div>`
+        )
+        .join(""),
+      ["row"]
+    );
+
+    getHtmlElement("#compare").appendChild(element);
+  }
+  {
+    const element = createElement(
+      "div",
+      apps
+        .map(
+          (app) =>
+            `<div class="cell"><small itemprop="description">${
+              app.description
+            }</small></div>`
+        )
+        .join(""),
       ["row"]
     );
 

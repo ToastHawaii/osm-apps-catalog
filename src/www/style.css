@@ -19,7 +19,6 @@
 
 html {
   background: white;
-  overflow-y: scroll;
 }
 
 body {
@@ -35,14 +34,48 @@ a {
   color: #007aff;
 }
 
+.align-middle {
+  vertical-align: middle;
+}
+
 .table {
   display: table;
 }
 .cell {
   display: table-cell;
+  vertical-align: top;
 }
 .row {
   display: table-row;
+}
+
+.page-header {
+  left: 0;
+  position: sticky;
+}
+
+#content {
+  overflow-x: auto;
+  overflow-y: visible;
+  height: 100vh;
+}
+
+#compare {
+  width: max-content;
+}
+
+#compare .cell {
+  min-width: 160px;
+  padding: 5px;
+  border-right: 1px solid #dcdee2;
+  max-width: 270px;
+  width: 33vw;
+  box-sizing: border-box;
+}
+
+#compare .header a {
+  text-decoration: none;
+  color: #333;
 }
 
 .info {
@@ -108,17 +141,11 @@ a {
   max-width: 250px;
 }
 
-.app .name {
-  font-weight: bold;
-}
-.app .img {
+.app .img,
+#compare .img {
   max-width: 100%;
   max-height: 250px;
   margin: 6px 0;
-}
-
-.app .description {
-  font-size: small;
 }
 
 .app .topics {

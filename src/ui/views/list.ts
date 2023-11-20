@@ -18,25 +18,26 @@
 import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { textToColor } from "../utilities/string";
+import { renderImage } from "../utilities/renderImage";
 
 export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
-        <div class="name">${
+        <div><strong>${
           app.website
             ? `<a href="${app.website}" target="_blank"><span itemprop="name">${app.name}</span></a>`
             : `<span itemprop="name">${app.name}</span>`
-        }</div>
+        }</strong></div>
         ${
           app.website
             ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
             : renderImage(app)
         }
       </div>
-      <div class="description"><span itemprop="description">${
+      <div><small><span itemprop="description">${
         app.description
-      }</span> ${
+      }</small></span> ${
       app.documentation
         ? `<a href="${app.documentation}" target="_blank">Documentation</a>`
         : ""
@@ -190,17 +191,4 @@ export function render(app: App) {
   });
 
   getHtmlElement("#list").appendChild(element);
-}
-
-function renderImage(obj: App) {
-  const defaultImage =
-    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
-
-  if (obj.images.length > 0) {
-    return `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
-      " "
-    )} ${defaultImage}"/>`;
-  } else {
-    return `<img class="img" style="${obj.filter}" src="${defaultImage}"/>`;
-  }
 }

@@ -16,33 +16,61 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 export async function lazyLoadImages() {
-  const elements = document.querySelectorAll("*[dynamic-src]");
-  for (let i = 0; i < elements.length; i++) {
-    const boundingClientRect = elements[i].getBoundingClientRect();
-    if (
-      elements[i].hasAttribute("dynamic-src") &&
-      boundingClientRect.top < window.innerHeight * 2
-    ) {
-      const sources = (elements[i].getAttribute("dynamic-src") || "").split(
-        " "
-      );
+  {
+    const elements = document.querySelectorAll("#list *[dynamic-src]");
+    for (let i = 0; i < elements.length; i++) {
+      const boundingClientRect = elements[i].getBoundingClientRect();
+      if (
+        elements[i].hasAttribute("dynamic-src") &&
+        boundingClientRect.top <
+          (document.getElementById("content") as HTMLDivElement)?.clientHeight *
+            2
+      ) {
+        const sources = (elements[i].getAttribute("dynamic-src") || "").split(
+          " "
+        );
 
-      for (const src of sources) {
-        if (document.body.contains(elements[i]) && (await isImage(src))) {
-          elements[i].setAttribute("src", src);
-          break;
+        for (const src of sources) {
+          if (document.body.contains(elements[i]) && (await isImage(src))) {
+            elements[i].setAttribute("src", src);
+            break;
+          }
         }
+        elements[i].removeAttribute("dynamic-src");
       }
-      elements[i].removeAttribute("dynamic-src");
+    }
+  }
+  {
+    const elements = document.querySelectorAll("#compare *[dynamic-src]");
+    for (let i = 0; i < elements.length; i++) {
+      const boundingClientRect = elements[i].getBoundingClientRect();
+      if (
+        elements[i].hasAttribute("dynamic-src") &&
+        boundingClientRect.left <
+          (document.getElementById("content") as HTMLDivElement)?.clientWidth *
+            2
+      ) {
+        const sources = (elements[i].getAttribute("dynamic-src") || "").split(
+          " "
+        );
+
+        for (const src of sources) {
+          if (document.body.contains(elements[i]) && (await isImage(src))) {
+            elements[i].setAttribute("src", src);
+            break;
+          }
+        }
+        elements[i].removeAttribute("dynamic-src");
+      }
     }
   }
 }
-window.addEventListener("scroll", lazyLoadImages);
-window.addEventListener("load", lazyLoadImages);
-window.addEventListener("resize", lazyLoadImages);
+document.getElementById("content")?.addEventListener("scroll", lazyLoadImages);
+document.getElementById("content")?.addEventListener("load", lazyLoadImages);
+document.getElementById("content")?.addEventListener("resize", lazyLoadImages);
 
 async function isImage(src: string) {
-  return new Promise<boolean>(resolve => {
+  return new Promise<boolean>((resolve) => {
     const img = new Image();
     img.addEventListener("load", () => {
       resolve(true);
