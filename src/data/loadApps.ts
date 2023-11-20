@@ -1,4 +1,4 @@
-import { requestTemplates } from "./crawler";
+import { requestTemplates } from "./template/crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
@@ -8,7 +8,7 @@ import { App, containsOfflineLink } from "./template/utilities";
 import { apps } from "../script";
 import { addApp } from "./addApp";
 
-export async function loadAppCatalog(
+export async function loadApps(
   doUpdate: (apps: App[]) => void,
   language = "en"
 ) {

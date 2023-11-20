@@ -28,7 +28,7 @@ import { Solver } from "./ui/utilities/coloriz/Solver";
 import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
-import { loadAppCatalog } from "./data/loadAppCatalog";
+import { loadApps } from "./data/loadApps";
 
 let onUpdate = false;
 export let apps: App[] = [];
@@ -400,8 +400,8 @@ async function getAppCatalog() {
   if (apps.length === 0) {
     console.info("load catalog from wiki");
 
-    if (lang !== "en") await loadAppCatalog(doUpdate, lang);
-    await loadAppCatalog(doUpdate);
+    if (lang !== "en") await loadApps(doUpdate, lang);
+    await loadApps(doUpdate);
 
     shuffle(apps);
 
