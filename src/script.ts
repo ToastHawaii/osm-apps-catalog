@@ -120,7 +120,7 @@ const categorySelect = new SlimSelect({
     return { ...c, selected: c.value === document.location.hash.slice(1) };
   }),
   onChange: () => {
-    doUpdate(true);
+    doUpdate(apps, true);
   },
 });
 
