@@ -294,8 +294,12 @@ const languages: {
 ];
 
 export function languageValueToDisplay(value: string) {
-  value = value.replaceAll("_", "-").toLowerCase();
-  
+  if (!Number.isNaN(Number.parseInt(value, 10))) {
+    value = "mul";
+  } else {
+    value = value.replaceAll("_", "-").toLowerCase();
+  }
+
   for (const language of languages) {
     if (language.code === value) return language.display;
   }
