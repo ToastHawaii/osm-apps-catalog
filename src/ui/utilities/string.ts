@@ -80,10 +80,11 @@ export function textToColor(s: string) {
 
   // fixed colors
   switch (s.toUpperCase()) {
+    case "FREE":
     case "YES":
-      return { r:153,g: 255,b: 153 };
-      case "NO":
-        return { r:255,g: 153,b: 153 };
+      return { r: 153, g: 255, b: 153 };
+    case "NO":
+      return { r: 255, g: 153, b: 153 };
   }
 
   for (let i = 0; i < s.length; i++) {

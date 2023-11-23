@@ -112,20 +112,20 @@ export function render(apps: App[], lang: string) {
 
   renderParam(apps, "Description", (app) => app.description);
   renderParam(apps, "Author", (app) => app.author);
-  renderParam(apps, "Platforms", (app) => app.platform.join(", "));
+  renderParam(apps, "Platforms", (app) => renderBadges(app.platform));
   renderParam(apps, "Last release", (app) => app.lastRelease);
   renderParam(apps, "Languages", (app) =>
     app.languagesUrl
       ? `<a href="${app.languagesUrl}" target="_blank">
       ${
         app.languages.length > 0
-          ? app.languages.join(", ")
+          ? renderBadges(app.languages)
           : `<i class="fas fa-language"></i>`
       }
     </a>`
-      : app.languages.join(", ")
+      : renderBadges(app.languages)
   );
-  renderParam(apps, "License", (app) => app.license);
+  renderParam(apps, "License", (app) => renderBadges(app.license));
   renderParam(apps, "Source code", (app) =>
     app.sourceCode
       ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
@@ -142,6 +142,7 @@ export function render(apps: App[], lang: string) {
     "map",
     "Display map",
     [
+      "map",
       "mapData",
       "datasource",
       "rotateMap",
@@ -154,28 +155,118 @@ export function render(apps: App[], lang: string) {
     lang
   );
 
-  // Navigating & Routing
+  // Routing
   renderGroup(
-    "navigatingAndRouting",
-    "Navigating and routing",
+    "routing",
+    "Routing",
     [
-      "turnLanes",
-      "navToPoint",
-      "findLocation",
-      "findNearbyPOI",
-      "predefinedRoute",
+      "routing",
       "createRouteManually",
-      "createRouteViaWaypoints",
       "calculateRoute",
-      "calculateRouteOffline",
+      "createRouteViaWaypoints",
       "profiles",
       "turnRestrictions",
-      "voice",
-      "keepOnRoad",
-      "withoutGPS",
+      "calculateRouteOffline",
       "routingProviders",
       "avoidTraffic",
       "trafficProvider",
+    ],
+    apps,
+    lang
+  );
+
+  // Navigating
+  renderGroup(
+    "navigating",
+    "Navigating",
+    [
+      "navigating",
+      "findLocation",
+      "findNearbyPOI",
+      "navToPoint",
+      "voice",
+      "keepOnRoad",
+      "turnLanes",
+      "withoutGPS",
+      "predefinedRoute",
+    ],
+    apps,
+    lang
+  );
+
+  // Tracking
+  renderGroup(
+    "tracking",
+    "Tracking",
+    [
+      "tracking",
+      "customInterval",
+      "trackFormats",
+      "geotagging",
+      "fastWayPointAdding",
+      "uploadGPX",
+    ],
+    apps,
+    lang
+  );
+
+  // Monitoring
+  renderGroup(
+    "monitoring",
+    "Monitoring",
+    [
+      "monitoring",
+      "showTrack",
+      "showExistingTrack",
+      "showAltitudeDiagram",
+      "showDOP",
+      "showSatellites",
+      "showNMEAlive",
+      "showSpeed",
+      "sendPosition",
+    ],
+    apps,
+    lang
+  );
+
+  // Editing
+  renderGroup(
+    "editing",
+    "Editing",
+    [
+      "addPOI",
+      "editPOI",
+      "addWay",
+      "editGeom",
+      "editTags",
+      "editRelations",
+      "viewNotes",
+      "createNotes",
+      "editNotes",
+      "editSource",
+      "offsetDBsupport",
+      "uploadOSMData",
+    ],
+    apps,
+    lang
+  );
+
+  // Rendering
+  renderGroup("rendering", "Rendering", ["rendererOutputFormats"], apps, lang);
+
+  // Accessibility
+  renderGroup(
+    "accessibility",
+    "Accessibility",
+    [
+      "accessibility",
+      "textOnlyUI",
+      "brailleUI",
+      "explorerMode",
+      "publicTransportMode",
+      "dangerWarnings",
+      "screenReader",
+      "screenReaderLang",
     ],
     apps,
     lang
