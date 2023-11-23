@@ -190,14 +190,26 @@ function renderGroup(
   lang: string
 ) {
   let elements = params
-    .map((p) =>
-      createParamElement(
+    .map((p) => {
+      if (
+        !apps
+          .map((app) => (app as any)[id]?.[p])
+          .some(
+            (values: string[] | undefined) =>
+              values &&
+              values.filter((v) => v && v.toUpperCase() !== "NO").length > 0
+          )
+      ) {
+        return undefined;
+      }
+
+      return createParamElement(
         apps,
         getLocalizedValue(templateData.params[p].label, lang),
         (app) => renderBadges((app as any)[id]?.[p]),
         id + "-detail"
-      )
-    )
+      );
+    })
     .filter((e) => e);
 
   if (elements.length) {
