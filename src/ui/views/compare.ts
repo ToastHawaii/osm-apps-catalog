@@ -20,7 +20,7 @@ export function render(apps: App[], lang: string) {
             }</strong></div>`
         ),
       ].join(""),
-      ["row"]
+      ["row","fixed"]
     );
 
     getHtmlElement("#compare").appendChild(element);
@@ -110,31 +110,68 @@ export function render(apps: App[], lang: string) {
     getHtmlElement("#compare").appendChild(element);
   }
 
-  renderParam(apps, "Description", (app) => app.description);
-  renderParam(apps, "Author", (app) => app.author);
-  renderParam(apps, "Platforms", (app) => renderBadges(app.platform));
-  renderParam(apps, "Last release", (app) => app.lastRelease);
-  renderParam(apps, "Languages", (app) =>
-    app.languagesUrl
-      ? `<a href="${app.languagesUrl}" target="_blank">
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["description"].label, lang),
+    getLocalizedValue(templateData.params["description"].description, lang),
+    (app) => app.description
+  );
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["author"].label, lang),
+    getLocalizedValue(templateData.params["author"].description, lang),
+    (app) => app.author
+  );
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["platform"].label, lang),
+    getLocalizedValue(templateData.params["platform"].description, lang),
+    (app) => renderBadges(app.platform)
+  );
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["date"].label, lang),
+    getLocalizedValue(templateData.params["date"].description, lang),
+    (app) => app.lastRelease
+  );
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["languages"].label, lang),
+    getLocalizedValue(templateData.params["languages"].description, lang),
+    (app) =>
+      app.languagesUrl
+        ? `<a href="${app.languagesUrl}" target="_blank">
       ${
         app.languages.length > 0
           ? renderBadges(app.languages)
           : `<i class="fas fa-language"></i>`
       }
     </a>`
-      : renderBadges(app.languages)
+        : renderBadges(app.languages)
   );
-  renderParam(apps, "License", (app) => renderBadges(app.license));
-  renderParam(apps, "Source code", (app) =>
-    app.sourceCode
-      ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
-      : ""
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["license"].label, lang),
+    getLocalizedValue(templateData.params["license"].description, lang),
+    (app) => renderBadges(app.license)
   );
-  renderParam(apps, "Source", (app) =>
-    app.source
-      .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
-      .join(", ")
+  renderParam(
+    apps,
+    getLocalizedValue(templateData.params["repo"].label, lang),
+    getLocalizedValue(templateData.params["repo"].description, lang),
+    (app) =>
+      app.sourceCode
+        ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
+        : ""
+  );
+  renderParam(
+    apps,
+    getLocalizedValue("Source", lang),
+    getLocalizedValue("Source where this data comes from.", lang),
+    (app) =>
+      app.source
+        .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
+        .join(", ")
   );
 
   // Map
@@ -297,6 +334,7 @@ function renderGroup(
       return createParamElement(
         apps,
         getLocalizedValue(templateData.params[p].label, lang),
+        getLocalizedValue(templateData.params[p].description, lang),
         (app) => renderBadges((app as any)[id]?.[p]),
         id + "-detail"
       );
@@ -331,6 +369,7 @@ function renderGroup(
 function createParamElement(
   apps: App[],
   label: string | undefined,
+  description: string | undefined,
   value: (app: App) => string | undefined,
   group: string = ""
 ) {
@@ -343,7 +382,7 @@ function createParamElement(
   const element = createElement(
     "div",
     [
-      `<div class="cell header param-title">${label}</div>`,
+      `<div class="cell header param-title" title="${description}">${label}</div>`,
       ...values.map(
         (v) => `<div class="cell param-text">${v || unknown()}</div>`
       ),
@@ -357,10 +396,11 @@ function createParamElement(
 function renderParam(
   apps: App[],
   label: string | undefined,
+  description: string | undefined,
   value: (app: App) => string | undefined,
   group: string = ""
 ) {
-  const element = createParamElement(apps, label, value, group);
+  const element = createParamElement(apps, label, description, value, group);
 
   if (element) {
     getHtmlElement("#compare").appendChild(element);

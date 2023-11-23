@@ -104,6 +104,13 @@ a {
   width: max-content;
 }
 
+.row.fixed {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+}
+
 #compare .cell {
   min-width: 160px;
   padding: 8px;
