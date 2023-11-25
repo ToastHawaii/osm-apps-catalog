@@ -177,6 +177,37 @@ export function transform(source: { [name: string]: string }) {
   obj.platform = removeDuplicates(obj.platform).sort();
   obj.languages = removeDuplicates(obj.languages).sort();
 
+  if (hasValue(source["datasource"]))
+    obj.topics.push(
+      ...(source["datasource"] || "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v)
+        .map(firstLetterToUpperCase)
+    );
+
+  if (equalsYes(source["3D"])) obj.topics.push("3D");
+
+  if (
+    equalsYes(
+      source["showWebsite"],
+      source["showPhoneNumber"],
+      source["showOpeningHours"],
+      source["findNearbyPOI"]
+    )
+  )
+    obj.topics.push("POI");
+
+  if (
+    equalsYes(
+      source["routing"],
+      source["createRouteManually"],
+      source["calculateRoute"],
+      source["calculateRouteOffline"]
+    )
+  )
+    obj.topics.push("Routing");
+
   if (hasValue(source["profiles"]))
     obj.topics.push(
       ...(source["profiles"] || "")
@@ -186,9 +217,37 @@ export function transform(source: { [name: string]: string }) {
         .map(firstLetterToUpperCase)
     );
 
-  if (hasValue(source["datasource"]))
+  if (equalsYes(source["navigating"], source["navToPoint"]))
+    obj.topics.push("Navi");
+
+  if (equalsYes(source["findLocation"])) obj.topics.push("Search");
+
+  if (equalsYes(source["tracking"])) obj.topics.push("Track logging");
+
+  if (equalsYes(source["monitoring"])) obj.topics.push("Track monitoring");
+
+  if (source["rendererOutputFormats"]) obj.topics.push("Rendering");
+
+  if (
+    equalsYes(
+      source["addPOI"],
+      source["editPOI"],
+      source["addWay"],
+      source["editGeom"],
+      source["editTags"],
+      source["editRelations"]
+    )
+  )
+    obj.topics.push("Editor");
+
+  if (
+    equalsYes(source["viewNotes"], source["createNotes"], source["editNotes"])
+  )
+    obj.topics.push("Notes");
+
+  if (hasValue(source["editSource"]))
     obj.topics.push(
-      ...(source["datasource"] || "")
+      ...(source["editSource"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
@@ -206,43 +265,15 @@ export function transform(source: { [name: string]: string }) {
     obj.topics.push("Accessibility");
   }
   if (equalsYes(source["accessibility"])) obj.topics.push("Accessibility");
-
-  if (equalsYes(source["tracking"])) obj.topics.push("Tracking");
-
-  if (equalsYes(source["monitoring"])) obj.topics.push("Monitoring");
-
-  if (equalsYes(source["navigating"], source["navToPoint"]))
-    obj.topics.push("Navi");
-
   if (
     equalsYes(
-      source["routing"],
-      source["calculateRoute"],
-      source["calculateRouteOffline"]
+      source["textOnlyUI"],
+      source["brailleUI"],
+      source["explorerMode"],
+      source["screenReader"]
     )
   )
-    obj.topics.push("Routing");
-
-  if (equalsYes(source["3D"])) obj.topics.push("3D");
-  if (equalsYes(source["findLocation"])) obj.topics.push("Search");
-  if (equalsYes(source["findNearbyPOI"])) obj.topics.push("POI");
-
-  if (
-    equalsYes(
-      source["addPOI"],
-      source["addWay"],
-      source["editPOI"],
-      source["editTags"],
-      source["editGeom"],
-      source["editRelations"]
-    )
-  )
-    obj.topics.push("Editor");
-
-  if (
-    equalsYes(source["createNotes"], source["viewNotes"], source["editNotes"])
-  )
-    obj.topics.push("Notes");
+    obj.topics.push("Blind");
 
   obj.topics = removeDuplicates(obj.topics).sort();
 

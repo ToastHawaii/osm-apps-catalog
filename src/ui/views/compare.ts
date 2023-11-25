@@ -20,7 +20,7 @@ export function render(apps: App[], lang: string) {
             }</strong></div>`
         ),
       ].join(""),
-      ["row","fixed"]
+      ["row", "fixed"]
     );
 
     getHtmlElement("#compare").appendChild(element);

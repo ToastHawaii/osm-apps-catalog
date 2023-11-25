@@ -20,17 +20,17 @@ import { toWikiUrl } from "../../ui/utilities/url";
 export type App = {
   name: string;
   lastRelease?: string;
-  images: string[];
   description: string;
+  images: string[];
+  website?: string | undefined;
   documentation?: string;
   source: { name: string; url: string; lastChange: string }[];
-  website?: string;
-  topics: string[];
   author?: string;
-  sourceCode?: string;
+  sourceCode?: string | undefined;
   license?: string;
   languages: string[];
-  languagesUrl?: string;
+  languagesUrl?: string | undefined;
+  topics: string[];
   platform: string[];
   install: {
     asin?: string;
@@ -42,6 +42,7 @@ export type App = {
     microsoftAppID?: string;
   };
   map?: {
+    map: string[];
     mapData: string[];
     datasource: string[];
     rotateMap: string[];
@@ -50,24 +51,72 @@ export type App = {
     showPhoneNumber: string[];
     showOpeningHours: string[];
   };
-  navigatingAndRouting?: {
-    turnLanes: string[];
-    navToPoint: string[];
-    findLocation: string[];
-    findNearbyPOI: string[];
-    predefinedRoute: string[];
+  routing?: {
+    routing: string[];
     createRouteManually: string[];
-    createRouteViaWaypoints: string[];
     calculateRoute: string[];
-    calculateRouteOffline: string[];
+    createRouteViaWaypoints: string[];
     profiles: string[];
     turnRestrictions: string[];
-    voice: string[];
-    keepOnRoad: string[];
-    withoutGPS: string[];
+    calculateRouteOffline: string[];
     routingProviders: string[];
     avoidTraffic: string[];
     trafficProvider: string[];
+  };
+  navigating?: {
+    navigating: string[];
+    findLocation: string[];
+    findNearbyPOI: string[];
+    navToPoint: string[];
+    voice: string[];
+    keepOnRoad: string[];
+    turnLanes: string[];
+    withoutGPS: string[];
+    predefinedRoute: string[];
+  };
+  tracking?: {
+    tracking: string[];
+    customInterval: string[];
+    trackFormats: string[];
+    geotagging: string[];
+    fastWayPointAdding: string[];
+    uploadGPX: string[];
+  };
+  monitoring?: {
+    monitoring: string[];
+    showTrack: string[];
+    showExistingTrack: string[];
+    showAltitudeDiagram: string[];
+    showDOP: string[];
+    showSatellites: string[];
+    showNMEAlive: string[];
+    showSpeed: string[];
+    sendPosition: string[];
+  };
+  editing?: {
+    addPOI: string[];
+    editPOI: string[];
+    addWay: string[];
+    editGeom: string[];
+    editTags: string[];
+    editRelations: string[];
+    viewNotes: string[];
+    createNotes: string[];
+    editNotes: string[];
+    editSource: string[];
+    offsetDBsupport: string[];
+    uploadOSMData: string[];
+  };
+  rendering?: { rendererOutputFormats: string[] };
+  accessibility?: {
+    accessibility: string[];
+    textOnlyUI: string[];
+    brailleUI: string[];
+    explorerMode: string[];
+    publicTransportMode: string[];
+    dangerWarnings: string[];
+    screenReader: string[];
+    screenReaderLang: string[];
   };
   filter?: string;
 };
