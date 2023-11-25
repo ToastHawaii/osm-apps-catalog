@@ -24,6 +24,7 @@
     "module": "commonjs",
     "target": "es2021",
     "allowJs": true,
+    "resolveJsonModule":true,
     "typeRoots": [
       "../node_modules/@types"
     ],

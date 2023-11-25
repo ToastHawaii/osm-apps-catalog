@@ -29,6 +29,7 @@ import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
+import { apps as cachedApps } from "./data/cachedApps";
 
 let onUpdate = false;
 export let apps: App[] = [];
@@ -381,23 +382,26 @@ const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
 function saveAppCatalog() {
   set(`${lang}-apps`, apps);
   set(`${lang}-apps-date`, new Date());
-  console.info("add catalog to cache");
+  console.info("add catalog to browser cache");
 }
 
 async function getAppCatalog() {
+  let load = true;
+
   const date = get<Date>(`${lang}-apps-date`);
 
   const day = 24 * 60 * 60 * 1000;
 
   if (date && new Date(date).valueOf() > Date.now() - day) {
-    console.info("get catalog from cache");
-
-    apps = get(`${lang}-apps`) || [];
-
-    doUpdate(apps);
+    console.info("get catalog from browser cache");
+    doUpdate(get(`${lang}-apps`) || []);
+    load = false;
+  } else {
+    console.info("get catalog from const cache");
+    doUpdate(cachedApps);
   }
 
-  if (apps.length === 0) {
+  if (load) {
     console.info("load catalog from wiki");
 
     if (lang !== "en") await loadApps(doUpdate, lang);
