@@ -4,6 +4,7 @@ import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
+import { toWikiTable } from "./toWikiTable";
 
 export function render(apps: App[], lang: string) {
   {
@@ -142,12 +143,13 @@ export function render(apps: App[], lang: string) {
     getLocalizedValue(templateData.params["languages"].description, lang),
     (app) =>
       app.languagesUrl
-        ? `<a href="${app.languagesUrl}" target="_blank">
+        ? `<a class="language-url" href="${app.languagesUrl}" target="_blank"">
       ${
         app.languages.length > 0
           ? renderBadges(app.languages)
           : `<i class="fas fa-language"></i>`
       }
+      <i class="fas fa-external-link-alt"></i>
     </a>`
         : renderBadges(app.languages),
     undefined,
@@ -348,11 +350,18 @@ function renderGroup(
   if (elements.length) {
     const element = createElement(
       "div",
-      `<div class="cell header params-title">
+      `<div class="cell header params-title params-group-title">
         <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-caret-down ${id}-detail"></i><i class="fas fa-caret-right ${id}-detail hidden"></i> ${display}</a>
-      </div>`,
+     <button class="export"><i class="fas fa-share-square"></i></button> </div>`,
       ["row"]
     );
+
+    getHtmlElement(".export", element).addEventListener("click", () => {
+      const wikiTable = toWikiTable(apps, params, id, lang);
+
+      navigator.clipboard.writeText(wikiTable);
+      alert("Copied to the clipboard.");
+    });
 
     getHtmlElement(".group", element).addEventListener("click", (e) => {
       document

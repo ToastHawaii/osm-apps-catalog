@@ -164,6 +164,10 @@ a {
   font-size: small;
 }
 
+#compare .params-group-title{
+  text-wrap: nowrap;
+}
+
 .info {
   color: black;
   font-size: 26px;
@@ -346,6 +350,14 @@ a {
   left: 0;
   right: 0;
   text-align: center;
+}
+
+.language-url {
+  vertical-align: middle;
+}
+
+.language-url i {
+  padding: 3px 0;
 }
 
 @media (prefers-color-scheme: dark) {
