@@ -314,6 +314,34 @@ a {
   white-space: nowrap;
 }
 
+.more {
+  position: relative;
+  height: 76px;
+  transition-property: height;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.more .fade-out {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 1)
+  );
+  cursor: pointer;
+}
+
+.more .text {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(100%) hue-rotate(180deg);

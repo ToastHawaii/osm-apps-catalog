@@ -114,7 +114,9 @@ export function render(apps: App[], lang: string) {
     apps,
     getLocalizedValue(templateData.params["description"].label, lang),
     getLocalizedValue(templateData.params["description"].description, lang),
-    (app) => app.description
+    (app) => app.description,
+    "",
+    true
   );
   renderParam(
     apps,
@@ -147,7 +149,9 @@ export function render(apps: App[], lang: string) {
           : `<i class="fas fa-language"></i>`
       }
     </a>`
-        : renderBadges(app.languages)
+        : renderBadges(app.languages),
+    undefined,
+    true
   );
   renderParam(
     apps,
@@ -371,7 +375,8 @@ function createParamElement(
   label: string | undefined,
   description: string | undefined,
   value: (app: App) => string | undefined,
-  group: string = ""
+  group: string = "",
+  more = false
 ) {
   const values = apps.map((app) => value(app));
 
@@ -383,8 +388,12 @@ function createParamElement(
     "div",
     [
       `<div class="cell header param-title" title="${description}">${label}</div>`,
-      ...values.map(
-        (v) => `<div class="cell param-text">${v || unknown()}</div>`
+      ...values.map((v) =>
+        more
+          ? `<div class="cell param-text"><div class="dynamic-more">${
+              v || unknown()
+            }</div></div>`
+          : `<div class="cell param-text">${v || unknown()}</div>`
       ),
     ].join(""),
     ["row", group]
@@ -398,9 +407,17 @@ function renderParam(
   label: string | undefined,
   description: string | undefined,
   value: (app: App) => string | undefined,
-  group: string = ""
+  group: string = "",
+  more = false
 ) {
-  const element = createParamElement(apps, label, description, value, group);
+  const element = createParamElement(
+    apps,
+    label,
+    description,
+    value,
+    group,
+    more
+  );
 
   if (element) {
     getHtmlElement("#compare").appendChild(element);

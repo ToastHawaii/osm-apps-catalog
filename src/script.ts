@@ -29,6 +29,7 @@ import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
+import { lazyInitMore } from "./ui/lazyInitMore";
 
 let onUpdate = false;
 export let apps: App[] = [];
@@ -317,6 +318,9 @@ function update(
 
   if ((document.getElementById("compareView") as HTMLInputElement).checked) {
     renderCompareView(filteredApps, lang);
+    setTimeout(() => {
+      lazyInitMore(true);
+    }, 0);
   }
 
   if ((document.getElementById("listView") as HTMLInputElement).checked) {
@@ -373,7 +377,9 @@ function update(
     }
   }
 
-  lazyLoadImages();
+  setTimeout(() => {
+    lazyLoadImages(true);
+  }, 0);
 }
 
 const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
