@@ -382,6 +382,57 @@ function saveAppCatalog() {
   set(`${lang}-apps`, apps);
   set(`${lang}-apps-date`, new Date());
   console.info("add catalog to cache");
+  //printJsonLd();
+}
+
+function printJsonLd() {
+  console.info(
+    JSON.stringify(
+      apps
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((app) => ({
+          "@context": "http://schema.org",
+          "@type": "SoftwareApplication",
+          name: app.name,
+          description: app.description,
+          image: app.images[0],
+          url: app.website,
+          downloadUrl: app.install.fDroidID
+            ? "https://f-droid.org/repository/browse/?fdid=" +
+              app.install.fDroidID
+            : undefined || app.install.googlePlayID
+            ? "https://play.google.com/store/apps/details?id=" +
+              app.install.googlePlayID
+            : undefined || app.install.asin
+            ? "https://www.amazon.com/dp/" + app.install.asin
+            : undefined || app.install.appleStoreID
+            ? "https://itunes.apple.com/app/" +
+              app.install.appleStoreID?.toUpperCase().startsWith("ID")
+              ? app.install.appleStoreID
+              : `id${app.install.appleStoreID}`
+            : undefined || app.install.macAppStoreID
+            ? "https://itunes.apple.com/app/" +
+              app.install.macAppStoreID?.toUpperCase().startsWith("ID")
+              ? app.install.macAppStoreID
+              : `id${app.install.macAppStoreID}`
+            : undefined || app.install.microsoftAppID
+            ? "http://www.windowsphone.com/s?appid=" +
+              app.install.microsoftAppID
+            : undefined || app.install.huaweiAppGalleryID
+            ? "https://appgallery.huawei.com/#/app/" +
+              app.install.huaweiAppGalleryID
+            : undefined,
+          author: {
+            "@type": "Person",
+            name: app.author,
+          },
+          datePublished: app.lastRelease,
+          license: app.license,
+          applicationCategory: ["Map", ...app.topics].join(", "),
+          operatingSystem: app.platform.join(", "),
+        }))
+    )
+  );
 }
 
 async function getAppCatalog() {

@@ -26,8 +26,8 @@ export function render(app: App) {
     `<div class="header">
         <div><strong>${
           app.website
-            ? `<a href="${app.website}" target="_blank"><span itemprop="name">${app.name}</span></a>`
-            : `<span itemprop="name">${app.name}</span>`
+            ? `<a href="${app.website}" target="_blank">${app.name}</a>`
+            : app.name
         }</strong></div>
         ${
           app.website
@@ -35,35 +35,35 @@ export function render(app: App) {
             : renderImage(app)
         }
       </div>
-      <div><small><span itemprop="description">${app.description}</span> ${
+      <div><small>${app.description}${
       app.documentation
-        ? `<a href="${app.documentation}" target="_blank">Documentation</a>`
+        ? ` <a href="${app.documentation}" target="_blank">Documentation</a>`
         : ""
     }</small></div>
       ${
         app.website
-          ? `<a class="download" href="${app.website}" target="_blank" title="Website" itemprop="url"><i class="far fa-map"></i></a>`
+          ? `<a class="download" href="${app.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
           : ""
       }
 
       ${
         app.install.asin
-          ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" itemprop="installUrl"><i class="fab fa-amazon"></i></a>`
+          ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore"><i class="fab fa-amazon"></i></a>`
           : ""
       }
       ${
         app.install.fDroidID
-          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" itemprop="installUrl"><i class="fab fa-android"></i></a>`
+          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid"><i class="fab fa-android"></i></a>`
           : ""
       }
       ${
         app.install.googlePlayID
-          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" itemprop="installUrl"><i class="fab fa-google-play"></i></a>`
+          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play"><i class="fab fa-google-play"></i></a>`
           : ""
       }
       ${
         app.install.huaweiAppGalleryID
-          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" itemprop="installUrl"><i class="fas fa-shopping-bag"></i></a>`
+          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery"><i class="fas fa-shopping-bag"></i></a>`
           : ""
       }
       ${
@@ -72,7 +72,7 @@ export function render(app: App) {
               app.install.appleStoreID.toUpperCase().startsWith("ID")
                 ? app.install.appleStoreID
                 : `id${app.install.appleStoreID}`
-            }" target="_blank" title="iTunes App Store" itemprop="installUrl"><i class="fab fa-app-store-ios"></i></a>`
+            }" target="_blank" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
           : ""
       }
       ${
@@ -81,18 +81,15 @@ export function render(app: App) {
               app.install.macAppStoreID.toUpperCase().startsWith("ID")
                 ? app.install.macAppStoreID
                 : `id${app.install.macAppStoreID}`
-            }" target="_blank" title="Mac App Store" itemprop="installUrl"><i class="fab fa-app-store"></i></a>`
+            }" target="_blank" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
           : ""
       }
       ${
         app.install.microsoftAppID
-          ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store" itemprop="installUrl"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
-      <div class="badges" itemprop="applicationCategory" content="${[
-        ...["Map"],
-        ...app.topics,
-      ].join(", ")}">${renderBadges(app.topics)}</div>
+      <div class="badges">${renderBadges(app.topics)}</div>
 
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">
@@ -100,14 +97,14 @@ export function render(app: App) {
         ${
           app.author
             ? `<div class="more-info">
-          <span class="more-info-title">Author</span> <span class="more-info-text" itemprop="author">${app.author}</span>
+          <span class="more-info-title">Author</span> <span class="more-info-text">${app.author}</span>
         </div>`
             : ""
         }
         ${
           app.platform.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Platforms</span> <span class="more-info-text" itemprop="operatingSystem">${app.platform.join(
+          <span class="more-info-title">Platforms</span> <span class="more-info-text">${app.platform.join(
             ", "
           )}</span>
         </div>`
@@ -116,7 +113,7 @@ export function render(app: App) {
         ${
           app.lastRelease
             ? `<div class="more-info">
-          <span class="more-info-title">Last release</span> <span class="more-info-text" itemprop="softwareVersion">${app.lastRelease}</span>
+          <span class="more-info-title">Last release</span> <span class="more-info-text">${app.lastRelease}</span>
         </div>`
             : ""
         }
@@ -140,7 +137,7 @@ export function render(app: App) {
         ${
           app.license
             ? `<div class="more-info">
-          <span class="more-info-title">License</span> <span class="more-info-text" itemprop="license">${app.license}</span>
+          <span class="more-info-title">License</span> <span class="more-info-text">${app.license}</span>
         </div>`
             : ""
         }
@@ -159,8 +156,6 @@ export function render(app: App) {
         `,
     ["app"]
   );
-  element.setAttribute("itemscope", "");
-  element.setAttribute("itemtype", "https://schema.org/SoftwareApplication");
 
   const moreButton = element.querySelector(
     ".more-infos-button"
