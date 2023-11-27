@@ -14,15 +14,17 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
 export function toWikiTable(
   apps: App[],
   params: {
-    label: string| undefined;
-    description: string| undefined;
+    label: string | undefined;
+    description: string | undefined;
     hasValue: (app: App) => boolean;
     notNo: (app: App) => boolean;
-    renderToHtml: (app: App) => string | undefined;
     renderToWiki: (app: App) => string | undefined;
+    more?: boolean;
   }[],
   lang: string
 ) {
+  const more = params.some((p) => p.more);
+
   const appWithFields = apps
     .filter((app) => params.some((p) => p.hasValue(app)))
     .sort((a, b) => {
@@ -45,7 +47,7 @@ export function toWikiTable(
       }
 
       return `! title="${p.description}" |${p.label}
-${appWithFields.map((app) => `|${p.renderToWiki(app)}\n`).join("")}`;
+${appWithFields.map((app) => `|${p.renderToWiki(app) || ""}\n`).join("")}`;
     })
     .filter((e) => e);
 
@@ -56,7 +58,12 @@ ${appWithFields.map((app) => `|${p.renderToWiki(app)}\n`).join("")}`;
     templateData.params["name"].description,
     lang
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
-${appWithFields.map((app) => `!${app.name || "{{?}}"}\n`).join("")}|-
+${appWithFields
+  .map(
+    (app) =>
+      `! style="min-width: ${more ? 160 : 120}px" |${app.name || "{{?}}"}\n`
+  )
+  .join("")}|-
 ${rows.join("|-\n")}|}
 </div>`;
   return wikiTable;

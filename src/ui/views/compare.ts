@@ -6,6 +6,7 @@ import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
+import { languageValueToDisplay } from "../language";
 
 export function render(apps: App[], lang: string) {
   {
@@ -113,39 +114,72 @@ export function render(apps: App[], lang: string) {
     getHtmlElement("#compare").appendChild(element);
   }
 
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["description"].label, lang),
-    getLocalizedValue(templateData.params["description"].description, lang),
-    (app) => app.description,
-    "",
-    true
-  );
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["author"].label, lang),
-    getLocalizedValue(templateData.params["author"].description, lang),
-    (app) => app.author
-  );
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["platform"].label, lang),
-    getLocalizedValue(templateData.params["platform"].description, lang),
-    (app) => renderBadges(app.platform)
-  );
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["date"].label, lang),
-    getLocalizedValue(templateData.params["date"].description, lang),
-    (app) => app.lastRelease
-  );
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["languages"].label, lang),
-    getLocalizedValue(templateData.params["languages"].description, lang),
-    (app) =>
-      app.languagesUrl
-        ? `<a class="language-url" href="${app.languagesUrl}" target="_blank"">
+  // General
+  renderGroup(
+    "general",
+    "General",
+    [
+      {
+        label: getLocalizedValue(
+          templateData.params["description"].label,
+          lang
+        ),
+        description: getLocalizedValue(
+          templateData.params["description"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.description,
+        notNo: (app) => !!app.description,
+        renderToHtml: (app) => app.description,
+        renderToWiki: (app) => app.description,
+        more: true,
+      },
+      {
+        label: getLocalizedValue(templateData.params["author"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["author"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.author,
+        notNo: (app) => !!app.author,
+        renderToHtml: (app) => app.author,
+        renderToWiki: (app) => app.author,
+      },
+      {
+        label: getLocalizedValue(templateData.params["platform"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["platform"].description,
+          lang
+        ),
+        hasValue: (app) => app.platform.length > 0,
+        notNo: (app) => app.platform.length > 0,
+        renderToHtml: (app) => renderBadges(app.platform),
+        renderToWiki: (app) => app.platform.join(", "),
+      },
+      {
+        label: getLocalizedValue(templateData.params["date"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["date"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.lastRelease,
+        notNo: (app) => !!app.lastRelease,
+        renderToHtml: (app) => app.lastRelease,
+        renderToWiki: (app) => app.lastRelease,
+      },
+      {
+        label: getLocalizedValue(templateData.params["languages"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["languages"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
+        notNo: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
+        renderToHtml: (app) =>
+          app.languagesUrl
+            ? `<a class="language-url" href="${
+                app.languagesUrl
+              }" target="_blank"">
       ${
         app.languages.length > 0
           ? renderBadges(app.languages)
@@ -153,33 +187,60 @@ export function render(apps: App[], lang: string) {
       }
       <i class="fas fa-external-link-alt"></i>
     </a>`
-        : renderBadges(app.languages),
-    undefined,
-    true
-  );
-  renderParam(
+            : renderBadges(app.languages),
+        renderToWiki: (app) =>
+          app.languagesUrl
+            ? `[${app.languagesUrl} 
+        ${
+          app.languages.length > 0
+            ? app.languages.join(", ")
+            : languageValueToDisplay("mul")
+        }
+      ]`
+            : app.languages.join(", "),
+      },
+      {
+        label: getLocalizedValue(templateData.params["license"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["license"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.license,
+        notNo: (app) => !!app.license,
+        renderToHtml: (app) => renderBadges(app.license),
+        renderToWiki: (app) => app.license,
+      },
+      {
+        label: getLocalizedValue(templateData.params["repo"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["repo"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.sourceCode,
+        notNo: (app) => !!app.sourceCode,
+        renderToHtml: (app) =>
+          app.sourceCode
+            ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
+            : "",
+        renderToWiki: (app) =>
+          app.sourceCode ? `[${app.sourceCode} </>]` : "",
+      },
+      {
+        label: getLocalizedValue("Source", lang),
+        description: getLocalizedValue(
+          "Source where this data comes from.",
+          lang
+        ),
+        hasValue: () => true,
+        notNo: () => true,
+        renderToHtml: (app) =>
+          app.source
+            .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
+            .join(", "),
+      },
+    ],
     apps,
-    getLocalizedValue(templateData.params["license"].label, lang),
-    getLocalizedValue(templateData.params["license"].description, lang),
-    (app) => renderBadges(app.license)
-  );
-  renderParam(
-    apps,
-    getLocalizedValue(templateData.params["repo"].label, lang),
-    getLocalizedValue(templateData.params["repo"].description, lang),
-    (app) =>
-      app.sourceCode
-        ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
-        : ""
-  );
-  renderParam(
-    apps,
-    getLocalizedValue("Source", lang),
-    getLocalizedValue("Source where this data comes from.", lang),
-    (app) =>
-      app.source
-        .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
-        .join(", ")
+    lang
   );
 
   // Map
@@ -324,12 +385,13 @@ function renderGroup(
   params: (
     | string
     | {
-        label: string;
-        description: string;
+        label: string | undefined;
+        description: string | undefined;
         hasValue: (app: App) => boolean;
         notNo: (app: App) => boolean;
         renderToHtml: (app: App) => string | undefined;
-        renderToWiki: (app: App) => string | undefined;
+        renderToWiki?: (app: App) => string | undefined;
+        more?: boolean;
       }
   )[],
   apps: App[],
@@ -373,7 +435,8 @@ function renderGroup(
         p.label,
         p.description,
         (app) => p.renderToHtml(app),
-        id + "-detail"
+        id + "-detail",
+        p.more
       );
     })
     .filter((e) => e);
@@ -388,7 +451,11 @@ function renderGroup(
     );
 
     getHtmlElement(".export", element).addEventListener("click", () => {
-      const wikiTable = toWikiTable(apps, extendedParams, lang);
+      const wikiTable = toWikiTable(
+        apps,
+        extendedParams.filter((p) => !!p.renderToWiki) as any,
+        lang
+      );
 
       navigator.clipboard.writeText(wikiTable);
       alert("Copied to the clipboard.");
