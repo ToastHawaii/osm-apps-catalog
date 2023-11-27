@@ -3,6 +3,14 @@ import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 
+function isUnknown(value: string | string[] | undefined): value is undefined {
+  if (Array.isArray(value)) {
+    return value.length === 0;
+  }
+
+  return !value;
+}
+
 export function toWikiTable(
   apps: App[],
   params: string[],
@@ -10,7 +18,7 @@ export function toWikiTable(
   lang: string
 ) {
   const appWithFields = apps
-    .filter((app) => params.some((p) => (app as any)[id]?.[p]))
+    .filter((app) => params.some((p) => !isUnknown((app as any)[id]?.[p])))
     .sort((a, b) => {
       const nameA = a.name.toUpperCase() || "";
       const nameB = b.name.toUpperCase() || "";
@@ -62,8 +70,7 @@ ${rows.join("|-\n")}|}
 }
 
 function toWikiValue(value: string | string[] | undefined): string {
-  debugger;
-  if (!value) {
+  if (isUnknown(value)) {
     return "{{?}}";
   }
 
@@ -74,10 +81,6 @@ function toWikiValue(value: string | string[] | undefined): string {
       return "{{no}}";
     }
     return value;
-  }
-
-  if (value.length === 0) {
-    return "{{?}}";
   }
 
   return value.map((v) => toWikiValue(v)).join(", ");

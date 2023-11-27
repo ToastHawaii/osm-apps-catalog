@@ -34,7 +34,6 @@ export async function lazyLoadImages(reset?: boolean) {
     !scrollTop ||
     contentElement.scrollTop > scrollTop + contentElement.clientHeight
   ) {
-    console.info("update" + scrollTop);
     scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
     const elements = document.querySelectorAll("#list *[dynamic-src]");
@@ -63,7 +62,6 @@ export async function lazyLoadImages(reset?: boolean) {
     !scrollLeft ||
     contentElement.scrollLeft > scrollLeft + contentElement.clientWidth
   ) {
-    console.info("update" + scrollLeft);
     scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
 
     const elements = document.querySelectorAll("#compare *[dynamic-src]");

@@ -42,8 +42,6 @@ export async function lazyInitMore(reset?: boolean) {
     return;
   }
 
-  console.info("update" + scrollLeft);
-
   scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
 
   const elements = document.querySelectorAll("#compare .dynamic-more");
