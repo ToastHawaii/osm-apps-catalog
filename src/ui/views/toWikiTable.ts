@@ -13,12 +13,18 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
 
 export function toWikiTable(
   apps: App[],
-  params: string[],
-  id: string,
+  params: {
+    label: string| undefined;
+    description: string| undefined;
+    hasValue: (app: App) => boolean;
+    notNo: (app: App) => boolean;
+    renderToHtml: (app: App) => string | undefined;
+    renderToWiki: (app: App) => string | undefined;
+  }[],
   lang: string
 ) {
   const appWithFields = apps
-    .filter((app) => params.some((p) => !isUnknown((app as any)[id]?.[p])))
+    .filter((app) => params.some((p) => p.hasValue(app)))
     .sort((a, b) => {
       const nameA = a.name.toUpperCase() || "";
       const nameB = b.name.toUpperCase() || "";
@@ -34,25 +40,12 @@ export function toWikiTable(
 
   let rows = params
     .map((p) => {
-      if (
-        !appWithFields
-          .map((app) => (app as any)[id]?.[p])
-          .some(
-            (values: string[] | undefined) =>
-              values &&
-              values.filter((v) => v && v.toUpperCase() !== "NO").length > 0
-          )
-      ) {
+      if (!appWithFields.some((app) => p.hasValue(app) && p.notNo(app))) {
         return undefined;
       }
 
-      return `! title="${getLocalizedValue(
-        templateData.params[p].description,
-        lang
-      )}" |${getLocalizedValue(templateData.params[p].label, lang)}
-${appWithFields
-  .map((app) => `|${toWikiValue((app as any)[id]?.[p])}\n`)
-  .join("")}`;
+      return `! title="${p.description}" |${p.label}
+${appWithFields.map((app) => `|${p.renderToWiki(app)}\n`).join("")}`;
     })
     .filter((e) => e);
 
@@ -69,7 +62,7 @@ ${rows.join("|-\n")}|}
   return wikiTable;
 }
 
-function toWikiValue(value: string | string[] | undefined): string {
+export function toWikiValue(value: string | string[] | undefined): string {
   if (isUnknown(value)) {
     return "{{?}}";
   }

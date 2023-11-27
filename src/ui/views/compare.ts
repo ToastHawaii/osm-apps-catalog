@@ -4,7 +4,8 @@ import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
-import { toWikiTable } from "./toWikiTable";
+import { toWikiTable, toWikiValue } from "./toWikiTable";
+import { equalsIgnoreCase } from "../utilities/string";
 
 export function render(apps: App[], lang: string) {
   {
@@ -26,6 +27,7 @@ export function render(apps: App[], lang: string) {
 
     getHtmlElement("#compare").appendChild(element);
   }
+
   {
     const element = createElement(
       "div",
@@ -319,29 +321,58 @@ export function render(apps: App[], lang: string) {
 function renderGroup(
   id: string,
   display: string,
-  params: string[],
+  params: (
+    | string
+    | {
+        label: string;
+        description: string;
+        hasValue: (app: App) => boolean;
+        notNo: (app: App) => boolean;
+        renderToHtml: (app: App) => string | undefined;
+        renderToWiki: (app: App) => string | undefined;
+      }
+  )[],
   apps: App[],
   lang: string
 ) {
-  let elements = params
+  const extendedParams = params.map((p) => {
+    if (typeof p !== "string") {
+      return p;
+    }
+
+    return {
+      label: getLocalizedValue(templateData.params[p].label, lang),
+      description: getLocalizedValue(templateData.params[p].description, lang),
+      hasValue: (app: App) => {
+        const value: string | string[] | undefined = (app as any)[id]?.[p];
+        if (Array.isArray(value)) {
+          return value.some((v) => !!v);
+        }
+        return !!value;
+      },
+      notNo: (app: App) => {
+        const value: string | string[] | undefined = (app as any)[id]?.[p];
+        if (Array.isArray(value)) {
+          return value.some((v) => v && !equalsIgnoreCase(v, "no"));
+        }
+        return !equalsIgnoreCase(value, "no");
+      },
+      renderToHtml: (app: App) => renderBadges((app as any)[id]?.[p]),
+      renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p]),
+    };
+  });
+
+  let elements = extendedParams
     .map((p) => {
-      if (
-        !apps
-          .map((app) => (app as any)[id]?.[p])
-          .some(
-            (values: string[] | undefined) =>
-              values &&
-              values.filter((v) => v && v.toUpperCase() !== "NO").length > 0
-          )
-      ) {
+      if (!apps.some((app) => p.hasValue(app) && p.notNo(app))) {
         return undefined;
       }
 
       return createParamElement(
         apps,
-        getLocalizedValue(templateData.params[p].label, lang),
-        getLocalizedValue(templateData.params[p].description, lang),
-        (app) => renderBadges((app as any)[id]?.[p]),
+        p.label,
+        p.description,
+        (app) => p.renderToHtml(app),
         id + "-detail"
       );
     })
@@ -357,7 +388,7 @@ function renderGroup(
     );
 
     getHtmlElement(".export", element).addEventListener("click", () => {
-      const wikiTable = toWikiTable(apps, params, id, lang);
+      const wikiTable = toWikiTable(apps, extendedParams, lang);
 
       navigator.clipboard.writeText(wikiTable);
       alert("Copied to the clipboard.");
