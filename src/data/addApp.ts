@@ -23,6 +23,7 @@ export function addApp(obj: App) {
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
     app.images = removeDuplicates(app.images);
+    app.imageWiki = app.imageWiki || obj.imageWiki;
     app.languages.push(...obj.languages);
     app.languages = removeDuplicates(app.languages);
 

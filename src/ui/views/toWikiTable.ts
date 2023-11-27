@@ -17,7 +17,7 @@ export function toWikiTable(
     label: string | undefined;
     description: string | undefined;
     hasValue: (app: App) => boolean;
-    notNo: (app: App) => boolean;
+    notNo?: (app: App) => boolean;
     renderToWiki: (app: App) => string | undefined;
     more?: boolean;
   }[],
@@ -42,7 +42,7 @@ export function toWikiTable(
 
   let rows = params
     .map((p) => {
-      if (!appWithFields.some((app) => p.hasValue(app) && p.notNo(app))) {
+      if (!appWithFields.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
         return undefined;
       }
 
@@ -65,7 +65,10 @@ ${appWithFields
   )
   .join("")}|-
 ${rows.join("|-\n")}|}
-</div>`;
+</div><span style="font-size:80%">{{#switch: {{{1|{{{lang}}}}}}
+| de = Diese Tabelle wurde vom [https://osm-apps.zottelig.ch OSM App Catalog] am ${new Date().toISOString().substring(0,10)} erstellt.
+| #default = This table was created by [https://osm-apps.zottelig.ch OSM App Catalog] at ${new Date().toISOString().substring(0,10)}.
+}}</span>`;
   return wikiTable;
 }
 

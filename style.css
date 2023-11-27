@@ -135,6 +135,11 @@ a {
   color: #333;
 }
 
+#compare .header .export {
+  text-decoration: none;
+  color: #007aff;
+}
+
 #compare .params-group {
   clear: both;
   padding-top: 12px;
@@ -164,7 +169,7 @@ a {
   font-size: small;
 }
 
-#compare .params-group-title{
+#compare .params-group-title {
   text-wrap: nowrap;
 }
 

@@ -39,6 +39,7 @@ export function transform(source: { [name: string]: string }) {
 
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
+    imageWiki: source["image"],
     source: [
       {
         name: `Wiki (ServiceItem) <i class="fas fa-pen"></i>`,
@@ -61,7 +62,7 @@ export function transform(source: { [name: string]: string }) {
       .map(firstLetterToUpperCase)
       .sort(),
     platform: [],
-    install: {}
+    install: {},
   };
 
   if (source["region"])

@@ -22,6 +22,7 @@ export type App = {
   lastRelease?: string;
   description: string;
   images: string[];
+  imageWiki?: string;
   website?: string | undefined;
   documentation?: string;
   source: { name: string; url: string; lastChange: string }[];

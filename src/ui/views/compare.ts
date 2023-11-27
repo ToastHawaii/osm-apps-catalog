@@ -29,96 +29,122 @@ export function render(apps: App[], lang: string) {
     getHtmlElement("#compare").appendChild(element);
   }
 
-  {
-    const element = createElement(
-      "div",
-      [
-        `<div class="cell header param-title"></div>`,
-        ...apps.map(
-          (app) => `<div class="cell align-middle text-center">
-        ${
-          app.website
-            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
-            : renderImage(app)
-        }
-      </div>`
-        ),
-      ].join(""),
-      ["row"]
-    );
-
-    getHtmlElement("#compare").appendChild(element);
-  }
-  {
-    const element = createElement(
-      "div",
-      [
-        `<div class="cell header param-title"></div>`,
-        ...apps.map(
-          (app) => `<div class="cell">
-          ${
-            app.website
-              ? `<a class="download" href="${app.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
-              : ""
-          }
-    
-          ${
-            app.install.asin
-              ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" ><i class="fab fa-amazon"></i></a>`
-              : ""
-          }
-          ${
-            app.install.fDroidID
-              ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" ><i class="fab fa-android"></i></a>`
-              : ""
-          }
-          ${
-            app.install.googlePlayID
-              ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" ><i class="fab fa-google-play"></i></a>`
-              : ""
-          }
-          ${
-            app.install.huaweiAppGalleryID
-              ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" ><i class="fas fa-shopping-bag"></i></a>`
-              : ""
-          }
-          ${
-            app.install.appleStoreID
-              ? `<a class="download" href="https://itunes.apple.com/app/${
-                  app.install.appleStoreID.toUpperCase().startsWith("ID")
-                    ? app.install.appleStoreID
-                    : `id${app.install.appleStoreID}`
-                }" target="_blank" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
-              : ""
-          }
-          ${
-            app.install.macAppStoreID
-              ? `<a class="download" href="https://itunes.apple.com/app/${
-                  app.install.macAppStoreID.toUpperCase().startsWith("ID")
-                    ? app.install.macAppStoreID
-                    : `id${app.install.macAppStoreID}`
-                }" target="_blank" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
-              : ""
-          }
-          ${
-            app.install.microsoftAppID
-              ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
-              : ""
-          }
-      </div>`
-        ),
-      ].join(""),
-      ["row"]
-    );
-
-    getHtmlElement("#compare").appendChild(element);
-  }
-
   // General
   renderGroup(
     "general",
     "General",
     [
+      {
+        label: "",
+        description: "",
+        hasValue: (app) => app.images.length > 0,
+        renderToHtml: (app) =>
+          app.website
+            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
+            : renderImage(app),
+        renderToWiki: (app) =>
+          app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
+        centered: true,
+      },
+      {
+        label: "",
+        description: "",
+        hasValue: (app) =>
+          !!(
+            app.website ||
+            app.install.asin ||
+            app.install.fDroidID ||
+            app.install.googlePlayID ||
+            app.install.huaweiAppGalleryID ||
+            app.install.appleStoreID ||
+            app.install.macAppStoreID ||
+            app.install.microsoftAppID
+          ),
+        renderToHtml: (app) => `${
+          app.website
+            ? `<a class="download" href="${app.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
+            : ""
+        }
+${
+  app.install.asin
+    ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" ><i class="fab fa-amazon"></i></a>`
+    : ""
+}
+${
+  app.install.fDroidID
+    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" ><i class="fab fa-android"></i></a>`
+    : ""
+}
+${
+  app.install.googlePlayID
+    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" ><i class="fab fa-google-play"></i></a>`
+    : ""
+}
+${
+  app.install.huaweiAppGalleryID
+    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" ><i class="fas fa-shopping-bag"></i></a>`
+    : ""
+}
+${
+  app.install.appleStoreID
+    ? `<a class="download" href="https://itunes.apple.com/app/${
+        app.install.appleStoreID.toUpperCase().startsWith("ID")
+          ? app.install.appleStoreID
+          : `id${app.install.appleStoreID}`
+      }" target="_blank" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
+    : ""
+}
+${
+  app.install.macAppStoreID
+    ? `<a class="download" href="https://itunes.apple.com/app/${
+        app.install.macAppStoreID.toUpperCase().startsWith("ID")
+          ? app.install.macAppStoreID
+          : `id${app.install.macAppStoreID}`
+      }" target="_blank" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
+    : ""
+}
+${
+  app.install.microsoftAppID
+    ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+    : ""
+}`,
+        renderToWiki: (app) =>
+          [
+            app.website ? `[${app.website} Website]` : "",
+
+            app.install.asin
+              ? `[https://www.amazon.com/dp/${app.install.asin} Amazon Appstore]`
+              : "",
+            app.install.fDroidID
+              ? `[https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID} F-Droid]`
+              : "",
+            app.install.googlePlayID
+              ? `[https://play.google.com/store/apps/details?id=${app.install.googlePlayID} Google Play]`
+              : "",
+            app.install.huaweiAppGalleryID
+              ? `[https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID} Huawei App Gallery]`
+              : "",
+            app.install.appleStoreID
+              ? `[https://itunes.apple.com/app/${
+                  app.install.appleStoreID.toUpperCase().startsWith("ID")
+                    ? app.install.appleStoreID
+                    : `id${app.install.appleStoreID}`
+                } iTunes App Store]`
+              : "",
+            app.install.macAppStoreID
+              ? `[https://itunes.apple.com/app/${
+                  app.install.macAppStoreID.toUpperCase().startsWith("ID")
+                    ? app.install.macAppStoreID
+                    : `id${app.install.macAppStoreID}`
+                } Mac App Store]`
+              : "",
+            app.install.microsoftAppID
+              ? `[https://www.microsoft.com/store/apps/${app.install.microsoftAppID} Microsoft Store]`
+              : "",
+          ]
+            .filter((o) => o)
+            .join(", "),
+      },
       {
         label: getLocalizedValue(
           templateData.params["description"].label,
@@ -129,7 +155,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.description,
-        notNo: (app) => !!app.description,
         renderToHtml: (app) => app.description,
         renderToWiki: (app) => app.description,
         more: true,
@@ -141,7 +166,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.author,
-        notNo: (app) => !!app.author,
         renderToHtml: (app) => app.author,
         renderToWiki: (app) => app.author,
       },
@@ -152,7 +176,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => app.platform.length > 0,
-        notNo: (app) => app.platform.length > 0,
         renderToHtml: (app) => renderBadges(app.platform),
         renderToWiki: (app) => app.platform.join(", "),
       },
@@ -163,7 +186,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.lastRelease,
-        notNo: (app) => !!app.lastRelease,
         renderToHtml: (app) => app.lastRelease,
         renderToWiki: (app) => app.lastRelease,
       },
@@ -174,7 +196,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
-        notNo: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
         renderToHtml: (app) =>
           app.languagesUrl
             ? `<a class="language-url" href="${
@@ -206,7 +227,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.license,
-        notNo: (app) => !!app.license,
         renderToHtml: (app) => renderBadges(app.license),
         renderToWiki: (app) => app.license,
       },
@@ -217,7 +237,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: (app) => !!app.sourceCode,
-        notNo: (app) => !!app.sourceCode,
         renderToHtml: (app) =>
           app.sourceCode
             ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
@@ -232,7 +251,6 @@ export function render(apps: App[], lang: string) {
           lang
         ),
         hasValue: () => true,
-        notNo: () => true,
         renderToHtml: (app) =>
           app.source
             .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
@@ -388,10 +406,11 @@ function renderGroup(
         label: string | undefined;
         description: string | undefined;
         hasValue: (app: App) => boolean;
-        notNo: (app: App) => boolean;
+        notNo?: (app: App) => boolean;
         renderToHtml: (app: App) => string | undefined;
         renderToWiki?: (app: App) => string | undefined;
         more?: boolean;
+        centered?: boolean;
       }
   )[],
   apps: App[],
@@ -426,7 +445,7 @@ function renderGroup(
 
   let elements = extendedParams
     .map((p) => {
-      if (!apps.some((app) => p.hasValue(app) && p.notNo(app))) {
+      if (!apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
         return undefined;
       }
 
@@ -436,7 +455,8 @@ function renderGroup(
         p.description,
         (app) => p.renderToHtml(app),
         id + "-detail",
-        p.more
+        p.more,
+        p.centered
       );
     })
     .filter((e) => e);
@@ -446,11 +466,12 @@ function renderGroup(
       "div",
       `<div class="cell header params-title params-group-title">
         <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-caret-down ${id}-detail"></i><i class="fas fa-caret-right ${id}-detail hidden"></i> ${display}</a>
-     <button class="export"><i class="fas fa-share-square"></i></button> </div>`,
+     <a class="export" href="#"><i class="far fa-copy"></i></a> </div>`,
       ["row"]
     );
 
-    getHtmlElement(".export", element).addEventListener("click", () => {
+    getHtmlElement(".export", element).addEventListener("click", (e) => {
+      e.preventDefault();
       const wikiTable = toWikiTable(
         apps,
         extendedParams.filter((p) => !!p.renderToWiki) as any,
@@ -483,7 +504,8 @@ function createParamElement(
   description: string | undefined,
   value: (app: App) => string | undefined,
   group: string = "",
-  more = false
+  more = false,
+  centered = false
 ) {
   const values = apps.map((app) => value(app));
 
@@ -497,38 +519,18 @@ function createParamElement(
       `<div class="cell header param-title" title="${description}">${label}</div>`,
       ...values.map((v) =>
         more
-          ? `<div class="cell param-text"><div class="dynamic-more">${
-              v || unknown()
-            }</div></div>`
-          : `<div class="cell param-text">${v || unknown()}</div>`
+          ? `<div class="cell param-text${
+              centered ? " align-middle text-center" : ""
+            }"><div class="dynamic-more">${v || unknown()}</div></div>`
+          : `<div class="cell param-text${
+              centered ? " align-middle text-center" : ""
+            }">${v || unknown()}</div>`
       ),
     ].join(""),
     ["row", group]
   );
 
   return element;
-}
-
-function renderParam(
-  apps: App[],
-  label: string | undefined,
-  description: string | undefined,
-  value: (app: App) => string | undefined,
-  group: string = "",
-  more = false
-) {
-  const element = createParamElement(
-    apps,
-    label,
-    description,
-    value,
-    group,
-    more
-  );
-
-  if (element) {
-    getHtmlElement("#compare").appendChild(element);
-  }
 }
 
 function unknown() {

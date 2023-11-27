@@ -86,7 +86,7 @@ export function render(app: App) {
       }
       ${
         app.install.microsoftAppID
-          ? `<a class="download" href="http://www.windowsphone.com/s?appid=${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
       <div class="badges">${renderBadges(app.topics)}</div>

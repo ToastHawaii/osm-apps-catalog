@@ -38,6 +38,7 @@ export function transform(source: { [name: string]: string }) {
       ...toWikimediaUrl(source["screenshot"], 250),
       ...toWikimediaUrl(source["logo"], 250),
     ],
+    imageWiki: source["screenshot"] || source["logo"],
     website: toUrl(extractWebsite(source["slippy_web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
