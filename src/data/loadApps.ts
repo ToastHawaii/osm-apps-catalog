@@ -80,7 +80,12 @@ export async function loadApps(
       images: obj.icon_url ? [obj.icon_url] : [],
       documentation: obj.doc_url,
       source: [
-        { name: "taginfo", url: source, lastChange: projectObjects.data_until },
+        {
+          name: "taginfo",
+          displayName: "taginfo",
+          url: source,
+          lastChange: projectObjects.data_until,
+        },
       ],
       description: obj.description,
       topics: [],

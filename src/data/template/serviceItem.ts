@@ -42,7 +42,9 @@ export function transform(source: { [name: string]: string }) {
     imageWiki: source["image"],
     source: [
       {
-        name: `Wiki (ServiceItem) <i class="fas fa-pen"></i>`,
+        name: "ServiceItem",
+        wiki: source.sourceWiki,
+        displayName: `Wiki (ServiceItem) <i class="fas fa-pen"></i>`,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },

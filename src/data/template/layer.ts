@@ -43,7 +43,9 @@ export function transform(source: { [name: string]: string }) {
     documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
       {
-        name: `Wiki (Layer) <i class="fas fa-pen"></i>`,
+        name: "Layer",
+        wiki: source.sourceWiki,
+        displayName: `Wiki (Layer) <i class="fas fa-pen"></i>`,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },

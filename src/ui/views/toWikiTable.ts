@@ -42,7 +42,11 @@ export function toWikiTable(
 
   let rows = params
     .map((p) => {
-      if (!appWithFields.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
+      if (
+        !appWithFields.some(
+          (app) => p.hasValue(app) && (!p.notNo || p.notNo(app))
+        )
+      ) {
         return undefined;
       }
 
@@ -59,15 +63,26 @@ ${appWithFields.map((app) => `|${p.renderToWiki(app) || ""}\n`).join("")}`;
     lang
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
 ${appWithFields
-  .map(
-    (app) =>
-      `! style="min-width: ${more ? 160 : 120}px" |${app.name || "{{?}}"}\n`
-  )
+  .map((app) => {
+    debugger;
+    const wiki =
+      app.source.find((s) => s.name === "Software")?.wiki ||
+      app.source.find((s) => s.name === "Layer")?.wiki ||
+      app.source.find((s) => s.name === "ServiceItem")?.wiki;
+
+    return `! style="min-width: ${more ? 160 : 120}px" |[[${wiki || app.name}|${
+      app.name || "{{?}}"
+    }]]\n`;
+  })
   .join("")}|-
 ${rows.join("|-\n")}|}
 </div><span style="font-size:80%">{{#switch: {{{1|{{{lang}}}}}}
-| de = Diese Tabelle wurde vom [https://osm-apps.zottelig.ch OSM App Catalog] am ${new Date().toISOString().substring(0,10)} erstellt.
-| #default = This table was created by [https://osm-apps.zottelig.ch OSM App Catalog] at ${new Date().toISOString().substring(0,10)}.
+| de = Diese Tabelle wurde vom [https://osm-apps.zottelig.ch OSM App Catalog] am ${new Date()
+    .toISOString()
+    .substring(0, 10)} erstellt.
+| #default = This table was created by [https://osm-apps.zottelig.ch OSM App Catalog] at ${new Date()
+    .toISOString()
+    .substring(0, 10)}.
 }}</span>`;
   return wikiTable;
 }

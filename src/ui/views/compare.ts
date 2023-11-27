@@ -253,7 +253,9 @@ ${
         hasValue: () => true,
         renderToHtml: (app) =>
           app.source
-            .map((s) => `<a href="${s.url}" target="_blank">${s.name}</a>`)
+            .map(
+              (s) => `<a href="${s.url}" target="_blank">${s.displayName}</a>`
+            )
             .join(", "),
       },
     ],
@@ -465,7 +467,7 @@ function renderGroup(
     const element = createElement(
       "div",
       `<div class="cell header params-title params-group-title">
-        <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-caret-down ${id}-detail"></i><i class="fas fa-caret-right ${id}-detail hidden"></i> ${display}</a>
+        <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-fw fa-caret-down ${id}-detail"></i><i class="fas fa-fw fa-caret-right ${id}-detail hidden"></i> ${display}</a>
      <a class="export" href="#"><i class="far fa-copy"></i></a> </div>`,
       ["row"]
     );

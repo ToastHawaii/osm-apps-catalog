@@ -25,7 +25,13 @@ export type App = {
   imageWiki?: string;
   website?: string | undefined;
   documentation?: string;
-  source: { name: string; url: string; lastChange: string }[];
+  source: {
+    name: string;
+    wiki?: string;
+    displayName: string;
+    url: string;
+    lastChange: string;
+  }[];
   author?: string;
   sourceCode?: string | undefined;
   license?: string;
