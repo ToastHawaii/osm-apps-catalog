@@ -37,6 +37,7 @@ export let apps: App[] = [];
 const topicSelect = new SlimSelect({
   select: "#topic",
   placeholder: "Topic",
+
   onChange: () => {
     doUpdate(apps);
   },

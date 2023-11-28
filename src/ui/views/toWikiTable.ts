@@ -64,7 +64,6 @@ ${appWithFields.map((app) => `|${p.renderToWiki(app) || ""}\n`).join("")}`;
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
 ${appWithFields
   .map((app) => {
-    debugger;
     const wiki =
       app.source.find((s) => s.name === "Software")?.wiki ||
       app.source.find((s) => s.name === "Layer")?.wiki ||
