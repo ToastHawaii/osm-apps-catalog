@@ -95,13 +95,6 @@ export function render(app: App) {
             <div class="more-infos" style="display:none;">
         <div class="more-infos-title">Informations</div>
         ${
-          app.author
-            ? `<div class="more-info">
-          <span class="more-info-title">Author</span> <span class="more-info-text">${app.author}</span>
-        </div>`
-            : ""
-        }
-        ${
           app.platform.length > 0
             ? `<div class="more-info">
           <span class="more-info-title">Platforms</span> <span class="more-info-text">${app.platform.join(
@@ -135,16 +128,23 @@ export function render(app: App) {
             : ""
         }
         ${
-          app.license
+          app.coverage && app.coverage.length
             ? `<div class="more-info">
-          <span class="more-info-title">License</span> <span class="more-info-text">${app.license}</span>
+          <span class="more-info-title">Coverage</span> <span class="more-info-text">${app.coverage[app.coverage.length-1]}</span>
         </div>`
             : ""
         }
         ${
-          app.coverage && app.coverage.length
+          app.author
             ? `<div class="more-info">
-          <span class="more-info-title">Coverage</span> <span class="more-info-text">${app.coverage[app.coverage.length-1]}</span>
+          <span class="more-info-title">Author</span> <span class="more-info-text">${app.author}</span>
+        </div>`
+            : ""
+        }
+        ${
+          app.license
+            ? `<div class="more-info">
+          <span class="more-info-title">License</span> <span class="more-info-text">${app.license}</span>
         </div>`
             : ""
         }

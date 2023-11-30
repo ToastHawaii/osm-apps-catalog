@@ -160,16 +160,6 @@ ${
         more: true,
       },
       {
-        label: getLocalizedValue(templateData.params["author"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["author"].description,
-          lang
-        ),
-        hasValue: (app) => !!app.author,
-        renderToHtml: (app) => app.author,
-        renderToWiki: (app) => app.author,
-      },
-      {
         label: getLocalizedValue(templateData.params["platform"].label, lang),
         description: getLocalizedValue(
           templateData.params["platform"].description,
@@ -230,6 +220,16 @@ ${
         hasValue: (app) => !!(app.coverage && app.coverage.length),
         renderToHtml: (app) => app.coverage[app.coverage.length-1],
         renderToWiki: (app) => app.coverage[app.coverage.length-1],
+      },
+      {
+        label: getLocalizedValue(templateData.params["author"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["author"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.author,
+        renderToHtml: (app) => app.author,
+        renderToWiki: (app) => app.author,
       },
       {
         label: getLocalizedValue(templateData.params["license"].label, lang),
