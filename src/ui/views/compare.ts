@@ -222,6 +222,16 @@ ${
         more: true,
       },
       {
+        label: getLocalizedValue(templateData.params["coverage"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["coverage"].description,
+          lang
+        ),
+        hasValue: (app) => !!(app.coverage && app.coverage.length),
+        renderToHtml: (app) => app.coverage[app.coverage.length-1],
+        renderToWiki: (app) => app.coverage[app.coverage.length-1],
+      },
+      {
         label: getLocalizedValue(templateData.params["license"].label, lang),
         description: getLocalizedValue(
           templateData.params["license"].description,

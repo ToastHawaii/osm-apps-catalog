@@ -91,6 +91,7 @@ export async function loadApps(
       topics: [],
       languages: [],
       platform: [],
+      coverage: [],
       install: {},
     };
 

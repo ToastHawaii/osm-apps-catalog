@@ -27,6 +27,9 @@ export function addApp(obj: App) {
     app.languages.push(...obj.languages);
     app.languages = removeDuplicates(app.languages);
 
+    app.coverage.push(...obj.coverage);
+    app.coverage = removeDuplicates(app.coverage);
+
     app.topics.push(...obj.topics);
     app.topics = removeDuplicates(app.topics);
 

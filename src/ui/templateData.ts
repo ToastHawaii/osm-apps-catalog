@@ -495,6 +495,14 @@ export const templateData: {
         de: "Sprachen",
       },
     },
+    coverage: {
+      description:
+        'Coverage or target region of the app. Formatting: "Continent, Country, Region, ...". Use "Worldwide" or leave it empty for global use.',
+      example: "Europe, Switzerland, Zurich, Gossau",
+      label: "Coverage",
+      default: "Worldwide",
+      type: "string",
+    },
     languagesurl: {
       description:
         "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",

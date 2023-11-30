@@ -39,6 +39,7 @@ export type App = {
   languagesUrl?: string | undefined;
   topics: string[];
   platform: string[];
+  coverage: string[];
   install: {
     asin?: string;
     fDroidID?: string;

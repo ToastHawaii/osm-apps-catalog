@@ -64,6 +64,7 @@ export function transform(source: { [name: string]: string }) {
     languagesUrl: toUrl(source["tiles_languagesurl"]),
     topics: [],
     platform: ["Web"],
+    coverage: [],
     install: {},
     license: processWikiText(source["tiles_license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

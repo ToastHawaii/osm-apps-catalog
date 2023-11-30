@@ -42,7 +42,7 @@ a {
   display: inline-block;
   color: #666;
   flex-direction: row;
-  width: 150px;
+  width: 120px;
   border: 1px solid #666;
   background-color: #fff;
   box-sizing: border-box;
@@ -185,7 +185,7 @@ a {
   display: inline-block;
   flex-direction: row;
   min-height: 30px;
-  width: 300px;
+  width: 240px;
   max-width: 100%;
   border: 1px solid #dcdee2;
   border-radius: 4px;
@@ -197,7 +197,7 @@ a {
   padding: 4px 6px;
 }
 .ss-main {
-  width: 300px;
+  width: 240px;
   max-width: 100%;
 }
 

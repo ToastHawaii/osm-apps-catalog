@@ -64,20 +64,26 @@ export function transform(source: { [name: string]: string }) {
       .map(firstLetterToUpperCase)
       .sort(),
     platform: [],
+    coverage: [],
     install: {},
   };
 
-  if (source["region"])
-    obj.topics.push(
-      `Coverage: ${source["region"]
-        .split(splitByCommaButNotInsideBraceRegex)
-        .map(trim)
-        .filter((v) => v)
-        .map(firstLetterToUpperCase)
-        .join(", ")}`
-    );
+  if (source["region"]) {
+    const regions = source["region"]
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map(firstLetterToUpperCase);
+
+    let entry = [];
+    for (let index = 0; index < regions.length; index++) {
+      entry.push(regions[index]);
+      obj.coverage.push(entry.join(", "));
+    }
+  }
 
   obj.languages = removeDuplicates(obj.languages).sort();
+  obj.coverage = removeDuplicates(obj.coverage).sort();
   obj.topics = removeDuplicates(obj.topics).sort();
 
   let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);

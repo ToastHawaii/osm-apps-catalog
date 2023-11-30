@@ -56,6 +56,14 @@ const languageSelect = new SlimSelect({
     doUpdate(apps);
   },
 });
+const coverageSelect = new SlimSelect({
+  select: "#coverage",
+  placeholder: "Coverage",
+
+  onChange: () => {
+    doUpdate(apps);
+  },
+});
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
@@ -135,12 +143,14 @@ function doUpdate(newApps: App[], reset?: boolean) {
       topicSelect.set([]);
       platformSelect.set([]);
       languageSelect.set([]);
+      coverageSelect.set([]);
     }
     update(
       (document.getElementById("search") as HTMLInputElement).value,
       topicSelect.selected(),
       platformSelect.selected(),
       languageSelect.selected(),
+      coverageSelect.selected(),
       categorySelect.selected()
     );
     onUpdate = false;
@@ -152,6 +162,7 @@ function update(
   topic: string[] = [],
   platform: string[] = [],
   language: string[] = [],
+  coverage: string[] = [],
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
 ) {
   if (category === "all") {
@@ -246,6 +257,7 @@ function update(
   const topicUp = topic.map((t) => t.toUpperCase());
   const platformUp = platform.map((t) => t.toUpperCase());
   const languageUp = language.map((t) => t.toUpperCase());
+  const coverageUp = coverage.map((t) => t.toUpperCase());
 
   if (search)
     filteredApps = filteredApps.filter(
@@ -255,6 +267,8 @@ function update(
         a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
           0 ||
         a.platform.filter((t) => t.toUpperCase().search(search) !== -1).length >
+          0 ||
+        a.coverage.filter((t) => t.toUpperCase().search(search) !== -1).length >
           0
     );
 
@@ -282,6 +296,15 @@ function update(
       )
     );
 
+  if (coverageUp.length > 0) {
+    filteredApps = filteredApps.filter((a) =>
+      includes(
+        a.coverage.map((t) => t.toUpperCase()),
+        coverageUp
+      )
+    );
+  }
+
   const categoriedApps = [];
 
   if (category === "mobile") {
@@ -301,11 +324,13 @@ function update(
   const topicData: string[] = [];
   const platformData: string[] = [];
   const languageData: string[] = [];
+  const coverageData: string[] = [];
 
   for (const a of filteredApps) {
     topicData.push(...a.topics.map((t) => t));
     platformData.push(...a.platform.map((t) => t));
     languageData.push(...a.languages.map((l) => l));
+    coverageData.push(...a.coverage.map((t) => t));
   }
 
   topicSelect.setData(prepareArrayForSelect(topicData, topic));
@@ -316,6 +341,9 @@ function update(
 
   languageSelect.setData(prepareArrayForSelect(languageData, language));
   languageSelect.set(language);
+
+  coverageSelect.setData(prepareArrayForSelect(coverageData, coverage));
+  coverageSelect.set(coverage);
 
   if ((document.getElementById("compareView") as HTMLInputElement).checked) {
     renderCompareView(filteredApps, lang);
@@ -348,6 +376,8 @@ function update(
             a.topics.filter((t) => t.toUpperCase().search(search) !== -1)
               .length > 0 ||
             a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
+              .length > 0 ||
+            a.coverage.filter((t) => t.toUpperCase().search(search) !== -1)
               .length > 0
         );
 
@@ -364,6 +394,14 @@ function update(
           includes(
             a.languages.map((t) => t.toUpperCase()),
             languageUp
+          )
+        );
+
+      if (coverageUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          includes(
+            a.coverage.map((t) => t.toUpperCase()),
+            coverageUp
           )
         );
 

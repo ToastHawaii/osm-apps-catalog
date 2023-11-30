@@ -83,6 +83,7 @@ export function transform(source: { [name: string]: string }) {
       .map(trim)
       .filter((v) => v)
       .map((v) => platformValueToDisplay(v)),
+    coverage: [],
     install: {
       asin: source["asin"],
       fDroidID: source["fDroidID"],
@@ -177,8 +178,23 @@ export function transform(source: { [name: string]: string }) {
     },
   };
 
+  if (source["coverage"]) {
+    const coverage = source["coverage"]
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map(firstLetterToUpperCase);
+
+    let entry = [];
+    for (let index = 0; index < coverage.length; index++) {
+      entry.push(coverage[index]);
+      obj.coverage.push(entry.join(", "));
+    }
+  }
+
   obj.platform = removeDuplicates(obj.platform).sort();
   obj.languages = removeDuplicates(obj.languages).sort();
+  obj.coverage = removeDuplicates(obj.coverage).sort();
 
   if (hasValue(source["datasource"]))
     obj.topics.push(
