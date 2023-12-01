@@ -18,6 +18,9 @@
 export function includes<T>(arr: T[], target: T[]) {
   return target.every(v => arr.includes(v));
 }
+export function some<T>(arr: T[], target: T[]) {
+  return target.some(v => arr.includes(v));
+}
 
 export function removeDuplicates<T>(arr: T[]) {
   return arr.filter((c, index) => {

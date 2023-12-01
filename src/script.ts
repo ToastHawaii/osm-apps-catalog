@@ -20,7 +20,7 @@ import SlimSelect from "slim-select";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { set, get } from "./ui/utilities/storage";
 import { render as renderListView } from "./ui/views/list";
-import { shuffle, includes } from "./ui/utilities/array";
+import { shuffle, includes, some } from "./ui/utilities/array";
 import { equalsIgnoreCase, textToColor } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
 import { findGetParameter as getParameterFromUrl } from "./ui/utilities/url";
@@ -257,7 +257,15 @@ function update(
   const topicUp = topic.map((t) => t.toUpperCase());
   const platformUp = platform.map((t) => t.toUpperCase());
   const languageUp = language.map((t) => t.toUpperCase());
-  const coverageUp = coverage.map((t) => t.toUpperCase());
+  const coverageUp: string[] = [];
+  coverage.forEach((t) => {
+    const regions = t.toUpperCase().split(", ");
+    let entry = [];
+    for (let index = 0; index < regions.length; index++) {
+      entry.push(regions[index]);
+      coverageUp.push(entry.join(", "));
+    }
+  });
 
   if (search)
     filteredApps = filteredApps.filter(
@@ -298,7 +306,7 @@ function update(
 
   if (coverageUp.length > 0) {
     filteredApps = filteredApps.filter((a) =>
-      includes(
+      some(
         a.coverage.map((t) => t.toUpperCase()),
         coverageUp
       )

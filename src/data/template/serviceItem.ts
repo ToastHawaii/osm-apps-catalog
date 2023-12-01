@@ -69,17 +69,14 @@ export function transform(source: { [name: string]: string }) {
   };
 
   if (source["region"]) {
-    const regions = source["region"]
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .map(firstLetterToUpperCase);
-
-    let entry = [];
-    for (let index = 0; index < regions.length; index++) {
-      entry.push(regions[index]);
-      obj.coverage.push(entry.join(", "));
-    }
+    obj.coverage.push(
+      source["region"]
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v)
+        .map(firstLetterToUpperCase)
+        .join(", ")
+    );
   }
 
   obj.languages = removeDuplicates(obj.languages).sort();
