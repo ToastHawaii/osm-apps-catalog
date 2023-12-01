@@ -298,7 +298,7 @@ function update(
 
   if (languageUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      includes(
+      some(
         a.languages.map((t) => t.toUpperCase()),
         languageUp
       )
@@ -337,8 +337,11 @@ function update(
   for (const a of filteredApps) {
     topicData.push(...a.topics.map((t) => t));
     platformData.push(...a.platform.map((t) => t));
-    languageData.push(...a.languages.map((l) => l));
     coverageData.push(...a.coverage.map((t) => t));
+  }
+
+  for (const a of apps) {
+    languageData.push(...a.languages.map((l) => l));
   }
 
   topicSelect.setData(prepareArrayForSelect(topicData, topic));
@@ -399,7 +402,7 @@ function update(
 
       if (languageUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          includes(
+          some(
             a.languages.map((t) => t.toUpperCase()),
             languageUp
           )
