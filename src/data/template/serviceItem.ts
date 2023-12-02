@@ -23,6 +23,7 @@ import {
   appendFullStop,
   trim,
   firstLetterToUpperCase,
+  startsWithIgnoreCase,
 } from "../../ui/utilities/string";
 import {
   App,
@@ -50,6 +51,7 @@ export function transform(source: { [name: string]: string }) {
       },
     ],
     sourceCode: toUrl(extractWebsite(source["material"])),
+    libre: startsWithIgnoreCase(source["material"], "{{yes"),
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)
