@@ -33,8 +33,13 @@ export type App = {
     lastChange: string;
   }[];
   author?: string;
-  sourceCode?: string | undefined;
+  // free of charge software
+  gratis?: boolean;
+  // FLOSS license
+  libre?: boolean;
+  price?: string;
   license?: string;
+  sourceCode?: string | undefined;
   languages: string[];
   languagesUrl?: string | undefined;
   topics: string[];

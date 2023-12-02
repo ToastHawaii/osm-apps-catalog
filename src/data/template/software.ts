@@ -19,7 +19,7 @@ import { toWikimediaUrl } from "../../ui/utilities/image";
 import { toWikiUrl, toUrl } from "../../ui/utilities/url";
 import { platformValueToDisplay } from "../../ui/platform";
 import { languageValueToDisplay } from "../../ui/language";
-import { removeDuplicates } from "../../ui/utilities/array";
+import { removeDuplicates, some } from "../../ui/utilities/array";
 import {
   appendFullStop,
   trim,
@@ -64,6 +64,11 @@ export function transform(source: { [name: string]: string }) {
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
     ),
+    gratis: some([source["price"]], ["gratis", "free", "0"]),
+    libre: !!source["license"]?.match(
+      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|Ms-PL.*)"
+    ),
+    price: source["price"],
     license: processWikiText(source["license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)

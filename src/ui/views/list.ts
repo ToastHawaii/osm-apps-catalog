@@ -24,11 +24,21 @@ export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
-        <div><strong>${
-          app.website
-            ? `<a href="${app.website}" target="_blank">${app.name}</a>`
-            : app.name
-        }</strong></div>
+        <div><div class="corner-badge">${
+          app.libre
+            ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
+            : app.gratis
+            ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
+            : ""
+        }${
+      app.gratis || app.libre
+        ? '<span title="Free"><i class="fas fa-fw fa-gift"></i></span>'
+        : ""
+    }</div><strong>${
+      app.website
+        ? `<a href="${app.website}" target="_blank">${app.name}</a>`
+        : app.name
+    }</strong></div>
         ${
           app.website
             ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
@@ -130,7 +140,9 @@ export function render(app: App) {
         ${
           app.coverage && app.coverage.length
             ? `<div class="more-info">
-          <span class="more-info-title">Coverage</span> <span class="more-info-text">${app.coverage[app.coverage.length-1]}</span>
+          <span class="more-info-title">Coverage</span> <span class="more-info-text">${
+            app.coverage[app.coverage.length - 1]
+          }</span>
         </div>`
             : ""
         }
@@ -138,6 +150,13 @@ export function render(app: App) {
           app.author
             ? `<div class="more-info">
           <span class="more-info-title">Author</span> <span class="more-info-text">${app.author}</span>
+        </div>`
+            : ""
+        }
+        ${
+          app.price
+            ? `<div class="more-info">
+          <span class="more-info-title">Price</span> <span class="more-info-text">${app.price}</span>
         </div>`
             : ""
         }

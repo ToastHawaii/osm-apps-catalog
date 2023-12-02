@@ -16,7 +16,17 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center"><strong>${
+            `<div class="cell header text-center"><div class="corner-badge">${
+              app.libre
+                ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
+                : app.gratis
+                ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
+                : ""
+            }${
+          app.gratis || app.libre
+            ? '<span title="Free"><i class="fas fa-fw fa-gift"></i></span>'
+            : ""
+        }</div><strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
@@ -218,8 +228,8 @@ ${
           lang
         ),
         hasValue: (app) => !!(app.coverage && app.coverage.length),
-        renderToHtml: (app) => app.coverage[app.coverage.length-1],
-        renderToWiki: (app) => app.coverage[app.coverage.length-1],
+        renderToHtml: (app) => app.coverage[app.coverage.length - 1],
+        renderToWiki: (app) => app.coverage[app.coverage.length - 1],
       },
       {
         label: getLocalizedValue(templateData.params["author"].label, lang),
@@ -230,6 +240,16 @@ ${
         hasValue: (app) => !!app.author,
         renderToHtml: (app) => app.author,
         renderToWiki: (app) => app.author,
+      },
+      {
+        label: getLocalizedValue(templateData.params["price"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["price"].description,
+          lang
+        ),
+        hasValue: (app) => !!app.price,
+        renderToHtml: (app) => app.price,
+        renderToWiki: (app) => app.price,
       },
       {
         label: getLocalizedValue(templateData.params["license"].label, lang),

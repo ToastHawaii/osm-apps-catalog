@@ -64,6 +64,12 @@ const coverageSelect = new SlimSelect({
     doUpdate(apps);
   },
 });
+(document.getElementById("free") as HTMLInputElement).addEventListener(
+  "change",
+  () => {
+    doUpdate(apps);
+  }
+);
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
@@ -140,12 +146,14 @@ function doUpdate(newApps: App[], reset?: boolean) {
     onUpdate = true;
     if (reset) {
       (document.getElementById("search") as HTMLInputElement).value = "";
+      (document.getElementById("free") as HTMLInputElement).checked = false;
       topicSelect.set([]);
       platformSelect.set([]);
       languageSelect.set([]);
       coverageSelect.set([]);
     }
     update(
+      (document.getElementById("free") as HTMLInputElement).checked,
       (document.getElementById("search") as HTMLInputElement).value,
       topicSelect.selected(),
       platformSelect.selected(),
@@ -158,6 +166,7 @@ function doUpdate(newApps: App[], reset?: boolean) {
 }
 
 function update(
+  freeOnly: boolean = false,
   search: string = "",
   topic: string[] = [],
   platform: string[] = [],
@@ -193,10 +202,14 @@ function update(
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
 
-  let filteredApps: App[];
+  let filteredApps: App[] = apps.slice();
+
+  if(freeOnly){
+    filteredApps = filteredApps.filter(a => a.gratis || a.libre)
+  }
 
   if (category === "latest") {
-    filteredApps = apps.slice().sort(function (a, b) {
+    filteredApps = filteredApps.sort(function (a, b) {
       const nameA = a.source[0].lastChange.toUpperCase() || "";
       const nameB = b.source[0].lastChange.toUpperCase() || "";
       if (nameA < nameB) {
@@ -222,7 +235,7 @@ function update(
       return 0;
     });
   } else if (category === "focus") {
-    let latestApps = apps.slice().sort(function (a, b) {
+    let latestApps = filteredApps.sort(function (a, b) {
       const nameA = a.source[0].lastChange.toUpperCase() || "";
       const nameB = b.source[0].lastChange.toUpperCase() || "";
       if (nameA < nameB) {
@@ -249,8 +262,6 @@ function update(
         break;
       }
     }
-  } else {
-    filteredApps = apps.slice();
   }
 
   search = search.toUpperCase();
