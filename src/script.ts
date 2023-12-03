@@ -23,16 +23,15 @@ import { render as renderListView } from "./ui/views/list";
 import { shuffle, includes, some } from "./ui/utilities/array";
 import { equalsIgnoreCase, textToColor } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
-import {
-  findGetParameterFromHash,
-  findGetParameter as getParameterFromUrl,
-} from "./ui/utilities/url";
+import { findGetParameter } from "./ui/utilities/url";
 import { Solver } from "./ui/utilities/coloriz/Solver";
 import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
 import { lazyInitMore } from "./ui/lazyInitMore";
+
+let onInit = true;
 
 let onUpdate = false;
 export let apps: App[] = [];
@@ -94,8 +93,6 @@ const coverageSelect = new SlimSelect({
   }
 );
 
-const category = findGetParameterFromHash("category");
-
 const categorySelect = new SlimSelect({
   select: "#category",
   showSearch: false,
@@ -137,9 +134,7 @@ const categorySelect = new SlimSelect({
         "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
       text: "Contribute",
     },
-  ].map((c) => {
-    return { ...c, selected: c.value === category };
-  }),
+  ],
   onChange: () => {
     doUpdate(apps, true);
   },
@@ -157,7 +152,7 @@ type State = {
   view: "list" | "compare";
 };
 
-const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
+const lang = (findGetParameter("lang") || "en").toLowerCase();
 
 function doUpdate(newApps: App[], reset?: boolean) {
   apps = newApps;
@@ -170,7 +165,7 @@ function doUpdate(newApps: App[], reset?: boolean) {
       languagesSelect.set([]);
       coverageSelect.set([]);
     }
-    const state: State = {
+    let state: State = {
       lang,
       freeOnly: (document.getElementById("free") as HTMLInputElement).checked,
       search: (document.getElementById("search") as HTMLInputElement).value,
@@ -183,7 +178,34 @@ function doUpdate(newApps: App[], reset?: boolean) {
         ? "list"
         : "compare",
     };
-    updateState(state);
+
+    if (onInit) {
+      const params = new URLSearchParams(location.search);
+
+      state = {
+        lang: params.get("lang") || "",
+        freeOnly: params.get("freeOnly") === "1" ? true : false,
+        search: params.get("search") || "",
+        topics: params.get("topics")
+          ? params.get("topics")?.split(",") || []
+          : [],
+        platforms: params.get("platforms")
+          ? params.get("platforms")?.split(",") || []
+          : [],
+        languages: params.get("languages")
+          ? params.get("languages")?.split(",") || []
+          : [],
+        coverage: params.get("coverage")
+          ? params.get("coverage")?.split(",") || []
+          : [],
+        category: params.get("category") || "all",
+        view: params.get("view") === "compare" ? "compare" : "list",
+      };
+
+      onInit = false;
+    } else {
+      updateState(state);
+    }
     update(state);
     onUpdate = false;
   }
@@ -196,7 +218,19 @@ window.addEventListener("popstate", (e) => {
 });
 
 function updateState(state: State) {
-  history.pushState(state, "");
+  history.pushState(
+    state,
+    "",
+    "?" +
+      new URLSearchParams({
+        ...state,
+        freeOnly: state.freeOnly ? "1" : "0",
+        topics: state.topics.join(","),
+        platforms: state.platforms.join(","),
+        languages: state.languages.join(","),
+        coverage: state.coverage.join(","),
+      }).toString()
+  );
 }
 
 function update({
