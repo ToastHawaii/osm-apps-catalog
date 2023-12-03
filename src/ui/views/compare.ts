@@ -16,17 +16,20 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center"><div class="corner-badge">${
-              app.libre
-                ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
-                : app.gratis
-                ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
+            `<div class="cell header text-center with-corner-badge">${
+              app.gratis || app.libre
+                ? `<div class="corner-badge">
+                <span title="Free"><i class="fas fa-fw fa-gift"></i></span>
+                ${
+                  app.libre
+                    ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
+                    : app.gratis
+                    ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
+                    : ""
+                }
+              </div>`
                 : ""
-            }${
-          app.gratis || app.libre
-            ? '<span title="Free"><i class="fas fa-fw fa-gift"></i></span>'
-            : ""
-        }</div><strong>${
+            }<strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name

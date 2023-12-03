@@ -24,17 +24,21 @@ export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
-        <div><div class="corner-badge">${
+      
+      <div class="with-corner-badge">${
+      app.gratis || app.libre
+        ? `<div class="corner-badge">
+        <span title="Free"><i class="fas fa-fw fa-gift"></i></span>
+        ${
           app.libre
             ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
             : app.gratis
             ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
             : ""
-        }${
-      app.gratis || app.libre
-        ? '<span title="Free"><i class="fas fa-fw fa-gift"></i></span>'
+        }
+      </div>`
         : ""
-    }</div><strong>${
+    }<strong>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
