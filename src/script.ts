@@ -37,7 +37,7 @@ import { lazyInitMore } from "./ui/lazyInitMore";
 let onUpdate = false;
 export let apps: App[] = [];
 
-const topicSelect = new SlimSelect({
+const topicsSelect = new SlimSelect({
   select: "#topic",
   placeholder: "Topic",
 
@@ -45,14 +45,14 @@ const topicSelect = new SlimSelect({
     doUpdate(apps);
   },
 });
-const platformSelect = new SlimSelect({
+const platformsSelect = new SlimSelect({
   select: "#platform",
   placeholder: "Platform",
   onChange: () => {
     doUpdate(apps);
   },
 });
-const languageSelect = new SlimSelect({
+const languagesSelect = new SlimSelect({
   select: "#language",
   placeholder: "Language",
   onChange: () => {
@@ -145,60 +145,64 @@ const categorySelect = new SlimSelect({
   },
 });
 
-function doUpdate(
-  newApps: App[],
-  state?: {
-    lang:string;
-    category: string[];
-    free: boolean;
-    search: string;
-    topics: string[];
-    platforms: string[];
-    languages: string[];
-    coverage: string[];
-    view: "list" | "compare";
-  },
-  reset?: boolean
-) {
+type State = {
+  lang: string;
+  freeOnly: boolean;
+  category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
+  search: string;
+  topics: string[];
+  platforms: string[];
+  languages: string[];
+  coverage: string[];
+  view: "list" | "compare";
+};
+
+const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
+
+function doUpdate(newApps: App[], reset?: boolean) {
   apps = newApps;
   if (!onUpdate) {
     onUpdate = true;
     if (reset) {
       (document.getElementById("search") as HTMLInputElement).value = "";
-      (document.getElementById("free") as HTMLInputElement).checked = false;
-      topicSelect.set([]);
-      platformSelect.set([]);
-      languageSelect.set([]);
+      topicsSelect.set([]);
+      platformsSelect.set([]);
+      languagesSelect.set([]);
       coverageSelect.set([]);
     }
-    update(
-      (document.getElementById("free") as HTMLInputElement).checked,
-      (document.getElementById("search") as HTMLInputElement).value,
-      topicSelect.selected(),
-      platformSelect.selected(),
-      languageSelect.selected(),
-      coverageSelect.selected(),
-      categorySelect.selected()
-    );
+    const state: State = {
+      lang,
+      freeOnly: (document.getElementById("free") as HTMLInputElement).checked,
+      search: (document.getElementById("search") as HTMLInputElement).value,
+      topics: topicsSelect.selected() as string[],
+      platforms: platformsSelect.selected() as string[],
+      languages: languagesSelect.selected() as string[],
+      coverage: coverageSelect.selected() as string[],
+      category: categorySelect.selected() as any,
+      view: (document.getElementById("listView") as HTMLInputElement).checked
+        ? "list"
+        : "compare",
+    };
+    updateState(state);
+    update(state);
     onUpdate = false;
   }
 }
 
-function update(
-  freeOnly: boolean = false,
-  search: string = "",
-  topic: string[] = [],
-  platform: string[] = [],
-  language: string[] = [],
-  coverage: string[] = [],
-  category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
-) {
-  // if (category === "all") {
-  //   document.location.hash = "";
-  // } else {
-  //   document.location.hash = category;
-  // }
+function updateState(state: State) {
+  history.pushState(state, "");
+}
 
+function update({
+  freeOnly,
+  category,
+  search,
+  topics,
+  platforms,
+  languages,
+  coverage,
+  view,
+}: State) {
   let description = "";
   if (category === "all") {
     description =
@@ -284,9 +288,9 @@ function update(
   }
 
   search = search.toUpperCase();
-  const topicUp = topic.map((t) => t.toUpperCase());
-  const platformUp = platform.map((t) => t.toUpperCase());
-  const languageUp = language.map((t) => t.toUpperCase());
+  const topicsUp = topics.map((t) => t.toUpperCase());
+  const platformsUp = platforms.map((t) => t.toUpperCase());
+  const languagesUp = languages.map((t) => t.toUpperCase());
   const coverageUp: string[] = [];
   coverage.forEach((t) => {
     const regions = t.toUpperCase().split(", ");
@@ -310,27 +314,27 @@ function update(
           0
     );
 
-  if (topicUp.length > 0)
+  if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       includes(
         a.topics.map((t) => t.toUpperCase()),
-        topicUp
+        topicsUp
       )
     );
 
-  if (platformUp.length > 0)
+  if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       includes(
         a.platform.map((t) => t.toUpperCase()),
-        platformUp
+        platformsUp
       )
     );
 
-  if (languageUp.length > 0)
+  if (languagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(
         a.languages.map((t) => t.toUpperCase()),
-        languageUp
+        languagesUp
       )
     );
 
@@ -359,102 +363,57 @@ function update(
     filteredApps = categoriedApps;
   }
 
-  const topicData: string[] = [];
-  const platformData: string[] = [];
-  const languageData: string[] = [];
+  const topicsData: string[] = [];
+  const platformsData: string[] = [];
+  const languagesData: string[] = [];
   const coverageData: string[] = [];
 
   for (const a of filteredApps) {
-    topicData.push(...a.topics.map((t) => t));
-    platformData.push(...a.platform.map((t) => t));
+    topicsData.push(...a.topics.map((t) => t));
+    platformsData.push(...a.platform.map((t) => t));
     coverageData.push(...a.coverage.map((t) => t));
   }
 
   for (const a of apps) {
-    languageData.push(...a.languages.map((l) => l));
+    languagesData.push(...a.languages.map((l) => l));
   }
 
-  topicSelect.setData(prepareArrayForSelect(topicData, topic));
-  topicSelect.set(topic);
+  topicsSelect.setData(prepareArrayForSelect(topicsData, topics));
+  topicsSelect.set(topics);
 
-  platformSelect.setData(prepareArrayForSelect(platformData, platform));
-  platformSelect.set(platform);
+  platformsSelect.setData(prepareArrayForSelect(platformsData, platforms));
+  platformsSelect.set(platforms);
 
-  languageSelect.setData(prepareArrayForSelect(languageData, language));
-  languageSelect.set(language);
+  languagesSelect.setData(prepareArrayForSelect(languagesData, languages));
+  languagesSelect.set(languages);
 
   coverageSelect.setData(prepareArrayForSelect(coverageData, coverage));
   coverageSelect.set(coverage);
 
-  if ((document.getElementById("compareView") as HTMLInputElement).checked) {
-    renderCompareView(filteredApps, lang);
-    setTimeout(() => {
-      lazyInitMore(true);
-    }, 0);
-  }
-
-  if ((document.getElementById("listView") as HTMLInputElement).checked) {
-    for (const a of filteredApps) {
-      renderListView(a);
-    }
-
-    if (topicUp.length > 0) {
-      let similarApps = apps.filter((a) => !filteredApps.includes(a));
-
-      similarApps = similarApps.filter((a) =>
-        topicUp.every(
-          (t) =>
-            a.name.toUpperCase().search(t) !== -1 ||
-            a.description.toUpperCase().search(t) !== -1
-        )
-      );
-
-      if (search)
-        similarApps = similarApps.filter(
-          (a) =>
-            a.name.toUpperCase().search(search) !== -1 ||
-            a.description.toUpperCase().search(search) !== -1 ||
-            a.topics.filter((t) => t.toUpperCase().search(search) !== -1)
-              .length > 0 ||
-            a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
-              .length > 0 ||
-            a.coverage.filter((t) => t.toUpperCase().search(search) !== -1)
-              .length > 0
-        );
-
-      if (platformUp.length > 0)
-        similarApps = similarApps.filter((a) =>
-          includes(
-            a.platform.map((t) => t.toUpperCase()),
-            platformUp
-          )
-        );
-
-      if (languageUp.length > 0)
-        similarApps = similarApps.filter((a) =>
-          some(
-            a.languages.map((t) => t.toUpperCase()),
-            languageUp
-          )
-        );
-
-      if (coverageUp.length > 0)
-        similarApps = similarApps.filter((a) =>
-          includes(
-            a.coverage.map((t) => t.toUpperCase()),
-            coverageUp
-          )
-        );
-
-      if (similarApps.length > 0) {
-        const similarTag = createElement("h2", "Related apps");
-        getHtmlElement("#list").appendChild(similarTag);
-
-        for (const a of similarApps) {
-          renderListView(a);
-        }
+  switch (view) {
+    case "list":
+      for (const a of filteredApps) {
+        renderListView(a);
       }
-    }
+      renderSimilarApps(
+        filteredApps,
+        search,
+        topicsUp,
+        platformsUp,
+        languagesUp,
+        coverageUp
+      );
+      break;
+
+    case "compare":
+      renderCompareView(filteredApps, lang);
+      setTimeout(() => {
+        lazyInitMore(true);
+      }, 0);
+      break;
+
+    default:
+      throw new Error("Not expected value for view.");
   }
 
   setTimeout(() => {
@@ -462,7 +421,72 @@ function update(
   }, 0);
 }
 
-const lang = (getParameterFromUrl("lang") || "en").toLowerCase();
+function renderSimilarApps(
+  apps: App[],
+  search: string,
+  topicsUp: string[],
+  platformsUp: string[],
+  languagesUp: string[],
+  coverageUp: string[]
+) {
+  if (topicsUp.length > 0) {
+    let similarApps = apps.filter((a) => !apps.includes(a));
+
+    similarApps = similarApps.filter((a) =>
+      topicsUp.every(
+        (t) =>
+          a.name.toUpperCase().search(t) !== -1 ||
+          a.description.toUpperCase().search(t) !== -1
+      )
+    );
+
+    if (search)
+      similarApps = similarApps.filter(
+        (a) =>
+          a.name.toUpperCase().search(search) !== -1 ||
+          a.description.toUpperCase().search(search) !== -1 ||
+          a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
+            0 ||
+          a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
+            .length > 0 ||
+          a.coverage.filter((t) => t.toUpperCase().search(search) !== -1)
+            .length > 0
+      );
+
+    if (platformsUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        includes(
+          a.platform.map((t) => t.toUpperCase()),
+          platformsUp
+        )
+      );
+
+    if (languagesUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        some(
+          a.languages.map((t) => t.toUpperCase()),
+          languagesUp
+        )
+      );
+
+    if (coverageUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        includes(
+          a.coverage.map((t) => t.toUpperCase()),
+          coverageUp
+        )
+      );
+
+    if (similarApps.length > 0) {
+      const similarTag = createElement("h2", "Related apps");
+      getHtmlElement("#list").appendChild(similarTag);
+
+      for (const a of similarApps) {
+        renderListView(a);
+      }
+    }
+  }
+}
 
 function saveAppCatalog() {
   set(`${lang}-apps`, apps);
