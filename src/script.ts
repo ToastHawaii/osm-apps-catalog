@@ -189,6 +189,12 @@ function doUpdate(newApps: App[], reset?: boolean) {
   }
 }
 
+window.addEventListener("popstate", (e) => {
+  onUpdate = true;
+  update(e.state);
+  onUpdate = false;
+});
+
 function updateState(state: State) {
   history.pushState(state, "");
 }
@@ -203,6 +209,8 @@ function update({
   coverage,
   view,
 }: State) {
+  categorySelect.set(category);
+
   let description = "";
   if (category === "all") {
     description =
@@ -227,6 +235,7 @@ function update({
 
   let filteredApps: App[] = apps.slice();
 
+  (document.getElementById("free") as HTMLInputElement).checked = freeOnly;
   if (freeOnly) {
     filteredApps = filteredApps.filter((a) => a.gratis || a.libre);
   }
@@ -286,6 +295,8 @@ function update({
       }
     }
   }
+
+  (document.getElementById("search") as HTMLInputElement).value = search;
 
   search = search.toUpperCase();
   const topicsUp = topics.map((t) => t.toUpperCase());
@@ -392,6 +403,9 @@ function update({
 
   switch (view) {
     case "list":
+      (document.getElementById("listView") as HTMLInputElement).checked = true;
+      (document.getElementById("compareView") as HTMLInputElement).checked =
+        false;
       for (const a of filteredApps) {
         renderListView(a);
       }
@@ -406,6 +420,9 @@ function update({
       break;
 
     case "compare":
+      (document.getElementById("listView") as HTMLInputElement).checked = false;
+      (document.getElementById("compareView") as HTMLInputElement).checked =
+        true;
       renderCompareView(filteredApps, lang);
       setTimeout(() => {
         lazyInitMore(true);
