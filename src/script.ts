@@ -23,7 +23,10 @@ import { render as renderListView } from "./ui/views/list";
 import { shuffle, includes, some } from "./ui/utilities/array";
 import { equalsIgnoreCase, textToColor } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
-import { findGetParameter as getParameterFromUrl } from "./ui/utilities/url";
+import {
+  findGetParameterFromHash,
+  findGetParameter as getParameterFromUrl,
+} from "./ui/utilities/url";
 import { Solver } from "./ui/utilities/coloriz/Solver";
 import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
@@ -91,6 +94,8 @@ const coverageSelect = new SlimSelect({
   }
 );
 
+const category = findGetParameterFromHash("category");
+
 const categorySelect = new SlimSelect({
   select: "#category",
   showSearch: false,
@@ -133,14 +138,28 @@ const categorySelect = new SlimSelect({
       text: "Contribute",
     },
   ].map((c) => {
-    return { ...c, selected: c.value === document.location.hash.slice(1) };
+    return { ...c, selected: c.value === category };
   }),
   onChange: () => {
     doUpdate(apps, true);
   },
 });
 
-function doUpdate(newApps: App[], reset?: boolean) {
+function doUpdate(
+  newApps: App[],
+  state?: {
+    lang:string;
+    category: string[];
+    free: boolean;
+    search: string;
+    topics: string[];
+    platforms: string[];
+    languages: string[];
+    coverage: string[];
+    view: "list" | "compare";
+  },
+  reset?: boolean
+) {
   apps = newApps;
   if (!onUpdate) {
     onUpdate = true;
@@ -174,11 +193,11 @@ function update(
   coverage: string[] = [],
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit"
 ) {
-  if (category === "all") {
-    document.location.hash = "";
-  } else {
-    document.location.hash = category;
-  }
+  // if (category === "all") {
+  //   document.location.hash = "";
+  // } else {
+  //   document.location.hash = category;
+  // }
 
   let description = "";
   if (category === "all") {
@@ -204,8 +223,8 @@ function update(
 
   let filteredApps: App[] = apps.slice();
 
-  if(freeOnly){
-    filteredApps = filteredApps.filter(a => a.gratis || a.libre)
+  if (freeOnly) {
+    filteredApps = filteredApps.filter((a) => a.gratis || a.libre);
   }
 
   if (category === "latest") {
