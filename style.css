@@ -148,7 +148,7 @@ a {
 
 #compare .params-title {
   font-weight: bold;
-  position: sticky;
+  position: sticky !important;
   left: 0;
   max-width: none !important;
   width: auto !important;
@@ -157,7 +157,7 @@ a {
 #compare .param-title {
   color: gray;
   font-size: small;
-  position: sticky;
+  position: sticky !important;
   left: 0;
   background: white;
   z-index: 1;
