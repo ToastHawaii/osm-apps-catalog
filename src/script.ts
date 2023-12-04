@@ -16,6 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { createElement, getHtmlElement } from "./ui/utilities/html";
+import { debounce } from "./ui/utilities/debounce";
 import SlimSelect from "slim-select";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { set, get } from "./ui/utilities/storage";
@@ -75,9 +76,7 @@ const coverageSelect = new SlimSelect({
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
-  () => {
-    doUpdate(apps);
-  }
+  debounce(() => doUpdate(apps), 500)
 );
 
 (document.getElementById("listView") as HTMLInputElement).addEventListener(
