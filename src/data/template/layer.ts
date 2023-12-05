@@ -19,7 +19,12 @@ import { toWikimediaUrl } from "../../ui/utilities/image";
 import { toWikiUrl, toUrl } from "../../ui/utilities/url";
 import { languageValueToDisplay } from "../../ui/language";
 import { removeDuplicates } from "../../ui/utilities/array";
-import { appendFullStop, toDate, trim } from "../../ui/utilities/string";
+import {
+  appendFullStop,
+  equalsYes,
+  toDate,
+  trim,
+} from "../../ui/utilities/string";
 import {
   App,
   processWikiText,
@@ -62,6 +67,7 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["tiles_languagesurl"]),
+    genre: [],
     topics: [],
     platform: ["Web"],
     coverage: [],
@@ -72,6 +78,15 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .join(", "),
   };
+
+  if (!equalsYes(source["notlayer"])) {
+    obj.topics.push("Tile layer");
+    obj.genre.push("Tile layer");
+  }
+  if (source["slippy_web"]) {
+    obj.topics.push("Slippy map");
+    obj.genre.push("Slippy map");
+  }
 
   obj.languages = removeDuplicates(obj.languages).sort();
   return obj;
