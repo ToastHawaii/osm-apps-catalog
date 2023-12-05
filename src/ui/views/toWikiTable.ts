@@ -66,8 +66,7 @@ ${appWithFields
   .map((app) => {
     const wiki =
       app.source.find((s) => s.name === "Software")?.wiki ||
-      app.source.find((s) => s.name === "Layer")?.wiki ||
-      app.source.find((s) => s.name === "ServiceItem")?.wiki;
+      app.source.find((s) => s.name === "Layer")?.wiki;
 
     return `! style="min-width: ${more ? 160 : 120}px" |[[${wiki || app.name}|${
       app.name || "{{?}}"
