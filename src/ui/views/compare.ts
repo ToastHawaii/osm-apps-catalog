@@ -176,6 +176,16 @@ ${
             .join(", "),
       },
       {
+        label: getLocalizedValue(templateData.params["genre"].label, lang),
+        description: getLocalizedValue(
+          templateData.params["genre"].description,
+          lang
+        ),
+        hasValue: (app) => app.genre?.length > 0,
+        renderToHtml: (app) => renderBadges(app.genre),
+        renderToWiki: (app) => app.genre?.join(", "),
+      },
+      {
         label: getLocalizedValue(
           templateData.params["description"].label,
           lang
@@ -195,7 +205,7 @@ ${
           templateData.params["platform"].description,
           lang
         ),
-        hasValue: (app) => app.platform.length > 0,
+        hasValue: (app) => app.platform?.length > 0,
         renderToHtml: (app) => renderBadges(app.platform),
         renderToWiki: (app) => app.platform.join(", "),
       },
@@ -259,7 +269,7 @@ ${
         ),
         hasValue: (app) => !!app.author,
         renderToHtml: (app) => app.author,
-        renderToWiki: (app) => app.author,
+        renderToWiki: (app) => toWikiValue(app.author),
       },
       {
         label: getLocalizedValue(templateData.params["price"].label, lang),
@@ -532,7 +542,7 @@ function renderGroup(
       );
 
       navigator.clipboard.writeText(wikiTable);
-      alert("Copied to the clipboard.");
+      alert("Copied to the clipboard as wiki format.");
     });
 
     getHtmlElement(".group", element).addEventListener("click", (e) => {

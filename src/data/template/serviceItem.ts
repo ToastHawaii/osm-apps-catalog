@@ -59,6 +59,12 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(extractWebsite(source["lang"])),
+    genre: (source["genre"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map(firstLetterToUpperCase)
+      .sort(),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)

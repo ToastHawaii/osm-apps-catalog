@@ -42,6 +42,7 @@ export type App = {
   sourceCode?: string | undefined;
   languages: string[];
   languagesUrl?: string | undefined;
+  genre: string[];
   topics: string[];
   platform: string[];
   coverage: string[];
@@ -394,7 +395,6 @@ export function toWikiText(text: string = "") {
 
   let match = regex.exec(text);
   while (match) {
-    debugger;
     if (match[1].startsWith("https://wiki.openstreetmap.org/wiki/")) {
       text = text.replace(regex, `[[${match[1].substring(36)}|${match[4]}]]`);
     } else {
