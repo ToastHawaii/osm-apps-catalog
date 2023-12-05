@@ -88,6 +88,7 @@ export async function loadApps(
         },
       ],
       description: obj.description,
+      genre: [],
       topics: [],
       languages: [],
       platform: [],
