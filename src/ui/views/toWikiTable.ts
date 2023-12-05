@@ -1,4 +1,4 @@
-import { App } from "../../data/template/utilities";
+import { App, toWikiText } from "../../data/template/utilities";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../utilities/string";
@@ -76,12 +76,12 @@ ${appWithFields
   .join("")}|-
 ${rows.join("|-\n")}|}
 </div><span style="font-size:80%">{{#switch: {{{1|{{{lang}}}}}}
-| de = Diese Tabelle wurde vom [https://osm-apps.zottelig.ch OSM App Catalog] am ${new Date()
-    .toISOString()
-    .substring(0, 10)} erstellt.
-| #default = This table was created by [https://osm-apps.zottelig.ch OSM App Catalog] at ${new Date()
-    .toISOString()
-    .substring(0, 10)}.
+| de = Diese Tabelle wurde vom [${
+    document.location.href
+  } OSM App Catalog] am ${new Date().toISOString().substring(0, 10)} erstellt.
+| #default = This table was created by [${
+    document.location.href
+  } OSM App Catalog] at ${new Date().toISOString().substring(0, 10)}.
 }}</span>`;
   return wikiTable;
 }
@@ -97,7 +97,7 @@ export function toWikiValue(value: string | string[] | undefined): string {
     } else if (equalsIgnoreCase(value, "no")) {
       return "{{no}}";
     }
-    return value;
+    return toWikiText(value);
   }
 
   return value.map((v) => toWikiValue(v)).join(", ");

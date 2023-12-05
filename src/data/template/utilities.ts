@@ -387,3 +387,22 @@ export function processWikiText(text: string = "") {
 
   return text;
 }
+
+export function toWikiText(text: string = "") {
+  const regex =
+    /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">([^\<]*)<\/a>/i;
+
+  let match = regex.exec(text);
+  while (match) {
+    debugger;
+    if (match[1].startsWith("https://wiki.openstreetmap.org/wiki/")) {
+      text = text.replace(regex, `[[${match[1].substring(36)}|${match[4]}]]`);
+    } else {
+      text = text.replace(regex, `[${match[1]} ${match[4]}]`);
+    }
+
+    match = regex.exec(text);
+  }
+
+  return text;
+}

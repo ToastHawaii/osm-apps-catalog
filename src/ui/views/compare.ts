@@ -70,7 +70,7 @@ export function render(apps: App[], lang: string) {
         hasValue: (app) => app.images.length > 0,
         renderToHtml: (app) =>
           app.website
-            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
+            ? `<a target="_blank" href="${app.website}">${renderImage(app)}</a>`
             : renderImage(app),
         renderToWiki: (app) =>
           app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
@@ -186,7 +186,7 @@ ${
         ),
         hasValue: (app) => !!app.description,
         renderToHtml: (app) => app.description,
-        renderToWiki: (app) => app.description,
+        renderToWiki: (app) => toWikiValue(app.description),
         more: true,
       },
       {
@@ -290,7 +290,7 @@ ${
         hasValue: (app) => !!app.sourceCode,
         renderToHtml: (app) =>
           app.sourceCode
-            ? `<a href="${app.sourceCode}" target="_blank"><i class="fas fa-code"></i></a>`
+            ? `<a target="_blank" href="${app.sourceCode}"><i class="fas fa-code"></i></a>`
             : "",
         renderToWiki: (app) =>
           app.sourceCode ? `[${app.sourceCode} </>]` : "",
@@ -305,7 +305,7 @@ ${
         renderToHtml: (app) =>
           app.source
             .map(
-              (s) => `<a href="${s.url}" target="_blank">${s.displayName}</a>`
+              (s) => `<a target="_blank" href="${s.url}">${s.displayName}</a>`
             )
             .join(", "),
       },
@@ -519,21 +519,21 @@ function renderGroup(
       "div",
       `<div class="cell header params-title params-group-title">
         <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-fw fa-caret-down ${id}-detail"></i><i class="fas fa-fw fa-caret-right ${id}-detail hidden"></i> ${display}</a>
-     <!--<a class="export" href="#"><i class="far fa-copy"></i></a>--> </div>`,
+        <a class="export" href="#"><i class="far fa-copy"></i></a> </div>`,
       ["row"]
     );
 
-    // getHtmlElement(".export", element).addEventListener("click", (e) => {
-    //   e.preventDefault();
-    //   const wikiTable = toWikiTable(
-    //     apps,
-    //     extendedParams.filter((p) => !!p.renderToWiki) as any,
-    //     lang
-    //   );
+    getHtmlElement(".export", element).addEventListener("click", (e) => {
+      e.preventDefault();
+      const wikiTable = toWikiTable(
+        apps,
+        extendedParams.filter((p) => !!p.renderToWiki) as any,
+        lang
+      );
 
-    //   navigator.clipboard.writeText(wikiTable);
-    //   alert("Copied to the clipboard.");
-    // });
+      navigator.clipboard.writeText(wikiTable);
+      alert("Copied to the clipboard.");
+    });
 
     getHtmlElement(".group", element).addEventListener("click", (e) => {
       document
