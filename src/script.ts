@@ -221,14 +221,19 @@ function updateState(state: State) {
     state,
     "",
     "?" +
-      new URLSearchParams({
-        ...state,
-        freeOnly: state.freeOnly ? "1" : "0",
-        topics: state.topics.join(","),
-        platforms: state.platforms.join(","),
-        languages: state.languages.join(","),
-        coverage: state.coverage.join(","),
-      }).toString()
+      new URLSearchParams(
+        [
+          ["lang", state.lang === "en" ? "" : state.lang],
+          ["freeOnly", state.freeOnly ? "1" : ""],
+          ["category", state.category === "all" ? "" : state.category],
+          ["search", state.search],
+          ["topics", state.topics.join(",")],
+          ["platforms", state.platforms.join(",")],
+          ["languages", state.languages.join(",")],
+          ["coverage", state.coverage.join(",")],
+          ["view", state.view === "list" ? "" : state.view],
+        ].filter((pair) => pair[1])
+      ).toString()
   );
 }
 
