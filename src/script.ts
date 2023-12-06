@@ -407,10 +407,19 @@ function update({
     filteredApps = categoriedApps;
   }
 
-  const topicsData: string[] = [];
-  const platformsData: string[] = [];
-  const languagesData: string[] = [];
-  const coverageData: string[] = [];
+  const params = new URLSearchParams(location.search);
+  const topicsData: string[] = params.get("topics")
+    ? params.get("topics")?.split(",") || []
+    : [];
+  const platformsData: string[] = params.get("platforms")
+    ? params.get("platforms")?.split(",") || []
+    : [];
+  const languagesData: string[] = params.get("languages")
+    ? params.get("languages")?.split(",") || []
+    : [];
+  const coverageData: string[] = params.get("coverage")
+    ? params.get("coverage")?.split(",") || []
+    : [];
 
   for (const a of filteredApps) {
     topicsData.push(...a.topics.map((t) => t));
