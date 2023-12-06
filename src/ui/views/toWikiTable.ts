@@ -23,8 +23,14 @@ export function toWikiTable(
   }[],
   lang: string
 ) {
-  const more = params.some((p) => p.more);
+  // Filter params with none values or all no
+  params = params
+    .filter((p) =>
+      apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))
+    )
+    .filter((e) => e);
 
+  const more = params.some((p) => p.more);
   const appWithFields = apps
     .filter((app) => params.some((p) => p.hasValue(app)))
     .sort((a, b) => {
@@ -40,23 +46,13 @@ export function toWikiTable(
       return 0;
     });
 
-  let rows = params
-    .map((p) => {
-      if (
-        !appWithFields.some(
-          (app) => p.hasValue(app) && (!p.notNo || p.notNo(app))
-        )
-      ) {
-        return undefined;
-      }
-
-      return `! title="${p.description}" |${p.label}
+  let rows = params.map((p) => {
+    return `! title="${p.description}" |${p.label}
 ${appWithFields.map((app) => `|${p.renderToWiki(app) || ""}\n`).join("")}`;
-    })
-    .filter((e) => e);
+  });
 
   const wikiTable = `<div style="overflow-x:auto;max-width:100%">
-{| class="wikitable sticky" style="font-size: 85%; text-align: center;"
+{| class="wikitable sticky" style="font-size: 85%; text-align: center; margin-bottom: 0;"
 |+
 ! title="${getLocalizedValue(
     templateData.params["name"].description,
