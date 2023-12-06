@@ -277,7 +277,7 @@ ${
         ),
         hasValue: (app) => !!app.price,
         renderToHtml: (app) => app.price,
-        renderToWiki: (app) => app.price,
+        renderToWiki: (app) => (app.gratis ? `{{free|{{TranslationOf gratis|{{{lang|}}}}}}}` : ""),
       },
       {
         label: getLocalizedValue(templateData.params["license"].label, lang),
@@ -287,7 +287,7 @@ ${
         ),
         hasValue: (app) => !!app.license,
         renderToHtml: (app) => renderBadges(app.license),
-        renderToWiki: (app) => app.license,
+        renderToWiki: (app) => (app.gratis ? `{{free|${app.license}}}` : ""),
       },
       {
         label: getLocalizedValue(templateData.params["repo"].label, lang),
