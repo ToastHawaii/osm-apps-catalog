@@ -32,7 +32,7 @@ export function toWikiTable(
 
   const more = params.some((p) => p.more);
   const appWithFields = apps
-    .filter((app) => params.some((p) => p.hasValue(app)))
+    .filter((app) => params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app))))
     .sort((a, b) => {
       const nameA = a.name.toUpperCase() || "";
       const nameB = b.name.toUpperCase() || "";
