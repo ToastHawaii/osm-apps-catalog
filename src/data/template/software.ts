@@ -135,7 +135,7 @@ export function transform(source: { [name: string]: string }) {
     tracking: {
       tracking: toValues(source["tracking"]),
       customInterval: toValues(source["customInterval"]),
-      trackFormats: toValues(source["trackFormats"]),
+      trackFormats: toValues(source["trackFormats"] || source["formats"]),
       geotagging: toValues(source["geotagging"]),
       fastWayPointAdding: toValues(source["fastWayPointAdding"]),
       uploadGPX: toValues(source["uploadGPX"]),
