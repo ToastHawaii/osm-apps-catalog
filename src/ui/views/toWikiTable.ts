@@ -70,14 +70,14 @@ ${appWithFields
   })
   .join("")}|-
 ${rows.join("|-\n")}|}
-</div><span style="font-size:80%">{{#switch: {{{1|{{{lang}}}}}}
+</div><p style="font-size:80%">{{#switch: {{{1|{{{lang}}}}}}
 | de = Diese Tabelle wurde vom [${
     document.location.href
   } OSM Apps Catalog] am ${new Date().toISOString().substring(0, 10)} erstellt.
 | #default = This table was created by [${
     document.location.href
   } OSM Apps Catalog] at ${new Date().toISOString().substring(0, 10)}.
-}}</span>`;
+}}</p>`;
   return wikiTable;
 }
 
