@@ -541,8 +541,9 @@ function renderGroup(
         lang
       );
 
-      navigator.clipboard.writeText(wikiTable);
-      alert("Copied to the clipboard as wiki format.");
+      navigator.clipboard.writeText(`=== ${display} ===
+${wikiTable}`);
+      alert("Copied ${display} table to the clipboard as wiki format.");
     });
 
     getHtmlElement(".group", element).addEventListener("click", (e) => {
