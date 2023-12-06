@@ -241,13 +241,11 @@ ${
             : renderBadges(app.languages),
         renderToWiki: (app) =>
           app.languagesUrl
-            ? `[${app.languagesUrl} 
-        ${
-          app.languages.length > 0
-            ? app.languages.join(", ")
-            : languageValueToDisplay("mul")
-        }
-      ]`
+            ? `[${app.languagesUrl}${
+                app.languages.length > 0
+                  ? app.languages.join(", ")
+                  : languageValueToDisplay("mul")
+              }]`
             : app.languages.join(", "),
         more: true,
       },

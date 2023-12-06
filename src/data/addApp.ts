@@ -110,7 +110,6 @@ function merge<T extends { [name: string]: string[] }>(
     return o2;
   }
   if (o1 && o2) {
-    debugger;
     const keys = Object.keys(o1);
     keys.push(...Object.keys(o2));
     keys.forEach((k) => {
@@ -121,7 +120,7 @@ function merge<T extends { [name: string]: string[] }>(
         o1[k] = o2[k];
       }
 
-      o1[k].push(o2[k]);
+      o1[k].push(...o2[k]);
     });
     return o1;
   }

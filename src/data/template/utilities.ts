@@ -391,7 +391,7 @@ export function processWikiText(text: string = "") {
 
 export function toWikiText(text: string = "") {
   const regex =
-    /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">([^\<]*)<\/a>/i;
+    /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))">([^\<]*)<\/a>/i;
 
   let match = regex.exec(text);
   while (match) {
