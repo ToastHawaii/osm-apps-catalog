@@ -118,9 +118,11 @@ function merge<T extends { [name: string]: string[] }>(
       }
       if (!o1[k] && o2[k]) {
         o1[k] = o2[k];
+        return
       }
 
       o1[k].push(...o2[k]);
+      o1[k] = removeDuplicates(o1[k]);
     });
     return o1;
   }
