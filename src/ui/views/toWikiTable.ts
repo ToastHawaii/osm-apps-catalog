@@ -57,7 +57,14 @@ export function toWikiTable(
 
   let rows = params.map((p) => {
     return `! title="${p.description}" |${p.label}
-${appWithFields.map((app) => `|${p.renderToWiki(app) || ""}\n`).join("")}`;
+${appWithFields
+  .map((app) => {
+    const value = p.renderToWiki(app) || "";
+    return `| title="${p.label}" ${
+      value.startsWith("{{no") || value.startsWith("{{yes") ? "" : "|"
+    } ${value}\n`;
+  })
+  .join("")}`;
   });
 
   const wikiTable = `<div style="overflow-x:auto;max-width:100%">
