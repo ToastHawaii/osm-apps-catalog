@@ -5,7 +5,14 @@ import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 
 function isUnknown(value: string | string[] | undefined): value is undefined {
   if (Array.isArray(value)) {
-    return value.length === 0;
+    if (value.length === 0) {
+      return false;
+    } else if (value.length === 2) {
+      return (
+        equalsIgnoreCase(value[0], "yes") && equalsIgnoreCase(value[1], "no")
+      );
+    }
+    return true;
   }
 
   return !value;
@@ -32,7 +39,9 @@ export function toWikiTable(
 
   const more = params.some((p) => p.more);
   const appWithFields = apps
-    .filter((app) => params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app))))
+    .filter((app) =>
+      params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app)))
+    )
     .sort((a, b) => {
       const nameA = a.name.toUpperCase() || "";
       const nameB = b.name.toUpperCase() || "";
