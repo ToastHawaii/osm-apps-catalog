@@ -6,13 +6,13 @@ import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 function isUnknown(value: string | string[] | undefined): value is undefined {
   if (Array.isArray(value)) {
     if (value.length === 0) {
-      return false;
+      return true;
     } else if (value.length === 2) {
       return (
         equalsIgnoreCase(value[0], "yes") && equalsIgnoreCase(value[1], "no")
       );
     }
-    return true;
+    return false;
   }
 
   return !value;
