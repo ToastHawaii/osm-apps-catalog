@@ -643,6 +643,8 @@ async function getAppCatalog() {
 
     saveAppCatalog();
   }
+
+  getHtmlElement("#loading").remove();
 }
 
 export function extendFilter(app: App) {
