@@ -7,6 +7,7 @@ import { equalsIgnoreCase, equalsYes } from "../ui/utilities/string";
 import { App, containsOfflineLink } from "./template/utilities";
 import { apps } from "../script";
 import { addApp } from "./addApp";
+import { toUrl } from "../ui/utilities/url";
 
 export async function loadApps(
   doUpdate: (apps: App[]) => void,
@@ -47,7 +48,16 @@ export async function loadApps(
       !containsOfflineLink(s["name"]) &&
       !containsOfflineLink(s["web"]) &&
       !equalsIgnoreCase(s["status"], "unfinished") &&
-      !equalsIgnoreCase(s["status"], "unmaintained") &&
+      (!equalsIgnoreCase(s["status"], "unmaintained") ||
+        // No longer maintained but can still be installed.
+        toUrl(s["web"]) ||
+        s["asin"] ||
+        s["fDroidID"] ||
+        s["googlePlayID"] ||
+        s["huaweiAppGalleryID"] ||
+        s["appleStoreID"] ||
+        s["macAppStoreID"] ||
+        s["microsoftAppID"]) &&
       !equalsIgnoreCase(s["status"], "broken")
   )) {
     const obj: App = transformSoftware(source);
