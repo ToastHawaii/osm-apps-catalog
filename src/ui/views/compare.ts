@@ -183,7 +183,7 @@ ${
         ),
         hasValue: (app) => app.genre?.length > 0,
         renderToHtml: (app) => renderBadges(app.genre),
-        renderToWiki: (app) => app.genre?.join(", "),
+        renderToWiki: (app) => toWikiValue(app.genre?.join(", ")),
       },
       {
         label: getLocalizedValue(
@@ -207,7 +207,7 @@ ${
         ),
         hasValue: (app) => app.platform?.length > 0,
         renderToHtml: (app) => renderBadges(app.platform),
-        renderToWiki: (app) => app.platform.join(", "),
+        renderToWiki: (app) => toWikiValue(app.platform.join(", ")),
       },
       {
         label: getLocalizedValue(templateData.params["date"].label, lang),
@@ -226,13 +226,15 @@ ${
             ? ` <span class="warning">(<i class="fas fa-exclamation-triangle"></i> Unmaintained)</span>`
             : ""),
         renderToWiki: (app) =>
-          (app.unmaintained ? `style="background-color: #ffc680" | ` : "") +
-          (app.lastRelease
-            ? app.lastRelease
-            : app.unmaintained
-            ? "????-??-??"
-            : "") +
-          (app.unmaintained ? ` (Unmaintained)` : ""),
+          toWikiValue(
+            (app.unmaintained ? `style="background-color: #ffc680" | ` : "") +
+              (app.lastRelease
+                ? app.lastRelease
+                : app.unmaintained
+                ? "????-??-??"
+                : "") +
+              (app.unmaintained ? ` (Unmaintained)` : "")
+          ),
       },
       {
         label: getLocalizedValue(templateData.params["languages"].label, lang),
@@ -255,13 +257,15 @@ ${
     </a>`
             : renderBadges(app.languages),
         renderToWiki: (app) =>
-          app.languagesUrl
-            ? `[${app.languagesUrl}${
-                app.languages.length > 0
-                  ? app.languages.join(", ")
-                  : languageValueToDisplay("mul")
-              }]`
-            : app.languages.join(", "),
+          toWikiValue(
+            app.languagesUrl
+              ? `[${app.languagesUrl}${
+                  app.languages.length > 0
+                    ? app.languages.join(", ")
+                    : languageValueToDisplay("mul")
+                }]`
+              : app.languages.join(", ")
+          ),
         more: true,
       },
       {
@@ -272,7 +276,7 @@ ${
         ),
         hasValue: (app) => !!(app.coverage && app.coverage.length),
         renderToHtml: (app) => app.coverage[app.coverage.length - 1],
-        renderToWiki: (app) => app.coverage[app.coverage.length - 1],
+        renderToWiki: (app) =>  toWikiValue(app.coverage[app.coverage.length - 1]),
       },
       {
         label: getLocalizedValue(templateData.params["author"].label, lang),
@@ -292,10 +296,10 @@ ${
         ),
         hasValue: (app) => !!app.price,
         renderToHtml: (app) => app.price,
-        renderToWiki: (app) =>
+        renderToWiki: (app) => toWikiValue(
           app.gratis
             ? `{{free|{{TranslationOf gratis|{{{lang|}}}}}}}`
-            : app.price,
+            : app.price),
       },
       {
         label: getLocalizedValue(templateData.params["license"].label, lang),
@@ -305,8 +309,8 @@ ${
         ),
         hasValue: (app) => !!app.license,
         renderToHtml: (app) => renderBadges(app.license),
-        renderToWiki: (app) =>
-          app.libre ? `{{free|${app.license || unknown()}}}` : app.license,
+        renderToWiki: (app) => toWikiValue(
+          app.libre ? `{{free|${app.license || unknown()}}}` : app.license),
       },
       {
         label: getLocalizedValue(templateData.params["repo"].label, lang),
@@ -319,8 +323,8 @@ ${
           app.sourceCode
             ? `<a target="_blank" href="${app.sourceCode}"><i class="fas fa-code"></i></a>`
             : "",
-        renderToWiki: (app) =>
-          app.sourceCode ? `[${app.sourceCode} </>]` : "",
+        renderToWiki: (app) => toWikiValue(
+          app.sourceCode ? `[${app.sourceCode} </>]` : ""),
       },
       {
         label: getLocalizedValue("Source", lang),
