@@ -19,6 +19,7 @@ import { toWikiUrl } from "../../ui/utilities/url";
 
 export type App = {
   name: string;
+  unmaintained?: boolean;
   lastRelease?: string;
   description: string;
   images: string[];

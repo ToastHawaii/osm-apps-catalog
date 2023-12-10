@@ -20,6 +20,8 @@ export function addApp(obj: App) {
       app.lastRelease = obj.lastRelease;
     else app.lastRelease = app.lastRelease || obj.lastRelease;
 
+    app.unmaintained = app.unmaintained || obj.unmaintained;
+
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
     app.images = removeDuplicates(app.images);

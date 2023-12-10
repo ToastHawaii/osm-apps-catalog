@@ -26,6 +26,7 @@ import {
   firstLetterToUpperCase,
   toDate,
   equalsYes,
+  equalsIgnoreCase,
 } from "../../ui/utilities/string";
 import {
   App,
@@ -38,6 +39,7 @@ import {
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
+    unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: [

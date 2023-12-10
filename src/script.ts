@@ -644,6 +644,8 @@ async function getAppCatalog() {
 
       saveAppCatalog();
     }
+  } catch (e) {
+    alert(e);
   } finally {
     getHtmlElement("#loading").remove();
   }
