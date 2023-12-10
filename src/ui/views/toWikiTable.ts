@@ -61,7 +61,12 @@ ${appWithFields
   .map((app) => {
     const value = p.renderToWiki(app) || "";
     return `| title="${p.label}" ${
-      value.startsWith("{{no") || value.startsWith("{{yes") ? "" : "|"
+      value.startsWith("{{no") ||
+      value.startsWith("{{yes") ||
+      value.startsWith("{{free") ||
+      value.startsWith("style=")
+        ? ""
+        : "|"
     } ${value}\n`;
   })
   .join("")}`;

@@ -94,6 +94,10 @@ a {
   z-index: 1000;
 }
 
+.warning {
+  color: #ffc680;
+}
+
 #content {
   overflow-x: auto;
   overflow-y: visible;

@@ -26,8 +26,8 @@ export function render(app: App) {
     `<div class="header">
       
       <div class="with-corner-badge">${
-      app.gratis || app.libre
-        ? `<div class="corner-badge">
+        app.gratis || app.libre
+          ? `<div class="corner-badge">
         <span title="Free"><i class="fas fa-fw fa-gift"></i></span>
         ${
           app.libre
@@ -37,8 +37,8 @@ export function render(app: App) {
             : ""
         }
       </div>`
-        : ""
-    }<strong>${
+          : ""
+      }<strong>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
@@ -118,9 +118,15 @@ export function render(app: App) {
             : ""
         }
         ${
-          app.lastRelease
+          app.lastRelease || app.unmaintained
             ? `<div class="more-info">
-          <span class="more-info-title">Last release</span> <span class="more-info-text">${app.lastRelease}</span>
+          <span class="more-info-title">Last release</span> <span class="more-info-text">${
+            app.lastRelease ? app.lastRelease : "????-??-??"
+          }${
+                app.unmaintained
+                  ? ` <span class="warning">(<i class="fas fa-exclamation-triangle"></i> Unmaintained)</span>`
+                  : ""
+              }</span>
         </div>`
             : ""
         }
