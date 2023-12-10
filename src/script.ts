@@ -553,9 +553,17 @@ function renderSimilarApps(
 }
 
 function saveAppCatalog() {
-  set(`${lang}-apps`, apps);
-  set(`${lang}-apps-date`, new Date());
-  console.info("add catalog to cache");
+  try {
+    set(`${lang}-apps`, apps);
+    set(`${lang}-apps-date`, new Date());
+  } catch (e) {
+    // Error occurs, perhaps the local storage is full. Clear and try again.
+    localStorage.clear();
+    set(`${lang}-apps`, apps);
+    set(`${lang}-apps-date`, new Date());
+  }
+  console.info("added catalog to cache");
+
   //printJsonLd();
 }
 
@@ -621,34 +629,30 @@ function printJsonLd() {
 }
 
 async function getAppCatalog() {
-  try {
-    const date = get<Date>(`${lang}-apps-date`);
+  const date = get<Date>(`${lang}-apps-date`);
 
-    const day = 24 * 60 * 60 * 1000;
+  const day = 24 * 60 * 60 * 1000;
 
-    if (date && new Date(date).valueOf() > Date.now() - day) {
-      console.info("get catalog from cache");
+  if (date && new Date(date).valueOf() > Date.now() - day) {
+    console.info("get catalog from cache");
 
-      apps = get(`${lang}-apps`) || [];
+    apps = get(`${lang}-apps`) || [];
 
-      doUpdate(apps);
-    }
-
-    if (apps.length === 0) {
-      console.info("load catalog from wiki");
-
-      if (lang !== "en") await loadApps(doUpdate, lang);
-      await loadApps(doUpdate);
-
-      shuffle(apps);
-
-      saveAppCatalog();
-    }
-  } catch (e) {
-    alert(e);
-  } finally {
-    getHtmlElement("#loading").remove();
+    doUpdate(apps);
   }
+
+  if (apps.length === 0) {
+    console.info("load catalog from wiki");
+
+    if (lang !== "en") await loadApps(doUpdate, lang);
+    await loadApps(doUpdate);
+
+    shuffle(apps);
+
+    saveAppCatalog();
+  }
+
+  getHtmlElement("#loading").remove();
 }
 
 export function extendFilter(app: App) {

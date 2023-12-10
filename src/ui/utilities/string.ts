@@ -32,7 +32,7 @@ export function startsWithIgnoreCase(
   searchString: string,
   position?: number
 ) {
-  return s.toUpperCase().startsWith(searchString.toUpperCase(), position);
+  return s?.toUpperCase().startsWith(searchString.toUpperCase(), position);
 }
 
 export function findClosingBracketIndex(str: string, pos: number) {
