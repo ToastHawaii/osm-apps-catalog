@@ -621,30 +621,32 @@ function printJsonLd() {
 }
 
 async function getAppCatalog() {
-  const date = get<Date>(`${lang}-apps-date`);
+  try {
+    const date = get<Date>(`${lang}-apps-date`);
 
-  const day = 24 * 60 * 60 * 1000;
+    const day = 24 * 60 * 60 * 1000;
 
-  if (date && new Date(date).valueOf() > Date.now() - day) {
-    console.info("get catalog from cache");
+    if (date && new Date(date).valueOf() > Date.now() - day) {
+      console.info("get catalog from cache");
 
-    apps = get(`${lang}-apps`) || [];
+      apps = get(`${lang}-apps`) || [];
 
-    doUpdate(apps);
+      doUpdate(apps);
+    }
+
+    if (apps.length === 0) {
+      console.info("load catalog from wiki");
+
+      if (lang !== "en") await loadApps(doUpdate, lang);
+      await loadApps(doUpdate);
+
+      shuffle(apps);
+
+      saveAppCatalog();
+    }
+  } finally {
+    getHtmlElement("#loading").remove();
   }
-
-  if (apps.length === 0) {
-    console.info("load catalog from wiki");
-
-    if (lang !== "en") await loadApps(doUpdate, lang);
-    await loadApps(doUpdate);
-
-    shuffle(apps);
-
-    saveAppCatalog();
-  }
-
-  getHtmlElement("#loading").remove();
 }
 
 export function extendFilter(app: App) {
