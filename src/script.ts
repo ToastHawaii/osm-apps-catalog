@@ -134,8 +134,8 @@ const categorySelect = new SlimSelect({
       text: "Contribute",
     },
   ],
-  onChange: () => {
-    doUpdate(apps, true);
+  onChange: (i) => {
+    doUpdate(apps, i.value === "focus");
   },
 });
 
@@ -249,24 +249,7 @@ function update({
 }: State) {
   categorySelect.set(category);
 
-  let description = "";
-  if (category === "all") {
-    description =
-      "Shows all apps found on the OpenStreetMap wiki and taginfo in random order.";
-  } else if (category === "focus") {
-    description = "Shows ten apps from the most recently updated pages.";
-  } else if (category === "latest") {
-    description = "Shows all apps ordered by last release date.";
-  } else if (category === "mobile") {
-    description =
-      "Shows apps developed for mobile devices or that support offline use.";
-  } else if (category === "navigation") {
-    description = "Shows apps that support routing or navigation.";
-  } else if (category === "edit") {
-    description =
-      "Shows apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.";
-  }
-  getHtmlElement(".description").innerHTML = description;
+  updateDescription(category);
 
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
@@ -412,6 +395,8 @@ function update({
     filteredApps = categoriedApps;
   }
 
+  updateDescription(category, filteredApps.length);
+
   const params = new URLSearchParams(location.search);
   const topicsData: string[] = params.get("topics")
     ? params.get("topics")?.split(",") || []
@@ -485,8 +470,36 @@ function update({
   }, 0);
 }
 
+function updateDescription(category: string, numberOfApps?: number) {
+  let description = "";
+  if (category === "all") {
+    description = `Shows all ${
+      numberOfApps || ""
+    } apps found on the OpenStreetMap wiki and taginfo in random order.`;
+  } else if (category === "focus") {
+    description = "Shows ten apps from the most recently updated pages.";
+  } else if (category === "latest") {
+    description = `Shows all ${
+      numberOfApps || ""
+    } apps ordered by last release date.`;
+  } else if (category === "mobile") {
+    description = `Shows all ${
+      numberOfApps || ""
+    } apps developed for mobile devices or that support offline use.`;
+  } else if (category === "navigation") {
+    description = `Shows all ${
+      numberOfApps || ""
+    } apps that support routing or navigation.`;
+  } else if (category === "edit") {
+    description = `Shows all ${
+      numberOfApps || ""
+    } apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.`;
+  }
+  getHtmlElement(".description").innerHTML = description;
+}
+
 function renderSimilarApps(
-  apps: App[],
+  filteredApps: App[],
   search: string,
   topicsUp: string[],
   platformsUp: string[],
@@ -494,7 +507,7 @@ function renderSimilarApps(
   coverageUp: string[]
 ) {
   if (topicsUp.length > 0) {
-    let similarApps = apps.filter((a) => !apps.includes(a));
+    let similarApps = apps.filter((a) => !filteredApps.includes(a));
 
     similarApps = similarApps.filter((a) =>
       topicsUp.every(
@@ -535,14 +548,17 @@ function renderSimilarApps(
 
     if (coverageUp.length > 0)
       similarApps = similarApps.filter((a) =>
-        includes(
+        some(
           a.coverage.map((t) => t.toUpperCase()),
           coverageUp
         )
       );
 
     if (similarApps.length > 0) {
-      const similarTag = createElement("h2", "Related apps");
+      const similarTag = createElement(
+        "h2",
+        `${similarApps.length} related apps`
+      );
       getHtmlElement("#list").appendChild(similarTag);
 
       for (const a of similarApps) {
@@ -633,7 +649,10 @@ async function getAppCatalog() {
 
   const day = 24 * 60 * 60 * 1000;
 
-  if (date && new Date(date).valueOf() > Date.now() - day) {
+  if (
+    (date && new Date(date).valueOf() > Date.now() - day) ||
+    !window.navigator.onLine
+  ) {
     console.info("get catalog from cache");
 
     apps = get(`${lang}-apps`) || [];
@@ -644,7 +663,9 @@ async function getAppCatalog() {
   if (apps.length === 0) {
     console.info("load catalog from wiki");
 
-    if (lang !== "en") await loadApps(doUpdate, lang);
+    if (lang !== "en") {
+      await loadApps(doUpdate, lang);
+    }
     await loadApps(doUpdate);
 
     shuffle(apps);
