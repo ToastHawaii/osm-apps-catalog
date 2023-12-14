@@ -135,6 +135,9 @@ const categorySelect = new SlimSelect({
     },
   ],
   onChange: (i) => {
+    document
+      .querySelectorAll(".filter")
+      .forEach((e) => e.classList.toggle("hidden", i.value === "focus"));
     doUpdate(apps, i.value === "focus");
   },
 });
@@ -473,25 +476,25 @@ function update({
 function updateDescription(category: string, numberOfApps?: number) {
   let description = "";
   if (category === "all") {
-    description = `Shows all ${
+    description = `Shows ${
       numberOfApps || ""
     } apps found on the OpenStreetMap wiki and taginfo in random order.`;
   } else if (category === "focus") {
     description = "Shows ten apps from the most recently updated pages.";
   } else if (category === "latest") {
-    description = `Shows all ${
+    description = `Shows ${
       numberOfApps || ""
     } apps ordered by last release date.`;
   } else if (category === "mobile") {
-    description = `Shows all ${
+    description = `Shows ${
       numberOfApps || ""
     } apps developed for mobile devices or that support offline use.`;
   } else if (category === "navigation") {
-    description = `Shows all ${
+    description = `Shows ${
       numberOfApps || ""
     } apps that support routing or navigation.`;
   } else if (category === "edit") {
-    description = `Shows all ${
+    description = `Shows ${
       numberOfApps || ""
     } apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.`;
   }
