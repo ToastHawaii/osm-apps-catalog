@@ -84,6 +84,7 @@ export function textToColor(s: string) {
     case "YES":
       return { r: 153, g: 255, b: 153 };
     case "NO":
+    case "NONE":
       return { r: 255, g: 153, b: 153 };
   }
 

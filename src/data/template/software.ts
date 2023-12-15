@@ -327,7 +327,13 @@ export function transform(source: { [name: string]: string }) {
 
 function hasValue(value: string = "") {
   value = value.toUpperCase();
-  return value && value !== "YES" && value !== "NO" && value !== "?";
+  return (
+    value &&
+    value !== "YES" &&
+    value !== "NO" &&
+    value !== "NONE" &&
+    value !== "?"
+  );
 }
 
 function toValues(value: string = "") {

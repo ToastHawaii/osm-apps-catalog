@@ -85,9 +85,9 @@ ${appWithFields
       app.source.find((s) => s.name === "Software")?.wiki ||
       app.source.find((s) => s.name === "Layer")?.wiki;
 
-    return `! style="min-width: ${more ? 160 : 120}px" |[[${wiki || app.name}|${
-      app.name || "{{?}}"
-    }]]\n`;
+    return `! style="min-width: ${more ? 160 : 120}px" |[[${toWikiValue(
+      wiki || app.name
+    )}|${toWikiValue(app.name)}]]\n`;
   })
   .join("")}|-
 ${rows.join("|-\n")}|}
@@ -114,6 +114,8 @@ export function toWikiValue(value: string | string[] | undefined): string {
       return "{{yes}}";
     } else if (equalsIgnoreCase(value, "no")) {
       return "{{no}}";
+    } else if (equalsIgnoreCase(value, "none")) {
+      return "{{no|none}}";
     }
     return toWikiText(value);
   }
