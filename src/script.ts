@@ -444,6 +444,11 @@ function update({
       for (const a of filteredApps) {
         renderListView(a);
       }
+      if (filteredApps.length === 0) {
+        getHtmlElement("#list").appendChild(
+          createElement("div", "No results", ["no-results"])
+        );
+      }
       renderSimilarApps(
         filteredApps,
         search,
@@ -458,6 +463,11 @@ function update({
       (document.getElementById("listView") as HTMLInputElement).checked = false;
       (document.getElementById("compareView") as HTMLInputElement).checked =
         true;
+      if (filteredApps.length === 0) {
+        getHtmlElement("#compare").appendChild(
+          createElement("div", "No results", ["no-results"])
+        );
+      }
       renderCompareView(filteredApps, lang);
       setTimeout(() => {
         lazyInitMore(true);

@@ -329,6 +329,12 @@ a {
   color: lightgray;
 }
 
+.no-results {
+  color: lightgray;
+  text-align: center;
+  width: 100vw;
+}
+
 .hidden {
   display: none;
 }
