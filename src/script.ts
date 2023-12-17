@@ -454,7 +454,7 @@ function update({
       }
       if (filteredApps.length === 0) {
         getHtmlElement("#list").appendChild(
-          createElement("div", "No results", ["no-results"])
+          createElement("div", i18next.t("noResults"), ["no-results"])
         );
       }
       renderSimilarApps(
@@ -473,7 +473,7 @@ function update({
         true;
       if (filteredApps.length === 0) {
         getHtmlElement("#compare").appendChild(
-          createElement("div", "No results", ["no-results"])
+          createElement("div", i18next.t("noResults"), ["no-results"])
         );
       }
       renderCompareView(filteredApps, lang);
@@ -492,31 +492,10 @@ function update({
 }
 
 function updateDescription(category: string, numberOfApps?: number) {
-  let description = "";
-  if (category === "all") {
-    description = `Shows ${
-      numberOfApps || ""
-    } apps found on the OpenStreetMap wiki and taginfo in random order.`;
-  } else if (category === "focus") {
-    description = "Shows ten apps from the most recently updated pages.";
-  } else if (category === "latest") {
-    description = `Shows ${
-      numberOfApps || ""
-    } apps ordered by last release date.`;
-  } else if (category === "mobile") {
-    description = `Shows ${
-      numberOfApps || ""
-    } apps developed for mobile devices or that support offline use.`;
-  } else if (category === "navigation") {
-    description = `Shows ${
-      numberOfApps || ""
-    } apps that support routing or navigation.`;
-  } else if (category === "edit") {
-    description = `Shows ${
-      numberOfApps || ""
-    } apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.`;
-  }
-  getHtmlElement(".description").innerHTML = description;
+  getHtmlElement(".description").innerHTML = i18next.t(
+    `category.${category}.description`,
+    { numberOfApps: numberOfApps || "" }
+  );
 }
 
 function renderSimilarApps(
@@ -578,7 +557,7 @@ function renderSimilarApps(
     if (similarApps.length > 0) {
       const similarTag = createElement(
         "h2",
-        `${similarApps.length} related apps`
+        i18next.t("relatedApps", { numberOfApps: similarApps.length })
       );
       getHtmlElement("#list").appendChild(similarTag);
 

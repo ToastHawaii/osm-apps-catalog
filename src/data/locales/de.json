@@ -1,6 +1,7 @@
 {
-    "about.translations.header": "Kannst du eine andere Sprache sprechen?",
-    "proprietary": "Proprietär",
-    "compare.group.header.general": "Allgemein",
-    "libre": "Frei"
+  "about.translations.header": "Kannst du eine andere Sprache sprechen?",
+  "proprietary": "Proprietär",
+  "compare.group.header.general": "Allgemein",
+  "libre": "Frei",
+  "wiki.generatedByOsmAppsCatalog": "Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert."
 }
