@@ -93,27 +93,27 @@ export function render(apps: App[], lang: string) {
           ),
         renderToHtml: (app) => `${
           app.website
-            ? `<a class="download" href="${app.website}" target="_blank" title="Website"><i class="far fa-map"></i></a>`
+            ? `<a class="download" href="${app.website}" title="Website"><i class="far fa-map"></i></a>`
             : ""
         }
 ${
   app.install.asin
-    ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" target="_blank" title="Amazon Appstore" ><i class="fab fa-amazon"></i></a>`
+    ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" title="Amazon Appstore" ><i class="fab fa-amazon"></i></a>`
     : ""
 }
 ${
   app.install.fDroidID
-    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" target="_blank" title="F-Droid" ><i class="fab fa-android"></i></a>`
+    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" title="F-Droid" ><i class="fab fa-android"></i></a>`
     : ""
 }
 ${
   app.install.googlePlayID
-    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" target="_blank" title="Google Play" ><i class="fab fa-google-play"></i></a>`
+    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" title="Google Play" ><i class="fab fa-google-play"></i></a>`
     : ""
 }
 ${
   app.install.huaweiAppGalleryID
-    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" target="_blank" title="Huawei App Gallery" ><i class="fas fa-shopping-bag"></i></a>`
+    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" title="Huawei App Gallery" ><i class="fas fa-shopping-bag"></i></a>`
     : ""
 }
 ${
@@ -122,7 +122,7 @@ ${
         app.install.appleStoreID.toUpperCase().startsWith("ID")
           ? app.install.appleStoreID
           : `id${app.install.appleStoreID}`
-      }" target="_blank" title="App Store"><i class="fab fa-app-store-ios"></i></a>`
+      }" title="App Store"><i class="fab fa-app-store-ios"></i></a>`
     : ""
 }
 ${
@@ -131,12 +131,12 @@ ${
         app.install.macAppStoreID.toUpperCase().startsWith("ID")
           ? app.install.macAppStoreID
           : `id${app.install.macAppStoreID}`
-      }" target="_blank" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
+      }" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
     : ""
 }
 ${
   app.install.microsoftAppID
-    ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" target="_blank" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+    ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
     : ""
 }`,
         renderToWiki: (app) =>
