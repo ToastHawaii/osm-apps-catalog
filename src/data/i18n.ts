@@ -1,7 +1,7 @@
 import i18next from "i18next";
 import * as en from "./locales/en.json";
 import * as de from "./locales/de.json";
-import * as no from "./locales/nb_NO.json";
+import * as nb_NO from "./locales/nb_NO.json";
 
 i18next.init({
   lng:
@@ -16,7 +16,7 @@ i18next.init({
       translation: de,
     },
     no: {
-      translation: no,
+      translation: nb_NO,
     },
   },
 });

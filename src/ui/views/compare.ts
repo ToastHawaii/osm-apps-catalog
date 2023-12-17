@@ -118,16 +118,16 @@ ${
 }
 ${
   app.install.appleStoreID
-    ? `<a class="download" href="https://itunes.apple.com/app/${
+    ? `<a class="download" href="https://apps.apple.com/app/${
         app.install.appleStoreID.toUpperCase().startsWith("ID")
           ? app.install.appleStoreID
           : `id${app.install.appleStoreID}`
-      }" target="_blank" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
+      }" target="_blank" title="App Store"><i class="fab fa-app-store-ios"></i></a>`
     : ""
 }
 ${
   app.install.macAppStoreID
-    ? `<a class="download" href="https://itunes.apple.com/app/${
+    ? `<a class="download" href="https://apps.apple.com/app/${
         app.install.macAppStoreID.toUpperCase().startsWith("ID")
           ? app.install.macAppStoreID
           : `id${app.install.macAppStoreID}`
@@ -156,14 +156,14 @@ ${
               ? `[https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID} Huawei App Gallery]`
               : "",
             app.install.appleStoreID
-              ? `[https://itunes.apple.com/app/${
+              ? `[https://apps.apple.com/app/${
                   app.install.appleStoreID.toUpperCase().startsWith("ID")
                     ? app.install.appleStoreID
                     : `id${app.install.appleStoreID}`
                 } iTunes App Store]`
               : "",
             app.install.macAppStoreID
-              ? `[https://itunes.apple.com/app/${
+              ? `[https://apps.apple.com/app/${
                   app.install.macAppStoreID.toUpperCase().startsWith("ID")
                     ? app.install.macAppStoreID
                     : `id${app.install.macAppStoreID}`

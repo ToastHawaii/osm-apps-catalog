@@ -82,7 +82,7 @@ export function render(app: App) {
       }
       ${
         app.install.appleStoreID
-          ? `<a class="download" href="https://itunes.apple.com/app/${
+          ? `<a class="download" href="https://apps.apple.com/app/${
               app.install.appleStoreID.toUpperCase().startsWith("ID")
                 ? app.install.appleStoreID
                 : `id${app.install.appleStoreID}`
@@ -91,7 +91,7 @@ export function render(app: App) {
       }
       ${
         app.install.macAppStoreID
-          ? `<a class="download" href="https://itunes.apple.com/app/${
+          ? `<a class="download" href="https://apps.apple.com/app/${
               app.install.macAppStoreID.toUpperCase().startsWith("ID")
                 ? app.install.macAppStoreID
                 : `id${app.install.macAppStoreID}`

@@ -615,17 +615,17 @@ function printJsonLd() {
             : undefined || app.install.asin
             ? "https://www.amazon.com/dp/" + app.install.asin
             : undefined || app.install.appleStoreID
-            ? "https://itunes.apple.com/app/" +
+            ? "https://apps.apple.com/app/" +
               app.install.appleStoreID?.toUpperCase().startsWith("ID")
               ? app.install.appleStoreID
               : `id${app.install.appleStoreID}`
             : undefined || app.install.macAppStoreID
-            ? "https://itunes.apple.com/app/" +
+            ? "https://apps.apple.com/app/" +
               app.install.macAppStoreID?.toUpperCase().startsWith("ID")
               ? app.install.macAppStoreID
               : `id${app.install.macAppStoreID}`
             : undefined || app.install.microsoftAppID
-            ? "http://www.windowsphone.com/s?appid=" +
+            ? "https://www.microsoft.com/store/apps/" +
               app.install.microsoftAppID
             : undefined || app.install.huaweiAppGalleryID
             ? "https://appgallery.huawei.com/#/app/" +
