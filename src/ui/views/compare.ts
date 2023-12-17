@@ -64,7 +64,7 @@ export function render(apps: App[], lang: string) {
   // General
   renderGroup(
     "general",
-    i18next.t("general"),
+    i18next.t("compare.group.header.general"),
     [
       {
         label: "",
@@ -352,10 +352,10 @@ ${
     lang
   );
 
-  // Map
+  // Map display
   renderGroup(
     "map",
-    "Display map",
+    i18next.t("compare.group.header.map"),
     [
       "map",
       "mapData",

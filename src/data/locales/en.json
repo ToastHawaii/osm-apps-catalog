@@ -1,5 +1,6 @@
 {
-  "general": "General",
+  "compare.group.header.general": "General",
+  "compare.group.header.map": "Map display",
   "libre": "Libre",
   "proprietary": "Proprietary",
   "about.translations.header": "Can you speak another language?",
