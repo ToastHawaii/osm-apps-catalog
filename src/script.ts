@@ -31,6 +31,7 @@ import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
 import { lazyInitMore } from "./ui/lazyInitMore";
+import "./data/i18n"
 
 let onInit = true;
 

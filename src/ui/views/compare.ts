@@ -25,6 +25,8 @@ import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
 
+import i18next from "i18next";
+
 export function render(apps: App[], lang: string) {
   {
     const element = createElement(
@@ -62,7 +64,7 @@ export function render(apps: App[], lang: string) {
   // General
   renderGroup(
     "general",
-    "General",
+    i18next.t("general"),
     [
       {
         label: "",
