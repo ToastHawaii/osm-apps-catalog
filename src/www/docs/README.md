@@ -42,6 +42,12 @@ Improve the documentation about Software in the [OpenStreetMap Wiki](https://wik
 - Add missing screenshots
 - Replace http with https where possible
 
+### 🌐 Can you speak another language?
+Make translations
+- for the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
+<img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
+- for the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
+
 ### 💻 Can you program?
 
 Then improve this app catalog and send me a Pull Requests. [Click here to go to the project website of the osm apps catalog](https://github.com/ToastHawaii/osm-apps-catalog)
@@ -138,6 +144,11 @@ By default the catalog only contains apps from the English version of
 [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja),
 [粵語](/?lang=yue)
+
+Help with the translation:
+- from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
+<img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
+- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
 
 ---
 
