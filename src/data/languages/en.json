@@ -1,5 +1,7 @@
 {
   "general": "General",
   "libre": "Libre",
-  "proprietary": "Proprietary"
+  "proprietary": "Proprietary",
+  "about.translations.header": "Can you speak another language?",
+  "about.translations.text": "Make translations\n  - for the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href='https://hosted.weblate.org/engage/osm-apps-catalog/'><img src='https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg' alt='Translation status' /></a>\n  - for the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)"
 }
