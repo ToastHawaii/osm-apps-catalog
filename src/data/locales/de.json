@@ -1,7 +1,16 @@
 {
-  "about.translations.header": "Kannst du eine andere Sprache sprechen?",
-  "proprietary": "Proprietär",
-  "compare.group.header.general": "Allgemein",
-  "libre": "Frei",
-  "wiki.generatedByOsmAppsCatalog": "Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert."
+    "about.translations.header": "Kannst du eine andere Sprache sprechen?",
+    "proprietary": "Proprietär",
+    "compare.group.header.general": "Allgemein",
+    "libre": "Frei",
+    "wiki.generatedByOsmAppsCatalog": "Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert.",
+    "filter.category.focus": "Fokus",
+    "filter.category.latest": "Neueste",
+    "filter.language": "Sprache",
+    "filter.category": "Kategorie",
+    "filter.category.all": "Alle",
+    "filter.category.navigation": "Finde deinen Weg",
+    "filter.coverage": "Abdeckung",
+    "filter.category.edit": "Mitmachen",
+    "filter.category.mobile": "Für unterwegs"
 }
