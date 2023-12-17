@@ -136,7 +136,7 @@ ${
 }
 ${
   app.install.microsoftAppID
-    ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+    ? `<a class="download" href="https://apps.microsoft.com/detail/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
     : ""
 }`,
         renderToWiki: (app) =>
@@ -170,7 +170,7 @@ ${
                 } Mac App Store]`
               : "",
             app.install.microsoftAppID
-              ? `[https://www.microsoft.com/store/apps/${app.install.microsoftAppID} Microsoft Store]`
+              ? `[https://apps.microsoft.com/detail/${app.install.microsoftAppID} Microsoft Store]`
               : "",
           ]
             .filter((o) => o)

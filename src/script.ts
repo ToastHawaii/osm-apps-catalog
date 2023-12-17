@@ -625,8 +625,7 @@ function printJsonLd() {
               ? app.install.macAppStoreID
               : `id${app.install.macAppStoreID}`
             : undefined || app.install.microsoftAppID
-            ? "https://www.microsoft.com/store/apps/" +
-              app.install.microsoftAppID
+            ? "https://apps.microsoft.com/detail/" + app.install.microsoftAppID
             : undefined || app.install.huaweiAppGalleryID
             ? "https://appgallery.huawei.com/#/app/" +
               app.install.huaweiAppGalleryID

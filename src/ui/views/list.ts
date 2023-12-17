@@ -100,7 +100,7 @@ export function render(app: App) {
       }
       ${
         app.install.microsoftAppID
-          ? `<a class="download" href="https://www.microsoft.com/store/apps/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="download" href="https://apps.microsoft.com/detail/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
       <div class="badges">${renderBadges(app.topics)}</div>
