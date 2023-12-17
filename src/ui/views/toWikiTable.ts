@@ -15,7 +15,7 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
     return false;
   }
 
-  return !value;
+  return equalsIgnoreCase(value, "?") || !value;
 }
 
 export function toWikiTable(
