@@ -31,7 +31,8 @@ import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
 import { lazyInitMore } from "./ui/lazyInitMore";
-import "./data/i18n"
+import "./data/i18n";
+import i18next from "i18next";
 
 let onInit = true;
 
@@ -48,21 +49,21 @@ const topicsSelect = new SlimSelect({
 });
 const platformsSelect = new SlimSelect({
   select: "#platform",
-  placeholder: "Platform",
+  placeholder: i18next.t("filter.platform"),
   onChange: () => {
     doUpdate(apps);
   },
 });
 const languagesSelect = new SlimSelect({
   select: "#language",
-  placeholder: "Language",
+  placeholder: i18next.t("filter.language"),
   onChange: () => {
     doUpdate(apps);
   },
 });
 const coverageSelect = new SlimSelect({
   select: "#coverage",
-  placeholder: "Coverage",
+  placeholder: i18next.t("filter.coverage"),
 
   onChange: () => {
     doUpdate(apps);
@@ -96,43 +97,49 @@ const coverageSelect = new SlimSelect({
 const categorySelect = new SlimSelect({
   select: "#category",
   showSearch: false,
-  placeholder: "Category",
+  placeholder: i18next.t("filter.category"),
   data: [
     {
       value: "all",
       innerHTML:
-        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> All",
-      text: "All",
+        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> " +
+        i18next.t("filter.category.all"),
+      text: i18next.t("filter.category.all"),
     },
     {
       value: "focus",
       innerHTML:
-        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> Focus",
-      text: "Focus",
+        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> " +
+        i18next.t("filter.category.focus"),
+      text: i18next.t("filter.category.focus"),
     },
     {
       value: "latest",
       innerHTML:
-        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> Latest",
-      text: "Latest",
+        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> " +
+        i18next.t("filter.category.latest"),
+      text: i18next.t("filter.category.latest"),
     },
     {
       value: "mobile",
       innerHTML:
-        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> To go",
-      text: "To go",
+        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> " +
+        i18next.t("filter.category.mobile"),
+      text: i18next.t("filter.category.mobile"),
     },
     {
       value: "navigation",
       innerHTML:
-        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> Find your way",
-      text: "Find your way",
+        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> " +
+        i18next.t("filter.category.navigation"),
+      text: i18next.t("filter.category.navigation"),
     },
     {
       value: "edit",
       innerHTML:
-        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> Contribute",
-      text: "Contribute",
+        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> " +
+        i18next.t("filter.category.edit"),
+      text: i18next.t("filter.category.edit"),
     },
   ],
   onChange: (i) => {

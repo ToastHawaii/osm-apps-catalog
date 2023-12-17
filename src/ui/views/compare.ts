@@ -24,7 +24,6 @@ import { getLocalizedValue } from "../getLocalizedValue";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
-
 import i18next from "i18next";
 
 export function render(apps: App[], lang: string) {
