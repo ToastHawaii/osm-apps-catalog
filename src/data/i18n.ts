@@ -1,4 +1,5 @@
 import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import * as en from "./locales/en.json";
 import * as cs from "./locales/cs.json";
 import * as de from "./locales/de.json";
@@ -12,10 +13,10 @@ import * as pt from "./locales/pt.json";
 import * as ru from "./locales/ru.json";
 import * as uk from "./locales/uk.json";
 
-i18next.init({
-  lng:
-    new URLSearchParams(location.search).get("lang")?.toLocaleLowerCase() ||
-    "en",
+i18next.use(LanguageDetector).init({
+  detection: {
+    lookupQuerystring: "lang",
+  },
   fallbackLng: "en",
   resources: {
     en: {

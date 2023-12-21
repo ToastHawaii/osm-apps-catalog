@@ -35,7 +35,9 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center with-corner-badge">${renderFree(app)}<strong>${
+            `<div class="cell header text-center with-corner-badge">${renderFree(
+              app
+            )}<strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
@@ -81,27 +83,45 @@ export function render(apps: App[], lang: string) {
           ),
         renderToHtml: (app) => `${
           app.website
-            ? `<a class="download" href="${app.website}" title="Website"><i class="far fa-map"></i></a>`
+            ? `<a class="download" href="${app.website}" title="${i18next.t(
+                "app.website"
+              )}"><i class="far fa-map"></i></a>`
             : ""
         }
 ${
   app.install.asin
-    ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" title="Amazon Appstore" ><i class="fab fa-amazon"></i></a>`
+    ? `<a class="download" href="https://www.amazon.com/dp/${
+        app.install.asin
+      }" title="${i18next.t(
+        "app.install.asin"
+      )}" ><i class="fab fa-amazon"></i></a>`
     : ""
 }
 ${
   app.install.fDroidID
-    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" title="F-Droid" ><i class="fab fa-android"></i></a>`
+    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${
+        app.install.fDroidID
+      }" title="${i18next.t(
+        "app.install.fDroid"
+      )}" ><i class="fab fa-android"></i></a>`
     : ""
 }
 ${
   app.install.googlePlayID
-    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" title="Google Play" ><i class="fab fa-google-play"></i></a>`
+    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${
+        app.install.googlePlayID
+      }" title="${i18next.t(
+        "app.install.googlePlay"
+      )}" ><i class="fab fa-google-play"></i></a>`
     : ""
 }
 ${
   app.install.huaweiAppGalleryID
-    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" title="Huawei App Gallery" ><i class="fas fa-shopping-bag"></i></a>`
+    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${
+        app.install.huaweiAppGalleryID
+      }" title="${i18next.t(
+        "app.install.huaweiAppGallery"
+      )}" ><i class="fas fa-shopping-bag"></i></a>`
     : ""
 }
 ${
@@ -110,7 +130,9 @@ ${
         app.install.appleStoreID.toUpperCase().startsWith("ID")
           ? app.install.appleStoreID
           : `id${app.install.appleStoreID}`
-      }" title="App Store"><i class="fab fa-app-store-ios"></i></a>`
+      }" title="${i18next.t(
+        "app.install.appleStore"
+      )}"><i class="fab fa-app-store-ios"></i></a>`
     : ""
 }
 ${
@@ -119,12 +141,18 @@ ${
         app.install.macAppStoreID.toUpperCase().startsWith("ID")
           ? app.install.macAppStoreID
           : `id${app.install.macAppStoreID}`
-      }" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
+      }" title="${i18next.t(
+        "app.install.macAppStore"
+      )}"><i class="fab fa-app-store"></i></a>`
     : ""
 }
 ${
   app.install.microsoftAppID
-    ? `<a class="download" href="https://apps.microsoft.com/detail/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+    ? `<a class="download" href="https://apps.microsoft.com/detail/${
+        app.install.microsoftAppID
+      }" title="${i18next.t(
+        "app.install.microsoftApp"
+      )}"><i class="fab fa-microsoft"></i></a>`
     : ""
 }`,
         renderToWiki: (app) =>
@@ -132,16 +160,24 @@ ${
             app.website ? `[${app.website} Website]` : "",
 
             app.install.asin
-              ? `[https://www.amazon.com/dp/${app.install.asin} Amazon Appstore]`
+              ? `[https://www.amazon.com/dp/${app.install.asin} ${i18next.t(
+                  "app.install.asin"
+                )}]`
               : "",
             app.install.fDroidID
-              ? `[https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID} F-Droid]`
+              ? `[https://f-droid.org/repository/browse/?fdid=${
+                  app.install.fDroidID
+                } ${i18next.t("app.install.fDroid")}]`
               : "",
             app.install.googlePlayID
-              ? `[https://play.google.com/store/apps/details?id=${app.install.googlePlayID} Google Play]`
+              ? `[https://play.google.com/store/apps/details?id=${
+                  app.install.googlePlayID
+                } ${i18next.t("app.install.googlePlay")}]`
               : "",
             app.install.huaweiAppGalleryID
-              ? `[https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID} Huawei App Gallery]`
+              ? `[https://appgallery.huawei.com/#/app/${
+                  app.install.huaweiAppGalleryID
+                } ${i18next.t("app.install.huaweiAppGallery")}]`
               : "",
             app.install.appleStoreID
               ? `[https://apps.apple.com/app/${
@@ -155,10 +191,12 @@ ${
                   app.install.macAppStoreID.toUpperCase().startsWith("ID")
                     ? app.install.macAppStoreID
                     : `id${app.install.macAppStoreID}`
-                } Mac App Store]`
+                } ${i18next.t("app.install.appleStore")}]`
               : "",
             app.install.microsoftAppID
-              ? `[https://apps.microsoft.com/detail/${app.install.microsoftAppID} Microsoft Store]`
+              ? `[https://apps.microsoft.com/detail/${
+                  app.install.microsoftAppID
+                } ${i18next.t("app.install.macAppStore")}]`
               : "",
           ]
             .filter((o) => o)

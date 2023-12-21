@@ -55,22 +55,38 @@ export function render(app: App) {
 
       ${
         app.install.asin
-          ? `<a class="download" href="https://www.amazon.com/dp/${app.install.asin}" title="Amazon Appstore"><i class="fab fa-amazon"></i></a>`
+          ? `<a class="download" href="https://www.amazon.com/dp/${
+              app.install.asin
+            }" title="${i18next.t(
+              "app.install.asin"
+            )}"><i class="fab fa-amazon"></i></a>`
           : ""
       }
       ${
         app.install.fDroidID
-          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}" title="F-Droid"><i class="fab fa-android"></i></a>`
+          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${
+              app.install.fDroidID
+            }" title="${i18next.t(
+              "app.install.fDroid"
+            )}"><i class="fab fa-android"></i></a>`
           : ""
       }
       ${
         app.install.googlePlayID
-          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${app.install.googlePlayID}" title="Google Play"><i class="fab fa-google-play"></i></a>`
+          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${
+              app.install.googlePlayID
+            }" title="${i18next.t(
+              "app.install.googlePlay"
+            )}"><i class="fab fa-google-play"></i></a>`
           : ""
       }
       ${
         app.install.huaweiAppGalleryID
-          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}" title="Huawei App Gallery"><i class="fas fa-shopping-bag"></i></a>`
+          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${
+              app.install.huaweiAppGalleryID
+            }" title="${i18next.t(
+              "app.install.huaweiAppGallery"
+            )}"><i class="fas fa-shopping-bag"></i></a>`
           : ""
       }
       ${
@@ -79,7 +95,9 @@ export function render(app: App) {
               app.install.appleStoreID.toUpperCase().startsWith("ID")
                 ? app.install.appleStoreID
                 : `id${app.install.appleStoreID}`
-            }" title="iTunes App Store"><i class="fab fa-app-store-ios"></i></a>`
+            }" title="${i18next.t(
+              "app.install.appleStore"
+            )}"><i class="fab fa-app-store-ios"></i></a>`
           : ""
       }
       ${
@@ -88,34 +106,44 @@ export function render(app: App) {
               app.install.macAppStoreID.toUpperCase().startsWith("ID")
                 ? app.install.macAppStoreID
                 : `id${app.install.macAppStoreID}`
-            }" title="Mac App Store"><i class="fab fa-app-store"></i></a>`
+            }" title="${i18next.t(
+              "app.install.macAppStore"
+            )}"><i class="fab fa-app-store"></i></a>`
           : ""
       }
       ${
         app.install.microsoftAppID
-          ? `<a class="download" href="https://apps.microsoft.com/detail/${app.install.microsoftAppID}" title="Microsoft Store"><i class="fab fa-microsoft"></i></a>`
+          ? `<a class="download" href="https://apps.microsoft.com/detail/${
+              app.install.microsoftAppID
+            }" title="${i18next.t(
+              "app.install.microsoftApp"
+            )}"><i class="fab fa-microsoft"></i></a>`
           : ""
       }
       <div class="badges">${renderBadges(app.topics)}</div>
 
             <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
             <div class="more-infos" style="display:none;">
-        <div class="more-infos-title">Informations</div>
+        <div class="more-infos-title">${i18next.t("list.moreInfos")}</div>
         ${
           app.platform.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Platforms</span> <span class="more-info-text">${app.platform.join(
-            ", "
-          )}</span>
+          <span class="more-info-title">${i18next.t(
+            "app.platforms"
+          )}</span> <span class="more-info-text">${app.platform.join(
+                ", "
+              )}</span>
         </div>`
             : ""
         }
         ${
           app.lastRelease || app.unmaintained
             ? `<div class="more-info">
-          <span class="more-info-title">Last release</span> <span class="more-info-text">${
-            app.lastRelease ? app.lastRelease : "????-??-??"
-          }${
+          <span class="more-info-title">${i18next.t(
+            "app.lastRelease"
+          )}</span> <span class="more-info-text">${
+                app.lastRelease ? app.lastRelease : "????-??-??"
+              }${
                 app.unmaintained
                   ? ` <span class="warning">(<i class="fas fa-exclamation-triangle"></i> Unmaintained)</span>`
                   : ""
@@ -126,59 +154,67 @@ export function render(app: App) {
         ${
           app.languagesUrl
             ? `<a class="more-info" href="${app.languagesUrl}" target="_blank">
-                <span class="more-info-title">Languages</span> <span class="more-info-text">${
-                  app.languages.length > 0
-                    ? app.languages.join(", ")
-                    : `<i class="fas fa-language"></i>`
-                }</span>
+                <span class="more-info-title">${i18next.t(
+                  "app.languages"
+                )}</span> <span class="more-info-text">${
+                app.languages.length > 0
+                  ? app.languages.join(", ")
+                  : `<i class="fas fa-language"></i>`
+              }</span>
               </a>`
             : app.languages.length > 0
             ? `<div class="more-info">
-          <span class="more-info-title">Languages</span> <span class="more-info-text">${app.languages.join(
-            ", "
-          )}</span>
+          <span class="more-info-title">${i18next.t(
+            "app.languages"
+          )}</span> <span class="more-info-text">${app.languages.join(
+                ", "
+              )}</span>
         </div>`
             : ""
         }
         ${
           app.coverage && app.coverage.length
             ? `<div class="more-info">
-          <span class="more-info-title">Coverage</span> <span class="more-info-text">${
-            app.coverage[app.coverage.length - 1]
-          }</span>
+          <span class="more-info-title">${i18next.t(
+            "app.coverage"
+          )}</span> <span class="more-info-text">${
+                app.coverage[app.coverage.length - 1]
+              }</span>
         </div>`
             : ""
         }
         ${
           app.author
             ? `<div class="more-info">
-          <span class="more-info-title">Author</span> <span class="more-info-text">${app.author}</span>
+          <span class="more-info-title">${i18next.t(
+            "app.author"
+          )}</span> <span class="more-info-text">${app.author}</span>
         </div>`
             : ""
         }
         ${
           app.price
             ? `<div class="more-info">
-          <span class="more-info-title">Price</span> <span class="more-info-text">${app.price}</span>
+          <span class="more-info-title">${i18next.t("app.price")}</span> <span class="more-info-text">${app.price}</span>
         </div>`
             : ""
         }
         ${
           app.license
             ? `<div class="more-info">
-          <span class="more-info-title">License</span> <span class="more-info-text">${app.license}</span>
+          <span class="more-info-title">${i18next.t("app.license")}</span> <span class="more-info-text">${app.license}</span>
         </div>`
             : ""
         }
         ${
           app.sourceCode
             ? `<a class="more-info" href="${app.sourceCode}" target="_blank">
-          <span class="more-info-title">Source code</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
+          <span class="more-info-title">${i18next.t("app.sourceCode")}</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
         </a>`
             : ""
         }
         <div class="more-info">
-        <span class="more-info-title">Source</span> <span class="more-info-text">${app.source
+        <span class="more-info-title">${i18next.t("app.source")}</span> <span class="more-info-text">${app.source
           .map((s) => `<a href="${s.url}" target="_blank">${s.displayName}</a>`)
           .join(", ")}</span>
         </div>
