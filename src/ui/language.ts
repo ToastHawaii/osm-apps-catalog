@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import i18next from "i18next";
+
 const languages: {
   code: string;
   display: string;
@@ -174,7 +176,7 @@ const languages: {
   { code: "mrh", display: "Mara" },
   { code: "ms", display: "Bahasa Melayu" },
   { code: "mt", display: "bil-Malti" },
-  { code: "mul", display: "Multilingual" },
+  { code: "mul", display:  i18next.t("multilingual")},
   { code: "mus", display: "Mvskoke" },
   { code: "mwl", display: "Mirandés" },
   { code: "my", display: "Myanmasa / မြန်မာဘာသာ" },

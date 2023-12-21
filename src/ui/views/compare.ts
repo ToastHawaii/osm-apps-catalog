@@ -250,7 +250,10 @@ ${
             ? "????-??-??"
             : "") +
           (app.unmaintained
-            ? ` <span class="warning">(<i class="fas fa-exclamation-triangle"></i> Unmaintained)</span>`
+            ? ` <span class="warning">${i18next.t("app.unmaintained", {
+                icon: `<i class="fas fa-exclamation-triangle"></i>`,
+                interpolation: { escapeValue: false },
+              })}</span>`
             : ""),
         renderToWiki: (app) =>
           toWikiValue(
@@ -260,7 +263,9 @@ ${
                 : app.unmaintained
                 ? "????-??-??"
                 : "") +
-              (app.unmaintained ? ` (Unmaintained)` : "")
+              (app.unmaintained
+                ? i18next.t("app.unmaintained", { icon: `⚠️` })
+                : "")
           ),
       },
       {
