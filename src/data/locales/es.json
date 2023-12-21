@@ -24,5 +24,9 @@
     "filter.category.mobile": "Ir a",
     "category.edit.description": "Muestra {{numberOfApps}} aplicaciones que permiten añadir, editar o analizar datos de OpenStreetMap o grabar geotracks.",
     "libre": "Libre",
-    "relatedApps": "{{numberOfApps}} aplicaciones relacionadas"
+    "relatedApps": "{{numberOfApps}} aplicaciones relacionadas",
+    "list.documentation": "Documentación",
+    "filter.topic": "Tema",
+    "app.website": "Página web",
+    "app.free": "Gratis"
 }
