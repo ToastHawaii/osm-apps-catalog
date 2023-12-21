@@ -403,7 +403,7 @@ ${
   // Routing
   renderGroup(
     "routing",
-    "Routing",
+    i18next.t("compare.group.header.routing"),
     [
       "routing",
       "createRouteManually",
@@ -423,7 +423,7 @@ ${
   // Navigating
   renderGroup(
     "navigating",
-    "Navigating",
+    i18next.t("compare.group.header.navigating"),
     [
       "navigating",
       "findLocation",
@@ -442,7 +442,7 @@ ${
   // Tracking
   renderGroup(
     "tracking",
-    "Tracking",
+    i18next.t("compare.group.header.tracking"),
     [
       "tracking",
       "customInterval",
@@ -458,7 +458,7 @@ ${
   // Monitoring
   renderGroup(
     "monitoring",
-    "Monitoring",
+    i18next.t("compare.group.header.monitoring"),
     [
       "monitoring",
       "showTrack",
@@ -477,7 +477,7 @@ ${
   // Editing
   renderGroup(
     "editing",
-    "Editing",
+    i18next.t("compare.group.header.editing"),
     [
       "addPOI",
       "editPOI",
@@ -497,12 +497,18 @@ ${
   );
 
   // Rendering
-  renderGroup("rendering", "Rendering", ["rendererOutputFormats"], apps, lang);
+  renderGroup(
+    "rendering",
+    i18next.t("compare.group.header.rendering"),
+    ["rendererOutputFormats"],
+    apps,
+    lang
+  );
 
   // Accessibility
   renderGroup(
     "accessibility",
-    "Accessibility",
+    i18next.t("compare.group.header.accessibility"),
     [
       "accessibility",
       "textOnlyUI",
