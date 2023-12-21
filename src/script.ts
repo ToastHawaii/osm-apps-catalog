@@ -41,8 +41,7 @@ export let apps: App[] = [];
 
 const topicsSelect = new SlimSelect({
   select: "#topic",
-  placeholder: "Topic",
-
+  placeholder: i18next.t("filter.topic"),
   onChange: () => {
     doUpdate(apps);
   },
@@ -64,12 +63,13 @@ const languagesSelect = new SlimSelect({
 const coverageSelect = new SlimSelect({
   select: "#coverage",
   placeholder: i18next.t("filter.coverage"),
-
   onChange: () => {
     doUpdate(apps);
   },
 });
-(document.getElementById("free") as HTMLInputElement).addEventListener(
+
+const freeCheckbox = document.getElementById("free")as HTMLInputElement
+freeCheckbox .addEventListener(
   "change",
   () => {
     doUpdate(apps);

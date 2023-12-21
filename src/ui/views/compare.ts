@@ -15,16 +15,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import i18next from "i18next";
 import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
+import { renderFree } from "./renderFree";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
-import i18next from "i18next";
 
 export function render(apps: App[], lang: string) {
   {
@@ -34,20 +35,7 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center with-corner-badge">${
-              app.gratis || app.libre
-                ? `<div class="corner-badge">
-                <span title="Free"><i class="fas fa-fw fa-gift"></i></span>
-                ${
-                  app.libre
-                    ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
-                    : app.gratis
-                    ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
-                    : ""
-                }
-              </div>`
-                : ""
-            }<strong>${
+            `<div class="cell header text-center with-corner-badge">${renderFree(app)}<strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name

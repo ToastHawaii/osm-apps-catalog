@@ -19,26 +19,15 @@ import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
+import { renderFree } from "./renderFree";
+import i18next from "i18next";
 
 export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
       
-      <div class="with-corner-badge">${
-        app.gratis || app.libre
-          ? `<div class="corner-badge">
-        <span title="Free"><i class="fas fa-fw fa-gift"></i></span>
-        ${
-          app.libre
-            ? '<span title="Libre"><i class="fas fa-fw fa-book-open"></i></span>'
-            : app.gratis
-            ? '<span title="Proprietary"><i class="fas fa-wine-bottle"></i></span>'
-            : ""
-        }
-      </div>`
-          : ""
-      }<strong>${
+      <div class="with-corner-badge">${renderFree(app)}<strong>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
@@ -51,12 +40,16 @@ export function render(app: App) {
       </div>
       <div><small>${app.description}${
       app.documentation
-        ? ` <a href="${app.documentation}" target="_blank">Documentation</a>`
+        ? ` <a href="${app.documentation}" target="_blank">${i18next.t(
+            "list.documentation"
+          )}</a>`
         : ""
     }</small></div>
       ${
         app.website
-          ? `<a class="download" href="${app.website}" title="Website"><i class="far fa-map"></i></a>`
+          ? `<a class="download" href="${app.website}" title="${i18next.t(
+              "app.website"
+            )}"><i class="far fa-map"></i></a>`
           : ""
       }
 
