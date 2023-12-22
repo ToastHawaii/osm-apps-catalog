@@ -28,7 +28,7 @@ Delete the Software or Service item template about the app from the wiki page or
 
 ## 💪 Is there anything else to do?
 
-Sure, helping hands are always welcome and there is something for everyone to do.
+Sure, helping hands are always welcome and there is something for everyone to do. See also [OSM Apps Catalog page in the wiki](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ### 🧹 Do you like to check and clean up?
 
