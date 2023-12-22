@@ -19,7 +19,7 @@ import i18next from "i18next";
 
 const languages: {
   code: string;
-  display: string;
+  display: any;
 }[] = [
   { code: "aa", display: "Afar" },
   { code: "ab", display: "Аҧсуа" },
@@ -176,7 +176,7 @@ const languages: {
   { code: "mrh", display: "Mara" },
   { code: "ms", display: "Bahasa Melayu" },
   { code: "mt", display: "bil-Malti" },
-  { code: "mul", display:  i18next.t("multilingual")},
+  { code: "mul", display: () => i18next.t("multilingual") },
   { code: "mus", display: "Mvskoke" },
   { code: "mwl", display: "Mirandés" },
   { code: "my", display: "Myanmasa / မြန်မာဘာသာ" },
@@ -303,12 +303,24 @@ export function languageValueToDisplay(value: string) {
   }
 
   for (const language of languages) {
-    if (language.code === value) return language.display;
+    if (language.code === value) {
+      if (typeof language.display === "function") {
+        return language.display();
+      } else {
+        return language.display;
+      }
+    }
   }
 
   value = extractLanguageCodeFromLocal(value);
   for (const language of languages) {
-    if (language.code === value) return language.display;
+    if (language.code === value) {
+      if (typeof language.display === "function") {
+        return language.display();
+      } else {
+        return language.display;
+      }
+    }
   }
 
   return value;
