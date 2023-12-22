@@ -72,8 +72,12 @@ const freeCheckbox = document.getElementById("free") as HTMLInputElement;
 freeCheckbox.addEventListener("change", () => {
   doUpdate(apps);
 });
+(document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
+  i18next.t("filter.free");
 
-(document.getElementById("search") as HTMLInputElement).addEventListener(
+const searchElement = document.getElementById("search") as HTMLInputElement;
+searchElement.placeholder = i18next.t("filter.search");
+searchElement.addEventListener(
   "input",
   debounce(() => doUpdate(apps), 500)
 );
@@ -166,7 +170,7 @@ function doUpdate(newApps: App[], reset?: boolean) {
   if (!onUpdate) {
     onUpdate = true;
     if (reset) {
-      (document.getElementById("search") as HTMLInputElement).value = "";
+      searchElement.value = "";
       topicsSelect.set([]);
       platformsSelect.set([]);
       languagesSelect.set([]);
@@ -174,8 +178,8 @@ function doUpdate(newApps: App[], reset?: boolean) {
     }
     let state: State = {
       lang,
-      freeOnly: (document.getElementById("free") as HTMLInputElement).checked,
-      search: (document.getElementById("search") as HTMLInputElement).value,
+      freeOnly: freeCheckbox.checked,
+      search: searchElement.value,
       topics: topicsSelect.selected() as string[],
       platforms: platformsSelect.selected() as string[],
       languages: languagesSelect.selected() as string[],
@@ -264,7 +268,7 @@ function update({
 
   let filteredApps: App[] = apps.slice();
 
-  (document.getElementById("free") as HTMLInputElement).checked = freeOnly;
+  freeCheckbox.checked = freeOnly;
   if (freeOnly) {
     filteredApps = filteredApps.filter((a) => a.gratis || a.libre);
   }
@@ -325,7 +329,7 @@ function update({
     }
   }
 
-  (document.getElementById("search") as HTMLInputElement).value = search;
+  searchElement.value = search;
 
   search = search.toUpperCase();
   const topicsUp = topics.map((t) => t.toUpperCase());

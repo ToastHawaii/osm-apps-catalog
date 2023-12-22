@@ -1,4 +1,6 @@
 {
+  "filter.search": "Search",
+  "filter.free": "Free",
   "filter.topic": "Topic",
   "filter.platform": "Platform",
   "filter.language": "Language",
