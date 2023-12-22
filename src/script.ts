@@ -68,13 +68,10 @@ const coverageSelect = new SlimSelect({
   },
 });
 
-const freeCheckbox = document.getElementById("free")as HTMLInputElement
-freeCheckbox .addEventListener(
-  "change",
-  () => {
-    doUpdate(apps);
-  }
-);
+const freeCheckbox = document.getElementById("free") as HTMLInputElement;
+freeCheckbox.addEventListener("change", () => {
+  doUpdate(apps);
+});
 
 (document.getElementById("search") as HTMLInputElement).addEventListener(
   "input",
@@ -423,13 +420,13 @@ function update({
     : [];
 
   for (const a of filteredApps) {
-    topicsData.push(...a.topics.map((t) => t));
-    platformsData.push(...a.platform.map((t) => t));
-    coverageData.push(...a.coverage.map((t) => t));
+    topicsData.push(...a.topics.filter((l) => l).map((t) => t));
+    platformsData.push(...a.platform.filter((l) => l).map((t) => t));
+    coverageData.push(...a.coverage.filter((l) => l).map((t) => t));
   }
 
   for (const a of apps) {
-    languagesData.push(...a.languages.map((l) => l));
+    languagesData.push(...a.languages.filter((l) => l).map((l) => l));
   }
 
   topicsSelect.setData(prepareArrayForSelect(topicsData, topics));
