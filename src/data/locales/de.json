@@ -38,5 +38,7 @@
     "app.languages": "Sprachen",
     "category.edit.description": "Zeigt {{numberOfApps}} Apps, die das Hinzufügen, Bearbeiten oder Analysieren von OpenStreetMap-Daten oder das Aufzeichnen von Geotracks unterstützen.",
     "app.lastRelease": "Letzte Veröffentlichung",
-    "relatedApps": "{{numberOfApps}} ähnliche Apps"
+    "relatedApps": "{{numberOfApps}} ähnliche Apps",
+    "filter.search": "Suche",
+    "filter.free": "Frei"
 }
