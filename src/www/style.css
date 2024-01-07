@@ -102,6 +102,9 @@ a {
   overflow-x: auto;
   overflow-y: visible;
   height: 100vh;
+
+  scroll-snap-type: y proximity;
+  scroll-padding-block-start: 66px;
 }
 
 #compare {
@@ -176,6 +179,8 @@ a {
 
 #compare .params-group-title {
   text-wrap: nowrap;
+  
+  scroll-snap-align: start;
 }
 
 .info {
