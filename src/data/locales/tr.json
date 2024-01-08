@@ -1,1 +1,5 @@
-{}
+{
+    "app.website": "Internet sitesi",
+    "app.sourceCode": "Kaynak kodu",
+    "app.license": "Lisans"
+}
