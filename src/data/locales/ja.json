@@ -1,1 +1,6 @@
-{}
+{
+    "app.author": "作者",
+    "app.website": "ウェブサイト",
+    "app.sourceCode": "ソースコード",
+    "app.license": "ライセンス"
+}
