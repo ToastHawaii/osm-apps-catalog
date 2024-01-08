@@ -10,7 +10,12 @@ The list is completed with the [taginfo.openstreetmap.org projects](https://tagi
 
 The catalog is updated every day.
 
-A special thanks goes to Dmytro Ovdiienko for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
+## Contributions & acknowledgements
+
+- A special thanks goes to [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
+- Another big thanks goes to [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
+- Many thanks to [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
+- Thanks to all who made this catalog possible.
 
 ## 📱 Is this catalog also available as an app?
 
@@ -43,9 +48,11 @@ Improve the documentation about Software in the [OpenStreetMap Wiki](https://wik
 - Replace http with https where possible
 
 ### 🌐 Can you speak another language?
+
 Make translations
+
 - for the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
-<img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
+  <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
 - for the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
 
 ### 💻 Can you program?
@@ -146,8 +153,9 @@ By default the catalog only contains apps from the English version of
 [粵語](/?lang=yue)
 
 Help with the translation:
+
 - from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
-<img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
+  <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
 
 ---
