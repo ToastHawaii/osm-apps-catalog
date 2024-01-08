@@ -16,5 +16,9 @@
     "compare.group.header.map": "Wyświetlanie mapy",
     "filter.platform": "Platforma",
     "libre": "Wolne",
-    "relatedApps": "{{numberOfApps}} powiązanych aplikacji"
+    "relatedApps": "{{numberOfApps}} powiązanych aplikacji",
+    "app.website": "Strona internetowa",
+    "app.author": "Autor",
+    "app.sourceCode": "Kod źródłowy",
+    "app.license": "Licencja"
 }
