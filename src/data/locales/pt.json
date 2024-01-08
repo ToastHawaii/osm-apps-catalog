@@ -1,1 +1,6 @@
-{}
+{
+    "app.website": "Site da Internet",
+    "app.author": "Autor",
+    "app.sourceCode": "Código fonte",
+    "app.license": "Licença"
+}
