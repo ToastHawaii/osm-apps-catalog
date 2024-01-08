@@ -1,1 +1,6 @@
-{}
+{
+    "app.author": "Autor",
+    "app.website": "Webová stránka",
+    "app.sourceCode": "zdrojový kód",
+    "app.license": "Licence"
+}
