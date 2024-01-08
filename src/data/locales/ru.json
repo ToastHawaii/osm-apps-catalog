@@ -1,1 +1,6 @@
-{}
+{
+    "app.author": "автор",
+    "app.website": "веб-сайт",
+    "app.sourceCode": "исходный код",
+    "app.license": "лицензия"
+}
