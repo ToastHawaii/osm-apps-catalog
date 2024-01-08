@@ -1,1 +1,5 @@
-{}
+{
+    "app.website": "Situs web",
+    "app.sourceCode": "Kode sumber",
+    "app.license": "Lisensi"
+}
