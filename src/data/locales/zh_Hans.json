@@ -1,1 +1,6 @@
-{}
+{
+    "app.author": "作者",
+    "app.website": "网站",
+    "app.sourceCode": "源代码",
+    "app.license": "执照"
+}
