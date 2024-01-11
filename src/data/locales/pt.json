@@ -2,5 +2,9 @@
     "app.website": "Site da Internet",
     "app.author": "Autor",
     "app.sourceCode": "Código fonte",
-    "app.license": "Licença"
+    "app.license": "Licença",
+    "filter.platform": "Plataforma",
+    "filter.language": "Linguagem",
+    "app.languages": "Linguagens",
+    "app.platforms": "Plataformas"
 }
