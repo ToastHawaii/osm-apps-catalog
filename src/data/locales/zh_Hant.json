@@ -2,5 +2,9 @@
     "app.website": "網站",
     "app.author": "作者",
     "app.sourceCode": "源代碼",
-    "app.license": "執照"
+    "app.license": "執照",
+    "filter.platform": "平臺",
+    "filter.language": "語言",
+    "app.languages": "語言",
+    "app.platforms": "平臺"
 }
