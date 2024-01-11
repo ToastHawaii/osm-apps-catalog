@@ -24,5 +24,11 @@
     "filter.category.mobile": "À emporter",
     "category.edit.description": "Affiche les {{numberOfApps}} applications qui permettent d'ajouter, de modifier ou d'analyser des données d'OpenStreetMap ou d'enregistrer des traces GPS.",
     "libre": "Libre",
-    "relatedApps": "{{numberOfApps}} applications associées"
+    "relatedApps": "{{numberOfApps}} applications associées",
+    "app.website": "Site Internet",
+    "app.author": "Auteur",
+    "app.sourceCode": "Code source",
+    "app.license": "Licence",
+    "app.languages": "Langues",
+    "app.platforms": "Plateformes"
 }

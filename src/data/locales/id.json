@@ -1,1 +1,7 @@
-{}
+{
+    "app.website": "Situs web",
+    "app.sourceCode": "Kode sumber",
+    "app.license": "Lisensi",
+    "filter.language": "Bahasa",
+    "app.languages": "Bahasa"
+}

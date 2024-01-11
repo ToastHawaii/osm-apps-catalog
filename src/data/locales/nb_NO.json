@@ -1,3 +1,9 @@
 {
-    "compare.group.header.general": "Generelt"
+    "compare.group.header.general": "Generelt",
+    "app.website": "Nettsted",
+    "app.sourceCode": "Kildekode",
+    "app.license": "Lisens",
+    "filter.platform": "Platform",
+    "filter.language": "Språk",
+    "app.languages": "Språk"
 }

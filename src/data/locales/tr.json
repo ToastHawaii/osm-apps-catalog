@@ -1,1 +1,9 @@
-{}
+{
+    "app.website": "Internet sitesi",
+    "app.sourceCode": "Kaynak kodu",
+    "app.license": "Lisans",
+    "filter.platform": "Platform",
+    "filter.language": "Dili",
+    "app.languages": "Dilleri",
+    "app.platforms": "Platformlar"
+}

@@ -1,1 +1,10 @@
-{}
+{
+    "app.author": "Autor",
+    "app.website": "Webová stránka",
+    "app.sourceCode": "zdrojový kód",
+    "app.license": "Licence",
+    "filter.platform": "Platforma",
+    "filter.language": "Jazyk",
+    "app.languages": "Jazyky",
+    "app.platforms": "Platformy"
+}

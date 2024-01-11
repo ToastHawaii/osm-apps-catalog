@@ -1,1 +1,10 @@
-{}
+{
+    "app.author": "作者",
+    "app.website": "网站",
+    "app.sourceCode": "源代码",
+    "app.license": "执照",
+    "filter.platform": "平台",
+    "filter.language": "语言",
+    "app.platforms": "平台",
+    "app.languages": "语言"
+}

@@ -1,1 +1,10 @@
-{}
+{
+    "app.website": "Sito web",
+    "app.author": "Autore",
+    "app.sourceCode": "Codice sorgente",
+    "app.license": "Licenza",
+    "filter.language": "Linguaggi",
+    "filter.platform": "Piattaforme",
+    "app.languages": "Linguaggio",
+    "app.platforms": "Piattaforma"
+}

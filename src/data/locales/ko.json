@@ -1,1 +1,10 @@
-{}
+{
+    "app.website": "웹 사이트",
+    "app.author": "제작",
+    "app.sourceCode": "소스 코드",
+    "app.license": "라이선스",
+    "filter.platform": "플랫폼",
+    "filter.language": "언어",
+    "app.platforms": "플랫폼",
+    "app.languages": "언어"
+}
