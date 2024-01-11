@@ -2,5 +2,9 @@
     "app.author": "作者",
     "app.website": "ウェブサイト",
     "app.sourceCode": "ソースコード",
-    "app.license": "ライセンス"
+    "app.license": "ライセンス",
+    "filter.platform": "動作環境",
+    "filter.language": "言語",
+    "app.platforms": "動作環境",
+    "app.languages": "言語"
 }
