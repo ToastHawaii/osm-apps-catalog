@@ -20,5 +20,7 @@
     "app.website": "Strona internetowa",
     "app.author": "Autor",
     "app.sourceCode": "Kod źródłowy",
-    "app.license": "Licencja"
+    "app.license": "Licencja",
+    "app.languages": "Języki",
+    "app.platforms": "Platformy"
 }
