@@ -2,5 +2,9 @@
     "app.author": "автор",
     "app.website": "веб-сайт",
     "app.sourceCode": "сирці",
-    "app.license": "ліцензія"
+    "app.license": "ліцензія",
+    "filter.language": "мовa",
+    "filter.platform": "платформa",
+    "app.platforms": "платформи",
+    "app.languages": "мови"
 }
