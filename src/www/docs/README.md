@@ -10,7 +10,7 @@ The list is completed with the [taginfo.openstreetmap.org projects](https://tagi
 
 The catalog is updated every day.
 
-## Contributions & acknowledgements
+## 🙏 Contributions & acknowledgements
 
 - A special thanks goes to [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
 - Another big thanks goes to [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
@@ -74,7 +74,7 @@ Try one of the following services:
 - [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
 - [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
 
-## 🌐 Other languages
+## 🌍 Other languages
 
 By default the catalog only contains apps from the English version of the wiki. To include apps from other translations use one of the following links:
 
