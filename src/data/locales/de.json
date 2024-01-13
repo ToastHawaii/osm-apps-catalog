@@ -40,5 +40,7 @@
     "app.lastRelease": "Letzte Veröffentlichung",
     "relatedApps": "{{numberOfApps}} ähnliche Apps",
     "filter.search": "Suche",
-    "filter.free": "Frei"
+    "filter.free": "Frei",
+    "compare.group.header.map": "Kartenanzeige",
+    "about": "Über"
 }
