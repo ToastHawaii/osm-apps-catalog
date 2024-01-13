@@ -60,5 +60,6 @@
     "filter.free": "Gratis",
     "compare.group.header.navigating": "Navegando",
     "compare.group.header.tracking": "Rastreo",
-    "compare.group.header.accessibility": "Accesibilidad"
+    "compare.group.header.accessibility": "Accesibilidad",
+    "about": "Acerca de"
 }
