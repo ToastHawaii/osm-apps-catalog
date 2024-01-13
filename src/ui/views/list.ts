@@ -34,7 +34,7 @@ export function render(app: App) {
     }</strong></div>
         ${
           app.website
-            ? `<a href="${app.website}" target="_blank">${renderImage(app)}</a>`
+            ? `<a href="${app.website}" target="_blank" title="${app.name}">${renderImage(app)}</a>`
             : renderImage(app)
         }
       </div>
