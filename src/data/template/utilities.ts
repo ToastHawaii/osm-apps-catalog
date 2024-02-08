@@ -387,6 +387,26 @@ export function processWikiText(text: string = "") {
     );
   }
 
+  // GitLab
+  {
+    const regex =
+      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://gitlab.com/$1">$1</a>`
+    );
+  }
+  {
+    const regex =
+      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
+
+    text = text.replace(
+      regex,
+      `<a target="_blank" href="https://gitlab.com/$1">$5</a>`
+    );
+  }
+
   return text;
 }
 
