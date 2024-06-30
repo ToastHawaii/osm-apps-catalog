@@ -3,5 +3,15 @@
     "app.sourceCode": "Kode sumber",
     "app.license": "Lisensi",
     "filter.language": "Bahasa",
-    "app.languages": "Bahasa"
+    "app.languages": "Bahasa",
+    "filter.category.focus": "Fokus",
+    "filter.search": "Cari",
+    "about": "Tentang",
+    "filter.platform": "Platform",
+    "filter.category": "Kategori",
+    "filter.category.latest": "Terbaru",
+    "filter.topic": "Topik",
+    "filter.coverage": "Cakupan",
+    "filter.category.all": "Semua",
+    "filter.free": "Gratis"
 }
