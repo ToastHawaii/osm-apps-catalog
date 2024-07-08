@@ -82,7 +82,7 @@ export async function loadApps(
       unique_tags: number;
     }[];
   };
-  const source = "https://taginfo.openstreetmap.org/projects";
+  const source = "https://taginfo.openstreetmap.org/projects/";
   for (const obj of projectObjects.data) {
     const app: App = {
       name: obj.name,
@@ -93,7 +93,7 @@ export async function loadApps(
         {
           name: "taginfo",
           displayName: "taginfo",
-          url: source,
+          url: source + obj.id,
           lastChange: projectObjects.data_until,
         },
       ],
