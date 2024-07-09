@@ -323,7 +323,7 @@ function update({
       if (filteredApps.length < 10) {
         if (
           !filteredApps.some((a) =>
-            equalsIgnoreCase(a.source[0].url, app.source[0].url)
+            equalsIgnoreCase(a.source[0].url, app.source[0].url) || (a.source[0].url.startsWith("https://taginfo.openstreetmap.org/projects/") && app.source[0].url.startsWith("https://taginfo.openstreetmap.org/projects/")) 
           )
         ) {
           filteredApps.push(app);
