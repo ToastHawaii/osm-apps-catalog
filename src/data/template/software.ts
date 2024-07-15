@@ -77,10 +77,10 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .join(", "),
     languages: (source["languages"] || "")
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .map((v) => languageValueToDisplay(v)),
+    .split(splitByCommaButNotInsideBraceRegex)
+    .map(trim)
+    .filter((v) => v)
+    .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["languagesurl"]),
     genre: toValues(source["genre"]),
     topics: toValues(source["genre"]),

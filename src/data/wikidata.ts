@@ -1,3 +1,4 @@
+import { languageValueToDisplay } from "../ui/language";
 import { getJson } from "../ui/utilities/jsonRequest";
 import { App } from "./template/utilities";
 
@@ -38,17 +39,17 @@ function extractGenre(result: any) {
 export function transformWikidataResult(result: any) {
   return {
     name: result.itemLabel.value || "",
+    lastRelease: result.lastRelease?.value ||"",
     description: result.description?.value || "",
     images: result.image?.value ? [result.image.value] : [],
     website: result.website?.value || result.websiteDefault?.value || "",
     documentation:
       result.documentation?.value || result.documentationDefault?.value || "",
-    libre: result.license?.value?.match(
-      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|Ms-PL.*)"
-    ) || "",
-    license: result.license?.value || "",
     sourceCode: result.sourceCode?.value || "",
-    languages: [],
+    languages: (result.languages?.value || "")
+      .split(";")
+      .filter((v:any) => v)
+      .map((v: any) => languageValueToDisplay(v)),
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
     topics: extractGenre(result),
@@ -79,33 +80,7 @@ export async function requestWikidata(language: string) {
   const params: any = {};
 
   params["query"] = `
-SELECT 
-  ?item ?itemLabel 
-  ?description 
-  (SAMPLE(?image) AS ?image) 
-  (SAMPLE(?websiteDefault) AS ?websiteDefault)
-  (SAMPLE(?website) AS ?website)
-  (SAMPLE(?documentationDefault) AS ?documentationDefault)
-  (SAMPLE(?documentation) AS ?documentation)
-  (GROUP_CONCAT(?licenseShortName; SEPARATOR = ", ") AS ?license)
-  (SAMPLE(?sourceCode) AS ?sourceCode)
-  (SAMPLE(?languagesUrl) AS ?languagesUrl) 
-  (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlayID) AS ?googlePlayID) 
-  (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
-  (SAMPLE(?fDroidID) AS ?fDroidID) 
-  (SAMPLE(?appleStoreID) AS ?appleStoreID) 
-  ?viewing
-  ?routing
-  ?editor
-  ?comparing
-  ?hashtagTool
-  ?monitoring
-  ?changsetReview
-  ?modified 
-WHERE {
-  {
-    SELECT 
+   SELECT DISTINCT 
       ?item ?itemLabel 
       ?description 
       (SAMPLE(?image) AS ?image) 
@@ -115,6 +90,7 @@ WHERE {
       (SAMPLE(?documentation) AS ?documentation)
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
       (SAMPLE(?sourceCode) AS ?sourceCode)
+      (GROUP_CONCAT(DISTINCT ?languageCode; SEPARATOR = ";") AS ?languages)
       (SAMPLE(?languagesUrl) AS ?languagesUrl) 
       (SAMPLE(?asin) AS ?asin) 
       (SAMPLE(?googlePlayID) AS ?googlePlayID) 
@@ -142,16 +118,16 @@ WHERE {
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       OPTIONAL {
         ?item schema:description ?description.
-        FILTER((LANG(?description)) = "en")
+        FILTER((LANG(?description)) = "${language}")
       }
       OPTIONAL { ?item wdt:P18 ?image. }
       OPTIONAL { ?item wdt:P856 ?websiteDefault. }
       OPTIONAL { 
         ?item p:P856 ?websiteStatement. 
         ?websiteStatement ps:P856 ?website.
-        ?websiteStatement pq:P407 ?language.
-        ?language wdt:P218 ?languageCode 
-        FILTER(?languageCode = "en")
+        ?websiteStatement pq:P407 ?websiteLanguage.
+        ?websiteLanguage wdt:P218 ?websiteLanguageCode 
+        FILTER(?websiteLanguageCode = "${language}")
       }
       OPTIONAL { 
         ?item p:P1343 ?documentationDefaultStatement. 
@@ -162,13 +138,13 @@ WHERE {
         ?documentationStatement ps:P973 ?documentation.
         ?documentationStatement pq:P407 ?documentaionLanguage.
         ?documentaionLanguage wdt:P218 ?documentaionLanguageCode 
-        FILTER(?documentaionLanguageCode = "en")
-      }
-      OPTIONAL {
-        ?item wdt:P275 ?license.
-        ?license wdt:P1813 ?licenseShortName.
+        FILTER(?documentaionLanguageCode = "${language}")
       }
       OPTIONAL { ?item wdt:P1324 ?sourceCode. }
+      OPTIONAL { 
+        ?item wdt:P407 ?language.
+        ?language wdt:P218 ?languageCode.
+      }
       OPTIONAL { ?item wdt:P11254 ?languagesUrl. }
       OPTIONAL { ?item wdt:P5749 ?asin. }
       OPTIONAL { ?item wdt:P3597 ?fDroidID. }
@@ -204,11 +180,10 @@ WHERE {
         BIND("yes" AS ?changsetReview)
       }
       OPTIONAL { ?item schema:dateModified ?modified }
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
     }
     GROUP BY ?item ?itemLabel 
-             ?description 
-             ?license
+             ?description
              ?viewing 
              ?routing 
              ?editor 
@@ -217,20 +192,6 @@ WHERE {
              ?monitoring 
              ?changsetReview 
              ?modified
-  } 
-  
-  OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
-}
-GROUP BY ?item ?itemLabel 
-         ?description
-         ?viewing 
-         ?routing 
-         ?editor 
-         ?comparing 
-         ?hashtagTool 
-         ?monitoring 
-         ?changsetReview 
-         ?modified            
   `.replaceAll("  ", " ");
   params["format"] = "json";
 
