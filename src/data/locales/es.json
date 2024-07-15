@@ -6,7 +6,7 @@
     "filter.category.latest": "Última",
     "proprietary": "Propietario",
     "wiki.none": "ninguno",
-    "category.all.description": "Muestra {{numberOfApps}} aplicaciones encontradas en la wiki de OpenStreetMap y taginfo en orden aleatorio.",
+    "category.all.description": "Muestra {{numberOfApps}} aplicaciones encontradas en la wiki de OpenStreetMap, Wikidata y taginfo en orden aleatorio.",
     "filter.language": "Idioma",
     "category.focus.description": "Muestra diez aplicaciones de las páginas actualizadas más recientemente.",
     "wiki.generatedByOsmAppsCatalog": "Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.",
