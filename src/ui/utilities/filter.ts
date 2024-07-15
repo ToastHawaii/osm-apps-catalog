@@ -53,7 +53,7 @@ export function mobile(a: App) {
 export function navigation(a: App) {
   return a.topics
     .map((t) => t.toUpperCase())
-    .some((t) => ["NAVI", "ROUTING", "ROUTER"].includes(t));
+    .some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
 }
 
 export function edit(a: App) {
@@ -65,6 +65,7 @@ export function edit(a: App) {
         "EDIT",
         "EDITING",
         "EDITOR",
+        "EDITOR SOFTWARE",
         "ANALYSE",
         "ANALYSER",
         "ANALYSIS",
@@ -75,7 +76,11 @@ export function edit(a: App) {
         "OSM TOOL",
         "QA",
         "QUALITY CONTROL",
-        "NOTES"
+        "NOTES",
+        "COMPARING TOOL",
+        "HASHTAG TOOL",
+        "MONITORING TOOL",
+        "CHANGESET REVIEW TOOL",
       ].includes(t)
     );
 }

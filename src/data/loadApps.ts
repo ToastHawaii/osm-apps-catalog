@@ -8,6 +8,7 @@ import { App, containsOfflineLink } from "./template/utilities";
 import { apps } from "../script";
 import { addApp } from "./addApp";
 import { toUrl } from "../ui/utilities/url";
+import { requestWikidata, transformWikidataResult } from "./wikidata";
 
 export async function loadApps(
   doUpdate: (apps: App[]) => void,
@@ -16,6 +17,7 @@ export async function loadApps(
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
+  const wikidataRequest = requestWikidata(language);
 
   const serviceItemObjects = await serviceItemObjectsRequest;
   for (const source of serviceItemObjects.filter(
@@ -63,6 +65,15 @@ export async function loadApps(
     const obj: App = transformSoftware(source);
 
     addApp(obj);
+  }
+  doUpdate(apps);
+
+  const wikidataResults = (await wikidataRequest).results.bindings;
+  for (const source of wikidataResults) {
+    const obj: App = transformWikidataResult(source);
+    if (obj.website) {
+      addApp(obj);
+    }
   }
   doUpdate(apps);
 
