@@ -63,7 +63,7 @@ export function transformWikidataResult(result: any) {
         wiki: "",
         displayName: `Wikidata <i class="fas fa-pen"></i>`,
         url: result.item.value,
-        lastChange: "",
+        lastChange: result.modified.value,
       },
     ],
   } as App;
@@ -76,27 +76,28 @@ export async function requestWikidata(language: string) {
 
   params["query"] = `
 SELECT DISTINCT 
-  ?item ?itemLabel 
-  ?description 
-  (SAMPLE(?image) AS ?image) 
-  (SAMPLE(?websiteDefault) AS ?websiteDefault)
-  (SAMPLE(?website) AS ?website)
-  (SAMPLE(?documentationDefault) AS ?documentationDefault)
-  (SAMPLE(?documentation) AS ?documentation)
-  (SAMPLE(?sourceCode) AS ?sourceCode)
-  (SAMPLE(?languagesUrl) AS ?languagesUrl) 
-  (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlayID) AS ?googlePlayID) 
-  (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
-  (SAMPLE(?fDroidID) AS ?fDroidID) 
-  (SAMPLE(?appleStoreID) AS ?appleStoreID) 
-  ?viewing
-  ?routing
-  ?editor
-  ?comparing
-  ?hashtagTool
-  ?monitoring
-  ?changsetReview
+    ?item ?itemLabel 
+    ?description 
+    (SAMPLE(?image) AS ?image) 
+    (SAMPLE(?websiteDefault) AS ?websiteDefault)
+    (SAMPLE(?website) AS ?website)
+    (SAMPLE(?documentationDefault) AS ?documentationDefault)
+    (SAMPLE(?documentation) AS ?documentation)
+    (SAMPLE(?sourceCode) AS ?sourceCode)
+    (SAMPLE(?languagesUrl) AS ?languagesUrl) 
+    (SAMPLE(?asin) AS ?asin) 
+    (SAMPLE(?googlePlayID) AS ?googlePlayID) 
+    (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
+    (SAMPLE(?fDroidID) AS ?fDroidID) 
+    (SAMPLE(?appleStoreID) AS ?appleStoreID) 
+    ?viewing
+    ?routing
+    ?editor
+    ?comparing
+    ?hashtagTool
+    ?monitoring
+    ?changsetReview
+    ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
   { ?item wdt:P144 wd:Q936. }
@@ -167,9 +168,10 @@ WHERE {
     ?item wdt:P31 wd:Q125191237.
     BIND("yes" AS ?changsetReview)
   }
+  OPTIONAL { ?item schema:dateModified ?modified }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
 }
-GROUP BY ?item ?itemLabel ?description ?viewing ?routing ?editor ?comparing ?hashtagTool ?monitoring ?changsetReview
+GROUP BY ?item ?itemLabel ?description ?viewing ?routing ?editor ?comparing ?hashtagTool ?monitoring ?changsetReview ?modified 
   `;
   params["format"] = "json";
 
