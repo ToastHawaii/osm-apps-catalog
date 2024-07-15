@@ -19,7 +19,7 @@
     "multilingual": "Mehrsprachig",
     "wiki.none": "Keine",
     "list.moreInfos": "Informationen",
-    "category.all.description": "Zeigt {{numberOfApps}} Apps aus dem OpenStreetMap-Wiki und Taginfo in zufälliger Reihenfolge an.",
+    "category.all.description": "Zeigt {{numberOfApps}} Apps aus dem OpenStreetMap-Wiki, Wikidata und Taginfo in zufälliger Reihenfolge an.",
     "filter.topic": "Themen",
     "app.sourceCode": "Quellcode",
     "app.license": "Lizenz",
@@ -42,5 +42,9 @@
     "filter.search": "Suche",
     "filter.free": "Frei",
     "compare.group.header.map": "Kartenanzeige",
-    "about": "Über"
+    "about": "Über",
+    "compare.group.header.routing": "Routenplanung",
+    "compare.group.header.navigating": "Navigieren",
+    "compare.group.header.editing": "Bearbeiten",
+    "compare.group.header.accessibility": "Zugänglichkeit"
 }
