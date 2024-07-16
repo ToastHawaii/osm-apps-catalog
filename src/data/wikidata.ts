@@ -45,7 +45,11 @@ export function transformWikidataResult(result: any) {
     website: result.website?.value || result.websiteDefault?.value || "",
     documentation:
       result.documentation?.value || result.documentationDefault?.value || "",
-    license: result.license?.value,
+    author: result.authors?.value || "",
+    libre: (result.license?.value || "")?.match(
+      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|Ms-PL.*)"
+    ),
+    license: result.license?.value || "",
     sourceCode: result.sourceCode?.value || "",
     languages: (result.languages?.value || "")
       .split(";")
@@ -53,8 +57,11 @@ export function transformWikidataResult(result: any) {
       .map((v: any) => languageValueToDisplay(v)),
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
-    topics: extractGenre(result),
-    platform: [],
+    topics: [
+      ...extractGenre(result),
+      ...(result.topics?.value || "").split(";").filter((v: any) => v),
+    ],
+    platform: (result.platforms?.value || "").split(";").filter((v: any) => v),
     coverage: [],
     install: {
       asin: result.asin?.value,
@@ -62,6 +69,7 @@ export function transformWikidataResult(result: any) {
       huaweiAppGalleryID: result.huaweiAppGalleryID?.value,
       fDroidID: result.fDroidID?.value,
       appleStoreID: result.appleStoreID?.value,
+      microsoftAppID: result.microsoftAppID?.value,
     },
     source: [
       {
@@ -97,14 +105,18 @@ SELECT DISTINCT
   (SAMPLE(?website) AS ?website)
   (SAMPLE(?documentationDefault) AS ?documentationDefault)
   (SAMPLE(?documentation) AS ?documentation)
+  (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
   (GROUP_CONCAT(DISTINCT ?languageCode; SEPARATOR = ";") AS ?languages)
   (SAMPLE(?languagesUrl) AS ?languagesUrl) 
+  (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
+  (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
   (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?googlePlayID) AS ?googlePlayID) 
   (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
   (SAMPLE(?fDroidID) AS ?fDroidID) 
   (SAMPLE(?appleStoreID) AS ?appleStoreID) 
+  (SAMPLE(?microsoftAppID) AS ?microsoftAppID) 
   ?viewing
   ?routing
   ?editor
@@ -148,17 +160,30 @@ WHERE {
     ?documentaionLanguage wdt:P218 ?documentaionLanguageCode 
     FILTER(?documentaionLanguageCode = "${language}")
   }
+  OPTIONAL { 
+    ?item wdt:P178/rdfs:label ?authorLabel.
+    FILTER(LANG(?authorLabel) = "${language}")
+  }
   OPTIONAL { ?item wdt:P1324 ?sourceCode. }
   OPTIONAL { 
     ?item wdt:P407 ?language.
     ?language wdt:P218 ?languageCode.
   }
   OPTIONAL { ?item wdt:P11254 ?languagesUrl. }
+  OPTIONAL { 
+    ?item wdt:P366/rdfs:label ?topicLabel.
+    FILTER(LANG(?topicLabel) = "${language}")
+  }
+  OPTIONAL { 
+    ?item wdt:P306/rdfs:label ?platformLabel.
+    FILTER(LANG(?platformLabel) = "${language}")
+  }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroidID. }
   OPTIONAL { ?item wdt:P3418 ?googlePlayID. }
   OPTIONAL { ?item wdt:P8940 ?huaweiAppGalleryID. }
   OPTIONAL { ?item wdt:P3861 ?appleStoreID. }
+  OPTIONAL { ?item wdt:P5885 ?microsoftAppID. }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
     BIND("yes" AS ?viewing)
