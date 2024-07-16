@@ -360,13 +360,13 @@ function update({
   if (search)
     filteredApps = filteredApps.filter(
       (a) =>
-        a.name.toUpperCase().search(search) !== -1 ||
-        a.description.toUpperCase().search(search) !== -1 ||
-        a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
+        a.name.toUpperCase().indexOf(search) !== -1 ||
+        a.description.toUpperCase().indexOf(search) !== -1 ||
+        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
           0 ||
-        a.platform.filter((t) => t.toUpperCase().search(search) !== -1).length >
+        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
           0 ||
-        a.coverage.filter((t) => t.toUpperCase().search(search) !== -1).length >
+        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
           0
     );
 
@@ -525,21 +525,21 @@ function renderSimilarApps(
     similarApps = similarApps.filter((a) =>
       topicsUp.every(
         (t) =>
-          a.name.toUpperCase().search(t) !== -1 ||
-          a.description.toUpperCase().search(t) !== -1
+          a.name.toUpperCase().indexOf(t) !== -1 ||
+          a.description.toUpperCase().indexOf(t) !== -1
       )
     );
 
     if (search)
       similarApps = similarApps.filter(
         (a) =>
-          a.name.toUpperCase().search(search) !== -1 ||
-          a.description.toUpperCase().search(search) !== -1 ||
-          a.topics.filter((t) => t.toUpperCase().search(search) !== -1).length >
+          a.name.toUpperCase().indexOf(search) !== -1 ||
+          a.description.toUpperCase().indexOf(search) !== -1 ||
+          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
             0 ||
-          a.platform.filter((t) => t.toUpperCase().search(search) !== -1)
+          a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
             .length > 0 ||
-          a.coverage.filter((t) => t.toUpperCase().search(search) !== -1)
+          a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
             .length > 0
       );
 
