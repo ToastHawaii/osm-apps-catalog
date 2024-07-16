@@ -22,6 +22,7 @@ import { removeDuplicates } from "../../ui/utilities/array";
 import {
   appendFullStop,
   equalsYes,
+  splitByCommaButNotInsideBraceRegex,
   toDate,
   trim,
 } from "../../ui/utilities/string";
@@ -29,7 +30,6 @@ import {
   App,
   processWikiText,
   extractRepo,
-  splitByCommaButNotInsideBraceRegex,
   extractWebsite,
   extractNameWebsiteWiki,
 } from "./utilities";

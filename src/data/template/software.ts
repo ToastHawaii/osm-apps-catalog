@@ -27,6 +27,7 @@ import {
   toDate,
   equalsYes,
   equalsIgnoreCase,
+  toValues,
 } from "../../ui/utilities/string";
 import {
   App,
@@ -334,12 +335,4 @@ function hasValue(value: string = "") {
     value !== "NONE" &&
     value !== "?"
   );
-}
-
-function toValues(value: string = "") {
-  return value
-    .split(splitByCommaButNotInsideBraceRegex)
-    .map(trim)
-    .filter((v) => v)
-    .map(firstLetterToUpperCase);
 }

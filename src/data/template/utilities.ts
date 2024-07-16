@@ -136,7 +136,6 @@ export type App = {
   filter?: string;
 };
 
-export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
 
 export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);

@@ -1,5 +1,6 @@
 import { languageValueToDisplay } from "../ui/language";
 import { getJson } from "../ui/utilities/jsonRequest";
+import { toValues } from "../ui/utilities/string";
 import { App } from "./template/utilities";
 
 function extractGenre(result: any) {
@@ -57,10 +58,7 @@ export function transformWikidataResult(result: any) {
       .map((v: any) => languageValueToDisplay(v)),
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
-    topics: [
-      ...extractGenre(result),
-      ...(result.topics?.value || "").split(";").filter((v: any) => v),
-    ],
+    topics: [...extractGenre(result), ...toValues(result.topics?.value || "")],
     platform: (result.platforms?.value || "").split(";").filter((v: any) => v),
     coverage: [],
     install: {
