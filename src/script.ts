@@ -322,8 +322,15 @@ function update({
     for (const app of latestApps) {
       if (filteredApps.length < 10) {
         if (
-          !filteredApps.some((a) =>
-            equalsIgnoreCase(a.source[0].url, app.source[0].url) || (a.source[0].url.startsWith("https://taginfo.openstreetmap.org/projects/") && app.source[0].url.startsWith("https://taginfo.openstreetmap.org/projects/")) 
+          !filteredApps.some(
+            (a) =>
+              equalsIgnoreCase(a.source[0].url, app.source[0].url) ||
+              (a.source[0].url.startsWith(
+                "https://taginfo.openstreetmap.org/projects/"
+              ) &&
+                app.source[0].url.startsWith(
+                  "https://taginfo.openstreetmap.org/projects/"
+                ))
           )
         ) {
           filteredApps.push(app);
@@ -608,10 +615,10 @@ function printJsonLd() {
         .map((app) => ({
           "@context": "http://schema.org",
           "@type": "SoftwareApplication",
-          name: app.name,
-          description: app.description,
-          image: app.images[0],
-          url: app.website,
+          name: app.name || undefined,
+          description: app.description || undefined,
+          image: app.images[0] || undefined,
+          url: app.website || undefined,
           downloadUrl: app.install.fDroidID
             ? "https://f-droid.org/repository/browse/?fdid=" +
               app.install.fDroidID
@@ -636,14 +643,16 @@ function printJsonLd() {
             ? "https://appgallery.huawei.com/#/app/" +
               app.install.huaweiAppGalleryID
             : undefined,
-          author: {
-            "@type": "Person",
-            name: app.author,
-          },
-          datePublished: app.lastRelease,
-          license: app.license,
-          applicationCategory: ["Map", ...app.topics].join(", "),
-          operatingSystem: app.platform.join(", "),
+          author: app.author
+            ? {
+                "@type": "Person",
+                name: app.author,
+              }
+            : undefined,
+          datePublished: app.lastRelease || undefined,
+          license: app.license || undefined,
+          applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
+          operatingSystem: app.platform.join(", ") || undefined,
         }))
     )
   );
