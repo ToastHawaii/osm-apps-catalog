@@ -11,8 +11,10 @@ export function addApp(obj: App) {
   );
 
   if (duplicates.length === 0) {
-    apps.push(obj);
-    extendFilter(obj);
+    if (obj.website) {
+      apps.push(obj);
+      extendFilter(obj);
+    }
   } else {
     const app = duplicates[0];
 
@@ -38,16 +40,23 @@ export function addApp(obj: App) {
     app.coverage.push(...obj.coverage);
     app.coverage = removeDuplicates(app.coverage);
 
-    // make the first source the newest
     if (
-      app.source[0].lastChange.toUpperCase() >
-      obj.source[0].lastChange.toUpperCase()
+      // only add if not same source
+      !(
+        app.source[0].lastChange === obj.source[0].lastChange &&
+        app.source[0].name === obj.source[0].name
+      )
     ) {
-      app.source = [...app.source, ...obj.source];
-    } else {
-      app.source = [...obj.source, ...app.source];
+      // make the first source the newest
+      if (
+        app.source[0].lastChange.toUpperCase() >
+        obj.source[0].lastChange.toUpperCase()
+      ) {
+        app.source = [...app.source, ...obj.source];
+      } else {
+        app.source = [...obj.source, ...app.source];
+      }
     }
-
     app.author = app.author || obj.author;
 
     app.gratis = app.gratis || obj.gratis;
@@ -120,7 +129,7 @@ function merge<T extends { [name: string]: string[] }>(
       }
       if (!o1[k] && o2[k]) {
         o1[k] = o2[k];
-        return
+        return;
       }
 
       o1[k].push(...o2[k]);

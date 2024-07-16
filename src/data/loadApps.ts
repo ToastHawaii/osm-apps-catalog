@@ -68,13 +68,12 @@ export async function loadApps(
   // }
   // doUpdate(apps);
 
-  const wikidataResults = (await wikidataRequest).results.bindings;
-  for (const source of wikidataResults) {
-    const obj: App = transformWikidataResult(source);
-    if (obj.website) {
+  const wikidataResults = await Promise.all(wikidataRequest);
+  for (const wikidataResult of wikidataResults)
+    for (const source of wikidataResult.results.bindings) {
+      const obj: App = transformWikidataResult(source);
       addApp(obj);
     }
-  }
   doUpdate(apps);
 
   // const projectObjects = window.tagInfoProjectsResponse as {
