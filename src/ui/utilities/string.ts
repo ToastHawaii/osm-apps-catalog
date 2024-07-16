@@ -95,6 +95,7 @@ export function textToColor(s: string) {
   }
   return { r, g, b };
 }
+
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^\(]*\))/;
 
 export function toValues(value: string = "") {

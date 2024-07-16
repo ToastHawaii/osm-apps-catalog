@@ -58,7 +58,7 @@ export function transformWikidataResult(result: any) {
       .map((v: any) => languageValueToDisplay(v)),
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
-    topics: [...extractGenre(result), ...toValues(result.topics?.value || "")],
+    topics: [...extractGenre(result), ...toValues(result.topics?.value)],
     platform: (result.platforms?.value || "").split(";").filter((v: any) => v),
     coverage: [],
     install: {

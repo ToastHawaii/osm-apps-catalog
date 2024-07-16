@@ -24,11 +24,11 @@ import {
   trim,
   firstLetterToUpperCase,
   startsWithIgnoreCase,
+  splitByCommaButNotInsideBraceRegex,
 } from "../../ui/utilities/string";
 import {
   App,
   processWikiText,
-  splitByCommaButNotInsideBraceRegex,
   extractNameWebsiteWiki,
   extractWebsite,
   extractLanguageCodeFromTemplate,

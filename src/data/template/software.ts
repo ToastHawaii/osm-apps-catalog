@@ -28,12 +28,12 @@ import {
   equalsYes,
   equalsIgnoreCase,
   toValues,
+  splitByCommaButNotInsideBraceRegex,
 } from "../../ui/utilities/string";
 import {
   App,
   processWikiText,
   extractRepo,
-  splitByCommaButNotInsideBraceRegex,
   extractNameWebsiteWiki,
 } from "./utilities";
 
@@ -78,10 +78,10 @@ export function transform(source: { [name: string]: string }) {
       .filter((v) => v)
       .join(", "),
     languages: (source["languages"] || "")
-    .split(splitByCommaButNotInsideBraceRegex)
-    .map(trim)
-    .filter((v) => v)
-    .map((v) => languageValueToDisplay(v)),
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map((v) => languageValueToDisplay(v)),
     languagesUrl: toUrl(source["languagesurl"]),
     genre: toValues(source["genre"]),
     topics: toValues(source["genre"]),
