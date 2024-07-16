@@ -42,9 +42,10 @@ export function addApp(obj: App) {
 
     if (
       // only add if not same source
-      !(
-        app.source[0].lastChange === obj.source[0].lastChange &&
-        app.source[0].name === obj.source[0].name
+      !app.source.some(
+        (s) =>
+          s.lastChange === obj.source[0].lastChange &&
+          s.name === obj.source[0].name
       )
     ) {
       // make the first source the newest
