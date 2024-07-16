@@ -11,7 +11,18 @@ export function addApp(obj: App) {
   );
 
   if (duplicates.length === 0) {
-    if (obj.website) {
+    // only add if external sources exists
+    if (
+      obj.website ||
+      obj.documentation ||
+      obj.install.appleStoreID ||
+      obj.install.asin ||
+      obj.install.fDroidID ||
+      obj.install.huaweiAppGalleryID ||
+      obj.install.macAppStoreID ||
+      obj.install.microsoftAppID ||
+      obj.sourceCode
+    ) {
       apps.push(obj);
       extendFilter(obj);
     }
