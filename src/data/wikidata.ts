@@ -231,6 +231,8 @@ GROUP BY ?item
     `
 SELECT DISTINCT 
   ?item ?itemLabel
+  (SAMPLE(?websiteDefault) AS ?websiteDefault)
+  (SAMPLE(?website) AS ?website)
   (MAX(?date) AS ?lastRelease)
   ?modified 
 WHERE {
@@ -244,6 +246,15 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+
+  OPTIONAL { ?item wdt:P856 ?websiteDefault. }
+  OPTIONAL { 
+    ?item p:P856 ?websiteStatement. 
+    ?websiteStatement ps:P856 ?website.
+    ?websiteStatement pq:P407 ?websiteLanguage.
+    ?websiteLanguage wdt:P218 ?websiteLanguageCode 
+    FILTER(?websiteLanguageCode = "${language}")
+  }
       
   ?item p:P348/pq:P577 ?date.
 
@@ -260,6 +271,8 @@ GROUP BY ?item
     `
 SELECT DISTINCT 
   ?item ?itemLabel
+  (SAMPLE(?websiteDefault) AS ?websiteDefault)
+  (SAMPLE(?website) AS ?website)
   (GROUP_CONCAT(?licenseShortName; SEPARATOR = ", ") AS ?license)
   ?modified 
 WHERE
@@ -280,6 +293,15 @@ WHERE
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+
+      OPTIONAL { ?item wdt:P856 ?websiteDefault. }
+      OPTIONAL { 
+        ?item p:P856 ?websiteStatement. 
+        ?websiteStatement ps:P856 ?website.
+        ?websiteStatement pq:P407 ?websiteLanguage.
+        ?websiteLanguage wdt:P218 ?websiteLanguageCode 
+        FILTER(?websiteLanguageCode = "${language}")
+      }
           
       ?item wdt:P275 ?license.
       ?license wdt:P1813 ?licenseShortName.
