@@ -13,5 +13,15 @@
     "filter.topic": "Topik",
     "filter.coverage": "Cakupan",
     "filter.category.all": "Semua",
-    "filter.free": "Gratis"
+    "filter.free": "Gratis",
+    "relatedApps": "{{jumlahAplikasi}} aplikasi terkait",
+    "category.mobile.description": "Menampilkan aplikasi {{numberOfApps}} yang dikembangkan untuk perangkat seluler atau yang mendukung penggunaan offline.",
+    "category.focus.description": "Menampilkan sepuluh aplikasi dari halaman yang paling baru diperbarui.",
+    "category.navigation.description": "Menampilkan {{numberOfApps}} aplikasi yang mendukung perutean atau navigasi.",
+    "category.edit.description": "Menampilkan aplikasi {{numberOfApps}} yang mendukung penambahan, pengeditan, atau analisis data OpenStreetMap atau perekaman geolokasi.",
+    "filter.category.mobile": "Untuk pergi",
+    "filter.category.navigation": "Temukan jalan Anda",
+    "filter.category.edit": "Kontribusi",
+    "category.all.description": "Menampilkan {{numberOfApps}} aplikasi yang ditemukan di wiki OpenStreetMap, Wikidata, dan taginfo secara acak.",
+    "category.latest.description": "Menampilkan {{numberOfApps}} aplikasi yang diurutkan berdasarkan tanggal rilis terakhir."
 }
