@@ -61,5 +61,7 @@
     "app.unmaintained": "({{icon}} Ungewartet)",
     "compare.share": "Teilen in wiki.openstreetmap.org",
     "compare.group.header.rendering": "Rendering",
-    "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org."
+    "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.",
+    "notFound": "Nicht gefunden, was Du suchst?",
+    "notFound.desc": "Mit den folgenden Diensten kannst Du Deine eigenen Themenkarten erstellen, vielleicht ist ja die Karte dabei, die Du suchst."
 }
