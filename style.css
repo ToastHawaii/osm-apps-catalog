@@ -331,6 +331,7 @@ a {
 
 .no-results {
   color: lightgray;
+  font-size: 2em;
   text-align: center;
   width: 100vw;
 }

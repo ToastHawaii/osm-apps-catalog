@@ -364,10 +364,10 @@ function update({
         a.description.toUpperCase().indexOf(search) !== -1 ||
         a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
           0 ||
-        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-          0 ||
-        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-          0
+        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0 ||
+        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0
     );
 
   if (topicsUp.length > 0)
@@ -467,7 +467,7 @@ function update({
       }
       if (filteredApps.length === 0) {
         getHtmlElement("#list").appendChild(
-          createElement("div", i18next.t("noResults"), ["no-results"])
+          createElement("p", i18next.t("noResults"), ["no-results"])
         );
       }
       renderSimilarApps(
@@ -478,6 +478,9 @@ function update({
         languagesUp,
         coverageUp
       );
+      if (category === "all") {
+        renderNotFoundApps();
+      }
       break;
 
     case "compare":
@@ -486,7 +489,7 @@ function update({
         true;
       if (filteredApps.length === 0) {
         getHtmlElement("#compare").appendChild(
-          createElement("div", i18next.t("noResults"), ["no-results"])
+          createElement("p", i18next.t("noResults"), ["no-results"])
         );
       }
       renderCompareView(filteredApps, lang);
@@ -535,8 +538,8 @@ function renderSimilarApps(
         (a) =>
           a.name.toUpperCase().indexOf(search) !== -1 ||
           a.description.toUpperCase().indexOf(search) !== -1 ||
-          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-            0 ||
+          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0 ||
           a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
             .length > 0 ||
           a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
@@ -578,6 +581,25 @@ function renderSimilarApps(
         renderListView(a);
       }
     }
+  }
+}
+
+const notFoundAppsTitle = ["uMap", "MapContrib", "Overpass turbo"];
+
+function renderNotFoundApps() {
+  let notFound = notFoundAppsTitle
+    .map((f) => apps.find((a) => a.name === f))
+    .filter((a) => a);
+
+  const notFoundTag = createElement("h2", i18next.t("notFound"));
+  getHtmlElement("#list").appendChild(notFoundTag);
+
+  const notFoundDesc = createElement("p", i18next.t("notFound.desc"));
+  notFoundDesc.style.margin = "5px 10px 10px;";
+  getHtmlElement("#list").appendChild(notFoundDesc);
+
+  for (const a of notFound) {
+    renderListView(a as App);
   }
 }
 
