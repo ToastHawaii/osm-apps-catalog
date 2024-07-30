@@ -61,5 +61,7 @@
     "compare.group.header.navigating": "Navegando",
     "compare.group.header.tracking": "Rastreo",
     "compare.group.header.accessibility": "Accesibilidad",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "notFound.desc": "Los siguientes servicios se pueden utilizar para crear tus propios mapas temáticos, tal vez exista el mapa que estás buscando.",
+    "notFound": "¿No encuentras lo que buscas?"
 }
