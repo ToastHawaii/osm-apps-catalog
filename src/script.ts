@@ -584,7 +584,12 @@ function renderSimilarApps(
   }
 }
 
-const notFoundAppsTitle = ["uMap", "MapContrib", "MapComplete", "Overpass turbo"];
+const notFoundAppsTitle = [
+  "uMap",
+  "MapContrib",
+  "MapComplete",
+  "Overpass turbo",
+];
 
 function renderNotFoundApps() {
   let notFound = notFoundAppsTitle
@@ -595,7 +600,7 @@ function renderNotFoundApps() {
   getHtmlElement("#list").appendChild(notFoundTag);
 
   const notFoundDesc = createElement("p", i18next.t("notFound.desc"));
-  notFoundDesc.style.margin = "5px 10px 10px;";
+  notFoundDesc.style.margin = "5px 10px 10px";
   getHtmlElement("#list").appendChild(notFoundDesc);
 
   for (const a of notFound) {
