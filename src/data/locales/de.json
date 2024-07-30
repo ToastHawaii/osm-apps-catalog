@@ -63,5 +63,5 @@
     "compare.group.header.rendering": "Rendering",
     "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.",
     "notFound": "Nicht gefunden, was Du suchst?",
-    "notFound.desc": "Mit den folgenden Diensten kannst Du Deine eigenen Themenkarten erstellen, vielleicht ist ja die Karte dabei, die Du suchst."
+    "notFound.desc": "Mit den folgenden Diensten kannst du deine eigenen Themenkarten erstellen, ohne Programmierkenntnisse zu benötigen. Vielleicht hat schon jemand die Karte erstellt, die du suchst, oder du kannst deine eigene Themenkarte erstellen."
 }
