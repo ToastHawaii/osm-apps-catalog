@@ -584,7 +584,7 @@ function renderSimilarApps(
   }
 }
 
-const notFoundAppsTitle = ["uMap", "MapContrib", "Overpass turbo"];
+const notFoundAppsTitle = ["uMap", "MapContrib", "MapComplete", "Overpass turbo"];
 
 function renderNotFoundApps() {
   let notFound = notFoundAppsTitle

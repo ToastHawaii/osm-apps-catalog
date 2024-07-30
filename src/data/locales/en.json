@@ -21,7 +21,7 @@
   "category.edit.description": "Shows {{numberOfApps}} apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.",
   "relatedApps": "{{numberOfApps}} related apps",
   "notFound": "Not found what you're looking for?",
-  "notFound.desc": "The following services can be used to create your own theme maps, maybe there is the map you are looking for.",
+  "notFound.desc": "With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.",
   "noResults": "No results",
   "compare.group.header.general": "General",
   "compare.group.header.map": "Map display",
