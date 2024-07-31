@@ -587,6 +587,7 @@ function renderSimilarApps(
 const notFoundAppsTitle = [
   "uMap",
   "MapContrib",
+  "OpenStreetBrowser",
   "MapComplete",
   "Overpass turbo",
 ];
