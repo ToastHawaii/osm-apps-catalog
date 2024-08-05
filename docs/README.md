@@ -4,75 +4,11 @@ Experience the world in a creative, productive and unexpected way.
 
 [Click here for the catalog](https://osm-apps.zottelig.ch)
 
-This website shows applications and services that use OpenStreetMap data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application.
+This website shows applications and services that use OpenStreetMap data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application. [Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 The list is completed with [Wikidata](https://www.wikidata.org/) and the [taginfo.openstreetmap.org projects](https://taginfo.openstreetmap.org/projects).
 
 The catalog is updated every day.
-
-## 🙏 Contributions & acknowledgements
-
-- A special thanks goes to [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
-- Another big thanks goes to [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
-- Many thanks to [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
-- Thanks to all who made this catalog possible.
-
-## 📱 Is this catalog also available as an app?
-
-You can add this catalog to your homescreen from your smartphone. Use the "add to homescreen" function in your browser (iOS, Android, etc.)
-
-## ➕ How can I add a application to the list?
-
-Thank you very much for your commitment!
-
-Create a wiki Page about your app in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and use the [Software template](https://wiki.openstreetmap.org/wiki/Template:Software) to describe your app. Or add your app to the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) by using the [Service item template](https://wiki.openstreetmap.org/wiki/Template:Service_item).
-
-## ➖ How can I remove a application from the list?
-
-Delete the Software or Service item template about the app from the wiki page or mark the website link to the app as offline with `<s>...</s>` or `<strike>...</strike>`. You can also add `status = unfinished` or `status = broken` on the Software template.
-
-## 💪 Is there anything else to do?
-
-Sure, helping hands are always welcome and there is something for everyone to do. See also [OSM Apps Catalog page in the wiki](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-
-### 🧹 Do you like to check and clean up?
-
-Improve the documentation about Software in the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the Service items in the [List of OSM-based services](https://wiki.openstreetmap.org/wiki/List_of_OSM-based_services).
-
-- Add missing or undocumented services to the wiki. Create a wiki page and document with [Software Template](https://wiki.openstreetmap.org/wiki/Template:Software)
-- Move services that are offline, but whose source code still exists, to the offline section (otherwise remove it), or mark them as unfinished or broken
-- Reorganize the categories and services
-- Mark regional maps with local
-- Clean up names, replace domains/url with description from the website title
-- Add missing screenshots
-- Replace http with https where possible
-
-### 🌐 Can you speak another language?
-
-Make translations
-
-- for the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
-  <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- for the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
-
-### 💻 Can you program?
-
-Then improve this app catalog and send me a Pull Requests. [Click here to go to the project website of the osm apps catalog](https://github.com/ToastHawaii/osm-apps-catalog)
-
-## 📜 License
-
-The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The code is free for use, copying and modification if you publish under the same license.
-
-[View source code of this catalog on GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
-
-### 🖊️ I cannot program, how can I create my own theme map?
-
-Try one of the following services:
-
-- [MapComplete](https://pietervdvn.github.io/MapComplete/index.html) ([Wiki](https://wiki.openstreetmap.org/wiki/MapComplete))
-- [MapContrib](https://www.mapcontrib.xyz/) ([Wiki](https://wiki.openstreetmap.org/wiki/MapContrib))
-- [uMap](https://umap.openstreetmap.fr/en/) ([Wiki](https://wiki.openstreetmap.org/wiki/UMap))
-- [overpass turbo](https://overpass-turbo.eu/) ([Wiki](https://wiki.openstreetmap.org/wiki/Overpass_turbo)) You can use the "Wizard" to create a query, it also understands words like " Lake", " Bakery" and so on
 
 ## 🌍 Other languages
 
@@ -156,7 +92,20 @@ Help with the translation:
 
 - from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
+- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+
+## 🙏 Contributions & acknowledgements
+
+- A special thanks goes to [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
+- Another big thanks goes to [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
+- Many thanks to [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
+- Thanks to all who made this catalog possible.
+
+## 📜 License
+
+The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The code is free for use, copying and modification if you publish under the same license.
+
+[View source code of this catalog on GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
