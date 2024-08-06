@@ -48,7 +48,7 @@ export function transformWikidataResult(result: any) {
       result.documentation?.value || result.documentationDefault?.value || "",
     author: result.authors?.value || "",
     libre: (result.license?.value || "")?.match(
-      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|Ms-PL.*)"
+      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
     ),
     license: result.license?.value || "",
     sourceCode: result.sourceCode?.value || "",

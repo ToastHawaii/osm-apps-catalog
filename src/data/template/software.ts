@@ -67,9 +67,9 @@ export function transform(source: { [name: string]: string }) {
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
     ),
-    gratis: some([source["price"]], ["gratis", "free", "0"]),
+    gratis: some([source["price"]] || source["license"], ["gratis", "free", "0"]),
     libre: !!source["license"]?.match(
-      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|Ms-PL.*)"
+      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
     ),
     price: source["price"],
     license: processWikiText(source["license"] || "")
