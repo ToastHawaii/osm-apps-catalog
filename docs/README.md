@@ -109,10 +109,6 @@ The app is licensed under the [GNU Affero General Public License v3.0](https://g
 
 ---
 
-Support me with coffee ☕ and cake 🍰:
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick" />
-<input type="hidden" name="hosted_button_id" value="JFWXTYPKBD2YA" />
-<input type="image" src="https://www.paypalobjects.com/en_US/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-</form>
+- [How to contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
