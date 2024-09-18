@@ -6,5 +6,21 @@
     "filter.platform": "Platforma",
     "filter.language": "Jazyk",
     "app.languages": "Jazyky",
-    "app.platforms": "Platformy"
+    "app.platforms": "Platformy",
+    "filter.coverage": "Pokrytí",
+    "category.all.description": "Zobrazí {{numberOfApps}} aplikace nalezené na wiki OpenStreetMap, Wikidata a taginfo v náhodném pořadí.",
+    "about": "O aplikaci",
+    "filter.search": "Hledat",
+    "filter.free": "Zdarma",
+    "filter.topic": "Téma",
+    "filter.category": "Kategorie",
+    "filter.category.all": "Vše",
+    "filter.category.focus": "Zaměření",
+    "filter.category.latest": "Nejnovější",
+    "filter.category.mobile": "Přejít",
+    "filter.category.navigation": "Najděte svou cestu",
+    "filter.category.edit": "Přispět",
+    "category.focus.description": "Zobrazí deset aplikací z naposledy aktualizovaných stránek.",
+    "category.latest.description": "Zobrazí {{numberOfApps}} aplikace seřazené podle data posledního vydání.",
+    "category.mobile.description": "Zobrazuje {{numberOfApps}} aplikace vyvinuté pro mobilní zařízení nebo podporující offline použití."
 }
