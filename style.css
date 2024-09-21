@@ -134,9 +134,7 @@ a {
 }
 
 #compare .cell.header {
-  min-width: auto;
-  max-width: 135px;
-  width: 15vw;
+  width: 135px;
   position: relative;
   scroll-snap-align: start;
 }
