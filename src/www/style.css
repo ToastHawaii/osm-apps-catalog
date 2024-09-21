@@ -86,9 +86,11 @@ a {
 }
 .row {
   display: table-row;
+  scroll-snap-align: start;
 }
 
 .page-header {
+  scroll-snap-align: start;
   left: 0;
   position: sticky;
   z-index: 1000;
@@ -99,6 +101,9 @@ a {
 }
 
 #content {
+  scroll-snap-type: both proximity;
+  scroll-padding-top: 10px;
+  scroll-padding-left: 150px;
   overflow-x: auto;
   overflow-y: visible;
   height: 100vh;
@@ -133,6 +138,7 @@ a {
   max-width: 135px;
   width: 15vw;
   position: relative;
+  scroll-snap-align: start;
 }
 
 #compare .header a {
@@ -216,6 +222,7 @@ a {
 }
 
 .app {
+  scroll-snap-align: start;
   width: 320px;
   max-width: calc(100% - 40px);
   padding: 0 10px 10px;
