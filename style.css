@@ -101,9 +101,8 @@ a {
 }
 
 #content {
-  scroll-snap-type: both proximity;
+  scroll-snap-type: y proximity;
   scroll-padding-top: 10px;
-  scroll-padding-left: 150px;
   overflow-x: auto;
   overflow-y: visible;
   height: 100vh;
@@ -134,7 +133,9 @@ a {
 }
 
 #compare .cell.header {
-  width: 135px;
+  min-width: auto;
+  max-width: 135px;
+  width: 15vw;
   position: relative;
   scroll-snap-align: start;
 }
