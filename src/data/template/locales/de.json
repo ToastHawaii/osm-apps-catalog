@@ -1,109 +1,160 @@
 {
     "lang": {
-      "label": "Sprache der Vorlage",
-      "description": "Sprache, in der die Texte der Vorlage angezeigt werden"
+        "label": "Sprache der Vorlage"
     },
     "name": {
-      "label": "Name",
-      "description": "Offizieller Name, ansonsten der verbreitetste"
+        "label": "Name",
+        "description": "Offizieller Name, ansonsten der verbreitetste"
     },
-    "status": {},
-    "license": { "label": "Lizenz" },
-    "price": { "label": "Preis" },
-    "web": {},
-    "repo": { "label": "Quellcode" },
-    "logo": {},
-    "screenshot": { "label": "Bildschirmfoto" },
-    "description": { "label": "Beschreibung" },
+    "license": {
+        "label": "Lizenz"
+    },
+    "price": {
+        "label": "Preis"
+    },
+    "repo": {
+        "label": "Quellcode"
+    },
+    "screenshot": {
+        "label": "Bildschirmfoto"
+    },
+    "description": {
+        "label": "Beschreibung"
+    },
     "author": {
-      "label": "Autor",
-      "description": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
+        "label": "Autor",
+        "description": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
     },
-    "platform": { "label": "Plattform" },
-    "genre": {},
-    "languages": { "label": "Sprachen" },
-    "coverage": {},
-    "languagesurl": {},
-    "code": { "label": "Code" },
-    "framework": { "label": "Framework" },
-    "version": { "label": "Version" },
-    "date": {},
-    "asin": {},
-    "bbWorldID": {},
-    "fDroidID": {},
-    "firefoxMarketplaceID": {},
-    "googlePlayID": {},
-    "huaweiAppGalleryID": {},
-    "appleStoreID": {},
-    "macAppStoreID": {},
-    "microsoftAppID": {},
-    "map": { "label": "Karte anzeigen" },
-    "mapData": {},
-    "datasource": {},
-    "rotateMap": { "label": "Karte drehen" },
-    "3D": { "label": "3D-Ansicht" },
-    "showWebsite": {},
-    "showPhoneNumber": {},
-    "showOpeningHours": {},
+    "platform": {
+        "label": "Plattform"
+    },
+    "languages": {
+        "label": "Sprachen"
+    },
+    "code": {
+        "label": "Code"
+    },
+    "framework": {
+        "label": "Framework"
+    },
+    "version": {
+        "label": "Version"
+    },
+    "map": {
+        "label": "Karte anzeigen"
+    },
+    "rotateMap": {
+        "label": "Karte drehen"
+    },
+    "3D": {
+        "label": "3D-Ansicht"
+    },
     "routing": {
-      "description": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?"
+        "description": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?"
     },
-    "createRouteManually": { "label": "Route von Hand eingeben" },
-    "calculateRoute": { "label": "Route berechnen" },
-    "createRouteViaWaypoints": {},
-    "profiles": {},
-    "turnRestrictions": { "label": "Abbiegebeschränkungen" },
-    "calculateRouteOffline": { "label": "Route berechnen ohne Internet" },
-    "routingProviders": {},
-    "avoidTraffic": {},
-    "trafficProvider": {},
-    "navigating": { "label": "Navigieren" },
-    "findLocation": { "label": "Finde eine Position" },
-    "findNearbyPOI": { "label": "Finde POI in der Nähe" },
-    "navToPoint": { "label": "Navigiere zu einem Punkt" },
-    "voice": { "label": "Navigation mit Sprachansage" },
-    "keepOnRoad": {},
-    "turnLanes": {},
-    "withoutGPS": { "label": "Funktioniert ohne GPS" },
-    "predefinedRoute": { "label": "Folge einer vordefinierten Route" },
-    "tracking": { "label": "Track aufzeichnen" },
-    "customInterval": { "label": "Einstellbares Aufzeichnungsintervall" },
-    "trackFormats": {},
-    "geotagging": {},
+    "createRouteManually": {
+        "label": "Route von Hand eingeben"
+    },
+    "calculateRoute": {
+        "label": "Route berechnen"
+    },
+    "turnRestrictions": {
+        "label": "Abbiegebeschränkungen"
+    },
+    "calculateRouteOffline": {
+        "label": "Route berechnen ohne Internet"
+    },
+    "navigating": {
+        "label": "Navigieren"
+    },
+    "findLocation": {
+        "label": "Finde eine Position"
+    },
+    "findNearbyPOI": {
+        "label": "Finde POI in der Nähe"
+    },
+    "navToPoint": {
+        "label": "Navigiere zu einem Punkt"
+    },
+    "voice": {
+        "label": "Navigation mit Sprachansage"
+    },
+    "withoutGPS": {
+        "label": "Funktioniert ohne GPS"
+    },
+    "predefinedRoute": {
+        "label": "Folge einer vordefinierten Route"
+    },
+    "tracking": {
+        "label": "Track aufzeichnen"
+    },
+    "customInterval": {
+        "label": "Einstellbares Aufzeichnungsintervall"
+    },
     "fastWayPointAdding": {
-      "label": "Knöpfe zum schnellen Setzen von Wegpunkten"
+        "label": "Knöpfe zum schnellen Setzen von Wegpunkten"
     },
-    "uploadGPX": {},
-    "monitoring": { "label": "Monitoring" },
-    "showTrack": { "label": "Zeige aktuellen Track" },
-    "showExistingTrack": { "label": "Öffne existierenden Track" },
-    "showAltitudeDiagram": { "label": "Höhendiagramm" },
-    "showDOP": { "label": "Zeige DOP-Wert" },
-    "showSatellites": { "label": "Zeige Satelliten" },
-    "showNMEAlive": { "label": "Zeige NMEA-Livedaten" },
-    "showSpeed": {},
-    "sendPosition": { "label": "Sende aktuelle Position" },
-    "addPOI": { "label": "POI hinzufügen" },
-    "editPOI": { "label": "POI bearbeiten/löschen" },
-    "addWay": {},
-    "editGeom": { "label": "Geometrie bearbeiten" },
+    "monitoring": {
+        "label": "Monitoring"
+    },
+    "showTrack": {
+        "label": "Zeige aktuellen Track"
+    },
+    "showExistingTrack": {
+        "label": "Öffne existierenden Track"
+    },
+    "showAltitudeDiagram": {
+        "label": "Höhendiagramm"
+    },
+    "showDOP": {
+        "label": "Zeige DOP-Wert"
+    },
+    "showSatellites": {
+        "label": "Zeige Satelliten"
+    },
+    "showNMEAlive": {
+        "label": "Zeige NMEA-Livedaten"
+    },
+    "sendPosition": {
+        "label": "Sende aktuelle Position"
+    },
+    "addPOI": {
+        "label": "POI hinzufügen"
+    },
+    "editPOI": {
+        "label": "POI bearbeiten/löschen"
+    },
+    "editGeom": {
+        "label": "Geometrie bearbeiten"
+    },
     "editTags": {
-      "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten"
+        "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten"
     },
-    "editRelations": {},
-    "viewNotes": {},
-    "createNotes": {},
-    "editNotes": {},
-    "editSource": {},
-    "offsetDBsupport": { "label": "Unterstützt Luftbildversatz DB" },
-    "uploadOSMData": { "label": "Zu OSM hochladen" },
-    "rendererOutputFormats": {},
-    "accessibility": {},
-    "textOnlyUI": { "label": "Komplett ohne Grafik bedienbar" },
-    "brailleUI": { "label": "Braille-Oberfläche" },
-    "explorerMode": { "label": "Erkundungsmodus" },
-    "publicTransportMode": { "label": "ÖPNV-Modus" },
-    "dangerWarnings": { "label": "Gefahrenwarnungen" },
-    "screenReader": { "label": "Screenreader" },
-    "screenReaderLang": { "label": "Screenreader-Sprachen" }
-  }
+    "offsetDBsupport": {
+        "label": "Unterstützt Luftbildversatz DB"
+    },
+    "uploadOSMData": {
+        "label": "Zu OSM hochladen"
+    },
+    "textOnlyUI": {
+        "label": "Komplett ohne Grafik bedienbar"
+    },
+    "brailleUI": {
+        "label": "Braille-Oberfläche"
+    },
+    "explorerMode": {
+        "label": "Erkundungsmodus"
+    },
+    "publicTransportMode": {
+        "label": "ÖPNV-Modus"
+    },
+    "dangerWarnings": {
+        "label": "Gefahrenwarnungen"
+    },
+    "screenReader": {
+        "label": "Screenreader"
+    },
+    "screenReaderLang": {
+        "label": "Screenreader-Sprachen"
+    }
+}
