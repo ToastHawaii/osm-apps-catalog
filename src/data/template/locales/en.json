@@ -1,0 +1,349 @@
+{
+  "lang": { "label": "Template language" },
+  "name": {
+    "label": "Name",
+    "description": "Official name, otherwise most common one"
+  },
+  "status": {
+    "label": "Status",
+    "description": "Current status of the project."
+  },
+  "license": {
+    "label": "License",
+    "description": "What free license or proprietary?"
+  },
+  "price": {
+    "label": "Price",
+    "description": "Costs if proprietary. If price is empty, application is for free."
+  },
+  "web": { "label": "Web address" },
+  "repo": {
+    "label": "Source code",
+    "description": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"
+  },
+  "logo": { "label": "Logo" },
+  "screenshot": { "label": "Screenshot" },
+  "description": {
+    "label": "Description",
+    "description": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)"
+  },
+  "author": {
+    "label": "Author",
+    "description": "Name of the author or a link to their OSM-wiki user page"
+  },
+  "platform": {
+    "label": "Supported platforms",
+    "description": "List of platforms it runs on."
+  },
+  "genre": {
+    "label": "Genre",
+    "description": "Main category for this tool."
+  },
+  "languages": {
+    "label": "Languages",
+    "description": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported"
+  },
+  "coverage": {
+    "label": "Coverage",
+    "description": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use."
+  },
+  "languagesurl": {
+    "label": "Languages URL",
+    "description": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."
+  },
+  "code": {
+    "label": "Code",
+    "description": "List of programming languages used."
+  },
+  "framework": {
+    "label": "Framework",
+    "description": "List of frameworks used."
+  },
+  "version": { "label": "Version", "description": "Latest version" },
+  "date": { "label": "Release date", "description": "Latest release date" },
+  "asin": {
+    "label": "Amazon Identification",
+    "description": "Amazon Standard Identification Number for the Amazon Appstore for Android"
+  },
+  "bbWorldID": {
+    "label": "BlackBerry ID",
+    "description": "BlackBerry World application ID"
+  },
+  "fDroidID": {
+    "label": "F-Droid ID",
+    "description": "F-Droid application ID"
+  },
+  "firefoxMarketplaceID": {
+    "label": "Firefox Marketplace ID",
+    "description": "Mozilla Firefox Marketplace application ID"
+  },
+  "googlePlayID": {
+    "label": "Google Play ID",
+    "description": "Google Play Store application ID"
+  },
+  "huaweiAppGalleryID": {
+    "label": "Huawei AppGallery ID",
+    "description": "Huawei AppGallery application ID"
+  },
+  "appleStoreID": {
+    "label": "AppStore ID",
+    "description": "iTunes App Store application ID"
+  },
+  "macAppStoreID": {
+    "label": "Mac AppStore ID",
+    "description": "Mac App Store application ID"
+  },
+  "microsoftAppID": {
+    "label": "Microsoft ID",
+    "description": "Microsoft Store Windows application UUID"
+  },
+  "map": {
+    "label": "Display map",
+    "description": "[Map display] Can it show a map?"
+  },
+  "mapData": {
+    "label": "Map data",
+    "description": "[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \"on the fly\" (vector)?"
+  },
+  "datasource": {
+    "label": "Source",
+    "description": "[Map display] Can you store all map data offline? Download a separate file?"
+  },
+  "rotateMap": {
+    "label": "Rotate map",
+    "description": "[Map display] Does it turn the map in driving/walking direction?"
+  },
+  "3D": {
+    "label": "3D view",
+    "description": "[Map display] Is there some 3D or 2.5D view?"
+  },
+  "showWebsite": {
+    "label": "Shows website",
+    "description": "[POI Information] Shows link to the website from POI"
+  },
+  "showPhoneNumber": {
+    "label": "Shows phone number",
+    "description": "[POI Information] Shows phone number from POI"
+  },
+  "showOpeningHours": {
+    "label": "Shows operation hours",
+    "description": "[POI Information] Shows hours of operation from POI"
+  },
+  "routing": {
+    "label": "Routing",
+    "description": "[Routing] Can you calculate or otherwise plan a route?"
+  },
+  "createRouteManually": {
+    "label": "Create route manually",
+    "description": "[Routing]"
+  },
+  "calculateRoute": {
+    "label": "Calculate route",
+    "description": "[Routing] Can it calculate a route using routing?"
+  },
+  "createRouteViaWaypoints": {
+    "label": "Create route via Waypoints",
+    "description": "[Routing] Able to calculate route via Waypoints"
+  },
+  "profiles": {
+    "label": "Routing profiles",
+    "description": "[Routing] What profiles supported if it makes routing?"
+  },
+  "turnRestrictions": {
+    "label": "Turn restrictions",
+    "description": "[Routing] Can it deal with turn restrictions?"
+  },
+  "calculateRouteOffline": {
+    "label": "Calculate route without Internet (Offline routing)",
+    "description": "[Routing] Does it need internet to calculate a route?"
+  },
+  "routingProviders": {
+    "label": "Routing providers",
+    "description": "[Routing] What routing service(s) does it use?"
+  },
+  "avoidTraffic": {
+    "label": "Avoid traffic",
+    "description": "[Routing] Does app optimize route to avoid traffic jams?"
+  },
+  "trafficProvider": {
+    "label": "Traffic Provider",
+    "description": "[Routing] Traffic data source provider."
+  },
+  "navigating": {
+    "label": "Navigate",
+    "description": "[Navigation] Can you navigate in a compass like way?"
+  },
+  "findLocation": {
+    "label": "Find location",
+    "description": "[Navigation] Can it search for a street/place?"
+  },
+  "findNearbyPOI": {
+    "label": "Find nearby POIs",
+    "description": "[Navigation] Can it discover/display Points of interests?"
+  },
+  "navToPoint": {
+    "label": "Navigate to point",
+    "description": "[Navigation] Can it guide you to a point somewhere?"
+  },
+  "voice": {
+    "label": "Navigation with voice / Voice guidance",
+    "description": "[Navigation] Can it give you commands with a computer voice?"
+  },
+  "keepOnRoad": {
+    "label": "Keep on road",
+    "description": "[Navigation] Can it assist you to keep your vehicle on the calculated route?"
+  },
+  "turnLanes": {
+    "label": "Lane guidance",
+    "description": "[Navigation] Does it support lane guidance?"
+  },
+  "withoutGPS": {
+    "label": "Works without GPS",
+    "description": "[Navigation] Does it work even without a GPS?"
+  },
+  "predefinedRoute": {
+    "label": "Navigate along predefined route",
+    "description": "[Navigation] Can it follow other GPS tracks?"
+  },
+  "tracking": {
+    "label": "Make track",
+    "description": "[Track logging] Can it record a GPS track?"
+  },
+  "customInterval": {
+    "label": "Customizable log interval",
+    "description": "[Track logging] Can you tune the interval manually?"
+  },
+  "trackFormats": {
+    "label": "Track formats",
+    "description": "[Track logging] What formats for storage can you save your GPS track?"
+  },
+  "geotagging": {
+    "label": "Geotagging",
+    "description": "[Track logging] Are further mapping techniques supported"
+  },
+  "fastWayPointAdding": {
+    "label": "Fast POI buttons",
+    "description": "[Track logging] Easy to add a new Waypoint?"
+  },
+  "uploadGPX": {
+    "label": "Upload GPX to OSM",
+    "description": "[Track logging] Can it send tracks directly to OSM?"
+  },
+  "monitoring": {
+    "label": "Monitoring",
+    "description": "[Track monitoring] Can you monitor GPS datas?"
+  },
+  "showTrack": {
+    "label": "Show current track",
+    "description": "[Track monitoring] Show your current track?"
+  },
+  "showExistingTrack": {
+    "label": "Open existing track",
+    "description": "[Track monitoring] Can it load existing tracks so you can follow them?"
+  },
+  "showAltitudeDiagram": {
+    "label": "Altitude diagram",
+    "description": "[Track monitoring]"
+  },
+  "showDOP": {
+    "label": "Show POD value",
+    "description": "[Track monitoring] Shows signal quality?"
+  },
+  "showSatellites": {
+    "label": "Satellite view",
+    "description": "[Track monitoring] Displays satellites?"
+  },
+  "showNMEAlive": {
+    "label": "Show live NMEA data",
+    "description": "[Track monitoring] Can you see the raw GPS stream?"
+  },
+  "showSpeed": { "label": "Show speed", "description": "[Track monitoring]" },
+  "sendPosition": {
+    "label": "Send current position",
+    "description": "[Track monitoring] Can it send position to others?"
+  },
+  "addPOI": {
+    "label": "Add POIs",
+    "description": "[Editor] Can you add a node?"
+  },
+  "editPOI": {
+    "label": "Edit / Delete POIs",
+    "description": "[Editor] Can you edit a node?"
+  },
+  "addWay": {
+    "label": "Add way",
+    "description": "[Editor] Can you add a way?"
+  },
+  "editGeom": {
+    "label": "Edit geometries",
+    "description": "[Editor] Can you edit nodes/ways?"
+  },
+  "editTags": {
+    "label": "Edit arbitrary tags of existing OSM objects",
+    "description": "[Editor] Can you edit existing tags?"
+  },
+  "editRelations": {
+    "label": "Edit relations",
+    "description": "[Editor] Can you edit relations?"
+  },
+  "viewNotes": {
+    "label": "View notes",
+    "description": "[Editor] Can you view OSM Notes?"
+  },
+  "createNotes": {
+    "label": "Create notes",
+    "description": "[Editor] Can you add OSM Notes?"
+  },
+  "editNotes": {
+    "label": "Edit notes",
+    "description": "[Editor] Can you comment/close OSM Notes?"
+  },
+  "editSource": {
+    "label": "Work offline",
+    "description": "[Editor] Can you work offline?"
+  },
+  "offsetDBsupport": {
+    "label": "Support imagery offset DB",
+    "description": "[Editor] Does it support the imagery offset DB?"
+  },
+  "uploadOSMData": {
+    "label": "Upload to OSM",
+    "description": "[Editor] Can you send changes to OSM directly?"
+  },
+  "rendererOutputFormats": {
+    "label": "Renderer output formats",
+    "description": "[Renderer] Supported output formats."
+  },
+  "accessibility": {
+    "label": "Accessibility support",
+    "description": "[Accessibility] Does it help disabled people in some kind?"
+  },
+  "textOnlyUI": {
+    "label": "Complete non graphics text output",
+    "description": "[Accessibility] Text to braille compatible interface?"
+  },
+  "brailleUI": {
+    "label": "Braille interface",
+    "description": "[Accessibility] A special braille interface?"
+  },
+  "explorerMode": {
+    "label": "Exploration modus",
+    "description": "[Accessibility] Has a exploration modus (tell all objects approaching)?"
+  },
+  "publicTransportMode": {
+    "label": "Public Transport mode",
+    "description": "[Accessibility] Supports routing with public transport?"
+  },
+  "dangerWarnings": {
+    "label": "Danger Warnings",
+    "description": "[Accessibility]"
+  },
+  "screenReader": {
+    "label": "Screenreader",
+    "description": "[Accessibility] List of supported screenreaders"
+  },
+  "screenReaderLang": {
+    "label": "Screenreader languages",
+    "description": "[Accessibility] List of supported screenreaders languages"
+  }
+}

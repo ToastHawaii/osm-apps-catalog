@@ -19,15 +19,21 @@ import * as uk from "./locales/uk.json";
 import * as zh_Hant from "./locales/zh_Hant.json";
 import * as zh_Hans from "./locales/zh_Hans.json";
 
+import { templateData } from "../ui/templateData";
+
+import * as templateEn from "./template/locales/en.json";
+import * as templateDe from "./template/locales/de.json";
+import * as templateZh_Hans from "./template/locales/zh_Hans.json";
+
 i18next.use(LanguageDetector).init({
   detection: {
     lookupQuerystring: "lang",
   },
   fallbackLng: "en",
   resources: {
-    en: { translation: en },
+    en: { translation: { ...en, "app.props": templateEn } },
     cs: { translation: cs },
-    de: { translation: de },
+    de: { translation: { ...de, "app.props": templateDe } },
     el: { translation: el },
     es: { translation: es },
     fr: { translation: fr },
@@ -42,6 +48,86 @@ i18next.use(LanguageDetector).init({
     tr: { translation: tr },
     uk: { translation: uk },
     zh: { translation: zh_Hant },
-    "zh-Hans": { translation: zh_Hans },
+    "zh-Hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
   },
 });
+
+const langs = ["en", "de", "zh-hans"];
+
+function convertTemplateDataToJson() {
+  const files = {} as {
+    [lang: string]: {
+      [param: string]: { label?: string; description?: string };
+    };
+  };
+  {
+    const lang = "en";
+    Object.entries(templateData.params).forEach((e) => {
+      if (!files[lang]) {
+        files[lang] = {};
+      }
+      if (!files[lang][e[0]]) {
+        files[lang][e[0]] = {};
+      }
+
+      if (typeof e[1].label === "string") {
+        files[lang][e[0]].label = e[1].label;
+      } else if (e[1].label?.[lang]) {
+        files[lang][e[0]].label = e[1].label?.[lang];
+      }
+
+      if (typeof e[1].description === "string") {
+        files[lang][e[0]].description = e[1].description;
+      } else if (e[1].description?.[lang]) {
+        files[lang][e[0]].description = e[1].description?.[lang];
+      }
+    });
+  }
+  langs.forEach((lang) => {
+    Object.entries(templateData.params).forEach((e) => {
+      if (!files[lang]) {
+        files[lang] = {};
+      }
+      if (!files[lang][e[0]]) {
+        files[lang][e[0]] = {};
+      }
+
+      if (typeof e[1].label !== "string" && e[1].label?.[lang]) {
+        files[lang][e[0]].label = e[1].label?.[lang];
+      }
+
+      if (typeof e[1].description !== "string" && e[1].description?.[lang]) {
+        files[lang][e[0]].description = e[1].description?.[lang];
+      }
+    });
+  });
+
+  console.info(JSON.stringify(files));
+}
+
+function convertJsonToTemplateData() {
+  const files = {
+    en: templateEn,
+    de: templateDe,
+    "zh-hans": templateZh_Hans,
+  } as {
+    [lang: string]: {
+      [param: string]: { label?: string; description?: string };
+    };
+  };
+
+  Object.entries(templateData.params).forEach((e) => {
+    const label = {} as any;
+    langs.forEach((lang) => {
+      label[lang] = files[lang][e[0]].label;
+    });
+    templateData.params[e[0]].label = label;
+    const description = {} as any;
+    langs.forEach((lang) => {
+      description[lang] = files[lang][e[0]].description;
+    });
+    templateData.params[e[0]].description = description;
+  });
+
+  console.info(JSON.stringify(templateData));
+}

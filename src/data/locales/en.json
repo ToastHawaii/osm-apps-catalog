@@ -56,6 +56,7 @@
   "app.license": "License",
   "app.sourceCode": "Source code",
   "app.source": "Source",
+  "app.source.description": "Source where this data comes from.",
   "compare.share": "Share in wiki.openstreetmap.org",
   "compare.unknown": "unknown",
   "share.wiki": "Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.",

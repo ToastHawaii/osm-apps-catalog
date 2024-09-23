@@ -203,45 +203,30 @@ ${
             .join(", "),
       },
       {
-        label: getLocalizedValue(templateData.params["genre"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["genre"].description,
-          lang
-        ),
+        label: i18next.t("app.props.genre.label"),
+        description: i18next.t("app.props.genre.description"),
         hasValue: (app) => app.genre?.length > 0,
         renderToHtml: (app) => renderBadges(app.genre),
         renderToWiki: (app) => toWikiValue(app.genre?.join(", ")),
       },
       {
-        label: getLocalizedValue(
-          templateData.params["description"].label,
-          lang
-        ),
-        description: getLocalizedValue(
-          templateData.params["description"].description,
-          lang
-        ),
+        label: i18next.t("app.props.description.label"),
+        description: i18next.t("app.props.description.description"),
         hasValue: (app) => !!app.description,
         renderToHtml: (app) => app.description,
         renderToWiki: (app) => toWikiValue(app.description),
         more: true,
       },
       {
-        label: getLocalizedValue(templateData.params["platform"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["platform"].description,
-          lang
-        ),
+        label: i18next.t("app.props.platform.label"),
+        description: i18next.t("app.props.platform.description"),
         hasValue: (app) => app.platform?.length > 0,
         renderToHtml: (app) => renderBadges(app.platform),
         renderToWiki: (app) => toWikiValue(app.platform.join(", ")),
       },
       {
-        label: getLocalizedValue(templateData.params["date"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["date"].description,
-          lang
-        ),
+        label: i18next.t("app.props.date.label"),
+        description: i18next.t("app.props.date.description"),
         hasValue: (app) => !!(app.lastRelease || app.unmaintained),
         renderToHtml: (app) =>
           (app.lastRelease
@@ -269,11 +254,8 @@ ${
           ),
       },
       {
-        label: getLocalizedValue(templateData.params["languages"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["languages"].description,
-          lang
-        ),
+        label: i18next.t("app.props.languages.label"),
+        description: i18next.t("app.props.languages.description"),
         hasValue: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
         renderToHtml: (app) =>
           app.languagesUrl
@@ -301,32 +283,23 @@ ${
         more: true,
       },
       {
-        label: getLocalizedValue(templateData.params["coverage"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["coverage"].description,
-          lang
-        ),
+        label: i18next.t("app.props.coverage.label"),
+        description: i18next.t("app.props.coverage.description"),
         hasValue: (app) => !!(app.coverage && app.coverage.length),
         renderToHtml: (app) => app.coverage[app.coverage.length - 1],
         renderToWiki: (app) =>
           toWikiValue(app.coverage[app.coverage.length - 1]),
       },
       {
-        label: getLocalizedValue(templateData.params["author"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["author"].description,
-          lang
-        ),
+        label: i18next.t("app.props.author.label"),
+        description: i18next.t("app.props.author.description"),
         hasValue: (app) => !!app.author,
         renderToHtml: (app) => app.author,
         renderToWiki: (app) => toWikiValue(app.author),
       },
       {
-        label: getLocalizedValue(templateData.params["price"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["price"].description,
-          lang
-        ),
+        label: i18next.t("app.props.price.label"),
+        description: i18next.t("app.props.price.description"),
         hasValue: (app) => !!app.price,
         renderToHtml: (app) => app.price,
         renderToWiki: (app) =>
@@ -337,11 +310,8 @@ ${
           ),
       },
       {
-        label: getLocalizedValue(templateData.params["license"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["license"].description,
-          lang
-        ),
+        label: i18next.t("app.props.license.label"),
+        description: i18next.t("app.props.license.description"),
         hasValue: (app) => !!app.license,
         renderToHtml: (app) => renderBadges(app.license),
         renderToWiki: (app) =>
@@ -350,11 +320,8 @@ ${
           ),
       },
       {
-        label: getLocalizedValue(templateData.params["repo"].label, lang),
-        description: getLocalizedValue(
-          templateData.params["repo"].description,
-          lang
-        ),
+        label: i18next.t("app.props.repo.label"),
+        description: i18next.t("app.props.repo.description"),
         hasValue: (app) => !!app.sourceCode,
         renderToHtml: (app) =>
           app.sourceCode
@@ -364,11 +331,8 @@ ${
           toWikiValue(app.sourceCode ? `[${app.sourceCode} </>]` : ""),
       },
       {
-        label: getLocalizedValue("Source", lang),
-        description: getLocalizedValue(
-          "Source where this data comes from.",
-          lang
-        ),
+        label: i18next.t("app.source"),
+        description: i18next.t("app.source.description"),
         hasValue: () => true,
         renderToHtml: (app) =>
           app.source
@@ -549,8 +513,8 @@ function renderGroup(
     }
 
     return {
-      label: getLocalizedValue(templateData.params[p].label, lang),
-      description: getLocalizedValue(templateData.params[p].description, lang),
+      label: i18next.t("app.props." + p + ".label"),
+      description: i18next.t("app.props." + p + ".description"),
       hasValue: (app: App) => {
         const value: string | string[] | undefined = (app as any)[id]?.[p];
         if (Array.isArray(value)) {
