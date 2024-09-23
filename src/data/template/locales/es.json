@@ -29,10 +29,58 @@
         "label": "Idioma de la plantilla"
     },
     "description": {
-        "label": "Descripción"
+        "label": "Descripción",
+        "description": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"
     },
     "license": {
         "label": "Licencia",
         "description": "¿Qué licencia tiene?"
+    },
+    "author": {
+        "label": "Autor",
+        "description": "Nombre del autor o un enlace a su página de usuario de OSM-wiki"
+    },
+    "platform": {
+        "label": "Plataformas compatibles",
+        "description": "Lista de plataformas en las que se ejecuta."
+    },
+    "genre": {
+        "description": "Categoría principal de esta herramienta.",
+        "label": "Género"
+    },
+    "languagesurl": {
+        "label": "Idiomas URL",
+        "description": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."
+    },
+    "code": {
+        "label": "Código",
+        "description": "Lista de lenguajes de programación utilizados."
+    },
+    "framework": {
+        "label": "Framework",
+        "description": "Lista de marcos utilizados."
+    },
+    "version": {
+        "description": "Última versión",
+        "label": "Versión"
+    },
+    "date": {
+        "label": "Fecha de publicación",
+        "description": "Última fecha de lanzamiento"
+    },
+    "asin": {
+        "description": "Número de identificación estándar de Amazon para Amazon Appstore para Android",
+        "label": "Identificación de Amazon"
+    },
+    "bbWorldID": {
+        "label": "ID de BlackBerry"
+    },
+    "languages": {
+        "label": "Idiomas",
+        "description": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"
+    },
+    "coverage": {
+        "label": "Cobertura",
+        "description": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
     }
 }
