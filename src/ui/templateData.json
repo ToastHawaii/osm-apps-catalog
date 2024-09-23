@@ -1157,5 +1157,8 @@
     "screenReaderLang"
   ],
   "format": "block",
-  "description": "This template collects all notes of a software together. Some common information is displayed as an infobox other are display in third-party software."
+  "description": {
+    "en": "This template collects all notes of a software together. Some common information is displayed as an infobox other are display in third-party software.",
+    "de": "Diese Vorlage fasst alle Informationen zu einer Software zusammen. Einige allgemeine Informationen werden als Infobox angezeigt, andere werden in Drittanbieter-Software angezeigt."
+  }
 }

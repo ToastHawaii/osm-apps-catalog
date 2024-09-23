@@ -1,5 +1,8 @@
 {
-  "lang": { "label": "Template language" },
+  "lang": {
+    "label": "Template language",
+    "description": "Language in which the template texts are displayed."
+  },
   "name": {
     "label": "Name",
     "description": "Official name, otherwise most common one"
