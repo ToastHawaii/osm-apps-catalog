@@ -1,1 +1,38 @@
-{}
+{
+    "name": {
+        "label": "Nombre",
+        "description": "Nombre oficial, el más común"
+    },
+    "status": {
+        "label": "Estado",
+        "description": "Estado actual del proyecto."
+    },
+    "price": {
+        "label": "Precio",
+        "description": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita."
+    },
+    "web": {
+        "label": "Dirección web"
+    },
+    "repo": {
+        "label": "Código fuente",
+        "description": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"
+    },
+    "logo": {
+        "label": "Logotipo"
+    },
+    "screenshot": {
+        "label": "Captura de pantalla"
+    },
+    "lang": {
+        "description": "Idioma en el que se muestran los textos de la plantilla.",
+        "label": "Idioma de la plantilla"
+    },
+    "description": {
+        "label": "Descripción"
+    },
+    "license": {
+        "label": "Licencia",
+        "description": "¿Qué licencia tiene?"
+    }
+}
