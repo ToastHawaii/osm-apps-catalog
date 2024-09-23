@@ -92,6 +92,7 @@ Help with the translation:
 
 - from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
+- from the [template](https://wiki.openstreetmap.org/w/index.php?title=Template:Software/doc&action=edit) used to document the apps
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## 🙏 Contributions & acknowledgements
