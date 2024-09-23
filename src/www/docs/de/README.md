@@ -10,8 +10,8 @@ Wiki](https://wiki.openstreetmap.org/) übernommen. Es durchsucht alle Seiten,
 die eine [Software](https://wiki.openstreetmap.org/wiki/Template:Software) oder
 [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item)
 Vorlage verwenden, um Informationen über die Anwendung zu extrahieren.
-[Dokumentiere OSM-Apps die du kennst oder trage auf andere Weise zu.
-(https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Dokumentiere OSM-Apps die du kennst oder trage auf andere Weise
+zu.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Die Liste ist vervollständigt mit Apps dokumentiert in
 [Wikidata](https://www.wikidata.org/) und in [taginfo.openstreetmap.org
