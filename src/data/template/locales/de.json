@@ -1,6 +1,7 @@
 {
     "lang": {
-        "label": "Sprache der Vorlage"
+        "label": "Sprache der Vorlage",
+        "description": "Sprache, in der die Texte der Vorlage angezeigt werden."
     },
     "name": {
         "label": "Name",
