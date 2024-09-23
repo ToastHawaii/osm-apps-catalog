@@ -80,9 +80,9 @@ freeCheckbox.addEventListener("change", () => {
   i18next.t("about")
 );
 
-if (i18next.language !== "en") {
+if (i18next.resolvedLanguage !== "en") {
   (document.getElementById("about") as HTMLAnchorElement).href =
-    "/docs/" + i18next.language;
+    "/docs/" + i18next.resolvedLanguage;
 }
 
 const searchElement = document.getElementById("search") as HTMLInputElement;
