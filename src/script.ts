@@ -75,10 +75,14 @@ freeCheckbox.addEventListener("change", () => {
 (document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
   i18next.t("filter.free");
 
-(document.getElementById("about") as HTMLSpanElement).setAttribute(
+(document.getElementById("about") as HTMLAnchorElement).setAttribute(
   "title",
   i18next.t("about")
 );
+if (i18next.language === "en") {
+  (document.getElementById("about") as HTMLAnchorElement).href =
+    "/docs/" + i18next.language;
+}
 
 const searchElement = document.getElementById("search") as HTMLInputElement;
 searchElement.placeholder = i18next.t("filter.search");
