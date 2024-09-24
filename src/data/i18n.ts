@@ -23,6 +23,7 @@ import { templateData } from "../ui/templateData";
 
 import * as templateEn from "./template/locales/en.json";
 import * as templateDe from "./template/locales/de.json";
+import * as templateEs from "./template/locales/es.json";
 import * as templateZh_Hans from "./template/locales/zh_Hans.json";
 
 i18next.use(LanguageDetector).init({
@@ -35,7 +36,7 @@ i18next.use(LanguageDetector).init({
     cs: { translation: cs },
     de: { translation: { ...de, "app.props": templateDe } },
     el: { translation: el },
-    es: { translation: es },
+    es: { translation: { ...es, "app.props": templateEs } },
     fr: { translation: fr },
     id: { translation: id },
     it: { translation: it },
@@ -52,7 +53,7 @@ i18next.use(LanguageDetector).init({
   },
 });
 
-const langs = ["en", "de", "zh-hans"];
+const langs = ["en", "de", "es", "zh-hans"];
 
 function convertTemplateDataToJson() {
   const files = {} as {
@@ -109,6 +110,7 @@ function convertJsonToTemplateData() {
   const files = {
     en: templateEn,
     de: templateDe,
+    es: templateEs,
     "zh-hans": templateZh_Hans,
   } as {
     [lang: string]: {
@@ -119,12 +121,12 @@ function convertJsonToTemplateData() {
   Object.entries(templateData.params).forEach((e) => {
     const label = {} as any;
     langs.forEach((lang) => {
-      label[lang] = files[lang][e[0]].label;
+      label[lang] = files[lang][e[0]]?.label;
     });
     templateData.params[e[0]].label = label;
     const description = {} as any;
     langs.forEach((lang) => {
-      description[lang] = files[lang][e[0]].description;
+      description[lang] = files[lang][e[0]]?.description;
     });
     templateData.params[e[0]].description = description;
   });

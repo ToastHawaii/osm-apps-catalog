@@ -4,65 +4,87 @@
       "label": {
         "en": "Template language",
         "de": "Sprache der Vorlage",
+        "es": "Idioma de la plantilla",
         "zh-hans": "模板语言"
       },
       "type": "string",
       "description": {
-        "de": "Sprache, in der die Texte der Vorlage angezeigt werden"
+        "en": "Language in which the template texts are displayed.",
+        "de": "Sprache, in der die Texte der Vorlage angezeigt werden.",
+        "es": "Idioma en el que se muestran los textos de la plantilla."
       },
       "example": { "de": "de", "en": "en" }
     },
     "name": {
-      "label": { "en": "Name", "de": "Name", "zh-hans": "名称" },
+      "label": {
+        "en": "Name",
+        "de": "Name",
+        "es": "Nombre",
+        "zh-hans": "名称"
+      },
       "description": {
         "en": "Official name, otherwise most common one",
-        "de": "Offizieller Name, ansonsten der verbreitetste"
+        "de": "Offizieller Name, ansonsten der verbreitetste",
+        "es": "Nombre oficial, el más común"
       },
       "type": "string",
       "required": true,
       "autovalue": "{{subst:PAGENAME}}"
     },
     "status": {
-      "description": { "en": "Current status of the project." },
-      "label": { "en": "Status" },
+      "description": {
+        "en": "Current status of the project.",
+        "es": "Estado actual del proyecto."
+      },
+      "label": { "en": "Status", "es": "Estado" },
       "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
       "type": "string",
       "default": "active",
       "suggested": true
     },
     "license": {
-      "description": { "en": "What free license or proprietary?" },
+      "description": {
+        "en": "What free license or proprietary?",
+        "es": "¿Qué licencia tiene?"
+      },
       "example": "GPL",
-      "label": { "en": "License", "de": "Lizenz" },
+      "label": { "en": "License", "de": "Lizenz", "es": "Licencia" },
       "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"]
     },
     "price": {
       "description": {
-        "en": "Costs if proprietary. If price is empty, application is for free."
+        "en": "Costs if proprietary. If price is empty, application is for free.",
+        "es": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita."
       },
       "example": "free;20$;35€;in-app purchases",
-      "label": { "en": "Price", "de": "Preis" },
+      "label": { "en": "Price", "de": "Preis", "es": "Precio" },
       "type": "string",
       "suggestedvalues": ["free", "in-app purchases", "ads"]
     },
     "web": {
-      "label": { "en": "Web address" },
+      "label": { "en": "Web address", "es": "Dirección web" },
       "example": "https://www.example.org",
       "suggested": true,
       "type": "url",
       "description": {}
     },
     "repo": {
-      "label": { "en": "Source code", "de": "Quellcode", "zh-hans": "源代码" },
+      "label": {
+        "en": "Source code",
+        "de": "Quellcode",
+        "es": "Código fuente",
+        "zh-hans": "源代码"
+      },
       "aliases": ["git", "svn"],
       "description": {
-        "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"
+        "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
+        "es": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"
       },
       "example": "https://git.example.org",
       "type": "url"
     },
     "logo": {
-      "label": { "en": "Logo" },
+      "label": { "en": "Logo", "es": "Logotipo" },
       "example": "xyz.png",
       "type": "wiki-file-name",
       "description": {}
@@ -71,6 +93,7 @@
       "label": {
         "en": "Screenshot",
         "de": "Bildschirmfoto",
+        "es": "Captura de pantalla",
         "zh-hans": "截图"
       },
       "suggested": true,
@@ -79,25 +102,40 @@
       "description": {}
     },
     "description": {
-      "label": { "en": "Description", "de": "Beschreibung", "zh-hans": "描述" },
+      "label": {
+        "en": "Description",
+        "de": "Beschreibung",
+        "es": "Descripción",
+        "zh-hans": "描述"
+      },
       "type": "string",
       "suggested": true,
       "description": {
-        "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)"
+        "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
+        "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"
       },
       "example": "Easy to use, nice UI"
     },
     "author": {
-      "label": { "en": "Author", "de": "Autor", "zh-hans": "作者" },
+      "label": {
+        "en": "Author",
+        "de": "Autor",
+        "es": "Autor",
+        "zh-hans": "作者"
+      },
       "description": {
         "en": "Name of the author or a link to their OSM-wiki user page",
-        "de": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
+        "de": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite",
+        "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki"
       },
       "type": "string",
       "suggested": true
     },
     "platform": {
-      "description": { "en": "List of platforms it runs on." },
+      "description": {
+        "en": "List of platforms it runs on.",
+        "es": "Lista de plataformas en las que se ejecuta."
+      },
       "suggested": true,
       "type": "string",
       "suggestedvalues": [
@@ -152,12 +190,19 @@
         "Web"
       ],
       "example": "Android;iOS",
-      "label": { "en": "Supported platforms", "de": "Plattform" }
+      "label": {
+        "en": "Supported platforms",
+        "de": "Plattform",
+        "es": "Plataformas compatibles"
+      }
     },
     "genre": {
-      "description": { "en": "Main category for this tool." },
+      "description": {
+        "en": "Main category for this tool.",
+        "es": "Categoría principal de esta herramienta."
+      },
       "suggested": true,
-      "label": { "en": "Genre" },
+      "label": { "en": "Genre", "es": "Género" },
       "suggestedvalues": [
         "display",
         "navi",
@@ -171,7 +216,8 @@
     },
     "languages": {
       "description": {
-        "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported"
+        "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported",
+        "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"
       },
       "example": "DE;EN;MUL",
       "type": "string",
@@ -448,26 +494,31 @@
         "zh-yue",
         "zu"
       ],
-      "label": { "en": "Languages", "de": "Sprachen" }
+      "label": { "en": "Languages", "de": "Sprachen", "es": "Idiomas" }
     },
     "languagesurl": {
       "description": {
-        "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."
+        "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",
+        "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."
       },
-      "label": { "en": "Languages URL" },
+      "label": { "en": "Languages URL", "es": "Idiomas URL" },
       "type": "url"
     },
     "coverage": {
       "description": {
-        "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use."
+        "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use.",
+        "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
       },
       "example": "Europe, Switzerland, Zurich, Gossau",
-      "label": { "en": "Coverage" },
+      "label": { "en": "Coverage", "es": "Cobertura" },
       "default": "Worldwide",
       "type": "string"
     },
     "code": {
-      "description": { "en": "List of programming languages used." },
+      "description": {
+        "en": "List of programming languages used.",
+        "es": "Lista de lenguajes de programación utilizados."
+      },
       "type": "string",
       "suggestedvalues": [
         "C",
@@ -493,38 +544,57 @@
         ".NET",
         "Node.js"
       ],
-      "label": { "en": "Code", "de": "Code" }
+      "label": { "en": "Code", "de": "Code", "es": "Código" }
     },
     "framework": {
-      "description": { "en": "List of frameworks used." },
+      "description": {
+        "en": "List of frameworks used.",
+        "es": "Lista de marcos utilizados."
+      },
       "example": "GTK+;mono;J2ME;OpenGL",
       "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
-      "label": { "en": "Framework", "de": "Framework" },
+      "label": { "en": "Framework", "de": "Framework", "es": "Framework" },
       "type": "string"
     },
     "version": {
-      "label": { "en": "Version", "de": "Version", "zh-hans": "版本" },
-      "description": { "en": "Latest version" },
+      "label": {
+        "en": "Version",
+        "de": "Version",
+        "es": "Versión",
+        "zh-hans": "版本"
+      },
+      "description": { "en": "Latest version", "es": "Última versión" },
       "example": "1.0",
       "type": "string"
     },
     "date": {
-      "label": { "en": "Release date", "zh-hans": "日期" },
-      "description": { "en": "Latest release date" },
+      "label": {
+        "en": "Release date",
+        "es": "Fecha de publicación",
+        "zh-hans": "日期"
+      },
+      "description": {
+        "en": "Latest release date",
+        "es": "Última fecha de lanzamiento"
+      },
       "example": "2010-12-24",
       "type": "date"
     },
     "asin": {
       "description": {
-        "en": "Amazon Standard Identification Number for the Amazon Appstore for Android"
+        "en": "Amazon Standard Identification Number for the Amazon Appstore for Android",
+        "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android"
       },
       "example": "XXXXXXXXXX",
-      "label": { "en": "Amazon Identification" },
+      "label": {
+        "en": "Amazon Identification",
+        "es": "Identificación de Amazon"
+      },
       "type": "string"
     },
     "bbWorldID": {
       "description": { "en": "BlackBerry World application ID" },
-      "label": { "en": "BlackBerry ID" },
+      "label": { "en": "BlackBerry ID", "es": "ID de BlackBerry" },
       "deprecated": true,
       "example": "XXX",
       "type": "string"
