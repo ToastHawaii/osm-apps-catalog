@@ -1,1 +1,13 @@
-{}
+{
+    "status": {
+        "label": "Stav"
+    },
+    "lang": {
+        "label": "Jazyk šablony",
+        "description": "Jazyk, ve kterém se zobrazují texty šablony."
+    },
+    "name": {
+        "label": "Název",
+        "description": "Oficiální název, jinak nejběžnější název"
+    }
+}
