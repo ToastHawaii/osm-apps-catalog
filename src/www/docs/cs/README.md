@@ -1,27 +1,28 @@
-# OpenStreetMap Apps
+# OpenStreetMap Aplikace
 
-Experience the world in a creative, productive and unexpected way.
+Poznávejte svět kreativním, produktivním a nečekaným způsobem.
 
-[Click here for the catalog](https://osm-apps.zottelig.ch)
+[Klikněte zde pro katalog](https://osm-apps.zottelig.ch)
 
-This website shows applications and services that use OpenStreetMap data. The
-list of applications is taken from the [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a
-[Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service
-item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an
-extract the informations about the application. [Add OSM apps you know or
-contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+Na této webové stránce jsou uvedeny aplikace a služby, které využívají data
+OpenStreetMap. Seznam aplikací je převzat z [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/). Prochází všechny stránky, které
+používají šablonu
+[Software](https://wiki.openstreetmap.org/wiki/Template:Software) nebo [Service
+item](https://wiki.openstreetmap.org/wiki/Template:Service_item), a získává
+informace o aplikaci. [Přidejte aplikace OSM, které znáte nebo k nim přispíváte
+jiným způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-The list is completed with [Wikidata](https://www.wikidata.org/) and the
-[taginfo.openstreetmap.org
-projects](https://taginfo.openstreetmap.org/projects).
+Seznam je doplněn o projekty [Wikidata](https://www.wikidata.org/) a
+[taginfo.openstreetmap.org](https://taginfo.openstreetmap.org/projects).
 
-The catalog is updated every day.
+Katalog je aktualizován každý den.
 
-## 🌍 Other languages
+## 🌍 Další jazyky
 
-By default the catalog only contains apps from the English version of the wiki.
-To include apps from other translations use one of the following links:
+Ve výchozím nastavení obsahuje katalog pouze aplikace z anglické verze wiki.
+Chcete-li zahrnout aplikace z jiných překladů, použijte jeden z následujících
+odkazů:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -49,44 +50,45 @@ srpski](/?lang=sr), [українська](/?lang=uk), [հայերեն](/?lang=h
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-Help with the translation:
+Pomozte s překladem:
 
-- from the OSM Apps Catalog on
+- z katalogu aplikací OSM na
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap
+- z aplikací zdokumentovaných v [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Contributions & acknowledgements
+## 🙏 Příspěvky & poděkování
 
-- A special thanks goes to [Dmytro
-  Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software
-  Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was
-  the inspiration for this OSM Apps Catalog, and I learned from it how to
-  request pages from the Wiki that use a specific template.
-- Another big thanks goes to [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is
-  based on many of his works.
-- Many thanks to [weblate](https://weblate.org/) and [all translators of this
-  catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  for supporting open source projects for free.
-- Thanks to all who made this catalog possible.
+- Zvláštní poděkování patří [Dmytro
+  Ovdiienko](https://sourceforge.net/u/ujos/profile/) za jeho [Osm Software
+  Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). Ten byl
+  inspirací pro tento Katalog aplikací OSM a já jsem se z něj naučil, jak si
+  vyžádat stránky z Wiki, které používají určitou šablonu.
+- Další velký dík patří [Tobiasovi
+  Knerrovi](https://wiki.openstreetmap.org/wiki/User:Tordanik) za jeho
+  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). Tento katalog
+  vychází z mnoha jeho prací.
+- Děkujeme [weblate](https://weblate.org/) a [všem překladatelům tohoto
+  katalogu](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
+  za bezplatnou podporu open source projektů.
+- Děkujeme všem, kteří se zasloužili o vznik tohoto katalogu.
 
-## 📜 License
+## 📜 Licence
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-code is free for use, copying and modification if you publish under the same
-license.
+Aplikace je licencována pod [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). Kód
+je volně k použití, kopírování a úpravám, pokud jej zveřejníte pod stejnou
+licencí.
 
-[View source code of this catalog on
-GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
+[Zobrazit zdrojový kód tohoto katalogu na
+GitHubu](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
-- [How to contribute to
+- [Jak přispět do
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [Přidejte aplikace OSM, které
+  znáte](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
