@@ -3,6 +3,7 @@
     "lang": {
       "label": {
         "en": "Template language",
+        "cs": "Jazyk šablony",
         "de": "Sprache der Vorlage",
         "es": "Idioma de la plantilla",
         "zh-hans": "模板语言"
@@ -10,6 +11,7 @@
       "type": "string",
       "description": {
         "en": "Language in which the template texts are displayed.",
+        "cs": "Jazyk, ve kterém se zobrazují texty šablony.",
         "de": "Sprache, in der die Texte der Vorlage angezeigt werden.",
         "es": "Idioma en el que se muestran los textos de la plantilla."
       },
@@ -18,12 +20,14 @@
     "name": {
       "label": {
         "en": "Name",
+        "cs": "Název",
         "de": "Name",
         "es": "Nombre",
         "zh-hans": "名称"
       },
       "description": {
         "en": "Official name, otherwise most common one",
+        "cs": "Oficiální název, jinak nejběžnější název",
         "de": "Offizieller Name, ansonsten der verbreitetste",
         "es": "Nombre oficial, el más común"
       },
@@ -36,7 +40,7 @@
         "en": "Current status of the project.",
         "es": "Estado actual del proyecto."
       },
-      "label": { "en": "Status", "es": "Estado" },
+      "label": { "en": "Status", "cs": "Stav", "es": "Estado" },
       "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
       "type": "string",
       "default": "active",
