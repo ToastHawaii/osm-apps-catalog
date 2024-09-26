@@ -73,7 +73,8 @@
         "label": "Identificación de Amazon"
     },
     "bbWorldID": {
-        "label": "ID de BlackBerry"
+        "label": "ID de BlackBerry",
+        "description": "ID de la aplicación de BlackBerry World"
     },
     "languages": {
         "label": "Idiomas",
@@ -82,5 +83,76 @@
     "coverage": {
         "label": "Cobertura",
         "description": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
+    },
+    "fDroidID": {
+        "label": "ID de F-Droid",
+        "description": "ID de la aplicación F-Droid"
+    },
+    "firefoxMarketplaceID": {
+        "label": "ID de Firefox Marketplace",
+        "description": "ID de la aplicación Mozilla Firefox Marketplace"
+    },
+    "googlePlayID": {
+        "label": "ID de Google Play",
+        "description": "ID de la aplicación Google Play Store"
+    },
+    "huaweiAppGalleryID": {
+        "label": "ID de Huawei AppGallery",
+        "description": "ID de la aplicación Huawei AppGallery"
+    },
+    "appleStoreID": {
+        "label": "ID de la AppStore",
+        "description": "ID de la aplicación iTunes App Store"
+    },
+    "macAppStoreID": {
+        "description": "ID de la aplicación Mac App Store",
+        "label": "ID de la Mac AppStore"
+    },
+    "microsoftAppID": {
+        "label": "ID de Microsoft",
+        "description": "UUID de la aplicación Windows de Microsoft Store"
+    },
+    "map": {
+        "label": "Mostrar mapa",
+        "description": "[Visualización de mapa] ¿Puede mostrar un mapa?"
+    },
+    "mapData": {
+        "label": "Datos del mapa",
+        "description": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?"
+    },
+    "datasource": {
+        "description": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?",
+        "label": "Fuente"
+    },
+    "3D": {
+        "label": "Vista 3D",
+        "description": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"
+    },
+    "showPhoneNumber": {
+        "label": "Muestra el número de teléfono",
+        "description": "[Información del PDI] Muestra el número de teléfono del PDI"
+    },
+    "showOpeningHours": {
+        "description": "[Información del POI] Muestra el horario de funcionamiento del POI",
+        "label": "Indica el horario de apertura"
+    },
+    "calculateRoute": {
+        "label": "Calcular ruta",
+        "description": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"
+    },
+    "createRouteViaWaypoints": {
+        "label": "Crear ruta a través de Waypoints",
+        "description": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"
+    },
+    "showWebsite": {
+        "description": "[Información del POI] Muestra el enlace a la página web desde el POI",
+        "label": "Muestra la página web"
+    },
+    "rotateMap": {
+        "label": "Girar el mapa",
+        "description": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"
+    },
+    "createRouteManually": {
+        "label": "Crear ruta manualmente"
     }
 }
