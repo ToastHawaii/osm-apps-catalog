@@ -23,23 +23,28 @@
         "label": "Bildschirmfoto"
     },
     "description": {
-        "label": "Beschreibung"
+        "label": "Beschreibung",
+        "description": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)"
     },
     "author": {
         "label": "Autor",
         "description": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
     },
     "platform": {
-        "label": "Plattform"
+        "label": "Plattform",
+        "description": "Liste der Plattformen, auf denen es läuft."
     },
     "languages": {
-        "label": "Sprachen"
+        "label": "Sprachen",
+        "description": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen"
     },
     "code": {
-        "label": "Code"
+        "label": "Code",
+        "description": "Liste der verwendeten Programmiersprachen."
     },
     "framework": {
-        "label": "Framework"
+        "label": "Framework",
+        "description": "Liste der verwendeten Frameworks."
     },
     "version": {
         "label": "Version",
@@ -174,7 +179,8 @@
         "description": "Letztes Veröffentlichungsdatum"
     },
     "coverage": {
-        "label": "Abdeckung"
+        "label": "Abdeckung",
+        "description": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."
     },
     "mapData": {
         "label": "Kartendaten"
@@ -189,7 +195,8 @@
         "label": "Relationen bearbeiten"
     },
     "genre": {
-        "label": "Genre"
+        "label": "Genre",
+        "description": "Hauptkategorie für dieses Tool."
     },
     "googlePlayID": {
         "label": "Google Play ID"
@@ -201,9 +208,19 @@
         "label": "Logo"
     },
     "fDroidID": {
-        "label": "F-Droid ID"
+        "label": "F-Droid ID",
+        "description": "F-Droid-Anwendungs-ID"
     },
     "bbWorldID": {
-        "label": "BlackBerry ID"
+        "label": "BlackBerry ID",
+        "description": "BlackBerry World-Anwendungs-ID"
+    },
+    "languagesurl": {
+        "label": "Sprachen-URL",
+        "description": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository)."
+    },
+    "asin": {
+        "label": "Amazon Identifikation",
+        "description": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"
     }
 }
