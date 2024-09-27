@@ -8,13 +8,16 @@
         "description": "Offizieller Name, ansonsten der verbreitetste"
     },
     "license": {
-        "label": "Lizenz"
+        "label": "Lizenz",
+        "description": "Welche freie Lizenz oder proprietär?"
     },
     "price": {
-        "label": "Preis"
+        "label": "Preis",
+        "description": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos."
     },
     "repo": {
-        "label": "Quellcode"
+        "label": "Quellcode",
+        "description": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)"
     },
     "screenshot": {
         "label": "Bildschirmfoto"
@@ -39,7 +42,8 @@
         "label": "Framework"
     },
     "version": {
-        "label": "Version"
+        "label": "Version",
+        "description": "Aktuellste Version"
     },
     "map": {
         "label": "Karte anzeigen"
@@ -157,5 +161,49 @@
     },
     "screenReaderLang": {
         "label": "Screenreader-Sprachen"
+    },
+    "status": {
+        "label": "Status",
+        "description": "Aktueller Status des Projekts."
+    },
+    "web": {
+        "label": "Internetadresse"
+    },
+    "date": {
+        "label": "Veröffentlichungsdatum",
+        "description": "Letztes Veröffentlichungsdatum"
+    },
+    "coverage": {
+        "label": "Abdeckung"
+    },
+    "mapData": {
+        "label": "Kartendaten"
+    },
+    "microsoftAppID": {
+        "label": "Microsoft ID"
+    },
+    "appleStoreID": {
+        "label": "AppStore ID"
+    },
+    "editRelations": {
+        "label": "Relationen bearbeiten"
+    },
+    "genre": {
+        "label": "Genre"
+    },
+    "googlePlayID": {
+        "label": "Google Play ID"
+    },
+    "datasource": {
+        "label": "Quelle"
+    },
+    "logo": {
+        "label": "Logo"
+    },
+    "fDroidID": {
+        "label": "F-Droid ID"
+    },
+    "bbWorldID": {
+        "label": "BlackBerry ID"
     }
 }
