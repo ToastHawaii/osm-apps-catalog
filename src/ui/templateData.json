@@ -121,6 +121,7 @@
       "suggested": true,
       "description": {
         "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
+        "de": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)",
         "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"
       },
       "example": "Easy to use, nice UI"
@@ -143,6 +144,7 @@
     "platform": {
       "description": {
         "en": "List of platforms it runs on.",
+        "de": "Liste der Plattformen, auf denen es läuft.",
         "es": "Lista de plataformas en las que se ejecuta."
       },
       "suggested": true,
@@ -208,6 +210,7 @@
     "genre": {
       "description": {
         "en": "Main category for this tool.",
+        "de": "Hauptkategorie für dieses Tool.",
         "es": "Categoría principal de esta herramienta."
       },
       "suggested": true,
@@ -226,6 +229,7 @@
     "languages": {
       "description": {
         "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported",
+        "de": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen",
         "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"
       },
       "example": "DE;EN;MUL",
@@ -508,14 +512,20 @@
     "languagesurl": {
       "description": {
         "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",
+        "de": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository).",
         "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."
       },
-      "label": { "en": "Languages URL", "es": "Idiomas URL" },
+      "label": {
+        "en": "Languages URL",
+        "de": "Sprachen-URL",
+        "es": "Idiomas URL"
+      },
       "type": "url"
     },
     "coverage": {
       "description": {
         "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use.",
+        "de": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst.",
         "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
       },
       "example": "Europe, Switzerland, Zurich, Gossau",
@@ -526,6 +536,7 @@
     "code": {
       "description": {
         "en": "List of programming languages used.",
+        "de": "Liste der verwendeten Programmiersprachen.",
         "es": "Lista de lenguajes de programación utilizados."
       },
       "type": "string",
@@ -558,6 +569,7 @@
     "framework": {
       "description": {
         "en": "List of frameworks used.",
+        "de": "Liste der verwendeten Frameworks.",
         "es": "Lista de marcos utilizados."
       },
       "example": "GTK+;mono;J2ME;OpenGL",
@@ -598,11 +610,13 @@
     "asin": {
       "description": {
         "en": "Amazon Standard Identification Number for the Amazon Appstore for Android",
+        "de": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android",
         "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android"
       },
       "example": "XXXXXXXXXX",
       "label": {
         "en": "Amazon Identification",
+        "de": "Amazon Identifikation",
         "es": "Identificación de Amazon"
       },
       "type": "string"
@@ -610,6 +624,7 @@
     "bbWorldID": {
       "description": {
         "en": "BlackBerry World application ID",
+        "de": "BlackBerry World-Anwendungs-ID",
         "es": "ID de la aplicación de BlackBerry World"
       },
       "label": {
@@ -624,6 +639,7 @@
     "fDroidID": {
       "description": {
         "en": "F-Droid application ID",
+        "de": "F-Droid-Anwendungs-ID",
         "es": "ID de la aplicación F-Droid"
       },
       "label": {
