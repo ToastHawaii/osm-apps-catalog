@@ -41,6 +41,30 @@
         "description": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"
     },
     "platform": {
-        "label": "Podporované platformy"
+        "label": "Podporované platformy",
+        "description": "Seznam platforem, na kterých běží."
+    },
+    "genre": {
+        "label": "Žánr",
+        "description": "Hlavní kategorie tohoto nástroje."
+    },
+    "languages": {
+        "label": "Jazyky",
+        "description": "Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků"
+    },
+    "coverage": {
+        "label": "Pokrytí",
+        "description": "Pokrytí nebo cílová oblast aplikace. Formátování: \"Kontinent, země, region, ...\". Pro globální použití použijte \"Worldwide\" nebo jej nechte prázdný."
+    },
+    "languagesurl": {
+        "label": "URL pro jazyky",
+        "description": "Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště)."
+    },
+    "code": {
+        "label": "Kód",
+        "description": "Seznam použitých programovacích jazyků."
+    },
+    "framework": {
+        "label": "Rámec"
     }
 }
