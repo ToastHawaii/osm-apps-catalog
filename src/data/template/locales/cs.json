@@ -1,6 +1,7 @@
 {
     "status": {
-        "label": "Stav"
+        "label": "Stav",
+        "description": "Aktuální stav projektu."
     },
     "lang": {
         "label": "Jazyk šablony",
@@ -9,5 +10,37 @@
     "name": {
         "label": "Název",
         "description": "Oficiální název, jinak nejběžnější název"
+    },
+    "license": {
+        "label": "Licence",
+        "description": "Jaká licence je svobodná nebo proprietární?"
+    },
+    "price": {
+        "label": "Cena",
+        "description": "Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma."
+    },
+    "web": {
+        "label": "Webová adresa"
+    },
+    "repo": {
+        "label": "Zdrojový kód",
+        "description": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)"
+    },
+    "logo": {
+        "label": "Logo"
+    },
+    "screenshot": {
+        "label": "Otisk obrazovky"
+    },
+    "description": {
+        "label": "Popis",
+        "description": "Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)"
+    },
+    "author": {
+        "label": "Autor",
+        "description": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"
+    },
+    "platform": {
+        "label": "Podporované platformy"
     }
 }
