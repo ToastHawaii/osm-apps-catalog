@@ -1,6 +1,7 @@
 {
     "status": {
-        "label": "Stav"
+        "label": "Stav",
+        "description": "Aktuální stav projektu."
     },
     "lang": {
         "label": "Jazyk šablony",
@@ -9,5 +10,61 @@
     "name": {
         "label": "Název",
         "description": "Oficiální název, jinak nejběžnější název"
+    },
+    "license": {
+        "label": "Licence",
+        "description": "Jaká licence je svobodná nebo proprietární?"
+    },
+    "price": {
+        "label": "Cena",
+        "description": "Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma."
+    },
+    "web": {
+        "label": "Webová adresa"
+    },
+    "repo": {
+        "label": "Zdrojový kód",
+        "description": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)"
+    },
+    "logo": {
+        "label": "Logo"
+    },
+    "screenshot": {
+        "label": "Otisk obrazovky"
+    },
+    "description": {
+        "label": "Popis",
+        "description": "Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)"
+    },
+    "author": {
+        "label": "Autor",
+        "description": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"
+    },
+    "platform": {
+        "label": "Podporované platformy",
+        "description": "Seznam platforem, na kterých běží."
+    },
+    "genre": {
+        "label": "Žánr",
+        "description": "Hlavní kategorie tohoto nástroje."
+    },
+    "languages": {
+        "label": "Jazyky",
+        "description": "Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků"
+    },
+    "coverage": {
+        "label": "Pokrytí",
+        "description": "Pokrytí nebo cílová oblast aplikace. Formátování: \"Kontinent, země, region, ...\". Pro globální použití použijte \"Worldwide\" nebo jej nechte prázdný."
+    },
+    "languagesurl": {
+        "label": "URL pro jazyky",
+        "description": "Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště)."
+    },
+    "code": {
+        "label": "Kód",
+        "description": "Seznam použitých programovacích jazyků."
+    },
+    "framework": {
+        "label": "Rámec"
     }
 }

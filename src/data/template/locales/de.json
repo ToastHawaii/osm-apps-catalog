@@ -51,22 +51,28 @@
         "description": "Aktuellste Version"
     },
     "map": {
-        "label": "Karte anzeigen"
+        "label": "Karte anzeigen",
+        "description": "[Kartenanzeige] Kann eine Karte angezeigt werden?"
     },
     "rotateMap": {
-        "label": "Karte drehen"
+        "label": "Karte drehen",
+        "description": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?"
     },
     "3D": {
-        "label": "3D-Ansicht"
+        "label": "3D-Ansicht",
+        "description": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?"
     },
     "routing": {
-        "description": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?"
+        "description": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
+        "label": "Routenplanung"
     },
     "createRouteManually": {
-        "label": "Route von Hand eingeben"
+        "label": "Route von Hand eingeben",
+        "description": "[Routenplanung]"
     },
     "calculateRoute": {
-        "label": "Route berechnen"
+        "label": "Route berechnen",
+        "description": "[ Routenplanung ] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
     },
     "turnRestrictions": {
         "label": "Abbiegebeschränkungen"
@@ -183,7 +189,8 @@
         "description": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."
     },
     "mapData": {
-        "label": "Kartendaten"
+        "label": "Kartendaten",
+        "description": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"
     },
     "microsoftAppID": {
         "label": "Microsoft ID"
@@ -202,7 +209,8 @@
         "label": "Google Play ID"
     },
     "datasource": {
-        "label": "Quelle"
+        "label": "Quelle",
+        "description": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"
     },
     "logo": {
         "label": "Logo"
@@ -222,5 +230,30 @@
     "asin": {
         "label": "Amazon Identifikation",
         "description": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"
+    },
+    "firefoxMarketplaceID": {
+        "label": "Firefox Marketplace ID"
+    },
+    "huaweiAppGalleryID": {
+        "label": "Huawei AppGallery ID"
+    },
+    "macAppStoreID": {
+        "label": "Mac AppStore ID"
+    },
+    "showPhoneNumber": {
+        "description": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
+        "label": "Zeigt Telefonnummer"
+    },
+    "showOpeningHours": {
+        "label": "Zeigt die Betriebszeiten an",
+        "description": "[POI-Informationen] Zeigt die Betriebszeiten des POI an."
+    },
+    "createRouteViaWaypoints": {
+        "label": "Route über Wegpunkte erstellen",
+        "description": "[ Routenplanung] Kann Route über Wegpunkte berechnen"
+    },
+    "showWebsite": {
+        "label": "Website anzeigen",
+        "description": "[POI Information] Zeigt den Link zur Website vom POI an"
     }
 }

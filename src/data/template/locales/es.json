@@ -153,6 +153,171 @@
         "description": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"
     },
     "createRouteManually": {
-        "label": "Crear ruta manualmente"
+        "label": "Crear ruta manualmente",
+        "description": "[Enrutamiento]"
+    },
+    "routing": {
+        "label": "Enrutamiento",
+        "description": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"
+    },
+    "profiles": {
+        "label": "Perfiles de enrutamiento",
+        "description": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"
+    },
+    "turnRestrictions": {
+        "label": "Restricciones de giro",
+        "description": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?"
+    },
+    "calculateRouteOffline": {
+        "description": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?",
+        "label": "Calcular ruta sin Internet (Enrutamiento sin conexión)"
+    },
+    "routingProviders": {
+        "label": "Proveedores de enrutamiento",
+        "description": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"
+    },
+    "trafficProvider": {
+        "description": "[Enrutamiento] Proveedor de la fuente de datos del tráfico.",
+        "label": "Proveedor de tráfico"
+    },
+    "navigating": {
+        "label": "Navegar",
+        "description": "[Navegación] ¿Puedes navegar con una brújula?"
+    },
+    "findLocation": {
+        "label": "Encontrar ubicación",
+        "description": "[Navegación] ¿Puede buscar una calle/lugar?"
+    },
+    "findNearbyPOI": {
+        "description": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?",
+        "label": "Encuentra puntos de interés cercanos"
+    },
+    "navToPoint": {
+        "label": "Navegar hasta el punto",
+        "description": "[Navegación] ¿Puede guiarte a un punto en algún lugar?"
+    },
+    "voice": {
+        "label": "Navegación por voz / Guía por voz",
+        "description": "[Navegación] ¿Puede darte comandos con una voz artificial?"
+    },
+    "keepOnRoad": {
+        "label": "Siga por la carretera",
+        "description": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"
+    },
+    "turnLanes": {
+        "label": "Guía de carriles",
+        "description": "[Navegación] ¿Es compatible con la guía de carriles?"
+    },
+    "withoutGPS": {
+        "description": "[Navegación] ¿Funciona incluso sin GPS?",
+        "label": "Funcionar sin GPS"
+    },
+    "customInterval": {
+        "label": "Intervalo de registro personalizable",
+        "description": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"
+    },
+    "trackFormats": {
+        "label": "Formatos de pista",
+        "description": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"
+    },
+    "geotagging": {
+        "label": "Geoetiquetado",
+        "description": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"
+    },
+    "fastWayPointAdding": {
+        "label": "Botones rápidos de PDI",
+        "description": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"
+    },
+    "uploadGPX": {
+        "label": "Cargar GPX a OSM",
+        "description": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"
+    },
+    "monitoring": {
+        "label": "Monitorización",
+        "description": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"
+    },
+    "showExistingTrack": {
+        "label": "Abrir pista existente",
+        "description": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"
+    },
+    "showAltitudeDiagram": {
+        "label": "Gráfico de elevación",
+        "description": "[Seguimiento de la pista]"
+    },
+    "showDOP": {
+        "label": "Mostrar valor DOP",
+        "description": "[Monitoreo de pista] ¿Muestra la calidad de la señal?"
+    },
+    "showSatellites": {
+        "label": "Vista satelital",
+        "description": "[Monitoreo de trayectoria] ¿Muestra satélites?"
+    },
+    "showNMEAlive": {
+        "label": "Mostrar datos NMEA en directo",
+        "description": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"
+    },
+    "showSpeed": {
+        "label": "Mostrar velocidad",
+        "description": "[Seguimiento de la pista]"
+    },
+    "sendPosition": {
+        "label": "Enviar posición actual",
+        "description": "[Monitoreo de pistas] ¿Puede enviar posición a otros?"
+    },
+    "addPOI": {
+        "label": "Agregar puntos de interés",
+        "description": "[Editor] ¿Puedes agregar un nodo?"
+    },
+    "editPOI": {
+        "label": "Editar/eliminar puntos de interés",
+        "description": "[Editor] ¿Puedes editar un nodo?"
+    },
+    "addWay": {
+        "label": "Agregar vía",
+        "description": "[Editor] ¿Puedes agregar una vía?"
+    },
+    "editGeom": {
+        "label": "Editar geometrías",
+        "description": "[Editor] ¿Puedes editar nodos/vías?"
+    },
+    "editTags": {
+        "description": "[Editor] ¿Puedes editar etiquetas existentes?",
+        "label": "Editar etiquetas aleatorias de objetos OSM existentes"
+    },
+    "editRelations": {
+        "label": "Editar relaciones",
+        "description": "[Editor] ¿Puedes editar las relaciones?"
+    },
+    "viewNotes": {
+        "label": "Ver notas",
+        "description": "[Editor] ¿Puedes ver las notas de OSM?"
+    },
+    "createNotes": {
+        "label": "Crear notas",
+        "description": "[Editor] ¿Puedes agregar notas a OSM?"
+    },
+    "editNotes": {
+        "label": "Editar notas",
+        "description": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?"
+    },
+    "editSource": {
+        "label": "Trabajar sin conexión",
+        "description": "[Editor] ¿Puedes trabajar sin conexión?"
+    },
+    "predefinedRoute": {
+        "label": "Navegar por una ruta predefinida",
+        "description": "[Navegación] ¿Puede seguir otras rutas GPS?"
+    },
+    "avoidTraffic": {
+        "label": "Evitar el tráfico",
+        "description": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"
+    },
+    "tracking": {
+        "label": "Realizar un seguimiento",
+        "description": "[Registro de seguimiento] ¿Puede grabar un track de GPS?"
+    },
+    "showTrack": {
+        "label": "Mostrar pista actual",
+        "description": "[Monitoreo de pista] ¿Mostrar tu pista actual?"
     }
 }
