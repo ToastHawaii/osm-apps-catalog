@@ -10,15 +10,15 @@ defaults:
       path: "docs/cs/README.md"
     values:
       lang: "cs"
-      title: "OSM Apps Catalog - About"
-      description: "Experience the world in a creative, productive and unexpected way."
+      title: "OSM Apps Catalog - O aplikaci"
+      description: "Poznávejte svět kreativním, produktivním a nečekaným způsobem."
       base: "/cs/"
   - scope:
       path: "docs/de/README.md"
     values:
       lang: "de"
-      title: "OSM Apps Catalog - About"
-      description: "Experience the world in a creative, productive and unexpected way."
+      title: "OSM Apps Katalog - Über"
+      description: "Erleben Sie die Welt auf kreative, produktive und unerwartete Weise."
       base: "/de/"
   - scope:
       path: "docs/el/README.md"
@@ -31,9 +31,16 @@ defaults:
       path: "docs/es/README.md"
     values:
       lang: "es"
+      title: "OSM Apps Catalog - Acerca de"
+      description: "Experimente el mundo de maneras creativas, productivas e inesperadas."
+      base: "/es/"
+  - scope:
+      path: "docs/et/README.md"
+    values:
+      lang: "et"
       title: "OSM Apps Catalog - About"
       description: "Experience the world in a creative, productive and unexpected way."
-      base: "/es/"
+      base: "/et/"
   - scope:
       path: "docs/fr/README.md"
     values:

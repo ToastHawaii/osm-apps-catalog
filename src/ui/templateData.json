@@ -38,6 +38,7 @@
     "status": {
       "description": {
         "en": "Current status of the project.",
+        "cs": "Aktuální stav projektu.",
         "de": "Aktueller Status des Projekts.",
         "es": "Estado actual del proyecto."
       },
@@ -50,27 +51,35 @@
     "license": {
       "description": {
         "en": "What free license or proprietary?",
+        "cs": "Jaká licence je svobodná nebo proprietární?",
         "de": "Welche freie Lizenz oder proprietär?",
         "es": "¿Qué licencia tiene?"
       },
       "example": "GPL",
-      "label": { "en": "License", "de": "Lizenz", "es": "Licencia" },
+      "label": {
+        "en": "License",
+        "cs": "Licence",
+        "de": "Lizenz",
+        "es": "Licencia"
+      },
       "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"]
     },
     "price": {
       "description": {
         "en": "Costs if proprietary. If price is empty, application is for free.",
+        "cs": "Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma.",
         "de": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos.",
         "es": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita."
       },
       "example": "free;20$;35€;in-app purchases",
-      "label": { "en": "Price", "de": "Preis", "es": "Precio" },
+      "label": { "en": "Price", "cs": "Cena", "de": "Preis", "es": "Precio" },
       "type": "string",
       "suggestedvalues": ["free", "in-app purchases", "ads"]
     },
     "web": {
       "label": {
         "en": "Web address",
+        "cs": "Webová adresa",
         "de": "Internetadresse",
         "es": "Dirección web"
       },
@@ -81,6 +90,7 @@
     "repo": {
       "label": {
         "en": "Source code",
+        "cs": "Zdrojový kód",
         "de": "Quellcode",
         "es": "Código fuente",
         "zh-hans": "源代码"
@@ -88,6 +98,7 @@
       "aliases": ["git", "svn"],
       "description": {
         "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
+        "cs": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)",
         "de": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)",
         "es": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"
       },
@@ -95,13 +106,14 @@
       "type": "url"
     },
     "logo": {
-      "label": { "en": "Logo", "de": "Logo", "es": "Logotipo" },
+      "label": { "en": "Logo", "cs": "Logo", "de": "Logo", "es": "Logotipo" },
       "example": "xyz.png",
       "type": "wiki-file-name"
     },
     "screenshot": {
       "label": {
         "en": "Screenshot",
+        "cs": "Otisk obrazovky",
         "de": "Bildschirmfoto",
         "es": "Captura de pantalla",
         "zh-hans": "截图"
@@ -113,6 +125,7 @@
     "description": {
       "label": {
         "en": "Description",
+        "cs": "Popis",
         "de": "Beschreibung",
         "es": "Descripción",
         "zh-hans": "描述"
@@ -121,6 +134,7 @@
       "suggested": true,
       "description": {
         "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
+        "cs": "Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)",
         "de": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)",
         "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"
       },
@@ -129,12 +143,14 @@
     "author": {
       "label": {
         "en": "Author",
+        "cs": "Autor",
         "de": "Autor",
         "es": "Autor",
         "zh-hans": "作者"
       },
       "description": {
         "en": "Name of the author or a link to their OSM-wiki user page",
+        "cs": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki",
         "de": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite",
         "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki"
       },
@@ -144,6 +160,7 @@
     "platform": {
       "description": {
         "en": "List of platforms it runs on.",
+        "cs": "Seznam platforem, na kterých běží.",
         "de": "Liste der Plattformen, auf denen es läuft.",
         "es": "Lista de plataformas en las que se ejecuta."
       },
@@ -203,6 +220,7 @@
       "example": "Android;iOS",
       "label": {
         "en": "Supported platforms",
+        "cs": "Podporované platformy",
         "de": "Plattform",
         "es": "Plataformas compatibles"
       }
@@ -210,11 +228,12 @@
     "genre": {
       "description": {
         "en": "Main category for this tool.",
+        "cs": "Hlavní kategorie tohoto nástroje.",
         "de": "Hauptkategorie für dieses Tool.",
         "es": "Categoría principal de esta herramienta."
       },
       "suggested": true,
-      "label": { "en": "Genre", "de": "Genre", "es": "Género" },
+      "label": { "en": "Genre", "cs": "Žánr", "de": "Genre", "es": "Género" },
       "suggestedvalues": [
         "display",
         "navi",
@@ -229,6 +248,7 @@
     "languages": {
       "description": {
         "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported",
+        "cs": "Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků",
         "de": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen",
         "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"
       },
@@ -507,16 +527,23 @@
         "zh-yue",
         "zu"
       ],
-      "label": { "en": "Languages", "de": "Sprachen", "es": "Idiomas" }
+      "label": {
+        "en": "Languages",
+        "cs": "Jazyky",
+        "de": "Sprachen",
+        "es": "Idiomas"
+      }
     },
     "languagesurl": {
       "description": {
         "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",
+        "cs": "Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště).",
         "de": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository).",
         "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."
       },
       "label": {
         "en": "Languages URL",
+        "cs": "URL pro jazyky",
         "de": "Sprachen-URL",
         "es": "Idiomas URL"
       },
@@ -525,17 +552,24 @@
     "coverage": {
       "description": {
         "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use.",
+        "cs": "Pokrytí nebo cílová oblast aplikace. Formátování: \"Kontinent, země, region, ...\". Pro globální použití použijte \"Worldwide\" nebo jej nechte prázdný.",
         "de": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst.",
         "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
       },
       "example": "Europe, Switzerland, Zurich, Gossau",
-      "label": { "en": "Coverage", "de": "Abdeckung", "es": "Cobertura" },
+      "label": {
+        "en": "Coverage",
+        "cs": "Pokrytí",
+        "de": "Abdeckung",
+        "es": "Cobertura"
+      },
       "default": "Worldwide",
       "type": "string"
     },
     "code": {
       "description": {
         "en": "List of programming languages used.",
+        "cs": "Seznam použitých programovacích jazyků.",
         "de": "Liste der verwendeten Programmiersprachen.",
         "es": "Lista de lenguajes de programación utilizados."
       },
@@ -564,7 +598,7 @@
         ".NET",
         "Node.js"
       ],
-      "label": { "en": "Code", "de": "Code", "es": "Código" }
+      "label": { "en": "Code", "cs": "Kód", "de": "Code", "es": "Código" }
     },
     "framework": {
       "description": {
@@ -574,7 +608,12 @@
       },
       "example": "GTK+;mono;J2ME;OpenGL",
       "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
-      "label": { "en": "Framework", "de": "Framework", "es": "Framework" },
+      "label": {
+        "en": "Framework",
+        "cs": "Rámec",
+        "de": "Framework",
+        "es": "Framework"
+      },
       "type": "string"
     },
     "version": {
@@ -657,6 +696,7 @@
       },
       "label": {
         "en": "Firefox Marketplace ID",
+        "de": "Firefox Marketplace ID",
         "es": "ID de Firefox Marketplace"
       },
       "deprecated": true,
@@ -682,7 +722,11 @@
       },
       "example": "CXXXXXXXXX",
       "type": "string",
-      "label": { "en": "Huawei AppGallery ID", "es": "ID de Huawei AppGallery" }
+      "label": {
+        "en": "Huawei AppGallery ID",
+        "de": "Huawei AppGallery ID",
+        "es": "ID de Huawei AppGallery"
+      }
     },
     "appleStoreID": {
       "description": {
@@ -702,7 +746,11 @@
         "en": "Mac App Store application ID",
         "es": "ID de la aplicación Mac App Store"
       },
-      "label": { "en": "Mac AppStore ID", "es": "ID de la Mac AppStore" },
+      "label": {
+        "en": "Mac AppStore ID",
+        "de": "Mac AppStore ID",
+        "es": "ID de la Mac AppStore"
+      },
       "example": "id12344556",
       "type": "string"
     },
@@ -722,6 +770,7 @@
     "map": {
       "description": {
         "en": "[Map display] Can it show a map?",
+        "de": "[Kartenanzeige] Kann eine Karte angezeigt werden?",
         "es": "[Visualización de mapa] ¿Puede mostrar un mapa?"
       },
       "label": {
@@ -735,6 +784,7 @@
     "mapData": {
       "description": {
         "en": "[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \"on the fly\" (vector)?",
+        "de": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?",
         "es": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?"
       },
       "label": {
@@ -748,6 +798,7 @@
     "datasource": {
       "description": {
         "en": "[Map display] Can you store all map data offline? Download a separate file?",
+        "de": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?",
         "es": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?"
       },
       "label": { "en": "Source", "de": "Quelle", "es": "Fuente" },
@@ -758,6 +809,7 @@
     "rotateMap": {
       "description": {
         "en": "[Map display] Does it turn the map in driving/walking direction?",
+        "de": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?",
         "es": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"
       },
       "label": {
@@ -771,6 +823,7 @@
     "3D": {
       "description": {
         "en": "[Map display] Is there some 3D or 2.5D view?",
+        "de": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?",
         "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"
       },
       "type": "string",
@@ -780,19 +833,26 @@
     "showWebsite": {
       "description": {
         "en": "[POI Information] Shows link to the website from POI",
+        "de": "[POI Information] Zeigt den Link zur Website vom POI an",
         "es": "[Información del POI] Muestra el enlace a la página web desde el POI"
       },
-      "label": { "en": "Shows website", "es": "Muestra la página web" },
+      "label": {
+        "en": "Shows website",
+        "de": "Website anzeigen",
+        "es": "Muestra la página web"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showPhoneNumber": {
       "description": {
         "en": "[POI Information] Shows phone number from POI",
+        "de": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
         "es": "[Información del PDI] Muestra el número de teléfono del PDI"
       },
       "label": {
         "en": "Shows phone number",
+        "de": "Zeigt Telefonnummer",
         "es": "Muestra el número de teléfono"
       },
       "type": "string",
@@ -801,10 +861,12 @@
     "showOpeningHours": {
       "description": {
         "en": "[POI Information] Shows hours of operation from POI",
+        "de": "[POI-Informationen] Zeigt die Betriebszeiten des POI an.",
         "es": "[Información del POI] Muestra el horario de funcionamiento del POI"
       },
       "label": {
         "en": "Shows operation hours",
+        "de": "Zeigt die Betriebszeiten an",
         "es": "Indica el horario de apertura"
       },
       "type": "string",
@@ -813,14 +875,19 @@
     "routing": {
       "description": {
         "en": "[Routing] Can you calculate or otherwise plan a route?",
-        "de": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?"
+        "de": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
+        "es": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"
       },
-      "label": { "en": "Routing" },
+      "label": { "en": "Routing", "de": "Routenplanung", "es": "Enrutamiento" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "createRouteManually": {
-      "description": { "en": "[Routing]" },
+      "description": {
+        "en": "[Routing]",
+        "de": "[Routenplanung]",
+        "es": "[Enrutamiento]"
+      },
       "label": {
         "en": "Create route manually",
         "de": "Route von Hand eingeben",
@@ -832,6 +899,7 @@
     "calculateRoute": {
       "description": {
         "en": "[Routing] Can it calculate a route using routing?",
+        "de": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?",
         "es": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"
       },
       "label": {
@@ -845,10 +913,12 @@
     "createRouteViaWaypoints": {
       "description": {
         "en": "[Routing] Able to calculate route via Waypoints",
+        "de": "[Routenplanung] Kann Route über Wegpunkte berechnen",
         "es": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"
       },
       "label": {
         "en": "Create route via Waypoints",
+        "de": "Route über Wegpunkte erstellen",
         "es": "Crear ruta a través de Waypoints"
       },
       "type": "string",
@@ -856,9 +926,10 @@
     },
     "profiles": {
       "description": {
-        "en": "[Routing] What profiles supported if it makes routing?"
+        "en": "[Routing] What profiles supported if it makes routing?",
+        "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"
       },
-      "label": { "en": "Routing profiles" },
+      "label": { "en": "Routing profiles", "es": "Perfiles de enrutamiento" },
       "example": "car;bike;foot;wheelchair;public transport",
       "type": "string",
       "suggestedvalues": [
@@ -870,25 +941,40 @@
       ]
     },
     "turnRestrictions": {
-      "description": { "en": "[Routing] Can it deal with turn restrictions?" },
-      "label": { "en": "Turn restrictions", "de": "Abbiegebeschränkungen" },
+      "description": {
+        "en": "[Routing] Can it deal with turn restrictions?",
+        "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?"
+      },
+      "label": {
+        "en": "Turn restrictions",
+        "de": "Abbiegebeschränkungen",
+        "es": "Restricciones de giro"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "calculateRouteOffline": {
       "description": {
-        "en": "[Routing] Does it need internet to calculate a route?"
+        "en": "[Routing] Does it need internet to calculate a route?",
+        "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?"
       },
       "label": {
         "en": "Calculate route without Internet (Offline routing)",
-        "de": "Route berechnen ohne Internet"
+        "de": "Route berechnen ohne Internet",
+        "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "routingProviders": {
-      "description": { "en": "[Routing] What routing service(s) does it use?" },
-      "label": { "en": "Routing providers" },
+      "description": {
+        "en": "[Routing] What routing service(s) does it use?",
+        "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"
+      },
+      "label": {
+        "en": "Routing providers",
+        "es": "Proveedores de enrutamiento"
+      },
       "example": "OpenRouteService;Yours",
       "type": "string",
       "suggestedvalues": [
@@ -903,266 +989,415 @@
     },
     "avoidTraffic": {
       "description": {
-        "en": "[Routing] Does app optimize route to avoid traffic jams?"
+        "en": "[Routing] Does app optimize route to avoid traffic jams?",
+        "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"
       },
-      "label": { "en": "Avoid traffic" },
+      "label": { "en": "Avoid traffic", "es": "Evitar el tráfico" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "trafficProvider": {
-      "description": { "en": "[Routing] Traffic data source provider." },
-      "label": { "en": "Traffic Provider" }
+      "description": {
+        "en": "[Routing] Traffic data source provider.",
+        "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico."
+      },
+      "label": { "en": "Traffic Provider", "es": "Proveedor de tráfico" }
     },
     "navigating": {
       "description": {
-        "en": "[Navigation] Can you navigate in a compass like way?"
+        "en": "[Navigation] Can you navigate in a compass like way?",
+        "es": "[Navegación] ¿Puedes navegar con una brújula?"
       },
-      "label": { "en": "Navigate", "de": "Navigieren" },
+      "label": { "en": "Navigate", "de": "Navigieren", "es": "Navegar" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "findLocation": {
-      "description": { "en": "[Navigation] Can it search for a street/place?" },
-      "label": { "en": "Find location", "de": "Finde eine Position" },
+      "description": {
+        "en": "[Navigation] Can it search for a street/place?",
+        "es": "[Navegación] ¿Puede buscar una calle/lugar?"
+      },
+      "label": {
+        "en": "Find location",
+        "de": "Finde eine Position",
+        "es": "Encontrar ubicación"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "findNearbyPOI": {
       "description": {
-        "en": "[Navigation] Can it discover/display Points of interests?"
+        "en": "[Navigation] Can it discover/display Points of interests?",
+        "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?"
       },
-      "label": { "en": "Find nearby POIs", "de": "Finde POI in der Nähe" },
+      "label": {
+        "en": "Find nearby POIs",
+        "de": "Finde POI in der Nähe",
+        "es": "Encuentra puntos de interés cercanos"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "navToPoint": {
       "description": {
-        "en": "[Navigation] Can it guide you to a point somewhere?"
+        "en": "[Navigation] Can it guide you to a point somewhere?",
+        "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?"
       },
-      "label": { "en": "Navigate to point", "de": "Navigiere zu einem Punkt" },
+      "label": {
+        "en": "Navigate to point",
+        "de": "Navigiere zu einem Punkt",
+        "es": "Navegar hasta el punto"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "voice": {
       "description": {
-        "en": "[Navigation] Can it give you commands with a computer voice?"
+        "en": "[Navigation] Can it give you commands with a computer voice?",
+        "es": "[Navegación] ¿Puede darte comandos con una voz artificial?"
       },
       "label": {
         "en": "Navigation with voice / Voice guidance",
-        "de": "Navigation mit Sprachansage"
+        "de": "Navigation mit Sprachansage",
+        "es": "Navegación por voz / Guía por voz"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "keepOnRoad": {
       "description": {
-        "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?"
+        "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?",
+        "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"
       },
-      "label": { "en": "Keep on road" },
+      "label": { "en": "Keep on road", "es": "Siga por la carretera" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "turnLanes": {
-      "description": { "en": "[Navigation] Does it support lane guidance?" },
-      "label": { "en": "Lane guidance" },
+      "description": {
+        "en": "[Navigation] Does it support lane guidance?",
+        "es": "[Navegación] ¿Es compatible con la guía de carriles?"
+      },
+      "label": { "en": "Lane guidance", "es": "Guía de carriles" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "withoutGPS": {
-      "description": { "en": "[Navigation] Does it work even without a GPS?" },
-      "label": { "en": "Works without GPS", "de": "Funktioniert ohne GPS" },
+      "description": {
+        "en": "[Navigation] Does it work even without a GPS?",
+        "es": "[Navegación] ¿Funciona incluso sin GPS?"
+      },
+      "label": {
+        "en": "Works without GPS",
+        "de": "Funktioniert ohne GPS",
+        "es": "Funcionar sin GPS"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "predefinedRoute": {
-      "description": { "en": "[Navigation] Can it follow other GPS tracks?" },
+      "description": {
+        "en": "[Navigation] Can it follow other GPS tracks?",
+        "es": "[Navegación] ¿Puede seguir otras rutas GPS?"
+      },
       "label": {
         "en": "Navigate along predefined route",
-        "de": "Folge einer vordefinierten Route"
+        "de": "Folge einer vordefinierten Route",
+        "es": "Navegar por una ruta predefinida"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "tracking": {
-      "description": { "en": "[Track logging] Can it record a GPS track?" },
+      "description": {
+        "en": "[Track logging] Can it record a GPS track?",
+        "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
-      "label": { "en": "Make track", "de": "Track aufzeichnen" }
+      "label": {
+        "en": "Make track",
+        "de": "Track aufzeichnen",
+        "es": "Realizar un seguimiento"
+      }
     },
     "customInterval": {
       "description": {
-        "en": "[Track logging] Can you tune the interval manually?"
+        "en": "[Track logging] Can you tune the interval manually?",
+        "es": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"
       },
       "label": {
         "en": "Customizable log interval",
-        "de": "Einstellbares Aufzeichnungsintervall"
+        "de": "Einstellbares Aufzeichnungsintervall",
+        "es": "Intervalo de registro personalizable"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "trackFormats": {
       "description": {
-        "en": "[Track logging] What formats for storage can you save your GPS track?"
+        "en": "[Track logging] What formats for storage can you save your GPS track?",
+        "es": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"
       },
       "example": "gpx;csv",
       "aliases": ["formats"],
-      "label": { "en": "Track formats" },
+      "label": { "en": "Track formats", "es": "Formatos de pista" },
       "type": "string",
       "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
     },
     "geotagging": {
       "description": {
-        "en": "[Track logging] Are further mapping techniques supported"
+        "en": "[Track logging] Are further mapping techniques supported",
+        "es": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"
       },
-      "label": { "en": "Geotagging" },
+      "label": { "en": "Geotagging", "es": "Geoetiquetado" },
       "example": "note;photo",
       "type": "string",
       "suggestedvalues": ["note", "photo", "audio"]
     },
     "fastWayPointAdding": {
-      "description": { "en": "[Track logging] Easy to add a new Waypoint?" },
+      "description": {
+        "en": "[Track logging] Easy to add a new Waypoint?",
+        "es": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"
+      },
       "label": {
         "en": "Fast POI buttons",
-        "de": "Knöpfe zum schnellen Setzen von Wegpunkten"
+        "de": "Knöpfe zum schnellen Setzen von Wegpunkten",
+        "es": "Botones rápidos de PDI"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "uploadGPX": {
       "description": {
-        "en": "[Track logging] Can it send tracks directly to OSM?"
+        "en": "[Track logging] Can it send tracks directly to OSM?",
+        "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
-      "label": { "en": "Upload GPX to OSM" }
+      "label": { "en": "Upload GPX to OSM", "es": "Cargar GPX a OSM" }
     },
     "monitoring": {
-      "description": { "en": "[Track monitoring] Can you monitor GPS datas?" },
-      "label": { "en": "Monitoring", "de": "Monitoring" },
+      "description": {
+        "en": "[Track monitoring] Can you monitor GPS datas?",
+        "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"
+      },
+      "label": {
+        "en": "Monitoring",
+        "de": "Monitoring",
+        "es": "Monitorización"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showTrack": {
-      "description": { "en": "[Track monitoring] Show your current track?" },
-      "label": { "en": "Show current track", "de": "Zeige aktuellen Track" },
+      "description": {
+        "en": "[Track monitoring] Show your current track?",
+        "es": "[Monitoreo de pista] ¿Mostrar tu pista actual?"
+      },
+      "label": {
+        "en": "Show current track",
+        "de": "Zeige aktuellen Track",
+        "es": "Mostrar pista actual"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showExistingTrack": {
       "description": {
-        "en": "[Track monitoring] Can it load existing tracks so you can follow them?"
+        "en": "[Track monitoring] Can it load existing tracks so you can follow them?",
+        "es": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"
       },
       "label": {
         "en": "Open existing track",
-        "de": "Öffne existierenden Track"
+        "de": "Öffne existierenden Track",
+        "es": "Abrir pista existente"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showAltitudeDiagram": {
-      "description": { "en": "[Track monitoring]" },
-      "label": { "en": "Altitude diagram", "de": "Höhendiagramm" },
+      "description": {
+        "en": "[Track monitoring]",
+        "es": "[Seguimiento de la pista]"
+      },
+      "label": {
+        "en": "Altitude diagram",
+        "de": "Höhendiagramm",
+        "es": "Gráfico de elevación"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showDOP": {
-      "description": { "en": "[Track monitoring] Shows signal quality?" },
-      "label": { "en": "Show POD value", "de": "Zeige DOP-Wert" },
+      "description": {
+        "en": "[Track monitoring] Shows signal quality?",
+        "es": "[Monitoreo de pista] ¿Muestra la calidad de la señal?"
+      },
+      "label": {
+        "en": "Show POD value",
+        "de": "Zeige DOP-Wert",
+        "es": "Mostrar valor DOP"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showSatellites": {
-      "description": { "en": "[Track monitoring] Displays satellites?" },
-      "label": { "en": "Satellite view", "de": "Zeige Satelliten" },
+      "description": {
+        "en": "[Track monitoring] Displays satellites?",
+        "es": "[Monitoreo de trayectoria] ¿Muestra satélites?"
+      },
+      "label": {
+        "en": "Satellite view",
+        "de": "Zeige Satelliten",
+        "es": "Vista satelital"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showNMEAlive": {
       "description": {
-        "en": "[Track monitoring] Can you see the raw GPS stream?"
+        "en": "[Track monitoring] Can you see the raw GPS stream?",
+        "es": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"
       },
-      "label": { "en": "Show live NMEA data", "de": "Zeige NMEA-Livedaten" },
+      "label": {
+        "en": "Show live NMEA data",
+        "de": "Zeige NMEA-Livedaten",
+        "es": "Mostrar datos NMEA en directo"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "showSpeed": {
-      "description": { "en": "[Track monitoring]" },
-      "label": { "en": "Show speed" },
+      "description": {
+        "en": "[Track monitoring]",
+        "es": "[Seguimiento de la pista]"
+      },
+      "label": { "en": "Show speed", "es": "Mostrar velocidad" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "sendPosition": {
       "description": {
-        "en": "[Track monitoring] Can it send position to others?"
+        "en": "[Track monitoring] Can it send position to others?",
+        "es": "[Monitoreo de pistas] ¿Puede enviar posición a otros?"
       },
       "example": "yes;mail;www",
       "label": {
         "en": "Send current position",
-        "de": "Sende aktuelle Position"
+        "de": "Sende aktuelle Position",
+        "es": "Enviar posición actual"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no", "sms", "mail", "www"]
     },
     "addPOI": {
-      "description": { "en": "[Editor] Can you add a node?" },
-      "label": { "en": "Add POIs", "de": "POI hinzufügen" },
+      "description": {
+        "en": "[Editor] Can you add a node?",
+        "es": "[Editor] ¿Puedes agregar un nodo?"
+      },
+      "label": {
+        "en": "Add POIs",
+        "de": "POI hinzufügen",
+        "es": "Agregar puntos de interés"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editPOI": {
-      "description": { "en": "[Editor] Can you edit a node?" },
-      "label": { "en": "Edit / Delete POIs", "de": "POI bearbeiten/löschen" },
+      "description": {
+        "en": "[Editor] Can you edit a node?",
+        "es": "[Editor] ¿Puedes editar un nodo?"
+      },
+      "label": {
+        "en": "Edit / Delete POIs",
+        "de": "POI bearbeiten/löschen",
+        "es": "Editar/eliminar puntos de interés"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "addWay": {
-      "description": { "en": "[Editor] Can you add a way?" },
-      "label": { "en": "Add way" },
+      "description": {
+        "en": "[Editor] Can you add a way?",
+        "es": "[Editor] ¿Puedes agregar una vía?"
+      },
+      "label": { "en": "Add way", "es": "Agregar vía" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editGeom": {
-      "description": { "en": "[Editor] Can you edit nodes/ways?" },
-      "label": { "en": "Edit geometries", "de": "Geometrie bearbeiten" },
+      "description": {
+        "en": "[Editor] Can you edit nodes/ways?",
+        "es": "[Editor] ¿Puedes editar nodos/vías?"
+      },
+      "label": {
+        "en": "Edit geometries",
+        "de": "Geometrie bearbeiten",
+        "es": "Editar geometrías"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editTags": {
-      "description": { "en": "[Editor] Can you edit existing tags?" },
+      "description": {
+        "en": "[Editor] Can you edit existing tags?",
+        "es": "[Editor] ¿Puedes editar etiquetas existentes?"
+      },
       "label": {
         "en": "Edit arbitrary tags of existing OSM objects",
-        "de": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten"
+        "de": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
+        "es": "Editar etiquetas aleatorias de objetos OSM existentes"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editRelations": {
-      "description": { "en": "[Editor] Can you edit relations?" },
-      "label": { "en": "Edit relations", "de": "Relationen bearbeiten" },
+      "description": {
+        "en": "[Editor] Can you edit relations?",
+        "es": "[Editor] ¿Puedes editar las relaciones?"
+      },
+      "label": {
+        "en": "Edit relations",
+        "de": "Relationen bearbeiten",
+        "es": "Editar relaciones"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "viewNotes": {
-      "description": { "en": "[Editor] Can you view OSM Notes?" },
-      "label": { "en": "View notes" },
+      "description": {
+        "en": "[Editor] Can you view OSM Notes?",
+        "es": "[Editor] ¿Puedes ver las notas de OSM?"
+      },
+      "label": { "en": "View notes", "es": "Ver notas" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "createNotes": {
-      "description": { "en": "[Editor] Can you add OSM Notes?" },
-      "label": { "en": "Create notes" },
+      "description": {
+        "en": "[Editor] Can you add OSM Notes?",
+        "es": "[Editor] ¿Puedes agregar notas a OSM?"
+      },
+      "label": { "en": "Create notes", "es": "Crear notas" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editNotes": {
-      "description": { "en": "[Editor] Can you comment/close OSM Notes?" },
-      "label": { "en": "Edit notes" },
+      "description": {
+        "en": "[Editor] Can you comment/close OSM Notes?",
+        "es": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?"
+      },
+      "label": { "en": "Edit notes", "es": "Editar notas" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editSource": {
-      "description": { "en": "[Editor] Can you work offline?" },
-      "label": { "en": "Work offline" },
+      "description": {
+        "en": "[Editor] Can you work offline?",
+        "es": "[Editor] ¿Puedes trabajar sin conexión?"
+      },
+      "label": { "en": "Work offline", "es": "Trabajar sin conexión" },
       "example": "online;cache",
       "type": "string",
       "suggestedvalues": ["online", "cache", "offline"]

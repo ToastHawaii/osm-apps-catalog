@@ -72,7 +72,7 @@
     },
     "calculateRoute": {
         "label": "Route berechnen",
-        "description": "[ Routenplanung ] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
+        "description": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
     },
     "turnRestrictions": {
         "label": "Abbiegebeschränkungen"
@@ -250,7 +250,7 @@
     },
     "createRouteViaWaypoints": {
         "label": "Route über Wegpunkte erstellen",
-        "description": "[ Routenplanung] Kann Route über Wegpunkte berechnen"
+        "description": "[Routenplanung] Kann Route über Wegpunkte berechnen"
     },
     "showWebsite": {
         "label": "Website anzeigen",
