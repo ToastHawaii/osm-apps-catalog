@@ -1408,83 +1408,134 @@
       },
       "label": {
         "en": "Support imagery offset DB",
-        "de": "Unterstützt Luftbildversatz DB"
+        "de": "Unterstützt Luftbildversatz DB",
+        "es": "Admite el desplazamiento de imágenes aéreas DB"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "uploadOSMData": {
-      "description": { "en": "[Editor] Can you send changes to OSM directly?" },
-      "label": { "en": "Upload to OSM", "de": "Zu OSM hochladen" },
+      "description": {
+        "en": "[Editor] Can you send changes to OSM directly?",
+        "es": "[Editor] ¿Puede enviar los cambios a OSM directamente?"
+      },
+      "label": {
+        "en": "Upload to OSM",
+        "de": "Zu OSM hochladen",
+        "es": "Cargar en OSM"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "rendererOutputFormats": {
-      "description": { "en": "[Renderer] Supported output formats." },
+      "description": {
+        "en": "[Renderer] Supported output formats.",
+        "es": "[Renderizador] Formatos de salida admitidos."
+      },
       "example": "svg;pdf;png",
-      "label": { "en": "Renderer output formats" }
+      "label": {
+        "en": "Renderer output formats",
+        "es": "Formatos del renderizador"
+      }
     },
     "accessibility": {
       "description": {
-        "en": "[Accessibility] Does it help disabled people in some kind?"
+        "en": "[Accessibility] Does it help disabled people in some kind?",
+        "es": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"
       },
       "example": "blind;wheelchair",
-      "label": { "en": "Accessibility support" },
+      "label": {
+        "en": "Accessibility support",
+        "es": "Ayuda a la accesibilidad"
+      },
       "type": "string",
       "suggestedvalues": ["blind", "wheelchair"]
     },
     "textOnlyUI": {
       "description": {
-        "en": "[Accessibility] Text to braille compatible interface?"
+        "en": "[Accessibility] Text to braille compatible interface?",
+        "es": "[Accesibilidad] ¿Interfaz compatible de texto a braille?"
       },
       "label": {
         "en": "Complete non graphics text output",
-        "de": "Komplett ohne Grafik bedienbar"
+        "de": "Komplett ohne Grafik bedienbar",
+        "es": "Salida de texto sin gráficos"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "brailleUI": {
-      "description": { "en": "[Accessibility] A special braille interface?" },
-      "label": { "en": "Braille interface", "de": "Braille-Oberfläche" },
+      "description": {
+        "en": "[Accessibility] A special braille interface?",
+        "es": "[Accesibilidad] ¿Una interfaz braille especial?"
+      },
+      "label": {
+        "en": "Braille interface",
+        "de": "Braille-Oberfläche",
+        "es": "Interfaz en Braille"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "explorerMode": {
       "description": {
-        "en": "[Accessibility] Has a exploration modus (tell all objects approaching)?"
+        "en": "[Accessibility] Has a exploration modus (tell all objects approaching)?",
+        "es": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"
       },
-      "label": { "en": "Exploration modus", "de": "Erkundungsmodus" },
+      "label": {
+        "en": "Exploration modus",
+        "de": "Erkundungsmodus",
+        "es": "Modo exploración"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "publicTransportMode": {
       "description": {
-        "en": "[Accessibility] Supports routing with public transport?"
+        "en": "[Accessibility] Supports routing with public transport?",
+        "es": "[Accesibilidad] ¿Admite rutas con transporte público?"
       },
-      "label": { "en": "Public Transport mode", "de": "ÖPNV-Modus" },
+      "label": {
+        "en": "Public Transport mode",
+        "de": "ÖPNV-Modus",
+        "es": "Modo de transporte público"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "dangerWarnings": {
-      "description": { "en": "[Accessibility]" },
-      "label": { "en": "Danger Warnings", "de": "Gefahrenwarnungen" },
+      "description": { "en": "[Accessibility]", "es": "[Accesibilidad]" },
+      "label": {
+        "en": "Danger Warnings",
+        "de": "Gefahrenwarnungen",
+        "es": "Avisos de peligro"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "screenReader": {
       "description": {
-        "en": "[Accessibility] List of supported screenreaders"
+        "en": "[Accessibility] List of supported screenreaders",
+        "es": "[Accesibilidad] Lista de lectores de pantalla compatibles"
       },
       "example": "NVDA",
-      "label": { "en": "Screenreader", "de": "Screenreader" }
+      "label": {
+        "en": "Screenreader",
+        "de": "Screenreader",
+        "es": "Lector de pantalla"
+      }
     },
     "screenReaderLang": {
       "description": {
-        "en": "[Accessibility] List of supported screenreaders languages"
+        "en": "[Accessibility] List of supported screenreaders languages",
+        "es": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"
       },
       "example": "EN;DE",
-      "label": { "en": "Screenreader languages", "de": "Screenreader-Sprachen" }
+      "label": {
+        "en": "Screenreader languages",
+        "de": "Screenreader-Sprachen",
+        "es": "Idiomas del lector de pantalla"
+      }
     }
   },
   "paramOrder": [
