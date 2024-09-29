@@ -319,5 +319,48 @@
     "showTrack": {
         "label": "Mostrar pista actual",
         "description": "[Monitoreo de pista] ¿Mostrar tu pista actual?"
+    },
+    "uploadOSMData": {
+        "label": "Cargar en OSM",
+        "description": "[Editor] ¿Puede enviar los cambios a OSM directamente?"
+    },
+    "rendererOutputFormats": {
+        "label": "Formatos del renderizador",
+        "description": "[Renderizador] Formatos de salida admitidos."
+    },
+    "accessibility": {
+        "label": "Ayuda a la accesibilidad",
+        "description": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"
+    },
+    "brailleUI": {
+        "label": "Interfaz en Braille",
+        "description": "[Accesibilidad] ¿Una interfaz braille especial?"
+    },
+    "explorerMode": {
+        "label": "Modo exploración",
+        "description": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"
+    },
+    "publicTransportMode": {
+        "label": "Modo de transporte público",
+        "description": "[Accesibilidad] ¿Admite rutas con transporte público?"
+    },
+    "dangerWarnings": {
+        "label": "Avisos de peligro",
+        "description": "[Accesibilidad]"
+    },
+    "screenReader": {
+        "label": "Lector de pantalla",
+        "description": "[Accesibilidad] Lista de lectores de pantalla compatibles"
+    },
+    "screenReaderLang": {
+        "label": "Idiomas del lector de pantalla",
+        "description": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"
+    },
+    "offsetDBsupport": {
+        "label": "Admite el desplazamiento de imágenes aéreas DB"
+    },
+    "textOnlyUI": {
+        "label": "Salida de texto sin gráficos",
+        "description": "[Accesibilidad] ¿Interfaz compatible de texto a braille?"
     }
 }
