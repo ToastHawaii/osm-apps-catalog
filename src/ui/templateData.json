@@ -51,7 +51,7 @@
     "license": {
       "description": {
         "en": "What free license or proprietary?",
-        "cs": "Jaká licence je svobodná nebo proprietární?",
+        "cs": "Je licence svobodná nebo proprietární?",
         "de": "Welche freie Lizenz oder proprietär?",
         "es": "¿Qué licencia tiene?"
       },
@@ -233,7 +233,7 @@
         "es": "Categoría principal de esta herramienta."
       },
       "suggested": true,
-      "label": { "en": "Genre", "cs": "Žánr", "de": "Genre", "es": "Género" },
+      "label": { "en": "Genre", "cs": "Typ", "de": "Genre", "es": "Género" },
       "suggestedvalues": [
         "display",
         "navi",
@@ -603,6 +603,7 @@
     "framework": {
       "description": {
         "en": "List of frameworks used.",
+        "cs": "Seznam použitých frameworků.",
         "de": "Liste der verwendeten Frameworks.",
         "es": "Lista de marcos utilizados."
       },
@@ -610,7 +611,7 @@
       "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
       "label": {
         "en": "Framework",
-        "cs": "Rámec",
+        "cs": "Framework",
         "de": "Framework",
         "es": "Framework"
       },
@@ -619,12 +620,14 @@
     "version": {
       "label": {
         "en": "Version",
+        "cs": "Verze",
         "de": "Version",
         "es": "Versión",
         "zh-hans": "版本"
       },
       "description": {
         "en": "Latest version",
+        "cs": "Nejnovější verze",
         "de": "Aktuellste Version",
         "es": "Última versión"
       },
@@ -634,12 +637,14 @@
     "date": {
       "label": {
         "en": "Release date",
+        "cs": "Datum vydání",
         "de": "Veröffentlichungsdatum",
         "es": "Fecha de publicación",
         "zh-hans": "日期"
       },
       "description": {
         "en": "Latest release date",
+        "cs": "Nejnovější datum vydání",
         "de": "Letztes Veröffentlichungsdatum",
         "es": "Última fecha de lanzamiento"
       },
@@ -649,12 +654,14 @@
     "asin": {
       "description": {
         "en": "Amazon Standard Identification Number for the Amazon Appstore for Android",
+        "cs": "Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android",
         "de": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android",
         "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android"
       },
       "example": "XXXXXXXXXX",
       "label": {
         "en": "Amazon Identification",
+        "cs": "Identifikace Amazon",
         "de": "Amazon Identifikation",
         "es": "Identificación de Amazon"
       },
@@ -663,11 +670,13 @@
     "bbWorldID": {
       "description": {
         "en": "BlackBerry World application ID",
+        "cs": "ID aplikace v BlackBerry World",
         "de": "BlackBerry World-Anwendungs-ID",
         "es": "ID de la aplicación de BlackBerry World"
       },
       "label": {
         "en": "BlackBerry ID",
+        "cs": "BlackBerry ID",
         "de": "BlackBerry ID",
         "es": "ID de BlackBerry"
       },
@@ -678,11 +687,13 @@
     "fDroidID": {
       "description": {
         "en": "F-Droid application ID",
+        "cs": "ID aplikace F-Droid",
         "de": "F-Droid-Anwendungs-ID",
         "es": "ID de la aplicación F-Droid"
       },
       "label": {
         "en": "F-Droid ID",
+        "cs": "F-Droid ID",
         "de": "F-Droid ID",
         "es": "ID de F-Droid"
       },
@@ -692,10 +703,12 @@
     "firefoxMarketplaceID": {
       "description": {
         "en": "Mozilla Firefox Marketplace application ID",
+        "cs": "ID aplikace Mozilla Firefox Marketplace",
         "es": "ID de la aplicación Mozilla Firefox Marketplace"
       },
       "label": {
         "en": "Firefox Marketplace ID",
+        "cs": "Firefox Marketplace ID",
         "de": "Firefox Marketplace ID",
         "es": "ID de Firefox Marketplace"
       },
@@ -705,10 +718,12 @@
     "googlePlayID": {
       "description": {
         "en": "Google Play Store application ID",
+        "cs": "ID aplikace v Obchodě Google Play",
         "es": "ID de la aplicación Google Play Store"
       },
       "label": {
         "en": "Google Play ID",
+        "cs": "Google Play ID",
         "de": "Google Play ID",
         "es": "ID de Google Play"
       },
@@ -718,12 +733,14 @@
     "huaweiAppGalleryID": {
       "description": {
         "en": "Huawei AppGallery application ID",
+        "cs": "ID aplikace Huawei AppGallery",
         "es": "ID de la aplicación Huawei AppGallery"
       },
       "example": "CXXXXXXXXX",
       "type": "string",
       "label": {
         "en": "Huawei AppGallery ID",
+        "cs": "Huawei AppGallery ID",
         "de": "Huawei AppGallery ID",
         "es": "ID de Huawei AppGallery"
       }
@@ -731,10 +748,12 @@
     "appleStoreID": {
       "description": {
         "en": "iTunes App Store application ID",
+        "cs": "ID aplikace iTunes App Store",
         "es": "ID de la aplicación iTunes App Store"
       },
       "label": {
         "en": "AppStore ID",
+        "cs": "AppStore ID",
         "de": "AppStore ID",
         "es": "ID de la AppStore"
       },
@@ -744,10 +763,12 @@
     "macAppStoreID": {
       "description": {
         "en": "Mac App Store application ID",
+        "cs": "ID aplikace Mac App Store",
         "es": "ID de la aplicación Mac App Store"
       },
       "label": {
         "en": "Mac AppStore ID",
+        "cs": "Mac AppStore ID",
         "de": "Mac AppStore ID",
         "es": "ID de la Mac AppStore"
       },
@@ -757,10 +778,12 @@
     "microsoftAppID": {
       "description": {
         "en": "Microsoft Store Windows application UUID",
+        "cs": "UUID aplikace Microsoft Store pro systém Windows",
         "es": "UUID de la aplicación Windows de Microsoft Store"
       },
       "label": {
         "en": "Microsoft ID",
+        "cs": "Microsoft ID",
         "de": "Microsoft ID",
         "es": "ID de Microsoft"
       },
@@ -770,11 +793,13 @@
     "map": {
       "description": {
         "en": "[Map display] Can it show a map?",
+        "cs": "[Zobrazení mapy] Lze zobrazit mapu?",
         "de": "[Kartenanzeige] Kann eine Karte angezeigt werden?",
         "es": "[Visualización de mapa] ¿Puede mostrar un mapa?"
       },
       "label": {
         "en": "Display map",
+        "cs": "Zobrazení mapy",
         "de": "Karte anzeigen",
         "es": "Mostrar mapa"
       },
@@ -784,11 +809,13 @@
     "mapData": {
       "description": {
         "en": "[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \"on the fly\" (vector)?",
+        "cs": "[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \"za běhu\" (vektory)?",
         "de": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?",
         "es": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?"
       },
       "label": {
         "en": "Map data",
+        "cs": "Mapová data",
         "de": "Kartendaten",
         "es": "Datos del mapa"
       },
@@ -798,10 +825,16 @@
     "datasource": {
       "description": {
         "en": "[Map display] Can you store all map data offline? Download a separate file?",
+        "cs": "[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?",
         "de": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?",
         "es": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?"
       },
-      "label": { "en": "Source", "de": "Quelle", "es": "Fuente" },
+      "label": {
+        "en": "Source",
+        "cs": "Zdroj",
+        "de": "Quelle",
+        "es": "Fuente"
+      },
       "example": "online;cache",
       "type": "string",
       "suggestedvalues": ["online", "cache", "offline"]
@@ -809,11 +842,13 @@
     "rotateMap": {
       "description": {
         "en": "[Map display] Does it turn the map in driving/walking direction?",
+        "cs": "[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?",
         "de": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?",
         "es": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"
       },
       "label": {
         "en": "Rotate map",
+        "cs": "Rotace mapy",
         "de": "Karte drehen",
         "es": "Girar el mapa"
       },
@@ -823,21 +858,29 @@
     "3D": {
       "description": {
         "en": "[Map display] Is there some 3D or 2.5D view?",
+        "cs": "[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?",
         "de": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?",
         "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
-      "label": { "en": "3D view", "de": "3D-Ansicht", "es": "Vista 3D" }
+      "label": {
+        "en": "3D view",
+        "cs": "3D pohled",
+        "de": "3D-Ansicht",
+        "es": "Vista 3D"
+      }
     },
     "showWebsite": {
       "description": {
         "en": "[POI Information] Shows link to the website from POI",
+        "cs": "[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu",
         "de": "[POI Information] Zeigt den Link zur Website vom POI an",
         "es": "[Información del POI] Muestra el enlace a la página web desde el POI"
       },
       "label": {
         "en": "Shows website",
+        "cs": "Zobrazení webové stránky",
         "de": "Website anzeigen",
         "es": "Muestra la página web"
       },
@@ -847,11 +890,13 @@
     "showPhoneNumber": {
       "description": {
         "en": "[POI Information] Shows phone number from POI",
+        "cs": "[Informace o POI] Zobrazí telefonní číslo z POI",
         "de": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
         "es": "[Información del PDI] Muestra el número de teléfono del PDI"
       },
       "label": {
         "en": "Shows phone number",
+        "cs": "Zobrazí telefonní číslo",
         "de": "Zeigt Telefonnummer",
         "es": "Muestra el número de teléfono"
       },
@@ -861,11 +906,13 @@
     "showOpeningHours": {
       "description": {
         "en": "[POI Information] Shows hours of operation from POI",
+        "cs": "[Informace o POI] Zobrazí provozní dobu z POI",
         "de": "[POI-Informationen] Zeigt die Betriebszeiten des POI an.",
         "es": "[Información del POI] Muestra el horario de funcionamiento del POI"
       },
       "label": {
         "en": "Shows operation hours",
+        "cs": "Zobrazuje provozní dobu",
         "de": "Zeigt die Betriebszeiten an",
         "es": "Indica el horario de apertura"
       },
@@ -875,21 +922,29 @@
     "routing": {
       "description": {
         "en": "[Routing] Can you calculate or otherwise plan a route?",
+        "cs": "[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?",
         "de": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
         "es": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"
       },
-      "label": { "en": "Routing", "de": "Routenplanung", "es": "Enrutamiento" },
+      "label": {
+        "en": "Routing",
+        "cs": "Hledání trasy",
+        "de": "Routenplanung",
+        "es": "Enrutamiento"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "createRouteManually": {
       "description": {
         "en": "[Routing]",
+        "cs": "[Hledání trasy]",
         "de": "[Routenplanung]",
         "es": "[Enrutamiento]"
       },
       "label": {
         "en": "Create route manually",
+        "cs": "Vytvoření trasy ručně",
         "de": "Route von Hand eingeben",
         "es": "Crear ruta manualmente"
       },
@@ -899,11 +954,13 @@
     "calculateRoute": {
       "description": {
         "en": "[Routing] Can it calculate a route using routing?",
+        "cs": "[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?",
         "de": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?",
         "es": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"
       },
       "label": {
         "en": "Calculate route",
+        "cs": "Výpočet trasy",
         "de": "Route berechnen",
         "es": "Calcular ruta"
       },
@@ -913,11 +970,13 @@
     "createRouteViaWaypoints": {
       "description": {
         "en": "[Routing] Able to calculate route via Waypoints",
+        "cs": "[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů",
         "de": "[Routenplanung] Kann Route über Wegpunkte berechnen",
         "es": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"
       },
       "label": {
         "en": "Create route via Waypoints",
+        "cs": "Vytvoření trasy pomocí bodů trasy",
         "de": "Route über Wegpunkte erstellen",
         "es": "Crear ruta a través de Waypoints"
       },
@@ -927,9 +986,14 @@
     "profiles": {
       "description": {
         "en": "[Routing] What profiles supported if it makes routing?",
+        "cs": "[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?",
         "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"
       },
-      "label": { "en": "Routing profiles", "es": "Perfiles de enrutamiento" },
+      "label": {
+        "en": "Routing profiles",
+        "cs": "Profily hledání trasy",
+        "es": "Perfiles de enrutamiento"
+      },
       "example": "car;bike;foot;wheelchair;public transport",
       "type": "string",
       "suggestedvalues": [
@@ -943,10 +1007,12 @@
     "turnRestrictions": {
       "description": {
         "en": "[Routing] Can it deal with turn restrictions?",
+        "cs": "[Hledání trasy] Dokáže se vypořádat s omezením otáčení?",
         "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?"
       },
       "label": {
         "en": "Turn restrictions",
+        "cs": "Omezení otáčení",
         "de": "Abbiegebeschränkungen",
         "es": "Restricciones de giro"
       },
@@ -956,10 +1022,12 @@
     "calculateRouteOffline": {
       "description": {
         "en": "[Routing] Does it need internet to calculate a route?",
+        "cs": "[Hledání trasy] Potřebuje k výpočtu trasy internet?",
         "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?"
       },
       "label": {
         "en": "Calculate route without Internet (Offline routing)",
+        "cs": "Výpočet trasy bez internetu (hledání trasy offline)",
         "de": "Route berechnen ohne Internet",
         "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)"
       },
@@ -969,10 +1037,12 @@
     "routingProviders": {
       "description": {
         "en": "[Routing] What routing service(s) does it use?",
+        "cs": "[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?",
         "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"
       },
       "label": {
         "en": "Routing providers",
+        "cs": "Poskytovatelé hledání tras",
         "es": "Proveedores de enrutamiento"
       },
       "example": "OpenRouteService;Yours",
@@ -990,35 +1060,53 @@
     "avoidTraffic": {
       "description": {
         "en": "[Routing] Does app optimize route to avoid traffic jams?",
+        "cs": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
         "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"
       },
-      "label": { "en": "Avoid traffic", "es": "Evitar el tráfico" },
+      "label": {
+        "en": "Avoid traffic",
+        "cs": "Vyhýbání se provozu",
+        "es": "Evitar el tráfico"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "trafficProvider": {
       "description": {
         "en": "[Routing] Traffic data source provider.",
+        "cs": "[Hledání trasy] Poskytovatel zdroje dopravních dat.",
         "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico."
       },
-      "label": { "en": "Traffic Provider", "es": "Proveedor de tráfico" }
+      "label": {
+        "en": "Traffic Provider",
+        "cs": "Poskytovatel informací o provozu",
+        "es": "Proveedor de tráfico"
+      }
     },
     "navigating": {
       "description": {
         "en": "[Navigation] Can you navigate in a compass like way?",
+        "cs": "[Navigace] Umíte se orientovat podle kompasu?",
         "es": "[Navegación] ¿Puedes navegar con una brújula?"
       },
-      "label": { "en": "Navigate", "de": "Navigieren", "es": "Navegar" },
+      "label": {
+        "en": "Navigate",
+        "cs": "Navigace",
+        "de": "Navigieren",
+        "es": "Navegar"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "findLocation": {
       "description": {
         "en": "[Navigation] Can it search for a street/place?",
+        "cs": "[Navigace] Umí vyhledat ulici/místo?",
         "es": "[Navegación] ¿Puede buscar una calle/lugar?"
       },
       "label": {
         "en": "Find location",
+        "cs": "Hledání polohy",
         "de": "Finde eine Position",
         "es": "Encontrar ubicación"
       },
@@ -1028,10 +1116,12 @@
     "findNearbyPOI": {
       "description": {
         "en": "[Navigation] Can it discover/display Points of interests?",
+        "cs": "[Navigace] Umí najít/zobrazit body zájmu?",
         "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?"
       },
       "label": {
         "en": "Find nearby POIs",
+        "cs": "Hledání blízkých bodů zájmu",
         "de": "Finde POI in der Nähe",
         "es": "Encuentra puntos de interés cercanos"
       },
@@ -1041,10 +1131,12 @@
     "navToPoint": {
       "description": {
         "en": "[Navigation] Can it guide you to a point somewhere?",
+        "cs": "[Navigace] Dokáže vás navigovat někam?",
         "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?"
       },
       "label": {
         "en": "Navigate to point",
+        "cs": "Navigace do bodu",
         "de": "Navigiere zu einem Punkt",
         "es": "Navegar hasta el punto"
       },
@@ -1054,10 +1146,12 @@
     "voice": {
       "description": {
         "en": "[Navigation] Can it give you commands with a computer voice?",
+        "cs": "[Navigace] Umí vám dávat příkazy počítačovým hlasem?",
         "es": "[Navegación] ¿Puede darte comandos con una voz artificial?"
       },
       "label": {
         "en": "Navigation with voice / Voice guidance",
+        "cs": "Navigace s hlasem / Hlasové navádění",
         "de": "Navigation mit Sprachansage",
         "es": "Navegación por voz / Guía por voz"
       },
@@ -1067,28 +1161,40 @@
     "keepOnRoad": {
       "description": {
         "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?",
+        "cs": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?",
         "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"
       },
-      "label": { "en": "Keep on road", "es": "Siga por la carretera" },
+      "label": {
+        "en": "Keep on road",
+        "cs": "Pokračování v cestě",
+        "es": "Siga por la carretera"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "turnLanes": {
       "description": {
         "en": "[Navigation] Does it support lane guidance?",
+        "cs": "[Navigace] Podporuje navádění do jízdních pruhů?",
         "es": "[Navegación] ¿Es compatible con la guía de carriles?"
       },
-      "label": { "en": "Lane guidance", "es": "Guía de carriles" },
+      "label": {
+        "en": "Lane guidance",
+        "cs": "Navádění do jízdních pruhů",
+        "es": "Guía de carriles"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "withoutGPS": {
       "description": {
         "en": "[Navigation] Does it work even without a GPS?",
+        "cs": "[Navigace] Bude fungovat i bez GPS?",
         "es": "[Navegación] ¿Funciona incluso sin GPS?"
       },
       "label": {
         "en": "Works without GPS",
+        "cs": "Fungování bez GPS",
         "de": "Funktioniert ohne GPS",
         "es": "Funcionar sin GPS"
       },
@@ -1098,10 +1204,12 @@
     "predefinedRoute": {
       "description": {
         "en": "[Navigation] Can it follow other GPS tracks?",
+        "cs": "[Navigace] Umí sledovat jiné GPS trasy?",
         "es": "[Navegación] ¿Puede seguir otras rutas GPS?"
       },
       "label": {
         "en": "Navigate along predefined route",
+        "cs": "Navigace po předem definované trase",
         "de": "Folge einer vordefinierten Route",
         "es": "Navegar por una ruta predefinida"
       },
@@ -1111,12 +1219,14 @@
     "tracking": {
       "description": {
         "en": "[Track logging] Can it record a GPS track?",
+        "cs": "[Záznam trasy] Lze zaznamenat trasu GPS?",
         "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Make track",
+        "cs": "Vytvoření trasy",
         "de": "Track aufzeichnen",
         "es": "Realizar un seguimiento"
       }
@@ -1124,10 +1234,12 @@
     "customInterval": {
       "description": {
         "en": "[Track logging] Can you tune the interval manually?",
+        "cs": "[Záznam trasy] Lze interval nastavit ručně?",
         "es": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"
       },
       "label": {
         "en": "Customizable log interval",
+        "cs": "Přizpůsobitelný interval záznamu",
         "de": "Einstellbares Aufzeichnungsintervall",
         "es": "Intervalo de registro personalizable"
       },
@@ -1137,20 +1249,30 @@
     "trackFormats": {
       "description": {
         "en": "[Track logging] What formats for storage can you save your GPS track?",
+        "cs": "[Záznam trasy] V jakých formátech lze uložit trasu GPS?",
         "es": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"
       },
       "example": "gpx;csv",
       "aliases": ["formats"],
-      "label": { "en": "Track formats", "es": "Formatos de pista" },
+      "label": {
+        "en": "Track formats",
+        "cs": "Formáty tras",
+        "es": "Formatos de pista"
+      },
       "type": "string",
       "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
     },
     "geotagging": {
       "description": {
         "en": "[Track logging] Are further mapping techniques supported",
+        "cs": "[Záznam trasy] Jsou podporovány další techniky mapování",
         "es": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"
       },
-      "label": { "en": "Geotagging", "es": "Geoetiquetado" },
+      "label": {
+        "en": "Geotagging",
+        "cs": "Geotagging",
+        "es": "Geoetiquetado"
+      },
       "example": "note;photo",
       "type": "string",
       "suggestedvalues": ["note", "photo", "audio"]
@@ -1158,10 +1280,12 @@
     "fastWayPointAdding": {
       "description": {
         "en": "[Track logging] Easy to add a new Waypoint?",
+        "cs": "[Záznam trasy] Snadné přidání nového bodu trasy?",
         "es": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"
       },
       "label": {
         "en": "Fast POI buttons",
+        "cs": "Rychlá tlačítka POI",
         "de": "Knöpfe zum schnellen Setzen von Wegpunkten",
         "es": "Botones rápidos de PDI"
       },
@@ -1171,19 +1295,26 @@
     "uploadGPX": {
       "description": {
         "en": "[Track logging] Can it send tracks directly to OSM?",
+        "cs": "[ Záznam tras] Lze odesílat trasy přímo do OSM?",
         "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
-      "label": { "en": "Upload GPX to OSM", "es": "Cargar GPX a OSM" }
+      "label": {
+        "en": "Upload GPX to OSM",
+        "cs": "Nahrání GPX do OSM",
+        "es": "Cargar GPX a OSM"
+      }
     },
     "monitoring": {
       "description": {
         "en": "[Track monitoring] Can you monitor GPS datas?",
+        "cs": "[ Monitorování trasy] Můžete monitorovat data GPS?",
         "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"
       },
       "label": {
         "en": "Monitoring",
+        "cs": "Monitorování",
         "de": "Monitoring",
         "es": "Monitorización"
       },
@@ -1193,10 +1324,12 @@
     "showTrack": {
       "description": {
         "en": "[Track monitoring] Show your current track?",
+        "cs": "[Monitorování trasy] Zobrazuje aktuální trasu?",
         "es": "[Monitoreo de pista] ¿Mostrar tu pista actual?"
       },
       "label": {
         "en": "Show current track",
+        "cs": "Zobrazení aktuální trasy",
         "de": "Zeige aktuellen Track",
         "es": "Mostrar pista actual"
       },
@@ -1206,10 +1339,12 @@
     "showExistingTrack": {
       "description": {
         "en": "[Track monitoring] Can it load existing tracks so you can follow them?",
+        "cs": "[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?",
         "es": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"
       },
       "label": {
         "en": "Open existing track",
+        "cs": "Otevření existující trasy",
         "de": "Öffne existierenden Track",
         "es": "Abrir pista existente"
       },
@@ -1219,10 +1354,12 @@
     "showAltitudeDiagram": {
       "description": {
         "en": "[Track monitoring]",
+        "cs": "[Monitorování trasy]",
         "es": "[Seguimiento de la pista]"
       },
       "label": {
         "en": "Altitude diagram",
+        "cs": "Výškový diagram",
         "de": "Höhendiagramm",
         "es": "Gráfico de elevación"
       },
@@ -1232,10 +1369,12 @@
     "showDOP": {
       "description": {
         "en": "[Track monitoring] Shows signal quality?",
+        "cs": "[Monitorování trasy] Zobrazuje kvalitu signálu?",
         "es": "[Monitoreo de pista] ¿Muestra la calidad de la señal?"
       },
       "label": {
         "en": "Show POD value",
+        "cs": "Zobrazení hodnoty POD",
         "de": "Zeige DOP-Wert",
         "es": "Mostrar valor DOP"
       },
@@ -1245,10 +1384,12 @@
     "showSatellites": {
       "description": {
         "en": "[Track monitoring] Displays satellites?",
+        "cs": "[Monitorování trasy] Zobrazuje satelity?",
         "es": "[Monitoreo de trayectoria] ¿Muestra satélites?"
       },
       "label": {
         "en": "Satellite view",
+        "cs": "Zobrazení satelitů",
         "de": "Zeige Satelliten",
         "es": "Vista satelital"
       },
@@ -1258,10 +1399,12 @@
     "showNMEAlive": {
       "description": {
         "en": "[Track monitoring] Can you see the raw GPS stream?",
+        "cs": "[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?",
         "es": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"
       },
       "label": {
         "en": "Show live NMEA data",
+        "cs": "Zobrazení živých dat NMEA",
         "de": "Zeige NMEA-Livedaten",
         "es": "Mostrar datos NMEA en directo"
       },
@@ -1271,20 +1414,27 @@
     "showSpeed": {
       "description": {
         "en": "[Track monitoring]",
+        "cs": "[Monitorování trasy]",
         "es": "[Seguimiento de la pista]"
       },
-      "label": { "en": "Show speed", "es": "Mostrar velocidad" },
+      "label": {
+        "en": "Show speed",
+        "cs": "Zobrazení rychlosti",
+        "es": "Mostrar velocidad"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "sendPosition": {
       "description": {
         "en": "[Track monitoring] Can it send position to others?",
+        "cs": "[Monitorování trasy] Může odesílat polohu ostatním?",
         "es": "[Monitoreo de pistas] ¿Puede enviar posición a otros?"
       },
       "example": "yes;mail;www",
       "label": {
         "en": "Send current position",
+        "cs": "Odeslání aktuální polohy",
         "de": "Sende aktuelle Position",
         "es": "Enviar posición actual"
       },
@@ -1294,10 +1444,12 @@
     "addPOI": {
       "description": {
         "en": "[Editor] Can you add a node?",
+        "cs": "[Editor] Můžete přidat uzel?",
         "es": "[Editor] ¿Puedes agregar un nodo?"
       },
       "label": {
         "en": "Add POIs",
+        "cs": "Přidání bodů zájmu",
         "de": "POI hinzufügen",
         "es": "Agregar puntos de interés"
       },
@@ -1307,10 +1459,12 @@
     "editPOI": {
       "description": {
         "en": "[Editor] Can you edit a node?",
+        "cs": "[Editor] Je možné upravit uzel?",
         "es": "[Editor] ¿Puedes editar un nodo?"
       },
       "label": {
         "en": "Edit / Delete POIs",
+        "cs": "Úprava / odstranění bodů zájmu",
         "de": "POI bearbeiten/löschen",
         "es": "Editar/eliminar puntos de interés"
       },
@@ -1320,19 +1474,22 @@
     "addWay": {
       "description": {
         "en": "[Editor] Can you add a way?",
+        "cs": "[Editor] Můžete přidat cestu?",
         "es": "[Editor] ¿Puedes agregar una vía?"
       },
-      "label": { "en": "Add way", "es": "Agregar vía" },
+      "label": { "en": "Add way", "cs": "Přidání cesty", "es": "Agregar vía" },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editGeom": {
       "description": {
         "en": "[Editor] Can you edit nodes/ways?",
+        "cs": "[Editor] Lze upravovat uzly/cesty?",
         "es": "[Editor] ¿Puedes editar nodos/vías?"
       },
       "label": {
         "en": "Edit geometries",
+        "cs": "Úprava geometrie",
         "de": "Geometrie bearbeiten",
         "es": "Editar geometrías"
       },
@@ -1342,10 +1499,12 @@
     "editTags": {
       "description": {
         "en": "[Editor] Can you edit existing tags?",
+        "cs": "[Editor] Lze upravovat existující značky?",
         "es": "[Editor] ¿Puedes editar etiquetas existentes?"
       },
       "label": {
         "en": "Edit arbitrary tags of existing OSM objects",
+        "cs": "Úprava libovolných značek existujících objektů OSM",
         "de": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
         "es": "Editar etiquetas aleatorias de objetos OSM existentes"
       },
@@ -1355,10 +1514,12 @@
     "editRelations": {
       "description": {
         "en": "[Editor] Can you edit relations?",
+        "cs": "[Editor] Lze upravit relace?",
         "es": "[Editor] ¿Puedes editar las relaciones?"
       },
       "label": {
         "en": "Edit relations",
+        "cs": "Úprava relací",
         "de": "Relationen bearbeiten",
         "es": "Editar relaciones"
       },
@@ -1368,46 +1529,69 @@
     "viewNotes": {
       "description": {
         "en": "[Editor] Can you view OSM Notes?",
+        "cs": "[Editor] Lze zobrazit poznámky OSM?",
         "es": "[Editor] ¿Puedes ver las notas de OSM?"
       },
-      "label": { "en": "View notes", "es": "Ver notas" },
+      "label": {
+        "en": "View notes",
+        "cs": "Zobrazení poznámek",
+        "es": "Ver notas"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "createNotes": {
       "description": {
         "en": "[Editor] Can you add OSM Notes?",
+        "cs": "[Editor] Lze přidat poznámky OSM?",
         "es": "[Editor] ¿Puedes agregar notas a OSM?"
       },
-      "label": { "en": "Create notes", "es": "Crear notas" },
+      "label": {
+        "en": "Create notes",
+        "cs": "Tvorba poznámek",
+        "es": "Crear notas"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editNotes": {
       "description": {
         "en": "[Editor] Can you comment/close OSM Notes?",
+        "cs": "[Editor] Lze komentovat/zavřít poznámky OSM?",
         "es": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?"
       },
-      "label": { "en": "Edit notes", "es": "Editar notas" },
+      "label": {
+        "en": "Edit notes",
+        "cs": "Úprava poznámek",
+        "es": "Editar notas"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
     "editSource": {
       "description": {
         "en": "[Editor] Can you work offline?",
+        "cs": "[Editor] Lze pracovat offline?",
         "es": "[Editor] ¿Puedes trabajar sin conexión?"
       },
-      "label": { "en": "Work offline", "es": "Trabajar sin conexión" },
+      "label": {
+        "en": "Work offline",
+        "cs": "Fungování v režimu offline",
+        "es": "Trabajar sin conexión"
+      },
       "example": "online;cache",
       "type": "string",
       "suggestedvalues": ["online", "cache", "offline"]
     },
     "offsetDBsupport": {
       "description": {
-        "en": "[Editor] Does it support the imagery offset DB?"
+        "en": "[Editor] Does it support the imagery offset DB?",
+        "cs": "[Editor] Podporuje obrazový posun DB?",
+        "es": "[Editor] ¿Soporta el offset de imágenes DB?"
       },
       "label": {
         "en": "Support imagery offset DB",
+        "cs": "Podpora posunu snímků DB",
         "de": "Unterstützt Luftbildversatz DB",
         "es": "Admite el desplazamiento de imágenes aéreas DB"
       },
@@ -1417,10 +1601,12 @@
     "uploadOSMData": {
       "description": {
         "en": "[Editor] Can you send changes to OSM directly?",
+        "cs": "[Editor] Lze změny odeslat přímo do OSM?",
         "es": "[Editor] ¿Puede enviar los cambios a OSM directamente?"
       },
       "label": {
         "en": "Upload to OSM",
+        "cs": "Nahrání do OSM",
         "de": "Zu OSM hochladen",
         "es": "Cargar en OSM"
       },
@@ -1430,22 +1616,26 @@
     "rendererOutputFormats": {
       "description": {
         "en": "[Renderer] Supported output formats.",
+        "cs": "[Renderer] Podporované výstupní formáty.",
         "es": "[Renderizador] Formatos de salida admitidos."
       },
       "example": "svg;pdf;png",
       "label": {
         "en": "Renderer output formats",
+        "cs": "Výstupní formáty rendereru",
         "es": "Formatos del renderizador"
       }
     },
     "accessibility": {
       "description": {
         "en": "[Accessibility] Does it help disabled people in some kind?",
+        "cs": "[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?",
         "es": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"
       },
       "example": "blind;wheelchair",
       "label": {
         "en": "Accessibility support",
+        "cs": "Podpora přístupnosti",
         "es": "Ayuda a la accesibilidad"
       },
       "type": "string",
@@ -1454,10 +1644,12 @@
     "textOnlyUI": {
       "description": {
         "en": "[Accessibility] Text to braille compatible interface?",
+        "cs": "[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?",
         "es": "[Accesibilidad] ¿Interfaz compatible de texto a braille?"
       },
       "label": {
         "en": "Complete non graphics text output",
+        "cs": "Úplný negrafický textový výstup",
         "de": "Komplett ohne Grafik bedienbar",
         "es": "Salida de texto sin gráficos"
       },
@@ -1467,10 +1659,12 @@
     "brailleUI": {
       "description": {
         "en": "[Accessibility] A special braille interface?",
+        "cs": "[Přístupnost] Speciální braillovo rozhraní?",
         "es": "[Accesibilidad] ¿Una interfaz braille especial?"
       },
       "label": {
         "en": "Braille interface",
+        "cs": "Rozhraní Braillova písma",
         "de": "Braille-Oberfläche",
         "es": "Interfaz en Braille"
       },
@@ -1480,10 +1674,12 @@
     "explorerMode": {
       "description": {
         "en": "[Accessibility] Has a exploration modus (tell all objects approaching)?",
+        "cs": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?",
         "es": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"
       },
       "label": {
         "en": "Exploration modus",
+        "cs": "Modus průzkumu",
         "de": "Erkundungsmodus",
         "es": "Modo exploración"
       },
@@ -1493,10 +1689,12 @@
     "publicTransportMode": {
       "description": {
         "en": "[Accessibility] Supports routing with public transport?",
+        "cs": "[Dostupnost] Podporuje hledání trasy veřejnou dopravou?",
         "es": "[Accesibilidad] ¿Admite rutas con transporte público?"
       },
       "label": {
         "en": "Public Transport mode",
+        "cs": "Režim veřejné dopravy",
         "de": "ÖPNV-Modus",
         "es": "Modo de transporte público"
       },
@@ -1504,9 +1702,14 @@
       "suggestedvalues": ["yes", "no"]
     },
     "dangerWarnings": {
-      "description": { "en": "[Accessibility]", "es": "[Accesibilidad]" },
+      "description": {
+        "en": "[Accessibility]",
+        "cs": "[Přístupnost]",
+        "es": "[Accesibilidad]"
+      },
       "label": {
         "en": "Danger Warnings",
+        "cs": "Výstrahy před nebezpečím",
         "de": "Gefahrenwarnungen",
         "es": "Avisos de peligro"
       },
@@ -1516,11 +1719,13 @@
     "screenReader": {
       "description": {
         "en": "[Accessibility] List of supported screenreaders",
+        "cs": "[Přístupnost] Seznam podporovaných čteček obrazovky",
         "es": "[Accesibilidad] Lista de lectores de pantalla compatibles"
       },
       "example": "NVDA",
       "label": {
         "en": "Screenreader",
+        "cs": "Čtení obrazovky",
         "de": "Screenreader",
         "es": "Lector de pantalla"
       }
@@ -1528,11 +1733,13 @@
     "screenReaderLang": {
       "description": {
         "en": "[Accessibility] List of supported screenreaders languages",
+        "cs": "[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky",
         "es": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"
       },
       "example": "EN;DE",
       "label": {
         "en": "Screenreader languages",
+        "cs": "Jazyky čtečky obrazovky",
         "de": "Screenreader-Sprachen",
         "es": "Idiomas del lector de pantalla"
       }
