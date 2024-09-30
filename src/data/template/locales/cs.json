@@ -13,7 +13,7 @@
     },
     "license": {
         "label": "Licence",
-        "description": "Jaká licence je svobodná nebo proprietární?"
+        "description": "Je licence svobodná nebo proprietární?"
     },
     "price": {
         "label": "Cena",
@@ -45,7 +45,7 @@
         "description": "Seznam platforem, na kterých běží."
     },
     "genre": {
-        "label": "Žánr",
+        "label": "Typ",
         "description": "Hlavní kategorie tohoto nástroje."
     },
     "languages": {
@@ -65,6 +65,303 @@
         "description": "Seznam použitých programovacích jazyků."
     },
     "framework": {
-        "label": "Rámec"
+        "label": "Framework",
+        "description": "Seznam použitých frameworků."
+    },
+    "version": {
+        "label": "Verze",
+        "description": "Nejnovější verze"
+    },
+    "date": {
+        "label": "Datum vydání",
+        "description": "Nejnovější datum vydání"
+    },
+    "asin": {
+        "label": "Identifikace Amazon",
+        "description": "Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android"
+    },
+    "bbWorldID": {
+        "label": "BlackBerry ID",
+        "description": "ID aplikace v BlackBerry World"
+    },
+    "fDroidID": {
+        "label": "F-Droid ID",
+        "description": "ID aplikace F-Droid"
+    },
+    "firefoxMarketplaceID": {
+        "label": "Firefox Marketplace ID",
+        "description": "ID aplikace Mozilla Firefox Marketplace"
+    },
+    "googlePlayID": {
+        "label": "Google Play ID",
+        "description": "ID aplikace v Obchodě Google Play"
+    },
+    "huaweiAppGalleryID": {
+        "label": "Huawei AppGallery ID",
+        "description": "ID aplikace Huawei AppGallery"
+    },
+    "appleStoreID": {
+        "label": "AppStore ID",
+        "description": "ID aplikace iTunes App Store"
+    },
+    "macAppStoreID": {
+        "label": "Mac AppStore ID",
+        "description": "ID aplikace Mac App Store"
+    },
+    "microsoftAppID": {
+        "label": "Microsoft ID",
+        "description": "UUID aplikace Microsoft Store pro systém Windows"
+    },
+    "map": {
+        "description": "[Zobrazení mapy] Lze zobrazit mapu?",
+        "label": "Zobrazení mapy"
+    },
+    "mapData": {
+        "label": "Mapová data",
+        "description": "[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \"za běhu\" (vektory)?"
+    },
+    "datasource": {
+        "label": "Zdroj",
+        "description": "[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?"
+    },
+    "rotateMap": {
+        "label": "Rotace mapy",
+        "description": "[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?"
+    },
+    "3D": {
+        "label": "3D pohled",
+        "description": "[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?"
+    },
+    "showWebsite": {
+        "label": "Zobrazení webové stránky",
+        "description": "[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu"
+    },
+    "showPhoneNumber": {
+        "label": "Zobrazí telefonní číslo",
+        "description": "[Informace o POI] Zobrazí telefonní číslo z POI"
+    },
+    "showOpeningHours": {
+        "label": "Zobrazuje provozní dobu",
+        "description": "[Informace o POI] Zobrazí provozní dobu z POI"
+    },
+    "routing": {
+        "label": "Hledání trasy",
+        "description": "[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?"
+    },
+    "createRouteManually": {
+        "label": "Vytvoření trasy ručně",
+        "description": "[Hledání trasy]"
+    },
+    "calculateRoute": {
+        "label": "Výpočet trasy",
+        "description": "[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?"
+    },
+    "createRouteViaWaypoints": {
+        "label": "Vytvoření trasy pomocí bodů trasy",
+        "description": "[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů"
+    },
+    "profiles": {
+        "label": "Profily hledání trasy",
+        "description": "[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?"
+    },
+    "turnRestrictions": {
+        "description": "[Hledání trasy] Dokáže se vypořádat s omezením otáčení?",
+        "label": "Omezení otáčení"
+    },
+    "calculateRouteOffline": {
+        "label": "Výpočet trasy bez internetu (hledání trasy offline)",
+        "description": "[Hledání trasy] Potřebuje k výpočtu trasy internet?"
+    },
+    "routingProviders": {
+        "description": "[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?",
+        "label": "Poskytovatelé hledání tras"
+    },
+    "trafficProvider": {
+        "label": "Poskytovatel informací o provozu",
+        "description": "[Hledání trasy] Poskytovatel zdroje dopravních dat."
+    },
+    "navigating": {
+        "label": "Navigace",
+        "description": "[Navigace] Umíte se orientovat podle kompasu?"
+    },
+    "findLocation": {
+        "label": "Hledání polohy",
+        "description": "[Navigace] Umí vyhledat ulici/místo?"
+    },
+    "findNearbyPOI": {
+        "label": "Hledání blízkých bodů zájmu",
+        "description": "[Navigace] Umí najít/zobrazit body zájmu?"
+    },
+    "navToPoint": {
+        "label": "Navigace do bodu",
+        "description": "[Navigace] Dokáže vás navigovat někam?"
+    },
+    "voice": {
+        "label": "Navigace s hlasem / Hlasové navádění",
+        "description": "[Navigace] Umí vám dávat příkazy počítačovým hlasem?"
+    },
+    "turnLanes": {
+        "label": "Navádění do jízdních pruhů",
+        "description": "[Navigace] Podporuje navádění do jízdních pruhů?"
+    },
+    "withoutGPS": {
+        "description": "[Navigace] Bude fungovat i bez GPS?",
+        "label": "Fungování bez GPS"
+    },
+    "predefinedRoute": {
+        "description": "[Navigace] Umí sledovat jiné GPS trasy?",
+        "label": "Navigace po předem definované trase"
+    },
+    "tracking": {
+        "label": "Vytvoření trasy",
+        "description": "[Záznam trasy] Lze zaznamenat trasu GPS?"
+    },
+    "customInterval": {
+        "label": "Přizpůsobitelný interval záznamu",
+        "description": "[Záznam trasy] Lze interval nastavit ručně?"
+    },
+    "trackFormats": {
+        "label": "Formáty tras",
+        "description": "[Záznam trasy] V jakých formátech lze uložit trasu GPS?"
+    },
+    "fastWayPointAdding": {
+        "label": "Rychlá tlačítka POI",
+        "description": "[Záznam trasy] Snadné přidání nového bodu trasy?"
+    },
+    "uploadGPX": {
+        "description": "[ Záznam tras] Lze odesílat trasy přímo do OSM?",
+        "label": "Nahrání GPX do OSM"
+    },
+    "monitoring": {
+        "label": "Monitorování",
+        "description": "[ Monitorování trasy] Můžete monitorovat data GPS?"
+    },
+    "showTrack": {
+        "label": "Zobrazení aktuální trasy",
+        "description": "[Monitorování trasy] Zobrazuje aktuální trasu?"
+    },
+    "showAltitudeDiagram": {
+        "label": "Výškový diagram",
+        "description": "[Monitorování trasy]"
+    },
+    "showDOP": {
+        "description": "[Monitorování trasy] Zobrazuje kvalitu signálu?",
+        "label": "Zobrazení hodnoty POD"
+    },
+    "showSatellites": {
+        "description": "[Monitorování trasy] Zobrazuje satelity?",
+        "label": "Zobrazení satelitů"
+    },
+    "showSpeed": {
+        "label": "Zobrazení rychlosti",
+        "description": "[Monitorování trasy]"
+    },
+    "sendPosition": {
+        "label": "Odeslání aktuální polohy",
+        "description": "[Monitorování trasy] Může odesílat polohu ostatním?"
+    },
+    "addPOI": {
+        "label": "Přidání bodů zájmu",
+        "description": "[Editor] Můžete přidat uzel?"
+    },
+    "avoidTraffic": {
+        "description": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
+        "label": "Vyhýbání se provozu"
+    },
+    "showExistingTrack": {
+        "label": "Otevření existující trasy",
+        "description": "[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"
+    },
+    "showNMEAlive": {
+        "label": "Zobrazení živých dat NMEA",
+        "description": "[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"
+    },
+    "keepOnRoad": {
+        "label": "Pokračování v cestě",
+        "description": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?"
+    },
+    "geotagging": {
+        "label": "Geotagging",
+        "description": "[Záznam trasy] Jsou podporovány další techniky mapování"
+    },
+    "editPOI": {
+        "label": "Úprava / odstranění bodů zájmu",
+        "description": "[Editor] Je možné upravit uzel?"
+    },
+    "addWay": {
+        "label": "Přidání cesty",
+        "description": "[Editor] Můžete přidat cestu?"
+    },
+    "editGeom": {
+        "description": "[Editor] Lze upravovat uzly/cesty?",
+        "label": "Úprava geometrie"
+    },
+    "editTags": {
+        "label": "Úprava libovolných značek existujících objektů OSM",
+        "description": "[Editor] Lze upravovat existující značky?"
+    },
+    "editRelations": {
+        "label": "Úprava relací",
+        "description": "[Editor] Lze upravit relace?"
+    },
+    "viewNotes": {
+        "label": "Zobrazení poznámek",
+        "description": "[Editor] Lze zobrazit poznámky OSM?"
+    },
+    "createNotes": {
+        "label": "Tvorba poznámek",
+        "description": "[Editor] Lze přidat poznámky OSM?"
+    },
+    "editSource": {
+        "description": "[Editor] Lze pracovat offline?",
+        "label": "Fungování v režimu offline"
+    },
+    "offsetDBsupport": {
+        "label": "Podpora posunu snímků DB",
+        "description": "[Editor] Podporuje obrazový posun DB?"
+    },
+    "uploadOSMData": {
+        "label": "Nahrání do OSM",
+        "description": "[Editor] Lze změny odeslat přímo do OSM?"
+    },
+    "rendererOutputFormats": {
+        "label": "Výstupní formáty rendereru",
+        "description": "[Renderer] Podporované výstupní formáty."
+    },
+    "accessibility": {
+        "description": "[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?",
+        "label": "Podpora přístupnosti"
+    },
+    "textOnlyUI": {
+        "label": "Úplný negrafický textový výstup",
+        "description": "[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?"
+    },
+    "brailleUI": {
+        "label": "Rozhraní Braillova písma",
+        "description": "[Přístupnost] Speciální braillovo rozhraní?"
+    },
+    "publicTransportMode": {
+        "label": "Režim veřejné dopravy",
+        "description": "[Dostupnost] Podporuje hledání trasy veřejnou dopravou?"
+    },
+    "dangerWarnings": {
+        "label": "Výstrahy před nebezpečím",
+        "description": "[Přístupnost]"
+    },
+    "screenReader": {
+        "label": "Čtení obrazovky",
+        "description": "[Přístupnost] Seznam podporovaných čteček obrazovky"
+    },
+    "screenReaderLang": {
+        "label": "Jazyky čtečky obrazovky",
+        "description": "[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky"
+    },
+    "editNotes": {
+        "label": "Úprava poznámek",
+        "description": "[Editor] Lze komentovat/zavřít poznámky OSM?"
+    },
+    "explorerMode": {
+        "label": "Modus průzkumu",
+        "description": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"
     }
 }

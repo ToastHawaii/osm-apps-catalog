@@ -357,7 +357,8 @@
         "description": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"
     },
     "offsetDBsupport": {
-        "label": "Admite el desplazamiento de imágenes aéreas DB"
+        "label": "Admite el desplazamiento de imágenes aéreas DB",
+        "description": "[Editor] ¿Soporta el offset de imágenes DB?"
     },
     "textOnlyUI": {
         "label": "Salida de texto sin gráficos",
