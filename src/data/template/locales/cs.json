@@ -206,7 +206,7 @@
     },
     "withoutGPS": {
         "description": "[Navigace] Bude fungovat i bez GPS?",
-        "label": "Funguje bez GPS"
+        "label": "Fungování bez GPS"
     },
     "predefinedRoute": {
         "description": "[Navigace] Umí sledovat jiné GPS trasy?",
@@ -237,15 +237,15 @@
         "description": "[ Monitorování trasy] Můžete monitorovat data GPS?"
     },
     "showTrack": {
-        "label": "Zobrazit aktuální trasu",
-        "description": "[Monitorování trasy] Zobrazit aktuální trasu?"
+        "label": "Zobrazení aktuální trasy",
+        "description": "[Monitorování trasy] Zobrazuje aktuální trasu?"
     },
     "showAltitudeDiagram": {
         "label": "Výškový diagram",
-        "description": "[ Monitorování trasy]"
+        "description": "[Monitorování trasy]"
     },
     "showDOP": {
-        "description": "[ Monitorování trasy] Zobrazuje kvalitu signálu?",
+        "description": "[Monitorování trasy] Zobrazuje kvalitu signálu?",
         "label": "Zobrazení hodnoty POD"
     },
     "showSatellites": {
@@ -261,26 +261,107 @@
         "description": "[Monitorování trasy] Může odesílat polohu ostatním?"
     },
     "addPOI": {
-        "label": "Přidání bodů zájmu"
+        "label": "Přidání bodů zájmu",
+        "description": "[Editor] Můžete přidat uzel?"
     },
     "avoidTraffic": {
         "description": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
         "label": "Vyhýbání se provozu"
     },
     "showExistingTrack": {
-        "label": "Otevřít stávající trasu",
-        "description": "[ Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"
+        "label": "Otevření existující trasy",
+        "description": "[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"
     },
     "showNMEAlive": {
         "label": "Zobrazení živých dat NMEA",
-        "description": "[ Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"
+        "description": "[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"
     },
     "keepOnRoad": {
-        "label": "Pokračujte v cestě",
+        "label": "Pokračování v cestě",
         "description": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?"
     },
     "geotagging": {
         "label": "Geotagging",
         "description": "[Záznam trasy] Jsou podporovány další techniky mapování"
+    },
+    "editPOI": {
+        "label": "Úprava / odstranění bodů zájmu",
+        "description": "[Editor] Je možné upravit uzel?"
+    },
+    "addWay": {
+        "label": "Přidání cesty",
+        "description": "[Editor] Můžete přidat cestu?"
+    },
+    "editGeom": {
+        "description": "[Editor] Lze upravovat uzly/cesty?",
+        "label": "Úprava geometrie"
+    },
+    "editTags": {
+        "label": "Úprava libovolných značek existujících objektů OSM",
+        "description": "[Editor] Lze upravovat existující značky?"
+    },
+    "editRelations": {
+        "label": "Úprava relací",
+        "description": "[Editor] Lze upravit relace?"
+    },
+    "viewNotes": {
+        "label": "Zobrazení poznámek",
+        "description": "[Editor] Lze zobrazit poznámky OSM?"
+    },
+    "createNotes": {
+        "label": "Tvorba poznámek",
+        "description": "[Editor] Lze přidat poznámky OSM?"
+    },
+    "editSource": {
+        "description": "[Editor] Lze pracovat offline?",
+        "label": "Fungování v režimu offline"
+    },
+    "offsetDBsupport": {
+        "label": "Podpora posunu snímků DB",
+        "description": "[Editor] Podporuje obrazový posun DB?"
+    },
+    "uploadOSMData": {
+        "label": "Nahrání do OSM",
+        "description": "[Editor] Lze změny odeslat přímo do OSM?"
+    },
+    "rendererOutputFormats": {
+        "label": "Výstupní formáty rendereru",
+        "description": "[Renderer] Podporované výstupní formáty."
+    },
+    "accessibility": {
+        "description": "[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?",
+        "label": "Podpora přístupnosti"
+    },
+    "textOnlyUI": {
+        "label": "Úplný negrafický textový výstup",
+        "description": "[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?"
+    },
+    "brailleUI": {
+        "label": "Rozhraní Braillova písma",
+        "description": "[Přístupnost] Speciální braillovo rozhraní?"
+    },
+    "publicTransportMode": {
+        "label": "Režim veřejné dopravy",
+        "description": "[Dostupnost] Podporuje hledání trasy veřejnou dopravou?"
+    },
+    "dangerWarnings": {
+        "label": "Výstrahy před nebezpečím",
+        "description": "[Přístupnost]"
+    },
+    "screenReader": {
+        "label": "Čtení obrazovky",
+        "description": "[Přístupnost] Seznam podporovaných čteček obrazovky"
+    },
+    "screenReaderLang": {
+        "label": "Jazyky čtečky obrazovky",
+        "description": "[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky"
+    },
+    "editNotes": {
+        "label": "Úprava poznámek",
+        "description": "[Editor] Lze komentovat/zavřít poznámky OSM?"
+    },
+    "explorerMode": {
+        "label": "Modus průzkumu",
+        "description": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"
     }
 }
