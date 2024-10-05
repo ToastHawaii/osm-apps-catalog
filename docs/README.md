@@ -26,6 +26,7 @@ By default the catalog only contains apps from the English version of
 [dansk](/?lang=da),
 [Deutsch](/?lang=de),
 [eesti](/?lang=et),
+[English](/?lang=en),
 [español](/?lang=es),
 [Esperanto](/?lang=eo),
 [euskara](/?lang=eu),
