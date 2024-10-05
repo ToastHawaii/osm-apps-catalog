@@ -191,6 +191,10 @@ WHERE {
     BIND("yes" AS ?routing)
   }
   OPTIONAL { 
+    ?item wdt:P31 wd:Q130404096.
+    BIND("yes" AS ?routing)
+  }
+  OPTIONAL { 
     ?item wdt:P31 wd:Q98163019.
     BIND("yes" AS ?editor)
   }
