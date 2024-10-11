@@ -255,5 +255,8 @@
     "showWebsite": {
         "label": "Website anzeigen",
         "description": "[POI Information] Zeigt den Link zur Website vom POI an"
+    },
+    "profiles": {
+        "label": "Routing Profile"
     }
 }
