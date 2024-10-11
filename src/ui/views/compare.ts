@@ -56,8 +56,8 @@ export function render(apps: App[], lang: string) {
     i18next.t("compare.group.header.general"),
     [
       {
-        label: "",
-        description: "",
+        label: () => "",
+        description: () => "",
         hasValue: (app) => app.images.length > 0,
         renderToHtml: (app) =>
           app.website
@@ -68,8 +68,8 @@ export function render(apps: App[], lang: string) {
         centered: true,
       },
       {
-        label: "",
-        description: "",
+        label: () => "",
+        description: () => "",
         hasValue: (app) =>
           !!(
             app.website ||
@@ -155,29 +155,32 @@ ${
       )}"><i class="fab fa-microsoft"></i></a>`
     : ""
 }`,
-        renderToWiki: (app) =>
+        renderToWiki: (app, lang) =>
           [
-            app.website ? `[${app.website} ${i18next.t("app.website")}]` : "",
+            app.website
+              ? `[${app.website} ${i18next.t("app.website", { lng: lang })}]`
+              : "",
 
             app.install.asin
               ? `[https://www.amazon.com/dp/${app.install.asin} ${i18next.t(
-                  "app.install.asin"
+                  "app.install.asin",
+                  { lng: lang }
                 )}]`
               : "",
             app.install.fDroidID
               ? `[https://f-droid.org/repository/browse/?fdid=${
                   app.install.fDroidID
-                } ${i18next.t("app.install.fDroid")}]`
+                } ${i18next.t("app.install.fDroid", { lng: lang })}]`
               : "",
             app.install.googlePlayID
               ? `[https://play.google.com/store/apps/details?id=${
                   app.install.googlePlayID
-                } ${i18next.t("app.install.googlePlay")}]`
+                } ${i18next.t("app.install.googlePlay", { lng: lang })}]`
               : "",
             app.install.huaweiAppGalleryID
               ? `[https://appgallery.huawei.com/#/app/${
                   app.install.huaweiAppGalleryID
-                } ${i18next.t("app.install.huaweiAppGallery")}]`
+                } ${i18next.t("app.install.huaweiAppGallery", { lng: lang })}]`
               : "",
             app.install.appleStoreID
               ? `[https://apps.apple.com/app/${
@@ -191,42 +194,49 @@ ${
                   app.install.macAppStoreID.toUpperCase().startsWith("ID")
                     ? app.install.macAppStoreID
                     : `id${app.install.macAppStoreID}`
-                } ${i18next.t("app.install.appleStore")}]`
+                } ${i18next.t("app.install.appleStore", { lng: lang })}]`
               : "",
             app.install.microsoftAppID
               ? `[https://apps.microsoft.com/detail/${
                   app.install.microsoftAppID
-                } ${i18next.t("app.install.macAppStore")}]`
+                } ${i18next.t("app.install.macAppStore", { lng: lang })}]`
               : "",
           ]
             .filter((o) => o)
             .join(", "),
       },
       {
-        label: i18next.t("app.props.genre.label"),
-        description: i18next.t("app.props.genre.description"),
+        label: (lang) => i18next.t("app.props.genre.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.genre.description", { lng: lang }),
         hasValue: (app) => app.genre?.length > 0,
         renderToHtml: (app) => renderBadges(app.genre),
-        renderToWiki: (app) => toWikiValue(app.genre?.join(", ")),
+        renderToWiki: (app) => toWikiValue(app.genre?.join(", "), lang),
       },
       {
-        label: i18next.t("app.props.description.label"),
-        description: i18next.t("app.props.description.description"),
+        label: (lang) =>
+          i18next.t("app.props.description.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.description.description", {
+            lng: lang,
+          }),
         hasValue: (app) => !!app.description,
         renderToHtml: (app) => app.description,
-        renderToWiki: (app) => toWikiValue(app.description),
+        renderToWiki: (app) => toWikiValue(app.description, lang),
         more: true,
       },
       {
-        label: i18next.t("app.props.platform.label"),
-        description: i18next.t("app.props.platform.description"),
+        label: (lang) => i18next.t("app.props.platform.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.platform.description", { lng: lang }),
         hasValue: (app) => app.platform?.length > 0,
         renderToHtml: (app) => renderBadges(app.platform),
-        renderToWiki: (app) => toWikiValue(app.platform.join(", ")),
+        renderToWiki: (app) => toWikiValue(app.platform.join(", "), lang),
       },
       {
-        label: i18next.t("app.props.date.label"),
-        description: i18next.t("app.props.date.description"),
+        label: (lang) => i18next.t("app.props.date.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.date.description", { lng: lang }),
         hasValue: (app) => !!(app.lastRelease || app.unmaintained),
         renderToHtml: (app) =>
           (app.lastRelease
@@ -240,7 +250,7 @@ ${
                 interpolation: { escapeValue: false },
               })}</span>`
             : ""),
-        renderToWiki: (app) =>
+        renderToWiki: (app, lang) =>
           toWikiValue(
             (app.unmaintained ? `style="background-color: #ffc680" | ` : "") +
               (app.lastRelease
@@ -249,13 +259,17 @@ ${
                 ? "????-??-??"
                 : "") +
               (app.unmaintained
-                ? i18next.t("app.unmaintained", { icon: `⚠️` })
-                : "")
+                ? i18next.t("app.unmaintained", { icon: `⚠️`, lng: lang })
+                : ""),
+            lang
           ),
       },
       {
-        label: i18next.t("app.props.languages.label"),
-        description: i18next.t("app.props.languages.description"),
+        label: (lang) => i18next.t("app.props.languages.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.languages.description", {
+            lng: lang,
+          }),
         hasValue: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
         renderToHtml: (app) =>
           app.languagesUrl
@@ -278,61 +292,70 @@ ${
                     ? app.languages.join(", ")
                     : languageValueToDisplay("mul")
                 }]`
-              : app.languages.join(", ")
+              : app.languages.join(", "),
+            lang
           ),
         more: true,
       },
       {
-        label: i18next.t("app.props.coverage.label"),
-        description: i18next.t("app.props.coverage.description"),
+        label: (lang) => i18next.t("app.props.coverage.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.coverage.description", { lng: lang }),
         hasValue: (app) => !!(app.coverage && app.coverage.length),
         renderToHtml: (app) => app.coverage[app.coverage.length - 1],
         renderToWiki: (app) =>
-          toWikiValue(app.coverage[app.coverage.length - 1]),
+          toWikiValue(app.coverage[app.coverage.length - 1], lang),
       },
       {
-        label: i18next.t("app.props.author.label"),
-        description: i18next.t("app.props.author.description"),
+        label: (lang) => i18next.t("app.props.author.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.author.description", { lng: lang }),
         hasValue: (app) => !!app.author,
         renderToHtml: (app) => app.author,
-        renderToWiki: (app) => toWikiValue(app.author),
+        renderToWiki: (app) => toWikiValue(app.author, lang),
       },
       {
-        label: i18next.t("app.props.price.label"),
-        description: i18next.t("app.props.price.description"),
+        label: (lang) => i18next.t("app.props.price.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.price.description", { lng: lang }),
         hasValue: (app) => !!app.price,
         renderToHtml: (app) => app.price,
         renderToWiki: (app) =>
           toWikiValue(
             app.gratis
               ? `{{free|{{TranslationOf gratis|{{{lang|}}}}}}}`
-              : app.price
+              : app.price,
+            lang
           ),
       },
       {
-        label: i18next.t("app.props.license.label"),
-        description: i18next.t("app.props.license.description"),
+        label: (lang) => i18next.t("app.props.license.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.license.description", { lng: lang }),
         hasValue: (app) => !!app.license,
         renderToHtml: (app) => renderBadges(app.license),
         renderToWiki: (app) =>
           toWikiValue(
-            app.libre ? `{{free|${app.license || unknown()}}}` : app.license
+            app.libre ? `{{free|${app.license || unknown()}}}` : app.license,
+            lang
           ),
       },
       {
-        label: i18next.t("app.props.repo.label"),
-        description: i18next.t("app.props.repo.description"),
+        label: (lang) => i18next.t("app.props.repo.label", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.props.repo.description", { lng: lang }),
         hasValue: (app) => !!app.sourceCode,
         renderToHtml: (app) =>
           app.sourceCode
             ? `<a target="_blank" href="${app.sourceCode}"><i class="fas fa-code"></i></a>`
             : "",
         renderToWiki: (app) =>
-          toWikiValue(app.sourceCode ? `[${app.sourceCode} </>]` : ""),
+          toWikiValue(app.sourceCode ? `[${app.sourceCode} </>]` : "", lang),
       },
       {
-        label: i18next.t("app.source"),
-        description: i18next.t("app.source.description"),
+        label: (lang) => i18next.t("app.source", { lng: lang }),
+        description: (lang) =>
+          i18next.t("app.source.description", { lng: lang }),
         hasValue: () => true,
         renderToHtml: (app) =>
           app.source
@@ -494,12 +517,12 @@ function renderGroup(
   params: (
     | string
     | {
-        label: string | undefined;
-        description: string | undefined;
+        label: (lang?: string) => string | undefined;
+        description: (lang?: string) => string | undefined;
         hasValue: (app: App) => boolean;
         notNo?: (app: App) => boolean;
         renderToHtml: (app: App) => string | undefined;
-        renderToWiki?: (app: App) => string | undefined;
+        renderToWiki?: (app: App, lang: string) => string | undefined;
         more?: boolean;
         centered?: boolean;
       }
@@ -513,8 +536,10 @@ function renderGroup(
     }
 
     return {
-      label: i18next.t("app.props." + p + ".label"),
-      description: i18next.t("app.props." + p + ".description"),
+      label: (lang?: string) =>
+        i18next.t("app.props." + p + ".label", { lng: lang }),
+      description: (lang?: string) =>
+        i18next.t("app.props." + p + ".description", { lng: lang }),
       hasValue: (app: App) => {
         const value: string | string[] | undefined = (app as any)[id]?.[p];
         if (Array.isArray(value)) {
@@ -535,7 +560,7 @@ function renderGroup(
         );
       },
       renderToHtml: (app: App) => renderBadges((app as any)[id]?.[p]),
-      renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p]),
+      renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p], lang),
     };
   });
 
@@ -547,8 +572,8 @@ function renderGroup(
 
       return createParamElement(
         apps,
-        p.label,
-        p.description,
+        p.label(),
+        p.description(),
         (app) => p.renderToHtml(app),
         id + "-detail",
         p.more,

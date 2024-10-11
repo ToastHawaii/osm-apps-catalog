@@ -3,7 +3,6 @@ import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 import i18next from "i18next";
-import { languages } from "../../data/i18n";
 
 function isUnknown(value: string | string[] | undefined): value is undefined {
   if (Array.isArray(value)) {
@@ -23,11 +22,11 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
 export function toWikiTable(
   apps: App[],
   params: {
-    label: string | undefined;
-    description: string | undefined;
+    label: (lang?: string) => string | undefined;
+    description: (lang?: string) => string | undefined;
     hasValue: (app: App) => boolean;
     notNo?: (app: App) => boolean;
-    renderToWiki: (app: App) => string | undefined;
+    renderToWiki: (app: App, lang: string) => string | undefined;
     more?: boolean;
   }[],
   lang: string
@@ -57,12 +56,15 @@ export function toWikiTable(
       return 0;
     });
 
+  const url = new URL(document.location.href);
+  url.searchParams.set("lang", lang);
+
   let rows = params.map((p) => {
-    return `! title="${p.description}" |${p.label}
+    return `! title="${p.description(lang)}" |${p.label(lang)}
 ${appWithFields
   .map((app) => {
-    const value = p.renderToWiki(app) || "";
-    return `| title="${p.label}" ${
+    const value = p.renderToWiki(app, lang) || "";
+    return `| title="${p.label(lang)}" ${
       value.startsWith("{{no") ||
       value.startsWith("{{yes") ||
       value.startsWith("{{free") ||
@@ -88,22 +90,27 @@ ${appWithFields
       app.source.find((s) => s.name === "Layer")?.wiki;
 
     return `! style="min-width: ${more ? 160 : 120}px" |[[${toWikiValue(
-      wiki || app.name
-    )}|${toWikiValue(app.name)}]]\n`;
+      wiki || app.name,
+      lang
+    )}|${toWikiValue(app.name, lang)}]]\n`;
   })
   .join("")}|-
 ${rows.join("|-\n")}|}
 </div>
 [[Category:Software list]]
 <p style="font-size:80%">${i18next.t("wiki.generatedByOsmAppsCatalog", {
-    link: document.location.href,
+    link: url,
     date: new Date().toISOString().substring(0, 10),
     interpolation: { escapeValue: false },
+    lng: lang,
   })}</p>`;
   return wikiTable;
 }
 
-export function toWikiValue(value: string | string[] | undefined): string {
+export function toWikiValue(
+  value: string | string[] | undefined,
+  lang: string
+): string {
   if (isUnknown(value)) {
     return "{{?}}";
   }
@@ -114,10 +121,10 @@ export function toWikiValue(value: string | string[] | undefined): string {
     } else if (equalsIgnoreCase(value, "no")) {
       return "{{no}}";
     } else if (equalsIgnoreCase(value, "none")) {
-      return `{{no|${i18next.t("wiki.none")}}}`;
+      return `{{no|${i18next.t("wiki.none", { lng: lang })}}}`;
     }
     return toWikiText(value);
   }
 
-  return value.map((v) => toWikiValue(v)).join(", ");
+  return value.map((v) => toWikiValue(v, lang)).join(", ");
 }
