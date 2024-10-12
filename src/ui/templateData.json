@@ -6,6 +6,7 @@
         "cs": "Jazyk šablony",
         "de": "Sprache der Vorlage",
         "es": "Idioma de la plantilla",
+        "hu": "Sablon nyelve",
         "zh-hans": "模板语言"
       },
       "type": "string",
@@ -13,7 +14,8 @@
         "en": "Language in which the template texts are displayed.",
         "cs": "Jazyk, ve kterém se zobrazují texty šablony.",
         "de": "Sprache, in der die Texte der Vorlage angezeigt werden.",
-        "es": "Idioma en el que se muestran los textos de la plantilla."
+        "es": "Idioma en el que se muestran los textos de la plantilla.",
+        "hu": "A sablonszövegek megjelenítésének nyelve"
       },
       "example": { "de": "de", "en": "en" }
     },
@@ -23,13 +25,15 @@
         "cs": "Název",
         "de": "Name",
         "es": "Nombre",
+        "hu": "Név",
         "zh-hans": "名称"
       },
       "description": {
         "en": "Official name, otherwise most common one",
         "cs": "Oficiální název, jinak nejběžnější název",
         "de": "Offizieller Name, ansonsten der verbreitetste",
-        "es": "Nombre oficial, el más común"
+        "es": "Nombre oficial, el más común",
+        "hu": "Hivatalos név, annak híján a legelterjedtebb"
       },
       "type": "string",
       "required": true,
@@ -40,9 +44,16 @@
         "en": "Current status of the project.",
         "cs": "Aktuální stav projektu.",
         "de": "Aktueller Status des Projekts.",
-        "es": "Estado actual del proyecto."
+        "es": "Estado actual del proyecto.",
+        "hu": "A projekt jelenlegi állapota"
       },
-      "label": { "en": "Status", "cs": "Stav", "de": "Status", "es": "Estado" },
+      "label": {
+        "en": "Status",
+        "cs": "Stav",
+        "de": "Status",
+        "es": "Estado",
+        "hu": "Állapot"
+      },
       "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
       "type": "string",
       "default": "active",
@@ -53,14 +64,16 @@
         "en": "What free license or proprietary?",
         "cs": "Je licence svobodná nebo proprietární?",
         "de": "Welche freie Lizenz oder proprietär?",
-        "es": "¿Qué licencia tiene?"
+        "es": "¿Qué licencia tiene?",
+        "hu": "Milyen szabad vagy tulajdonosi licenc alá tartozik?"
       },
       "example": "GPL",
       "label": {
         "en": "License",
         "cs": "Licence",
         "de": "Lizenz",
-        "es": "Licencia"
+        "es": "Licencia",
+        "hu": "Licenc"
       },
       "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"]
     },
@@ -69,10 +82,17 @@
         "en": "Costs if proprietary. If price is empty, application is for free.",
         "cs": "Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma.",
         "de": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos.",
-        "es": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita."
+        "es": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita.",
+        "hu": "Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."
       },
       "example": "free;20$;35€;in-app purchases",
-      "label": { "en": "Price", "cs": "Cena", "de": "Preis", "es": "Precio" },
+      "label": {
+        "en": "Price",
+        "cs": "Cena",
+        "de": "Preis",
+        "es": "Precio",
+        "hu": "Ár"
+      },
       "type": "string",
       "suggestedvalues": ["free", "in-app purchases", "ads"]
     },
@@ -81,7 +101,8 @@
         "en": "Web address",
         "cs": "Webová adresa",
         "de": "Internetadresse",
-        "es": "Dirección web"
+        "es": "Dirección web",
+        "hu": "Webcím"
       },
       "example": "https://www.example.org",
       "suggested": true,
@@ -93,6 +114,7 @@
         "cs": "Zdrojový kód",
         "de": "Quellcode",
         "es": "Código fuente",
+        "hu": "Forráskód",
         "zh-hans": "源代码"
       },
       "aliases": ["git", "svn"],
@@ -100,13 +122,20 @@
         "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
         "cs": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)",
         "de": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)",
-        "es": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"
+        "es": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)",
+        "hu": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"
       },
       "example": "https://git.example.org",
       "type": "url"
     },
     "logo": {
-      "label": { "en": "Logo", "cs": "Logo", "de": "Logo", "es": "Logotipo" },
+      "label": {
+        "en": "Logo",
+        "cs": "Logo",
+        "de": "Logo",
+        "es": "Logotipo",
+        "hu": "Logó"
+      },
       "example": "xyz.png",
       "type": "wiki-file-name"
     },
@@ -116,6 +145,7 @@
         "cs": "Otisk obrazovky",
         "de": "Bildschirmfoto",
         "es": "Captura de pantalla",
+        "hu": "Képernyőkép",
         "zh-hans": "截图"
       },
       "suggested": true,
@@ -128,6 +158,7 @@
         "cs": "Popis",
         "de": "Beschreibung",
         "es": "Descripción",
+        "hu": "Leírás",
         "zh-hans": "描述"
       },
       "type": "string",
@@ -136,7 +167,8 @@
         "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
         "cs": "Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)",
         "de": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)",
-        "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"
+        "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)",
+        "hu": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"
       },
       "example": "Easy to use, nice UI"
     },
@@ -146,13 +178,15 @@
         "cs": "Autor",
         "de": "Autor",
         "es": "Autor",
+        "hu": "Szerző",
         "zh-hans": "作者"
       },
       "description": {
         "en": "Name of the author or a link to their OSM-wiki user page",
         "cs": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki",
         "de": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite",
-        "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki"
+        "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki",
+        "hu": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje"
       },
       "type": "string",
       "suggested": true
@@ -162,7 +196,8 @@
         "en": "List of platforms it runs on.",
         "cs": "Seznam platforem, na kterých běží.",
         "de": "Liste der Plattformen, auf denen es läuft.",
-        "es": "Lista de plataformas en las que se ejecuta."
+        "es": "Lista de plataformas en las que se ejecuta.",
+        "hu": "Azon platformok listája, amelyeken fut"
       },
       "suggested": true,
       "type": "string",
@@ -222,7 +257,8 @@
         "en": "Supported platforms",
         "cs": "Podporované platformy",
         "de": "Plattform",
-        "es": "Plataformas compatibles"
+        "es": "Plataformas compatibles",
+        "hu": "Támogatott platformok"
       }
     },
     "genre": {
@@ -230,10 +266,17 @@
         "en": "Main category for this tool.",
         "cs": "Hlavní kategorie tohoto nástroje.",
         "de": "Hauptkategorie für dieses Tool.",
-        "es": "Categoría principal de esta herramienta."
+        "es": "Categoría principal de esta herramienta.",
+        "hu": "Az eszköz fő kategóriája"
       },
       "suggested": true,
-      "label": { "en": "Genre", "cs": "Typ", "de": "Genre", "es": "Género" },
+      "label": {
+        "en": "Genre",
+        "cs": "Typ",
+        "de": "Genre",
+        "es": "Género",
+        "hu": "Típus"
+      },
       "suggestedvalues": [
         "display",
         "navi",
@@ -250,7 +293,8 @@
         "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported",
         "cs": "Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků",
         "de": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen",
-        "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"
+        "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos",
+        "hu": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"
       },
       "example": "DE;EN;MUL",
       "type": "string",
@@ -531,7 +575,8 @@
         "en": "Languages",
         "cs": "Jazyky",
         "de": "Sprachen",
-        "es": "Idiomas"
+        "es": "Idiomas",
+        "hu": "Nyelvek"
       }
     },
     "languagesurl": {
@@ -539,13 +584,15 @@
         "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",
         "cs": "Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště).",
         "de": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository).",
-        "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."
+        "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio).",
+        "hu": "Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban)."
       },
       "label": {
         "en": "Languages URL",
         "cs": "URL pro jazyky",
         "de": "Sprachen-URL",
-        "es": "Idiomas URL"
+        "es": "Idiomas URL",
+        "hu": "Nyelvek URL-je"
       },
       "type": "url"
     },
@@ -554,14 +601,16 @@
         "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use.",
         "cs": "Pokrytí nebo cílová oblast aplikace. Formátování: \"Kontinent, země, region, ...\". Pro globální použití použijte \"Worldwide\" nebo jej nechte prázdný.",
         "de": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst.",
-        "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global."
+        "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global.",
+        "hu": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."
       },
       "example": "Europe, Switzerland, Zurich, Gossau",
       "label": {
         "en": "Coverage",
         "cs": "Pokrytí",
         "de": "Abdeckung",
-        "es": "Cobertura"
+        "es": "Cobertura",
+        "hu": "Lefedés"
       },
       "default": "Worldwide",
       "type": "string"
@@ -571,7 +620,8 @@
         "en": "List of programming languages used.",
         "cs": "Seznam použitých programovacích jazyků.",
         "de": "Liste der verwendeten Programmiersprachen.",
-        "es": "Lista de lenguajes de programación utilizados."
+        "es": "Lista de lenguajes de programación utilizados.",
+        "hu": "A felhasznált programozási nyelvek listája"
       },
       "type": "string",
       "suggestedvalues": [
@@ -598,14 +648,21 @@
         ".NET",
         "Node.js"
       ],
-      "label": { "en": "Code", "cs": "Kód", "de": "Code", "es": "Código" }
+      "label": {
+        "en": "Code",
+        "cs": "Kód",
+        "de": "Code",
+        "es": "Código",
+        "hu": "Kód"
+      }
     },
     "framework": {
       "description": {
         "en": "List of frameworks used.",
         "cs": "Seznam použitých frameworků.",
         "de": "Liste der verwendeten Frameworks.",
-        "es": "Lista de marcos utilizados."
+        "es": "Lista de marcos utilizados.",
+        "hu": "A felhasznált keretrendszerek listája"
       },
       "example": "GTK+;mono;J2ME;OpenGL",
       "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
@@ -613,7 +670,8 @@
         "en": "Framework",
         "cs": "Framework",
         "de": "Framework",
-        "es": "Framework"
+        "es": "Framework",
+        "hu": "Keretrendszer"
       },
       "type": "string"
     },
@@ -623,13 +681,15 @@
         "cs": "Verze",
         "de": "Version",
         "es": "Versión",
+        "hu": "Verzió",
         "zh-hans": "版本"
       },
       "description": {
         "en": "Latest version",
         "cs": "Nejnovější verze",
         "de": "Aktuellste Version",
-        "es": "Última versión"
+        "es": "Última versión",
+        "hu": "Legújabb verzió"
       },
       "example": "1.0",
       "type": "string"
@@ -640,13 +700,15 @@
         "cs": "Datum vydání",
         "de": "Veröffentlichungsdatum",
         "es": "Fecha de publicación",
+        "hu": "Kiadás dátuma",
         "zh-hans": "日期"
       },
       "description": {
         "en": "Latest release date",
         "cs": "Nejnovější datum vydání",
         "de": "Letztes Veröffentlichungsdatum",
-        "es": "Última fecha de lanzamiento"
+        "es": "Última fecha de lanzamiento",
+        "hu": "A legutóbbi megjelenés dátuma"
       },
       "example": "2010-12-24",
       "type": "date"
@@ -656,14 +718,16 @@
         "en": "Amazon Standard Identification Number for the Amazon Appstore for Android",
         "cs": "Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android",
         "de": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android",
-        "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android"
+        "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android",
+        "hu": "Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"
       },
       "example": "XXXXXXXXXX",
       "label": {
         "en": "Amazon Identification",
         "cs": "Identifikace Amazon",
         "de": "Amazon Identifikation",
-        "es": "Identificación de Amazon"
+        "es": "Identificación de Amazon",
+        "hu": "Amazon azonosító"
       },
       "type": "string"
     },
@@ -672,13 +736,15 @@
         "en": "BlackBerry World application ID",
         "cs": "ID aplikace v BlackBerry World",
         "de": "BlackBerry World-Anwendungs-ID",
-        "es": "ID de la aplicación de BlackBerry World"
+        "es": "ID de la aplicación de BlackBerry World",
+        "hu": "BlackBerry World alkalmazásazonosító"
       },
       "label": {
         "en": "BlackBerry ID",
         "cs": "BlackBerry ID",
         "de": "BlackBerry ID",
-        "es": "ID de BlackBerry"
+        "es": "ID de BlackBerry",
+        "hu": "BlackBerry ID"
       },
       "deprecated": true,
       "example": "XXX",
@@ -689,13 +755,15 @@
         "en": "F-Droid application ID",
         "cs": "ID aplikace F-Droid",
         "de": "F-Droid-Anwendungs-ID",
-        "es": "ID de la aplicación F-Droid"
+        "es": "ID de la aplicación F-Droid",
+        "hu": "F-Droid alkalmazásazonosító"
       },
       "label": {
         "en": "F-Droid ID",
         "cs": "F-Droid ID",
         "de": "F-Droid ID",
-        "es": "ID de F-Droid"
+        "es": "ID de F-Droid",
+        "hu": "F-Droid ID"
       },
       "example": "org.example",
       "type": "string"
@@ -704,13 +772,15 @@
       "description": {
         "en": "Mozilla Firefox Marketplace application ID",
         "cs": "ID aplikace Mozilla Firefox Marketplace",
-        "es": "ID de la aplicación Mozilla Firefox Marketplace"
+        "es": "ID de la aplicación Mozilla Firefox Marketplace",
+        "hu": "Mozilla Firefox Marketplace alkalmazásazonosító"
       },
       "label": {
         "en": "Firefox Marketplace ID",
         "cs": "Firefox Marketplace ID",
         "de": "Firefox Marketplace ID",
-        "es": "ID de Firefox Marketplace"
+        "es": "ID de Firefox Marketplace",
+        "hu": "Firefox Marketplace ID"
       },
       "deprecated": true,
       "type": "string"
@@ -719,13 +789,15 @@
       "description": {
         "en": "Google Play Store application ID",
         "cs": "ID aplikace v Obchodě Google Play",
-        "es": "ID de la aplicación Google Play Store"
+        "es": "ID de la aplicación Google Play Store",
+        "hu": "Google Play Store alkalmazásazonosító"
       },
       "label": {
         "en": "Google Play ID",
         "cs": "Google Play ID",
         "de": "Google Play ID",
-        "es": "ID de Google Play"
+        "es": "ID de Google Play",
+        "hu": "Google Play ID"
       },
       "example": "org.example",
       "type": "string"
@@ -734,7 +806,8 @@
       "description": {
         "en": "Huawei AppGallery application ID",
         "cs": "ID aplikace Huawei AppGallery",
-        "es": "ID de la aplicación Huawei AppGallery"
+        "es": "ID de la aplicación Huawei AppGallery",
+        "hu": "Huawei AppGallery alkalmazásazonosító"
       },
       "example": "CXXXXXXXXX",
       "type": "string",
@@ -742,20 +815,23 @@
         "en": "Huawei AppGallery ID",
         "cs": "Huawei AppGallery ID",
         "de": "Huawei AppGallery ID",
-        "es": "ID de Huawei AppGallery"
+        "es": "ID de Huawei AppGallery",
+        "hu": "Huawei AppGallery ID"
       }
     },
     "appleStoreID": {
       "description": {
         "en": "iTunes App Store application ID",
         "cs": "ID aplikace iTunes App Store",
-        "es": "ID de la aplicación iTunes App Store"
+        "es": "ID de la aplicación iTunes App Store",
+        "hu": "iTunes App Store alkalmazásazonosító"
       },
       "label": {
         "en": "AppStore ID",
         "cs": "AppStore ID",
         "de": "AppStore ID",
-        "es": "ID de la AppStore"
+        "es": "ID de la AppStore",
+        "hu": "AppStore ID"
       },
       "example": "id12344556",
       "type": "string"
@@ -764,13 +840,15 @@
       "description": {
         "en": "Mac App Store application ID",
         "cs": "ID aplikace Mac App Store",
-        "es": "ID de la aplicación Mac App Store"
+        "es": "ID de la aplicación Mac App Store",
+        "hu": "Mac App Store alkalmazásazonosító"
       },
       "label": {
         "en": "Mac AppStore ID",
         "cs": "Mac AppStore ID",
         "de": "Mac AppStore ID",
-        "es": "ID de la Mac AppStore"
+        "es": "ID de la Mac AppStore",
+        "hu": "Mac AppStore ID"
       },
       "example": "id12344556",
       "type": "string"
@@ -779,13 +857,15 @@
       "description": {
         "en": "Microsoft Store Windows application UUID",
         "cs": "UUID aplikace Microsoft Store pro systém Windows",
-        "es": "UUID de la aplicación Windows de Microsoft Store"
+        "es": "UUID de la aplicación Windows de Microsoft Store",
+        "hu": "Microsoft Store Windows alkalmazás UUID"
       },
       "label": {
         "en": "Microsoft ID",
         "cs": "Microsoft ID",
         "de": "Microsoft ID",
-        "es": "ID de Microsoft"
+        "es": "ID de Microsoft",
+        "hu": "Microsoft ID"
       },
       "example": "XXXXXXXXXXXX",
       "type": "string"
@@ -795,13 +875,15 @@
         "en": "[Map display] Can it show a map?",
         "cs": "[Zobrazení mapy] Lze zobrazit mapu?",
         "de": "[Kartenanzeige] Kann eine Karte angezeigt werden?",
-        "es": "[Visualización de mapa] ¿Puede mostrar un mapa?"
+        "es": "[Visualización de mapa] ¿Puede mostrar un mapa?",
+        "hu": "[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"
       },
       "label": {
         "en": "Display map",
         "cs": "Zobrazení mapy",
         "de": "Karte anzeigen",
-        "es": "Mostrar mapa"
+        "es": "Mostrar mapa",
+        "hu": "Térkép megjelenítése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -811,13 +893,15 @@
         "en": "[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \"on the fly\" (vector)?",
         "cs": "[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \"za běhu\" (vektory)?",
         "de": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?",
-        "es": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?"
+        "es": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?",
+        "hu": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"
       },
       "label": {
         "en": "Map data",
         "cs": "Mapová data",
         "de": "Kartendaten",
-        "es": "Datos del mapa"
+        "es": "Datos del mapa",
+        "hu": "Térképadatok"
       },
       "type": "string",
       "suggestedvalues": ["raster", "vector"]
@@ -827,13 +911,15 @@
         "en": "[Map display] Can you store all map data offline? Download a separate file?",
         "cs": "[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?",
         "de": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?",
-        "es": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?"
+        "es": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?",
+        "hu": "[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"
       },
       "label": {
         "en": "Source",
         "cs": "Zdroj",
         "de": "Quelle",
-        "es": "Fuente"
+        "es": "Fuente",
+        "hu": "Forrás"
       },
       "example": "online;cache",
       "type": "string",
@@ -844,13 +930,15 @@
         "en": "[Map display] Does it turn the map in driving/walking direction?",
         "cs": "[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?",
         "de": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?",
-        "es": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"
+        "es": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?",
+        "hu": "[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"
       },
       "label": {
         "en": "Rotate map",
         "cs": "Rotace mapy",
         "de": "Karte drehen",
-        "es": "Girar el mapa"
+        "es": "Girar el mapa",
+        "hu": "Térkép elforgatása"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -860,7 +948,8 @@
         "en": "[Map display] Is there some 3D or 2.5D view?",
         "cs": "[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?",
         "de": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?",
-        "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"
+        "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?",
+        "hu": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
@@ -868,7 +957,8 @@
         "en": "3D view",
         "cs": "3D pohled",
         "de": "3D-Ansicht",
-        "es": "Vista 3D"
+        "es": "Vista 3D",
+        "hu": "3D nézet"
       }
     },
     "showWebsite": {
@@ -876,13 +966,15 @@
         "en": "[POI Information] Shows link to the website from POI",
         "cs": "[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu",
         "de": "[POI Information] Zeigt den Link zur Website vom POI an",
-        "es": "[Información del POI] Muestra el enlace a la página web desde el POI"
+        "es": "[Información del POI] Muestra el enlace a la página web desde el POI",
+        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalra mutató linkjét?"
       },
       "label": {
         "en": "Shows website",
         "cs": "Zobrazení webové stránky",
         "de": "Website anzeigen",
-        "es": "Muestra la página web"
+        "es": "Muestra la página web",
+        "hu": "Megjelenít-e weboldalt?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -892,13 +984,15 @@
         "en": "[POI Information] Shows phone number from POI",
         "cs": "[Informace o POI] Zobrazí telefonní číslo z POI",
         "de": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
-        "es": "[Información del PDI] Muestra el número de teléfono del PDI"
+        "es": "[Información del PDI] Muestra el número de teléfono del PDI",
+        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"
       },
       "label": {
         "en": "Shows phone number",
         "cs": "Zobrazí telefonní číslo",
         "de": "Zeigt Telefonnummer",
-        "es": "Muestra el número de teléfono"
+        "es": "Muestra el número de teléfono",
+        "hu": "Megjelenít-e telefonszámot?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -908,13 +1002,15 @@
         "en": "[POI Information] Shows hours of operation from POI",
         "cs": "[Informace o POI] Zobrazí provozní dobu z POI",
         "de": "[POI-Informationen] Zeigt die Betriebszeiten des POI an.",
-        "es": "[Información del POI] Muestra el horario de funcionamiento del POI"
+        "es": "[Información del POI] Muestra el horario de funcionamiento del POI",
+        "hu": "[POI információ] Megjeleníti-e a POI nyitvatartási idejét?"
       },
       "label": {
         "en": "Shows operation hours",
         "cs": "Zobrazuje provozní dobu",
         "de": "Zeigt die Betriebszeiten an",
-        "es": "Indica el horario de apertura"
+        "es": "Indica el horario de apertura",
+        "hu": "Megjelenít-e nyitva tartást?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -924,13 +1020,15 @@
         "en": "[Routing] Can you calculate or otherwise plan a route?",
         "cs": "[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?",
         "de": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
-        "es": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"
+        "es": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?",
+        "hu": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"
       },
       "label": {
         "en": "Routing",
         "cs": "Hledání trasy",
         "de": "Routenplanung",
-        "es": "Enrutamiento"
+        "es": "Enrutamiento",
+        "hu": "Útvonaltervezés"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -940,13 +1038,15 @@
         "en": "[Routing]",
         "cs": "[Hledání trasy]",
         "de": "[Routenplanung]",
-        "es": "[Enrutamiento]"
+        "es": "[Enrutamiento]",
+        "hu": "[Útvonaltervezés]"
       },
       "label": {
         "en": "Create route manually",
         "cs": "Vytvoření trasy ručně",
         "de": "Route von Hand eingeben",
-        "es": "Crear ruta manualmente"
+        "es": "Crear ruta manualmente",
+        "hu": "Útvonal létrehozása manuálisan"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -956,13 +1056,15 @@
         "en": "[Routing] Can it calculate a route using routing?",
         "cs": "[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?",
         "de": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?",
-        "es": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"
+        "es": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?",
+        "hu": "[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"
       },
       "label": {
         "en": "Calculate route",
         "cs": "Výpočet trasy",
         "de": "Route berechnen",
-        "es": "Calcular ruta"
+        "es": "Calcular ruta",
+        "hu": "Útvonal kiszámítása"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -972,13 +1074,15 @@
         "en": "[Routing] Able to calculate route via Waypoints",
         "cs": "[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů",
         "de": "[Routenplanung] Kann Route über Wegpunkte berechnen",
-        "es": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"
+        "es": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia",
+        "hu": "[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"
       },
       "label": {
         "en": "Create route via Waypoints",
         "cs": "Vytvoření trasy pomocí bodů trasy",
         "de": "Route über Wegpunkte erstellen",
-        "es": "Crear ruta a través de Waypoints"
+        "es": "Crear ruta a través de Waypoints",
+        "hu": "Útvonal létrehozása útpontokkal"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -987,12 +1091,15 @@
       "description": {
         "en": "[Routing] What profiles supported if it makes routing?",
         "cs": "[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?",
-        "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"
+        "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?",
+        "hu": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"
       },
       "label": {
         "en": "Routing profiles",
         "cs": "Profily hledání trasy",
-        "es": "Perfiles de enrutamiento"
+        "de": "Routing Profile",
+        "es": "Perfiles de enrutamiento",
+        "hu": "Útvonaltervezési profilok"
       },
       "example": "car;bike;foot;wheelchair;public transport",
       "type": "string",
@@ -1008,13 +1115,15 @@
       "description": {
         "en": "[Routing] Can it deal with turn restrictions?",
         "cs": "[Hledání trasy] Dokáže se vypořádat s omezením otáčení?",
-        "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?"
+        "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?",
+        "hu": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"
       },
       "label": {
         "en": "Turn restrictions",
         "cs": "Omezení otáčení",
         "de": "Abbiegebeschränkungen",
-        "es": "Restricciones de giro"
+        "es": "Restricciones de giro",
+        "hu": "Bekanyarodási korlátozások"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1023,13 +1132,15 @@
       "description": {
         "en": "[Routing] Does it need internet to calculate a route?",
         "cs": "[Hledání trasy] Potřebuje k výpočtu trasy internet?",
-        "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?"
+        "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?",
+        "hu": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"
       },
       "label": {
         "en": "Calculate route without Internet (Offline routing)",
         "cs": "Výpočet trasy bez internetu (hledání trasy offline)",
         "de": "Route berechnen ohne Internet",
-        "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)"
+        "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)",
+        "hu": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1038,12 +1149,14 @@
       "description": {
         "en": "[Routing] What routing service(s) does it use?",
         "cs": "[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?",
-        "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"
+        "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?",
+        "hu": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
       },
       "label": {
         "en": "Routing providers",
         "cs": "Poskytovatelé hledání tras",
-        "es": "Proveedores de enrutamiento"
+        "es": "Proveedores de enrutamiento",
+        "hu": "Útvonaltervezési szolgáltatók"
       },
       "example": "OpenRouteService;Yours",
       "type": "string",
@@ -1061,12 +1174,14 @@
       "description": {
         "en": "[Routing] Does app optimize route to avoid traffic jams?",
         "cs": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
-        "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"
+        "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?",
+        "hu": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"
       },
       "label": {
         "en": "Avoid traffic",
         "cs": "Vyhýbání se provozu",
-        "es": "Evitar el tráfico"
+        "es": "Evitar el tráfico",
+        "hu": "Forgalom elkerülése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1075,25 +1190,29 @@
       "description": {
         "en": "[Routing] Traffic data source provider.",
         "cs": "[Hledání trasy] Poskytovatel zdroje dopravních dat.",
-        "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico."
+        "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico.",
+        "hu": "[Útvonaltervezés] Forgalmi adatok forrásának szolgáltatója"
       },
       "label": {
         "en": "Traffic Provider",
         "cs": "Poskytovatel informací o provozu",
-        "es": "Proveedor de tráfico"
+        "es": "Proveedor de tráfico",
+        "hu": "Forgalmi szolgáltató"
       }
     },
     "navigating": {
       "description": {
         "en": "[Navigation] Can you navigate in a compass like way?",
         "cs": "[Navigace] Umíte se orientovat podle kompasu?",
-        "es": "[Navegación] ¿Puedes navegar con una brújula?"
+        "es": "[Navegación] ¿Puedes navegar con una brújula?",
+        "hu": "[Navigáció] Tud-e iránytűszerűen navigálni?"
       },
       "label": {
         "en": "Navigate",
         "cs": "Navigace",
         "de": "Navigieren",
-        "es": "Navegar"
+        "es": "Navegar",
+        "hu": "Navigáció"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1102,13 +1221,15 @@
       "description": {
         "en": "[Navigation] Can it search for a street/place?",
         "cs": "[Navigace] Umí vyhledat ulici/místo?",
-        "es": "[Navegación] ¿Puede buscar una calle/lugar?"
+        "es": "[Navegación] ¿Puede buscar una calle/lugar?",
+        "hu": "[Navigáció] Lehet-e utcát/helyet keresni?"
       },
       "label": {
         "en": "Find location",
         "cs": "Hledání polohy",
         "de": "Finde eine Position",
-        "es": "Encontrar ubicación"
+        "es": "Encontrar ubicación",
+        "hu": "Hely keresése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1117,13 +1238,15 @@
       "description": {
         "en": "[Navigation] Can it discover/display Points of interests?",
         "cs": "[Navigace] Umí najít/zobrazit body zájmu?",
-        "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?"
+        "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?",
+        "hu": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"
       },
       "label": {
         "en": "Find nearby POIs",
         "cs": "Hledání blízkých bodů zájmu",
         "de": "Finde POI in der Nähe",
-        "es": "Encuentra puntos de interés cercanos"
+        "es": "Encuentra puntos de interés cercanos",
+        "hu": "Közeli POI-k keresése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1132,13 +1255,15 @@
       "description": {
         "en": "[Navigation] Can it guide you to a point somewhere?",
         "cs": "[Navigace] Dokáže vás navigovat někam?",
-        "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?"
+        "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?",
+        "hu": "[Navigáció] El tud-e vezetni valahová?"
       },
       "label": {
         "en": "Navigate to point",
         "cs": "Navigace do bodu",
         "de": "Navigiere zu einem Punkt",
-        "es": "Navegar hasta el punto"
+        "es": "Navegar hasta el punto",
+        "hu": "Navigáció ponthoz"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1147,13 +1272,15 @@
       "description": {
         "en": "[Navigation] Can it give you commands with a computer voice?",
         "cs": "[Navigace] Umí vám dávat příkazy počítačovým hlasem?",
-        "es": "[Navegación] ¿Puede darte comandos con una voz artificial?"
+        "es": "[Navegación] ¿Puede darte comandos con una voz artificial?",
+        "hu": "[Navigáció] Tud-e számítógéphanggal utasítást adni?"
       },
       "label": {
         "en": "Navigation with voice / Voice guidance",
         "cs": "Navigace s hlasem / Hlasové navádění",
         "de": "Navigation mit Sprachansage",
-        "es": "Navegación por voz / Guía por voz"
+        "es": "Navegación por voz / Guía por voz",
+        "hu": "Hangos navigáció / Hangvezérlés"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1162,12 +1289,14 @@
       "description": {
         "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?",
         "cs": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?",
-        "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"
+        "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?",
+        "hu": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"
       },
       "label": {
         "en": "Keep on road",
         "cs": "Pokračování v cestě",
-        "es": "Siga por la carretera"
+        "es": "Siga por la carretera",
+        "hu": "Úton tartás"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1176,12 +1305,14 @@
       "description": {
         "en": "[Navigation] Does it support lane guidance?",
         "cs": "[Navigace] Podporuje navádění do jízdních pruhů?",
-        "es": "[Navegación] ¿Es compatible con la guía de carriles?"
+        "es": "[Navegación] ¿Es compatible con la guía de carriles?",
+        "hu": "[Navigáció] Támogatja-e a sávok közötti vezetést?"
       },
       "label": {
         "en": "Lane guidance",
         "cs": "Navádění do jízdních pruhů",
-        "es": "Guía de carriles"
+        "es": "Guía de carriles",
+        "hu": "Sávvezetés"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1190,13 +1321,15 @@
       "description": {
         "en": "[Navigation] Does it work even without a GPS?",
         "cs": "[Navigace] Bude fungovat i bez GPS?",
-        "es": "[Navegación] ¿Funciona incluso sin GPS?"
+        "es": "[Navegación] ¿Funciona incluso sin GPS?",
+        "hu": "[Navigáció] Működik-e akár GPS nélkül is?"
       },
       "label": {
         "en": "Works without GPS",
         "cs": "Fungování bez GPS",
         "de": "Funktioniert ohne GPS",
-        "es": "Funcionar sin GPS"
+        "es": "Funcionar sin GPS",
+        "hu": "Működés GPS nélkül"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1205,13 +1338,15 @@
       "description": {
         "en": "[Navigation] Can it follow other GPS tracks?",
         "cs": "[Navigace] Umí sledovat jiné GPS trasy?",
-        "es": "[Navegación] ¿Puede seguir otras rutas GPS?"
+        "es": "[Navegación] ¿Puede seguir otras rutas GPS?",
+        "hu": "[Navigáció] Tud-e más GPS-nyomvonalat követni?"
       },
       "label": {
         "en": "Navigate along predefined route",
         "cs": "Navigace po předem definované trase",
         "de": "Folge einer vordefinierten Route",
-        "es": "Navegar por una ruta predefinida"
+        "es": "Navegar por una ruta predefinida",
+        "hu": "Navigálás előre meghatározott útvonalon"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1220,7 +1355,8 @@
       "description": {
         "en": "[Track logging] Can it record a GPS track?",
         "cs": "[Záznam trasy] Lze zaznamenat trasu GPS?",
-        "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?"
+        "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?",
+        "hu": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
@@ -1228,20 +1364,23 @@
         "en": "Make track",
         "cs": "Vytvoření trasy",
         "de": "Track aufzeichnen",
-        "es": "Realizar un seguimiento"
+        "es": "Realizar un seguimiento",
+        "hu": "Nyomvonalkészítés"
       }
     },
     "customInterval": {
       "description": {
         "en": "[Track logging] Can you tune the interval manually?",
         "cs": "[Záznam trasy] Lze interval nastavit ručně?",
-        "es": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"
+        "es": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?",
+        "hu": "[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"
       },
       "label": {
         "en": "Customizable log interval",
         "cs": "Přizpůsobitelný interval záznamu",
         "de": "Einstellbares Aufzeichnungsintervall",
-        "es": "Intervalo de registro personalizable"
+        "es": "Intervalo de registro personalizable",
+        "hu": "Testreszabható naplózási intervallum"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1250,14 +1389,16 @@
       "description": {
         "en": "[Track logging] What formats for storage can you save your GPS track?",
         "cs": "[Záznam trasy] V jakých formátech lze uložit trasu GPS?",
-        "es": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"
+        "es": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?",
+        "hu": "[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"
       },
       "example": "gpx;csv",
       "aliases": ["formats"],
       "label": {
         "en": "Track formats",
         "cs": "Formáty tras",
-        "es": "Formatos de pista"
+        "es": "Formatos de pista",
+        "hu": "Nyomvonalformátumok"
       },
       "type": "string",
       "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
@@ -1266,12 +1407,14 @@
       "description": {
         "en": "[Track logging] Are further mapping techniques supported",
         "cs": "[Záznam trasy] Jsou podporovány další techniky mapování",
-        "es": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"
+        "es": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo",
+        "hu": "[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"
       },
       "label": {
         "en": "Geotagging",
         "cs": "Geotagging",
-        "es": "Geoetiquetado"
+        "es": "Geoetiquetado",
+        "hu": "Geotagging"
       },
       "example": "note;photo",
       "type": "string",
@@ -1281,13 +1424,15 @@
       "description": {
         "en": "[Track logging] Easy to add a new Waypoint?",
         "cs": "[Záznam trasy] Snadné přidání nového bodu trasy?",
-        "es": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"
+        "es": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?",
+        "hu": "[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"
       },
       "label": {
         "en": "Fast POI buttons",
         "cs": "Rychlá tlačítka POI",
         "de": "Knöpfe zum schnellen Setzen von Wegpunkten",
-        "es": "Botones rápidos de PDI"
+        "es": "Botones rápidos de PDI",
+        "hu": "Gyors POI-gombok"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1296,27 +1441,31 @@
       "description": {
         "en": "[Track logging] Can it send tracks directly to OSM?",
         "cs": "[ Záznam tras] Lze odesílat trasy přímo do OSM?",
-        "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"
+        "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?",
+        "hu": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Upload GPX to OSM",
         "cs": "Nahrání GPX do OSM",
-        "es": "Cargar GPX a OSM"
+        "es": "Cargar GPX a OSM",
+        "hu": "GPX feltöltése az OSM-re"
       }
     },
     "monitoring": {
       "description": {
         "en": "[Track monitoring] Can you monitor GPS datas?",
         "cs": "[ Monitorování trasy] Můžete monitorovat data GPS?",
-        "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"
+        "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?",
+        "hu": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
       },
       "label": {
         "en": "Monitoring",
         "cs": "Monitorování",
         "de": "Monitoring",
-        "es": "Monitorización"
+        "es": "Monitorización",
+        "hu": "Követés"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1325,13 +1474,15 @@
       "description": {
         "en": "[Track monitoring] Show your current track?",
         "cs": "[Monitorování trasy] Zobrazuje aktuální trasu?",
-        "es": "[Monitoreo de pista] ¿Mostrar tu pista actual?"
+        "es": "[Monitoreo de pista] ¿Mostrar tu pista actual?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"
       },
       "label": {
         "en": "Show current track",
         "cs": "Zobrazení aktuální trasy",
         "de": "Zeige aktuellen Track",
-        "es": "Mostrar pista actual"
+        "es": "Mostrar pista actual",
+        "hu": "Jelenlegi nyomvonal megjelenítése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1340,13 +1491,15 @@
       "description": {
         "en": "[Track monitoring] Can it load existing tracks so you can follow them?",
         "cs": "[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?",
-        "es": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"
+        "es": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?",
+        "hu": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"
       },
       "label": {
         "en": "Open existing track",
         "cs": "Otevření existující trasy",
         "de": "Öffne existierenden Track",
-        "es": "Abrir pista existente"
+        "es": "Abrir pista existente",
+        "hu": "Meglévő nyomvonal megnyitása"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1355,13 +1508,15 @@
       "description": {
         "en": "[Track monitoring]",
         "cs": "[Monitorování trasy]",
-        "es": "[Seguimiento de la pista]"
+        "es": "[Seguimiento de la pista]",
+        "hu": "[Nyomvonalkövetés]"
       },
       "label": {
         "en": "Altitude diagram",
         "cs": "Výškový diagram",
         "de": "Höhendiagramm",
-        "es": "Gráfico de elevación"
+        "es": "Gráfico de elevación",
+        "hu": "Magassági diagram"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1370,13 +1525,15 @@
       "description": {
         "en": "[Track monitoring] Shows signal quality?",
         "cs": "[Monitorování trasy] Zobrazuje kvalitu signálu?",
-        "es": "[Monitoreo de pista] ¿Muestra la calidad de la señal?"
+        "es": "[Monitoreo de pista] ¿Muestra la calidad de la señal?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"
       },
       "label": {
         "en": "Show POD value",
         "cs": "Zobrazení hodnoty POD",
         "de": "Zeige DOP-Wert",
-        "es": "Mostrar valor DOP"
+        "es": "Mostrar valor DOP",
+        "hu": "DOP-érték megjelenítése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1385,13 +1542,15 @@
       "description": {
         "en": "[Track monitoring] Displays satellites?",
         "cs": "[Monitorování trasy] Zobrazuje satelity?",
-        "es": "[Monitoreo de trayectoria] ¿Muestra satélites?"
+        "es": "[Monitoreo de trayectoria] ¿Muestra satélites?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"
       },
       "label": {
         "en": "Satellite view",
         "cs": "Zobrazení satelitů",
         "de": "Zeige Satelliten",
-        "es": "Vista satelital"
+        "es": "Vista satelital",
+        "hu": "Műholdak nézet"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1400,13 +1559,15 @@
       "description": {
         "en": "[Track monitoring] Can you see the raw GPS stream?",
         "cs": "[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?",
-        "es": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"
+        "es": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?",
+        "hu": "[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"
       },
       "label": {
         "en": "Show live NMEA data",
         "cs": "Zobrazení živých dat NMEA",
         "de": "Zeige NMEA-Livedaten",
-        "es": "Mostrar datos NMEA en directo"
+        "es": "Mostrar datos NMEA en directo",
+        "hu": "Élő NMEA-adatok megjelenítése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1415,12 +1576,14 @@
       "description": {
         "en": "[Track monitoring]",
         "cs": "[Monitorování trasy]",
-        "es": "[Seguimiento de la pista]"
+        "es": "[Seguimiento de la pista]",
+        "hu": "[Nyomvonalkövetés]"
       },
       "label": {
         "en": "Show speed",
         "cs": "Zobrazení rychlosti",
-        "es": "Mostrar velocidad"
+        "es": "Mostrar velocidad",
+        "hu": "Sebesség megjelenítése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1429,14 +1592,16 @@
       "description": {
         "en": "[Track monitoring] Can it send position to others?",
         "cs": "[Monitorování trasy] Může odesílat polohu ostatním?",
-        "es": "[Monitoreo de pistas] ¿Puede enviar posición a otros?"
+        "es": "[Monitoreo de pistas] ¿Puede enviar posición a otros?",
+        "hu": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"
       },
       "example": "yes;mail;www",
       "label": {
         "en": "Send current position",
         "cs": "Odeslání aktuální polohy",
         "de": "Sende aktuelle Position",
-        "es": "Enviar posición actual"
+        "es": "Enviar posición actual",
+        "hu": "Jelenlegi pozíció elküldése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no", "sms", "mail", "www"]
@@ -1445,13 +1610,15 @@
       "description": {
         "en": "[Editor] Can you add a node?",
         "cs": "[Editor] Můžete přidat uzel?",
-        "es": "[Editor] ¿Puedes agregar un nodo?"
+        "es": "[Editor] ¿Puedes agregar un nodo?",
+        "hu": "[Szerkesztő] Fel lehet-e venni egy pontot?"
       },
       "label": {
         "en": "Add POIs",
         "cs": "Přidání bodů zájmu",
         "de": "POI hinzufügen",
-        "es": "Agregar puntos de interés"
+        "es": "Agregar puntos de interés",
+        "hu": "Érdekes pont (POI-k) felvétele"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1460,13 +1627,15 @@
       "description": {
         "en": "[Editor] Can you edit a node?",
         "cs": "[Editor] Je možné upravit uzel?",
-        "es": "[Editor] ¿Puedes editar un nodo?"
+        "es": "[Editor] ¿Puedes editar un nodo?",
+        "hu": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?"
       },
       "label": {
         "en": "Edit / Delete POIs",
         "cs": "Úprava / odstranění bodů zájmu",
         "de": "POI bearbeiten/löschen",
-        "es": "Editar/eliminar puntos de interés"
+        "es": "Editar/eliminar puntos de interés",
+        "hu": "Érdekes pont szerkesztésetörlése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1475,9 +1644,15 @@
       "description": {
         "en": "[Editor] Can you add a way?",
         "cs": "[Editor] Můžete přidat cestu?",
-        "es": "[Editor] ¿Puedes agregar una vía?"
+        "es": "[Editor] ¿Puedes agregar una vía?",
+        "hu": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?"
       },
-      "label": { "en": "Add way", "cs": "Přidání cesty", "es": "Agregar vía" },
+      "label": {
+        "en": "Add way",
+        "cs": "Přidání cesty",
+        "es": "Agregar vía",
+        "hu": "Vonal felvétele"
+      },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
     },
@@ -1485,13 +1660,15 @@
       "description": {
         "en": "[Editor] Can you edit nodes/ways?",
         "cs": "[Editor] Lze upravovat uzly/cesty?",
-        "es": "[Editor] ¿Puedes editar nodos/vías?"
+        "es": "[Editor] ¿Puedes editar nodos/vías?",
+        "hu": "[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"
       },
       "label": {
         "en": "Edit geometries",
         "cs": "Úprava geometrie",
         "de": "Geometrie bearbeiten",
-        "es": "Editar geometrías"
+        "es": "Editar geometrías",
+        "hu": "Alakzat szerkesztése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1500,13 +1677,15 @@
       "description": {
         "en": "[Editor] Can you edit existing tags?",
         "cs": "[Editor] Lze upravovat existující značky?",
-        "es": "[Editor] ¿Puedes editar etiquetas existentes?"
+        "es": "[Editor] ¿Puedes editar etiquetas existentes?",
+        "hu": "[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?"
       },
       "label": {
         "en": "Edit arbitrary tags of existing OSM objects",
         "cs": "Úprava libovolných značek existujících objektů OSM",
         "de": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
-        "es": "Editar etiquetas aleatorias de objetos OSM existentes"
+        "es": "Editar etiquetas aleatorias de objetos OSM existentes",
+        "hu": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1515,13 +1694,15 @@
       "description": {
         "en": "[Editor] Can you edit relations?",
         "cs": "[Editor] Lze upravit relace?",
-        "es": "[Editor] ¿Puedes editar las relaciones?"
+        "es": "[Editor] ¿Puedes editar las relaciones?",
+        "hu": "[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"
       },
       "label": {
         "en": "Edit relations",
         "cs": "Úprava relací",
         "de": "Relationen bearbeiten",
-        "es": "Editar relaciones"
+        "es": "Editar relaciones",
+        "hu": "Kapcsolat szerkesztése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1530,12 +1711,14 @@
       "description": {
         "en": "[Editor] Can you view OSM Notes?",
         "cs": "[Editor] Lze zobrazit poznámky OSM?",
-        "es": "[Editor] ¿Puedes ver las notas de OSM?"
+        "es": "[Editor] ¿Puedes ver las notas de OSM?",
+        "hu": "[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"
       },
       "label": {
         "en": "View notes",
         "cs": "Zobrazení poznámek",
-        "es": "Ver notas"
+        "es": "Ver notas",
+        "hu": "Jegyzetek megtekintése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1544,12 +1727,14 @@
       "description": {
         "en": "[Editor] Can you add OSM Notes?",
         "cs": "[Editor] Lze přidat poznámky OSM?",
-        "es": "[Editor] ¿Puedes agregar notas a OSM?"
+        "es": "[Editor] ¿Puedes agregar notas a OSM?",
+        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"
       },
       "label": {
         "en": "Create notes",
         "cs": "Tvorba poznámek",
-        "es": "Crear notas"
+        "es": "Crear notas",
+        "hu": "Jegyzet létrehozása"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1558,12 +1743,14 @@
       "description": {
         "en": "[Editor] Can you comment/close OSM Notes?",
         "cs": "[Editor] Lze komentovat/zavřít poznámky OSM?",
-        "es": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?"
+        "es": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?",
+        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"
       },
       "label": {
         "en": "Edit notes",
         "cs": "Úprava poznámek",
-        "es": "Editar notas"
+        "es": "Editar notas",
+        "hu": "Jegyzet szerkesztése"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1572,12 +1759,14 @@
       "description": {
         "en": "[Editor] Can you work offline?",
         "cs": "[Editor] Lze pracovat offline?",
-        "es": "[Editor] ¿Puedes trabajar sin conexión?"
+        "es": "[Editor] ¿Puedes trabajar sin conexión?",
+        "hu": "[Szerkesztő] Lehet-e vele offline dolgozni?"
       },
       "label": {
         "en": "Work offline",
         "cs": "Fungování v režimu offline",
-        "es": "Trabajar sin conexión"
+        "es": "Trabajar sin conexión",
+        "hu": "Offline munka"
       },
       "example": "online;cache",
       "type": "string",
@@ -1587,13 +1776,15 @@
       "description": {
         "en": "[Editor] Does it support the imagery offset DB?",
         "cs": "[Editor] Podporuje obrazový posun DB?",
-        "es": "[Editor] ¿Soporta el offset de imágenes DB?"
+        "es": "[Editor] ¿Soporta el offset de imágenes DB?",
+        "hu": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"
       },
       "label": {
         "en": "Support imagery offset DB",
         "cs": "Podpora posunu snímků DB",
         "de": "Unterstützt Luftbildversatz DB",
-        "es": "Admite el desplazamiento de imágenes aéreas DB"
+        "es": "Admite el desplazamiento de imágenes aéreas DB",
+        "hu": "Légifelvétel-eltolási adatbázis támogatása"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1602,13 +1793,15 @@
       "description": {
         "en": "[Editor] Can you send changes to OSM directly?",
         "cs": "[Editor] Lze změny odeslat přímo do OSM?",
-        "es": "[Editor] ¿Puede enviar los cambios a OSM directamente?"
+        "es": "[Editor] ¿Puede enviar los cambios a OSM directamente?",
+        "hu": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"
       },
       "label": {
         "en": "Upload to OSM",
         "cs": "Nahrání do OSM",
         "de": "Zu OSM hochladen",
-        "es": "Cargar en OSM"
+        "es": "Cargar en OSM",
+        "hu": "Feltöltés az OSM-re"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1617,26 +1810,30 @@
       "description": {
         "en": "[Renderer] Supported output formats.",
         "cs": "[Renderer] Podporované výstupní formáty.",
-        "es": "[Renderizador] Formatos de salida admitidos."
+        "es": "[Renderizador] Formatos de salida admitidos.",
+        "hu": "[Megjelenítő] Támogatott kimeneti formátumok"
       },
       "example": "svg;pdf;png",
       "label": {
         "en": "Renderer output formats",
         "cs": "Výstupní formáty rendereru",
-        "es": "Formatos del renderizador"
+        "es": "Formatos del renderizador",
+        "hu": "Megjelenítő kimeneti formátumai"
       }
     },
     "accessibility": {
       "description": {
         "en": "[Accessibility] Does it help disabled people in some kind?",
         "cs": "[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?",
-        "es": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"
+        "es": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?",
+        "hu": "[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"
       },
       "example": "blind;wheelchair",
       "label": {
         "en": "Accessibility support",
         "cs": "Podpora přístupnosti",
-        "es": "Ayuda a la accesibilidad"
+        "es": "Ayuda a la accesibilidad",
+        "hu": "Kisegítő lehetőségek támogatása"
       },
       "type": "string",
       "suggestedvalues": ["blind", "wheelchair"]
@@ -1645,13 +1842,15 @@
       "description": {
         "en": "[Accessibility] Text to braille compatible interface?",
         "cs": "[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?",
-        "es": "[Accesibilidad] ¿Interfaz compatible de texto a braille?"
+        "es": "[Accesibilidad] ¿Interfaz compatible de texto a braille?",
+        "hu": "[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"
       },
       "label": {
         "en": "Complete non graphics text output",
         "cs": "Úplný negrafický textový výstup",
         "de": "Komplett ohne Grafik bedienbar",
-        "es": "Salida de texto sin gráficos"
+        "es": "Salida de texto sin gráficos",
+        "hu": "Teljes nem grafikus szöveges kimenet"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1660,13 +1859,15 @@
       "description": {
         "en": "[Accessibility] A special braille interface?",
         "cs": "[Přístupnost] Speciální braillovo rozhraní?",
-        "es": "[Accesibilidad] ¿Una interfaz braille especial?"
+        "es": "[Accesibilidad] ¿Una interfaz braille especial?",
+        "hu": "[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"
       },
       "label": {
         "en": "Braille interface",
         "cs": "Rozhraní Braillova písma",
         "de": "Braille-Oberfläche",
-        "es": "Interfaz en Braille"
+        "es": "Interfaz en Braille",
+        "hu": "Braille-írás interfész"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1675,13 +1876,15 @@
       "description": {
         "en": "[Accessibility] Has a exploration modus (tell all objects approaching)?",
         "cs": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?",
-        "es": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"
+        "es": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?",
+        "hu": "[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)"
       },
       "label": {
         "en": "Exploration modus",
         "cs": "Modus průzkumu",
         "de": "Erkundungsmodus",
-        "es": "Modo exploración"
+        "es": "Modo exploración",
+        "hu": "Feltáró mód"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1690,13 +1893,15 @@
       "description": {
         "en": "[Accessibility] Supports routing with public transport?",
         "cs": "[Dostupnost] Podporuje hledání trasy veřejnou dopravou?",
-        "es": "[Accesibilidad] ¿Admite rutas con transporte público?"
+        "es": "[Accesibilidad] ¿Admite rutas con transporte público?",
+        "hu": "[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"
       },
       "label": {
         "en": "Public Transport mode",
         "cs": "Režim veřejné dopravy",
         "de": "ÖPNV-Modus",
-        "es": "Modo de transporte público"
+        "es": "Modo de transporte público",
+        "hu": "Tömegközlekedési mód"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1705,13 +1910,15 @@
       "description": {
         "en": "[Accessibility]",
         "cs": "[Přístupnost]",
-        "es": "[Accesibilidad]"
+        "es": "[Accesibilidad]",
+        "hu": "[Akadálymentesség]"
       },
       "label": {
         "en": "Danger Warnings",
         "cs": "Výstrahy před nebezpečím",
         "de": "Gefahrenwarnungen",
-        "es": "Avisos de peligro"
+        "es": "Avisos de peligro",
+        "hu": "Figyelmeztetés veszélyre"
       },
       "type": "string",
       "suggestedvalues": ["yes", "no"]
@@ -1720,28 +1927,32 @@
       "description": {
         "en": "[Accessibility] List of supported screenreaders",
         "cs": "[Přístupnost] Seznam podporovaných čteček obrazovky",
-        "es": "[Accesibilidad] Lista de lectores de pantalla compatibles"
+        "es": "[Accesibilidad] Lista de lectores de pantalla compatibles",
+        "hu": "[Akadálymentesség] Támogatott képernyő-felolvasók listája"
       },
       "example": "NVDA",
       "label": {
         "en": "Screenreader",
         "cs": "Čtení obrazovky",
         "de": "Screenreader",
-        "es": "Lector de pantalla"
+        "es": "Lector de pantalla",
+        "hu": "Képernyő-felolvasó"
       }
     },
     "screenReaderLang": {
       "description": {
         "en": "[Accessibility] List of supported screenreaders languages",
         "cs": "[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky",
-        "es": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"
+        "es": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla",
+        "hu": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"
       },
       "example": "EN;DE",
       "label": {
         "en": "Screenreader languages",
         "cs": "Jazyky čtečky obrazovky",
         "de": "Screenreader-Sprachen",
-        "es": "Idiomas del lector de pantalla"
+        "es": "Idiomas del lector de pantalla",
+        "hu": "Képernyő-felolvasó nyelvei"
       }
     }
   },

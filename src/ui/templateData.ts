@@ -20,5 +20,5 @@ export const templateData: {
   };
   paramOrder: string[];
   format?: string;
-  description?: string;
+  description?: LocalizedValue;
 } = td;

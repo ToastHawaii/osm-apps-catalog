@@ -116,6 +116,7 @@ function convertJsonToTemplateData() {
     cs: templateCs,
     de: templateDe,
     es: templateEs,
+    hu: templateHu,
     "zh-hans": templateZh_Hans,
   } as {
     [lang: string]: {
