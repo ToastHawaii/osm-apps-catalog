@@ -49,6 +49,13 @@ defaults:
       description: "Experience the world in a creative, productive and unexpected way."
       base: "/fr/"
   - scope:
+      path: "docs/hu/README.md"
+    values:
+      lang: "hu"
+      title: "OSM Apps Catalog - About"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/hu/"
+  - scope:
       path: "docs/id/README.md"
     values:
       lang: "id"
