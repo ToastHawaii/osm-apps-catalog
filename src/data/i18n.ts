@@ -6,6 +6,7 @@ import * as de from "./locales/de.json";
 import * as el from "./locales/el.json";
 import * as es from "./locales/es.json";
 import * as fr from "./locales/fr.json";
+import * as hu from "./locales/hu.json";
 import * as id from "./locales/id.json";
 import * as it from "./locales/it.json";
 import * as ja from "./locales/ja.json";
@@ -25,6 +26,7 @@ import * as templateEn from "./template/locales/en.json";
 import * as templateCs from "./template/locales/cs.json";
 import * as templateDe from "./template/locales/de.json";
 import * as templateEs from "./template/locales/es.json";
+import * as templateHu from "./template/locales/hu.json";
 import * as templateZh_Hans from "./template/locales/zh_Hans.json";
 
 i18next.use(LanguageDetector).init({
@@ -39,6 +41,7 @@ i18next.use(LanguageDetector).init({
     el: { translation: el },
     es: { translation: { ...es, "app.props": templateEs } },
     fr: { translation: fr },
+    hu: { translation: { ...hu, "app.props": templateHu } },
     id: { translation: id },
     it: { translation: it },
     ja: { translation: ja },
@@ -54,7 +57,7 @@ i18next.use(LanguageDetector).init({
   },
 });
 
-const langs = ["en", "cs", "de", "es", "zh-hans"];
+const langs = ["en", "cs", "de", "es", "hu", "zh-hans"];
 
 function convertTemplateDataToJson() {
   const files = {} as {
