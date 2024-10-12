@@ -9,7 +9,7 @@
         "hu": "Sablon nyelve",
         "zh-hans": "模板语言"
       },
-      "type": "string",
+      "type": "line",
       "description": {
         "en": "Language in which the template texts are displayed.",
         "cs": "Jazyk, ve kterém se zobrazují texty šablony.",
@@ -17,7 +17,10 @@
         "es": "Idioma en el que se muestran los textos de la plantilla.",
         "hu": "A sablonszövegek megjelenítésének nyelve"
       },
-      "example": { "de": "de", "en": "en" }
+      "example": {
+        "de": "de",
+        "en": "en"
+      }
     },
     "name": {
       "label": {
@@ -35,7 +38,7 @@
         "es": "Nombre oficial, el más común",
         "hu": "Hivatalos név, annak híján a legelterjedtebb"
       },
-      "type": "string",
+      "type": "line",
       "required": true,
       "autovalue": "{{subst:PAGENAME}}"
     },
@@ -55,7 +58,7 @@
         "hu": "Állapot"
       },
       "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
-      "type": "string",
+      "type": "line",
       "default": "active",
       "suggested": true
     },
@@ -75,7 +78,8 @@
         "es": "Licencia",
         "hu": "Licenc"
       },
-      "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"]
+      "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"],
+      "type": "line"
     },
     "price": {
       "description": {
@@ -93,7 +97,7 @@
         "es": "Precio",
         "hu": "Ár"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["free", "in-app purchases", "ads"]
     },
     "web": {
@@ -188,7 +192,7 @@
         "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki",
         "hu": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje"
       },
-      "type": "string",
+      "type": "line",
       "suggested": true
     },
     "platform": {
@@ -200,7 +204,7 @@
         "hu": "Azon platformok listája, amelyeken fut"
       },
       "suggested": true,
-      "type": "string",
+      "type": "line",
       "suggestedvalues": [
         "Linux",
         "Android",
@@ -286,7 +290,8 @@
         "renderer",
         "converter",
         "analyser"
-      ]
+      ],
+      "type": "line"
     },
     "languages": {
       "description": {
@@ -297,7 +302,7 @@
         "hu": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"
       },
       "example": "DE;EN;MUL",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": [
         "aa",
         "ab",
@@ -613,7 +618,7 @@
         "hu": "Lefedés"
       },
       "default": "Worldwide",
-      "type": "string"
+      "type": "line"
     },
     "code": {
       "description": {
@@ -623,7 +628,7 @@
         "es": "Lista de lenguajes de programación utilizados.",
         "hu": "A felhasznált programozási nyelvek listája"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": [
         "C",
         "Objective-C",
@@ -673,7 +678,7 @@
         "es": "Framework",
         "hu": "Keretrendszer"
       },
-      "type": "string"
+      "type": "line"
     },
     "version": {
       "label": {
@@ -692,7 +697,7 @@
         "hu": "Legújabb verzió"
       },
       "example": "1.0",
-      "type": "string"
+      "type": "line"
     },
     "date": {
       "label": {
@@ -729,7 +734,7 @@
         "es": "Identificación de Amazon",
         "hu": "Amazon azonosító"
       },
-      "type": "string"
+      "type": "line"
     },
     "bbWorldID": {
       "description": {
@@ -748,7 +753,7 @@
       },
       "deprecated": true,
       "example": "XXX",
-      "type": "string"
+      "type": "line"
     },
     "fDroidID": {
       "description": {
@@ -766,7 +771,7 @@
         "hu": "F-Droid ID"
       },
       "example": "org.example",
-      "type": "string"
+      "type": "line"
     },
     "firefoxMarketplaceID": {
       "description": {
@@ -783,7 +788,7 @@
         "hu": "Firefox Marketplace ID"
       },
       "deprecated": true,
-      "type": "string"
+      "type": "line"
     },
     "googlePlayID": {
       "description": {
@@ -800,7 +805,7 @@
         "hu": "Google Play ID"
       },
       "example": "org.example",
-      "type": "string"
+      "type": "line"
     },
     "huaweiAppGalleryID": {
       "description": {
@@ -810,7 +815,7 @@
         "hu": "Huawei AppGallery alkalmazásazonosító"
       },
       "example": "CXXXXXXXXX",
-      "type": "string",
+      "type": "line",
       "label": {
         "en": "Huawei AppGallery ID",
         "cs": "Huawei AppGallery ID",
@@ -834,7 +839,7 @@
         "hu": "AppStore ID"
       },
       "example": "id12344556",
-      "type": "string"
+      "type": "line"
     },
     "macAppStoreID": {
       "description": {
@@ -851,7 +856,7 @@
         "hu": "Mac AppStore ID"
       },
       "example": "id12344556",
-      "type": "string"
+      "type": "line"
     },
     "microsoftAppID": {
       "description": {
@@ -868,7 +873,7 @@
         "hu": "Microsoft ID"
       },
       "example": "XXXXXXXXXXXX",
-      "type": "string"
+      "type": "line"
     },
     "map": {
       "description": {
@@ -885,7 +890,7 @@
         "es": "Mostrar mapa",
         "hu": "Térkép megjelenítése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "mapData": {
@@ -903,7 +908,7 @@
         "es": "Datos del mapa",
         "hu": "Térképadatok"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["raster", "vector"]
     },
     "datasource": {
@@ -922,7 +927,7 @@
         "hu": "Forrás"
       },
       "example": "online;cache",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["online", "cache", "offline"]
     },
     "rotateMap": {
@@ -940,7 +945,7 @@
         "es": "Girar el mapa",
         "hu": "Térkép elforgatása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "3D": {
@@ -951,7 +956,7 @@
         "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?",
         "hu": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "3D view",
@@ -976,7 +981,7 @@
         "es": "Muestra la página web",
         "hu": "Megjelenít-e weboldalt?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showPhoneNumber": {
@@ -994,7 +999,7 @@
         "es": "Muestra el número de teléfono",
         "hu": "Megjelenít-e telefonszámot?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showOpeningHours": {
@@ -1012,7 +1017,7 @@
         "es": "Indica el horario de apertura",
         "hu": "Megjelenít-e nyitva tartást?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "routing": {
@@ -1030,7 +1035,7 @@
         "es": "Enrutamiento",
         "hu": "Útvonaltervezés"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "createRouteManually": {
@@ -1048,7 +1053,7 @@
         "es": "Crear ruta manualmente",
         "hu": "Útvonal létrehozása manuálisan"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "calculateRoute": {
@@ -1066,7 +1071,7 @@
         "es": "Calcular ruta",
         "hu": "Útvonal kiszámítása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "createRouteViaWaypoints": {
@@ -1084,7 +1089,7 @@
         "es": "Crear ruta a través de Waypoints",
         "hu": "Útvonal létrehozása útpontokkal"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "profiles": {
@@ -1102,7 +1107,7 @@
         "hu": "Útvonaltervezési profilok"
       },
       "example": "car;bike;foot;wheelchair;public transport",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": [
         "car",
         "bike",
@@ -1125,7 +1130,7 @@
         "es": "Restricciones de giro",
         "hu": "Bekanyarodási korlátozások"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "calculateRouteOffline": {
@@ -1142,7 +1147,7 @@
         "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)",
         "hu": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "routingProviders": {
@@ -1159,7 +1164,7 @@
         "hu": "Útvonaltervezési szolgáltatók"
       },
       "example": "OpenRouteService;Yours",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": [
         "OpenRouteService",
         "Yours",
@@ -1183,7 +1188,7 @@
         "es": "Evitar el tráfico",
         "hu": "Forgalom elkerülése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "trafficProvider": {
@@ -1198,7 +1203,8 @@
         "cs": "Poskytovatel informací o provozu",
         "es": "Proveedor de tráfico",
         "hu": "Forgalmi szolgáltató"
-      }
+      },
+      "type": "line"
     },
     "navigating": {
       "description": {
@@ -1214,7 +1220,7 @@
         "es": "Navegar",
         "hu": "Navigáció"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "findLocation": {
@@ -1231,7 +1237,7 @@
         "es": "Encontrar ubicación",
         "hu": "Hely keresése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "findNearbyPOI": {
@@ -1248,7 +1254,7 @@
         "es": "Encuentra puntos de interés cercanos",
         "hu": "Közeli POI-k keresése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "navToPoint": {
@@ -1265,7 +1271,7 @@
         "es": "Navegar hasta el punto",
         "hu": "Navigáció ponthoz"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "voice": {
@@ -1282,7 +1288,7 @@
         "es": "Navegación por voz / Guía por voz",
         "hu": "Hangos navigáció / Hangvezérlés"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "keepOnRoad": {
@@ -1298,7 +1304,7 @@
         "es": "Siga por la carretera",
         "hu": "Úton tartás"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "turnLanes": {
@@ -1314,7 +1320,7 @@
         "es": "Guía de carriles",
         "hu": "Sávvezetés"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "withoutGPS": {
@@ -1331,7 +1337,7 @@
         "es": "Funcionar sin GPS",
         "hu": "Működés GPS nélkül"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "predefinedRoute": {
@@ -1348,7 +1354,7 @@
         "es": "Navegar por una ruta predefinida",
         "hu": "Navigálás előre meghatározott útvonalon"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "tracking": {
@@ -1358,7 +1364,7 @@
         "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?",
         "hu": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Make track",
@@ -1382,7 +1388,7 @@
         "es": "Intervalo de registro personalizable",
         "hu": "Testreszabható naplózási intervallum"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "trackFormats": {
@@ -1400,7 +1406,7 @@
         "es": "Formatos de pista",
         "hu": "Nyomvonalformátumok"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
     },
     "geotagging": {
@@ -1417,7 +1423,7 @@
         "hu": "Geotagging"
       },
       "example": "note;photo",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["note", "photo", "audio"]
     },
     "fastWayPointAdding": {
@@ -1434,7 +1440,7 @@
         "es": "Botones rápidos de PDI",
         "hu": "Gyors POI-gombok"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "uploadGPX": {
@@ -1444,7 +1450,7 @@
         "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?",
         "hu": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Upload GPX to OSM",
@@ -1467,7 +1473,7 @@
         "es": "Monitorización",
         "hu": "Követés"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showTrack": {
@@ -1484,7 +1490,7 @@
         "es": "Mostrar pista actual",
         "hu": "Jelenlegi nyomvonal megjelenítése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showExistingTrack": {
@@ -1501,7 +1507,7 @@
         "es": "Abrir pista existente",
         "hu": "Meglévő nyomvonal megnyitása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showAltitudeDiagram": {
@@ -1518,7 +1524,7 @@
         "es": "Gráfico de elevación",
         "hu": "Magassági diagram"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showDOP": {
@@ -1535,7 +1541,7 @@
         "es": "Mostrar valor DOP",
         "hu": "DOP-érték megjelenítése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showSatellites": {
@@ -1552,7 +1558,7 @@
         "es": "Vista satelital",
         "hu": "Műholdak nézet"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showNMEAlive": {
@@ -1569,7 +1575,7 @@
         "es": "Mostrar datos NMEA en directo",
         "hu": "Élő NMEA-adatok megjelenítése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "showSpeed": {
@@ -1585,7 +1591,7 @@
         "es": "Mostrar velocidad",
         "hu": "Sebesség megjelenítése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "sendPosition": {
@@ -1603,7 +1609,7 @@
         "es": "Enviar posición actual",
         "hu": "Jelenlegi pozíció elküldése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no", "sms", "mail", "www"]
     },
     "addPOI": {
@@ -1620,7 +1626,7 @@
         "es": "Agregar puntos de interés",
         "hu": "Érdekes pont (POI-k) felvétele"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editPOI": {
@@ -1637,7 +1643,7 @@
         "es": "Editar/eliminar puntos de interés",
         "hu": "Érdekes pont szerkesztésetörlése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "addWay": {
@@ -1653,7 +1659,7 @@
         "es": "Agregar vía",
         "hu": "Vonal felvétele"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editGeom": {
@@ -1670,7 +1676,7 @@
         "es": "Editar geometrías",
         "hu": "Alakzat szerkesztése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editTags": {
@@ -1687,7 +1693,7 @@
         "es": "Editar etiquetas aleatorias de objetos OSM existentes",
         "hu": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editRelations": {
@@ -1704,7 +1710,7 @@
         "es": "Editar relaciones",
         "hu": "Kapcsolat szerkesztése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "viewNotes": {
@@ -1720,7 +1726,7 @@
         "es": "Ver notas",
         "hu": "Jegyzetek megtekintése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "createNotes": {
@@ -1736,7 +1742,7 @@
         "es": "Crear notas",
         "hu": "Jegyzet létrehozása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editNotes": {
@@ -1752,7 +1758,7 @@
         "es": "Editar notas",
         "hu": "Jegyzet szerkesztése"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "editSource": {
@@ -1769,7 +1775,7 @@
         "hu": "Offline munka"
       },
       "example": "online;cache",
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["online", "cache", "offline"]
     },
     "offsetDBsupport": {
@@ -1786,7 +1792,7 @@
         "es": "Admite el desplazamiento de imágenes aéreas DB",
         "hu": "Légifelvétel-eltolási adatbázis támogatása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "uploadOSMData": {
@@ -1803,7 +1809,7 @@
         "es": "Cargar en OSM",
         "hu": "Feltöltés az OSM-re"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "rendererOutputFormats": {
@@ -1819,7 +1825,8 @@
         "cs": "Výstupní formáty rendereru",
         "es": "Formatos del renderizador",
         "hu": "Megjelenítő kimeneti formátumai"
-      }
+      },
+      "type": "line"
     },
     "accessibility": {
       "description": {
@@ -1835,7 +1842,7 @@
         "es": "Ayuda a la accesibilidad",
         "hu": "Kisegítő lehetőségek támogatása"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["blind", "wheelchair"]
     },
     "textOnlyUI": {
@@ -1852,7 +1859,7 @@
         "es": "Salida de texto sin gráficos",
         "hu": "Teljes nem grafikus szöveges kimenet"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "brailleUI": {
@@ -1869,7 +1876,7 @@
         "es": "Interfaz en Braille",
         "hu": "Braille-írás interfész"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "explorerMode": {
@@ -1886,7 +1893,7 @@
         "es": "Modo exploración",
         "hu": "Feltáró mód"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "publicTransportMode": {
@@ -1903,7 +1910,7 @@
         "es": "Modo de transporte público",
         "hu": "Tömegközlekedési mód"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "dangerWarnings": {
@@ -1920,7 +1927,7 @@
         "es": "Avisos de peligro",
         "hu": "Figyelmeztetés veszélyre"
       },
-      "type": "string",
+      "type": "line",
       "suggestedvalues": ["yes", "no"]
     },
     "screenReader": {
@@ -1937,7 +1944,8 @@
         "de": "Screenreader",
         "es": "Lector de pantalla",
         "hu": "Képernyő-felolvasó"
-      }
+      },
+      "type": "line"
     },
     "screenReaderLang": {
       "description": {
@@ -1953,7 +1961,8 @@
         "de": "Screenreader-Sprachen",
         "es": "Idiomas del lector de pantalla",
         "hu": "Képernyő-felolvasó nyelvei"
-      }
+      },
+      "type": "line"
     }
   },
   "paramOrder": [
