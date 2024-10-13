@@ -90,7 +90,6 @@ a {
 }
 
 .page-header {
-  scroll-snap-align: start;
   left: 0;
   position: sticky;
   z-index: 1000;
@@ -101,6 +100,7 @@ a {
 }
 
 #content {
+  scroll-snap-align: start;
   scroll-snap-type: y proximity;
   scroll-padding-top: 10px;
   overflow-x: auto;
