@@ -91,9 +91,6 @@ a {
 
 .page-header {
   scroll-snap-align: start;
-  left: 0;
-  position: sticky;
-  z-index: 1000;
 }
 
 .warning {
