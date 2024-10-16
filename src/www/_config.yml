@@ -52,8 +52,8 @@ defaults:
       path: "docs/hu/README.md"
     values:
       lang: "hu"
-      title: "OSM Apps Catalog - About"
-      description: "Experience the world in a creative, productive and unexpected way."
+      title: "OSM Apps Catalog - Névjegy"
+      description: "Tapasztald meg a világot kreatív, produktív és váratlan módokon."
       base: "/hu/"
   - scope:
       path: "docs/id/README.md"
