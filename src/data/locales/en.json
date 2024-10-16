@@ -1,5 +1,7 @@
 {
   "about": "About",
+  "list": "List",
+  "compare": "Compare",
   "filter.search": "Search",
   "filter.free": "Free",
   "filter.topic": "Topic",

@@ -79,6 +79,10 @@ freeCheckbox.addEventListener("change", () => {
   "title",
   i18next.t("about")
 );
+(document.getElementById("listText") as HTMLSpanElement).textContent =
+  i18next.t("list");
+  (document.getElementById("compareText") as HTMLSpanElement).textContent =
+    i18next.t("compare");
 
 if (i18next.resolvedLanguage !== "en") {
   (document.getElementById("about") as HTMLAnchorElement).href =
