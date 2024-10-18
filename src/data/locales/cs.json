@@ -64,5 +64,7 @@
     "share.wiki": "Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.",
     "wiki.generatedBy": "Vytvořeno pomocí OSM Apps Catalog",
     "wiki.none": "žádný",
-    "app.source.description": "Zdroj odkud pochází data."
+    "app.source.description": "Zdroj odkud pochází data.",
+    "compare": "Porovnat",
+    "list": "Seznam"
 }
