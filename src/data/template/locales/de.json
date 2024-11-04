@@ -75,25 +75,32 @@
         "description": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
     },
     "turnRestrictions": {
-        "label": "Abbiegebeschränkungen"
+        "label": "Abbiegebeschränkungen",
+        "description": "[Routing] Kann es mit Abbiegeverboten umgehen?"
     },
     "calculateRouteOffline": {
-        "label": "Route berechnen ohne Internet"
+        "label": "Route berechnen ohne Internet",
+        "description": "[Routing] Braucht es Internet, um eine Route zu berechnen?"
     },
     "navigating": {
-        "label": "Navigieren"
+        "label": "Navigieren",
+        "description": "[Navigation] Kann man mit einem Kompass navigieren?"
     },
     "findLocation": {
-        "label": "Finde eine Position"
+        "label": "Finde eine Position",
+        "description": "[Navigation] Kann man nach einer Straße/einem Ort suchen?"
     },
     "findNearbyPOI": {
-        "label": "Finde POI in der Nähe"
+        "label": "Finde POI in der Nähe",
+        "description": "[Navigation] Kann es Points of Interest anzeigen?"
     },
     "navToPoint": {
-        "label": "Navigiere zu einem Punkt"
+        "label": "Navigiere zu einem Punkt",
+        "description": "[Navigation] Kann es einen zu einem bestimmten Punkt führen?"
     },
     "voice": {
-        "label": "Navigation mit Sprachansage"
+        "label": "Navigation mit Sprachansage",
+        "description": "[Navigation] Kann es Befehle mit einer Computerstimme geben?"
     },
     "withoutGPS": {
         "label": "Funktioniert ohne GPS"
@@ -165,7 +172,8 @@
         "label": "ÖPNV-Modus"
     },
     "dangerWarnings": {
-        "label": "Gefahrenwarnungen"
+        "label": "Gefahrenwarnungen",
+        "description": "[Barrierefreiheit]"
     },
     "screenReader": {
         "label": "Screenreader"
@@ -193,10 +201,12 @@
         "description": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"
     },
     "microsoftAppID": {
-        "label": "Microsoft ID"
+        "label": "Microsoft ID",
+        "description": "Microsoft Store Windows-Anwendungs-UUID"
     },
     "appleStoreID": {
-        "label": "AppStore ID"
+        "label": "AppStore ID",
+        "description": "iTunes App Store Anwendungs-ID"
     },
     "editRelations": {
         "label": "Relationen bearbeiten"
@@ -206,7 +216,8 @@
         "description": "Hauptkategorie für dieses Tool."
     },
     "googlePlayID": {
-        "label": "Google Play ID"
+        "label": "Google Play ID",
+        "description": "Google Play Store-Anwendungs-ID"
     },
     "datasource": {
         "label": "Quelle",
@@ -232,13 +243,16 @@
         "description": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"
     },
     "firefoxMarketplaceID": {
-        "label": "Firefox Marketplace ID"
+        "label": "Firefox Marketplace ID",
+        "description": "Mozilla Firefox Marketplace-Anwendungs-ID"
     },
     "huaweiAppGalleryID": {
-        "label": "Huawei AppGallery ID"
+        "label": "Huawei AppGallery ID",
+        "description": "Huawei AppGallery Anwendungs-ID"
     },
     "macAppStoreID": {
-        "label": "Mac AppStore ID"
+        "label": "Mac AppStore ID",
+        "description": "Mac App Store Anwendungs-ID"
     },
     "showPhoneNumber": {
         "description": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
@@ -257,6 +271,50 @@
         "description": "[POI Information] Zeigt den Link zur Website vom POI an"
     },
     "profiles": {
-        "label": "Routing Profile"
+        "label": "Routing Profile",
+        "description": "[Routing] Welche Profile werden beim Routing unterstützt?"
+    },
+    "routingProviders": {
+        "description": "[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?",
+        "label": "Routing-Anbieter"
+    },
+    "avoidTraffic": {
+        "label": "Verkehr vermeiden",
+        "description": "[Routing] Optimiert die App die Route, um Staus zu vermeiden?"
+    },
+    "trafficProvider": {
+        "label": "Verkehrsanbieter",
+        "description": "[Routing] Anbieter der Verkehrsdatenquelle."
+    },
+    "keepOnRoad": {
+        "label": "Auf der Straße bleiben",
+        "description": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"
+    },
+    "turnLanes": {
+        "label": "Fahrspurführung"
+    },
+    "uploadGPX": {
+        "label": "GPX zu OSM hochladen"
+    },
+    "trackFormats": {
+        "label": "Track-Formate"
+    },
+    "viewNotes": {
+        "label": "Notizen anzeigen"
+    },
+    "addWay": {
+        "label": "Weg hinzufügen"
+    },
+    "editNotes": {
+        "label": "Notizen bearbeiten"
+    },
+    "createNotes": {
+        "label": "Notizen erstellen"
+    },
+    "geotagging": {
+        "label": "Geotagging"
+    },
+    "showSpeed": {
+        "label": "Geschwindigkeit anzeigen"
     }
 }
