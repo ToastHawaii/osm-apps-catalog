@@ -103,10 +103,12 @@
         "description": "[Navigation] Kann es Befehle mit einer Computerstimme geben?"
     },
     "withoutGPS": {
-        "label": "Funktioniert ohne GPS"
+        "label": "Funktioniert ohne GPS",
+        "description": "[Navigation] Funktioniert auch ohne GPS?"
     },
     "predefinedRoute": {
-        "label": "Folge einer vordefinierten Route"
+        "label": "Folge einer vordefinierten Route",
+        "description": "[Navigation] Kann anderen GPS-Tracks folgen?"
     },
     "tracking": {
         "label": "Track aufzeichnen"
