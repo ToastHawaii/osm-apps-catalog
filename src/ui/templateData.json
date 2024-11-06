@@ -1483,7 +1483,7 @@
     "uploadGPX": {
       "description": {
         "en": "[Track logging] Can it send tracks directly to OSM?",
-        "cs": "[ Záznam tras] Lze odesílat trasy přímo do OSM?",
+        "cs": "[Záznam tras] Lze odesílat trasy přímo do OSM?",
         "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?",
         "hu": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
       },
@@ -1500,7 +1500,7 @@
     "monitoring": {
       "description": {
         "en": "[Track monitoring] Can you monitor GPS datas?",
-        "cs": "[ Monitorování trasy] Můžete monitorovat data GPS?",
+        "cs": "[Monitorování trasy] Můžete monitorovat data GPS?",
         "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?",
         "hu": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
       },

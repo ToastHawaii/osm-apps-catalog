@@ -229,12 +229,12 @@
         "description": "[Záznam trasy] Snadné přidání nového bodu trasy?"
     },
     "uploadGPX": {
-        "description": "[ Záznam tras] Lze odesílat trasy přímo do OSM?",
+        "description": "[Záznam tras] Lze odesílat trasy přímo do OSM?",
         "label": "Nahrání GPX do OSM"
     },
     "monitoring": {
         "label": "Monitorování",
-        "description": "[ Monitorování trasy] Můžete monitorovat data GPS?"
+        "description": "[Monitorování trasy] Můžete monitorovat data GPS?"
     },
     "showTrack": {
         "label": "Zobrazení aktuální trasy",
