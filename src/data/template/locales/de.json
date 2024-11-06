@@ -204,6 +204,10 @@
         "label": "Microsoft ID",
         "description": "Microsoft Store Windows-Anwendungs-UUID"
     },
+    "obtainiumLink": {
+        "label": "Obtainium Updater Verweis",
+        "description": "Verweis zu Obtainium updater Informationen"
+    },
     "appleStoreID": {
         "label": "AppStore ID",
         "description": "iTunes App Store Anwendungs-ID"

@@ -777,6 +777,7 @@
       "description": {
         "en": "Mozilla Firefox Marketplace application ID",
         "cs": "ID aplikace Mozilla Firefox Marketplace",
+        "de": "Mozilla Firefox Marketplace-Anwendungs-ID",
         "es": "ID de la aplicación Mozilla Firefox Marketplace",
         "hu": "Mozilla Firefox Marketplace alkalmazásazonosító"
       },
@@ -794,6 +795,7 @@
       "description": {
         "en": "Google Play Store application ID",
         "cs": "ID aplikace v Obchodě Google Play",
+        "de": "Google Play Store-Anwendungs-ID",
         "es": "ID de la aplicación Google Play Store",
         "hu": "Google Play Store alkalmazásazonosító"
       },
@@ -811,6 +813,7 @@
       "description": {
         "en": "Huawei AppGallery application ID",
         "cs": "ID aplikace Huawei AppGallery",
+        "de": "Huawei AppGallery Anwendungs-ID",
         "es": "ID de la aplicación Huawei AppGallery",
         "hu": "Huawei AppGallery alkalmazásazonosító"
       },
@@ -828,6 +831,7 @@
       "description": {
         "en": "iTunes App Store application ID",
         "cs": "ID aplikace iTunes App Store",
+        "de": "iTunes App Store Anwendungs-ID",
         "es": "ID de la aplicación iTunes App Store",
         "hu": "iTunes App Store alkalmazásazonosító"
       },
@@ -845,6 +849,7 @@
       "description": {
         "en": "Mac App Store application ID",
         "cs": "ID aplikace Mac App Store",
+        "de": "Mac App Store Anwendungs-ID",
         "es": "ID de la aplicación Mac App Store",
         "hu": "Mac App Store alkalmazásazonosító"
       },
@@ -862,6 +867,7 @@
       "description": {
         "en": "Microsoft Store Windows application UUID",
         "cs": "UUID aplikace Microsoft Store pro systém Windows",
+        "de": "Microsoft Store Windows-Anwendungs-UUID",
         "es": "UUID de la aplicación Windows de Microsoft Store",
         "hu": "Microsoft Store Windows alkalmazás UUID"
       },
@@ -1108,6 +1114,7 @@
       "description": {
         "en": "[Routing] What profiles supported if it makes routing?",
         "cs": "[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?",
+        "de": "[Routing] Welche Profile werden beim Routing unterstützt?",
         "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?",
         "hu": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"
       },
@@ -1132,6 +1139,7 @@
       "description": {
         "en": "[Routing] Can it deal with turn restrictions?",
         "cs": "[Hledání trasy] Dokáže se vypořádat s omezením otáčení?",
+        "de": "[Routing] Kann es mit Abbiegeverboten umgehen?",
         "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?",
         "hu": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"
       },
@@ -1149,6 +1157,7 @@
       "description": {
         "en": "[Routing] Does it need internet to calculate a route?",
         "cs": "[Hledání trasy] Potřebuje k výpočtu trasy internet?",
+        "de": "[Routing] Braucht es Internet, um eine Route zu berechnen?",
         "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?",
         "hu": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"
       },
@@ -1166,12 +1175,14 @@
       "description": {
         "en": "[Routing] What routing service(s) does it use?",
         "cs": "[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?",
+        "de": "[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?",
         "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?",
         "hu": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
       },
       "label": {
         "en": "Routing providers",
         "cs": "Poskytovatelé hledání tras",
+        "de": "Routing-Anbieter",
         "es": "Proveedores de enrutamiento",
         "hu": "Útvonaltervezési szolgáltatók"
       },
@@ -1191,12 +1202,14 @@
       "description": {
         "en": "[Routing] Does app optimize route to avoid traffic jams?",
         "cs": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
+        "de": "[Routing] Optimiert die App die Route, um Staus zu vermeiden?",
         "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?",
         "hu": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"
       },
       "label": {
         "en": "Avoid traffic",
         "cs": "Vyhýbání se provozu",
+        "de": "Verkehr vermeiden",
         "es": "Evitar el tráfico",
         "hu": "Forgalom elkerülése"
       },
@@ -1207,12 +1220,14 @@
       "description": {
         "en": "[Routing] Traffic data source provider.",
         "cs": "[Hledání trasy] Poskytovatel zdroje dopravních dat.",
+        "de": "[Routing] Anbieter der Verkehrsdatenquelle.",
         "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico.",
         "hu": "[Útvonaltervezés] Forgalmi adatok forrásának szolgáltatója"
       },
       "label": {
         "en": "Traffic Provider",
         "cs": "Poskytovatel informací o provozu",
+        "de": "Verkehrsanbieter",
         "es": "Proveedor de tráfico",
         "hu": "Forgalmi szolgáltató"
       },
@@ -1222,6 +1237,7 @@
       "description": {
         "en": "[Navigation] Can you navigate in a compass like way?",
         "cs": "[Navigace] Umíte se orientovat podle kompasu?",
+        "de": "[Navigation] Kann man mit einem Kompass navigieren?",
         "es": "[Navegación] ¿Puedes navegar con una brújula?",
         "hu": "[Navigáció] Tud-e iránytűszerűen navigálni?"
       },
@@ -1239,6 +1255,7 @@
       "description": {
         "en": "[Navigation] Can it search for a street/place?",
         "cs": "[Navigace] Umí vyhledat ulici/místo?",
+        "de": "[Navigation] Kann man nach einer Straße/einem Ort suchen?",
         "es": "[Navegación] ¿Puede buscar una calle/lugar?",
         "hu": "[Navigáció] Lehet-e utcát/helyet keresni?"
       },
@@ -1256,6 +1273,7 @@
       "description": {
         "en": "[Navigation] Can it discover/display Points of interests?",
         "cs": "[Navigace] Umí najít/zobrazit body zájmu?",
+        "de": "[Navigation] Kann es Points of Interest anzeigen?",
         "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?",
         "hu": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"
       },
@@ -1273,6 +1291,7 @@
       "description": {
         "en": "[Navigation] Can it guide you to a point somewhere?",
         "cs": "[Navigace] Dokáže vás navigovat někam?",
+        "de": "[Navigation] Kann es einen zu einem bestimmten Punkt führen?",
         "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?",
         "hu": "[Navigáció] El tud-e vezetni valahová?"
       },
@@ -1290,6 +1309,7 @@
       "description": {
         "en": "[Navigation] Can it give you commands with a computer voice?",
         "cs": "[Navigace] Umí vám dávat příkazy počítačovým hlasem?",
+        "de": "[Navigation] Kann es Befehle mit einer Computerstimme geben?",
         "es": "[Navegación] ¿Puede darte comandos con una voz artificial?",
         "hu": "[Navigáció] Tud-e számítógéphanggal utasítást adni?"
       },
@@ -1307,12 +1327,14 @@
       "description": {
         "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?",
         "cs": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?",
+        "de": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?",
         "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?",
         "hu": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"
       },
       "label": {
         "en": "Keep on road",
         "cs": "Pokračování v cestě",
+        "de": "Auf der Straße bleiben",
         "es": "Siga por la carretera",
         "hu": "Úton tartás"
       },
@@ -1329,6 +1351,7 @@
       "label": {
         "en": "Lane guidance",
         "cs": "Navádění do jízdních pruhů",
+        "de": "Fahrspurführung",
         "es": "Guía de carriles",
         "hu": "Sávvezetés"
       },
@@ -1415,6 +1438,7 @@
       "label": {
         "en": "Track formats",
         "cs": "Formáty tras",
+        "de": "Track-Formate",
         "es": "Formatos de pista",
         "hu": "Nyomvonalformátumok"
       },
@@ -1431,6 +1455,7 @@
       "label": {
         "en": "Geotagging",
         "cs": "Geotagging",
+        "de": "Geotagging",
         "es": "Geoetiquetado",
         "hu": "Geotagging"
       },
@@ -1467,6 +1492,7 @@
       "label": {
         "en": "Upload GPX to OSM",
         "cs": "Nahrání GPX do OSM",
+        "de": "GPX zu OSM hochladen",
         "es": "Cargar GPX a OSM",
         "hu": "GPX feltöltése az OSM-re"
       }
@@ -1600,6 +1626,7 @@
       "label": {
         "en": "Show speed",
         "cs": "Zobrazení rychlosti",
+        "de": "Geschwindigkeit anzeigen",
         "es": "Mostrar velocidad",
         "hu": "Sebesség megjelenítése"
       },
@@ -1668,6 +1695,7 @@
       "label": {
         "en": "Add way",
         "cs": "Přidání cesty",
+        "de": "Weg hinzufügen",
         "es": "Agregar vía",
         "hu": "Vonal felvétele"
       },
@@ -1735,6 +1763,7 @@
       "label": {
         "en": "View notes",
         "cs": "Zobrazení poznámek",
+        "de": "Notizen anzeigen",
         "es": "Ver notas",
         "hu": "Jegyzetek megtekintése"
       },
@@ -1751,6 +1780,7 @@
       "label": {
         "en": "Create notes",
         "cs": "Tvorba poznámek",
+        "de": "Notizen erstellen",
         "es": "Crear notas",
         "hu": "Jegyzet létrehozása"
       },
@@ -1767,6 +1797,7 @@
       "label": {
         "en": "Edit notes",
         "cs": "Úprava poznámek",
+        "de": "Notizen bearbeiten",
         "es": "Editar notas",
         "hu": "Jegyzet szerkesztése"
       },
@@ -1929,6 +1960,7 @@
       "description": {
         "en": "[Accessibility]",
         "cs": "[Přístupnost]",
+        "de": "[Barrierefreiheit]",
         "es": "[Accesibilidad]",
         "hu": "[Akadálymentesség]"
       },

@@ -46,13 +46,13 @@
     "label": "Languages",
     "description": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported"
   },
-  "coverage": {
-    "label": "Coverage",
-    "description": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use."
-  },
   "languagesurl": {
     "label": "Languages URL",
     "description": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."
+  },
+  "coverage": {
+    "label": "Coverage",
+    "description": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use."
   },
   "code": {
     "label": "Code",
@@ -99,6 +99,10 @@
   "microsoftAppID": {
     "label": "Microsoft ID",
     "description": "Microsoft Store Windows application UUID"
+  },
+  "obtainiumLink": {
+    "label": "Obtainium Updater Link",
+    "description": "Link to Obtainium updater information"
   },
   "map": {
     "label": "Display map",
