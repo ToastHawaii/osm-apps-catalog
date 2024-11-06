@@ -875,6 +875,18 @@
       "example": "XXXXXXXXXXXX",
       "type": "line"
     },
+    "obtainiumLink": {
+      "description": {
+        "en": "Link to Obtainium updater information",
+        "de": "Verweis zu Obtainium updater Informationen"
+      },
+      "label": {
+        "en": "Obtainium Updater Link",
+        "de": "Obtainium Updater Verweis"
+      },
+      "example": "https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium",
+      "type": "line"
+    },
     "map": {
       "description": {
         "en": "[Map display] Can it show a map?",
@@ -1995,6 +2007,7 @@
     "appleStoreID",
     "macAppStoreID",
     "microsoftAppID",
+    "obtainiumLink",
     "map",
     "mapData",
     "datasource",
