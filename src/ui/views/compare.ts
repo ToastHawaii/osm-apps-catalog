@@ -75,6 +75,7 @@ export function render(apps: App[], lang: string) {
             app.website ||
             app.install.asin ||
             app.install.fDroidID ||
+            app.install.obtainiumLink ||
             app.install.googlePlayID ||
             app.install.huaweiAppGalleryID ||
             app.install.appleStoreID ||
@@ -104,6 +105,15 @@ ${
       }" title="${i18next.t(
         "app.install.fDroid"
       )}" ><i class="fab fa-android"></i></a>`
+    : ""
+}
+${
+  app.install.obtainiumLink
+    ? `<a class="download" href="${
+        app.install.obtainiumLink
+      }" title="${i18next.t(
+        "app.install.obtainiumLink"
+      )}" ><i class="fas fa-gem" style="transform: rotate(315deg);"></i></a>`
     : ""
 }
 ${
@@ -171,6 +181,11 @@ ${
               ? `[https://f-droid.org/repository/browse/?fdid=${
                   app.install.fDroidID
                 } ${i18next.t("app.install.fDroid", { lng: lang })}]`
+              : "",
+            app.install.obtainiumLink
+              ? `[${
+                  app.install.obtainiumLink
+                } ${i18next.t("app.install.obtainiumLink", { lng: lang })}]`
               : "",
             app.install.googlePlayID
               ? `[https://play.google.com/store/apps/details?id=${

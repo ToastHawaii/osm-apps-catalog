@@ -55,6 +55,7 @@ export async function loadApps(
         toUrl(s["web"]) ||
         s["asin"] ||
         s["fDroidID"] ||
+        s["obtainiumLink"] ||
         s["googlePlayID"] ||
         s["huaweiAppGalleryID"] ||
         s["appleStoreID"] ||

@@ -50,6 +50,7 @@ export type App = {
   install: {
     asin?: string;
     fDroidID?: string;
+    obtainiumLink?: string;
     googlePlayID?: string;
     huaweiAppGalleryID?: string;
     appleStoreID?: string;

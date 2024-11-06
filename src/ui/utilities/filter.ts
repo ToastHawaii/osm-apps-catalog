@@ -44,6 +44,7 @@ export function mobile(a: App) {
       .some((t) => mobilePlatforms.includes(t)) ||
     a.install.asin ||
     a.install.fDroidID ||
+    a.install.obtainiumLink ||
     a.install.googlePlayID ||
     a.install.huaweiAppGalleryID ||
     a.install.appleStoreID

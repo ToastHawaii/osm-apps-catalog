@@ -96,6 +96,7 @@ export function transform(source: { [name: string]: string }) {
     install: {
       asin: source["asin"],
       fDroidID: source["fDroidID"],
+      obtainiumLink: source["obtainiumLink"],
       googlePlayID: source["googlePlayID"],
       huaweiAppGalleryID: source["huaweiAppGalleryID"],
       appleStoreID: source["appleStoreID"],

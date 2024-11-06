@@ -113,6 +113,7 @@ SELECT DISTINCT
   (SAMPLE(?googlePlayID) AS ?googlePlayID) 
   (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
   (SAMPLE(?fDroidID) AS ?fDroidID) 
+  (SAMPLE(?fDroidID) AS ?fDroidID) 
   (SAMPLE(?appleStoreID) AS ?appleStoreID) 
   (SAMPLE(?microsoftAppID) AS ?microsoftAppID) 
   ?viewing

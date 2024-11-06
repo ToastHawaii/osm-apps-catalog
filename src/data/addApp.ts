@@ -18,6 +18,7 @@ export function addApp(obj: App) {
       obj.install.appleStoreID ||
       obj.install.asin ||
       obj.install.fDroidID ||
+      obj.install.obtainiumLink ||
       obj.install.huaweiAppGalleryID ||
       obj.install.macAppStoreID ||
       obj.install.microsoftAppID ||
@@ -95,6 +96,7 @@ export function addApp(obj: App) {
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
+    app.install.obtainiumLink = app.install.obtainiumLink || obj.install.obtainiumLink;
     app.install.googlePlayID =
       app.install.googlePlayID || obj.install.googlePlayID;
     app.install.huaweiAppGalleryID =

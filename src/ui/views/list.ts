@@ -72,6 +72,15 @@ export function render(app: App) {
           : ""
       }
       ${
+        app.install.obtainiumLink
+          ? `<a class="download" href="${
+              app.install.obtainiumLink
+            }" title="${i18next.t(
+              "app.install.obtainiumLink"
+            )}" ><i class="fas fa-gem" style="transform: rotate(315deg);"></i></a>`
+          : ""
+      }
+      ${
         app.install.googlePlayID
           ? `<a class="download" href="https://play.google.com/store/apps/details?id=${
               app.install.googlePlayID
