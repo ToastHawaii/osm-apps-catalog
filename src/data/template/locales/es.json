@@ -363,5 +363,9 @@
     "textOnlyUI": {
         "label": "Salida de texto sin gráficos",
         "description": "[Accesibilidad] ¿Interfaz compatible de texto a braille?"
+    },
+    "obtainiumLink": {
+        "label": "Enlace de actualización de Obtainium",
+        "description": "Enlace a la información de actualización de Obtainium"
     }
 }
