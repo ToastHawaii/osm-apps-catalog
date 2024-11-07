@@ -150,10 +150,12 @@
         "label": "POI bearbeiten/löschen"
     },
     "editGeom": {
-        "label": "Geometrie bearbeiten"
+        "label": "Geometrie bearbeiten",
+        "description": "[Editor] Kann man Knoten/Wege bearbeiten?"
     },
     "editTags": {
-        "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten"
+        "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
+        "description": "[Editor] Kann man bestehende Tags bearbeiten?"
     },
     "offsetDBsupport": {
         "label": "Unterstützt Luftbildversatz DB"
@@ -215,7 +217,8 @@
         "description": "iTunes App Store Anwendungs-ID"
     },
     "editRelations": {
-        "label": "Relationen bearbeiten"
+        "label": "Relationen bearbeiten",
+        "description": "[Editor] Kann man Relationen bearbeiten?"
     },
     "genre": {
         "label": "Genre",
@@ -297,7 +300,8 @@
         "description": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"
     },
     "turnLanes": {
-        "label": "Fahrspurführung"
+        "label": "Fahrspurführung",
+        "description": "[Navigation] Unterstützt es die Fahrspurführung?"
     },
     "uploadGPX": {
         "label": "GPX zu OSM hochladen"
@@ -306,21 +310,34 @@
         "label": "Track-Formate"
     },
     "viewNotes": {
-        "label": "Notizen anzeigen"
+        "label": "Notizen anzeigen",
+        "description": "[Editor] Kann man OSM-Notizen anzeigen?"
     },
     "addWay": {
         "label": "Weg hinzufügen"
     },
     "editNotes": {
-        "label": "Notizen bearbeiten"
+        "label": "Notizen bearbeiten",
+        "description": "[Editor] Kann man OSM-Notizen kommentieren/schließen?"
     },
     "createNotes": {
-        "label": "Notizen erstellen"
+        "label": "Notizen erstellen",
+        "description": "[Editor] Kann man OSM-Notizen anlegen?"
     },
     "geotagging": {
         "label": "Geotagging"
     },
     "showSpeed": {
         "label": "Geschwindigkeit anzeigen"
+    },
+    "editSource": {
+        "label": "Offline benutzen",
+        "description": "[Editor] Kannst man offline arbeiten?"
+    },
+    "rendererOutputFormats": {
+        "label": "Renderer-Ausgabeformate"
+    },
+    "accessibility": {
+        "label": "Unterstützung der Barrierefreiheit"
     }
 }
