@@ -111,43 +111,56 @@
         "description": "[Navigation] Kann anderen GPS-Tracks folgen?"
     },
     "tracking": {
-        "label": "Track aufzeichnen"
+        "label": "Track aufzeichnen",
+        "description": "[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?"
     },
     "customInterval": {
-        "label": "Einstellbares Aufzeichnungsintervall"
+        "label": "Einstellbares Aufzeichnungsintervall",
+        "description": "[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?"
     },
     "fastWayPointAdding": {
-        "label": "Knöpfe zum schnellen Setzen von Wegpunkten"
+        "label": "Knöpfe zum schnellen Setzen von Wegpunkten",
+        "description": "[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?"
     },
     "monitoring": {
-        "label": "Monitoring"
+        "label": "Monitoring",
+        "description": "[Streckenüberwachung] Kann man GPS-Daten überwachen?"
     },
     "showTrack": {
-        "label": "Zeige aktuellen Track"
+        "label": "Zeige aktuellen Track",
+        "description": "[Streckenüberwachung] Zeigt es den aktuellen Kurs an?"
     },
     "showExistingTrack": {
-        "label": "Öffne existierenden Track"
+        "label": "Öffne existierenden Track",
+        "description": "[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?"
     },
     "showAltitudeDiagram": {
-        "label": "Höhendiagramm"
+        "label": "Höhendiagramm",
+        "description": "[Streckenüberwachung]"
     },
     "showDOP": {
-        "label": "Zeige DOP-Wert"
+        "label": "Zeige DOP-Wert",
+        "description": "[Streckenüberwachung] Zeigt es die Signalqualität an?"
     },
     "showSatellites": {
-        "label": "Zeige Satelliten"
+        "label": "Zeige Satelliten",
+        "description": "[Streckenüberwachung] Zeigt es Satelliten an?"
     },
     "showNMEAlive": {
-        "label": "Zeige NMEA-Livedaten"
+        "label": "Zeige NMEA-Livedaten",
+        "description": "[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?"
     },
     "sendPosition": {
-        "label": "Sende aktuelle Position"
+        "label": "Sende aktuelle Position",
+        "description": "[Streckenüberwachung] Kann man seine Position an andere senden?"
     },
     "addPOI": {
-        "label": "POI hinzufügen"
+        "label": "POI hinzufügen",
+        "description": "[Editor] Kann man Punkte hinzufügen?"
     },
     "editPOI": {
-        "label": "POI bearbeiten/löschen"
+        "label": "POI bearbeiten/löschen",
+        "description": "[Editor] Kann man Punkte bearbeiten?"
     },
     "editGeom": {
         "label": "Geometrie bearbeiten",
@@ -158,32 +171,40 @@
         "description": "[Editor] Kann man bestehende Tags bearbeiten?"
     },
     "offsetDBsupport": {
-        "label": "Unterstützt Luftbildversatz DB"
+        "label": "Unterstützt Luftbildversatz DB",
+        "description": "[Editor] Unterstützt es die Bildoffset-DB?"
     },
     "uploadOSMData": {
-        "label": "Zu OSM hochladen"
+        "label": "Zu OSM hochladen",
+        "description": "[Editor] Kann man Änderungen direkt an OSM senden?"
     },
     "textOnlyUI": {
-        "label": "Komplett ohne Grafik bedienbar"
+        "label": "Komplett ohne Grafik bedienbar",
+        "description": "[Barrierefreiheit] Text in Braille kompatible Schnittstelle?"
     },
     "brailleUI": {
-        "label": "Braille-Oberfläche"
+        "label": "Braille-Oberfläche",
+        "description": "[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?"
     },
     "explorerMode": {
-        "label": "Erkundungsmodus"
+        "label": "Erkundungsmodus",
+        "description": "[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?"
     },
     "publicTransportMode": {
-        "label": "ÖPNV-Modus"
+        "label": "ÖPNV-Modus",
+        "description": "[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?"
     },
     "dangerWarnings": {
         "label": "Gefahrenwarnungen",
         "description": "[Barrierefreiheit]"
     },
     "screenReader": {
-        "label": "Screenreader"
+        "label": "Screenreader",
+        "description": "[Barrierefreiheit] Liste der unterstützten Screenreader"
     },
     "screenReaderLang": {
-        "label": "Screenreader-Sprachen"
+        "label": "Screenreader-Sprachen",
+        "description": "[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen"
     },
     "status": {
         "label": "Status",
@@ -304,17 +325,20 @@
         "description": "[Navigation] Unterstützt es die Fahrspurführung?"
     },
     "uploadGPX": {
-        "label": "GPX zu OSM hochladen"
+        "label": "GPX zu OSM hochladen",
+        "description": "[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?"
     },
     "trackFormats": {
-        "label": "Track-Formate"
+        "label": "Track-Formate",
+        "description": "[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?"
     },
     "viewNotes": {
         "label": "Notizen anzeigen",
         "description": "[Editor] Kann man OSM-Notizen anzeigen?"
     },
     "addWay": {
-        "label": "Weg hinzufügen"
+        "label": "Weg hinzufügen",
+        "description": "[Editor] Kann man Wege hinzufpgen?"
     },
     "editNotes": {
         "label": "Notizen bearbeiten",
@@ -325,19 +349,23 @@
         "description": "[Editor] Kann man OSM-Notizen anlegen?"
     },
     "geotagging": {
-        "label": "Geotagging"
+        "label": "Geotagging",
+        "description": "[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?"
     },
     "showSpeed": {
-        "label": "Geschwindigkeit anzeigen"
+        "label": "Geschwindigkeit anzeigen",
+        "description": "[Streckenüberwachung]"
     },
     "editSource": {
         "label": "Offline benutzen",
         "description": "[Editor] Kannst man offline arbeiten?"
     },
     "rendererOutputFormats": {
-        "label": "Renderer-Ausgabeformate"
+        "label": "Renderer-Ausgabeformate",
+        "description": "[Renderer] Unterstützte Ausgabeformate."
     },
     "accessibility": {
-        "label": "Unterstützung der Barrierefreiheit"
+        "label": "Unterstützung der Barrierefreiheit",
+        "description": "[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?"
     }
 }
