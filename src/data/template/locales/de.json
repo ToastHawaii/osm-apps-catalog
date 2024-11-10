@@ -235,7 +235,7 @@
     },
     "appleStoreID": {
         "label": "AppStore ID",
-        "description": "iTunes App Store Anwendungs-ID"
+        "description": "iTunes App Store Anwendungs-D"
     },
     "editRelations": {
         "label": "Relationen bearbeiten",
@@ -247,7 +247,7 @@
     },
     "googlePlayID": {
         "label": "Google Play ID",
-        "description": "Google Play Store-Anwendungs-ID"
+        "description": "Google Play Store Anwendungs-ID"
     },
     "datasource": {
         "label": "Quelle",
@@ -274,7 +274,7 @@
     },
     "firefoxMarketplaceID": {
         "label": "Firefox Marketplace ID",
-        "description": "Mozilla Firefox Marketplace-Anwendungs-ID"
+        "description": "Mozilla Firefox Marktplatz-Anwendungs-ID"
     },
     "huaweiAppGalleryID": {
         "label": "Huawei AppGallery ID",
