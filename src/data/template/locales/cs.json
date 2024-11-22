@@ -363,5 +363,9 @@
     "explorerMode": {
         "label": "Modus průzkumu",
         "description": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"
+    },
+    "obtainiumLink": {
+        "description": "Odkaz na informace o aktualizačním programu Obtainium",
+        "label": "Odkaz na aktualizační program Obtainium"
     }
 }
