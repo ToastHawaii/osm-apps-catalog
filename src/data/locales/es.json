@@ -66,5 +66,14 @@
     "notFound": "¿No encuentras lo que buscas?",
     "app.source.description": "La fuente de donde provienen estos datos.",
     "list": "Lista",
-    "compare": "Comparar"
+    "compare": "Comparar",
+    "app.community.matrix": "Sala de Matrix",
+    "app.community.issueTracker": "Problemas",
+    "app.community.githubDiscussions": "Discusiones en GitHub",
+    "app.community.reddit": "Reddit",
+    "app.community.slack": "Slack",
+    "app.community": "Comunidad",
+    "app.community.forumTag": "Foro",
+    "app.community.telegram": "Grupo de Telegram",
+    "app.community.mastodon": "Mastodon"
 }
