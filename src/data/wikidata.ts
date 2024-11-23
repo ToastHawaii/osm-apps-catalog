@@ -69,6 +69,12 @@ export function transformWikidataResult(result: any) {
       appleStoreID: result.appleStoreID?.value,
       microsoftAppID: result.microsoftAppID?.value,
     },
+    community: {
+      issueTracker: result.issueTrackerUrl?.value,
+      telegram: result.telegram?.value || result.telegramDefault?.value,
+      mastodon: result.mastodonAddress?.value,
+      reddit: result.subreddit?.value,
+    },
     source: [
       {
         name: "Wikidata",
@@ -122,6 +128,11 @@ SELECT DISTINCT
   ?hashtagTool
   ?monitoring
   ?changsetReview
+  (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
+  (SAMPLE(?telegramDefault) AS ?telegramDefault)
+  (SAMPLE(?telegram) AS ?telegram)
+  (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
+  (SAMPLE(?subreddit) AS ?subreddit) 
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
@@ -214,6 +225,23 @@ WHERE {
     ?item wdt:P31 wd:Q125191237.
     BIND("yes" AS ?changsetReview)
   }
+  OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
+  OPTIONAL { 
+    ?item p:P3789 ?telegramStatement. 
+    ?telegramStatement ps:P3789 ?telegramDefault; 
+     pq:P3831 wd:Q87410646.
+  }
+  
+  OPTIONAL { 
+    ?item p:P3789 ?telegramStatement. 
+    ?telegramStatement ps:P3789 ?telegram; 
+     pq:P3831 wd:Q87410646.
+    ?telegramStatement pq:P407 ?telegramLanguage.
+    ?telegramLanguage wdt:P218 ?telegramLanguageCode 
+    FILTER(?telegramLanguageCode = "${language}")
+  }
+  OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
+  OPTIONAL { ?item wdt:P3984 ?subreddit. }
   ?item schema:dateModified ?modified
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
 }

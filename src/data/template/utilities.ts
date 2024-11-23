@@ -134,9 +134,18 @@ export type App = {
     screenReader: string[];
     screenReaderLang: string[];
   };
+  community: {
+    forumTag?: string;
+    matrix?: string;
+    issueTracker?: string;
+    githubDiscussions?: string;
+    telegram?: string;
+    slack?: string;
+    mastodon?: string;
+    reddit?: string;
+  };
   filter?: string;
 };
-
 
 export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);

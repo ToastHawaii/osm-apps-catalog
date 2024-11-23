@@ -115,6 +115,7 @@ export async function loadApps(
       platform: [],
       coverage: [],
       install: {},
+      community: {},
     };
 
     addApp(app);

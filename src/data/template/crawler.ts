@@ -118,7 +118,12 @@ async function loadPages(ids: string[], template: string) {
 }
 
 function parsePage(content: string, template: string) {
-  const objects: Template[] = [];
+  const objects: (Template & { communicationChannels: Template })[] = [];
+
+  let communicationChannels;
+  if ("Communication channels" !== template) {
+    communicationChannels = parsePage(content, "Communication channels")[0];
+  }
 
   content = content.replace(/(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)/g, "");
 
@@ -137,7 +142,9 @@ function parsePage(content: string, template: string) {
       .substring(templateContent.indexOf("|"), templateContent.length - 2)
       .trim();
 
-    objects.push(parseTemplateToObject(templateContent));
+    const object = parseTemplateToObject(templateContent) as (Template & { communicationChannels: Template });
+    object.communicationChannels = communicationChannels || {};
+    objects.push(object);
 
     start = content.search(regexTemplate);
   }

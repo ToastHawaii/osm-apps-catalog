@@ -96,7 +96,8 @@ export function addApp(obj: App) {
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-    app.install.obtainiumLink = app.install.obtainiumLink || obj.install.obtainiumLink;
+    app.install.obtainiumLink =
+      app.install.obtainiumLink || obj.install.obtainiumLink;
     app.install.googlePlayID =
       app.install.googlePlayID || obj.install.googlePlayID;
     app.install.huaweiAppGalleryID =
@@ -116,6 +117,17 @@ export function addApp(obj: App) {
     app.editing = merge(app.editing, obj.editing);
     app.rendering = merge(app.rendering, obj.rendering);
     app.accessibility = merge(app.accessibility, obj.accessibility);
+
+    app.community.forumTag = app.community.forumTag || obj.community.forumTag;
+    app.community.matrix = app.community.matrix || obj.community.matrix;
+    app.community.issueTracker =
+      app.community.issueTracker || obj.community.issueTracker;
+    app.community.githubDiscussions =
+      app.community.githubDiscussions || obj.community.githubDiscussions;
+    app.community.telegram = app.community.telegram || obj.community.telegram;
+    app.community.slack = app.community.slack || obj.community.slack;
+    app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+    app.community.reddit = app.community.reddit || obj.community.reddit;
 
     extendFilter(app);
   }

@@ -37,7 +37,11 @@ import {
   extractNameWebsiteWiki,
 } from "./utilities";
 
-export function transform(source: { [name: string]: string }) {
+export function transform(
+  source: { [name: string]: string } & {
+    communicationChannels: { [name: string]: string };
+  }
+) {
   const obj: App = {
     name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
@@ -67,7 +71,11 @@ export function transform(source: { [name: string]: string }) {
     sourceCode: toUrl(
       extractRepo(source["repo"] || source["git"] || source["svn"])
     ),
-    gratis: some([source["price"]] || source["license"], ["gratis", "free", "0"]),
+    gratis: some([source["price"]] || source["license"], [
+      "gratis",
+      "free",
+      "0",
+    ]),
     libre: !!source["license"]?.match(
       "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
     ),
@@ -185,6 +193,14 @@ export function transform(source: { [name: string]: string }) {
         .map(trim)
         .filter((v) => v)
         .map((v) => languageValueToDisplay(v)),
+    },
+    community: {
+      forumTag: source.communicationChannels["forum tag"],
+      matrix: source.communicationChannels["matrix room"],
+      issueTracker: toUrl(source.communicationChannels["issue tracker"]),
+      githubDiscussions: source.communicationChannels["github discussions"],
+      telegram: source.communicationChannels["telegram"],
+      slack: toUrl(source.communicationChannels["slack url"]),
     },
   };
 

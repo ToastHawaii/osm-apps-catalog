@@ -327,9 +327,30 @@ a {
 
 .download {
   font-size: 22px;
-  padding: 4px 3px;
+  padding: 7px 10px 5px 0px;
   display: inline-block;
   color: forestgreen;
+}
+
+.download i {
+  vertical-align: middle;
+}
+
+.community {
+  margin-inline-start: 10px;
+}
+
+.param-text .community {
+  margin-inline-start: 0;
+  margin-inline-end: 10px;
+}
+
+.community i {
+  display: inline-block;
+  font-style: normal;
+  font-size: 20px;
+  margin: -3px 0;
+  vertical-align: middle;
 }
 
 .unknown {

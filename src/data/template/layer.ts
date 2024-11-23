@@ -77,6 +77,9 @@ export function transform(source: { [name: string]: string }) {
       .map(trim)
       .filter((v) => v)
       .join(", "),
+    community: {
+      issueTracker: toUrl(source["bugtracker_web"]),
+    },
   };
 
   if (!equalsYes(source["notlayer"])) {

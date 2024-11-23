@@ -74,6 +74,7 @@ export function transform(source: { [name: string]: string }) {
     platform: [],
     coverage: [],
     install: {},
+    community: {}
   };
 
   if (source["region"]) {

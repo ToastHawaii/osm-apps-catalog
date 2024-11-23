@@ -21,8 +21,6 @@ import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderFree } from "./renderFree";
-import { templateData } from "../templateData";
-import { getLocalizedValue } from "../getLocalizedValue";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
@@ -86,7 +84,7 @@ export function render(apps: App[], lang: string) {
           app.website
             ? `<a class="download" href="${app.website}" title="${i18next.t(
                 "app.website"
-              )}"><i class="far fa-map"></i></a>`
+              )}"><i class="far fa-map fa-fw"></i></a>`
             : ""
         }
 ${
@@ -95,7 +93,7 @@ ${
         app.install.asin
       }" title="${i18next.t(
         "app.install.asin"
-      )}" ><i class="fab fa-amazon"></i></a>`
+      )}" ><i class="fab fa-amazon fa-fw"></i></a>`
     : ""
 }
 ${
@@ -104,7 +102,7 @@ ${
         app.install.fDroidID
       }" title="${i18next.t(
         "app.install.fDroid"
-      )}" ><i class="fab fa-android"></i></a>`
+      )}" ><i class="fab fa-android fa-fw"></i></a>`
     : ""
 }
 ${
@@ -113,7 +111,7 @@ ${
         app.install.obtainiumLink
       }" title="${i18next.t(
         "app.install.obtainiumLink"
-      )}" ><i class="fas fa-gem" style="transform: rotate(315deg);"></i></a>`
+      )}" ><i class="fas fa-gem fa-fw" style="transform: rotate(315deg);"></i></a>`
     : ""
 }
 ${
@@ -122,7 +120,7 @@ ${
         app.install.googlePlayID
       }" title="${i18next.t(
         "app.install.googlePlay"
-      )}" ><i class="fab fa-google-play"></i></a>`
+      )}" ><i class="fab fa-google-play fa-fw"></i></a>`
     : ""
 }
 ${
@@ -131,7 +129,7 @@ ${
         app.install.huaweiAppGalleryID
       }" title="${i18next.t(
         "app.install.huaweiAppGallery"
-      )}" ><i class="fas fa-shopping-bag"></i></a>`
+      )}" ><i class="fas fa-shopping-bag fa-fw"></i></a>`
     : ""
 }
 ${
@@ -142,7 +140,7 @@ ${
           : `id${app.install.appleStoreID}`
       }" title="${i18next.t(
         "app.install.appleStore"
-      )}"><i class="fab fa-app-store-ios"></i></a>`
+      )}"><i class="fab fa-app-store-ios fa-fw"></i></a>`
     : ""
 }
 ${
@@ -153,7 +151,7 @@ ${
           : `id${app.install.macAppStoreID}`
       }" title="${i18next.t(
         "app.install.macAppStore"
-      )}"><i class="fab fa-app-store"></i></a>`
+      )}"><i class="fab fa-app-store fa-fw"></i></a>`
     : ""
 }
 ${
@@ -162,7 +160,7 @@ ${
         app.install.microsoftAppID
       }" title="${i18next.t(
         "app.install.microsoftApp"
-      )}"><i class="fab fa-microsoft"></i></a>`
+      )}"><i class="fab fa-microsoft fa-fw"></i></a>`
     : ""
 }`,
         renderToWiki: (app, lang) =>
@@ -183,9 +181,10 @@ ${
                 } ${i18next.t("app.install.fDroid", { lng: lang })}]`
               : "",
             app.install.obtainiumLink
-              ? `[${
-                  app.install.obtainiumLink
-                } ${i18next.t("app.install.obtainiumLink", { lng: lang })}]`
+              ? `[${app.install.obtainiumLink} ${i18next.t(
+                  "app.install.obtainiumLink",
+                  { lng: lang }
+                )}]`
               : "",
             app.install.googlePlayID
               ? `[https://play.google.com/store/apps/details?id=${
@@ -320,6 +319,126 @@ ${
         renderToHtml: (app) => app.coverage[app.coverage.length - 1],
         renderToWiki: (app) =>
           toWikiValue(app.coverage[app.coverage.length - 1], lang),
+      },
+      {
+        label: (lang) => i18next.t("app.community", { lng: lang }),
+        description: () => "",
+        hasValue: (app) => Object.entries(app.community).length > 0,
+        renderToHtml: (app) => `
+        ${
+          app.community.forumTag
+            ? `<a class="community" href="https://community.openstreetmap.org/tag/${
+                app.community.forumTag
+              }" title="${i18next.t(
+                "app.community.forumTag"
+              )}"><i class="fas fa-tag fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.matrix
+            ? `<a class="community" href="https://matrix.to/#/${
+                app.community.matrix
+              }" title="${i18next.t("app.community.matrix")}"><i>[m]</i></a>`
+            : ""
+        }${
+          app.community.mastodon
+            ? `<a class="community" href="https://fedirect.toolforge.org/?id=${
+                app.community.mastodon
+              }" title="${i18next.t(
+                "app.community.mastodon"
+              )}"><i class="fab fa-mastodon fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.reddit
+            ? `<a class="community" href="https://www.reddit.com/r/${
+                app.community.reddit
+              }" title="${i18next.t(
+                "app.community.reddit"
+              )}"><i class="fab fa-reddit fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.slack
+            ? `<a class="community" href="${
+                app.community.slack
+              }" title="${i18next.t(
+                "app.community.slack"
+              )}"><i class="fab fa-slack-hash fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.telegram
+            ? `<a class="community" href="https://telegram.me/${
+                app.community.telegram
+              }" title="${i18next.t(
+                "app.community.telegram"
+              )}"><i class="fab fa-telegram fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.githubDiscussions
+            ? `<a class="community" href="https://github.com/${
+                app.community.githubDiscussions
+              }/discussions" title="${i18next.t(
+                "app.community.githubDiscussions"
+              )}"><i class="fab fa-github fa-fw"></i></a>`
+            : ""
+        }${
+          app.community.issueTracker
+            ? `<a class="community" href="${
+                app.community.issueTracker
+              }" title="${i18next.t(
+                "app.community.issueTracker"
+              )}"><i class="fas fa-list fa-fw"></i></a>`
+            : ""
+        }
+`,
+        renderToWiki: (app, lang) =>
+          [
+            app.community.forumTag
+              ? `[https://community.openstreetmap.org/tag/${
+                  app.community.forumTag
+                } ${i18next.t("app.community.forumTag", { lng: lang })}]`
+              : "",
+            app.community.matrix
+              ? `[https://matrix.to/#/${app.community.matrix} ${i18next.t(
+                  "app.community.matrix"
+                )}"><i>[m]</i></a>`
+              : "",
+            app.community.mastodon
+              ? `[https://fedirect.toolforge.org/?id=${
+                  app.community.mastodon
+                } ${i18next.t("app.community.mastodon", { lng: lang })}]`
+              : "",
+            app.community.reddit
+              ? `[https://www.reddit.com/r/${app.community.reddit} ${i18next.t(
+                  "app.community.reddit",
+                  { lng: lang }
+                )}]`
+              : "",
+            app.community.slack
+              ? `[${app.community.slack} ${i18next.t("app.community.slack", {
+                  lng: lang,
+                })}]`
+              : "",
+            app.community.telegram
+              ? `[https://telegram.me/${app.community.telegram} ${i18next.t(
+                  "app.community.telegram",
+                  { lng: lang }
+                )}]`
+              : "",
+            app.community.githubDiscussions
+              ? `[https://github.com/${
+                  app.community.githubDiscussions
+                }/discussions ${i18next.t("app.community.githubDiscussions", {
+                  lng: lang,
+                })}]`
+              : "",
+            app.community.issueTracker
+              ? `[${app.community.issueTracker} ${i18next.t(
+                  "app.community.issueTracker",
+                  { lng: lang }
+                )}]`
+              : "",
+          ]
+            .filter((o) => o)
+            .join(", "),
       },
       {
         label: (lang) => i18next.t("app.props.author.label", { lng: lang }),
