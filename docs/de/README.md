@@ -89,8 +89,10 @@ GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
-- [Wie man zu OpenStreetMap beitragen
-  kann](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Join the OSM Community: [Meet](https://usergroups.openstreetmap.de/),
+  [Talk](https://community.osm.be/)
+- [Contribute to
+  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Dokumentiere OSM Apps, welche du
   kennst](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
