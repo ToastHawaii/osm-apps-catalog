@@ -363,5 +363,9 @@
     "coverage": {
         "label": "Lefedés",
         "description": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."
+    },
+    "obtainiumLink": {
+        "label": "Obtainium frissítési link",
+        "description": "Link az Obtainium frissítési információkhoz"
     }
 }
