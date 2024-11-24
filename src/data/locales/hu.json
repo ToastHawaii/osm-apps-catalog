@@ -1,6 +1,6 @@
 {
     "filter.category.navigation": "Navigáció",
-    "filter.category.edit": "Szerkesztés",
+    "filter.category.edit": "Közreműködés",
     "category.all.description": "{{numberOfApps}} alkalmazást jelenít meg véletlenszerű sorrendben, amelyek az OpenStreetMap wikin, a Wikidatán és a taginfóban találhatók.",
     "category.focus.description": "A legutóbb frissített oldalakról megjelenít tíz alkalmazást.",
     "category.latest.description": "{{numberOfApps}} alkalmazást jelenít meg az utolsó kiadás dátuma szerint rendezve.",
@@ -64,5 +64,16 @@
     "noResults": "Nincs találat",
     "app.free": "Ingyenes",
     "multilingual": "Többnyelvű",
-    "app.price": "Ár"
+    "app.price": "Ár",
+    "app.community": "Közösség",
+    "app.community.mastodon": "Mastodon",
+    "app.community.forumTag": "Fórumcímke",
+    "app.community.githubDiscussions": "GitHub megbeszélések",
+    "app.community.slack": "Slack",
+    "app.community.telegram": "Telegram csoport",
+    "app.community.reddit": "Reddit",
+    "list": "Lista",
+    "compare": "Összehasonlítás",
+    "app.community.matrix": "Mátrix szoba",
+    "app.community.issueTracker": "Problémák"
 }
