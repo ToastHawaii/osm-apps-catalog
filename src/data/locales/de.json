@@ -66,5 +66,6 @@
     "notFound.desc": "Mit den folgenden Diensten kannst du deine eigenen Themenkarten erstellen, ohne Programmierkenntnisse zu benötigen. Vielleicht hat schon jemand die Karte erstellt, die du suchst, oder du kannst deine eigene Themenkarte erstellen.",
     "app.source.description": "Quelle, aus der diese Daten stammen.",
     "list": "Liste",
-    "compare": "Vergleichen"
+    "compare": "Vergleichen",
+    "app.community.githubDiscussions": "GitHub-Diskussionen"
 }
