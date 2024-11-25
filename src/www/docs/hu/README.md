@@ -87,10 +87,11 @@ GitHubon](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
-- Join the OSM community: [Meet](https://usergroups.openstreetmap.de/) &
-  [Talk](https://community.osm.be/)
-- [Contribute to
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Csatlakozás az OSM-közösséghez:
+  [Találkozás](https://usergroups.openstreetmap.de/) &
+  [Beszélgetés](https://community.osm.be/)
+- [OpenStreetMap
+  szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Ismerős OSM-alkalmazások
   hozzáadása](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
