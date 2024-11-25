@@ -323,7 +323,8 @@ ${
       {
         label: (lang) => i18next.t("app.community", { lng: lang }),
         description: () => "",
-        hasValue: (app) => Object.entries(app.community).length > 0,
+        hasValue: (app) =>
+          Object.values(app.community).filter((v) => v).length > 0,
         renderToHtml: (app) => `
         ${
           app.community.forumTag

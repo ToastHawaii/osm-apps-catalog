@@ -195,7 +195,7 @@ export function render(app: App) {
             : ""
         }
         ${
-          Object.entries(app.community).length > 0
+          Object.values(app.community).filter((v) => v).length > 0
             ? `<div class="more-info">
             <span class="more-info-title">${i18next.t(
               "app.community"
