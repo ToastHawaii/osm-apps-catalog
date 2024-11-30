@@ -145,6 +145,7 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   OPTIONAL {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${language}")
@@ -278,6 +279,7 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
 
   OPTIONAL { ?item wdt:P856 ?websiteDefault. }
   OPTIONAL { 
@@ -325,6 +327,7 @@ WHERE
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
 
       OPTIONAL { ?item wdt:P856 ?websiteDefault. }
       OPTIONAL { 
