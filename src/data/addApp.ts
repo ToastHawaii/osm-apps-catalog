@@ -118,6 +118,7 @@ export function addApp(obj: App) {
     app.rendering = merge(app.rendering, obj.rendering);
     app.accessibility = merge(app.accessibility, obj.accessibility);
 
+    app.community.forum = app.community.forum || obj.community.forum;
     app.community.forumTag = app.community.forumTag || obj.community.forumTag;
     app.community.matrix = app.community.matrix || obj.community.matrix;
     app.community.issueTracker =

@@ -200,6 +200,14 @@ export function render(app: App) {
             <span class="more-info-title">${i18next.t(
               "app.community"
             )}</span> <span class="more-info-text">${
+                app.community.forum
+                  ? `<a class="community" href="${
+                      app.community.forum
+                    }" title="${i18next.t(
+                      "app.community.forum"
+                    )}"><i class="fas fa-comments fa-fw"></i></a>`
+                  : ""
+              }${
                 app.community.forumTag
                   ? `<a class="community" href="https://community.openstreetmap.org/tag/${
                       app.community.forumTag

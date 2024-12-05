@@ -327,6 +327,14 @@ ${
           Object.values(app.community).filter((v) => v).length > 0,
         renderToHtml: (app) => `
         ${
+          app.community.forum
+            ? `<a class="community" href="${
+                app.community.forum
+              }" title="${i18next.t(
+                "app.community.forum"
+              )}"><i class="fas fa-comments fa-fw"></i></a>`
+            : ""
+        }${
           app.community.forumTag
             ? `<a class="community" href="https://community.openstreetmap.org/tag/${
                 app.community.forumTag
@@ -392,6 +400,11 @@ ${
 `,
         renderToWiki: (app, lang) =>
           [
+            app.community.forum
+              ? `[${app.community.forum} ${i18next.t("app.community.forum", {
+                  lng: lang,
+                })}]`
+              : "",
             app.community.forumTag
               ? `[https://community.openstreetmap.org/tag/${
                   app.community.forumTag

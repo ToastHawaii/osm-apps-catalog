@@ -195,6 +195,7 @@ export function transform(
         .map((v) => languageValueToDisplay(v)),
     },
     community: {
+      forum: source.communicationChannels["forum"],
       forumTag: source.communicationChannels["forum tag"],
       matrix: source.communicationChannels["matrix room"],
       issueTracker: toUrl(source.communicationChannels["issue tracker"]),

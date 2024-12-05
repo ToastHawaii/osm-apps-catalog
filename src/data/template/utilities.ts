@@ -135,6 +135,7 @@ export type App = {
     screenReaderLang: string[];
   };
   community: {
+    forum?: string;
     forumTag?: string;
     matrix?: string;
     issueTracker?: string;

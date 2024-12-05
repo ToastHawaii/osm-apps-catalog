@@ -54,6 +54,7 @@
   "app.languages": "Languages",
   "app.coverage": "Coverage",
   "app.community": "Community",
+  "app.community.forum": "Forum",
   "app.community.forumTag": "Forum tag",
   "app.community.matrix": "Matrix room",
   "app.community.issueTracker": "Issues",

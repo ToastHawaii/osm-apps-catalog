@@ -75,6 +75,7 @@ export function transformWikidataResult(result: any) {
       microsoftAppID: result.microsoftAppID?.value,
     },
     community: {
+      forum: result.forum?.value || result.forumDefault?.value,
       issueTracker: result.issueTrackerUrl?.value,
       telegram: result.telegram?.value || result.telegramDefault?.value,
       mastodon: result.mastodonAddress?.value,
@@ -114,6 +115,8 @@ SELECT DISTINCT
   (SAMPLE(?website) AS ?website)
   (SAMPLE(?documentationDefault) AS ?documentationDefault)
   (SAMPLE(?documentation) AS ?documentation)
+  (SAMPLE(?forumDefault) AS ?forumDefault)
+  (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
   (GROUP_CONCAT(DISTINCT ?languageCode; SEPARATOR = ";") AS ?languages)
@@ -176,6 +179,14 @@ WHERE {
     ?documentationStatement pq:P407 ?documentaionLanguage.
     ?documentaionLanguage wdt:P218 ?documentaionLanguageCode 
     FILTER(?documentaionLanguageCode = "${language}")
+  }
+  OPTIONAL { ?item wdt:P10027 ?forumDefault. }
+  OPTIONAL { 
+    ?item p:P10027 ?forumStatement. 
+    ?forumStatement ps:P10027 ?forum.
+    ?forumStatement pq:P407 ?forumLanguage.
+    ?forumLanguage wdt:P218 ?forumLanguageCode 
+    FILTER(?forumLanguageCode = "${language}")
   }
   OPTIONAL { 
     ?item wdt:P178/rdfs:label ?authorLabel.
