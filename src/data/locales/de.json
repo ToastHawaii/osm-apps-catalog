@@ -67,5 +67,12 @@
     "app.source.description": "Quelle, aus der diese Daten stammen.",
     "list": "Liste",
     "compare": "Vergleichen",
-    "app.community.githubDiscussions": "GitHub-Diskussionen"
+    "app.community.githubDiscussions": "GitHub-Diskussionen",
+    "app.community.matrix": "Matrix Raum",
+    "app.community.telegram": "Telegram Gruppe",
+    "app.community.slack": "Slack",
+    "app.community.mastodon": "Mastodon",
+    "app.community.reddit": "Reddit",
+    "app.community": "Community",
+    "app.community.forumTag": "Forum tag"
 }
