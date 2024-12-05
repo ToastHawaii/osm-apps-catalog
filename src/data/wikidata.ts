@@ -44,13 +44,10 @@ export function transformWikidataResult(result: any) {
     description: result.description?.value || "",
     images: result.image?.value ? [result.image.value] : [],
     website:
-      result.website?.value || result.websiteDefault?.value
-        ? new URL(
-            result.website?.value || result.websiteDefault?.value
-          ).toString()
+      result.web?.value || result.webDef?.value
+        ? new URL(result.web?.value || result.webDef?.value).toString()
         : "",
-    documentation:
-      result.documentation?.value || result.documentationDefault?.value || "",
+    documentation: result.doc?.value || result.docDef?.value || "",
     author: result.authors?.value || "",
     libre: (result.license?.value || "")?.match(
       "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
@@ -75,9 +72,9 @@ export function transformWikidataResult(result: any) {
       microsoftAppID: result.microsoftAppID?.value,
     },
     community: {
-      forum: result.forum?.value || result.forumDefault?.value,
+      forum: result.forum?.value || result.forumDef?.value,
       issueTracker: result.issueTrackerUrl?.value,
-      telegram: result.telegram?.value || result.telegramDefault?.value,
+      telegram: result.telegram?.value || result.telegramDef?.value,
       mastodon: result.mastodonAddress?.value,
       reddit: result.subreddit?.value,
     },
@@ -111,11 +108,11 @@ SELECT DISTINCT
   ?item ?itemLabel 
   ?description 
   (SAMPLE(?image) AS ?image) 
-  (SAMPLE(?websiteDefault) AS ?websiteDefault)
-  (SAMPLE(?website) AS ?website)
-  (SAMPLE(?documentationDefault) AS ?documentationDefault)
-  (SAMPLE(?documentation) AS ?documentation)
-  (SAMPLE(?forumDefault) AS ?forumDefault)
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
+  (SAMPLE(?docDef) AS ?docDef)
+  (SAMPLE(?doc) AS ?doc)
+  (SAMPLE(?forumDef) AS ?forumDef)
   (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
@@ -137,7 +134,7 @@ SELECT DISTINCT
   ?monitoring
   ?changsetReview
   (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
-  (SAMPLE(?telegramDefault) AS ?telegramDefault)
+  (SAMPLE(?telegramDef) AS ?telegramDef)
   (SAMPLE(?telegram) AS ?telegram)
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
   (SAMPLE(?subreddit) AS ?subreddit) 
@@ -161,32 +158,32 @@ WHERE {
     FILTER((LANG(?description)) = "${language}")
   }
   OPTIONAL { ?item wdt:P18 ?image. }
-  OPTIONAL { ?item wdt:P856 ?websiteDefault. }
+  OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
-    ?item p:P856 ?websiteStatement. 
-    ?websiteStatement ps:P856 ?website.
-    ?websiteStatement pq:P407 ?websiteLanguage.
-    ?websiteLanguage wdt:P218 ?websiteLanguageCode 
-    FILTER(?websiteLanguageCode = "${language}")
+    ?item p:P856 ?webStat. 
+    ?webStat ps:P856 ?web.
+    ?webStat pq:P407 ?webLang.
+    ?webLang wdt:P218 ?webLangCode 
+    FILTER(?webLangCode = "${language}")
   }
   OPTIONAL { 
-    ?item p:P1343 ?documentationDefaultStatement. 
-    ?documentationDefaultStatement pq:P2699 ?documentationDefault.
+    ?item p:P1343 ?docDefStat. 
+    ?docDefStat pq:P2699 ?docDef.
     }
   OPTIONAL { 
-    ?item p:P973 ?documentationStatement. 
-    ?documentationStatement ps:P973 ?documentation.
-    ?documentationStatement pq:P407 ?documentaionLanguage.
-    ?documentaionLanguage wdt:P218 ?documentaionLanguageCode 
-    FILTER(?documentaionLanguageCode = "${language}")
+    ?item p:P973 ?docStat. 
+    ?docStat ps:P973 ?doc.
+    ?docStat pq:P407 ?docLang.
+    ?docLang wdt:P218 ?docLangCode 
+    FILTER(?docLangCode = "${language}")
   }
-  OPTIONAL { ?item wdt:P10027 ?forumDefault. }
+  OPTIONAL { ?item wdt:P10027 ?forumDef. }
   OPTIONAL { 
-    ?item p:P10027 ?forumStatement. 
-    ?forumStatement ps:P10027 ?forum.
-    ?forumStatement pq:P407 ?forumLanguage.
-    ?forumLanguage wdt:P218 ?forumLanguageCode 
-    FILTER(?forumLanguageCode = "${language}")
+    ?item p:P10027 ?forumStat. 
+    ?forumStat ps:P10027 ?forum.
+    ?forumStat pq:P407 ?forumLang.
+    ?forumLang wdt:P218 ?forumLangCode 
+    FILTER(?forumLangCode = "${language}")
   }
   OPTIONAL { 
     ?item wdt:P178/rdfs:label ?authorLabel.
@@ -246,18 +243,18 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
   OPTIONAL { 
-    ?item p:P3789 ?telegramStatement. 
-    ?telegramStatement ps:P3789 ?telegramDefault; 
+    ?item p:P3789 ?telegramStat. 
+    ?telegramStat ps:P3789 ?telegramDef; 
      pq:P3831 wd:Q87410646.
   }
   
   OPTIONAL { 
-    ?item p:P3789 ?telegramStatement. 
-    ?telegramStatement ps:P3789 ?telegram; 
+    ?item p:P3789 ?telegramStat. 
+    ?telegramStat ps:P3789 ?telegram; 
      pq:P3831 wd:Q87410646.
-    ?telegramStatement pq:P407 ?telegramLanguage.
-    ?telegramLanguage wdt:P218 ?telegramLanguageCode 
-    FILTER(?telegramLanguageCode = "${language}")
+    ?telegramStat pq:P407 ?telegramLang.
+    ?telegramLang wdt:P218 ?telegramLangCode 
+    FILTER(?telegramLangCode = "${language}")
   }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
@@ -282,8 +279,8 @@ GROUP BY ?item
     `
 SELECT DISTINCT 
   ?item ?itemLabel
-  (SAMPLE(?websiteDefault) AS ?websiteDefault)
-  (SAMPLE(?website) AS ?website)
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
   (MAX(?date) AS ?lastRelease)
   ?modified 
 WHERE {
@@ -300,13 +297,13 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
-  OPTIONAL { ?item wdt:P856 ?websiteDefault. }
+  OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
-    ?item p:P856 ?websiteStatement. 
-    ?websiteStatement ps:P856 ?website.
-    ?websiteStatement pq:P407 ?websiteLanguage.
-    ?websiteLanguage wdt:P218 ?websiteLanguageCode 
-    FILTER(?websiteLanguageCode = "${language}")
+    ?item p:P856 ?webStat. 
+    ?webStat ps:P856 ?web.
+    ?webStat pq:P407 ?webLang.
+    ?webLang wdt:P218 ?webLangCode 
+    FILTER(?webLangCode = "${language}")
   }
       
   ?item p:P348/pq:P577 ?date.
@@ -324,8 +321,8 @@ GROUP BY ?item
     `
 SELECT DISTINCT 
   ?item ?itemLabel
-  (SAMPLE(?websiteDefault) AS ?websiteDefault)
-  (SAMPLE(?website) AS ?website)
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
   (GROUP_CONCAT(?licenseShortName; SEPARATOR = ", ") AS ?license)
   ?modified 
 WHERE
@@ -349,13 +346,13 @@ WHERE
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
-      OPTIONAL { ?item wdt:P856 ?websiteDefault. }
+      OPTIONAL { ?item wdt:P856 ?webDef. }
       OPTIONAL { 
-        ?item p:P856 ?websiteStatement. 
-        ?websiteStatement ps:P856 ?website.
-        ?websiteStatement pq:P407 ?websiteLanguage.
-        ?websiteLanguage wdt:P218 ?websiteLanguageCode 
-        FILTER(?websiteLanguageCode = "${language}")
+        ?item p:P856 ?webStat. 
+        ?webStat ps:P856 ?web.
+        ?webStat pq:P407 ?webLang.
+        ?webLang wdt:P218 ?webLangCode 
+        FILTER(?webLangCode = "${language}")
       }
           
       ?item wdt:P275 ?license.
