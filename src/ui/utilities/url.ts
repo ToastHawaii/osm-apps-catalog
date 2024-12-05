@@ -20,9 +20,9 @@ export const httpRegex = /^https?:\/\//i;
 export function toUrl(url: string | undefined) {
   if (!url) return undefined;
 
-  if (!httpRegex.test(url)) return `http://${url}`;
+  if (!httpRegex.test(url)) return new URL(`http://${url}`).toString();
 
-  return url;
+  return new URL(url).toString();
 }
 
 export function toWikiUrl(wiki: string) {

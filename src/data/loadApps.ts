@@ -97,7 +97,7 @@ export async function loadApps(
   for (const obj of projectObjects.data) {
     const app: App = {
       name: obj.name,
-      website: obj.project_url,
+      website: new URL(obj.project_url).toString(),
       images: obj.icon_url ? [obj.icon_url] : [],
       documentation: obj.doc_url,
       source: [

@@ -43,7 +43,12 @@ export function transformWikidataResult(result: any) {
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
     images: result.image?.value ? [result.image.value] : [],
-    website: result.website?.value || result.websiteDefault?.value || "",
+    website:
+      result.website?.value || result.websiteDefault?.value
+        ? new URL(
+            result.website?.value || result.websiteDefault?.value
+          ).toString()
+        : "",
     documentation:
       result.documentation?.value || result.documentationDefault?.value || "",
     author: result.authors?.value || "",
@@ -146,6 +151,8 @@ WHERE {
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+  
   OPTIONAL {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${language}")
@@ -280,6 +287,7 @@ WHERE {
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
   OPTIONAL { ?item wdt:P856 ?websiteDefault. }
   OPTIONAL { 
@@ -328,6 +336,7 @@ WHERE
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
       OPTIONAL { ?item wdt:P856 ?websiteDefault. }
       OPTIONAL { 

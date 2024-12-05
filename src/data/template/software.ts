@@ -33,8 +33,8 @@ import {
 import {
   App,
   processWikiText,
-  extractRepo,
   extractNameWebsiteWiki,
+  extractWebsite,
 } from "./utilities";
 
 export function transform(
@@ -52,7 +52,7 @@ export function transform(
       ...toWikimediaUrl(source["logo"], 250),
     ],
     imageWiki: source["screenshot"] || source["logo"],
-    website: toUrl(source["web"]),
+    website: toUrl(extractWebsite(source["web"])),
     documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
     source: [
       {
@@ -69,7 +69,7 @@ export function transform(
       .filter((v) => v)
       .join(", "),
     sourceCode: toUrl(
-      extractRepo(source["repo"] || source["git"] || source["svn"])
+      extractWebsite(source["repo"] || source["git"] || source["svn"])
     ),
     gratis: some([source["price"]] || source["license"], [
       "gratis",

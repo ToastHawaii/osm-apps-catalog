@@ -29,7 +29,6 @@ import {
 import {
   App,
   processWikiText,
-  extractRepo,
   extractWebsite,
   extractNameWebsiteWiki,
 } from "./utilities";
@@ -55,7 +54,7 @@ export function transform(source: { [name: string]: string }) {
         lastChange: source["timestamp"] || "",
       },
     ],
-    sourceCode: toUrl(extractRepo(source["repo"])),
+    sourceCode: toUrl(extractWebsite(source["repo"])),
     author: processWikiText(source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)

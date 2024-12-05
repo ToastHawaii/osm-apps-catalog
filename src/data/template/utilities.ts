@@ -177,7 +177,7 @@ export function extractNameWebsiteWiki(
     const match = regex.exec(value);
 
     if (match) {
-      obj.website = match[2];
+      obj.website = new URL(match[2]).toString();
       value = value.replace(regex, "").trim();
       if (value) obj.name = value;
     }
@@ -190,7 +190,7 @@ export function extractNameWebsiteWiki(
 
     if (match) {
       obj.name = match[5];
-      obj.website = match[2];
+      obj.website = new URL(match[2]).toString();
       value = value.replace(regex, "");
     }
   }
@@ -254,12 +254,22 @@ export function extractWebsite(value: string = "") {
   }
   {
     const regex =
-      /{{URL\|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
+      /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
 
     const match = regex.exec(value);
 
     if (match) {
       return match[1];
+    }
+  }
+  {
+    const regex =
+      /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return `https://github.com/${match[1]}`;
     }
   }
   {
@@ -274,13 +284,6 @@ export function extractWebsite(value: string = "") {
   }
 
   return undefined;
-}
-
-export function extractRepo(value: string = "") {
-  const regex =
-    /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
-
-  return value.replace(regex, `https://github.com/$1`);
 }
 
 export function processWikiText(text: string = "") {
@@ -414,6 +417,45 @@ export function processWikiText(text: string = "") {
       regex,
       `<a target="_blank" href="https://gitlab.com/$1">$5</a>`
     );
+  }
+
+  // User
+  {
+    const regex = /{{User(\|([^(}})]+))}}/g;
+
+    text = text.replace(regex, (substring) => {
+      const parts = substring.substring(2, substring.length - 2).split("|");
+      const displayName = parts[1];
+      let wiki = displayName;
+      let osm = displayName;
+      let link;
+      const params = Object.fromEntries(
+        parts.slice(2).map((s) => s.split("="))
+      );
+      if (typeof params["wiki"] === "string") {
+        wiki = params["wiki"];
+      }
+      if (typeof params["osm"] === "string") {
+        osm = params["osm"];
+      }
+
+      if (wiki) {
+        link = `https://wiki.openstreetmap.org/wiki/User:${wiki}`;
+      } else if (osm) {
+        link = `https://www.openstreetmap.org/user/${osm}`;
+      }
+
+      return `<a target="_blank" href="${link}">${displayName}</a>`;
+    });
+  }
+  {
+    const regex = /{{Osm( )?[uU]ser(\|([^(}})]+))}}/g;
+
+    text = text.replace(regex, (substring) => {
+      const parts = substring.substring(2, substring.length - 2).split("|");
+      const name = parts[1];
+      return `<a target="_blank" href="https://www.openstreetmap.org/user/${name}">${name}</a>`;
+    });
   }
 
   return text;
