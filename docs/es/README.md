@@ -88,8 +88,8 @@ GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
-- Únase a la comunidad OSM: [Meet](https://usergroups.openstreetmap.de/) y
-  [Talk](https://community.osm.be/)
+- [Join](https://usergroups.openstreetmap.de/) the OSM community:
+  [Meet](https://osmcal.org/) & [Talk](https://community.osm.be/)
 - [Colaborar con
   OpenStreetMap}(https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Agrega las aplicaciones OSM que
