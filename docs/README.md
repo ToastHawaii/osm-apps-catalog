@@ -110,7 +110,7 @@ The app is licensed under the [GNU Affero General Public License v3.0](https://g
 
 ---
 
-- Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT): [Join a local group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) & [talk](https://community.osm.be/)
+- Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT): [Join a local group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
