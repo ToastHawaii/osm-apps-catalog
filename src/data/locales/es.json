@@ -75,5 +75,6 @@
     "app.community": "Comunidad",
     "app.community.forumTag": "Foro",
     "app.community.telegram": "Grupo de Telegram",
-    "app.community.mastodon": "Mastodon"
+    "app.community.mastodon": "Mastodon",
+    "app.community.forum": "Foro"
 }
