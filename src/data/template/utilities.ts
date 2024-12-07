@@ -266,7 +266,7 @@ export function extractWebsite(value: string = "") {
   }
   {
     const regex =
-      /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
+      /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
 
     const match = regex.exec(value);
 
@@ -298,7 +298,7 @@ export function processWikiText(text: string = "") {
 
   // Wikipedia
   {
-    const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+    const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/gi;
 
     text = text.replace(
       regex,
@@ -306,7 +306,7 @@ export function processWikiText(text: string = "") {
     );
   }
   {
-    const regex = /\[\[:wikipedia:([^\]]*)\]\]/g;
+    const regex = /\[\[:wikipedia:([^\]]*)\]\]/gi;
 
     text = text.replace(
       regex,
@@ -384,7 +384,7 @@ export function processWikiText(text: string = "") {
   // GitHub
   {
     const regex =
-      /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+      /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
 
     text = text.replace(
       regex,
@@ -393,7 +393,7 @@ export function processWikiText(text: string = "") {
   }
   {
     const regex =
-      /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
+      /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
 
     text = text.replace(
       regex,
@@ -404,7 +404,7 @@ export function processWikiText(text: string = "") {
   // GitLab
   {
     const regex =
-      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/g;
+      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
 
     text = text.replace(
       regex,
@@ -413,7 +413,7 @@ export function processWikiText(text: string = "") {
   }
   {
     const regex =
-      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/g;
+      /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
 
     text = text.replace(
       regex,
@@ -423,7 +423,7 @@ export function processWikiText(text: string = "") {
 
   // User
   {
-    const regex = /{{User(\|([^(}})]+))}}/g;
+    const regex = /{{User(\|([^(}})]+))}}/gi;
 
     text = text.replace(regex, (substring) => {
       const parts = substring.substring(2, substring.length - 2).split("|");
@@ -451,7 +451,7 @@ export function processWikiText(text: string = "") {
     });
   }
   {
-    const regex = /{{Osm( )?[uU]ser(\|([^(}})]+))}}/g;
+    const regex = /{{Osm( )?User(\|([^(}})]+))}}/gi;
 
     text = text.replace(regex, (substring) => {
       const parts = substring.substring(2, substring.length - 2).split("|");
