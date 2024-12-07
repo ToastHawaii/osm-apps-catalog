@@ -24,6 +24,7 @@ import { renderFree } from "./renderFree";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { equalsIgnoreCase } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
+import { getMatrix } from "./getMatrix";
 
 export function render(apps: App[], lang: string) {
   {
@@ -343,10 +344,11 @@ ${
               )}"><i class="fas fa-tag fa-fw"></i></a>`
             : ""
         }${
-          app.community.matrix
-            ? `<a class="community" href="https://matrix.to/#/${
-                app.community.matrix
-              }" title="${i18next.t("app.community.matrix")}"><i>[m]</i></a>`
+          getMatrix(app.community.matrix, app.community.irc)
+            ? `<a class="community" href="https://matrix.to/#/${getMatrix(
+                app.community.matrix,
+                app.community.irc
+              )}" title="${i18next.t("app.community.matrix")}"><i>[m]</i></a>`
             : ""
         }${
           app.community.mastodon

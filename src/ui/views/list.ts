@@ -21,6 +21,7 @@ import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderFree } from "./renderFree";
 import i18next from "i18next";
+import { getMatrix } from "./getMatrix";
 
 export function render(app: App) {
   const element = createElement(
@@ -216,10 +217,11 @@ export function render(app: App) {
                     )}"><i class="fas fa-tag fa-fw"></i></a>`
                   : ""
               }${
-                app.community.matrix
-                  ? `<a class="community" href="https://matrix.to/#/${
-                      app.community.matrix
-                    }" title="${i18next.t(
+                getMatrix(app.community.matrix, app.community.irc)
+                  ? `<a class="community" href="https://matrix.to/#/${getMatrix(
+                      app.community.matrix,
+                      app.community.irc
+                    )}" title="${i18next.t(
                       "app.community.matrix"
                     )}"><i>[m]</i></a>`
                   : ""

@@ -37,6 +37,17 @@ function extractGenre(result: any) {
   return genre;
 }
 
+function extractIrc(value: any) {
+  if (!value) return undefined;
+  
+  const url = new URL(value);
+
+  return {
+    server: url.hostname,
+    channel: url.pathname.substring(1) || url.hash,
+  };
+}
+
 export function transformWikidataResult(result: any) {
   return {
     name: result.itemLabel.value || "",
@@ -73,6 +84,7 @@ export function transformWikidataResult(result: any) {
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
+      irc: extractIrc(result.irc?.value),
       issueTracker: result.issueTrackerUrl?.value,
       telegram: result.telegram?.value || result.telegramDef?.value,
       mastodon: result.mastodonAddress?.value,
@@ -138,6 +150,7 @@ SELECT DISTINCT
   (SAMPLE(?telegram) AS ?telegram)
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
   (SAMPLE(?subreddit) AS ?subreddit) 
+  (SAMPLE(?irc) AS ?irc) 
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
@@ -259,6 +272,7 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
+  OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
   SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
 }
@@ -273,7 +287,7 @@ GROUP BY ?item
          ?monitoring 
          ?changsetReview 
          ?modified
-`.replaceAll("  ", " ")
+`.replace(/( |\n)+/g, " ")
   );
 
   const lastRelease = request(

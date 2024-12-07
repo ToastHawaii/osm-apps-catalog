@@ -137,6 +137,7 @@ export type App = {
   community: {
     forum?: string;
     forumTag?: string;
+    irc?: { server?: string; channel?: string };
     matrix?: string;
     issueTracker?: string;
     githubDiscussions?: string;

@@ -197,6 +197,12 @@ export function transform(
     community: {
       forum: source.communicationChannels["forum"],
       forumTag: source.communicationChannels["forum tag"],
+      irc: source.communicationChannels["irc channel"]
+        ? {
+            server: source.communicationChannels["irc server"],
+            channel: source.communicationChannels["irc channel"],
+          }
+        : undefined,
       matrix: source.communicationChannels["matrix room"],
       issueTracker: toUrl(source.communicationChannels["issue tracker"]),
       githubDiscussions: source.communicationChannels["github discussions"],
