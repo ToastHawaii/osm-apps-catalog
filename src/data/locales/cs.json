@@ -75,5 +75,6 @@
     "app.community.telegram": "Skupina na Telegramm",
     "app.community.slack": "Slack",
     "app.community.mastodon": "Mastodon",
-    "app.community.reddit": "Reddit"
+    "app.community.reddit": "Reddit",
+    "app.community.forum": "Fórum"
 }
