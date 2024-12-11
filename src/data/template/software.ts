@@ -208,6 +208,7 @@ export function transform(
       githubDiscussions: source.communicationChannels["github discussions"],
       telegram: source.communicationChannels["telegram"],
       slack: toUrl(source.communicationChannels["slack url"]),
+      mastodon: toUrl(source.communicationChannels["mastodon address"]),
     },
   };
 
