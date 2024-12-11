@@ -39,7 +39,7 @@ function extractGenre(result: any) {
 
 function extractIrc(value: any) {
   if (!value) return undefined;
-  
+
   const url = new URL(value);
 
   return {
@@ -85,9 +85,10 @@ export function transformWikidataResult(result: any) {
     community: {
       forum: result.forum?.value || result.forumDef?.value,
       irc: extractIrc(result.irc?.value),
+      bluesky: result.blueskyHandle?.value,
+      mastodon: result.mastodonAddress?.value,
       issueTracker: result.issueTrackerUrl?.value,
       telegram: result.telegram?.value || result.telegramDef?.value,
-      mastodon: result.mastodonAddress?.value,
       reddit: result.subreddit?.value,
     },
     source: [
@@ -145,10 +146,11 @@ SELECT DISTINCT
   ?hashtagTool
   ?monitoring
   ?changsetReview
+  (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
+  (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
   (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
   (SAMPLE(?telegramDef) AS ?telegramDef)
   (SAMPLE(?telegram) AS ?telegram)
-  (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
   (SAMPLE(?subreddit) AS ?subreddit) 
   (SAMPLE(?irc) AS ?irc) 
   ?modified 
@@ -255,6 +257,8 @@ WHERE {
     ?item wdt:P31 wd:Q125191237.
     BIND("yes" AS ?changsetReview)
   }
+  OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
+  OPTIONAL { ?item wdt:P12361 ?blueskyHandle. }
   OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
   OPTIONAL { 
     ?item p:P3789 ?telegramStat. 
@@ -270,7 +274,6 @@ WHERE {
     ?telegramLang wdt:P218 ?telegramLangCode 
     FILTER(?telegramLangCode = "${language}")
   }
-  OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified

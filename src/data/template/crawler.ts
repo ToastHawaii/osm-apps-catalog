@@ -142,7 +142,9 @@ function parsePage(content: string, template: string) {
       .substring(templateContent.indexOf("|"), templateContent.length - 2)
       .trim();
 
-    const object = parseTemplateToObject(templateContent) as (Template & { communicationChannels: Template });
+    const object = parseTemplateToObject(templateContent) as Template & {
+      communicationChannels: Template;
+    };
     object.communicationChannels = communicationChannels || {};
     objects.push(object);
 

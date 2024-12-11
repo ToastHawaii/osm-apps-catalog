@@ -79,7 +79,7 @@ export function render(app: App) {
           ? `<a class="download" href="${
               app.install.obtainiumLink
             }" title="${i18next.t(
-              "app.install.obtainiumLink"
+              "app.install.obtainium"
             )}" ><i class="fas fa-gem fa-fw" style="transform: rotate(315deg);"></i></a>`
           : ""
       }
@@ -232,6 +232,14 @@ export function render(app: App) {
                     }" title="${i18next.t(
                       "app.community.mastodon"
                     )}"><i class="fab fa-mastodon fa-fw"></i></a>`
+                  : ""
+              }${
+                app.community.bluesky
+                  ? `<a class="community" href="https://bsky.app/profile/${
+                      app.community.bluesky
+                    }" title="${i18next.t(
+                      "app.community.bluesky"
+                    )}"><img src="/icons/bluesky.svg" height="18px" /></a>`
                   : ""
               }${
                 app.community.reddit

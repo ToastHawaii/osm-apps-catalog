@@ -122,13 +122,14 @@ export function addApp(obj: App) {
     app.community.forumTag = app.community.forumTag || obj.community.forumTag;
     app.community.irc = app.community.irc || obj.community.irc;
     app.community.matrix = app.community.matrix || obj.community.matrix;
+    app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+    app.community.bluesky = app.community.bluesky || obj.community.bluesky;
     app.community.issueTracker =
       app.community.issueTracker || obj.community.issueTracker;
     app.community.githubDiscussions =
       app.community.githubDiscussions || obj.community.githubDiscussions;
     app.community.telegram = app.community.telegram || obj.community.telegram;
     app.community.slack = app.community.slack || obj.community.slack;
-    app.community.mastodon = app.community.mastodon || obj.community.mastodon;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
     extendFilter(app);

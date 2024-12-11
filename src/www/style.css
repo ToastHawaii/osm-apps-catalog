@@ -345,7 +345,8 @@ a {
   margin-inline-end: 10px;
 }
 
-.community i {
+.community i,
+.community img {
   display: inline-block;
   font-style: normal;
   font-size: 20px;

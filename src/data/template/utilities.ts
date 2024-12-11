@@ -139,11 +139,12 @@ export type App = {
     forumTag?: string;
     irc?: { server?: string; channel?: string };
     matrix?: string;
+    mastodon?: string;
+    bluesky?: string;
     issueTracker?: string;
     githubDiscussions?: string;
     telegram?: string;
     slack?: string;
-    mastodon?: string;
     reddit?: string;
   };
   filter?: string;
