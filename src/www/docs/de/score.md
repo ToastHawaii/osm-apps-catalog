@@ -24,9 +24,13 @@ Der Score setzt sich aus vier Hauptbereichen zusammen.
 **Beiträge zur Karte:**
 
 - +2 Punkte, wenn die App Beiträge (Bearbeiten, Analysieren, etc.) zu OpenStreetMap unterstützt.
-  **Hinzufügen und Bearbeiten:**
+
+**Hinzufügen und Bearbeiten:**
+
 - +1 Punkt, wenn sowohl das Hinzufügen als auch das Bearbeiten oder Löschen von POIs, Wegen etc. möglich ist.
-  **Anzeigen von Kartendaten:**
+
+**Anzeigen von Kartendaten:**
+
 - +1 Punkt, wenn die App Karten- oder OSM-Daten anzeigt.
 
 ---
@@ -37,14 +41,22 @@ Der Score setzt sich aus vier Hauptbereichen zusammen.
 
 - +0,5 Punkte, wenn die App Open Source ist.
 - Zusätzliche +0,5 Punkte, wenn die Lizenz eine Copyleft-Lizenz ist (z.B. GPL, ODbL, MPL, CC).
-  **Quellcode:**
+
+**Quellcode:**
+
 - +0,5 Punkte, wenn ein Verweis zum Quellcode dokumentiert ist.
-  **Issue-Tracker:**
+
+**Issue-Tracker:**
+
 - +0,5 Punkte, wenn ein Issue-Tracker existiert.
-  **Letztes Update:**
+
+**Letztes Update:**
+
 - +0,25 Punkte, wenn das letzte Update innerhalb des letzten Jahres stattfand.
 - Zusätzliche +0,25 Punkte, wenn das letzte Update innerhalb der letzten 3 Monate stattfand.
-  **Übersetzbarkeit:**
+
+**Übersetzbarkeit:**
+
 - +0,5 Punkte, wenn zur Übersetzung beigetragen werden kann.
 
 ---
@@ -55,14 +67,22 @@ Der Score setzt sich aus vier Hauptbereichen zusammen.
 
 - +0,125 Punkte, wenn die App Mehrsprachigkeit (.min 3 Sprachen) unterstützt.
 - Zusätzliche +0,125 Punkte, wenn die App in mindestens 10 Sprachen verfügbar ist.
-  **Gratis:**
+
+**Gratis:**
+
 - +0,25 Punkte, wenn die App kostenlos ist.
-  **Verfügbarkeit auf mehreren Plattformen:**
+
+**Verfügbarkeit auf mehreren Plattformen:**
+
 - +0,25 Punkte, wenn die App auf mehreren Plattformen (z.B. Web, Android, iOS) verfügbar ist.
 - Zusätzliche +0,25 Punkte, wenn die App über freie Stores (z.B. F-Droid) zugänglich ist.
-  **Weltweite Abdeckung:**
+
+**Weltweite Abdeckung:**
+
 - +0,5 Punkte, wenn die App weltweite Kartendaten abdeckt.
-  **Barrierefreiheit:**
+
+**Barrierefreiheit:**
+
 - +0,5 Punkte, wenn Barrierefreiheit unterstützt wird (z.B. Screenreader-Kompatibilität).
 
 ---
@@ -73,7 +93,9 @@ Der Score setzt sich aus vier Hauptbereichen zusammen.
 
 - +0,5 Punkte, wenn ein Kommunikationskanal für die Community existiert (z.B. Forum, Mastodon).
 - Zusätzliche +0,25 Punkte, wenn ein Kanal auf Open-Source-Medien (z.B. Matrix) betrieben wird.
-  **Dokumentation:**
+
+**Dokumentation:**
+
 - +0,125 Punkte, wenn ein Dokumentationslink verfügbar ist.
 - +0,125 Punkte, wenn die App auf mehreren Plattformen dokumentiert ist (z.B. OSM-Wiki, taginfo, Wikidata).
 
@@ -91,7 +113,7 @@ Apps, die weder Open-Source sind noch das Bearbeiten von Kartendaten unterstütz
 | **Entwicklungsbeteiligung**          | 3           |
 | **Verfügbarkeit und Zugänglichkeit** | 2           |
 | **Community-Kanäle & Dokumentation** | 1           |
-| **Gesamt**                           | 10          |
+| **Gesamt**                           | **10**      |
 
 ### Berechnung
 
@@ -102,3 +124,7 @@ Der Score wird durch das Addieren der Punkte aus allen Kategorien berechnet. Die
 - **C**: Score ≥ 4
 - **D**: Score ≥ 2
 - **E**: Score < 2
+
+## Diskussion
+
+Wenn Sie Vorschläge haben, wie die Berechnung der Punktzahl angepasst werden sollte, können Sie diese [hier](https://github.com/ToastHawaii/osm-apps-catalog/discussions/123) diskutieren.

@@ -24,10 +24,14 @@ The score is composed of four main categories.
 
 **Contributions to the map:**
 
-- +2 points if the app supports contributions (editing, analyzing, etc.) to OpenStreetMap.  
-  **Adding and Editing:**
-- +1 point if adding, editing, or deleting POIs, ways, etc., is possible.  
-  **Displaying map data:**
+- +2 points if the app supports contributions (editing, analyzing, etc.) to OpenStreetMap.
+
+**Adding and Editing:**
+
+- +1 point if adding, editing, or deleting POIs, ways, etc., is possible.
+
+**Displaying map data:**
+
 - +1 point if the app displays maps or OSM data.
 
 ---
@@ -37,15 +41,23 @@ The score is composed of four main categories.
 **Open Source:**
 
 - +0.5 points if the app is open source.
-- An additional +0.5 points if the license is a copyleft license (e.g., GPL, ODbL, MPL, CC).  
-  **Source Code:**
-- +0.5 points if a reference to the source code is documented.  
-  **Issue Tracker:**
-- +0.5 points if an issue tracker exists.  
-  **Last Update:**
+- An additional +0.5 points if the license is a copyleft license (e.g., GPL, ODbL, MPL, CC).
+
+**Source Code:**
+
+- +0.5 points if a reference to the source code is documented.
+
+**Issue Tracker:**
+
+- +0.5 points if an issue tracker exists.
+
+**Last Update:**
+
 - +0.25 points if the last update occurred within the last year.
-- An additional +0.25 points if the last update occurred within the last 3 months.  
-  **Translatability:**
+- An additional +0.25 points if the last update occurred within the last 3 months.
+
+**Translatability:**
+
 - +0.5 points if contributions to translations are possible.
 
 ---
@@ -55,15 +67,23 @@ The score is composed of four main categories.
 **Translations:**
 
 - +0.125 points if the app supports multiple languages (min. 3 languages).
-- An additional +0.125 points if the app is available in at least 10 languages.  
-  **Free of Charge:**
-- +0.25 points if the app is free of charge.  
-  **Availability on Multiple Platforms:**
+- An additional +0.125 points if the app is available in at least 10 languages.
+
+**Free of Charge:**
+
+- +0.25 points if the app is free of charge.
+
+**Availability on Multiple Platforms:**
+
 - +0.25 points if the app is available on multiple platforms (e.g. Web, Android, iOS).
-- An additional +0.25 points if the app is accessible via open-source stores (e.g. F-Droid).  
-  **Global Coverage:**
-- +0.5 points if the app covers worldwide map data.  
-  **Accessibility:**
+- An additional +0.25 points if the app is accessible via open-source stores (e.g. F-Droid).
+
+**Global Coverage:**
+
+- +0.5 points if the app covers worldwide map data.
+
+**Accessibility:**
+
 - +0.5 points if accessibility is supported (e.g. screen reader compatibility).
 
 ---
@@ -73,8 +93,10 @@ The score is composed of four main categories.
 **Community Channels:**
 
 - +0.5 points if a communication channel for the community exists (e.g. forum, Mastodon).
-- An additional +0.25 points if a channel is hosted on open-source platforms (e.g. Matrix).  
-  **Documentation:**
+- An additional +0.25 points if a channel is hosted on open-source platforms (e.g. Matrix).
+
+**Documentation:**
+
 - +0.125 points if a documentation link is available.
 - +0.125 points if the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata).
 
@@ -93,7 +115,7 @@ This ensures that the score prioritizes apps that actively contribute to the Ope
 | **Development Involvement**            | 3           |
 | **Availability and Accessibility**     | 2           |
 | **Community Channels & Documentation** | 1           |
-| **Total**                              | 10          |
+| **Total**                              | **10**          |
 
 ### Calculation
 
