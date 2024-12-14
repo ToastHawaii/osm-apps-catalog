@@ -33,6 +33,7 @@ import { loadApps } from "./data/loadApps";
 import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
 import i18next from "i18next";
+import { features } from "./features";
 
 let onInit = true;
 
@@ -72,17 +73,21 @@ const freeCheckbox = document.getElementById("free") as HTMLInputElement;
 freeCheckbox.addEventListener("change", () => {
   doUpdate(apps);
 });
-(document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
-  i18next.t("filter.free");
-
+if (features.freeFilter) {
+  (document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
+    i18next.t("filter.free");
+} else {
+  (document.getElementById("freeDisplay") as HTMLSpanElement).style.display =
+    "none";
+}
 (document.getElementById("about") as HTMLAnchorElement).setAttribute(
   "title",
   i18next.t("about")
 );
 (document.getElementById("listText") as HTMLSpanElement).textContent =
   i18next.t("list");
-  (document.getElementById("compareText") as HTMLSpanElement).textContent =
-    i18next.t("compare");
+(document.getElementById("compareText") as HTMLSpanElement).textContent =
+  i18next.t("compare");
 
 if (i18next.resolvedLanguage !== "en") {
   (document.getElementById("about") as HTMLAnchorElement).href =

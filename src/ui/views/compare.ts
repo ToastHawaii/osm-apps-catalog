@@ -20,11 +20,13 @@ import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
+import { renderScore } from "./renderScore";
 import { renderFree } from "./renderFree";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
-import { equalsIgnoreCase } from "../utilities/string";
+import { notNo } from "../utilities/string";
 import { languageValueToDisplay } from "../language";
 import { getMatrix } from "./getMatrix";
+import { features } from "../../features";
 
 export function render(apps: App[], lang: string) {
   {
@@ -34,9 +36,9 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center with-corner-badge">${renderFree(
+            `<div class="cell header text-center with-corner-badge">${renderScore(
               app
-            )}<strong>${
+            )}${features.freeFilter ? renderFree(app) : ""}<strong>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
@@ -433,9 +435,10 @@ ${
                 } ${i18next.t("app.community.mastodon", { lng: lang })}]`
               : "",
             app.community.bluesky
-              ? `[https://bsky.app/profile/${
-                  app.community.bluesky
-                } ${i18next.t("app.community.bluesky", { lng: lang })}]`
+              ? `[https://bsky.app/profile/${app.community.bluesky} ${i18next.t(
+                  "app.community.bluesky",
+                  { lng: lang }
+                )}]`
               : "",
             app.community.reddit
               ? `[https://www.reddit.com/r/${app.community.reddit} ${i18next.t(
@@ -714,15 +717,7 @@ function renderGroup(
       },
       notNo: (app: App) => {
         const value: string | string[] | undefined = (app as any)[id]?.[p];
-        if (Array.isArray(value)) {
-          return value.some(
-            (v) =>
-              v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none")
-          );
-        }
-        return (
-          !equalsIgnoreCase(value, "no") && !equalsIgnoreCase(value, "none")
-        );
+        return notNo(value);
       },
       renderToHtml: (app: App) => renderBadges((app as any)[id]?.[p]),
       renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p], lang),

@@ -266,13 +266,43 @@ a {
   padding-top: 22px !important;
 }
 
-.corner-badge {
+.corner-badge-right {
   position: absolute;
   right: 0;
   top: 0;
   background: rgb(153, 255, 153);
   border-bottom-left-radius: 5px;
   padding: 2px 4px;
+}
+
+.corner-badge-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom-right-radius: 5px;
+  padding: 2px 6px;
+  color: white;
+  font-weight: bold;
+}
+
+.bg-dark-green {
+  background: rgb(30 143 78);
+}
+
+.bg-green {
+  background: rgb(96 172 48);
+}
+
+.bg-yellow {
+  background: rgb(238 174 14);
+}
+
+.bg-orange {
+  background: rgb(255 111 30);
+}
+
+.bg-red {
+  background: rgb(222 32 31);
 }
 
 .app .more-infos {

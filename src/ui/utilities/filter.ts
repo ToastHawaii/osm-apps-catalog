@@ -17,6 +17,12 @@
 
 import { App } from "../../data/template/utilities";
 
+export function display(a: App) {
+  return a.topics
+    .map((t) => t.toUpperCase())
+    .some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+}
+
 const mobilePlatforms = [
   "ANDROID",
   "GARMIN",
@@ -54,7 +60,9 @@ export function mobile(a: App) {
 export function navigation(a: App) {
   return a.topics
     .map((t) => t.toUpperCase())
-    .some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+    .some((t) =>
+      ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t)
+    );
 }
 
 export function edit(a: App) {

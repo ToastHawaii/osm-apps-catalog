@@ -137,7 +137,7 @@ export type App = {
   community: {
     forum?: string;
     forumTag?: string;
-    irc?: { server?: string; channel?: string };
+    irc?: { server?: string; channel: string };
     matrix?: string;
     mastodon?: string;
     bluesky?: string;
@@ -147,6 +147,7 @@ export type App = {
     slack?: string;
     reddit?: string;
   };
+  score: number;
   filter?: string;
 };
 

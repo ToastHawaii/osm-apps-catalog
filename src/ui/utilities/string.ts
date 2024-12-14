@@ -27,6 +27,15 @@ export function equalsYes(...values: (string | undefined)[]) {
   return false;
 }
 
+export function notNo(value: string | string[] | undefined) {
+  if (Array.isArray(value)) {
+    return value.some(
+      (v) => v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none")
+    );
+  }
+  return !equalsIgnoreCase(value, "no") && !equalsIgnoreCase(value, "none");
+}
+
 export function startsWithIgnoreCase(
   s: string,
   searchString: string,

@@ -1,7 +1,184 @@
 import { removeDuplicates } from "../ui/utilities/array";
-import { equalsIgnoreCase } from "../ui/utilities/string";
+import { equalsIgnoreCase, notNo } from "../ui/utilities/string";
 import { App } from "./template/utilities";
 import { apps, extendFilter } from "../script";
+import { display, edit } from "../ui/utilities/filter";
+
+function calculateCommunityScore(app: App) {
+  // Community-Score / Contribution Score?
+  // A, B, C, D, E
+  // A >= 8
+  // B >= 6
+  // C >= 4
+  // D >= 2
+  // E < 2
+
+  // Wenn weder OpenSource noch Editieren möglich ist nicht über C kommen
+
+  let score = 0;
+
+  // # OSM Participation (max. 4 Points)
+
+  if (edit(app)) {
+    // Supports OSM contribution
+    score += 2;
+  }
+
+  if (
+    (app.editing?.addPOI || app.editing?.addWay) &&
+    (app.editing?.editPOI ||
+      app.editing?.editGeom ||
+      app.editing?.editRelations ||
+      app.editing?.editTags)
+  ) {
+    // Supports add and edit
+    score += 1;
+  }
+
+  if (display(app) || app.map?.map) {
+    // Supports displaying of map data
+    score += 1;
+  }
+
+  // # Development Participation (max. 3 Points)
+  if (app.libre) {
+    // Open source
+    score += 0.5;
+  }
+  // - Open Source (Copy Left 1.5, ohne Copy Left 1.0)
+
+  //All: "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
+  //Permessive: "(?:Apache.*|MIT.*|.*BSD.*|PD|ISC.*|Unlicense|Ms-PL.*)"
+  if ((app.license || "").match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")) {
+    // Copy Left
+    score += 0.5;
+  }
+
+  if (app.sourceCode) {
+    score += 0.5;
+  }
+
+  if (app.community.issueTracker) {
+    // Issue Tracker exists
+    score += 0.5;
+  }
+  if (app.lastRelease) {
+    const lastRelease = new Date(app.lastRelease);
+
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+    if (lastRelease > threeMonthsAgo) {
+      // The last update was 3 months ago.
+      score += 0.25;
+    }
+
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+    if (lastRelease > oneYearAgo) {
+      // The last update was 1 year ago
+      score += 0.25;
+    }
+  }
+
+  if (app.languagesUrl) {
+    // Translateable
+    score += 0.5;
+  }
+
+  // # Documentation/Help/Availability/Accessbility (max. 3 Points)
+  if (
+    Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker")
+      .length > 0
+  ) {
+    // A community communication channel exists
+    score += 0.25;
+  }
+  if (
+    app.community.irc?.channel ||
+    app.community.matrix ||
+    app.community.mastodon ||
+    app.community.bluesky
+  ) {
+    // A community communication channel on a open source media exists
+    score += 0.25;
+  }
+
+  if (app.languages.length >= 3) {
+    // App is translated in 3 languages
+    score += 0.25;
+  }
+
+  if (app.languages.length >= 10) {
+    // App is translated in 10 languages
+    score += 0.25;
+  }
+  if (app.gratis) {
+    // App is gratis
+    score += 0.25;
+  }
+
+  const i = app.install;
+  if (
+    [
+      i.appleStoreID || i.macAppStoreID,
+      i.asin,
+      i.fDroidID || i.googlePlayID || i.huaweiAppGalleryID || i.obtainiumLink,
+      i.microsoftAppID,
+    ].filter((i) => i).length > 1 ||
+    app.platform.length > 1 ||
+    app.platform.filter((p) =>
+      ["web", "web-based", "webapp", "web-app", "browser"].includes(
+        p.toLowerCase()
+      )
+    ).length >= 1
+  ) {
+    // Available on multiple platforms
+    score += 0.25;
+  }
+  if (
+    i.fDroidID ||
+    i.obtainiumLink ||
+    app.platform.filter((p) =>
+      ["web", "web-based", "webapp", "web-app", "browser"].includes(
+        p.toLowerCase()
+      )
+    ).length >= 1
+  ) {
+    // Available over a free store
+    score += 0.25;
+  }
+  if (app.documentation) {
+    // Documentation link exists
+    score += 0.125;
+  }
+  if (
+    [
+      app.source.filter((s) => s.name === "taginfo"),
+      app.source.filter((s) => s.name === "Wikidata"),
+      app.source.filter(
+        (s) =>
+          s.name === "Layer" ||
+          s.name === "ServiceItem" ||
+          s.name === "Software"
+      ),
+    ].length > 2
+  ) {
+    // Documented on multiple plattformes
+    score += 0.125;
+  }
+  if (app.coverage.includes("Worldwide")) {
+    // Worldwide coverage
+    score += 0.5;
+  }
+  if (Object.values(app.accessibility || {}).filter((e) => notNo(e))) {
+    // Some accessbility support
+    score += 0.5;
+  }
+  
+  return score;
+}
 
 export function addApp(obj: App) {
   const duplicates = apps.filter(
@@ -24,6 +201,7 @@ export function addApp(obj: App) {
       obj.install.microsoftAppID ||
       obj.sourceCode
     ) {
+      obj.score = calculateCommunityScore(obj);
       apps.push(obj);
       extendFilter(obj);
     }
@@ -132,6 +310,7 @@ export function addApp(obj: App) {
     app.community.slack = app.community.slack || obj.community.slack;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
+    app.score = calculateCommunityScore(app);
     extendFilter(app);
   }
 }

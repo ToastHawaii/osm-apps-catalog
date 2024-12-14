@@ -19,16 +19,20 @@ import { createElement, getHtmlElement } from "../utilities/html";
 import { App } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
+import { renderScore } from "./renderScore";
 import { renderFree } from "./renderFree";
 import i18next from "i18next";
 import { getMatrix } from "./getMatrix";
+import { features } from "../../features";
 
 export function render(app: App) {
   const element = createElement(
     "div",
     `<div class="header">
       
-      <div class="with-corner-badge">${renderFree(app)}<strong>${
+      <div class="with-corner-badge">${renderScore(app)}${
+      features.freeFilter ? renderFree(app) : ""
+    }<strong>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
