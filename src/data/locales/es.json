@@ -76,5 +76,7 @@
     "app.community.forumTag": "Foro",
     "app.community.telegram": "Grupo de Telegram",
     "app.community.mastodon": "Mastodon",
-    "app.community.forum": "Foro"
+    "app.community.forum": "Foro",
+    "app.install.obtainium": "Obtainium",
+    "app.community.bluesky": "Bluesky"
 }
