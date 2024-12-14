@@ -15,7 +15,7 @@
   "filter.category.mobile": "To go",
   "filter.category.navigation": "Find your way",
   "filter.category.edit": "Contribute",
-  "category.all.description": "Shows {{numberOfApps}} apps found on the OpenStreetMap wiki, Wikidata and taginfo in random order.",
+  "category.all.description": "Shows {{numberofapps}} Apps from the OpenStreetMap wiki, Wikidata and taginfo, sorted by Community Contribution Score.",
   "category.focus.description": "Shows ten apps from the most recently updated pages.",
   "category.latest.description": "Shows {{numberOfApps}} apps ordered by last release date.",
   "category.mobile.description": "Shows {{numberOfApps}} apps developed for mobile devices or that support offline use.",
