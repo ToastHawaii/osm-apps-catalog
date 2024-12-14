@@ -28,6 +28,6 @@ export function renderScore(app: App) {
   }
 
   return `<div class="corner-badge-left ${color}" title="${app.score}">
-        <a href="/docs/score/">${label}</a>
+        <a href="/docs/score">${label}</a>
       </div>`;
 }
