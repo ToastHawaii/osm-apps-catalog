@@ -726,6 +726,11 @@ async function getAppCatalog() {
 
     shuffle(apps);
 
+    apps = apps.sort(function (a, b) {
+      return b.score - a.score;
+    });
+    doUpdate(apps);
+
     saveAppCatalog();
   }
 
