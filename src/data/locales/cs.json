@@ -76,5 +76,7 @@
     "app.community.slack": "Slack",
     "app.community.mastodon": "Mastodon",
     "app.community.reddit": "Reddit",
-    "app.community.forum": "Fórum"
+    "app.community.forum": "Fórum",
+    "app.install.obtainium": "Obtainium",
+    "app.community.bluesky": "Bluesky"
 }
