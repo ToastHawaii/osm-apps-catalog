@@ -1,7 +1,7 @@
 {
     "filter.category.navigation": "Navigáció",
     "filter.category.edit": "Közreműködés",
-    "category.all.description": "{{numberOfApps}} alkalmazást jelenít meg véletlenszerű sorrendben, amelyek az OpenStreetMap wikin, a Wikidatán és a taginfóban találhatók.",
+    "category.all.description": "{{numberofapps}} alkalmazást jelenít meg az OpenStreetMap wikiről, a Wikidatáról és a Taginfóról, közösségi közreműködési pontszám szerinti sorrendben.",
     "category.focus.description": "A legutóbb frissített oldalakról megjelenít tíz alkalmazást.",
     "category.latest.description": "{{numberOfApps}} alkalmazást jelenít meg az utolsó kiadás dátuma szerint rendezve.",
     "category.mobile.description": "Megjelenít {{numberOfApps}} alkalmazást, amelyet mobileszközre fejlesztettek vagy offline is lehet használni.",
@@ -76,5 +76,7 @@
     "compare": "Összehasonlítás",
     "app.community.matrix": "Mátrix szoba",
     "app.community.issueTracker": "Problémák",
-    "app.community.forum": "Fórum"
+    "app.community.forum": "Fórum",
+    "app.install.obtainium": "Obtainium",
+    "app.community.bluesky": "Bluesky"
 }
