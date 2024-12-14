@@ -4,8 +4,8 @@ import { App } from "./template/utilities";
 import { apps, extendFilter } from "../script";
 import { display, edit } from "../ui/utilities/filter";
 
-function calculateCommunityScore(app: App) {
-  // Community-Score / Contribution Score?
+function calculateScore(app: App) {
+  // Community Contribution Score
   // A, B, C, D, E
   // A >= 8
   // B >= 6
@@ -55,6 +55,7 @@ function calculateCommunityScore(app: App) {
   }
 
   if (app.sourceCode) {
+    // Source code exists
     score += 0.5;
   }
 
@@ -87,33 +88,20 @@ function calculateCommunityScore(app: App) {
     score += 0.5;
   }
 
-  // # Documentation/Help/Availability/Accessbility (max. 3 Points)
-  if (
-    Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker")
-      .length > 0
-  ) {
-    // A community communication channel exists
-    score += 0.25;
-  }
-  if (
-    app.community.irc?.channel ||
-    app.community.matrix ||
-    app.community.mastodon ||
-    app.community.bluesky
-  ) {
-    // A community communication channel on a open source media exists
-    score += 0.25;
-  }
+  // Availability/Accessbility (max. 2 Points)
 
-  if (app.languages.length >= 3) {
-    // App is translated in 3 languages
-    score += 0.25;
+  if (
+    app.languages.length >= 3 ||
+    app.languages.some((l) => l.toUpperCase() === "MUL")
+  ) {
+    // App is translated in multiple languages
+    score += 0.125;
   }
-
   if (app.languages.length >= 10) {
     // App is translated in 10 languages
-    score += 0.25;
+    score += 0.125;
   }
+
   if (app.gratis) {
     // App is gratis
     score += 0.25;
@@ -149,6 +137,34 @@ function calculateCommunityScore(app: App) {
     // Available over a free store
     score += 0.25;
   }
+
+  if (app.coverage.includes("Worldwide")) {
+    // Worldwide coverage
+    score += 0.5;
+  }
+  if (Object.values(app.accessibility || {}).filter((e) => notNo(e))) {
+    // Some accessbility support
+    score += 0.5;
+  }
+
+  // # Community channels & Documentation (max. 1 Points)
+  if (
+    Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker")
+      .length > 0
+  ) {
+    // A community communication channel exists
+    score += 0.5;
+  }
+  if (
+    app.community.irc?.channel ||
+    app.community.matrix ||
+    app.community.mastodon ||
+    app.community.bluesky
+  ) {
+    // A community communication channel on a open source media exists
+    score += 0.25;
+  }
+
   if (app.documentation) {
     // Documentation link exists
     score += 0.125;
@@ -168,15 +184,7 @@ function calculateCommunityScore(app: App) {
     // Documented on multiple plattformes
     score += 0.125;
   }
-  if (app.coverage.includes("Worldwide")) {
-    // Worldwide coverage
-    score += 0.5;
-  }
-  if (Object.values(app.accessibility || {}).filter((e) => notNo(e))) {
-    // Some accessbility support
-    score += 0.5;
-  }
-  
+
   return score;
 }
 
@@ -201,7 +209,7 @@ export function addApp(obj: App) {
       obj.install.microsoftAppID ||
       obj.sourceCode
     ) {
-      obj.score = calculateCommunityScore(obj);
+      obj.score = calculateScore(obj);
       apps.push(obj);
       extendFilter(obj);
     }
@@ -310,7 +318,7 @@ export function addApp(obj: App) {
     app.community.slack = app.community.slack || obj.community.slack;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
-    app.score = calculateCommunityScore(app);
+    app.score = calculateScore(app);
     extendFilter(app);
   }
 }
