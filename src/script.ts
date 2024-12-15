@@ -727,7 +727,7 @@ async function getAppCatalog() {
     shuffle(apps);
 
     apps = apps.sort(function (a, b) {
-      return b.score - a.score;
+      return b.score.total - a.score.total;
     });
     doUpdate(apps);
 

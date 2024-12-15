@@ -1,191 +1,231 @@
 import { removeDuplicates } from "../ui/utilities/array";
-import { equalsIgnoreCase, notNo } from "../ui/utilities/string";
+import { equalsIgnoreCase, equalsYes, notNo } from "../ui/utilities/string";
 import { App } from "./template/utilities";
 import { apps, extendFilter } from "../script";
 import { display, edit } from "../ui/utilities/filter";
 
+const Criterias: {
+  translationKey: string;
+  check: (app: App) => boolean;
+  points: number;
+}[] = [
+  // OSM Participation
+  {
+    translationKey: "score.criteria.supportsContributions",
+    check: (app) => edit(app),
+    points: 2,
+  },
+  {
+    translationKey: "score.criteria.addingAndEditingPossible",
+    check: (app) =>
+      equalsYes(
+        ...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]
+      ) &&
+      equalsYes(
+        ...[
+          ...(app.editing?.editPOI || []),
+          ...(app.editing?.editGeom || []),
+          ...(app.editing?.editRelations || []),
+          ...(app.editing?.editTags || []),
+        ]
+      ),
+    points: 1,
+  },
+  {
+    translationKey: "score.criteria.displaysMaps",
+    check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+    points: 1,
+  },
+
+  // Development Participation
+  {
+    translationKey: "score.criteria.openSource",
+    check: (app) => !!app.libre,
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.copyleftLicense",
+    check: (app) =>
+      !!(app.license || "").match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)"),
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.sourceCodeReference",
+    check: (app) => !!app.sourceCode,
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.issueTracker",
+    check: (app) => !!app.community.issueTracker,
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.lastUpdateThreeMonths",
+    check: (app) => {
+      if (!app.lastRelease) {
+        return false;
+      }
+      const lastRelease = new Date(app.lastRelease);
+      const threeMonthsAgo = new Date();
+      threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+      return lastRelease > threeMonthsAgo;
+    },
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.lastUpdateYear",
+    check: (app) => {
+      if (!app.lastRelease) {
+        return false;
+      }
+      const lastRelease = new Date(app.lastRelease);
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+      return lastRelease > oneYearAgo;
+    },
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.translationContributions",
+    check: (app) => !!app.languagesUrl,
+    points: 0.5,
+  },
+  // Availability/Accessibility
+  {
+    translationKey: "score.criteria.multipleLanguages",
+    check: (app) =>
+      app.languages.length >= 3 ||
+      app.languages.some((l) => l.toUpperCase() === "MUL"),
+    points: 0.125,
+  },
+  {
+    translationKey: "score.criteria.tenLanguages",
+    check: (app) => app.languages.length >= 10,
+    points: 0.125,
+  },
+
+  {
+    translationKey: "score.criteria.freeOfCharge",
+    check: (app) => !!app.gratis,
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.multiplePlatforms",
+    check: (app) => {
+      const i = app.install;
+      return (
+        [
+          i.appleStoreID || i.macAppStoreID,
+          i.asin,
+          i.fDroidID ||
+            i.googlePlayID ||
+            i.huaweiAppGalleryID ||
+            i.obtainiumLink,
+          i.microsoftAppID,
+        ].filter((i) => i).length > 1 ||
+        app.platform.length > 1 ||
+        app.platform.some((p) =>
+          ["web", "web-based", "webapp", "web-app", "browser"].includes(
+            p.toLowerCase()
+          )
+        )
+      );
+    },
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.openSourceStores",
+    check: (app) => {
+      const i = app.install;
+      return !!(
+        i.fDroidID ||
+        i.obtainiumLink ||
+        app.platform.some((p) =>
+          ["web", "web-based", "webapp", "web-app", "browser"].includes(
+            p.toLowerCase()
+          )
+        )
+      );
+    },
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.worldwideData",
+    check: (app) => app.coverage.includes("Worldwide"),
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.accessibilitySupported",
+    check: (app) =>
+      Object.values(app.accessibility || {}).filter((e) => notNo(e)).length > 0,
+    points: 0.5,
+  },
+
+  // Community channels & Documentation
+  {
+    translationKey: "score.criteria.communityChannelExists",
+    check: (app) =>
+      Object.entries(app.community).filter(
+        (e) => e[1] && e[0] !== "issueTracker"
+      ).length > 0,
+    points: 0.5,
+  },
+  {
+    translationKey: "score.criteria.openSourceChannel",
+    check: (app) =>
+      !!(
+        app.community.irc?.channel ||
+        app.community.matrix ||
+        app.community.mastodon ||
+        app.community.bluesky
+      ),
+    points: 0.25,
+  },
+  {
+    translationKey: "score.criteria.documentationLink",
+    check: (app) => !!app.documentation,
+    points: 0.125,
+  },
+  {
+    translationKey: "score.criteria.documentedMultiplePlatforms",
+    check: (app) =>
+      [
+        app.source.some((s) => s.name === "taginfo"),
+        app.source.some((s) => s.name === "Wikidata"),
+        app.source.some(
+          (s) =>
+            s.name === "Layer" ||
+            s.name === "ServiceItem" ||
+            s.name === "Software"
+        ),
+      ].filter((s) => s).length > 2,
+    points: 0.125,
+  },
+];
+
+/** Sum all values in a array. */
+export function sum(values: number[]) {
+  return values.reduce((a, b) => a + b, 0);
+}
+
 function calculateScore(app: App) {
-  // Community Contribution Score
-  // A, B, C, D, E
+  // Community Contribution Score (A - E)
   // A >= 8
   // B >= 6
   // C >= 4
   // D >= 2
   // E < 2
 
-  // Wenn weder OpenSource noch Editieren möglich ist nicht über C kommen
+  let results = Criterias.map((c) => ({
+    translationKey: c.translationKey,
+    points: c.points,
+    fulfilled: c.check(app),
+  }));
 
-  let score = 0;
-
-  // # OSM Participation (max. 4 Points)
-
-  if (edit(app)) {
-    // Supports OSM contribution
-    score += 2;
-  }
-
-  if (
-    (app.editing?.addPOI || app.editing?.addWay) &&
-    (app.editing?.editPOI ||
-      app.editing?.editGeom ||
-      app.editing?.editRelations ||
-      app.editing?.editTags)
-  ) {
-    // Supports add and edit
-    score += 1;
-  }
-
-  if (display(app) || app.map?.map) {
-    // Supports displaying of map data
-    score += 1;
-  }
-
-  // # Development Participation (max. 3 Points)
-  if (app.libre) {
-    // Open source
-    score += 0.5;
-  }
-  // - Open Source (Copy Left 1.5, ohne Copy Left 1.0)
-
-  //All: "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
-  //Permessive: "(?:Apache.*|MIT.*|.*BSD.*|PD|ISC.*|Unlicense|Ms-PL.*)"
-  if ((app.license || "").match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")) {
-    // Copy Left
-    score += 0.5;
-  }
-
-  if (app.sourceCode) {
-    // Source code exists
-    score += 0.5;
-  }
-
-  if (app.community.issueTracker) {
-    // Issue Tracker exists
-    score += 0.5;
-  }
-  if (app.lastRelease) {
-    const lastRelease = new Date(app.lastRelease);
-
-    const threeMonthsAgo = new Date();
-    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-
-    if (lastRelease > threeMonthsAgo) {
-      // The last update was 3 months ago.
-      score += 0.25;
-    }
-
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-
-    if (lastRelease > oneYearAgo) {
-      // The last update was 1 year ago
-      score += 0.25;
-    }
-  }
-
-  if (app.languagesUrl) {
-    // Translateable
-    score += 0.5;
-  }
-
-  // Availability/Accessbility (max. 2 Points)
-
-  if (
-    app.languages.length >= 3 ||
-    app.languages.some((l) => l.toUpperCase() === "MUL")
-  ) {
-    // App is translated in multiple languages
-    score += 0.125;
-  }
-  if (app.languages.length >= 10) {
-    // App is translated in 10 languages
-    score += 0.125;
-  }
-
-  if (app.gratis) {
-    // App is gratis
-    score += 0.25;
-  }
-
-  const i = app.install;
-  if (
-    [
-      i.appleStoreID || i.macAppStoreID,
-      i.asin,
-      i.fDroidID || i.googlePlayID || i.huaweiAppGalleryID || i.obtainiumLink,
-      i.microsoftAppID,
-    ].filter((i) => i).length > 1 ||
-    app.platform.length > 1 ||
-    app.platform.filter((p) =>
-      ["web", "web-based", "webapp", "web-app", "browser"].includes(
-        p.toLowerCase()
-      )
-    ).length >= 1
-  ) {
-    // Available on multiple platforms
-    score += 0.25;
-  }
-  if (
-    i.fDroidID ||
-    i.obtainiumLink ||
-    app.platform.filter((p) =>
-      ["web", "web-based", "webapp", "web-app", "browser"].includes(
-        p.toLowerCase()
-      )
-    ).length >= 1
-  ) {
-    // Available over a free store
-    score += 0.25;
-  }
-
-  if (app.coverage.includes("Worldwide")) {
-    // Worldwide coverage
-    score += 0.5;
-  }
-  if (Object.values(app.accessibility || {}).filter((e) => notNo(e))) {
-    // Some accessbility support
-    score += 0.5;
-  }
-
-  // # Community channels & Documentation (max. 1 Points)
-  if (
-    Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker")
-      .length > 0
-  ) {
-    // A community communication channel exists
-    score += 0.5;
-  }
-  if (
-    app.community.irc?.channel ||
-    app.community.matrix ||
-    app.community.mastodon ||
-    app.community.bluesky
-  ) {
-    // A community communication channel on a open source media exists
-    score += 0.25;
-  }
-
-  if (app.documentation) {
-    // Documentation link exists
-    score += 0.125;
-  }
-  if (
-    [
-      app.source.filter((s) => s.name === "taginfo"),
-      app.source.filter((s) => s.name === "Wikidata"),
-      app.source.filter(
-        (s) =>
-          s.name === "Layer" ||
-          s.name === "ServiceItem" ||
-          s.name === "Software"
-      ),
-    ].length > 2
-  ) {
-    // Documented on multiple plattformes
-    score += 0.125;
-  }
-
-  return score;
+  return {
+    total: sum(results.filter((r) => r.fulfilled).map((r) => r.points)),
+    details: results,
+  };
 }
 
 export function addApp(obj: App) {

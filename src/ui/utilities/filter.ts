@@ -86,6 +86,7 @@ export function edit(a: App) {
         "QA",
         "QUALITY CONTROL",
         "NOTES",
+        "EDITOR TOOL",
         "COMPARING TOOL",
         "HASHTAG TOOL",
         "MONITORING TOOL",

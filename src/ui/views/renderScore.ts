@@ -1,33 +1,56 @@
+import i18next from "i18next";
 import { App } from "../../data/template/utilities";
 
 export function renderScore(app: App) {
   let label;
-  if (app.score >= 8) {
+  if (app.score.total >= 8) {
     label = "A";
-  } else if (app.score >= 6) {
+  } else if (app.score.total >= 6) {
     label = "B";
-  } else if (app.score >= 4) {
+  } else if (app.score.total >= 4) {
     label = "C";
-  } else if (app.score >= 2) {
+  } else if (app.score.total >= 2) {
     label = "D";
   } else {
     label = "E";
   }
 
   let color;
-  if (app.score >= 8) {
+  if (app.score.total >= 8) {
     color = "bg-dark-green";
-  } else if (app.score >= 6) {
+  } else if (app.score.total >= 6) {
     color = "bg-green";
-  } else if (app.score >= 4) {
+  } else if (app.score.total >= 4) {
     color = "bg-yellow";
-  } else if (app.score >= 2) {
+  } else if (app.score.total >= 2) {
     color = "bg-orange";
   } else {
     color = "bg-red";
   }
 
-  return `<div class="corner-badge-left ${color}" title="${app.score}">
+  const resultDisplay = i18next.t("score.results", {
+    total: app.score.total,
+    fulfilled: app.score.details
+      .filter((d) => d.fulfilled)
+      .map((e) =>
+        i18next.t("score.result", {
+          description: i18next.t(e.translationKey),
+          points: e.points,
+        })
+      )
+      .join("\n"),
+    notFulfilled: app.score.details
+      .filter((d) => !d.fulfilled)
+      .map((e) =>
+        i18next.t("score.result", {
+          description: i18next.t(e.translationKey),
+          points: e.points,
+        })
+      )
+      .join("\n"),
+  });
+
+  return `<div class="corner-badge-left ${color}" title="${resultDisplay}">
         <a href="/docs/score">${label}</a>
       </div>`;
 }

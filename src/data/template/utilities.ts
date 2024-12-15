@@ -147,7 +147,14 @@ export type App = {
     slack?: string;
     reddit?: string;
   };
-  score: number;
+  score: {
+    total: number;
+    details: {
+      translationKey: string;
+      points: number;
+      fulfilled: boolean;
+    }[];
+  };
   filter?: string;
 };
 

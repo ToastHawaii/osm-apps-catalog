@@ -281,7 +281,9 @@ a {
   top: 0;
   border-bottom-right-radius: 5px;
   padding: 2px 6px;
-  color: white;
+}
+.corner-badge-left a {
+  color: white !important;
   font-weight: bold;
 }
 
