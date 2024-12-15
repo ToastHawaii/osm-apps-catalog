@@ -1,12 +1,10 @@
 {
-    "about.translations.text": "Hacer traducciones\n  - para el catálogo de aplicaciones OSM en [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href=\"https://hosted.weblate.org/engage/osm-apps-catalog/\"><img src=\"https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg\" alt=\"Estado de la traducción\"></a>\n  - para las aplicaciones documentadas en [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)",
     "category.latest.description": "Muestra {{numberOfApps}} aplicaciones ordenadas por la última fecha de lanzamiento.",
-    "about.translations.header": "¿Habla otro idioma?",
     "filter.category.focus": "Enfoque",
     "filter.category.latest": "Última",
     "proprietary": "Propietario",
     "wiki.none": "ninguno",
-    "category.all.description": "Muestra {{numberOfApps}} aplicaciones encontradas en la wiki de OpenStreetMap, Wikidata y taginfo en orden aleatorio.",
+    "category.all.description": "Muestra {{numberofapps}} aplicaciones del wiki de OpenStreetMap, Wikidata y taginfo, ordenadas por puntuación de colaboración de la comunidad.",
     "filter.language": "Idioma",
     "category.focus.description": "Muestra diez aplicaciones de las páginas actualizadas más recientemente.",
     "wiki.generatedByOsmAppsCatalog": "Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.",

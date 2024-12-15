@@ -24,8 +24,6 @@
     "category.latest.description": "Zobrazuje {{numberOfApps}} aplikace seřazené podle data posledního vydání.",
     "category.mobile.description": "Zobrazuje {{numberOfApps}} aplikace vyvinuté pro mobilní zařízení nebo podporující offline použití.",
     "app.install.huaweiAppGallery": "Huawei App Gallery",
-    "about.translations.text": "Překládejte\n- pro OSM Apps Catalog na [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href=\"https://hosted.weblate.org/engage/osm-apps-catalog/\"><img src=\"https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg\" alt=\"Stav překladu\"></a>\n  - pro aplikace zdokumentované na [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)",
-    "about.translations.header": "Umíte jiný jazyk?",
     "wiki.generatedByOsmAppsCatalog": "Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.",
     "compare.group.header.map": "Zobrazení mapy",
     "app.free": "Zdarma",

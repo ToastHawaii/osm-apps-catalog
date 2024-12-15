@@ -45,8 +45,6 @@
     "wiki.generatedBy": "Παρήχθη από τον Κατάλογο Εφαρμογών OSM",
     "wiki.none": "κανένα",
     "wiki.generatedByOsmAppsCatalog": "Αυτός ο πίνακας παρήχθη από τον [{{link}} Κατάλογο Εφαρμογών OSM] στις {{date}}.",
-    "about.translations.header": "Μπορείτε να μιλήσετε άλλη γλώσσα;",
-    "about.translations.text": "Δημιουργήστε μεταφράσεις\n  - για τον Κατάλογο Εφαρμογών OSM στο [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href=\"https://hosted.weblate.org/engage/osm-apps-catalog/\"><img src=\"https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg\" alt=\"Translation status\"></a>\n  -  για τις εφαρμογές που τεκμηριώνονται εδώ στο [Wiki του OpenStreetMap Wiki](https://wiki.openstreetmap.org/)",
     "category.mobile.description": "Δείχνει {{numberOfApps}} εφαρμογές ανεπτυγμένες για φορητές συσκευές ή που υποστηρίζουν την χρήση εκτός δικτύου.",
     "category.edit.description": "Δείχνει {{numberOfApps}} εφαρμογές που υποστηρίζουν την προσθήκη, επεξεργασία ή ανάλυση δεδομένων OpenStreetMap ή την καταγραφή γεωγραφικών διαδρομών.",
     "compare.group.header.routing": "Δρομολόγηση",

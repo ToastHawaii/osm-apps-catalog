@@ -1,5 +1,4 @@
 {
-    "about.translations.header": "Kannst du eine andere Sprache sprechen?",
     "proprietary": "Proprietär",
     "compare.group.header.general": "Allgemein",
     "libre": "Frei",
@@ -49,7 +48,6 @@
     "compare.group.header.accessibility": "Zugänglichkeit",
     "app.install.macAppStore": "Mac App Store",
     "app.install.microsoftApp": "Microsoft Store",
-    "about.translations.text": "Mache Übersetzungen\n  - für den OSM Apps-Katalog auf [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href=\"https://hosted.weblate.org/engage/osm-apps-catalog/\"><img src=\"https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg\" alt=\"Übersetzungsstatus\"></a>\n  - für die Apps, die im [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) dokumentiert sind",
     "wiki.generatedBy": "Erstellt von OSM Apps Katalog",
     "compare.group.header.tracking": "Tracking",
     "compare.group.header.monitoring": "Überwachung",

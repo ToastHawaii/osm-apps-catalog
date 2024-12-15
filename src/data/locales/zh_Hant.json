@@ -26,7 +26,6 @@
     "multilingual": "多種語言",
     "app.coverage": "覆蓋範圍",
     "app.install.macAppStore": "Mac App Store",
-    "about.translations.header": "你能說另一種語言嗎？",
     "filter.topic": "主題",
     "category.edit.description": "顯示支援新增、編輯或分析 OpenStreetMap 資料或記錄地理軌跡的 {{numberOfApps}} 個應用程式。",
     "relatedApps": "{{numberOfApps}} 個相關應用程式",
