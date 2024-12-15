@@ -47,8 +47,6 @@
     "wiki.generatedBy": "Létrehozta: OSM Apps Catalog",
     "wiki.none": "nincs",
     "wiki.generatedByOsmAppsCatalog": "Ezt a táblázatot az [{{link}} OSM Apps Catalog] hozta létre ({{date}}).",
-    "about.translations.header": "Beszélsz más nyelven?",
-    "about.translations.text": "Készíts fordításokat\n  - az OSM Apps katalógusról [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href=\"https://hosted.weblate.org/engage/osm-apps-catalog/\"><img src=\"https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg\" alt=\"Translation status\"></a>\n  - az [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)n dokumentált alkalmazásokról",
     "about": "Névjegy",
     "filter.search": "Keresés",
     "filter.free": "Ingyenes",
