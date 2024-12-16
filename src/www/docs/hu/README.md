@@ -87,10 +87,11 @@ GitHubon](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- Légy részese az [OSM
+  közösségnek](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
+  [találkozz velünk](https://osmcal.org/) & [chatelj
+  velünk](https://community.osm.be/)
 - [OpenStreetMap
   szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Ismerős OSM-alkalmazások
