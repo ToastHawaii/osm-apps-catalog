@@ -34,6 +34,7 @@ import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
 import i18next from "i18next";
 import { features } from "./features";
+import { sum } from "./data/addApp";
 
 let onInit = true;
 
@@ -635,7 +636,14 @@ function saveAppCatalog() {
   }
   console.info("added catalog to cache");
 
-  //printJsonLd();
+  // printCalcScore();
+  // printJsonLd();
+}
+
+function printCalcScore() {
+  // 18.24.2024: 1.952
+  const average = sum(apps.map((a) => a.score.total)) / apps.length;
+  console.info("Average: "+ average);
 }
 
 function printJsonLd() {

@@ -18,7 +18,7 @@
     "multilingual": "Mehrsprachig",
     "wiki.none": "Keine",
     "list.moreInfos": "Informationen",
-    "category.all.description": "Zeigt {{numberOfApps}} Apps aus dem OpenStreetMap-Wiki, Wikidata und Taginfo, sortiert nach Community Contribution Score.",
+    "category.all.description": "Zeigt {{numberOfApps}} Apps aus dem OpenStreetMap-Wiki, Wikidata und Taginfo, sortiert nach dem Community Contribution Score.",
     "filter.topic": "Themen",
     "app.sourceCode": "Quellcode",
     "app.license": "Lizenz",
