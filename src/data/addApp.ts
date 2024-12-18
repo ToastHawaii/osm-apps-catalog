@@ -198,7 +198,7 @@ const Criterias: {
             s.name === "ServiceItem" ||
             s.name === "Software"
         ),
-      ].filter((s) => s).length > 2,
+      ].filter((s) => s).length >= 2,
     points: 0.125,
   },
 ];
