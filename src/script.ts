@@ -78,8 +78,9 @@ if (features.freeFilter) {
   (document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
     i18next.t("filter.free");
 } else {
-  (document.getElementById("freeDisplay") as HTMLSpanElement).style.display =
-    "none";
+  (
+    document.getElementById("freeDisplay") as HTMLSpanElement
+  ).parentElement!.style.display = "none";
 }
 (document.getElementById("about") as HTMLAnchorElement).setAttribute(
   "title",
@@ -641,9 +642,10 @@ function saveAppCatalog() {
 }
 
 function printCalcScore() {
-  // 18.24.2024: 1.952
   const average = sum(apps.map((a) => a.score.total)) / apps.length;
-  console.info("Average: "+ average);
+  console.info("Average");
+  console.info("18.24.2024: 1.970");
+  console.info("Today: " + average);
 }
 
 function printJsonLd() {
