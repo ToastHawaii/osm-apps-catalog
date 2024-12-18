@@ -97,7 +97,7 @@
     "score.criteria.supportsContributions": "La aplicación admite colaboraciones (edición, análisis, etc.) a OpenStreetMap",
     "score.criteria.openSourceStores": "La aplicación es accesible a través de tiendas de código abierto (por ejemplo, F-Droid)",
     "score.criteria.openSourceChannel": "Un canal está alojado en plataformas de código abierto (por ejemplo, Matrix)",
-    "score.results": "Puntuación de la contribución comunitaria\nTotal: {{total}}\n\nCumplido:\n{{fulfilled}}\n\nNo cumplida:\n{{notFulfilled}}",
+    "score.results": "Puntuación de la contribución comunitaria\nTotal: {{total}} puntos\n\nAcciones requeridas para una puntuación más alta:\n{{notFulfilled}}\n\nCumplido:\n{{fulfilled}}",
     "score.criteria.accessibilitySupported": "Se admite la accesibilidad (por ejemplo, compatibilidad con lectores de pantalla)",
     "score.criteria.displaysMaps": "La aplicación muestra mapas o datos OSM"
 }
