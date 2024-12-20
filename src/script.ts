@@ -715,7 +715,7 @@ async function getAppCatalog() {
 
   const lastAllowedVersion = new Date(Date.parse("2024-12-20T21:00Z"));
 
-  if (date && new Date(date).valueOf() < lastAllowedVersion.valueOf()) {
+  if (date && new Date(date).valueOf() > lastAllowedVersion.valueOf()) {
     const day = 24 * 60 * 60 * 1000;
 
     if (
