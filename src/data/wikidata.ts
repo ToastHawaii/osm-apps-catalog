@@ -95,7 +95,6 @@ export function transformWikidataResult(result: any) {
       {
         name: "Wikidata",
         wiki: "",
-        displayName: `Wikidata <i class="fas fa-pen"></i>`,
         url: result.item.value,
         lastChange: result.modified.value,
       },

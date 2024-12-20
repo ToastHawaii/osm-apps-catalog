@@ -34,7 +34,7 @@ export function renderScore(app: App) {
       .filter((d) => d.fulfilled)
       .map((e) =>
         i18next.t("score.result", {
-          description: i18next.t(e.translationKey),
+          description: i18next.t("score.criteria." + e.translationKey),
           points: e.points,
         })
       )
@@ -43,7 +43,7 @@ export function renderScore(app: App) {
       .filter((d) => !d.fulfilled)
       .map((e) =>
         i18next.t("score.result", {
-          description: i18next.t(e.translationKey),
+          description: i18next.t("score.criteria." + e.translationKey),
           points: e.points,
         })
       )

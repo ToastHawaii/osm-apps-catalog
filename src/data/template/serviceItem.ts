@@ -45,7 +45,6 @@ export function transform(source: { [name: string]: string }) {
       {
         name: "ServiceItem",
         wiki: source.sourceWiki,
-        displayName: `Wiki (ServiceItem) <i class="fas fa-pen"></i>`,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },
@@ -74,7 +73,7 @@ export function transform(source: { [name: string]: string }) {
     platform: [],
     coverage: [],
     install: {},
-    community: {}
+    community: {},
   };
 
   if (source["region"]) {

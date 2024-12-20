@@ -17,7 +17,7 @@
 
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "../utilities/html";
-import { App } from "../../data/template/utilities";
+import { App, toSourceDisplayText } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
@@ -528,7 +528,7 @@ ${
         renderToHtml: (app) =>
           app.source
             .map(
-              (s) => `<a target="_blank" href="${s.url}">${s.displayName}</a>`
+              (s) => `<a target="_blank" href="${s.url}">${toSourceDisplayText(s.name)}</a>`
             )
             .join(", "),
       },

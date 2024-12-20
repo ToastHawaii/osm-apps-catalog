@@ -105,7 +105,6 @@ export async function loadApps(
       source: [
         {
           name: "taginfo",
-          displayName: "taginfo",
           url: source + obj.id,
           lastChange: projectObjects.data_until,
         },

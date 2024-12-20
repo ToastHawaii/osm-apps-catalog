@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { createElement, getHtmlElement } from "../utilities/html";
-import { App } from "../../data/template/utilities";
+import { App, toSourceDisplayText } from "../../data/template/utilities";
 import { renderImage } from "../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
@@ -329,7 +329,12 @@ export function render(app: App) {
         <span class="more-info-title">${i18next.t(
           "app.source"
         )}</span> <span class="more-info-text">${app.source
-      .map((s) => `<a href="${s.url}" target="_blank">${s.displayName}</a>`)
+      .map(
+        (s) =>
+          `<a href="${s.url}" target="_blank">${toSourceDisplayText(
+            s.name
+          )}</a>`
+      )
       .join(", ")}</span>
         </div>
         `,

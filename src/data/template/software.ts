@@ -58,7 +58,6 @@ export function transform(
       {
         name: "Software",
         wiki: source.sourceWiki,
-        displayName: `Wiki (Software) <i class="fas fa-pen"></i>`,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },

@@ -713,17 +713,21 @@ function printJsonLd() {
 async function getAppCatalog() {
   const date = get<Date>(`${lang}-apps-date`);
 
-  const day = 24 * 60 * 60 * 1000;
+  const lastAllowedVersion = new Date(Date.parse("2024-12-20T20:00"));
 
-  if (
-    (date && new Date(date).valueOf() > Date.now() - day) ||
-    !window.navigator.onLine
-  ) {
-    console.info("get catalog from cache");
+  if (date && new Date(date).valueOf() < lastAllowedVersion.valueOf()) {
+    const day = 24 * 60 * 60 * 1000;
 
-    apps = get(`${lang}-apps`) || [];
+    if (
+      (date && new Date(date).valueOf() > Date.now() - day) ||
+      !window.navigator.onLine
+    ) {
+      console.info("get catalog from cache");
 
-    doUpdate(apps);
+      apps = get(`${lang}-apps`) || [];
+
+      doUpdate(apps);
+    }
   }
 
   if (apps.length === 0) {

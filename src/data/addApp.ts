@@ -11,12 +11,12 @@ const Criterias: {
 }[] = [
   // OSM Participation
   {
-    translationKey: "score.criteria.supportsContributions",
+    translationKey: "supportsContributions",
     check: (app) => edit(app),
     points: 2,
   },
   {
-    translationKey: "score.criteria.addingAndEditingPossible",
+    translationKey: "addingAndEditingPossible",
     check: (app) =>
       equalsYes(
         ...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]
@@ -32,35 +32,35 @@ const Criterias: {
     points: 1,
   },
   {
-    translationKey: "score.criteria.displaysMaps",
+    translationKey: "displaysMaps",
     check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
     points: 1,
   },
 
   // Development Participation
   {
-    translationKey: "score.criteria.openSource",
+    translationKey: "openSource",
     check: (app) => !!app.libre,
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.copyleftLicense",
+    translationKey: "copyleftLicense",
     check: (app) =>
       !!(app.license || "").match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)"),
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.sourceCodeReference",
+    translationKey: "sourceCodeReference",
     check: (app) => !!app.sourceCode,
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.issueTracker",
+    translationKey: "issueTracker",
     check: (app) => !!app.community.issueTracker,
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.lastUpdateThreeMonths",
+    translationKey: "lastUpdateThreeMonths",
     check: (app) => {
       if (!app.lastRelease) {
         return false;
@@ -73,7 +73,7 @@ const Criterias: {
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.lastUpdateYear",
+    translationKey: "lastUpdateYear",
     check: (app) => {
       if (!app.lastRelease) {
         return false;
@@ -86,31 +86,31 @@ const Criterias: {
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.translationContributions",
+    translationKey: "translationContributions",
     check: (app) => !!app.languagesUrl,
     points: 0.5,
   },
   // Availability/Accessibility
   {
-    translationKey: "score.criteria.multipleLanguages",
+    translationKey: "multipleLanguages",
     check: (app) =>
       app.languages.length >= 3 ||
       app.languages.some((l) => l.toUpperCase() === "MUL"),
     points: 0.125,
   },
   {
-    translationKey: "score.criteria.tenLanguages",
+    translationKey: "tenLanguages",
     check: (app) => app.languages.length >= 10,
     points: 0.125,
   },
 
   {
-    translationKey: "score.criteria.freeOfCharge",
+    translationKey: "freeOfCharge",
     check: (app) => !!app.gratis,
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.multiplePlatforms",
+    translationKey: "multiplePlatforms",
     check: (app) => {
       const i = app.install;
       return (
@@ -134,7 +134,7 @@ const Criterias: {
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.openSourceStores",
+    translationKey: "openSourceStores",
     check: (app) => {
       const i = app.install;
       return !!(
@@ -150,12 +150,12 @@ const Criterias: {
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.worldwideData",
+    translationKey: "worldwideData",
     check: (app) => app.coverage.includes("Worldwide"),
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.accessibilitySupported",
+    translationKey: "accessibilitySupported",
     check: (app) =>
       Object.values(app.accessibility || {}).filter((e) => notNo(e)).length > 0,
     points: 0.5,
@@ -163,7 +163,7 @@ const Criterias: {
 
   // Community channels & Documentation
   {
-    translationKey: "score.criteria.communityChannelExists",
+    translationKey: "communityChannelExists",
     check: (app) =>
       Object.entries(app.community).filter(
         (e) => e[1] && e[0] !== "issueTracker"
@@ -171,7 +171,7 @@ const Criterias: {
     points: 0.5,
   },
   {
-    translationKey: "score.criteria.openSourceChannel",
+    translationKey: "openSourceChannel",
     check: (app) =>
       !!(
         app.community.irc?.channel ||
@@ -182,12 +182,12 @@ const Criterias: {
     points: 0.25,
   },
   {
-    translationKey: "score.criteria.documentationLink",
+    translationKey: "documentationLink",
     check: (app) => !!app.documentation,
     points: 0.125,
   },
   {
-    translationKey: "score.criteria.documentedMultiplePlatforms",
+    translationKey: "documentedMultiplePlatforms",
     check: (app) =>
       [
         app.source.some((s) => s.name === "taginfo"),
