@@ -77,7 +77,9 @@ export async function loadApps(
     }
   doUpdate(apps);
 
-  const projectObjects = window.tagInfoProjectsResponse as {
+  const projectObjects = (await (
+    await fetch("https://taginfo.openstreetmap.org/api/4/projects/all")
+  ).json()) as {
     url: string;
     data_until: string;
     data: {
