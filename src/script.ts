@@ -713,7 +713,7 @@ function printJsonLd() {
 async function getAppCatalog() {
   const date = get<Date>(`${lang}-apps-date`);
 
-  const lastAllowedVersion = new Date(Date.parse("2024-12-20T22:00Z"));
+  const lastAllowedVersion = new Date(Date.parse("2024-12-20T21:00Z"));
 
   if (date && new Date(date).valueOf() < lastAllowedVersion.valueOf()) {
     const day = 24 * 60 * 60 * 1000;
