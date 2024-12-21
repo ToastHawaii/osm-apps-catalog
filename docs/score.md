@@ -10,6 +10,8 @@ To achieve a good rating, an app should be:
 - accessible to many people,
 - and well-documented.
 
+[Click here for the catalog](https://osm-apps.zottelig.ch)
+
 ## Specification
 
 The Community Contribution Score ranges from **A** to **E**, where **A** is the best rating and **E** is the worst.

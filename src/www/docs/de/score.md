@@ -9,6 +9,8 @@ Zu einer guten Bewertung führt
 - für viele Menschen zugänglich,
 - und gut dokumentiert ist.
 
+[Klick hier für den Katalog](https://osm-apps.zottelig.ch)
+
 ## Spezifikation
 
 Der Community Contribution Score reicht von **A** bis **E**, wobei **A** die beste Bewertung und **E** die schlechteste ist.
