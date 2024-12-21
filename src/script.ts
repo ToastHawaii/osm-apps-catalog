@@ -34,7 +34,7 @@ import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
 import i18next from "i18next";
 import { features } from "./features";
-import { sum } from "./data/addApp";
+import { calculateScore, sum } from "./data/addApp";
 
 let onInit = true;
 
@@ -626,6 +626,10 @@ function renderNotFoundApps() {
 }
 
 function saveAppCatalog() {
+  apps.forEach((app) => {
+    delete app.score;
+  });
+
   try {
     set(`${lang}-apps`, apps);
     set(`${lang}-apps-date`, new Date());
@@ -725,6 +729,10 @@ async function getAppCatalog() {
       console.info("get catalog from cache");
 
       apps = get(`${lang}-apps`) || [];
+
+      apps.forEach((app) => {
+        app.score = calculateScore(app);
+      });
 
       doUpdate(apps);
     }

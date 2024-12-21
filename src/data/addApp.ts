@@ -208,7 +208,7 @@ export function sum(values: number[]) {
   return values.reduce((a, b) => a + b, 0);
 }
 
-function calculateScore(app: App) {
+export function calculateScore(app: App) {
   // Community Contribution Score (A - E)
   // A >= 8
   // B >= 6
