@@ -4,7 +4,7 @@ import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
 import { shuffle } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes } from "../ui/utilities/string";
-import { App, containsOfflineLink } from "./template/utilities";
+import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
 import { apps } from "../script";
 import { addApp } from "./addApp";
 import { toUrl } from "../ui/utilities/url";
@@ -52,7 +52,7 @@ export async function loadApps(
       !equalsIgnoreCase(s["status"], "unfinished") &&
       (!equalsIgnoreCase(s["status"], "unmaintained") ||
         // No longer maintained but can still be installed.
-        toUrl(s["web"]) ||
+        toUrl(extractWebsite(s["web"])) ||
         s["asin"] ||
         s["fDroidID"] ||
         s["obtainiumLink"] ||

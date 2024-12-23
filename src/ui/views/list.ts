@@ -331,9 +331,10 @@ export function render(app: App) {
         )}</span> <span class="more-info-text">${app.source
       .map(
         (s) =>
-          `<a href="${s.url}" target="_blank">${toSourceDisplayText(
-            s.name
-          )}</a>`
+          `<a href="${s.url}" target="_blank" title="${i18next.t(
+            "app.source.date",
+            { date: s.lastChange }
+          )}">${toSourceDisplayText(s.name)}</a>`
       )
       .join(", ")}</span>
         </div>

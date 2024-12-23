@@ -626,17 +626,19 @@ function renderNotFoundApps() {
 }
 
 function saveAppCatalog() {
-  apps.forEach((app) => {
-    delete app.score;
+  const appsCleanedForCache = apps.map((app) => {
+    // Remove score property
+    const { score, ...appCleanedForCache } = app;
+    return appCleanedForCache;
   });
 
   try {
-    set(`${lang}-apps`, apps);
+    set(`${lang}-apps`, appsCleanedForCache);
     set(`${lang}-apps-date`, new Date());
   } catch (e) {
     // Error occurs, perhaps the local storage is full. Clear and try again.
     localStorage.clear();
-    set(`${lang}-apps`, apps);
+    set(`${lang}-apps`, appsCleanedForCache);
     set(`${lang}-apps-date`, new Date());
   }
   console.info("added catalog to cache");
@@ -649,6 +651,7 @@ function printCalcScore() {
   const average = sum(apps.map((a) => a.score.total)) / apps.length;
   console.info("Average");
   console.info("18.24.2024: 1.970");
+  console.info("23.24.2024: 1.980");
   console.info("Today: " + average);
 }
 
@@ -709,6 +712,10 @@ function printJsonLd() {
           license: app.license || undefined,
           applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
           operatingSystem: app.platform.join(", ") || undefined,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: app.score.total,
+          },
         }))
     )
   );

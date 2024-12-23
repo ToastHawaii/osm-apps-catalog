@@ -528,7 +528,11 @@ ${
         renderToHtml: (app) =>
           app.source
             .map(
-              (s) => `<a target="_blank" href="${s.url}">${toSourceDisplayText(s.name)}</a>`
+              (s) =>
+                `<a target="_blank" href="${s.url}" title="${i18next.t(
+                  "app.source.date",
+                  { date: s.lastChange }
+                )}">${toSourceDisplayText(s.name)}</a>`
             )
             .join(", "),
       },
