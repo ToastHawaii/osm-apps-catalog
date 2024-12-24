@@ -97,7 +97,7 @@ ${appWithFields
   .join("")}|-
 ${rows.join("|-\n")}|}
 </div>
-[[Category:Software list]]
+[[Category:Software lists]]
 <p style="font-size:80%">${i18next.t("wiki.generatedByOsmAppsCatalog", {
     link: url,
     date: new Date().toISOString().substring(0, 10),
