@@ -72,7 +72,14 @@ export function transformWikidataResult(result: any) {
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],
-    platform: (result.platforms?.value || "").split(";").filter((v: any) => v),
+    platform: [
+      ...new Set(
+        [
+          ...(result.platforms?.value || "").split(";"),
+          ...(result.os?.value || "").split(";"),
+        ].filter((v: any) => v)
+      ),
+    ],
     coverage: [],
     install: {
       asin: result.asin?.value,
@@ -131,6 +138,7 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?languageCode; SEPARATOR = ";") AS ?languages)
   (SAMPLE(?languagesUrl) AS ?languagesUrl) 
   (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
+  (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
   (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
   (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?googlePlayID) AS ?googlePlayID) 
@@ -215,7 +223,11 @@ WHERE {
     FILTER(LANG(?topicLabel) = "${language}")
   }
   OPTIONAL { 
-    ?item wdt:P306/rdfs:label ?platformLabel.
+    ?item wdt:P306/rdfs:label ?osLabel.
+    FILTER(LANG(?osLabel) = "${language}")
+  }
+  OPTIONAL { 
+    ?item wdt:P400/rdfs:label ?platformLabel.
     FILTER(LANG(?platformLabel) = "${language}")
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }

@@ -652,6 +652,7 @@ function printCalcScore() {
   console.info("Average");
   console.info("18.24.2024: 1.970");
   console.info("23.24.2024: 1.980");
+  console.info("25.24.2024: 1.999");
   console.info("Today: " + average);
 }
 
@@ -676,9 +677,10 @@ function printJsonLd() {
           "@type": "SoftwareApplication",
           name: app.name || undefined,
           description: app.description || undefined,
+          keywords: app.topics.join(","),
           image: app.images[0] || undefined,
           url: app.website || undefined,
-          downloadUrl: app.install.fDroidID
+          installUrl: app.install.fDroidID
             ? "https://f-droid.org/repository/browse/?fdid=" +
               app.install.fDroidID
             : undefined || app.install.googlePlayID
@@ -712,9 +714,11 @@ function printJsonLd() {
           license: app.license || undefined,
           applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
           operatingSystem: app.platform.join(", ") || undefined,
+          isAccessibleForFree: app.gratis || app.libre,
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue: app.score.total,
+            reviewCount: 1,
           },
         }))
     )
