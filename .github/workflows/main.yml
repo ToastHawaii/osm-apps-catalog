@@ -1,0 +1,6 @@
+steps:
+  - name: Test Local Action
+    id: test-action
+    uses: ToastHawaii/osm-apps-catalog-backend@v1 # Commit with the `v1` tag
+    with:
+      milliseconds: 1000
