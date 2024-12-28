@@ -1,6 +1,31 @@
-steps:
-  - name: Test Local Action
-    id: test-action
-    uses: ToastHawaii/osm-apps-catalog-backend@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
+name: Collect Apps
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *" # Jeden Tag um Mitternacht
+
+permissions:
+  contents: write
+
+jobs:
+  test-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Test Local Action
+        id: test-action
+        uses: ./src/action/
+        with:
+          milliseconds: 2000
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print Output
+        id: output
+        run: echo "${{ steps.test-action.outputs.time }}"

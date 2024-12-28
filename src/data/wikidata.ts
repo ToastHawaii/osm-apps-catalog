@@ -93,6 +93,7 @@ export function transformWikidataResult(result: any) {
       forum: result.forum?.value || result.forumDef?.value,
       irc: extractIrc(result.irc?.value),
       bluesky: result.blueskyHandle?.value,
+      matrix: result.matrixRoomId?.value,
       mastodon: result.mastodonAddress?.value,
       issueTracker: result.issueTrackerUrl?.value,
       telegram: result.telegram?.value || result.telegramDef?.value,
@@ -153,6 +154,7 @@ SELECT DISTINCT
   ?hashtagTool
   ?monitoring
   ?changsetReview
+  (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
   (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
   (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
@@ -268,6 +270,7 @@ WHERE {
     ?item wdt:P31 wd:Q125191237.
     BIND("yes" AS ?changsetReview)
   }
+  OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
   OPTIONAL { ?item wdt:P12361 ?blueskyHandle. }
   OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
