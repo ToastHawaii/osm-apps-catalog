@@ -70,11 +70,7 @@ export function transform(
     sourceCode: toUrl(
       extractWebsite(source["repo"] || source["git"] || source["svn"])
     ),
-    gratis: some([source["price"]] || source["license"], [
-      "gratis",
-      "free",
-      "0",
-    ]),
+    gratis: some([source["price"], source["license"]], ["gratis", "free", "0"]),
     libre: !!source["license"]?.match(
       "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
     ),
