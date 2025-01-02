@@ -10,11 +10,10 @@ import { toUrl } from "../ui/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./wikidata";
 
 export async function loadApps(
-  doUpdate: (apps: App[]) => void,
+  apps: App[] = [],
+  doUpdate: (apps: App[]) => void = () => {},
   language = "en"
 ) {
-  const apps: App[] = [];
-
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
@@ -26,7 +25,7 @@ export async function loadApps(
   )) {
     const obj: App = transformServiceItem(source);
 
-    addApp(obj);
+    addApp(apps, obj);
   }
 
   shuffle(apps);
@@ -41,7 +40,7 @@ export async function loadApps(
   )) {
     const obj: App = transformLayer(source);
 
-    addApp(obj);
+    addApp(apps, obj);
   }
   doUpdate(apps);
 
@@ -66,7 +65,7 @@ export async function loadApps(
   )) {
     const obj: App = transformSoftware(source as any);
 
-    addApp(obj);
+    addApp(apps, obj);
   }
   doUpdate(apps);
 
@@ -74,7 +73,7 @@ export async function loadApps(
   for (const wikidataResult of wikidataResults)
     for (const source of wikidataResult.results.bindings) {
       const obj: App = transformWikidataResult(source);
-      addApp(obj);
+      addApp(apps, obj);
     }
   doUpdate(apps);
 
@@ -120,7 +119,7 @@ export async function loadApps(
       community: {},
     } as any;
 
-    addApp(app);
+    addApp(apps, app);
   }
   doUpdate(apps);
 

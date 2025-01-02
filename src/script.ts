@@ -22,11 +22,9 @@ import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { set, get } from "./ui/utilities/storage";
 import { render as renderListView } from "./ui/views/list";
 import { shuffle, includes, some } from "./ui/utilities/array";
-import { equalsIgnoreCase, textToColor } from "./ui/utilities/string";
+import { equalsIgnoreCase } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
 import { findGetParameter } from "./ui/utilities/url";
-import { Solver } from "./ui/utilities/coloriz/Solver";
-import { Color } from "./ui/utilities/coloriz/Color";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { loadApps } from "./data/loadApps";
@@ -753,9 +751,9 @@ async function getAppCatalog() {
     console.info("load catalog from wiki");
 
     if (lang !== "en") {
-      await loadApps(doUpdate, lang);
+      await loadApps(apps, doUpdate, lang);
     }
-    await loadApps(doUpdate);
+    await loadApps(apps, doUpdate);
 
     shuffle(apps);
 
@@ -768,17 +766,6 @@ async function getAppCatalog() {
   }
 
   getHtmlElement("#loading").remove();
-}
-
-export function extendFilter(app: App) {
-  if (app.images.length === 0 && !app.filter) {
-    const defaultColor = textToColor(app.name);
-    app.filter = new Solver(
-      new Color(defaultColor.r, defaultColor.g, defaultColor.b)
-    )
-      .solve()
-      .filter.replace(/filter:/gi, "filter: brightness(0%)");
-  }
 }
 
 getAppCatalog();

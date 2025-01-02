@@ -9,7 +9,7 @@ import { context, getOctokit } from "@actions/github";
  */
 export async function run(): Promise<void> {
   try {
-    const apps = loadApps(() => {});
+    const apps = loadApps();
 
     const jsonFilePath = "./api/apps/all.json"; // Pfad zur Datei im Repo
     await uploadJsonToRepo(

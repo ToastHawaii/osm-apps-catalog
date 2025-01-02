@@ -1,7 +1,7 @@
 import { removeDuplicates } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes, notNo } from "../ui/utilities/string";
 import { App } from "./template/utilities";
-import { apps, extendFilter } from "../script";
+import { extendFilter } from "../extendFilter";
 import { display, edit } from "../ui/utilities/filter";
 
 const Criterias: {
@@ -228,7 +228,7 @@ export function calculateScore(app: App) {
   };
 }
 
-export function addApp(obj: App) {
+export function addApp(apps: App[], obj: App) {
   const duplicates = apps.filter(
     (app) =>
       equalsIgnoreCase(app.name, obj.name) ||
