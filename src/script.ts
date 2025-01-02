@@ -27,7 +27,6 @@ import { App } from "./data/template/utilities";
 import { findGetParameter } from "./ui/utilities/url";
 import { edit, mobile, navigation } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
-import { loadApps } from "./data/loadApps";
 import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
 import i18next from "i18next";
@@ -734,9 +733,12 @@ async function getAppCatalog() {
   apps.forEach((app) => {
     app.score = calculateScore(app);
   });
-
+  
   doUpdate(apps);
   getHtmlElement("#loading").remove();
+
+  // printCalcScore();
+  // printJsonLd();
 }
 
 getAppCatalog();

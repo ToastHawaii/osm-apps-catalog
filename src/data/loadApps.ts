@@ -2,7 +2,6 @@ import { requestTemplates } from "./template/crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
-import { shuffle } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes } from "../ui/utilities/string";
 import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
 import { addApp } from "./addApp";
@@ -10,11 +9,10 @@ import { toUrl } from "../ui/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./wikidata";
 import { getJson } from "../ui/utilities/jsonRequest";
 
-export async function loadApps(
-  apps: App[] = [],
-  doUpdate: (apps: App[]) => void = () => {},
-  language = "en"
-) {
+export async function loadApps() {
+  const apps: App[] = [];
+  const language = "en";
+
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
@@ -29,9 +27,6 @@ export async function loadApps(
     addApp(apps, obj);
   }
 
-  shuffle(apps);
-  doUpdate(apps);
-
   const layerObjects = await layerObjectsRequest;
   for (const source of layerObjects.filter(
     (s) =>
@@ -43,7 +38,6 @@ export async function loadApps(
 
     addApp(apps, obj);
   }
-  doUpdate(apps);
 
   const softwareObjects = await softwareObjectsRequest;
   for (const source of softwareObjects.filter(
@@ -68,7 +62,6 @@ export async function loadApps(
 
     addApp(apps, obj);
   }
-  doUpdate(apps);
 
   // const wikidataResults = await Promise.all(wikidataRequest);
   // for (const wikidataResult of wikidataResults)
@@ -78,8 +71,8 @@ export async function loadApps(
   //   }
   // doUpdate(apps);
 
-  const projectObjects = (await (
-    await getJson("https://taginfo.openstreetmap.org/api/4/projects/all")
+  const projectObjects = (await getJson(
+    "https://taginfo.openstreetmap.org/api/4/projects/all"
   )) as {
     url: string;
     data_until: string;
@@ -122,7 +115,6 @@ export async function loadApps(
 
     addApp(apps, app);
   }
-  doUpdate(apps);
 
   return apps;
 }

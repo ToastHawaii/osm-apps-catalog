@@ -2,6 +2,7 @@ import * as core from "@actions/core";
 import { loadApps } from "../data/loadApps";
 
 import { context, getOctokit } from "@actions/github";
+import { shuffle } from "../ui/utilities/array";
 
 /**
  * The main function for the action.
@@ -9,7 +10,16 @@ import { context, getOctokit } from "@actions/github";
  */
 export async function run(): Promise<void> {
   try {
-    const apps = await loadApps();
+    let apps = await loadApps();
+
+    shuffle(apps);
+    apps = apps.sort(function (a, b) {
+      return b.score.total - a.score.total;
+    });
+
+    apps.forEach((app) => {
+      delete app.score.details;
+    });
 
     const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
     await uploadJsonToRepo(

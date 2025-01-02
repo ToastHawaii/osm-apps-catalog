@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build:development": "webpack --config src/webpack.development.config.js --watch",
-    "build:production": "webpack --config src/webpack.production.config.js",
-    "package": "npx ncc build src/action/index.ts -o dist --source-map --license licenses.txt",
-    "package:watch": "npm run package -- --watch"
+    "build": "npm run app:build && npm run action:build",
+    "app:build": "webpack --config src/webpack.production.config.js",
+    "action:build": "npx ncc build src/action/index.ts -o dist --source-map --license licenses.txt",
+    "app:watch": "webpack --config src/webpack.development.config.js --watch",
+    "action:watch": "npm run package -- --watch"
   },
   "repository": {
     "type": "git",

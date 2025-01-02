@@ -32230,7 +32230,7 @@ function findGetParameter(parameterName) {
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-async function getJson(url, params) {
+async function getJson(url, params = {}) {
     const response = await fetch(`${url}?${utilQsString(params)}`, {
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -36853,7 +36853,9 @@ function merge(o1, o2) {
 
 
 
-async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
+async function loadApps() {
+    const apps = [];
+    const language = "en";
     const serviceItemObjectsRequest = requestTemplates("Service item", language);
     const layerObjectsRequest = requestTemplates("Layer", language);
     const softwareObjectsRequest = requestTemplates("Software", language);
@@ -36863,8 +36865,6 @@ async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
         const obj = serviceItem_transform(source);
         addApp(apps, obj);
     }
-    shuffle(apps);
-    doUpdate(apps);
     const layerObjects = await layerObjectsRequest;
     for (const source of layerObjects.filter((s) => !containsOfflineLink(s["name"]) &&
         !containsOfflineLink(s["slippy_web"]) &&
@@ -36872,7 +36872,6 @@ async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
         const obj = layer_transform(source);
         addApp(apps, obj);
     }
-    doUpdate(apps);
     const softwareObjects = await softwareObjectsRequest;
     for (const source of softwareObjects.filter((s) => !containsOfflineLink(s["name"]) &&
         !containsOfflineLink(s["web"]) &&
@@ -36892,7 +36891,6 @@ async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
         const obj = transform(source);
         addApp(apps, obj);
     }
-    doUpdate(apps);
     // const wikidataResults = await Promise.all(wikidataRequest);
     // for (const wikidataResult of wikidataResults)
     //   for (const source of wikidataResult.results.bindings) {
@@ -36900,7 +36898,7 @@ async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
     //     addApp(apps, obj);
     //   }
     // doUpdate(apps);
-    const projectObjects = (await (await fetch("https://taginfo.openstreetmap.org/api/4/projects/all")).json());
+    const projectObjects = (await getJson("https://taginfo.openstreetmap.org/api/4/projects/all"));
     const source = "https://taginfo.openstreetmap.org/projects/";
     for (const obj of projectObjects.data) {
         const app = {
@@ -36926,7 +36924,6 @@ async function loadApps(apps = [], doUpdate = () => { }, language = "en") {
         };
         addApp(apps, app);
     }
-    doUpdate(apps);
     return apps;
 }
 
@@ -36936,13 +36933,21 @@ var github = __nccwpck_require__(3228);
 
 
 
+
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
-        const apps = await loadApps();
+        let apps = await loadApps();
+        shuffle(apps);
+        apps = apps.sort(function (a, b) {
+            return b.score.total - a.score.total;
+        });
+        apps.forEach((app) => {
+            delete app.score.details;
+        });
         const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
         await uploadJsonToRepo(jsonFilePath, apps, "Add JSON file from GitHub Action", core.getInput("ghToken"));
     }
