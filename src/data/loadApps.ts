@@ -5,7 +5,6 @@ import { transform as transformLayer } from "./template/layer";
 import { shuffle } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes } from "../ui/utilities/string";
 import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
-import { apps } from "../script";
 import { addApp } from "./addApp";
 import { toUrl } from "../ui/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./wikidata";
@@ -14,6 +13,8 @@ export async function loadApps(
   doUpdate: (apps: App[]) => void,
   language = "en"
 ) {
+  const apps: App[] = [];
+
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
