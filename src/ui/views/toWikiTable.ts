@@ -44,8 +44,8 @@ export function toWikiTable(
       params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app)))
     )
     .sort((a, b) => {
-      const nameA = a.name.toUpperCase() || "";
-      const nameB = b.name.toUpperCase() || "";
+      const nameA = a.name?.toUpperCase() || "";
+      const nameB = b.name?.toUpperCase() || "";
       if (nameA < nameB) {
         return -1;
       }

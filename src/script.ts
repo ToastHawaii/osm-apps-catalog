@@ -733,59 +733,14 @@ async function getAppCatalog() {
 
   doUpdate(apps);
   getHtmlElement("#loading").remove();
-
-  return;
-
-  const date = get<Date>(`${lang}-apps-date`);
-
-  const lastAllowedVersion = new Date(Date.parse("2024-12-20T21:00Z"));
-
-  if (date && new Date(date).valueOf() > lastAllowedVersion.valueOf()) {
-    const day = 24 * 60 * 60 * 1000;
-
-    if (
-      (date && new Date(date).valueOf() > Date.now() - day) ||
-      !window.navigator.onLine
-    ) {
-      console.info("get catalog from cache");
-
-      apps = get(`${lang}-apps`) || [];
-
-      apps.forEach((app) => {
-        app.score = calculateScore(app);
-      });
-
-      doUpdate(apps);
-    }
-  }
-
-  if (apps.length === 0) {
-    console.info("load catalog from wiki");
-
-    if (lang !== "en") {
-      await loadApps(apps, doUpdate, lang);
-    }
-    await loadApps(apps, doUpdate);
-
-    shuffle(apps);
-
-    apps = apps.sort(function (a, b) {
-      return b.score.total - a.score.total;
-    });
-    doUpdate(apps);
-
-    saveAppCatalog();
-  }
-
-  getHtmlElement("#loading").remove();
 }
 
 getAppCatalog();
 
 function prepareArrayForSelect(names: string[], selected: string[]) {
   names.sort(function (a, b) {
-    if (a.toUpperCase() < b.toUpperCase()) return -1;
-    if (a.toUpperCase() > b.toUpperCase()) return 1;
+    if (a?.toUpperCase() < b?.toUpperCase()) return -1;
+    if (a?.toUpperCase() > b?.toUpperCase()) return 1;
     return 0;
   });
   const nameCounts: { name: string; count: number }[] = [];
