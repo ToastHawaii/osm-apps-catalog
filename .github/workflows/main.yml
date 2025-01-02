@@ -21,7 +21,7 @@ jobs:
 
       - name: Test Local Action
         id: test-action
-        uses: ./src/action/
+        uses: ./
         with:
           milliseconds: 2000
           ghToken: ${{ secrets.GITHUB_TOKEN }}
