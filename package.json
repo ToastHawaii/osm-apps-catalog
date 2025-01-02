@@ -7,7 +7,7 @@
     "app:build": "webpack --config src/webpack.production.config.js",
     "action:build": "npx ncc build src/action/index.ts -o dist --source-map --license licenses.txt",
     "app:watch": "webpack --config src/webpack.development.config.js --watch",
-    "action:watch": "npm run package -- --watch"
+    "action:watch": "npm run action:build -- --watch"
   },
   "repository": {
     "type": "git",
