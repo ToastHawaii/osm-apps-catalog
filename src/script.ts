@@ -732,6 +732,8 @@ async function getAppCatalog() {
   });
 
   doUpdate(apps);
+  getHtmlElement("#loading").remove();
+
   return;
 
   const date = get<Date>(`${lang}-apps-date`);
