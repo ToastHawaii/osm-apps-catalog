@@ -21,7 +21,7 @@ export async function getJson(url: string, params: any = {}) {
   const response = await fetch(`${url}?${utilQsString(params)}`, {
     headers: {
       "User-Agent":
-        "GitHub Action by Markus (markus@zottelig.ch) I request data for osm-apps.zottelig.ch",
+        "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
