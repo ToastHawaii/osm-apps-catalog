@@ -25,5 +25,10 @@ export async function getJson(url: string, params: any = {}) {
     },
   });
 
-  return await response.json();
+  try {
+    return await response.json();
+  } catch (e) {
+    e.message = await response.text();
+    throw e;
+  }
 }
