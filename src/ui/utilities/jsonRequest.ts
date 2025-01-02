@@ -20,18 +20,12 @@ import { utilQsString } from "./url";
 export async function getJson(url: string, params: any = {}) {
   const response = await fetch(`${url}?${utilQsString(params)}`, {
     headers: {
-      "User-Agent":"GitHub Action by Markus (markus@zottelig.ch) I request data for osm-apps.zottelig.ch",
+      "User-Agent":
+        "GitHub Action by Markus (markus@zottelig.ch) I request data for osm-apps.zottelig.ch",
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
   });
 
-  const result = await response.text();
-
-  try {
-    return JSON.parse(result);
-  } catch (e) {
-    e.message = result;
-    throw e;
-  }
+  return await response.json();
 }

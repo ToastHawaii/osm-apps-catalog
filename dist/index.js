@@ -32238,14 +32238,7 @@ async function getJson(url, params = {}) {
             "Content-Type": "application/json",
         },
     });
-    const result = await response.text();
-    try {
-        return JSON.parse(result);
-    }
-    catch (e) {
-        e.message = result;
-        throw e;
-    }
+    return await response.json();
 }
 
 ;// CONCATENATED MODULE: ./src/ui/utilities/string.ts
