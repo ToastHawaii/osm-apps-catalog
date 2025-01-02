@@ -95,7 +95,7 @@ const Criterias: {
     translationKey: "multipleLanguages",
     check: (app) =>
       app.languages.length >= 3 ||
-      app.languages.some((l) => l.toUpperCase() === "MUL"),
+      app.languages.some((l) => l?.toUpperCase() === "MUL"),
     points: 0.125,
   },
   {
