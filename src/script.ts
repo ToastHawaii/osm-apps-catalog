@@ -164,7 +164,7 @@ const categorySelect = new SlimSelect({
       text: i18next.t("filter.category.edit"),
     },
   ],
-  onChange: (i) => {
+  onChange: (i: any) => {
     document
       .querySelectorAll(".filter")
       .forEach((e) => e.classList.toggle("hidden", i.value === "focus"));
@@ -230,7 +230,7 @@ function doUpdate(newApps: App[], reset?: boolean) {
         coverage: params.get("coverage")
           ? params.get("coverage")?.split(",") || []
           : [],
-        category: params.get("category") || "all",
+        category: (params.get("category") as any) || "all",
         view: params.get("view") === "compare" ? "compare" : "list",
       };
 
@@ -683,24 +683,24 @@ function printJsonLd() {
           installUrl: app.install.fDroidID
             ? "https://f-droid.org/repository/browse/?fdid=" +
               app.install.fDroidID
-            : undefined || app.install.googlePlayID
+            : app.install.googlePlayID
             ? "https://play.google.com/store/apps/details?id=" +
               app.install.googlePlayID
-            : undefined || app.install.asin
+            : app.install.asin
             ? "https://www.amazon.com/dp/" + app.install.asin
-            : undefined || app.install.appleStoreID
+            : app.install.appleStoreID
             ? "https://apps.apple.com/app/" +
               app.install.appleStoreID?.toUpperCase().startsWith("ID")
               ? app.install.appleStoreID
               : `id${app.install.appleStoreID}`
-            : undefined || app.install.macAppStoreID
+            : app.install.macAppStoreID
             ? "https://apps.apple.com/app/" +
               app.install.macAppStoreID?.toUpperCase().startsWith("ID")
               ? app.install.macAppStoreID
               : `id${app.install.macAppStoreID}`
-            : undefined || app.install.microsoftAppID
+            : app.install.microsoftAppID
             ? "https://apps.microsoft.com/detail/" + app.install.microsoftAppID
-            : undefined || app.install.huaweiAppGalleryID
+            : app.install.huaweiAppGalleryID
             ? "https://appgallery.huawei.com/#/app/" +
               app.install.huaweiAppGalleryID
             : undefined,

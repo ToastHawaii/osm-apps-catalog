@@ -206,7 +206,7 @@ export function transform(
       telegram: source.communicationChannels["telegram"],
       slack: toUrl(source.communicationChannels["slack url"]),
     },
-  };
+  }as any;
 
   if (source["coverage"]) {
     const coverage = source["coverage"]

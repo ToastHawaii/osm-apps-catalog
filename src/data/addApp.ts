@@ -384,12 +384,12 @@ function merge<T extends { [name: string]: string[] }>(
         return;
       }
       if (!o1[k] && o2[k]) {
-        o1[k] = o2[k];
+        (o1 as any)[k] = o2[k];
         return;
       }
 
       o1[k].push(...o2[k]);
-      o1[k] = removeDuplicates(o1[k]);
+      (o1 as any)[k] = removeDuplicates(o1[k]);
     });
     return o1;
   }

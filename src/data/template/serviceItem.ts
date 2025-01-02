@@ -74,7 +74,7 @@ export function transform(source: { [name: string]: string }) {
     coverage: [],
     install: {},
     community: {},
-  };
+  } as any;
 
   if (source["region"]) {
     obj.coverage.push(

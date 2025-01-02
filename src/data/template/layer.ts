@@ -78,7 +78,7 @@ export function transform(source: { [name: string]: string }) {
     community: {
       issueTracker: toUrl(source["bugtracker_web"]),
     },
-  };
+  } as any;
 
   if (!equalsYes(source["notlayer"])) {
     obj.topics.push("Tile layer");

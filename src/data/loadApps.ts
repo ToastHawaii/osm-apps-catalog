@@ -63,7 +63,7 @@ export async function loadApps(
         s["microsoftAppID"]) &&
       !equalsIgnoreCase(s["status"], "broken")
   )) {
-    const obj: App = transformSoftware(source);
+    const obj: App = transformSoftware(source as any);
 
     addApp(obj);
   }
@@ -117,9 +117,11 @@ export async function loadApps(
       coverage: [],
       install: {},
       community: {},
-    };
+    } as any;
 
     addApp(app);
   }
   doUpdate(apps);
+
+  return apps;
 }
