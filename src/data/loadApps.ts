@@ -17,7 +17,7 @@ export async function loadApps(
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
-  const wikidataRequest = requestWikidata(language);
+  // const wikidataRequest = requestWikidata(language);
 
   const serviceItemObjects = await serviceItemObjectsRequest;
   for (const source of serviceItemObjects.filter(
@@ -69,13 +69,13 @@ export async function loadApps(
   }
   doUpdate(apps);
 
-  const wikidataResults = await Promise.all(wikidataRequest);
-  for (const wikidataResult of wikidataResults)
-    for (const source of wikidataResult.results.bindings) {
-      const obj: App = transformWikidataResult(source);
-      addApp(apps, obj);
-    }
-  doUpdate(apps);
+  // const wikidataResults = await Promise.all(wikidataRequest);
+  // for (const wikidataResult of wikidataResults)
+  //   for (const source of wikidataResult.results.bindings) {
+  //     const obj: App = transformWikidataResult(source);
+  //     addApp(apps, obj);
+  //   }
+  // doUpdate(apps);
 
   const projectObjects = (await (
     await fetch("https://taginfo.openstreetmap.org/api/4/projects/all")
