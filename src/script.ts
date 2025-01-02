@@ -33,6 +33,7 @@ import "./data/i18n";
 import i18next from "i18next";
 import { features } from "./features";
 import { calculateScore, sum } from "./data/addApp";
+import { getJson } from "./ui/utilities/jsonRequest";
 
 let onInit = true;
 
@@ -724,6 +725,15 @@ function printJsonLd() {
 }
 
 async function getAppCatalog() {
+  apps = await getJson("/api/apps/all.json", {});
+
+  apps.forEach((app) => {
+    app.score = calculateScore(app);
+  });
+
+  doUpdate(apps);
+  return;
+
   const date = get<Date>(`${lang}-apps-date`);
 
   const lastAllowedVersion = new Date(Date.parse("2024-12-20T21:00Z"));
