@@ -8,6 +8,7 @@ import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
 import { addApp } from "./addApp";
 import { toUrl } from "../ui/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./wikidata";
+import { getJson } from "../ui/utilities/jsonRequest";
 
 export async function loadApps(
   apps: App[] = [],
@@ -78,8 +79,8 @@ export async function loadApps(
   // doUpdate(apps);
 
   const projectObjects = (await (
-    await fetch("https://taginfo.openstreetmap.org/api/4/projects/all")
-  ).json()) as {
+    await getJson("https://taginfo.openstreetmap.org/api/4/projects/all")
+  )) as {
     url: string;
     data_until: string;
     data: {

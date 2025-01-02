@@ -34,6 +34,7 @@ import i18next from "i18next";
 import { features } from "./features";
 import { calculateScore, sum } from "./data/addApp";
 import { getJson } from "./ui/utilities/jsonRequest";
+import appsJson from "../api/apps/all.json";
 
 let onInit = true;
 
@@ -457,7 +458,7 @@ function update({
   }
 
   for (const a of apps) {
-    languagesData.push(...a.languages.map((l) => l));
+    languagesData.push(...a.languages.filter((l) => l).map((l) => l));
   }
 
   topicsSelect.setData(prepareArrayForSelect(topicsData, topics));
@@ -725,8 +726,11 @@ function printJsonLd() {
 }
 
 async function getAppCatalog() {
-  apps = await getJson("/api/apps/all.json", {});
-
+  if (window.location.host) {
+    apps = await getJson("/api/apps/all.json", {});
+  } else {
+    apps = appsJson as any;
+  }
   apps.forEach((app) => {
     app.score = calculateScore(app);
   });
