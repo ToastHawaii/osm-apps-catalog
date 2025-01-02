@@ -58,7 +58,7 @@ export async function lazyInitMore(reset?: boolean) {
 
         div.addEventListener("click", function () {
           this.style.display = "none";
-          var h = this.parentElement;
+          var h = this.parentElement as any;
           h.style.height = h.scrollHeight + "px";
 
           setTimeout(function () {

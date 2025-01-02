@@ -26,7 +26,7 @@ export function debounce(
   var timeout: string | number | NodeJS.Timeout | undefined;
 
   // Calling debounce returns a new anonymous function
-  return function () {
+  return function (this:any) {
     // reference the context and args for the setTimeout function
     var context = this,
       args = arguments;
