@@ -36943,7 +36943,7 @@ var github = __nccwpck_require__(3228);
 async function run() {
     try {
         const apps = loadApps();
-        const jsonFilePath = "./api/apps/all.json"; // Pfad zur Datei im Repo
+        const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
         await uploadJsonToRepo(jsonFilePath, apps, "Add JSON file from GitHub Action", core.getInput("ghToken"));
     }
     catch (error) {
