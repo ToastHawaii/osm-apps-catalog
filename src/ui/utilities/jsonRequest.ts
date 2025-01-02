@@ -25,7 +25,12 @@ export async function getJson(url: string, params: any = {}) {
     },
   });
 
-  let e = new Error();
-  e.message = await response.text();
-  throw e;
+  const result = await response.text();
+
+  try {
+    return JSON.parse(result);
+  } catch (e) {
+    e.message = result;
+    throw e;
+  }
 }

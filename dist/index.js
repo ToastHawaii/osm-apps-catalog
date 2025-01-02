@@ -32237,11 +32237,12 @@ async function getJson(url, params = {}) {
             "Content-Type": "application/json",
         },
     });
+    const result = await response.text();
     try {
-        return await response.json();
+        return JSON.parse(result);
     }
     catch (e) {
-        e.message = await response.text();
+        e.message = result;
         throw e;
     }
 }
