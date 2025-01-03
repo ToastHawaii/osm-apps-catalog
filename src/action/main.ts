@@ -3,6 +3,9 @@ import { loadApps } from "../data/loadApps";
 
 import { context, getOctokit } from "@actions/github";
 import { shuffle } from "../ui/utilities/array";
+import { App } from "../data/template/utilities";
+import { SitemapStream, streamToPromise } from "sitemap";
+import { Readable } from "stream";
 
 /**
  * The main function for the action.
@@ -21,11 +24,16 @@ export async function run(): Promise<void> {
       delete app.score.details;
     });
 
-    const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
-    await uploadJsonToRepo(
-      jsonFilePath,
-      apps,
+    await uploadToRepo(
+      "api/apps/all.json",
+      JSON.stringify(apps, null, 2),
       "Update app catalog",
+      core.getInput("ghToken")
+    );
+    await uploadToRepo(
+      "sitemap.xml",
+      await generateSitemap(apps),
+      "Update sitemap",
       core.getInput("ghToken")
     );
   } catch (error) {
@@ -33,9 +41,27 @@ export async function run(): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message);
   }
 }
-async function uploadJsonToRepo(
+
+function generateSitemap(apps: App[]) {
+  // An array with your links
+  const links = apps.map((app) => ({
+    url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+  }));
+
+  // Create a stream to write to
+  const stream = new SitemapStream({
+    hostname: "https://osm-apps.zottelig.ch",
+  });
+
+  // Return a promise that resolves with your XML string
+  return streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
+    data.toString()
+  );
+}
+
+async function uploadToRepo(
   filePath: string,
-  content: object,
+  content: string,
   commitMessage: string,
   ghToken: string
 ): Promise<void> {
@@ -48,9 +74,7 @@ async function uploadJsonToRepo(
   const repo = context.repo.repo;
 
   // JSON-Inhalt als Base64 kodieren
-  const base64Content = Buffer.from(JSON.stringify(content, null, 2)).toString(
-    "base64"
-  );
+  const base64Content = Buffer.from(content).toString("base64");
 
   // Prüfen, ob die Datei existiert
   let sha: string | undefined;

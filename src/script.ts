@@ -372,18 +372,24 @@ function update({
     }
   });
 
-  if (search)
-    filteredApps = filteredApps.filter(
-      (a) =>
-        a.name.toUpperCase().indexOf(search) !== -1 ||
-        a.description.toUpperCase().indexOf(search) !== -1 ||
-        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-          0 ||
-        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0 ||
-        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0
-    );
+  if (search) {
+    if (search.startsWith('"') && search.endsWith('"')) {
+      const name = search.substring(1, search.length - 1);
+      filteredApps = filteredApps.filter((a) => a.name.toUpperCase() === name);
+    } else {
+      filteredApps = filteredApps.filter(
+        (a) =>
+          a.name.toUpperCase().indexOf(search) !== -1 ||
+          a.description.toUpperCase().indexOf(search) !== -1 ||
+          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0 ||
+          a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0 ||
+          a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0
+      );
+    }
+  }
 
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
@@ -733,7 +739,7 @@ async function getAppCatalog() {
   apps.forEach((app) => {
     app.score = calculateScore(app);
   });
-  
+
   doUpdate(apps);
   getHtmlElement("#loading").remove();
 

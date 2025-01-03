@@ -7739,6 +7739,3904 @@ function onceStrict (fn) {
 
 /***/ }),
 
+/***/ 2560:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+;(function (sax) { // wrapper for non-node envs
+  sax.parser = function (strict, opt) { return new SAXParser(strict, opt) }
+  sax.SAXParser = SAXParser
+  sax.SAXStream = SAXStream
+  sax.createStream = createStream
+
+  // When we pass the MAX_BUFFER_LENGTH position, start checking for buffer overruns.
+  // When we check, schedule the next check for MAX_BUFFER_LENGTH - (max(buffer lengths)),
+  // since that's the earliest that a buffer overrun could occur.  This way, checks are
+  // as rare as required, but as often as necessary to ensure never crossing this bound.
+  // Furthermore, buffers are only tested at most once per write(), so passing a very
+  // large string into write() might have undesirable effects, but this is manageable by
+  // the caller, so it is assumed to be safe.  Thus, a call to write() may, in the extreme
+  // edge case, result in creating at most one complete copy of the string passed in.
+  // Set to Infinity to have unlimited buffers.
+  sax.MAX_BUFFER_LENGTH = 64 * 1024
+
+  var buffers = [
+    'comment', 'sgmlDecl', 'textNode', 'tagName', 'doctype',
+    'procInstName', 'procInstBody', 'entity', 'attribName',
+    'attribValue', 'cdata', 'script'
+  ]
+
+  sax.EVENTS = [
+    'text',
+    'processinginstruction',
+    'sgmldeclaration',
+    'doctype',
+    'comment',
+    'opentagstart',
+    'attribute',
+    'opentag',
+    'closetag',
+    'opencdata',
+    'cdata',
+    'closecdata',
+    'error',
+    'end',
+    'ready',
+    'script',
+    'opennamespace',
+    'closenamespace'
+  ]
+
+  function SAXParser (strict, opt) {
+    if (!(this instanceof SAXParser)) {
+      return new SAXParser(strict, opt)
+    }
+
+    var parser = this
+    clearBuffers(parser)
+    parser.q = parser.c = ''
+    parser.bufferCheckPosition = sax.MAX_BUFFER_LENGTH
+    parser.opt = opt || {}
+    parser.opt.lowercase = parser.opt.lowercase || parser.opt.lowercasetags
+    parser.looseCase = parser.opt.lowercase ? 'toLowerCase' : 'toUpperCase'
+    parser.tags = []
+    parser.closed = parser.closedRoot = parser.sawRoot = false
+    parser.tag = parser.error = null
+    parser.strict = !!strict
+    parser.noscript = !!(strict || parser.opt.noscript)
+    parser.state = S.BEGIN
+    parser.strictEntities = parser.opt.strictEntities
+    parser.ENTITIES = parser.strictEntities ? Object.create(sax.XML_ENTITIES) : Object.create(sax.ENTITIES)
+    parser.attribList = []
+
+    // namespaces form a prototype chain.
+    // it always points at the current tag,
+    // which protos to its parent tag.
+    if (parser.opt.xmlns) {
+      parser.ns = Object.create(rootNS)
+    }
+
+    // disallow unquoted attribute values if not otherwise configured
+    // and strict mode is true
+    if (parser.opt.unquotedAttributeValues === undefined) {
+      parser.opt.unquotedAttributeValues = !strict;
+    }
+
+    // mostly just for error reporting
+    parser.trackPosition = parser.opt.position !== false
+    if (parser.trackPosition) {
+      parser.position = parser.line = parser.column = 0
+    }
+    emit(parser, 'onready')
+  }
+
+  if (!Object.create) {
+    Object.create = function (o) {
+      function F () {}
+      F.prototype = o
+      var newf = new F()
+      return newf
+    }
+  }
+
+  if (!Object.keys) {
+    Object.keys = function (o) {
+      var a = []
+      for (var i in o) if (o.hasOwnProperty(i)) a.push(i)
+      return a
+    }
+  }
+
+  function checkBufferLength (parser) {
+    var maxAllowed = Math.max(sax.MAX_BUFFER_LENGTH, 10)
+    var maxActual = 0
+    for (var i = 0, l = buffers.length; i < l; i++) {
+      var len = parser[buffers[i]].length
+      if (len > maxAllowed) {
+        // Text/cdata nodes can get big, and since they're buffered,
+        // we can get here under normal conditions.
+        // Avoid issues by emitting the text node now,
+        // so at least it won't get any bigger.
+        switch (buffers[i]) {
+          case 'textNode':
+            closeText(parser)
+            break
+
+          case 'cdata':
+            emitNode(parser, 'oncdata', parser.cdata)
+            parser.cdata = ''
+            break
+
+          case 'script':
+            emitNode(parser, 'onscript', parser.script)
+            parser.script = ''
+            break
+
+          default:
+            error(parser, 'Max buffer length exceeded: ' + buffers[i])
+        }
+      }
+      maxActual = Math.max(maxActual, len)
+    }
+    // schedule the next check for the earliest possible buffer overrun.
+    var m = sax.MAX_BUFFER_LENGTH - maxActual
+    parser.bufferCheckPosition = m + parser.position
+  }
+
+  function clearBuffers (parser) {
+    for (var i = 0, l = buffers.length; i < l; i++) {
+      parser[buffers[i]] = ''
+    }
+  }
+
+  function flushBuffers (parser) {
+    closeText(parser)
+    if (parser.cdata !== '') {
+      emitNode(parser, 'oncdata', parser.cdata)
+      parser.cdata = ''
+    }
+    if (parser.script !== '') {
+      emitNode(parser, 'onscript', parser.script)
+      parser.script = ''
+    }
+  }
+
+  SAXParser.prototype = {
+    end: function () { end(this) },
+    write: write,
+    resume: function () { this.error = null; return this },
+    close: function () { return this.write(null) },
+    flush: function () { flushBuffers(this) }
+  }
+
+  var Stream
+  try {
+    Stream = (__nccwpck_require__(2203).Stream)
+  } catch (ex) {
+    Stream = function () {}
+  }
+  if (!Stream) Stream = function () {}
+
+  var streamWraps = sax.EVENTS.filter(function (ev) {
+    return ev !== 'error' && ev !== 'end'
+  })
+
+  function createStream (strict, opt) {
+    return new SAXStream(strict, opt)
+  }
+
+  function SAXStream (strict, opt) {
+    if (!(this instanceof SAXStream)) {
+      return new SAXStream(strict, opt)
+    }
+
+    Stream.apply(this)
+
+    this._parser = new SAXParser(strict, opt)
+    this.writable = true
+    this.readable = true
+
+    var me = this
+
+    this._parser.onend = function () {
+      me.emit('end')
+    }
+
+    this._parser.onerror = function (er) {
+      me.emit('error', er)
+
+      // if didn't throw, then means error was handled.
+      // go ahead and clear error, so we can write again.
+      me._parser.error = null
+    }
+
+    this._decoder = null
+
+    streamWraps.forEach(function (ev) {
+      Object.defineProperty(me, 'on' + ev, {
+        get: function () {
+          return me._parser['on' + ev]
+        },
+        set: function (h) {
+          if (!h) {
+            me.removeAllListeners(ev)
+            me._parser['on' + ev] = h
+            return h
+          }
+          me.on(ev, h)
+        },
+        enumerable: true,
+        configurable: false
+      })
+    })
+  }
+
+  SAXStream.prototype = Object.create(Stream.prototype, {
+    constructor: {
+      value: SAXStream
+    }
+  })
+
+  SAXStream.prototype.write = function (data) {
+    if (typeof Buffer === 'function' &&
+      typeof Buffer.isBuffer === 'function' &&
+      Buffer.isBuffer(data)) {
+      if (!this._decoder) {
+        var SD = (__nccwpck_require__(3193).StringDecoder)
+        this._decoder = new SD('utf8')
+      }
+      data = this._decoder.write(data)
+    }
+
+    this._parser.write(data.toString())
+    this.emit('data', data)
+    return true
+  }
+
+  SAXStream.prototype.end = function (chunk) {
+    if (chunk && chunk.length) {
+      this.write(chunk)
+    }
+    this._parser.end()
+    return true
+  }
+
+  SAXStream.prototype.on = function (ev, handler) {
+    var me = this
+    if (!me._parser['on' + ev] && streamWraps.indexOf(ev) !== -1) {
+      me._parser['on' + ev] = function () {
+        var args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments)
+        args.splice(0, 0, ev)
+        me.emit.apply(me, args)
+      }
+    }
+
+    return Stream.prototype.on.call(me, ev, handler)
+  }
+
+  // this really needs to be replaced with character classes.
+  // XML allows all manner of ridiculous numbers and digits.
+  var CDATA = '[CDATA['
+  var DOCTYPE = 'DOCTYPE'
+  var XML_NAMESPACE = 'http://www.w3.org/XML/1998/namespace'
+  var XMLNS_NAMESPACE = 'http://www.w3.org/2000/xmlns/'
+  var rootNS = { xml: XML_NAMESPACE, xmlns: XMLNS_NAMESPACE }
+
+  // http://www.w3.org/TR/REC-xml/#NT-NameStartChar
+  // This implementation works on strings, a single character at a time
+  // as such, it cannot ever support astral-plane characters (10000-EFFFF)
+  // without a significant breaking change to either this  parser, or the
+  // JavaScript language.  Implementation of an emoji-capable xml parser
+  // is left as an exercise for the reader.
+  var nameStart = /[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/
+
+  var nameBody = /[:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/
+
+  var entityStart = /[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/
+  var entityBody = /[#:_A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u00B7\u0300-\u036F\u203F-\u2040.\d-]/
+
+  function isWhitespace (c) {
+    return c === ' ' || c === '\n' || c === '\r' || c === '\t'
+  }
+
+  function isQuote (c) {
+    return c === '"' || c === '\''
+  }
+
+  function isAttribEnd (c) {
+    return c === '>' || isWhitespace(c)
+  }
+
+  function isMatch (regex, c) {
+    return regex.test(c)
+  }
+
+  function notMatch (regex, c) {
+    return !isMatch(regex, c)
+  }
+
+  var S = 0
+  sax.STATE = {
+    BEGIN: S++, // leading byte order mark or whitespace
+    BEGIN_WHITESPACE: S++, // leading whitespace
+    TEXT: S++, // general stuff
+    TEXT_ENTITY: S++, // &amp and such.
+    OPEN_WAKA: S++, // <
+    SGML_DECL: S++, // <!BLARG
+    SGML_DECL_QUOTED: S++, // <!BLARG foo "bar
+    DOCTYPE: S++, // <!DOCTYPE
+    DOCTYPE_QUOTED: S++, // <!DOCTYPE "//blah
+    DOCTYPE_DTD: S++, // <!DOCTYPE "//blah" [ ...
+    DOCTYPE_DTD_QUOTED: S++, // <!DOCTYPE "//blah" [ "foo
+    COMMENT_STARTING: S++, // <!-
+    COMMENT: S++, // <!--
+    COMMENT_ENDING: S++, // <!-- blah -
+    COMMENT_ENDED: S++, // <!-- blah --
+    CDATA: S++, // <![CDATA[ something
+    CDATA_ENDING: S++, // ]
+    CDATA_ENDING_2: S++, // ]]
+    PROC_INST: S++, // <?hi
+    PROC_INST_BODY: S++, // <?hi there
+    PROC_INST_ENDING: S++, // <?hi "there" ?
+    OPEN_TAG: S++, // <strong
+    OPEN_TAG_SLASH: S++, // <strong /
+    ATTRIB: S++, // <a
+    ATTRIB_NAME: S++, // <a foo
+    ATTRIB_NAME_SAW_WHITE: S++, // <a foo _
+    ATTRIB_VALUE: S++, // <a foo=
+    ATTRIB_VALUE_QUOTED: S++, // <a foo="bar
+    ATTRIB_VALUE_CLOSED: S++, // <a foo="bar"
+    ATTRIB_VALUE_UNQUOTED: S++, // <a foo=bar
+    ATTRIB_VALUE_ENTITY_Q: S++, // <foo bar="&quot;"
+    ATTRIB_VALUE_ENTITY_U: S++, // <foo bar=&quot
+    CLOSE_TAG: S++, // </a
+    CLOSE_TAG_SAW_WHITE: S++, // </a   >
+    SCRIPT: S++, // <script> ...
+    SCRIPT_ENDING: S++ // <script> ... <
+  }
+
+  sax.XML_ENTITIES = {
+    'amp': '&',
+    'gt': '>',
+    'lt': '<',
+    'quot': '"',
+    'apos': "'"
+  }
+
+  sax.ENTITIES = {
+    'amp': '&',
+    'gt': '>',
+    'lt': '<',
+    'quot': '"',
+    'apos': "'",
+    'AElig': 198,
+    'Aacute': 193,
+    'Acirc': 194,
+    'Agrave': 192,
+    'Aring': 197,
+    'Atilde': 195,
+    'Auml': 196,
+    'Ccedil': 199,
+    'ETH': 208,
+    'Eacute': 201,
+    'Ecirc': 202,
+    'Egrave': 200,
+    'Euml': 203,
+    'Iacute': 205,
+    'Icirc': 206,
+    'Igrave': 204,
+    'Iuml': 207,
+    'Ntilde': 209,
+    'Oacute': 211,
+    'Ocirc': 212,
+    'Ograve': 210,
+    'Oslash': 216,
+    'Otilde': 213,
+    'Ouml': 214,
+    'THORN': 222,
+    'Uacute': 218,
+    'Ucirc': 219,
+    'Ugrave': 217,
+    'Uuml': 220,
+    'Yacute': 221,
+    'aacute': 225,
+    'acirc': 226,
+    'aelig': 230,
+    'agrave': 224,
+    'aring': 229,
+    'atilde': 227,
+    'auml': 228,
+    'ccedil': 231,
+    'eacute': 233,
+    'ecirc': 234,
+    'egrave': 232,
+    'eth': 240,
+    'euml': 235,
+    'iacute': 237,
+    'icirc': 238,
+    'igrave': 236,
+    'iuml': 239,
+    'ntilde': 241,
+    'oacute': 243,
+    'ocirc': 244,
+    'ograve': 242,
+    'oslash': 248,
+    'otilde': 245,
+    'ouml': 246,
+    'szlig': 223,
+    'thorn': 254,
+    'uacute': 250,
+    'ucirc': 251,
+    'ugrave': 249,
+    'uuml': 252,
+    'yacute': 253,
+    'yuml': 255,
+    'copy': 169,
+    'reg': 174,
+    'nbsp': 160,
+    'iexcl': 161,
+    'cent': 162,
+    'pound': 163,
+    'curren': 164,
+    'yen': 165,
+    'brvbar': 166,
+    'sect': 167,
+    'uml': 168,
+    'ordf': 170,
+    'laquo': 171,
+    'not': 172,
+    'shy': 173,
+    'macr': 175,
+    'deg': 176,
+    'plusmn': 177,
+    'sup1': 185,
+    'sup2': 178,
+    'sup3': 179,
+    'acute': 180,
+    'micro': 181,
+    'para': 182,
+    'middot': 183,
+    'cedil': 184,
+    'ordm': 186,
+    'raquo': 187,
+    'frac14': 188,
+    'frac12': 189,
+    'frac34': 190,
+    'iquest': 191,
+    'times': 215,
+    'divide': 247,
+    'OElig': 338,
+    'oelig': 339,
+    'Scaron': 352,
+    'scaron': 353,
+    'Yuml': 376,
+    'fnof': 402,
+    'circ': 710,
+    'tilde': 732,
+    'Alpha': 913,
+    'Beta': 914,
+    'Gamma': 915,
+    'Delta': 916,
+    'Epsilon': 917,
+    'Zeta': 918,
+    'Eta': 919,
+    'Theta': 920,
+    'Iota': 921,
+    'Kappa': 922,
+    'Lambda': 923,
+    'Mu': 924,
+    'Nu': 925,
+    'Xi': 926,
+    'Omicron': 927,
+    'Pi': 928,
+    'Rho': 929,
+    'Sigma': 931,
+    'Tau': 932,
+    'Upsilon': 933,
+    'Phi': 934,
+    'Chi': 935,
+    'Psi': 936,
+    'Omega': 937,
+    'alpha': 945,
+    'beta': 946,
+    'gamma': 947,
+    'delta': 948,
+    'epsilon': 949,
+    'zeta': 950,
+    'eta': 951,
+    'theta': 952,
+    'iota': 953,
+    'kappa': 954,
+    'lambda': 955,
+    'mu': 956,
+    'nu': 957,
+    'xi': 958,
+    'omicron': 959,
+    'pi': 960,
+    'rho': 961,
+    'sigmaf': 962,
+    'sigma': 963,
+    'tau': 964,
+    'upsilon': 965,
+    'phi': 966,
+    'chi': 967,
+    'psi': 968,
+    'omega': 969,
+    'thetasym': 977,
+    'upsih': 978,
+    'piv': 982,
+    'ensp': 8194,
+    'emsp': 8195,
+    'thinsp': 8201,
+    'zwnj': 8204,
+    'zwj': 8205,
+    'lrm': 8206,
+    'rlm': 8207,
+    'ndash': 8211,
+    'mdash': 8212,
+    'lsquo': 8216,
+    'rsquo': 8217,
+    'sbquo': 8218,
+    'ldquo': 8220,
+    'rdquo': 8221,
+    'bdquo': 8222,
+    'dagger': 8224,
+    'Dagger': 8225,
+    'bull': 8226,
+    'hellip': 8230,
+    'permil': 8240,
+    'prime': 8242,
+    'Prime': 8243,
+    'lsaquo': 8249,
+    'rsaquo': 8250,
+    'oline': 8254,
+    'frasl': 8260,
+    'euro': 8364,
+    'image': 8465,
+    'weierp': 8472,
+    'real': 8476,
+    'trade': 8482,
+    'alefsym': 8501,
+    'larr': 8592,
+    'uarr': 8593,
+    'rarr': 8594,
+    'darr': 8595,
+    'harr': 8596,
+    'crarr': 8629,
+    'lArr': 8656,
+    'uArr': 8657,
+    'rArr': 8658,
+    'dArr': 8659,
+    'hArr': 8660,
+    'forall': 8704,
+    'part': 8706,
+    'exist': 8707,
+    'empty': 8709,
+    'nabla': 8711,
+    'isin': 8712,
+    'notin': 8713,
+    'ni': 8715,
+    'prod': 8719,
+    'sum': 8721,
+    'minus': 8722,
+    'lowast': 8727,
+    'radic': 8730,
+    'prop': 8733,
+    'infin': 8734,
+    'ang': 8736,
+    'and': 8743,
+    'or': 8744,
+    'cap': 8745,
+    'cup': 8746,
+    'int': 8747,
+    'there4': 8756,
+    'sim': 8764,
+    'cong': 8773,
+    'asymp': 8776,
+    'ne': 8800,
+    'equiv': 8801,
+    'le': 8804,
+    'ge': 8805,
+    'sub': 8834,
+    'sup': 8835,
+    'nsub': 8836,
+    'sube': 8838,
+    'supe': 8839,
+    'oplus': 8853,
+    'otimes': 8855,
+    'perp': 8869,
+    'sdot': 8901,
+    'lceil': 8968,
+    'rceil': 8969,
+    'lfloor': 8970,
+    'rfloor': 8971,
+    'lang': 9001,
+    'rang': 9002,
+    'loz': 9674,
+    'spades': 9824,
+    'clubs': 9827,
+    'hearts': 9829,
+    'diams': 9830
+  }
+
+  Object.keys(sax.ENTITIES).forEach(function (key) {
+    var e = sax.ENTITIES[key]
+    var s = typeof e === 'number' ? String.fromCharCode(e) : e
+    sax.ENTITIES[key] = s
+  })
+
+  for (var s in sax.STATE) {
+    sax.STATE[sax.STATE[s]] = s
+  }
+
+  // shorthand
+  S = sax.STATE
+
+  function emit (parser, event, data) {
+    parser[event] && parser[event](data)
+  }
+
+  function emitNode (parser, nodeType, data) {
+    if (parser.textNode) closeText(parser)
+    emit(parser, nodeType, data)
+  }
+
+  function closeText (parser) {
+    parser.textNode = textopts(parser.opt, parser.textNode)
+    if (parser.textNode) emit(parser, 'ontext', parser.textNode)
+    parser.textNode = ''
+  }
+
+  function textopts (opt, text) {
+    if (opt.trim) text = text.trim()
+    if (opt.normalize) text = text.replace(/\s+/g, ' ')
+    return text
+  }
+
+  function error (parser, er) {
+    closeText(parser)
+    if (parser.trackPosition) {
+      er += '\nLine: ' + parser.line +
+        '\nColumn: ' + parser.column +
+        '\nChar: ' + parser.c
+    }
+    er = new Error(er)
+    parser.error = er
+    emit(parser, 'onerror', er)
+    return parser
+  }
+
+  function end (parser) {
+    if (parser.sawRoot && !parser.closedRoot) strictFail(parser, 'Unclosed root tag')
+    if ((parser.state !== S.BEGIN) &&
+      (parser.state !== S.BEGIN_WHITESPACE) &&
+      (parser.state !== S.TEXT)) {
+      error(parser, 'Unexpected end')
+    }
+    closeText(parser)
+    parser.c = ''
+    parser.closed = true
+    emit(parser, 'onend')
+    SAXParser.call(parser, parser.strict, parser.opt)
+    return parser
+  }
+
+  function strictFail (parser, message) {
+    if (typeof parser !== 'object' || !(parser instanceof SAXParser)) {
+      throw new Error('bad call to strictFail')
+    }
+    if (parser.strict) {
+      error(parser, message)
+    }
+  }
+
+  function newTag (parser) {
+    if (!parser.strict) parser.tagName = parser.tagName[parser.looseCase]()
+    var parent = parser.tags[parser.tags.length - 1] || parser
+    var tag = parser.tag = { name: parser.tagName, attributes: {} }
+
+    // will be overridden if tag contails an xmlns="foo" or xmlns:foo="bar"
+    if (parser.opt.xmlns) {
+      tag.ns = parent.ns
+    }
+    parser.attribList.length = 0
+    emitNode(parser, 'onopentagstart', tag)
+  }
+
+  function qname (name, attribute) {
+    var i = name.indexOf(':')
+    var qualName = i < 0 ? [ '', name ] : name.split(':')
+    var prefix = qualName[0]
+    var local = qualName[1]
+
+    // <x "xmlns"="http://foo">
+    if (attribute && name === 'xmlns') {
+      prefix = 'xmlns'
+      local = ''
+    }
+
+    return { prefix: prefix, local: local }
+  }
+
+  function attrib (parser) {
+    if (!parser.strict) {
+      parser.attribName = parser.attribName[parser.looseCase]()
+    }
+
+    if (parser.attribList.indexOf(parser.attribName) !== -1 ||
+      parser.tag.attributes.hasOwnProperty(parser.attribName)) {
+      parser.attribName = parser.attribValue = ''
+      return
+    }
+
+    if (parser.opt.xmlns) {
+      var qn = qname(parser.attribName, true)
+      var prefix = qn.prefix
+      var local = qn.local
+
+      if (prefix === 'xmlns') {
+        // namespace binding attribute. push the binding into scope
+        if (local === 'xml' && parser.attribValue !== XML_NAMESPACE) {
+          strictFail(parser,
+            'xml: prefix must be bound to ' + XML_NAMESPACE + '\n' +
+            'Actual: ' + parser.attribValue)
+        } else if (local === 'xmlns' && parser.attribValue !== XMLNS_NAMESPACE) {
+          strictFail(parser,
+            'xmlns: prefix must be bound to ' + XMLNS_NAMESPACE + '\n' +
+            'Actual: ' + parser.attribValue)
+        } else {
+          var tag = parser.tag
+          var parent = parser.tags[parser.tags.length - 1] || parser
+          if (tag.ns === parent.ns) {
+            tag.ns = Object.create(parent.ns)
+          }
+          tag.ns[local] = parser.attribValue
+        }
+      }
+
+      // defer onattribute events until all attributes have been seen
+      // so any new bindings can take effect. preserve attribute order
+      // so deferred events can be emitted in document order
+      parser.attribList.push([parser.attribName, parser.attribValue])
+    } else {
+      // in non-xmlns mode, we can emit the event right away
+      parser.tag.attributes[parser.attribName] = parser.attribValue
+      emitNode(parser, 'onattribute', {
+        name: parser.attribName,
+        value: parser.attribValue
+      })
+    }
+
+    parser.attribName = parser.attribValue = ''
+  }
+
+  function openTag (parser, selfClosing) {
+    if (parser.opt.xmlns) {
+      // emit namespace binding events
+      var tag = parser.tag
+
+      // add namespace info to tag
+      var qn = qname(parser.tagName)
+      tag.prefix = qn.prefix
+      tag.local = qn.local
+      tag.uri = tag.ns[qn.prefix] || ''
+
+      if (tag.prefix && !tag.uri) {
+        strictFail(parser, 'Unbound namespace prefix: ' +
+          JSON.stringify(parser.tagName))
+        tag.uri = qn.prefix
+      }
+
+      var parent = parser.tags[parser.tags.length - 1] || parser
+      if (tag.ns && parent.ns !== tag.ns) {
+        Object.keys(tag.ns).forEach(function (p) {
+          emitNode(parser, 'onopennamespace', {
+            prefix: p,
+            uri: tag.ns[p]
+          })
+        })
+      }
+
+      // handle deferred onattribute events
+      // Note: do not apply default ns to attributes:
+      //   http://www.w3.org/TR/REC-xml-names/#defaulting
+      for (var i = 0, l = parser.attribList.length; i < l; i++) {
+        var nv = parser.attribList[i]
+        var name = nv[0]
+        var value = nv[1]
+        var qualName = qname(name, true)
+        var prefix = qualName.prefix
+        var local = qualName.local
+        var uri = prefix === '' ? '' : (tag.ns[prefix] || '')
+        var a = {
+          name: name,
+          value: value,
+          prefix: prefix,
+          local: local,
+          uri: uri
+        }
+
+        // if there's any attributes with an undefined namespace,
+        // then fail on them now.
+        if (prefix && prefix !== 'xmlns' && !uri) {
+          strictFail(parser, 'Unbound namespace prefix: ' +
+            JSON.stringify(prefix))
+          a.uri = prefix
+        }
+        parser.tag.attributes[name] = a
+        emitNode(parser, 'onattribute', a)
+      }
+      parser.attribList.length = 0
+    }
+
+    parser.tag.isSelfClosing = !!selfClosing
+
+    // process the tag
+    parser.sawRoot = true
+    parser.tags.push(parser.tag)
+    emitNode(parser, 'onopentag', parser.tag)
+    if (!selfClosing) {
+      // special case for <script> in non-strict mode.
+      if (!parser.noscript && parser.tagName.toLowerCase() === 'script') {
+        parser.state = S.SCRIPT
+      } else {
+        parser.state = S.TEXT
+      }
+      parser.tag = null
+      parser.tagName = ''
+    }
+    parser.attribName = parser.attribValue = ''
+    parser.attribList.length = 0
+  }
+
+  function closeTag (parser) {
+    if (!parser.tagName) {
+      strictFail(parser, 'Weird empty close tag.')
+      parser.textNode += '</>'
+      parser.state = S.TEXT
+      return
+    }
+
+    if (parser.script) {
+      if (parser.tagName !== 'script') {
+        parser.script += '</' + parser.tagName + '>'
+        parser.tagName = ''
+        parser.state = S.SCRIPT
+        return
+      }
+      emitNode(parser, 'onscript', parser.script)
+      parser.script = ''
+    }
+
+    // first make sure that the closing tag actually exists.
+    // <a><b></c></b></a> will close everything, otherwise.
+    var t = parser.tags.length
+    var tagName = parser.tagName
+    if (!parser.strict) {
+      tagName = tagName[parser.looseCase]()
+    }
+    var closeTo = tagName
+    while (t--) {
+      var close = parser.tags[t]
+      if (close.name !== closeTo) {
+        // fail the first time in strict mode
+        strictFail(parser, 'Unexpected close tag')
+      } else {
+        break
+      }
+    }
+
+    // didn't find it.  we already failed for strict, so just abort.
+    if (t < 0) {
+      strictFail(parser, 'Unmatched closing tag: ' + parser.tagName)
+      parser.textNode += '</' + parser.tagName + '>'
+      parser.state = S.TEXT
+      return
+    }
+    parser.tagName = tagName
+    var s = parser.tags.length
+    while (s-- > t) {
+      var tag = parser.tag = parser.tags.pop()
+      parser.tagName = parser.tag.name
+      emitNode(parser, 'onclosetag', parser.tagName)
+
+      var x = {}
+      for (var i in tag.ns) {
+        x[i] = tag.ns[i]
+      }
+
+      var parent = parser.tags[parser.tags.length - 1] || parser
+      if (parser.opt.xmlns && tag.ns !== parent.ns) {
+        // remove namespace bindings introduced by tag
+        Object.keys(tag.ns).forEach(function (p) {
+          var n = tag.ns[p]
+          emitNode(parser, 'onclosenamespace', { prefix: p, uri: n })
+        })
+      }
+    }
+    if (t === 0) parser.closedRoot = true
+    parser.tagName = parser.attribValue = parser.attribName = ''
+    parser.attribList.length = 0
+    parser.state = S.TEXT
+  }
+
+  function parseEntity (parser) {
+    var entity = parser.entity
+    var entityLC = entity.toLowerCase()
+    var num
+    var numStr = ''
+
+    if (parser.ENTITIES[entity]) {
+      return parser.ENTITIES[entity]
+    }
+    if (parser.ENTITIES[entityLC]) {
+      return parser.ENTITIES[entityLC]
+    }
+    entity = entityLC
+    if (entity.charAt(0) === '#') {
+      if (entity.charAt(1) === 'x') {
+        entity = entity.slice(2)
+        num = parseInt(entity, 16)
+        numStr = num.toString(16)
+      } else {
+        entity = entity.slice(1)
+        num = parseInt(entity, 10)
+        numStr = num.toString(10)
+      }
+    }
+    entity = entity.replace(/^0+/, '')
+    if (isNaN(num) || numStr.toLowerCase() !== entity) {
+      strictFail(parser, 'Invalid character entity')
+      return '&' + parser.entity + ';'
+    }
+
+    return String.fromCodePoint(num)
+  }
+
+  function beginWhiteSpace (parser, c) {
+    if (c === '<') {
+      parser.state = S.OPEN_WAKA
+      parser.startTagPosition = parser.position
+    } else if (!isWhitespace(c)) {
+      // have to process this as a text node.
+      // weird, but happens.
+      strictFail(parser, 'Non-whitespace before first tag.')
+      parser.textNode = c
+      parser.state = S.TEXT
+    }
+  }
+
+  function charAt (chunk, i) {
+    var result = ''
+    if (i < chunk.length) {
+      result = chunk.charAt(i)
+    }
+    return result
+  }
+
+  function write (chunk) {
+    var parser = this
+    if (this.error) {
+      throw this.error
+    }
+    if (parser.closed) {
+      return error(parser,
+        'Cannot write after close. Assign an onready handler.')
+    }
+    if (chunk === null) {
+      return end(parser)
+    }
+    if (typeof chunk === 'object') {
+      chunk = chunk.toString()
+    }
+    var i = 0
+    var c = ''
+    while (true) {
+      c = charAt(chunk, i++)
+      parser.c = c
+
+      if (!c) {
+        break
+      }
+
+      if (parser.trackPosition) {
+        parser.position++
+        if (c === '\n') {
+          parser.line++
+          parser.column = 0
+        } else {
+          parser.column++
+        }
+      }
+
+      switch (parser.state) {
+        case S.BEGIN:
+          parser.state = S.BEGIN_WHITESPACE
+          if (c === '\uFEFF') {
+            continue
+          }
+          beginWhiteSpace(parser, c)
+          continue
+
+        case S.BEGIN_WHITESPACE:
+          beginWhiteSpace(parser, c)
+          continue
+
+        case S.TEXT:
+          if (parser.sawRoot && !parser.closedRoot) {
+            var starti = i - 1
+            while (c && c !== '<' && c !== '&') {
+              c = charAt(chunk, i++)
+              if (c && parser.trackPosition) {
+                parser.position++
+                if (c === '\n') {
+                  parser.line++
+                  parser.column = 0
+                } else {
+                  parser.column++
+                }
+              }
+            }
+            parser.textNode += chunk.substring(starti, i - 1)
+          }
+          if (c === '<' && !(parser.sawRoot && parser.closedRoot && !parser.strict)) {
+            parser.state = S.OPEN_WAKA
+            parser.startTagPosition = parser.position
+          } else {
+            if (!isWhitespace(c) && (!parser.sawRoot || parser.closedRoot)) {
+              strictFail(parser, 'Text data outside of root node.')
+            }
+            if (c === '&') {
+              parser.state = S.TEXT_ENTITY
+            } else {
+              parser.textNode += c
+            }
+          }
+          continue
+
+        case S.SCRIPT:
+          // only non-strict
+          if (c === '<') {
+            parser.state = S.SCRIPT_ENDING
+          } else {
+            parser.script += c
+          }
+          continue
+
+        case S.SCRIPT_ENDING:
+          if (c === '/') {
+            parser.state = S.CLOSE_TAG
+          } else {
+            parser.script += '<' + c
+            parser.state = S.SCRIPT
+          }
+          continue
+
+        case S.OPEN_WAKA:
+          // either a /, ?, !, or text is coming next.
+          if (c === '!') {
+            parser.state = S.SGML_DECL
+            parser.sgmlDecl = ''
+          } else if (isWhitespace(c)) {
+            // wait for it...
+          } else if (isMatch(nameStart, c)) {
+            parser.state = S.OPEN_TAG
+            parser.tagName = c
+          } else if (c === '/') {
+            parser.state = S.CLOSE_TAG
+            parser.tagName = ''
+          } else if (c === '?') {
+            parser.state = S.PROC_INST
+            parser.procInstName = parser.procInstBody = ''
+          } else {
+            strictFail(parser, 'Unencoded <')
+            // if there was some whitespace, then add that in.
+            if (parser.startTagPosition + 1 < parser.position) {
+              var pad = parser.position - parser.startTagPosition
+              c = new Array(pad).join(' ') + c
+            }
+            parser.textNode += '<' + c
+            parser.state = S.TEXT
+          }
+          continue
+
+        case S.SGML_DECL:
+          if (parser.sgmlDecl + c === '--') {
+            parser.state = S.COMMENT
+            parser.comment = ''
+            parser.sgmlDecl = ''
+            continue;
+          }
+
+          if (parser.doctype && parser.doctype !== true && parser.sgmlDecl) {
+            parser.state = S.DOCTYPE_DTD
+            parser.doctype += '<!' + parser.sgmlDecl + c
+            parser.sgmlDecl = ''
+          } else if ((parser.sgmlDecl + c).toUpperCase() === CDATA) {
+            emitNode(parser, 'onopencdata')
+            parser.state = S.CDATA
+            parser.sgmlDecl = ''
+            parser.cdata = ''
+          } else if ((parser.sgmlDecl + c).toUpperCase() === DOCTYPE) {
+            parser.state = S.DOCTYPE
+            if (parser.doctype || parser.sawRoot) {
+              strictFail(parser,
+                'Inappropriately located doctype declaration')
+            }
+            parser.doctype = ''
+            parser.sgmlDecl = ''
+          } else if (c === '>') {
+            emitNode(parser, 'onsgmldeclaration', parser.sgmlDecl)
+            parser.sgmlDecl = ''
+            parser.state = S.TEXT
+          } else if (isQuote(c)) {
+            parser.state = S.SGML_DECL_QUOTED
+            parser.sgmlDecl += c
+          } else {
+            parser.sgmlDecl += c
+          }
+          continue
+
+        case S.SGML_DECL_QUOTED:
+          if (c === parser.q) {
+            parser.state = S.SGML_DECL
+            parser.q = ''
+          }
+          parser.sgmlDecl += c
+          continue
+
+        case S.DOCTYPE:
+          if (c === '>') {
+            parser.state = S.TEXT
+            emitNode(parser, 'ondoctype', parser.doctype)
+            parser.doctype = true // just remember that we saw it.
+          } else {
+            parser.doctype += c
+            if (c === '[') {
+              parser.state = S.DOCTYPE_DTD
+            } else if (isQuote(c)) {
+              parser.state = S.DOCTYPE_QUOTED
+              parser.q = c
+            }
+          }
+          continue
+
+        case S.DOCTYPE_QUOTED:
+          parser.doctype += c
+          if (c === parser.q) {
+            parser.q = ''
+            parser.state = S.DOCTYPE
+          }
+          continue
+
+        case S.DOCTYPE_DTD:
+          if (c === ']') {
+            parser.doctype += c
+            parser.state = S.DOCTYPE
+          } else if (c === '<') {
+            parser.state = S.OPEN_WAKA
+            parser.startTagPosition = parser.position
+          } else if (isQuote(c)) {
+            parser.doctype += c
+            parser.state = S.DOCTYPE_DTD_QUOTED
+            parser.q = c
+          } else {
+            parser.doctype += c
+          }
+          continue
+
+        case S.DOCTYPE_DTD_QUOTED:
+          parser.doctype += c
+          if (c === parser.q) {
+            parser.state = S.DOCTYPE_DTD
+            parser.q = ''
+          }
+          continue
+
+        case S.COMMENT:
+          if (c === '-') {
+            parser.state = S.COMMENT_ENDING
+          } else {
+            parser.comment += c
+          }
+          continue
+
+        case S.COMMENT_ENDING:
+          if (c === '-') {
+            parser.state = S.COMMENT_ENDED
+            parser.comment = textopts(parser.opt, parser.comment)
+            if (parser.comment) {
+              emitNode(parser, 'oncomment', parser.comment)
+            }
+            parser.comment = ''
+          } else {
+            parser.comment += '-' + c
+            parser.state = S.COMMENT
+          }
+          continue
+
+        case S.COMMENT_ENDED:
+          if (c !== '>') {
+            strictFail(parser, 'Malformed comment')
+            // allow <!-- blah -- bloo --> in non-strict mode,
+            // which is a comment of " blah -- bloo "
+            parser.comment += '--' + c
+            parser.state = S.COMMENT
+          } else if (parser.doctype && parser.doctype !== true) {
+            parser.state = S.DOCTYPE_DTD
+          } else {
+            parser.state = S.TEXT
+          }
+          continue
+
+        case S.CDATA:
+          if (c === ']') {
+            parser.state = S.CDATA_ENDING
+          } else {
+            parser.cdata += c
+          }
+          continue
+
+        case S.CDATA_ENDING:
+          if (c === ']') {
+            parser.state = S.CDATA_ENDING_2
+          } else {
+            parser.cdata += ']' + c
+            parser.state = S.CDATA
+          }
+          continue
+
+        case S.CDATA_ENDING_2:
+          if (c === '>') {
+            if (parser.cdata) {
+              emitNode(parser, 'oncdata', parser.cdata)
+            }
+            emitNode(parser, 'onclosecdata')
+            parser.cdata = ''
+            parser.state = S.TEXT
+          } else if (c === ']') {
+            parser.cdata += ']'
+          } else {
+            parser.cdata += ']]' + c
+            parser.state = S.CDATA
+          }
+          continue
+
+        case S.PROC_INST:
+          if (c === '?') {
+            parser.state = S.PROC_INST_ENDING
+          } else if (isWhitespace(c)) {
+            parser.state = S.PROC_INST_BODY
+          } else {
+            parser.procInstName += c
+          }
+          continue
+
+        case S.PROC_INST_BODY:
+          if (!parser.procInstBody && isWhitespace(c)) {
+            continue
+          } else if (c === '?') {
+            parser.state = S.PROC_INST_ENDING
+          } else {
+            parser.procInstBody += c
+          }
+          continue
+
+        case S.PROC_INST_ENDING:
+          if (c === '>') {
+            emitNode(parser, 'onprocessinginstruction', {
+              name: parser.procInstName,
+              body: parser.procInstBody
+            })
+            parser.procInstName = parser.procInstBody = ''
+            parser.state = S.TEXT
+          } else {
+            parser.procInstBody += '?' + c
+            parser.state = S.PROC_INST_BODY
+          }
+          continue
+
+        case S.OPEN_TAG:
+          if (isMatch(nameBody, c)) {
+            parser.tagName += c
+          } else {
+            newTag(parser)
+            if (c === '>') {
+              openTag(parser)
+            } else if (c === '/') {
+              parser.state = S.OPEN_TAG_SLASH
+            } else {
+              if (!isWhitespace(c)) {
+                strictFail(parser, 'Invalid character in tag name')
+              }
+              parser.state = S.ATTRIB
+            }
+          }
+          continue
+
+        case S.OPEN_TAG_SLASH:
+          if (c === '>') {
+            openTag(parser, true)
+            closeTag(parser)
+          } else {
+            strictFail(parser, 'Forward-slash in opening tag not followed by >')
+            parser.state = S.ATTRIB
+          }
+          continue
+
+        case S.ATTRIB:
+          // haven't read the attribute name yet.
+          if (isWhitespace(c)) {
+            continue
+          } else if (c === '>') {
+            openTag(parser)
+          } else if (c === '/') {
+            parser.state = S.OPEN_TAG_SLASH
+          } else if (isMatch(nameStart, c)) {
+            parser.attribName = c
+            parser.attribValue = ''
+            parser.state = S.ATTRIB_NAME
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_NAME:
+          if (c === '=') {
+            parser.state = S.ATTRIB_VALUE
+          } else if (c === '>') {
+            strictFail(parser, 'Attribute without value')
+            parser.attribValue = parser.attribName
+            attrib(parser)
+            openTag(parser)
+          } else if (isWhitespace(c)) {
+            parser.state = S.ATTRIB_NAME_SAW_WHITE
+          } else if (isMatch(nameBody, c)) {
+            parser.attribName += c
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_NAME_SAW_WHITE:
+          if (c === '=') {
+            parser.state = S.ATTRIB_VALUE
+          } else if (isWhitespace(c)) {
+            continue
+          } else {
+            strictFail(parser, 'Attribute without value')
+            parser.tag.attributes[parser.attribName] = ''
+            parser.attribValue = ''
+            emitNode(parser, 'onattribute', {
+              name: parser.attribName,
+              value: ''
+            })
+            parser.attribName = ''
+            if (c === '>') {
+              openTag(parser)
+            } else if (isMatch(nameStart, c)) {
+              parser.attribName = c
+              parser.state = S.ATTRIB_NAME
+            } else {
+              strictFail(parser, 'Invalid attribute name')
+              parser.state = S.ATTRIB
+            }
+          }
+          continue
+
+        case S.ATTRIB_VALUE:
+          if (isWhitespace(c)) {
+            continue
+          } else if (isQuote(c)) {
+            parser.q = c
+            parser.state = S.ATTRIB_VALUE_QUOTED
+          } else {
+            if (!parser.opt.unquotedAttributeValues) {
+              error(parser, 'Unquoted attribute value')
+            }
+            parser.state = S.ATTRIB_VALUE_UNQUOTED
+            parser.attribValue = c
+          }
+          continue
+
+        case S.ATTRIB_VALUE_QUOTED:
+          if (c !== parser.q) {
+            if (c === '&') {
+              parser.state = S.ATTRIB_VALUE_ENTITY_Q
+            } else {
+              parser.attribValue += c
+            }
+            continue
+          }
+          attrib(parser)
+          parser.q = ''
+          parser.state = S.ATTRIB_VALUE_CLOSED
+          continue
+
+        case S.ATTRIB_VALUE_CLOSED:
+          if (isWhitespace(c)) {
+            parser.state = S.ATTRIB
+          } else if (c === '>') {
+            openTag(parser)
+          } else if (c === '/') {
+            parser.state = S.OPEN_TAG_SLASH
+          } else if (isMatch(nameStart, c)) {
+            strictFail(parser, 'No whitespace between attributes')
+            parser.attribName = c
+            parser.attribValue = ''
+            parser.state = S.ATTRIB_NAME
+          } else {
+            strictFail(parser, 'Invalid attribute name')
+          }
+          continue
+
+        case S.ATTRIB_VALUE_UNQUOTED:
+          if (!isAttribEnd(c)) {
+            if (c === '&') {
+              parser.state = S.ATTRIB_VALUE_ENTITY_U
+            } else {
+              parser.attribValue += c
+            }
+            continue
+          }
+          attrib(parser)
+          if (c === '>') {
+            openTag(parser)
+          } else {
+            parser.state = S.ATTRIB
+          }
+          continue
+
+        case S.CLOSE_TAG:
+          if (!parser.tagName) {
+            if (isWhitespace(c)) {
+              continue
+            } else if (notMatch(nameStart, c)) {
+              if (parser.script) {
+                parser.script += '</' + c
+                parser.state = S.SCRIPT
+              } else {
+                strictFail(parser, 'Invalid tagname in closing tag.')
+              }
+            } else {
+              parser.tagName = c
+            }
+          } else if (c === '>') {
+            closeTag(parser)
+          } else if (isMatch(nameBody, c)) {
+            parser.tagName += c
+          } else if (parser.script) {
+            parser.script += '</' + parser.tagName
+            parser.tagName = ''
+            parser.state = S.SCRIPT
+          } else {
+            if (!isWhitespace(c)) {
+              strictFail(parser, 'Invalid tagname in closing tag')
+            }
+            parser.state = S.CLOSE_TAG_SAW_WHITE
+          }
+          continue
+
+        case S.CLOSE_TAG_SAW_WHITE:
+          if (isWhitespace(c)) {
+            continue
+          }
+          if (c === '>') {
+            closeTag(parser)
+          } else {
+            strictFail(parser, 'Invalid characters in closing tag')
+          }
+          continue
+
+        case S.TEXT_ENTITY:
+        case S.ATTRIB_VALUE_ENTITY_Q:
+        case S.ATTRIB_VALUE_ENTITY_U:
+          var returnState
+          var buffer
+          switch (parser.state) {
+            case S.TEXT_ENTITY:
+              returnState = S.TEXT
+              buffer = 'textNode'
+              break
+
+            case S.ATTRIB_VALUE_ENTITY_Q:
+              returnState = S.ATTRIB_VALUE_QUOTED
+              buffer = 'attribValue'
+              break
+
+            case S.ATTRIB_VALUE_ENTITY_U:
+              returnState = S.ATTRIB_VALUE_UNQUOTED
+              buffer = 'attribValue'
+              break
+          }
+
+          if (c === ';') {
+            var parsedEntity = parseEntity(parser)
+            if (parser.opt.unparsedEntities && !Object.values(sax.XML_ENTITIES).includes(parsedEntity)) {
+              parser.entity = ''
+              parser.state = returnState
+              parser.write(parsedEntity)
+            } else {
+              parser[buffer] += parsedEntity
+              parser.entity = ''
+              parser.state = returnState
+            }
+          } else if (isMatch(parser.entity.length ? entityBody : entityStart, c)) {
+            parser.entity += c
+          } else {
+            strictFail(parser, 'Invalid character in entity name')
+            parser[buffer] += '&' + parser.entity + c
+            parser.entity = ''
+            parser.state = returnState
+          }
+
+          continue
+
+        default: /* istanbul ignore next */ {
+          throw new Error(parser, 'Unknown state: ' + parser.state)
+        }
+      }
+    } // while
+
+    if (parser.position >= parser.bufferCheckPosition) {
+      checkBufferLength(parser)
+    }
+    return parser
+  }
+
+  /*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
+  /* istanbul ignore next */
+  if (!String.fromCodePoint) {
+    (function () {
+      var stringFromCharCode = String.fromCharCode
+      var floor = Math.floor
+      var fromCodePoint = function () {
+        var MAX_SIZE = 0x4000
+        var codeUnits = []
+        var highSurrogate
+        var lowSurrogate
+        var index = -1
+        var length = arguments.length
+        if (!length) {
+          return ''
+        }
+        var result = ''
+        while (++index < length) {
+          var codePoint = Number(arguments[index])
+          if (
+            !isFinite(codePoint) || // `NaN`, `+Infinity`, or `-Infinity`
+            codePoint < 0 || // not a valid Unicode code point
+            codePoint > 0x10FFFF || // not a valid Unicode code point
+            floor(codePoint) !== codePoint // not an integer
+          ) {
+            throw RangeError('Invalid code point: ' + codePoint)
+          }
+          if (codePoint <= 0xFFFF) { // BMP code point
+            codeUnits.push(codePoint)
+          } else { // Astral code point; split in surrogate halves
+            // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+            codePoint -= 0x10000
+            highSurrogate = (codePoint >> 10) + 0xD800
+            lowSurrogate = (codePoint % 0x400) + 0xDC00
+            codeUnits.push(highSurrogate, lowSurrogate)
+          }
+          if (index + 1 === length || codeUnits.length > MAX_SIZE) {
+            result += stringFromCharCode.apply(null, codeUnits)
+            codeUnits.length = 0
+          }
+        }
+        return result
+      }
+      /* istanbul ignore next */
+      if (Object.defineProperty) {
+        Object.defineProperty(String, 'fromCodePoint', {
+          value: fromCodePoint,
+          configurable: true,
+          writable: true
+        })
+      } else {
+        String.fromCodePoint = fromCodePoint
+      }
+    }())
+  }
+})( false ? 0 : exports)
+
+
+/***/ }),
+
+/***/ 5480:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.simpleSitemapAndIndex = exports.IndexObjectStreamToJSON = exports.XMLToSitemapIndexStream = exports.parseSitemapIndex = exports.ObjectStreamToJSON = exports.XMLToSitemapItemStream = exports.parseSitemap = exports.xmlLint = exports.ReadlineStream = exports.normalizeURL = exports.validateSMIOptions = exports.mergeStreams = exports.lineSeparatedURLsToSitemapOptions = exports.SitemapStream = exports.streamToPromise = exports.SitemapAndIndexStream = exports.SitemapIndexStream = exports.IndexTagNames = exports.SitemapItemStream = void 0;
+/*!
+ * Sitemap
+ * Copyright(c) 2011 Eugene Kalinin
+ * MIT Licensed
+ */
+var sitemap_item_stream_1 = __nccwpck_require__(2272);
+Object.defineProperty(exports, "SitemapItemStream", ({ enumerable: true, get: function () { return sitemap_item_stream_1.SitemapItemStream; } }));
+var sitemap_index_stream_1 = __nccwpck_require__(6299);
+Object.defineProperty(exports, "IndexTagNames", ({ enumerable: true, get: function () { return sitemap_index_stream_1.IndexTagNames; } }));
+Object.defineProperty(exports, "SitemapIndexStream", ({ enumerable: true, get: function () { return sitemap_index_stream_1.SitemapIndexStream; } }));
+Object.defineProperty(exports, "SitemapAndIndexStream", ({ enumerable: true, get: function () { return sitemap_index_stream_1.SitemapAndIndexStream; } }));
+var sitemap_stream_1 = __nccwpck_require__(1059);
+Object.defineProperty(exports, "streamToPromise", ({ enumerable: true, get: function () { return sitemap_stream_1.streamToPromise; } }));
+Object.defineProperty(exports, "SitemapStream", ({ enumerable: true, get: function () { return sitemap_stream_1.SitemapStream; } }));
+__exportStar(__nccwpck_require__(7909), exports);
+__exportStar(__nccwpck_require__(8513), exports);
+var utils_1 = __nccwpck_require__(2573);
+Object.defineProperty(exports, "lineSeparatedURLsToSitemapOptions", ({ enumerable: true, get: function () { return utils_1.lineSeparatedURLsToSitemapOptions; } }));
+Object.defineProperty(exports, "mergeStreams", ({ enumerable: true, get: function () { return utils_1.mergeStreams; } }));
+Object.defineProperty(exports, "validateSMIOptions", ({ enumerable: true, get: function () { return utils_1.validateSMIOptions; } }));
+Object.defineProperty(exports, "normalizeURL", ({ enumerable: true, get: function () { return utils_1.normalizeURL; } }));
+Object.defineProperty(exports, "ReadlineStream", ({ enumerable: true, get: function () { return utils_1.ReadlineStream; } }));
+var xmllint_1 = __nccwpck_require__(8000);
+Object.defineProperty(exports, "xmlLint", ({ enumerable: true, get: function () { return xmllint_1.xmlLint; } }));
+var sitemap_parser_1 = __nccwpck_require__(5667);
+Object.defineProperty(exports, "parseSitemap", ({ enumerable: true, get: function () { return sitemap_parser_1.parseSitemap; } }));
+Object.defineProperty(exports, "XMLToSitemapItemStream", ({ enumerable: true, get: function () { return sitemap_parser_1.XMLToSitemapItemStream; } }));
+Object.defineProperty(exports, "ObjectStreamToJSON", ({ enumerable: true, get: function () { return sitemap_parser_1.ObjectStreamToJSON; } }));
+var sitemap_index_parser_1 = __nccwpck_require__(6259);
+Object.defineProperty(exports, "parseSitemapIndex", ({ enumerable: true, get: function () { return sitemap_index_parser_1.parseSitemapIndex; } }));
+Object.defineProperty(exports, "XMLToSitemapIndexStream", ({ enumerable: true, get: function () { return sitemap_index_parser_1.XMLToSitemapIndexStream; } }));
+Object.defineProperty(exports, "IndexObjectStreamToJSON", ({ enumerable: true, get: function () { return sitemap_index_parser_1.IndexObjectStreamToJSON; } }));
+var sitemap_simple_1 = __nccwpck_require__(9546);
+Object.defineProperty(exports, "simpleSitemapAndIndex", ({ enumerable: true, get: function () { return sitemap_simple_1.simpleSitemapAndIndex; } }));
+
+
+/***/ }),
+
+/***/ 7909:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/*!
+ * Sitemap
+ * Copyright(c) 2011 Eugene Kalinin
+ * MIT Licensed
+ */
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.EmptySitemap = exports.EmptyStream = exports.InvalidVideoPriceCurrency = exports.InvalidVideoResolution = exports.InvalidVideoPriceType = exports.InvalidVideoRestrictionRelationship = exports.InvalidVideoRestriction = exports.InvalidVideoFamilyFriendly = exports.InvalidVideoCategory = exports.InvalidVideoTagCount = exports.InvalidVideoViewCount = exports.InvalidVideoTitle = exports.XMLLintUnavailable = exports.InvalidNewsAccessValue = exports.InvalidNewsFormat = exports.InvalidAttr = exports.InvalidAttrValue = exports.InvalidVideoRating = exports.InvalidVideoDescription = exports.InvalidVideoDuration = exports.InvalidVideoFormat = exports.UndefinedTargetFolder = exports.PriorityInvalidError = exports.ChangeFreqInvalidError = exports.NoConfigError = exports.NoURLError = void 0;
+/**
+ * URL in SitemapItem does not exist
+ */
+class NoURLError extends Error {
+    constructor(message) {
+        super(message || 'URL is required');
+        this.name = 'NoURLError';
+        Error.captureStackTrace(this, NoURLError);
+    }
+}
+exports.NoURLError = NoURLError;
+/**
+ * Config was not passed to SitemapItem constructor
+ */
+class NoConfigError extends Error {
+    constructor(message) {
+        super(message || 'SitemapItem requires a configuration');
+        this.name = 'NoConfigError';
+        Error.captureStackTrace(this, NoConfigError);
+    }
+}
+exports.NoConfigError = NoConfigError;
+/**
+ * changefreq property in sitemap is invalid
+ */
+class ChangeFreqInvalidError extends Error {
+    constructor(url, changefreq) {
+        super(`${url}: changefreq "${changefreq}" is invalid`);
+        this.name = 'ChangeFreqInvalidError';
+        Error.captureStackTrace(this, ChangeFreqInvalidError);
+    }
+}
+exports.ChangeFreqInvalidError = ChangeFreqInvalidError;
+/**
+ * priority property in sitemap is invalid
+ */
+class PriorityInvalidError extends Error {
+    constructor(url, priority) {
+        super(`${url}: priority "${priority}" must be a number between 0 and 1 inclusive`);
+        this.name = 'PriorityInvalidError';
+        Error.captureStackTrace(this, PriorityInvalidError);
+    }
+}
+exports.PriorityInvalidError = PriorityInvalidError;
+/**
+ * SitemapIndex target Folder does not exists
+ */
+class UndefinedTargetFolder extends Error {
+    constructor(message) {
+        super(message || 'Target folder must exist');
+        this.name = 'UndefinedTargetFolder';
+        Error.captureStackTrace(this, UndefinedTargetFolder);
+    }
+}
+exports.UndefinedTargetFolder = UndefinedTargetFolder;
+class InvalidVideoFormat extends Error {
+    constructor(url) {
+        super(`${url} video must include thumbnail_loc, title and description fields for videos`);
+        this.name = 'InvalidVideoFormat';
+        Error.captureStackTrace(this, InvalidVideoFormat);
+    }
+}
+exports.InvalidVideoFormat = InvalidVideoFormat;
+class InvalidVideoDuration extends Error {
+    constructor(url, duration) {
+        super(`${url} duration "${duration}" must be an integer of seconds between 0 and 28800`);
+        this.name = 'InvalidVideoDuration';
+        Error.captureStackTrace(this, InvalidVideoDuration);
+    }
+}
+exports.InvalidVideoDuration = InvalidVideoDuration;
+class InvalidVideoDescription extends Error {
+    constructor(url, length) {
+        const message = `${url}: video description is too long ${length} vs limit of 2048 characters.`;
+        super(message);
+        this.name = 'InvalidVideoDescription';
+        Error.captureStackTrace(this, InvalidVideoDescription);
+    }
+}
+exports.InvalidVideoDescription = InvalidVideoDescription;
+class InvalidVideoRating extends Error {
+    constructor(url, title, rating) {
+        super(`${url}: video "${title}" rating "${rating}" must be between 0 and 5 inclusive`);
+        this.name = 'InvalidVideoRating';
+        Error.captureStackTrace(this, InvalidVideoRating);
+    }
+}
+exports.InvalidVideoRating = InvalidVideoRating;
+class InvalidAttrValue extends Error {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    constructor(key, val, validator) {
+        super('"' +
+            val +
+            '" tested against: ' +
+            validator +
+            ' is not a valid value for attr: "' +
+            key +
+            '"');
+        this.name = 'InvalidAttrValue';
+        Error.captureStackTrace(this, InvalidAttrValue);
+    }
+}
+exports.InvalidAttrValue = InvalidAttrValue;
+// InvalidAttr is only thrown when attrbuilder is called incorrectly internally
+/* istanbul ignore next */
+class InvalidAttr extends Error {
+    constructor(key) {
+        super('"' + key + '" is malformed');
+        this.name = 'InvalidAttr';
+        Error.captureStackTrace(this, InvalidAttr);
+    }
+}
+exports.InvalidAttr = InvalidAttr;
+class InvalidNewsFormat extends Error {
+    constructor(url) {
+        super(`${url} News must include publication, publication name, publication language, title, and publication_date for news`);
+        this.name = 'InvalidNewsFormat';
+        Error.captureStackTrace(this, InvalidNewsFormat);
+    }
+}
+exports.InvalidNewsFormat = InvalidNewsFormat;
+class InvalidNewsAccessValue extends Error {
+    constructor(url, access) {
+        super(`${url} News access "${access}" must be either Registration, Subscription or not be present`);
+        this.name = 'InvalidNewsAccessValue';
+        Error.captureStackTrace(this, InvalidNewsAccessValue);
+    }
+}
+exports.InvalidNewsAccessValue = InvalidNewsAccessValue;
+class XMLLintUnavailable extends Error {
+    constructor(message) {
+        super(message || 'xmlLint is not installed. XMLLint is required to validate');
+        this.name = 'XMLLintUnavailable';
+        Error.captureStackTrace(this, XMLLintUnavailable);
+    }
+}
+exports.XMLLintUnavailable = XMLLintUnavailable;
+class InvalidVideoTitle extends Error {
+    constructor(url, length) {
+        super(`${url}: video title is too long ${length} vs 100 character limit`);
+        this.name = 'InvalidVideoTitle';
+        Error.captureStackTrace(this, InvalidVideoTitle);
+    }
+}
+exports.InvalidVideoTitle = InvalidVideoTitle;
+class InvalidVideoViewCount extends Error {
+    constructor(url, count) {
+        super(`${url}: video view count must be positive, view count was ${count}`);
+        this.name = 'InvalidVideoViewCount';
+        Error.captureStackTrace(this, InvalidVideoViewCount);
+    }
+}
+exports.InvalidVideoViewCount = InvalidVideoViewCount;
+class InvalidVideoTagCount extends Error {
+    constructor(url, count) {
+        super(`${url}: video can have no more than 32 tags, this has ${count}`);
+        this.name = 'InvalidVideoTagCount';
+        Error.captureStackTrace(this, InvalidVideoTagCount);
+    }
+}
+exports.InvalidVideoTagCount = InvalidVideoTagCount;
+class InvalidVideoCategory extends Error {
+    constructor(url, count) {
+        super(`${url}: video category can only be 256 characters but was passed ${count}`);
+        this.name = 'InvalidVideoCategory';
+        Error.captureStackTrace(this, InvalidVideoCategory);
+    }
+}
+exports.InvalidVideoCategory = InvalidVideoCategory;
+class InvalidVideoFamilyFriendly extends Error {
+    constructor(url, fam) {
+        super(`${url}: video family friendly must be yes or no, was passed "${fam}"`);
+        this.name = 'InvalidVideoFamilyFriendly';
+        Error.captureStackTrace(this, InvalidVideoFamilyFriendly);
+    }
+}
+exports.InvalidVideoFamilyFriendly = InvalidVideoFamilyFriendly;
+class InvalidVideoRestriction extends Error {
+    constructor(url, code) {
+        super(`${url}: video restriction must be one or more two letter country codes. Was passed "${code}"`);
+        this.name = 'InvalidVideoRestriction';
+        Error.captureStackTrace(this, InvalidVideoRestriction);
+    }
+}
+exports.InvalidVideoRestriction = InvalidVideoRestriction;
+class InvalidVideoRestrictionRelationship extends Error {
+    constructor(url, val) {
+        super(`${url}: video restriction relationship must be either allow or deny. Was passed "${val}"`);
+        this.name = 'InvalidVideoRestrictionRelationship';
+        Error.captureStackTrace(this, InvalidVideoRestrictionRelationship);
+    }
+}
+exports.InvalidVideoRestrictionRelationship = InvalidVideoRestrictionRelationship;
+class InvalidVideoPriceType extends Error {
+    constructor(url, priceType, price) {
+        super(priceType === undefined && price === ''
+            ? `${url}: video priceType is required when price is not provided`
+            : `${url}: video price type "${priceType}" is not "rent" or "purchase"`);
+        this.name = 'InvalidVideoPriceType';
+        Error.captureStackTrace(this, InvalidVideoPriceType);
+    }
+}
+exports.InvalidVideoPriceType = InvalidVideoPriceType;
+class InvalidVideoResolution extends Error {
+    constructor(url, resolution) {
+        super(`${url}: video price resolution "${resolution}" is not hd or sd`);
+        this.name = 'InvalidVideoResolution';
+        Error.captureStackTrace(this, InvalidVideoResolution);
+    }
+}
+exports.InvalidVideoResolution = InvalidVideoResolution;
+class InvalidVideoPriceCurrency extends Error {
+    constructor(url, currency) {
+        super(`${url}: video price currency "${currency}" must be a three capital letter abbrieviation for the country currency`);
+        this.name = 'InvalidVideoPriceCurrency';
+        Error.captureStackTrace(this, InvalidVideoPriceCurrency);
+    }
+}
+exports.InvalidVideoPriceCurrency = InvalidVideoPriceCurrency;
+class EmptyStream extends Error {
+    constructor() {
+        super('You have ended the stream before anything was written. streamToPromise MUST be called before ending the stream.');
+        this.name = 'EmptyStream';
+        Error.captureStackTrace(this, EmptyStream);
+    }
+}
+exports.EmptyStream = EmptyStream;
+class EmptySitemap extends Error {
+    constructor() {
+        super('You ended the stream without writing anything.');
+        this.name = 'EmptySitemap';
+        Error.captureStackTrace(this, EmptyStream);
+    }
+}
+exports.EmptySitemap = EmptySitemap;
+
+
+/***/ }),
+
+/***/ 6259:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.IndexObjectStreamToJSON = exports.parseSitemapIndex = exports.XMLToSitemapIndexStream = void 0;
+const sax_1 = __importDefault(__nccwpck_require__(2560));
+const stream_1 = __nccwpck_require__(2203);
+const types_1 = __nccwpck_require__(8513);
+function isValidTagName(tagName) {
+    // This only works because the enum name and value are the same
+    return tagName in types_1.IndexTagNames;
+}
+function tagTemplate() {
+    return {
+        url: '',
+    };
+}
+const defaultLogger = (level, ...message) => console[level](...message);
+const defaultStreamOpts = {
+    logger: defaultLogger,
+};
+// TODO does this need to end with `options`
+/**
+ * Takes a stream of xml and transforms it into a stream of IndexItems
+ * Use this to parse existing sitemap indices into config options compatible with this library
+ */
+class XMLToSitemapIndexStream extends stream_1.Transform {
+    constructor(opts = defaultStreamOpts) {
+        var _a;
+        opts.objectMode = true;
+        super(opts);
+        this.saxStream = sax_1.default.createStream(true, {
+            xmlns: true,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            strictEntities: true,
+            trim: true,
+        });
+        this.level = opts.level || types_1.ErrorLevel.WARN;
+        if (this.level !== types_1.ErrorLevel.SILENT && opts.logger !== false) {
+            this.logger = (_a = opts.logger) !== null && _a !== void 0 ? _a : defaultLogger;
+        }
+        else {
+            this.logger = () => undefined;
+        }
+        let currentItem = tagTemplate();
+        let currentTag;
+        this.saxStream.on('opentagstart', (tag) => {
+            currentTag = tag.name;
+        });
+        this.saxStream.on('opentag', (tag) => {
+            if (!isValidTagName(tag.name)) {
+                this.logger('warn', 'unhandled tag', tag.name);
+            }
+        });
+        this.saxStream.on('text', (text) => {
+            switch (currentTag) {
+                case types_1.IndexTagNames.loc:
+                    currentItem.url = text;
+                    break;
+                case types_1.IndexTagNames.lastmod:
+                    currentItem.lastmod = text;
+                    break;
+                default:
+                    this.logger('log', 'unhandled text for tag:', currentTag, `'${text}'`);
+                    break;
+            }
+        });
+        this.saxStream.on('cdata', (_text) => {
+            switch (currentTag) {
+                default:
+                    this.logger('log', 'unhandled cdata for tag:', currentTag);
+                    break;
+            }
+        });
+        this.saxStream.on('attribute', (attr) => {
+            switch (currentTag) {
+                case types_1.IndexTagNames.sitemapindex:
+                    break;
+                default:
+                    this.logger('log', 'unhandled attr', currentTag, attr.name);
+            }
+        });
+        this.saxStream.on('closetag', (tag) => {
+            switch (tag) {
+                case types_1.IndexTagNames.sitemap:
+                    this.push(currentItem);
+                    currentItem = tagTemplate();
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+    _transform(data, encoding, callback) {
+        try {
+            // correcting the type here can be done without making it a breaking change
+            // TODO fix this
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.saxStream.write(data, encoding);
+            callback();
+        }
+        catch (error) {
+            callback(error);
+        }
+    }
+}
+exports.XMLToSitemapIndexStream = XMLToSitemapIndexStream;
+/**
+  Read xml and resolve with the configuration that would produce it or reject with
+  an error
+  ```
+  const { createReadStream } = require('fs')
+  const { parseSitemapIndex, createSitemap } = require('sitemap')
+  parseSitemapIndex(createReadStream('./example-index.xml')).then(
+    // produces the same xml
+    // you can, of course, more practically modify it or store it
+    (xmlConfig) => console.log(createSitemap(xmlConfig).toString()),
+    (err) => console.log(err)
+  )
+  ```
+  @param {Readable} xml what to parse
+  @return {Promise<IndexItem[]>} resolves with list of index items that can be fed into a SitemapIndexStream. Rejects with an Error object.
+ */
+async function parseSitemapIndex(xml) {
+    const urls = [];
+    return new Promise((resolve, reject) => {
+        xml
+            .pipe(new XMLToSitemapIndexStream())
+            .on('data', (smi) => urls.push(smi))
+            .on('end', () => {
+            resolve(urls);
+        })
+            .on('error', (error) => {
+            reject(error);
+        });
+    });
+}
+exports.parseSitemapIndex = parseSitemapIndex;
+const defaultObjectStreamOpts = {
+    lineSeparated: false,
+};
+/**
+ * A Transform that converts a stream of objects into a JSON Array or a line
+ * separated stringified JSON
+ * @param [lineSeparated=false] whether to separate entries by a new line or comma
+ */
+class IndexObjectStreamToJSON extends stream_1.Transform {
+    constructor(opts = defaultObjectStreamOpts) {
+        opts.writableObjectMode = true;
+        super(opts);
+        this.lineSeparated = opts.lineSeparated;
+        this.firstWritten = false;
+    }
+    _transform(chunk, encoding, cb) {
+        if (!this.firstWritten) {
+            this.firstWritten = true;
+            if (!this.lineSeparated) {
+                this.push('[');
+            }
+        }
+        else if (this.lineSeparated) {
+            this.push('\n');
+        }
+        else {
+            this.push(',');
+        }
+        if (chunk) {
+            this.push(JSON.stringify(chunk));
+        }
+        cb();
+    }
+    _flush(cb) {
+        if (!this.lineSeparated) {
+            this.push(']');
+        }
+        cb();
+    }
+}
+exports.IndexObjectStreamToJSON = IndexObjectStreamToJSON;
+
+
+/***/ }),
+
+/***/ 6299:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SitemapAndIndexStream = exports.SitemapIndexStream = exports.IndexTagNames = void 0;
+const stream_1 = __nccwpck_require__(2203);
+const types_1 = __nccwpck_require__(8513);
+const sitemap_stream_1 = __nccwpck_require__(1059);
+const sitemap_xml_1 = __nccwpck_require__(9815);
+var IndexTagNames;
+(function (IndexTagNames) {
+    IndexTagNames["sitemap"] = "sitemap";
+    IndexTagNames["loc"] = "loc";
+    IndexTagNames["lastmod"] = "lastmod";
+})(IndexTagNames = exports.IndexTagNames || (exports.IndexTagNames = {}));
+const xmlDec = '<?xml version="1.0" encoding="UTF-8"?>';
+const sitemapIndexTagStart = '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+const closetag = '</sitemapindex>';
+const defaultStreamOpts = {};
+/**
+ * `SitemapIndexStream` is a Transform stream that takes `IndexItem`s or sitemap URL strings and outputs a stream of sitemap index XML.
+ *
+ * It automatically handles the XML declaration and the opening and closing tags for the sitemap index.
+ *
+ * ⚠️ CAUTION: This object is `readable` and must be read (e.g. piped to a file or to /dev/null)
+ * before `finish` will be emitted. Failure to read the stream will result in hangs.
+ *
+ * @extends {Transform}
+ */
+class SitemapIndexStream extends stream_1.Transform {
+    /**
+     * `SitemapIndexStream` is a Transform stream that takes `IndexItem`s or sitemap URL strings and outputs a stream of sitemap index XML.
+     *
+     * It automatically handles the XML declaration and the opening and closing tags for the sitemap index.
+     *
+     * ⚠️ CAUTION: This object is `readable` and must be read (e.g. piped to a file or to /dev/null)
+     * before `finish` will be emitted. Failure to read the stream will result in hangs.
+     *
+     * @param {SitemapIndexStreamOptions} [opts=defaultStreamOpts] - Stream options.
+     */
+    constructor(opts = defaultStreamOpts) {
+        var _a;
+        opts.objectMode = true;
+        super(opts);
+        this.hasHeadOutput = false;
+        this.lastmodDateOnly = opts.lastmodDateOnly || false;
+        this.level = (_a = opts.level) !== null && _a !== void 0 ? _a : types_1.ErrorLevel.WARN;
+        this.xslUrl = opts.xslUrl;
+    }
+    writeHeadOutput() {
+        this.hasHeadOutput = true;
+        let stylesheet = '';
+        if (this.xslUrl) {
+            stylesheet = (0, sitemap_stream_1.stylesheetInclude)(this.xslUrl);
+        }
+        this.push(xmlDec + stylesheet + sitemapIndexTagStart);
+    }
+    _transform(item, encoding, callback) {
+        if (!this.hasHeadOutput) {
+            this.writeHeadOutput();
+        }
+        this.push((0, sitemap_xml_1.otag)(IndexTagNames.sitemap));
+        if (typeof item === 'string') {
+            this.push((0, sitemap_xml_1.element)(IndexTagNames.loc, item));
+        }
+        else {
+            this.push((0, sitemap_xml_1.element)(IndexTagNames.loc, item.url));
+            if (item.lastmod) {
+                const lastmod = new Date(item.lastmod).toISOString();
+                this.push((0, sitemap_xml_1.element)(IndexTagNames.lastmod, this.lastmodDateOnly ? lastmod.slice(0, 10) : lastmod));
+            }
+        }
+        this.push((0, sitemap_xml_1.ctag)(IndexTagNames.sitemap));
+        callback();
+    }
+    _flush(cb) {
+        if (!this.hasHeadOutput) {
+            this.writeHeadOutput();
+        }
+        this.push(closetag);
+        cb();
+    }
+}
+exports.SitemapIndexStream = SitemapIndexStream;
+/**
+ * `SitemapAndIndexStream` is a Transform stream that takes in sitemap items,
+ * writes them to sitemap files, adds the sitemap files to a sitemap index,
+ * and creates new sitemap files when the count limit is reached.
+ *
+ * It waits for the target stream of the current sitemap file to finish before
+ * moving on to the next if the target stream is returned by the `getSitemapStream`
+ * callback in the 3rd position of the tuple.
+ *
+ * ⚠️ CAUTION: This object is `readable` and must be read (e.g. piped to a file or to /dev/null)
+ * before `finish` will be emitted. Failure to read the stream will result in hangs.
+ *
+ * @extends {SitemapIndexStream}
+ */
+class SitemapAndIndexStream extends SitemapIndexStream {
+    /**
+     * `SitemapAndIndexStream` is a Transform stream that takes in sitemap items,
+     * writes them to sitemap files, adds the sitemap files to a sitemap index,
+     * and creates new sitemap files when the count limit is reached.
+     *
+     * It waits for the target stream of the current sitemap file to finish before
+     * moving on to the next if the target stream is returned by the `getSitemapStream`
+     * callback in the 3rd position of the tuple.
+     *
+     * ⚠️ CAUTION: This object is `readable` and must be read (e.g. piped to a file or to /dev/null)
+     * before `finish` will be emitted. Failure to read the stream will result in hangs.
+     *
+     * @param {SitemapAndIndexStreamOptions} opts - Stream options.
+     */
+    constructor(opts) {
+        var _a;
+        opts.objectMode = true;
+        super(opts);
+        this.itemsWritten = 0;
+        this.getSitemapStream = opts.getSitemapStream;
+        this.limit = (_a = opts.limit) !== null && _a !== void 0 ? _a : 45000;
+    }
+    _transform(item, encoding, callback) {
+        if (this.itemsWritten % this.limit === 0) {
+            if (this.currentSitemap) {
+                const onFinish = new Promise((resolve, reject) => {
+                    var _a, _b, _c;
+                    (_a = this.currentSitemap) === null || _a === void 0 ? void 0 : _a.on('finish', resolve);
+                    (_b = this.currentSitemap) === null || _b === void 0 ? void 0 : _b.on('error', reject);
+                    (_c = this.currentSitemap) === null || _c === void 0 ? void 0 : _c.end();
+                });
+                const onPipelineFinish = this.currentSitemapPipeline
+                    ? new Promise((resolve, reject) => {
+                        var _a, _b;
+                        (_a = this.currentSitemapPipeline) === null || _a === void 0 ? void 0 : _a.on('finish', resolve);
+                        (_b = this.currentSitemapPipeline) === null || _b === void 0 ? void 0 : _b.on('error', reject);
+                    })
+                    : Promise.resolve();
+                Promise.all([onFinish, onPipelineFinish])
+                    .then(() => {
+                    this.createSitemap(encoding);
+                    this.writeItem(item, callback);
+                })
+                    .catch(callback);
+                return;
+            }
+            else {
+                this.createSitemap(encoding);
+            }
+        }
+        this.writeItem(item, callback);
+    }
+    writeItem(item, callback) {
+        if (!this.currentSitemap) {
+            callback(new Error('No sitemap stream available'));
+            return;
+        }
+        if (!this.currentSitemap.write(item)) {
+            this.currentSitemap.once('drain', callback);
+        }
+        else {
+            process.nextTick(callback);
+        }
+        // Increment the count of items written
+        this.itemsWritten++;
+    }
+    /**
+     * Called when the stream is finished.
+     * If there is a current sitemap, we wait for it to finish before calling the callback.
+     *
+     * @param cb
+     */
+    _flush(cb) {
+        const onFinish = new Promise((resolve, reject) => {
+            if (this.currentSitemap) {
+                this.currentSitemap.on('finish', resolve);
+                this.currentSitemap.on('error', reject);
+                this.currentSitemap.end();
+            }
+            else {
+                resolve();
+            }
+        });
+        const onPipelineFinish = new Promise((resolve, reject) => {
+            if (this.currentSitemapPipeline) {
+                this.currentSitemapPipeline.on('finish', resolve);
+                this.currentSitemapPipeline.on('error', reject);
+                // The pipeline (pipe target) will get it's end() call
+                // from the sitemap stream ending.
+            }
+            else {
+                resolve();
+            }
+        });
+        Promise.all([onFinish, onPipelineFinish])
+            .then(() => {
+            super._flush(cb);
+        })
+            .catch((err) => {
+            cb(err);
+        });
+    }
+    createSitemap(encoding) {
+        const [idxItem, currentSitemap, currentSitemapPipeline] = this.getSitemapStream(this.itemsWritten / this.limit);
+        currentSitemap.on('error', (err) => this.emit('error', err));
+        this.currentSitemap = currentSitemap;
+        this.currentSitemapPipeline = currentSitemapPipeline;
+        super._transform(idxItem, encoding, () => {
+            // We are not too fussed about waiting for the index item to be written
+            // we we'll wait for the file to finish at the end
+            // and index file write volume tends to be small in comprarison to sitemap
+            // writes.
+            // noop
+        });
+    }
+}
+exports.SitemapAndIndexStream = SitemapAndIndexStream;
+
+
+/***/ }),
+
+/***/ 2272:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SitemapItemStream = void 0;
+const stream_1 = __nccwpck_require__(2203);
+const errors_1 = __nccwpck_require__(7909);
+const types_1 = __nccwpck_require__(8513);
+const sitemap_xml_1 = __nccwpck_require__(9815);
+function attrBuilder(conf, keys) {
+    if (typeof keys === 'string') {
+        keys = [keys];
+    }
+    const iv = {};
+    return keys.reduce((attrs, key) => {
+        // eslint-disable-next-line
+        if (conf[key] !== undefined) {
+            const keyAr = key.split(':');
+            if (keyAr.length !== 2) {
+                throw new errors_1.InvalidAttr(key);
+            }
+            attrs[keyAr[1]] = conf[key];
+        }
+        return attrs;
+    }, iv);
+}
+/**
+ * Takes a stream of SitemapItemOptions and spits out xml for each
+ * @example
+ * // writes <url><loc>https://example.com</loc><url><url><loc>https://example.com/2</loc><url>
+ * const smis = new SitemapItemStream({level: 'warn'})
+ * smis.pipe(writestream)
+ * smis.write({url: 'https://example.com', img: [], video: [], links: []})
+ * smis.write({url: 'https://example.com/2', img: [], video: [], links: []})
+ * smis.end()
+ * @param level - Error level
+ */
+class SitemapItemStream extends stream_1.Transform {
+    constructor(opts = { level: types_1.ErrorLevel.WARN }) {
+        opts.objectMode = true;
+        super(opts);
+        this.level = opts.level || types_1.ErrorLevel.WARN;
+    }
+    _transform(item, encoding, callback) {
+        this.push((0, sitemap_xml_1.otag)(types_1.TagNames.url));
+        this.push((0, sitemap_xml_1.element)(types_1.TagNames.loc, item.url));
+        if (item.lastmod) {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames.lastmod, item.lastmod));
+        }
+        if (item.changefreq) {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames.changefreq, item.changefreq));
+        }
+        if (item.priority !== undefined && item.priority !== null) {
+            if (item.fullPrecisionPriority) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames.priority, item.priority.toString()));
+            }
+            else {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames.priority, item.priority.toFixed(1)));
+            }
+        }
+        item.video.forEach((video) => {
+            this.push((0, sitemap_xml_1.otag)(types_1.TagNames['video:video']));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:thumbnail_loc'], video.thumbnail_loc));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:title'], video.title));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:description'], video.description));
+            if (video.content_loc) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:content_loc'], video.content_loc));
+            }
+            if (video.player_loc) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:player_loc'], attrBuilder(video, [
+                    'player_loc:autoplay',
+                    'player_loc:allow_embed',
+                ]), video.player_loc));
+            }
+            if (video.duration) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:duration'], video.duration.toString()));
+            }
+            if (video.expiration_date) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:expiration_date'], video.expiration_date));
+            }
+            if (video.rating !== undefined) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:rating'], video.rating.toString()));
+            }
+            if (video.view_count !== undefined) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:view_count'], video.view_count.toString()));
+            }
+            if (video.publication_date) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:publication_date'], video.publication_date));
+            }
+            for (const tag of video.tag) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:tag'], tag));
+            }
+            if (video.category) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:category'], video.category));
+            }
+            if (video.family_friendly) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:family_friendly'], video.family_friendly));
+            }
+            if (video.restriction) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:restriction'], attrBuilder(video, 'restriction:relationship'), video.restriction));
+            }
+            if (video.gallery_loc) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:gallery_loc'], { title: video['gallery_loc:title'] }, video.gallery_loc));
+            }
+            if (video.price) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:price'], attrBuilder(video, [
+                    'price:resolution',
+                    'price:currency',
+                    'price:type',
+                ]), video.price));
+            }
+            if (video.requires_subscription) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:requires_subscription'], video.requires_subscription));
+            }
+            if (video.uploader) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:uploader'], attrBuilder(video, 'uploader:info'), video.uploader));
+            }
+            if (video.platform) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:platform'], attrBuilder(video, 'platform:relationship'), video.platform));
+            }
+            if (video.live) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:live'], video.live));
+            }
+            if (video.id) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['video:id'], { type: 'url' }, video.id));
+            }
+            this.push((0, sitemap_xml_1.ctag)(types_1.TagNames['video:video']));
+        });
+        item.links.forEach((link) => {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['xhtml:link'], {
+                rel: 'alternate',
+                hreflang: link.lang || link.hreflang,
+                href: link.url,
+            }));
+        });
+        if (item.expires) {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames.expires, new Date(item.expires).toISOString()));
+        }
+        if (item.androidLink) {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['xhtml:link'], {
+                rel: 'alternate',
+                href: item.androidLink,
+            }));
+        }
+        if (item.ampLink) {
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['xhtml:link'], {
+                rel: 'amphtml',
+                href: item.ampLink,
+            }));
+        }
+        if (item.news) {
+            this.push((0, sitemap_xml_1.otag)(types_1.TagNames['news:news']));
+            this.push((0, sitemap_xml_1.otag)(types_1.TagNames['news:publication']));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:name'], item.news.publication.name));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:language'], item.news.publication.language));
+            this.push((0, sitemap_xml_1.ctag)(types_1.TagNames['news:publication']));
+            if (item.news.access) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:access'], item.news.access));
+            }
+            if (item.news.genres) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:genres'], item.news.genres));
+            }
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:publication_date'], item.news.publication_date));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:title'], item.news.title));
+            if (item.news.keywords) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:keywords'], item.news.keywords));
+            }
+            if (item.news.stock_tickers) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['news:stock_tickers'], item.news.stock_tickers));
+            }
+            this.push((0, sitemap_xml_1.ctag)(types_1.TagNames['news:news']));
+        }
+        // Image handling
+        item.img.forEach((image) => {
+            this.push((0, sitemap_xml_1.otag)(types_1.TagNames['image:image']));
+            this.push((0, sitemap_xml_1.element)(types_1.TagNames['image:loc'], image.url));
+            if (image.caption) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['image:caption'], image.caption));
+            }
+            if (image.geoLocation) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['image:geo_location'], image.geoLocation));
+            }
+            if (image.title) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['image:title'], image.title));
+            }
+            if (image.license) {
+                this.push((0, sitemap_xml_1.element)(types_1.TagNames['image:license'], image.license));
+            }
+            this.push((0, sitemap_xml_1.ctag)(types_1.TagNames['image:image']));
+        });
+        this.push((0, sitemap_xml_1.ctag)(types_1.TagNames.url));
+        callback();
+    }
+}
+exports.SitemapItemStream = SitemapItemStream;
+
+
+/***/ }),
+
+/***/ 5667:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObjectStreamToJSON = exports.parseSitemap = exports.XMLToSitemapItemStream = void 0;
+const sax_1 = __importDefault(__nccwpck_require__(2560));
+const stream_1 = __nccwpck_require__(2203);
+const types_1 = __nccwpck_require__(8513);
+function isValidTagName(tagName) {
+    // This only works because the enum name and value are the same
+    return tagName in types_1.TagNames;
+}
+function tagTemplate() {
+    return {
+        img: [],
+        video: [],
+        links: [],
+        url: '',
+    };
+}
+function videoTemplate() {
+    return {
+        tag: [],
+        thumbnail_loc: '',
+        title: '',
+        description: '',
+    };
+}
+const imageTemplate = {
+    url: '',
+};
+const linkTemplate = {
+    lang: '',
+    url: '',
+};
+function newsTemplate() {
+    return {
+        publication: { name: '', language: '' },
+        publication_date: '',
+        title: '',
+    };
+}
+const defaultLogger = (level, ...message) => console[level](...message);
+const defaultStreamOpts = {
+    logger: defaultLogger,
+};
+// TODO does this need to end with `options`
+/**
+ * Takes a stream of xml and transforms it into a stream of SitemapItems
+ * Use this to parse existing sitemaps into config options compatible with this library
+ */
+class XMLToSitemapItemStream extends stream_1.Transform {
+    constructor(opts = defaultStreamOpts) {
+        var _a;
+        opts.objectMode = true;
+        super(opts);
+        this.error = null;
+        this.saxStream = sax_1.default.createStream(true, {
+            xmlns: true,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            strictEntities: true,
+            trim: true,
+        });
+        this.level = opts.level || types_1.ErrorLevel.WARN;
+        if (this.level !== types_1.ErrorLevel.SILENT && opts.logger !== false) {
+            this.logger = (_a = opts.logger) !== null && _a !== void 0 ? _a : defaultLogger;
+        }
+        else {
+            this.logger = () => undefined;
+        }
+        let currentItem = tagTemplate();
+        let currentTag;
+        let currentVideo = videoTemplate();
+        let currentImage = { ...imageTemplate };
+        let currentLink = { ...linkTemplate };
+        let dontpushCurrentLink = false;
+        this.saxStream.on('opentagstart', (tag) => {
+            currentTag = tag.name;
+            if (currentTag.startsWith('news:') && !currentItem.news) {
+                currentItem.news = newsTemplate();
+            }
+        });
+        this.saxStream.on('opentag', (tag) => {
+            if (isValidTagName(tag.name)) {
+                if (tag.name === 'xhtml:link') {
+                    if (typeof tag.attributes.rel === 'string' ||
+                        typeof tag.attributes.href === 'string') {
+                        return;
+                    }
+                    if (tag.attributes.rel.value === 'alternate' &&
+                        tag.attributes.hreflang) {
+                        currentLink.url = tag.attributes.href.value;
+                        if (typeof tag.attributes.hreflang === 'string')
+                            return;
+                        currentLink.lang = tag.attributes.hreflang.value;
+                    }
+                    else if (tag.attributes.rel.value === 'alternate') {
+                        dontpushCurrentLink = true;
+                        currentItem.androidLink = tag.attributes.href.value;
+                    }
+                    else if (tag.attributes.rel.value === 'amphtml') {
+                        dontpushCurrentLink = true;
+                        currentItem.ampLink = tag.attributes.href.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for xhtml:link', tag.attributes);
+                        this.err(`unhandled attr for xhtml:link ${tag.attributes}`);
+                    }
+                }
+            }
+            else {
+                this.logger('warn', 'unhandled tag', tag.name);
+                this.err(`unhandled tag: ${tag.name}`);
+            }
+        });
+        this.saxStream.on('text', (text) => {
+            switch (currentTag) {
+                case 'mobile:mobile':
+                    break;
+                case types_1.TagNames.loc:
+                    currentItem.url = text;
+                    break;
+                case types_1.TagNames.changefreq:
+                    if ((0, types_1.isValidChangeFreq)(text)) {
+                        currentItem.changefreq = text;
+                    }
+                    break;
+                case types_1.TagNames.priority:
+                    currentItem.priority = parseFloat(text);
+                    break;
+                case types_1.TagNames.lastmod:
+                    currentItem.lastmod = text;
+                    break;
+                case types_1.TagNames['video:thumbnail_loc']:
+                    currentVideo.thumbnail_loc = text;
+                    break;
+                case types_1.TagNames['video:tag']:
+                    currentVideo.tag.push(text);
+                    break;
+                case types_1.TagNames['video:duration']:
+                    currentVideo.duration = parseInt(text, 10);
+                    break;
+                case types_1.TagNames['video:player_loc']:
+                    currentVideo.player_loc = text;
+                    break;
+                case types_1.TagNames['video:content_loc']:
+                    currentVideo.content_loc = text;
+                    break;
+                case types_1.TagNames['video:requires_subscription']:
+                    if ((0, types_1.isValidYesNo)(text)) {
+                        currentVideo.requires_subscription = text;
+                    }
+                    break;
+                case types_1.TagNames['video:publication_date']:
+                    currentVideo.publication_date = text;
+                    break;
+                case types_1.TagNames['video:id']:
+                    currentVideo.id = text;
+                    break;
+                case types_1.TagNames['video:restriction']:
+                    currentVideo.restriction = text;
+                    break;
+                case types_1.TagNames['video:view_count']:
+                    currentVideo.view_count = parseInt(text, 10);
+                    break;
+                case types_1.TagNames['video:uploader']:
+                    currentVideo.uploader = text;
+                    break;
+                case types_1.TagNames['video:family_friendly']:
+                    if ((0, types_1.isValidYesNo)(text)) {
+                        currentVideo.family_friendly = text;
+                    }
+                    break;
+                case types_1.TagNames['video:expiration_date']:
+                    currentVideo.expiration_date = text;
+                    break;
+                case types_1.TagNames['video:platform']:
+                    currentVideo.platform = text;
+                    break;
+                case types_1.TagNames['video:price']:
+                    currentVideo.price = text;
+                    break;
+                case types_1.TagNames['video:rating']:
+                    currentVideo.rating = parseFloat(text);
+                    break;
+                case types_1.TagNames['video:category']:
+                    currentVideo.category = text;
+                    break;
+                case types_1.TagNames['video:live']:
+                    if ((0, types_1.isValidYesNo)(text)) {
+                        currentVideo.live = text;
+                    }
+                    break;
+                case types_1.TagNames['video:gallery_loc']:
+                    currentVideo.gallery_loc = text;
+                    break;
+                case types_1.TagNames['image:loc']:
+                    currentImage.url = text;
+                    break;
+                case types_1.TagNames['image:geo_location']:
+                    currentImage.geoLocation = text;
+                    break;
+                case types_1.TagNames['image:license']:
+                    currentImage.license = text;
+                    break;
+                case types_1.TagNames['news:access']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.access = text;
+                    break;
+                case types_1.TagNames['news:genres']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.genres = text;
+                    break;
+                case types_1.TagNames['news:publication_date']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.publication_date = text;
+                    break;
+                case types_1.TagNames['news:keywords']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.keywords = text;
+                    break;
+                case types_1.TagNames['news:stock_tickers']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.stock_tickers = text;
+                    break;
+                case types_1.TagNames['news:language']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.publication.language = text;
+                    break;
+                case types_1.TagNames['video:title']:
+                    currentVideo.title += text;
+                    break;
+                case types_1.TagNames['video:description']:
+                    currentVideo.description += text;
+                    break;
+                case types_1.TagNames['news:name']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.publication.name += text;
+                    break;
+                case types_1.TagNames['news:title']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.title += text;
+                    break;
+                case types_1.TagNames['image:caption']:
+                    if (!currentImage.caption) {
+                        currentImage.caption = text;
+                    }
+                    else {
+                        currentImage.caption += text;
+                    }
+                    break;
+                case types_1.TagNames['image:title']:
+                    if (!currentImage.title) {
+                        currentImage.title = text;
+                    }
+                    else {
+                        currentImage.title += text;
+                    }
+                    break;
+                default:
+                    this.logger('log', 'unhandled text for tag:', currentTag, `'${text}'`);
+                    this.err(`unhandled text for tag: ${currentTag} '${text}'`);
+                    break;
+            }
+        });
+        this.saxStream.on('cdata', (text) => {
+            switch (currentTag) {
+                case types_1.TagNames['video:title']:
+                    currentVideo.title += text;
+                    break;
+                case types_1.TagNames['video:description']:
+                    currentVideo.description += text;
+                    break;
+                case types_1.TagNames['news:name']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.publication.name += text;
+                    break;
+                case types_1.TagNames['news:title']:
+                    if (!currentItem.news) {
+                        currentItem.news = newsTemplate();
+                    }
+                    currentItem.news.title += text;
+                    break;
+                case types_1.TagNames['image:caption']:
+                    if (!currentImage.caption) {
+                        currentImage.caption = text;
+                    }
+                    else {
+                        currentImage.caption += text;
+                    }
+                    break;
+                case types_1.TagNames['image:title']:
+                    if (!currentImage.title) {
+                        currentImage.title = text;
+                    }
+                    else {
+                        currentImage.title += text;
+                    }
+                    break;
+                default:
+                    this.logger('log', 'unhandled cdata for tag:', currentTag);
+                    this.err(`unhandled cdata for tag: ${currentTag}`);
+                    break;
+            }
+        });
+        this.saxStream.on('attribute', (attr) => {
+            switch (currentTag) {
+                case types_1.TagNames['urlset']:
+                case types_1.TagNames['xhtml:link']:
+                case types_1.TagNames['video:id']:
+                    break;
+                case types_1.TagNames['video:restriction']:
+                    if (attr.name === 'relationship' && (0, types_1.isAllowDeny)(attr.value)) {
+                        currentVideo['restriction:relationship'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr', currentTag, attr.name);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+                    }
+                    break;
+                case types_1.TagNames['video:price']:
+                    if (attr.name === 'type' && (0, types_1.isPriceType)(attr.value)) {
+                        currentVideo['price:type'] = attr.value;
+                    }
+                    else if (attr.name === 'currency') {
+                        currentVideo['price:currency'] = attr.value;
+                    }
+                    else if (attr.name === 'resolution' && (0, types_1.isResolution)(attr.value)) {
+                        currentVideo['price:resolution'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for video:price', attr.name);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+                    }
+                    break;
+                case types_1.TagNames['video:player_loc']:
+                    if (attr.name === 'autoplay') {
+                        currentVideo['player_loc:autoplay'] = attr.value;
+                    }
+                    else if (attr.name === 'allow_embed' && (0, types_1.isValidYesNo)(attr.value)) {
+                        currentVideo['player_loc:allow_embed'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for video:player_loc', attr.name);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+                    }
+                    break;
+                case types_1.TagNames['video:platform']:
+                    if (attr.name === 'relationship' && (0, types_1.isAllowDeny)(attr.value)) {
+                        currentVideo['platform:relationship'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for video:platform', attr.name, attr.value);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name} ${attr.value}`);
+                    }
+                    break;
+                case types_1.TagNames['video:gallery_loc']:
+                    if (attr.name === 'title') {
+                        currentVideo['gallery_loc:title'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for video:galler_loc', attr.name);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+                    }
+                    break;
+                case types_1.TagNames['video:uploader']:
+                    if (attr.name === 'info') {
+                        currentVideo['uploader:info'] = attr.value;
+                    }
+                    else {
+                        this.logger('log', 'unhandled attr for video:uploader', attr.name);
+                        this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+                    }
+                    break;
+                default:
+                    this.logger('log', 'unhandled attr', currentTag, attr.name);
+                    this.err(`unhandled attr: ${currentTag} ${attr.name}`);
+            }
+        });
+        this.saxStream.on('closetag', (tag) => {
+            switch (tag) {
+                case types_1.TagNames.url:
+                    this.push(currentItem);
+                    currentItem = tagTemplate();
+                    break;
+                case types_1.TagNames['video:video']:
+                    currentItem.video.push(currentVideo);
+                    currentVideo = videoTemplate();
+                    break;
+                case types_1.TagNames['image:image']:
+                    currentItem.img.push(currentImage);
+                    currentImage = { ...imageTemplate };
+                    break;
+                case types_1.TagNames['xhtml:link']:
+                    if (!dontpushCurrentLink) {
+                        currentItem.links.push(currentLink);
+                    }
+                    currentLink = { ...linkTemplate };
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+    _transform(data, encoding, callback) {
+        try {
+            const cb = () => callback(this.level === types_1.ErrorLevel.THROW ? this.error : null);
+            // correcting the type here can be done without making it a breaking change
+            // TODO fix this
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            if (!this.saxStream.write(data, encoding)) {
+                this.saxStream.once('drain', cb);
+            }
+            else {
+                process.nextTick(cb);
+            }
+        }
+        catch (error) {
+            callback(error);
+        }
+    }
+    err(msg) {
+        if (!this.error)
+            this.error = new Error(msg);
+    }
+}
+exports.XMLToSitemapItemStream = XMLToSitemapItemStream;
+/**
+  Read xml and resolve with the configuration that would produce it or reject with
+  an error
+  ```
+  const { createReadStream } = require('fs')
+  const { parseSitemap, createSitemap } = require('sitemap')
+  parseSitemap(createReadStream('./example.xml')).then(
+    // produces the same xml
+    // you can, of course, more practically modify it or store it
+    (xmlConfig) => console.log(createSitemap(xmlConfig).toString()),
+    (err) => console.log(err)
+  )
+  ```
+  @param {Readable} xml what to parse
+  @return {Promise<SitemapItem[]>} resolves with list of sitemap items that can be fed into a SitemapStream. Rejects with an Error object.
+ */
+async function parseSitemap(xml) {
+    const urls = [];
+    return new Promise((resolve, reject) => {
+        xml
+            .pipe(new XMLToSitemapItemStream())
+            .on('data', (smi) => urls.push(smi))
+            .on('end', () => {
+            resolve(urls);
+        })
+            .on('error', (error) => {
+            reject(error);
+        });
+    });
+}
+exports.parseSitemap = parseSitemap;
+const defaultObjectStreamOpts = {
+    lineSeparated: false,
+};
+/**
+ * A Transform that converts a stream of objects into a JSON Array or a line
+ * separated stringified JSON
+ * @param [lineSeparated=false] whether to separate entries by a new line or comma
+ */
+class ObjectStreamToJSON extends stream_1.Transform {
+    constructor(opts = defaultObjectStreamOpts) {
+        opts.writableObjectMode = true;
+        super(opts);
+        this.lineSeparated = opts.lineSeparated;
+        this.firstWritten = false;
+    }
+    _transform(chunk, encoding, cb) {
+        if (!this.firstWritten) {
+            this.firstWritten = true;
+            if (!this.lineSeparated) {
+                this.push('[');
+            }
+        }
+        else if (this.lineSeparated) {
+            this.push('\n');
+        }
+        else {
+            this.push(',');
+        }
+        if (chunk) {
+            this.push(JSON.stringify(chunk));
+        }
+        cb();
+    }
+    _flush(cb) {
+        if (!this.lineSeparated) {
+            this.push(']');
+        }
+        cb();
+    }
+}
+exports.ObjectStreamToJSON = ObjectStreamToJSON;
+
+
+/***/ }),
+
+/***/ 9546:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.simpleSitemapAndIndex = void 0;
+const sitemap_index_stream_1 = __nccwpck_require__(6299);
+const sitemap_stream_1 = __nccwpck_require__(1059);
+const utils_1 = __nccwpck_require__(2573);
+const zlib_1 = __nccwpck_require__(3106);
+const fs_1 = __nccwpck_require__(9896);
+const path_1 = __nccwpck_require__(6928);
+const stream_1 = __nccwpck_require__(2203);
+const util_1 = __nccwpck_require__(9023);
+const url_1 = __nccwpck_require__(7016);
+const pipeline = (0, util_1.promisify)(stream_1.pipeline);
+/**
+ *
+ * @param {object} options -
+ * @param {string} options.hostname - The hostname for all URLs
+ * @param {string} [options.sitemapHostname] - The hostname for the sitemaps if different than hostname
+ * @param {SitemapItemLoose[] | string | Readable | string[]} options.sourceData - The urls you want to make a sitemap out of.
+ * @param {string} options.destinationDir - where to write the sitemaps and index
+ * @param {string} [options.publicBasePath] - where the sitemaps are relative to the hostname. Defaults to root.
+ * @param {number} [options.limit] - how many URLs to write before switching to a new file. Defaults to 50k
+ * @param {boolean} [options.gzip] - whether to compress the written files. Defaults to true
+ * @returns {Promise<void>} an empty promise that resolves when everything is done
+ */
+const simpleSitemapAndIndex = async ({ hostname, sitemapHostname = hostname, // if different
+/**
+ * Pass a line separated list of sitemap items or a stream or an array
+ */
+sourceData, destinationDir, limit = 50000, gzip = true, publicBasePath = './', }) => {
+    await fs_1.promises.mkdir(destinationDir, { recursive: true });
+    const sitemapAndIndexStream = new sitemap_index_stream_1.SitemapAndIndexStream({
+        limit,
+        getSitemapStream: (i) => {
+            const sitemapStream = new sitemap_stream_1.SitemapStream({
+                hostname,
+            });
+            const path = `./sitemap-${i}.xml`;
+            const writePath = (0, path_1.resolve)(destinationDir, path + (gzip ? '.gz' : ''));
+            if (!publicBasePath.endsWith('/')) {
+                publicBasePath += '/';
+            }
+            const publicPath = (0, path_1.normalize)(publicBasePath + path);
+            let pipeline;
+            if (gzip) {
+                pipeline = sitemapStream
+                    .pipe((0, zlib_1.createGzip)()) // compress the output of the sitemap
+                    .pipe((0, fs_1.createWriteStream)(writePath)); // write it to sitemap-NUMBER.xml
+            }
+            else {
+                pipeline = sitemapStream.pipe((0, fs_1.createWriteStream)(writePath)); // write it to sitemap-NUMBER.xml
+            }
+            return [
+                new url_1.URL(`${publicPath}${gzip ? '.gz' : ''}`, sitemapHostname).toString(),
+                sitemapStream,
+                pipeline,
+            ];
+        },
+    });
+    let src;
+    if (typeof sourceData === 'string') {
+        src = (0, utils_1.lineSeparatedURLsToSitemapOptions)((0, fs_1.createReadStream)(sourceData));
+    }
+    else if (sourceData instanceof stream_1.Readable) {
+        src = sourceData;
+    }
+    else if (Array.isArray(sourceData)) {
+        src = stream_1.Readable.from(sourceData);
+    }
+    else {
+        throw new Error("unhandled source type. You've passed in data that is not supported");
+    }
+    const writePath = (0, path_1.resolve)(destinationDir, `./sitemap-index.xml${gzip ? '.gz' : ''}`);
+    if (gzip) {
+        return pipeline(src, sitemapAndIndexStream, (0, zlib_1.createGzip)(), (0, fs_1.createWriteStream)(writePath));
+    }
+    else {
+        return pipeline(src, sitemapAndIndexStream, (0, fs_1.createWriteStream)(writePath));
+    }
+};
+exports.simpleSitemapAndIndex = simpleSitemapAndIndex;
+exports["default"] = exports.simpleSitemapAndIndex;
+
+
+/***/ }),
+
+/***/ 1059:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.streamToPromise = exports.SitemapStream = exports.closetag = exports.stylesheetInclude = void 0;
+const stream_1 = __nccwpck_require__(2203);
+const types_1 = __nccwpck_require__(8513);
+const utils_1 = __nccwpck_require__(2573);
+const sitemap_item_stream_1 = __nccwpck_require__(2272);
+const errors_1 = __nccwpck_require__(7909);
+const xmlDec = '<?xml version="1.0" encoding="UTF-8"?>';
+const stylesheetInclude = (url) => {
+    return `<?xml-stylesheet type="text/xsl" href="${url}"?>`;
+};
+exports.stylesheetInclude = stylesheetInclude;
+const urlsetTagStart = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"';
+const getURLSetNs = ({ news, video, image, xhtml, custom }, xslURL) => {
+    let ns = xmlDec;
+    if (xslURL) {
+        ns += (0, exports.stylesheetInclude)(xslURL);
+    }
+    ns += urlsetTagStart;
+    if (news) {
+        ns += ' xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"';
+    }
+    if (xhtml) {
+        ns += ' xmlns:xhtml="http://www.w3.org/1999/xhtml"';
+    }
+    if (image) {
+        ns += ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+    }
+    if (video) {
+        ns += ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
+    }
+    if (custom) {
+        ns += ' ' + custom.join(' ');
+    }
+    return ns + '>';
+};
+exports.closetag = '</urlset>';
+const defaultXMLNS = {
+    news: true,
+    xhtml: true,
+    image: true,
+    video: true,
+};
+const defaultStreamOpts = {
+    xmlns: defaultXMLNS,
+};
+/**
+ * A [Transform](https://nodejs.org/api/stream.html#stream_implementing_a_transform_stream)
+ * for turning a
+ * [Readable stream](https://nodejs.org/api/stream.html#stream_readable_streams)
+ * of either [SitemapItemOptions](#sitemap-item-options) or url strings into a
+ * Sitemap. The readable stream it transforms **must** be in object mode.
+ */
+class SitemapStream extends stream_1.Transform {
+    constructor(opts = defaultStreamOpts) {
+        opts.objectMode = true;
+        super(opts);
+        this.hasHeadOutput = false;
+        this.hostname = opts.hostname;
+        this.level = opts.level || types_1.ErrorLevel.WARN;
+        this.errorHandler = opts.errorHandler;
+        this.smiStream = new sitemap_item_stream_1.SitemapItemStream({ level: opts.level });
+        this.smiStream.on('data', (data) => this.push(data));
+        this.lastmodDateOnly = opts.lastmodDateOnly || false;
+        this.xmlNS = opts.xmlns || defaultXMLNS;
+        this.xslUrl = opts.xslUrl;
+    }
+    _transform(item, encoding, callback) {
+        if (!this.hasHeadOutput) {
+            this.hasHeadOutput = true;
+            this.push(getURLSetNs(this.xmlNS, this.xslUrl));
+        }
+        if (!this.smiStream.write((0, utils_1.validateSMIOptions)((0, utils_1.normalizeURL)(item, this.hostname, this.lastmodDateOnly), this.level, this.errorHandler))) {
+            this.smiStream.once('drain', callback);
+        }
+        else {
+            process.nextTick(callback);
+        }
+    }
+    _flush(cb) {
+        if (!this.hasHeadOutput) {
+            cb(new errors_1.EmptySitemap());
+        }
+        else {
+            this.push(exports.closetag);
+            cb();
+        }
+    }
+}
+exports.SitemapStream = SitemapStream;
+/**
+ * Converts a readable stream into a promise that resolves with the concatenated data from the stream.
+ *
+ * The function listens for 'data' events from the stream, and when the stream ends, it resolves the promise with the concatenated data. If an error occurs while reading from the stream, the promise is rejected with the error.
+ *
+ * ⚠️ CAUTION: This function should not generally be used in production / when writing to files as it holds a copy of the entire file contents in memory until finished.
+ *
+ * @param {Readable} stream - The readable stream to convert to a promise.
+ * @returns {Promise<Buffer>} A promise that resolves with the concatenated data from the stream as a Buffer, or rejects with an error if one occurred while reading from the stream. If the stream is empty, the promise is rejected with an EmptyStream error.
+ * @throws {EmptyStream} If the stream is empty.
+ */
+function streamToPromise(stream) {
+    return new Promise((resolve, reject) => {
+        const drain = [];
+        stream
+            // Error propagation is not automatic
+            // Bubble up errors on the read stream
+            .on('error', reject)
+            .pipe(new stream_1.Writable({
+            write(chunk, enc, next) {
+                drain.push(chunk);
+                next();
+            },
+        }))
+            // This bubbles up errors when writing to the internal buffer
+            // This is unlikely to happen, but we have this for completeness
+            .on('error', reject)
+            .on('finish', () => {
+            if (!drain.length) {
+                reject(new errors_1.EmptyStream());
+            }
+            else {
+                resolve(Buffer.concat(drain));
+            }
+        });
+    });
+}
+exports.streamToPromise = streamToPromise;
+
+
+/***/ }),
+
+/***/ 9815:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.element = exports.ctag = exports.otag = exports.text = void 0;
+const invalidXMLUnicodeRegex = 
+// eslint-disable-next-line no-control-regex
+/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u0084\u0086-\u009F\uD800-\uDFFF\uFDD0-\uFDDF\u{1FFFE}-\u{1FFFF}\u{2FFFE}-\u{2FFFF}\u{3FFFE}-\u{3FFFF}\u{4FFFE}-\u{4FFFF}\u{5FFFE}-\u{5FFFF}\u{6FFFE}-\u{6FFFF}\u{7FFFE}-\u{7FFFF}\u{8FFFE}-\u{8FFFF}\u{9FFFE}-\u{9FFFF}\u{AFFFE}-\u{AFFFF}\u{BFFFE}-\u{BFFFF}\u{CFFFE}-\u{CFFFF}\u{DFFFE}-\u{DFFFF}\u{EFFFE}-\u{EFFFF}\u{FFFFE}-\u{FFFFF}\u{10FFFE}-\u{10FFFF}]/gu;
+const amp = /&/g;
+const lt = /</g;
+const apos = /'/g;
+const quot = /"/g;
+function text(txt) {
+    return txt
+        .replace(amp, '&amp;')
+        .replace(lt, '&lt;')
+        .replace(invalidXMLUnicodeRegex, '');
+}
+exports.text = text;
+function otag(nodeName, attrs, selfClose = false) {
+    let attrstr = '';
+    for (const k in attrs) {
+        const val = attrs[k]
+            .replace(amp, '&amp;')
+            .replace(lt, '&lt;')
+            .replace(apos, '&apos;')
+            .replace(quot, '&quot;')
+            .replace(invalidXMLUnicodeRegex, '');
+        attrstr += ` ${k}="${val}"`;
+    }
+    return `<${nodeName}${attrstr}${selfClose ? '/' : ''}>`;
+}
+exports.otag = otag;
+function ctag(nodeName) {
+    return `</${nodeName}>`;
+}
+exports.ctag = ctag;
+function element(nodeName, attrs, innerText) {
+    if (typeof attrs === 'string') {
+        return otag(nodeName) + text(attrs) + ctag(nodeName);
+    }
+    else if (innerText) {
+        return otag(nodeName, attrs) + text(innerText) + ctag(nodeName);
+    }
+    else {
+        return otag(nodeName, attrs, true);
+    }
+}
+exports.element = element;
+
+
+/***/ }),
+
+/***/ 8513:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.IndexTagNames = exports.TagNames = exports.ErrorLevel = exports.isAllowDeny = exports.EnumAllowDeny = exports.isValidYesNo = exports.EnumYesNo = exports.isValidChangeFreq = exports.CHANGEFREQ = exports.isResolution = exports.isPriceType = exports.validators = exports.EnumChangefreq = void 0;
+/**
+ * How frequently the page is likely to change. This value provides general
+ * information to search engines and may not correlate exactly to how often they crawl the page. Please note that the
+ * value of this tag is considered a hint and not a command. See
+ * <https://www.sitemaps.org/protocol.html#xmlTagDefinitions> for the acceptable
+ * values
+ */
+var EnumChangefreq;
+(function (EnumChangefreq) {
+    EnumChangefreq["DAILY"] = "daily";
+    EnumChangefreq["MONTHLY"] = "monthly";
+    EnumChangefreq["ALWAYS"] = "always";
+    EnumChangefreq["HOURLY"] = "hourly";
+    EnumChangefreq["WEEKLY"] = "weekly";
+    EnumChangefreq["YEARLY"] = "yearly";
+    EnumChangefreq["NEVER"] = "never";
+})(EnumChangefreq = exports.EnumChangefreq || (exports.EnumChangefreq = {}));
+const allowDeny = /^(?:allow|deny)$/;
+exports.validators = {
+    'price:currency': /^[A-Z]{3}$/,
+    'price:type': /^(?:rent|purchase|RENT|PURCHASE)$/,
+    'price:resolution': /^(?:HD|hd|sd|SD)$/,
+    'platform:relationship': allowDeny,
+    'restriction:relationship': allowDeny,
+    restriction: /^([A-Z]{2}( +[A-Z]{2})*)?$/,
+    platform: /^((web|mobile|tv)( (web|mobile|tv))*)?$/,
+    language: /^zh-cn|zh-tw|([a-z]{2,3})$/,
+    genres: /^(PressRelease|Satire|Blog|OpEd|Opinion|UserGenerated)(, *(PressRelease|Satire|Blog|OpEd|Opinion|UserGenerated))*$/,
+    stock_tickers: /^(\w+:\w+(, *\w+:\w+){0,4})?$/,
+};
+function isPriceType(pt) {
+    return exports.validators['price:type'].test(pt);
+}
+exports.isPriceType = isPriceType;
+function isResolution(res) {
+    return exports.validators['price:resolution'].test(res);
+}
+exports.isResolution = isResolution;
+exports.CHANGEFREQ = Object.values(EnumChangefreq);
+function isValidChangeFreq(freq) {
+    return exports.CHANGEFREQ.includes(freq);
+}
+exports.isValidChangeFreq = isValidChangeFreq;
+var EnumYesNo;
+(function (EnumYesNo) {
+    EnumYesNo["YES"] = "YES";
+    EnumYesNo["NO"] = "NO";
+    EnumYesNo["Yes"] = "Yes";
+    EnumYesNo["No"] = "No";
+    EnumYesNo["yes"] = "yes";
+    EnumYesNo["no"] = "no";
+})(EnumYesNo = exports.EnumYesNo || (exports.EnumYesNo = {}));
+function isValidYesNo(yn) {
+    return /^YES|NO|[Yy]es|[Nn]o$/.test(yn);
+}
+exports.isValidYesNo = isValidYesNo;
+var EnumAllowDeny;
+(function (EnumAllowDeny) {
+    EnumAllowDeny["ALLOW"] = "allow";
+    EnumAllowDeny["DENY"] = "deny";
+})(EnumAllowDeny = exports.EnumAllowDeny || (exports.EnumAllowDeny = {}));
+function isAllowDeny(ad) {
+    return allowDeny.test(ad);
+}
+exports.isAllowDeny = isAllowDeny;
+/**
+ * How to handle errors in passed in urls
+ */
+var ErrorLevel;
+(function (ErrorLevel) {
+    /**
+     * Validation will be skipped and nothing logged or thrown.
+     */
+    ErrorLevel["SILENT"] = "silent";
+    /**
+     * If an invalid value is encountered, a console.warn will be called with details
+     */
+    ErrorLevel["WARN"] = "warn";
+    /**
+     * An Error will be thrown on encountering invalid data.
+     */
+    ErrorLevel["THROW"] = "throw";
+})(ErrorLevel = exports.ErrorLevel || (exports.ErrorLevel = {}));
+var TagNames;
+(function (TagNames) {
+    TagNames["url"] = "url";
+    TagNames["loc"] = "loc";
+    TagNames["urlset"] = "urlset";
+    TagNames["lastmod"] = "lastmod";
+    TagNames["changefreq"] = "changefreq";
+    TagNames["priority"] = "priority";
+    TagNames["video:thumbnail_loc"] = "video:thumbnail_loc";
+    TagNames["video:video"] = "video:video";
+    TagNames["video:title"] = "video:title";
+    TagNames["video:description"] = "video:description";
+    TagNames["video:tag"] = "video:tag";
+    TagNames["video:duration"] = "video:duration";
+    TagNames["video:player_loc"] = "video:player_loc";
+    TagNames["video:content_loc"] = "video:content_loc";
+    TagNames["image:image"] = "image:image";
+    TagNames["image:loc"] = "image:loc";
+    TagNames["image:geo_location"] = "image:geo_location";
+    TagNames["image:license"] = "image:license";
+    TagNames["image:title"] = "image:title";
+    TagNames["image:caption"] = "image:caption";
+    TagNames["video:requires_subscription"] = "video:requires_subscription";
+    TagNames["video:publication_date"] = "video:publication_date";
+    TagNames["video:id"] = "video:id";
+    TagNames["video:restriction"] = "video:restriction";
+    TagNames["video:family_friendly"] = "video:family_friendly";
+    TagNames["video:view_count"] = "video:view_count";
+    TagNames["video:uploader"] = "video:uploader";
+    TagNames["video:expiration_date"] = "video:expiration_date";
+    TagNames["video:platform"] = "video:platform";
+    TagNames["video:price"] = "video:price";
+    TagNames["video:rating"] = "video:rating";
+    TagNames["video:category"] = "video:category";
+    TagNames["video:live"] = "video:live";
+    TagNames["video:gallery_loc"] = "video:gallery_loc";
+    TagNames["news:news"] = "news:news";
+    TagNames["news:publication"] = "news:publication";
+    TagNames["news:name"] = "news:name";
+    TagNames["news:access"] = "news:access";
+    TagNames["news:genres"] = "news:genres";
+    TagNames["news:publication_date"] = "news:publication_date";
+    TagNames["news:title"] = "news:title";
+    TagNames["news:keywords"] = "news:keywords";
+    TagNames["news:stock_tickers"] = "news:stock_tickers";
+    TagNames["news:language"] = "news:language";
+    TagNames["mobile:mobile"] = "mobile:mobile";
+    TagNames["xhtml:link"] = "xhtml:link";
+    TagNames["expires"] = "expires";
+})(TagNames = exports.TagNames || (exports.TagNames = {}));
+var IndexTagNames;
+(function (IndexTagNames) {
+    IndexTagNames["sitemap"] = "sitemap";
+    IndexTagNames["sitemapindex"] = "sitemapindex";
+    IndexTagNames["loc"] = "loc";
+    IndexTagNames["lastmod"] = "lastmod";
+})(IndexTagNames = exports.IndexTagNames || (exports.IndexTagNames = {}));
+
+
+/***/ }),
+
+/***/ 2573:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.normalizeURL = exports.chunk = exports.lineSeparatedURLsToSitemapOptions = exports.ReadlineStream = exports.mergeStreams = exports.validateSMIOptions = void 0;
+/*!
+ * Sitemap
+ * Copyright(c) 2011 Eugene Kalinin
+ * MIT Licensed
+ */
+const fs_1 = __nccwpck_require__(9896);
+const stream_1 = __nccwpck_require__(2203);
+const readline_1 = __nccwpck_require__(3785);
+const url_1 = __nccwpck_require__(7016);
+const types_1 = __nccwpck_require__(8513);
+const errors_1 = __nccwpck_require__(7909);
+const types_2 = __nccwpck_require__(8513);
+function validate(subject, name, url, level) {
+    Object.keys(subject).forEach((key) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const val = subject[key];
+        if (types_2.validators[key] && !types_2.validators[key].test(val)) {
+            if (level === types_1.ErrorLevel.THROW) {
+                throw new errors_1.InvalidAttrValue(key, val, types_2.validators[key]);
+            }
+            else {
+                console.warn(`${url}: ${name} key ${key} has invalid value: ${val}`);
+            }
+        }
+    });
+}
+function handleError(error, level) {
+    if (level === types_1.ErrorLevel.THROW) {
+        throw error;
+    }
+    else if (level === types_1.ErrorLevel.WARN) {
+        console.warn(error.name, error.message);
+    }
+}
+/**
+ * Verifies all data passed in will comply with sitemap spec.
+ * @param conf Options to validate
+ * @param level logging level
+ * @param errorHandler error handling func
+ */
+function validateSMIOptions(conf, level = types_1.ErrorLevel.WARN, errorHandler = handleError) {
+    if (!conf) {
+        throw new errors_1.NoConfigError();
+    }
+    if (level === types_1.ErrorLevel.SILENT) {
+        return conf;
+    }
+    const { url, changefreq, priority, news, video } = conf;
+    if (!url) {
+        errorHandler(new errors_1.NoURLError(), level);
+    }
+    if (changefreq) {
+        if (!(0, types_1.isValidChangeFreq)(changefreq)) {
+            errorHandler(new errors_1.ChangeFreqInvalidError(url, changefreq), level);
+        }
+    }
+    if (priority) {
+        if (!(priority >= 0.0 && priority <= 1.0)) {
+            errorHandler(new errors_1.PriorityInvalidError(url, priority), level);
+        }
+    }
+    if (news) {
+        if (news.access &&
+            news.access !== 'Registration' &&
+            news.access !== 'Subscription') {
+            errorHandler(new errors_1.InvalidNewsAccessValue(url, news.access), level);
+        }
+        if (!news.publication ||
+            !news.publication.name ||
+            !news.publication.language ||
+            !news.publication_date ||
+            !news.title) {
+            errorHandler(new errors_1.InvalidNewsFormat(url), level);
+        }
+        validate(news, 'news', url, level);
+        validate(news.publication, 'publication', url, level);
+    }
+    if (video) {
+        video.forEach((vid) => {
+            var _a;
+            if (vid.duration !== undefined) {
+                if (vid.duration < 0 || vid.duration > 28800) {
+                    errorHandler(new errors_1.InvalidVideoDuration(url, vid.duration), level);
+                }
+            }
+            if (vid.rating !== undefined && (vid.rating < 0 || vid.rating > 5)) {
+                errorHandler(new errors_1.InvalidVideoRating(url, vid.title, vid.rating), level);
+            }
+            if (typeof vid !== 'object' ||
+                !vid.thumbnail_loc ||
+                !vid.title ||
+                !vid.description) {
+                // has to be an object and include required categories https://support.google.com/webmasters/answer/80471?hl=en&ref_topic=4581190
+                errorHandler(new errors_1.InvalidVideoFormat(url), level);
+            }
+            if (vid.title.length > 100) {
+                errorHandler(new errors_1.InvalidVideoTitle(url, vid.title.length), level);
+            }
+            if (vid.description.length > 2048) {
+                errorHandler(new errors_1.InvalidVideoDescription(url, vid.description.length), level);
+            }
+            if (vid.view_count !== undefined && vid.view_count < 0) {
+                errorHandler(new errors_1.InvalidVideoViewCount(url, vid.view_count), level);
+            }
+            if (vid.tag.length > 32) {
+                errorHandler(new errors_1.InvalidVideoTagCount(url, vid.tag.length), level);
+            }
+            if (vid.category !== undefined && ((_a = vid.category) === null || _a === void 0 ? void 0 : _a.length) > 256) {
+                errorHandler(new errors_1.InvalidVideoCategory(url, vid.category.length), level);
+            }
+            if (vid.family_friendly !== undefined &&
+                !(0, types_1.isValidYesNo)(vid.family_friendly)) {
+                errorHandler(new errors_1.InvalidVideoFamilyFriendly(url, vid.family_friendly), level);
+            }
+            if (vid.restriction) {
+                if (!types_2.validators.restriction.test(vid.restriction)) {
+                    errorHandler(new errors_1.InvalidVideoRestriction(url, vid.restriction), level);
+                }
+                if (!vid['restriction:relationship'] ||
+                    !(0, types_1.isAllowDeny)(vid['restriction:relationship'])) {
+                    errorHandler(new errors_1.InvalidVideoRestrictionRelationship(url, vid['restriction:relationship']), level);
+                }
+            }
+            // TODO price element should be unbounded
+            if ((vid.price === '' && vid['price:type'] === undefined) ||
+                (vid['price:type'] !== undefined && !(0, types_1.isPriceType)(vid['price:type']))) {
+                errorHandler(new errors_1.InvalidVideoPriceType(url, vid['price:type'], vid.price), level);
+            }
+            if (vid['price:resolution'] !== undefined &&
+                !(0, types_1.isResolution)(vid['price:resolution'])) {
+                errorHandler(new errors_1.InvalidVideoResolution(url, vid['price:resolution']), level);
+            }
+            if (vid['price:currency'] !== undefined &&
+                !types_2.validators['price:currency'].test(vid['price:currency'])) {
+                errorHandler(new errors_1.InvalidVideoPriceCurrency(url, vid['price:currency']), level);
+            }
+            validate(vid, 'video', url, level);
+        });
+    }
+    return conf;
+}
+exports.validateSMIOptions = validateSMIOptions;
+/**
+ * Combines multiple streams into one
+ * @param streams the streams to combine
+ */
+function mergeStreams(streams, options) {
+    let pass = new stream_1.PassThrough(options);
+    let waiting = streams.length;
+    for (const stream of streams) {
+        pass = stream.pipe(pass, { end: false });
+        stream.once('end', () => --waiting === 0 && pass.emit('end'));
+    }
+    return pass;
+}
+exports.mergeStreams = mergeStreams;
+/**
+ * Wraps node's ReadLine in a stream
+ */
+class ReadlineStream extends stream_1.Readable {
+    constructor(options) {
+        if (options.autoDestroy === undefined) {
+            options.autoDestroy = true;
+        }
+        options.objectMode = true;
+        super(options);
+        this._source = (0, readline_1.createInterface)({
+            input: options.input,
+            terminal: false,
+            crlfDelay: Infinity,
+        });
+        // Every time there's data, push it into the internal buffer.
+        this._source.on('line', (chunk) => {
+            // If push() returns false, then stop reading from source.
+            if (!this.push(chunk))
+                this._source.pause();
+        });
+        // When the source ends, push the EOF-signaling `null` chunk.
+        this._source.on('close', () => {
+            this.push(null);
+        });
+    }
+    // _read() will be called when the stream wants to pull more data in.
+    // The advisory size argument is ignored in this case.
+    _read(size) {
+        this._source.resume();
+    }
+}
+exports.ReadlineStream = ReadlineStream;
+/**
+ * Takes a stream likely from fs.createReadStream('./path') and returns a stream
+ * of sitemap items
+ * @param stream a stream of line separated urls.
+ * @param opts.isJSON is the stream line separated JSON. leave undefined to guess
+ */
+function lineSeparatedURLsToSitemapOptions(stream, { isJSON } = {}) {
+    return new ReadlineStream({ input: stream }).pipe(new stream_1.Transform({
+        objectMode: true,
+        // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+        transform: (line, encoding, cb) => {
+            if (isJSON || (isJSON === undefined && line[0] === '{')) {
+                cb(null, JSON.parse(line));
+            }
+            else {
+                cb(null, line);
+            }
+        },
+    }));
+}
+exports.lineSeparatedURLsToSitemapOptions = lineSeparatedURLsToSitemapOptions;
+/**
+ * Based on lodash's implementation of chunk.
+ *
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ *
+ * Based on Underscore.js, copyright Jeremy Ashkenas,
+ * DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals. For exact contribution history, see the revision history
+ * available at https://github.com/lodash/lodash
+ */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function chunk(array, size = 1) {
+    size = Math.max(Math.trunc(size), 0);
+    const length = array ? array.length : 0;
+    if (!length || size < 1) {
+        return [];
+    }
+    const result = Array(Math.ceil(length / size));
+    let index = 0, resIndex = 0;
+    while (index < length) {
+        result[resIndex++] = array.slice(index, (index += size));
+    }
+    return result;
+}
+exports.chunk = chunk;
+function boolToYESNO(bool) {
+    if (bool === undefined) {
+        return bool;
+    }
+    if (typeof bool === 'boolean') {
+        return bool ? types_1.EnumYesNo.yes : types_1.EnumYesNo.no;
+    }
+    return bool;
+}
+/**
+ * Converts the passed in sitemap entry into one capable of being consumed by SitemapItem
+ * @param {string | SitemapItemLoose} elem the string or object to be converted
+ * @param {string} hostname
+ * @returns SitemapItemOptions a strict sitemap item option
+ */
+function normalizeURL(elem, hostname, lastmodDateOnly = false) {
+    // SitemapItem
+    // create object with url property
+    let smi = {
+        img: [],
+        video: [],
+        links: [],
+        url: '',
+    };
+    let smiLoose;
+    if (typeof elem === 'string') {
+        smi.url = elem;
+        smiLoose = { url: elem };
+    }
+    else {
+        smiLoose = elem;
+    }
+    smi.url = new url_1.URL(smiLoose.url, hostname).toString();
+    let img = [];
+    if (smiLoose.img) {
+        if (typeof smiLoose.img === 'string') {
+            // string -> array of objects
+            smiLoose.img = [{ url: smiLoose.img }];
+        }
+        else if (!Array.isArray(smiLoose.img)) {
+            // object -> array of objects
+            smiLoose.img = [smiLoose.img];
+        }
+        img = smiLoose.img.map((el) => (typeof el === 'string' ? { url: el } : el));
+    }
+    // prepend hostname to all image urls
+    smi.img = img.map((el) => ({
+        ...el,
+        url: new url_1.URL(el.url, hostname).toString(),
+    }));
+    let links = [];
+    if (smiLoose.links) {
+        links = smiLoose.links;
+    }
+    smi.links = links.map((link) => {
+        return { ...link, url: new url_1.URL(link.url, hostname).toString() };
+    });
+    if (smiLoose.video) {
+        if (!Array.isArray(smiLoose.video)) {
+            // make it an array
+            smiLoose.video = [smiLoose.video];
+        }
+        smi.video = smiLoose.video.map((video) => {
+            const nv = {
+                ...video,
+                family_friendly: boolToYESNO(video.family_friendly),
+                live: boolToYESNO(video.live),
+                requires_subscription: boolToYESNO(video.requires_subscription),
+                tag: [],
+                rating: undefined,
+            };
+            if (video.tag !== undefined) {
+                nv.tag = !Array.isArray(video.tag) ? [video.tag] : video.tag;
+            }
+            if (video.rating !== undefined) {
+                if (typeof video.rating === 'string') {
+                    nv.rating = parseFloat(video.rating);
+                }
+                else {
+                    nv.rating = video.rating;
+                }
+            }
+            if (typeof video.view_count === 'string') {
+                nv.view_count = parseInt(video.view_count, 10);
+            }
+            else if (typeof video.view_count === 'number') {
+                nv.view_count = video.view_count;
+            }
+            return nv;
+        });
+    }
+    // If given a file to use for last modified date
+    if (smiLoose.lastmodfile) {
+        const { mtime } = (0, fs_1.statSync)(smiLoose.lastmodfile);
+        smi.lastmod = new Date(mtime).toISOString();
+        // The date of last modification (YYYY-MM-DD)
+    }
+    else if (smiLoose.lastmodISO) {
+        smi.lastmod = new Date(smiLoose.lastmodISO).toISOString();
+    }
+    else if (smiLoose.lastmod) {
+        smi.lastmod = new Date(smiLoose.lastmod).toISOString();
+    }
+    if (lastmodDateOnly && smi.lastmod) {
+        smi.lastmod = smi.lastmod.slice(0, 10);
+    }
+    delete smiLoose.lastmodfile;
+    delete smiLoose.lastmodISO;
+    smi = { ...smiLoose, ...smi };
+    return smi;
+}
+exports.normalizeURL = normalizeURL;
+
+
+/***/ }),
+
+/***/ 8000:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.xmlLint = void 0;
+const path_1 = __nccwpck_require__(6928);
+const child_process_1 = __nccwpck_require__(5317);
+const errors_1 = __nccwpck_require__(7909);
+/**
+ * Verify the passed in xml is valid. Requires xmllib be installed
+ * @param xml what you want validated
+ * @return {Promise<void>} resolves on valid rejects [error stderr]
+ */
+function xmlLint(xml) {
+    const args = [
+        '--schema',
+        (0, path_1.resolve)(__dirname, '..', '..', 'schema', 'all.xsd'),
+        '--noout',
+        '-',
+    ];
+    if (typeof xml === 'string') {
+        args[args.length - 1] = xml;
+    }
+    return new Promise((resolve, reject) => {
+        (0, child_process_1.execFile)('which', ['xmllint'], (error, stdout, stderr) => {
+            if (error) {
+                reject([new errors_1.XMLLintUnavailable()]);
+                return;
+            }
+            const xmllint = (0, child_process_1.execFile)('xmllint', args, (error, stdout, stderr) => {
+                if (error) {
+                    reject([error, stderr]);
+                }
+                resolve();
+            });
+            if (xmllint.stdout) {
+                xmllint.stdout.unpipe();
+                if (typeof xml !== 'string' && xml && xmllint.stdin) {
+                    xml.pipe(xmllint.stdin);
+                }
+            }
+        });
+    });
+}
+exports.xmlLint = xmlLint;
+
+
+/***/ }),
+
 /***/ 770:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -30405,6 +34303,14 @@ module.exports = require("querystring");
 
 /***/ }),
 
+/***/ 3785:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("readline");
+
+/***/ }),
+
 /***/ 2203:
 /***/ ((module) => {
 
@@ -37313,7 +41219,13 @@ async function loadApps() {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
+// EXTERNAL MODULE: ./node_modules/sitemap/dist/index.js
+var dist = __nccwpck_require__(5480);
+// EXTERNAL MODULE: external "stream"
+var external_stream_ = __nccwpck_require__(2203);
 ;// CONCATENATED MODULE: ./src/action/main.ts
+
+
 
 
 
@@ -37332,8 +41244,8 @@ async function run() {
         apps.forEach((app) => {
             delete app.score.details;
         });
-        const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
-        await uploadJsonToRepo(jsonFilePath, apps, "Update app catalog", core.getInput("ghToken"));
+        await uploadToRepo("api/apps/all.json", JSON.stringify(apps, null, 2), "Update app catalog", core.getInput("ghToken"));
+        await uploadToRepo("sitemap.xml", await generateSitemap(apps), "Update sitemap", core.getInput("ghToken"));
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -37341,7 +41253,19 @@ async function run() {
             core.setFailed(error.message);
     }
 }
-async function uploadJsonToRepo(filePath, content, commitMessage, ghToken) {
+function generateSitemap(apps) {
+    // An array with your links
+    const links = apps.map((app) => ({
+        url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+    }));
+    // Create a stream to write to
+    const stream = new dist.SitemapStream({
+        hostname: "https://osm-apps.zottelig.ch",
+    });
+    // Return a promise that resolves with your XML string
+    return (0,dist.streamToPromise)(external_stream_.Readable.from(links).pipe(stream)).then((data) => data.toString());
+}
+async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     if (!ghToken) {
         throw new Error("GitHub token is required to upload files.");
     }
@@ -37349,7 +41273,7 @@ async function uploadJsonToRepo(filePath, content, commitMessage, ghToken) {
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
     // JSON-Inhalt als Base64 kodieren
-    const base64Content = Buffer.from(JSON.stringify(content, null, 2)).toString("base64");
+    const base64Content = Buffer.from(content).toString("base64");
     // Prüfen, ob die Datei existiert
     let sha;
     try {

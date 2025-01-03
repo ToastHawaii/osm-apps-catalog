@@ -20,14 +20,15 @@
   },
   "homepage": "https://github.com/ToastHawaii/osm-apps-catalog#readme",
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.0",
+    "@actions/core": "1.11.1",
+    "@actions/github": "6.0.0",
     "@babel/runtime": "7.25.6",
     "@types/md5": "2.3.5",
     "@vercel/ncc": "0.38.3",
     "i18next": "23.15.1",
     "i18next-browser-languagedetector": "8.0.0",
     "md5": "2.3.0",
+    "sitemap": "8.0.0",
     "slim-select": "1.27.1"
   },
   "devDependencies": {
