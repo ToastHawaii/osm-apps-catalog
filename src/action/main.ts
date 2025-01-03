@@ -42,11 +42,23 @@ export async function run(): Promise<void> {
   }
 }
 
-function generateSitemap(apps: App[]) {
+async function generateSitemap(apps: App[]) {
   // An array with your links
-  const links = apps.map((app) => ({
+  const links: {
+    url: string;
+    priority: number;
+    lastmod?: Date;
+  }[] = apps.map((app) => ({
     url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+    priority: (app.score.total / 10) * 0.5,
+    lastmod: new Date(app.source[0].lastChange),
   }));
+
+  links.push({
+    url: "https://osm-apps.zottelig.ch",
+    priority: 1.0,
+  });
+  links.push({ url: "https://osm-apps.zottelig.ch/docs/", priority: 0.8 });
 
   // Create a stream to write to
   const stream = new SitemapStream({
@@ -54,9 +66,8 @@ function generateSitemap(apps: App[]) {
   });
 
   // Return a promise that resolves with your XML string
-  return streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
-    data.toString()
-  );
+  const data = await streamToPromise(Readable.from(links).pipe(stream));
+  return data.toString();
 }
 
 async function uploadToRepo(

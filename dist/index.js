@@ -41257,7 +41257,14 @@ function generateSitemap(apps) {
     // An array with your links
     const links = apps.map((app) => ({
         url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+        priority: (app.score.total / 10) * 0.5,
+        lastmod: new Date(app.source[0].lastChange),
     }));
+    links.push({
+        url: "https://osm-apps.zottelig.ch",
+        priority: 1.0,
+    });
+    links.push({ url: "https://osm-apps.zottelig.ch/docs/", priority: 0.8 });
     // Create a stream to write to
     const stream = new dist.SitemapStream({
         hostname: "https://osm-apps.zottelig.ch",
