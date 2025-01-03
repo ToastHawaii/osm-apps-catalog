@@ -50,7 +50,7 @@ async function generateSitemap(apps: App[]) {
     lastmod?: Date;
   }[] = apps.map((app) => ({
     url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
-    priority: (app.score.total / 10) * 0.5,
+    priority: (app.score.total / 10) * 0.5 + 0.1,
     lastmod: new Date(app.source[0].lastChange),
   }));
 

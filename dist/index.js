@@ -41253,11 +41253,11 @@ async function run() {
             core.setFailed(error.message);
     }
 }
-function generateSitemap(apps) {
+async function generateSitemap(apps) {
     // An array with your links
     const links = apps.map((app) => ({
         url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
-        priority: (app.score.total / 10) * 0.5,
+        priority: (app.score.total / 10) * 0.5 + 0.1,
         lastmod: new Date(app.source[0].lastChange),
     }));
     links.push({
@@ -41270,7 +41270,8 @@ function generateSitemap(apps) {
         hostname: "https://osm-apps.zottelig.ch",
     });
     // Return a promise that resolves with your XML string
-    return (0,dist.streamToPromise)(external_stream_.Readable.from(links).pipe(stream)).then((data) => data.toString());
+    const data = await (0,dist.streamToPromise)(external_stream_.Readable.from(links).pipe(stream));
+    return data.toString();
 }
 async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     if (!ghToken) {
