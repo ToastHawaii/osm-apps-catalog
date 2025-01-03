@@ -523,6 +523,73 @@ function update({
       throw new Error("Not expected value for view.");
   }
 
+  if (filteredApps.length === 1) {
+    const app = filteredApps[0];
+    const script = document.createElement("script");
+    script.setAttribute("type", "application/ld+json");
+    script.textContent = JSON.stringify({
+      "@context": "http://schema.org",
+      "@type": "SoftwareApplication",
+      name: app.name || undefined,
+      description: app.description || undefined,
+      keywords: app.topics.join(","),
+      image: app.images[0] || undefined,
+      url: app.website || undefined,
+      installUrl: app.install.fDroidID
+        ? "https://f-droid.org/repository/browse/?fdid=" + app.install.fDroidID
+        : app.install.googlePlayID
+        ? "https://play.google.com/store/apps/details?id=" +
+          app.install.googlePlayID
+        : app.install.asin
+        ? "https://www.amazon.com/dp/" + app.install.asin
+        : app.install.appleStoreID
+        ? "https://apps.apple.com/app/" +
+          app.install.appleStoreID?.toUpperCase().startsWith("ID")
+          ? app.install.appleStoreID
+          : `id${app.install.appleStoreID}`
+        : app.install.macAppStoreID
+        ? "https://apps.apple.com/app/" +
+          app.install.macAppStoreID?.toUpperCase().startsWith("ID")
+          ? app.install.macAppStoreID
+          : `id${app.install.macAppStoreID}`
+        : app.install.microsoftAppID
+        ? "https://apps.microsoft.com/detail/" + app.install.microsoftAppID
+        : app.install.huaweiAppGalleryID
+        ? "https://appgallery.huawei.com/#/app/" +
+          app.install.huaweiAppGalleryID
+        : undefined,
+      author: app.author
+        ? {
+            "@type": "Person",
+            name: app.author,
+          }
+        : undefined,
+      datePublished: app.lastRelease || undefined,
+      license: app.license || undefined,
+      applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
+      operatingSystem: app.platform.join(", ") || undefined,
+      isAccessibleForFree: app.gratis || app.libre,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: app.score.total,
+        reviewCount: 1,
+      },
+    });
+    document.head.appendChild(script);
+    document.title = `${app.name} - OSM Apps Catalog`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", app.description);
+  } else {
+    document.title = `OSM Apps Catalog`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        "Experience the world in a creative, productive and unexpected way."
+      );
+  }
+
   setTimeout(() => {
     lazyLoadImages(true);
   }, 0);
