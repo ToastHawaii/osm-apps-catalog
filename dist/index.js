@@ -37333,7 +37333,7 @@ async function run() {
             delete app.score.details;
         });
         const jsonFilePath = "api/apps/all.json"; // Pfad zur Datei im Repo
-        await uploadJsonToRepo(jsonFilePath, apps, "Add JSON file from GitHub Action", core.getInput("ghToken"));
+        await uploadJsonToRepo(jsonFilePath, apps, "Update app catalog", core.getInput("ghToken"));
     }
     catch (error) {
         // Fail the workflow run if an error occurs

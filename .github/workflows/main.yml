@@ -1,4 +1,4 @@
-name: Collect Apps
+name: Collect OSM Apps
 
 on:
   workflow_dispatch:
@@ -10,8 +10,8 @@ permissions:
   contents: write
 
 jobs:
-  test-action:
-    name: GitHub Actions Test
+  collect-osm-apps-action:
+    name: 
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,9 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
-        id: test-action
+      - name: Collect OSM Apps
+        id: collect-osm-apps-action
         uses: ./
         with:
-          milliseconds: 2000
           ghToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"

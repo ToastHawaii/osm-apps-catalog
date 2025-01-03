@@ -25,7 +25,7 @@ export async function run(): Promise<void> {
     await uploadJsonToRepo(
       jsonFilePath,
       apps,
-      "Add JSON file from GitHub Action",
+      "Update app catalog",
       core.getInput("ghToken")
     );
   } catch (error) {
