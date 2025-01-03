@@ -571,7 +571,7 @@ function update({
       isAccessibleForFree: app.gratis || app.libre,
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: app.score.total,
+        ratingValue: app.score.total / 2,
         reviewCount: 1,
       },
     });
