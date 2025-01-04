@@ -96,5 +96,9 @@
     "score.criteria.multiplePlatforms": "die App ist auf mehreren Plattformen verfügbar (z.B. Web, Android, iOS)",
     "score.results": "Community Contribution Score\nTotal: {{total}} Punkte\n\nErforderliche Massnahmen für eine höhere Punktzahl:\n{{notFulfilled}}\n\nErfüllt:\n{{fulfilled}}",
     "score.criteria.supportsContributions": "die App unterstützt Beiträge (Bearbeiten, Analyse, etc.) zu OpenStreetMap",
-    "score.criteria.addingAndEditingPossible": "das Hinzufügen als auch das Bearbeiten oder Löschen von POIs, Wegen etc. ist möglich"
+    "score.criteria.addingAndEditingPossible": "das Hinzufügen als auch das Bearbeiten oder Löschen von POIs, Wegen etc. ist möglich",
+    "app.install.obtainium": "Obtainium",
+    "app.community.bluesky": "Bluesky",
+    "app.community.forum": "Forum",
+    "app.community.issueTracker": "Probleme"
 }
