@@ -568,7 +568,12 @@ function update({
       license: app.license || undefined,
       applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
       operatingSystem: app.platform.join(", ") || undefined,
-      isAccessibleForFree: app.gratis || app.libre,
+      offers: app.gratis
+        ? {
+            "@type": "Offer",
+            price: "0",
+          }
+        : undefined,
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: 0.4 * app.score.total + 1,
@@ -697,104 +702,14 @@ function renderNotFoundApps() {
   }
 }
 
-function saveAppCatalog() {
-  const appsCleanedForCache = apps.map((app) => {
-    // Remove score property
-    const { score, ...appCleanedForCache } = app;
-    return appCleanedForCache;
-  });
-
-  try {
-    set(`${lang}-apps`, appsCleanedForCache);
-    set(`${lang}-apps-date`, new Date());
-  } catch (e) {
-    // Error occurs, perhaps the local storage is full. Clear and try again.
-    localStorage.clear();
-    set(`${lang}-apps`, appsCleanedForCache);
-    set(`${lang}-apps-date`, new Date());
-  }
-  console.info("added catalog to cache");
-
-  // printCalcScore();
-  // printJsonLd();
-}
-
 function printCalcScore() {
   const average = sum(apps.map((a) => a.score.total)) / apps.length;
   console.info("Average");
   console.info("18.24.2024: 1.970");
   console.info("23.24.2024: 1.980");
   console.info("25.24.2024: 1.999");
+  console.info("04.01.2025: 2.000");
   console.info("Today: " + average);
-}
-
-function printJsonLd() {
-  console.info(
-    JSON.stringify(
-      apps
-        .sort((a, b) => {
-          const nameA = a.name.toUpperCase() || "";
-          const nameB = b.name.toUpperCase() || "";
-          if (nameA < nameB) {
-            return 1;
-          }
-          if (nameA > nameB) {
-            return -1;
-          }
-
-          return 0;
-        })
-        .map((app) => ({
-          "@context": "http://schema.org",
-          "@type": "SoftwareApplication",
-          name: app.name || undefined,
-          description: app.description || undefined,
-          keywords: app.topics.join(","),
-          image: app.images[0] || undefined,
-          url: app.website || undefined,
-          installUrl: app.install.fDroidID
-            ? "https://f-droid.org/repository/browse/?fdid=" +
-              app.install.fDroidID
-            : app.install.googlePlayID
-            ? "https://play.google.com/store/apps/details?id=" +
-              app.install.googlePlayID
-            : app.install.asin
-            ? "https://www.amazon.com/dp/" + app.install.asin
-            : app.install.appleStoreID
-            ? "https://apps.apple.com/app/" +
-              app.install.appleStoreID?.toUpperCase().startsWith("ID")
-              ? app.install.appleStoreID
-              : `id${app.install.appleStoreID}`
-            : app.install.macAppStoreID
-            ? "https://apps.apple.com/app/" +
-              app.install.macAppStoreID?.toUpperCase().startsWith("ID")
-              ? app.install.macAppStoreID
-              : `id${app.install.macAppStoreID}`
-            : app.install.microsoftAppID
-            ? "https://apps.microsoft.com/detail/" + app.install.microsoftAppID
-            : app.install.huaweiAppGalleryID
-            ? "https://appgallery.huawei.com/#/app/" +
-              app.install.huaweiAppGalleryID
-            : undefined,
-          author: app.author
-            ? {
-                "@type": "Person",
-                name: app.author,
-              }
-            : undefined,
-          datePublished: app.lastRelease || undefined,
-          license: app.license || undefined,
-          applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
-          operatingSystem: app.platform.join(", ") || undefined,
-          isAccessibleForFree: app.gratis || app.libre,
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: app.score.total,
-            reviewCount: 1,
-          },
-        }))
-    )
-  );
 }
 
 async function getAppCatalog() {
@@ -811,7 +726,6 @@ async function getAppCatalog() {
   getHtmlElement("#loading").remove();
 
   // printCalcScore();
-  // printJsonLd();
 }
 
 getAppCatalog();
