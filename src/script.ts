@@ -580,18 +580,23 @@ function update({
       },
     });
     document.head.appendChild(script);
-    document.title = `${app.name} - OSM Apps Catalog`;
+    document.title = `OSM Apps Catalog - ${app.name}`;
     document
       .querySelector('meta[name="description"]')
       .setAttribute("content", app.description);
   } else {
-    document.title = `OSM Apps Catalog`;
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute(
-        "content",
-        "Experience the world in a creative, productive and unexpected way."
-      );
+    document.title = `OSM Apps Catalog - ${i18next.t(
+      `filter.category.${category}`,
+      {
+        numberOfApps: filteredApps.length,
+      }
+    )}`;
+    document.querySelector('meta[name="description"]').setAttribute(
+      "content",
+      i18next.t(`category.${category}.description`, {
+        numberOfApps: filteredApps.length,
+      })
+    );
   }
 
   setTimeout(() => {
