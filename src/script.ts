@@ -24,7 +24,7 @@ import { includes, some } from "./ui/utilities/array";
 import { equalsIgnoreCase } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
 import { findGetParameter } from "./ui/utilities/url";
-import { edit, mobile, navigation } from "./ui/utilities/filter";
+import { display, edit, mobile, navigation, web } from "./ui/utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
@@ -528,7 +528,11 @@ function update({
     script.setAttribute("type", "application/ld+json");
     script.textContent = JSON.stringify({
       "@context": "http://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": mobile(app)
+        ? "MobileApplication"
+        : web(app)
+        ? "WebApplication"
+        : "SoftwareApplication",
       name: app.name || undefined,
       description: app.description || undefined,
       keywords: app.topics.join(","),
@@ -557,15 +561,16 @@ function update({
         ? "https://appgallery.huawei.com/#/app/" +
           app.install.huaweiAppGalleryID
         : undefined,
-      author: app.author
-        ? {
-            "@type": "Person",
-            name: app.author,
-          }
-        : undefined,
       datePublished: app.lastRelease || undefined,
       license: app.license || undefined,
-      applicationCategory: ["Map", ...app.topics].join(", ") || undefined,
+      applicationCategory: display(app)
+        ? "TravelApplication"
+        : navigation(app)
+        ? "DriverApplication"
+        : edit(app)
+        ? "UtilitiesApplication"
+        : undefined,
+      applicationSubCategory: app.genre,
       operatingSystem: app.platform.join(", ") || undefined,
       offers: app.gratis
         ? {
@@ -573,10 +578,17 @@ function update({
             price: "0",
           }
         : undefined,
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: 0.4 * app.score.total + 1,
-        reviewCount: 1,
+      review: {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: 0.4 * app.score.total + 1,
+        },
+        author: {
+          "@type": "Organization",
+          name: "OSM Apps Catalog",
+          url: "https://osm-apps.zottelig.ch/",
+        },
       },
     });
     document.head.appendChild(script);

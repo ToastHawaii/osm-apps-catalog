@@ -40379,6 +40379,9 @@ const mobilePlatforms = (/* unused pure expression or super */ null && ([
     "IOS",
     "ZAURUS",
 ]));
+function web(a) {
+    return a.platform.some((p) => ["web", "web-based", "webapp", "web-app", "browser"].includes(p.toLowerCase()));
+}
 function mobile(a) {
     return (a.topics
         .map((t) => t.toUpperCase())
@@ -40537,7 +40540,7 @@ const Criterias = [
                 i.microsoftAppID,
             ].filter((i) => i).length > 1 ||
                 app.platform.length > 1 ||
-                app.platform.some((p) => ["web", "web-based", "webapp", "web-app", "browser"].includes(p.toLowerCase())));
+                web(app));
         },
         points: 0.25,
     },
@@ -40545,9 +40548,7 @@ const Criterias = [
         translationKey: "openSourceStores",
         check: (app) => {
             const i = app.install;
-            return !!(i.fDroidID ||
-                i.obtainiumLink ||
-                app.platform.some((p) => ["web", "web-based", "webapp", "web-app", "browser"].includes(p.toLowerCase())));
+            return !!(i.fDroidID || i.obtainiumLink || web(app));
         },
         points: 0.25,
     },

@@ -2,7 +2,7 @@ import { removeDuplicates } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes, notNo } from "../ui/utilities/string";
 import { App } from "./template/utilities";
 import { extendFilter } from "../extendFilter";
-import { display, edit } from "../ui/utilities/filter";
+import { display, edit, web } from "../ui/utilities/filter";
 
 const Criterias: {
   translationKey: string;
@@ -124,11 +124,7 @@ const Criterias: {
           i.microsoftAppID,
         ].filter((i) => i).length > 1 ||
         app.platform.length > 1 ||
-        app.platform.some((p) =>
-          ["web", "web-based", "webapp", "web-app", "browser"].includes(
-            p.toLowerCase()
-          )
-        )
+        web(app)
       );
     },
     points: 0.25,
@@ -137,15 +133,7 @@ const Criterias: {
     translationKey: "openSourceStores",
     check: (app) => {
       const i = app.install;
-      return !!(
-        i.fDroidID ||
-        i.obtainiumLink ||
-        app.platform.some((p) =>
-          ["web", "web-based", "webapp", "web-app", "browser"].includes(
-            p.toLowerCase()
-          )
-        )
-      );
+      return !!(i.fDroidID || i.obtainiumLink || web(app));
     },
     points: 0.25,
   },

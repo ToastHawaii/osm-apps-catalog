@@ -40,6 +40,14 @@ const mobilePlatforms = [
   "ZAURUS",
 ];
 
+export function web(a: App) {
+  return a.platform.some((p) =>
+    ["web", "web-based", "webapp", "web-app", "browser"].includes(
+      p.toLowerCase()
+    )
+  );
+}
+
 export function mobile(a: App) {
   return (
     a.topics
