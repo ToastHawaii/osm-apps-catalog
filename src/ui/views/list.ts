@@ -26,6 +26,9 @@ import { getMatrix } from "./getMatrix";
 import { features } from "../../features";
 
 export function render(app: App, open = false) {
+  const link = new URLSearchParams();
+  link.set("search", `"${app.name}"`);
+
   const element = createElement(
     "div",
     `<div class="header">
@@ -140,7 +143,7 @@ export function render(app: App, open = false) {
 
             ${
               !open
-                ? `<a class="more-infos-button" href="#">${i18next.t(
+                ? `<a class="more-infos-button" href="?${link.toString()}" ">${i18next.t(
                     "list.more"
                   )} <i class="fas fa-angle-down"></i></a>`
                 : ""
