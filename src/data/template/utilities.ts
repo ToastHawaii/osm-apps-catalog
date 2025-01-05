@@ -284,6 +284,16 @@ export function extractWebsite(value: string = "") {
   }
   {
     const regex =
+      /{{[Gg]it[Ll]ab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+
+    const match = regex.exec(value);
+
+    if (match) {
+      return `https://gitlab.com/${match[1]}`;
+    }
+  }
+  {
+    const regex =
       /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
 
     const match = regex.exec(value);
