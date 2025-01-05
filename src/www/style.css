@@ -240,6 +240,10 @@ a {
   position: relative;
 }
 
+.app-page {
+  width: 480px;
+}
+
 .app .header {
   text-align: center;
 }

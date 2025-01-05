@@ -345,7 +345,7 @@ export function render(app: App, open = false) {
       .join(", ")}</span>
         </div>
         `,
-    ["app"]
+    ["app", open ? "app-page" : ""]
   );
 
   if (!open) {
