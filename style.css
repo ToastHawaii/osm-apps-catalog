@@ -242,6 +242,7 @@ a {
 
 .app-page {
   width: 480px;
+  scroll-snap-align: initial;
 }
 
 .app .header {
