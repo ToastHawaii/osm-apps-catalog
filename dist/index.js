@@ -34143,6 +34143,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 6403:
+/***/ ((module) => {
+
+module.exports = eval("require")("./data/i18n");
+
+
+/***/ }),
+
 /***/ 2613:
 /***/ ((module) => {
 
@@ -36061,6 +36069,8 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(7484);
+// EXTERNAL MODULE: ./node_modules/@vercel/ncc/dist/ncc/@@notfound.js?./data/i18n
+var i18n = __nccwpck_require__(6403);
 ;// CONCATENATED MODULE: ./src/ui/utilities/url.ts
 // Copyright (C) 2020 Markus Peloso
 //
@@ -36250,6 +36260,10 @@ function toValues(value = "") {
         .map(trim)
         .filter((v) => v)
         .map(firstLetterToUpperCase);
+}
+function strip(html) {
+    let doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
 }
 
 ;// CONCATENATED MODULE: ./src/data/template/crawler.ts
@@ -41232,6 +41246,7 @@ var dist = __nccwpck_require__(5480);
 // EXTERNAL MODULE: external "stream"
 var external_stream_ = __nccwpck_require__(2203);
 ;// CONCATENATED MODULE: ./src/action/main.ts
+
 
 
 

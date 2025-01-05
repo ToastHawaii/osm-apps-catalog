@@ -25,7 +25,7 @@ import i18next from "i18next";
 import { getMatrix } from "./getMatrix";
 import { features } from "../../features";
 
-export function render(app: App) {
+export function render(app: App, open = false) {
   const element = createElement(
     "div",
     `<div class="header">
@@ -138,8 +138,14 @@ export function render(app: App) {
       }
       <div class="badges">${renderBadges(app.topics)}</div>
 
-            <a class="more-infos-button" href="#">More <i class="fas fa-angle-down"></i></a>
-            <div class="more-infos" style="display:none;">
+            ${
+              !open
+                ? `<a class="more-infos-button" href="#">${i18next.t(
+                    "list.more"
+                  )} <i class="fas fa-angle-down"></i></a>`
+                : ""
+            }
+            <div class="more-infos" style="${!open ? "display:none;" : ""}">
         <div class="more-infos-title">${i18next.t("list.moreInfos")}</div>
         ${
           app.platform.length > 0
@@ -342,18 +348,20 @@ export function render(app: App) {
     ["app"]
   );
 
-  const moreButton = element.querySelector(
-    ".more-infos-button"
-  ) as HTMLButtonElement;
+  if (!open) {
+    const moreButton = element.querySelector(
+      ".more-infos-button"
+    ) as HTMLButtonElement;
 
-  const moreInfos = element.querySelector(".more-infos") as HTMLElement;
+    const moreInfos = element.querySelector(".more-infos") as HTMLElement;
 
-  moreButton?.addEventListener("click", (ev) => {
-    moreButton?.setAttribute("style", "display: none;");
-    moreInfos?.setAttribute("style", "");
+    moreButton?.addEventListener("click", (ev) => {
+      moreButton?.setAttribute("style", "display: none;");
+      moreInfos?.setAttribute("style", "");
 
-    ev.preventDefault();
-  });
+      ev.preventDefault();
+    });
+  }
 
   getHtmlElement("#list").appendChild(element);
 }

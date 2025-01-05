@@ -1,4 +1,5 @@
 import * as core from "@actions/core";
+import "./data/i18n";
 import { loadApps } from "../data/loadApps";
 
 import { context, getOctokit } from "@actions/github";

@@ -21,7 +21,7 @@ import SlimSelect from "slim-select";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { render as renderListView } from "./ui/views/list";
 import { includes, some } from "./ui/utilities/array";
-import { equalsIgnoreCase } from "./ui/utilities/string";
+import { equalsIgnoreCase, strip } from "./ui/utilities/string";
 import { App } from "./data/template/utilities";
 import { findGetParameter } from "./ui/utilities/url";
 import { display, edit, mobile, navigation, web } from "./ui/utilities/filter";
@@ -371,10 +371,12 @@ function update({
     }
   });
 
+  let appPage = false;
   if (search) {
     if (search.startsWith('"') && search.endsWith('"')) {
       const name = search.substring(1, search.length - 1);
       filteredApps = filteredApps.filter((a) => a.name.toUpperCase() === name);
+      appPage = filteredApps.length === 1;
     } else {
       filteredApps = filteredApps.filter(
         (a) =>
@@ -483,7 +485,7 @@ function update({
       (document.getElementById("compareView") as HTMLInputElement).checked =
         false;
       for (const a of filteredApps) {
-        renderListView(a);
+        renderListView(a, appPage);
       }
       if (filteredApps.length === 0) {
         getHtmlElement("#list").appendChild(
@@ -498,7 +500,7 @@ function update({
         languagesUp,
         coverageUp
       );
-      if (category === "all") {
+      if (category === "all" && !appPage) {
         renderNotFoundApps();
       }
       break;
@@ -522,7 +524,7 @@ function update({
       throw new Error("Not expected value for view.");
   }
 
-  if (filteredApps.length === 1) {
+  if (appPage) {
     const app = filteredApps[0];
     const script = document.createElement("script");
     script.setAttribute("type", "application/ld+json");
@@ -534,7 +536,7 @@ function update({
         ? "WebApplication"
         : "SoftwareApplication",
       name: app.name || undefined,
-      description: app.description || undefined,
+      description: strip(app.description) || undefined,
       keywords: app.topics.join(","),
       image: app.images[0] || undefined,
       url: app.website || undefined,
@@ -595,7 +597,7 @@ function update({
     document.title = `OSM Apps Catalog - ${app.name}`;
     document
       .querySelector('meta[name="description"]')
-      .setAttribute("content", app.description);
+      .setAttribute("content", strip(app.description));
   } else {
     document.title = `OSM Apps Catalog - ${i18next.t(
       `filter.category.${category}`,
@@ -694,10 +696,9 @@ function renderSimilarApps(
 }
 
 const notFoundAppsTitle = [
-  "uMap",
-  "MapContrib",
-  "OpenStreetBrowser",
   "MapComplete",
+  "uMap",
+  "OpenStreetBrowser",
   "Overpass turbo",
 ];
 
