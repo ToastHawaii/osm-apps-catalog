@@ -163,9 +163,6 @@ const categorySelect = new SlimSelect({
     },
   ],
   onChange: (i: any) => {
-    document
-      .querySelectorAll(".filter")
-      .forEach((e) => e.classList.toggle("hidden", i.value === "focus"));
     doUpdate(apps, i.value === "focus");
   },
 });
@@ -196,23 +193,28 @@ function doUpdate(newApps: App[], reset?: boolean) {
       languagesSelect.set([]);
       coverageSelect.set([]);
     }
+    const params = new URLSearchParams(location.search);
+    const category = categorySelect.selected() as string;
     let state: State = {
       lang,
       freeOnly: freeCheckbox.checked,
+      app: (!category || category === "all")
+        ? params.get("app")
+          ? parseInt(params.get("app") as string, 10)
+          : undefined
+        : undefined,
       search: searchElement.value,
       topics: topicsSelect.selected() as string[],
       platforms: platformsSelect.selected() as string[],
       languages: languagesSelect.selected() as string[],
       coverage: coverageSelect.selected() as string[],
-      category: categorySelect.selected() as any,
+      category: category as any,
       view: (document.getElementById("listView") as HTMLInputElement).checked
         ? "list"
         : "compare",
     };
 
     if (onInit) {
-      const params = new URLSearchParams(location.search);
-
       state = {
         lang: params.get("lang") || "",
         freeOnly: params.get("freeOnly") === "1" ? true : false,
@@ -261,6 +263,7 @@ function updateState(state: State) {
           ["lang", state.lang === "en" ? "" : state.lang],
           ["freeOnly", state.freeOnly ? "1" : ""],
           ["category", state.category === "all" ? "" : state.category],
+          ["app", "" + (state.app || "")],
           ["search", state.search],
           ["topics", state.topics.join(",")],
           ["platforms", state.platforms.join(",")],
@@ -393,6 +396,12 @@ function update({
           .length > 0
     );
   }
+
+  document
+    .querySelectorAll(".filter")
+    .forEach((e) =>
+      e.classList.toggle("hidden", category === "focus" || appPage)
+    );
 
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
@@ -527,6 +536,8 @@ function update({
   }
 
   if (appPage) {
+    getHtmlElement(".description").style.display = "none";
+
     const app = filteredApps[0];
     const script = document.createElement("script");
     script.setAttribute("type", "application/ld+json");
@@ -601,6 +612,8 @@ function update({
       .querySelector('meta[name="description"]')
       .setAttribute("content", strip(app.description));
   } else {
+    getHtmlElement(".description").style.display = "";
+
     document.title = `OSM Apps Catalog - ${i18next.t(
       `filter.category.${category}`,
       {

@@ -101,9 +101,10 @@ a {
 }
 
 #content {
-  scroll-snap-align: start;
+  scroll-snap-align: start end;
   scroll-snap-type: y proximity;
   scroll-padding-top: 10px;
+  scroll-padding-bottom: 10px;
   overflow-x: auto;
   overflow-y: visible;
   height: 100vh;
@@ -222,7 +223,7 @@ a {
 }
 
 .app {
-  scroll-snap-align: start;
+  scroll-snap-align: start end;
   width: 320px;
   max-width: calc(100% - 40px);
   padding: 0 10px 10px;
@@ -242,7 +243,6 @@ a {
 
 .app-page {
   width: 480px;
-  scroll-snap-align: initial;
 }
 
 .app .header {

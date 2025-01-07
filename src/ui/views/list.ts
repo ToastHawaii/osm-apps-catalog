@@ -35,11 +35,11 @@ export function render(app: App, open = false) {
       
       <div class="with-corner-badge">${renderScore(app)}${
       features.freeFilter ? renderFree(app) : ""
-    }<strong>${
+    }<h4>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
-    }</strong></div>
+    }</h4></div>
         ${
           app.website
             ? `<a href="${app.website}" target="_blank" title="${

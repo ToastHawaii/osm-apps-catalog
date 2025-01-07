@@ -38,11 +38,11 @@ export function render(apps: App[], lang: string) {
           (app) =>
             `<div class="cell header text-center with-corner-badge">${renderScore(
               app
-            )}${features.freeFilter ? renderFree(app) : ""}<strong>${
+            )}${features.freeFilter ? renderFree(app) : ""}<h4>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
-            }</strong></div>`
+            }</h4></div>`
         ),
       ].join(""),
       ["row", "fixed"]
