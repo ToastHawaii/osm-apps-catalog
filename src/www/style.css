@@ -248,6 +248,9 @@ a {
 .app .header {
   text-align: center;
 }
+.app .header h4 {
+  margin: 0;
+}
 .app .header a {
   text-decoration: none;
   color: #333;
