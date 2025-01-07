@@ -8,9 +8,11 @@ import { App } from "../data/template/utilities";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 
+const lastUpdate = new Date("2025-01-06");
+
 /**
  * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
+ * @returns Resolves when the action is complete.
  */
 export async function run(): Promise<void> {
   try {
@@ -78,9 +80,12 @@ async function generateSitemap(apps: App[]) {
   });
   links.push(
     ...apps.map((app) => ({
-      url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+      url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
       priority: (app.score.total / 10) * 0.5 + 0.1,
-      lastmod: new Date(app.source[0].lastChange),
+      lastmod:
+        lastUpdate > new Date(app.source[0].lastChange)
+          ? lastUpdate
+          : new Date(app.source[0].lastChange),
     }))
   );
 

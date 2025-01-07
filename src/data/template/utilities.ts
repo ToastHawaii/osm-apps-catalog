@@ -18,6 +18,7 @@
 import { toWikiUrl } from "../../ui/utilities/url";
 
 export type App = {
+  id: number;
   name: string;
   unmaintained?: boolean;
   lastRelease?: string;
@@ -521,4 +522,20 @@ export function toSourceDisplayText(name: string) {
     default:
       throw "Unexpected value for name: " + name;
   }
+}
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+export function hashCode(str: string) {
+  let hash = 0;
+  for (let i = 0, len = str.length; i < len; i++) {
+    let chr = str.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
 }

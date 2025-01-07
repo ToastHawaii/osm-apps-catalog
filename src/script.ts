@@ -174,6 +174,7 @@ type State = {
   lang: string;
   freeOnly: boolean;
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
+  app?: number | undefined;
   search: string;
   topics: string[];
   platforms: string[];
@@ -215,6 +216,9 @@ function doUpdate(newApps: App[], reset?: boolean) {
       state = {
         lang: params.get("lang") || "",
         freeOnly: params.get("freeOnly") === "1" ? true : false,
+        app: params.get("app")
+          ? parseInt(params.get("app") as string, 10)
+          : undefined,
         search: params.get("search") || "",
         topics: params.get("topics")
           ? params.get("topics")?.split(",") || []
@@ -271,6 +275,7 @@ function updateState(state: State) {
 function update({
   freeOnly,
   category,
+  app: appId,
   search,
   topics,
   platforms,
@@ -372,24 +377,21 @@ function update({
   });
 
   let appPage = false;
-  if (search) {
-    if (search.startsWith('"') && search.endsWith('"')) {
-      const name = search.substring(1, search.length - 1);
-      filteredApps = filteredApps.filter((a) => a.name.toUpperCase() === name);
-      appPage = filteredApps.length === 1;
-    } else {
-      filteredApps = filteredApps.filter(
-        (a) =>
-          a.name.toUpperCase().indexOf(search) !== -1 ||
-          a.description.toUpperCase().indexOf(search) !== -1 ||
-          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0 ||
-          a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0 ||
-          a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0
-      );
-    }
+  if (appId) {
+    filteredApps = filteredApps.filter((a) => a.id === appId);
+    appPage = filteredApps.length === 1;
+  } else if (search) {
+    filteredApps = filteredApps.filter(
+      (a) =>
+        a.name.toUpperCase().indexOf(search) !== -1 ||
+        a.description.toUpperCase().indexOf(search) !== -1 ||
+        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
+          0 ||
+        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0 ||
+        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0
+    );
   }
 
   if (topicsUp.length > 0)

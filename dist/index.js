@@ -40229,6 +40229,21 @@ function toSourceDisplayText(name) {
             throw "Unexpected value for name: " + name;
     }
 }
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        let chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
 
 ;// CONCATENATED MODULE: ./src/data/template/software.ts
 // Copyright (C) 2020 Markus Peloso
@@ -41086,6 +41101,7 @@ function edit(a) {
 
 
 
+
 const Criterias = [
     // OSM Participation
     {
@@ -41281,6 +41297,7 @@ function addApp(apps, obj) {
             obj.install.macAppStoreID ||
             obj.install.microsoftAppID ||
             obj.sourceCode) {
+            obj.id = hashCode(obj.website || obj.name);
             obj.score = calculateScore(obj);
             apps.push(obj);
             extendFilter(obj);
@@ -41884,9 +41901,10 @@ var external_stream_ = __nccwpck_require__(2203);
 
 
 
+const lastUpdate = new Date("2025-01-06");
 /**
  * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
+ * @returns Resolves when the action is complete.
  */
 async function run() {
     try {
@@ -41936,9 +41954,11 @@ async function generateSitemap(apps) {
         priority: 0.8,
     });
     links.push(...apps.map((app) => ({
-        url: `https://osm-apps.zottelig.ch/?search="${app.name}"`,
+        url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
         priority: (app.score.total / 10) * 0.5 + 0.1,
-        lastmod: new Date(app.source[0].lastChange),
+        lastmod: lastUpdate > new Date(app.source[0].lastChange)
+            ? lastUpdate
+            : new Date(app.source[0].lastChange),
     })));
     // Create a stream to write to
     const stream = new dist.SitemapStream({

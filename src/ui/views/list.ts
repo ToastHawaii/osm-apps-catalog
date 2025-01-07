@@ -27,7 +27,7 @@ import { features } from "../../features";
 
 export function render(app: App, open = false) {
   const link = new URLSearchParams();
-  link.set("search", `"${app.name}"`);
+  link.set("app", "" + app.id);
 
   const element = createElement(
     "div",

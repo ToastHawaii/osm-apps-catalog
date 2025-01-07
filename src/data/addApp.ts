@@ -1,6 +1,6 @@
 import { removeDuplicates } from "../ui/utilities/array";
 import { equalsIgnoreCase, equalsYes, notNo } from "../ui/utilities/string";
-import { App } from "./template/utilities";
+import { App, hashCode } from "./template/utilities";
 import { extendFilter } from "../extendFilter";
 import { display, edit, web } from "../ui/utilities/filter";
 
@@ -237,6 +237,7 @@ export function addApp(apps: App[], obj: App) {
       obj.install.microsoftAppID ||
       obj.sourceCode
     ) {
+      obj.id = hashCode(obj.website || obj.name);
       obj.score = calculateScore(obj);
       apps.push(obj);
       extendFilter(obj);
