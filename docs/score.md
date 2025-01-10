@@ -42,16 +42,16 @@ The score is composed of four main categories.
 
 **Open Source:**
 
-- +0.5 points if the app is open source.
+- +1 point if the app is open source.
 - An additional +0.5 points if the license is a copyleft license (e.g., GPL, ODbL, MPL, CC).
 
 **Source Code:**
 
-- +0.5 points if a reference to the source code is documented.
+- +0.25 points if a reference to the source code is documented.
 
 **Issue Tracker:**
 
-- +0.5 points if an issue tracker exists.
+- +0.25 points if an issue tracker exists.
 
 **Last Update:**
 
@@ -86,7 +86,7 @@ The score is composed of four main categories.
 
 **Accessibility:**
 
-- +0.5 points if accessibility is supported (e.g. screen reader compatibility).
+- +0.5 points if accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users).
 
 ---
 

@@ -83,7 +83,7 @@
     "score.criteria.freeOfCharge": "die App ist kostenlos",
     "score.criteria.openSourceStores": "die App ist über einen freien Store (z.B. F-Droid) verfügbar",
     "score.criteria.worldwideData": "die App deckt weltweite Kartendaten ab",
-    "score.criteria.accessibilitySupported": "Barrierefreiheit (z.B. Screenreader-Kompatibilität) wird unterstützt",
+    "score.criteria.accessibilitySupported": "Barrierefreiheit (z.B. Screenreader-Kompatibilität oder Routenberechnung für Rollstuhlfahrende) wird unterstützt",
     "score.criteria.openSourceChannel": "ein Kanal ist auf einem Open-Source-Medien (z.B. Matrix) betrieben",
     "score.criteria.communityChannelExists": "ein Kommunikationskanal für die Community existiert (z.B. Forum, Mastodon)",
     "score.criteria.documentationLink": "ein Dokumentationslink ist verfügbar",

@@ -743,6 +743,7 @@ function printCalcScore() {
   console.info("23.24.2024: 1.980");
   console.info("25.24.2024: 1.999");
   console.info("04.01.2025: 2.000");
+  console.info("10.01.2025: 2.008");
   console.info("Today: " + average);
 }
 
@@ -760,7 +761,9 @@ async function getAppCatalog() {
   doUpdate(apps);
   getHtmlElement("#loading").remove();
 
-  // printCalcScore();
+  if (!window.location.host) {
+    printCalcScore();
+  }
 }
 
 getAppCatalog();

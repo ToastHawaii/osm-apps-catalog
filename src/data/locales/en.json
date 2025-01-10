@@ -97,7 +97,7 @@
   "score.criteria.multiplePlatforms": "the app is available on multiple platforms (e.g. Web, Android, iOS)",
   "score.criteria.openSourceStores": "the app is accessible via open-source stores (e.g. F-Droid)",
   "score.criteria.worldwideData": "the app covers worldwide map data",
-  "score.criteria.accessibilitySupported": "accessibility is supported (e.g. screen reader compatibility)",
+  "score.criteria.accessibilitySupported": "accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)",
   "score.criteria.communityChannelExists": "a communication channel for the community exists (e.g. forum, Mastodon)",
   "score.criteria.openSourceChannel": "a channel is hosted on open-source platforms (e.g. Matrix)",
   "score.criteria.documentationLink": "a documentation link is available",

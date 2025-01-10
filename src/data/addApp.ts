@@ -41,7 +41,7 @@ const Criterias: {
   {
     translationKey: "openSource",
     check: (app) => !!app.libre,
-    points: 0.5,
+    points: 1.0,
   },
   {
     translationKey: "copyleftLicense",
@@ -52,12 +52,12 @@ const Criterias: {
   {
     translationKey: "sourceCodeReference",
     check: (app) => !!app.sourceCode,
-    points: 0.5,
+    points: 0.25,
   },
   {
     translationKey: "issueTracker",
     check: (app) => !!app.community.issueTracker,
-    points: 0.5,
+    points: 0.25,
   },
   {
     translationKey: "lastUpdateThreeMonths",
@@ -145,7 +145,12 @@ const Criterias: {
   {
     translationKey: "accessibilitySupported",
     check: (app) =>
-      Object.values(app.accessibility || {}).filter((e) => notNo(e)).length > 0,
+      Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
+        0 ||
+      app.routing?.profiles
+        .map((p) => p.toUpperCase())
+        .includes("WHEELCHAIR") ||
+      false,
     points: 0.5,
   },
 
