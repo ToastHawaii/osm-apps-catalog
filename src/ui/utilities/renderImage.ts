@@ -1,4 +1,5 @@
 import { App } from "../../data/template/utilities";
+import i18next from "i18next";
 
 export function renderImage(obj: App) {
   const defaultImage =
@@ -7,8 +8,14 @@ export function renderImage(obj: App) {
   if (obj.images.length > 0) {
     return `<img class="img" src="${defaultImage}" dynamic-src="${obj.images.join(
       " "
-    )} ${defaultImage}"/>`;
+    )} ${defaultImage}" alt="${i18next.t("app.imageAlt", {
+      name: obj.name,
+    })}"/>`;
   } else {
-    return `<img class="img" style="${obj.filter}" src="${defaultImage}"/>`;
+    return `<img class="img" style="${
+      obj.filter
+    }" src="${defaultImage}" alt="${i18next.t("app.imageAlt", {
+      name: obj.name,
+    })}"/>`;
   }
 }

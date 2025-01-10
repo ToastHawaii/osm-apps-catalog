@@ -41,6 +41,7 @@
   "list.documentation": "Documentation",
   "list.more": "More",
   "list.moreInfos": "Informations",
+  "app.imageAlt":"Image from {{name}}.",
   "app.website": "Website",
   "app.install.asin": "Amazon Appstore",
   "app.install.fDroid": "F-Droid",
