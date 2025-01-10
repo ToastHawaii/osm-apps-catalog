@@ -744,6 +744,8 @@ function printCalcScore() {
   console.info("25.24.2024: 1.999");
   console.info("04.01.2025: 2.000");
   console.info("10.01.2025: 2.008");
+  console.info("New score calculation");
+  console.info("10.01.2025: 2.145");
   console.info("Today: " + average);
 }
 

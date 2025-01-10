@@ -8,7 +8,7 @@ import { App } from "../data/template/utilities";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 
-const lastUpdate = new Date("2025-01-06");
+const lastUpdate = new Date("2025-01-11");
 
 /**
  * The main function for the action.
