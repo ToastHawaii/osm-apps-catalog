@@ -32,7 +32,6 @@ import i18next from "i18next";
 import { features } from "./features";
 import { calculateScore, sum } from "./data/addApp";
 import { getJson } from "./ui/utilities/jsonRequest";
-import appsJson from "../api/apps/all.json";
 
 let onInit = true;
 
@@ -198,11 +197,12 @@ function doUpdate(newApps: App[], reset?: boolean) {
     let state: State = {
       lang,
       freeOnly: freeCheckbox.checked,
-      app: (!category || category === "all")
-        ? params.get("app")
-          ? parseInt(params.get("app") as string, 10)
-          : undefined
-        : undefined,
+      app:
+        !category || category === "all"
+          ? params.get("app")
+            ? parseInt(params.get("app") as string, 10)
+            : undefined
+          : undefined,
       search: searchElement.value,
       topics: topicsSelect.selected() as string[],
       platforms: platformsSelect.selected() as string[],
@@ -222,18 +222,10 @@ function doUpdate(newApps: App[], reset?: boolean) {
           ? parseInt(params.get("app") as string, 10)
           : undefined,
         search: params.get("search") || "",
-        topics: params.get("topics")
-          ? params.get("topics")?.split(",") || []
-          : [],
-        platforms: params.get("platforms")
-          ? params.get("platforms")?.split(",") || []
-          : [],
-        languages: params.get("languages")
-          ? params.get("languages")?.split(",") || []
-          : [],
-        coverage: params.get("coverage")
-          ? params.get("coverage")?.split(",") || []
-          : [],
+        topics: params.get("topics")?.split(",") || [],
+        platforms: params.get("platforms")?.split(",") || [],
+        languages: params.get("languages")?.split(",") || [],
+        coverage: params.get("coverage")?.split(",") || [],
         category: (params.get("category") as any) || "all",
         view: params.get("view") === "compare" ? "compare" : "list",
       };
@@ -302,8 +294,8 @@ function update({
 
   if (category === "latest") {
     filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange.toUpperCase() || "";
-      const nameB = b.source[0].lastChange.toUpperCase() || "";
+      const nameA = a.source[0].lastChange || "";
+      const nameB = b.source[0].lastChange || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -315,8 +307,8 @@ function update({
     });
 
     filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.lastRelease?.toUpperCase() || "";
-      const nameB = b.lastRelease?.toUpperCase() || "";
+      const nameA = a.lastRelease || "";
+      const nameB = b.lastRelease || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -328,8 +320,8 @@ function update({
     });
   } else if (category === "focus") {
     let latestApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange.toUpperCase() || "";
-      const nameB = b.source[0].lastChange.toUpperCase() || "";
+      const nameA = a.source[0].lastChange || "";
+      const nameB = b.source[0].lastChange || "";
       if (nameA < nameB) {
         return 1;
       }
@@ -734,6 +726,16 @@ function renderNotFoundApps() {
   }
 }
 
+function delay(ms: number) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+async function addScript(src: string) {
+  var s = document.createElement("script");
+  s.setAttribute("src", src);
+  document.body.appendChild(s);
+  await delay(0);
+}
+
 function printCalcScore() {
   const average = sum(apps.map((a) => a.score.total)) / apps.length;
   console.info("Average");
@@ -748,7 +750,8 @@ async function getAppCatalog() {
   if (window.location.host) {
     apps = await getJson("/api/apps/all.json", {});
   } else {
-    apps = appsJson as any;
+    await addScript("./data.js");
+    apps = window.apps;
   }
   apps.forEach((app) => {
     app.score = calculateScore(app);

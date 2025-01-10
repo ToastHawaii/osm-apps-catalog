@@ -6,16 +6,19 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
   context: path.join(__dirname, "./"),
-  entry: "./script.ts",
+  entry: {
+    index: "./script.ts",
+    data: "./data.ts",
+  },
   output: {
-    filename: "script.js",
-    path: __dirname + "/.."
+    filename: "dist/[name].js",
+    path: __dirname + "/..",
   },
   plugins: [
     new HtmlWebpackPlugin({
       // Load a custom template
       template: "./index.html",
-      filename: "./index.html"
+      filename: "./index.html",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -23,10 +26,10 @@ module.exports = {
         {
           from: "*.css*",
           to: "../lib/",
-          context: "../node_modules/slim-select/dist/"
-        }
-      ]
-    })
+          context: "../node_modules/slim-select/dist/",
+        },
+      ],
+    }),
   ],
   mode: "development",
   // Enable sourcemaps for debugging webpack's output.
@@ -34,7 +37,7 @@ module.exports = {
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
 
   module: {
@@ -50,11 +53,11 @@ module.exports = {
               plugins: [
                 ["@babel/transform-runtime"],
                 "@babel/transform-class-properties",
-                "@babel/transform-object-rest-spread"
-              ]
-            }
-          }
-        ]
+                "@babel/transform-object-rest-spread",
+              ],
+            },
+          },
+        ],
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
@@ -66,9 +69,9 @@ module.exports = {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: "url-loader",
         options: {
-          limit: 10000
-        }
-      }
-    ]
-  }
+          limit: 10000,
+        },
+      },
+    ],
+  },
 };
