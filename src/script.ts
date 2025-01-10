@@ -576,7 +576,7 @@ function update({
         ? "DriverApplication"
         : edit(app)
         ? "UtilitiesApplication"
-        : undefined,
+        : "TravelApplication",
       applicationSubCategory: app.genre,
       operatingSystem: app.platform.join(", ") || undefined,
       offers: app.gratis
