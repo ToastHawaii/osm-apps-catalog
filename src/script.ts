@@ -268,6 +268,21 @@ function updateState(state: State) {
   );
 }
 
+function prepareScoreAndLanguage(filteredApps: App[]) {
+  filteredApps
+    .filter((app) => !app.score.details)
+    .forEach((app) => {
+      app.score = calculateScore(app);
+      app.languages = app.languages.map((l) => languageValueToDisplay(l));
+      if (app.accessibility) {
+        app.accessibility.screenReaderLang =
+          app.accessibility.screenReaderLang.map((l) =>
+            languageValueToDisplay(l)
+          );
+      }
+    });
+}
+
 function update({
   freeOnly,
   category,
@@ -445,16 +460,7 @@ function update({
     filteredApps = categoriedApps;
   }
 
-  filteredApps.forEach((app) => {
-    app.score = calculateScore(app);
-    app.languages = app.languages.map((l) => languageValueToDisplay(l));
-    if (app.accessibility) {
-      app.accessibility.screenReaderLang =
-        app.accessibility.screenReaderLang.map((l) =>
-          languageValueToDisplay(l)
-        );
-    }
-  });
+  prepareScoreAndLanguage(filteredApps);
 
   updateDescription(category, filteredApps.length);
 
@@ -701,6 +707,8 @@ function renderSimilarApps(
       );
 
     if (similarApps.length > 0) {
+      prepareScoreAndLanguage(similarApps);
+
       const similarTag = createElement(
         "h2",
         i18next.t("relatedApps", { numberOfApps: similarApps.length })
@@ -724,7 +732,9 @@ const notFoundAppsTitle = [
 function renderNotFoundApps() {
   let notFound = notFoundAppsTitle
     .map((f) => apps.find((a) => a.name === f))
-    .filter((a) => a);
+    .filter((a) => a) as App[];
+
+  prepareScoreAndLanguage(notFound);
 
   const notFoundTag = createElement("h2", i18next.t("notFound"));
   getHtmlElement("#list").appendChild(notFoundTag);
@@ -757,7 +767,7 @@ function printCalcScore() {
   console.info("04.01.2025: 2.000");
   console.info("10.01.2025: 2.008");
   console.info("New score calculation");
-  console.info("11.01.2025: 2.150");
+  console.info("11.01.2025: 2.147");
   console.info("Today: " + average);
 }
 
