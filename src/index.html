@@ -69,15 +69,16 @@
              class="fas fa-info-circle"></i></a>
       </h1>
       <p class="description" style="margin: 5px 10px 10px;"></p>
-      <input type="search" id="search" class="filter" placeholder="Search" autocomplete="on"
+      <input type="search" id="search" class="filter hidden" placeholder="Search" autocomplete="on"
              list="search-suggestions" />
       <datalist id="search-suggestions"></datalist>
-
-      <select id="topic" class="filter" multiple></select>
-      <select id="platform" class="filter" multiple></select>
-      <select id="language" class="filter" multiple></select>
-      <select id="coverage" class="filter" multiple></select>
-      <form style="margin: 7px 0 10px;">
+      <button id="more-filters" class="filter hidden">Searchfilter</button>
+      <select id="topic" class="advanced-filter hidden" multiple></select>
+      <select id="platform" class="advanced-filter hidden" multiple></select>
+      <select id="language" class="advanced-filter hidden" multiple></select>
+      <select id="coverage" class="advanced-filter hidden" multiple></select>
+      <hr style="border: 1px solid #ccc;">
+      <form style="margin: 10px 0;">
         <label for="listView" class="radio-btn"><input type="radio" id="listView" name="view"
                  value="List" checked="checked"><span><i class="fas fa-th"></i>
             <span id="listText">List</span></span></label><label for="compareView"

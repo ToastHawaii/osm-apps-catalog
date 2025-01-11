@@ -34,6 +34,16 @@ a {
   color: #007aff;
 }
 
+#more-filters {
+  color: #666;
+  border: 1px solid #666;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
 .radio-btn input {
   display: none;
 }

@@ -106,6 +106,18 @@ searchElement.addEventListener("blur", () => {
   doUpdate(apps, false, true, false);
 });
 
+const moreFiltersElement = document.getElementById(
+  "more-filters"
+) as HTMLButtonElement;
+
+moreFiltersElement.addEventListener("click", () => {
+  moreFiltersElement.classList.add("hidden");
+
+  document
+    .querySelectorAll(".advanced-filter")
+    .forEach((e) => e.classList.remove("hidden"));
+});
+
 (document.getElementById("listView") as HTMLInputElement).addEventListener(
   "input",
   () => {
@@ -431,6 +443,12 @@ function update({
     .forEach((e) =>
       e.classList.toggle("hidden", category === "focus" || appPage)
     );
+
+  if (category === "focus") {
+    document
+      .querySelectorAll(".advanced-filter")
+      .forEach((e) => e.classList.add("hidden"));
+  }
 
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
