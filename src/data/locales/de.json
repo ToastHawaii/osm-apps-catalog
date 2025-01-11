@@ -101,5 +101,7 @@
     "app.community.bluesky": "Bluesky",
     "app.community.forum": "Forum",
     "app.community.issueTracker": "Probleme",
-    "list.more": "Mehr"
+    "list.more": "Mehr",
+    "filter.moreFilters": "Filter",
+    "app.imageAlt": "Bild von {{name}}."
 }
