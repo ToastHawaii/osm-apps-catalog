@@ -39891,13 +39891,16 @@ const languages = [
     { code: "zh-yue", display: "粵語 / 粤语" },
     { code: "zu", display: "isiZulu" },
 ];
-function languageValueToDisplay(value) {
+function languageValueFormat(value) {
     if (!Number.isNaN(Number.parseInt(value, 10))) {
         value = "mul";
     }
     else {
         value = value.replaceAll("_", "-").toLowerCase();
     }
+    return value;
+}
+function languageValueToDisplay(value) {
     for (const language of languages) {
         if (language.code === value) {
             if (typeof language.display === "function") {
@@ -40308,7 +40311,7 @@ function transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map((v) => languageValueToDisplay(v)),
+            .map((v) => languageValueFormat(v)),
         languagesUrl: toUrl(source["languagesurl"]),
         genre: toValues(source["genre"]),
         topics: toValues(source["genre"]),
@@ -40411,7 +40414,7 @@ function transform(source) {
                 .split(splitByCommaButNotInsideBraceRegex)
                 .map(trim)
                 .filter((v) => v)
-                .map((v) => languageValueToDisplay(v)),
+                .map((v) => languageValueFormat(v)),
         },
         community: {
             forum: source.communicationChannels["forum"],
@@ -40570,7 +40573,7 @@ function serviceItem_transform(source) {
             .map(extractLanguageCodeFromTemplate)
             .map(trim)
             .filter((v) => v)
-            .map((v) => languageValueToDisplay(v)),
+            .map((v) => languageValueFormat(v)),
         languagesUrl: toUrl(extractWebsite(source["lang"])),
         genre: (source["genre"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
@@ -40660,7 +40663,7 @@ function layer_transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map((v) => languageValueToDisplay(v)),
+            .map((v) => languageValueFormat(v)),
         languagesUrl: toUrl(source["tiles_languagesurl"]),
         genre: [],
         topics: [],
@@ -41480,7 +41483,7 @@ function transformWikidataResult(result) {
         languages: (result.languages?.value || "")
             .split(";")
             .filter((v) => v)
-            .map((v) => languageValueToDisplay(v)),
+            .map((v) => languageValueFormat(v)),
         languagesUrl: result.languagesUrl?.value || "",
         genre: extractGenre(result),
         topics: [...extractGenre(result), ...toValues(result.topics?.value)],

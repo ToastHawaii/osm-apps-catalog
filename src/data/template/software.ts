@@ -18,7 +18,7 @@
 import { toWikimediaUrl } from "../../ui/utilities/image";
 import { toWikiUrl, toUrl } from "../../ui/utilities/url";
 import { platformValueToDisplay } from "../../ui/platform";
-import { languageValueToDisplay } from "../../ui/language";
+import { languageValueFormat } from "../../ui/language";
 import { removeDuplicates, some } from "../../ui/utilities/array";
 import {
   appendFullStop,
@@ -84,7 +84,7 @@ export function transform(
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => languageValueToDisplay(v)),
+      .map((v) => languageValueFormat(v)),
     languagesUrl: toUrl(source["languagesurl"]),
     genre: toValues(source["genre"]),
     topics: toValues(source["genre"]),
@@ -187,7 +187,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map((v) => languageValueToDisplay(v)),
+        .map((v) => languageValueFormat(v)),
     },
     community: {
       forum: source.communicationChannels["forum"],

@@ -1,4 +1,4 @@
-import { languageValueToDisplay } from "../ui/language";
+import { languageValueFormat } from "../ui/language";
 import { getJson } from "../ui/utilities/jsonRequest";
 import { toValues } from "../ui/utilities/string";
 import { App } from "./template/utilities";
@@ -68,7 +68,7 @@ export function transformWikidataResult(result: any) {
     languages: (result.languages?.value || "")
       .split(";")
       .filter((v: any) => v)
-      .map((v: any) => languageValueToDisplay(v)),
+      .map((v: any) => languageValueFormat(v)),
     languagesUrl: result.languagesUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],

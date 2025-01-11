@@ -32,6 +32,7 @@ import i18next from "i18next";
 import { features } from "./features";
 import { calculateScore, sum } from "./data/addApp";
 import { getJson } from "./ui/utilities/jsonRequest";
+import { languageValueToDisplay } from "./ui/language";
 
 let onInit = true;
 
@@ -444,6 +445,17 @@ function update({
     filteredApps = categoriedApps;
   }
 
+  filteredApps.forEach((app) => {
+    app.score = calculateScore(app);
+    app.languages = app.languages.map((l) => languageValueToDisplay(l));
+    if (app.accessibility) {
+      app.accessibility.screenReaderLang =
+        app.accessibility.screenReaderLang.map((l) =>
+          languageValueToDisplay(l)
+        );
+    }
+  });
+
   updateDescription(category, filteredApps.length);
 
   const params = new URLSearchParams(location.search);
@@ -745,7 +757,7 @@ function printCalcScore() {
   console.info("04.01.2025: 2.000");
   console.info("10.01.2025: 2.008");
   console.info("New score calculation");
-  console.info("10.01.2025: 2.145");
+  console.info("11.01.2025: 2.150");
   console.info("Today: " + average);
 }
 
@@ -756,9 +768,6 @@ async function getAppCatalog() {
     await addScript("./data.js");
     apps = window.apps;
   }
-  apps.forEach((app) => {
-    app.score = calculateScore(app);
-  });
 
   doUpdate(apps);
   getHtmlElement("#loading").remove();

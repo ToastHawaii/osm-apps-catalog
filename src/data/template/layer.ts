@@ -17,7 +17,7 @@
 
 import { toWikimediaUrl } from "../../ui/utilities/image";
 import { toWikiUrl, toUrl } from "../../ui/utilities/url";
-import { languageValueToDisplay } from "../../ui/language";
+import { languageValueFormat } from "../../ui/language";
 import { removeDuplicates } from "../../ui/utilities/array";
 import {
   appendFullStop,
@@ -63,7 +63,7 @@ export function transform(source: { [name: string]: string }) {
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map((v) => languageValueToDisplay(v)),
+      .map((v) => languageValueFormat(v)),
     languagesUrl: toUrl(source["tiles_languagesurl"]),
     genre: [],
     topics: [],
