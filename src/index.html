@@ -58,7 +58,7 @@
 
 <body>
   <div id="content">
-    <div class="page-header">
+    <header class="page-header">
       <label style="float: right;margin: 10px;"><input type="checkbox" id="free">
         <span id="freeDisplay">Free</span></label><select id="category"
               style="width: 228px; float: right; margin: 4px"></select>
@@ -72,11 +72,14 @@
       <input type="search" id="search" class="filter hidden" placeholder="Search" autocomplete="on"
              list="search-suggestions" />
       <datalist id="search-suggestions"></datalist>
-      <button id="more-filters" class="filter hidden">Searchfilter</button>
-      <select id="topic" class="advanced-filter hidden" multiple></select>
-      <select id="platform" class="advanced-filter hidden" multiple></select>
-      <select id="language" class="advanced-filter hidden" multiple></select>
-      <select id="coverage" class="advanced-filter hidden" multiple></select>
+
+      <button id="more-filters" class="filter hidden">Filters</button>
+      <span class="advanced-filter" style="display: none;">
+        <select id="topic" class="filter hidden" multiple></select>
+        <select id="platform" class="filter hidden" multiple></select>
+        <select id="language" class="filter hidden" multiple></select>
+        <select id="coverage" class="filter hidden" multiple></select>
+      </span>
       <hr style="border: 1px solid #ccc;">
       <form style="margin: 10px 0;">
         <label for="listView" class="radio-btn"><input type="radio" id="listView" name="view"
@@ -86,9 +89,11 @@
                  value="Compare"><span><i class="fas fa-bars fa-rotate-90"></i> <span
                   id="compareText">Compare</span></span></label>
       </form>
-    </div>
-    <div id="list"></div>
-    <div id="compare" class="table"></div>
+    </header>
+    <main>
+      <div id="list"></div>
+      <div id="compare" class="table"></div>
+    </main>
   </div>
 </body>
 

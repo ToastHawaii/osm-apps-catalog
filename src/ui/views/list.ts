@@ -48,13 +48,13 @@ export function render(app: App, open = false) {
             : renderImage(app)
         }
       </div>
-      <div><small>${app.description}${
+      <p>${app.description}${
       app.documentation
         ? ` <a href="${app.documentation}" target="_blank">${i18next.t(
             "list.documentation"
           )}</a>`
         : ""
-    }</small></div>
+    }</p>
       ${
         app.website
           ? `<a class="download" href="${app.website}" title="${i18next.t(
@@ -170,7 +170,10 @@ export function render(app: App, open = false) {
                 app.lastRelease ? app.lastRelease : "????-??-??"
               }${
                 app.unmaintained
-                  ? ` <span class="warning">(<i class="fas fa-exclamation-triangle"></i> Unmaintained)</span>`
+                  ? ` <span class="warning">${i18next.t("app.unmaintained", {
+                      icon: `<i class="fas fa-exclamation-triangle"></i>`,
+                      interpolation: { escapeValue: false },
+                    })}</span>`
                   : ""
               }</span>
         </div>`

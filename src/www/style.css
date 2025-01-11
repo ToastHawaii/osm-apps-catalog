@@ -267,6 +267,12 @@ a {
   max-width: 250px;
 }
 
+.app p {
+  font-size: smaller;
+  margin: 0;
+  line-height: 1.5;
+}
+
 .app .img,
 #compare .img {
   max-width: 100%;

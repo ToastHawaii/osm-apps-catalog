@@ -109,13 +109,13 @@ searchElement.addEventListener("blur", () => {
 const moreFiltersElement = document.getElementById(
   "more-filters"
 ) as HTMLButtonElement;
-
+moreFiltersElement.innerText = i18next.t("filter.moreFilters");
 moreFiltersElement.addEventListener("click", () => {
-  moreFiltersElement.classList.add("hidden");
+  moreFiltersElement.style.display = "none";
 
   document
     .querySelectorAll(".advanced-filter")
-    .forEach((e) => e.classList.remove("hidden"));
+    .forEach((e) => ((e as HTMLElement).style.display = ""));
 });
 
 (document.getElementById("listView") as HTMLInputElement).addEventListener(
@@ -444,12 +444,6 @@ function update({
       e.classList.toggle("hidden", category === "focus" || appPage)
     );
 
-  if (category === "focus") {
-    document
-      .querySelectorAll(".advanced-filter")
-      .forEach((e) => e.classList.add("hidden"));
-  }
-
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       includes(
@@ -516,6 +510,19 @@ function update({
   const coverageData: string[] = params.get("coverage")
     ? params.get("coverage")?.split(",") || []
     : [];
+
+  if (
+    params.get("topics") ||
+    params.get("platforms") ||
+    params.get("languages") ||
+    params.get("coverage")
+  ) {
+    moreFiltersElement.style.display = "none";
+
+    document
+      .querySelectorAll(".advanced-filter")
+      .forEach((e) => ((e as HTMLElement).style.display = ""));
+  }
 
   for (const a of filteredApps) {
     topicsData.push(...a.topics.map((t) => t));
