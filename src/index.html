@@ -69,7 +69,10 @@
              class="fas fa-info-circle"></i></a>
       </h1>
       <p class="description" style="margin: 5px 10px 10px;"></p>
-      <input type="search" id="search" class="filter" placeholder="Search" />
+      <input type="search" id="search" class="filter" placeholder="Search" autocomplete="on"
+             list="search-suggestions" />
+      <datalist id="search-suggestions"></datalist>
+
       <select id="topic" class="filter" multiple></select>
       <select id="platform" class="filter" multiple></select>
       <select id="language" class="filter" multiple></select>

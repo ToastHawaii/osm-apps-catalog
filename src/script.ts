@@ -98,8 +98,13 @@ const searchElement = document.getElementById("search") as HTMLInputElement;
 searchElement.placeholder = i18next.t("filter.search");
 searchElement.addEventListener(
   "input",
-  debounce(() => doUpdate(apps), 500)
+  debounce(() => {
+    doUpdate(apps, false, false);
+  }, 500)
 );
+searchElement.addEventListener("blur", () => {
+  doUpdate(apps, false, true, false);
+});
 
 (document.getElementById("listView") as HTMLInputElement).addEventListener(
   "input",
@@ -182,7 +187,12 @@ type State = {
 
 const lang = (findGetParameter("lang") || "en").toLowerCase();
 
-function doUpdate(newApps: App[], reset?: boolean) {
+function doUpdate(
+  newApps: App[],
+  reset?: boolean,
+  history = true,
+  render = true
+) {
   apps = newApps;
   if (!onUpdate) {
     onUpdate = true;
@@ -232,10 +242,12 @@ function doUpdate(newApps: App[], reset?: boolean) {
       };
 
       onInit = false;
-    } else {
+    } else if (history) {
       updateState(state);
     }
-    update(state);
+    if (render) {
+      update(state);
+    }
     onUpdate = false;
   }
 }
@@ -300,6 +312,15 @@ function update({
 
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
+
+  const datalist = getHtmlElement("#search-suggestions");
+  if (!datalist.innerHTML) {
+    for (const topic of [...new Set(apps.flatMap((a) => a.topics))].sort()) {
+      const option = createElement("option");
+      option.value = topic;
+      datalist.appendChild(option);
+    }
+  }
 
   let filteredApps: App[] = apps.slice();
 
