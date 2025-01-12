@@ -258,7 +258,7 @@ a {
 .app .header {
   text-align: center;
 }
-.app .header h4 {
+.app .header h4, .row .header h4 {
   margin: 0;
 }
 .app .header a {
@@ -267,14 +267,14 @@ a {
   max-width: 250px;
 }
 
-.app p {
+.app p, .row p {
   font-size: smaller;
   margin: 0;
   line-height: 1.5;
 }
 
 .app .img,
-#compare .img {
+.row .img {
   max-width: 100%;
   max-height: 250px;
   margin: 6px 0;
