@@ -1,18 +1,16 @@
 # OpenStreetMap Apps
 
-Experience the world in a creative, productive and unexpected way.
+**Experience the world in a creative, productive and unexpected way.**
 
-[Click here for the catalog](https://osm-apps.zottelig.ch)
+This catalog shows applications and services that use OpenStreetMap data. It is updated every day. 
 
-This website shows applications and services that use OpenStreetMap data. The list of applications is taken from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/). It crawls all pages that use a [Software](https://wiki.openstreetmap.org/wiki/Template:Software) or [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item) template an extract the informations about the application. [Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Go to the catalog](https://osm-apps.zottelig.ch)
 
-The list is completed with [Wikidata](https://www.wikidata.org/) and the [taginfo.openstreetmap.org projects](https://taginfo.openstreetmap.org/projects).
-
-The catalog is updated every day.
+[Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 Other languages
 
-By default the catalog only contains apps from the English version of the wiki. To include apps from other translations use one of the following links:
+Display the catalog in your language:
 
 [Afrikaans](/?lang=af),
 [asturianu](/?lang=ast),
@@ -88,6 +86,8 @@ By default the catalog only contains apps from the English version of
 [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja),
 [粵語](/?lang=yue)
+
+*This catalog currently only contains apps from the English version of the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
 
 Help with the translation:
 
