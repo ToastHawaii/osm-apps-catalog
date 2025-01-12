@@ -1,28 +1,18 @@
 # OpenStreetMap Apps
 
-Tapasztald meg a világot kreatív, produktív és váratlan módokon.
+**Experience the world in a creative, productive and unexpected way.**
 
-[A katalógushoz kattints ide](https://osm-apps.zottelig.ch)
+This catalog shows applications and services that use OpenStreetMap data. It is
+updated every day.
 
-Ez a weboldal OpenStreetMap-adatokat használó alkalmazásokat és szolgáltatásokat
-mutat be. Az alkalmazások listája az [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/) oldalról származik. Minden olyan oldalra
-rákeres, amely [Software](https://wiki.openstreetmap.org/wiki/Template:Software)
-vagy [Service item](https://wiki.openstreetmap.org/wiki/Template:Service_item)
-sablont használ, és kivonatolja az alkalmazással kapcsolatos információkat. [Add
-hozzá az általad ismert OSM-alkalmazásokat, vagy működj közre
-másként!](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Go to the catalog](https://osm-apps.zottelig.ch)
 
-A listát a [Wikidata](https://www.wikidata.org/) és a [taginfo.openstreetmap.org
-projektek](https://taginfo.openstreetmap.org/projects) egészítik ki.
-
-A katalógus naponta frissül.
+[Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 További nyelvek
 
-Alapértelmezés szerint a katalógus csak a wiki angol változatának alkalmazásait
-tartalmazza. Más fordítások alkalmazásainak felvételéhez használja a következő
-linkek egyikét:
+Display the catalog in your language:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -49,6 +39,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [မြန်မာဘာသာ](/?lang=my), [ქართული](/?lang=ka), [한국어](/?lang=ko),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
+
+*This catalog currently only contains apps from the English version of the
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
 
 Segítség a fordításban:
 
