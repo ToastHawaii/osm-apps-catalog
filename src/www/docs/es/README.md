@@ -1,28 +1,18 @@
 # Aplicaciones OpenStreetMap
 
-Experimente el mundo de maneras creativas, productivas e inesperadas.
+**Experience the world in a creative, productive and unexpected way.**
 
-[Haga clic aquí para ver el catálogo](https://osm-apps.zottelig.ch)
+This catalog shows applications and services that use OpenStreetMap data. It is
+updated every day.
 
-Esta página web muestra aplicaciones y servicios que utilizan datos de
-OpenStreetMap. La lista de aplicaciones se ha extraído de la [Wiki de
-OpenStreetMap](https://wiki.openstreetmap.org/). Rastrea todas las páginas que
-utilizan una plantilla
-[Software](https://wiki.openstreetmap.org/wiki/Template:Software) o [Elemento de
-servicio](https://wiki.openstreetmap.org/wiki/Template:Service_item) y extrae la
-información sobre la aplicación. [Añade aplicaciones OSM que conozcas o colabora
-de otra manera](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Go to the catalog](https://osm-apps.zottelig.ch)
 
-La lista se completa con [Wikidata](https://www.wikidata.org/) y los proyectos
-[taginfo.openstreetmap.org](https://taginfo.openstreetmap.org/projects).
-
-El catálogo se actualiza todos los días.
+[Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 Otros idiomas
 
-Por defecto, el catálogo solo contiene aplicaciones de la versión inglesa de la
-wiki. Para incluir aplicaciones de otras traducciones, utilice uno de los
-siguientes enlaces:
+Display the catalog in your language:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -49,6 +39,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [မြန်မာဘာသာ](/?lang=my), [ქართული](/?lang=ka), [한국어](/?lang=ko),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
+
+*This catalog currently only contains apps from the English version of the
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
 
 Ayuda con la traducción:
 

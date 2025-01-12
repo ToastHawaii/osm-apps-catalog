@@ -1,28 +1,18 @@
 # OpenStreetMap Aplikace
 
-Poznávejte svět kreativním, produktivním a nečekaným způsobem.
+**Experience the world in a creative, productive and unexpected way.**
 
-[Klikněte zde pro katalog](https://osm-apps.zottelig.ch)
+This catalog shows applications and services that use OpenStreetMap data. It is
+updated every day.
 
-Na této webové stránce jsou uvedeny aplikace a služby, které využívají data
-OpenStreetMap. Seznam aplikací je převzat z [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/). Prochází všechny stránky, které
-používají šablonu
-[Software](https://wiki.openstreetmap.org/wiki/Template:Software) nebo [Service
-item](https://wiki.openstreetmap.org/wiki/Template:Service_item), a získává
-informace o aplikaci. [Přidejte aplikace OSM, které znáte nebo k nim přispíváte
-jiným způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Go to the catalog](https://osm-apps.zottelig.ch)
 
-Seznam je doplněn o projekty [Wikidata](https://www.wikidata.org/) a
-[taginfo.openstreetmap.org](https://taginfo.openstreetmap.org/projects).
-
-Katalog je aktualizován každý den.
+[Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 Další jazyky
 
-Ve výchozím nastavení obsahuje katalog pouze aplikace z anglické verze wiki.
-Chcete-li zahrnout aplikace z jiných překladů, použijte jeden z následujících
-odkazů:
+Display the catalog in your language:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -49,6 +39,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [မြန်မာဘာသာ](/?lang=my), [ქართული](/?lang=ka), [한국어](/?lang=ko),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
+
+*This catalog currently only contains apps from the English version of the
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
 
 Pomozte s překladem:
 
