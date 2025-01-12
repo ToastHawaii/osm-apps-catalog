@@ -40,8 +40,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of the
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
+*This catalog currently only contains apps from the English version of
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/) and [taginfo project
+list](https://taginfo.openstreetmap.org/projects).*
 
 Ayuda con la traducción:
 
