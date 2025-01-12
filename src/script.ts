@@ -325,14 +325,16 @@ function update({
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
 
-  const datalist = getHtmlElement("#search-suggestions");
-  if (!datalist.innerHTML) {
-    for (const topic of [...new Set(apps.flatMap((a) => a.topics))].sort()) {
-      const option = createElement("option");
-      option.value = topic;
-      datalist.appendChild(option);
+  setTimeout(() => {
+    const datalist = getHtmlElement("#search-suggestions");
+    if (!datalist.innerHTML) {
+      for (const topic of [...new Set(apps.flatMap((a) => a.topics))].sort()) {
+        const option = createElement("option");
+        option.value = topic;
+        datalist.appendChild(option);
+      }
     }
-  }
+  }, 0);
 
   let filteredApps: App[] = apps.slice();
 
@@ -545,6 +547,10 @@ function update({
 
   coverageSelect.setData(prepareArrayForSelect(coverageData, coverage));
   coverageSelect.set(coverage);
+
+  document
+    .getElementById("view")
+    ?.classList.toggle("hidden", filteredApps.length >= 300);
 
   switch (view) {
     case "list":

@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import i18next from "i18next";
+
 function isOverflown(element: Element) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -53,7 +55,7 @@ export async function lazyInitMore(reset?: boolean) {
         var div = document.createElement("div");
         div.classList.add("fade-out");
         div.innerHTML =
-          '<div class="button"><span class="text">&mdash; More &mdash;</span></div>';
+          `<div class="button"><span class="text">&mdash; ${i18next.t("list.more")} &mdash;</span></div>`;
         elements[i].appendChild(div);
 
         div.addEventListener("click", function () {
