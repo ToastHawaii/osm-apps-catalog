@@ -100,5 +100,6 @@
     "score.criteria.openSourceStores": "az alkalmazás nyílt forráskódú áruházakból is letölthető (pl. F-Droid)",
     "score.criteria.documentationLink": "rendelkezésre áll egy link a dokumentációra",
     "score.criteria.documentedMultiplePlatforms": "az alkalmazás több platformon is dokumentálva van (pl. OSM Wiki, taginfo, Wikidata)",
-    "app.source.date": "Legutóbbi módosítás: {{date}}"
+    "app.source.date": "Legutóbbi módosítás: {{date}}",
+    "filter.moreFilters": "Szűrők"
 }
