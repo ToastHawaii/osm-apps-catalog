@@ -87,7 +87,7 @@ Display the catalog in your language:
 [日本語](/?lang=ja),
 [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/) and the other sources.*
+*This catalog currently only contains apps from the English version of [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/) and [taginfo project list](https://taginfo.openstreetmap.org/projects).*
 
 Help with the translation:
 
