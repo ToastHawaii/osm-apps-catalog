@@ -1,18 +1,18 @@
 # OpenStreetMap Apps
 
-**Experience the world in a creative, productive and unexpected way.**
+**Erlebe die Welt auf kreative, produktive und unerwartete Weise.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
+wird täglich aktualisiert.
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Gehe zum Katalog](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Füge OSM-Apps hinzu, die du kennst oder trage auf andere Weise
+bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 Weitere Sprachen
 
-Display the catalog in your language:
+Zeige den Katalog in deiner Sprache an:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -40,9 +40,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of
+*Dieser Katalog enthält derzeit nur Apps aus der englischen Version von
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) and [taginfo project
+[Wikidata](https://www.wikidata.org/) und [taginfo project
 list](https://taginfo.openstreetmap.org/projects).*
 
 Hilf bei der Übersetzung:

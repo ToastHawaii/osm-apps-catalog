@@ -1,18 +1,18 @@
 # OpenStreetMap Apps
 
-**Experience the world in a creative, productive and unexpected way.**
+**Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
+használja. Naponta frissül.
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Nézd meg a katalógust](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
+másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
 ## 🌍 További nyelvek
 
-Display the catalog in your language:
+Katalógus megjelenítése a nyelveden:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -40,19 +40,19 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) and [taginfo project
-list](https://taginfo.openstreetmap.org/projects).*
+*Ez a katalógus jelenleg csak az [OpenStreetMap
+wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/)
+és a [taginfo projektlistájának](https://taginfo.openstreetmap.org/projects)
+angol változatáról tartalmaz alkalmazásokat.*
 
 Segítség a fordításban:
 
-- az OSM Apps katalógusból a
+- az OSM Apps Katalógus a
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>-en
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
-  dokumentált alkalmazásokból
+  dokumentált alkalmazások
 
 ## 🙏 Hozzájárulás és köszönetnyilvánítás
 
@@ -65,7 +65,7 @@ Segítség a fordításban:
   Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik)t a
   [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot)-jáért. Számos
   munkája alapul szolgált ennek a katalógusnak a készítésénél.
-- Köszönet a [weblate](https://weblate.org/)nek és [a katalógus összes
+- Köszönet a [Weblate](https://weblate.org/)-nek és [a katalógus összes
   fordítójának](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
   a nyílt forráskódú projektek ingyenes támogatásáért.
 - Végül köszönet mindazoknak, akik lehetővé tették ezt a katalógust.
@@ -77,7 +77,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
 licenc alatt áll. A kód szabadon felhasználható, másolható és módosítható, ha
 ugyanezen licenc alatt teszed közzé.
 
-[A katalógus forráskódjának megtekintése a
+[A forráskód megtekintése a
 GitHubon](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ---
@@ -87,8 +87,8 @@ GitHubon](https://github.com/ToastHawaii/osm-apps-catalog)
   [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
   [találkozz velünk](https://osmcal.org/) & [chatelj
   velünk](https://community.osm.be/)
-- [OpenStreetMap
+- Az [OpenStreetMap
   szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Ismerős OSM-alkalmazások
+- [Ismerős OSM-alkalmazás
   hozzáadása](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
