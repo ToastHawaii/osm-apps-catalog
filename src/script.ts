@@ -655,10 +655,17 @@ function update({
             price: "0",
           }
         : undefined,
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: 0.4 * app.score.total + 1,
-        reviewCount: 1,
+      review: {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: 0.4 * app.score.total + 1,
+        },
+        author: {
+          "@type": "Organization",
+          name: "OSM Apps Catalog",
+          url: "https://osm-apps.zottelig.ch/",
+        },
       },
     });
     document.head.appendChild(script);
