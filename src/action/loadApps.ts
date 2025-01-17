@@ -1,12 +1,12 @@
-import { requestTemplates } from "./template/crawler";
-import { transform as transformSoftware } from "./template/software";
-import { transform as transformServiceItem } from "./template/serviceItem";
-import { transform as transformLayer } from "./template/layer";
+import { requestTemplates } from "./crawler/wiki/requestTemplates";
+import { transform as transformSoftware } from "./crawler/wiki/software";
+import { transform as transformServiceItem } from "./crawler/wiki/serviceItem";
+import { transform as transformLayer } from "./crawler/wiki/layer";
 import { equalsIgnoreCase, equalsYes } from "../utilities/string";
-import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
+import { App, containsOfflineLink, extractWebsite } from "./utilities";
 import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
-import { requestWikidata, transformWikidataResult } from "./wikidata";
+import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
 
 export async function loadApps() {

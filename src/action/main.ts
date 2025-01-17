@@ -3,11 +3,11 @@ import { context, getOctokit } from "@actions/github";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 
-import "../data/i18n";
+import "../ui/i18n";
 
-import { loadApps } from "../data/loadApps";
+import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
-import { App } from "../data/template/utilities";
+import { App } from "./utilities";
 
 const lastUpdate = new Date("2025-01-11");
 

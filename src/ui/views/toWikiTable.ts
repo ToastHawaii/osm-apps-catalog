@@ -1,4 +1,4 @@
-import { App, toWikiText } from "../../data/template/utilities";
+import { App, toWikiText } from "../../action/utilities";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../../utilities/string";

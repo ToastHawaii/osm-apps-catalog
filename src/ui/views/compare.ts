@@ -17,7 +17,7 @@
 
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "../../utilities/html";
-import { App, toSourceDisplayText } from "../../data/template/utilities";
+import { App, toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";

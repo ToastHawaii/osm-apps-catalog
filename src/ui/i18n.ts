@@ -20,14 +20,14 @@ import * as uk from "./locales/uk.json";
 import * as zh_Hant from "./locales/zh_Hant.json";
 import * as zh_Hans from "./locales/zh_Hans.json";
 
-import { templateData } from "../ui/templateData";
+import { templateData } from "./templateData";
 
-import * as templateEn from "./template/locales/en.json";
-import * as templateCs from "./template/locales/cs.json";
-import * as templateDe from "./template/locales/de.json";
-import * as templateEs from "./template/locales/es.json";
-import * as templateHu from "./template/locales/hu.json";
-import * as templateZh_Hans from "./template/locales/zh_Hans.json";
+import * as templateEn from "./locales/wiki-software-template/en.json";
+import * as templateCs from "./locales/wiki-software-template/cs.json";
+import * as templateDe from "./locales/wiki-software-template/de.json";
+import * as templateEs from "./locales/wiki-software-template/es.json";
+import * as templateHu from "./locales/wiki-software-template/hu.json";
+import * as templateZh_Hans from "./locales/wiki-software-template/zh_Hans.json";
 
 i18next.use(LanguageDetector).init({
   detection: {

@@ -1,7 +1,7 @@
-import { App } from "./data/template/utilities";
-import { Color } from "./utilities/coloriz/Color";
-import { Solver } from "./utilities/coloriz/Solver";
-import { textToColor } from "./utilities/string";
+import { App } from "../utilities";
+import { Color } from "./coloriz/Color";
+import { Solver } from "./coloriz/Solver";
+import { textToColor } from "../../utilities/string";
 
 export function extendFilter(app: App) {
   if (app.images.length === 0 && !app.filter) {

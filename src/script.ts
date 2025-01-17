@@ -23,14 +23,14 @@ import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { render as renderListView } from "./ui/views/list";
 import { includes, some } from "./utilities/array";
 import { equalsIgnoreCase, strip } from "./utilities/string";
-import { App } from "./data/template/utilities";
+import { App } from "./action/utilities";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/lazyInitMore";
-import "./data/i18n";
+import "./ui/i18n";
 import { features } from "./features";
-import { calculateScore, sum } from "./data/addApp";
+import { calculateScore, sum } from "./action/addApp";
 import { getJson } from "./utilities/jsonRequest";
 import { languageValueToDisplay } from "./ui/language";
 

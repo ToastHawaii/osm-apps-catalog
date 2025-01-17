@@ -1,4 +1,4 @@
-import { App } from "../data/template/utilities";
+import { App } from "../action/utilities";
 import i18next from "i18next";
 
 export function renderImage(obj: App) {

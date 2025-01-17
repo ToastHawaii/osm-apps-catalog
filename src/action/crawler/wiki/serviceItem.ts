@@ -16,23 +16,23 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { toWikimediaUrl } from "../../utilities/image";
-import { toWikiUrl, toUrl } from "../../utilities/url";
-import { languageValueFormat } from "../../ui/language";
-import { removeDuplicates } from "../../utilities/array";
+import { toWikiUrl, toUrl } from "../../../utilities/url";
+import { languageValueFormat } from "../../../ui/language";
+import { removeDuplicates } from "../../../utilities/array";
 import {
   appendFullStop,
   trim,
   firstLetterToUpperCase,
   startsWithIgnoreCase,
   splitByCommaButNotInsideBraceRegex,
-} from "../../utilities/string";
+} from "../../../utilities/string";
 import {
   App,
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
   extractLanguageCodeFromTemplate,
-} from "./utilities";
+} from "../../utilities";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {

@@ -16,8 +16,8 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import * as md5 from "md5";
-import { httpRegex } from "./url";
-import { startsWithIgnoreCase } from "./string";
+import { httpRegex } from "../../utilities/url";
+import { startsWithIgnoreCase } from "../../utilities/string";
 
 export function toWikimediaUrl(source: string, size: number) {
   if (!source) return [] as string[];
