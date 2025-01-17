@@ -37,9 +37,9 @@
   },
   "scripts": {
     "build": "npm run app:build && npm run action:build",
-    "app:start": "react-scripts start",
+    "app:start": "cp docs/api/apps/all.json src/data && react-scripts start",
     "app:build": "BUILD_PATH='./docs' react-scripts build",
-    "action:build": "npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt"
+    "action:build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt"
   },
   "eslintConfig": {
     "extends": [
