@@ -1,12 +1,13 @@
 import * as core from "@actions/core";
-import "../data/i18n";
-import { loadApps } from "../data/loadApps";
-
 import { context, getOctokit } from "@actions/github";
-import { shuffle } from "../ui/utilities/array";
-import { App } from "../data/template/utilities";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
+
+import "../data/i18n";
+
+import { loadApps } from "../data/loadApps";
+import { shuffle } from "../utilities/array";
+import { App } from "../data/template/utilities";
 
 const lastUpdate = new Date("2025-01-11");
 

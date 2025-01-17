@@ -1,4 +1,4 @@
-import { textToColor } from "../utilities/string";
+import { textToColor } from "../../utilities/string";
 
 function renderBadge(t: string) {
   const background = textToColor(t);

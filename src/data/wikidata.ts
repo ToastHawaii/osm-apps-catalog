@@ -1,6 +1,6 @@
 import { languageValueFormat } from "../ui/language";
-import { getJson } from "../ui/utilities/jsonRequest";
-import { toValues } from "../ui/utilities/string";
+import { getJson } from "../utilities/jsonRequest";
+import { toValues } from "../utilities/string";
 import { App } from "./template/utilities";
 
 function extractGenre(result: any) {

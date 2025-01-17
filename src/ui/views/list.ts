@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { createElement, getHtmlElement } from "../utilities/html";
+import { createElement, getHtmlElement } from "../../utilities/html";
 import { App, toSourceDisplayText } from "../../data/template/utilities";
-import { renderImage } from "../utilities/renderImage";
+import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
 import { renderFree } from "./renderFree";

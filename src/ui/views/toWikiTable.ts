@@ -1,7 +1,7 @@
 import { App, toWikiText } from "../../data/template/utilities";
 import { templateData } from "../templateData";
 import { getLocalizedValue } from "../getLocalizedValue";
-import { equalsIgnoreCase, equalsYes } from "../utilities/string";
+import { equalsIgnoreCase, equalsYes } from "../../utilities/string";
 import i18next from "i18next";
 
 function isUnknown(value: string | string[] | undefined): value is undefined {

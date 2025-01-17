@@ -15,17 +15,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { toWikimediaUrl } from "../../ui/utilities/image";
-import { toWikiUrl, toUrl } from "../../ui/utilities/url";
+import { toWikimediaUrl } from "../../utilities/image";
+import { toWikiUrl, toUrl } from "../../utilities/url";
 import { languageValueFormat } from "../../ui/language";
-import { removeDuplicates } from "../../ui/utilities/array";
+import { removeDuplicates } from "../../utilities/array";
 import {
   appendFullStop,
   equalsYes,
   splitByCommaButNotInsideBraceRegex,
   toDate,
   trim,
-} from "../../ui/utilities/string";
+} from "../../utilities/string";
 import {
   App,
   processWikiText,

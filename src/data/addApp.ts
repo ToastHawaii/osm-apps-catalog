@@ -1,8 +1,8 @@
-import { removeDuplicates } from "../ui/utilities/array";
-import { equalsIgnoreCase, equalsYes, notNo } from "../ui/utilities/string";
+import { removeDuplicates } from "../utilities/array";
+import { equalsIgnoreCase, equalsYes, notNo } from "../utilities/string";
 import { App, hashCode } from "./template/utilities";
 import { extendFilter } from "../extendFilter";
-import { display, edit, web } from "../ui/utilities/filter";
+import { display, edit, web } from "../utilities/filter";
 
 const Criterias: {
   translationKey: string;

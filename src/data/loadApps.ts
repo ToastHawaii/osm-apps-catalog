@@ -2,12 +2,12 @@ import { requestTemplates } from "./template/crawler";
 import { transform as transformSoftware } from "./template/software";
 import { transform as transformServiceItem } from "./template/serviceItem";
 import { transform as transformLayer } from "./template/layer";
-import { equalsIgnoreCase, equalsYes } from "../ui/utilities/string";
+import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 import { App, containsOfflineLink, extractWebsite } from "./template/utilities";
 import { addApp } from "./addApp";
-import { toUrl } from "../ui/utilities/url";
+import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./wikidata";
-import { getJson } from "../ui/utilities/jsonRequest";
+import { getJson } from "../utilities/jsonRequest";
 
 export async function loadApps() {
   const apps: App[] = [];

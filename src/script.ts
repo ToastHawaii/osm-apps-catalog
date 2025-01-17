@@ -15,26 +15,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { createElement, getHtmlElement } from "./ui/utilities/html";
-import { debounce } from "./ui/utilities/debounce";
 import SlimSelect from "slim-select";
+import i18next from "i18next";
+import { createElement, getHtmlElement } from "./utilities/html";
+import { debounce } from "./utilities/debounce";
 import { lazyLoadImages } from "./ui/lazyLoadImages";
 import { render as renderListView } from "./ui/views/list";
-import { includes, some } from "./ui/utilities/array";
-import { equalsIgnoreCase, strip } from "./ui/utilities/string";
+import { includes, some } from "./utilities/array";
+import { equalsIgnoreCase, strip } from "./utilities/string";
 import { App } from "./data/template/utilities";
-import { findGetParameter } from "./ui/utilities/url";
-import { display, edit, mobile, navigation, web } from "./ui/utilities/filter";
+import { findGetParameter } from "./utilities/url";
+import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/lazyInitMore";
 import "./data/i18n";
-import i18next from "i18next";
 import { features } from "./features";
 import { calculateScore, sum } from "./data/addApp";
-import { getJson } from "./ui/utilities/jsonRequest";
+import { getJson } from "./utilities/jsonRequest";
 import { languageValueToDisplay } from "./ui/language";
 
-import "./www/style.scss"
+import "./style.scss";
 
 let onInit = true;
 
@@ -221,7 +221,7 @@ setTimeout(() => {
     history = true,
     render = true
   ) {
-    debugger
+    debugger;
     apps = newApps;
     if (!onUpdate) {
       onUpdate = true;
@@ -822,7 +822,6 @@ setTimeout(() => {
     }
   }
 
-
   function printCalcScore() {
     const average = sum(apps.map((a) => a.score.total)) / apps.length;
     console.info("Average");
@@ -840,7 +839,7 @@ setTimeout(() => {
     if (window.location.host !== "localhost:3000") {
       apps = await getJson("/api/apps/all.json", {});
     } else {
-     apps = await require("./data/all.json");
+      apps = await require("./data/all.json");
     }
 
     doUpdate(apps);

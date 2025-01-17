@@ -16,14 +16,14 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import i18next from "i18next";
-import { createElement, getHtmlElement } from "../utilities/html";
+import { createElement, getHtmlElement } from "../../utilities/html";
 import { App, toSourceDisplayText } from "../../data/template/utilities";
-import { renderImage } from "../utilities/renderImage";
+import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
 import { renderFree } from "./renderFree";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
-import { notNo } from "../utilities/string";
+import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../language";
 import { getMatrix } from "./getMatrix";
 import { features } from "../../features";
