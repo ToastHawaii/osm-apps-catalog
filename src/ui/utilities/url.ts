@@ -56,7 +56,7 @@ export function utilQsString(obj: any, noencode?: boolean) {
 export function findGetParameter(parameterName: string) {
   let result: string | undefined;
   let tmp = [];
-  location.search
+  window.location.search
     .substring(1)
     .split("&")
     .forEach(function (item) {

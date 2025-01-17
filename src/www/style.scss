@@ -17,6 +17,8 @@
  * along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+@import "slim-select/styles";
+
 html {
   background: white;
 }
@@ -258,7 +260,8 @@ a {
 .app .header {
   text-align: center;
 }
-.app .header h4, .row .header h4 {
+.app .header h4,
+.row .header h4 {
   margin: 0;
 }
 .app .header a {
@@ -267,7 +270,8 @@ a {
   max-width: 250px;
 }
 
-.app p, .row p {
+.app p,
+.row p {
   font-size: smaller;
   margin: 0;
   line-height: 1.5;
