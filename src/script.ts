@@ -672,7 +672,7 @@ function update({
     document.title = `OSM Apps Catalog - ${app.name}`;
     document
       .querySelector('meta[name="description"]')
-      .setAttribute("content", strip(app.description));
+      ?.setAttribute("content", strip(app.description));
   } else {
     getHtmlElement(".description").style.display = "";
 
@@ -682,7 +682,7 @@ function update({
         numberOfApps: filteredApps.length,
       }
     )}`;
-    document.querySelector('meta[name="description"]').setAttribute(
+    document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
       i18next.t(`category.${category}.description`, {
         numberOfApps: filteredApps.length,
@@ -828,7 +828,7 @@ async function getAppCatalog() {
     apps = await getJson("/api/apps/all.json", {});
   } else {
     await addScript("./data.js");
-    apps = window.apps;
+    apps = (window as any).apps;
   }
 
   doUpdate(apps);

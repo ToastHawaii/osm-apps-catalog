@@ -1,2 +1,2 @@
-import appsJson from "../api/apps/all.json";
-window.apps = appsJson as any;
+import appsJson from "../docs/api/apps/all.json";
+(window as any).apps = appsJson as any;

@@ -107,7 +107,7 @@ export function transformWikidataResult(result: any) {
         lastChange: result.modified.value,
       },
     ],
-  } as App;
+  } as any as App;
 }
 
 async function request(query: string) {

@@ -23,7 +23,7 @@ export async function run(): Promise<void> {
       return b.score.total - a.score.total;
     });
 
-    apps.forEach((app) => {
+    apps.forEach((app: any) => {
       delete app.score.details;
     });
 

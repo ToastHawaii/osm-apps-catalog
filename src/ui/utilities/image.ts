@@ -78,7 +78,7 @@ function generateCommonsWikimediaUrls(fileName: string, size: number) {
 
 function generateWikimediaUrls(base: string, fileName: string, size: number) {
   fileName = decodeURI(fileName).replace(/ /g, "_");
-  const hash = md5(fileName);
+  const hash = (md5 as any)(fileName);
 
   return [
     `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(

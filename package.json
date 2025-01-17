@@ -2,13 +2,6 @@
   "name": "osm-apps-catalog",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-    "build": "npm run app:build && npm run action:build",
-    "app:build": "webpack --config src/webpack.production.config.js",
-    "action:build": "npx ncc build src/action/index.ts -o dist --source-map --license licenses.txt",
-    "app:watch": "webpack --config src/webpack.development.config.js --watch",
-    "action:watch": "npm run action:build -- --watch"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ToastHawaii/osm-apps-catalog"
@@ -18,38 +11,51 @@
   "bugs": {
     "url": "https://github.com/ToastHawaii/osm-apps-catalog/issues"
   },
-  "homepage": "https://github.com/ToastHawaii/osm-apps-catalog#readme",
   "dependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.0",
-    "@babel/runtime": "7.25.6",
+    "@types/leaflet": "1.9.8",
     "@types/md5": "2.3.5",
     "@vercel/ncc": "0.38.3",
+    "@types/react": "18.3.8",
+    "@types/react-dom": "18.3.0",
     "i18next": "23.15.1",
     "i18next-browser-languagedetector": "8.0.0",
+    "i18next-client": "1.11.4",
     "md5": "2.3.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-i18next": "15.0.2",
+    "react-scripts": "5.0.1",
+    "sass": "1.79.3",
     "sitemap": "8.0.0",
-    "slim-select": "1.27.1"
+    "slim-select": "1.27.1",
+    "typescript": "4.9.5"
   },
   "devDependencies": {
-    "@babel/core": "7.25.2",
-    "@babel/plugin-transform-class-properties": "7.25.4",
-    "@babel/plugin-transform-object-rest-spread": "7.24.7",
-    "@babel/plugin-transform-runtime": "7.25.4",
-    "@babel/preset-env": "7.25.4",
-    "@babel/preset-typescript": "7.24.7",
-    "@github/local-action": "^2.2.1",
-    "babel-loader": "9.2.1",
-    "copy-webpack-plugin": "12.0.2",
-    "css-loader": "7.1.2",
-    "file-loader": "6.2.0",
-    "fork-ts-checker-webpack-plugin": "9.0.2",
-    "html-webpack-plugin": "5.6.0",
-    "source-map-loader": "5.0.0",
-    "style-loader": "4.0.0",
-    "terser-webpack-plugin": "5.3.10",
-    "typescript": "5.6.2",
-    "webpack": "5.94.0",
-    "webpack-cli": "5.1.4"
+    "@github/local-action": "2.2.1"
+  },
+  "scripts": {
+    "build": "npm run app:build && npm run action:build",
+    "app:start": "react-scripts start",
+    "app:build": "BUILD_PATH='./docs' react-scripts build",
+    "action:build": "npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
