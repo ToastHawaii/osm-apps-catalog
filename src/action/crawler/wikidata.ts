@@ -1,7 +1,7 @@
 import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
-import { App } from "../utilities";
+import { App } from "../../data/App";
 
 function extractGenre(result: any) {
   const genre = [];

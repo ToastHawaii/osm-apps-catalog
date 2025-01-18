@@ -27,12 +27,12 @@ import {
   splitByCommaButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
-  App,
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
   extractLanguageCodeFromTemplate,
 } from "../../utilities";
+import { App } from "../../../data/App";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {

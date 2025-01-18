@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { App } from "../../action/utilities";
+import { App } from "../../data/App";
 
 export function renderScore(app: App) {
   let label;

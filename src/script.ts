@@ -15,15 +15,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import SlimSelect from "slim-select";
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "./utilities/html";
-import { debounce } from "./utilities/debounce";
 import { lazyLoadImages } from "./ui/utilities/lazyLoadImages";
 import { render as renderListView } from "./ui/views/list";
 import { includes, some } from "./utilities/array";
 import { equalsIgnoreCase, strip } from "./utilities/string";
-import { App } from "./action/utilities";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
@@ -31,6 +28,8 @@ import { lazyInitMore } from "./ui/utilities/lazyInitMore";
 import { calculateScore, sum } from "./action/addApp";
 import { getJson } from "./utilities/jsonRequest";
 import { languageValueToDisplay } from "./ui/utilities/language";
+import { State } from "./State";
+import { App } from "./data/App";
 
 import "./style.scss";
 
@@ -38,56 +37,8 @@ let onInit = true;
 
 let onUpdate = false;
 export let apps: App[] = [];
-const topicsSelect = new SlimSelect({
-  select: "#topic",
-  settings: { placeholderText: i18next.t("filter.topic") },
-  events: {
-    afterChange: () => {
-      doUpdate(apps);
-    },
-  },
-});
-const platformsSelect = new SlimSelect({
-  select: "#platform",
-  settings: {
-    placeholderText: i18next.t("filter.platform"),
-  },
-  events: {
-    afterChange: () => {
-      doUpdate(apps);
-    },
-  },
-});
-const languagesSelect = new SlimSelect({
-  select: "#language",
-  settings: { placeholderText: i18next.t("filter.language") },
-  events: {
-    afterChange: () => {
-      doUpdate(apps);
-    },
-  },
-});
-const coverageSelect = new SlimSelect({
-  select: "#coverage",
-  settings: { placeholderText: i18next.t("filter.coverage") },
-  events: {
-    afterChange: () => {
-      doUpdate(apps);
-    },
-  },
-});
 
-const searchElement = document.getElementById("search") as HTMLInputElement;
-searchElement.placeholder = i18next.t("filter.search");
-searchElement.addEventListener(
-  "input",
-  debounce(() => {
-    doUpdate(apps, false, false);
-  }, 500)
-);
-searchElement.addEventListener("blur", () => {
-  doUpdate(apps, false, true, false);
-});
+
 
 const moreFiltersElement = document.getElementById(
   "more-filters"
@@ -114,18 +65,6 @@ moreFiltersElement.addEventListener("click", () => {
   }
 );
 
-type State = {
-  lang: string;
-  category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
-  app?: number | undefined;
-  search: string;
-  topics: string[];
-  platforms: string[];
-  languages: string[];
-  coverage: string[];
-  view: "list" | "compare";
-};
-
 const lang = (findGetParameter("lang") || "en").toLowerCase();
 
 export function doUpdate(
@@ -138,14 +77,14 @@ export function doUpdate(
   if (!onUpdate) {
     onUpdate = true;
     if (reset) {
-      searchElement.value = "";
-      topicsSelect.setSelected([]);
-      platformsSelect.setSelected([]);
-      languagesSelect.setSelected([]);
-      coverageSelect.setSelected([]);
+      //searchElement.value = "";
+      // topicsSelect.setSelected([]);
+      // platformsSelect.setSelected([]);
+      // languagesSelect.setSelected([]);
+      // coverageSelect.setSelected([]);
     }
     const params = new URLSearchParams(window.location.search);
-    const category =""// categorySelect.getSelected()[0] as string;
+    const category = ""; // categorySelect.getSelected()[0] as string;
     let state: State = {
       lang,
       app:
@@ -154,11 +93,11 @@ export function doUpdate(
             ? parseInt(params.get("app") as string, 10)
             : undefined
           : undefined,
-      search: searchElement.value,
-      topics: topicsSelect.getSelected() as string[],
-      platforms: platformsSelect.getSelected() as string[],
-      languages: languagesSelect.getSelected() as string[],
-      coverage: coverageSelect.getSelected() as string[],
+      // search: searchElement.value,
+      // topics: topicsSelect.getSelected() as string[],
+      // platforms: platformsSelect.getSelected() as string[],
+      // languages: languagesSelect.getSelected() as string[],
+      // coverage: coverageSelect.getSelected() as string[],
       category: category as any,
       view: (document.getElementById("listView") as HTMLInputElement).checked
         ? "list"
@@ -250,16 +189,7 @@ function update({
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
 
-  setTimeout(() => {
-    const datalist = getHtmlElement("#search-suggestions");
-    if (!datalist.innerHTML) {
-      for (const topic of [...new Set(apps.flatMap((a) => a.topics))].sort()) {
-        const option = createElement("option");
-        option.value = topic;
-        datalist.appendChild(option);
-      }
-    }
-  }, 0);
+ 
 
   let filteredApps: App[] = apps.slice();
 
@@ -326,7 +256,7 @@ function update({
     }
   }
 
-  searchElement.value = search;
+  //  searchElement.value = search;
 
   search = search.toUpperCase();
   const topicsUp = topics.map((t) => t.toUpperCase());
@@ -456,17 +386,17 @@ function update({
     languagesData.push(...a.languages.filter((l) => l).map((l) => l));
   }
 
-  topicsSelect.setData(prepareArrayForSelect(topicsData, topics));
-  topicsSelect.setSelected(topics);
+  // topicsSelect.setData(prepareArrayForSelect(topicsData, topics));
+  // topicsSelect.setSelected(topics);
 
-  platformsSelect.setData(prepareArrayForSelect(platformsData, platforms));
-  platformsSelect.setSelected(platforms);
+  // platformsSelect.setData(prepareArrayForSelect(platformsData, platforms));
+  // platformsSelect.setSelected(platforms);
 
-  languagesSelect.setData(prepareArrayForSelect(languagesData, languages));
-  languagesSelect.setSelected(languages);
+  // languagesSelect.setData(prepareArrayForSelect(languagesData, languages));
+  // languagesSelect.setSelected(languages);
 
-  coverageSelect.setData(prepareArrayForSelect(coverageData, coverage));
-  coverageSelect.setSelected(coverage);
+  // coverageSelect.setData(prepareArrayForSelect(coverageData, coverage));
+  // coverageSelect.setSelected(coverage);
 
   document
     .getElementById("view")

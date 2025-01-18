@@ -1,6 +1,7 @@
 import { removeDuplicates } from "../utilities/array";
 import { equalsIgnoreCase, equalsYes, notNo } from "../utilities/string";
-import { App, hashCode } from "./utilities";
+import { hashCode } from "./utilities";
+import { App } from "../data/App";
 import { extendFilter } from "./utilities/extendFilter";
 import { display, edit, web } from "../utilities/filter";
 

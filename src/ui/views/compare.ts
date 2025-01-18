@@ -17,7 +17,7 @@
 
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "../../utilities/html";
-import { App, toSourceDisplayText } from "../../action/utilities";
+import {  toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
@@ -25,6 +25,7 @@ import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "./getMatrix";
+import { App } from "../../data/App";
 
 export function render(apps: App[], lang: string) {
   {

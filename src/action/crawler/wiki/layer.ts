@@ -27,11 +27,11 @@ import {
   trim,
 } from "../../../utilities/string";
 import {
-  App,
   processWikiText,
   extractWebsite,
   extractNameWebsiteWiki,
 } from "../../utilities";
+import { App } from "../../../data/App";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {

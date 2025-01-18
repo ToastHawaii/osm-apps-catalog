@@ -7,7 +7,7 @@ import "../ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
-import { App } from "./utilities";
+import { App } from "../data/App";
 
 const lastUpdate = new Date("2025-01-11");
 

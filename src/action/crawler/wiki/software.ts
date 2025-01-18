@@ -31,11 +31,11 @@ import {
   splitByCommaButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
-  App,
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
 } from "../../utilities";
+import { App } from "../../../data/App";
 
 export function transform(
   source: { [name: string]: string } & {

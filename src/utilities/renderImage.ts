@@ -1,5 +1,5 @@
-import { App } from "../action/utilities";
 import i18next from "i18next";
+import { App } from "../data/App";
 
 export function renderImage(obj: App) {
   const defaultImage =

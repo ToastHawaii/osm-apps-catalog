@@ -1,8 +1,9 @@
-import { App, toWikiText } from "../../action/utilities";
+import {  toWikiText } from "../../action/utilities";
 import { templateData } from "../utilities/templateData";
 import { getLocalizedValue } from "../utilities/getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../../utilities/string";
 import i18next from "i18next";
+import { App } from "../../data/App";
 
 function isUnknown(value: string | string[] | undefined): value is undefined {
   if (Array.isArray(value)) {

@@ -16,12 +16,13 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { createElement, getHtmlElement } from "../../utilities/html";
-import { App, toSourceDisplayText } from "../../action/utilities";
+import { toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
 import i18next from "i18next";
 import { getMatrix } from "./getMatrix";
+import { App } from "../../data/App";
 
 export function render(app: App, open = false) {
   const link = new URLSearchParams();

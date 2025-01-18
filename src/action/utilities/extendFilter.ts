@@ -1,4 +1,4 @@
-import { App } from "../utilities";
+import { App } from "../../data/App";
 import { Color } from "./coloriz/Color";
 import { Solver } from "./coloriz/Solver";
 import { textToColor } from "../../utilities/string";
