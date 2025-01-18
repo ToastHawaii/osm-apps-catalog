@@ -1,6 +1,6 @@
 import { App, toWikiText } from "../../action/utilities";
-import { templateData } from "../templateData";
-import { getLocalizedValue } from "../getLocalizedValue";
+import { templateData } from "../utilities/templateData";
+import { getLocalizedValue } from "../utilities/getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../../utilities/string";
 import i18next from "i18next";
 

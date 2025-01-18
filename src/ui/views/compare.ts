@@ -24,7 +24,7 @@ import { renderScore } from "./renderScore";
 import { renderFree } from "./renderFree";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { notNo } from "../../utilities/string";
-import { languageValueToDisplay } from "../language";
+import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "./getMatrix";
 import { features } from "../../features";
 

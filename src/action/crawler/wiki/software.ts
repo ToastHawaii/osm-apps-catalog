@@ -17,8 +17,8 @@
 
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
-import { platformValueToDisplay } from "../../../ui/platform";
-import { languageValueFormat } from "../../../ui/language";
+import { platformValueToDisplay } from "../../utilities/platform";
+import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { removeDuplicates, some } from "../../../utilities/array";
 import {
   appendFullStop,

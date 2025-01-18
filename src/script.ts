@@ -19,7 +19,7 @@ import SlimSelect from "slim-select";
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "./utilities/html";
 import { debounce } from "./utilities/debounce";
-import { lazyLoadImages } from "./ui/lazyLoadImages";
+import { lazyLoadImages } from "./ui/utilities/lazyLoadImages";
 import { render as renderListView } from "./ui/views/list";
 import { includes, some } from "./utilities/array";
 import { equalsIgnoreCase, strip } from "./utilities/string";
@@ -27,12 +27,12 @@ import { App } from "./action/utilities";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
-import { lazyInitMore } from "./ui/lazyInitMore";
-import "./ui/i18n";
+import { lazyInitMore } from "./ui/utilities/lazyInitMore";
+import "./ui/utilities/i18n";
 import { features } from "./features";
 import { calculateScore, sum } from "./action/addApp";
 import { getJson } from "./utilities/jsonRequest";
-import { languageValueToDisplay } from "./ui/language";
+import { languageValueToDisplay } from "./ui/utilities/language";
 
 import "./style.scss";
 

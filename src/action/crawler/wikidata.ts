@@ -1,4 +1,4 @@
-import { languageValueFormat } from "../../ui/language";
+import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../utilities";

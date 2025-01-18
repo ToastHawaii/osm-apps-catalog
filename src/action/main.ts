@@ -3,7 +3,7 @@ import { context, getOctokit } from "@actions/github";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 
-import "../ui/i18n";
+import "../ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
