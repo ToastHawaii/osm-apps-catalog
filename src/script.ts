@@ -114,63 +114,6 @@ moreFiltersElement.addEventListener("click", () => {
   }
 );
 
-const categorySelect = new SlimSelect({
-  select: "#category",
-  settings: {
-    showSearch: false,
-    placeholderText: i18next.t("filter.category"),
-  },
-  data: [
-    {
-      value: "all",
-      html:
-        "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> " +
-        i18next.t("filter.category.all"),
-      text: i18next.t("filter.category.all"),
-    },
-    {
-      value: "focus",
-      html:
-        "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> " +
-        i18next.t("filter.category.focus"),
-      text: i18next.t("filter.category.focus"),
-    },
-    {
-      value: "latest",
-      html:
-        "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> " +
-        i18next.t("filter.category.latest"),
-      text: i18next.t("filter.category.latest"),
-    },
-    {
-      value: "mobile",
-      html:
-        "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> " +
-        i18next.t("filter.category.mobile"),
-      text: i18next.t("filter.category.mobile"),
-    },
-    {
-      value: "navigation",
-      html:
-        "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> " +
-        i18next.t("filter.category.navigation"),
-      text: i18next.t("filter.category.navigation"),
-    },
-    {
-      value: "edit",
-      html:
-        "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> " +
-        i18next.t("filter.category.edit"),
-      text: i18next.t("filter.category.edit"),
-    },
-  ],
-  events: {
-    afterChange: (i: any) => {
-      doUpdate(apps, i.value === "focus");
-    },
-  },
-});
-
 type State = {
   lang: string;
   category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
@@ -202,7 +145,7 @@ export function doUpdate(
       coverageSelect.setSelected([]);
     }
     const params = new URLSearchParams(window.location.search);
-    const category = categorySelect.getSelected()[0] as string;
+    const category =""// categorySelect.getSelected()[0] as string;
     let state: State = {
       lang,
       app:
@@ -300,7 +243,7 @@ function update({
   coverage,
   view,
 }: State) {
-  categorySelect.setSelected(category);
+  //categorySelect.setSelected(category);
 
   updateDescription(category);
 
