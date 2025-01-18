@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ViewSelect } from "./ui/components/ViewSelect";
 
+setTimeout(() => {
+  require("./script");
+}, 1);
+
 export function App() {
-  useEffect(() => {
-    require("./script");
-  });
   return (
     <div id="content">
       <header className="page-header">
