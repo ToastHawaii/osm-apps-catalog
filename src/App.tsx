@@ -8,10 +8,6 @@ export function App() {
   return (
     <div id="content">
       <header className="page-header">
-        <label style={{ float: "right", margin: "10px" }}>
-          <input type="checkbox" id="free" />
-          <span id="freeDisplay">Free</span>
-        </label>
         <select
           id="category"
           style={{ width: "228px", float: "right", margin: "4px" }}

@@ -21,12 +21,10 @@ import { App, toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
-import { renderFree } from "./renderFree";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "./getMatrix";
-import { features } from "../../features";
 
 export function render(apps: App[], lang: string) {
   {
@@ -38,7 +36,7 @@ export function render(apps: App[], lang: string) {
           (app) =>
             `<div class="cell header text-center with-corner-badge">${renderScore(
               app
-            )}${features.freeFilter ? renderFree(app) : ""}<h4>${
+            )}<h4>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name

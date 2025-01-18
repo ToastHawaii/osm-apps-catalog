@@ -29,7 +29,6 @@ import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/utilities/lazyInitMore";
 import "./ui/utilities/i18n";
-import { features } from "./features";
 import { calculateScore, sum } from "./action/addApp";
 import { getJson } from "./utilities/jsonRequest";
 import { languageValueToDisplay } from "./ui/utilities/language";
@@ -80,18 +79,7 @@ setTimeout(() => {
     },
   });
 
-  const freeCheckbox = document.getElementById("free") as HTMLInputElement;
-  freeCheckbox.addEventListener("change", () => {
-    doUpdate(apps);
-  });
-  if (features.freeFilter) {
-    (document.getElementById("freeDisplay") as HTMLSpanElement).innerText =
-      i18next.t("filter.free");
-  } else {
-    (
-      document.getElementById("freeDisplay") as HTMLSpanElement
-    ).parentElement!.style.display = "none";
-  }
+
   (document.getElementById("about") as HTMLAnchorElement).setAttribute(
     "title",
     i18next.t("about")
@@ -202,7 +190,6 @@ setTimeout(() => {
 
   type State = {
     lang: string;
-    freeOnly: boolean;
     category: "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
     app?: number | undefined;
     search: string;
@@ -236,7 +223,6 @@ setTimeout(() => {
       const category = categorySelect.getSelected()[0] as string;
       let state: State = {
         lang,
-        freeOnly: freeCheckbox.checked,
         app:
           !category || category === "all"
             ? params.get("app")
@@ -257,7 +243,6 @@ setTimeout(() => {
       if (onInit) {
         state = {
           lang: params.get("lang") || "",
-          freeOnly: params.get("freeOnly") === "1" ? true : false,
           app: params.get("app")
             ? parseInt(params.get("app") as string, 10)
             : undefined,
@@ -295,7 +280,6 @@ setTimeout(() => {
         new URLSearchParams(
           [
             ["lang", state.lang === "en" ? "" : state.lang],
-            ["freeOnly", state.freeOnly ? "1" : ""],
             ["category", state.category === "all" ? "" : state.category],
             ["app", "" + (state.app || "")],
             ["search", state.search],
@@ -325,7 +309,6 @@ setTimeout(() => {
   }
 
   function update({
-    freeOnly,
     category,
     app: appId,
     search,
@@ -357,10 +340,7 @@ setTimeout(() => {
 
     let filteredApps: App[] = apps.slice();
 
-    freeCheckbox.checked = freeOnly;
-    if (freeOnly) {
-      filteredApps = filteredApps.filter((a) => a.gratis || a.libre);
-    }
+ 
 
     if (category === "latest") {
       filteredApps = filteredApps.sort(function (a, b) {
@@ -877,4 +857,4 @@ setTimeout(() => {
       else return { value: t.name, text: `${t.name} (${t.count})` };
     });
   }
-}, 1000);
+}, 500);

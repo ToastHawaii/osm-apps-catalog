@@ -20,10 +20,8 @@ import { App, toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
 import { renderBadges } from "./renderBadges";
 import { renderScore } from "./renderScore";
-import { renderFree } from "./renderFree";
 import i18next from "i18next";
 import { getMatrix } from "./getMatrix";
-import { features } from "../../features";
 
 export function render(app: App, open = false) {
   const link = new URLSearchParams();
@@ -33,9 +31,7 @@ export function render(app: App, open = false) {
     "div",
     `<div class="header">
       
-      <div class="with-corner-badge">${renderScore(app)}${
-      features.freeFilter ? renderFree(app) : ""
-    }<h4>${
+      <div class="with-corner-badge">${renderScore(app)}<h4>${
       app.website
         ? `<a href="${app.website}" target="_blank">${app.name}</a>`
         : app.name
