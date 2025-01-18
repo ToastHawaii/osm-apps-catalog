@@ -77,11 +77,6 @@ const coverageSelect = new SlimSelect({
   },
 });
 
-if (i18next.resolvedLanguage !== "en") {
-  (document.getElementById("about") as HTMLAnchorElement).href =
-    "/docs/" + i18next.resolvedLanguage;
-}
-
 const searchElement = document.getElementById("search") as HTMLInputElement;
 searchElement.placeholder = i18next.t("filter.search");
 searchElement.addEventListener(
@@ -190,7 +185,7 @@ type State = {
 
 const lang = (findGetParameter("lang") || "en").toLowerCase();
 
-function doUpdate(
+export function doUpdate(
   newApps: App[],
   reset?: boolean,
   history = true,
