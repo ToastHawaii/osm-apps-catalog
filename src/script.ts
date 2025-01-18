@@ -28,7 +28,6 @@ import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/utilities/lazyInitMore";
-import "./ui/utilities/i18n";
 import { calculateScore, sum } from "./action/addApp";
 import { getJson } from "./utilities/jsonRequest";
 import { languageValueToDisplay } from "./ui/utilities/language";
@@ -77,15 +76,6 @@ const coverageSelect = new SlimSelect({
     },
   },
 });
-
-(document.getElementById("about") as HTMLAnchorElement).setAttribute(
-  "title",
-  i18next.t("about")
-);
-(document.getElementById("listText") as HTMLSpanElement).textContent =
-  i18next.t("list");
-(document.getElementById("compareText") as HTMLSpanElement).textContent =
-  i18next.t("compare");
 
 if (i18next.resolvedLanguage !== "en") {
   (document.getElementById("about") as HTMLAnchorElement).href =
@@ -206,7 +196,6 @@ function doUpdate(
   history = true,
   render = true
 ) {
-  debugger;
   apps = newApps;
   if (!onUpdate) {
     onUpdate = true;

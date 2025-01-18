@@ -1,5 +1,6 @@
 import React from "react";
 import { ViewSelect } from "./ui/components/ViewSelect";
+import { About } from "./ui/components/about";
 
 setTimeout(() => {
   require("./script");
@@ -18,9 +19,7 @@ export function App() {
           <a href="/" style={{ color: "#333" }}>
             OSM Apps Catalog
           </a>
-          <a id="about" className="info" href="/docs/" title="About">
-            <i className="fas fa-info-circle"></i>
-          </a>
+          <About />
         </h1>
         <p className="description" style={{ margin: "5px 10px 10px" }}></p>
         <input
@@ -31,17 +30,17 @@ export function App() {
           autoComplete="on"
           list="search-suggestions"
         />
-        <datalist id="search-suggestions"></datalist>&#32;
+        <datalist id="search-suggestions"></datalist>{" "}
         <button id="more-filters" className="filter hidden">
           Filters
         </button>
+        <hr style={{ border: "1px solid #ccc" }} />
         <span className="advanced-filter" style={{ display: "none" }}>
           <select id="topic" className="filter hidden" multiple></select>
           <select id="platform" className="filter hidden" multiple></select>
           <select id="language" className="filter hidden" multiple></select>
           <select id="coverage" className="filter hidden" multiple></select>
         </span>
-        <hr style={{ border: "1px solid #ccc" }} />
         <ViewSelect />
       </header>
       <main>

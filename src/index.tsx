@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import "./ui/utilities/i18n";
 import { App } from "./App";
 
 const root = ReactDOM.createRoot(

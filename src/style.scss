@@ -197,11 +197,7 @@ a {
   text-wrap: nowrap;
 }
 
-.info {
-  color: black;
-  font-size: 26px;
-  padding: 4px;
-}
+
 
 #search {
   position: relative;
@@ -232,6 +228,16 @@ a {
 
 .ss-main .ss-multi-selected .ss-values .ss-disabled {
   color: #666;
+}
+
+.ss-list {
+  text-align: start;
+}
+
+.advanced-filter {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
 }
 
 .app {

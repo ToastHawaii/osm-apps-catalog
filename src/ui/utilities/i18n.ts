@@ -1,4 +1,5 @@
 import i18next from "i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import * as en from "../locales/en.json";
 import * as cs from "../locales/cs.json";
@@ -29,33 +30,36 @@ import * as templateEs from "../locales/wiki-software-template/es.json";
 import * as templateHu from "../locales/wiki-software-template/hu.json";
 import * as templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
 
-i18next.use(LanguageDetector).init({
-  detection: {
-    lookupQuerystring: "lang",
-  },
-  fallbackLng: "en",
-  resources: {
-    en: { translation: { ...en, "app.props": templateEn } },
-    cs: { translation: { ...cs, "app.props": templateCs } },
-    de: { translation: { ...de, "app.props": templateDe } },
-    el: { translation: el },
-    es: { translation: { ...es, "app.props": templateEs } },
-    fr: { translation: fr },
-    hu: { translation: { ...hu, "app.props": templateHu } },
-    id: { translation: id },
-    it: { translation: it },
-    ja: { translation: ja },
-    ko: { translation: ko },
-    no: { translation: nb_NO },
-    pl: { translation: pl },
-    pt: { translation: pt },
-    ru: { translation: ru },
-    tr: { translation: tr },
-    uk: { translation: uk },
-    zh: { translation: zh_Hant },
-    "zh-Hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
-  },
-});
+i18next
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    detection: {
+      lookupQuerystring: "lang",
+    },
+    fallbackLng: "en",
+    resources: {
+      en: { translation: { ...en, "app.props": templateEn } },
+      cs: { translation: { ...cs, "app.props": templateCs } },
+      de: { translation: { ...de, "app.props": templateDe } },
+      el: { translation: el },
+      es: { translation: { ...es, "app.props": templateEs } },
+      fr: { translation: fr },
+      hu: { translation: { ...hu, "app.props": templateHu } },
+      id: { translation: id },
+      it: { translation: it },
+      ja: { translation: ja },
+      ko: { translation: ko },
+      no: { translation: nb_NO },
+      pl: { translation: pl },
+      pt: { translation: pt },
+      ru: { translation: ru },
+      tr: { translation: tr },
+      uk: { translation: uk },
+      zh: { translation: zh_Hant },
+      "zh-Hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
+    },
+  });
 
 const langs = ["en", "cs", "de", "es", "hu", "zh-hans"];
 
