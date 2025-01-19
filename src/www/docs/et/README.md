@@ -1,9 +1,9 @@
-# OpenStreetMap Apps
+# OpenStreetMapi rakendused
 
-**Experience the world in a creative, productive and unexpected way.**
+**Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, misa kasutavad
+OpenStreetMapi andmeid.
 
 [Go to the catalog](https://osm-apps.zottelig.ch)
 
