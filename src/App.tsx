@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ViewSelect } from "./ui/components/ViewSelect";
 import { About } from "./ui/components/about";
@@ -8,14 +8,31 @@ import { TopicSelect } from "./ui/components/TopicSelect";
 import { PlatformSelect } from "./ui/components/PlatformSelect";
 import { LanguageSelect } from "./ui/components/LanguageSelect";
 import { CoverageSelect } from "./ui/components/CoverageSelect";
-import { apps, doUpdate } from "./script";
+import { doUpdate } from "./script";
 import { debounce } from "./utilities/debounce";
+import { useData } from "./useData";
+import { Filters } from "./ui/components/filters";
+import { printCalcScore } from "./utilities/printCalcScore";
+import { isDevelopment } from "./utilities/isDevelopment";
 
 setTimeout(() => {
   require("./script");
 }, 1);
 
 export function App() {
+  const apps = useData();
+  const [moreFilters, setMoreFilters] = useState(false);
+
+  useEffect(() => {
+    if (apps.length > 0) {
+      doUpdate(apps);
+
+      if (isDevelopment) {
+        printCalcScore(apps);
+      }
+    }
+  }, [apps]);
+
   return (
     <div id="content">
       <header className="page-header">
@@ -25,7 +42,11 @@ export function App() {
           }}
         />
         <h1 style={{ clear: "both", margin: "0" }}>
-          <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
+          {apps.length === 0 ? (
+            <>
+              <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
+            </>
+          ) : null}
           <a href="/" style={{ color: "#333" }}>
             OSM Apps Catalog
           </a>
@@ -41,17 +62,23 @@ export function App() {
             doUpdate(apps, false, true, false);
           }}
         />{" "}
-        <button id="more-filters" className="filter hidden">
-          Filters
-        </button>
+        {!moreFilters ? (
+          <Filters
+            onChange={(value) => {
+              setMoreFilters(value);
+            }}
+          />
+        ) : null}
         <hr style={{ border: "1px solid #ccc" }} />
-        <span className="advanced-filter" style={{ display: "none" }}>
-          <TopicSelect onChange={() => doUpdate(apps)} />
-          <PlatformSelect onChange={() => doUpdate(apps)} />
-          <LanguageSelect onChange={() => doUpdate(apps)} />
-          <CoverageSelect onChange={() => doUpdate(apps)} />
-        </span>
-        <ViewSelect />
+        {moreFilters ? (
+          <span className="advanced-filter">
+            <TopicSelect onChange={() => doUpdate(apps)} />
+            <PlatformSelect onChange={() => doUpdate(apps)} />
+            <LanguageSelect onChange={() => doUpdate(apps)} />
+            <CoverageSelect onChange={() => doUpdate(apps)} />
+          </span>
+        ) : null}
+        <ViewSelect onChange={() => doUpdate(apps)} />
       </header>
       <main>
         <div id="list"></div>

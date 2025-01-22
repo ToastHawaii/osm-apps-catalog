@@ -25,8 +25,7 @@ import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/utilities/lazyInitMore";
-import { calculateScore, sum } from "./action/addApp";
-import { getJson } from "./utilities/jsonRequest";
+import { calculateScore } from "./action/addApp";
 import { languageValueToDisplay } from "./ui/utilities/language";
 import { State } from "./State";
 import { App } from "./data/App";
@@ -37,33 +36,6 @@ let onInit = true;
 
 let onUpdate = false;
 export let apps: App[] = [];
-
-
-
-const moreFiltersElement = document.getElementById(
-  "more-filters"
-) as HTMLButtonElement;
-moreFiltersElement.innerText = i18next.t("filter.moreFilters");
-moreFiltersElement.addEventListener("click", () => {
-  moreFiltersElement.style.display = "none";
-
-  document
-    .querySelectorAll(".advanced-filter")
-    .forEach((e) => ((e as HTMLElement).style.display = ""));
-});
-
-(document.getElementById("listView") as HTMLInputElement).addEventListener(
-  "input",
-  () => {
-    doUpdate(apps);
-  }
-);
-(document.getElementById("compareView") as HTMLInputElement).addEventListener(
-  "input",
-  () => {
-    doUpdate(apps);
-  }
-);
 
 const lang = (findGetParameter("lang") || "en").toLowerCase();
 
@@ -93,11 +65,11 @@ export function doUpdate(
             ? parseInt(params.get("app") as string, 10)
             : undefined
           : undefined,
-      // search: searchElement.value,
-      // topics: topicsSelect.getSelected() as string[],
-      // platforms: platformsSelect.getSelected() as string[],
-      // languages: languagesSelect.getSelected() as string[],
-      // coverage: coverageSelect.getSelected() as string[],
+      search: "", //searchElement.value,
+      topics: [""], // topicsSelect.getSelected() as string[],
+      platforms: [""], //platformsSelect.getSelected() as string[],
+      languages: [""], //languagesSelect.getSelected() as string[],
+      coverage: [""], //coverageSelect.getSelected() as string[],
       category: category as any,
       view: (document.getElementById("listView") as HTMLInputElement).checked
         ? "list"
@@ -188,8 +160,6 @@ function update({
 
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
-
- 
 
   let filteredApps: App[] = apps.slice();
 
@@ -369,7 +339,7 @@ function update({
     params.get("languages") ||
     params.get("coverage")
   ) {
-    moreFiltersElement.style.display = "none";
+    // moreFiltersElement.style.display = "none";
 
     document
       .querySelectorAll(".advanced-filter")
@@ -649,36 +619,6 @@ function renderNotFoundApps() {
     renderListView(a as App);
   }
 }
-
-function printCalcScore() {
-  const average = sum(apps.map((a) => a.score.total)) / apps.length;
-  console.info("Average");
-  console.info("18.24.2024: 1.970");
-  console.info("23.24.2024: 1.980");
-  console.info("25.24.2024: 1.999");
-  console.info("04.01.2025: 2.000");
-  console.info("10.01.2025: 2.008");
-  console.info("New score calculation");
-  console.info("11.01.2025: 2.147");
-  console.info("Today: " + average);
-}
-
-async function getAppCatalog() {
-  if (window.location.host !== "localhost:3000") {
-    apps = await getJson("/api/apps/all.json", {});
-  } else {
-    apps = await require("./data/all.json");
-  }
-
-  doUpdate(apps);
-  getHtmlElement("#loading").remove();
-
-  if (window.location.host === "localhost:3000") {
-    printCalcScore();
-  }
-}
-
-getAppCatalog();
 
 function prepareArrayForSelect(names: string[], selected: string[]) {
   names.sort(function (a, b) {

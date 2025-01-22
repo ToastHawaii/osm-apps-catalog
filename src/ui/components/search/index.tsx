@@ -30,7 +30,7 @@ export function Search({
       />
       <datalist id="search-suggestions">
         {[...new Set(apps.flatMap((a) => a.topics))].sort().map((topic) => (
-          <option value={topic} />
+          <option key={topic} value={topic} />
         ))}
       </datalist>
     </>
