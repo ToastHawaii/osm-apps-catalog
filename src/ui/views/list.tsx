@@ -17,13 +17,12 @@
 
 import React, { useState } from "react";
 import { SourceDisplayText } from "../../action/SourceDisplayText";
-// import { renderImage } from "../../utilities/renderImage";
-// import { renderBadges } from "./renderBadges";
- import { Score } from "./Score";
+import { Badges } from "./Badges";
+import { Image } from "./Image";
+import { Score } from "./Score";
 import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
-import { Badges } from "./Badges";
 
 export function List({ app, open = false }: { app: App; open: boolean }) {
   const { t } = useTranslation();
@@ -35,7 +34,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
     <div className={"app" + (open ? "app-page" : "")}>
       <div className="header">
         <div className="with-corner-badge">
-          <Score app={app}/>
+          <Score app={app} />
           <h4>
             {app.website ? (
               <a href={app.website} target="_blank">
@@ -46,14 +45,13 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             )}
           </h4>
         </div>
-        {
-          app.website ? (
-            <a href={app.website} target="_blank" title={app.name}>
-              {/* {renderImage(app)} */}
-            </a>
-          ) : null
-          // renderImage(app)
-        }
+        {app.website ? (
+          <a href={app.website} target="_blank" title={app.name}>
+            <Image app={app} />
+          </a>
+        ) : (
+          <Image app={app} />
+        )}
       </div>
 
       <p>
@@ -164,7 +162,9 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
         </a>
       )}
 
-       <div className="badges"><Badges topics={app.topics}/></div> 
+      <div className="badges">
+        <Badges topics={app.topics} />
+      </div>
 
       {!isOpen ? (
         <a
@@ -375,7 +375,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
                     target="_blank"
                     title={t("app.source.date", { date: s.lastChange })}
                   >
-                    <SourceDisplayText name={s.name }/>
+                    <SourceDisplayText name={s.name} />
                   </a>
                 ))
                 .reduce((prev, curr) => (

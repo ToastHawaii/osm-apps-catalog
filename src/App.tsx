@@ -18,6 +18,7 @@ import { useAppState } from "./utilities/useAppState";
 import { filter } from "./filter";
 import { App as AppData } from "./data/App";
 import { List } from "./ui/views/list";
+import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
 
 import "./style.scss";
 
@@ -47,7 +48,7 @@ export function App() {
   }, [apps, JSON.stringify(state)]);
 
   return (
-    <div id="content">
+    <LazyLoadImages>
       <header className="page-header">
         <Menu
           value={state.category}
@@ -126,6 +127,6 @@ export function App() {
         </div>
         {/* <div id="compare" className="table"></div> */}
       </main>
-    </div>
+    </LazyLoadImages>
   );
 }

@@ -10,6 +10,6 @@ export function extendFilter(app: App) {
       new Color(defaultColor.r, defaultColor.g, defaultColor.b)
     )
       .solve()
-      .filter.replace(/filter:/gi, "filter: brightness(0%)");
+      .filter.replace(/filter:/gi, "brightness(0%)");
   }
 }

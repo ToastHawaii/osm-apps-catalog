@@ -17,12 +17,11 @@
 
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "./utilities/html";
-import { lazyLoadImages } from "./ui/utilities/lazyLoadImages";
 import { includes, some } from "./utilities/array";
 import { strip } from "./utilities/string";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
-import { render as renderCompareView } from "./ui/views/compare";
+// import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/utilities/lazyInitMore";
 import { calculateScore } from "./action/addApp";
 import { languageValueToDisplay } from "./ui/utilities/language";
@@ -200,7 +199,7 @@ export function update({
           createElement("p", i18next.t("noResults"), ["no-results"])
         );
       }
-      renderCompareView(filteredApps, lang);
+      // renderCompareView(filteredApps, lang);
       setTimeout(() => {
         lazyInitMore(true);
       }, 0);
@@ -303,9 +302,7 @@ export function update({
     );
   }
 
-  setTimeout(() => {
-    lazyLoadImages(true);
-  }, 0);
+
 }
 
 function updateDescription(category: string, numberOfApps?: number) {

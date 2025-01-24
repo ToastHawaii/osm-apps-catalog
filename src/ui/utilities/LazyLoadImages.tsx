@@ -15,10 +15,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import React, { useEffect, useRef } from "react";
+
 let scrollTop = 0;
 let scrollLeft = 0;
 
-export async function lazyLoadImages(reset?: boolean) {
+async function isImage(src: string) {
+  return new Promise<boolean>((resolve) => {
+    const img = new Image();
+    img.addEventListener("load", () => {
+      resolve(true);
+    });
+    img.addEventListener("error", () => {
+      resolve(false);
+    });
+    img.src = src;
+    if (img.complete) resolve(true);
+  });
+}
+
+async function lazyLoadImages(reset?: boolean) {
   if (reset) {
     scrollTop = 0;
     scrollLeft = 0;
@@ -36,16 +52,16 @@ export async function lazyLoadImages(reset?: boolean) {
   ) {
     scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
-    const elements = document.querySelectorAll("#list *[dynamic-src]");
+    const elements = document.querySelectorAll("#list *[data-dynamic-src]");
     for (let i = 0; i < elements.length; i++) {
       const boundingClientRect = elements[i].getBoundingClientRect();
       if (
-        elements[i].hasAttribute("dynamic-src") &&
+        elements[i].hasAttribute("data-dynamic-src") &&
         boundingClientRect.top < contentElement?.clientHeight * 3
       ) {
-        const sources = (elements[i].getAttribute("dynamic-src") || "").split(
-          " "
-        );
+        const sources = (
+          elements[i].getAttribute("data-dynamic-src") || ""
+        ).split(" ");
 
         for (const src of sources) {
           if (document.body.contains(elements[i]) && (await isImage(src))) {
@@ -53,7 +69,7 @@ export async function lazyLoadImages(reset?: boolean) {
             break;
           }
         }
-        elements[i].removeAttribute("dynamic-src");
+        elements[i].removeAttribute("data-dynamic-src");
       }
     }
   }
@@ -64,16 +80,16 @@ export async function lazyLoadImages(reset?: boolean) {
   ) {
     scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
 
-    const elements = document.querySelectorAll("#compare *[dynamic-src]");
+    const elements = document.querySelectorAll("#compare *[data-dynamic-src]");
     for (let i = 0; i < elements.length; i++) {
       const boundingClientRect = elements[i].getBoundingClientRect();
       if (
-        elements[i].hasAttribute("dynamic-src") &&
+        elements[i].hasAttribute("data-dynamic-src") &&
         boundingClientRect.left < contentElement?.clientWidth * 2
       ) {
-        const sources = (elements[i].getAttribute("dynamic-src") || "").split(
-          " "
-        );
+        const sources = (
+          elements[i].getAttribute("data-dynamic-src") || ""
+        ).split(" ");
 
         for (const src of sources) {
           if (document.body.contains(elements[i]) && (await isImage(src))) {
@@ -81,31 +97,32 @@ export async function lazyLoadImages(reset?: boolean) {
             break;
           }
         }
-        elements[i].removeAttribute("dynamic-src");
+        elements[i].removeAttribute("data-dynamic-src");
       }
     }
   }
 }
-document.getElementById("content")?.addEventListener("scroll", () => {
-  lazyLoadImages();
-});
-document.getElementById("content")?.addEventListener("load", () => {
-  lazyLoadImages();
-});
-document.getElementById("content")?.addEventListener("resize", () => {
-  lazyLoadImages();
-});
 
-async function isImage(src: string) {
-  return new Promise<boolean>((resolve) => {
-    const img = new Image();
-    img.addEventListener("load", () => {
-      resolve(true);
+export function LazyLoadImages({ children }: { children: any }) {
+  const element = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    lazyLoadImages(true);
+
+    element.current?.addEventListener("scroll", () => {
+      lazyLoadImages();
     });
-    img.addEventListener("error", () => {
-      resolve(false);
+    element.current?.addEventListener("load", () => {
+      lazyLoadImages();
     });
-    img.src = src;
-    if (img.complete) resolve(true);
+    element.current?.addEventListener("resize", () => {
+      lazyLoadImages();
+    });
   });
+
+  return (
+    <div ref={element} id="content">
+      {children}
+    </div>
+  );
 }
