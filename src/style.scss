@@ -36,7 +36,6 @@ a {
   color: #007aff;
 }
 
-
 .radio-btn input {
   display: none;
 }
@@ -188,9 +187,6 @@ a {
   text-wrap: nowrap;
 }
 
-
-
-
 .ss-main {
   width: 240px;
   max-width: 100%;
@@ -206,6 +202,11 @@ a {
 
 .ss-list {
   text-align: start;
+}
+
+.ss-main .ss-values .ss-value .ss-value-delete {
+  border-left: none;
+  padding-left: 0;
 }
 
 .advanced-filter {

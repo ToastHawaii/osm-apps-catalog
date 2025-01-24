@@ -10,7 +10,7 @@ export function Filters({ onChange }: { onChange: (toggle: boolean) => void }) {
   return (
     <button
       id="more-filters"
-      className="filter hidden"
+      className="filter"
       onClick={() => {
         setToggle(!toggle);
         onChange(!toggle);

@@ -21,7 +21,8 @@ export function prepareArrayForSelect(names: string[], selected: string[]) {
 
   return nameCounts.map((t) => {
     if (selected.filter((s) => equalsIgnoreCase(t.name, s)).length > 0)
-      return { value: t.name, text: t.name };
-    else return { value: t.name, text: `${t.name} (${t.count})` };
+      return { value: t.name, text: t.name, selected: true };
+    else
+      return { value: t.name, text: `${t.name} (${t.count})` };
   });
 }

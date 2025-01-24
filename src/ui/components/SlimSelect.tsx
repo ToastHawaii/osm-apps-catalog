@@ -62,10 +62,10 @@ const SlimSelectComponent = (props: SlimSelectProps, ref: React.Ref<any>): JSX.E
         if (value.current !== stringValue) {
           value.current = stringValue
         }
-        // If they had an original afterChange, run it
-        if (config.events && originalPropAfterChange && typeof originalPropAfterChange === 'function') {
-          originalPropAfterChange(newSelectedOption)
-        }
+      }
+      // If they had an original afterChange, run it
+      if (config.events && originalPropAfterChange && typeof originalPropAfterChange === 'function') {
+        originalPropAfterChange(newSelectedOption)
       }
     }
 

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "../../data/App";
 import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
+import { isEqual } from "lodash";
 
 export function TopicSelect({
   apps,
@@ -15,9 +16,9 @@ export function TopicSelect({
 }) {
   const { t } = useTranslation();
 
-  const data: string[] = selected.slice();
+  const data = selected.slice();
 
-  data.push(...apps.flatMap((a) => a.topics.map((t) => t)));
+  data.push(...apps.flatMap((app) => app.topics.map((v) => v)));
 
   return (
     <SlimSelect
@@ -25,11 +26,15 @@ export function TopicSelect({
       multiple
       settings={{
         placeholderText: t("filter.topic"),
-        class: ["filter", "hidden"],
+        class: ["filter"],
       }}
       events={{
-        afterChange: (newValues) => {
-          onChange(newValues.map((v) => v.value));
+        afterChange: (newOptions) => {
+          const newValues = newOptions.map((o) => o.value);
+          if (isEqual(newValues, selected)) {
+            return;
+          }
+          onChange(newValues);
         },
       }}
     ></SlimSelect>

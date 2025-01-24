@@ -26,12 +26,12 @@ export function App() {
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
   const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
-  // const [moreFilters, setMoreFilters] = useState(
-  //   state.topics.length > 0 ||
-  //     state.platforms.length > 0 ||
-  //     state.languages.length > 0 ||
-  //     state.coverage.length > 0
-  // );
+  const [moreFilters, setMoreFilters] = useState(
+    state.topics.length > 0 ||
+      state.platforms.length > 0 ||
+      state.languages.length > 0 ||
+      state.coverage.length > 0
+  );
 
   useEffect(() => {
     if (apps.length > 0) {
@@ -80,15 +80,18 @@ export function App() {
             }, 500)}
           />
         )}
-        {/* {!moreFilters ? (
-          <Filters
-            onChange={(value) => {
-              setMoreFilters(value);
-            }}
-          />
-        ) : null} */}
+        {!moreFilters && (
+          <>
+            {" "}
+            <Filters
+              onChange={(value) => {
+                setMoreFilters(value);
+              }}
+            />
+          </>
+        )}
         <hr style={{ border: "1px solid #ccc" }} />
-        {/* {moreFilters ? (
+        {moreFilters && (
           <span className="advanced-filter">
             <TopicSelect
               apps={filteredApps}
@@ -96,22 +99,22 @@ export function App() {
               onChange={(newValues) => setAppState("topics", newValues)}
             />
             <LanguageSelect
-              onChange={() =>
-                update({ apps, filteredApps, appPage: !!state.app, ...state })
-              }
+              apps={filteredApps}
+              selected={state.languages}
+              onChange={(newValues) => setAppState("languages", newValues)}
             />
             <PlatformSelect
-              onChange={() =>
-                update({ apps, filteredApps, appPage: !!state.app, ...state })
-              }
+              apps={filteredApps}
+              selected={state.platforms}
+              onChange={(newValues) => setAppState("platforms", newValues)}
             />
             <CoverageSelect
-              onChange={() =>
-                update({ apps, filteredApps, appPage: !!state.app, ...state })
-              }
+              apps={filteredApps}
+              selected={state.coverage}
+              onChange={(newValues) => setAppState("coverage", newValues)}
             />
           </span>
-        ) : null} */}
+        )}
         <ViewSelect
           onChange={
             () => {}
@@ -122,7 +125,7 @@ export function App() {
       <main>
         <div id="list">
           {filteredApps.map((a) => (
-            <List app={a} open={!!state.app} />
+            <List key={a.id} app={a} open={!!state.app} />
           ))}
         </div>
         {/* <div id="compare" className="table"></div> */}

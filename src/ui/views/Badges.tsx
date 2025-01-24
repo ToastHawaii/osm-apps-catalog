@@ -32,7 +32,7 @@ export function Badges({ topics }: { topics: string | string[] | undefined }) {
   return (
     <>
       {topics.map((topic) => (
-        <Badge topic={topic} />
+        <Badge key={topic} topic={topic} />
       ))}
     </>
   );
