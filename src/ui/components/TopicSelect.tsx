@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { SlimSelect } from "./SlimSelect";
+import SlimSelect from "./SlimSelect";
 import { App } from "../../data/App";
 import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
 
@@ -21,12 +21,11 @@ export function TopicSelect({
 
   return (
     <SlimSelect
-      className="filter hidden"
       data={prepareArrayForSelect(data, selected)}
-      selected={selected}
       multiple
       settings={{
         placeholderText: t("filter.topic"),
+        class: ["filter", "hidden"],
       }}
       events={{
         afterChange: (newValues) => {

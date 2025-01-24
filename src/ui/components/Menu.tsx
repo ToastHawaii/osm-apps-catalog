@@ -1,8 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { SlimSelect } from "./SlimSelect";
+import SlimSelect from "./SlimSelect";
 
-export function Menu({ onChange }: { onChange: (value: string) => void }) {
+export function Menu({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -19,6 +25,7 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='fas fa-layer-group' style='position: absolute;right: 28px;'></i> " +
             t("filter.category.all"),
           text: t("filter.category.all"),
+          selected: false,
         },
         {
           value: "focus",
@@ -26,6 +33,7 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='far fa-eye' style='position: absolute;right: 27px;'></i> " +
             t("filter.category.focus"),
           text: t("filter.category.focus"),
+          selected: false,
         },
         {
           value: "latest",
@@ -33,6 +41,7 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='far fa-clock' style='position: absolute;right: 28px;'></i> " +
             t("filter.category.latest"),
           text: t("filter.category.latest"),
+          selected: false,
         },
         {
           value: "mobile",
@@ -40,6 +49,7 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> " +
             t("filter.category.mobile"),
           text: t("filter.category.mobile"),
+          selected: false,
         },
         {
           value: "navigation",
@@ -47,6 +57,7 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> " +
             t("filter.category.navigation"),
           text: t("filter.category.navigation"),
+          selected: false,
         },
         {
           value: "edit",
@@ -54,10 +65,19 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
             "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> " +
             t("filter.category.edit"),
           text: t("filter.category.edit"),
+          selected: false,
         },
-      ]}
+      ].map((c) => {
+        if (c.value === value) {
+          c.selected = true;
+        }
+        return c;
+      })}
       events={{
         afterChange: (i) => {
+          if (value === i[0].value) {
+            return;
+          }
           onChange(i[0].value);
         },
       }}

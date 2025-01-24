@@ -32,10 +32,18 @@ export function App() {
   //     state.coverage.length > 0
   // );
 
+  // useEffect(() => {
+  //   if (apps.length > 0) {
+  //     // update({ apps, filteredApps, appPage: !!state.app, ...state });
+
+  //     if (isDevelopment) {
+  //       printCalcScore(apps);
+  //     }
+  //   }
+  // }, [apps]);
+
   useEffect(() => {
     if (apps.length > 0) {
-      // update({ apps, filteredApps, appPage: !!state.app, ...state });
-
       if (isDevelopment) {
         printCalcScore(apps);
       }
@@ -52,6 +60,7 @@ export function App() {
     <div id="content">
       <header className="page-header">
         <Menu
+          value={state.category}
           onChange={(value) => {
             if (value === "focus") {
               resetAppState(value);
@@ -72,12 +81,12 @@ export function App() {
           <About />
         </h1>
         <p className="description" style={{ margin: "5px 10px 10px" }}></p>
-        <Search
+        {/* <Search
           apps={apps}
           onInput={debounce((value) => {
             setAppState("search", value);
           }, 500)}
-        />{" "}
+        />{" "} */}
         {/* {!moreFilters ? (
           <Filters
             onChange={(value) => {

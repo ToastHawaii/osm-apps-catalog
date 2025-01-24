@@ -1,5 +1,5 @@
 import React from "react";
-import { SlimSelect } from "./SlimSelect";
+import SlimSelect  from "./SlimSelect";
 import { useTranslation } from "react-i18next";
 
 export function LanguageSelect({ onChange }: { onChange: () => void }) {
@@ -7,10 +7,10 @@ export function LanguageSelect({ onChange }: { onChange: () => void }) {
 
   return (
     <SlimSelect
-      className="filter hidden"
       multiple
       settings={{
         placeholderText: t("filter.language"),
+        class: ["filter", "hidden"]
       }}
       events={{
         afterChange: onChange,

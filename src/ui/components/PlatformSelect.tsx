@@ -1,5 +1,5 @@
 import React from "react";
-import { SlimSelect } from "./SlimSelect";
+import SlimSelect from "./SlimSelect";
 import { useTranslation } from "react-i18next";
 
 export function PlatformSelect({ onChange }: { onChange: () => void }) {
@@ -7,10 +7,10 @@ export function PlatformSelect({ onChange }: { onChange: () => void }) {
 
   return (
     <SlimSelect
-      className="filter hidden"
       multiple
       settings={{
         placeholderText: t("filter.platform"),
+        class: ["filter", "hidden"]
       }}
       events={{
         afterChange: onChange,

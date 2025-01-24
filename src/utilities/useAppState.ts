@@ -19,27 +19,29 @@ export function useAppState() {
       view: searchParams.get("view") === "compare" ? "compare" : "list",
     } as State,
     function (key: string, value: number | string | string[]) {
+      let formatedValue;
       if (Array.isArray(value)) {
-        setSearchParams({ [key]: value.join(",") });
+        formatedValue = value.join(",");
       } else if (key === "lang") {
-        setSearchParams({ [key]: value === "en" ? "" : "" + value });
+        formatedValue = value === "en" ? "" : "" + value;
       } else if (key === "category") {
-        setSearchParams({ [key]: value === "all" ? "" : "" + value });
+        formatedValue = value === "all" ? "" : "" + value;
       } else if (key === "view") {
-        setSearchParams({ [key]: value === "list" ? "" : "" + value });
+        formatedValue = value === "list" ? "" : "" + value;
       } else {
-        setSearchParams({ [key]: "" + value });
+        formatedValue = "" + value;
       }
+      if (formatedValue) {
+        searchParams.set(key, formatedValue);
+      } else {
+        searchParams.delete(key);
+      }
+      setSearchParams(searchParams);
     },
     function (category: string) {
+      if(category === "all"){setSearchParams({})}
       setSearchParams({
-        search: "",
-        topics: "",
-        platforms: "",
-        languages: "",
-        coverage: "",
         category,
-        view: "",
       });
     },
   ] as const;
