@@ -16,13 +16,14 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { useState } from "react";
-import { toSourceDisplayText } from "../../action/utilities";
+import { SourceDisplayText } from "../../action/SourceDisplayText";
 // import { renderImage } from "../../utilities/renderImage";
 // import { renderBadges } from "./renderBadges";
-// import { renderScore } from "./renderScore";
+ import { Score } from "./Score";
 import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
+import { Badges } from "./Badges";
 
 export function List({ app, open = false }: { app: App; open: boolean }) {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
     <div className={"app" + (open ? "app-page" : "")}>
       <div className="header">
         <div className="with-corner-badge">
-          {/* {renderScore(app)} */}
+          <Score app={app}/>
           <h4>
             {app.website ? (
               <a href={app.website} target="_blank">
@@ -58,9 +59,12 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
       <p>
         {app.description}
         {app.documentation && (
-          <a href={app.documentation} target="_blank">
-            {t("list.documentation")}
-          </a>
+          <>
+            {" "}
+            <a href={app.documentation} target="_blank">
+              {t("list.documentation")}
+            </a>
+          </>
         )}
       </p>
 
@@ -119,7 +123,6 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
           title={t("app.install.huaweiAppGallery")}
         >
-          {" "}
           <i className="fas fa-shopping-bag fa-fw"></i>
         </a>
       )}
@@ -157,12 +160,11 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
           title={t("app.install.microsoftApp")}
         >
-          {" "}
           <i className="fab fa-microsoft fa-fw"></i>
         </a>
       )}
 
-      {/* <div className="badges">{renderBadges(app.topics)}</div> */}
+       <div className="badges"><Badges topics={app.topics}/></div> 
 
       {!isOpen ? (
         <a
@@ -223,7 +225,6 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
               </div>
             )
           )}
-
           {app.coverage && app.coverage.length > 0 && (
             <div className="more-info">
               <span className="more-info-title">{t("app.coverage")}</span>
@@ -374,7 +375,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
                     target="_blank"
                     title={t("app.source.date", { date: s.lastChange })}
                   >
-                    {toSourceDisplayText(s.name)}
+                    <SourceDisplayText name={s.name }/>
                   </a>
                 ))
                 .reduce((prev, curr) => (

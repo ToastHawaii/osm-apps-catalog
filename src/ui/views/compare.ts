@@ -17,15 +17,14 @@
 
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "../../utilities/html";
-import {  toSourceDisplayText } from "../../action/utilities";
 import { renderImage } from "../../utilities/renderImage";
-import { renderBadges } from "./renderBadges";
-import { renderScore } from "./renderScore";
+import { Badges } from "./Badges";
 import { toWikiTable, toWikiValue } from "./toWikiTable";
 import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
+import { SourceDisplayText } from "../../action/SourceDisplayText";
 
 export function render(apps: App[], lang: string) {
   {
@@ -35,9 +34,7 @@ export function render(apps: App[], lang: string) {
         `<div class="cell header param-title"></div>`,
         ...apps.map(
           (app) =>
-            `<div class="cell header text-center with-corner-badge">${renderScore(
-              app
-            )}<h4>${
+            `<div class="cell header text-center with-corner-badge"><Score app={app}/><h4>${
               app.website
                 ? `<a href="${app.website}" target="_blank">${app.name}</a>`
                 : app.name
@@ -529,7 +526,7 @@ ${
                 `<a target="_blank" href="${s.url}" title="${i18next.t(
                   "app.source.date",
                   { date: s.lastChange }
-                )}">${toSourceDisplayText(s.name)}</a>`
+                )}"><SourceDisplayText name={s.name}></a>`
             )
             .join(", "),
       },

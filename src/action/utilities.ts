@@ -361,28 +361,6 @@ export function toWikiText(text: string = "") {
   return text;
 }
 
-export function toSourceDisplayText(name: string) {
-  switch (name) {
-    case "taginfo":
-      return "taginfo";
-
-    case "Wikidata":
-      return `Wikidata <i class="fas fa-pen"></i>`;
-
-    case "Layer":
-      return `Wiki (Layer) <i class="fas fa-pen"></i>`;
-
-    case "ServiceItem":
-      return `Wiki (ServiceItem) <i class="fas fa-pen"></i>`;
-
-    case "Software":
-      return `Wiki (Software) <i class="fas fa-pen"></i>`;
-
-    default:
-      throw "Unexpected value for name: " + name;
-  }
-}
-
 /**
  * Returns a hash code from a string
  * @param str The string to hash.

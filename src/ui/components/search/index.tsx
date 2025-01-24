@@ -21,7 +21,7 @@ export function Search({
       <input
         type="search"
         id="search"
-        className="filter hidden"
+        className="filter"
         placeholder={t("filter.search")}
         autoComplete="on"
         list="search-suggestions"

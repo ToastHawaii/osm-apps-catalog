@@ -32,16 +32,6 @@ export function App() {
   //     state.coverage.length > 0
   // );
 
-  // useEffect(() => {
-  //   if (apps.length > 0) {
-  //     // update({ apps, filteredApps, appPage: !!state.app, ...state });
-
-  //     if (isDevelopment) {
-  //       printCalcScore(apps);
-  //     }
-  //   }
-  // }, [apps]);
-
   useEffect(() => {
     if (apps.length > 0) {
       if (isDevelopment) {
@@ -81,12 +71,14 @@ export function App() {
           <About />
         </h1>
         <p className="description" style={{ margin: "5px 10px 10px" }}></p>
-        {/* <Search
-          apps={apps}
-          onInput={debounce((value) => {
-            setAppState("search", value);
-          }, 500)}
-        />{" "} */}
+        {state.category !== "focus" && !state.app && (
+          <Search
+            apps={apps}
+            onInput={debounce((value) => {
+              setAppState("search", value);
+            }, 500)}
+          />
+        )}
         {/* {!moreFilters ? (
           <Filters
             onChange={(value) => {
