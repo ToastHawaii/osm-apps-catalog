@@ -57,8 +57,8 @@ export function Menu({ onChange }: { onChange: (value: string) => void }) {
         },
       ]}
       events={{
-        afterChange: (i: any) => {
-          onChange(i);
+        afterChange: (i) => {
+          onChange(i[0].value);
         },
       }}
     ></SlimSelect>

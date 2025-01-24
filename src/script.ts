@@ -18,9 +18,8 @@
 import i18next from "i18next";
 import { createElement, getHtmlElement } from "./utilities/html";
 import { lazyLoadImages } from "./ui/utilities/lazyLoadImages";
-import { render as renderListView } from "./ui/views/list";
 import { includes, some } from "./utilities/array";
-import { equalsIgnoreCase, strip } from "./utilities/string";
+import { strip } from "./utilities/string";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 import { render as renderCompareView } from "./ui/views/compare";
@@ -32,102 +31,56 @@ import { App } from "./data/App";
 
 import "./style.scss";
 
-let onInit = true;
-
-let onUpdate = false;
-export let apps: App[] = [];
+// let onUpdate = false;
 
 const lang = (findGetParameter("lang") || "en").toLowerCase();
 
-export function doUpdate(
-  newApps: App[],
-  reset?: boolean,
-  history = true,
-  render = true
-) {
-  apps = newApps;
-  if (!onUpdate) {
-    onUpdate = true;
-    if (reset) {
-      //searchElement.value = "";
-      // topicsSelect.setSelected([]);
-      // platformsSelect.setSelected([]);
-      // languagesSelect.setSelected([]);
-      // coverageSelect.setSelected([]);
-    }
-    const params = new URLSearchParams(window.location.search);
-    const category = ""; // categorySelect.getSelected()[0] as string;
-    let state: State = {
-      lang,
-      app:
-        !category || category === "all"
-          ? params.get("app")
-            ? parseInt(params.get("app") as string, 10)
-            : undefined
-          : undefined,
-      search: "", //searchElement.value,
-      topics: [""], // topicsSelect.getSelected() as string[],
-      platforms: [""], //platformsSelect.getSelected() as string[],
-      languages: [""], //languagesSelect.getSelected() as string[],
-      coverage: [""], //coverageSelect.getSelected() as string[],
-      category: category as any,
-      view: (document.getElementById("listView") as HTMLInputElement).checked
-        ? "list"
-        : "compare",
-    };
+// export function doUpdate(
+//   newApps: App[],
+//   reset?: boolean,
+//   history = true,
+//   render = true
+// ) {
+//   apps = newApps;
+//   if (!onUpdate) {
+//     onUpdate = true;
 
-    if (onInit) {
-      state = {
-        lang: params.get("lang") || "",
-        app: params.get("app")
-          ? parseInt(params.get("app") as string, 10)
-          : undefined,
-        search: params.get("search") || "",
-        topics: params.get("topics")?.split(",") || [],
-        platforms: params.get("platforms")?.split(",") || [],
-        languages: params.get("languages")?.split(",") || [],
-        coverage: params.get("coverage")?.split(",") || [],
-        category: (params.get("category") as any) || "all",
-        view: params.get("view") === "compare" ? "compare" : "list",
-      };
+//     const params = new URLSearchParams(window.location.search);
+//     const category = ""; // categorySelect.getSelected()[0] as string;
+//     let state: State = {
+//       lang,
+//       app:
+//         !category || category === "all"
+//           ? params.get("app")
+//             ? parseInt(params.get("app") as string, 10)
+//             : undefined
+//           : undefined,
+//       search: "", //searchElement.value,
+//       topics: [""], // topicsSelect.getSelected() as string[],
+//       platforms: [""], //platformsSelect.getSelected() as string[],
+//       languages: [""], //languagesSelect.getSelected() as string[],
+//       coverage: [""], //coverageSelect.getSelected() as string[],
+//       category: category as any,
+//       view: (document.getElementById("listView") as HTMLInputElement).checked
+//         ? "list"
+//         : "compare",
+//     };
 
-      onInit = false;
-    } else if (history) {
-      updateState(state);
-    }
-    if (render) {
-      update(state);
-    }
-    onUpdate = false;
-  }
-}
+//     if (history) {
+//       updateState(state);
+//     }
+//     if (render) {
+//       update(state);
+//     }
+//     onUpdate = false;
+//   }
+// }
 
-window.addEventListener("popstate", (e) => {
-  onUpdate = true;
-  update(e.state);
-  onUpdate = false;
-});
-
-function updateState(state: State) {
-  window.history.pushState(
-    state,
-    "",
-    "?" +
-      new URLSearchParams(
-        [
-          ["lang", state.lang === "en" ? "" : state.lang],
-          ["category", state.category === "all" ? "" : state.category],
-          ["app", "" + (state.app || "")],
-          ["search", state.search],
-          ["topics", state.topics.join(",")],
-          ["platforms", state.platforms.join(",")],
-          ["languages", state.languages.join(",")],
-          ["coverage", state.coverage.join(",")],
-          ["view", state.view === "list" ? "" : state.view],
-        ].filter((pair) => pair[1])
-      ).toString()
-  );
-}
+// window.addEventListener("popstate", (e) => {
+//   onUpdate = true;
+//   update(e.state);
+//   onUpdate = false;
+// });
 
 function prepareScoreAndLanguage(filteredApps: App[]) {
   filteredApps
@@ -144,16 +97,14 @@ function prepareScoreAndLanguage(filteredApps: App[]) {
     });
 }
 
-function update({
+export function update({
+  apps,
+  filteredApps,
+  appPage,
   category,
-  app: appId,
   search,
-  topics,
-  platforms,
-  languages,
-  coverage,
   view,
-}: State) {
+}: { apps: App[]; filteredApps: App[]; appPage: boolean } & State) {
   //categorySelect.setSelected(category);
 
   updateDescription(category);
@@ -161,159 +112,13 @@ function update({
   getHtmlElement("#list").innerHTML = "";
   getHtmlElement("#compare").innerHTML = "";
 
-  let filteredApps: App[] = apps.slice();
-
-  if (category === "latest") {
-    filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange || "";
-      const nameB = b.source[0].lastChange || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-
-    filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.lastRelease || "";
-      const nameB = b.lastRelease || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-  } else if (category === "focus") {
-    let latestApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange || "";
-      const nameB = b.source[0].lastChange || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-
-    filteredApps = [];
-    for (const app of latestApps) {
-      if (filteredApps.length < 10) {
-        if (
-          !filteredApps.some(
-            (a) =>
-              equalsIgnoreCase(a.source[0].url, app.source[0].url) ||
-              (a.source[0].url.startsWith(
-                "https://taginfo.openstreetmap.org/projects/"
-              ) &&
-                app.source[0].url.startsWith(
-                  "https://taginfo.openstreetmap.org/projects/"
-                ))
-          )
-        ) {
-          filteredApps.push(app);
-        }
-      } else {
-        break;
-      }
-    }
-  }
-
   //  searchElement.value = search;
-
-  search = search.toUpperCase();
-  const topicsUp = topics.map((t) => t.toUpperCase());
-  const platformsUp = platforms.map((t) => t.toUpperCase());
-  const languagesUp = languages.map((t) => t.toUpperCase());
-  const coverageUp: string[] = [];
-  coverage.forEach((t) => {
-    const regions = t.toUpperCase().split(", ");
-    let entry = [];
-    for (let index = 0; index < regions.length; index++) {
-      entry.push(regions[index]);
-      coverageUp.push(entry.join(", "));
-    }
-  });
-
-  let appPage = false;
-  if (appId) {
-    filteredApps = filteredApps.filter((a) => a.id === appId);
-    appPage = filteredApps.length === 1;
-  } else if (search) {
-    filteredApps = filteredApps.filter(
-      (a) =>
-        a.name.toUpperCase().indexOf(search) !== -1 ||
-        a.description.toUpperCase().indexOf(search) !== -1 ||
-        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-          0 ||
-        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0 ||
-        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0
-    );
-  }
 
   document
     .querySelectorAll(".filter")
     .forEach((e) =>
       e.classList.toggle("hidden", category === "focus" || appPage)
     );
-
-  if (topicsUp.length > 0)
-    filteredApps = filteredApps.filter((a) =>
-      includes(
-        a.topics.map((t) => t.toUpperCase()),
-        topicsUp
-      )
-    );
-
-  if (platformsUp.length > 0)
-    filteredApps = filteredApps.filter((a) =>
-      includes(
-        a.platform.map((t) => t.toUpperCase()),
-        platformsUp
-      )
-    );
-
-  if (languagesUp.length > 0)
-    filteredApps = filteredApps.filter((a) =>
-      some(
-        a.languages.map((t) => t.toUpperCase()),
-        languagesUp
-      )
-    );
-
-  if (coverageUp.length > 0) {
-    filteredApps = filteredApps.filter((a) =>
-      some(
-        a.coverage.map((t) => t.toUpperCase()),
-        coverageUp
-      )
-    );
-  }
-
-  const categoriedApps = [];
-
-  if (category === "mobile") {
-    categoriedApps.push(...filteredApps.filter(mobile));
-
-    filteredApps = categoriedApps;
-  } else if (category === "navigation") {
-    categoriedApps.push(...filteredApps.filter(navigation));
-
-    filteredApps = categoriedApps;
-  } else if (category === "edit") {
-    categoriedApps.push(...filteredApps.filter(edit));
-
-    filteredApps = categoriedApps;
-  }
 
   prepareScoreAndLanguage(filteredApps);
 
@@ -332,19 +137,6 @@ function update({
   const coverageData: string[] = params.get("coverage")
     ? params.get("coverage")?.split(",") || []
     : [];
-
-  if (
-    params.get("topics") ||
-    params.get("platforms") ||
-    params.get("languages") ||
-    params.get("coverage")
-  ) {
-    // moreFiltersElement.style.display = "none";
-
-    document
-      .querySelectorAll(".advanced-filter")
-      .forEach((e) => ((e as HTMLElement).style.display = ""));
-  }
 
   for (const a of filteredApps) {
     topicsData.push(...a.topics.map((t) => t));
@@ -378,23 +170,24 @@ function update({
       (document.getElementById("compareView") as HTMLInputElement).checked =
         false;
       for (const a of filteredApps) {
-        renderListView(a, appPage);
+        //renderListView(a, appPage);
       }
       if (filteredApps.length === 0) {
         getHtmlElement("#list").appendChild(
           createElement("p", i18next.t("noResults"), ["no-results"])
         );
       }
-      renderSimilarApps(
-        filteredApps,
-        search,
-        topicsUp,
-        platformsUp,
-        languagesUp,
-        coverageUp
-      );
+      // renderSimilarApps(
+      //   apps,
+      //   filteredApps,
+      //   search,
+      //   topicsUp,
+      //   platformsUp,
+      //   languagesUp,
+      //   coverageUp
+      // );
       if (category === "all" && !appPage) {
-        renderNotFoundApps();
+        renderNotFoundApps(apps);
       }
       break;
 
@@ -523,6 +316,7 @@ function updateDescription(category: string, numberOfApps?: number) {
 }
 
 function renderSimilarApps(
+  apps: App[],
   filteredApps: App[],
   search: string,
   topicsUp: string[],
@@ -588,7 +382,7 @@ function renderSimilarApps(
       getHtmlElement("#list").appendChild(similarTag);
 
       for (const a of similarApps) {
-        renderListView(a);
+        //renderListView(a);
       }
     }
   }
@@ -601,7 +395,7 @@ const notFoundAppsTitle = [
   "Overpass turbo",
 ];
 
-function renderNotFoundApps() {
+function renderNotFoundApps(apps: App[]) {
   let notFound = notFoundAppsTitle
     .map((f) => apps.find((a) => a.name === f))
     .filter((a) => a) as App[];
@@ -616,32 +410,6 @@ function renderNotFoundApps() {
   getHtmlElement("#list").appendChild(notFoundDesc);
 
   for (const a of notFound) {
-    renderListView(a as App);
+    //renderListView(a as App);
   }
-}
-
-function prepareArrayForSelect(names: string[], selected: string[]) {
-  names.sort(function (a, b) {
-    if (a?.toUpperCase() < b?.toUpperCase()) return -1;
-    if (a?.toUpperCase() > b?.toUpperCase()) return 1;
-    return 0;
-  });
-  const nameCounts: { name: string; count: number }[] = [];
-  for (const name of names) {
-    const nameCountFiltered = nameCounts.filter((nc) =>
-      equalsIgnoreCase(nc.name, name)
-    );
-
-    if (nameCountFiltered.length > 0) {
-      nameCountFiltered[0].count++;
-    } else {
-      nameCounts.push({ name: name, count: 1 });
-    }
-  }
-
-  return nameCounts.map((t) => {
-    if (selected.filter((s) => equalsIgnoreCase(t.name, s)).length > 0)
-      return { value: t.name, text: t.name };
-    else return { value: t.name, text: `${t.name} (${t.count})` };
-  });
 }

@@ -8,24 +8,33 @@ import { TopicSelect } from "./ui/components/TopicSelect";
 import { PlatformSelect } from "./ui/components/PlatformSelect";
 import { LanguageSelect } from "./ui/components/LanguageSelect";
 import { CoverageSelect } from "./ui/components/CoverageSelect";
-import { doUpdate } from "./script";
-import { debounce } from "./utilities/debounce";
+import { update } from "./script";
 import { useData } from "./useData";
 import { Filters } from "./ui/components/filters";
 import { printCalcScore } from "./utilities/printCalcScore";
 import { isDevelopment } from "./utilities/isDevelopment";
+import { debounce } from "lodash";
+import { useAppState } from "./utilities/useAppState";
+import { filter } from "./filter";
+import { App as AppData } from "./data/App";
+import { List } from "./ui/views/list";
 
-setTimeout(() => {
-  require("./script");
-}, 1);
+import "./style.scss";
 
 export function App() {
+  const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
-  const [moreFilters, setMoreFilters] = useState(false);
+  const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
+  // const [moreFilters, setMoreFilters] = useState(
+  //   state.topics.length > 0 ||
+  //     state.platforms.length > 0 ||
+  //     state.languages.length > 0 ||
+  //     state.coverage.length > 0
+  // );
 
   useEffect(() => {
     if (apps.length > 0) {
-      doUpdate(apps);
+      // update({ apps, filteredApps, appPage: !!state.app, ...state });
 
       if (isDevelopment) {
         printCalcScore(apps);
@@ -33,12 +42,22 @@ export function App() {
     }
   }, [apps]);
 
+  useEffect(() => {
+    if (apps.length > 0) {
+      setFilteredApps(filter({ apps, ...state }));
+    }
+  }, [apps, JSON.stringify(state)]);
+
   return (
     <div id="content">
       <header className="page-header">
         <Menu
           onChange={(value) => {
-            doUpdate(apps, value === "focus");
+            if (value === "focus") {
+              resetAppState(value);
+            } else {
+              setAppState("category", value);
+            }
           }}
         />
         <h1 style={{ clear: "both", margin: "0" }}>
@@ -55,34 +74,56 @@ export function App() {
         <p className="description" style={{ margin: "5px 10px 10px" }}></p>
         <Search
           apps={apps}
-          onInput={debounce(() => {
-            doUpdate(apps, false, false);
+          onInput={debounce((value) => {
+            setAppState("search", value);
           }, 500)}
-          onBlur={() => {
-            doUpdate(apps, false, true, false);
-          }}
         />{" "}
-        {!moreFilters ? (
+        {/* {!moreFilters ? (
           <Filters
             onChange={(value) => {
               setMoreFilters(value);
             }}
           />
-        ) : null}
+        ) : null} */}
         <hr style={{ border: "1px solid #ccc" }} />
-        {moreFilters ? (
+        {/* {moreFilters ? (
           <span className="advanced-filter">
-            <TopicSelect onChange={() => doUpdate(apps)} />
-            <PlatformSelect onChange={() => doUpdate(apps)} />
-            <LanguageSelect onChange={() => doUpdate(apps)} />
-            <CoverageSelect onChange={() => doUpdate(apps)} />
+            <TopicSelect
+              apps={filteredApps}
+              selected={state.topics}
+              onChange={(newValues) => setAppState("topics", newValues)}
+            />
+            <LanguageSelect
+              onChange={() =>
+                update({ apps, filteredApps, appPage: !!state.app, ...state })
+              }
+            />
+            <PlatformSelect
+              onChange={() =>
+                update({ apps, filteredApps, appPage: !!state.app, ...state })
+              }
+            />
+            <CoverageSelect
+              onChange={() =>
+                update({ apps, filteredApps, appPage: !!state.app, ...state })
+              }
+            />
           </span>
-        ) : null}
-        <ViewSelect onChange={() => doUpdate(apps)} />
+        ) : null} */}
+        <ViewSelect
+          onChange={
+            () => {}
+            // update({ apps, filteredApps, appPage: !!state.app, ...state })
+          }
+        />
       </header>
       <main>
-        <div id="list"></div>
-        <div id="compare" className="table"></div>
+        <div id="list">
+          {filteredApps.map((a) => (
+            <List app={a} open={!!state.app} />
+          ))}
+        </div>
+        {/* <div id="compare" className="table"></div> */}
       </main>
     </div>
   );

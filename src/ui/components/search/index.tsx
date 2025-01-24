@@ -11,8 +11,8 @@ export function Search({
   onBlur,
 }: {
   apps: App[];
-  onInput: () => void;
-  onBlur: () => void;
+  onInput: (value: string) => void;
+  onBlur?: (value: string) => void;
 }) {
   const { t } = useTranslation();
 
@@ -25,8 +25,12 @@ export function Search({
         placeholder={t("filter.search")}
         autoComplete="on"
         list="search-suggestions"
-        onInput={onInput}
-        onBlur={onBlur}
+        onInput={(e) => {
+          onInput(e.currentTarget.value);
+        }}
+        onBlur={(e) => {
+          onBlur?.(e.currentTarget.value);
+        }}
       />
       <datalist id="search-suggestions">
         {[...new Set(apps.flatMap((a) => a.topics))].sort().map((topic) => (
