@@ -15,356 +15,377 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { createElement, getHtmlElement } from "../../utilities/html";
+import React, { useState } from "react";
 import { toSourceDisplayText } from "../../action/utilities";
-import { renderImage } from "../../utilities/renderImage";
-import { renderBadges } from "./renderBadges";
-import { renderScore } from "./renderScore";
-import i18next from "i18next";
+// import { renderImage } from "../../utilities/renderImage";
+// import { renderBadges } from "./renderBadges";
+// import { renderScore } from "./renderScore";
 import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
+import { useTranslation } from "react-i18next";
 
-export function render(app: App, open = false) {
+export function List({ app, open = false }: { app: App; open: boolean }) {
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(open);
+
   const link = new URLSearchParams();
   link.set("app", "" + app.id);
-
-  const element = createElement(
-    "div",
-    `<div class="header">
-      
-      <div class="with-corner-badge">${renderScore(app)}<h4>${
-      app.website
-        ? `<a href="${app.website}" target="_blank">${app.name}</a>`
-        : app.name
-    }</h4></div>
-        ${
-          app.website
-            ? `<a href="${app.website}" target="_blank" title="${
-                app.name
-              }">${renderImage(app)}</a>`
-            : renderImage(app)
+  return (
+    <div className={"app" + (open ? "app-page" : "")}>
+      <div className="header">
+        <div className="with-corner-badge">
+          {/* {renderScore(app)} */}
+          <h4>
+            {app.website ? (
+              <a href={app.website} target="_blank">
+                {app.name}
+              </a>
+            ) : (
+              app.name
+            )}
+          </h4>
+        </div>
+        {
+          app.website ? (
+            <a href={app.website} target="_blank" title={app.name}>
+              {/* {renderImage(app)} */}
+            </a>
+          ) : null
+          // renderImage(app)
         }
       </div>
-      <p>${app.description}${
-      app.documentation
-        ? ` <a href="${app.documentation}" target="_blank">${i18next.t(
-            "list.documentation"
-          )}</a>`
-        : ""
-    }</p>
-      ${
-        app.website
-          ? `<a class="download" href="${app.website}" title="${i18next.t(
-              "app.website"
-            )}"><i class="far fa-map fa-fw"></i></a>`
-          : ""
-      }
 
-      ${
-        app.install.asin
-          ? `<a class="download" href="https://www.amazon.com/dp/${
-              app.install.asin
-            }" title="${i18next.t(
-              "app.install.asin"
-            )}"><i class="fab fa-amazon fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.fDroidID
-          ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${
-              app.install.fDroidID
-            }" title="${i18next.t(
-              "app.install.fDroid"
-            )}"><i class="fab fa-android fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.obtainiumLink
-          ? `<a class="download" href="${
-              app.install.obtainiumLink
-            }" title="${i18next.t(
-              "app.install.obtainium"
-            )}" ><i class="fas fa-gem fa-fw" style="transform: rotate(315deg);"></i></a>`
-          : ""
-      }
-      ${
-        app.install.googlePlayID
-          ? `<a class="download" href="https://play.google.com/store/apps/details?id=${
-              app.install.googlePlayID
-            }" title="${i18next.t(
-              "app.install.googlePlay"
-            )}"><i class="fab fa-google-play fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.huaweiAppGalleryID
-          ? `<a class="download" href="https://appgallery.huawei.com/#/app/${
-              app.install.huaweiAppGalleryID
-            }" title="${i18next.t(
-              "app.install.huaweiAppGallery"
-            )}"><i class="fas fa-shopping-bag fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.appleStoreID
-          ? `<a class="download" href="https://apps.apple.com/app/${
-              app.install.appleStoreID.toUpperCase().startsWith("ID")
-                ? app.install.appleStoreID
-                : `id${app.install.appleStoreID}`
-            }" title="${i18next.t(
-              "app.install.appleStore"
-            )}"><i class="fab fa-app-store-ios fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.macAppStoreID
-          ? `<a class="download" href="https://apps.apple.com/app/${
-              app.install.macAppStoreID.toUpperCase().startsWith("ID")
-                ? app.install.macAppStoreID
-                : `id${app.install.macAppStoreID}`
-            }" title="${i18next.t(
-              "app.install.macAppStore"
-            )}"><i class="fab fa-app-store fa-fw"></i></a>`
-          : ""
-      }
-      ${
-        app.install.microsoftAppID
-          ? `<a class="download" href="https://apps.microsoft.com/detail/${
-              app.install.microsoftAppID
-            }" title="${i18next.t(
-              "app.install.microsoftApp"
-            )}"><i class="fab fa-microsoft fa-fw"></i></a>`
-          : ""
-      }
-      <div class="badges">${renderBadges(app.topics)}</div>
+      <p>
+        {app.description}
+        {app.documentation && (
+          <a href={app.documentation} target="_blank">
+            {t("list.documentation")}
+          </a>
+        )}
+      </p>
 
-            ${
-              !open
-                ? `<a class="more-infos-button" href="?${link.toString()}" ">${i18next.t(
-                    "list.more"
-                  )} <i class="fas fa-angle-down"></i></a>`
-                : ""
-            }
-            <div class="more-infos" style="${!open ? "display:none;" : ""}">
-        <div class="more-infos-title">${i18next.t("list.moreInfos")}</div>
-        ${
-          app.platform.length > 0
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.platforms"
-          )}</span> <span class="more-info-text">${app.platform.join(
-                ", "
-              )}</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.lastRelease || app.unmaintained
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.lastRelease"
-          )}</span> <span class="more-info-text">${
-                app.lastRelease ? app.lastRelease : "????-??-??"
-              }${
-                app.unmaintained
-                  ? ` <span class="warning">${i18next.t("app.unmaintained", {
-                      icon: `<i class="fas fa-exclamation-triangle"></i>`,
+      {app.website && (
+        <a className="download" href={app.website} title={t("app.website")}>
+          <i className="far fa-map fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.asin && (
+        <a
+          className="download"
+          href={`https://www.amazon.com/dp/${app.install.asin}`}
+          title={t("app.install.asin")}
+        >
+          <i className="fab fa-amazon fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.fDroidID && (
+        <a
+          className="download"
+          href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
+          title={t("app.install.fDroid")}
+        >
+          <i className="fab fa-android fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.obtainiumLink && (
+        <a
+          className="download"
+          href={app.install.obtainiumLink}
+          title={t("app.install.obtainium")}
+        >
+          <i
+            className="fas fa-gem fa-fw"
+            style={{ transform: "rotate(315deg)" }}
+          ></i>
+        </a>
+      )}
+
+      {app.install.googlePlayID && (
+        <a
+          className="download"
+          href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
+          title={t("app.install.googlePlay")}
+        >
+          <i className="fab fa-google-play fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.huaweiAppGalleryID && (
+        <a
+          className="download"
+          href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+          title={t("app.install.huaweiAppGallery")}
+        >
+          {" "}
+          <i className="fas fa-shopping-bag fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.appleStoreID && (
+        <a
+          className="download"
+          href={`https://apps.apple.com/app/${
+            app.install.appleStoreID.toUpperCase().startsWith("ID")
+              ? app.install.appleStoreID
+              : `id${app.install.appleStoreID}`
+          }`}
+          title={t("app.install.appleStore")}
+        >
+          <i className="fab fa-app-store-ios fa-fw"></i>
+        </a>
+      )}
+
+      {app.install.macAppStoreID && (
+        <a
+          className="download"
+          href={`https://apps.apple.com/app/${
+            app.install.macAppStoreID.toUpperCase().startsWith("ID")
+              ? app.install.macAppStoreID
+              : `id${app.install.macAppStoreID}`
+          }`}
+          title={t("app.install.macAppStore")}
+        >
+          <i className="fab fa-app-store fa-fw"></i>
+        </a>
+      )}
+      {app.install.microsoftAppID && (
+        <a
+          className="download"
+          href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
+          title={t("app.install.microsoftApp")}
+        >
+          {" "}
+          <i className="fab fa-microsoft fa-fw"></i>
+        </a>
+      )}
+
+      {/* <div className="badges">{renderBadges(app.topics)}</div> */}
+
+      {!isOpen ? (
+        <a
+          className="more-infos-button"
+          href={`?${link.toString()}`}
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen(true);
+          }}
+        >
+          {t("list.more")} <i className="fas fa-angle-down"></i>
+        </a>
+      ) : (
+        <div className="more-infos">
+          <div className="more-infos-title">{t("list.moreInfos")}</div>
+
+          {app.platform.length > 0 && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.platforms")}</span>
+              <span className="more-info-text">{app.platform.join(", ")}</span>
+            </div>
+          )}
+          {(app.lastRelease || app.unmaintained) && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.lastRelease")}</span>
+              <span className="more-info-text">
+                {app.lastRelease ? app.lastRelease : "????-??-??"}
+                {app.unmaintained && (
+                  <span className="warning">
+                    {t("app.unmaintained", {
+                      icon: <i className="fas fa-exclamation-triangle"></i>,
                       interpolation: { escapeValue: false },
-                    })}</span>`
-                  : ""
-              }</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.languagesUrl
-            ? `<a class="more-info" href="${app.languagesUrl}" target="_blank">
-                <span class="more-info-title">${i18next.t(
-                  "app.languages"
-                )}</span> <span class="more-info-text">${
-                app.languages.length > 0
-                  ? app.languages.join(", ")
-                  : `<i class="fas fa-language"></i>`
-              }</span>
-              </a>`
-            : app.languages.length > 0
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.languages"
-          )}</span> <span class="more-info-text">${app.languages.join(
-                ", "
-              )}</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.coverage && app.coverage.length
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.coverage"
-          )}</span> <span class="more-info-text">${
-                app.coverage[app.coverage.length - 1]
-              }</span>
-        </div>`
-            : ""
-        }
-        ${
-          Object.values(app.community).filter((v) => v).length > 0
-            ? `<div class="more-info">
-            <span class="more-info-title">${i18next.t(
-              "app.community"
-            )}</span> <span class="more-info-text">${
-                app.community.forum
-                  ? `<a class="community" href="${
-                      app.community.forum
-                    }" title="${i18next.t(
-                      "app.community.forum"
-                    )}"><i class="fas fa-comments fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.forumTag
-                  ? `<a class="community" href="https://community.openstreetmap.org/tag/${
-                      app.community.forumTag
-                    }" title="${i18next.t(
-                      "app.community.forumTag"
-                    )}"><i class="fas fa-tag fa-fw"></i></a>`
-                  : ""
-              }${
-                getMatrix(app.community.matrix, app.community.irc)
-                  ? `<a class="community" href="https://matrix.to/#/${getMatrix(
+                    })}
+                  </span>
+                )}
+              </span>
+            </div>
+          )}
+
+          {app.languagesUrl ? (
+            <a className="more-info" href={app.languagesUrl} target="_blank">
+              <span className="more-info-title">{t("app.languages")}</span>
+              <span className="more-info-text">
+                {app.languages.length > 0 ? (
+                  app.languages.join(", ")
+                ) : (
+                  <i className="fas fa-language"></i>
+                )}
+              </span>
+            </a>
+          ) : (
+            app.languages.length > 0 && (
+              <div className="more-info">
+                <span className="more-info-title">{t("app.languages")}</span>
+                <span className="more-info-text">
+                  {app.languages.join(", ")}
+                </span>
+              </div>
+            )
+          )}
+
+          {app.coverage && app.coverage.length > 0 && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.coverage")}</span>
+              <span className="more-info-text">
+                {app.coverage[app.coverage.length - 1]}
+              </span>
+            </div>
+          )}
+          {Object.values(app.community).filter((v) => v).length > 0 && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.community")}</span>
+              <span className="more-info-text">
+                {app.community.forum && (
+                  <a
+                    className="community"
+                    href={app.community.forum}
+                    title={t("app.community.forum")}
+                  >
+                    <i className="fas fa-comments fa-fw"></i>
+                  </a>
+                )}
+                {app.community.forumTag && (
+                  <a
+                    className="community"
+                    href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
+                    title={t("app.community.forumTag")}
+                  >
+                    <i className="fas fa-tag fa-fw"></i>
+                  </a>
+                )}
+                {getMatrix(app.community.matrix, app.community.irc) && (
+                  <a
+                    className="community"
+                    href={`https://matrix.to/#/${getMatrix(
                       app.community.matrix,
                       app.community.irc
-                    )}" title="${i18next.t(
-                      "app.community.matrix"
-                    )}"><i>[m]</i></a>`
-                  : ""
-              }${
-                app.community.mastodon
-                  ? `<a class="community" href="https://fedirect.toolforge.org/?id=${
-                      app.community.mastodon
-                    }" title="${i18next.t(
-                      "app.community.mastodon"
-                    )}"><i class="fab fa-mastodon fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.bluesky
-                  ? `<a class="community" href="https://bsky.app/profile/${
-                      app.community.bluesky
-                    }" title="${i18next.t(
-                      "app.community.bluesky"
-                    )}"><img src="/icons/bluesky.svg" height="18px" /></a>`
-                  : ""
-              }${
-                app.community.reddit
-                  ? `<a class="community" href="https://www.reddit.com/r/${
-                      app.community.reddit
-                    }" title="${i18next.t(
-                      "app.community.reddit"
-                    )}"><i class="fab fa-reddit fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.slack
-                  ? `<a class="community" href="${
-                      app.community.slack
-                    }" title="${i18next.t(
-                      "app.community.slack"
-                    )}"><i class="fab fa-slack-hash fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.telegram
-                  ? `<a class="community" href="https://telegram.me/${
-                      app.community.telegram
-                    }" title="${i18next.t(
-                      "app.community.telegram"
-                    )}"><i class="fab fa-telegram fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.githubDiscussions
-                  ? `<a class="community" href="https://github.com/${
-                      app.community.githubDiscussions
-                    }/discussions" title="${i18next.t(
-                      "app.community.githubDiscussions"
-                    )}"><i class="fab fa-github fa-fw"></i></a>`
-                  : ""
-              }${
-                app.community.issueTracker
-                  ? `<a class="community" href="${
-                      app.community.issueTracker
-                    }" title="${i18next.t(
-                      "app.community.issueTracker"
-                    )}"><i class="fas fa-list fa-fw"></i></a>`
-                  : ""
-              }</span>
-          </div>`
-            : ""
-        }
-        ${
-          app.author
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.author"
-          )}</span> <span class="more-info-text">${app.author}</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.price
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.price"
-          )}</span> <span class="more-info-text">${app.price}</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.license
-            ? `<div class="more-info">
-          <span class="more-info-title">${i18next.t(
-            "app.license"
-          )}</span> <span class="more-info-text">${app.license}</span>
-        </div>`
-            : ""
-        }
-        ${
-          app.sourceCode
-            ? `<a class="more-info" href="${app.sourceCode}" target="_blank">
-          <span class="more-info-title">${i18next.t(
-            "app.sourceCode"
-          )}</span> <span class="more-info-text"><i class="fas fa-code"></i></span>
-        </a>`
-            : ""
-        }
-        <div class="more-info">
-        <span class="more-info-title">${i18next.t(
-          "app.source"
-        )}</span> <span class="more-info-text">${app.source
-      .map(
-        (s) =>
-          `<a href="${s.url}" target="_blank" title="${i18next.t(
-            "app.source.date",
-            { date: s.lastChange }
-          )}">${toSourceDisplayText(s.name)}</a>`
-      )
-      .join(", ")}</span>
+                    )}`}
+                    title={t("app.community.matrix")}
+                  >
+                    <i>[m]</i>
+                  </a>
+                )}
+                {app.community.mastodon && (
+                  <a
+                    className="community"
+                    href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
+                    title={t("app.community.mastodon")}
+                  >
+                    <i className="fab fa-mastodon fa-fw"></i>
+                  </a>
+                )}
+                {app.community.bluesky && (
+                  <a
+                    className="community"
+                    href={`https://bsky.app/profile/${app.community.bluesky}`}
+                    title={t("app.community.bluesky")}
+                  >
+                    <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
+                  </a>
+                )}
+                {app.community.reddit && (
+                  <a
+                    className="community"
+                    href={`https://www.reddit.com/r/${app.community.reddit}`}
+                    title={t("app.community.reddit")}
+                  >
+                    <i className="fab fa-reddit fa-fw"></i>
+                  </a>
+                )}
+                {app.community.slack && (
+                  <a
+                    className="community"
+                    href={app.community.slack}
+                    title={t("app.community.slack")}
+                  >
+                    <i className="fab fa-slack-hash fa-fw"></i>
+                  </a>
+                )}
+                {app.community.telegram && (
+                  <a
+                    className="community"
+                    href={`https://telegram.me/${app.community.telegram}`}
+                    title={t("app.community.telegram")}
+                  >
+                    <i className="fab fa-telegram fa-fw"></i>
+                  </a>
+                )}
+                {app.community.githubDiscussions && (
+                  <a
+                    className="community"
+                    href={`https://github.com/${app.community.githubDiscussions}/discussions`}
+                    title={t("app.community.githubDiscussions")}
+                  >
+                    <i className="fab fa-github fa-fw"></i>
+                  </a>
+                )}
+                {app.community.issueTracker && (
+                  <a
+                    className="community"
+                    href={app.community.issueTracker}
+                    title={t("app.community.issueTracker")}
+                  >
+                    <i className="fas fa-list fa-fw"></i>
+                  </a>
+                )}
+              </span>
+            </div>
+          )}
+
+          {app.author && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.author")}</span>
+              <span className="more-info-text">{app.author}</span>
+            </div>
+          )}
+
+          {app.price && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.price")}</span>
+              <span className="more-info-text">{app.price}</span>
+            </div>
+          )}
+
+          {app.license && (
+            <div className="more-info">
+              <span className="more-info-title">{t("app.license")}</span>
+              <span className="more-info-text">{app.license}</span>
+            </div>
+          )}
+
+          {app.sourceCode && (
+            <a className="more-info" href={app.sourceCode} target="_blank">
+              <span className="more-info-title">{t("app.sourceCode")}</span>
+              <span className="more-info-text">
+                <i className="fas fa-code"></i>
+              </span>
+            </a>
+          )}
+
+          <div className="more-info">
+            <span className="more-info-title">{t("app.source")}</span>
+            <span className="more-info-text">
+              {app.source
+                .map((s) => (
+                  <a
+                    key={s.url}
+                    href={s.url}
+                    target="_blank"
+                    title={t("app.source.date", { date: s.lastChange })}
+                  >
+                    {toSourceDisplayText(s.name)}
+                  </a>
+                ))
+                .reduce((prev, curr) => (
+                  <>
+                    {prev}, {curr}
+                  </>
+                ))}
+            </span>
+          </div>
         </div>
-        `,
-    ["app", open ? "app-page" : ""]
+      )}
+    </div>
   );
-
-  if (!open) {
-    const moreButton = element.querySelector(
-      ".more-infos-button"
-    ) as HTMLButtonElement;
-
-    const moreInfos = element.querySelector(".more-infos") as HTMLElement;
-
-    moreButton?.addEventListener("click", (ev) => {
-      moreButton?.setAttribute("style", "display: none;");
-      moreInfos?.setAttribute("style", "");
-
-      ev.preventDefault();
-    });
-  }
-
-  getHtmlElement("#list").appendChild(element);
 }
