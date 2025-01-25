@@ -17,7 +17,7 @@ import { debounce } from "lodash";
 import { useAppState } from "./utilities/useAppState";
 import { filter } from "./filter";
 import { App as AppData } from "./data/App";
-import { List } from "./ui/views/list";
+import { List } from "./ui/views/List";
 import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
 
 import "./style.scss";
@@ -79,19 +79,17 @@ export function App() {
               setAppState("search", value);
             }, 500)}
           />
-        )}
-        {!moreFilters && (
-          <>
-            {" "}
-            <Filters
-              onChange={(value) => {
-                setMoreFilters(value);
-              }}
-            />
-          </>
+        )}{" "}
+        {state.category !== "focus" && !state.app && (
+          <Filters
+            active={moreFilters}
+            onChange={(value) => {
+              setMoreFilters(value);
+            }}
+          />
         )}
         <hr style={{ border: "1px solid #ccc" }} />
-        {moreFilters && (
+        {state.category !== "focus" && !state.app && moreFilters && (
           <span className="advanced-filter">
             <TopicSelect
               apps={filteredApps}

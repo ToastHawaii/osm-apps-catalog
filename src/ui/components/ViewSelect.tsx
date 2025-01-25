@@ -11,7 +11,6 @@ export function ViewSelect({
   return (
     <form
       id="view"
-      className="hidden"
       style={{
         margin: "10px 0",
       }}

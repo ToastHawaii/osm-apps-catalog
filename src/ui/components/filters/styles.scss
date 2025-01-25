@@ -6,4 +6,9 @@
   font-size: 16px;
   padding: 4px 8px;
   border-radius: 4px;
+
+  &.active {
+    color: #007aff;
+    border: 1px solid #007aff;
+  }
 }
