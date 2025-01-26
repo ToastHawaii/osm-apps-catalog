@@ -822,42 +822,44 @@ function Group({
       <>
         <div className="row">
           <div className="cell header params-title params-group-title">
-            <a className="group" data-target={`.${id}-detail`} href="#">
+            <a
+              className="group"
+              href="#"
+              onClick={() => {
+                document
+                  .querySelectorAll(`.${id}-detail`)
+                  .forEach((e) => e.classList.toggle("hidden"));
+              }}
+            >
               <i className={`fas fa-fw fa-caret-down ${id}-detail`}></i>
               <i
                 className={`fas fa-fw fa-caret-right ${id}-detail hidden`}
               ></i>{" "}
               {display}
             </a>{" "}
-            <a className="export" href="#" title={t("compare.share")}>
+            <a
+              className="export"
+              href="#"
+              title={t("compare.share")}
+              onClick={(e) => {
+                e.preventDefault();
+                const wikiTable = toWikiTable(
+                  apps,
+                  extendedParams.filter((p) => !!p.renderToWiki) as any,
+                  lang
+                );
+
+                navigator.clipboard.writeText(`== ${display} == <!-- ${t(
+                  "wiki.generatedBy"
+                )} -->
+${wikiTable}`);
+                alert(t("share.wiki", { group: display }));
+              }}
+            >
               <i className="fas fa-share-alt"></i>
             </a>{" "}
           </div>
         </div>
-
-        {/* //     getHtmlElement(".export", element).addEventListener("click", (e) => {
-  //       e.preventDefault();
-  //       const wikiTable = toWikiTable(
-    //         apps,
-    //         extendedParams.filter((p) => !!p.renderToWiki) as any,
-//         lang
-//       );
-
-//       navigator.clipboard.writeText(`== ${display} == <!-- ${t(
-//         "wiki.generatedBy"
-//       )} -->
-// ${wikiTable}`);
-//       alert(t("share.wiki", { group: display }));
-//     });
-
-//     getHtmlElement(".group", element).addEventListener("click", (e) => {
-//       document
-//         .querySelectorAll(
-//           (e.currentTarget as HTMLDivElement).dataset["target"] || ""
-//         )
-//         .forEach((e) => e.classList.toggle("hidden"));
-//     }); */}
-
         {elements}
       </>
     );
