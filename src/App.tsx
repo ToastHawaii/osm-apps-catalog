@@ -19,6 +19,7 @@ import { filter } from "./filter";
 import { App as AppData } from "./data/App";
 import { List } from "./ui/views/List";
 import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
+import { Compare } from "./ui/views/compare";
 
 import "./style.scss";
 
@@ -121,12 +122,14 @@ export function App() {
         />
       </header>
       <main>
-        <div id="list">
+        {/* <div id="list">
           {filteredApps.map((a) => (
             <List key={a.id} app={a} open={!!state.app} />
           ))}
-        </div>
-        {/* <div id="compare" className="table"></div> */}
+        </div> */}
+        <div id="compare" className="table">  
+            <Compare  apps={filteredApps} lang={state.lang}/>
+        </div> 
       </main>
     </LazyLoadImages>
   );
