@@ -2,8 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 export function ViewSelect({
+  value,
   onChange,
 }: {
+  value: "list" | "compare";
   onChange: (value: "list" | "compare") => void;
 }) {
   const { t } = useTranslation();
@@ -21,8 +23,8 @@ export function ViewSelect({
           id="listView"
           name="view"
           value="List"
-          checked={true}
-          onInput={(e) => {
+          checked={value === "list"}
+          onChange={(e) => {
             onChange(e.currentTarget.checked ? "list" : "compare");
           }}
         />
@@ -36,7 +38,8 @@ export function ViewSelect({
           id="compareView"
           name="view"
           value="Compare"
-          onInput={(e) => {
+          checked={value === "compare"}
+          onChange={(e) => {
             onChange(e.currentTarget.checked ? "compare" : "list");
           }}
         />

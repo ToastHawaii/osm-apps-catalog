@@ -8,7 +8,6 @@ import { TopicSelect } from "./ui/components/TopicSelect";
 import { PlatformSelect } from "./ui/components/PlatformSelect";
 import { LanguageSelect } from "./ui/components/LanguageSelect";
 import { CoverageSelect } from "./ui/components/CoverageSelect";
-import { update } from "./script";
 import { useData } from "./useData";
 import { Filters } from "./ui/components/filters";
 import { printCalcScore } from "./utilities/printCalcScore";
@@ -115,21 +114,22 @@ export function App() {
           </span>
         )}
         <ViewSelect
-          onChange={
-            () => {}
-            // update({ apps, filteredApps, appPage: !!state.app, ...state })
-          }
+          value={state.view}
+          onChange={(newValues) => setAppState("view", newValues)}
         />
       </header>
       <main>
-        {/* <div id="list">
-          {filteredApps.map((a) => (
-            <List key={a.id} app={a} open={!!state.app} />
-          ))}
-        </div> */}
-        <div id="compare" className="table">  
-            <Compare  apps={filteredApps} lang={state.lang}/>
-        </div> 
+        {state.view !== "compare" ? (
+          <div id="list">
+            {filteredApps.map((a) => (
+              <List key={a.id} app={a} open={!!state.app} />
+            ))}
+          </div>
+        ) : (
+          <div id="compare" className="table">
+            <Compare apps={filteredApps} lang={state.lang} />
+          </div>
+        )}
       </main>
     </LazyLoadImages>
   );
