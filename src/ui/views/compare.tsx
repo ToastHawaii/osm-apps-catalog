@@ -15,9 +15,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import i18next from "i18next";
+import i18next, { TFunction } from "i18next";
 import { createElement, getHtmlElement } from "../../utilities/html";
 import { Badges } from "./Badges";
 import { Image } from "./Image";
@@ -28,7 +29,8 @@ import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
 import { SourceDisplayText } from "../../action/SourceDisplayText";
 
-export function render(apps: App[], lang: string) {
+export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
+  const { t } = useTranslation();
   {
     const element = createElement(
       "div",
@@ -51,17 +53,22 @@ export function render(apps: App[], lang: string) {
 
   // General
   renderGroup(
+    t,
     "general",
-    i18next.t("compare.group.header.general"),
+    t("compare.group.header.general"),
     [
       {
         label: () => "",
         description: () => "",
         hasValue: (app) => app.images.length > 0,
         renderToHtml: (app) =>
-          app.website
-            ? <a target="_blank" href={app.website}><Image app={app}/></a>
-            : <Image app={app}/>,
+          app.website ? (
+            <a target="_blank" href={app.website}>
+              <Image app={app} />
+            </a>
+          ) : (
+            <Image app={app} />
+          ),
         renderToWiki: (app) =>
           app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
         centered: true,
@@ -81,97 +88,110 @@ export function render(apps: App[], lang: string) {
             app.install.macAppStoreID ||
             app.install.microsoftAppID
           ),
-        renderToHtml: (app) => `${
-          app.website
-            ? `<a class="download" href="${app.website}" title="${i18next.t(
-                "app.website"
-              )}"><i class="far fa-map fa-fw"></i></a>`
-            : ""
-        }
-${
-  app.install.asin
-    ? `<a class="download" href="https://www.amazon.com/dp/${
-        app.install.asin
-      }" title="${i18next.t(
-        "app.install.asin"
-      )}" ><i class="fab fa-amazon fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.fDroidID
-    ? `<a class="download" href="https://f-droid.org/repository/browse/?fdid=${
-        app.install.fDroidID
-      }" title="${i18next.t(
-        "app.install.fDroid"
-      )}" ><i class="fab fa-android fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.obtainiumLink
-    ? `<a class="download" href="${
-        app.install.obtainiumLink
-      }" title="${i18next.t(
-        "app.install.obtainium"
-      )}" ><i class="fas fa-gem fa-fw" style="transform: rotate(315deg);"></i></a>`
-    : ""
-}
-${
-  app.install.googlePlayID
-    ? `<a class="download" href="https://play.google.com/store/apps/details?id=${
-        app.install.googlePlayID
-      }" title="${i18next.t(
-        "app.install.googlePlay"
-      )}" ><i class="fab fa-google-play fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.huaweiAppGalleryID
-    ? `<a class="download" href="https://appgallery.huawei.com/#/app/${
-        app.install.huaweiAppGalleryID
-      }" title="${i18next.t(
-        "app.install.huaweiAppGallery"
-      )}" ><i class="fas fa-shopping-bag fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.appleStoreID
-    ? `<a class="download" href="https://apps.apple.com/app/${
-        app.install.appleStoreID.toUpperCase().startsWith("ID")
-          ? app.install.appleStoreID
-          : `id${app.install.appleStoreID}`
-      }" title="${i18next.t(
-        "app.install.appleStore"
-      )}"><i class="fab fa-app-store-ios fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.macAppStoreID
-    ? `<a class="download" href="https://apps.apple.com/app/${
-        app.install.macAppStoreID.toUpperCase().startsWith("ID")
-          ? app.install.macAppStoreID
-          : `id${app.install.macAppStoreID}`
-      }" title="${i18next.t(
-        "app.install.macAppStore"
-      )}"><i class="fab fa-app-store fa-fw"></i></a>`
-    : ""
-}
-${
-  app.install.microsoftAppID
-    ? `<a class="download" href="https://apps.microsoft.com/detail/${
-        app.install.microsoftAppID
-      }" title="${i18next.t(
-        "app.install.microsoftApp"
-      )}"><i class="fab fa-microsoft fa-fw"></i></a>`
-    : ""
-}`,
+        renderToHtml: (app) => (
+          <>
+            {app.website && (
+              <a
+                className="download"
+                href={app.website}
+                title={t("app.website")}
+              >
+                <i className="far fa-map fa-fw"></i>
+              </a>
+            )}
+            {app.install.asin && (
+              <a
+                className="download"
+                href={`https://www.amazon.com/dp/${app.install.asin}`}
+                title={t("app.install.asin")}
+              >
+                <i className="fab fa-amazon fa-fw"></i>
+              </a>
+            )}
+            {app.install.fDroidID && (
+              <a
+                className="download"
+                href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
+                title={t("app.install.fDroid")}
+              >
+                <i className="fab fa-android fa-fw"></i>
+              </a>
+            )}
+            {app.install.obtainiumLink && (
+              <a
+                className="download"
+                href={app.install.obtainiumLink}
+                title={t("app.install.obtainium")}
+              >
+                <i
+                  className="fas fa-gem fa-fw"
+                  style={{ transform: "rotate(315deg)" }}
+                ></i>
+              </a>
+            )}
+            {app.install.googlePlayID && (
+              <a
+                className="download"
+                href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
+                title={t("app.install.googlePlay")}
+              >
+                <i className="fab fa-google-play fa-fw"></i>
+              </a>
+            )}
+            {app.install.huaweiAppGalleryID && (
+              <a
+                className="download"
+                href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+                title={t("app.install.huaweiAppGallery")}
+              >
+                <i className="fas fa-shopping-bag fa-fw"></i>
+              </a>
+            )}
+            {app.install.appleStoreID && (
+              <a
+                className="download"
+                href={`https://apps.apple.com/app/${
+                  app.install.appleStoreID.toUpperCase().startsWith("ID")
+                    ? app.install.appleStoreID
+                    : `id${app.install.appleStoreID}`
+                }`}
+                title={t("app.install.appleStore")}
+              >
+                <i className="fab fa-app-store-ios fa-fw"></i>
+              </a>
+            )}
+            {app.install.macAppStoreID && (
+              <a
+                className="download"
+                href={`https://apps.apple.com/app/${
+                  app.install.macAppStoreID.toUpperCase().startsWith("ID")
+                    ? app.install.macAppStoreID
+                    : `id${app.install.macAppStoreID}`
+                }`}
+                title={t("app.install.macAppStore")}
+              >
+                <i className="fab fa-app-store fa-fw"></i>
+              </a>
+            )}
+            {app.install.microsoftAppID && (
+              <a
+                className="download"
+                href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
+                title={t("app.install.microsoftApp")}
+              >
+                <i className="fab fa-microsoft fa-fw"></i>
+              </a>
+            )}
+          </>
+        ),
         renderToWiki: (app, lang) =>
           [
             app.website
-              ? `[${app.website} ${i18next.t("app.website", { lng: lang })}]`
+              ? `[${app.website} ${t("app.website", { lng: lang })}]`
               : "",
 
             app.install.asin
-              ? `[https://www.amazon.com/dp/${app.install.asin} ${i18next.t(
+              ? `[https://www.amazon.com/dp/${app.install.asin} ${t(
                   "app.install.asin",
                   { lng: lang }
                 )}]`
@@ -179,23 +199,22 @@ ${
             app.install.fDroidID
               ? `[https://f-droid.org/repository/browse/?fdid=${
                   app.install.fDroidID
-                } ${i18next.t("app.install.fDroid", { lng: lang })}]`
+                } ${t("app.install.fDroid", { lng: lang })}]`
               : "",
             app.install.obtainiumLink
-              ? `[${app.install.obtainiumLink} ${i18next.t(
-                  "app.install.obtainium",
-                  { lng: lang }
-                )}]`
+              ? `[${app.install.obtainiumLink} ${t("app.install.obtainium", {
+                  lng: lang,
+                })}]`
               : "",
             app.install.googlePlayID
               ? `[https://play.google.com/store/apps/details?id=${
                   app.install.googlePlayID
-                } ${i18next.t("app.install.googlePlay", { lng: lang })}]`
+                } ${t("app.install.googlePlay", { lng: lang })}]`
               : "",
             app.install.huaweiAppGalleryID
               ? `[https://appgallery.huawei.com/#/app/${
                   app.install.huaweiAppGalleryID
-                } ${i18next.t("app.install.huaweiAppGallery", { lng: lang })}]`
+                } ${t("app.install.huaweiAppGallery", { lng: lang })}]`
               : "",
             app.install.appleStoreID
               ? `[https://apps.apple.com/app/${
@@ -209,62 +228,65 @@ ${
                   app.install.macAppStoreID.toUpperCase().startsWith("ID")
                     ? app.install.macAppStoreID
                     : `id${app.install.macAppStoreID}`
-                } ${i18next.t("app.install.appleStore", { lng: lang })}]`
+                } ${t("app.install.appleStore", { lng: lang })}]`
               : "",
             app.install.microsoftAppID
               ? `[https://apps.microsoft.com/detail/${
                   app.install.microsoftAppID
-                } ${i18next.t("app.install.macAppStore", { lng: lang })}]`
+                } ${t("app.install.macAppStore", { lng: lang })}]`
               : "",
           ]
             .filter((o) => o)
             .join(", "),
       },
       {
-        label: (lang) => i18next.t("app.props.genre.label", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.props.genre.description", { lng: lang }),
+        label: (lang) => t("app.props.genre.label", { lng: lang }),
+        description: (lang) => t("app.props.genre.description", { lng: lang }),
         hasValue: (app) => app.genre?.length > 0,
-        renderToHtml: (app) => renderBadges(app.genre),
+        renderToHtml: (app) => <Badges topics={app.genre} />,
         renderToWiki: (app) => toWikiValue(app.genre?.join(", "), lang),
       },
       {
-        label: (lang) =>
-          i18next.t("app.props.description.label", { lng: lang }),
+        label: (lang) => t("app.props.description.label", { lng: lang }),
         description: (lang) =>
-          i18next.t("app.props.description.description", {
+          t("app.props.description.description", {
             lng: lang,
           }),
         hasValue: (app) => !!app.description,
-        renderToHtml: (app) => app.description,
+        renderToHtml: (app) => <>{app.description}</>,
         renderToWiki: (app) => toWikiValue(app.description, lang),
         more: true,
       },
       {
-        label: (lang) => i18next.t("app.props.platform.label", { lng: lang }),
+        label: (lang) => t("app.props.platform.label", { lng: lang }),
         description: (lang) =>
-          i18next.t("app.props.platform.description", { lng: lang }),
+          t("app.props.platform.description", { lng: lang }),
         hasValue: (app) => app.platform?.length > 0,
-        renderToHtml: (app) => renderBadges(app.platform),
+        renderToHtml: (app) => <Badges topics={app.platform} />,
         renderToWiki: (app) => toWikiValue(app.platform.join(", "), lang),
       },
       {
-        label: (lang) => i18next.t("app.props.date.label", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.props.date.description", { lng: lang }),
+        label: (lang) => t("app.props.date.label", { lng: lang }),
+        description: (lang) => t("app.props.date.description", { lng: lang }),
         hasValue: (app) => !!(app.lastRelease || app.unmaintained),
-        renderToHtml: (app) =>
-          (app.lastRelease
-            ? app.lastRelease
-            : app.unmaintained
-            ? "????-??-??"
-            : "") +
-          (app.unmaintained
-            ? ` <span class="warning">${i18next.t("app.unmaintained", {
-                icon: `<i class="fas fa-exclamation-triangle"></i>`,
-                interpolation: { escapeValue: false },
-              })}</span>`
-            : ""),
+        renderToHtml: (app) => (
+          <>
+            {(app.lastRelease
+              ? app.lastRelease
+              : app.unmaintained
+              ? "????-??-??"
+              : "") +
+              (app.unmaintained ? (
+                <span className="warning">
+                  {t("app.unmaintained", {
+                    icon: <i className="fas fa-exclamation-triangle"></i>,
+                  })}
+                </span>
+              ) : (
+                ""
+              ))}
+          </>
+        ),
         renderToWiki: (app, lang) =>
           toWikiValue(
             (app.unmaintained ? `style="background-color: #ffc680" | ` : "") +
@@ -274,31 +296,38 @@ ${
                 ? "????-??-??"
                 : "") +
               (app.unmaintained
-                ? i18next.t("app.unmaintained", { icon: `⚠️`, lng: lang })
+                ? t("app.unmaintained", { icon: `⚠️`, lng: lang })
                 : ""),
             lang
           ),
       },
       {
-        label: (lang) => i18next.t("app.props.languages.label", { lng: lang }),
+        label: (lang) => t("app.props.languages.label", { lng: lang }),
         description: (lang) =>
-          i18next.t("app.props.languages.description", {
+          t("app.props.languages.description", {
             lng: lang,
           }),
         hasValue: (app) => !!app.languagesUrl || !!(app.languages.length > 0),
-        renderToHtml: (app) =>
-          app.languagesUrl
-            ? `<a class="language-url" href="${
-                app.languagesUrl
-              }" target="_blank"">
-      ${
-        app.languages.length > 0
-          ? renderBadges(app.languages)
-          : `<i class="fas fa-language"></i>`
-      }
-      <i class="fas fa-external-link-alt"></i>
-    </a>`
-            : renderBadges(app.languages),
+        renderToHtml: (app) => (
+          <>
+            {app.languagesUrl ? (
+              <a
+                className="language-url"
+                href={app.languagesUrl}
+                target="_blank"
+              >
+                {app.languages.length > 0 ? (
+                  <Badges topics={app.languages} />
+                ) : (
+                  <i className="fas fa-language"></i>
+                )}
+                <i className="fas fa-external-link-alt"></i>
+              </a>
+            ) : (
+              <Badges topics={app.languages} />
+            )}
+          </>
+        ),
         renderToWiki: (app) =>
           toWikiValue(
             app.languagesUrl
@@ -313,142 +342,161 @@ ${
         more: true,
       },
       {
-        label: (lang) => i18next.t("app.props.coverage.label", { lng: lang }),
+        label: (lang) => t("app.props.coverage.label", { lng: lang }),
         description: (lang) =>
-          i18next.t("app.props.coverage.description", { lng: lang }),
+          t("app.props.coverage.description", { lng: lang }),
         hasValue: (app) => !!(app.coverage && app.coverage.length),
-        renderToHtml: (app) => app.coverage[app.coverage.length - 1],
+        renderToHtml: (app) => <>{app.coverage[app.coverage.length - 1]}</>,
         renderToWiki: (app) =>
           toWikiValue(app.coverage[app.coverage.length - 1], lang),
       },
       {
-        label: (lang) => i18next.t("app.community", { lng: lang }),
+        label: (lang) => t("app.community", { lng: lang }),
         description: () => "",
         hasValue: (app) =>
           Object.values(app.community).filter((v) => v).length > 0,
-        renderToHtml: (app) => `
-        ${
-          app.community.forum
-            ? `<a class="community" href="${
-                app.community.forum
-              }" title="${i18next.t(
-                "app.community.forum"
-              )}"><i class="fas fa-comments fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.forumTag
-            ? `<a class="community" href="https://community.openstreetmap.org/tag/${
-                app.community.forumTag
-              }" title="${i18next.t(
-                "app.community.forumTag"
-              )}"><i class="fas fa-tag fa-fw"></i></a>`
-            : ""
-        }${
-          getMatrix(app.community.matrix, app.community.irc)
-            ? `<a class="community" href="https://matrix.to/#/${getMatrix(
-                app.community.matrix,
-                app.community.irc
-              )}" title="${i18next.t("app.community.matrix")}"><i>[m]</i></a>`
-            : ""
-        }${
-          app.community.mastodon
-            ? `<a class="community" href="https://fedirect.toolforge.org/?id=${
-                app.community.mastodon
-              }" title="${i18next.t(
-                "app.community.mastodon"
-              )}"><i class="fab fa-mastodon fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.bluesky
-            ? `<a class="community" href="https://bsky.app/profile/${
-                app.community.bluesky
-              }" title="${i18next.t(
-                "app.community.bluesky"
-              )}"><img src="/icons/bluesky.svg" height="18px" /></a>`
-            : ""
-        }${
-          app.community.reddit
-            ? `<a class="community" href="https://www.reddit.com/r/${
-                app.community.reddit
-              }" title="${i18next.t(
-                "app.community.reddit"
-              )}"><i class="fab fa-reddit fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.slack
-            ? `<a class="community" href="${
-                app.community.slack
-              }" title="${i18next.t(
-                "app.community.slack"
-              )}"><i class="fab fa-slack-hash fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.telegram
-            ? `<a class="community" href="https://telegram.me/${
-                app.community.telegram
-              }" title="${i18next.t(
-                "app.community.telegram"
-              )}"><i class="fab fa-telegram fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.githubDiscussions
-            ? `<a class="community" href="https://github.com/${
-                app.community.githubDiscussions
-              }/discussions" title="${i18next.t(
-                "app.community.githubDiscussions"
-              )}"><i class="fab fa-github fa-fw"></i></a>`
-            : ""
-        }${
-          app.community.issueTracker
-            ? `<a class="community" href="${
-                app.community.issueTracker
-              }" title="${i18next.t(
-                "app.community.issueTracker"
-              )}"><i class="fas fa-list fa-fw"></i></a>`
-            : ""
-        }
-`,
+        renderToHtml: (app) => (
+          <>
+            {app.community.forum && (
+              <a
+                className="community"
+                href={app.community.forum}
+                title={t("app.community.forum")}
+              >
+                <i className="fas fa-comments fa-fw"></i>
+              </a>
+            )}
+            {app.community.forumTag && (
+              <a
+                className="community"
+                href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
+                title={t("app.community.forumTag")}
+              >
+                <i className="fas fa-tag fa-fw"></i>
+              </a>
+            )}
+            {getMatrix(app.community.matrix, app.community.irc) && (
+              <a
+                className="community"
+                href={`https://matrix.to/#/${getMatrix(
+                  app.community.matrix,
+                  app.community.irc
+                )}`}
+                title={t("app.community.matrix")}
+              >
+                <i>[m]</i>
+              </a>
+            )}
+            {app.community.mastodon && (
+              <a
+                className="community"
+                href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
+                title={t("app.community.mastodon")}
+              >
+                <i className="fab fa-mastodon fa-fw"></i>
+              </a>
+            )}
+            {app.community.bluesky && (
+              <a
+                className="community"
+                href={`https://bsky.app/profile/${app.community.bluesky}`}
+                title={t("app.community.bluesky")}
+              >
+                <img src="/icons/bluesky.svg" alt="Bluesky" height="18px" />
+              </a>
+            )}
+            {app.community.reddit && (
+              <a
+                className="community"
+                href={`https://www.reddit.com/r/${app.community.reddit}`}
+                title={t("app.community.reddit")}
+              >
+                <i className="fab fa-reddit fa-fw"></i>
+              </a>
+            )}
+            {app.community.slack && (
+              <a
+                className="community"
+                href={app.community.slack}
+                title={t("app.community.slack")}
+              >
+                <i className="fab fa-slack-hash fa-fw"></i>
+              </a>
+            )}
+            {app.community.telegram && (
+              <a
+                className="community"
+                href={`https://telegram.me/${app.community.telegram}`}
+                title={t("app.community.telegram")}
+              >
+                <i className="fab fa-telegram fa-fw"></i>
+              </a>
+            )}
+            {app.community.githubDiscussions && (
+              <a
+                className="community"
+                href={`https://github.com/${app.community.githubDiscussions}/discussions`}
+                title={t("app.community.githubDiscussions")}
+              >
+                <i className="fab fa-github fa-fw"></i>
+              </a>
+            )}
+            {app.community.issueTracker && (
+              <a
+                className="community"
+                href={app.community.issueTracker}
+                title={t("app.community.issueTracker")}
+              >
+                <i className="fas fa-list fa-fw"></i>
+              </a>
+            )}
+          </>
+        ),
         renderToWiki: (app, lang) =>
           [
             app.community.forum
-              ? `[${app.community.forum} ${i18next.t("app.community.forum", {
+              ? `[${app.community.forum} ${t("app.community.forum", {
                   lng: lang,
                 })}]`
               : "",
             app.community.forumTag
               ? `[https://community.openstreetmap.org/tag/${
                   app.community.forumTag
-                } ${i18next.t("app.community.forumTag", { lng: lang })}]`
+                } ${t("app.community.forumTag", { lng: lang })}]`
               : "",
-            app.community.matrix
-              ? `[https://matrix.to/#/${app.community.matrix} ${i18next.t(
-                  "app.community.matrix"
-                )}"><i>[m]</i></a>`
+            getMatrix(app.community.matrix, app.community.irc)
+              ? `[https://matrix.to/#/${getMatrix(
+                  app.community.matrix,
+                  app.community.irc
+                )} ${t(
+                  "app.community.matrix",
+                  { lng: lang }
+                )}]`
               : "",
             app.community.mastodon
               ? `[https://fedirect.toolforge.org/?id=${
                   app.community.mastodon
-                } ${i18next.t("app.community.mastodon", { lng: lang })}]`
+                } ${t("app.community.mastodon", { lng: lang })}]`
               : "",
             app.community.bluesky
-              ? `[https://bsky.app/profile/${app.community.bluesky} ${i18next.t(
+              ? `[https://bsky.app/profile/${app.community.bluesky} ${t(
                   "app.community.bluesky",
                   { lng: lang }
                 )}]`
               : "",
             app.community.reddit
-              ? `[https://www.reddit.com/r/${app.community.reddit} ${i18next.t(
+              ? `[https://www.reddit.com/r/${app.community.reddit} ${t(
                   "app.community.reddit",
                   { lng: lang }
                 )}]`
               : "",
             app.community.slack
-              ? `[${app.community.slack} ${i18next.t("app.community.slack", {
+              ? `[${app.community.slack} ${t("app.community.slack", {
                   lng: lang,
                 })}]`
               : "",
             app.community.telegram
-              ? `[https://telegram.me/${app.community.telegram} ${i18next.t(
+              ? `[https://telegram.me/${app.community.telegram} ${t(
                   "app.community.telegram",
                   { lng: lang }
                 )}]`
@@ -456,12 +504,12 @@ ${
             app.community.githubDiscussions
               ? `[https://github.com/${
                   app.community.githubDiscussions
-                }/discussions ${i18next.t("app.community.githubDiscussions", {
+                }/discussions ${t("app.community.githubDiscussions", {
                   lng: lang,
                 })}]`
               : "",
             app.community.issueTracker
-              ? `[${app.community.issueTracker} ${i18next.t(
+              ? `[${app.community.issueTracker} ${t(
                   "app.community.issueTracker",
                   { lng: lang }
                 )}]`
@@ -471,19 +519,17 @@ ${
             .join(", "),
       },
       {
-        label: (lang) => i18next.t("app.props.author.label", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.props.author.description", { lng: lang }),
+        label: (lang) => t("app.props.author.label", { lng: lang }),
+        description: (lang) => t("app.props.author.description", { lng: lang }),
         hasValue: (app) => !!app.author,
-        renderToHtml: (app) => app.author,
+        renderToHtml: (app) => <>{app.author}</>,
         renderToWiki: (app) => toWikiValue(app.author, lang),
       },
       {
-        label: (lang) => i18next.t("app.props.price.label", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.props.price.description", { lng: lang }),
+        label: (lang) => t("app.props.price.label", { lng: lang }),
+        description: (lang) => t("app.props.price.description", { lng: lang }),
         hasValue: (app) => !!app.price,
-        renderToHtml: (app) => app.price,
+        renderToHtml: (app) => <>{app.price}</>,
         renderToWiki: (app) =>
           toWikiValue(
             app.gratis
@@ -493,44 +539,47 @@ ${
           ),
       },
       {
-        label: (lang) => i18next.t("app.props.license.label", { lng: lang }),
+        label: (lang) => t("app.props.license.label", { lng: lang }),
         description: (lang) =>
-          i18next.t("app.props.license.description", { lng: lang }),
+          t("app.props.license.description", { lng: lang }),
         hasValue: (app) => !!app.license,
-        renderToHtml: (app) => renderBadges(app.license),
+        renderToHtml: (app) => <Badges topics={app.license} />,
         renderToWiki: (app) =>
           toWikiValue(
-            app.libre ? `{{free|${app.license || unknown()}}}` : app.license,
+            app.libre ? `{{free|${app.license || "{{?}}"}}}` : app.license,
             lang
           ),
       },
       {
-        label: (lang) => i18next.t("app.props.repo.label", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.props.repo.description", { lng: lang }),
+        label: (lang) => t("app.props.repo.label", { lng: lang }),
+        description: (lang) => t("app.props.repo.description", { lng: lang }),
         hasValue: (app) => !!app.sourceCode,
         renderToHtml: (app) =>
-          app.sourceCode
-            ? `<a target="_blank" href="${app.sourceCode}"><i class="fas fa-code"></i></a>`
-            : "",
+          app.sourceCode ? (
+            <a target="_blank" href={app.sourceCode}>
+              <i className="fas fa-code"></i>
+            </a>
+          ) : null,
         renderToWiki: (app) =>
           toWikiValue(app.sourceCode ? `[${app.sourceCode} </>]` : "", lang),
       },
       {
-        label: (lang) => i18next.t("app.source", { lng: lang }),
-        description: (lang) =>
-          i18next.t("app.source.description", { lng: lang }),
+        label: (lang) => t("app.source", { lng: lang }),
+        description: (lang) => t("app.source.description", { lng: lang }),
         hasValue: () => true,
-        renderToHtml: (app) =>
-          app.source
-            .map(
-              (s) =>
-                `<a target="_blank" href="${s.url}" title="${i18next.t(
-                  "app.source.date",
-                  { date: s.lastChange }
-                )}"><SourceDisplayText name={s.name}></a>`
-            )
-            .join(", "),
+        renderToHtml: (app) => (
+          <>
+            {app.source.map((s) => (
+              <a
+                target="_blank"
+                href={s.url}
+                title={t("app.source.date", { date: s.lastChange })}
+              >
+                <SourceDisplayText name={s.name} />
+              </a>
+            ))}
+          </>
+        ),
       },
     ],
     apps,
@@ -539,8 +588,9 @@ ${
 
   // Map display
   renderGroup(
+    t,
     "map",
-    i18next.t("compare.group.header.map"),
+    t("compare.group.header.map"),
     [
       "map",
       "mapData",
@@ -557,8 +607,9 @@ ${
 
   // Routing
   renderGroup(
+    t,
     "routing",
-    i18next.t("compare.group.header.routing"),
+    t("compare.group.header.routing"),
     [
       "routing",
       "createRouteManually",
@@ -577,8 +628,9 @@ ${
 
   // Navigating
   renderGroup(
+    t,
     "navigating",
-    i18next.t("compare.group.header.navigating"),
+    t("compare.group.header.navigating"),
     [
       "navigating",
       "findLocation",
@@ -596,8 +648,9 @@ ${
 
   // Tracking
   renderGroup(
+    t,
     "tracking",
-    i18next.t("compare.group.header.tracking"),
+    t("compare.group.header.tracking"),
     [
       "tracking",
       "customInterval",
@@ -612,8 +665,9 @@ ${
 
   // Monitoring
   renderGroup(
+    t,
     "monitoring",
-    i18next.t("compare.group.header.monitoring"),
+    t("compare.group.header.monitoring"),
     [
       "monitoring",
       "showTrack",
@@ -631,8 +685,9 @@ ${
 
   // Editing
   renderGroup(
+    t,
     "editing",
-    i18next.t("compare.group.header.editing"),
+    t("compare.group.header.editing"),
     [
       "addPOI",
       "editPOI",
@@ -653,8 +708,9 @@ ${
 
   // Rendering
   renderGroup(
+    t,
     "rendering",
-    i18next.t("compare.group.header.rendering"),
+    t("compare.group.header.rendering"),
     ["rendererOutputFormats"],
     apps,
     lang
@@ -662,8 +718,9 @@ ${
 
   // Accessibility
   renderGroup(
+    t,
     "accessibility",
-    i18next.t("compare.group.header.accessibility"),
+    t("compare.group.header.accessibility"),
     [
       "accessibility",
       "textOnlyUI",
@@ -680,6 +737,7 @@ ${
 }
 
 function renderGroup(
+  t: TFunction<"translation", undefined>,
   id: string,
   display: string,
   params: (
@@ -689,7 +747,7 @@ function renderGroup(
         description: (lang?: string) => string | undefined;
         hasValue: (app: App) => boolean;
         notNo?: (app: App) => boolean;
-        renderToHtml: (app: App) => string | undefined;
+        renderToHtml: (app: App) => JSX.Element | null;
         renderToWiki?: (app: App, lang: string) => string | undefined;
         more?: boolean;
         centered?: boolean;
@@ -704,10 +762,9 @@ function renderGroup(
     }
 
     return {
-      label: (lang?: string) =>
-        i18next.t("app.props." + p + ".label", { lng: lang }),
+      label: (lang?: string) => t("app.props." + p + ".label", { lng: lang }),
       description: (lang?: string) =>
-        i18next.t("app.props." + p + ".description", { lng: lang }),
+        t("app.props." + p + ".description", { lng: lang }),
       hasValue: (app: App) => {
         const value: string | string[] | undefined = (app as any)[id]?.[p];
         if (Array.isArray(value)) {
@@ -719,7 +776,7 @@ function renderGroup(
         const value: string | string[] | undefined = (app as any)[id]?.[p];
         return notNo(value);
       },
-    //   renderToHtml: (app: App) => renderBadges((app as any)[id]?.[p]),
+      renderToHtml: (app: App) => <Badges topics={(app as any)[id]?.[p]} />,
       renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p], lang),
     };
   });
@@ -730,15 +787,15 @@ function renderGroup(
         return undefined;
       }
 
-    //   return createParamElement(
-    //     apps,
-    //     p.label(),
-    //     p.description(),
-    //     (app) => p.renderToHtml(app),
-    //     id + "-detail",
-    //     p.more,
-    //     p.centered
-    //   );
+      return createParamElement(
+        apps,
+        p.label(),
+        p.description(),
+        (app) => p.renderToHtml(app),
+        id + "-detail",
+        p.more,
+        p.centered
+      );
     })
     .filter((e) => e);
 
@@ -747,7 +804,7 @@ function renderGroup(
       "div",
       `<div class="cell header params-title params-group-title">
         <a class="group" data-target=".${id}-detail" href="#"><i class="fas fa-fw fa-caret-down ${id}-detail"></i><i class="fas fa-fw fa-caret-right ${id}-detail hidden"></i> ${display}</a>
-        <a class="export" href="#" title="${i18next.t(
+        <a class="export" href="#" title="${t(
           "compare.share"
         )}"><i class="fas fa-share-alt"></i></a> </div>`,
       ["row"]
@@ -761,11 +818,11 @@ function renderGroup(
         lang
       );
 
-      navigator.clipboard.writeText(`== ${display} == <!-- ${i18next.t(
+      navigator.clipboard.writeText(`== ${display} == <!-- ${t(
         "wiki.generatedBy"
       )} -->
 ${wikiTable}`);
-      alert(i18next.t("share.wiki", { group: display }));
+      alert(t("share.wiki", { group: display }));
     });
 
     getHtmlElement(".group", element).addEventListener("click", (e) => {
@@ -807,10 +864,10 @@ function createParamElement(
         more
           ? `<div class="cell param-text${
               centered ? " align-middle text-center" : ""
-            }"><div class="dynamic-more">${v || unknown()}</div></div>`
+            }"><div class="dynamic-more">${v || Unknown()}</div></div>`
           : `<div class="cell param-text${
               centered ? " align-middle text-center" : ""
-            }">${v || unknown()}</div>`
+            }">${v || Unknown()}</div>`
       ),
     ].join(""),
     ["row", group]
