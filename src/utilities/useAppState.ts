@@ -32,14 +32,22 @@ export function useAppState() {
         formatedValue = "" + value;
       }
       if (formatedValue) {
+        if (searchParams.get(key) === formatedValue) {
+          return;
+        }
         searchParams.set(key, formatedValue);
       } else {
+        if (!searchParams.has(key)) {
+          return;
+        }
         searchParams.delete(key);
       }
       setSearchParams(searchParams);
     },
     function (category: string) {
-      if(category === "all"){setSearchParams({})}
+      if (category === "all") {
+        setSearchParams({});
+      }
       setSearchParams({
         category,
       });

@@ -17,10 +17,11 @@ import { App as AppData } from "./data/App";
 import { List } from "./ui/views/List";
 import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
 import { Compare } from "./ui/views/compare";
+import { calculateScore } from "./data/calculateScore";
+import { useTranslation } from "react-i18next";
 import { languageValueToDisplay } from "./ui/utilities/language";
 
 import "./style.scss";
-import { calculateScore } from "./data/calculateScore";
 
 function prepareScoreAndLanguage(apps: AppData[]) {
   apps
@@ -38,6 +39,7 @@ function prepareScoreAndLanguage(apps: AppData[]) {
 }
 
 export function App() {
+  const { t } = useTranslation();
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
   const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
@@ -51,10 +53,23 @@ export function App() {
   useEffect(() => {
     if (apps.length > 0) {
       const filteredApps = filter({ apps, ...state });
+      if (filteredApps.length > 300) {
+        setAppState("view", "list");
+      }
       prepareScoreAndLanguage(filteredApps);
       setFilteredApps(filteredApps);
     }
-  }, [apps, JSON.stringify(state)]);
+  }, [
+    apps,
+    JSON.stringify({
+      app: state.app,
+      category: state.category,
+      coverage: state.coverage,
+      platforms: state.platforms,
+      search: state.search,
+      topics: state.topics,
+    }),
+  ]);
 
   return (
     <LazyLoadImages>
@@ -80,23 +95,31 @@ export function App() {
           </a>
           <About />
         </h1>
-        <p className="description" style={{ margin: "5px 10px 10px" }}></p>
-        {state.category !== "focus" && !state.app && (
-          <Search
-            apps={apps}
-            onInput={debounce((value) => {
-              setAppState("search", value);
-            }, 500)}
-          />
-        )}{" "}
-        {state.category !== "focus" && !state.app && (
-          <Filters
-            active={moreFilters}
-            onChange={(value) => {
-              setMoreFilters(value);
-            }}
-          />
-        )}
+        {!state.app ? (
+          <>
+            <p className="description" style={{ margin: "5px 10px 10px" }}>
+              {t(`category.${state.category}.description`, {
+                numberOfApps: filteredApps.length || "",
+              })}
+            </p>
+            {state.category !== "focus" && (
+              <>
+                <Search
+                  apps={apps}
+                  onInput={debounce((value) => {
+                    setAppState("search", value);
+                  }, 500)}
+                />{" "}
+                <Filters
+                  active={moreFilters}
+                  onChange={(value) => {
+                    setMoreFilters(value);
+                  }}
+                />
+              </>
+            )}
+          </>
+        ) : null}
         <hr style={{ border: "1px solid #ccc" }} />
         {state.category !== "focus" && !state.app && moreFilters && (
           <span className="advanced-filter">
@@ -122,21 +145,31 @@ export function App() {
             />
           </span>
         )}
-        <ViewSelect
-          value={state.view}
-          onChange={(newValues) => setAppState("view", newValues)}
-        />
+        {filteredApps.length <= 300  && filteredApps.length > 0 && (
+          <ViewSelect
+            value={state.view}
+            onChange={(newValues) => setAppState("view", newValues)}
+          />
+        )}
       </header>
       <main>
         {state.view !== "compare" ? (
           <div id="list">
-            {filteredApps.map((a) => (
-              <List key={a.id} app={a} open={!!state.app} />
-            ))}
+            {filteredApps.length > 0 ? (
+              filteredApps.map((a) => (
+                <List key={a.id} app={a} open={!!state.app} />
+              ))
+            ) : (
+              <p className="no-results">{t("noResults")}</p>
+            )}
           </div>
         ) : (
           <div id="compare" className="table">
-            <Compare apps={filteredApps} lang={state.lang} />
+            {filteredApps.length > 0 ? (
+              <Compare apps={filteredApps} lang={state.lang} />
+            ) : (
+              <p className="no-results">{t("noResults")}</p>
+            )}
           </div>
         )}
       </main>

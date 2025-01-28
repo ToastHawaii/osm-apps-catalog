@@ -23,8 +23,6 @@ import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 // import { render as renderCompareView } from "./ui/views/compare";
 import { lazyInitMore } from "./ui/utilities/lazyInitMore";
-import { calculateScore } from "./action/addApp";
-import { languageValueToDisplay } from "./ui/utilities/language";
 import { State } from "./State";
 import { App } from "./data/App";
 
@@ -105,7 +103,7 @@ export function update({
       e.classList.toggle("hidden", category === "focus" || appPage)
     );
 
-  prepareScoreAndLanguage(filteredApps);
+  // prepareScoreAndLanguage(filteredApps);
 
   updateDescription(category, filteredApps.length);
 
@@ -356,7 +354,7 @@ function renderSimilarApps(
       );
 
     if (similarApps.length > 0) {
-      prepareScoreAndLanguage(similarApps);
+      //prepareScoreAndLanguage(similarApps);
 
       const similarTag = createElement(
         "h2",
@@ -383,7 +381,7 @@ function renderNotFoundApps(apps: App[]) {
     .map((f) => apps.find((a) => a.name === f))
     .filter((a) => a) as App[];
 
-  prepareScoreAndLanguage(notFound);
+  // prepareScoreAndLanguage(notFound);
 
   const notFoundTag = createElement("h2", i18next.t("notFound"));
   getHtmlElement("#list").appendChild(notFoundTag);
