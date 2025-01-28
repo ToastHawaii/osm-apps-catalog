@@ -17,10 +17,10 @@
 
 import React, { useState } from "react";
 import { SourceDisplayText } from "../components/SourceDisplayText";
-import { Badges } from "./Badges";
-import { Image } from "./Image";
-import { Score } from "./Score";
-import { getMatrix } from "./getMatrix";
+import { Badges } from "../components/Badges";
+import { Image } from "../components/Image";
+import { Score } from "../components/Score";
+import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
 

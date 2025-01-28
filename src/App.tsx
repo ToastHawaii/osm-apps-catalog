@@ -15,15 +15,15 @@ import { useAppState } from "./utilities/useAppState";
 import { filter } from "./filter";
 import { App as AppData } from "./data/App";
 import { List } from "./ui/views/List";
-import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
-import { Compare } from "./ui/views/compare";
+import { LazyLoadImages } from "./ui/components/LazyLoadImages";
+import { Compare } from "./ui/views/Compare";
 import { calculateScore } from "./data/calculateScore";
 import { useTranslation } from "react-i18next";
 import { languageValueToDisplay } from "./ui/utilities/language";
 import { NotFoundApps } from "./ui/components/NotFoundApps";
 import { strip } from "./utilities/string";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
-import { LazyInitMore } from "./ui/utilities/LazyInitMore";
+import { LazyInitMore } from "./ui/components/LazyInitMore";
 
 import "./style.scss";
 

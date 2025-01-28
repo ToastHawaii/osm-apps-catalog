@@ -18,15 +18,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Badges } from "./Badges";
-import { Image } from "./Image";
-import { toWikiTable, toWikiValue } from "./toWikiTable";
+import { Badges } from "../components/Badges";
+import { Image } from "../components/Image";
+import { toWikiTable, toWikiValue } from "../utilities/toWikiTable";
 import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../utilities/language";
-import { getMatrix } from "./getMatrix";
+import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { SourceDisplayText } from "../components/SourceDisplayText";
-import { Score } from "./Score";
+import { Score } from "../components/Score";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
   const { t } = useTranslation();
@@ -256,7 +256,11 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                 lng: lang,
               }),
             hasValue: (app) => !!app.description,
-            renderToHtml: (app) => <span dangerouslySetInnerHTML={{__html: app.description}}></span>,
+            renderToHtml: (app) => (
+              <span
+                dangerouslySetInnerHTML={{ __html: app.description }}
+              ></span>
+            ),
             renderToWiki: (app) => toWikiValue(app.description, lang),
             more: true,
           },
@@ -527,7 +531,11 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             description: (lang) =>
               t("app.props.author.description", { lng: lang }),
             hasValue: (app) => !!app.author,
-            renderToHtml: (app) => <span dangerouslySetInnerHTML={{__html:app.author||""}}></span>,
+            renderToHtml: (app) => (
+              <span
+                dangerouslySetInnerHTML={{ __html: app.author || "" }}
+              ></span>
+            ),
             renderToWiki: (app) => toWikiValue(app.author, lang),
           },
           {
