@@ -256,7 +256,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                 lng: lang,
               }),
             hasValue: (app) => !!app.description,
-            renderToHtml: (app) => <>{app.description}</>,
+            renderToHtml: (app) => <span dangerouslySetInnerHTML={{__html: app.description}}></span>,
             renderToWiki: (app) => toWikiValue(app.description, lang),
             more: true,
           },
@@ -527,7 +527,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             description: (lang) =>
               t("app.props.author.description", { lng: lang }),
             hasValue: (app) => !!app.author,
-            renderToHtml: (app) => <>{app.author}</>,
+            renderToHtml: (app) => <span dangerouslySetInnerHTML={{__html:app.author||""}}></span>,
             renderToWiki: (app) => toWikiValue(app.author, lang),
           },
           {

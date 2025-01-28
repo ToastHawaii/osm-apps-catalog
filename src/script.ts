@@ -22,7 +22,7 @@ import { strip } from "./utilities/string";
 import { findGetParameter } from "./utilities/url";
 import { display, edit, mobile, navigation, web } from "./utilities/filter";
 // import { render as renderCompareView } from "./ui/views/compare";
-import { lazyInitMore } from "./ui/utilities/lazyInitMore";
+// import { lazyInitMore } from "./ui/utilities/LazyInitMore";
 import { State } from "./State";
 import { App } from "./data/App";
 
@@ -78,7 +78,6 @@ const lang = (findGetParameter("lang") || "en").toLowerCase();
 //   update(e.state);
 //   onUpdate = false;
 // });
-
 
 export function update({
   apps,
@@ -185,7 +184,7 @@ export function update({
       }
       // renderCompareView(filteredApps, lang);
       setTimeout(() => {
-        lazyInitMore(true);
+        // lazyInitMore(true);
       }, 0);
       break;
 
@@ -285,8 +284,6 @@ export function update({
       })
     );
   }
-
-
 }
 
 function updateDescription(category: string, numberOfApps?: number) {

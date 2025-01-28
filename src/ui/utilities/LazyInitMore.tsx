@@ -15,7 +15,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import i18next from "i18next";
+import { TFunction } from "i18next";
+import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function isOverflown(element: Element) {
   return (
@@ -26,7 +28,10 @@ function isOverflown(element: Element) {
 
 let scrollLeft = 0;
 
-export async function lazyInitMore(reset?: boolean) {
+async function lazyInitMore(
+  t: TFunction<"translation", undefined>,
+  reset?: boolean
+) {
   if (reset) {
     scrollLeft = 0;
   }
@@ -54,8 +59,9 @@ export async function lazyInitMore(reset?: boolean) {
         elements[i].classList.add("more");
         var div = document.createElement("div");
         div.classList.add("fade-out");
-        div.innerHTML =
-          `<div class="button"><span class="text">&mdash; ${i18next.t("list.more")} &mdash;</span></div>`;
+        div.innerHTML = `<div class="button"><span class="text">&mdash; ${t(
+          "list.more"
+        )} &mdash;</span></div>`;
         elements[i].appendChild(div);
 
         div.addEventListener("click", function () {
@@ -72,12 +78,24 @@ export async function lazyInitMore(reset?: boolean) {
     }
   }
 }
-document.getElementById("content")?.addEventListener("scroll", () => {
-  lazyInitMore();
-});
-document.getElementById("content")?.addEventListener("load", () => {
-  lazyInitMore();
-});
-document.getElementById("content")?.addEventListener("resize", () => {
-  lazyInitMore();
-});
+
+export function LazyInitMore({ children }: { children: any }) {
+  const { t } = useTranslation();
+  const element = document.getElementById("content");
+
+  useEffect(() => {
+    lazyInitMore(t, true);
+
+    element?.addEventListener("scroll", () => {
+      lazyInitMore(t);
+    });
+    element?.addEventListener("load", () => {
+      lazyInitMore(t);
+    });
+    element?.addEventListener("resize", () => {
+      lazyInitMore(t);
+    });
+  });
+
+  return <>{children}</>;
+}

@@ -6,6 +6,7 @@ import { equalsIgnoreCase } from "./utilities/string";
 
 export function filter({
   apps,
+  app,
   category,
   search,
   topics,
@@ -13,6 +14,10 @@ export function filter({
   languages,
   coverage,
 }: { apps: App[] } & State) {
+  if (app) {
+    return [apps.filter((a) => a.id === app),[]];
+  }
+
   let filteredApps: App[] = apps.slice();
 
   if (category === "latest") {
@@ -145,7 +150,7 @@ export function filter({
   }
 
   // similar apps
-  let similarApps :App[]= [];
+  let similarApps: App[] = [];
   if (topicsUp.length > 0) {
     similarApps = apps.filter((a) => !filteredApps.includes(a));
 
@@ -195,5 +200,5 @@ export function filter({
       );
   }
 
-  return [ filteredApps, similarApps ];
+  return [filteredApps, similarApps];
 }

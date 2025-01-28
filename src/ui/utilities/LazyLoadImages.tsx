@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 let scrollTop = 0;
 let scrollLeft = 0;
@@ -104,25 +104,21 @@ async function lazyLoadImages(reset?: boolean) {
 }
 
 export function LazyLoadImages({ children }: { children: any }) {
-  const element = useRef<HTMLDivElement>(null);
+  const element = document.getElementById("content");
 
   useEffect(() => {
     lazyLoadImages(true);
 
-    element.current?.addEventListener("scroll", () => {
+    element?.addEventListener("scroll", () => {
       lazyLoadImages();
     });
-    element.current?.addEventListener("load", () => {
+    element?.addEventListener("load", () => {
       lazyLoadImages();
     });
-    element.current?.addEventListener("resize", () => {
+    element?.addEventListener("resize", () => {
       lazyLoadImages();
     });
   });
 
-  return (
-    <div ref={element} id="content">
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

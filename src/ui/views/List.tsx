@@ -31,7 +31,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
   const link = new URLSearchParams();
   link.set("app", "" + app.id);
   return (
-    <div className={"app" + (open ? "app-page" : "")}>
+    <div className={"app" + (open ? " app-page" : "")}>
       <div className="header">
         <div className="with-corner-badge">
           <Score app={app} />
@@ -55,7 +55,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
       </div>
 
       <p>
-        {app.description}
+        <span dangerouslySetInnerHTML={{ __html: app.description }}></span>
         {app.documentation && (
           <>
             {" "}
@@ -337,7 +337,10 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           {app.author && (
             <div className="more-info">
               <span className="more-info-title">{t("app.author")}</span>
-              <span className="more-info-text">{app.author}</span>
+              <span
+                className="more-info-text"
+                dangerouslySetInnerHTML={{ __html: app.author }}
+              ></span>
             </div>
           )}
 
