@@ -10,8 +10,6 @@ import { LanguageSelect } from "./ui/components/LanguageSelect";
 import { CoverageSelect } from "./ui/components/CoverageSelect";
 import { useData } from "./useData";
 import { Filters } from "./ui/components/filters";
-import { printCalcScore } from "./utilities/printCalcScore";
-import { isDevelopment } from "./utilities/isDevelopment";
 import { debounce } from "lodash";
 import { useAppState } from "./utilities/useAppState";
 import { filter } from "./filter";
@@ -19,8 +17,25 @@ import { App as AppData } from "./data/App";
 import { List } from "./ui/views/List";
 import { LazyLoadImages } from "./ui/utilities/LazyLoadImages";
 import { Compare } from "./ui/views/compare";
+import { languageValueToDisplay } from "./ui/utilities/language";
 
 import "./style.scss";
+import { calculateScore } from "./data/calculateScore";
+
+function prepareScoreAndLanguage(apps: AppData[]) {
+  apps
+    .filter((app) => !app.score.details)
+    .forEach((app) => {
+      app.score = calculateScore(app);
+      app.languages = app.languages.map((l) => languageValueToDisplay(l));
+      if (app.accessibility) {
+        app.accessibility.screenReaderLang =
+          app.accessibility.screenReaderLang.map((l) =>
+            languageValueToDisplay(l)
+          );
+      }
+    });
+}
 
 export function App() {
   const [state, setAppState, resetAppState] = useAppState();
@@ -35,15 +50,9 @@ export function App() {
 
   useEffect(() => {
     if (apps.length > 0) {
-      if (isDevelopment) {
-        printCalcScore(apps);
-      }
-    }
-  }, [apps]);
-
-  useEffect(() => {
-    if (apps.length > 0) {
-      setFilteredApps(filter({ apps, ...state }));
+      const filteredApps = filter({ apps, ...state });
+      prepareScoreAndLanguage(filteredApps);
+      setFilteredApps(filteredApps);
     }
   }, [apps, JSON.stringify(state)]);
 

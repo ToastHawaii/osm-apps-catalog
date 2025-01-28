@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getJson } from "./utilities/jsonRequest";
 import { App } from "./data/App";
 import { isDevelopment } from "./utilities/isDevelopment";
+import { printCalcScore } from "./utilities/printCalcScore";
 
 async function loadData() {
   if (!isDevelopment) {
@@ -17,6 +18,9 @@ export function useData() {
   useEffect(() => {
     loadData().then((apps) => {
       setApps(apps);
+      if (isDevelopment) {
+        printCalcScore(apps);
+      }
     });
   }, []);
 

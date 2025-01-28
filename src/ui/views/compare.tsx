@@ -25,7 +25,7 @@ import { notNo } from "../../utilities/string";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "./getMatrix";
 import { App } from "../../data/App";
-import { SourceDisplayText } from "../../action/SourceDisplayText";
+import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Score } from "./Score";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {

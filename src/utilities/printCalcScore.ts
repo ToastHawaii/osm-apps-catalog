@@ -1,4 +1,4 @@
-import { sum } from "../action/addApp";
+import { sum } from "lodash";
 import { App } from "../data/App";
 
 

@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { useState } from "react";
-import { SourceDisplayText } from "../../action/SourceDisplayText";
+import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Badges } from "./Badges";
 import { Image } from "./Image";
 import { Score } from "./Score";

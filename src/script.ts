@@ -81,20 +81,6 @@ const lang = (findGetParameter("lang") || "en").toLowerCase();
 //   onUpdate = false;
 // });
 
-function prepareScoreAndLanguage(filteredApps: App[]) {
-  filteredApps
-    .filter((app) => !app.score.details)
-    .forEach((app) => {
-      app.score = calculateScore(app);
-      app.languages = app.languages.map((l) => languageValueToDisplay(l));
-      if (app.accessibility) {
-        app.accessibility.screenReaderLang =
-          app.accessibility.screenReaderLang.map((l) =>
-            languageValueToDisplay(l)
-          );
-      }
-    });
-}
 
 export function update({
   apps,
