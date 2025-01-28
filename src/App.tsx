@@ -12,7 +12,7 @@ import { useData } from "./useData";
 import { Filters } from "./ui/components/filters";
 import { debounce } from "lodash";
 import { useAppState } from "./utilities/useAppState";
-import { filter } from "./filter";
+import { filter } from "./utilities/filter";
 import { App as AppData } from "./data/App";
 import { List } from "./ui/views/List";
 import { LazyLoadImages } from "./ui/components/LazyLoadImages";
@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 import { languageValueToDisplay } from "./ui/utilities/language";
 import { NotFoundApps } from "./ui/components/NotFoundApps";
 import { strip } from "./utilities/string";
-import { display, edit, mobile, navigation, web } from "./utilities/filter";
+import { display, edit, mobile, navigation, web } from "./utilities/filters";
 import { LazyInitMore } from "./ui/components/LazyInitMore";
 
 import "./style.scss";

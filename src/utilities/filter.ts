@@ -1,104 +1,204 @@
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
-
 import { App } from "../data/App";
+import { State } from "../State";
+import { includes, some } from "./array";
+import { edit, mobile, navigation } from "./filters";
+import { equalsIgnoreCase } from "./string";
 
-export function display(a: App) {
-  return a.topics
-    .map((t) => t.toUpperCase())
-    .some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
-}
+export function filter({
+  apps,
+  app,
+  category,
+  search,
+  topics,
+  platforms,
+  languages,
+  coverage,
+}: { apps: App[] } & State) {
+  if (app) {
+    return [apps.filter((a) => a.id === app), []];
+  }
 
-const mobilePlatforms = [
-  "ANDROID",
-  "GARMIN",
-  "KINDLE",
-  "MAEMO",
-  "MEEGO",
-  "PALM OS",
-  "SYMBIAN",
-  "UBUNTU PHONE",
-  "UBUNTU TOUCH",
-  "WEBOS",
-  "WINDOWS MOBILE",
-  "WINDOWS PHONE",
-  "IOS",
-  "ZAURUS",
-];
+  let filteredApps: App[] = apps.slice();
 
-export function web(a: App) {
-  return a.platform.some((p) =>
-    ["web", "web-based", "webapp", "web-app", "browser"].includes(
-      p.toLowerCase()
-    )
-  );
-}
+  if (category === "latest") {
+    filteredApps = filteredApps.sort(function (a, b) {
+      const nameA = a.source[0].lastChange || "";
+      const nameB = b.source[0].lastChange || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
 
-export function mobile(a: App) {
-  return (
-    a.topics
-      .map((t) => t.toUpperCase())
-      .some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-    a.platform
-      .map((t) => t.toUpperCase())
-      .some((t) => mobilePlatforms.includes(t)) ||
-    a.install.asin ||
-    a.install.fDroidID ||
-    a.install.obtainiumLink ||
-    a.install.googlePlayID ||
-    a.install.huaweiAppGalleryID ||
-    a.install.appleStoreID
-  );
-}
+      return 0;
+    });
 
-export function navigation(a: App) {
-  return a.topics
-    .map((t) => t.toUpperCase())
-    .some((t) =>
-      ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t)
+    filteredApps = filteredApps.sort(function (a, b) {
+      const nameA = a.lastRelease || "";
+      const nameB = b.lastRelease || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      return 0;
+    });
+  } else if (category === "focus") {
+    let latestApps = filteredApps.sort(function (a, b) {
+      const nameA = a.source[0].lastChange || "";
+      const nameB = b.source[0].lastChange || "";
+      if (nameA < nameB) {
+        return 1;
+      }
+      if (nameA > nameB) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    filteredApps = [];
+    for (const app of latestApps) {
+      if (filteredApps.length < 10) {
+        if (
+          !filteredApps.some(
+            (a) =>
+              equalsIgnoreCase(a.source[0].url, app.source[0].url) ||
+              (a.source[0].url.startsWith(
+                "https://taginfo.openstreetmap.org/projects/"
+              ) &&
+                app.source[0].url.startsWith(
+                  "https://taginfo.openstreetmap.org/projects/"
+                ))
+          )
+        ) {
+          filteredApps.push(app);
+        }
+      } else {
+        break;
+      }
+    }
+  } else if (category === "mobile") {
+    filteredApps = filteredApps.filter(mobile);
+  } else if (category === "navigation") {
+    filteredApps = filteredApps.filter(navigation);
+  } else if (category === "edit") {
+    filteredApps = filteredApps.filter(edit);
+  }
+
+  search = search.toUpperCase();
+  if (search) {
+    filteredApps = filteredApps.filter(
+      (a) =>
+        a.name.toUpperCase().indexOf(search) !== -1 ||
+        a.description.toUpperCase().indexOf(search) !== -1 ||
+        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
+          0 ||
+        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0 ||
+        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+          .length > 0
     );
-}
+  }
 
-export function edit(a: App) {
-  return a.topics
-    .map((t) => t.toUpperCase())
-    .some((t) =>
-      [
-        "ADD POIS",
-        "EDIT",
-        "EDITING",
-        "EDITOR",
-        "EDITOR SOFTWARE",
-        "ANALYSE",
-        "ANALYSER",
-        "ANALYSIS",
-        "TRACK RECORDING",
-        "TRACKER",
-        "TRACKING",
-        "VALIDATOR",
-        "OSM TOOL",
-        "QA",
-        "QUALITY CONTROL",
-        "NOTES",
-        "EDITOR TOOL",
-        "COMPARING TOOL",
-        "HASHTAG TOOL",
-        "MONITORING TOOL",
-        "CHANGESET REVIEW TOOL",
-      ].includes(t)
+  const topicsUp = topics.map((t) => t.toUpperCase());
+  if (topicsUp.length > 0)
+    filteredApps = filteredApps.filter((a) =>
+      includes(
+        a.topics.map((t) => t.toUpperCase()),
+        topicsUp
+      )
     );
+
+  const platformsUp = platforms.map((t) => t.toUpperCase());
+  if (platformsUp.length > 0)
+    filteredApps = filteredApps.filter((a) =>
+      includes(
+        a.platform.map((t) => t.toUpperCase()),
+        platformsUp
+      )
+    );
+
+  const languagesUp = languages.map((t) => t.toUpperCase());
+  if (languagesUp.length > 0)
+    filteredApps = filteredApps.filter((a) =>
+      some(
+        a.languages.map((t) => t.toUpperCase()),
+        languagesUp
+      )
+    );
+
+  const coverageUp: string[] = [];
+  coverage.forEach((t) => {
+    const regions = t.toUpperCase().split(", ");
+    let entry = [];
+    for (let index = 0; index < regions.length; index++) {
+      entry.push(regions[index]);
+      coverageUp.push(entry.join(", "));
+    }
+  });
+  if (coverageUp.length > 0) {
+    filteredApps = filteredApps.filter((a) =>
+      some(
+        a.coverage.map((t) => t.toUpperCase()),
+        coverageUp
+      )
+    );
+  }
+
+  // similar apps
+  let similarApps: App[] = [];
+  if (topicsUp.length > 0) {
+    similarApps = apps.filter((a) => !filteredApps.includes(a));
+
+    similarApps = similarApps.filter((a) =>
+      topicsUp.every(
+        (t) =>
+          a.name.toUpperCase().indexOf(t) !== -1 ||
+          a.description.toUpperCase().indexOf(t) !== -1
+      )
+    );
+
+    if (search)
+      similarApps = similarApps.filter(
+        (a) =>
+          a.name.toUpperCase().indexOf(search) !== -1 ||
+          a.description.toUpperCase().indexOf(search) !== -1 ||
+          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0 ||
+          a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0 ||
+          a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+            .length > 0
+      );
+
+    if (platformsUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        includes(
+          a.platform.map((t) => t.toUpperCase()),
+          platformsUp
+        )
+      );
+
+    if (languagesUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        some(
+          a.languages.map((t) => t.toUpperCase()),
+          languagesUp
+        )
+      );
+
+    if (coverageUp.length > 0)
+      similarApps = similarApps.filter((a) =>
+        some(
+          a.coverage.map((t) => t.toUpperCase()),
+          coverageUp
+        )
+      );
+  }
+
+  return [filteredApps, similarApps];
 }

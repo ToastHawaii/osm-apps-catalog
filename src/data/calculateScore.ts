@@ -1,6 +1,6 @@
 import { sum } from "lodash";
 import { App } from "./App";
-import { display, edit, web } from "../utilities/filter";
+import { display, edit, web } from "../utilities/filters";
 import { equalsYes, notNo } from "../utilities/string";
 
 export const Criterias: {
