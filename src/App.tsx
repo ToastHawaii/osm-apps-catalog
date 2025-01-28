@@ -106,6 +106,7 @@ export function App() {
               <>
                 <Search
                   apps={apps}
+                  value={state.search}
                   onInput={debounce((value) => {
                     setAppState("search", value);
                   }, 500)}
@@ -145,7 +146,7 @@ export function App() {
             />
           </span>
         )}
-        {filteredApps.length <= 300  && filteredApps.length > 0 && (
+        {filteredApps.length <= 300 && filteredApps.length > 0 && (
           <ViewSelect
             value={state.view}
             onChange={(newValues) => setAppState("view", newValues)}
@@ -162,6 +163,9 @@ export function App() {
             ) : (
               <p className="no-results">{t("noResults")}</p>
             )}
+            {state.category === "all" && !state.app ? (
+              <NotFoundApps apps={apps} />
+            ) : null}
           </div>
         ) : (
           <div id="compare" className="table">
@@ -174,5 +178,28 @@ export function App() {
         )}
       </main>
     </LazyLoadImages>
+  );
+}
+
+const notFoundAppsTitle = [
+  "MapComplete",
+  "uMap",
+  "OpenStreetBrowser",
+  "Overpass turbo",
+];
+function NotFoundApps({ apps }: { apps: AppData[] }) {
+  const { t } = useTranslation();
+  let notFound = notFoundAppsTitle
+    .map((f) => apps.find((a) => a.name === f))
+    .filter((a) => a) as AppData[];
+
+  return (
+    <>
+      <h2>{t("notFound")}</h2>
+      <p style={{ margin: "5px 10px 10px" }}>{t("notFound.desc")}</p>
+      {notFound.map((a) => (
+        <List key={a.id} app={a} open={false} />
+      ))}
+    </>
   );
 }

@@ -7,9 +7,11 @@ import "./styles.scss";
 
 export function Search({
   apps,
+  value,
   onInput,
   onBlur,
 }: {
+  value:string;
   apps: App[];
   onInput: (value: string) => void;
   onBlur?: (value: string) => void;
@@ -25,6 +27,7 @@ export function Search({
         placeholder={t("filter.search")}
         autoComplete="on"
         list="search-suggestions"
+        defaultValue={value}
         onInput={(e) => {
           onInput(e.currentTarget.value);
         }}
