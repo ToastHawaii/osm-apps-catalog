@@ -20,6 +20,7 @@ import { Compare } from "./ui/views/compare";
 import { calculateScore } from "./data/calculateScore";
 import { useTranslation } from "react-i18next";
 import { languageValueToDisplay } from "./ui/utilities/language";
+import { NotFoundApps } from "./ui/components/NotFoundApps";
 
 import "./style.scss";
 
@@ -43,6 +44,7 @@ export function App() {
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
   const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
+  const [similarApps, setSimilarApps] = useState<AppData[]>([]);
   const [moreFilters, setMoreFilters] = useState(
     state.topics.length > 0 ||
       state.platforms.length > 0 ||
@@ -52,12 +54,13 @@ export function App() {
 
   useEffect(() => {
     if (apps.length > 0) {
-      const filteredApps = filter({ apps, ...state });
+      const [filteredApps, similarApps] = filter({ apps, ...state });
       if (filteredApps.length > 300) {
         setAppState("view", "list");
       }
       prepareScoreAndLanguage(filteredApps);
       setFilteredApps(filteredApps);
+      setSimilarApps(similarApps);
     }
   }, [
     apps,
@@ -163,6 +166,16 @@ export function App() {
             ) : (
               <p className="no-results">{t("noResults")}</p>
             )}
+            {similarApps.length > 0 && (
+              <>
+                <h2>
+                  {t("relatedApps", { numberOfApps: similarApps.length })}
+                </h2>
+                {similarApps.map((a) => (
+                  <List key={a.id} app={a} open={false} />
+                ))}
+              </>
+            )}
             {state.category === "all" && !state.app ? (
               <NotFoundApps apps={apps} />
             ) : null}
@@ -178,28 +191,5 @@ export function App() {
         )}
       </main>
     </LazyLoadImages>
-  );
-}
-
-const notFoundAppsTitle = [
-  "MapComplete",
-  "uMap",
-  "OpenStreetBrowser",
-  "Overpass turbo",
-];
-function NotFoundApps({ apps }: { apps: AppData[] }) {
-  const { t } = useTranslation();
-  let notFound = notFoundAppsTitle
-    .map((f) => apps.find((a) => a.name === f))
-    .filter((a) => a) as AppData[];
-
-  return (
-    <>
-      <h2>{t("notFound")}</h2>
-      <p style={{ margin: "5px 10px 10px" }}>{t("notFound.desc")}</p>
-      {notFound.map((a) => (
-        <List key={a.id} app={a} open={false} />
-      ))}
-    </>
   );
 }
