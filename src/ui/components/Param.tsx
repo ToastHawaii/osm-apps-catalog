@@ -1,0 +1,58 @@
+import React from "react";
+import { App } from "../../data/App";
+import { Unknown } from "./Unknown";
+
+export function Param({
+  apps,
+  label,
+  description,
+  value,
+  group = "",
+  more = false,
+  centered = false,
+}: {
+  apps: App[];
+  label: string | undefined;
+  description: string | undefined;
+  value: (app: App) => JSX.Element | null;
+  group?: string | undefined;
+  more?: boolean | undefined;
+  centered?: boolean | undefined;
+}) {
+  const values = apps.map((app) => value(app));
+
+  if (values.filter((v) => v).length === 0) {
+    return null;
+  }
+
+  const element = (
+    <div className={`row ${group}`}>
+      <div className="cell header param-title" title={description}>
+        {label}
+      </div>
+      {values.map((v, i) => (
+        <React.Fragment key={i}>
+          {more ? (
+            <div
+              className={`cell param-text${
+                centered ? " align-middle text-center" : ""
+              }`}
+            >
+              <div className="dynamic-more">{v || <Unknown />}</div>
+            </div>
+          ) : (
+            <div
+              className={`cell param-text${
+                centered ? " align-middle text-center" : ""
+              }`}
+            >
+              {v || <Unknown />}
+            </div>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+
+  return element;
+}

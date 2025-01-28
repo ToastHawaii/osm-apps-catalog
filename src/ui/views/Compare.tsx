@@ -20,13 +20,13 @@ import { useTranslation } from "react-i18next";
 
 import { Badges } from "../components/Badges";
 import { Image } from "../components/Image";
-import { toWikiTable, toWikiValue } from "../utilities/toWikiTable";
-import { notNo } from "../../utilities/string";
+import { toWikiValue } from "../utilities/toWikiTable";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Score } from "../components/Score";
+import { Group } from "../components/Group";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
   const { t } = useTranslation();
@@ -36,7 +36,10 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
       <div className="row fixed">
         <div className="cell header param-title"></div>
         {apps.map((app) => (
-          <div className="cell header text-center with-corner-badge">
+          <div
+            key={app.id}
+            className="cell header text-center with-corner-badge"
+          >
             <Score app={app} />
             <h4>
               {app.website ? (
@@ -588,8 +591,9 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             renderToHtml: (app) => (
               <>
                 {app.source
-                  .map((s) => (
+                  .map((s, i) => (
                     <a
+                      key={i}
                       target="_blank"
                       href={s.url}
                       title={t("app.source.date", { date: s.lastChange })}
@@ -752,184 +756,4 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
       />
     </>
   );
-}
-
-function Group({
-  id,
-  display,
-  params,
-  apps,
-  lang,
-}: {
-  id: string;
-  display: string;
-  params: (
-    | string
-    | {
-        label: (lang?: string) => string | undefined;
-        description: (lang?: string) => string | undefined;
-        hasValue: (app: App) => boolean;
-        notNo?: (app: App) => boolean;
-        renderToHtml: (app: App) => JSX.Element | null;
-        renderToWiki?: (app: App, lang: string) => string | undefined;
-        more?: boolean;
-        centered?: boolean;
-      }
-  )[];
-  apps: App[];
-  lang: string;
-}) {
-  const { t } = useTranslation();
-  const extendedParams = params.map((p) => {
-    if (typeof p !== "string") {
-      return p;
-    }
-
-    return {
-      label: (lang?: string) => t("app.props." + p + ".label", { lng: lang }),
-      description: (lang?: string) =>
-        t("app.props." + p + ".description", { lng: lang }),
-      hasValue: (app: App) => {
-        const value: string | string[] | undefined = (app as any)[id]?.[p];
-        if (Array.isArray(value)) {
-          return value.some((v) => !!v);
-        }
-        return !!value;
-      },
-      notNo: (app: App) => {
-        const value: string | string[] | undefined = (app as any)[id]?.[p];
-        return notNo(value);
-      },
-      renderToHtml: (app: App) => <Badges topics={(app as any)[id]?.[p]} />,
-      renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p], lang),
-    };
-  });
-
-  let elements = extendedParams
-    .map((p) => {
-      if (!apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
-        return undefined;
-      }
-
-      return (
-        <Param
-          apps={apps}
-          label={p.label()}
-          description={p.description()}
-          value={(app) => p.renderToHtml(app)}
-          group={id + "-detail"}
-          more={p.more}
-          centered={p.centered}
-        />
-      );
-    })
-    .filter((e) => e);
-
-  if (elements.length) {
-    return (
-      <>
-        <div className="row">
-          <div className="cell header params-title params-group-title">
-            <a
-              className="group"
-              href="#"
-              onClick={() => {
-                document
-                  .querySelectorAll(`.${id}-detail`)
-                  .forEach((e) => e.classList.toggle("hidden"));
-              }}
-            >
-              <i className={`fas fa-fw fa-caret-down ${id}-detail`}></i>
-              <i
-                className={`fas fa-fw fa-caret-right ${id}-detail hidden`}
-              ></i>{" "}
-              {display}
-            </a>{" "}
-            <a
-              className="export"
-              href="#"
-              title={t("compare.share")}
-              onClick={(e) => {
-                e.preventDefault();
-                const wikiTable = toWikiTable(
-                  apps,
-                  extendedParams.filter((p) => !!p.renderToWiki) as any,
-                  lang
-                );
-
-                navigator.clipboard.writeText(`== ${display} == <!-- ${t(
-                  "wiki.generatedBy"
-                )} -->
-${wikiTable}`);
-                alert(t("share.wiki", { group: display }));
-              }}
-            >
-              <i className="fas fa-share-alt"></i>
-            </a>{" "}
-          </div>
-        </div>
-        {elements}
-      </>
-    );
-  }
-
-  return null;
-}
-
-function Param({
-  apps,
-  label,
-  description,
-  value,
-  group = "",
-  more = false,
-  centered = false,
-}: {
-  apps: App[];
-  label: string | undefined;
-  description: string | undefined;
-  value: (app: App) => JSX.Element | null;
-  group?: string | undefined;
-  more?: boolean | undefined;
-  centered?: boolean | undefined;
-}) {
-  const values = apps.map((app) => value(app));
-
-  if (values.filter((v) => v).length === 0) {
-    return null;
-  }
-
-  const element = (
-    <div className={`row ${group}`}>
-      <div className="cell header param-title" title={description}>
-        {label}
-      </div>
-      {values.map((v) =>
-        more ? (
-          <div
-            className={`cell param-text${
-              centered ? " align-middle text-center" : ""
-            }`}
-          >
-            <div className="dynamic-more">{v || <Unknown />}</div>
-          </div>
-        ) : (
-          <div
-            className={`cell param-text${
-              centered ? " align-middle text-center" : ""
-            }`}
-          >
-            {v || <Unknown />}
-          </div>
-        )
-      )}
-    </div>
-  );
-
-  return element;
-}
-
-function Unknown() {
-  const { t } = useTranslation();
-  return <span className="unknown">{t("compare.unknown")}</span>;
 }
