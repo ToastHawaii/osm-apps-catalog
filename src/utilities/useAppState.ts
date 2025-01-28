@@ -18,7 +18,11 @@ export function useAppState() {
       category: searchParams.get("category") || "all",
       view: searchParams.get("view") === "compare" ? "compare" : "list",
     } as State,
-    function (key: string, value: number | string | string[]) {
+    function (
+      key: string,
+      value: number | string | string[],
+      replace?: boolean | undefined
+    ) {
       let formatedValue;
       if (Array.isArray(value)) {
         formatedValue = value.join(",");
@@ -42,7 +46,7 @@ export function useAppState() {
         }
         searchParams.delete(key);
       }
-      setSearchParams(searchParams);
+      setSearchParams(searchParams, { replace });
     },
     function (category: string) {
       if (category === "all") {

@@ -43,6 +43,7 @@ export function App() {
   const { t } = useTranslation();
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
+  const [trackHistory, setTrackHistory] = useState(true);
   const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
   const [similarApps, setSimilarApps] = useState<AppData[]>([]);
   const [moreFilters, setMoreFilters] = useState(
@@ -110,9 +111,13 @@ export function App() {
                 <Search
                   apps={apps}
                   value={state.search}
-                  onInput={debounce((value) => {
-                    setAppState("search", value);
+                  onChange={debounce((value) => {
+                    setAppState("search", value, !trackHistory);
+                    setTrackHistory(false);
                   }, 500)}
+                  onBlur={() => {
+                    setTrackHistory(true);
+                  }}
                 />{" "}
                 <Filters
                   active={moreFilters}
