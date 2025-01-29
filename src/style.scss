@@ -112,6 +112,12 @@ a {
   height: 100vh;
 }
 
+#list {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #compare {
   width: max-content;
 }
@@ -198,6 +204,10 @@ a {
 
 .ss-main .ss-multi-selected .ss-values .ss-disabled {
   color: #666;
+}
+
+.ss-main .ss-values .ss-value {
+  animation: none !important;
 }
 
 .ss-list {

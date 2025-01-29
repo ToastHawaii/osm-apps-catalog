@@ -42,6 +42,99 @@ function prepareScoreAndLanguage(apps: AppData[]) {
     });
 }
 
+let scrollTop = 0;
+
+function init(onNextPage: () => void, reset?: boolean) {
+  if (reset) {
+    scrollTop = 0;
+  }
+
+  const contentElement = document.getElementById("content") as HTMLDivElement;
+
+  if (!contentElement) {
+    return;
+  }
+  console.info("a");
+  if (
+    !scrollTop ||
+    contentElement.scrollTop > scrollTop + contentElement.clientHeight
+  ) {
+    console.info("b");
+    scrollTop = contentElement.scrollTop + contentElement.clientHeight;
+
+    const elements = document.querySelectorAll(".next-page");
+    for (let i = 0; i < elements.length; i++) {
+      const boundingClientRect = elements[i].getBoundingClientRect();
+      if (boundingClientRect.top < contentElement?.clientHeight * 3) {
+        console.info("c");
+        onNextPage();
+      }
+    }
+  }
+}
+
+function PagedList({ apps, open }: { apps: AppData[]; open: boolean }) {
+  const [paging, setPaging] = useState(30);
+  const [pagedApps, setPagedApps] = useState<AppData[]>([]);
+
+  useEffect(() => {
+    setPaging(() => 30);
+    console.info("0 " + paging);
+  }, [apps]);
+
+  useEffect(() => {
+    setPagedApps(apps.slice(0, paging));
+    console.info("e " + paging);
+  }, [apps, paging]);
+
+  const element = document.getElementById("content");
+  useEffect(() => {
+    init(() => {
+      if (paging < apps.length) {
+        setPaging((paging) => paging + 30);
+      }
+
+      console.info("d " + (paging + 30));
+    }, true);
+    element?.addEventListener("scroll", () => {
+      init(() => {
+        if (paging < apps.length) {
+          setPaging((paging) => paging + 30);
+        }
+        console.info("d " + (paging + 30));
+      });
+    });
+    element?.addEventListener("load", () => {
+      init(() => {
+        if (paging < apps.length) {
+          setPaging((paging) => paging + 30);
+        }
+
+        console.info("d " + (paging + 30));
+      });
+    });
+    element?.addEventListener("resize", () => {
+      init(() => {
+        if (paging < apps.length) {
+          setPaging((paging) => paging + 30);
+        }
+
+        console.info("d " + (paging + 30));
+      });
+    });
+  });
+  console.info("f " + pagedApps.length);
+
+  return (
+    <>
+      {pagedApps.map((a) => (
+        <List key={a.id} app={a} open={open} />
+      ))}
+      <div className="next-page"></div>
+    </>
+  );
+}
+
 export function App() {
   const { t } = useTranslation();
   const [state, setAppState, resetAppState] = useAppState();
@@ -258,9 +351,7 @@ export function App() {
           {state.view !== "compare" ? (
             <div id="list">
               {filteredApps.length > 0 ? (
-                filteredApps.map((a) => (
-                  <List key={a.id} app={a} open={!!state.app} />
-                ))
+                <PagedList apps={filteredApps} open={!!state.app} />
               ) : (
                 <p className="no-results">{t("noResults")}</p>
               )}
