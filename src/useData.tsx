@@ -9,7 +9,7 @@ async function loadData() {
     return await getJson("/api/apps/all.json", {});
   } else {
     //return await require("./data/all.json");
-     throw new Error("Remove for dev.");
+    throw new Error("Remove for dev.");
   }
 }
 

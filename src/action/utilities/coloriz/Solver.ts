@@ -141,6 +141,6 @@ export class Solver {
       2
     )}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(
       5
-    )}%);`;
+    )}%)`;
   }
 }
