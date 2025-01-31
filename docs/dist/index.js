@@ -62346,7 +62346,7 @@ async function loadApps() {
 
 
 
-const lastUpdate = new Date("2025-01-11");
+const lastUpdate = new Date("2025-01-31");
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
@@ -62376,23 +62376,32 @@ async function generateSitemap(apps) {
     links.push({
         url: "https://osm-apps.zottelig.ch",
         priority: 1.0,
+        lastmod: lastUpdate,
     });
-    links.push({ url: "https://osm-apps.zottelig.ch/docs/", priority: 0.9 });
+    links.push({
+        url: "https://osm-apps.zottelig.ch/docs/",
+        priority: 0.9,
+        lastmod: lastUpdate,
+    });
     links.push({
         url: "https://osm-apps.zottelig.ch/?category=focus",
         priority: 0.8,
+        lastmod: lastUpdate,
     });
     links.push({
         url: "https://osm-apps.zottelig.ch/?category=latest",
         priority: 0.8,
+        lastmod: lastUpdate,
     });
     links.push({
         url: "https://osm-apps.zottelig.ch/?category=mobile",
         priority: 0.8,
+        lastmod: lastUpdate,
     });
     links.push({
         url: "https://osm-apps.zottelig.ch/?category=navigation",
         priority: 0.8,
+        lastmod: lastUpdate,
     });
     links.push({
         url: "https://osm-apps.zottelig.ch/?category=edit",
