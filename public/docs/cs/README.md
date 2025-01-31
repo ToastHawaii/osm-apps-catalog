@@ -1,18 +1,18 @@
-# OpenStreetMap Apps
+# OpenStreetMap Aplikace
 
-**Experience the world in a creative, productive and unexpected way.**
+**Zažijte svět kreativním, produktivním a nečekaným způsobem.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap.
+Je aktualizován každý den.
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Přejít do katalogu](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným
+způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
-## 🌍 Other languages
+## 🌍 Další jazyky
 
-Display the catalog in your language:
+Zobrazte katalog ve svém jazyce:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -40,34 +40,35 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of
+*Tento katalog v současné době obsahuje pouze aplikace z anglické verze
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) and [taginfo project
+[Wikidata](https://www.wikidata.org/) a [taginfo project
 list](https://taginfo.openstreetmap.org/projects).*
 
-Help with the translation:
+Pomozte s překladem:
 
-- from the OSM Apps Catalog on
+- z katalogu aplikací OSM na
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap
+- z aplikací zdokumentovaných v [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 📜 License
+## 📜 Licence
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+Aplikace je licencována pod [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
+[Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití,
+kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Staňte se součástí [komunity
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Připojte se k místní skupině](https://usergroups.openstreetmap.de/),
+  [setkávejte se](https://osmcal.org/) a [chatujte](https://community.osm.be/)
+- [Přispějte do
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [Přidejte aplikace OSM, které
+  znáte](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
