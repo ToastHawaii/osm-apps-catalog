@@ -1,6 +1,6 @@
-# OpenStreetMap Apps
+# Aplicaciones OpenStreetMap
 
-**Experience the world in a creative, productive and unexpected way.**
+**Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
 This catalog shows applications and services that use OpenStreetMap data. It is
 updated every day.
@@ -10,7 +10,7 @@ updated every day.
 [Add OSM apps you know or contribute in other
 ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
-## 🌍 Other languages
+## 🌍 Otros idiomas
 
 Display the catalog in your language:
 
@@ -45,29 +45,30 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [Wikidata](https://www.wikidata.org/) and [taginfo project
 list](https://taginfo.openstreetmap.org/projects).*
 
-Help with the translation:
+Ayuda con la traducción:
 
-- from the OSM Apps Catalog on
+- del catálogo de aplicaciones OSM en
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap
+- de las aplicaciones documentadas en [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 📜 License
+## 📜 Licencia
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+La aplicación tiene la licencia [Licencia pública general GNU Affero
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
+[código](https://github.com/ToastHawaii/osm-apps-catalog) se puede usar, copiar
+y modificar de forma gratuita si se publica bajo la misma licencia.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- Conviértete en parte de la [comunidad
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Únete a un grupo local](https://usergroups.openstreetmap.de/),
+  [conoce](https://osmcal.org/) y [chatea](https://community.osm.be/)
+- [Colaborar con
+  OpenStreetMap}(https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [Agrega las aplicaciones OSM que
+  conoces](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [Sobre mí](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
