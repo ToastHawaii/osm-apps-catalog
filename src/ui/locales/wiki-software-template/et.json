@@ -1,1 +1,55 @@
-{}
+{
+    "lang": {
+        "label": "Malli keel",
+        "description": "Keel, milles malli tekstid on kuvatud."
+    },
+    "name": {
+        "label": "Nimi",
+        "description": "Ametlik nimi või selle puudumisel üldlevinud nimi"
+    },
+    "status": {
+        "label": "Olek",
+        "description": "Projekti praegune olek."
+    },
+    "license": {
+        "label": "Litsents",
+        "description": "Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?"
+    },
+    "price": {
+        "label": "Hind",
+        "description": "Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta."
+    },
+    "web": {
+        "label": "Veebiaadress"
+    },
+    "repo": {
+        "description": "Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)",
+        "label": "Lähtekood"
+    },
+    "screenshot": {
+        "label": "Ekraanitõmmis"
+    },
+    "description": {
+        "label": "Kirjeldus",
+        "description": "Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)"
+    },
+    "author": {
+        "label": "Autor",
+        "description": "Autori nimi ja/või link vastavale OSM-viki kasutajalehele"
+    },
+    "platform": {
+        "label": "Toetatud platvormid",
+        "description": "Platvormide loend, kus see rakendus töötab."
+    },
+    "genre": {
+        "label": "Žanr",
+        "description": "Selle tarviku põhikategooria."
+    },
+    "languages": {
+        "label": "Keeled",
+        "description": "Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"
+    },
+    "logo": {
+        "label": "Logo"
+    }
+}
