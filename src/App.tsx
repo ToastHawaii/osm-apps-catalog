@@ -84,29 +84,29 @@ function PagedList({
   open: boolean;
   children: any;
 }) {
-  const [paging, setPaging] = useState(30);
-  const [pagedApps, setPagedApps] = useState<AppData[]>([]);
+  const [showNext, setShowNext] = useState(false);
 
-  useEffect(() => {
-    setPaging(() => 30);
-  }, [apps]);
-
-  useEffect(() => {
-    setPagedApps(apps.slice(0, paging));
-  }, [apps, paging]);
-
-  function increment() {
-    if (paging < apps.length) {
-      setPaging((paging) => paging + 30);
-    }
-  }
-  const handleEvent = () => {
-    init(increment);
-  };
+  const current = apps.slice(0, 30);
+  const rest = apps.slice(30);
 
   const element = document.getElementById("content");
   useEffect(() => {
-    init(increment, true);
+    if (showNext) {
+      return;
+    }
+
+    function next() {
+      setShowNext(true);
+      element?.removeEventListener("scroll", handleEvent);
+      element?.removeEventListener("load", handleEvent);
+      element?.removeEventListener("resize", handleEvent);
+    }
+
+    function handleEvent() {
+      init(next);
+    }
+
+    init(next, true);
     element?.addEventListener("scroll", handleEvent);
     element?.addEventListener("load", handleEvent);
     element?.addEventListener("resize", handleEvent);
@@ -120,10 +120,20 @@ function PagedList({
 
   return (
     <>
-      {pagedApps.map((a) => (
+      {current.map((a) => (
         <List key={a.id} app={a} open={open} />
       ))}
-      <div className="next-page"></div>
+      {rest.length > 0 ? (
+        showNext ? (
+          <PagedList apps={rest} open={open}>
+            {children}
+          </PagedList>
+        ) : (
+          <div className="next-page"></div>
+        )
+      ) : (
+        children
+      )}
     </>
   );
 }
