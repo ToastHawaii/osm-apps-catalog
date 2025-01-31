@@ -54,76 +54,69 @@ function init(onNextPage: () => void, reset?: boolean) {
   if (!contentElement) {
     return;
   }
-  console.info("a");
   if (
     !scrollTop ||
     contentElement.scrollTop > scrollTop + contentElement.clientHeight
   ) {
-    console.info("b");
     scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
     const elements = document.querySelectorAll(".next-page");
     for (let i = 0; i < elements.length; i++) {
       const boundingClientRect = elements[i].getBoundingClientRect();
       if (boundingClientRect.top < contentElement?.clientHeight * 3) {
-        console.info("c");
         onNextPage();
       }
     }
   }
 }
 
-function PagedList({ apps, open }: { apps: AppData[]; open: boolean }) {
+// PagedList, teile alles in parts und jedes reagiert auf event, rekursion verwenden
+// das nach apps, (simular, not found) kann als child mitgegeben werden
+// ande lazy können entfernt werden
+// berechnung vno simular kann als funtion zurückgegeb werden und erst wenn benötigt ausgewertet werden
+
+function PagedList({
+  apps,
+  open,
+  children,
+}: {
+  apps: AppData[];
+  open: boolean;
+  children: any;
+}) {
   const [paging, setPaging] = useState(30);
   const [pagedApps, setPagedApps] = useState<AppData[]>([]);
 
   useEffect(() => {
     setPaging(() => 30);
-    console.info("0 " + paging);
   }, [apps]);
 
   useEffect(() => {
     setPagedApps(apps.slice(0, paging));
-    console.info("e " + paging);
   }, [apps, paging]);
+
+  function increment() {
+    if (paging < apps.length) {
+      setPaging((paging) => paging + 30);
+    }
+  }
+  const handleEvent = () => {
+    init(increment);
+  };
 
   const element = document.getElementById("content");
   useEffect(() => {
-    init(() => {
-      if (paging < apps.length) {
-        setPaging((paging) => paging + 30);
-      }
+    init(increment, true);
+    element?.addEventListener("scroll", handleEvent);
+    element?.addEventListener("load", handleEvent);
+    element?.addEventListener("resize", handleEvent);
 
-      console.info("d " + (paging + 30));
-    }, true);
-    element?.addEventListener("scroll", () => {
-      init(() => {
-        if (paging < apps.length) {
-          setPaging((paging) => paging + 30);
-        }
-        console.info("d " + (paging + 30));
-      });
-    });
-    element?.addEventListener("load", () => {
-      init(() => {
-        if (paging < apps.length) {
-          setPaging((paging) => paging + 30);
-        }
-
-        console.info("d " + (paging + 30));
-      });
-    });
-    element?.addEventListener("resize", () => {
-      init(() => {
-        if (paging < apps.length) {
-          setPaging((paging) => paging + 30);
-        }
-
-        console.info("d " + (paging + 30));
-      });
-    });
+    return () => {
+      element?.removeEventListener("scroll", handleEvent);
+      element?.removeEventListener("load", handleEvent);
+      element?.removeEventListener("resize", handleEvent);
+    };
   });
-  console.info("f " + pagedApps.length);
 
   return (
     <>
@@ -135,13 +128,36 @@ function PagedList({ apps, open }: { apps: AppData[]; open: boolean }) {
   );
 }
 
+function RelatedApps({
+  findSimilarApps,
+}: {
+  findSimilarApps: () => AppData[];
+}) {
+  const { t } = useTranslation();
+  const similarApps = findSimilarApps();
+  return (
+    <>
+      {similarApps.length > 0 && (
+        <>
+          <h2>
+            {t("relatedApps", {
+              numberOfApps: similarApps.length,
+            })}
+          </h2>
+          {similarApps.map((a) => (
+            <List key={a.id} app={a} open={false} />
+          ))}
+        </>
+      )}
+    </>
+  );
+}
+
 export function App() {
   const { t } = useTranslation();
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
   const [trackHistory, setTrackHistory] = useState(true);
-  const [filteredApps, setFilteredApps] = useState<AppData[]>([]);
-  const [similarApps, setSimilarApps] = useState<AppData[]>([]);
   const [moreFilters, setMoreFilters] = useState(
     state.topics.length > 0 ||
       state.platforms.length > 0 ||
@@ -149,27 +165,11 @@ export function App() {
       state.coverage.length > 0
   );
 
-  useEffect(() => {
-    if (apps.length > 0) {
-      const [filteredApps, similarApps] = filter({ apps, ...state });
-      if (filteredApps.length > 300) {
-        setAppState("view", "list");
-      }
-      prepareScoreAndLanguage(filteredApps);
-      setFilteredApps(filteredApps);
-      setSimilarApps(similarApps);
-    }
-  }, [
-    apps,
-    JSON.stringify({
-      app: state.app,
-      category: state.category,
-      coverage: state.coverage,
-      platforms: state.platforms,
-      search: state.search,
-      topics: state.topics,
-    }),
-  ]);
+  const [filteredApps, findSimilarApps] = filter({ apps, ...state });
+  if (filteredApps.length > 300 && state.view !== "list") {
+    setAppState("view", "list");
+  }
+  prepareScoreAndLanguage(filteredApps);
 
   useEffect(() => {
     if (!!state.app && filteredApps[0]) {
@@ -262,126 +262,120 @@ export function App() {
 
   return (
     <div id="content">
-      <LazyLoadImages>
-        <header className="page-header">
-          <Menu
-            value={state.category}
-            onChange={(value) => {
-              if (value === "focus") {
-                resetAppState(value);
-              } else {
-                setAppState("category", value);
-              }
-            }}
-          />
-          <h1 style={{ clear: "both", margin: "0" }}>
-            {apps.length === 0 ? (
-              <>
-                <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
-              </>
-            ) : null}
-            <a href="/" style={{ color: "#333" }}>
-              OSM Apps Catalog
-            </a>
-            <About />
-          </h1>
-          {!state.app ? (
+      <header className="page-header">
+        <Menu
+          value={state.category}
+          onChange={(value) => {
+            if (value === "focus") {
+              resetAppState(value);
+            } else {
+              setAppState("category", value);
+            }
+          }}
+        />
+        <h1 style={{ clear: "both", margin: "0" }}>
+          {apps.length === 0 && (
             <>
-              <p className="description" style={{ margin: "5px 10px 10px" }}>
-                {t(`category.${state.category}.description`, {
-                  numberOfApps: filteredApps.length || "",
-                })}
-              </p>
-              {state.category !== "focus" && (
-                <>
-                  <Search
-                    apps={apps}
-                    value={state.search}
-                    onChange={debounce((value) => {
-                      setAppState("search", value, !trackHistory);
-                      setTrackHistory(false);
-                    }, 500)}
-                    onBlur={() => {
-                      setTrackHistory(true);
-                    }}
-                  />{" "}
-                  <Filters
-                    active={moreFilters}
-                    onChange={(value) => {
-                      setMoreFilters(value);
-                    }}
-                  />
-                </>
-              )}
+              <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
             </>
-          ) : null}
-          <hr style={{ border: "1px solid #ccc" }} />
-          {state.category !== "focus" && !state.app && moreFilters && (
-            <span className="advanced-filter">
-              <TopicSelect
-                apps={filteredApps}
-                selected={state.topics}
-                onChange={(newValues) => setAppState("topics", newValues)}
-              />
-              <LanguageSelect
-                apps={filteredApps}
-                selected={state.languages}
-                onChange={(newValues) => setAppState("languages", newValues)}
-              />
-              <PlatformSelect
-                apps={filteredApps}
-                selected={state.platforms}
-                onChange={(newValues) => setAppState("platforms", newValues)}
-              />
-              <CoverageSelect
-                apps={filteredApps}
-                selected={state.coverage}
-                onChange={(newValues) => setAppState("coverage", newValues)}
-              />
-            </span>
           )}
-          {filteredApps.length <= 300 && filteredApps.length > 0 && (
-            <ViewSelect
-              value={state.view}
-              onChange={(newValues) => setAppState("view", newValues)}
+          <a href="/" style={{ color: "#333" }}>
+            OSM Apps Catalog
+          </a>
+          <About />
+        </h1>
+        {!state.app && (
+          <>
+            <p className="description" style={{ margin: "5px 10px 10px" }}>
+              {t(`category.${state.category}.description`, {
+                numberOfApps: filteredApps.length || "",
+              })}
+            </p>
+            {state.category !== "focus" && (
+              <>
+                <Search
+                  apps={apps}
+                  value={state.search}
+                  onChange={debounce((value) => {
+                    setAppState("search", value, !trackHistory);
+                    setTrackHistory(false);
+                  }, 500)}
+                  onBlur={() => {
+                    setTrackHistory(true);
+                  }}
+                />{" "}
+                <Filters
+                  active={moreFilters}
+                  onChange={(value) => {
+                    setMoreFilters(value);
+                  }}
+                />
+              </>
+            )}
+          </>
+        )}
+        <hr style={{ border: "1px solid #ccc" }} />
+        {state.category !== "focus" && !state.app && moreFilters && (
+          <span className="advanced-filter">
+            <TopicSelect
+              apps={filteredApps}
+              selected={state.topics}
+              onChange={(newValues) => setAppState("topics", newValues)}
             />
-          )}
-        </header>
+            <LanguageSelect
+              apps={filteredApps}
+              selected={state.languages}
+              onChange={(newValues) => setAppState("languages", newValues)}
+            />
+            <PlatformSelect
+              apps={filteredApps}
+              selected={state.platforms}
+              onChange={(newValues) => setAppState("platforms", newValues)}
+            />
+            <CoverageSelect
+              apps={filteredApps}
+              selected={state.coverage}
+              onChange={(newValues) => setAppState("coverage", newValues)}
+            />
+          </span>
+        )}
+        {filteredApps.length <= 300 && filteredApps.length > 0 && (
+          <ViewSelect
+            value={state.view}
+            onChange={(newValues) => setAppState("view", newValues)}
+          />
+        )}
+      </header>
+      {apps.length > 0 && (
         <main>
-          {state.view !== "compare" ? (
-            <div id="list">
-              {filteredApps.length > 0 ? (
-                <PagedList apps={filteredApps} open={!!state.app} />
-              ) : (
-                <p className="no-results">{t("noResults")}</p>
-              )}
-              {similarApps.length > 0 && (
-                <>
-                  <h2>
-                    {t("relatedApps", { numberOfApps: similarApps.length })}
-                  </h2>
-                  {similarApps.map((a) => (
-                    <List key={a.id} app={a} open={false} />
-                  ))}
-                </>
-              )}
-              {state.category === "all" && !state.app ? (
-                <NotFoundApps apps={apps} />
-              ) : null}
-            </div>
-          ) : (
-            <div id="compare" className="table">
-              {filteredApps.length > 0 ? (
-                <LazyInitMore>
-                  <Compare apps={filteredApps} lang={state.lang} />
-                </LazyInitMore>
-              ) : (
-                <p className="no-results">{t("noResults")}</p>
-              )}
-            </div>
-          )}
+          <LazyLoadImages>
+            {state.view !== "compare" ? (
+              <div id="list">
+                {filteredApps.length > 0 ? (
+                  <PagedList apps={filteredApps} open={!!state.app}>
+                    <RelatedApps findSimilarApps={findSimilarApps} />
+                  </PagedList>
+                ) : (
+                  <p className="no-results">{t("noResults")}</p>
+                )}
+                {state.category === "all" && !state.app ? (
+                  <NotFoundApps apps={apps} />
+                ) : null}
+              </div>
+            ) : (
+              <div id="compare" className="table">
+                {filteredApps.length > 0 ? (
+                  <LazyInitMore>
+                    <Compare apps={filteredApps} lang={state.lang} />
+                  </LazyInitMore>
+                ) : (
+                  <p className="no-results">{t("noResults")}</p>
+                )}
+              </div>
+            )}
+          </LazyLoadImages>
         </main>
-      </LazyLoadImages>
+      )}
     </div>
   );
 }

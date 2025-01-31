@@ -109,15 +109,19 @@ export function LazyLoadImages({ children }: { children: any }) {
   useEffect(() => {
     lazyLoadImages(true);
 
-    element?.addEventListener("scroll", () => {
+    function handleEvent() {
       lazyLoadImages();
-    });
-    element?.addEventListener("load", () => {
-      lazyLoadImages();
-    });
-    element?.addEventListener("resize", () => {
-      lazyLoadImages();
-    });
+    }
+
+    element?.addEventListener("scroll", handleEvent);
+    element?.addEventListener("load", handleEvent);
+    element?.addEventListener("resize", handleEvent);
+
+    return () => {
+      element?.removeEventListener("scroll", handleEvent);
+      element?.removeEventListener("load", handleEvent);
+      element?.removeEventListener("resize", handleEvent);
+    };
   });
 
   return <>{children}</>;

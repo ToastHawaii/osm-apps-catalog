@@ -86,15 +86,19 @@ export function LazyInitMore({ children }: { children: any }) {
   useEffect(() => {
     lazyInitMore(t, true);
 
-    element?.addEventListener("scroll", () => {
+    function handleEvent() {
       lazyInitMore(t);
-    });
-    element?.addEventListener("load", () => {
-      lazyInitMore(t);
-    });
-    element?.addEventListener("resize", () => {
-      lazyInitMore(t);
-    });
+    }
+
+    element?.addEventListener("scroll", handleEvent);
+    element?.addEventListener("load", handleEvent);
+    element?.addEventListener("resize", handleEvent);
+
+    return () => {
+      element?.removeEventListener("scroll", handleEvent);
+      element?.removeEventListener("load", handleEvent);
+      element?.removeEventListener("resize", handleEvent);
+    };
   });
 
   return <>{children}</>;

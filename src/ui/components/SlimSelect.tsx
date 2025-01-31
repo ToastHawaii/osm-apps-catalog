@@ -91,36 +91,7 @@ const SlimSelectComponent = (props: SlimSelectProps, ref: React.Ref<any>): JSX.E
     }
   }, [modelValue, multiple, data, settings, events, children])
 
-  const getCleanValue = useCallback(
-    (val: string | string[] | undefined): string | string[] => {
-      const multi = multiple
-
-      // If its multiple and the modelValue is a string, return an array with the string
-      if (typeof val === 'string') {
-        return multi ? [val] : val
-      }
-
-      // If its not multiple and the modelValue is an array, return the first item
-      if (Array.isArray(val)) {
-        return multi ? val : val[0]
-      }
-
-      return multi ? [] : ''
-    },
-    [multiple],
-  )
-
-  useEffect(() => {
-    if (modelValue) {
-      ;(slimSelect.current as SlimSelect)?.setSelected(getCleanValue(modelValue))
-    }
-  }, [modelValue, getCleanValue])
-
-  useEffect(() => {
-    if (data) {
-      ;(slimSelect.current as SlimSelect)?.setData(data)
-    }
-  }, [data])
+ 
 
   useImperativeHandle(
     ref,

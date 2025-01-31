@@ -15,7 +15,7 @@ export function filter({
   coverage,
 }: { apps: App[] } & State) {
   if (app) {
-    return [apps.filter((a) => a.id === app), []];
+    return [apps.filter((a) => a.id === app), () => [] as App[]] as const;
   }
 
   let filteredApps: App[] = apps.slice();
@@ -149,56 +149,59 @@ export function filter({
     );
   }
 
-  // similar apps
-  let similarApps: App[] = [];
-  if (topicsUp.length > 0) {
-    similarApps = apps.filter((a) => !filteredApps.includes(a));
+  function findSimilarApps() {
+    // similar apps
+    let similarApps: App[] = [];
+    if (topicsUp.length > 0) {
+      similarApps = apps.filter((a) => !filteredApps.includes(a));
 
-    similarApps = similarApps.filter((a) =>
-      topicsUp.every(
-        (t) =>
-          a.name.toUpperCase().indexOf(t) !== -1 ||
-          a.description.toUpperCase().indexOf(t) !== -1
-      )
-    );
-
-    if (search)
-      similarApps = similarApps.filter(
-        (a) =>
-          a.name.toUpperCase().indexOf(search) !== -1 ||
-          a.description.toUpperCase().indexOf(search) !== -1 ||
-          a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0 ||
-          a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0 ||
-          a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-            .length > 0
-      );
-
-    if (platformsUp.length > 0)
       similarApps = similarApps.filter((a) =>
-        includes(
-          a.platform.map((t) => t.toUpperCase()),
-          platformsUp
+        topicsUp.every(
+          (t) =>
+            a.name.toUpperCase().indexOf(t) !== -1 ||
+            a.description.toUpperCase().indexOf(t) !== -1
         )
       );
 
-    if (languagesUp.length > 0)
-      similarApps = similarApps.filter((a) =>
-        some(
-          a.languages.map((t) => t.toUpperCase()),
-          languagesUp
-        )
-      );
+      if (search)
+        similarApps = similarApps.filter(
+          (a) =>
+            a.name.toUpperCase().indexOf(search) !== -1 ||
+            a.description.toUpperCase().indexOf(search) !== -1 ||
+            a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+              .length > 0 ||
+            a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+              .length > 0 ||
+            a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
+              .length > 0
+        );
 
-    if (coverageUp.length > 0)
-      similarApps = similarApps.filter((a) =>
-        some(
-          a.coverage.map((t) => t.toUpperCase()),
-          coverageUp
-        )
-      );
+      if (platformsUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          includes(
+            a.platform.map((t) => t.toUpperCase()),
+            platformsUp
+          )
+        );
+
+      if (languagesUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          some(
+            a.languages.map((t) => t.toUpperCase()),
+            languagesUp
+          )
+        );
+
+      if (coverageUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          some(
+            a.coverage.map((t) => t.toUpperCase()),
+            coverageUp
+          )
+        );
+    }
+    return similarApps;
   }
 
-  return [filteredApps, similarApps];
+  return [filteredApps, findSimilarApps] as const;
 }
