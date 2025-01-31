@@ -52,7 +52,7 @@ Segítség a fordításban:
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>-en
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
-  dokumentált alkalmazásokból
+  dokumentált alkalmazások
 
 ## 📜 Licenc
 
