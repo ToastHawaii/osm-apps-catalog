@@ -29,7 +29,7 @@ export async function run(): Promise<void> {
     });
 
     await uploadToRepo(
-      "api/apps/all.json",
+      "docs/api/apps/all.json",
       JSON.stringify(apps),
       "Update app catalog",
       core.getInput("ghToken")

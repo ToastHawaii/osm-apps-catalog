@@ -8,8 +8,8 @@ async function loadData() {
   if (!isDevelopment) {
     return await getJson("/api/apps/all.json", {});
   } else {
-    throw new Error("Remove for dev.");
-    // return await require("./data/all.json");
+    //return await require("./data/all.json");
+     throw new Error("Remove for dev.");
   }
 }
 
