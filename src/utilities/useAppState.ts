@@ -1,8 +1,10 @@
 import { useSearchParams } from "react-router";
 import { State } from "../State";
+import { useReducer } from "react";
 
 export function useAppState() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [, forceRerender] = useReducer((x) => x + 1, 0);
 
   return [
     {
@@ -21,7 +23,10 @@ export function useAppState() {
     function (
       key: string,
       value: number | string | string[],
-      replace?: boolean | undefined
+      option?: {
+        forceUpdate?: boolean | undefined;
+        skipUrlUpdate?: boolean | undefined;
+      }
     ) {
       let formatedValue;
       if (Array.isArray(value)) {
@@ -36,17 +41,21 @@ export function useAppState() {
         formatedValue = "" + value;
       }
       if (formatedValue) {
-        if (searchParams.get(key) === formatedValue) {
+        if (searchParams.get(key) === formatedValue && !option?.forceUpdate) {
           return;
         }
         searchParams.set(key, formatedValue);
       } else {
-        if (!searchParams.has(key)) {
+        if (!searchParams.has(key) && !option?.forceUpdate) {
           return;
         }
         searchParams.delete(key);
       }
-      setSearchParams(searchParams, { replace });
+      if (!option?.skipUrlUpdate) {
+        setSearchParams(searchParams);
+      } else {
+        forceRerender();
+      }
     },
     function (category: string) {
       if (category === "all") {

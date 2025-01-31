@@ -47,7 +47,6 @@ export function App() {
   const { t } = useTranslation();
   const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
-  const [trackHistory, setTrackHistory] = useState(true);
   const [moreFilters, setMoreFilters] = useState(
     state.topics.length > 0 ||
       state.platforms.length > 0 ||
@@ -122,11 +121,10 @@ export function App() {
                   apps={apps}
                   value={state.search}
                   onChange={debounce((value) => {
-                    setAppState("search", value, !trackHistory);
-                    setTrackHistory(false);
+                    setAppState("search", value, { skipUrlUpdate: true });
                   }, 500)}
-                  onBlur={() => {
-                    setTrackHistory(true);
+                  onBlur={(value) => {
+                    setAppState("search", value, { forceUpdate: true });
                   }}
                 />{" "}
                 <Filters
