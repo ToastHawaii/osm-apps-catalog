@@ -13,7 +13,6 @@
     "filter.topic": "Topik",
     "filter.coverage": "Cakupan",
     "filter.category.all": "Semua",
-    "filter.free": "Gratis",
     "relatedApps": "{{jumlahAplikasi}} aplikasi terkait",
     "category.mobile.description": "Menampilkan aplikasi {{numberOfApps}} yang dikembangkan untuk perangkat seluler atau yang mendukung penggunaan offline.",
     "category.focus.description": "Menampilkan sepuluh aplikasi dari halaman yang paling baru diperbarui.",

@@ -1,7 +1,6 @@
 {
     "about": "Σχετικά",
     "filter.search": "Αναζήτηση",
-    "filter.free": "Δωρεάν",
     "filter.topic": "Θεματική",
     "filter.platform": "Πλατφόρμα",
     "filter.language": "Γλώσσα",
@@ -26,9 +25,6 @@
     "compare.group.header.editing": "Επεξεργασία",
     "compare.group.header.rendering": "Απόδοση",
     "compare.group.header.accessibility": "Προσβασιμότητα",
-    "app.free": "Δωρεάν",
-    "libre": "Ελεύθερη",
-    "proprietary": "Ιδιόκτητη",
     "list.documentation": "Οδηγίες",
     "list.moreInfos": "Πληροφορίες",
     "app.website": "Ιστοσελίδα",
