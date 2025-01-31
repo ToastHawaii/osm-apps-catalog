@@ -47,7 +47,7 @@ angol változatáról tartalmaz alkalmazásokat.*
 
 Segítség a fordításban:
 
-- az OSM Apps katalógusból a
+- az OSM Apps Katalógus a
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>-en
