@@ -1,18 +1,18 @@
 # OpenStreetMap Apps
 
-**Experience the world in a creative, productive and unexpected way.**
+**Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
+használja. Naponta frissül.
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Nézd meg a katalógust](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
+másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
-## 🌍 Other languages
+## 🌍 További nyelvek
 
-Display the catalog in your language:
+Katalógus megjelenítése a nyelveden:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -40,34 +40,37 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) and [taginfo project
-list](https://taginfo.openstreetmap.org/projects).*
+*Ez a katalógus jelenleg csak az [OpenStreetMap
+wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/)
+és a [taginfo projektlistájának](https://taginfo.openstreetmap.org/projects)
+angol változatáról tartalmaz alkalmazásokat.*
 
-Help with the translation:
+Segítség a fordításban:
 
-- from the OSM Apps Catalog on
+- az OSM Apps katalógusból a
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
-  <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+  <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>-en
+- az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+  dokumentált alkalmazásokból
 
-## 📜 License
+## 📜 Licenc
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+Az alkalmazás [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
+licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog)
+szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt
+teszed közzé.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- Légy részese az [OSM
+  közösségnek](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
+  [találkozz velünk](https://osmcal.org/) & [chatelj
+  velünk](https://community.osm.be/)
+- [OpenStreetMap
+  szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [Ismerős OSM-alkalmazások
+  hozzáadása](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
