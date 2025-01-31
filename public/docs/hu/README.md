@@ -69,8 +69,8 @@ teszed közzé.
   [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
   [találkozz velünk](https://osmcal.org/) & [chatelj
   velünk](https://community.osm.be/)
-- [OpenStreetMap
+- Az [OpenStreetMap
   szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Ismerős OSM-alkalmazások
+- [Ismerős OSM-alkalmazás
   hozzáadása](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
