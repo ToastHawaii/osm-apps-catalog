@@ -54,31 +54,12 @@ Pomozte s překladem:
 - z aplikací zdokumentovaných v [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Příspěvky & poděkování
-
-- Zvláštní poděkování patří [Dmytro
-  Ovdiienko](https://sourceforge.net/u/ujos/profile/) za jeho [Osm Software
-  Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). Ten byl
-  inspirací pro tento Katalog aplikací OSM a já jsem se z něj naučil, jak si
-  vyžádat stránky z Wiki, které používají určitou šablonu.
-- Další velký dík patří [Tobiasovi
-  Knerrovi](https://wiki.openstreetmap.org/wiki/User:Tordanik) za jeho
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). Tento katalog
-  vychází z mnoha jeho prací.
-- Děkujeme [weblate](https://weblate.org/) a [všem překladatelům tohoto
-  katalogu](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  za bezplatnou podporu open source projektů.
-- Děkujeme všem, kteří se zasloužili o vznik tohoto katalogu.
-
 ## 📜 Licence
 
 Aplikace je licencována pod [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). Kód
-je volně k použití, kopírování a úpravám, pokud jej zveřejníte pod stejnou
-licencí.
-
-[Zobrazit zdrojový kód tohoto katalogu na
-GitHubu](https://github.com/ToastHawaii/osm-apps-catalog)
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
+[Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití,
+kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
 ---
 

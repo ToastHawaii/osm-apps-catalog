@@ -54,39 +54,21 @@ Hilf bei der Übersetzung:
 - von den Apps dokumentiert im [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Beiträge & Anerkennungen
-
-- Ein besonderer Dank geht an [Dmytro
-  Ovdiienko](https://sourceforge.net/u/ujos/profile/) für seinen [Osm Software
-  Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). Dies war
-  die Inspiration für diesen OSM Apps Katalog, und ich habe daraus gelernt, wie
-  man Seiten aus dem Wiki anfordert, die eine bestimmte Vorlage verwenden.
-- Ein weiterer grosser Dank geht an [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) für seinen
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). Dieser Katalog
-  basiert auf seinem Werk.
-- Vielen Dank an [weblate](https://weblate.org/) und [alle Übersetzer:innen
-  dieses
-  Katalogs](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  zur kostenlosen Unterstützung von Open Source Projekten.
-- Danke an alle, die diesen Katalog möglich gemacht haben.
-
 ## 📜 Lizenz
 
 Die App ist unter der [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-lizenziert. Der Code ist frei für die Verwendung, Kopie und Änderung, wenn sie
-unter der gleichen Lizenz veröffentlichen wird.
-
-[Quellcode dieses Katalogs auf
-GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
+lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
+für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
+veröffentlichen wird.
 
 ---
 
-- Werde Teil der
-  [OSM-Community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
-  dich mit anderen](https://osmcal.org/) und [chatte](https://community.osm.be/)
+- Werde Teil der [OSM-Community]
+  (https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Tritt einer lokalen Gruppe bei] (https://usergroups.openstreetmap.de/),
+  [triff dich mit anderen] (https://osmcal.org/) und [chatte]
+  (https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Dokumentiere OSM Apps, welche du

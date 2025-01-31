@@ -1,6 +1,5 @@
 {
     "filter.topic": "Teema",
-    "filter.free": "Tasuta või vaba",
     "filter.platform": "Platvorm",
     "filter.language": "Keel",
     "filter.coverage": "Piirkond",
@@ -16,7 +15,6 @@
     "category.all.description": "{{numberOfApps}} OpenStreetMappi kasutavat rakendust, järjestatud panuse alusel kogukonna arendusse.",
     "list": "Loend",
     "compare": "Võrdle",
-    "proprietary": "Omanduslik ja suletud",
     "app.license": "Litsents",
     "app.source.description": "Nende andmete allikas.",
     "compare.unknown": "teadmata",
@@ -34,8 +32,6 @@
     "filter.category.mobile": "Teele kaasa",
     "filter.category.navigation": "Tee juhatamine",
     "compare.group.header.rendering": "Esitusvalmendus",
-    "app.free": "Tasuta",
-    "libre": "Avatud ja tasuta",
     "app.imageAlt": "Pilt rakendusest {{name}}.",
     "app.website": "Veebisait",
     "app.install.fDroid": "F-Droid",

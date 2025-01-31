@@ -1,6 +1,6 @@
 # Aplicaciones OpenStreetMap
 
-**Experience the world in a creative, productive and unexpected way.**
+**Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
 This catalog shows applications and services that use OpenStreetMap data. It is
 updated every day.
@@ -54,32 +54,12 @@ Ayuda con la traducción:
 - de las aplicaciones documentadas en [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Colaboraciones y agradecimientos
-
-- Un agradecimiento especial a [Dmytro
-  Ovdiienko](https://sourceforge.net/u/ujos/profile/) por su [Catálogo de
-  software de Osm](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog).
-  Esta fue la inspiración para este Catálogo de aplicaciones de OSM y aprendí de
-  él cómo solicitar páginas de la Wiki que usan una plantilla específica.
-- Otro gran agradecimiento a [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) por su
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). Este catálogo está
-  basado en muchas de sus obras.
-- Muchas gracias a [weblate](https://weblate.org/) y [todos los traductores de
-  este
-  catálogo](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  por apoyar proyectos de código abierto de forma gratuita.
-- Gracias a todos los que hicieron posible este catálogo.
-
 ## 📜 Licencia
 
 La aplicación tiene la licencia [Licencia pública general GNU Affero
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
-código se puede usar, copiar y modificar de forma gratuita si se publica bajo la
-misma licencia.
-
-[Código fuente de este catálogo en
-GitHub](https://github.com/ToastHawaii/osm-apps-catalog)
+[código](https://github.com/ToastHawaii/osm-apps-catalog) se puede usar, copiar
+y modificar de forma gratuita si se publica bajo la misma licencia.
 
 ---
 

@@ -55,31 +55,14 @@ Aita tõlkimisel:
 - [OpenStreetMapi Vikis](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumenteeritud rakenduste lehel
 
-## 🙏 Kaasautorid ja tänuavaldused
-
-- Suur tänu [Dmõtro Ovdijenko]le(https://sourceforge.net/u/ujos/profile/) tema
-  [Osm tarkvara
-  kataloogi](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog) eest. See
-  oli suureks inspiratsiooniks antud OSMi rakenduste kataloogi loomisel ning
-  sealt õppisin kuidas pärida konkreetset malli kasutavaid Viki lehti.
-- Suur tänu ka [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik)ile tema
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot)i eest. See kataloog
-  põhineb paljudel tema töödel.
-- Suur tänu [weblate'ile](https://weblate.org/) ja [kõigile selle kataloogi
-  tõlkijatele](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  avatud lähtekoodil põhinevate projektide tasuta toetamise eest.
-- Tänud kõigile, kes on selle kataloogi teinud võimalikuks.
-
 ## 📜 Litsents
 
 See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
 3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-alusel. Veebirakenduse lähtekood on kõigile vabalt kasutamiseks, kopeerimiseks
-ja muutmiseks eeldusel, et kõik jätkuvalt on avaldatud sama litsentsi alusel.
-
-[Vaata selle kataloogi lähtekoodi
-GitHubis](https://github.com/ToastHawaii/osm-apps-catalog)
+alusel. Veebirakenduse
+[lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on kõigile vabalt
+kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik jätkuvalt on
+avaldatud sama litsentsi alusel.
 
 ---
 

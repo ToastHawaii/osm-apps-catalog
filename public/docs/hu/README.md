@@ -54,31 +54,13 @@ Segítség a fordításban:
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumentált alkalmazások
 
-## 🙏 Hozzájárulás és köszönetnyilvánítás
-
-- Külön köszönet illeti [Dmitró
-  Ovdijenkót](https://sourceforge.net/u/ujos/profile/) az [Osm Software
-  Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog)ért. Ez volt
-  az ihletője az OSM Apps Catalognak, és ebből tanultam meg, hogyan lehet a
-  Wikiről olyan oldalakat lekérni, amelyek egy adott sablont használnak.
-- Egy másik nagy köszönet illeti [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik)t a
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot)-jáért. Számos
-  munkája alapul szolgált ennek a katalógusnak a készítésénél.
-- Köszönet a [Weblate](https://weblate.org/)-nek és [a katalógus összes
-  fordítójának](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  a nyílt forráskódú projektek ingyenes támogatásáért.
-- Végül köszönet mindazoknak, akik lehetővé tették ezt a katalógust.
-
 ## 📜 Licenc
 
 Az alkalmazás [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-licenc alatt áll. A kód szabadon felhasználható, másolható és módosítható, ha
-ugyanezen licenc alatt teszed közzé.
-
-[A forráskód megtekintése a
-GitHubon](https://github.com/ToastHawaii/osm-apps-catalog)
+licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog)
+szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt
+teszed közzé.
 
 ---
 
