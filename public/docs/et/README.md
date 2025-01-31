@@ -1,18 +1,18 @@
-# OpenStreetMapi rakendused
+# OpenStreetMap Apps
 
-**Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
+**Experience the world in a creative, productive and unexpected way.**
 
-See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, misa kasutavad
-OpenStreetMapi andmeid.
+This catalog shows applications and services that use OpenStreetMap data. It is
+updated every day.
 
-[Vaata kataloogi](https://osm-apps.zottelig.ch)
+[Go to the catalog](https://osm-apps.zottelig.ch)
 
-[Lisa sulle teadaolevaid OSMi rakendusi või osale muul
-viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 
-## 🌍 Muud keeled
+## 🌍 Other languages
 
-Vaata katalogi omas keeles:
+Display the catalog in your language:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -40,55 +40,34 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Siin kataloogis leiduvad hetkel rakendused vaid [OpenStreetMap
-viki](https://wiki.openstreetmap.org/), [Vikiandmete](https://www.wikidata.org/)
-ja [siltide projekti loendi](https://taginfo.openstreetmap.org/projects)
-ingliskeelsest versioonist.*
+*This catalog currently only contains apps from the English version of
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/) and [taginfo project
+list](https://taginfo.openstreetmap.org/projects).*
 
-Aita tõlkimisel:
+Help with the translation:
 
-- OSMi rakenduste kataloogi
-  [Weblate'i](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
+- from the OSM Apps Catalog on
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-  lehel
-- [OpenStreetMapi Vikis](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
-  dokumenteeritud rakenduste lehel
+- from the apps documented in [OpenStreetMap
+  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Kaasautorid ja tänuavaldused
+## 📜 License
 
-- Suur tänu [Dmõtro Ovdijenko]le(https://sourceforge.net/u/ujos/profile/) tema
-  [Osm tarkvara
-  kataloogi](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog) eest. See
-  oli suureks inspiratsiooniks antud OSMi rakenduste kataloogi loomisel ning
-  sealt õppisin kuidas pärida konkreetset malli kasutavaid Viki lehti.
-- Suur tänu ka [Tobias
-  Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik)ile tema
-  [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot)i eest. See kataloog
-  põhineb paljudel tema töödel.
-- Suur tänu [weblate'ile](https://weblate.org/) ja [kõigile selle kataloogi
-  tõlkijatele](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog)
-  avatud lähtekoodil põhinevate projektide tasuta toetamise eest.
-- Tänud kõigile, kes on selle kataloogi teinud võimalikuks.
-
-## 📜 Litsents
-
-See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
-3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-alusel. Veebirakenduse lähtekood on kõigile vabalt kasutamiseks, kopeerimiseks
-ja muutmiseks eeldusel, et kõik jätkuvalt on avaldatud sama litsentsi alusel.
-
-[Vaata selle kataloogi lähtekoodi
-GitHubis](https://github.com/ToastHawaii/osm-apps-catalog)
+The app is licensed under the [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
+[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
+and modification if you publish under the same license.
 
 ---
 
-- Osale [OSMi kogukonna
-  tegemistes](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [liitu kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
-  [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
-- [Täienda
-  OpenStreetMappi](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Lisa sulle teadaolevad OSMi
-  rakendusi](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
-- [Teave minu kohta](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Join a local group](https://usergroups.openstreetmap.de/),
+  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- [Contribute to
+  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
