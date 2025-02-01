@@ -6,10 +6,14 @@ import { printCalcScore } from "./utilities/printCalcScore";
 
 async function loadData() {
   if (!isDevelopment) {
-    return await getJson("/api/apps/all.json", {});
+    try {
+      return await getJson("/api/apps/all.json", {});
+    } catch {
+      console.error("Data could not be loaded, the local cache is used.");
+      return (await import("./data/all.json")).default;
+    }
   } else {
-    //return await require("./data/all.json");
-    throw new Error("Remove for dev.");
+    return (await import("./data/all.json")).default;
   }
 }
 
