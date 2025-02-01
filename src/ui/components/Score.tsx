@@ -1,9 +1,14 @@
 import React from "react";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
+import { calculateScore } from "../../data/calculateScore";
 
 export function Score({ app }: { app: App }) {
   const { t } = useTranslation();
+
+  if (!app.score.details) {
+    app.score = calculateScore(app);
+  }
 
   let label;
   if (app.score.total >= 8) {
@@ -31,26 +36,26 @@ export function Score({ app }: { app: App }) {
     color = "bg-red";
   }
 
-  const resultDisplay = t("score.results",   {
+  const resultDisplay = t("score.results", {
     total: app.score.total,
-    fulfilled: "",//app.score.details
-    //   .filter((d) => d.fulfilled)
-    //   .map((e) =>
-    //     t("score.result", {
-    //       description: t("score.criteria." + e.translationKey),
-    //       points: e.points,
-    //     })
-    //   )
-    //   .join("\n"),
-    notFulfilled:"",// app.score.details
-    //   .filter((d) => !d.fulfilled)
-    //   .map((e) =>
-    //     t("score.result", {
-    //       description: t("score.criteria." + e.translationKey),
-    //       points: e.points,
-    //     })
-    //   )
-    //   .join("\n"),
+    fulfilled: app.score.details
+      .filter((d) => d.fulfilled)
+      .map((e) =>
+        t("score.result", {
+          description: t("score.criteria." + e.translationKey),
+          points: e.points,
+        })
+      )
+      .join("\n"),
+    notFulfilled: app.score.details
+      .filter((d) => !d.fulfilled)
+      .map((e) =>
+        t("score.result", {
+          description: t("score.criteria." + e.translationKey),
+          points: e.points,
+        })
+      )
+      .join("\n"),
   });
 
   return (

@@ -26,13 +26,10 @@ import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
-import { prepareScore } from "../../data/prepareScore";
 import { SourceDisplay } from "../components/SourceDisplay";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
   const { t } = useTranslation();
-
-  prepareScore(apps);
 
   return (
     <>
