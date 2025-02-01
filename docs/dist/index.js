@@ -61766,6 +61766,9 @@ function addApp(apps, obj) {
         (app.install.fDroidID &&
             app.install.fDroidID &&
             app.install.fDroidID === obj.install.fDroidID) ||
+        (app.install.googlePlayID &&
+            app.install.googlePlayID &&
+            app.install.googlePlayID === obj.install.googlePlayID) ||
         (app.install.obtainiumLink &&
             app.install.obtainiumLink &&
             app.install.obtainiumLink === obj.install.obtainiumLink) ||
@@ -61785,6 +61788,7 @@ function addApp(apps, obj) {
             obj.install.appleStoreID ||
             obj.install.asin ||
             obj.install.fDroidID ||
+            obj.install.googlePlayID ||
             obj.install.obtainiumLink ||
             obj.install.huaweiAppGalleryID ||
             obj.install.macAppStoreID ||
