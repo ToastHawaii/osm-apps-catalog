@@ -14,10 +14,6 @@
   "dependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.0",
-    "@types/lodash": "4.17.14",
-    "@types/md5": "2.3.5",
-    "@types/react": "18.3.8",
-    "@types/react-dom": "18.3.0",
     "@vercel/ncc": "0.38.3",
     "i18next": "23.15.1",
     "i18next-browser-languagedetector": "8.0.0",
@@ -37,7 +33,11 @@
   },
   "devDependencies": {
     "@github/local-action": "2.2.1",
-    "@types/sanitize-html": "^2.13.0"
+    "@types/lodash": "4.17.14",
+    "@types/md5": "2.3.5",
+    "@types/react": "18.3.8",
+    "@types/react-dom": "18.3.0",
+    "@types/sanitize-html": "2.13.0"
   },
   "scripts": {
     "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npm run app:build && npm run action:build",
