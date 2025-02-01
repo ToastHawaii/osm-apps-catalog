@@ -45,7 +45,7 @@ export const Criterias: {
   {
     translationKey: "copyleftLicense",
     check: (app) =>
-      !!app.license?.find((l) => l.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+      !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
     points: 0.5,
   },
   {

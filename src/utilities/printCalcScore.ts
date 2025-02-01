@@ -12,5 +12,6 @@ export function printCalcScore(apps: App[]) {
   console.info("10.01.2025: 2.008");
   console.info("New score calculation");
   console.info("11.01.2025: 2.147");
+  console.info("31.01.2025: 2.160");
   console.info("Today: " + average);
 }

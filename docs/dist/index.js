@@ -60409,11 +60409,6 @@ function includes(arr, target) {
 function some(arr, target) {
     return target.some((v) => arr.includes(v));
 }
-function uniq(arr) {
-    return arr.filter((c, index) => {
-        return arr.indexOf(c) === index;
-    });
-}
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -60689,7 +60684,7 @@ function hashCode(str) {
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/isOpenSource.ts
 function check(value) {
-    return value.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
+    return value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
 function isOpenSource(value) {
     if (!value) {
@@ -61597,7 +61592,7 @@ const Criterias = [
     },
     {
         translationKey: "copyleftLicense",
-        check: (app) => !!app.license?.find((l) => l.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
         points: 0.5,
     },
     {
