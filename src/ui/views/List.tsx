@@ -22,7 +22,7 @@ import { Image } from "../components/Image";
 import { Score } from "../components/Score";
 import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 export function List({ app, open = false }: { app: App; open: boolean }) {
   const { t } = useTranslation();
@@ -193,12 +193,17 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
               <span className="more-info-text">
                 {app.lastRelease ? app.lastRelease : "????-??-??"}
                 {app.unmaintained && (
-                  <span className="warning">
-                    {t("app.unmaintained", {
-                      icon: <i className="fas fa-exclamation-triangle"></i>,
-                      interpolation: { escapeValue: false },
-                    })}
-                  </span>
+                  <>
+                    {" "}
+                    <span className="warning">
+                      <Trans
+                        i18nKey={"app.unmaintained"}
+                        components={{
+                          icon: <i className="fas fa-exclamation-triangle"></i>,
+                        }}
+                      />
+                    </span>
+                  </>
                 )}
               </span>
             </div>

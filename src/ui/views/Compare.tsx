@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { Badges } from "../components/Badges";
 import { Image } from "../components/Image";
@@ -282,20 +282,26 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             hasValue: (app) => !!(app.lastRelease || app.unmaintained),
             renderToHtml: (app) => (
               <>
-                {(app.lastRelease
+                {app.lastRelease
                   ? app.lastRelease
                   : app.unmaintained
                   ? "????-??-??"
-                  : "") +
-                  (app.unmaintained ? (
+                  : ""}
+                {app.unmaintained ? (
+                  <>
+                    {" "}
                     <span className="warning">
-                      {t("app.unmaintained", {
-                        icon: <i className="fas fa-exclamation-triangle"></i>,
-                      })}
+                      <Trans
+                        i18nKey={"app.unmaintained"}
+                        components={{
+                          icon: <i className="fas fa-exclamation-triangle"></i>,
+                        }}
+                      />
                     </span>
-                  ) : (
-                    ""
-                  ))}
+                  </>
+                ) : (
+                  ""
+                )}
               </>
             ),
             renderToWiki: (app, lang) =>
@@ -309,7 +315,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                     ? "????-??-??"
                     : "") +
                   (app.unmaintained
-                    ? t("app.unmaintained", { icon: `⚠️`, lng: lang })
+                    ? t("app.unmaintained.wiki", { icon: `⚠️`, lng: lang })
                     : ""),
                 lang
               ),
