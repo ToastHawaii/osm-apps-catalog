@@ -61757,13 +61757,27 @@ function calculateScore(app) {
 function addApp(apps, obj) {
     const duplicates = apps.filter((app) => equalsIgnoreCase(app.name, obj.name) ||
         (app.website && obj.website && equalsWebsite(app.website, obj.website)) ||
-        app.install.appleStoreID === obj.install.appleStoreID ||
-        app.install.asin === obj.install.asin ||
-        app.install.fDroidID === obj.install.fDroidID ||
-        app.install.obtainiumLink === obj.install.obtainiumLink ||
-        app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID ||
-        app.install.macAppStoreID === obj.install.macAppStoreID ||
-        app.install.microsoftAppID === obj.install.microsoftAppID);
+        (app.install.appleStoreID &&
+            app.install.appleStoreID &&
+            app.install.appleStoreID === obj.install.appleStoreID) ||
+        (app.install.asin &&
+            app.install.asin &&
+            app.install.asin === obj.install.asin) ||
+        (app.install.fDroidID &&
+            app.install.fDroidID &&
+            app.install.fDroidID === obj.install.fDroidID) ||
+        (app.install.obtainiumLink &&
+            app.install.obtainiumLink &&
+            app.install.obtainiumLink === obj.install.obtainiumLink) ||
+        (app.install.huaweiAppGalleryID &&
+            app.install.huaweiAppGalleryID &&
+            app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID) ||
+        (app.install.macAppStoreID &&
+            app.install.macAppStoreID &&
+            app.install.macAppStoreID === obj.install.macAppStoreID) ||
+        (app.install.microsoftAppID &&
+            app.install.microsoftAppID &&
+            app.install.microsoftAppID === obj.install.microsoftAppID));
     if (duplicates.length === 0) {
         // only add if external sources exists
         if (obj.website ||
