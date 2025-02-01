@@ -1,0 +1,141 @@
+defaults:
+  - scope:
+      path: "docs/docs/README.md"
+    values:
+      lang: "en"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/"
+  - scope:
+      path: "docs/docs/cs/README.md"
+    values:
+      lang: "cs"
+      title: "O aplikaci - OSM Apps Catalog"
+      description: "Poznávejte svět kreativním, produktivním a nečekaným způsobem."
+      base: "/cs/"
+  - scope:
+      path: "docs/docs/de/README.md"
+    values:
+      lang: "de"
+      title: "Über - OSM Apps Katalog"
+      description: "Erleben Sie die Welt auf kreative, produktive und unerwartete Weise."
+      base: "/de/"
+  - scope:
+      path: "docs/docs/el/README.md"
+    values:
+      lang: "el"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/el/"
+  - scope:
+      path: "docs/docs/es/README.md"
+    values:
+      lang: "es"
+      title: "Acerca de - OSM Apps Catalog"
+      description: "Experimente el mundo de maneras creativas, productivas e inesperadas."
+      base: "/es/"
+  - scope:
+      path: "docs/docs/et/README.md"
+    values:
+      lang: "et"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/et/"
+  - scope:
+      path: "docs/docs/fr/README.md"
+    values:
+      lang: "fr"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/fr/"
+  - scope:
+      path: "docs/docs/hu/README.md"
+    values:
+      lang: "hu"
+      title: "Névjegy - OSM Apps Catalog"
+      description: "Tapasztald meg a világot kreatív, produktív és váratlan módokon."
+      base: "/hu/"
+  - scope:
+      path: "docs/docs/id/README.md"
+    values:
+      lang: "id"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/id/"
+  - scope:
+      path: "docs/docs/it/README.md"
+    values:
+      lang: "it"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/it/"
+  - scope:
+      path: "docs/docs/ja/README.md"
+    values:
+      lang: "ja"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/ja/"
+  - scope:
+      path: "docs/docs/ko/README.md"
+    values:
+      lang: "ko"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/ko/"
+  - scope:
+      path: "docs/docs/nb_NO/README.md"
+    values:
+      lang: "no"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/no/"
+  - scope:
+      path: "docs/docs/pl/README.md"
+    values:
+      lang: "pl"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/pl/"
+  - scope:
+      path: "docs/docs/pt/README.md"
+    values:
+      lang: "pt"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/pt/"
+  - scope:
+      path: "docs/docs/ru/README.md"
+    values:
+      lang: "ru"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/ru/"
+  - scope:
+      path: "docs/docs/tr/README.md"
+    values:
+      lang: "tr"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/tr/"
+  - scope:
+      path: "docs/docs/uk/README.md"
+    values:
+      lang: "uk"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/uk/"
+  - scope:
+      path: "docs/docs/zh_Hant/README.md"
+    values:
+      lang: "zh"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/zh/"
+  - scope:
+      path: "docs/docs/zh-Hans/README.md"
+    values:
+      lang: "zh-Hans"
+      title: "About - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/zh-hans/"

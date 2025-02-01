@@ -1,0 +1,79 @@
+<!--
+ Copyright (C) 2020 Markus Peloso
+
+ This file is part of OSM Apps Catalog.
+
+ OSM Apps Catalog is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+
+ OSM Apps Catalog is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="{{ page.lang }}">
+
+<head>
+  <title>{{ page.title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="{{ page.description }}" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="{{ page.title }}" />
+  <meta name="apple-mobile-web-app-title" content="{{ page.title }}" />
+  <meta name="theme-color" content="#90ee90" />
+  <meta name="msapplication-navbutton-color" content="#90ee90" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="msapplication-starturl" content="{{ page.base }}" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#90ee90" />
+  <link rel="shortcut icon" href="/icons/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#90ee90" />
+  <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+        media="print" onload="this.media='all'; this.onload=null;" />
+  <link rel="stylesheet" href="{{
+        '/assets/css/style.css?v='
+          | append: site.github.build_revision
+          | relative_url
+      }}" />
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html {
+        filter: invert(100%) hue-rotate(180deg);
+      }
+
+      html img,
+      html input[type="image"] {
+        filter: invert(100%) hue-rotate(-180deg);
+      }
+    }
+
+  </style>
+
+  <meta name="monetization" content="$ilp.uphold.com/BwpBDr48YqPi" />
+
+  <script src="/serviceWorkerRegister.js"></script>
+</head>
+
+<body>
+  <div class="container-lg px-3 my-5 markdown-body">{{ content }}</div>
+
+  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+</body>
+
+</html>
