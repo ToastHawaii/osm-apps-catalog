@@ -9,7 +9,7 @@ import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
 import { App } from "../data/App";
 
-const lastUpdate = new Date("2025-01-31");
+const lastUpdate = new Date("2025-02-01");
 
 /**
  * The main function for the action.

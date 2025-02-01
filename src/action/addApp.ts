@@ -9,7 +9,14 @@ export function addApp(apps: App[], obj: App) {
   const duplicates = apps.filter(
     (app) =>
       equalsIgnoreCase(app.name, obj.name) ||
-      (app.website && obj.website && equalsWebsite(app.website, obj.website))
+      (app.website && obj.website && equalsWebsite(app.website, obj.website)) ||
+      app.install.appleStoreID === obj.install.appleStoreID ||
+      app.install.asin === obj.install.asin ||
+      app.install.fDroidID === obj.install.fDroidID ||
+      app.install.obtainiumLink === obj.install.obtainiumLink ||
+      app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID ||
+      app.install.macAppStoreID === obj.install.macAppStoreID ||
+      app.install.microsoftAppID === obj.install.microsoftAppID
   );
 
   if (duplicates.length === 0) {

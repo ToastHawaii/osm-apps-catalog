@@ -61756,7 +61756,14 @@ function calculateScore(app) {
 
 function addApp(apps, obj) {
     const duplicates = apps.filter((app) => equalsIgnoreCase(app.name, obj.name) ||
-        (app.website && obj.website && equalsWebsite(app.website, obj.website)));
+        (app.website && obj.website && equalsWebsite(app.website, obj.website)) ||
+        app.install.appleStoreID === obj.install.appleStoreID ||
+        app.install.asin === obj.install.asin ||
+        app.install.fDroidID === obj.install.fDroidID ||
+        app.install.obtainiumLink === obj.install.obtainiumLink ||
+        app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID ||
+        app.install.macAppStoreID === obj.install.macAppStoreID ||
+        app.install.microsoftAppID === obj.install.microsoftAppID);
     if (duplicates.length === 0) {
         // only add if external sources exists
         if (obj.website ||
@@ -62376,7 +62383,7 @@ async function loadApps() {
 
 
 
-const lastUpdate = new Date("2025-01-31");
+const lastUpdate = new Date("2025-02-01");
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
