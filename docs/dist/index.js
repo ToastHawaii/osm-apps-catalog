@@ -60491,6 +60491,7 @@ function extractNameWebsiteWiki(value, pageName) {
             value = value.replace(regex, "");
         }
     }
+    obj.name = processWikiText(obj.name);
     return obj;
 }
 function extractWebsite(value = "") {
@@ -60654,10 +60655,11 @@ function processWikiText(text = "") {
             return `<a target="_blank" href="https://www.openstreetmap.org/user/${name}">${name}</a>`;
         });
     }
+    text = text.replaceAll(/!&#33;/g, "!!");
     return text;
 }
 function toWikiText(text = "") {
-    text = text.replaceAll(/\!\!/g, "!&#33;");
+    text = text.replaceAll(/!!/g, "!&#33;");
     const regex = /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))">([^\<]*)<\/a>/i;
     let match = regex.exec(text);
     while (match) {

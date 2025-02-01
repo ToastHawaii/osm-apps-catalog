@@ -89,6 +89,7 @@ export function extractNameWebsiteWiki(
     }
   }
 
+  obj.name = processWikiText(obj.name);
   return obj;
 }
 
@@ -338,11 +339,14 @@ export function processWikiText(text: string = "") {
     });
   }
 
+
+  text = text.replaceAll(/!&#33;/g, "!!");
+
   return text;
 }
 
 export function toWikiText(text: string = "") {
-  text = text.replaceAll(/\!\!/g, "!&#33;");
+  text = text.replaceAll(/!!/g, "!&#33;");
 
   const regex =
     /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))">([^\<]*)<\/a>/i;
