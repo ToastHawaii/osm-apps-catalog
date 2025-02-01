@@ -27,9 +27,12 @@ import { App } from "../../data/App";
 import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
+import { prepareScore } from "../../data/prepareScore";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
   const { t } = useTranslation();
+
+  prepareScore(apps);
 
   return (
     <>
@@ -566,7 +569,9 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             description: (lang) =>
               t("app.props.license.description", { lng: lang }),
             hasValue: (app) => !!(app.license && app.license.length > 0),
-            renderToHtml: (app) => <Badges values={app.license} dangerouslySetInnerHTML={true} />,
+            renderToHtml: (app) => (
+              <Badges values={app.license} dangerouslySetInnerHTML={true} />
+            ),
             renderToWiki: (app) =>
               app.libre
                 ? `{{free|${toWikiValue(app.license, lang) || "{{?}}"}}}`

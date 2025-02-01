@@ -3,6 +3,7 @@ import { getJson } from "./utilities/jsonRequest";
 import { App } from "./data/App";
 import { isDevelopment } from "./utilities/isDevelopment";
 import { printCalcScore } from "./utilities/printCalcScore";
+import { prepareLanguage } from "./data/prepareLanguage";
 
 async function loadData() {
   if (!isDevelopment) {
@@ -22,6 +23,7 @@ export function useData() {
 
   useEffect(() => {
     loadData().then((apps) => {
+      prepareLanguage(apps);
       setApps(apps);
       if (isDevelopment) {
         printCalcScore(apps);

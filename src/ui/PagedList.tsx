@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { App as AppData } from "../data/App";
 import { List } from "./views/List";
+import { prepareScore } from "../data/prepareScore";
 
 let scrollTop = 0;
 
@@ -43,6 +44,8 @@ export function PagedList({
 
   const current = apps.slice(0, 30);
   const rest = apps.slice(30);
+
+  prepareScore(current);
 
   const element = document.getElementById("content");
   useEffect(() => {

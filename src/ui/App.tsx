@@ -13,12 +13,9 @@ import { Filters } from "./components/filters";
 import { debounce } from "lodash";
 import { useAppState } from "../utilities/useAppState";
 import { filter } from "../utilities/filter";
-import { App as AppData } from "../data/App";
 import { LazyLoadImages } from "./components/LazyLoadImages";
 import { Compare } from "./views/Compare";
-import { calculateScore } from "../data/calculateScore";
 import { useTranslation } from "react-i18next";
-import { languageValueToDisplay } from "./utilities/language";
 import { NotFoundApps } from "./components/NotFoundApps";
 import { strip } from "../utilities/string";
 import { LazyInitMore } from "./components/LazyInitMore";
@@ -27,21 +24,6 @@ import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 
 import "./style.scss";
-
-function prepareScoreAndLanguage(apps: AppData[]) {
-  apps
-    .filter((app) => !app.score.details)
-    .forEach((app) => {
-      app.score = calculateScore(app);
-      app.languages = app.languages.map((l) => languageValueToDisplay(l));
-      if (app.accessibility) {
-        app.accessibility.screenReaderLang =
-          app.accessibility.screenReaderLang.map((l) =>
-            languageValueToDisplay(l)
-          );
-      }
-    });
-}
 
 export function App() {
   const { t } = useTranslation();
@@ -58,7 +40,6 @@ export function App() {
   if (filteredApps.length > 300 && state.view !== "list") {
     setAppState("view", "list");
   }
-  prepareScoreAndLanguage(filteredApps);
 
   useEffect(() => {
     if (!!state.app && filteredApps[0]) {
