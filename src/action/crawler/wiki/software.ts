@@ -330,19 +330,19 @@ export function transform(
 
   {
     const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-    obj.name = name.name || obj.name;
+    obj.name = sanitizeHtml(name.name || obj.name);
     obj.website = obj.website || name.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
-    obj.name = obj.name || name.name;
+    obj.name = sanitizeHtml(obj.name || name.name);
     obj.website = name.website || obj.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-    obj.name = obj.name || name.name;
+    obj.name = sanitizeHtml(obj.name || name.name);
     obj.website = obj.website || name.website;
     obj.documentation = name.wiki || obj.documentation;
   }

@@ -94,7 +94,7 @@ export function transform(source: { [name: string]: string }) {
   obj.topics = uniq(obj.topics).sort();
 
   let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-  obj.name = name.name || obj.name;
+  obj.name = sanitizeHtml(name.name || obj.name);
   obj.website = name.website;
   obj.documentation = name.wiki || obj.documentation;
   return obj;

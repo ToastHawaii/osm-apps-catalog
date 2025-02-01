@@ -75341,19 +75341,19 @@ function transform(source) {
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
     {
         const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-        obj.name = name.name || obj.name;
+        obj.name = sanitize_html_default()(name.name || obj.name);
         obj.website = obj.website || name.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
         const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
-        obj.name = obj.name || name.name;
+        obj.name = sanitize_html_default()(obj.name || name.name);
         obj.website = name.website || obj.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
         const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-        obj.name = obj.name || name.name;
+        obj.name = sanitize_html_default()(obj.name || name.name);
         obj.website = obj.website || name.website;
         obj.documentation = name.wiki || obj.documentation;
     }
@@ -75444,7 +75444,7 @@ function serviceItem_transform(source) {
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
     let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-    obj.name = name.name || obj.name;
+    obj.name = sanitize_html_default()(name.name || obj.name);
     obj.website = name.website;
     obj.documentation = name.wiki || obj.documentation;
     return obj;
