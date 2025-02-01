@@ -24,7 +24,10 @@ export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
 export function equalsWebsite(a: string, b: string) {
   const aUrl = new URL(a.toUpperCase());
   const bUrl = new URL(b.toUpperCase());
-  return aUrl.hostname === bUrl.hostname && aUrl.pathname === bUrl.pathname;
+  return (
+    aUrl.hostname + aUrl.pathname + aUrl.search ===
+    bUrl.hostname + bUrl.pathname + bUrl.search
+  );
 }
 
 export function equalsYes(...values: (string | undefined)[]) {

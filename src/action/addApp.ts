@@ -169,7 +169,7 @@ export function addApp(apps: App[], obj: App) {
 function calcId(obj: App): number {
   if (obj.website) {
     const url = new URL(obj.website.toLowerCase());
-    return hashCode(url.hostname + url.pathname);
+    return hashCode(url.hostname + url.pathname + url.search);
   }
 
   return hashCode(obj.name.toUpperCase());

@@ -257,7 +257,7 @@ export function processWikiText(text: string = "") {
   {
     const strongRegex = /'''([^(''')]*)'''/g;
     text = text.replace(strongRegex, `<strong>$1</strong>`);
-    
+
     const emRegex = /''([^('')]*)''/g;
     text = text.replace(emRegex, `<em>$1</em>`);
   }
@@ -340,7 +340,6 @@ export function processWikiText(text: string = "") {
       return `<a target="_blank" href="https://www.openstreetmap.org/user/${name}">${name}</a>`;
     });
   }
-
 
   text = text.replaceAll(/!&#33;/g, "!!");
 

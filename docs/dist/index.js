@@ -74339,7 +74339,8 @@ function equalsIgnoreCase(a, b) {
 function equalsWebsite(a, b) {
     const aUrl = new URL(a.toUpperCase());
     const bUrl = new URL(b.toUpperCase());
-    return aUrl.hostname === bUrl.hostname && aUrl.pathname === bUrl.pathname;
+    return (aUrl.hostname + aUrl.pathname + aUrl.search ===
+        bUrl.hostname + bUrl.pathname + bUrl.search);
 }
 function equalsYes(...values) {
     for (const value of values)
@@ -76275,7 +76276,7 @@ function addApp(apps, obj) {
 function calcId(obj) {
     if (obj.website) {
         const url = new URL(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname);
+        return hashCode(url.hostname + url.pathname + url.search);
     }
     return hashCode(obj.name.toUpperCase());
 }
