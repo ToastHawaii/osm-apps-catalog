@@ -152,32 +152,32 @@ export function App() {
       </header>
       {apps.length > 0 && (
         <main>
-          <LazyLoadImages>
-            {state.view !== "compare" ? (
-              <div id="list">
-                {filteredApps.length > 0 ? (
-                  <PagedList apps={filteredApps} open={!!state.app}>
-                    <RelatedApps findSimilarApps={findSimilarApps} />
-                  </PagedList>
-                ) : (
-                  <p className="no-results">{t("noResults")}</p>
-                )}
-                {state.category === "all" && !state.app ? (
-                  <NotFoundApps apps={apps} />
-                ) : null}
-              </div>
-            ) : (
-              <div id="compare" className="table">
-                {filteredApps.length > 0 ? (
+          {state.view !== "compare" ? (
+            <div id="list">
+              {filteredApps.length > 0 ? (
+                <PagedList apps={filteredApps} open={!!state.app}>
+                  <RelatedApps findSimilarApps={findSimilarApps} />
+                </PagedList>
+              ) : (
+                <p className="no-results">{t("noResults")}</p>
+              )}
+              {state.category === "all" && !state.app ? (
+                <NotFoundApps apps={apps} />
+              ) : null}
+            </div>
+          ) : (
+            <div id="compare" className="table">
+              {filteredApps.length > 0 ? (
+                <LazyLoadImages>
                   <LazyInitMore>
                     <Compare apps={filteredApps} lang={state.lang} />
                   </LazyInitMore>
-                ) : (
-                  <p className="no-results">{t("noResults")}</p>
-                )}
-              </div>
-            )}
-          </LazyLoadImages>
+                </LazyLoadImages>
+              ) : (
+                <p className="no-results">{t("noResults")}</p>
+              )}
+            </div>
+          )}
         </main>
       )}
     </div>

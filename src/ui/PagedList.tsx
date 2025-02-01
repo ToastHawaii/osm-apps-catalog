@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { App as AppData } from "../data/App";
 import { List } from "./views/List";
+import { LazyLoadImages } from "./components/LazyLoadImages";
 
 let scrollTop = 0;
 
@@ -75,9 +76,11 @@ export function PagedList({
 
   return (
     <>
-      {current.map((a) => (
-        <List key={a.id} app={a} open={open} />
-      ))}
+      <LazyLoadImages>
+        {current.map((a) => (
+          <List key={a.id} app={a} open={open} />
+        ))}
+      </LazyLoadImages>
       {rest.length > 0 ? (
         showNext ? (
           <PagedList apps={rest} open={open}>
