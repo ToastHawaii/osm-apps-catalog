@@ -25,7 +25,7 @@ export function Image({ app }: { app: App }) {
         className="img"
         style={{ filter: app.filter }}
         src={defaultImage}
-        alt={i18next.t("app.imageAlt", {
+        alt={t("app.imageAlt", {
           name: app.name,
         })}
       />
