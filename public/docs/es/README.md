@@ -68,7 +68,7 @@ y modificar de forma gratuita si se publica bajo la misma licencia.
   [Únete a un grupo local](https://usergroups.openstreetmap.de/),
   [conoce](https://osmcal.org/) y [chatea](https://community.osm.be/)
 - [Colaborar con
-  OpenStreetMap}(https://wiki.openstreetmap.org/wiki/How_to_contribute)
+  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Agrega las aplicaciones OSM que
   conoces](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Sobre mí](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
