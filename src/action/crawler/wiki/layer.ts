@@ -19,7 +19,6 @@ import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { uniq } from "lodash";
-import sanitizeHtml from "sanitize-html";
 import {
   appendFullStop,
   equalsYes,
@@ -34,10 +33,11 @@ import {
 } from "../../utilities";
 import { App } from "../../../data/App";
 import { isOpenSource } from "./isOpenSource";
+import { plainText } from "./plainText";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
-    name: sanitizeHtml(
+    name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name
     ),
     lastRelease: toDate(source["date"]) || "",

@@ -75085,6 +75085,15 @@ var lodash = __nccwpck_require__(2356);
 // EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
 var sanitize_html = __nccwpck_require__(3595);
 var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
+;// CONCATENATED MODULE: ./src/action/crawler/wiki/plainText.ts
+
+function plainText(html) {
+    return sanitize_html_default()(html, {
+        allowedTags: [],
+        allowedAttributes: {},
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/software.ts
 // Copyright (C) 2020 Markus Peloso
 //
@@ -75114,7 +75123,7 @@ var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
 
 function transform(source) {
     const obj = {
-        name: sanitize_html_default()(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
         lastRelease: toDate(source["date"]) || "",
         description: appendFullStop(processWikiText(source["description"] || "")),
@@ -75341,19 +75350,19 @@ function transform(source) {
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
     {
         const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-        obj.name = sanitize_html_default()(name.name || obj.name);
+        obj.name = plainText(name.name || obj.name);
         obj.website = obj.website || name.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
         const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
-        obj.name = sanitize_html_default()(obj.name || name.name);
+        obj.name = plainText(obj.name || name.name);
         obj.website = name.website || obj.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
         const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-        obj.name = sanitize_html_default()(obj.name || name.name);
+        obj.name = plainText(obj.name || name.name);
         obj.website = obj.website || name.website;
         obj.documentation = name.wiki || obj.documentation;
     }
@@ -75394,7 +75403,7 @@ function hasValue(value = "") {
 
 function serviceItem_transform(source) {
     const obj = {
-        name: sanitize_html_default()(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         description: appendFullStop(processWikiText(source["descr"] || "")),
         images: toWikimediaUrl(source["image"], 250),
         imageWiki: source["image"],
@@ -75444,7 +75453,7 @@ function serviceItem_transform(source) {
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
     let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-    obj.name = sanitize_html_default()(name.name || obj.name);
+    obj.name = plainText(name.name || obj.name);
     obj.website = name.website;
     obj.documentation = name.wiki || obj.documentation;
     return obj;
@@ -75477,7 +75486,7 @@ function serviceItem_transform(source) {
 
 function layer_transform(source) {
     const obj = {
-        name: sanitize_html_default()(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         lastRelease: toDate(source["date"]) || "",
         description: appendFullStop(processWikiText(source["description"] || "")),
         images: [

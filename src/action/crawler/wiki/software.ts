@@ -38,7 +38,7 @@ import {
 import { App } from "../../../data/App";
 import { isOpenSource } from "./isOpenSource";
 import { uniq } from "lodash";
-import sanitizeHtml from "sanitize-html";
+import { plainText } from "./plainText";
 
 export function transform(
   source: { [name: string]: string } & {
@@ -46,7 +46,7 @@ export function transform(
   }
 ) {
   const obj: App = {
-    name: sanitizeHtml(
+    name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name
     ),
     unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
@@ -330,19 +330,19 @@ export function transform(
 
   {
     const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-    obj.name = sanitizeHtml(name.name || obj.name);
+    obj.name = plainText(name.name || obj.name);
     obj.website = obj.website || name.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
-    obj.name = sanitizeHtml(obj.name || name.name);
+    obj.name = plainText(obj.name || name.name);
     obj.website = name.website || obj.website;
     obj.documentation = obj.documentation || name.wiki || "";
   }
   {
     const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-    obj.name = sanitizeHtml(obj.name || name.name);
+    obj.name = plainText(obj.name || name.name);
     obj.website = obj.website || name.website;
     obj.documentation = name.wiki || obj.documentation;
   }

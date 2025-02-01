@@ -33,11 +33,11 @@ import {
   extractLanguageCodeFromTemplate,
 } from "../../utilities";
 import { App } from "../../../data/App";
-import sanitizeHtml from "sanitize-html";
+import { plainText } from "./plainText";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
-    name: sanitizeHtml(
+    name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name
     ),
     description: appendFullStop(processWikiText(source["descr"] || "")),
@@ -94,7 +94,7 @@ export function transform(source: { [name: string]: string }) {
   obj.topics = uniq(obj.topics).sort();
 
   let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-  obj.name = sanitizeHtml(name.name || obj.name);
+  obj.name = plainText(name.name || obj.name);
   obj.website = name.website;
   obj.documentation = name.wiki || obj.documentation;
   return obj;
