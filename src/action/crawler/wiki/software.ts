@@ -38,6 +38,7 @@ import {
 import { App } from "../../../data/App";
 import { isOpenSource } from "./isOpenSource";
 import { uniq } from "lodash";
+import sanitizeHtml from "sanitize-html";
 
 export function transform(
   source: { [name: string]: string } & {
@@ -45,7 +46,9 @@ export function transform(
   }
 ) {
   const obj: App = {
-    name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
+    name: sanitizeHtml(
+      extractNameWebsiteWiki(source["name"], source.sourceWiki).name
+    ),
     unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),

@@ -33,11 +33,13 @@ import {
   extractLanguageCodeFromTemplate,
 } from "../../utilities";
 import { App } from "../../../data/App";
+import sanitizeHtml from "sanitize-html";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
-    name: extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
-
+    name: sanitizeHtml(
+      extractNameWebsiteWiki(source["name"], source.sourceWiki).name
+    ),
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
     imageWiki: source["image"],

@@ -1,5 +1,4 @@
 import React from "react";
-import i18next from "i18next";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
 

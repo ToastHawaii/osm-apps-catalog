@@ -255,9 +255,11 @@ export function processWikiText(text: string = "") {
 
   // Format
   {
-    const regex = /'''([^(''')]*)'''/g;
-
-    text = text.replace(regex, `<strong>$1</strong>`);
+    const strongRegex = /'''([^(''')]*)'''/g;
+    text = text.replace(strongRegex, `<strong>$1</strong>`);
+    
+    const emRegex = /''([^('')]*)''/g;
+    text = text.replace(emRegex, `<em>$1</em>`);
   }
 
   // GitHub
