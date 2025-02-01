@@ -19,7 +19,7 @@ import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { platformValueToDisplay } from "../../utilities/platform";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
-import { removeDuplicates, some } from "../../../utilities/array";
+import { some } from "../../../utilities/array";
 import {
   appendFullStop,
   trim,
@@ -36,6 +36,8 @@ import {
   extractWebsite,
 } from "../../utilities";
 import { App } from "../../../data/App";
+import { isOpenSource } from "./isOpenSource";
+import { uniq } from "lodash";
 
 export function transform(
   source: { [name: string]: string } & {
@@ -71,15 +73,12 @@ export function transform(
       extractWebsite(source["repo"] || source["git"] || source["svn"])
     ),
     gratis: some([source["price"], source["license"]], ["gratis", "free", "0"]),
-    libre: !!source["license"]?.match(
-      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
-    ),
+    libre: isOpenSource(source["license"]),
     price: source["price"],
     license: processWikiText(source["license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter((v) => v)
-      .join(", "),
+      .filter((v) => v),
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -222,9 +221,9 @@ export function transform(
     }
   }
 
-  obj.platform = removeDuplicates(obj.platform).sort();
-  obj.languages = removeDuplicates(obj.languages).sort();
-  obj.coverage = removeDuplicates(obj.coverage).sort();
+  obj.platform = uniq(obj.platform).sort();
+  obj.languages = uniq(obj.languages).sort();
+  obj.coverage = uniq(obj.coverage).sort();
 
   if (hasValue(source["datasource"]))
     obj.topics.push(
@@ -324,7 +323,7 @@ export function transform(
   )
     obj.topics.push("Blind");
 
-  obj.topics = removeDuplicates(obj.topics).sort();
+  obj.topics = uniq(obj.topics).sort();
 
   {
     const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);

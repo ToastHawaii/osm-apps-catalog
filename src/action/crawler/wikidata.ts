@@ -2,6 +2,7 @@ import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
+import { isOpenSource } from "./wiki/isOpenSource";
 
 function extractGenre(result: any) {
   const genre = [];
@@ -60,10 +61,8 @@ export function transformWikidataResult(result: any) {
         : "",
     documentation: result.doc?.value || result.docDef?.value || "",
     author: result.authors?.value || "",
-    libre: (result.license?.value || "")?.match(
-      "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
-    ),
-    license: result.license?.value || "",
+    libre: isOpenSource(result.license?.value),
+    license: (result.license?.value || "").split(";").filter((v: any) => v),
     sourceCode: result.sourceCode?.value || "",
     languages: (result.languages?.value || "")
       .split(";")
@@ -356,7 +355,7 @@ SELECT DISTINCT
   ?item ?itemLabel
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
-  (GROUP_CONCAT(?licenseShortName; SEPARATOR = ", ") AS ?license)
+  (GROUP_CONCAT(?licenseShortName; SEPARATOR = ";") AS ?license)
   ?modified 
 WHERE
 {

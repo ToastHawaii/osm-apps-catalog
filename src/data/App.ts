@@ -20,7 +20,7 @@ export type App = {
   // FLOSS license
   libre?: boolean;
   price?: string;
-  license?: string;
+  license?: string[];
   sourceCode?: string | undefined;
   languages: string[];
   languagesUrl?: string | undefined;

@@ -52,13 +52,13 @@ export function Group({
         const value: string | string[] | undefined = (app as any)[id]?.[p];
         return notNo(value);
       },
-      renderToHtml: (app: App) => <Badges topics={(app as any)[id]?.[p]} />,
+      renderToHtml: (app: App) => <Badges values={(app as any)[id]?.[p]} />,
       renderToWiki: (app: App) => toWikiValue((app as any)[id]?.[p], lang),
     };
   });
 
   let elements = extendedParams
-    .map((p,i) => {
+    .map((p, i) => {
       if (!apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
         return undefined;
       }

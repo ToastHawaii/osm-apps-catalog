@@ -18,7 +18,7 @@
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
-import { removeDuplicates } from "../../../utilities/array";
+import { uniq } from "lodash";
 import {
   appendFullStop,
   equalsYes,
@@ -32,6 +32,7 @@ import {
   extractNameWebsiteWiki,
 } from "../../utilities";
 import { App } from "../../../data/App";
+import { isOpenSource } from "./isOpenSource";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
@@ -53,7 +54,9 @@ export function transform(source: { [name: string]: string }) {
         lastChange: source["timestamp"] || "",
       },
     ],
-    sourceCode: toUrl(extractWebsite(source["repo"])),
+    sourceCode: toUrl(
+      extractWebsite(source["style_web"]) || extractWebsite(source["repo"])
+    ),
     author: processWikiText(source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
@@ -70,11 +73,17 @@ export function transform(source: { [name: string]: string }) {
     platform: ["Web"],
     coverage: [],
     install: {},
-    license: processWikiText(source["tiles_license"] || "")
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .join(", "),
+    license: uniq([
+      ...processWikiText(source["tiles_license"] || "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v),
+      ...processWikiText(source["style_license"] || "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v),
+    ]),
+    libre: isOpenSource([source["tiles_license"], source["style_license"]]),
     community: {
       issueTracker: toUrl(source["bugtracker_web"]),
     },
@@ -89,6 +98,6 @@ export function transform(source: { [name: string]: string }) {
     obj.genre.push("Slippy map");
   }
 
-  obj.languages = removeDuplicates(obj.languages).sort();
+  obj.languages = uniq(obj.languages).sort();
   return obj;
 }

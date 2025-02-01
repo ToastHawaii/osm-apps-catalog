@@ -1,4 +1,4 @@
-import { removeDuplicates } from "../utilities/array";
+import { uniq } from "lodash";
 import { equalsIgnoreCase } from "../utilities/string";
 import { hashCode } from "./utilities";
 import { App } from "../data/App";
@@ -42,7 +42,7 @@ export function addApp(apps: App[], obj: App) {
 
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
-    app.images = removeDuplicates(app.images);
+    app.images = uniq(app.images);
     app.imageWiki = app.imageWiki || obj.imageWiki;
 
     app.website = app.website || obj.website;
@@ -54,7 +54,7 @@ export function addApp(apps: App[], obj: App) {
     }
 
     app.coverage.push(...obj.coverage);
-    app.coverage = removeDuplicates(app.coverage);
+    app.coverage = uniq(app.coverage);
 
     if (
       // only add if not same source
@@ -84,19 +84,19 @@ export function addApp(apps: App[], obj: App) {
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
     app.languages.push(...obj.languages);
-    app.languages = removeDuplicates(app.languages);
+    app.languages = uniq(app.languages);
     app.languagesUrl = app.languagesUrl || obj.languagesUrl;
 
     app.genre.push(...obj.genre);
-    app.genre = removeDuplicates(app.genre);
+    app.genre = uniq(app.genre);
     app.topics.push(...obj.topics);
-    app.topics = removeDuplicates(app.topics);
+    app.topics = uniq(app.topics).sort();
 
     app.platform.push(...obj.platform);
-    app.platform = removeDuplicates(app.platform);
+    app.platform = uniq(app.platform);
 
     app.coverage.push(...obj.coverage);
-    app.coverage = removeDuplicates(app.coverage);
+    app.coverage = uniq(app.coverage);
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
@@ -168,7 +168,7 @@ function merge<T extends { [name: string]: string[] }>(
       }
 
       o1[k].push(...o2[k]);
-      (o1 as any)[k] = removeDuplicates(o1[k]);
+      (o1 as any)[k] = uniq(o1[k]);
     });
     return o1;
   }

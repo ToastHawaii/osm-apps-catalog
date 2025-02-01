@@ -163,7 +163,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
       )}
 
       <div className="badges">
-        <Badges topics={app.topics} />
+        <Badges values={app.topics} />
       </div>
 
       {!isOpen ? (
@@ -356,10 +356,13 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             </div>
           )}
 
-          {app.license && (
+          {app.license && app.license.length > 0 && (
             <div className="more-info">
               <span className="more-info-title">{t("app.license")}</span>
-              <span className="more-info-text">{app.license}</span>
+              <span
+                className="more-info-text"
+                dangerouslySetInnerHTML={{ __html: app.license.join(", ") }}
+              ></span>
             </div>
           )}
 

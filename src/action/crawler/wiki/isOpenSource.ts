@@ -1,0 +1,16 @@
+function check(value: string) {
+  return value.match(
+    "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
+  );
+}
+export function isOpenSource(value: string | string[] | undefined) {
+  if (!value) {
+    return false;
+  }
+
+  if (typeof value === "string") {
+    return check(value);
+  }
+
+  return !!value.find((v) => check(v));
+}

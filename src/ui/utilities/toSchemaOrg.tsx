@@ -1,5 +1,11 @@
 import { App } from "../../data/App";
-import { display, edit, mobile, navigation, web } from "../../utilities/filters";
+import {
+  display,
+  edit,
+  mobile,
+  navigation,
+  web,
+} from "../../utilities/filters";
 import { strip } from "../../utilities/string";
 
 export function toSchemaOrg(app: App) {
@@ -38,7 +44,7 @@ export function toSchemaOrg(app: App) {
       ? "https://appgallery.huawei.com/#/app/" + app.install.huaweiAppGalleryID
       : undefined,
     datePublished: app.lastRelease || undefined,
-    license: app.license || undefined,
+    license: app.license?.map((l) => strip(l))?.join(",") || undefined,
     applicationCategory: display(app)
       ? "TravelApplication"
       : navigation(app)

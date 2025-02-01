@@ -18,7 +18,7 @@
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
-import { removeDuplicates } from "../../../utilities/array";
+import { uniq } from "lodash";
 import {
   appendFullStop,
   trim,
@@ -87,9 +87,9 @@ export function transform(source: { [name: string]: string }) {
     );
   }
 
-  obj.languages = removeDuplicates(obj.languages).sort();
-  obj.coverage = removeDuplicates(obj.coverage).sort();
-  obj.topics = removeDuplicates(obj.topics).sort();
+  obj.languages = uniq(obj.languages).sort();
+  obj.coverage = uniq(obj.coverage).sort();
+  obj.topics = uniq(obj.topics).sort();
 
   let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
   obj.name = name.name || obj.name;

@@ -249,7 +249,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             description: (lang) =>
               t("app.props.genre.description", { lng: lang }),
             hasValue: (app) => app.genre?.length > 0,
-            renderToHtml: (app) => <Badges topics={app.genre} />,
+            renderToHtml: (app) => <Badges values={app.genre} />,
             renderToWiki: (app) => toWikiValue(app.genre?.join(", "), lang),
           },
           {
@@ -272,7 +272,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             description: (lang) =>
               t("app.props.platform.description", { lng: lang }),
             hasValue: (app) => app.platform?.length > 0,
-            renderToHtml: (app) => <Badges topics={app.platform} />,
+            renderToHtml: (app) => <Badges values={app.platform} />,
             renderToWiki: (app) => toWikiValue(app.platform.join(", "), lang),
           },
           {
@@ -337,14 +337,14 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                     target="_blank"
                   >
                     {app.languages.length > 0 ? (
-                      <Badges topics={app.languages} />
+                      <Badges values={app.languages} />
                     ) : (
                       <i className="fas fa-language"></i>
                     )}
                     <i className="fas fa-external-link-alt"></i>
                   </a>
                 ) : (
-                  <Badges topics={app.languages} />
+                  <Badges values={app.languages} />
                 )}
               </>
             ),
@@ -565,13 +565,12 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             label: (lang) => t("app.props.license.label", { lng: lang }),
             description: (lang) =>
               t("app.props.license.description", { lng: lang }),
-            hasValue: (app) => !!app.license,
-            renderToHtml: (app) => <Badges topics={app.license} />,
+            hasValue: (app) => !!(app.license && app.license.length > 0),
+            renderToHtml: (app) => <Badges values={app.license} dangerouslySetInnerHTML={true} />,
             renderToWiki: (app) =>
-              toWikiValue(
-                app.libre ? `{{free|${app.license || "{{?}}"}}}` : app.license,
-                lang
-              ),
+              app.libre
+                ? `{{free|${toWikiValue(app.license, lang) || "{{?}}"}}}`
+                : toWikiValue(app.license, lang),
           },
           {
             label: (lang) => t("app.props.repo.label", { lng: lang }),
