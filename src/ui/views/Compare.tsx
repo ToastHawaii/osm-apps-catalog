@@ -24,10 +24,10 @@ import { toWikiValue } from "../utilities/toWikiTable";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
-import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
 import { prepareScore } from "../../data/prepareScore";
+import { SourceDisplay } from "../components/SourceDisplay";
 
 export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
   const { t } = useTranslation();
@@ -598,26 +598,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             label: (lang) => t("app.source", { lng: lang }),
             description: (lang) => t("app.source.description", { lng: lang }),
             hasValue: () => true,
-            renderToHtml: (app) => (
-              <>
-                {app.source
-                  .map((s, i) => (
-                    <a
-                      key={i}
-                      target="_blank"
-                      href={s.url}
-                      title={t("app.source.date", { date: s.lastChange })}
-                    >
-                      <SourceDisplayText name={s.name} />
-                    </a>
-                  ))
-                  .reduce((prev, curr) => (
-                    <>
-                      {prev}, {curr}
-                    </>
-                  ))}
-              </>
-            ),
+            renderToHtml: (app) => <SourceDisplay app={app} />,
           },
         ]}
         apps={apps}

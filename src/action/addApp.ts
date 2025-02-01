@@ -1,5 +1,5 @@
 import { uniq } from "lodash";
-import { equalsIgnoreCase } from "../utilities/string";
+import { equalsIgnoreCase, equalsWebsite } from "../utilities/string";
 import { hashCode } from "./utilities";
 import { App } from "../data/App";
 import { extendFilter } from "./utilities/extendFilter";
@@ -9,7 +9,7 @@ export function addApp(apps: App[], obj: App) {
   const duplicates = apps.filter(
     (app) =>
       equalsIgnoreCase(app.name, obj.name) ||
-      (app.website && obj.website && equalsIgnoreCase(app.website, obj.website))
+      (app.website && obj.website && equalsWebsite(app.website, obj.website))
   );
 
   if (duplicates.length === 0) {
@@ -26,7 +26,7 @@ export function addApp(apps: App[], obj: App) {
       obj.install.microsoftAppID ||
       obj.sourceCode
     ) {
-      obj.id = hashCode(obj.website || obj.name);
+      obj.id = calcId(obj);
       obj.score = calculateScore(obj);
       apps.push(obj);
       extendFilter(obj);
@@ -139,6 +139,15 @@ export function addApp(apps: App[], obj: App) {
     app.score = calculateScore(app);
     extendFilter(app);
   }
+}
+
+function calcId(obj: App): number {
+  if (obj.website) {
+    const url = new URL(obj.website.toLowerCase());
+    return hashCode(url.hostname + url.pathname);
+  }
+
+  return hashCode(obj.name.toUpperCase());
 }
 
 // Todo: replace mit lodash?

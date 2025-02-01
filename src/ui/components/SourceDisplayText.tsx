@@ -1,6 +1,9 @@
 import React from "react";
 
-export function SourceDisplayText({ name }: { name: string }) {
+export function SourceDisplayText({ name , create}: { name: string , create?:boolean|undefined}) {
+
+const icon = !create? <i className="fas fa-pen"></i> : <i className="fas fa-plus"></i>
+
   switch (name) {
     case "taginfo":
       return <>taginfo</>;
@@ -8,28 +11,28 @@ export function SourceDisplayText({ name }: { name: string }) {
     case "Wikidata":
       return (
         <>
-          Wikidata <i className="fas fa-pen"></i>
+          Wikidata {icon}
         </>
       );
 
     case "Layer":
       return (
         <>
-          Wiki (Layer) <i className="fas fa-pen"></i>
+          Wiki (Layer) {icon}
         </>
       );
 
     case "ServiceItem":
       return (
         <>
-          Wiki (ServiceItem) <i className="fas fa-pen"></i>
+          Wiki (ServiceItem) {icon}
         </>
       );
 
     case "Software":
       return (
         <>
-          Wiki (Software) <i className="fas fa-pen"></i>
+          Wiki (Software) {icon}
         </>
       );
 

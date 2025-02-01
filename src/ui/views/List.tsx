@@ -16,13 +16,13 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, { useState } from "react";
-import { SourceDisplayText } from "../components/SourceDisplayText";
 import { Badges } from "../components/Badges";
 import { Image } from "../components/Image";
 import { Score } from "../components/Score";
 import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { Trans, useTranslation } from "react-i18next";
+import { SourceDisplay } from "../components/SourceDisplay";
 
 export function List({ app, open = false }: { app: App; open: boolean }) {
   const { t } = useTranslation();
@@ -378,22 +378,7 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           <div className="more-info">
             <span className="more-info-title">{t("app.source")}</span>
             <span className="more-info-text">
-              {app.source
-                .map((s) => (
-                  <a
-                    key={s.url}
-                    href={s.url}
-                    target="_blank"
-                    title={t("app.source.date", { date: s.lastChange })}
-                  >
-                    <SourceDisplayText name={s.name} />
-                  </a>
-                ))
-                .reduce((prev, curr) => (
-                  <>
-                    {prev}, {curr}
-                  </>
-                ))}
+              <SourceDisplay app={app} />
             </span>
           </div>
         </div>

@@ -59962,6 +59962,11 @@ function equalsIgnoreCase(a, b) {
         ? a.toUpperCase() === b.toUpperCase()
         : a === b;
 }
+function equalsWebsite(a, b) {
+    const aUrl = new URL(a.toUpperCase());
+    const bUrl = new URL(b.toUpperCase());
+    return aUrl.hostname === bUrl.hostname && aUrl.pathname === bUrl.pathname;
+}
 function equalsYes(...values) {
     for (const value of values)
         if (value?.toUpperCase() === "YES")
@@ -61751,7 +61756,7 @@ function calculateScore(app) {
 
 function addApp(apps, obj) {
     const duplicates = apps.filter((app) => equalsIgnoreCase(app.name, obj.name) ||
-        (app.website && obj.website && equalsIgnoreCase(app.website, obj.website)));
+        (app.website && obj.website && equalsWebsite(app.website, obj.website)));
     if (duplicates.length === 0) {
         // only add if external sources exists
         if (obj.website ||
@@ -61764,7 +61769,7 @@ function addApp(apps, obj) {
             obj.install.macAppStoreID ||
             obj.install.microsoftAppID ||
             obj.sourceCode) {
-            obj.id = hashCode(obj.website || obj.name);
+            obj.id = calcId(obj);
             obj.score = calculateScore(obj);
             apps.push(obj);
             extendFilter(obj);
@@ -61857,6 +61862,13 @@ function addApp(apps, obj) {
         app.score = calculateScore(app);
         extendFilter(app);
     }
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = new URL(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname);
+    }
+    return hashCode(obj.name.toUpperCase());
 }
 // Todo: replace mit lodash?
 function merge(o1, o2) {
