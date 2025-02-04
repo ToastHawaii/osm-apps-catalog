@@ -567,7 +567,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
               t("app.props.license.description", { lng: lang }),
             hasValue: (app) => !!(app.license && app.license.length > 0),
             renderToHtml: (app) => (
-              <Badges values={app.license} dangerouslySetInnerHTML={true} />
+              <Badges values={app.license} dangerouslySetInnerHTML />
             ),
             renderToWiki: (app) =>
               app.libre

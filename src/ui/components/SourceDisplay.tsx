@@ -35,7 +35,7 @@ export function SourceDisplay({ app }: { app: App }) {
             }
             target="_blank"
           >
-            <SourceDisplayText name={"Software"} create={true} />
+            <SourceDisplayText name={"Software"} create />
           </a>
         </>
       )}
@@ -50,7 +50,7 @@ export function SourceDisplay({ app }: { app: App }) {
             }
             target="_blank"
           >
-            <SourceDisplayText name={"Wikidata"} create={true} />
+            <SourceDisplayText name={"Wikidata"} create />
           </a>
         </>
       )}

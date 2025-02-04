@@ -9,7 +9,7 @@ import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
 import { App } from "../data/App";
 
-const lastUpdate = new Date("2025-02-01");
+const lastUpdate = new Date("2025-02-04");
 
 /**
  * The main function for the action.
@@ -35,7 +35,7 @@ export async function run(): Promise<void> {
       core.getInput("ghToken")
     );
     await uploadToRepo(
-      "sitemap.xml",
+      "docs/sitemap.xml",
       await generateSitemap(apps),
       "Update sitemap",
       core.getInput("ghToken")

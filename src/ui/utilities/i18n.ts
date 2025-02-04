@@ -6,6 +6,7 @@ import * as cs from "../locales/cs.json";
 import * as de from "../locales/de.json";
 import * as el from "../locales/el.json";
 import * as es from "../locales/es.json";
+import * as et from "../locales/et.json";
 import * as fr from "../locales/fr.json";
 import * as hu from "../locales/hu.json";
 import * as id from "../locales/id.json";
@@ -16,6 +17,7 @@ import * as nb_NO from "../locales/nb_NO.json";
 import * as pl from "../locales/pl.json";
 import * as pt from "../locales/pt.json";
 import * as ru from "../locales/ru.json";
+import * as ta from "../locales/ta.json";
 import * as tr from "../locales/tr.json";
 import * as uk from "../locales/uk.json";
 import * as zh_Hant from "../locales/zh_Hant.json";
@@ -27,7 +29,9 @@ import * as templateEn from "../locales/wiki-software-template/en.json";
 import * as templateCs from "../locales/wiki-software-template/cs.json";
 import * as templateDe from "../locales/wiki-software-template/de.json";
 import * as templateEs from "../locales/wiki-software-template/es.json";
+import * as templateEt from "../locales/wiki-software-template/et.json";
 import * as templateHu from "../locales/wiki-software-template/hu.json";
+import * as templateTa from "../locales/wiki-software-template/ta.json";
 import * as templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
 
 i18next
@@ -44,6 +48,7 @@ i18next
       de: { translation: { ...de, "app.props": templateDe } },
       el: { translation: el },
       es: { translation: { ...es, "app.props": templateEs } },
+      et: { translation: { ...et, "app.props": templateEt } },
       fr: { translation: fr },
       hu: { translation: { ...hu, "app.props": templateHu } },
       id: { translation: id },
@@ -55,13 +60,14 @@ i18next
       pt: { translation: pt },
       ru: { translation: ru },
       tr: { translation: tr },
+      ta: { translation: { ...ta, "app.props": templateTa } },
       uk: { translation: uk },
       zh: { translation: zh_Hant },
       "zh-Hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
     },
   });
 
-const langs = ["en", "cs", "de", "es", "hu", "zh-hans"];
+const templateLangs = ["en", "cs", "de", "es", "et", "hu", "ta", "zh-hans"];
 
 function convertTemplateDataToJson() {
   const files = {} as {
@@ -92,7 +98,7 @@ function convertTemplateDataToJson() {
       }
     });
   }
-  langs.forEach((lang) => {
+  templateLangs.forEach((lang) => {
     Object.entries(templateData.params).forEach((e) => {
       if (!files[lang]) {
         files[lang] = {};
@@ -130,12 +136,12 @@ function convertJsonToTemplateData() {
 
   Object.entries(templateData.params).forEach((e) => {
     const label = {} as any;
-    langs.forEach((lang) => {
+    templateLangs.forEach((lang) => {
       label[lang] = files[lang][e[0]]?.label;
     });
     templateData.params[e[0]].label = label;
     const description = {} as any;
-    langs.forEach((lang) => {
+    templateLangs.forEach((lang) => {
       description[lang] = files[lang][e[0]]?.description;
     });
     templateData.params[e[0]].description = description;
