@@ -27,8 +27,17 @@ import { App } from "../../data/App";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
 import { SourceDisplay } from "../components/SourceDisplay";
+import { State } from "../../State";
 
-export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
+export function Compare({
+  apps,
+  lang,
+  state,
+}: {
+  apps: App[];
+  lang: string;
+  state: State;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -274,6 +283,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             hasValue: (app) => app.platform?.length > 0,
             renderToHtml: (app) => <Badges values={app.platform} />,
             renderToWiki: (app) => toWikiValue(app.platform.join(", "), lang),
+            focus: !!state.platforms.length,
           },
           {
             label: (lang) => t("app.props.date.label", { lng: lang }),
@@ -360,6 +370,8 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                 lang
               ),
             more: true,
+            focus:
+              !!state?.languages.length || state?.contribute === "translate",
           },
           {
             label: (lang) => t("app.props.coverage.label", { lng: lang }),
@@ -369,6 +381,7 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
             renderToHtml: (app) => <>{app.coverage[app.coverage.length - 1]}</>,
             renderToWiki: (app) =>
               toWikiValue(app.coverage[app.coverage.length - 1], lang),
+            focus: !!state?.coverage.length,
           },
           {
             label: (lang) => t("app.community", { lng: lang }),
@@ -534,6 +547,8 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
               ]
                 .filter((o) => o)
                 .join(", "),
+            focus:
+              state?.contribute === "discuss" || state?.contribute === "test",
           },
           {
             label: (lang) => t("app.props.author.label", { lng: lang }),
@@ -590,12 +605,14 @@ export function Compare({ apps, lang }: { apps: App[]; lang: string }) {
                 app.sourceCode ? `[${app.sourceCode} </>]` : "",
                 lang
               ),
+            focus: state?.contribute === "develop",
           },
           {
             label: (lang) => t("app.source", { lng: lang }),
             description: (lang) => t("app.source.description", { lng: lang }),
             hasValue: () => true,
             renderToHtml: (app) => <SourceDisplay app={app} />,
+            focus: state?.contribute === "document",
           },
         ]}
         apps={apps}

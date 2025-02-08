@@ -75989,6 +75989,12 @@ function edit(a) {
 
 
 
+
+const multilingual = [
+    "MUL",
+    instance.t("multilingual", { lng: "en" }).toUpperCase(),
+    instance.t("multilingual").toUpperCase(),
+];
 const Criterias = [
     // OSM Participation
     {
@@ -76068,7 +76074,7 @@ const Criterias = [
     {
         translationKey: "multipleLanguages",
         check: (app) => app.languages.length >= 3 ||
-            app.languages.some((l) => l?.toUpperCase() === "MUL"),
+            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
         points: 0.125,
     },
     {

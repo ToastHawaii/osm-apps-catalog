@@ -10,6 +10,7 @@ export function Param({
   group = "",
   more = false,
   centered = false,
+  focus = false,
 }: {
   apps: App[];
   label: string | undefined;
@@ -18,6 +19,7 @@ export function Param({
   group?: string | undefined;
   more?: boolean | undefined;
   centered?: boolean | undefined;
+  focus?: boolean | undefined;
 }) {
   const values = apps.map((app) => value(app));
 
@@ -26,7 +28,7 @@ export function Param({
   }
 
   const element = (
-    <div className={`row ${group}`}>
+    <div className={`row ${group} ${focus ? " focus" : ""}`}>
       <div className="cell header param-title" title={description}>
         {label}
       </div>

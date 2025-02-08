@@ -161,8 +161,8 @@ export function App() {
           {state.view !== "compare" ? (
             <div id="list">
               {filteredApps.length > 0 ? (
-                <PagedList apps={filteredApps} open={!!state.app}>
-                  <RelatedApps findSimilarApps={findSimilarApps} />
+                <PagedList apps={filteredApps} open={!!state.app} state={state}>
+                  <RelatedApps findSimilarApps={findSimilarApps} state={state}/>
                 </PagedList>
               ) : (
                 <p className="no-results">{t("noResults")}</p>
@@ -176,7 +176,7 @@ export function App() {
               {filteredApps.length > 0 ? (
                 <LazyLoadImages>
                   <LazyInitMore>
-                    <Compare apps={filteredApps} lang={state.lang} />
+                    <Compare apps={filteredApps} lang={state.lang} state={state}/>
                   </LazyInitMore>
                 </LazyLoadImages>
               ) : (

@@ -26,6 +26,7 @@ export function Group({
         renderToWiki?: (app: App, lang: string) => string | undefined;
         more?: boolean;
         centered?: boolean;
+        focus?: boolean;
       }
   )[];
   apps: App[];
@@ -73,6 +74,7 @@ export function Group({
           group={id + "-detail"}
           more={p.more}
           centered={p.centered}
+          focus={p.focus}
         />
       );
     })

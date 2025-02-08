@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { App as AppData } from "../data/App";
 import { List } from "./views/List";
 import { LazyLoadImages } from "./components/LazyLoadImages";
+import { State } from "../State";
 
 let scrollTop = 0;
 
@@ -35,10 +36,12 @@ export function PagedList({
   apps,
   open,
   children,
+  state,
 }: {
   apps: AppData[];
   open: boolean;
   children: any;
+  state: State;
 }) {
   const [showNext, setShowNext] = useState(false);
 
@@ -78,12 +81,12 @@ export function PagedList({
     <>
       <LazyLoadImages>
         {current.map((a) => (
-          <List key={a.id} app={a} open={open} />
+          <List key={a.id} app={a} open={open} state={state} />
         ))}
       </LazyLoadImages>
       {rest.length > 0 ? (
         showNext ? (
-          <PagedList apps={rest} open={open}>
+          <PagedList apps={rest} open={open} state={state}>
             {children}
           </PagedList>
         ) : (

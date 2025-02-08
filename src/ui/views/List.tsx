@@ -23,8 +23,17 @@ import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { Trans, useTranslation } from "react-i18next";
 import { SourceDisplay } from "../components/SourceDisplay";
+import { State } from "../../State";
 
-export function List({ app, open = false }: { app: App; open: boolean }) {
+export function List({
+  app,
+  state,
+  open = false,
+}: {
+  app: App;
+  open: boolean;
+  state?: State;
+}) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
 
@@ -182,7 +191,11 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           <div className="more-infos-title">{t("list.moreInfos")}</div>
 
           {app.platform.length > 0 && (
-            <div className="more-info">
+            <div
+              className={`more-info${
+                !!state?.platforms.length ? " focus" : ""
+              }`}
+            >
               <span className="more-info-title">{t("app.platforms")}</span>
               <span className="more-info-text">{app.platform.join(", ")}</span>
             </div>
@@ -210,7 +223,15 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           )}
 
           {app.languagesUrl ? (
-            <a className="more-info" href={app.languagesUrl} target="_blank">
+            <a
+              className={`more-info${
+                !!state?.languages.length || state?.contribute === "translate"
+                  ? " focus"
+                  : ""
+              }`}
+              href={app.languagesUrl}
+              target="_blank"
+            >
               <span className="more-info-title">{t("app.languages")}</span>
               <span className="more-info-text">
                 {app.languages.length > 0 ? (
@@ -222,7 +243,11 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             </a>
           ) : (
             app.languages.length > 0 && (
-              <div className="more-info">
+              <div
+                className={`more-info${
+                  !!state?.languages.length ? " focus" : ""
+                }`}
+              >
                 <span className="more-info-title">{t("app.languages")}</span>
                 <span className="more-info-text">
                   {app.languages.join(", ")}
@@ -231,7 +256,9 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             )
           )}
           {app.coverage && app.coverage.length > 0 && (
-            <div className="more-info">
+            <div
+              className={`more-info${!!state?.coverage.length ? " focus" : ""}`}
+            >
               <span className="more-info-title">{t("app.coverage")}</span>
               <span className="more-info-text">
                 {app.coverage[app.coverage.length - 1]}
@@ -239,7 +266,13 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             </div>
           )}
           {Object.values(app.community).filter((v) => v).length > 0 && (
-            <div className="more-info">
+            <div
+              className={`more-info${
+                state?.contribute === "discuss" || state?.contribute === "test"
+                  ? " focus"
+                  : ""
+              }`}
+            >
               <span className="more-info-title">{t("app.community")}</span>
               <span className="more-info-text">
                 {app.community.forum && (
@@ -367,7 +400,13 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
           )}
 
           {app.sourceCode && (
-            <a className="more-info" href={app.sourceCode} target="_blank">
+            <a
+              className={`more-info${
+                state?.contribute === "develop" ? " focus" : ""
+              }`}
+              href={app.sourceCode}
+              target="_blank"
+            >
               <span className="more-info-title">{t("app.sourceCode")}</span>
               <span className="more-info-text">
                 <i className="fas fa-code"></i>
@@ -375,7 +414,9 @@ export function List({ app, open = false }: { app: App; open: boolean }) {
             </a>
           )}
 
-          <div className="more-info">
+          <div className={`more-info${
+                state?.contribute === "document" ? " focus" : ""
+              }`}>
             <span className="more-info-title">{t("app.source")}</span>
             <span className="more-info-text">
               <SourceDisplay app={app} />

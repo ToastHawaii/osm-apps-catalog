@@ -2,6 +2,13 @@ import { sum } from "lodash";
 import { App } from "./App";
 import { display, edit, web } from "../utilities/filters";
 import { equalsYes, notNo } from "../utilities/string";
+import i18next from "i18next";
+
+const multilingual = [
+  "MUL",
+  i18next.t("multilingual", { lng: "en" }).toUpperCase(),
+  i18next.t("multilingual").toUpperCase(),
+];
 
 export const Criterias: {
   translationKey: string;
@@ -94,7 +101,7 @@ export const Criterias: {
     translationKey: "multipleLanguages",
     check: (app) =>
       app.languages.length >= 3 ||
-      app.languages.some((l) => l?.toUpperCase() === "MUL"),
+      app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
     points: 0.125,
   },
   {

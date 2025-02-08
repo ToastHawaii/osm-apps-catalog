@@ -192,9 +192,22 @@ a.link-create {
 #compare .param-text {
   font-size: small;
 }
+#compare .row.focus {
+  .param-title {
+    color: #333;
+  }
+  .cell {
+    background: rgb(255 215 0 / 25%);
+  }
+}
 
 #compare .params-group-title {
   text-wrap: nowrap;
+}
+
+:root {
+  --ss-primary-color: #007aff;
+  --ss-font-color: #333;
 }
 
 .ss-main {
@@ -344,10 +357,31 @@ a.link-create {
 }
 
 .app .more-info {
-  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
   padding: 10px 2px;
   font-size: small;
   display: block;
+}
+
+.app .more-info.focus {
+  background: rgb(255 215 0 / 25%);
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-top: 1px solid transparent;
+
+  .more-info-title {
+    color: #333;
+  }
+
+  + .more-info {
+    border-top: 1px solid transparent;
+  }
+}
+
+.app a.more-info.focus .more-info-title {
+  color: #007aff;
 }
 
 .app .more-info::after {
@@ -356,14 +390,18 @@ a.link-create {
   clear: both;
 }
 
+.app .more-infos .more-infos-title + .more-info {
+  border-top: none;
+}
+
 .app .more-infos .more-info:last-child {
-  border-bottom: none;
-  padding: 10px 2px 0 2px;
+  margin-bottom: -10px;
 }
 
 .app .more-info-title {
   color: gray;
 }
+
 .app a .more-info-title {
   text-decoration: none;
   color: #007aff;
@@ -446,6 +484,14 @@ a.link-create {
   background: linear-gradient(
     rgba(255, 255, 255, 0) 50%,
     rgba(255, 255, 255, 1)
+  );
+  cursor: pointer;
+}
+.focus .more .fade-out {
+
+  background: linear-gradient(
+    rgba(255, 245, 191, 0) 50%,
+    rgba(255, 245, 191, 1)
   );
   cursor: pointer;
 }

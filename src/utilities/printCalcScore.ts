@@ -14,5 +14,6 @@ export function printCalcScore(apps: App[]) {
   console.info("11.01.2025: 2.147");
   console.info("31.01.2025: 2.160");
   console.info("01.02.2025: 2.165");
+  console.info("08.02.2025: 2.360 (1058 Apps)");
   console.info("Today: " + average);
 }
