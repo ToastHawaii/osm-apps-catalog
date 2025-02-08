@@ -76384,7 +76384,8 @@ function extractGenre(result) {
     if (result.welcomingTool?.value === "yes") {
         genre.push("Welcoming tool");
     }
-    if (result.streetLevelImagery?.value === "yes") {
+    if (result.streetLevelImageryService?.value === "yes" ||
+        result.streetLevelImagery?.value === "yes") {
         genre.push("Street-level imagery");
     }
     return genre;
@@ -76620,6 +76621,10 @@ WHERE {
     BIND("yes" AS ?welcomingTool)
   }  
   OPTIONAL { 
+    ?item wdt:P31 wd:Q86715518.
+    BIND("yes" AS ?streetLevelImageryService)
+  }  
+  OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
@@ -76659,6 +76664,7 @@ GROUP BY ?item
          ?monitoring 
          ?changsetReview 
          ?welcomingTool
+         ?streetLevelImageryService
          ?streetLevelImagery
          ?modified
 `.replace(/( |\n)+/g, " "));
@@ -76683,7 +76689,6 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q86715518. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
   OPTIONAL { ?item wdt:P856 ?webDef. }
@@ -76732,7 +76737,6 @@ WHERE
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q86715518. }
       FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
       OPTIONAL { ?item wdt:P856 ?webDef. }
