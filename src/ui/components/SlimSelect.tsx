@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import { useEffect } from 'react'
+import { isEqual } from 'lodash'
 
 import { DataArrayPartial,Option } from 'slim-select/dist/store'
 import { SettingsPartial } from 'slim-select/dist/settings'
@@ -78,7 +79,7 @@ const SlimSelectComponent = (props: SlimSelectProps, ref: React.Ref<any>): JSX.E
       : (slimSelect.current as SlimSelect).getSelected()[0]
 
     // Check if modelValue is the same as the value of the select
-    if (selected !== modelValue && modelValue) {
+    if (!isEqual(selected, modelValue) && typeof modelValue !== "undefined") {
       // If not, set the value of the select to the modelValue
       ;(slimSelect.current as SlimSelect).setSelected(modelValue)
     }

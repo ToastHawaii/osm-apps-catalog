@@ -18,6 +18,7 @@ export function ContributeSelect({
         placeholderText: t("app.contribute"),
         allowDeselect: true,
       }}
+      modelValue={selected}
       data={[
         {
           label: t("app.contribute.toSoftware"),
