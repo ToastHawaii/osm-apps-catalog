@@ -4,5 +4,5 @@ export function plainText(html: string) {
   return sanitizeHtml(html, {
     allowedTags: [],
     allowedAttributes: {},
-  });
+  }).replaceAll("&amp;", "&");
 }

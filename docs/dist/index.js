@@ -75111,7 +75111,7 @@ function plainText(html) {
     return sanitize_html_default()(html, {
         allowedTags: [],
         allowedAttributes: {},
-    });
+    }).replaceAll("&amp;", "&");
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/software.ts
