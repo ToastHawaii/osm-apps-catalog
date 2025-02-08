@@ -76295,6 +76295,10 @@ function addApp(apps, obj) {
         app.editing = merge(app.editing, obj.editing);
         app.rendering = merge(app.rendering, obj.rendering);
         app.accessibility = merge(app.accessibility, obj.accessibility);
+        app.hasGoal = {
+            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
+                obj.hasGoal?.crowdsourcingStreetLevelImagery,
+        };
         app.community.forum = app.community.forum || obj.community.forum;
         app.community.forumTag = app.community.forumTag || obj.community.forumTag;
         app.community.irc = app.community.irc || obj.community.irc;
