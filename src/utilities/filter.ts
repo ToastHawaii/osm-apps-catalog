@@ -2,7 +2,7 @@ import { App } from "../data/App";
 import { State } from "../State";
 import { includes, some } from "./array";
 import { edit, mobile, navigation } from "./filters";
-import { equalsIgnoreCase } from "./string";
+import { equalsIgnoreCase, equalsYes } from "./string";
 
 export function filter({
   apps,
@@ -13,6 +13,7 @@ export function filter({
   platforms,
   languages,
   coverage,
+  contribute,
 }: { apps: App[] } & State) {
   if (app) {
     return [apps.filter((a) => a.id === app), () => [] as App[]] as const;
@@ -146,6 +147,76 @@ export function filter({
         a.coverage.map((t) => t.toUpperCase()),
         coverageUp
       )
+    );
+  }
+
+  if (contribute === "discuss") {
+    filteredApps = filteredApps.filter(
+      (app) => Object.values(app.community).filter((v) => v).length > 0
+    );
+  } else if (contribute === "test") {
+    filteredApps = filteredApps.filter((app) => !!app.community.issueTracker);
+  } else if (contribute === "translate") {
+    filteredApps = filteredApps.filter((app) => !!app.languagesUrl);
+  } else if (contribute === "develop") {
+    filteredApps = filteredApps.filter((app) => app.libre && !!app.sourceCode);
+  } else if (contribute === "document") {
+    filteredApps = filteredApps.filter(
+      (app) =>
+        !app.source.find((s) => s.name === "Software" || s.name === "Layer") ||
+        !app.source.find((s) => s.name === "Wikidata")
+    );
+  } else if (contribute === "edit") {
+    filteredApps = filteredApps.filter(
+      (app) =>
+        equalsYes(...(app.editing?.createNotes || [])) ||
+        app.topics
+          .map((topic) => topic.toUpperCase())
+          .some((topic) =>
+            [
+              "ADD POIS",
+              "EDIT",
+              "EDITING",
+              "EDITOR",
+              "EDITOR SOFTWARE",
+              "EDITOR TOOL",
+            ].includes(topic)
+          )
+    );
+  } else if (contribute === "resolve") {
+    filteredApps = filteredApps.filter((app) =>
+      equalsYes(...(app.editing?.editNotes || []))
+    );
+  } else if (contribute === "review") {
+    filteredApps = filteredApps.filter((app) =>
+      app.topics
+        .map((topic) => topic.toUpperCase())
+        .some((topic) => ["CHANGESET REVIEW TOOL"].includes(topic))
+    );
+  } else if (contribute === "photos") {
+    filteredApps = filteredApps.filter(
+      (app) =>
+        app.hasGoal?.crowdsourcingStreetLevelImagery
+    );
+  } else if (contribute === "tracks") {
+    filteredApps = filteredApps.filter((app) =>
+      equalsYes(...(app.tracking?.uploadGPX || []))
+    );
+  } else if (contribute === "qa") {
+    filteredApps = filteredApps.filter((app) =>
+      app.topics
+        .map((topic) => topic.toUpperCase())
+        .some((topic) =>
+          ["ANALYSE", "ANALYSER", "ANALYSIS", "QA", "QUALITY CONTROL"].includes(
+            topic
+          )
+        )
+    );
+  } else if (contribute === "welcome") {
+    filteredApps = filteredApps.filter((app) =>
+      app.topics
+        .map((topic) => topic.toUpperCase())
+        .some((topic) => ["WELCOMING TOOL"].includes(topic))
     );
   }
 

@@ -8,6 +8,7 @@ import { TopicSelect } from "./components/TopicSelect";
 import { PlatformSelect } from "./components/PlatformSelect";
 import { LanguageSelect } from "./components/LanguageSelect";
 import { CoverageSelect } from "./components/CoverageSelect";
+import { ContributeSelect } from "./components/ContributeSelect";
 import { useData } from "../useData";
 import { Filters } from "./components/filters";
 import { debounce } from "lodash";
@@ -33,7 +34,8 @@ export function App() {
     state.topics.length > 0 ||
       state.platforms.length > 0 ||
       state.languages.length > 0 ||
-      state.coverage.length > 0
+      state.coverage.length > 0 ||
+      !!state.contribute
   );
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
@@ -140,6 +142,10 @@ export function App() {
               apps={filteredApps}
               selected={state.coverage}
               onChange={(newValues) => setAppState("coverage", newValues)}
+            />
+            <ContributeSelect
+              selected={state.contribute}
+              onChange={(newValue) => setAppState("contribute", newValue)}
             />
           </span>
         )}

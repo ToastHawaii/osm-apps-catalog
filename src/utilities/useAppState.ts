@@ -17,6 +17,7 @@ export function useAppState() {
       platforms: searchParams.get("platforms")?.split(",") || [],
       languages: searchParams.get("languages")?.split(",") || [],
       coverage: searchParams.get("coverage")?.split(",") || [],
+      contribute: searchParams.get("contribute") || "",
       category: searchParams.get("category") || "all",
       view: searchParams.get("view") === "compare" ? "compare" : "list",
     } as State,

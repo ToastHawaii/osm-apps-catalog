@@ -35,6 +35,14 @@ function extractGenre(result: any) {
     genre.push("Changeset review tool");
   }
 
+  if (result.welcomingTool?.value === "yes") {
+    genre.push("Welcoming tool");
+  }
+
+  if (result.streetLevelImagery?.value === "yes") {
+    genre.push("Street-level imagery");
+  }
+
   return genre;
 }
 
@@ -87,6 +95,9 @@ export function transformWikidataResult(result: any) {
       fDroidID: result.fDroidID?.value,
       appleStoreID: result.appleStoreID?.value,
       microsoftAppID: result.microsoftAppID?.value,
+    },
+    hasGoal: {
+      crowdsourcingStreetLevelImagery: result.streetLevelImagery,
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
@@ -153,6 +164,8 @@ SELECT DISTINCT
   ?hashtagTool
   ?monitoring
   ?changsetReview
+  ?welcomingTool
+  ?streetLevelImagery
   (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
   (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
@@ -269,6 +282,17 @@ WHERE {
     ?item wdt:P31 wd:Q125191237.
     BIND("yes" AS ?changsetReview)
   }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q125191788.
+    BIND("yes" AS ?welcomingTool)
+  }  
+  OPTIONAL { 
+    ?item p:P3712 ?goalStat. 
+    ?goalStat ps:P3712 ?goal. 
+    FILTER(?goal = wd:Q275969)
+    ?goalStat pq:P12913 wd:Q96470821. 
+    BIND("yes" AS ?streetLevelImagery)
+  }
   OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
   OPTIONAL { ?item wdt:P12361 ?blueskyHandle. }
@@ -278,7 +302,6 @@ WHERE {
     ?telegramStat ps:P3789 ?telegramDef; 
      pq:P3831 wd:Q87410646.
   }
-  
   OPTIONAL { 
     ?item p:P3789 ?telegramStat. 
     ?telegramStat ps:P3789 ?telegram; 
@@ -302,6 +325,8 @@ GROUP BY ?item
          ?hashtagTool 
          ?monitoring 
          ?changsetReview 
+         ?welcomingTool
+         ?streetLevelImagery
          ?modified
 `.replace(/( |\n)+/g, " ")
   );

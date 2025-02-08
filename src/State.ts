@@ -7,5 +7,6 @@ export type State = {
   platforms: string[];
   languages: string[];
   coverage: string[];
+  contribute: string;
   view: "list" | "compare";
 };

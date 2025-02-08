@@ -39,17 +39,18 @@ export function addApp(apps: App[], obj: App) {
   if (duplicates.length === 0) {
     // only add if external sources exists
     if (
-      obj.website ||
-      obj.documentation ||
-      obj.install.appleStoreID ||
-      obj.install.asin ||
-      obj.install.fDroidID ||
-      obj.install.googlePlayID ||
-      obj.install.obtainiumLink ||
-      obj.install.huaweiAppGalleryID ||
-      obj.install.macAppStoreID ||
-      obj.install.microsoftAppID ||
-      obj.sourceCode
+      obj.name !== "" &&
+      (obj.website ||
+        obj.documentation ||
+        obj.install.appleStoreID ||
+        obj.install.asin ||
+        obj.install.fDroidID ||
+        obj.install.googlePlayID ||
+        obj.install.obtainiumLink ||
+        obj.install.huaweiAppGalleryID ||
+        obj.install.macAppStoreID ||
+        obj.install.microsoftAppID ||
+        obj.sourceCode)
     ) {
       obj.id = calcId(obj);
       obj.score = calculateScore(obj);

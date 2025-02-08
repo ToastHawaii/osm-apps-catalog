@@ -126,7 +126,9 @@ function convertJsonToTemplateData() {
     cs: templateCs,
     de: templateDe,
     es: templateEs,
+    et: templateEt,
     hu: templateHu,
+    ta: templateTa,
     "zh-hans": templateZh_Hans,
   } as {
     [lang: string]: {
@@ -147,7 +149,7 @@ function convertJsonToTemplateData() {
     templateData.params[e[0]].description = description;
   });
 
-  console.info(JSON.stringify(templateData));
+  console.info(JSON.stringify(templateData, undefined, "  "));
 }
 
 // convertTemplateDataToJson();

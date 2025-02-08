@@ -25,7 +25,7 @@ export function SourceDisplay({ app }: { app: App }) {
         ))}
       {!app.source.find((s) => s.name === "Software" || s.name === "Layer") && (
         <>
-          {" "}
+          {", "}
           <a
             className="link-create"
             href={
@@ -41,7 +41,7 @@ export function SourceDisplay({ app }: { app: App }) {
       )}
       {!app.source.find((s) => s.name === "Wikidata") && (
         <>
-          {" "}
+          {", "}
           <a
             className="link-create"
             href={

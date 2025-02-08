@@ -275,6 +275,15 @@ export function transform(
 
   if (equalsYes(source["tracking"])) obj.topics.push("Track logging");
 
+  if (hasValue(source["geotagging"]))
+    obj.topics.push(
+      ...(source["geotagging"] || "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v)
+        .map(firstLetterToUpperCase)
+    );
+
   if (equalsYes(source["monitoring"])) obj.topics.push("Track monitoring");
 
   if (source["rendererOutputFormats"]) obj.topics.push("Rendering");

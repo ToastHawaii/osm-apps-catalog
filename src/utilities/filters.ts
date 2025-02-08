@@ -74,31 +74,36 @@ export function navigation(a: App) {
 }
 
 export function edit(a: App) {
-  return a.topics
-    .map((t) => t.toUpperCase())
-    .some((t) =>
-      [
-        "ADD POIS",
-        "EDIT",
-        "EDITING",
-        "EDITOR",
-        "EDITOR SOFTWARE",
-        "ANALYSE",
-        "ANALYSER",
-        "ANALYSIS",
-        "TRACK RECORDING",
-        "TRACKER",
-        "TRACKING",
-        "VALIDATOR",
-        "OSM TOOL",
-        "QA",
-        "QUALITY CONTROL",
-        "NOTES",
-        "EDITOR TOOL",
-        "COMPARING TOOL",
-        "HASHTAG TOOL",
-        "MONITORING TOOL",
-        "CHANGESET REVIEW TOOL",
-      ].includes(t)
-    );
+  return (
+    a.hasGoal?.crowdsourcingStreetLevelImagery ||
+    a.topics
+      .map((t) => t.toUpperCase())
+      .some((t) =>
+        [
+          "ADD POIS",
+          "EDIT",
+          "EDITING",
+          "EDITOR",
+          "EDITOR SOFTWARE",
+          "ANALYSE",
+          "ANALYSER",
+          "ANALYSIS",
+          "TRACK RECORDING",
+          "TRACKER",
+          "TRACKING",
+          "TRACK LOGGING",
+          "VALIDATOR",
+          "OSM TOOL",
+          "QA",
+          "QUALITY CONTROL",
+          "NOTES",
+          "EDITOR TOOL",
+          "COMPARING TOOL",
+          "HASHTAG TOOL",
+          "MONITORING TOOL",
+          "CHANGESET REVIEW TOOL",
+          "WELCOMING TOOL",
+        ].includes(t)
+      )
+  );
 }

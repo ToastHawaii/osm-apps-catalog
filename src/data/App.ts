@@ -115,6 +115,9 @@ export type App = {
     screenReader: string[];
     screenReaderLang: string[];
   };
+  hasGoal?: {
+    crowdsourcingStreetLevelImagery?: boolean;
+  };
   community: {
     forum?: string;
     forumTag?: string;
