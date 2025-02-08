@@ -176,7 +176,8 @@ SELECT DISTINCT
   (SAMPLE(?irc) AS ?irc) 
   ?modified 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item wdt:P2283 wd:Q936. }
   UNION { ?item wdt:P144 wd:Q125124940. }
@@ -188,7 +189,6 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q86715518. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   
   OPTIONAL {
@@ -341,7 +341,8 @@ SELECT DISTINCT
   (MAX(?date) AS ?lastRelease)
   ?modified 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item wdt:P2283 wd:Q936. }
   UNION { ?item wdt:P144 wd:Q125124940. }
@@ -392,7 +393,8 @@ WHERE
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
       ?modified 
     WHERE {
-      ?item (wdt:P31/(wdt:P279*)) wd:Q7397.
+      ?item (wdt:P31/(wdt:P279*)) ?type.
+      FILTER(?type IN (wd:Q7397, wd:Q86715518))
       { ?item wdt:P144 wd:Q936. }
       UNION { ?item wdt:P2283 wd:Q936. }
       UNION { ?item wdt:P144 wd:Q125124940. }
