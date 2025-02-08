@@ -23,7 +23,7 @@ function extractGenre(result: any) {
     genre.push("Comparing tool");
   }
 
-  if (result.hashtag?.value === "yes") {
+  if (result.hashtagTool?.value === "yes") {
     genre.push("Hashtag tool");
   }
 
@@ -35,13 +35,13 @@ function extractGenre(result: any) {
     genre.push("Changeset review tool");
   }
 
-  if (result.welcoming?.value === "yes") {
+  if (result.welcomingTool?.value === "yes") {
     genre.push("Welcoming tool");
   }
 
   if (
-    result.sLIService?.value === "yes" ||
-    result.sLI?.value === "yes"
+    result.streetLevelImageryService?.value === "yes" ||
+    result.streetLevelImagery?.value === "yes"
   ) {
     genre.push("Street-level imagery");
   }
@@ -59,7 +59,7 @@ function extractIrc(value: any) {
     channel: url.pathname.substring(1) || url.hash,
   };
 }
-let i = 0;
+
 export function transformWikidataResult(result: any) {
   return {
     name: result.itemLabel.value || "",
@@ -100,22 +100,21 @@ export function transformWikidataResult(result: any) {
       microsoftAppID: result.microsoftAppID?.value,
     },
     hasGoal: {
-      crowdsourcingsLI:
-        result.sLI?.value === "yes",
+      crowdsourcingStreetLevelImagery: result.streetLevelImagery,
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
       irc: extractIrc(result.irc?.value),
-      bluesky: result.bluesky?.value,
+      bluesky: result.blueskyHandle?.value,
       matrix: result.matrixRoomId?.value,
-      mastodon: result.mastodon?.value,
-      issueTracker: result.issues?.value,
-      tg: result.tg?.value || result.tgDef?.value,
+      mastodon: result.mastodonAddress?.value,
+      issueTracker: result.issueTrackerUrl?.value,
+      telegram: result.telegram?.value || result.telegramDef?.value,
       reddit: result.subreddit?.value,
     },
     source: [
       {
-        name: "Wikidata" + i++,
+        name: "Wikidata",
         wiki: "",
         url: result.item.value,
         lastChange: result.modified.value,
@@ -165,17 +164,17 @@ SELECT DISTINCT
   ?routing
   ?editor
   ?comparing
-  ?hashtag
+  ?hashtagTool
   ?monitoring
   ?changsetReview
-  ?welcoming
-  ?sLI
+  ?welcomingTool
+  ?streetLevelImagery
   (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
-  (SAMPLE(?bluesky) AS ?bluesky) 
-  (SAMPLE(?mastodon) AS ?mastodon) 
-  (SAMPLE(?issues) AS ?issues) 
-  (SAMPLE(?tgDef) AS ?tgDef)
-  (SAMPLE(?tg) AS ?tg)
+  (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
+  (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
+  (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
+  (SAMPLE(?telegramDef) AS ?telegramDef)
+  (SAMPLE(?telegram) AS ?telegram)
   (SAMPLE(?subreddit) AS ?subreddit) 
   (SAMPLE(?irc) AS ?irc) 
   ?modified 
@@ -277,7 +276,7 @@ WHERE {
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122270779.
-    BIND("yes" AS ?hashtag)
+    BIND("yes" AS ?hashtagTool)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122270784.
@@ -289,35 +288,35 @@ WHERE {
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q125191788.
-    BIND("yes" AS ?welcoming)
+    BIND("yes" AS ?welcomingTool)
   }  
   OPTIONAL { 
     ?item wdt:P31 wd:Q86715518.
-    BIND("yes" AS ?sLIService)
+    BIND("yes" AS ?streetLevelImageryService)
   }  
   OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
     ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("yes" AS ?sLI)
+    BIND("yes" AS ?streetLevelImagery)
   }
   OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
-  OPTIONAL { ?item wdt:P4033 ?mastodon. }
-  OPTIONAL { ?item wdt:P12361 ?bluesky. }
-  OPTIONAL { ?item wdt:P1401 ?issues. }
+  OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
+  OPTIONAL { ?item wdt:P12361 ?blueskyHandle. }
+  OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
   OPTIONAL { 
-    ?item p:P3789 ?tgStat. 
-    ?tgStat ps:P3789 ?tgDef; 
+    ?item p:P3789 ?telegramStat. 
+    ?telegramStat ps:P3789 ?telegramDef; 
      pq:P3831 wd:Q87410646.
   }
   OPTIONAL { 
-    ?item p:P3789 ?tgStat. 
-    ?tgStat ps:P3789 ?tg; 
+    ?item p:P3789 ?telegramStat. 
+    ?telegramStat ps:P3789 ?telegram; 
      pq:P3831 wd:Q87410646.
-    ?tgStat pq:P407 ?tgLang.
-    ?tgLang wdt:P218 ?tgLangCode 
-    FILTER(?tgLangCode = "${language}")
+    ?telegramStat pq:P407 ?telegramLang.
+    ?telegramLang wdt:P218 ?telegramLangCode 
+    FILTER(?telegramLangCode = "${language}")
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
@@ -331,12 +330,12 @@ GROUP BY ?item
          ?routing 
          ?editor 
          ?comparing 
-         ?hashtag 
+         ?hashtagTool 
          ?monitoring 
          ?changsetReview 
-         ?welcoming
-         ?sLIService
-         ?sLI
+         ?welcomingTool
+         ?streetLevelImageryService
+         ?streetLevelImagery
          ?modified
 `.replace(/( |\n)+/g, " ")
   );
