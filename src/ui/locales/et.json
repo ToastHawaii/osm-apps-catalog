@@ -100,5 +100,21 @@
     "multilingual": "Mitmekeelne",
     "notFound.desc": "Järgnevate teenuste abil saad luua sulle meeldivaid kaarte ja selleks pole vaja programmeerimisoskusi. Keegi võib juba olla loonud sulle huvipakkuva kaardi ning kui ei, siis saad seda ise teha.",
     "app.install.asin": "Amazon Appstore",
-    "score.criteria.lastUpdateYear": "rakenduse viimane versioon on välja antud möödunud aasta jooksul"
+    "score.criteria.lastUpdateYear": "rakenduse viimane versioon on välja antud möödunud aasta jooksul",
+    "app.contribute.toSoftware.discuss": "Osale keskusteludes ja jaga ideesid",
+    "app.contribute.toSoftware.test": "Testi ja jaga tagasisidet",
+    "app.contribute.toSoftware.develop": "Kirjuta lähtekoodi",
+    "app.contribute.toSoftware.document": "Täienda dokumentatsiooni",
+    "app.contribute.toSoftware": "Tarkvarale",
+    "app.contribute.toData": "OpenStreerMapi andmetele",
+    "app.contribute.toData.edit": "Muuda kaardiandmeid",
+    "app.contribute.toData.resolve": "Lahenda kaardimärkusi",
+    "app.contribute.toData.review": "Vaata üle kaardimuudatusi",
+    "app.contribute.toData.tracks": "Salvesta ja jaga GPS-radu",
+    "app.contribute.toData.qa": "Kontrolli kvaliteeti",
+    "app.contribute.toCommunity": "Kogukonnale",
+    "app.contribute.toCommunity.welcome": "Juhata teed uutele kasutajatele",
+    "app.contribute.toSoftware.translate": "Aita tõlkida",
+    "app.contribute": "Tee kaastööd",
+    "app.contribute.toData.photos": "Laadi üles kaardistamiseks vajalikke fotosid"
 }
