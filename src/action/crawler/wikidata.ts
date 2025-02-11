@@ -1,4 +1,4 @@
-import { languageValueFormat } from "../utilities/languageValueFormat";
+import { lgValueFormat } from "../utilities/lgValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
@@ -75,11 +75,11 @@ export function transformWikidataResult(result: any) {
     libre: isOpenSource(result.license?.value),
     license: (result.license?.value || "").split(";").filter((v: any) => v),
     sourceCode: result.sourceCode?.value || "",
-    languages: (result.languages?.value || "")
+    lgs: (result.lgs?.value || "")
       .split(";")
       .filter((v: any) => v)
-      .map((v: any) => languageValueFormat(v)),
-    languagesUrl: result.languagesUrl?.value || "",
+      .map((v: any) => lgValueFormat(v)),
+    lgsUrl: result.lgsUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],
     platform: [
@@ -134,7 +134,7 @@ async function request(query: string) {
   return await getJson(base, params);
 }
 
-export function requestWikidata(language: string) {
+export function requestWikidata(lg: string) {
   const base = request(
     `
 SELECT DISTINCT 
@@ -149,8 +149,8 @@ SELECT DISTINCT
   (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
-  (GROUP_CONCAT(DISTINCT ?languageCode; SEPARATOR = ";") AS ?languages)
-  (SAMPLE(?languagesUrl) AS ?languagesUrl) 
+  (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
+  (SAMPLE(?lgsUrl) AS ?lgsUrl) 
   (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
   (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
   (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
@@ -198,16 +198,16 @@ WHERE {
   
   OPTIONAL {
     ?item schema:description ?description.
-    FILTER((LANG(?description)) = "${language}")
+    FILTER((LANG(?description)) = "${lg}")
   }
   OPTIONAL { ?item wdt:P18 ?image. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
     ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLang.
-    ?webLang wdt:P218 ?webLangCode 
-    FILTER(?webLangCode = "${language}")
+    ?webStat pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode 
+    FILTER(?webLgCode = "${lg}")
   }
   OPTIONAL { 
     ?item p:P1343 ?docDefStat. 
@@ -216,39 +216,39 @@ WHERE {
   OPTIONAL { 
     ?item p:P973 ?docStat. 
     ?docStat ps:P973 ?doc.
-    ?docStat pq:P407 ?docLang.
-    ?docLang wdt:P218 ?docLangCode 
-    FILTER(?docLangCode = "${language}")
+    ?docStat pq:P407 ?docLg.
+    ?docLg wdt:P218 ?docLgCode 
+    FILTER(?docLgCode = "${lg}")
   }
   OPTIONAL { ?item wdt:P10027 ?forumDef. }
   OPTIONAL { 
     ?item p:P10027 ?forumStat. 
     ?forumStat ps:P10027 ?forum.
-    ?forumStat pq:P407 ?forumLang.
-    ?forumLang wdt:P218 ?forumLangCode 
-    FILTER(?forumLangCode = "${language}")
+    ?forumStat pq:P407 ?forumLg.
+    ?forumLg wdt:P218 ?forumLgCode 
+    FILTER(?forumLgCode = "${lg}")
   }
   OPTIONAL { 
     ?item wdt:P178/rdfs:label ?authorLabel.
-    FILTER(LANG(?authorLabel) = "${language}")
+    FILTER(LANG(?authorLabel) = "${lg}")
   }
   OPTIONAL { ?item wdt:P1324 ?sourceCode. }
   OPTIONAL { 
-    ?item wdt:P407 ?language.
-    ?language wdt:P218 ?languageCode.
+    ?item wdt:P407 ?lg.
+    ?lg wdt:P218 ?lgCode.
   }
-  OPTIONAL { ?item wdt:P11254 ?languagesUrl. }
+  OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
   OPTIONAL { 
     ?item wdt:P366/rdfs:label ?topicLabel.
-    FILTER(LANG(?topicLabel) = "${language}")
+    FILTER(LANG(?topicLabel) = "${lg}")
   }
   OPTIONAL { 
     ?item wdt:P306/rdfs:label ?osLabel.
-    FILTER(LANG(?osLabel) = "${language}")
+    FILTER(LANG(?osLabel) = "${lg}")
   }
   OPTIONAL { 
     ?item wdt:P400/rdfs:label ?platformLabel.
-    FILTER(LANG(?platformLabel) = "${language}")
+    FILTER(LANG(?platformLabel) = "${lg}")
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroidID. }
@@ -316,14 +316,14 @@ WHERE {
     ?item p:P3789 ?telegramStat. 
     ?telegramStat ps:P3789 ?telegram; 
      pq:P3831 wd:Q87410646.
-    ?telegramStat pq:P407 ?telegramLang.
-    ?telegramLang wdt:P218 ?telegramLangCode 
-    FILTER(?telegramLangCode = "${language}")
+    ?telegramStat pq:P407 ?telegramLg.
+    ?telegramLg wdt:P218 ?telegramLgCode 
+    FILTER(?telegramLgCode = "${lg}")
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
 }
 GROUP BY ?item 
          ?itemLabel 
@@ -372,15 +372,15 @@ WHERE {
   OPTIONAL { 
     ?item p:P856 ?webStat. 
     ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLang.
-    ?webLang wdt:P218 ?webLangCode 
-    FILTER(?webLangCode = "${language}")
+    ?webStat pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode 
+    FILTER(?webLgCode = "${lg}")
   }
       
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
 }
 GROUP BY ?item
          ?itemLabel
@@ -425,16 +425,16 @@ WHERE
       OPTIONAL { 
         ?item p:P856 ?webStat. 
         ?webStat ps:P856 ?web.
-        ?webStat pq:P407 ?webLang.
-        ?webLang wdt:P218 ?webLangCode 
-        FILTER(?webLangCode = "${language}")
+        ?webStat pq:P407 ?webLg.
+        ?webLg wdt:P218 ?webLgCode 
+        FILTER(?webLgCode = "${lg}")
       }
           
       ?item wdt:P275 ?license.
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${language},en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
     }
     GROUP BY ?item 
              ?itemLabel
