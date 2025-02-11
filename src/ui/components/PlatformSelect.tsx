@@ -26,6 +26,7 @@ export function PlatformSelect({
       multiple
       settings={{
         placeholderText: t("filter.platform"),
+        allowDeselect: true,
         class: ["filter"],
       }}
       events={{

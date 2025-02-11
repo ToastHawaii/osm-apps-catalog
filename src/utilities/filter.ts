@@ -150,23 +150,28 @@ export function filter({
     );
   }
 
-  if (contribute === "discuss") {
+  if (contribute.includes("discuss")) {
     filteredApps = filteredApps.filter(
       (app) => Object.values(app.community).filter((v) => v).length > 0
     );
-  } else if (contribute === "test") {
+  }
+  if (contribute.includes("test")) {
     filteredApps = filteredApps.filter((app) => !!app.community.issueTracker);
-  } else if (contribute === "translate") {
+  }
+  if (contribute.includes("translate")) {
     filteredApps = filteredApps.filter((app) => !!app.languagesUrl);
-  } else if (contribute === "develop") {
+  }
+  if (contribute.includes("develop")) {
     filteredApps = filteredApps.filter((app) => app.libre && !!app.sourceCode);
-  } else if (contribute === "document") {
+  }
+  if (contribute.includes("document")) {
     filteredApps = filteredApps.filter(
       (app) =>
         !app.source.find((s) => s.name === "Software" || s.name === "Layer") ||
         !app.source.find((s) => s.name === "Wikidata")
     );
-  } else if (contribute === "edit") {
+  }
+  if (contribute.includes("edit")) {
     filteredApps = filteredApps.filter(
       (app) =>
         equalsYes(...(app.editing?.createNotes || [])) ||
@@ -183,26 +188,30 @@ export function filter({
             ].includes(topic)
           )
     );
-  } else if (contribute === "resolve") {
+  }
+  if (contribute.includes("resolve")) {
     filteredApps = filteredApps.filter((app) =>
       equalsYes(...(app.editing?.editNotes || []))
     );
-  } else if (contribute === "review") {
+  }
+  if (contribute.includes("review")) {
     filteredApps = filteredApps.filter((app) =>
       app.topics
         .map((topic) => topic.toUpperCase())
         .some((topic) => ["CHANGESET REVIEW TOOL"].includes(topic))
     );
-  } else if (contribute === "photos") {
+  }
+  if (contribute.includes("photos")) {
     filteredApps = filteredApps.filter(
-      (app) =>
-        app.hasGoal?.crowdsourcingStreetLevelImagery
+      (app) => app.hasGoal?.crowdsourcingStreetLevelImagery
     );
-  } else if (contribute === "tracks") {
+  }
+  if (contribute.includes("tracks")) {
     filteredApps = filteredApps.filter((app) =>
       equalsYes(...(app.tracking?.uploadGPX || []))
     );
-  } else if (contribute === "qa") {
+  }
+  if (contribute.includes("qa")) {
     filteredApps = filteredApps.filter((app) =>
       app.topics
         .map((topic) => topic.toUpperCase())
@@ -212,7 +221,8 @@ export function filter({
           )
         )
     );
-  } else if (contribute === "welcome") {
+  }
+  if (contribute.includes("welcome")) {
     filteredApps = filteredApps.filter((app) =>
       app.topics
         .map((topic) => topic.toUpperCase())

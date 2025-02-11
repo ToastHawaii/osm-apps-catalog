@@ -26,6 +26,7 @@ export function CoverageSelect({
       multiple
       settings={{
         placeholderText: t("filter.coverage"),
+        allowDeselect: true,
         class: ["filter"],
       }}
       events={{

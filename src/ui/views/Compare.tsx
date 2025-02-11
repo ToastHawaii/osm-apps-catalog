@@ -371,7 +371,7 @@ export function Compare({
               ),
             more: true,
             focus:
-              !!state?.languages.length || state?.contribute === "translate",
+              !!state?.languages.length || state?.contribute.includes("translate"),
           },
           {
             label: (lang) => t("app.props.coverage.label", { lng: lang }),
@@ -548,7 +548,7 @@ export function Compare({
                 .filter((o) => o)
                 .join(", "),
             focus:
-              state?.contribute === "discuss" || state?.contribute === "test",
+              state?.contribute.includes("discuss") || state?.contribute.includes("test"),
           },
           {
             label: (lang) => t("app.props.author.label", { lng: lang }),
@@ -605,14 +605,14 @@ export function Compare({
                 app.sourceCode ? `[${app.sourceCode} </>]` : "",
                 lang
               ),
-            focus: state?.contribute === "develop",
+            focus: state?.contribute.includes("develop"),
           },
           {
             label: (lang) => t("app.source", { lng: lang }),
             description: (lang) => t("app.source.description", { lng: lang }),
             hasValue: () => true,
             renderToHtml: (app) => <SourceDisplay app={app} />,
-            focus: state?.contribute === "document",
+            focus: state?.contribute.includes("document"),
           },
         ]}
         apps={apps}

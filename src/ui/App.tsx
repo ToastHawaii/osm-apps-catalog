@@ -35,7 +35,7 @@ export function App() {
       state.platforms.length > 0 ||
       state.languages.length > 0 ||
       state.coverage.length > 0 ||
-      !!state.contribute
+      state.contribute.length > 0
   );
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
@@ -145,7 +145,7 @@ export function App() {
             />
             <ContributeSelect
               selected={state.contribute}
-              onChange={(newValue) => setAppState("contribute", newValue)}
+              onChange={(newValues) => setAppState("contribute", newValues)}
             />
           </span>
         )}
@@ -162,7 +162,10 @@ export function App() {
             <div id="list">
               {filteredApps.length > 0 ? (
                 <PagedList apps={filteredApps} open={!!state.app} state={state}>
-                  <RelatedApps findSimilarApps={findSimilarApps} state={state}/>
+                  <RelatedApps
+                    findSimilarApps={findSimilarApps}
+                    state={state}
+                  />
                 </PagedList>
               ) : (
                 <p className="no-results">{t("noResults")}</p>
@@ -176,7 +179,11 @@ export function App() {
               {filteredApps.length > 0 ? (
                 <LazyLoadImages>
                   <LazyInitMore>
-                    <Compare apps={filteredApps} lang={state.lang} state={state}/>
+                    <Compare
+                      apps={filteredApps}
+                      lang={state.lang}
+                      state={state}
+                    />
                   </LazyInitMore>
                 </LazyLoadImages>
               ) : (

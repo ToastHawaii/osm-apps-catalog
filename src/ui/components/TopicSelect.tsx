@@ -26,6 +26,7 @@ export function TopicSelect({
       multiple
       settings={{
         placeholderText: t("filter.topic"),
+        allowDeselect: true,
         class: ["filter"],
       }}
       events={{

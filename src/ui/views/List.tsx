@@ -225,7 +225,8 @@ export function List({
           {app.languagesUrl ? (
             <a
               className={`more-info${
-                !!state?.languages.length || state?.contribute === "translate"
+                !!state?.languages.length ||
+                state?.contribute.includes("translate")
                   ? " focus"
                   : ""
               }`}
@@ -268,7 +269,8 @@ export function List({
           {Object.values(app.community).filter((v) => v).length > 0 && (
             <div
               className={`more-info${
-                state?.contribute === "discuss" || state?.contribute === "test"
+                state?.contribute.includes("discuss") ||
+                state?.contribute.includes("test")
                   ? " focus"
                   : ""
               }`}
@@ -402,7 +404,7 @@ export function List({
           {app.sourceCode && (
             <a
               className={`more-info${
-                state?.contribute === "develop" ? " focus" : ""
+                state?.contribute.includes("develop") ? " focus" : ""
               }`}
               href={app.sourceCode}
               target="_blank"
@@ -414,9 +416,11 @@ export function List({
             </a>
           )}
 
-          <div className={`more-info${
-                state?.contribute === "document" ? " focus" : ""
-              }`}>
+          <div
+            className={`more-info${
+              state?.contribute.includes("document") ? " focus" : ""
+            }`}
+          >
             <span className="more-info-title">{t("app.source")}</span>
             <span className="more-info-text">
               <SourceDisplay app={app} />
