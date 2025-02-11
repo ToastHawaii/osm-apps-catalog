@@ -76419,11 +76419,11 @@ function transformWikidataResult(result) {
         libre: isOpenSource(result.license?.value),
         license: (result.license?.value || "").split(";").filter((v) => v),
         sourceCode: result.sourceCode?.value || "",
-        lgs: (result.lgs?.value || "")
+        languages: (result.lgs?.value || "")
             .split(";")
             .filter((v) => v)
             .map((v) => languageValueFormat(v)),
-        lgsUrl: result.lgsUrl?.value || "",
+        languagesUrl: result.lgsUrl?.value || "",
         genre: extractGenre(result),
         topics: [...extractGenre(result), ...toValues(result.topics?.value)],
         platform: [
@@ -76659,7 +76659,7 @@ WHERE {
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
 }
 GROUP BY ?item 
          ?itemLabel 
@@ -76713,7 +76713,7 @@ WHERE {
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
 }
 GROUP BY ?item
          ?itemLabel
@@ -76764,7 +76764,7 @@ WHERE
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:lg "${lg},en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
     }
     GROUP BY ?item 
              ?itemLabel
