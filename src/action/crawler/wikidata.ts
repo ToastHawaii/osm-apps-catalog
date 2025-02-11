@@ -180,7 +180,7 @@ SELECT DISTINCT
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item wdt:P2283 wd:Q936. }
   UNION { ?item wdt:P144 wd:Q125124940. }
@@ -189,6 +189,7 @@ WHERE {
   UNION { ?item wdt:P2283 wd:Q116859711. }
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
@@ -350,7 +351,7 @@ SELECT DISTINCT
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item wdt:P2283 wd:Q936. }
   UNION { ?item wdt:P144 wd:Q125124940. }
@@ -359,6 +360,7 @@ WHERE {
   UNION { ?item wdt:P2283 wd:Q116859711. }
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
@@ -401,7 +403,7 @@ WHERE
       ?modified 
     WHERE {
       ?item (wdt:P31/(wdt:P279*)) ?type.
-      FILTER(?type IN (wd:Q7397, wd:Q86715518))
+      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
       { ?item wdt:P144 wd:Q936. }
       UNION { ?item wdt:P2283 wd:Q936. }
       UNION { ?item wdt:P144 wd:Q125124940. }
@@ -410,6 +412,7 @@ WHERE
       UNION { ?item wdt:P2283 wd:Q116859711. }
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
+      UNION { ?item wdt:P2283 wd:Q121746037. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }

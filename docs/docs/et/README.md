@@ -2,7 +2,7 @@
 
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
-See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, misa kasutavad
+See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
 OpenStreetMapi andmeid.
 
 [Vaata kataloogi](https://osm-apps.zottelig.ch)
@@ -61,7 +61,7 @@ See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
 3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
 alusel. Veebirakenduse
 [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on kõigile vabalt
-kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik jätkuvalt on
+kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
 avaldatud sama litsentsi alusel.
 
 ---
@@ -70,8 +70,8 @@ avaldatud sama litsentsi alusel.
   tegemistes](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
   [liitu kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
   [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
-- [Täienda
-  OpenStreetMappi](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [Täienda OpenStreetMapi
+  andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Lisa sulle teadaolevad OSMi
   rakendusi](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Teave minu kohta](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
