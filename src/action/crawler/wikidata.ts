@@ -1,4 +1,4 @@
-import { lgValueFormat } from "../utilities/lgValueFormat";
+import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
@@ -78,7 +78,7 @@ export function transformWikidataResult(result: any) {
     lgs: (result.lgs?.value || "")
       .split(";")
       .filter((v: any) => v)
-      .map((v: any) => lgValueFormat(v)),
+      .map((v: any) => languageValueFormat(v)),
     lgsUrl: result.lgsUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],
