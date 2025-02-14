@@ -6,6 +6,10 @@ export function useAppState() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
+  const app = searchParams.get("app")
+    ? parseInt(searchParams.get("app") as string, 10)
+    : undefined;
+
   return [
     {
       lang: searchParams.get("lang") || "",
@@ -18,7 +22,7 @@ export function useAppState() {
       languages: searchParams.get("languages")?.split(",") || [],
       coverage: searchParams.get("coverage")?.split(",") || [],
       contribute: searchParams.get("contribute")?.split(",") || [],
-      category: searchParams.get("category") || "all",
+      category: !app ? searchParams.get("category") || "all" : "",
       view: searchParams.get("view") === "compare" ? "compare" : "list",
     } as State,
     function (

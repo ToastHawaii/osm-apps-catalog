@@ -71,9 +71,9 @@ export function App() {
     <div id="content">
       <header className="page-header">
         <Menu
-          value={state.category}
+          value={ state.category}
           onChange={(value) => {
-            if (value === "focus") {
+            if (value === "focus" || state.app) {
               resetAppState(value);
             } else {
               setAppState("category", value);
