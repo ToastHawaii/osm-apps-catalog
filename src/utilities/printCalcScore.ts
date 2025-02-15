@@ -1,7 +1,6 @@
 import { sum } from "lodash";
 import { App } from "../data/App";
 
-
 export function printCalcScore(apps: App[]) {
   const average = sum(apps.map((a) => a.score.total)) / apps.length;
   console.info("Average");
@@ -15,5 +14,6 @@ export function printCalcScore(apps: App[]) {
   console.info("31.01.2025: 2.160");
   console.info("01.02.2025: 2.165");
   console.info("08.02.2025: 2.360 (1058 Apps)");
+  console.info("14.02.2025: 2.372 (1055 Apps)");
   console.info("Today: " + average);
 }

@@ -337,7 +337,7 @@ a.link-create {
 
 .app .more-infos {
   clear: both;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .app .more-infos-button {
@@ -350,6 +350,14 @@ a.link-create {
   padding-top: 8px;
 
   color: gray;
+}
+
+.app .more-infos + .more-infos-button {
+  padding-top: 0px;
+}
+
+.app .more-info + .more-infos-button {
+  padding-top: 12px;
 }
 
 .app .more-infos-title {
@@ -390,11 +398,11 @@ a.link-create {
   clear: both;
 }
 
-.app .more-infos .more-infos-title + .more-info {
+.app .more-infos-title + .more-info {
   border-top: none;
 }
 
-.app .more-infos .more-info:last-child {
+.app .more-info:last-child {
   margin-bottom: -10px;
 }
 
@@ -488,7 +496,7 @@ a.link-create {
   cursor: pointer;
 }
 .focus .more .fade-out {
-
+  
   background: linear-gradient(
     rgba(255, 245, 191, 0) 50%,
     rgba(255, 245, 191, 1)

@@ -175,7 +175,245 @@ export function List({
         <Badges values={app.topics} />
       </div>
 
-      {!isOpen ? (
+      <div className="more-infos"></div>
+      {isOpen && <div className="more-infos-title">{t("list.moreInfos")}</div>}
+      {(isOpen || !!state?.platforms.length) && app.platform.length > 0 && (
+        <div
+          className={`more-info${!!state?.platforms.length ? " focus" : ""}`}
+        >
+          <span className="more-info-title">{t("app.platforms")}</span>
+          <span className="more-info-text">{app.platform.join(", ")}</span>
+        </div>
+      )}
+      {isOpen && (app.lastRelease || app.unmaintained) && (
+        <div className="more-info">
+          <span className="more-info-title">{t("app.lastRelease")}</span>
+          <span className="more-info-text">
+            {app.lastRelease ? app.lastRelease : "????-??-??"}
+            {app.unmaintained && (
+              <>
+                {" "}
+                <span className="warning">
+                  <Trans
+                    i18nKey={"app.unmaintained"}
+                    components={{
+                      icon: <i className="fas fa-exclamation-triangle"></i>,
+                    }}
+                  />
+                </span>
+              </>
+            )}
+          </span>
+        </div>
+      )}
+
+      {(isOpen ||
+        !!state?.languages.length ||
+        state?.contribute.includes("translate")) &&
+      app.languagesUrl ? (
+        <a
+          className={`more-info${
+            !!state?.languages.length || state?.contribute.includes("translate")
+              ? " focus"
+              : ""
+          }`}
+          href={app.languagesUrl}
+          target="_blank"
+        >
+          <span className="more-info-title">{t("app.languages")}</span>
+          <span className="more-info-text">
+            {app.languages.length > 0 ? (
+              app.languages.join(", ")
+            ) : (
+              <i className="fas fa-language"></i>
+            )}
+          </span>
+        </a>
+      ) : (
+        (isOpen || !!state?.languages.length) &&
+        app.languages.length > 0 && (
+          <div
+            className={`more-info${!!state?.languages.length ? " focus" : ""}`}
+          >
+            <span className="more-info-title">{t("app.languages")}</span>
+            <span className="more-info-text">{app.languages.join(", ")}</span>
+          </div>
+        )
+      )}
+      {(isOpen || !!state?.coverage.length) && app.coverage.length > 0 && (
+        <div className={`more-info${!!state?.coverage.length ? " focus" : ""}`}>
+          <span className="more-info-title">{t("app.coverage")}</span>
+          <span className="more-info-text">
+            {app.coverage[app.coverage.length - 1]}
+          </span>
+        </div>
+      )}
+      {(isOpen ||
+        state?.contribute.includes("discuss") ||
+        state?.contribute.includes("test")) &&
+        Object.values(app.community).filter((v) => v).length > 0 && (
+          <div
+            className={`more-info${
+              state?.contribute.includes("discuss") ||
+              state?.contribute.includes("test")
+                ? " focus"
+                : ""
+            }`}
+          >
+            <span className="more-info-title">{t("app.community")}</span>
+            <span className="more-info-text">
+              {app.community.forum && (
+                <a
+                  className="community"
+                  href={app.community.forum}
+                  title={t("app.community.forum")}
+                >
+                  <i className="fas fa-comments fa-fw"></i>
+                </a>
+              )}
+              {app.community.forumTag && (
+                <a
+                  className="community"
+                  href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
+                  title={t("app.community.forumTag")}
+                >
+                  <i className="fas fa-tag fa-fw"></i>
+                </a>
+              )}
+              {getMatrix(app.community.matrix, app.community.irc) && (
+                <a
+                  className="community"
+                  href={`https://matrix.to/#/${getMatrix(
+                    app.community.matrix,
+                    app.community.irc
+                  )}`}
+                  title={t("app.community.matrix")}
+                >
+                  <i>[m]</i>
+                </a>
+              )}
+              {app.community.mastodon && (
+                <a
+                  className="community"
+                  href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
+                  title={t("app.community.mastodon")}
+                >
+                  <i className="fab fa-mastodon fa-fw"></i>
+                </a>
+              )}
+              {app.community.bluesky && (
+                <a
+                  className="community"
+                  href={`https://bsky.app/profile/${app.community.bluesky}`}
+                  title={t("app.community.bluesky")}
+                >
+                  <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
+                </a>
+              )}
+              {app.community.reddit && (
+                <a
+                  className="community"
+                  href={`https://www.reddit.com/r/${app.community.reddit}`}
+                  title={t("app.community.reddit")}
+                >
+                  <i className="fab fa-reddit fa-fw"></i>
+                </a>
+              )}
+              {app.community.slack && (
+                <a
+                  className="community"
+                  href={app.community.slack}
+                  title={t("app.community.slack")}
+                >
+                  <i className="fab fa-slack-hash fa-fw"></i>
+                </a>
+              )}
+              {app.community.telegram && (
+                <a
+                  className="community"
+                  href={`https://telegram.me/${app.community.telegram}`}
+                  title={t("app.community.telegram")}
+                >
+                  <i className="fab fa-telegram fa-fw"></i>
+                </a>
+              )}
+              {app.community.githubDiscussions && (
+                <a
+                  className="community"
+                  href={`https://github.com/${app.community.githubDiscussions}/discussions`}
+                  title={t("app.community.githubDiscussions")}
+                >
+                  <i className="fab fa-github fa-fw"></i>
+                </a>
+              )}
+              {app.community.issueTracker && (
+                <a
+                  className="community"
+                  href={app.community.issueTracker}
+                  title={t("app.community.issueTracker")}
+                >
+                  <i className="fas fa-list fa-fw"></i>
+                </a>
+              )}
+            </span>
+          </div>
+        )}
+
+      {isOpen && app.author && (
+        <div className="more-info">
+          <span className="more-info-title">{t("app.author")}</span>
+          <span
+            className="more-info-text"
+            dangerouslySetInnerHTML={{ __html: app.author }}
+          ></span>
+        </div>
+      )}
+
+      {isOpen && app.price && (
+        <div className="more-info">
+          <span className="more-info-title">{t("app.price")}</span>
+          <span className="more-info-text">{app.price}</span>
+        </div>
+      )}
+      {isOpen && app.license && app.license.length > 0 && (
+        <div className="more-info">
+          <span className="more-info-title">{t("app.license")}</span>
+          <span
+            className="more-info-text"
+            dangerouslySetInnerHTML={{ __html: app.license.join(", ") }}
+          ></span>
+        </div>
+      )}
+
+      {(isOpen || state?.contribute.includes("develop")) && app.sourceCode && (
+        <a
+          className={`more-info${
+            state?.contribute.includes("develop") ? " focus" : ""
+          }`}
+          href={app.sourceCode}
+          target="_blank"
+        >
+          <span className="more-info-title">{t("app.sourceCode")}</span>
+          <span className="more-info-text">
+            <i className="fas fa-code"></i>
+          </span>
+        </a>
+      )}
+
+      {(isOpen || state?.contribute.includes("document")) && (
+        <div
+          className={`more-info${
+            state?.contribute.includes("document") ? " focus" : ""
+          }`}
+        >
+          <span className="more-info-title">{t("app.source")}</span>
+          <span className="more-info-text">
+            <SourceDisplay app={app} />
+          </span>
+        </div>
+      )}
+
+      {!isOpen && (
         <a
           className="more-infos-button"
           href={`?${link.toString()}`}
@@ -186,247 +424,6 @@ export function List({
         >
           {t("list.more")} <i className="fas fa-angle-down"></i>
         </a>
-      ) : (
-        <div className="more-infos">
-          <div className="more-infos-title">{t("list.moreInfos")}</div>
-
-          {app.platform.length > 0 && (
-            <div
-              className={`more-info${
-                !!state?.platforms.length ? " focus" : ""
-              }`}
-            >
-              <span className="more-info-title">{t("app.platforms")}</span>
-              <span className="more-info-text">{app.platform.join(", ")}</span>
-            </div>
-          )}
-          {(app.lastRelease || app.unmaintained) && (
-            <div className="more-info">
-              <span className="more-info-title">{t("app.lastRelease")}</span>
-              <span className="more-info-text">
-                {app.lastRelease ? app.lastRelease : "????-??-??"}
-                {app.unmaintained && (
-                  <>
-                    {" "}
-                    <span className="warning">
-                      <Trans
-                        i18nKey={"app.unmaintained"}
-                        components={{
-                          icon: <i className="fas fa-exclamation-triangle"></i>,
-                        }}
-                      />
-                    </span>
-                  </>
-                )}
-              </span>
-            </div>
-          )}
-
-          {app.languagesUrl ? (
-            <a
-              className={`more-info${
-                !!state?.languages.length ||
-                state?.contribute.includes("translate")
-                  ? " focus"
-                  : ""
-              }`}
-              href={app.languagesUrl}
-              target="_blank"
-            >
-              <span className="more-info-title">{t("app.languages")}</span>
-              <span className="more-info-text">
-                {app.languages.length > 0 ? (
-                  app.languages.join(", ")
-                ) : (
-                  <i className="fas fa-language"></i>
-                )}
-              </span>
-            </a>
-          ) : (
-            app.languages.length > 0 && (
-              <div
-                className={`more-info${
-                  !!state?.languages.length ? " focus" : ""
-                }`}
-              >
-                <span className="more-info-title">{t("app.languages")}</span>
-                <span className="more-info-text">
-                  {app.languages.join(", ")}
-                </span>
-              </div>
-            )
-          )}
-          {app.coverage && app.coverage.length > 0 && (
-            <div
-              className={`more-info${!!state?.coverage.length ? " focus" : ""}`}
-            >
-              <span className="more-info-title">{t("app.coverage")}</span>
-              <span className="more-info-text">
-                {app.coverage[app.coverage.length - 1]}
-              </span>
-            </div>
-          )}
-          {Object.values(app.community).filter((v) => v).length > 0 && (
-            <div
-              className={`more-info${
-                state?.contribute.includes("discuss") ||
-                state?.contribute.includes("test")
-                  ? " focus"
-                  : ""
-              }`}
-            >
-              <span className="more-info-title">{t("app.community")}</span>
-              <span className="more-info-text">
-                {app.community.forum && (
-                  <a
-                    className="community"
-                    href={app.community.forum}
-                    title={t("app.community.forum")}
-                  >
-                    <i className="fas fa-comments fa-fw"></i>
-                  </a>
-                )}
-                {app.community.forumTag && (
-                  <a
-                    className="community"
-                    href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
-                    title={t("app.community.forumTag")}
-                  >
-                    <i className="fas fa-tag fa-fw"></i>
-                  </a>
-                )}
-                {getMatrix(app.community.matrix, app.community.irc) && (
-                  <a
-                    className="community"
-                    href={`https://matrix.to/#/${getMatrix(
-                      app.community.matrix,
-                      app.community.irc
-                    )}`}
-                    title={t("app.community.matrix")}
-                  >
-                    <i>[m]</i>
-                  </a>
-                )}
-                {app.community.mastodon && (
-                  <a
-                    className="community"
-                    href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
-                    title={t("app.community.mastodon")}
-                  >
-                    <i className="fab fa-mastodon fa-fw"></i>
-                  </a>
-                )}
-                {app.community.bluesky && (
-                  <a
-                    className="community"
-                    href={`https://bsky.app/profile/${app.community.bluesky}`}
-                    title={t("app.community.bluesky")}
-                  >
-                    <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
-                  </a>
-                )}
-                {app.community.reddit && (
-                  <a
-                    className="community"
-                    href={`https://www.reddit.com/r/${app.community.reddit}`}
-                    title={t("app.community.reddit")}
-                  >
-                    <i className="fab fa-reddit fa-fw"></i>
-                  </a>
-                )}
-                {app.community.slack && (
-                  <a
-                    className="community"
-                    href={app.community.slack}
-                    title={t("app.community.slack")}
-                  >
-                    <i className="fab fa-slack-hash fa-fw"></i>
-                  </a>
-                )}
-                {app.community.telegram && (
-                  <a
-                    className="community"
-                    href={`https://telegram.me/${app.community.telegram}`}
-                    title={t("app.community.telegram")}
-                  >
-                    <i className="fab fa-telegram fa-fw"></i>
-                  </a>
-                )}
-                {app.community.githubDiscussions && (
-                  <a
-                    className="community"
-                    href={`https://github.com/${app.community.githubDiscussions}/discussions`}
-                    title={t("app.community.githubDiscussions")}
-                  >
-                    <i className="fab fa-github fa-fw"></i>
-                  </a>
-                )}
-                {app.community.issueTracker && (
-                  <a
-                    className="community"
-                    href={app.community.issueTracker}
-                    title={t("app.community.issueTracker")}
-                  >
-                    <i className="fas fa-list fa-fw"></i>
-                  </a>
-                )}
-              </span>
-            </div>
-          )}
-
-          {app.author && (
-            <div className="more-info">
-              <span className="more-info-title">{t("app.author")}</span>
-              <span
-                className="more-info-text"
-                dangerouslySetInnerHTML={{ __html: app.author }}
-              ></span>
-            </div>
-          )}
-
-          {app.price && (
-            <div className="more-info">
-              <span className="more-info-title">{t("app.price")}</span>
-              <span className="more-info-text">{app.price}</span>
-            </div>
-          )}
-
-          {app.license && app.license.length > 0 && (
-            <div className="more-info">
-              <span className="more-info-title">{t("app.license")}</span>
-              <span
-                className="more-info-text"
-                dangerouslySetInnerHTML={{ __html: app.license.join(", ") }}
-              ></span>
-            </div>
-          )}
-
-          {app.sourceCode && (
-            <a
-              className={`more-info${
-                state?.contribute.includes("develop") ? " focus" : ""
-              }`}
-              href={app.sourceCode}
-              target="_blank"
-            >
-              <span className="more-info-title">{t("app.sourceCode")}</span>
-              <span className="more-info-text">
-                <i className="fas fa-code"></i>
-              </span>
-            </a>
-          )}
-
-          <div
-            className={`more-info${
-              state?.contribute.includes("document") ? " focus" : ""
-            }`}
-          >
-            <span className="more-info-title">{t("app.source")}</span>
-            <span className="more-info-text">
-              <SourceDisplay app={app} />
-            </span>
-          </div>
-        </div>
       )}
     </div>
   );
