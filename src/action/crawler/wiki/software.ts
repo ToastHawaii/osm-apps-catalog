@@ -76,7 +76,7 @@ export function transform(
       extractWebsite(source["repo"] || source["git"] || source["svn"])
     ),
     gratis: some(
-      [source["price"].toUpperCase(), source["license"].toUpperCase()],
+      [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
       ["GRATIS", "FREE", "0"]
     ),
     libre: isOpenSource(source["license"]),

@@ -75168,7 +75168,7 @@ function transform(source) {
             .filter((v) => v)
             .join(", "),
         sourceCode: toUrl(extractWebsite(source["repo"] || source["git"] || source["svn"])),
-        gratis: some([source["price"].toUpperCase(), source["license"].toUpperCase()], ["GRATIS", "FREE", "0"]),
+        gratis: some([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
         libre: isOpenSource(source["license"]),
         price: source["price"],
         license: processWikiText(source["license"] || "")
