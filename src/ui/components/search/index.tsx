@@ -58,7 +58,7 @@ export function Search({
         placeholder={t("filter.search")}
         autoComplete="on"
         list="search-suggestions"
-        value={innerValue}
+        defaultValue={innerValue}
         onChange={(e) => {
           setInnerValue(e.currentTarget.value);
           onChange(e.currentTarget.value);
