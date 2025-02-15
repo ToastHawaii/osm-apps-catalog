@@ -7,6 +7,7 @@ import { SettingsPartial } from "slim-select/dist/settings";
 import SlimSelect, { Config, Events } from "slim-select";
 
 import "slim-select/styles";
+import { useTranslation } from "react-i18next";
 
 export type SlimSelectProps = {
   style?: React.CSSProperties;
@@ -25,10 +26,7 @@ export interface SlimSelectRef {
 }
 
 const SlimSelectComponent = (
-  props: SlimSelectProps,
-  ref: React.Ref<any>
-): JSX.Element => {
-  const {
+  {
     id = undefined,
     modelValue,
     style = {},
@@ -37,11 +35,19 @@ const SlimSelectComponent = (
     settings,
     events,
     children,
-  } = props;
+  }: SlimSelectProps,
+  ref: React.Ref<any>
+): JSX.Element => {
+  const { t } = useTranslation();
 
   const slimHTMLElement = useRef(null);
   const slimSelect = useRef<SlimSelect>();
   const value = useRef<any>();
+
+  const defaultSettings = {
+    searchPlaceholder: t("select.search.placeholder"),
+    searchText: t("select.search.noResults"),
+  };
 
   useEffect(() => {
     const config = {
@@ -53,10 +59,9 @@ const SlimSelectComponent = (
     if (data) {
       config.data = data;
     }
-    // If settings are passed in, use it
-    if (settings) {
-      config.settings = settings;
-    }
+
+    config.settings = {...defaultSettings, ...settings};
+
     // If events are passed in, use it
     if (events) {
       config.events = events;

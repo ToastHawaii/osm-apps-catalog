@@ -27,7 +27,6 @@ export function CoverageSelect({
       settings={{
         placeholderText: t("filter.coverage"),
         allowDeselect: true,
-        class: ["filter"],
       }}
       events={{
         afterChange: (newOptions) => {

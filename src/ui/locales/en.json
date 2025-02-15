@@ -25,6 +25,8 @@
   "notFound": "Not found what you're looking for?",
   "notFound.desc": "With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.",
   "noResults": "No results",
+  "select.search.placeholder": "Search",
+  "select.search.noResults": "No results",
   "compare.group.header.general": "General",
   "compare.group.header.map": "Map display",
   "compare.group.header.routing": "Routing",
