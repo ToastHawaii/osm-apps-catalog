@@ -1,4 +1,4 @@
-# OpenStreetMap Apps
+# About OpenStreetMap Apps Catalog
 
 **Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 

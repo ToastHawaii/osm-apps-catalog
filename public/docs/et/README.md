@@ -1,4 +1,4 @@
-# OpenStreetMapi rakendused
+# About OpenStreetMap Apps Catalog
 
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
