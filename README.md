@@ -2,9 +2,11 @@
 
 **Experience the world in a creative, productive and unexpected way.**
 
-This catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate. It is updated every day. 
+This catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate. 
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+This website is created and maintained by [Markus Peloso](https://zottelig.ch). It is a hobby project. If you have questions about OSM Apps Catalog or would like to request a feature, [feel free to ask](https://github.com/ToastHawaii/osm-apps-catalog/issues). I'm interested in hearing from users about how they use this catalog, so please get in touch!
+
+[Go to the catalog](https://osm-apps.zottelig.ch). It is updated every day. 
 
 [Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
 

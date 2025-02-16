@@ -1,9 +1,9 @@
 # Community Contribution Score (Beta)
 
-The Community Contribution Score is a rating developed specifically for this app catalog.  
-It highlights apps that contribute to the OpenStreetMap community.
+The Community Contribution Score is a rating, specially developed for this app catalog. 
+It highlights apps that contribute to the OpenStreetMap community and enable users to easily contribute to OpenStreetMap themselves.
 
-To achieve a good rating, an app should be:
+To achieve a high score, an app should be:
 
 - open source,
 - capable of displaying and editing the map,
@@ -131,4 +131,5 @@ The score is calculated by adding up points from all categories. The resulting s
 
 ## Discussion
 
-If you have suggestions on how the calculation of the score should be adjusted, you can discuss them [here](https://github.com/ToastHawaii/osm-apps-catalog/discussions/123).
+A score like this is subjective, so it's important to me to be in dialogue.
+If you have any suggestions on how the score should be adjusted, we can discuss them [here](https://github.com/ToastHawaii/osm-apps-catalog/discussions/123).
