@@ -15,7 +15,7 @@
   "filter.category.mobile": "To go",
   "filter.category.navigation": "Find your way",
   "filter.category.edit": "Improve the map",
-  "category.all.description": "{{numberOfApps}} apps that use OpenStreetMap, sorted by Community Contribution Score.",
+  "category.all.description": "{{numberOfApps}} apps that use <o>OpenStreetMap</o>, sorted by <s>Community Contribution Score</s>.",
   "category.focus.description": "Ten apps from the most recently updated pages.",
   "category.latest.description": "{{numberOfApps}} apps sorted by last release date.",
   "category.mobile.description": "{{numberOfApps}} apps developed for mobile devices or that support offline use.",

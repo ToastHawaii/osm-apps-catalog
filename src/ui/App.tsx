@@ -16,7 +16,7 @@ import { useAppState } from "../utilities/useAppState";
 import { filter } from "../utilities/filter";
 import { LazyLoadImages } from "./components/LazyLoadImages";
 import { Compare } from "./views/Compare";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "./components/NotFoundApps";
 import { strip } from "../utilities/string";
 import { LazyInitMore } from "./components/LazyInitMore";
@@ -71,7 +71,7 @@ export function App() {
     <div id="content">
       <header className="page-header">
         <Menu
-          value={ state.category}
+          value={state.category}
           onChange={(value) => {
             if (value === "focus" || state.app) {
               resetAppState(value);
@@ -94,9 +94,14 @@ export function App() {
         {!state.app && (
           <>
             <p className="description" style={{ margin: "5px 10px 10px" }}>
-              {t(`category.${state.category}.description`, {
-                numberOfApps: filteredApps.length || "",
-              })}
+              <Trans
+                i18nKey={`category.${state.category}.description`}
+                values={{ numberOfApps: filteredApps.length || "" }}
+                components={{
+                  o: <a href="https://openstreetmap.org/" target="_blank" />,
+                  s: <a href="/docs/score" />,
+                }}
+              />
             </p>
             {state.category !== "focus" && (
               <>
