@@ -16,7 +16,7 @@
     "multilingual": "Mehrsprachig",
     "wiki.none": "Keine",
     "list.moreInfos": "Informationen",
-    "category.all.description": "{{numberOfApps}} Apps, die OpenStreetMap verwenden, sortiert nach Community Contribution Score.",
+    "category.all.description": "{{numberOfApps}} Apps, die <o>OpenStreetMap</o> verwenden, sortiert nach dem <s>Community Contribution Score</s>.",
     "filter.topic": "Themen",
     "app.sourceCode": "Quellcode",
     "app.license": "Lizenz",
@@ -116,5 +116,7 @@
     "app.contribute.toCommunity": "Zur Gemeinschaft",
     "app.contribute.toData": "Zu den OSM-Daten",
     "app.contribute.toSoftware.document": "Dokumentation verbessern",
-    "app.contribute.toData.photos": "Fotos für die Kartierung hochladen"
+    "app.contribute.toData.photos": "Fotos für die Kartierung hochladen",
+    "select.search.placeholder": "Suche",
+    "select.search.noResults": "Kein Resultat"
 }
