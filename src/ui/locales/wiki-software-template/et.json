@@ -51,5 +51,33 @@
     },
     "logo": {
         "label": "Logo"
+    },
+    "languagesurl": {
+        "label": "Keelte võrguaadress",
+        "description": "Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel)."
+    },
+    "version": {
+        "description": "Viimane versioon",
+        "label": "Versioon"
+    },
+    "asin": {
+        "description": "Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)",
+        "label": "Amazoni kasutajatunnus"
+    },
+    "coverage": {
+        "label": "Katvus",
+        "description": "Rakenduse kasutatvuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."
+    },
+    "code": {
+        "label": "Lähtekood",
+        "description": "Kasutatud programmeerimiskeelte loend."
+    },
+    "framework": {
+        "label": "Arendusraamistik",
+        "description": "Koodi kirjutamisel kasutatud arendusraamistik."
+    },
+    "date": {
+        "label": "Väljalaske kuupäev",
+        "description": "Viimase versiooni avaldamise kuupäev"
     }
 }
