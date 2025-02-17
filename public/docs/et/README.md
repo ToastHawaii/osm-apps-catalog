@@ -1,4 +1,4 @@
-# About OpenStreetMap Apps Catalog
+# Teave OpenStreetMapi rakenduste kataloogi kohta
 
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
@@ -12,7 +12,7 @@ viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_
 
 ## 🌍 Muud keeled
 
-Vaata katalogi omas keeles:
+Vaata kataloogi omas keeles:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
