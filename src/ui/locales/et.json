@@ -12,7 +12,7 @@
     "app.community.bluesky": "Bluesky",
     "app.price": "Hind",
     "wiki.generatedByOsmAppsCatalog": "Selle tabeli koostas [{{link}} OSMi rakenduste kataloog] {{date}}.",
-    "category.all.description": "{{numberOfApps}} OpenStreetMappi kasutavat rakendust, järjestatud panuse alusel kogukonna arendusse.",
+    "category.all.description": "{{numberOfApps}} <o>OpenStreetMap</o>pi kasutavat rakendust, järjestatud <s>panuse alusel kogukonna arendusse</s>.",
     "list": "Loend",
     "compare": "Võrdle",
     "app.license": "Litsents",
@@ -116,5 +116,7 @@
     "app.contribute.toCommunity.welcome": "Juhata teed uutele kasutajatele",
     "app.contribute.toSoftware.translate": "Aita tõlkida",
     "app.contribute": "Tee kaastööd",
-    "app.contribute.toData.photos": "Laadi üles kaardistamiseks vajalikke fotosid"
+    "app.contribute.toData.photos": "Laadi üles kaardistamiseks vajalikke fotosid",
+    "select.search.placeholder": "Otsi",
+    "select.search.noResults": "Tulemusi pole"
 }
