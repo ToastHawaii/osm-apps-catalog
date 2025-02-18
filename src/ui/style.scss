@@ -236,6 +236,14 @@ a.link-create {
   padding-left: 0;
 }
 
+.ss-and ss-value + .ss-value > .ss-value-text::before {
+  content: "& ";
+}
+
+.ss-or .ss-value + .ss-value > .ss-value-text::before {
+  content: "/ ";
+}
+
 .advanced-filter {
   display: flex;
   justify-content: center;

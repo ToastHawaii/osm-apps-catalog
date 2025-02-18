@@ -117,7 +117,7 @@ export function filter({
   const platformsUp = platforms.map((t) => t.toUpperCase());
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      includes(
+      some(
         a.platform.map((t) => t.toUpperCase()),
         platformsUp
       )

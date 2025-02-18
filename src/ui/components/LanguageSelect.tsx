@@ -27,6 +27,7 @@ export function LanguageSelect({
       settings={{
         placeholderText: t("filter.language"),
         allowDeselect: true,
+        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {

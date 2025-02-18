@@ -18,6 +18,7 @@ export function ContributeSelect({
         showSearch: false,
         placeholderText: t("app.contribute"),
         allowDeselect: true,
+        class: ["ss-or"],
       }}
       multiple
       modelValue={selected}

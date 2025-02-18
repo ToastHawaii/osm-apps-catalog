@@ -27,6 +27,7 @@ export function TopicSelect({
       settings={{
         placeholderText: t("filter.topic"),
         allowDeselect: true,
+        class: ["ss-and"],
       }}
       events={{
         afterChange: (newOptions) => {

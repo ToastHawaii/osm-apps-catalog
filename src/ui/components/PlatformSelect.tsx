@@ -27,6 +27,7 @@ export function PlatformSelect({
       settings={{
         placeholderText: t("filter.platform"),
         allowDeselect: true,
+        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {

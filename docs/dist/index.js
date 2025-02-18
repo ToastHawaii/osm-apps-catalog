@@ -76276,7 +76276,7 @@ function addApp(apps, obj) {
         app.topics.push(...obj.topics);
         app.topics = (0,lodash.uniq)(app.topics).sort();
         app.platform.push(...obj.platform);
-        app.platform = (0,lodash.uniq)(app.platform);
+        app.platform = (0,lodash.uniq)(app.platform).sort();
         app.coverage.push(...obj.coverage);
         app.coverage = (0,lodash.uniq)(app.coverage);
         app.install.asin = app.install.asin || obj.install.asin;

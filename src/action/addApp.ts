@@ -119,7 +119,7 @@ export function addApp(apps: App[], obj: App) {
     app.topics = uniq(app.topics).sort();
 
     app.platform.push(...obj.platform);
-    app.platform = uniq(app.platform);
+    app.platform = uniq(app.platform).sort();
 
     app.coverage.push(...obj.coverage);
     app.coverage = uniq(app.coverage);

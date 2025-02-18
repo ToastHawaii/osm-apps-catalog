@@ -27,6 +27,7 @@ export function CoverageSelect({
       settings={{
         placeholderText: t("filter.coverage"),
         allowDeselect: true,
+        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {
