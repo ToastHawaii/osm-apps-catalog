@@ -1,4 +1,4 @@
-# OpenStreetMap Apps
+# OpenStreetMap Apps Catalog – névjegy
 
 **Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 

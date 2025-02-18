@@ -1,4 +1,4 @@
-# Aplicaciones OpenStreetMap
+# About OpenStreetMap Apps Catalog
 
 **Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
