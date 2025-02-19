@@ -132,21 +132,13 @@ export function filter({
       )
     );
 
-  const coverageUp: string[] = [];
-  coverage.forEach((t) => {
-    const regions = t.toUpperCase().split(", ");
-    let entry = [];
-    for (let index = 0; index < regions.length; index++) {
-      entry.push(regions[index]);
-      coverageUp.push(entry.join(", "));
-    }
-  });
+  const coverageUp = coverage.map((t) => t.toUpperCase());
   if (coverageUp.length > 0) {
-    filteredApps = filteredApps.filter((a) =>
-      some(
-        a.coverage.map((t) => t.toUpperCase()),
-        coverageUp
-      )
+    filteredApps = filteredApps.filter(
+      (a) =>
+        !!a.coverage
+          .map((t) => t.toUpperCase())
+          .find((a) => coverageUp.find((c) => c.startsWith(a)))
     );
   }
 

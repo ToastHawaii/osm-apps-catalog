@@ -29,6 +29,7 @@ import {
   equalsIgnoreCase,
   toValues,
   splitByCommaButNotInsideBraceRegex,
+  splitBySemicolonButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
   processWikiText,
@@ -215,16 +216,12 @@ export function transform(
 
   if (source["coverage"]) {
     const coverage = source["coverage"]
-      .split(splitByCommaButNotInsideBraceRegex)
+      .split(splitBySemicolonButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
       .map(firstLetterToUpperCase);
 
-    let entry = [];
-    for (let index = 0; index < coverage.length; index++) {
-      entry.push(coverage[index]);
-      obj.coverage.push(entry.join(", "));
-    }
+    obj.coverage.push(...coverage);
   }
 
   obj.platform = uniq(obj.platform).sort();

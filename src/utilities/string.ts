@@ -114,6 +114,7 @@ export function textToColor(s: string) {
   return { r, g, b };
 }
 
+export const splitBySemicolonButNotInsideBraceRegex = /[;]+(?![^(]*\))/;
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^(]*\))/;
 
 export function toValues(value: string = "") {

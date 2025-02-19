@@ -74436,6 +74436,7 @@ function textToColor(s) {
     }
     return { r, g, b };
 }
+const splitBySemicolonButNotInsideBraceRegex = /[;]+(?![^(]*\))/;
 const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^(]*\))/;
 function toValues(value = "") {
     return value
@@ -75304,15 +75305,11 @@ function transform(source) {
     };
     if (source["coverage"]) {
         const coverage = source["coverage"]
-            .split(splitByCommaButNotInsideBraceRegex)
+            .split(splitBySemicolonButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
             .map(firstLetterToUpperCase);
-        let entry = [];
-        for (let index = 0; index < coverage.length; index++) {
-            entry.push(coverage[index]);
-            obj.coverage.push(entry.join(", "));
-        }
+        obj.coverage.push(...coverage);
     }
     obj.platform = (0,lodash.uniq)(obj.platform).sort();
     obj.languages = (0,lodash.uniq)(obj.languages).sort();
@@ -75468,12 +75465,11 @@ function serviceItem_transform(source) {
         community: {},
     };
     if (source["region"]) {
-        obj.coverage.push(source["region"]
-            .split(splitByCommaButNotInsideBraceRegex)
+        obj.coverage.push(...source["region"]
+            .split(splitBySemicolonButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase)
-            .join(", "));
+            .map(firstLetterToUpperCase));
     }
     obj.languages = (0,lodash.uniq)(obj.languages).sort();
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();

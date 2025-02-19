@@ -25,6 +25,7 @@ import {
   firstLetterToUpperCase,
   startsWithIgnoreCase,
   splitByCommaButNotInsideBraceRegex,
+  splitBySemicolonButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
   processWikiText,
@@ -80,12 +81,11 @@ export function transform(source: { [name: string]: string }) {
 
   if (source["region"]) {
     obj.coverage.push(
-      source["region"]
-        .split(splitByCommaButNotInsideBraceRegex)
+      ...source["region"]
+        .split(splitBySemicolonButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
         .map(firstLetterToUpperCase)
-        .join(", ")
     );
   }
 

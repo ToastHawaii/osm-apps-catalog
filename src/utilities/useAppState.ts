@@ -17,11 +17,11 @@ export function useAppState() {
         ? parseInt(searchParams.get("app") as string, 10)
         : undefined,
       search: searchParams.get("search") || "",
-      topics: searchParams.get("topics")?.split(",") || [],
-      platforms: searchParams.get("platforms")?.split(",") || [],
-      languages: searchParams.get("languages")?.split(",") || [],
-      coverage: searchParams.get("coverage")?.split(",") || [],
-      contribute: searchParams.get("contribute")?.split(",") || [],
+      topics: searchParams.get("topics")?.split("+") || [],
+      platforms: searchParams.get("platforms")?.split("+") || [],
+      languages: searchParams.get("languages")?.split("+") || [],
+      coverage: searchParams.get("coverage")?.split("+") || [],
+      contribute: searchParams.get("contribute")?.split("+") || [],
       category: !app ? searchParams.get("category") || "all" : "",
       view: searchParams.get("view") === "compare" ? "compare" : "list",
     } as State,
@@ -35,7 +35,7 @@ export function useAppState() {
     ) {
       let formatedValue;
       if (Array.isArray(value)) {
-        formatedValue = value.join(",");
+        formatedValue = value.join("+");
       } else if (key === "lang") {
         formatedValue = value === "en" ? "" : "" + value;
       } else if (key === "category") {
