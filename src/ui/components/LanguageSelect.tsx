@@ -22,12 +22,12 @@ export function LanguageSelect({
 
   return (
     <SlimSelect
+      className="ss-or"
       data={prepareArrayForSelect(data, selected)}
       multiple
       settings={{
         placeholderText: t("filter.language"),
         allowDeselect: true,
-        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {

@@ -137,8 +137,8 @@ export function filter({
     filteredApps = filteredApps.filter(
       (a) =>
         !!a.coverage
-          .map((t) => t.toUpperCase())
-          .find((a) => coverageUp.find((c) => c.startsWith(a)))
+          .map((a) => a.toUpperCase())
+          .find((a) => coverageUp.find((c) => a.startsWith(c) || c.startsWith(a)))
     );
   }
 

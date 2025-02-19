@@ -18,6 +18,7 @@ export type SlimSelectProps = {
   settings?: SettingsPartial;
   events?: Events;
   children?: React.ReactNode;
+  className?: string;
 };
 export interface SlimSelectRef {
   set: (newValue: string | string[]) => void;
@@ -35,6 +36,7 @@ const SlimSelectComponent = (
     settings,
     events,
     children,
+    className,
   }: SlimSelectProps,
   ref: React.Ref<any>
 ): JSX.Element => {
@@ -60,7 +62,7 @@ const SlimSelectComponent = (
       config.data = data;
     }
 
-    config.settings = {...defaultSettings, ...settings};
+    config.settings = { ...defaultSettings, ...settings };
 
     // If events are passed in, use it
     if (events) {
@@ -138,6 +140,7 @@ const SlimSelectComponent = (
         data-testid={id}
         multiple={multiple}
         ref={slimHTMLElement}
+        className={className}
       >
         {children}
       </select>

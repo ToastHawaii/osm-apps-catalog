@@ -236,7 +236,7 @@ a.link-create {
   padding-left: 0;
 }
 
-.ss-and ss-value + .ss-value > .ss-value-text::before {
+.ss-and .ss-value + .ss-value > .ss-value-text::before {
   content: "& ";
 }
 

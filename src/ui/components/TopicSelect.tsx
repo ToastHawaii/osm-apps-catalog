@@ -22,12 +22,12 @@ export function TopicSelect({
 
   return (
     <SlimSelect
+      className="ss-and"
       data={prepareArrayForSelect(data, selected)}
       multiple
       settings={{
         placeholderText: t("filter.topic"),
         allowDeselect: true,
-        class: ["ss-and"],
       }}
       events={{
         afterChange: (newOptions) => {

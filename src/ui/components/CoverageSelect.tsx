@@ -22,12 +22,12 @@ export function CoverageSelect({
 
   return (
     <SlimSelect
+      className="ss-or"
       data={prepareArrayForSelect(data, selected)}
       multiple
       settings={{
         placeholderText: t("filter.coverage"),
         allowDeselect: true,
-        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {

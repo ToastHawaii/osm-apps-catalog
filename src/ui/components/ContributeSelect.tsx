@@ -14,11 +14,11 @@ export function ContributeSelect({
 
   return (
     <SlimSelect
+      className="ss-or"
       settings={{
         showSearch: false,
         placeholderText: t("app.contribute"),
         allowDeselect: true,
-        class: ["ss-or"],
       }}
       multiple
       modelValue={selected}

@@ -22,12 +22,12 @@ export function PlatformSelect({
 
   return (
     <SlimSelect
+      className="ss-or"
       data={prepareArrayForSelect(data, selected)}
       multiple
       settings={{
         placeholderText: t("filter.platform"),
         allowDeselect: true,
-        class: ["ss-or"],
       }}
       events={{
         afterChange: (newOptions) => {
