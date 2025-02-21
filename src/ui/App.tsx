@@ -11,7 +11,7 @@ import { CoverageSelect } from "./components/CoverageSelect";
 import { ContributeSelect } from "./components/ContributeSelect";
 import { useData } from "../useData";
 import { Filters } from "./components/filters";
-import { debounce } from "lodash";
+import { debounce, uniq } from "lodash";
 import { useAppState } from "../utilities/useAppState";
 import { filter } from "../utilities/filter";
 import { LazyLoadImages } from "./components/LazyLoadImages";
@@ -23,20 +23,21 @@ import { LazyInitMore } from "./components/LazyInitMore";
 import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
+import { languageValueToDisplay } from "./utilities/language";
 
 import "./style.scss";
+import { getUserRegion } from "../utilities/getUserRegion";
+import { getUserOS } from "../utilities/getUserOS";
 
 export function App() {
   const { t } = useTranslation();
-  const [state, setAppState, resetAppState] = useAppState();
+  const [state, setAppState, resetAppState] = useAppState({
+    languages: uniq(navigator.languages.map((l) => languageValueToDisplay(l))),
+    coverage: uniq(["Worldwide", getUserRegion()].filter((c) => c) as string[]),
+    platforms: uniq(["Web", getUserOS()].filter((c) => c) as string[]),
+  });
   const apps = useData();
-  const [moreFilters, setMoreFilters] = useState(
-    state.topics.length > 0 ||
-      state.platforms.length > 0 ||
-      state.languages.length > 0 ||
-      state.coverage.length > 0 ||
-      state.contribute.length > 0
-  );
+  const [moreFilters, setMoreFilters] = useState(false);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
   if (filteredApps.length > 300 && state.view !== "list") {
@@ -91,7 +92,7 @@ export function App() {
           </a>
           <About />
         </h1>
-        <p className="description" style={{ margin: "5px 10px 10px" }}>
+        <p className="description" style={{ margin: "5px 10px" }}>
           {(state.category === "all" && filteredApps.length !== apps.length) ||
           !!state.app ? (
             <Trans
@@ -119,6 +120,37 @@ export function App() {
         </p>
         {!state.app && (
           <>
+            {!moreFilters &&
+              (state.topics.length > 0 ||
+                state.platforms.length > 0 ||
+                state.languages.length > 0 ||
+                state.coverage.length > 0 ||
+                state.contribute.length > 0) && (
+                <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
+                  {"Dir werden Apps angezeigt für:"}{" "}
+                  {uniq(
+                    [
+                      ...state.topics,
+                      ...state.platforms,
+                      ...state.languages,
+                      ...state.coverage,
+                      ...state.contribute,
+                    ].filter((v) => v)
+                  ).map((v) => (
+                    <>
+                      <span className="filter-value">{v}</span>{" "}
+                    </>
+                  ))}
+                  <button
+                    className="reset-filters"
+                    onClick={() => {
+                      resetAppState(state.category);
+                    }}
+                  >
+                    {t("filter.resetFilters")}
+                  </button>
+                </p>
+              )}
             {state.category !== "focus" && (
               <>
                 <Search

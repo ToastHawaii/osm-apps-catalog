@@ -2,8 +2,16 @@ import { useSearchParams } from "react-router";
 import { State } from "../State";
 import { useReducer } from "react";
 
-export function useAppState() {
-  const [searchParams, setSearchParams] = useSearchParams();
+export function useAppState(defaultInit: {
+  languages: string[];
+  coverage: string[];
+  platforms: string[];
+}) {
+  const [searchParams, setSearchParams] = useSearchParams({
+    languages: defaultInit.languages.join("+"),
+    coverage: defaultInit.coverage.join("+"),
+    platforms: defaultInit.platforms.join("+"),
+  });
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
   const app = searchParams.get("app")
