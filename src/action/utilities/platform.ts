@@ -171,7 +171,7 @@ const platforms: {
 
 export function platformValueToDisplay(value: string) {
   // Remove version
-  value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)*\+?/gi, ""));
+  value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)*\+?$/gi, ""));
 
   for (const platform of platforms) {
     for (const version of platform.version) {

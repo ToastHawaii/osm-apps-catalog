@@ -74802,7 +74802,7 @@ const platforms = [
 ];
 function platformValueToDisplay(value) {
     // Remove version
-    value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)*\+?/gi, ""));
+    value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)*\+?$/gi, ""));
     for (const platform of platforms) {
         for (const version of platform.version) {
             if (version.synonym.filter((s) => equalsIgnoreCase(s, value)).length > 0)
