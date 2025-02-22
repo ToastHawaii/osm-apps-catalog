@@ -23,6 +23,9 @@ export function useData() {
 
   useEffect(() => {
     loadData().then((apps) => {
+      for (const app of apps) {
+        app.cache = {};
+      }
       prepareLanguage(apps);
       setApps(apps);
       if (isDevelopment) {

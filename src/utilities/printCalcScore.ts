@@ -2,7 +2,7 @@ import { sum } from "lodash";
 import { App } from "../data/App";
 
 export function printCalcScore(apps: App[]) {
-  const average = sum(apps.map((a) => a.score.total)) / apps.length;
+  const average = sum(apps.map((a) => a.score)) / apps.length;
   console.info("Average");
   console.info("18.24.2024: 1.970");
   console.info("23.24.2024: 1.980");

@@ -1,6 +1,7 @@
 import React from "react";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
+import { calculateFilter } from "../../data/calculateFilter";
 
 export function Image({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -19,10 +20,14 @@ export function Image({ app }: { app: App }) {
       />
     );
   } else {
+    if (!app.cache.filter) {
+      app.cache.filter = calculateFilter(app);
+    }
+
     return (
       <img
         className="img"
-        style={{ filter: app.filter }}
+        style={{ filter: app.cache.filter }}
         src={defaultImage}
         alt={t("app.imageAlt", {
           name: app.name,

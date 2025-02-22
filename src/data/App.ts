@@ -131,13 +131,16 @@ export type App = {
     slack?: string;
     reddit?: string;
   };
-  score: {
-    total: number;
-    details: {
-      translationKey: string;
-      points: number;
-      fulfilled: boolean;
-    }[];
+  score: number;
+  cache: {
+    score?: {
+      total: number;
+      details: {
+        translationKey: string;
+        points: number;
+        fulfilled: boolean;
+      }[];
+    };
+    filter?: string;
   };
-  filter?: string;
 };

@@ -64,7 +64,7 @@ export function toSchemaOrg(app: App) {
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: 0.4 * app.score.total + 1,
+        ratingValue: 0.4 * app.score + 1,
       },
       author: {
         "@type": "Organization",

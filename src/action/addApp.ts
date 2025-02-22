@@ -2,7 +2,6 @@ import { uniq } from "lodash";
 import { equalsIgnoreCase, equalsWebsite } from "../utilities/string";
 import { hashCode } from "./utilities";
 import { App } from "../data/App";
-import { extendFilter } from "./utilities/extendFilter";
 import { calculateScore } from "../data/calculateScore";
 
 export function addApp(apps: App[], obj: App) {
@@ -53,9 +52,8 @@ export function addApp(apps: App[], obj: App) {
         obj.sourceCode)
     ) {
       obj.id = calcId(obj);
-      obj.score = calculateScore(obj);
+      obj.score = calculateScore(obj).total;
       apps.push(obj);
-      extendFilter(obj);
     }
   } else {
     const app = duplicates[0];
@@ -168,8 +166,7 @@ export function addApp(apps: App[], obj: App) {
     app.community.slack = app.community.slack || obj.community.slack;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
-    app.score = calculateScore(app);
-    extendFilter(app);
+    app.score = calculateScore(app).total;
   }
 }
 

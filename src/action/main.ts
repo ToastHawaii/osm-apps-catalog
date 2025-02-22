@@ -21,7 +21,7 @@ export async function run(): Promise<void> {
 
     shuffle(apps);
     apps = apps.sort(function (a, b) {
-      return b.score.total - a.score.total;
+      return b.score - a.score;
     });
 
     apps.forEach((app: any) => {
@@ -91,7 +91,7 @@ async function generateSitemap(apps: App[]) {
   links.push(
     ...apps.map((app) => ({
       url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
-      priority: (app.score.total / 10) * 0.5 + 0.1,
+      priority: (app.score / 10) * 0.5 + 0.1,
       lastmod:
         lastUpdate > new Date(app.source[0].lastChange)
           ? lastUpdate
