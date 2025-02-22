@@ -88,6 +88,7 @@ const languages: {
   { code: "fa", display: "فارسی" },
   { code: "ff", display: "Fulfulde" },
   { code: "fi", display: "Suomi" },
+  { code: "fil", display: "Filipino" },
   { code: "fiu-vro", display: "Võro" },
   { code: "fj", display: "Na Vosa Vakaviti" },
   { code: "fo", display: "Føroyskt" },
@@ -109,6 +110,7 @@ const languages: {
   { code: "ha", display: "هَوُسَ" },
   { code: "hak", display: "客家語/Hak-kâ-ngî" },
   { code: "haw", display: "Hawai`i" },
+  { code: "iw", display: "עברית" }, /* Früher war der offizielle ISO 639-1-Code für Hebräisch "iw", aber er wurde später zu "he" geändert. */
   { code: "he", display: "עברית" },
   { code: "hi", display: "हिन्दी" },
   { code: "ho", display: "Hiri Motu" },
@@ -193,6 +195,7 @@ const languages: {
   { code: "nl", display: "Nederlands" },
   { code: "nn", display: "Norsk (nynorsk)" },
   { code: "no", display: "Norsk (bokmål / riksmål)" },
+  { code: "nqo", display: "ߒߞߏ" },
   { code: "nr", display: "isiNdebele" },
   { code: "nrm", display: "Nouormand / Normaund" },
   { code: "nso", display: "Sesotho sa Leboa / Sepedi" },
@@ -292,6 +295,7 @@ const languages: {
   { code: "zh-min-nan", display: "Bân-lâm-gú" },
   { code: "zh-tw", display: "‪中文(台灣)‬" },
   { code: "zh-yue", display: "粵語 / 粤语" },
+  { code: "zgh", display: "ⵜⴰⵎⴰⵣⵉⵖⵜ" },
   { code: "zu", display: "isiZulu" },
 ];
 
