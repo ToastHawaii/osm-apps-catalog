@@ -4,7 +4,8 @@ import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
 import { isOpenSource } from "./wiki/isOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
-import { platformFilter, platformValueToDisplay } from "../utilities/platform";
+import { platformValueToDisplay } from "../utilities/platformValueToDisplay";
+import { platformFilter } from "../utilities/platformFilter";
 
 function extractGenre(result: any) {
   const genre = [];

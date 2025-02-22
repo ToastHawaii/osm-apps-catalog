@@ -17,10 +17,8 @@
 
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
-import {
-  platformFilter,
-  platformValueToDisplay,
-} from "../../utilities/platform";
+import { platformValueToDisplay } from "../../utilities/platformValueToDisplay";
+import { platformFilter } from "../../utilities/platformFilter";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { some } from "../../../utilities/array";
 import {
