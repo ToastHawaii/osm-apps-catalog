@@ -91,18 +91,34 @@ export function App() {
           </a>
           <About />
         </h1>
+        <p className="description" style={{ margin: "5px 10px 10px" }}>
+          {(state.category === "all" && filteredApps.length !== apps.length) ||
+          !!state.app ? (
+            <Trans
+              i18nKey={`category.all.description.filtered`}
+              values={{
+                numberOfApps: filteredApps.length || "",
+                totalNumberOfApps: apps.length || "",
+              }}
+              components={{
+                o: <a href="https://openstreetmap.org/" target="_blank" />,
+              }}
+            />
+          ) : (
+            <Trans
+              i18nKey={`category.${state.category}.description`}
+              values={{
+                numberOfApps: filteredApps.length || "",
+              }}
+              components={{
+                o: <a href="https://openstreetmap.org/" target="_blank" />,
+                s: <a href="/docs/score" />,
+              }}
+            />
+          )}
+        </p>
         {!state.app && (
           <>
-            <p className="description" style={{ margin: "5px 10px 10px" }}>
-              <Trans
-                i18nKey={`category.${state.category}.description`}
-                values={{ numberOfApps: filteredApps.length || "" }}
-                components={{
-                  o: <a href="https://openstreetmap.org/" target="_blank" />,
-                  s: <a href="/docs/score" />,
-                }}
-              />
-            </p>
             {state.category !== "focus" && (
               <>
                 <Search

@@ -16,7 +16,7 @@
     "multilingual": "Mehrsprachig",
     "wiki.none": "Keine",
     "list.moreInfos": "Informationen",
-    "category.all.description": "{{numberOfApps}} Apps, die <o>OpenStreetMap</o> verwenden, sortiert nach dem <s>Community Contribution Score</s>.",
+    "category.all.description": "{{numberOfApps}} Apps, die <o>OpenStreetMap</o> verwenden.",
     "filter.topic": "Themen",
     "app.sourceCode": "Quellcode",
     "app.license": "Lizenz",
