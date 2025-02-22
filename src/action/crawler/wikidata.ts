@@ -4,6 +4,7 @@ import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
 import { isOpenSource } from "./wiki/isOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
+import { platformFilter, platformValueToDisplay } from "../utilities/platform";
 
 function extractGenre(result: any) {
   const genre = [];
@@ -79,7 +80,7 @@ export function transformWikidataResult(result: any) {
     languages: (result.lgs?.value || "")
       .split(";")
       .filter(languageFilter)
-      .map( languageValueFormat),
+      .map(languageValueFormat),
     languagesUrl: result.lgsUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],
@@ -88,7 +89,17 @@ export function transformWikidataResult(result: any) {
         [
           ...(result.platforms?.value || "").split(";"),
           ...(result.os?.value || "").split(";"),
-        ].filter((v: any) => v)
+          result.asin?.value ||
+          result.googlePlayID?.value ||
+          result.huaweiAppGalleryID?.value ||
+          result.fDroidID?.value
+            ? "Android"
+            : undefined,
+          result.appleStoreID?.value ? "iOS" : undefined,
+          result.microsoftAppID?.value ? "Windows" : undefined,
+        ]
+          .filter(platformFilter)
+          .map(platformValueToDisplay)
       ),
     ],
     coverage: [],

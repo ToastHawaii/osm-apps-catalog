@@ -74657,15 +74657,33 @@ function generateWikimediaUrls(base, fileName, size) {
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+function platformFilter(value) {
+    if (!value) {
+        return false;
+    }
+    const valueUp = value.toUpperCase();
+    switch (valueUp) {
+        case "ARM ARCHCITECTURE":
+        case "GTK":
+        case "X86":
+        case "X86-64":
+            return false;
+    }
+    return true;
+}
 const platforms = [
     {
         name: "Linux",
-        synonym: ["linux"],
+        synonym: ["linux", "GNU/Linux"],
         version: [
             { name: "Openmoko Linux", synonym: ["openmoko", "openmoko linux"] },
         ],
     },
-    { name: "Android", synonym: ["android"], version: [] },
+    {
+        name: "Android",
+        synonym: ["android"],
+        version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
+    },
     { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
     { name: "Maemo", synonym: ["maemo"], version: [] },
     { name: "MeeGo", synonym: ["meego"], version: [] },
@@ -74676,8 +74694,9 @@ const platforms = [
         synonym: ["ios"],
         version: [
             { name: "iPhone", synonym: ["iphone"] },
-            { name: "iPad", synonym: ["ipad"] },
+            { name: "iPad", synonym: ["ipad", "iPadOS"] },
             { name: "iPod touch", synonym: ["ipod touch", "ipod"] },
+            { name: "WatchOS", synonym: ["watchos", "Apple Watch"] },
         ],
     },
     {
@@ -74687,7 +74706,11 @@ const platforms = [
     },
     { name: "Unix", synonym: ["unix"], version: [] },
     { name: "Bada OS", synonym: ["bada"], version: [] },
-    { name: "BSD", synonym: ["bsd"], version: [] },
+    {
+        name: "BSD",
+        synonym: ["bsd", "Berkeley Software Distribution"],
+        version: [],
+    },
     { name: "FreeBSD", synonym: ["freebsd"], version: [] },
     {
         name: "Amiga OS",
@@ -74722,7 +74745,7 @@ const platforms = [
     },
     {
         name: "Windows",
-        synonym: ["windows", "win"],
+        synonym: ["windows", "win", "Microsoft Windows"],
         version: [
             { name: "Windows XP", synonym: ["windows xp", "winxp"] },
             { name: "Windows 2000", synonym: ["windows 2000", "win2k"] },
@@ -74731,6 +74754,7 @@ const platforms = [
             { name: "Windows 8", synonym: ["windows 8", "win8"] },
             { name: "Windows 8.1", synonym: ["windows 8.1", "win8.1"] },
             { name: "Windows 10", synonym: ["windows 10", "win10"] },
+            { name: "Windows 11", synonym: ["windows 11", "win11"] },
         ],
     },
     {
@@ -74755,7 +74779,19 @@ const platforms = [
     { name: "Unity", synonym: ["unity"], version: [] },
     {
         name: "Web",
-        synonym: ["web", "web-based", "webapp", "web-app", "browser"],
+        synonym: [
+            "web",
+            "web-based",
+            "webapp",
+            "web-app",
+            "browser",
+            "web browser",
+        ],
+        version: [],
+    },
+    {
+        name: "Web Assembly",
+        synonym: ["web assembly", "wasm"],
         version: [],
     },
     {
@@ -74765,6 +74801,8 @@ const platforms = [
     },
 ];
 function platformValueToDisplay(value) {
+    // Remove version
+    value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)*\+?/gi, ""));
     for (const platform of platforms) {
         for (const version of platform.version) {
             if (version.synonym.filter((s) => equalsIgnoreCase(s, value)).length > 0)
@@ -75200,13 +75238,25 @@ function transform(source) {
         languagesUrl: toUrl(source["languagesurl"]),
         genre: toValues(source["genre"]),
         topics: toValues(source["genre"]),
-        platform: (source["platform"] || "")
-            .replace(/\[\[/g, "")
-            .replace(/\]\]/g, "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map((v) => platformValueToDisplay(v)),
+        platform: [
+            ...(source["platform"] || "")
+                .replace(/\[\[/g, "")
+                .replace(/\]\]/g, "")
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim),
+            source["asin"] ||
+                source["fDroidID"] ||
+                source["obtainiumLink"] ||
+                source["googlePlayID"] ||
+                source["huaweiAppGalleryID"]
+                ? "Android"
+                : "",
+            source["appleStoreID"] ? "iOS" : "",
+            source["macAppStoreID"] ? "Mac OS" : "",
+            source["microsoftAppID"] ? "Windows" : "",
+        ]
+            .filter(platformFilter)
+            .map(platformValueToDisplay),
         coverage: [],
         install: {
             asin: source["asin"],
@@ -76056,6 +76106,7 @@ function merge(o1, o2) {
 
 
 
+
 function extractGenre(result) {
     const genre = [];
     if (result.viewing?.value === "yes") {
@@ -76122,7 +76173,17 @@ function transformWikidataResult(result) {
             ...new Set([
                 ...(result.platforms?.value || "").split(";"),
                 ...(result.os?.value || "").split(";"),
-            ].filter((v) => v)),
+                result.asin?.value ||
+                    result.googlePlayID?.value ||
+                    result.huaweiAppGalleryID?.value ||
+                    result.fDroidID?.value
+                    ? "Android"
+                    : undefined,
+                result.appleStoreID?.value ? "iOS" : undefined,
+                result.microsoftAppID?.value ? "Windows" : undefined,
+            ]
+                .filter(platformFilter)
+                .map(platformValueToDisplay)),
         ],
         coverage: [],
         install: {

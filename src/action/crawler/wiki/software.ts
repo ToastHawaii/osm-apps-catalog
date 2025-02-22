@@ -17,7 +17,10 @@
 
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
-import { platformValueToDisplay } from "../../utilities/platform";
+import {
+  platformFilter,
+  platformValueToDisplay,
+} from "../../utilities/platform";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { some } from "../../../utilities/array";
 import {
@@ -95,13 +98,25 @@ export function transform(
     languagesUrl: toUrl(source["languagesurl"]),
     genre: toValues(source["genre"]),
     topics: toValues(source["genre"]),
-    platform: (source["platform"] || "")
-      .replace(/\[\[/g, "")
-      .replace(/\]\]/g, "")
-      .split(splitByCommaButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .map((v) => platformValueToDisplay(v)),
+    platform: [
+      ...(source["platform"] || "")
+        .replace(/\[\[/g, "")
+        .replace(/\]\]/g, "")
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim),
+      source["asin"] ||
+      source["fDroidID"] ||
+      source["obtainiumLink"] ||
+      source["googlePlayID"] ||
+      source["huaweiAppGalleryID"]
+        ? "Android"
+        : "",
+      source["appleStoreID"] ? "iOS" : "",
+      source["macAppStoreID"] ? "Mac OS" : "",
+      source["microsoftAppID"] ? "Windows" : "",
+    ]
+      .filter(platformFilter)
+      .map(platformValueToDisplay),
     coverage: [],
     install: {
       asin: source["asin"],
@@ -194,7 +209,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter(languageFilter)
-        .map( languageValueFormat),
+        .map(languageValueFormat),
     },
     community: {
       forum: source.communicationChannels["forum"],
