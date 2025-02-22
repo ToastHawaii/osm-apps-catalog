@@ -6,6 +6,7 @@ export function languageFilter(value: string) {
   const valueUp = value.toUpperCase();
   switch (valueUp) {
     case "C":
+    case "C++":
     case "PYTHON":
     case "SQL":
       return false;

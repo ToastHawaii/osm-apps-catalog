@@ -74639,7 +74639,7 @@ function generateWikimediaUrls(base, fileName, size) {
     ];
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/platform.ts
+;// CONCATENATED MODULE: ./src/action/utilities/platformValueToDisplay.ts
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -74657,20 +74657,6 @@ function generateWikimediaUrls(base, fileName, size) {
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-function platformFilter(value) {
-    if (!value) {
-        return false;
-    }
-    const valueUp = value.toUpperCase();
-    switch (valueUp) {
-        case "ARM ARCHITECTURE":
-        case "GTK":
-        case "X86":
-        case "X86-64":
-            return false;
-    }
-    return true;
-}
 const platforms = [
     {
         name: "Linux",
@@ -74812,6 +74798,22 @@ function platformValueToDisplay(value) {
             return platform.name;
     }
     return value;
+}
+
+;// CONCATENATED MODULE: ./src/action/utilities/platformFilter.ts
+function platformFilter(value) {
+    if (!value) {
+        return false;
+    }
+    const valueUp = value.toUpperCase();
+    switch (valueUp) {
+        case "ARM ARCHITECTURE":
+        case "GTK":
+        case "X86":
+        case "X86-64":
+            return false;
+    }
+    return true;
 }
 
 ;// CONCATENATED MODULE: ./src/action/utilities/languageValueFormat.ts
@@ -75161,6 +75163,7 @@ function languageFilter(value) {
     const valueUp = value.toUpperCase();
     switch (valueUp) {
         case "C":
+        case "C++":
         case "PYTHON":
         case "SQL":
             return false;
@@ -75185,6 +75188,7 @@ function languageFilter(value) {
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 
@@ -76101,6 +76105,7 @@ function merge(o1, o2) {
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wikidata.ts
+
 
 
 
