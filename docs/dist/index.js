@@ -75115,6 +75115,21 @@ function plainText(html) {
     }).replaceAll("&amp;", "&");
 }
 
+;// CONCATENATED MODULE: ./src/action/utilities/languageFilter.ts
+function languageFilter(value) {
+    if (!value) {
+        return false;
+    }
+    const valueUp = value.toUpperCase();
+    switch (valueUp) {
+        case "C":
+        case "PYTHON":
+        case "SQL":
+            return false;
+    }
+    return true;
+}
+
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/software.ts
 // Copyright (C) 2020 Markus Peloso
 //
@@ -75132,6 +75147,7 @@ function plainText(html) {
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 
@@ -75179,8 +75195,8 @@ function transform(source) {
         languages: (source["languages"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
-            .filter((v) => v)
-            .map((v) => languageValueFormat(v)),
+            .filter(languageFilter)
+            .map(languageValueFormat),
         languagesUrl: toUrl(source["languagesurl"]),
         genre: toValues(source["genre"]),
         topics: toValues(source["genre"]),
@@ -75282,8 +75298,8 @@ function transform(source) {
             screenReaderLang: (source["screenReaderLang"] || "")
                 .split(splitByCommaButNotInsideBraceRegex)
                 .map(trim)
-                .filter((v) => v)
-                .map((v) => languageValueFormat(v)),
+                .filter(languageFilter)
+                .map(languageValueFormat),
         },
         community: {
             forum: source.communicationChannels["forum"],
@@ -75424,6 +75440,7 @@ function hasValue(value = "") {
 
 
 
+
 function serviceItem_transform(source) {
     const obj = {
         name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
@@ -75444,8 +75461,8 @@ function serviceItem_transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(extractLanguageCodeFromTemplate)
             .map(trim)
-            .filter((v) => v)
-            .map((v) => languageValueFormat(v)),
+            .filter(languageFilter)
+            .map(languageValueFormat),
         languagesUrl: toUrl(extractWebsite(source["lang"])),
         genre: (source["genre"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
@@ -75506,6 +75523,7 @@ function serviceItem_transform(source) {
 
 
 
+
 function layer_transform(source) {
     const obj = {
         name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
@@ -75535,8 +75553,8 @@ function layer_transform(source) {
         languages: (source["tiles_languages"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
-            .filter((v) => v)
-            .map((v) => languageValueFormat(v)),
+            .filter(languageFilter)
+            .map(languageValueFormat),
         languagesUrl: toUrl(source["tiles_languagesurl"]),
         genre: [],
         topics: [],
@@ -76265,7 +76283,7 @@ function addApp(apps, obj) {
         app.license = app.license || obj.license;
         app.sourceCode = app.sourceCode || obj.sourceCode;
         app.languages.push(...obj.languages);
-        app.languages = (0,lodash.uniq)(app.languages);
+        app.languages = (0,lodash.uniq)(app.languages).sort();
         app.languagesUrl = app.languagesUrl || obj.languagesUrl;
         app.genre.push(...obj.genre);
         app.genre = (0,lodash.uniq)(app.genre);
@@ -76274,7 +76292,7 @@ function addApp(apps, obj) {
         app.platform.push(...obj.platform);
         app.platform = (0,lodash.uniq)(app.platform).sort();
         app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniq)(app.coverage);
+        app.coverage = (0,lodash.uniq)(app.coverage).sort();
         app.install.asin = app.install.asin || obj.install.asin;
         app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
         app.install.obtainiumLink =
@@ -76360,6 +76378,7 @@ function merge(o1, o2) {
 
 
 
+
 function extractGenre(result) {
     const genre = [];
     if (result.viewing?.value === "yes") {
@@ -76417,8 +76436,8 @@ function transformWikidataResult(result) {
         sourceCode: result.sourceCode?.value || "",
         languages: (result.lgs?.value || "")
             .split(";")
-            .filter((v) => v)
-            .map((v) => languageValueFormat(v)),
+            .filter(languageFilter)
+            .map(languageValueFormat),
         languagesUrl: result.lgsUrl?.value || "",
         genre: extractGenre(result),
         topics: [...extractGenre(result), ...toValues(result.topics?.value)],

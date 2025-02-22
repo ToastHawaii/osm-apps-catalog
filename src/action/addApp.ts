@@ -110,7 +110,7 @@ export function addApp(apps: App[], obj: App) {
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
     app.languages.push(...obj.languages);
-    app.languages = uniq(app.languages);
+    app.languages = uniq(app.languages).sort();
     app.languagesUrl = app.languagesUrl || obj.languagesUrl;
 
     app.genre.push(...obj.genre);
@@ -122,7 +122,7 @@ export function addApp(apps: App[], obj: App) {
     app.platform = uniq(app.platform).sort();
 
     app.coverage.push(...obj.coverage);
-    app.coverage = uniq(app.coverage);
+    app.coverage = uniq(app.coverage).sort();
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;

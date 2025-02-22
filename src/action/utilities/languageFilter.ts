@@ -1,0 +1,15 @@
+export function languageFilter(value: string) {
+  if (!value) {
+    return false;
+  }
+
+  const valueUp = value.toUpperCase();
+  switch (valueUp) {
+    case "C":
+    case "PYTHON":
+    case "SQL":
+      return false;
+  }
+
+  return true;
+}

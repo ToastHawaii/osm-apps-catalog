@@ -35,6 +35,7 @@ import {
 } from "../../utilities";
 import { App } from "../../../data/App";
 import { plainText } from "./plainText";
+import { languageFilter } from "../../utilities/languageFilter";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
@@ -58,8 +59,8 @@ export function transform(source: { [name: string]: string }) {
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)
       .map(trim)
-      .filter((v) => v)
-      .map((v) => languageValueFormat(v)),
+      .filter(languageFilter)
+      .map(languageValueFormat),
     languagesUrl: toUrl(extractWebsite(source["lang"])),
     genre: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

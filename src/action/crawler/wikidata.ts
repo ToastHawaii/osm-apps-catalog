@@ -3,6 +3,7 @@ import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
 import { isOpenSource } from "./wiki/isOpenSource";
+import { languageFilter } from "../utilities/languageFilter";
 
 function extractGenre(result: any) {
   const genre = [];
@@ -77,9 +78,9 @@ export function transformWikidataResult(result: any) {
     sourceCode: result.sourceCode?.value || "",
     languages: (result.lgs?.value || "")
       .split(";")
-      .filter((v: any) => v)
-      .map((v: any) => languageValueFormat(v)),
-      languagesUrl: result.lgsUrl?.value || "",
+      .filter(languageFilter)
+      .map( languageValueFormat),
+    languagesUrl: result.lgsUrl?.value || "",
     genre: extractGenre(result),
     topics: [...extractGenre(result), ...toValues(result.topics?.value)],
     platform: [

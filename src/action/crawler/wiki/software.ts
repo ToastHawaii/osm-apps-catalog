@@ -40,6 +40,7 @@ import { App } from "../../../data/App";
 import { isOpenSource } from "./isOpenSource";
 import { uniq } from "lodash";
 import { plainText } from "./plainText";
+import { languageFilter } from "../../utilities/languageFilter";
 
 export function transform(
   source: { [name: string]: string } & {
@@ -89,8 +90,8 @@ export function transform(
     languages: (source["languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter((v) => v)
-      .map((v) => languageValueFormat(v)),
+      .filter(languageFilter)
+      .map(languageValueFormat),
     languagesUrl: toUrl(source["languagesurl"]),
     genre: toValues(source["genre"]),
     topics: toValues(source["genre"]),
@@ -192,8 +193,8 @@ export function transform(
       screenReaderLang: (source["screenReaderLang"] || "")
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
-        .filter((v) => v)
-        .map((v) => languageValueFormat(v)),
+        .filter(languageFilter)
+        .map( languageValueFormat),
     },
     community: {
       forum: source.communicationChannels["forum"],

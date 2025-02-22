@@ -34,6 +34,7 @@ import {
 import { App } from "../../../data/App";
 import { isOpenSource } from "./isOpenSource";
 import { plainText } from "./plainText";
+import { languageFilter } from "../../utilities/languageFilter";
 
 export function transform(source: { [name: string]: string }) {
   const obj: App = {
@@ -68,8 +69,8 @@ export function transform(source: { [name: string]: string }) {
     languages: (source["tiles_languages"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter((v) => v)
-      .map((v) => languageValueFormat(v)),
+      .filter(languageFilter)
+      .map(languageValueFormat),
     languagesUrl: toUrl(source["tiles_languagesurl"]),
     genre: [],
     topics: [],
