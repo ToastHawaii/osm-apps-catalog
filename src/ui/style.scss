@@ -301,6 +301,10 @@ a.link-create {
   margin: 6px 0;
 }
 
+.select-option {
+  float: inline-end;
+}
+
 .badges {
   font-size: small;
   padding-top: 4px;
@@ -504,7 +508,6 @@ a.link-create {
   cursor: pointer;
 }
 .focus .more .fade-out {
-  
   background: linear-gradient(
     rgba(255, 245, 191, 0) 50%,
     rgba(255, 245, 191, 1)
