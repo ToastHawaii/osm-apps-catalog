@@ -9,6 +9,7 @@ export function languageFilter(value: string) {
     case "C++":
     case "PYTHON":
     case "SQL":
+    case "WEBSITE":
       return false;
   }
 
