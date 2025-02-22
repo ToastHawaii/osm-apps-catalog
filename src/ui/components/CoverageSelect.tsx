@@ -19,15 +19,17 @@ export function CoverageSelect({
   const data = selected.slice();
 
   data.push(...apps.flatMap((app) => app.coverage.map((v) => v)));
-
+  const preparedData = prepareArrayForSelect(data, selected);
+  
   return (
     <SlimSelect
       className="ss-or"
-      data={prepareArrayForSelect(data, selected)}
+      data={preparedData}
       multiple
       settings={{
         placeholderText: t("filter.coverage"),
         allowDeselect: true,
+        showSearch: preparedData.length > 9
       }}
       events={{
         afterChange: (newOptions) => {

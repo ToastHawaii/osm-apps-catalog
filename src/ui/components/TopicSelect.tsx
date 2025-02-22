@@ -19,15 +19,17 @@ export function TopicSelect({
   const data = selected.slice();
 
   data.push(...apps.flatMap((app) => app.topics.map((v) => v)));
+  const preparedData = prepareArrayForSelect(data, selected);
 
   return (
     <SlimSelect
       className="ss-and"
-      data={prepareArrayForSelect(data, selected)}
+      data={preparedData}
       multiple
       settings={{
         placeholderText: t("filter.topic"),
         allowDeselect: true,
+        showSearch: preparedData.length > 9,
       }}
       events={{
         afterChange: (newOptions) => {

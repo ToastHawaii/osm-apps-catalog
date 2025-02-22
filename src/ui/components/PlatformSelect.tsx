@@ -19,15 +19,17 @@ export function PlatformSelect({
   const data = selected.slice();
 
   data.push(...apps.flatMap((app) => app.platform.map((v) => v)));
+  const preparedData = prepareArrayForSelect(data, selected);
 
   return (
     <SlimSelect
       className="ss-or"
-      data={prepareArrayForSelect(data, selected)}
+      data={preparedData}
       multiple
       settings={{
         placeholderText: t("filter.platform"),
         allowDeselect: true,
+        showSearch: preparedData.length > 9,
       }}
       events={{
         afterChange: (newOptions) => {
