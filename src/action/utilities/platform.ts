@@ -24,7 +24,7 @@ export function platformFilter(value: string) {
 
   const valueUp = value.toUpperCase();
   switch (valueUp) {
-    case "ARM ARCHCITECTURE":
+    case "ARM ARCHITECTURE":
     case "GTK":
     case "X86":
     case "X86-64":
@@ -171,15 +171,15 @@ const platforms: {
 
 export function platformValueToDisplay(value: string) {
   // Remove version
-  value = trim(value.replaceAll(/[0-9]+(\.[0-9]+)+\+?$/gi, ""));
+  value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
 
   for (const platform of platforms) {
     for (const version of platform.version) {
-      if (version.synonym.filter((s) => equalsIgnoreCase(s, value)).length > 0)
+      if (version.synonym.find((s) => equalsIgnoreCase(s, value)))
         return platform.name;
     }
 
-    if (platform.synonym.filter((s) => equalsIgnoreCase(s, value)).length > 0)
+    if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
       return platform.name;
   }
   return value;
