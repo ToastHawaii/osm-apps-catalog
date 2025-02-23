@@ -1,17 +1,45 @@
 import { useSearchParams } from "react-router";
 import { State } from "../State";
 import { useReducer } from "react";
+import { languageValueToDisplay } from "../ui/utilities/language";
+import { getUserRegion } from "./getUserRegion";
+import { getUserOS } from "./getUserOS";
+import { filter, isNil, omitBy, uniq } from "lodash";
 
-export function useAppState(defaultInit: {
-  languages: string[];
-  coverage: string[];
-  platforms: string[];
-}) {
-  const [searchParams, setSearchParams] = useSearchParams({
-    languages: defaultInit.languages.join("+"),
-    coverage: defaultInit.coverage.join("+"),
-    platforms: defaultInit.platforms.join("+"),
-  });
+export function useAppState() {
+  let initState: {
+    languages: string[];
+    coverage: string[];
+    platforms: string[];
+  } = { languages: [], coverage: [], platforms: [] };
+  const [initSearchParams] = useSearchParams();
+  if (initSearchParams.size === 0) {
+    const userLanguages = navigator.languages.map((l) =>
+      languageValueToDisplay(l)
+    ) as string[];
+    const userRegion = getUserRegion();
+    const userPlatform = getUserOS();
+
+    initState = {
+      languages:
+        userLanguages.length > 0
+          ? uniq([languageValueToDisplay("en"), ...userLanguages])
+          : [],
+      coverage: userRegion ? uniq(["Worldwide", userRegion]) : [],
+      platforms: userPlatform ? uniq(["Web", userPlatform]) : [],
+    };
+  }
+
+  const [searchParams, setSearchParams] = useSearchParams(
+    omitBy(
+      {
+        languages: initState.languages.join("+"),
+        coverage: initState.coverage.join("+"),
+        platforms: initState.platforms.join("+"),
+      },
+      (v) => v.length === 0
+    )
+  );
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
   const app = searchParams.get("app")
@@ -72,7 +100,11 @@ export function useAppState(defaultInit: {
     },
     function (category: string) {
       if (category === "all") {
-        setSearchParams({});
+        setSearchParams(searchParams);
+        setTimeout(() => {
+          setSearchParams({});
+        }, 0);
+        return;
       }
       setSearchParams({
         category,

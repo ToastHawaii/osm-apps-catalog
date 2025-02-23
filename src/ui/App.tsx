@@ -23,19 +23,13 @@ import { LazyInitMore } from "./components/LazyInitMore";
 import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
-import { languageValueToDisplay } from "./utilities/language";
 
 import "./style.scss";
-import { getUserRegion } from "../utilities/getUserRegion";
-import { getUserOS } from "../utilities/getUserOS";
 
 export function App() {
   const { t } = useTranslation();
-  const [state, setAppState, resetAppState] = useAppState({
-    languages: uniq(navigator.languages.map((l) => languageValueToDisplay(l))),
-    coverage: uniq(["Worldwide", getUserRegion()].filter((c) => c) as string[]),
-    platforms: uniq(["Web", getUserOS()].filter((c) => c) as string[]),
-  });
+
+  const [state, setAppState, resetAppState] = useAppState();
   const apps = useData();
   const [moreFilters, setMoreFilters] = useState(false);
 
@@ -98,8 +92,8 @@ export function App() {
             <Trans
               i18nKey={`category.all.description.filtered`}
               values={{
-                numberOfApps: filteredApps.length || "",
-                totalNumberOfApps: apps.length || "",
+                numberOfApps: filteredApps.length,
+                totalNumberOfApps: apps.length,
               }}
               components={{
                 o: <a href="https://openstreetmap.org/" target="_blank" />,
@@ -109,7 +103,7 @@ export function App() {
             <Trans
               i18nKey={`category.${state.category}.description`}
               values={{
-                numberOfApps: filteredApps.length || "",
+                numberOfApps: filteredApps.length,
               }}
               components={{
                 o: <a href="https://openstreetmap.org/" target="_blank" />,
@@ -117,40 +111,29 @@ export function App() {
               }}
             />
           )}
+
+          {(!!state.app ||
+            state.search.length > 0 ||
+            state.topics.length > 0 ||
+            state.platforms.length > 0 ||
+            state.languages.length > 0 ||
+            state.coverage.length > 0 ||
+            state.contribute.length > 0) && (
+            <>
+              {" "}
+              <button
+                className="reset-filters"
+                onClick={() => {
+                  resetAppState(state.category);
+                }}
+              >
+                {t("filter.resetFilters")}
+              </button>
+            </>
+          )}
         </p>
         {!state.app && (
           <>
-            {!moreFilters &&
-              (state.topics.length > 0 ||
-                state.platforms.length > 0 ||
-                state.languages.length > 0 ||
-                state.coverage.length > 0 ||
-                state.contribute.length > 0) && (
-                <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
-                  {"Dir werden Apps angezeigt für:"}{" "}
-                  {uniq(
-                    [
-                      ...state.topics,
-                      ...state.platforms,
-                      ...state.languages,
-                      ...state.coverage,
-                      ...state.contribute,
-                    ].filter((v) => v)
-                  ).map((v) => (
-                    <>
-                      <span className="filter-value">{v}</span>{" "}
-                    </>
-                  ))}
-                  <button
-                    className="reset-filters"
-                    onClick={() => {
-                      resetAppState(state.category);
-                    }}
-                  >
-                    {t("filter.resetFilters")}
-                  </button>
-                </p>
-              )}
             {state.category !== "focus" && (
               <>
                 <Search
@@ -174,7 +157,31 @@ export function App() {
           </>
         )}
         <hr style={{ border: "1px solid #ccc" }} />
-        {state.category !== "focus" && !state.app && moreFilters && (
+        {!state.app &&
+          !moreFilters &&
+          (state.topics.length > 0 ||
+            state.platforms.length > 0 ||
+            state.languages.length > 0 ||
+            state.coverage.length > 0 ||
+            state.contribute.length > 0) && (
+            <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
+              {t("filter.preview")}{" "}
+              {uniq(
+                [
+                  ...state.topics,
+                  ...state.platforms,
+                  ...state.languages,
+                  ...state.coverage,
+                  ...state.contribute,
+                ].filter((v) => v)
+              ).map((v) => (
+                <>
+                  <span className="filter-value">{v}</span>{" "}
+                </>
+              ))}
+            </p>
+          )}
+        {!state.app && moreFilters && (
           <span className="advanced-filter">
             <TopicSelect
               apps={filteredApps}
