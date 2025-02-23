@@ -4110,18 +4110,18 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // pkg/dist-src/index.js
-var dist_src_exports = {};
-__export(dist_src_exports, {
+var index_exports = {};
+__export(index_exports, {
   GraphqlResponseError: () => GraphqlResponseError,
   graphql: () => graphql2,
   withCustomRequest: () => withCustomRequest
 });
-module.exports = __toCommonJS(dist_src_exports);
+module.exports = __toCommonJS(index_exports);
 var import_request3 = __nccwpck_require__(8636);
 var import_universal_user_agent = __nccwpck_require__(3843);
 
 // pkg/dist-src/version.js
-var VERSION = "7.1.0";
+var VERSION = "7.1.1";
 
 // pkg/dist-src/with-defaults.js
 var import_request2 = __nccwpck_require__(8636);
@@ -4169,8 +4169,7 @@ function graphql(request2, query, options) {
       );
     }
     for (const key in options) {
-      if (!FORBIDDEN_VARIABLE_OPTIONS.includes(key))
-        continue;
+      if (!FORBIDDEN_VARIABLE_OPTIONS.includes(key)) continue;
       return Promise.reject(
         new Error(
           `[@octokit/graphql] "${key}" cannot be used as variable name`
@@ -76150,7 +76149,7 @@ function transformWikidataResult(result) {
         name: result.itemLabel.value || "",
         lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
         description: result.description?.value || "",
-        images: result.image?.value ? [result.image.value] : [],
+        images: (result.images?.value || "").split(";").filter((v) => v),
         website: result.web?.value || result.webDef?.value
             ? new URL(result.web?.value || result.webDef?.value).toString()
             : "",
@@ -76226,7 +76225,7 @@ function requestWikidata(lg) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
-  (SAMPLE(?image) AS ?image) 
+  (GROUP_CONCAT(DISTINCT ?image; SEPARATOR = ";") AS ?images) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)

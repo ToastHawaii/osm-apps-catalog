@@ -68,7 +68,7 @@ export function transformWikidataResult(result: any) {
     name: result.itemLabel.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
-    images: result.image?.value ? [result.image.value] : [],
+    images: (result.images?.value || "").split(";").filter((v: any) => v),
     website:
       result.web?.value || result.webDef?.value
         ? new URL(result.web?.value || result.webDef?.value).toString()
@@ -153,7 +153,7 @@ export function requestWikidata(lg: string) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
-  (SAMPLE(?image) AS ?image) 
+  (GROUP_CONCAT(DISTINCT ?image; SEPARATOR = ";") AS ?images) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
