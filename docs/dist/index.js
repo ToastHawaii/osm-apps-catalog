@@ -60260,7 +60260,7 @@ function addApp(apps, obj) {
                 obj.install.microsoftAppID ||
                 obj.sourceCode)) {
             obj.id = calcId(obj);
-            obj.score = calculateScore(obj).total;
+            // obj.score = calculateScore(obj).total;
             apps.push(obj);
         }
     }

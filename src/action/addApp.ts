@@ -52,7 +52,7 @@ export function addApp(apps: App[], obj: App) {
         obj.sourceCode)
     ) {
       obj.id = calcId(obj);
-      obj.score = calculateScore(obj).total;
+      // obj.score = calculateScore(obj).total;
       apps.push(obj);
     }
   } else {
