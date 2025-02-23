@@ -299,18 +299,20 @@ a.link-create {
   position: fixed;
   inset: 0px;
   z-index: 10000000;
-  backdrop-filter: blur(50px);
-  background-color: rgba(51, 51, 51, 0.5);
+  backdrop-filter: blur(20px);
+  background-color: rgba(180, 180, 180, 0.8);
   overflow: auto;
   padding: 20px;
   align-items: anchor-center;
-  display: inline-flex;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
   gap: 15px;
   scroll-snap-type: x;
   scroll-padding-left: 15px;
 
   > img {
-    max-width: min(720px, 100vw - 50px);
+    max-width: min(720px, max(480px, 100vw - 50px));
     max-height: calc(100% - 40px);
     scroll-snap-align: start;
   }
