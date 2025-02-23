@@ -75661,8 +75661,7 @@ function layer_transform(source) {
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 function display(a) {
-    return a.topics
-        .map((t) => t.toUpperCase())
+    return a.cache.topics
         .some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
 }
 const mobilePlatforms = (/* unused pure expression or super */ null && ([
@@ -75682,15 +75681,11 @@ const mobilePlatforms = (/* unused pure expression or super */ null && ([
     "ZAURUS",
 ]));
 function web(a) {
-    return a.platform.some((p) => ["web", "web-based", "webapp", "web-app", "browser"].includes(p.toLowerCase()));
+    return a.cache.platform.some((p) => p === "WEB");
 }
 function mobile(a) {
-    return (a.topics
-        .map((t) => t.toUpperCase())
-        .some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        a.platform
-            .map((t) => t.toUpperCase())
-            .some((t) => mobilePlatforms.includes(t)) ||
+    return (a.cache.topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        a.cache.platform.some((t) => mobilePlatforms.includes(t)) ||
         a.install.asin ||
         a.install.fDroidID ||
         a.install.obtainiumLink ||
@@ -75699,15 +75694,11 @@ function mobile(a) {
         a.install.appleStoreID);
 }
 function navigation(a) {
-    return a.topics
-        .map((t) => t.toUpperCase())
-        .some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+    return a.cache.topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
 }
 function edit(a) {
     return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        a.topics
-            .map((t) => t.toUpperCase())
-            .some((t) => [
+        a.cache.topics.some((t) => [
             "ADD POIS",
             "EDIT",
             "EDITING",

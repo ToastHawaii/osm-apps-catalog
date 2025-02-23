@@ -94,42 +94,30 @@ export function filter({
   if (search) {
     filteredApps = filteredApps.filter(
       (a) =>
-        a.name.toUpperCase().indexOf(search) !== -1 ||
-        a.description.toUpperCase().indexOf(search) !== -1 ||
-        a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1).length >
-          0 ||
-        a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0 ||
-        a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-          .length > 0
+        a.name.toUpperCase().includes(search) ||
+        a.description.toUpperCase().indexOf(search) ||
+        a.cache.topics.some((t) => t.includes(search)) ||
+        a.cache.platform.some((t) => t.includes(search)) ||
+        a.cache.coverage.some((t) => t.includes(search))
     );
   }
 
   const topicsUp = topics.map((t) => t.toUpperCase());
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      includes(
-        a.topics.map((t) => t.toUpperCase()),
-        topicsUp
-      )
+      includes(a.cache.topics, topicsUp)
     );
 
   const platformsUp = platforms.map((t) => t.toUpperCase());
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      some(
-        a.platform.map((t) => t.toUpperCase()),
-        platformsUp
-      )
+      some(a.cache.platform, platformsUp)
     );
 
   const languagesUp = languages.map((t) => t.toUpperCase());
   if (languagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      some(
-        a.languages.map((t) => t.toUpperCase()),
-        languagesUp
-      )
+      some(a.cache.languages, languagesUp)
     );
 
   const coverageUp = coverage.map((t) => t.toUpperCase());
@@ -137,18 +125,16 @@ export function filter({
   if (coverageUp.length > 0) {
     filteredApps = filteredApps.filter(
       (a) =>
-        !!a.coverage
-          .map((a) => a.toUpperCase())
-          .find((a) =>
-            coverageUp.find((c) => a.startsWith(c) || c.startsWith(a))
-          ) ||
+        a.cache.coverage.some((a) =>
+          coverageUp.some((c) => a.startsWith(c) || c.startsWith(a))
+        ) ||
         (containsWorldWide && a.coverage.length === 0)
     );
   }
 
   if (contribute.includes("discuss")) {
-    filteredApps = filteredApps.filter(
-      (app) => Object.values(app.community).filter((v) => v).length > 0
+    filteredApps = filteredApps.filter((app) =>
+      Object.values(app.community).some((v) => v)
     );
   }
   if (contribute.includes("test")) {
@@ -171,18 +157,16 @@ export function filter({
     filteredApps = filteredApps.filter(
       (app) =>
         equalsYes(...(app.editing?.createNotes || [])) ||
-        app.topics
-          .map((topic) => topic.toUpperCase())
-          .some((topic) =>
-            [
-              "ADD POIS",
-              "EDIT",
-              "EDITING",
-              "EDITOR",
-              "EDITOR SOFTWARE",
-              "EDITOR TOOL",
-            ].includes(topic)
-          )
+        app.cache.topics.some((topic) =>
+          [
+            "ADD POIS",
+            "EDIT",
+            "EDITING",
+            "EDITOR",
+            "EDITOR SOFTWARE",
+            "EDITOR TOOL",
+          ].includes(topic)
+        )
     );
   }
   if (contribute.includes("resolve")) {
@@ -192,9 +176,9 @@ export function filter({
   }
   if (contribute.includes("review")) {
     filteredApps = filteredApps.filter((app) =>
-      app.topics
-        .map((topic) => topic.toUpperCase())
-        .some((topic) => ["CHANGESET REVIEW TOOL"].includes(topic))
+      app.cache.topics.some((topic) =>
+        ["CHANGESET REVIEW TOOL"].includes(topic)
+      )
     );
   }
   if (contribute.includes("photos")) {
@@ -209,13 +193,11 @@ export function filter({
   }
   if (contribute.includes("qa")) {
     filteredApps = filteredApps.filter((app) =>
-      app.topics
-        .map((topic) => topic.toUpperCase())
-        .some((topic) =>
-          ["ANALYSE", "ANALYSER", "ANALYSIS", "QA", "QUALITY CONTROL"].includes(
-            topic
-          )
+      app.cache.topics.some((topic) =>
+        ["ANALYSE", "ANALYSER", "ANALYSIS", "QA", "QUALITY CONTROL"].includes(
+          topic
         )
+      )
     );
   }
   if (contribute.includes("welcome")) {
@@ -235,46 +217,34 @@ export function filter({
       similarApps = similarApps.filter((a) =>
         topicsUp.every(
           (t) =>
-            a.name.toUpperCase().indexOf(t) !== -1 ||
-            a.description.toUpperCase().indexOf(t) !== -1
+            a.name.toUpperCase().includes(t) ||
+            a.description.toUpperCase().includes(t)
         )
       );
 
       if (search)
         similarApps = similarApps.filter(
           (a) =>
-            a.name.toUpperCase().indexOf(search) !== -1 ||
-            a.description.toUpperCase().indexOf(search) !== -1 ||
-            a.topics.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-              .length > 0 ||
-            a.platform.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-              .length > 0 ||
-            a.coverage.filter((t) => t.toUpperCase().indexOf(search) !== -1)
-              .length > 0
+            a.name.toUpperCase().includes(search) ||
+            a.description.toUpperCase().includes(search) ||
+            a.cache.topics.filter((t) => t.includes(search)).length > 0 ||
+            a.cache.platform.filter((t) => t.includes(search)).length > 0 ||
+            a.cache.coverage.filter((t) => t.includes(search)).length > 0
         );
 
       if (platformsUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          includes(
-            a.platform.map((t) => t.toUpperCase()),
-            platformsUp
-          )
+          includes(a.cache.platform, platformsUp)
         );
 
       if (languagesUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          some(
-            a.languages.map((t) => t.toUpperCase()),
-            languagesUp
-          )
+          some(a.cache.languages, languagesUp)
         );
 
       if (coverageUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          some(
-            a.coverage.map((t) => t.toUpperCase()),
-            coverageUp
-          )
+          some(a.cache.coverage, coverageUp)
         );
     }
     return similarApps;

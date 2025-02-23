@@ -142,5 +142,9 @@ export type App = {
       }[];
     };
     filter?: string;
+    topics: string[];
+    platform: string[];
+    languages: string[];
+    coverage: string[];
   };
 };
