@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import { languageValueToDisplay } from "../ui/utilities/language";
 import { getUserRegion } from "./getUserRegion";
 import { getUserOS } from "./getUserOS";
-import { filter, isNil, omitBy, uniq } from "lodash";
+import { pickBy, uniq } from "lodash";
 
 export function useAppState() {
   let initState: {
@@ -31,26 +31,26 @@ export function useAppState() {
   }
 
   const [searchParams, setSearchParams] = useSearchParams(
-    omitBy(
+    pickBy(
       {
         languages: initState.languages.join("+"),
         coverage: initState.coverage.join("+"),
         platforms: initState.platforms.join("+"),
       },
-      (v) => v.length === 0
+      (v) => v
     )
   );
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
   const app = searchParams.get("app")
-    ? parseInt(searchParams.get("app") as string, 10)
+    ? parseInt(searchParams.get("app") || "", 10)
     : undefined;
 
   return [
     {
       lang: searchParams.get("lang") || "",
       app: searchParams.get("app")
-        ? parseInt(searchParams.get("app") as string, 10)
+        ? parseInt(searchParams.get("app") || "", 10)
         : undefined,
       search: searchParams.get("search") || "",
       topics: searchParams.get("topics")?.split("+") || [],

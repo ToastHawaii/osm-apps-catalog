@@ -11,7 +11,7 @@ import { CoverageSelect } from "./components/CoverageSelect";
 import { ContributeSelect } from "./components/ContributeSelect";
 import { useData } from "../useData";
 import { Filters } from "./components/filters";
-import { debounce, uniq } from "lodash";
+import { chain, debounce } from "lodash";
 import { useAppState } from "../utilities/useAppState";
 import { filter } from "../utilities/filter";
 import { LazyLoadImages } from "./components/LazyLoadImages";
@@ -166,19 +166,21 @@ export function App() {
             state.contribute.length > 0) && (
             <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
               {t("filter.preview")}{" "}
-              {uniq(
-                [
-                  ...state.topics,
-                  ...state.platforms,
-                  ...state.languages,
-                  ...state.coverage,
-                  ...state.contribute,
-                ].filter((v) => v)
-              ).map((v) => (
-                <>
-                  <span className="filter-value">{v}</span>{" "}
-                </>
-              ))}
+              {chain([
+                ...state.topics,
+                ...state.platforms,
+                ...state.languages,
+                ...state.coverage,
+                ...state.contribute,
+              ])
+                .filter((v) => !!v)
+                .uniq()
+                .map((v) => (
+                  <>
+                    <span className="filter-value">{v}</span>{" "}
+                  </>
+                ))
+                .value()}
             </p>
           )}
         {!state.app && moreFilters && (
