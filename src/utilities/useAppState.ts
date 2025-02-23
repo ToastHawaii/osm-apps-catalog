@@ -101,10 +101,10 @@ export function useAppState() {
     },
     function (category: string) {
       if (category === "all") {
-        setSearchParams(searchParams);
+        setSearchParams(() => searchParams);
         setTimeout(() => {
-          setSearchParams({});
-        }, 0);
+          setSearchParams(() => ({}));
+        }, 10);
         return;
       }
       setSearchParams({
