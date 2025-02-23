@@ -11,7 +11,7 @@ import { CoverageSelect } from "./components/CoverageSelect";
 import { ContributeSelect } from "./components/ContributeSelect";
 import { useData } from "../useData";
 import { Filters } from "./components/filters";
-import { debounce } from "lodash";
+import { chain, debounce } from "lodash";
 import { useAppState } from "../utilities/useAppState";
 import { filter } from "../utilities/filter";
 import { LazyLoadImages } from "./components/LazyLoadImages";
@@ -28,15 +28,10 @@ import "./style.scss";
 
 export function App() {
   const { t } = useTranslation();
-  const [state, setAppState, resetAppState] = useAppState();
+
+  const [state, setAppState, resetAppState, isInitState] = useAppState();
   const apps = useData();
-  const [moreFilters, setMoreFilters] = useState(
-    state.topics.length > 0 ||
-      state.platforms.length > 0 ||
-      state.languages.length > 0 ||
-      state.coverage.length > 0 ||
-      state.contribute.length > 0
-  );
+  const [moreFilters, setMoreFilters] = useState(false);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
   if (filteredApps.length > 300 && state.view !== "list") {
@@ -91,14 +86,14 @@ export function App() {
           </a>
           <About />
         </h1>
-        <p className="description" style={{ margin: "5px 10px 10px" }}>
+        <p className="description" style={{ margin: "5px 10px" }}>
           {(state.category === "all" && filteredApps.length !== apps.length) ||
           !!state.app ? (
             <Trans
               i18nKey={`category.all.description.filtered`}
               values={{
-                numberOfApps: filteredApps.length || "",
-                totalNumberOfApps: apps.length || "",
+                numberOfApps: filteredApps.length,
+                totalNumberOfApps: apps.length,
               }}
               components={{
                 o: <a href="https://openstreetmap.org/" target="_blank" />,
@@ -108,13 +103,33 @@ export function App() {
             <Trans
               i18nKey={`category.${state.category}.description`}
               values={{
-                numberOfApps: filteredApps.length || "",
+                numberOfApps: filteredApps.length,
               }}
               components={{
                 o: <a href="https://openstreetmap.org/" target="_blank" />,
                 s: <a href="/docs/score" />,
               }}
             />
+          )}
+
+          {(!!state.app ||
+            state.search.length > 0 ||
+            state.topics.length > 0 ||
+            state.platforms.length > 0 ||
+            state.languages.length > 0 ||
+            state.coverage.length > 0 ||
+            state.contribute.length > 0) && (
+            <>
+              {" "}
+              <button
+                className="reset-filters"
+                onClick={() => {
+                  resetAppState(state.category);
+                }}
+              >
+                {t("filter.resetFilters")}
+              </button>
+            </>
           )}
         </p>
         {!state.app && (
@@ -142,7 +157,33 @@ export function App() {
           </>
         )}
         <hr style={{ border: "1px solid #ccc" }} />
-        {state.category !== "focus" && !state.app && moreFilters && (
+        {!state.app &&
+          !moreFilters &&
+          (state.topics.length > 0 ||
+            state.platforms.length > 0 ||
+            state.languages.length > 0 ||
+            state.coverage.length > 0 ||
+            state.contribute.length > 0) && (
+            <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
+              {t("filter.preview")}{" "}
+              {chain([
+                ...state.topics,
+                ...state.platforms,
+                ...state.languages,
+                ...state.coverage,
+                ...state.contribute,
+              ])
+                .filter((v) => !!v)
+                .uniq()
+                .map((v) => (
+                  <>
+                    <span className="filter-value">{v}</span>{" "}
+                  </>
+                ))
+                .value()}
+            </p>
+          )}
+        {!state.app && moreFilters && (
           <span className="advanced-filter">
             <TopicSelect
               apps={filteredApps}
@@ -182,7 +223,12 @@ export function App() {
           {state.view !== "compare" ? (
             <div id="list">
               {filteredApps.length > 0 ? (
-                <PagedList apps={filteredApps} open={!!state.app} state={state}>
+                <PagedList
+                  apps={filteredApps}
+                  open={!!state.app}
+                  state={state}
+                  isInitState={isInitState()}
+                >
                   <RelatedApps
                     findSimilarApps={findSimilarApps}
                     state={state}

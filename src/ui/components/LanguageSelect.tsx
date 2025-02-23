@@ -15,7 +15,6 @@ export function LanguageSelect({
   onChange: (newValues: string[]) => void;
 }) {
   const { t } = useTranslation();
-
   const data = selected.slice();
 
   data.push(...apps.flatMap((app) => app.languages.map((v) => v)));

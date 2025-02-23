@@ -19,7 +19,7 @@ import i18next from "i18next";
 
 const languages: {
   code: string;
-  display: any;
+  display: string | (() => string);
 }[] = [
   { code: "aa", display: "Afar" },
   { code: "ab", display: "Аҧсуа" },
@@ -110,7 +110,11 @@ const languages: {
   { code: "ha", display: "هَوُسَ" },
   { code: "hak", display: "客家語/Hak-kâ-ngî" },
   { code: "haw", display: "Hawai`i" },
-  { code: "iw", display: "עברית" }, /* Früher war der offizielle ISO 639-1-Code für Hebräisch "iw", aber er wurde später zu "he" geändert. */
+  /* Früher war der offizielle ISO 639-1-Code für Hebräisch "iw", aber er wurde später zu "he" geändert. */
+  {
+    code: "iw",
+    display: "עברית",
+  },
   { code: "he", display: "עברית" },
   { code: "hi", display: "हिन्दी" },
   { code: "ho", display: "Hiri Motu" },

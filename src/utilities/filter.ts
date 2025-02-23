@@ -133,12 +133,16 @@ export function filter({
     );
 
   const coverageUp = coverage.map((t) => t.toUpperCase());
+  const containsWorldWide = coverageUp.includes("WORLDWIDE");
   if (coverageUp.length > 0) {
     filteredApps = filteredApps.filter(
       (a) =>
         !!a.coverage
           .map((a) => a.toUpperCase())
-          .find((a) => coverageUp.find((c) => a.startsWith(c) || c.startsWith(a)))
+          .find((a) =>
+            coverageUp.find((c) => a.startsWith(c) || c.startsWith(a))
+          ) ||
+        (containsWorldWide && a.coverage.length === 0)
     );
   }
 

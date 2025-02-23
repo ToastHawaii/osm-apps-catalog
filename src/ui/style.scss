@@ -244,6 +244,32 @@ a.link-create {
   content: "/ ";
 }
 
+.reset-filters {
+  color: #666;
+  border: 1px solid #666;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-radius: 4px;
+
+  &.active,
+  &:hover {
+    color: #007aff;
+    border: 1px solid #007aff;
+  }
+}
+
+
+.filter-value {
+  background-color: #007aff;
+  color: white;
+  padding: 3px 5px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
 .advanced-filter {
   display: flex;
   justify-content: center;

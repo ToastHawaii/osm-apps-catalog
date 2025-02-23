@@ -29,10 +29,12 @@ export function List({
   app,
   state,
   open = false,
+  isInitState,
 }: {
   app: App;
   open: boolean;
   state?: State;
+  isInitState?: boolean;
 }) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
@@ -177,14 +179,17 @@ export function List({
 
       <div className="more-infos"></div>
       {isOpen && <div className="more-infos-title">{t("list.moreInfos")}</div>}
-      {(isOpen || !!state?.platforms.length) && app.platform.length > 0 && (
-        <div
-          className={`more-info${!!state?.platforms.length ? " focus" : ""}`}
-        >
-          <span className="more-info-title">{t("app.platforms")}</span>
-          <span className="more-info-text">{app.platform.join(", ")}</span>
-        </div>
-      )}
+      {(isOpen || (!!state?.platforms.length && !isInitState)) &&
+        app.platform.length > 0 && (
+          <div
+            className={`more-info${
+              !!state?.platforms.length && !isInitState ? " focus" : ""
+            }`}
+          >
+            <span className="more-info-title">{t("app.platforms")}</span>
+            <span className="more-info-text">{app.platform.join(", ")}</span>
+          </div>
+        )}
       {isOpen && (app.lastRelease || app.unmaintained) && (
         <div className="more-info">
           <span className="more-info-title">{t("app.lastRelease")}</span>
@@ -208,12 +213,13 @@ export function List({
       )}
 
       {(isOpen ||
-        !!state?.languages.length ||
+        (!!state?.languages.length && !isInitState) ||
         state?.contribute.includes("translate")) &&
       app.languagesUrl ? (
         <a
           className={`more-info${
-            !!state?.languages.length || state?.contribute.includes("translate")
+            (!!state?.languages.length && !isInitState) ||
+            state?.contribute.includes("translate")
               ? " focus"
               : ""
           }`}
@@ -230,24 +236,31 @@ export function List({
           </span>
         </a>
       ) : (
-        (isOpen || !!state?.languages.length) &&
+        (isOpen || (!!state?.languages.length && !isInitState)) &&
         app.languages.length > 0 && (
           <div
-            className={`more-info${!!state?.languages.length ? " focus" : ""}`}
+            className={`more-info${
+              !!state?.languages.length && !isInitState ? " focus" : ""
+            }`}
           >
             <span className="more-info-title">{t("app.languages")}</span>
             <span className="more-info-text">{app.languages.join(", ")}</span>
           </div>
         )
       )}
-      {(isOpen || !!state?.coverage.length) && app.coverage.length > 0 && (
-        <div className={`more-info${!!state?.coverage.length ? " focus" : ""}`}>
-          <span className="more-info-title">{t("app.coverage")}</span>
-          <span className="more-info-text">
-            {app.coverage[app.coverage.length - 1]}
-          </span>
-        </div>
-      )}
+      {(isOpen || (!!state?.coverage.length && !isInitState)) &&
+        app.coverage.length > 0 && (
+          <div
+            className={`more-info${
+              !!state?.coverage.length && !isInitState ? " focus" : ""
+            }`}
+          >
+            <span className="more-info-title">{t("app.coverage")}</span>
+            <span className="more-info-text">
+              {app.coverage[app.coverage.length - 1]}
+            </span>
+          </div>
+        )}
       {(isOpen ||
         state?.contribute.includes("discuss") ||
         state?.contribute.includes("test")) &&

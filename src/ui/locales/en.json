@@ -4,6 +4,8 @@
   "compare": "Compare",
   "filter.search": "Search",
   "filter.moreFilters": "Filters",
+  "filter.resetFilters": "Show all",
+  "filter.preview": "Apps are displayed for:",
   "filter.topic": "Topic",
   "filter.platform": "Platform",
   "filter.language": "Language",
