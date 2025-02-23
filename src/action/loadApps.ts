@@ -68,7 +68,7 @@ export async function loadApps() {
   for (const wikidataResult of wikidataResults)
     for (const source of wikidataResult.results.bindings) {
       const obj: App = transformWikidataResult(source);
-      addApp(apps, obj);
+      // addApp(apps, obj);
     }
 
   // const projectObjects = (await getJson(
