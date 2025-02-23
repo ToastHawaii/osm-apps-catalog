@@ -5,7 +5,7 @@ export function getUserOS() {
 
   if (
     ["iphone", "ipad", "ipod"].indexOf(platform.toLowerCase()) !== -1 ||
-    (userAgent.match(/Mac/) && navigator.maxTouchPoints)
+    (/mac/.test(userAgent) && navigator.maxTouchPoints)
   ) {
     return "iOS";
   } else if (/mac/.test(platform.toLowerCase())) {
