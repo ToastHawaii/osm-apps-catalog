@@ -72,14 +72,7 @@ export function Compare({
             label: () => "",
             description: () => "",
             hasValue: (app) => app.images.length > 0,
-            renderToHtml: (app) =>
-              app.website ? (
-                <a target="_blank" href={app.website}>
-                  <Image app={app} />
-                </a>
-              ) : (
-                <Image app={app} />
-              ),
+            renderToHtml: (app) => <Image app={app} />,
             renderToWiki: (app) =>
               app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
             centered: true,
@@ -371,7 +364,8 @@ export function Compare({
               ),
             more: true,
             focus:
-              !!state?.languages.length || state?.contribute.includes("translate"),
+              !!state?.languages.length ||
+              state?.contribute.includes("translate"),
           },
           {
             label: (lang) => t("app.props.coverage.label", { lng: lang }),
@@ -548,7 +542,8 @@ export function Compare({
                 .filter((o) => o)
                 .join(", "),
             focus:
-              state?.contribute.includes("discuss") || state?.contribute.includes("test"),
+              state?.contribute.includes("discuss") ||
+              state?.contribute.includes("test"),
           },
           {
             label: (lang) => t("app.props.author.label", { lng: lang }),

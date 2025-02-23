@@ -260,7 +260,6 @@ a.link-create {
   }
 }
 
-
 .filter-value {
   background-color: #007aff;
   color: white;
@@ -294,6 +293,27 @@ a.link-create {
   border-radius: 0.28571429rem;
   overflow: hidden;
   position: relative;
+}
+
+.carousel {
+  position: fixed;
+  inset: 0px;
+  z-index: 10000000;
+  backdrop-filter: blur(50px);
+  background-color: rgba(51, 51, 51, 0.5);
+  overflow: auto;
+  padding: 20px;
+  align-items: anchor-center;
+  display: inline-flex;
+  gap: 15px;
+  scroll-snap-type: x;
+  scroll-padding-left: 15px;
+
+  > img {
+    max-width: min(720px, 100vw - 50px);
+    max-height: calc(100% - 40px);
+    scroll-snap-align: start;
+  }
 }
 
 .app-page {

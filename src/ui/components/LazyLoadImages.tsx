@@ -20,7 +20,7 @@ import React, { useEffect } from "react";
 let scrollTop = 0;
 let scrollLeft = 0;
 
-async function isImage(src: string) {
+export async function isImage(src: string) {
   return new Promise<boolean>((resolve) => {
     const img = new Image();
     img.addEventListener("load", () => {

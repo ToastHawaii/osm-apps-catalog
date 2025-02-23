@@ -56,13 +56,7 @@ export function List({
             )}
           </h4>
         </div>
-        {app.website ? (
-          <a href={app.website} target="_blank" title={app.name}>
-            <Image app={app} />
-          </a>
-        ) : (
-          <Image app={app} />
-        )}
+        <Image app={app} />
       </div>
 
       <p>
