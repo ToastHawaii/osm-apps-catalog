@@ -18,8 +18,10 @@
 import { App } from "../data/App";
 
 export function display(a: App) {
-  return a.cache.topics
-    .some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t)
+  );
 }
 
 const mobilePlatforms = [
@@ -40,13 +42,16 @@ const mobilePlatforms = [
 ];
 
 export function web(a: App) {
-  return a.cache.platform.some((p) => p === "WEB");
+  const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+  return platform.some((p) => p === "WEB");
 }
 
 export function mobile(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
   return (
-    a.cache.topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-    a.cache.platform.some((t) => mobilePlatforms.includes(t)) ||
+    topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+    platform.some((t) => mobilePlatforms.includes(t)) ||
     a.install.asin ||
     a.install.fDroidID ||
     a.install.obtainiumLink ||
@@ -57,15 +62,17 @@ export function mobile(a: App) {
 }
 
 export function navigation(a: App) {
-  return a.cache.topics.some((t) =>
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
     ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t)
   );
 }
 
 export function edit(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return (
     a.hasGoal?.crowdsourcingStreetLevelImagery ||
-    a.cache.topics.some((t) =>
+    topics.some((t) =>
       [
         "ADD POIS",
         "EDIT",

@@ -75660,8 +75660,8 @@ function layer_transform(source) {
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 function display(a) {
-    return a.cache.topics
-        .some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
 }
 const mobilePlatforms = (/* unused pure expression or super */ null && ([
     "ANDROID",
@@ -75680,11 +75680,14 @@ const mobilePlatforms = (/* unused pure expression or super */ null && ([
     "ZAURUS",
 ]));
 function web(a) {
-    return a.cache.platform.some((p) => p === "WEB");
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return platform.some((p) => p === "WEB");
 }
 function mobile(a) {
-    return (a.cache.topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        a.cache.platform.some((t) => mobilePlatforms.includes(t)) ||
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        platform.some((t) => mobilePlatforms.includes(t)) ||
         a.install.asin ||
         a.install.fDroidID ||
         a.install.obtainiumLink ||
@@ -75693,11 +75696,13 @@ function mobile(a) {
         a.install.appleStoreID);
 }
 function navigation(a) {
-    return a.cache.topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
 }
 function edit(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
     return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        a.cache.topics.some((t) => [
+        topics.some((t) => [
             "ADD POIS",
             "EDIT",
             "EDITING",
@@ -76129,8 +76134,8 @@ function extractGenre(result) {
     if (result.welcomingTool?.value === "yes") {
         genre.push("Welcoming tool");
     }
-    if (result.streetLevelImageryService?.value === "yes" ||
-        result.streetLevelImagery?.value === "yes") {
+    if (result.streetImgSv?.value === "yes" ||
+        result.streetImg?.value === "yes") {
         genre.push("Street-level imagery");
     }
     return genre;
@@ -76149,7 +76154,7 @@ function transformWikidataResult(result) {
         name: result.itemLabel.value || "",
         lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
         description: result.description?.value || "",
-        images: result.image?.value ? [result.image.value] : [],
+        images: (result.images?.value || "").split(";").filter((v) => v),
         website: result.web?.value || result.webDef?.value
             ? new URL(result.web?.value || result.webDef?.value).toString()
             : "",
@@ -76191,7 +76196,7 @@ function transformWikidataResult(result) {
             microsoftAppID: result.microsoftAppID?.value,
         },
         hasGoal: {
-            crowdsourcingStreetLevelImagery: result.streetLevelImagery,
+            crowdsourcingStreetLevelImagery: result.streetImg,
         },
         community: {
             forum: result.forum?.value || result.forumDef?.value,
@@ -76225,7 +76230,7 @@ function requestWikidata(lg) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
-  (SAMPLE(?image) AS ?image) 
+  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?images) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
@@ -76253,7 +76258,7 @@ SELECT DISTINCT
   ?monitoring
   ?changsetReview
   ?welcomingTool
-  ?streetLevelImagery
+  ?streetImg
   (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
   (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
@@ -76285,7 +76290,7 @@ WHERE {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${lg}")
   }
-  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P18 ?img. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
@@ -76379,14 +76384,14 @@ WHERE {
   }  
   OPTIONAL { 
     ?item wdt:P31 wd:Q86715518.
-    BIND("yes" AS ?streetLevelImageryService)
+    BIND("yes" AS ?streetImgSv)
   }  
   OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
     ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("yes" AS ?streetLevelImagery)
+    BIND("yes" AS ?streetImg)
   }
   OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
@@ -76421,8 +76426,8 @@ GROUP BY ?item
          ?monitoring 
          ?changsetReview 
          ?welcomingTool
-         ?streetLevelImageryService
-         ?streetLevelImagery
+         ?streetImgSv
+         ?streetImg
          ?modified
 `.replace(/( |\n)+/g, " "));
     const lastRelease = request(`
