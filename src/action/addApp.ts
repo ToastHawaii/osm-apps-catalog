@@ -113,8 +113,8 @@ export function addApp(apps: App[], obj: App) {
 
     app.genre.push(...obj.genre);
     app.genre = uniq(app.genre);
-    app.topics.push(...obj.topics);
-    app.topics = uniq(app.topics).sort();
+    // app.topics.push(...obj.topics);
+    // app.topics = uniq(app.topics).sort();
 
     app.platform.push(...obj.platform);
     app.platform = uniq(app.platform).sort();
