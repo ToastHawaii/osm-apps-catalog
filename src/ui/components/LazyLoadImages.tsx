@@ -20,6 +20,20 @@ import React, { useEffect } from "react";
 let scrollTop = 0;
 let scrollLeft = 0;
 
+export async function isImageWithMinSize(src: string, size: number) {
+  return new Promise<boolean>((resolve) => {
+    const img = new Image();
+    img.addEventListener("load", () => {
+      resolve(img.width > size && img.height > size);
+    });
+    img.addEventListener("error", () => {
+      resolve(false);
+    });
+    img.src = src;
+    if (img.complete) resolve(img.width > size && img.height > size);
+  });
+}
+
 export async function isImage(src: string) {
   return new Promise<boolean>((resolve) => {
     const img = new Image();

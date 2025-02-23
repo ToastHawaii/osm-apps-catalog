@@ -2,21 +2,36 @@ import React, { useEffect, useState } from "react";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
 import { calculateFilter } from "../../data/calculateFilter";
-import { isImage } from "./LazyLoadImages";
+import { isImageWithMinSize } from "./LazyLoadImages";
+import { uniq, uniqBy } from "lodash";
 
-function LazyImage({ src }: { src: string }) {
-  const [show, setShow] = useState(false);
+function Carousel({ app, onClose }: { app: App; onClose: () => void }) {
+  const [images, setImages] = useState([] as string[]);
 
   useEffect(() => {
-    isImage(src).then((result) => {
-      setShow(result);
-    });
-  });
+    for (const image of uniqBy(
+      app.images.filter((image) => !image.includes("/250px-")),
+      (image) => image.substring(image.lastIndexOf("/") + 1)
+    )) {
+      isImageWithMinSize(image, 50).then((result) => {
+        if (result) {
+          setImages((images) => uniq([...images, image]));
+        }
+      });
+    }
+  }, [app.images]);
 
-  if (!show) {
+  if (images.length === 0) {
     return null;
   }
-  return <img src={src} />;
+
+  return (
+    <div className="carousel" onClick={onClose}>
+      {images.map((i) => (
+        <img key={i} src={i} />
+      ))}
+    </div>
+  );
 }
 
 export function Image({ app }: { app: App }) {
@@ -39,13 +54,7 @@ export function Image({ app }: { app: App }) {
           onClick={() => setCarouselShown(true)}
         />
         {carouselShown && (
-          <div className="carousel" onClick={() => setCarouselShown(false)}>
-            {app.images
-              .filter((i) => !i.includes("/thumb/"))
-              .map((i) => (
-                <LazyImage src={i} />
-              ))}
-          </div>
+          <Carousel app={app} onClose={() => setCarouselShown(false)} />
         )}
       </>
     );
