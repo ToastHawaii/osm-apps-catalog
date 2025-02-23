@@ -52,7 +52,7 @@ export function addApp(apps: App[], obj: App) {
         obj.sourceCode)
     ) {
       obj.id = calcId(obj);
-      // obj.score = calculateScore(obj).total;
+      obj.score = calculateScore(obj).total;
       apps.push(obj);
     }
   } else {
@@ -113,8 +113,8 @@ export function addApp(apps: App[], obj: App) {
 
     app.genre.push(...obj.genre);
     app.genre = uniq(app.genre);
-    // app.topics.push(...obj.topics);
-    // app.topics = uniq(app.topics).sort();
+    app.topics.push(...obj.topics);
+    app.topics = uniq(app.topics).sort();
 
     app.platform.push(...obj.platform);
     app.platform = uniq(app.platform).sort();
@@ -166,7 +166,7 @@ export function addApp(apps: App[], obj: App) {
     app.community.slack = app.community.slack || obj.community.slack;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
-    //app.score = calculateScore(app).total;
+    app.score = calculateScore(app).total;
   }
 }
 

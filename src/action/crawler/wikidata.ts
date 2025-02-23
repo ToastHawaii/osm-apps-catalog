@@ -43,8 +43,8 @@ function extractGenre(result: any) {
   }
 
   if (
-    result.streetImgSv?.value === "yes" ||
-    result.streetImg?.value === "yes"
+    result.streetLevelImageryService?.value === "yes" ||
+    result.streetLevelImagery?.value === "yes"
   ) {
     genre.push("Street-level imagery");
   }
@@ -68,7 +68,7 @@ export function transformWikidataResult(result: any) {
     name: result.itemLabel.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
-    images: (result.images?.value || "").split(";").filter((v: any) => v),
+    images: result.image?.value ? [result.image.value] : [],
     website:
       result.web?.value || result.webDef?.value
         ? new URL(result.web?.value || result.webDef?.value).toString()
@@ -113,7 +113,7 @@ export function transformWikidataResult(result: any) {
       microsoftAppID: result.microsoftAppID?.value,
     },
     hasGoal: {
-      crowdsourcingStreetLevelImagery: result.streetImg,
+      crowdsourcingStreetLevelImagery: result.streetLevelImagery,
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
@@ -153,7 +153,7 @@ export function requestWikidata(lg: string) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
-  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?images) 
+  (SAMPLE(?image) AS ?image) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
@@ -181,7 +181,7 @@ SELECT DISTINCT
   ?monitoring
   ?changsetReview
   ?welcomingTool
-  ?streetImg
+  ?streetLevelImagery
   (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
   (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
@@ -213,7 +213,7 @@ WHERE {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${lg}")
   }
-  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P18 ?image. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
@@ -307,14 +307,14 @@ WHERE {
   }  
   OPTIONAL { 
     ?item wdt:P31 wd:Q86715518.
-    BIND("yes" AS ?streetImgSv)
+    BIND("yes" AS ?streetLevelImageryService)
   }  
   OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
     ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("yes" AS ?streetImg)
+    BIND("yes" AS ?streetLevelImagery)
   }
   OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
@@ -349,8 +349,8 @@ GROUP BY ?item
          ?monitoring 
          ?changsetReview 
          ?welcomingTool
-         ?streetImgSv
-         ?streetImg
+         ?streetLevelImageryService
+         ?streetLevelImagery
          ?modified
 `.replace(/( |\n)+/g, " ")
   );
