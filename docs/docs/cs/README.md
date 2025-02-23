@@ -3,7 +3,8 @@
 **Zažijte svět kreativním, produktivním a nečekaným způsobem.**
 
 Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap.
-Je aktualizován každý den.
+Je aktualizován každý den. The apps are rated and sorted by the [Community
+Contribution Score](/docs/score).
 
 [Přejít do katalogu](https://osm-apps.zottelig.ch)
 

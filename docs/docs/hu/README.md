@@ -3,7 +3,8 @@
 **Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 
 Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
-használja. Naponta frissül.
+használja. Naponta frissül. The apps are rated and sorted by the [Community
+Contribution Score](/docs/score).
 
 [Nézd meg a katalógust](https://osm-apps.zottelig.ch)
 
