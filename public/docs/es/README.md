@@ -3,7 +3,8 @@
 **Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
 This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day.
+updated every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
 [Go to the catalog](https://osm-apps.zottelig.ch)
 
