@@ -1,9 +1,10 @@
-# About OpenStreetMap Apps Catalog
+# Über den OpenStreetMap Apps Katalog
 
 **Erlebe die Welt auf kreative, produktive und unerwartete Weise.**
 
 Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
-wird täglich aktualisiert.
+wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution
+Score](/docs/score) bewertet und sortiert.
 
 [Gehe zum Katalog](https://osm-apps.zottelig.ch)
 
