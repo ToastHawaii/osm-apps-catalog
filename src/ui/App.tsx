@@ -29,7 +29,7 @@ import "./style.scss";
 export function App() {
   const { t } = useTranslation();
 
-  const [state, setAppState, resetAppState] = useAppState();
+  const [state, setAppState, resetAppState, isInitState] = useAppState();
   const apps = useData();
   const [moreFilters, setMoreFilters] = useState(false);
 
@@ -223,7 +223,12 @@ export function App() {
           {state.view !== "compare" ? (
             <div id="list">
               {filteredApps.length > 0 ? (
-                <PagedList apps={filteredApps} open={!!state.app} state={state}>
+                <PagedList
+                  apps={filteredApps}
+                  open={!!state.app}
+                  state={state}
+                  isInitState={isInitState()}
+                >
                   <RelatedApps
                     findSimilarApps={findSimilarApps}
                     state={state}

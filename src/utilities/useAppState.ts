@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import { languageValueToDisplay } from "../ui/utilities/language";
 import { getUserRegion } from "./getUserRegion";
 import { getUserOS } from "./getUserOS";
-import { pickBy, uniq } from "lodash";
+import { isEqual, pickBy, uniq } from "lodash";
 
 export function useAppState() {
   let initState: {
@@ -16,7 +16,7 @@ export function useAppState() {
   if (initSearchParams.size === 0) {
     const userLanguages = navigator.languages.map((l) =>
       languageValueToDisplay(l)
-    ) as string[];
+    );
     const userRegion = getUserRegion();
     const userPlatform = getUserOS();
 
@@ -110,5 +110,6 @@ export function useAppState() {
         category,
       });
     },
+    () => !isEqual([...initSearchParams], [...searchParams]),
   ] as const;
 }

@@ -37,11 +37,13 @@ export function PagedList({
   open,
   children,
   state,
+  isInitState,
 }: {
   apps: AppData[];
   open: boolean;
   children: any;
   state: State;
+  isInitState: boolean;
 }) {
   const [showNext, setShowNext] = useState(false);
 
@@ -81,12 +83,23 @@ export function PagedList({
     <>
       <LazyLoadImages>
         {current.map((a) => (
-          <List key={a.id} app={a} open={open} state={state} />
+          <List
+            key={a.id}
+            app={a}
+            open={open}
+            state={state}
+            isInitState={isInitState}
+          />
         ))}
       </LazyLoadImages>
       {rest.length > 0 ? (
         showNext ? (
-          <PagedList apps={rest} open={open} state={state}>
+          <PagedList
+            apps={rest}
+            open={open}
+            state={state}
+            isInitState={isInitState}
+          >
             {children}
           </PagedList>
         ) : (

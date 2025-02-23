@@ -23,7 +23,7 @@ export function RelatedApps({
             })}
           </h2>
           {similarApps.map((a) => (
-            <List key={a.id} app={a} open={false} state={state}/>
+            <List key={a.id} app={a} open={false} state={state} />
           ))}
         </>
       )}
