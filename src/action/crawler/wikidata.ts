@@ -43,8 +43,8 @@ function extractGenre(result: any) {
   }
 
   if (
-    result.streetLevelImageryService?.value === "yes" ||
-    result.streetLevelImagery?.value === "yes"
+    result.streetImgSv?.value === "yes" ||
+    result.streetImg?.value === "yes"
   ) {
     genre.push("Street-level imagery");
   }
@@ -113,7 +113,7 @@ export function transformWikidataResult(result: any) {
       microsoftAppID: result.microsoftAppID?.value,
     },
     hasGoal: {
-      crowdsourcingStreetLevelImagery: result.streetLevelImagery,
+      crowdsourcingStreetLevelImagery: result.streetImg,
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
@@ -153,7 +153,7 @@ export function requestWikidata(lg: string) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
-  (GROUP_CONCAT(DISTINCT ?image; SEPARATOR = ";") AS ?images) 
+  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?images) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
@@ -181,7 +181,7 @@ SELECT DISTINCT
   ?monitoring
   ?changsetReview
   ?welcomingTool
-  ?streetLevelImagery
+  ?streetImg
   (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
   (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
   (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
@@ -213,7 +213,7 @@ WHERE {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${lg}")
   }
-  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P18 ?img. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
@@ -307,14 +307,14 @@ WHERE {
   }  
   OPTIONAL { 
     ?item wdt:P31 wd:Q86715518.
-    BIND("yes" AS ?streetLevelImageryService)
+    BIND("yes" AS ?streetImgSv)
   }  
   OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
     ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("yes" AS ?streetLevelImagery)
+    BIND("yes" AS ?streetImg)
   }
   OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
   OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
@@ -349,8 +349,8 @@ GROUP BY ?item
          ?monitoring 
          ?changsetReview 
          ?welcomingTool
-         ?streetLevelImageryService
-         ?streetLevelImagery
+         ?streetImgSv
+         ?streetImg
          ?modified
 `.replace(/( |\n)+/g, " ")
   );
