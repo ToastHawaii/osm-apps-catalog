@@ -9,7 +9,9 @@ export function getUserRegion() {
     timeZoneCityToCountry[city] = [
       ...zoneSplitted.slice(0, -1),
       (latest.countries as any)[(latest.zones as any)[zone].countries[0]].name,
-    ].join(", ");
+    ]
+      .join(", ")
+      .replaceAll("_", " ");
   });
 
   if (Intl) {
