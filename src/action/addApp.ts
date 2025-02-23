@@ -166,7 +166,7 @@ export function addApp(apps: App[], obj: App) {
     app.community.slack = app.community.slack || obj.community.slack;
     app.community.reddit = app.community.reddit || obj.community.reddit;
 
-    app.score = calculateScore(app).total;
+    //app.score = calculateScore(app).total;
   }
 }
 
