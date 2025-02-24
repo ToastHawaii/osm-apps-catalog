@@ -1,14 +1,14 @@
 {
-    "filter.category.navigation": "Navigáció",
-    "filter.category.edit": "Térkép javítása",
-    "category.all.description": "{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás, <s>közösségi közreműködési pontszám</s> szerinti sorrendben.",
+    "filter.category.navigation": "Útvonaltervezés",
+    "filter.category.edit": "Térképjavítás",
+    "category.all.description": "{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás.",
     "category.focus.description": "Tíz alkalmazás a legutóbb frissített oldalakról.",
     "category.latest.description": "{{numberOfApps}} alkalmazás az utolsó kiadás dátuma szerint rendezve.",
     "category.mobile.description": "{{numberOfApps}} alkalmazás amelyet mobileszközre fejlesztettek vagy offline is használhatók.",
     "category.edit.description": "{{numberOfApps}} alkalmazás, amely támogatja OpenStreetMap-adatok felvitelét, szerkesztését vagy elemzését, illetve nyomvonalak rögzítését.",
     "category.navigation.description": "{{numberOfApps}} alkalmazás, amely támogat útvonaltervezést vagy navigációt.",
     "relatedApps": "{{numberOfApps}} kapcsolódó alkalmazás",
-    "compare.group.header.map": "Térkép megjelenítése",
+    "compare.group.header.map": "Térkép-megjelenítés",
     "compare.group.header.routing": "Útvonaltervezés",
     "compare.group.header.navigating": "Navigáció",
     "notFound": "Nem találod, amit keresel?",
@@ -118,5 +118,8 @@
     "app.contribute": "Közreműködés",
     "app.contribute.toSoftware": "A szoftverhez",
     "app.contribute.toSoftware.discuss": "Ötletek megvitatása és megosztása",
-    "app.contribute.toData.edit": "Térképadatok szerkesztése"
+    "app.contribute.toData.edit": "Térképadatok szerkesztése",
+    "filter.preview": "Megjelenített alkalmazások jellemzői:",
+    "category.all.description.filtered": "{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás (összes: {{totalNumberOfApps}})",
+    "filter.resetFilters": "Összes megjelenítése"
 }
