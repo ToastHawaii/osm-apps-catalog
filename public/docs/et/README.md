@@ -3,8 +3,8 @@
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
 See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
-OpenStreetMapi andmeid. The apps are rated and sorted by the [Community
-Contribution Score](/docs/score).
+OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
+kogukonda - [Community Contribution Score](/docs/score).
 
 [Vaata kataloogi](https://osm-apps.zottelig.ch)
 
