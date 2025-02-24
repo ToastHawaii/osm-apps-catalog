@@ -95,7 +95,7 @@ export function filter({
     filteredApps = filteredApps.filter(
       (a) =>
         a.name.toUpperCase().includes(search) ||
-        a.description.toUpperCase().indexOf(search) ||
+        a.description.toUpperCase().includes(search) ||
         a.cache.topics.some((t) => t.includes(search)) ||
         a.cache.platform.some((t) => t.includes(search)) ||
         a.cache.coverage.some((t) => t.includes(search))

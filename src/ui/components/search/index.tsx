@@ -42,11 +42,15 @@ export function Search({
 }) {
   const { t } = useTranslation();
 
+  const [hasFocus, setHasFocus] = useState(false);
   const [innerValue, setInnerValue] = useState(value);
 
   useEffect(() => {
+    if (hasFocus) {
+      return;
+    }
     setInnerValue(value);
-  }, [value]);
+  }, [hasFocus, value]);
 
   const topics = prepareArray(apps.flatMap((a) => a.topics));
   return (
@@ -58,12 +62,16 @@ export function Search({
         placeholder={t("filter.search")}
         autoComplete="on"
         list="search-suggestions"
-        defaultValue={innerValue}
+        value={innerValue}
         onChange={(e) => {
           setInnerValue(e.currentTarget.value);
           onChange(e.currentTarget.value);
         }}
+        onFocus={() => {
+          setHasFocus(true);
+        }}
         onBlur={(e) => {
+          setHasFocus(false);
           onBlur?.(e.currentTarget.value);
         }}
       />
