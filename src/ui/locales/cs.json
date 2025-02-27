@@ -8,7 +8,7 @@
     "app.languages": "Jazyky",
     "app.platforms": "Platformy",
     "filter.coverage": "Pokrytí",
-    "category.all.description": "{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>, seřazené podle <s>skóre přínosu pro komunitu</s>.",
+    "category.all.description": "{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.",
     "about": "O aplikaci",
     "filter.search": "Hledat",
     "filter.topic": "Téma",
@@ -118,5 +118,8 @@
     "app.contribute.toData.resolve": "Vyřešte poznámky k mapě",
     "app.contribute.toData.review": "Zkontrolujte úpravy",
     "select.search.placeholder": "Hledat",
-    "select.search.noResults": "Žádné výsledky"
+    "select.search.noResults": "Žádné výsledky",
+    "filter.resetFilters": "Zobrazit vše",
+    "filter.preview": "Zobrazují se aplikace pro:",
+    "category.all.description.filtered": "{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>."
 }
