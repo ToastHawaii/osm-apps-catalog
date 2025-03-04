@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# O katalogu aplikací OSM
 
 **Zažijte svět kreativním, produktivním a nečekaným způsobem.**
 
@@ -11,7 +11,7 @@ Contribution Score](/docs/score).
 [Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným
 způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Další jazyky
 
 Zobrazte katalog ve svém jazyce:
 
