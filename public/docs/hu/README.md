@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# OSM Apps Catalog – névjegy
 
 **Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 
@@ -11,7 +11,7 @@ Contribution Score](/docs/score).
 [Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
 másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## További nyelvek
 
 Katalógus megjelenítése a nyelveden:
 
@@ -55,7 +55,7 @@ Segítség a fordításban:
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumentált alkalmazások
 
-## License
+## Licenc
 
 Az alkalmazás [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
