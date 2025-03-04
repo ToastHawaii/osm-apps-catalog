@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# Über den OSM Apps Katalog
 
 **Erlebe die Welt auf kreative, produktive und unerwartete Weise.**
 
@@ -11,7 +11,7 @@ Score](/docs/score) bewertet und sortiert.
 [Füge OSM-Apps hinzu, die du kennst oder trage auf andere Weise
 bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Weitere Sprachen
 
 Zeige den Katalog in deiner Sprache an:
 
@@ -55,7 +55,7 @@ Hilf bei der Übersetzung:
 - von den Apps dokumentiert im [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Lizenz
 
 Die App ist unter der [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
