@@ -1,4 +1,4 @@
-# About OpenStreetMap Apps Catalog
+# About OSM Apps Catalog
 
 **Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
@@ -9,9 +9,9 @@ Score](/docs/score).
 [Go to the catalog](https://osm-apps.zottelig.ch)
 
 [Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## 🌍 Otros idiomas
+## Other languages
 
 Display the catalog in your language:
 
@@ -55,12 +55,17 @@ Ayuda con la traducción:
 - de las aplicaciones documentadas en [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 📜 Licencia
+## License
 
 La aplicación tiene la licencia [Licencia pública general GNU Affero
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
 [código](https://github.com/ToastHawaii/osm-apps-catalog) se puede usar, copiar
 y modificar de forma gratuita si se publica bajo la misma licencia.
+
+## Disclaimer
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
+used with their permission. This project are not endorsed by or affiliated with
+the [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
@@ -70,6 +75,4 @@ y modificar de forma gratuita si se publica bajo la misma licencia.
   [conoce](https://osmcal.org/) y [chatea](https://community.osm.be/)
 - [Colaborar con
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Agrega las aplicaciones OSM que
-  conoces](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Sobre mí](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
