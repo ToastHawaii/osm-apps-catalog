@@ -1,4 +1,4 @@
-# About OpenStreetMap Apps Catalog
+# About OSM Apps Catalog
 
 **Experience the world in a creative, productive and unexpected way.**
 
@@ -6,9 +6,9 @@ This catalog shows applications and services that use OpenStreetMap data. It is 
 
 [Go to the catalog](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## 🌍 Other languages
+## Other languages
 
 Display the catalog in your language:
 
@@ -95,13 +95,15 @@ Help with the translation:
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 📜 License
+## License
 
 The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying and modification if you publish under the same license.
+
+## Disclaimer
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project are not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
 - Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT): [Join a local group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

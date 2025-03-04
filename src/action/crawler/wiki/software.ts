@@ -38,7 +38,7 @@ import {
   extractWebsite,
 } from "../../utilities";
 import { App } from "../../../data/App";
-import { isOpenSource } from "./isOpenSource";
+import { isFreeAndOpenSource } from "./isFreeAndOpenSource";
 import { uniq } from "lodash";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
@@ -82,7 +82,7 @@ export function transform(
       [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
       ["GRATIS", "FREE", "0"]
     ),
-    libre: isOpenSource(source["license"]),
+    libre: isFreeAndOpenSource(source["license"]),
     price: source["price"],
     license: processWikiText(source["license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

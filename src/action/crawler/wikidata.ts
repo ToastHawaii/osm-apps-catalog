@@ -2,7 +2,7 @@ import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
-import { isOpenSource } from "./wiki/isOpenSource";
+import { isFreeAndOpenSource } from "./wiki/isFreeAndOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
 import { platformValueToDisplay } from "../utilities/platformValueToDisplay";
 import { platformFilter } from "../utilities/platformFilter";
@@ -75,7 +75,7 @@ export function transformWikidataResult(result: any) {
         : "",
     documentation: result.doc?.value || result.docDef?.value || "",
     author: result.authors?.value || "",
-    libre: isOpenSource(result.license?.value),
+    libre: isFreeAndOpenSource(result.license?.value),
     license: (result.license?.value || "").split(";").filter((v: any) => v),
     sourceCode: result.sourceCode?.value || "",
     languages: (result.lgs?.value || "")

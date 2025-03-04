@@ -1,4 +1,4 @@
-# OpenStreetMap Apps Catalog
+# OSM Apps Catalog
 
 **Experience the world in a creative, productive and unexpected way.**
 
@@ -8,7 +8,7 @@ This website is created and maintained by [Markus Peloso](https://zottelig.ch). 
 
 [Go to the catalog](https://osm-apps.zottelig.ch). It is updated every day. 
 
-[Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+[Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## 🌍 Other languages
 
@@ -97,16 +97,15 @@ Help with the translation:
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## 🙏 Contributions & acknowledgements
+## 🙏 Special thanks to
 
-- A special thanks goes to [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
-- Another big thanks goes to [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
-- Many thanks to [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
-- Thanks to all who made this catalog possible.
+- [Dmytro Ovdiienko](https://sourceforge.net/u/ujos/profile/) for his [Osm Software Catalog](https://wiki.openstreetmap.org/wiki/Osm_Software_Catalog). This was the inspiration for this OSM Apps Catalog, and I learned from it how to request pages from the Wiki that use a specific template.
+- [Tobias Knerr](https://wiki.openstreetmap.org/wiki/User:Tordanik) for his [TTTBot](https://wiki.openstreetmap.org/wiki/User:TTTBot). This catalog is based on many of his works.
+- [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
+- all who made this catalog possible.
 
 ---
 
 - Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT): [Join a local group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Add OSM apps you know](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

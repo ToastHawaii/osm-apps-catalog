@@ -32,7 +32,7 @@ import {
   extractNameWebsiteWiki,
 } from "../../utilities";
 import { App } from "../../../data/App";
-import { isOpenSource } from "./isOpenSource";
+import { isFreeAndOpenSource } from "./isFreeAndOpenSource";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
@@ -87,7 +87,10 @@ export function transform(source: { [name: string]: string }) {
         .map(trim)
         .filter((v) => v),
     ]),
-    libre: isOpenSource([source["tiles_license"], source["style_license"]]),
+    libre: isFreeAndOpenSource([
+      source["tiles_license"],
+      source["style_license"],
+    ]),
     community: {
       issueTracker: toUrl(source["bugtracker_web"]),
     },

@@ -3,7 +3,7 @@ function check(value: string) {
     "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
   );
 }
-export function isOpenSource(value: string | string[] | undefined) {
+export function isFreeAndOpenSource(value: string | string[] | undefined) {
   if (!value) {
     return false;
   }
