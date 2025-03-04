@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# Teave OSM rakenduste kataloogi kohta
 
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
@@ -11,7 +11,7 @@ kogukonda - [Community Contribution Score](/docs/score).
 [Lisa sulle teadaolevaid OSMi rakendusi või osale muul
 viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Muud keeled
 
 Vaata kataloogi omas keeles:
 
@@ -56,7 +56,7 @@ Aita tõlkimisel:
 - [OpenStreetMapi Vikis](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumenteeritud rakenduste lehel
 
-## License
+## Litsents
 
 See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
 3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
