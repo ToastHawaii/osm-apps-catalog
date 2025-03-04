@@ -1,3 +1,6 @@
 {
-    "licenser.projectName": "OSM Apps Catalog"
+    "licenser.projectName": "OSM Apps Catalog",
+    "i18n-ally.localesPaths": [
+        "src/ui/locales"
+    ]
 }
