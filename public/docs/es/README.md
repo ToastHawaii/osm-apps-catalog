@@ -11,7 +11,7 @@ Score](/docs/score).
 [Add OSM apps you know or contribute in other
 ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Otros idiomas
 
 Display the catalog in your language:
 
@@ -55,7 +55,7 @@ Ayuda con la traducción:
 - de las aplicaciones documentadas en [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Licencia
 
 La aplicación tiene la licencia [Licencia pública general GNU Affero
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
