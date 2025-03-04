@@ -66,9 +66,9 @@ kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
 avaldatud sama litsentsi alusel.
 
 ## Disclaimer
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
+project are not endorsed by or affiliated with the [OpenStreetMap
+Foundation](https://osmfoundation.org/).
 
 ---
 

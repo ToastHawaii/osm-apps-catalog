@@ -63,9 +63,9 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
 y modificar de forma gratuita si se publica bajo la misma licencia.
 
 ## Disclaimer
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
+project are not endorsed by or affiliated with the [OpenStreetMap
+Foundation](https://osmfoundation.org/).
 
 ---
 
