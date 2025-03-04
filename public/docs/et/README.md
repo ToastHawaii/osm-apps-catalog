@@ -1,4 +1,4 @@
-# Teave OpenStreetMapi rakenduste kataloogi kohta
+# Teave OSM rakenduste kataloogi kohta
 
 **Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
 
@@ -9,9 +9,9 @@ kogukonda - [Community Contribution Score](/docs/score).
 [Vaata kataloogi](https://osm-apps.zottelig.ch)
 
 [Lisa sulle teadaolevaid OSMi rakendusi või osale muul
-viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## 🌍 Muud keeled
+## Muud keeled
 
 Vaata kataloogi omas keeles:
 
@@ -56,7 +56,7 @@ Aita tõlkimisel:
 - [OpenStreetMapi Vikis](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumenteeritud rakenduste lehel
 
-## 📜 Litsents
+## Litsents
 
 See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
 3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
@@ -64,6 +64,11 @@ alusel. Veebirakenduse
 [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on kõigile vabalt
 kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
 avaldatud sama litsentsi alusel.
+
+## Disclaimer
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
+project are not endorsed by or affiliated with the [OpenStreetMap
+Foundation](https://osmfoundation.org/).
 
 ---
 
@@ -73,6 +78,4 @@ avaldatud sama litsentsi alusel.
   [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
 - [Täienda OpenStreetMapi
   andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Lisa sulle teadaolevad OSMi
-  rakendusi](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Teave minu kohta](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

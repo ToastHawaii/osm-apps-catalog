@@ -1,4 +1,4 @@
-# OpenStreetMap Apps Catalog – névjegy
+# OSM Apps Catalog – névjegy
 
 **Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
 
@@ -9,9 +9,9 @@ Contribution Score](/docs/score).
 [Nézd meg a katalógust](https://osm-apps.zottelig.ch)
 
 [Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
-másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#How_to_document_a_new_software)
+másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## 🌍 További nyelvek
+## További nyelvek
 
 Katalógus megjelenítése a nyelveden:
 
@@ -55,13 +55,18 @@ Segítség a fordításban:
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumentált alkalmazások
 
-## 📜 Licenc
+## Licenc
 
 Az alkalmazás [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
 licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog)
 szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt
 teszed közzé.
+
+## Disclaimer
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
+project are not endorsed by or affiliated with the [OpenStreetMap
+Foundation](https://osmfoundation.org/).
 
 ---
 
@@ -72,6 +77,4 @@ teszed közzé.
   velünk](https://community.osm.be/)
 - Az [OpenStreetMap
   szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [Ismerős OSM-alkalmazás
-  hozzáadása](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
