@@ -14,7 +14,7 @@ export function useAppState() {
   } = { languages: [], coverage: [], platforms: [] };
   const [initSearchParams] = useSearchParams();
 
-  if (isEmpty(initSearchParams)) {
+  if (isEmpty(Object.fromEntries(initSearchParams.entries()))) {
     const userLanguages = navigator.languages.map((l) =>
       languageValueToDisplay(l)
     );
