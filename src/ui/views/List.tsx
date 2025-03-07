@@ -77,74 +77,85 @@ export function List({
         </a>
       )}
 
-      {app.install.asin && (
-        <a
-          className="download"
-          href={`https://www.amazon.com/dp/${app.install.asin}`}
-          title={t("app.install.asin")}
-        >
-          <i className="fab fa-amazon fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) &&
+        app.install.asin && (
+          <a
+            className="download"
+            href={`https://www.amazon.com/dp/${app.install.asin}`}
+            title={t("app.install.asin")}
+          >
+            <i className="fab fa-amazon fa-fw"></i>
+          </a>
+        )}
 
-      {app.install.fDroidID && (
-        <a
-          className="download"
-          href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
-          title={t("app.install.fDroid")}
-        >
-          <i className="fab fa-android fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) &&
+        app.install.fDroidID && (
+          <a
+            className="download"
+            href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
+            title={t("app.install.fDroid")}
+          >
+            <i className="fab fa-android fa-fw"></i>
+          </a>
+        )}
 
-      {app.install.obtainiumLink && (
-        <a
-          className="download"
-          href={app.install.obtainiumLink}
-          title={t("app.install.obtainium")}
-        >
-          <i
-            className="fas fa-gem fa-fw"
-            style={{ transform: "rotate(315deg)" }}
-          ></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) &&
+        app.install.obtainiumLink && (
+          <a
+            className="download"
+            href={app.install.obtainiumLink}
+            title={t("app.install.obtainium")}
+          >
+            <i
+              className="fas fa-gem fa-fw"
+              style={{ transform: "rotate(315deg)" }}
+            ></i>
+          </a>
+        )}
 
-      {app.install.googlePlayID && (
-        <a
-          className="download"
-          href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
-          title={t("app.install.googlePlay")}
-        >
-          <i className="fab fa-google-play fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) &&
+        app.install.googlePlayID && (
+          <a
+            className="download"
+            href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
+            title={t("app.install.googlePlay")}
+          >
+            <i className="fab fa-google-play fa-fw"></i>
+          </a>
+        )}
 
-      {app.install.huaweiAppGalleryID && (
-        <a
-          className="download"
-          href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
-          title={t("app.install.huaweiAppGallery")}
-        >
-          <i className="fas fa-shopping-bag fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) &&
+        app.install.huaweiAppGalleryID && (
+          <a
+            className="download"
+            href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+            title={t("app.install.huaweiAppGallery")}
+          >
+            <i className="fas fa-shopping-bag fa-fw"></i>
+          </a>
+        )}
 
-      {app.install.appleStoreID && (
-        <a
-          className="download"
-          href={`https://apps.apple.com/app/${
-            app.install.appleStoreID.toUpperCase().startsWith("ID")
-              ? app.install.appleStoreID
-              : `id${app.install.appleStoreID}`
-          }`}
-          title={t("app.install.appleStore")}
-        >
-          <i className="fab fa-app-store-ios fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 || state?.platforms.includes("iOS")) &&
+        app.install.appleStoreID && (
+          <a
+            className="download"
+            href={`https://apps.apple.com/app/${
+              app.install.appleStoreID.toUpperCase().startsWith("ID")
+                ? app.install.appleStoreID
+                : `id${app.install.appleStoreID}`
+            }`}
+            title={t("app.install.appleStore")}
+          >
+            <i className="fab fa-app-store-ios fa-fw"></i>
+          </a>
+        )}
 
-      {app.install.macAppStoreID && (
+      {(state?.platforms.length === 0 || state?.platforms.includes("MacOS")) &&app.install.macAppStoreID && (
         <a
           className="download"
           href={`https://apps.apple.com/app/${
@@ -157,7 +168,7 @@ export function List({
           <i className="fab fa-app-store fa-fw"></i>
         </a>
       )}
-      {app.install.microsoftAppID && (
+      {(state?.platforms.length === 0 || state?.platforms.includes("Windows")) && app.install.microsoftAppID && (
         <a
           className="download"
           href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
