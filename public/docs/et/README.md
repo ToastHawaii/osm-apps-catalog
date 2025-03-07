@@ -65,10 +65,10 @@ alusel. Veebirakenduse
 kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
 avaldatud sama litsentsi alusel.
 
-## Disclaimer
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
-project are not endorsed by or affiliated with the [OpenStreetMap
-Foundation](https://osmfoundation.org/).
+## Lahtiütlus vastutusest
+OpenStreetMap ja OSM on OpenStreetMap Foundationile kuuluvad kaubamärgid. See
+projekt ei ole [OpenStreetMap Foundationi](https://osmfoundation.org/) poolt
+heaks kiidetud ega sellega seotud.
 
 ---
 
