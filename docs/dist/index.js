@@ -76549,6 +76549,7 @@ GROUP BY ?item
 
 
 
+
 async function loadApps() {
     const apps = [];
     const language = "en";
@@ -76588,11 +76589,22 @@ async function loadApps() {
         addApp(apps, obj);
     }
     const wikidataResults = await Promise.all(wikidataRequest);
-    for (const wikidataResult of wikidataResults)
+    const objs = new Map();
+    for (const wikidataResult of wikidataResults) {
         for (const source of wikidataResult.results.bindings) {
             const obj = transformWikidataResult(source);
-            addApp(apps, obj);
+            const dup = objs.get(obj.name);
+            if (!dup) {
+                objs.set(obj.name, obj);
+            }
+            else {
+                objs.set(obj.name, (0,lodash.merge)(dup, obj));
+            }
         }
+    }
+    for (const obj of objs) {
+        addApp(apps, obj[1]);
+    }
     const projectObjects = (await getJson("https://taginfo.openstreetmap.org/api/4/projects/all"));
     const source = "https://taginfo.openstreetmap.org/projects/";
     for (const obj of projectObjects.data) {

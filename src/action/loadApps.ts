@@ -9,6 +9,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
+import { merge } from "lodash";
 
 export async function loadApps() {
   const apps: App[] = [];
@@ -65,11 +66,22 @@ export async function loadApps() {
   }
 
   const wikidataResults = await Promise.all(wikidataRequest);
-  for (const wikidataResult of wikidataResults)
+
+  const objs: Map<string, App> = new Map();
+  for (const wikidataResult of wikidataResults) {
     for (const source of wikidataResult.results.bindings) {
-      const obj: App = transformWikidataResult(source);
-      addApp(apps, obj);
+      const obj = transformWikidataResult(source);
+      const dup = objs.get(obj.name);
+      if (!dup) {
+        objs.set(obj.name, obj);
+      } else {
+        objs.set(obj.name, merge(dup, obj));
+      }
     }
+  }
+  for (const obj of objs) {
+    addApp(apps, obj[1]);
+  }
 
   const projectObjects = (await getJson(
     "https://taginfo.openstreetmap.org/api/4/projects/all"
