@@ -76598,7 +76598,7 @@ async function loadApps() {
                 objs.set(obj.name, obj);
             }
             else {
-                objs.set(obj.name, (0,lodash.merge)(dup, obj));
+                objs.set(obj.name, (0,lodash.mergeWith)(obj, dup, (a, b) => a || b));
             }
         }
     }

@@ -9,7 +9,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
-import { merge } from "lodash";
+import { mergeWith } from "lodash";
 
 export async function loadApps() {
   const apps: App[] = [];
@@ -67,7 +67,7 @@ export async function loadApps() {
 
   const wikidataResults = await Promise.all(wikidataRequest);
 
-  const objs: Map<string, App> = new Map();
+  const objs = new Map<string, App>();
   for (const wikidataResult of wikidataResults) {
     for (const source of wikidataResult.results.bindings) {
       const obj = transformWikidataResult(source);
@@ -75,7 +75,10 @@ export async function loadApps() {
       if (!dup) {
         objs.set(obj.name, obj);
       } else {
-        objs.set(obj.name, merge(dup, obj));
+        objs.set(
+          obj.name,
+          mergeWith(obj, dup, (a, b) => a || b)
+        );
       }
     }
   }
