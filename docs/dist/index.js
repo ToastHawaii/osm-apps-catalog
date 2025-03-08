@@ -76674,7 +76674,7 @@ async function run() {
 }
 async function firstCrawled(apps) {
     const now = new Date().toISOString();
-    const knownApps = (await (await fetch("/api/apps/all.json", {})).json());
+    const knownApps = (await (await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})).json());
     for (const app of apps) {
         const knownApp = knownApps.find((k) => k.id === app.id);
         if (!knownApp) {

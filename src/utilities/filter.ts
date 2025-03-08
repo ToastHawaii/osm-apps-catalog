@@ -1,4 +1,4 @@
-import { chain, sortBy } from "lodash";
+import { chain } from "lodash";
 import { App } from "../data/App";
 import { State } from "../State";
 import { includes, some } from "./array";
