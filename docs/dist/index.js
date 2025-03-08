@@ -76602,9 +76602,6 @@ async function loadApps() {
                     if (typeof o === "string") {
                         return o || s;
                     }
-                    if ((0,lodash.isArray)(o)) {
-                        return o.concat(s);
-                    }
                 }));
             }
         }

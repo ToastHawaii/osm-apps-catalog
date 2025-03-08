@@ -81,9 +81,6 @@ export async function loadApps() {
             if (typeof o === "string") {
               return o || s;
             }
-            if (isArray(o)) {
-              return o.concat(s);
-            }
           })
         );
       }
