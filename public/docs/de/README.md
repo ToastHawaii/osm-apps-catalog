@@ -50,7 +50,7 @@ Hilf bei der Übersetzung:
 
 - des OSM Apps Katalogs auf
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
+  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
 - von den Apps dokumentiert im [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
