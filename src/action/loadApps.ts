@@ -1,9 +1,9 @@
 import { requestTemplates } from "./crawler/wiki/requestTemplates";
-import { requestTemplates as requestWikipediaTemplates } from "./crawler/wikipedia/requestTemplates";
+// import { requestTemplates as requestWikipediaTemplates } from "./crawler/wikipedia/requestTemplates";
 import { transform as transformSoftware } from "./crawler/wiki/software";
 import { transform as transformServiceItem } from "./crawler/wiki/serviceItem";
 import { transform as transformLayer } from "./crawler/wiki/layer";
-import { transform as transformWikipediaSoftware } from "./crawler/wikipedia/software";
+// import { transform as transformWikipediaSoftware } from "./crawler/wikipedia/software";
 import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 import { containsOfflineLink, extractWebsite } from "./utilities";
 import { App } from "../data/App";
@@ -20,10 +20,10 @@ export async function loadApps() {
   const serviceItemObjectsRequest = requestTemplates("Service item", language);
   const layerObjectsRequest = requestTemplates("Layer", language);
   const softwareObjectsRequest = requestTemplates("Software", language);
-  const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
-    "Infobox_software",
-    language
-  );
+  // const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
+  //   "Infobox software",
+  //   language
+  // );
   const wikidataRequest = requestWikidata(language);
 
   const serviceItemObjects = await serviceItemObjectsRequest;
@@ -71,14 +71,14 @@ export async function loadApps() {
     addApp(apps, obj);
   }
 
-  const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
-  for (const source of wikipediaSoftwareObjects.filter(
-    (s) => !equalsYes(s["discontinued"])
-  )) {
-    const obj: App = transformWikipediaSoftware(source);
+  // const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
+  // for (const source of wikipediaSoftwareObjects.filter(
+  //   (s) => !equalsYes(s["discontinued"])
+  // )) {
+  //   const obj: App = transformWikipediaSoftware(source);
 
-    addApp(apps, obj);
-  }
+  //   addApp(apps, obj);
+  // }
 
   const wikidataResults = await Promise.all(wikidataRequest);
 

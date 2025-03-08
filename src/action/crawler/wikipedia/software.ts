@@ -21,11 +21,9 @@ import { languageValueFormat } from "../../utilities/languageValueFormat";
 import {
   appendFullStop,
   trim,
-  firstLetterToUpperCase,
   toDate,
   toValues,
   splitByCommaButNotInsideBraceRegex,
-  splitBySemicolonButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
   processWikiText,
@@ -34,15 +32,10 @@ import {
 } from "../../utilities";
 import { App } from "../../../data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
-import { uniq } from "lodash";
 import { languageFilter } from "../../utilities/languageFilter";
 import { plainText } from "../wiki/plainText";
 
-export function transform(
-  source: { [name: string]: string } & {
-    communicationChannels: { [name: string]: string };
-  }
-) {
+export function transform(source: { [name: string]: string }) {
   const obj: App = {
     name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name
@@ -87,21 +80,10 @@ export function transform(
       .replace(/\]\]/g, "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim),
+    coverage: [],
+    install: {},
+    community: {},
   } as any;
-
-  if (source["coverage"]) {
-    const coverage = source["coverage"]
-      .split(splitBySemicolonButNotInsideBraceRegex)
-      .map(trim)
-      .filter((v) => v)
-      .map(firstLetterToUpperCase);
-
-    obj.coverage.push(...coverage);
-  }
-
-  obj.platform = uniq(obj.platform).sort();
-  obj.languages = uniq(obj.languages).sort();
-  obj.coverage = uniq(obj.coverage).sort();
 
   return obj;
 }

@@ -24,14 +24,20 @@ async function getCategoryMembers(
 ): Promise<Set<string>> {
   let pages = new Set<string>();
   let continueToken = "";
-  const base = `https://${language}.wikipedia.org/w/api.php`;
 
   do {
-    const url = `${base}?action=query&list=categorymembers&cmtitle=Category:${category}&cmlimit=max&format=json${
-      continueToken ? `&cmcontinue=${continueToken}` : ""
-    }`;
-    const response = await fetch(url);
-    const data = await response.json();
+    const params: {
+      [name: string]: string;
+    } = {
+      list: "categorymembers",
+      cmtitle: "Category:" + category,
+      cmlimit: "max",
+    };
+    if (continueToken) {
+      params["cmcontinue"] = continueToken;
+    }
+
+    const data = await osmMediaApiQuery(params, language);
 
     if (data.query?.categorymembers) {
       data.query.categorymembers.forEach((page: { title: string }) =>
@@ -88,7 +94,6 @@ async function osmMediaApiQuery(
 ) {
   const base = `https://${language}.wikipedia.org/w/api.php`;
 
-  params["origin"] = "*";
   params["action"] = "query";
   params["format"] = "json";
 
@@ -137,7 +142,7 @@ async function loadPages(ids: string[], template: string, language: string) {
 
   const objects: Template[] = [];
   for (const p in pages) {
-    const content = pages[p].revisions[0].slots.main.content;
+    const content = pages[p].revisions[0].slots.main["*"];
     const pageObjects = parsePage(content, template);
     for (const o of pageObjects) {
       o.sourceWiki = pages[p].title;
