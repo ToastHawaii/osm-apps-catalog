@@ -9,7 +9,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
-import { mergeWith } from "lodash";
+import { isArray, mergeWith } from "lodash";
 
 export async function loadApps() {
   const apps: App[] = [];
@@ -77,9 +77,12 @@ export async function loadApps() {
       } else {
         objs.set(
           obj.name,
-          mergeWith(obj, dup, (a, b) => {
-            if (typeof a === "string") {
-              return a || b;
+          mergeWith(obj, dup, (o, s) => {
+            if (typeof o === "string") {
+              return o || s;
+            }
+            if (isArray(o)) {
+              return o.concat(s);
             }
           })
         );

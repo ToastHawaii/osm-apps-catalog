@@ -76598,9 +76598,12 @@ async function loadApps() {
                 objs.set(obj.name, obj);
             }
             else {
-                objs.set(obj.name, (0,lodash.mergeWith)(obj, dup, (a, b) => {
-                    if (typeof a === "string") {
-                        return a || b;
+                objs.set(obj.name, (0,lodash.mergeWith)(obj, dup, (o, s) => {
+                    if (typeof o === "string") {
+                        return o || s;
+                    }
+                    if ((0,lodash.isArray)(o)) {
+                        return o.concat(s);
                     }
                 }));
             }
