@@ -8,6 +8,7 @@ import "../ui/utilities/i18n";
 import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
 import { App } from "../data/App";
+import { sortBy } from "lodash";
 
 const lastUpdate = new Date("2025-02-04");
 
@@ -18,6 +19,8 @@ const lastUpdate = new Date("2025-02-04");
 export async function run(): Promise<void> {
   try {
     let apps = await loadApps();
+
+    await firstCrawled(apps);
 
     shuffle(apps);
     apps = apps.sort(function (a, b) {
@@ -43,6 +46,38 @@ export async function run(): Promise<void> {
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message);
+  }
+}
+
+async function firstCrawled(apps: App[]) {
+  const now = new Date().toISOString();
+
+  const knownApps = (await (
+    await fetch("/api/apps/all.json", {})
+  ).json()) as App[];
+  for (const app of apps) {
+    const knownApp = knownApps.find((k) => k.id === app.id);
+    if (!knownApp) {
+      app.source = app.source.map((s) => ({ ...s, firstCrawled: now }));
+    } else {
+      for (const source of app.source) {
+        const knownSource = knownApp.source.find(
+          (k) => k.name === source.name && k.url === source.url
+        );
+        if (!knownSource) {
+          source.firstCrawled = now;
+        } else {
+          source.firstCrawled = knownSource.firstCrawled;
+        }
+      }
+    }
+
+    app.source = sortBy(app.source, (s) => {
+      if (s.name === "taginfo" || s.name === "ServiceItem") {
+        return s.firstCrawled;
+      }
+      return s.lastChange;
+    }).reverse();
   }
 }
 

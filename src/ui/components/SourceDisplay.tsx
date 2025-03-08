@@ -14,7 +14,10 @@ export function SourceDisplay({ app }: { app: App }) {
             href={s.url}
             target="_blank"
             rel="noreferrer"
-            title={t("app.source.date", { date: s.lastChange })}
+            title={t("app.source.date", {
+              date: s.lastChange,
+              added: s.firstCrawled,
+            })}
           >
             <SourceDisplayText name={s.name} />
           </a>

@@ -9,7 +9,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
-import { isArray, mergeWith } from "lodash";
+import {  mergeWith } from "lodash";
 
 export async function loadApps() {
   const apps: App[] = [];

@@ -13,6 +13,7 @@ export type App = {
     wiki?: string;
     url: string;
     lastChange: string;
+    firstCrawled: string;
   }[];
   author?: string;
   // free of charge software

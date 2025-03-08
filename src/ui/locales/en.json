@@ -91,7 +91,7 @@
   "app.license": "License",
   "app.sourceCode": "Source code",
   "app.source": "Source",
-  "app.source.date": "Last change: {{date}}",
+  "app.source.date": "Last change: {{date}}\nAdded to the catalog: {{added}}",
   "app.source.description": "Source where this data comes from.",
   "compare.share": "Share in wiki.openstreetmap.org",
   "compare.unknown": "unknown",

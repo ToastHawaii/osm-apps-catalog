@@ -1,8 +1,9 @@
+import { chain, sortBy } from "lodash";
 import { App } from "../data/App";
 import { State } from "../State";
 import { includes, some } from "./array";
 import { edit, mobile, navigation } from "./filters";
-import { equalsIgnoreCase, equalsYes } from "./string";
+import { equalsYes } from "./string";
 
 export function filter({
   apps,
@@ -22,66 +23,25 @@ export function filter({
   let filteredApps: App[] = apps.slice();
 
   if (category === "latest") {
-    filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange || "";
-      const nameB = b.source[0].lastChange || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-
-    filteredApps = filteredApps.sort(function (a, b) {
-      const nameA = a.lastRelease || "";
-      const nameB = b.lastRelease || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
+    filteredApps = chain(filteredApps)
+      .sortBy(filteredApps, (a) => a.source[0].lastChange || "")
+      .sortBy(filteredApps, (a) => a.lastRelease || "")
+      .reverse()
+      .value();
   } else if (category === "focus") {
-    let latestApps = filteredApps.sort(function (a, b) {
-      const nameA = a.source[0].lastChange || "";
-      const nameB = b.source[0].lastChange || "";
-      if (nameA < nameB) {
-        return 1;
-      }
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-
-    filteredApps = [];
-    for (const app of latestApps) {
-      if (filteredApps.length < 10) {
+    filteredApps = chain(filteredApps)
+      .sortBy(filteredApps, (a) => {
         if (
-          !filteredApps.some(
-            (a) =>
-              equalsIgnoreCase(a.source[0].url, app.source[0].url) ||
-              (a.source[0].url.startsWith(
-                "https://taginfo.openstreetmap.org/projects/"
-              ) &&
-                app.source[0].url.startsWith(
-                  "https://taginfo.openstreetmap.org/projects/"
-                ))
-          )
+          a.source[0].name === "taginfo" ||
+          a.source[0].name === "ServiceItem"
         ) {
-          filteredApps.push(app);
+          return a.source[0].firstCrawled;
         }
-      } else {
-        break;
-      }
-    }
+        return a.source[0].lastChange;
+      })
+      .reverse()
+      .take(10)
+      .value();
   } else if (category === "mobile") {
     filteredApps = filteredApps.filter(mobile);
   } else if (category === "navigation") {
