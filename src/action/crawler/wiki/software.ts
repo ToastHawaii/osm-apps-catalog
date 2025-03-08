@@ -38,7 +38,7 @@ import {
   extractWebsite,
 } from "../../utilities";
 import { App } from "../../../data/App";
-import { isFreeAndOpenSource } from "./isFreeAndOpenSource";
+import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
 import { uniq } from "lodash";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";

@@ -18,93 +18,90 @@
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
-import { uniq } from "lodash";
 import {
   appendFullStop,
-  equalsYes,
-  splitByCommaButNotInsideBraceRegex,
-  toDate,
   trim,
+  firstLetterToUpperCase,
+  toDate,
+  toValues,
+  splitByCommaButNotInsideBraceRegex,
+  splitBySemicolonButNotInsideBraceRegex,
 } from "../../../utilities/string";
 import {
   processWikiText,
-  extractWebsite,
   extractNameWebsiteWiki,
+  extractWebsite,
 } from "../../utilities";
 import { App } from "../../../data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
-import { plainText } from "./plainText";
+import { uniq } from "lodash";
 import { languageFilter } from "../../utilities/languageFilter";
+import { plainText } from "../wiki/plainText";
 
-export function transform(source: { [name: string]: string }) {
+export function transform(
+  source: { [name: string]: string } & {
+    communicationChannels: { [name: string]: string };
+  }
+) {
   const obj: App = {
     name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name
     ),
-    lastRelease: toDate(source["date"]) || "",
+    lastRelease: toDate(source["latest release date "]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
     images: [
       ...toWikimediaUrl(source["screenshot"], 250),
       ...toWikimediaUrl(source["logo"], 250),
     ],
     imageWiki: source["screenshot"] || source["logo"],
-    website: toUrl(extractWebsite(source["slippy_web"])),
+    website: toUrl(extractWebsite(source["website"])),
     documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
       {
-        name: "Layer",
+        name: "Wikipedia Software",
         wiki: source.sourceWiki,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },
     ],
-    sourceCode: toUrl(
-      extractWebsite(source["style_web"]) || extractWebsite(source["repo"])
-    ),
-    author: processWikiText(source["author"] || "")
+    author: processWikiText(source["author"] || source["developer"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
       .join(", "),
-    languages: (source["tiles_languages"] || "")
+    sourceCode: toUrl(extractWebsite(source["repo"])),
+    libre: isFreeAndOpenSource(source["license"]),
+    license: processWikiText(source["license"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v),
+    languages: (source["language"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter(languageFilter)
       .map(languageValueFormat),
-    languagesUrl: toUrl(source["tiles_languagesurl"]),
-    genre: [],
-    topics: [],
-    platform: ["Web"],
-    coverage: [],
-    install: {},
-    license: uniq([
-      ...processWikiText(source["tiles_license"] || "")
-        .split(splitByCommaButNotInsideBraceRegex)
-        .map(trim)
-        .filter((v) => v),
-      ...processWikiText(source["style_license"] || "")
-        .split(splitByCommaButNotInsideBraceRegex)
-        .map(trim)
-        .filter((v) => v),
-    ]),
-    libre: isFreeAndOpenSource([
-      source["tiles_license"],
-      source["style_license"],
-    ]),
-    community: {
-      issueTracker: toUrl(source["bugtracker_web"]),
-    },
+    genre: toValues(source["genre"]),
+    topics: toValues(source["genre"]),
+    platform: (source["operating system"] || "")
+      .replace(/\[\[/g, "")
+      .replace(/\]\]/g, "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim),
   } as any;
 
-  if (!equalsYes(source["notlayer"])) {
-    obj.topics.push("Tile layer");
-    obj.genre.push("Tile layer");
-  }
-  if (source["slippy_web"]) {
-    obj.topics.push("Slippy map");
-    obj.genre.push("Slippy map");
+  if (source["coverage"]) {
+    const coverage = source["coverage"]
+      .split(splitBySemicolonButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v)
+      .map(firstLetterToUpperCase);
+
+    obj.coverage.push(...coverage);
   }
 
+  obj.platform = uniq(obj.platform).sort();
   obj.languages = uniq(obj.languages).sort();
+  obj.coverage = uniq(obj.coverage).sort();
+
   return obj;
 }

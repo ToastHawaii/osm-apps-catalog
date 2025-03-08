@@ -2,7 +2,7 @@ import { languageValueFormat } from "../utilities/languageValueFormat";
 import { getJson } from "../../utilities/jsonRequest";
 import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
-import { isFreeAndOpenSource } from "./wiki/isFreeAndOpenSource";
+import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
 import { platformValueToDisplay } from "../utilities/platformValueToDisplay";
 import { platformFilter } from "../utilities/platformFilter";
