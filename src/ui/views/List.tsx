@@ -48,7 +48,7 @@ export function List({
           <Score app={app} />
           <h4>
             {app.website ? (
-              <a href={app.website} target="_blank">
+              <a href={app.website} target="_blank" rel="noreferrer">
                 {app.name}
               </a>
             ) : (
@@ -64,7 +64,7 @@ export function List({
         {app.documentation && (
           <>
             {" "}
-            <a href={app.documentation} target="_blank">
+            <a href={app.documentation} target="_blank" rel="noreferrer">
               {t("list.documentation")}
             </a>
           </>
@@ -72,7 +72,13 @@ export function List({
       </p>
 
       {app.website && (
-        <a className="download" href={app.website} title={t("app.website")}>
+        <a
+          className="download"
+          href={app.website}
+          target="_blank"
+          rel="noreferrer"
+          title={t("app.website")}
+        >
           <i className="far fa-map fa-fw"></i>
         </a>
       )}
@@ -83,6 +89,8 @@ export function List({
           <a
             className="download"
             href={`https://www.amazon.com/dp/${app.install.asin}`}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.asin")}
           >
             <i className="fab fa-amazon fa-fw"></i>
@@ -95,6 +103,8 @@ export function List({
           <a
             className="download"
             href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.fDroid")}
           >
             <i className="fab fa-android fa-fw"></i>
@@ -107,6 +117,8 @@ export function List({
           <a
             className="download"
             href={app.install.obtainiumLink}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.obtainium")}
           >
             <i
@@ -122,6 +134,8 @@ export function List({
           <a
             className="download"
             href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.googlePlay")}
           >
             <i className="fab fa-google-play fa-fw"></i>
@@ -134,6 +148,8 @@ export function List({
           <a
             className="download"
             href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.huaweiAppGallery")}
           >
             <i className="fas fa-shopping-bag fa-fw"></i>
@@ -149,34 +165,43 @@ export function List({
                 ? app.install.appleStoreID
                 : `id${app.install.appleStoreID}`
             }`}
+            target="_blank"
+            rel="noreferrer"
             title={t("app.install.appleStore")}
           >
             <i className="fab fa-app-store-ios fa-fw"></i>
           </a>
         )}
 
-      {(state?.platforms.length === 0 || state?.platforms.includes("MacOS")) &&app.install.macAppStoreID && (
-        <a
-          className="download"
-          href={`https://apps.apple.com/app/${
-            app.install.macAppStoreID.toUpperCase().startsWith("ID")
-              ? app.install.macAppStoreID
-              : `id${app.install.macAppStoreID}`
-          }`}
-          title={t("app.install.macAppStore")}
-        >
-          <i className="fab fa-app-store fa-fw"></i>
-        </a>
-      )}
-      {(state?.platforms.length === 0 || state?.platforms.includes("Windows")) && app.install.microsoftAppID && (
-        <a
-          className="download"
-          href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
-          title={t("app.install.microsoftApp")}
-        >
-          <i className="fab fa-microsoft fa-fw"></i>
-        </a>
-      )}
+      {(state?.platforms.length === 0 || state?.platforms.includes("MacOS")) &&
+        app.install.macAppStoreID && (
+          <a
+            className="download"
+            href={`https://apps.apple.com/app/${
+              app.install.macAppStoreID.toUpperCase().startsWith("ID")
+                ? app.install.macAppStoreID
+                : `id${app.install.macAppStoreID}`
+            }`}
+            target="_blank"
+            rel="noreferrer"
+            title={t("app.install.macAppStore")}
+          >
+            <i className="fab fa-app-store fa-fw"></i>
+          </a>
+        )}
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Windows")) &&
+        app.install.microsoftAppID && (
+          <a
+            className="download"
+            href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
+            target="_blank"
+            rel="noreferrer"
+            title={t("app.install.microsoftApp")}
+          >
+            <i className="fab fa-microsoft fa-fw"></i>
+          </a>
+        )}
 
       <div className="badges">
         <Badges values={app.topics} />
@@ -230,6 +255,7 @@ export function List({
           }`}
           href={app.languagesUrl}
           target="_blank"
+          rel="noreferrer"
         >
           <span className="more-info-title">{t("app.languages")}</span>
           <span className="more-info-text">
@@ -284,6 +310,8 @@ export function List({
                 <a
                   className="community"
                   href={app.community.forum}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.forum")}
                 >
                   <i className="fas fa-comments fa-fw"></i>
@@ -293,6 +321,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.forumTag")}
                 >
                   <i className="fas fa-tag fa-fw"></i>
@@ -305,6 +335,8 @@ export function List({
                     app.community.matrix,
                     app.community.irc
                   )}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.matrix")}
                 >
                   <i>[m]</i>
@@ -314,6 +346,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.mastodon")}
                 >
                   <i className="fab fa-mastodon fa-fw"></i>
@@ -323,6 +357,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://bsky.app/profile/${app.community.bluesky}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.bluesky")}
                 >
                   <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
@@ -332,6 +368,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://www.reddit.com/r/${app.community.reddit}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.reddit")}
                 >
                   <i className="fab fa-reddit fa-fw"></i>
@@ -341,6 +379,8 @@ export function List({
                 <a
                   className="community"
                   href={app.community.slack}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.slack")}
                 >
                   <i className="fab fa-slack-hash fa-fw"></i>
@@ -350,6 +390,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://telegram.me/${app.community.telegram}`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.telegram")}
                 >
                   <i className="fab fa-telegram fa-fw"></i>
@@ -359,6 +401,8 @@ export function List({
                 <a
                   className="community"
                   href={`https://github.com/${app.community.githubDiscussions}/discussions`}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.githubDiscussions")}
                 >
                   <i className="fab fa-github fa-fw"></i>
@@ -368,6 +412,8 @@ export function List({
                 <a
                   className="community"
                   href={app.community.issueTracker}
+                  target="_blank"
+                  rel="noreferrer"
                   title={t("app.community.issueTracker")}
                 >
                   <i className="fas fa-list fa-fw"></i>
@@ -410,6 +456,7 @@ export function List({
           }`}
           href={app.sourceCode}
           target="_blank"
+          rel="noreferrer"
         >
           <span className="more-info-title">{t("app.sourceCode")}</span>
           <span className="more-info-text">

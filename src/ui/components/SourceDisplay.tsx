@@ -13,6 +13,7 @@ export function SourceDisplay({ app }: { app: App }) {
             key={s.url}
             href={s.url}
             target="_blank"
+            rel="noreferrer"
             title={t("app.source.date", { date: s.lastChange })}
           >
             <SourceDisplayText name={s.name} />
@@ -34,6 +35,7 @@ export function SourceDisplay({ app }: { app: App }) {
               "&veaction=edit&preload=Osm_Apps_Catalog%2Fnew"
             }
             target="_blank"
+            rel="noreferrer"
           >
             <SourceDisplayText name={"Software"} create />
           </a>
@@ -49,6 +51,7 @@ export function SourceDisplay({ app }: { app: App }) {
               encodeURIComponent(app.name)
             }
             target="_blank"
+            rel="noreferrer"
           >
             <SourceDisplayText name={"Wikidata"} create />
           </a>

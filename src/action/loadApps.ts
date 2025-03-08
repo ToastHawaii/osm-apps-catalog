@@ -77,7 +77,11 @@ export async function loadApps() {
       } else {
         objs.set(
           obj.name,
-          mergeWith(obj, dup, (a, b) => a || b)
+          mergeWith(obj, dup, (a, b) => {
+            if (typeof a === "string") {
+              return a || b;
+            }
+          })
         );
       }
     }

@@ -96,7 +96,13 @@ export function App() {
                 totalNumberOfApps: apps.length,
               }}
               components={{
-                o: <a href="https://openstreetmap.org/" target="_blank" />,
+                o: (
+                  <a
+                    href="https://openstreetmap.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                  />
+                ),
               }}
             />
           ) : (
@@ -106,7 +112,13 @@ export function App() {
                 numberOfApps: filteredApps.length,
               }}
               components={{
-                o: <a href="https://openstreetmap.org/" target="_blank" />,
+                o: (
+                  <a
+                    href="https://openstreetmap.org/"
+                    target="_blank"
+                    rel="noreferrer"
+                  />
+                ),
                 s: <a href="/docs/score" />,
               }}
             />

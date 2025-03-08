@@ -181,7 +181,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://en.wikipedia.org/wiki/$1">$3</a>`
+      `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`
     );
   }
   {
@@ -189,7 +189,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://en.wikipedia.org/wiki/$1">$1</a>`
+      `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$1</a>`
     );
   }
   // Url
@@ -200,7 +200,7 @@ export function processWikiText(text: string = "") {
     while (match) {
       text = text.replace(
         regex,
-        `<a target="_blank" href="${toWikiUrl(match[1])}">${match[3]}</a>`
+        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`
       );
 
       match = regex.exec(text);
@@ -213,7 +213,7 @@ export function processWikiText(text: string = "") {
     while (match) {
       text = text.replace(
         regex,
-        `<a target="_blank" href="${toWikiUrl(match[1])}">${match[1]}</a>`
+        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`
       );
 
       match = regex.exec(text);
@@ -224,12 +224,12 @@ export function processWikiText(text: string = "") {
     const regex =
       /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
 
-    text = text.replace(regex, `<a target="_blank" href="$2">$2</a>`);
+    text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
   }
   {
     const regex =
       /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
-    text = text.replace(regex, `<a target="_blank" href="$2">$5</a>`);
+    text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
   }
 
   {
@@ -240,12 +240,12 @@ export function processWikiText(text: string = "") {
       if (!match[4]) {
         text = text.replace(
           regex,
-          `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=*`
+          `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=*`
         );
       } else {
         text = text.replace(
           regex,
-          `<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Key:$2">$2</a>=<a target="_blank" href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4">$4</a>`
+          `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=<a href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4" target="_blank" rel="noreferrer">$4</a>`
         );
       }
 
@@ -269,7 +269,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://github.com/$1">$1</a>`
+      `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`
     );
   }
   {
@@ -278,7 +278,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://github.com/$1">$5</a>`
+      `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`
     );
   }
 
@@ -289,7 +289,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://gitlab.com/$1">$1</a>`
+      `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`
     );
   }
   {
@@ -298,7 +298,7 @@ export function processWikiText(text: string = "") {
 
     text = text.replace(
       regex,
-      `<a target="_blank" href="https://gitlab.com/$1">$5</a>`
+      `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`
     );
   }
 
@@ -328,7 +328,7 @@ export function processWikiText(text: string = "") {
         link = `https://www.openstreetmap.org/user/${osm}`;
       }
 
-      return `<a target="_blank" href="${link}">${displayName}</a>`;
+      return `<a href="${link}" target="_blank" rel="noreferrer">${displayName}</a>`;
     });
   }
   {
@@ -337,7 +337,7 @@ export function processWikiText(text: string = "") {
     text = text.replace(regex, (substring) => {
       const parts = substring.substring(2, substring.length - 2).split("|");
       const name = parts[1];
-      return `<a target="_blank" href="https://www.openstreetmap.org/user/${name}">${name}</a>`;
+      return `<a href="https://www.openstreetmap.org/user/${name}" target="_blank" rel="noreferrer">${name}</a>`;
     });
   }
 
@@ -350,7 +350,7 @@ export function toWikiText(text: string = "") {
   text = text.replaceAll(/!!/g, "!&#33;");
 
   const regex =
-    /<a target="_blank" href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))">([^\<]*)<\/a>/i;
+    /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^\<]*)<\/a>/i;
 
   let match = regex.exec(text);
   while (match) {
