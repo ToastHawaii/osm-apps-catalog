@@ -25,13 +25,13 @@ export function filter({
 
   if (category === "latest") {
     filteredApps = chain(filteredApps)
-      .sortBy(filteredApps, (a) => a.source[0].lastChange || "")
-      .sortBy(filteredApps, (a) => a.lastRelease || "")
+      .sortBy((a) => a.source[0].lastChange || "")
+      .sortBy((a) => a.lastRelease || "")
       .reverse()
       .value();
   } else if (category === "focus") {
     filteredApps = chain(filteredApps)
-      .sortBy(filteredApps, (a) => getLastMod(a.source[0]))
+      .sortBy((a) => getLastMod(a.source[0]))
       .reverse()
       .take(10)
       .value();
