@@ -1,3 +1,11 @@
+export type Source = {
+  name: string;
+  wiki?: string;
+  url: string;
+  lastChange: string;
+  firstCrawled: string;
+};
+
 export type App = {
   id: number;
   name: string;
@@ -8,13 +16,7 @@ export type App = {
   imageWiki?: string;
   website?: string | undefined;
   documentation?: string;
-  source: {
-    name: string;
-    wiki?: string;
-    url: string;
-    lastChange: string;
-    firstCrawled: string;
-  }[];
+  source: Source[];
   author?: string;
   // free of charge software
   gratis?: boolean;

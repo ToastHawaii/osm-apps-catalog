@@ -7,6 +7,7 @@ import "../ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
+import { getLastMod } from "../utilities/getLastMod";
 import { App } from "../data/App";
 import { sortBy } from "lodash";
 
@@ -67,17 +68,12 @@ async function firstCrawled(apps: App[]) {
         if (!knownSource) {
           source.firstCrawled = now;
         } else {
-          source.firstCrawled = knownSource.firstCrawled;
+          source.firstCrawled = knownSource.firstCrawled || "2025-03-01T00:00:00Z";
         }
       }
     }
 
-    app.source = sortBy(app.source, (s) => {
-      if (s.name === "taginfo" || s.name === "ServiceItem") {
-        return s.firstCrawled;
-      }
-      return s.lastChange;
-    }).reverse();
+    app.source = sortBy(app.source, getLastMod).reverse();
   }
 }
 
@@ -128,9 +124,9 @@ async function generateSitemap(apps: App[]) {
       url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
       priority: (app.score / 10) * 0.5 + 0.1,
       lastmod:
-        lastUpdate > new Date(app.source[0].lastChange)
+        lastUpdate > new Date(getLastMod(app.source[0]))
           ? lastUpdate
-          : new Date(app.source[0].lastChange),
+          : new Date(getLastMod(app.source[0])),
     }))
   );
 

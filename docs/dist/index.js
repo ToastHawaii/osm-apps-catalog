@@ -76638,7 +76638,16 @@ async function loadApps() {
     return apps;
 }
 
+;// CONCATENATED MODULE: ./src/utilities/getLastMod.ts
+function getLastMod(source) {
+    if (source.name === "taginfo" || source.name === "ServiceItem") {
+        return source.firstCrawled;
+    }
+    return source.lastChange;
+}
+
 ;// CONCATENATED MODULE: ./src/action/main.ts
+
 
 
 
@@ -76687,16 +76696,11 @@ async function firstCrawled(apps) {
                     source.firstCrawled = now;
                 }
                 else {
-                    source.firstCrawled = knownSource.firstCrawled;
+                    source.firstCrawled = knownSource.firstCrawled || "2025-03-01T00:00:00Z";
                 }
             }
         }
-        app.source = (0,lodash.sortBy)(app.source, (s) => {
-            if (s.name === "taginfo" || s.name === "ServiceItem") {
-                return s.firstCrawled;
-            }
-            return s.lastChange;
-        }).reverse();
+        app.source = (0,lodash.sortBy)(app.source, getLastMod).reverse();
     }
 }
 async function generateSitemap(apps) {
@@ -76739,9 +76743,9 @@ async function generateSitemap(apps) {
     links.push(...apps.map((app) => ({
         url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
         priority: (app.score / 10) * 0.5 + 0.1,
-        lastmod: lastUpdate > new Date(app.source[0].lastChange)
+        lastmod: lastUpdate > new Date(getLastMod(app.source[0]))
             ? lastUpdate
-            : new Date(app.source[0].lastChange),
+            : new Date(getLastMod(app.source[0])),
     })));
     // Create a stream to write to
     const stream = new dist.SitemapStream({

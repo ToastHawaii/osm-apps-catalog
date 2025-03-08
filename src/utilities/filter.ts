@@ -4,6 +4,7 @@ import { State } from "../State";
 import { includes, some } from "./array";
 import { edit, mobile, navigation } from "./filters";
 import { equalsYes } from "./string";
+import { getLastMod } from "./getLastMod";
 
 export function filter({
   apps,
@@ -30,15 +31,7 @@ export function filter({
       .value();
   } else if (category === "focus") {
     filteredApps = chain(filteredApps)
-      .sortBy(filteredApps, (a) => {
-        if (
-          a.source[0].name === "taginfo" ||
-          a.source[0].name === "ServiceItem"
-        ) {
-          return a.source[0].firstCrawled;
-        }
-        return a.source[0].lastChange;
-      })
+      .sortBy(filteredApps, (a) => getLastMod(a.source[0]))
       .reverse()
       .take(10)
       .value();
