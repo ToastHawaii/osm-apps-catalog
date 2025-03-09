@@ -29,14 +29,21 @@ export async function getJson(url: string, params: any = {}) {
     return await response.json();
   }
 
-  const response = await fetch(`${url}?${utilQsString(params)}`, {
-    headers: {
-      "User-Agent":
-        "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-    },
-  });
+  console.info(`Load: ${url}?${utilQsString(params)}`);
 
-  return await response.json();
+  try {
+    const response = await fetch(`${url}?${utilQsString(params)}`, {
+      headers: {
+        "User-Agent":
+          "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  } catch (e) {
+    console.error(JSON.stringify(e));
+    throw e;
+  }
 }
