@@ -74248,7 +74248,7 @@ function convertJsonToTemplateData() {
 // convertJsonToTemplateData();
 
 ;// CONCATENATED MODULE: ./src/utilities/isDevelopment.ts
-const isDevelopment = window.location.host === "localhost:3000";
+const isDevelopment = window?.location.host === "localhost:3000";
 
 ;// CONCATENATED MODULE: ./src/utilities/url.ts
 // Copyright (C) 2020 Markus Peloso
