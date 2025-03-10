@@ -92,7 +92,7 @@
     "app.community.githubDiscussions": "GitHub Discussions",
     "app.community.slack": "Slack",
     "app.community.reddit": "Reddit",
-    "app.source.date": "Viimati muudetud: {{date}}",
+    "app.source.date": "Viimati muudetud: {{date}}\nEsmane töötlus: {{added}}",
     "wiki.none": "puudub",
     "score.criteria.documentationLink": "olemas on viide dokumentatsioonile",
     "score.criteria.openSourceChannel": "suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)",
