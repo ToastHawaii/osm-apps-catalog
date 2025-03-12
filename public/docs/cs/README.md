@@ -3,8 +3,8 @@
 **Zažijte svět kreativním, produktivním a nečekaným způsobem.**
 
 Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap.
-Je aktualizován každý den. The apps are rated and sorted by the [Community
-Contribution Score](/docs/score).
+Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre
+přínosu pro komunitu](/docs/score).
 
 [Přejít do katalogu](https://osm-apps.zottelig.ch)
 
@@ -55,17 +55,17 @@ Pomozte s překladem:
 - z aplikací zdokumentovaných v [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Licence
 
 Aplikace je licencována pod [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
 [Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití,
 kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
-## Disclaimer
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
-project are not endorsed by or affiliated with the [OpenStreetMap
-Foundation](https://osmfoundation.org/).
+## Odmítnutí odpovědnosti
+OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation. Tento
+projekt není podporován nadací [OpenStreetMap
+Foundation](https://osmfoundation.org/) ani s ní není spojen.
 
 ---
 
