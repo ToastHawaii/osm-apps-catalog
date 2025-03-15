@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Ez a katalógus jelenleg csak az [OpenStreetMap
-wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/)
-és a [taginfo projektlistájának](https://taginfo.openstreetmap.org/projects)
-angol változatáról tartalmaz alkalmazásokat.*
+*This catalog currently only contains apps from the English version of
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
+[taginfo project list](https://taginfo.openstreetmap.org/projects).*
 
 Segítség a fordításban:
 
