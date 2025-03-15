@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Tento katalog v současné době obsahuje pouze aplikace z anglické verze
+*This catalog currently only contains apps from the English version of
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) a [taginfo project
-list](https://taginfo.openstreetmap.org/projects).*
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
+[taginfo project list](https://taginfo.openstreetmap.org/projects).*
 
 Pomozte s překladem:
 
