@@ -100,7 +100,7 @@ export async function requestGithub(githubToken?: string) {
     );
     total = result.total_count;
     objects.push(...result.items);
-  } while (limit * page < total);
+  } while (limit * page < total && page < 10);
 
   return objects;
 }
