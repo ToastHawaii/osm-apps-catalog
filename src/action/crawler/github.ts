@@ -1,10 +1,11 @@
+import { upperFirst } from "lodash";
 import { App } from "../../data/App";
 import { getJson } from "../../utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
+import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
+import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
 
-const platforms = ["android", "ios", "linux", "windows", "macos"];
-
-const ignoredTopics = ["openstreetmap", "osm", ...platforms];
+const ignoredTopics = ["openstreetmap", "osm"];
 
 export function transformGithubResult(result: any) {
   return {
@@ -24,18 +25,10 @@ export function transformGithubResult(result: any) {
       ? result.html_url + "/wiki/"
       : result.html_url || "",
     author: result.organization?.login
-      ? "<a href='" +
-        result.organization?.html_url +
-        "' target='_blank' rel='noreferrer'>" +
-        result.organization?.login +
-        "</a>"
+      ? `<a href='${result.organization?.html_url}' target='_blank' rel='noreferrer'>${result.organization?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
       : result.owner?.login
-      ? "<a href='" +
-        result.owner?.html_url +
-        "' target='_blank' rel='noreferrer'>" +
-        result.owner?.login +
-        "</a>"
-      : "",
+      ? `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
+      : `<a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
     libre: isFreeAndOpenSource(result.license?.spdx_id),
     license:
       result.license?.spdx_id !== "NOASSERTION"
@@ -47,8 +40,17 @@ export function transformGithubResult(result: any) {
     languages: [],
     languagesUrl: "",
     genre: [],
-    topics: result.topics.filter((t: string) => !ignoredTopics.includes(t)),
-    platform: result.topics.filter((t: string) => platforms.includes(t)),
+    topics: result.topics
+      .filter((t: string) => !ignoredTopics.includes(t))
+      .map((t: string) => t.replaceAll("-", " "))
+      .map(upperFirst)
+      .filter((t: string) => !getPlatformDisplay(t) )
+      .filter((t: string) => !getProgramingLanguageDisplay(t) ),
+    platform: result.topics
+      .map((t: string) => t.replaceAll("-", " "))
+      .map(upperFirst)
+      .map((t: string) => getPlatformDisplay(t))
+      .filter((t: string) => t),
     coverage: [],
     install: {},
     community: {
@@ -84,7 +86,9 @@ export async function requestGithub(githubToken?: string) {
 
     const params: any = {};
 
-    params["q"] = "topic:openstreetmap pushed:>" + dateFilter + " stars:>=3";
+    params[
+      "q"
+    ] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
     params["per_page"] = limit;
     params["page"] = page;
 

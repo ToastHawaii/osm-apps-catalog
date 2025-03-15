@@ -39,6 +39,7 @@ const platforms: {
   { name: "MeeGo", synonym: ["meego"], version: [] },
   { name: "Tizen", synonym: ["tizen"], version: [] },
   { name: "WebOS", synonym: ["webos"], version: [] },
+  { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
   {
     name: "iOS",
     synonym: ["ios"],
@@ -121,10 +122,15 @@ const platforms: {
     synonym: ["cross-platform", "cross platform"],
     version: [],
   },
-  { name: "Java ME", synonym: ["j2me", "java me"], version: [] },
-  { name: "Java SE", synonym: ["j2se", "java se"], version: [] },
-  { name: "Java", synonym: ["java"], version: [] },
-  { name: "Node.js", synonym: ["node", "node.js"], version: [] },
+  {
+    name: "Java",
+    synonym: ["java"],
+    version: [
+      { name: "Java ME", synonym: ["j2me", "java me"] },
+      { name: "Java SE", synonym: ["j2se", "java se"] },
+    ],
+  },
+  { name: "Node.js", synonym: ["node", "node.js", "nodejs"], version: [] },
   { name: "Qt", synonym: ["qt"], version: [] },
   { name: "React Native", synonym: ["react native"], version: [] },
   { name: "Unity", synonym: ["unity"], version: [] },
@@ -135,24 +141,21 @@ const platforms: {
       "web-based",
       "webapp",
       "web-app",
+      "web app",
       "browser",
       "web browser",
+      "web application",
     ],
     version: [],
   },
   {
     name: "Web Assembly",
-    synonym: ["web assembly", "wasm"],
-    version: [],
-  },
-  {
-    name: "Software for miscellaneous platforms",
-    synonym: ["other"],
+    synonym: ["web assembly", "webassembly", "wasm"],
     version: [],
   },
 ];
 
-export function platformValueToDisplay(value: string) {
+export function getPlatformDisplay(value: string) {
   // Remove version
   value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
 
@@ -165,5 +168,5 @@ export function platformValueToDisplay(value: string) {
     if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
       return platform.name;
   }
-  return value;
+  return "";
 }

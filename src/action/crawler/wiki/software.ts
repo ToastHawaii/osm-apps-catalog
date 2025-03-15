@@ -17,14 +17,13 @@
 
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
-import { platformValueToDisplay } from "../../utilities/platformValueToDisplay";
+import { getPlatformDisplay } from "../../utilities/getPlatformDisplay";
 import { platformFilter } from "../../utilities/platformFilter";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { some } from "../../../utilities/array";
 import {
   appendFullStop,
   trim,
-  firstLetterToUpperCase,
   toDate,
   equalsYes,
   equalsIgnoreCase,
@@ -39,7 +38,7 @@ import {
 } from "../../utilities";
 import { App } from "../../../data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
-import { uniq } from "lodash";
+import { uniq, upperFirst } from "lodash";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
@@ -114,7 +113,7 @@ export function transform(
       source["microsoftAppID"] ? "Windows" : "",
     ]
       .filter(platformFilter)
-      .map(platformValueToDisplay),
+      .map((p) => getPlatformDisplay(p) || p),
     coverage: [],
     install: {
       asin: source["asin"],
@@ -233,7 +232,7 @@ export function transform(
       .split(splitBySemicolonButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map(firstLetterToUpperCase);
+      .map(upperFirst);
 
     obj.coverage.push(...coverage);
   }
@@ -248,7 +247,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
 
   if (equalsYes(source["3D"])) obj.topics.push("3D");
@@ -279,7 +278,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
 
   if (equalsYes(source["navigating"], source["navToPoint"]))
@@ -295,7 +294,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
 
   if (equalsYes(source["monitoring"])) obj.topics.push("Track monitoring");
@@ -325,7 +324,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
 
   if (hasValue(source["accessibility"])) {
@@ -334,7 +333,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
     obj.topics.push("Accessibility");
   }

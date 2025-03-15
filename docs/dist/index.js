@@ -74353,6 +74353,8 @@ async function getJson(url, params = {}, headers = {}) {
     }
 }
 
+// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
+var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./src/utilities/string.ts
 // Copyright (C) 2020 Markus Peloso
 //
@@ -74370,6 +74372,7 @@ async function getJson(url, params = {}, headers = {}) {
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+
 function equalsIgnoreCase(a, b) {
     return typeof a === "string" && typeof b === "string"
         ? a.toUpperCase() === b.toUpperCase()
@@ -74413,9 +74416,6 @@ function findClosingBracketIndex(str, pos) {
         }
     }
     return -1;
-}
-function firstLetterToUpperCase(value) {
-    return `${value[0].toUpperCase()}${value.slice(1)}`;
 }
 function appendFullStop(value) {
     if (value && value[value.length - 1] !== ".")
@@ -74462,7 +74462,7 @@ function toValues(value = "") {
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase);
+        .map(lodash.upperFirst);
 }
 function strip(html) {
     let doc = new DOMParser().parseFromString(html, "text/html");
@@ -74658,7 +74658,7 @@ function generateWikimediaUrls(base, fileName, size) {
     ];
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/platformValueToDisplay.ts
+;// CONCATENATED MODULE: ./src/action/utilities/getPlatformDisplay.ts
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -74694,6 +74694,7 @@ const platforms = [
     { name: "MeeGo", synonym: ["meego"], version: [] },
     { name: "Tizen", synonym: ["tizen"], version: [] },
     { name: "WebOS", synonym: ["webos"], version: [] },
+    { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
     {
         name: "iOS",
         synonym: ["ios"],
@@ -74775,10 +74776,15 @@ const platforms = [
         synonym: ["cross-platform", "cross platform"],
         version: [],
     },
-    { name: "Java ME", synonym: ["j2me", "java me"], version: [] },
-    { name: "Java SE", synonym: ["j2se", "java se"], version: [] },
-    { name: "Java", synonym: ["java"], version: [] },
-    { name: "Node.js", synonym: ["node", "node.js"], version: [] },
+    {
+        name: "Java",
+        synonym: ["java"],
+        version: [
+            { name: "Java ME", synonym: ["j2me", "java me"] },
+            { name: "Java SE", synonym: ["j2se", "java se"] },
+        ],
+    },
+    { name: "Node.js", synonym: ["node", "node.js", "nodejs"], version: [] },
     { name: "Qt", synonym: ["qt"], version: [] },
     { name: "React Native", synonym: ["react native"], version: [] },
     { name: "Unity", synonym: ["unity"], version: [] },
@@ -74789,23 +74795,20 @@ const platforms = [
             "web-based",
             "webapp",
             "web-app",
+            "web app",
             "browser",
             "web browser",
+            "web application",
         ],
         version: [],
     },
     {
         name: "Web Assembly",
-        synonym: ["web assembly", "wasm"],
-        version: [],
-    },
-    {
-        name: "Software for miscellaneous platforms",
-        synonym: ["other"],
+        synonym: ["web assembly", "webassembly", "wasm"],
         version: [],
     },
 ];
-function platformValueToDisplay(value) {
+function getPlatformDisplay(value) {
     // Remove version
     value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
     for (const platform of platforms) {
@@ -74816,7 +74819,7 @@ function platformValueToDisplay(value) {
         if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
             return platform.name;
     }
-    return value;
+    return "";
 }
 
 ;// CONCATENATED MODULE: ./src/action/utilities/platformFilter.ts
@@ -75160,8 +75163,6 @@ function isFreeAndOpenSource(value) {
     return !!value.find((v) => check(v));
 }
 
-// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
-var lodash = __nccwpck_require__(2356);
 // EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
 var sanitize_html = __nccwpck_require__(3595);
 var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
@@ -75280,7 +75281,7 @@ function transform(source) {
             source["microsoftAppID"] ? "Windows" : "",
         ]
             .filter(platformFilter)
-            .map(platformValueToDisplay),
+            .map((p) => getPlatformDisplay(p) || p),
         coverage: [],
         install: {
             asin: source["asin"],
@@ -75398,7 +75399,7 @@ function transform(source) {
             .split(splitBySemicolonButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase);
+            .map(lodash.upperFirst);
         obj.coverage.push(...coverage);
     }
     obj.platform = (0,lodash.uniq)(obj.platform).sort();
@@ -75409,7 +75410,7 @@ function transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
     if (equalsYes(source["3D"]))
         obj.topics.push("3D");
     if (equalsYes(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
@@ -75421,7 +75422,7 @@ function transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
     if (equalsYes(source["navigating"], source["navToPoint"]))
         obj.topics.push("Navi");
     if (equalsYes(source["findLocation"]))
@@ -75433,7 +75434,7 @@ function transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
     if (equalsYes(source["monitoring"]))
         obj.topics.push("Track monitoring");
     if (source["rendererOutputFormats"])
@@ -75447,13 +75448,13 @@ function transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
     if (hasValue(source["accessibility"])) {
         obj.topics.push(...(source["accessibility"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
         obj.topics.push("Accessibility");
     }
     if (equalsYes(source["accessibility"]))
@@ -75542,13 +75543,13 @@ function serviceItem_transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase)
+            .map(lodash.upperFirst)
             .sort(),
         topics: (source["genre"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase)
+            .map(lodash.upperFirst)
             .sort(),
         platform: [],
         coverage: [],
@@ -75560,7 +75561,7 @@ function serviceItem_transform(source) {
             .split(splitBySemicolonButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(firstLetterToUpperCase));
+            .map(lodash.upperFirst));
     }
     obj.languages = (0,lodash.uniq)(obj.languages).sort();
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
@@ -76207,7 +76208,7 @@ function transformWikidataResult(result) {
                 result.microsoftAppID?.value ? "Windows" : undefined,
             ]
                 .filter(platformFilter)
-                .map(platformValueToDisplay)),
+                .map((p) => getPlatformDisplay(p) || p)),
         ],
         coverage: [],
         install: {
@@ -76558,11 +76559,74 @@ GROUP BY ?item
     return [base, lastRelease, license];
 }
 
+;// CONCATENATED MODULE: ./src/action/utilities/getProgramingLanguageDisplay.ts
+
+const programingLanguages = [
+    { name: "ActionScript", synonym: ["actionscript", "flash"] },
+    { name: "ActiveScript", synonym: ["activescript"] },
+    { name: "AppleScript", synonym: ["applescript"] },
+    { name: "C", synonym: ["c"] },
+    {
+        name: "C++",
+        synonym: [
+            "c++",
+            "cpp",
+            "c++0x",
+            "c++1x",
+            "c++03",
+            "c++11",
+            "c++14",
+            "c++17",
+            "c++20",
+        ],
+    },
+    { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
+    { name: "CSS", synonym: ["css"] },
+    { name: "Dart", synonym: ["dart"] },
+    { name: "Go", synonym: ["go", "golang"] },
+    { name: "HTML", synonym: ["html"] },
+    { name: "Java", synonym: ["java"] },
+    { name: "JavaScript", synonym: ["javascript", "js", "ecmascript", "es"] },
+    { name: "Kotlin", synonym: ["kotlin"] },
+    { name: "Lua", synonym: ["lua"] },
+    { name: "Objective-C", synonym: ["objective-c", "objective c", "objc"] },
+    {
+        name: "Objective-C++",
+        synonym: ["objective-c++", "objective c++", "objc++"],
+    },
+    { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
+    { name: "Perl", synonym: ["perl", "pl"] },
+    { name: "PHP", synonym: ["php"] },
+    { name: "Python", synonym: ["python", "py"] },
+    { name: "R", synonym: ["r"] },
+    { name: "Ruby", synonym: ["ruby", "rb", "rails"] },
+    { name: "Rust", synonym: ["rust"] },
+    { name: "SQL", synonym: ["sql"] },
+    { name: "Swift", synonym: ["swift"] },
+    { name: "TypeScript", synonym: ["typescript", "ts"] },
+    {
+        name: "Visual Basic .NET",
+        synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
+    },
+    { name: "Zig", synonym: ["zig"] },
+];
+function getProgramingLanguageDisplay(value) {
+    // Remove version
+    value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
+    for (const language of programingLanguages) {
+        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
+            return language.name;
+    }
+    return "";
+}
+
 ;// CONCATENATED MODULE: ./src/action/crawler/github.ts
 
 
-const github_platforms = ["android", "ios", "linux", "windows", "macos"];
-const ignoredTopics = ["openstreetmap", "osm", ...github_platforms];
+
+
+
+const ignoredTopics = ["openstreetmap", "osm"];
 function transformGithubResult(result) {
     return {
         name: result.name || "",
@@ -76579,18 +76643,10 @@ function transformGithubResult(result) {
             ? result.html_url + "/wiki/"
             : result.html_url || "",
         author: result.organization?.login
-            ? "<a href='" +
-                result.organization?.html_url +
-                "' target='_blank' rel='noreferrer'>" +
-                result.organization?.login +
-                "</a>"
+            ? `<a href='${result.organization?.html_url}' target='_blank' rel='noreferrer'>${result.organization?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
             : result.owner?.login
-                ? "<a href='" +
-                    result.owner?.html_url +
-                    "' target='_blank' rel='noreferrer'>" +
-                    result.owner?.login +
-                    "</a>"
-                : "",
+                ? `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
+                : `<a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
         libre: isFreeAndOpenSource(result.license?.spdx_id),
         license: result.license?.spdx_id !== "NOASSERTION"
             ? result.license?.spdx_id
@@ -76601,8 +76657,17 @@ function transformGithubResult(result) {
         languages: [],
         languagesUrl: "",
         genre: [],
-        topics: result.topics.filter((t) => !ignoredTopics.includes(t)),
-        platform: result.topics.filter((t) => github_platforms.includes(t)),
+        topics: result.topics
+            .filter((t) => !ignoredTopics.includes(t))
+            .map((t) => t.replaceAll("-", " "))
+            .map(lodash.upperFirst)
+            .filter((t) => !getPlatformDisplay(t))
+            .filter((t) => !getProgramingLanguageDisplay(t)),
+        platform: result.topics
+            .map((t) => t.replaceAll("-", " "))
+            .map(lodash.upperFirst)
+            .map((t) => getPlatformDisplay(t))
+            .filter((t) => t),
         coverage: [],
         install: {},
         community: {
@@ -76631,7 +76696,7 @@ async function requestGithub(githubToken) {
         page++;
         const base = "https://api.github.com/search/repositories";
         const params = {};
-        params["q"] = "topic:openstreetmap pushed:>" + dateFilter + " stars:>=3";
+        params["q"] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
         params["per_page"] = limit;
         params["page"] = page;
         const result = await getJson(base, params, githubToken

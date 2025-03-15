@@ -18,11 +18,10 @@
 import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "../../../utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
-import { uniq } from "lodash";
+import { uniq, upperFirst } from "lodash";
 import {
   appendFullStop,
   trim,
-  firstLetterToUpperCase,
   startsWithIgnoreCase,
   splitByCommaButNotInsideBraceRegex,
   splitBySemicolonButNotInsideBraceRegex,
@@ -66,13 +65,13 @@ export function transform(source: { [name: string]: string }) {
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map(firstLetterToUpperCase)
+      .map(upperFirst)
       .sort(),
     topics: (source["genre"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
       .filter((v) => v)
-      .map(firstLetterToUpperCase)
+      .map(upperFirst)
       .sort(),
     platform: [],
     coverage: [],
@@ -86,7 +85,7 @@ export function transform(source: { [name: string]: string }) {
         .split(splitBySemicolonButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(firstLetterToUpperCase)
+        .map(upperFirst)
     );
   }
 

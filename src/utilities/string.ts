@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+import { upperFirst } from "lodash";
+
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
     ? a.toUpperCase() === b.toUpperCase()
@@ -72,10 +74,6 @@ export function findClosingBracketIndex(str: string, pos: number) {
   return -1;
 }
 
-export function firstLetterToUpperCase(value: string): string {
-  return `${value[0].toUpperCase()}${value.slice(1)}`;
-}
-
 export function appendFullStop(value: string): string {
   if (value && value[value.length - 1] !== ".") return `${value}.`;
   return value;
@@ -122,7 +120,7 @@ export function toValues(value: string = "") {
     .split(splitByCommaButNotInsideBraceRegex)
     .map(trim)
     .filter((v) => v)
-    .map(firstLetterToUpperCase);
+    .map(upperFirst);
 }
 
 export function strip(html: string) {

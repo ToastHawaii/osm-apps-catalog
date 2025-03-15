@@ -4,7 +4,7 @@ import { toValues } from "../../utilities/string";
 import { App } from "../../data/App";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
-import { platformValueToDisplay } from "../utilities/platformValueToDisplay";
+import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { platformFilter } from "../utilities/platformFilter";
 
 function extractGenre(result: any) {
@@ -100,7 +100,7 @@ export function transformWikidataResult(result: any) {
           result.microsoftAppID?.value ? "Windows" : undefined,
         ]
           .filter(platformFilter)
-          .map(platformValueToDisplay)
+          .map((p) => getPlatformDisplay(p) || p)
       ),
     ],
     coverage: [],
