@@ -89,7 +89,7 @@ Display the catalog in your language:
 [日本語](https://osm-apps.zottelig.ch/?lang=ja),
 [粵語](https://osm-apps.zottelig.ch/?lang=yue)
 
-*This catalog currently only contains apps from the English version of [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/) and [taginfo project list](https://taginfo.openstreetmap.org/projects).*
+*This catalog currently only contains apps from the English version of [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and [taginfo project list](https://taginfo.openstreetmap.org/projects).*
 
 Help with the translation:
 
