@@ -12,8 +12,9 @@ import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
 import { mergeWith } from "lodash";
+import { requestGithub, transformGithubResult } from "./crawler/github";
 
-export async function loadApps() {
+export async function loadApps(githubToken?: string) {
   const apps: App[] = [];
   const language = "en";
 
@@ -25,6 +26,7 @@ export async function loadApps() {
   //   language
   // );
   const wikidataRequest = requestWikidata(language);
+  const githubRequest = requestGithub(githubToken);
 
   const serviceItemObjects = await serviceItemObjectsRequest;
   for (const source of serviceItemObjects.filter(
@@ -79,6 +81,12 @@ export async function loadApps() {
 
   //   addApp(apps, obj);
   // }
+
+  const githubItems = await githubRequest;
+  for (const source of githubItems) {
+    const obj: App = transformGithubResult(source);
+    addApp(apps, obj);
+  }
 
   const wikidataResults = await Promise.all(wikidataRequest);
 

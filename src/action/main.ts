@@ -19,7 +19,7 @@ const lastUpdate = new Date("2025-02-04");
  */
 export async function run(): Promise<void> {
   try {
-    let apps = await loadApps();
+    let apps = await loadApps(core.getInput("ghToken"));
 
     await firstCrawled(apps);
 
@@ -68,7 +68,8 @@ async function firstCrawled(apps: App[]) {
         if (!knownSource) {
           source.firstCrawled = now;
         } else {
-          source.firstCrawled = knownSource.firstCrawled || "2025-03-01T00:00:00Z";
+          source.firstCrawled =
+            knownSource.firstCrawled || "2025-03-01T00:00:00Z";
         }
       }
     }

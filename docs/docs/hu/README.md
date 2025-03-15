@@ -63,10 +63,10 @@ licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog)
 szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt
 teszed közzé.
 
-## Disclaimer
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
-project are not endorsed by or affiliated with the [OpenStreetMap
-Foundation](https://osmfoundation.org/).
+## Felelősségi nyilatkozat
+Az OpenStreetMap és az OSM az OpenStreetMap Alapítvány védjegye. Az
+[OpenStreetMap Alapítvány](https://osmfoundation.org/) nem támogatja ezt a
+projektet, és nem áll kapcsolatban vele.
 
 ---
 

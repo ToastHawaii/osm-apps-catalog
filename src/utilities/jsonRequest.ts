@@ -18,7 +18,11 @@
 import { isDevelopment } from "./isDevelopment";
 import { utilQsString } from "./url";
 
-export async function getJson(url: string, params: any = {}) {
+export async function getJson(
+  url: string,
+  params: any = {},
+  headers: any = {}
+) {
   if (isDevelopment) {
     const response = await fetch(
       "https://corsproxy.io/?" +
@@ -34,10 +38,13 @@ export async function getJson(url: string, params: any = {}) {
   try {
     const response = await fetch(`${url}?${utilQsString(params)}`, {
       headers: {
-        "User-Agent":
-          "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+        ...headers,
+        ...{
+          "User-Agent":
+            "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
       },
     });
 

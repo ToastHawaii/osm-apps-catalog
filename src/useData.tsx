@@ -6,6 +6,9 @@ import { printCalcScore } from "./utilities/printCalcScore";
 import { prepareLanguage } from "./data/prepareLanguage";
 
 async function loadData() {
+  // for testing
+  // return (await import ("./action/loadApps")).loadApps()
+
   if (!isDevelopment) {
     try {
       return await getJson("/api/apps/all.json", {});

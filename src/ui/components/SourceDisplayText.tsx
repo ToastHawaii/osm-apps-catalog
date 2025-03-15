@@ -20,6 +20,9 @@ export function SourceDisplayText({
     case "Wikidata":
       return <>Wikidata {icon}</>;
 
+    case "Github":
+      return <>Github</>;
+
     case "Layer":
       return <>Wiki (Layer) {icon}</>;
 
