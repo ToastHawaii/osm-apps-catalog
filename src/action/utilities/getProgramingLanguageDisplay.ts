@@ -13,6 +13,9 @@ const programingLanguages: {
     synonym: [
       "c++",
       "cpp",
+      "cplusplus",
+      "c-plus-plus",
+      "c plus plus",
       "c++0x",
       "c++1x",
       "c++03",
@@ -20,6 +23,7 @@ const programingLanguages: {
       "c++14",
       "c++17",
       "c++20",
+      "symbiancpp"
     ],
   },
   { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },

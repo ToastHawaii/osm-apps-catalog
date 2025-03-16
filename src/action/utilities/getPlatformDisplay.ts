@@ -31,7 +31,7 @@ const platforms: {
   },
   {
     name: "Android",
-    synonym: ["android"],
+    synonym: ["android", "android app", "android application"],
     version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
   },
   { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
@@ -42,7 +42,7 @@ const platforms: {
   { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
   {
     name: "iOS",
-    synonym: ["ios"],
+    synonym: ["ios", "ios app"],
     version: [
       { name: "iPhone", synonym: ["iphone"] },
       { name: "iPad", synonym: ["ipad", "iPadOS"] },
