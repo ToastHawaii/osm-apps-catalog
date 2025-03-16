@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Siin kataloogis leiduvad hetkel rakendused vaid [OpenStreetMap
-viki](https://wiki.openstreetmap.org/), [Vikiandmete](https://www.wikidata.org/)
-ja [siltide projekti loendi](https://taginfo.openstreetmap.org/projects)
-ingliskeelsest versioonist.*
+*Siin kataloogis leidub hetkel tarkvara järgnevate teenuste vaid ingliskeelsest
+versioonist: [OpenStreetMapi viki](https://wiki.openstreetmap.org/),
+[Vikiandmed](https://www.wikidata.org/), [GitHub](https://github.com/) ja
+[siltide projekt](https://taginfo.openstreetmap.org/projects).*
 
 Aita tõlkimisel:
 
