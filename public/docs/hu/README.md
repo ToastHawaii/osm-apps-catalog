@@ -42,9 +42,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
 *Ez a katalógus jelenleg csak az [OpenStreetMap
-wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/)
-és a [taginfo projektlistájának](https://taginfo.openstreetmap.org/projects)
-angol változatáról tartalmaz alkalmazásokat.*
+wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/),
+[GitHub](https://github.com/) és a [taginfo
+projektlistájának](https://taginfo.openstreetmap.org/projects) angol
+változatáról tartalmaz alkalmazásokat.*
 
 Segítség a fordításban:
 

@@ -43,8 +43,8 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 
 *Tento katalog v současné době obsahuje pouze aplikace z anglické verze
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/) a [taginfo project
-list](https://taginfo.openstreetmap.org/projects).*
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) a [taginfo
+project list](https://taginfo.openstreetmap.org/projects).*
 
 Pomozte s překladem:
 
