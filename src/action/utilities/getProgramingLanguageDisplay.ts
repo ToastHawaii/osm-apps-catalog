@@ -22,6 +22,7 @@ const programingLanguages: {
       "c++11",
       "c++14",
       "c++17",
+      "cpp17",
       "c++20",
       "symbiancpp"
     ],

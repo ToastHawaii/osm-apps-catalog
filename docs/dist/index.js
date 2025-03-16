@@ -74693,6 +74693,7 @@ const platforms = [
     { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
     { name: "Maemo", synonym: ["maemo"], version: [] },
     { name: "MeeGo", synonym: ["meego"], version: [] },
+    { name: "Sailfish OS", synonym: ["sailfishos"], version: [] },
     { name: "Tizen", synonym: ["tizen"], version: [] },
     { name: "WebOS", synonym: ["webos"], version: [] },
     { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
@@ -74785,7 +74786,11 @@ const platforms = [
             { name: "Java SE", synonym: ["j2se", "java se"] },
         ],
     },
-    { name: "Node.js", synonym: ["node", "node.js", "nodejs"], version: [] },
+    {
+        name: "Node.js",
+        synonym: ["node", "node.js", "nodejs", "node-js", "node js"],
+        version: [],
+    },
     { name: "Qt", synonym: ["qt"], version: [] },
     { name: "React Native", synonym: ["react native"], version: [] },
     { name: "Unity", synonym: ["unity"], version: [] },
@@ -76581,6 +76586,7 @@ const programingLanguages = [
             "c++11",
             "c++14",
             "c++17",
+            "cpp17",
             "c++20",
             "symbiancpp"
         ],
