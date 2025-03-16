@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# Acerca del Catálogo de aplicaciones de OSM
 
 **Experimente el mundo de maneras creativas, productivas e inesperadas.**
 
@@ -6,10 +6,10 @@ This catalog shows applications and services that use OpenStreetMap data. It is
 updated every day. The apps are rated and sorted by the [Community Contribution
 Score](/docs/score).
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Ir al catálogo](https://osm-apps.zottelig.ch)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Añada las aplicaciones OSM que conozca o contribuya de otras
+maneras.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Otros idiomas
 
@@ -62,7 +62,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
 [código](https://github.com/ToastHawaii/osm-apps-catalog) se puede usar, copiar
 y modificar de forma gratuita si se publica bajo la misma licencia.
 
-## Disclaimer
+## Exención de responsabilidad
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
 project are not endorsed by or affiliated with the [OpenStreetMap
 Foundation](https://osmfoundation.org/).
