@@ -2,18 +2,18 @@
 
 **Experience the world in a creative, productive and unexpected way.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Questo catalogo mostra applicazioni e servizi che usano i dati di OpenStreetMap.
+Viene aggiornato quotidianamente. Le app sono valutate e ordinate secondo il
+[Community Contribution Score](/docs/score).
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Vai al catalogo](https://osm-apps.zottelig.ch)
 
 [Add OSM apps you know or contribute in other
 ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Altre lingue
 
-Display the catalog in your language:
+Mostra il catalogo nella tua lingua:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -46,13 +46,13 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
 [taginfo project list](https://taginfo.openstreetmap.org/projects).*
 
-Help with the translation:
+Aiuta a tradurre:
 
 - from the OSM Apps Catalog on
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widgets/osm-apps-catalog/-/svg-badge.svg" alt="Translation status" /></a>
-- from the apps documented in [OpenStreetMap
+- dalle app documentate su [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## License
@@ -69,10 +69,10 @@ Foundation](https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Diventa parte della [comunità di
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Unisciti a un gruppo locale](https://usergroups.openstreetmap.de/),
+  [incontra](https://osmcal.org/) & [chatta](https://community.osm.be/)
+- [Contribuire a
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
