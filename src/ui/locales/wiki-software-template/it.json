@@ -16,7 +16,8 @@
         "label": "Logo"
     },
     "name": {
-        "label": "Nome"
+        "label": "Nome",
+        "description": "Nome ufficiale, o il nome più comunemente usato"
     },
     "version": {
         "description": "Ultima versione",
@@ -33,16 +34,20 @@
         "label": "Prezzo"
     },
     "author": {
-        "label": "Autore"
+        "label": "Autore",
+        "description": "Nome dell'autore o collegamento alla sua pagina utente di OSM-wiki"
     },
     "platform": {
-        "label": "Piattaforme supportate"
+        "label": "Piattaforme supportate",
+        "description": "Elenco delle piattaforme su cui è utilizzabile."
     },
     "genre": {
-        "label": "Genere"
+        "label": "Genere",
+        "description": "Categoria principale di questo strumento."
     },
     "languages": {
-        "label": "Lingue"
+        "label": "Lingue",
+        "description": "Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate"
     },
     "coverage": {
         "label": "Copertura"
@@ -52,13 +57,16 @@
         "description": "Lista dei linguaggi di programmazione utilizzati."
     },
     "framework": {
-        "label": "Framework"
+        "label": "Framework",
+        "description": "Lista di framework utilizzati."
     },
     "bbWorldID": {
-        "label": "ID BlackBerry"
+        "label": "ID BlackBerry",
+        "description": "ID dell'applicazione BlackBerry World"
     },
     "fDroidID": {
-        "label": "ID di F-Droid"
+        "label": "ID di F-Droid",
+        "description": "ID dell'applicazione su F-Droid"
     },
     "googlePlayID": {
         "label": "ID di Google Play",
@@ -72,5 +80,19 @@
     },
     "showWebsite": {
         "label": "Mostra la pagina web"
+    },
+    "languagesurl": {
+        "description": "Collegamento alla lista completa delle lingue supportate, descritte in un altra pagina (per esempio una repository o una pagina del portale per il software)"
+    },
+    "firefoxMarketplaceID": {
+        "label": "ID di Firefox Marketplace",
+        "description": "ID dell'applicazione su Firefox Marketplace"
+    },
+    "huaweiAppGalleryID": {
+        "label": "ID di Huawei AppGallery",
+        "description": "ID dell'applicazione su Huawei AppGallery"
+    },
+    "appleStoreID": {
+        "label": "ID AppStore"
     }
 }
