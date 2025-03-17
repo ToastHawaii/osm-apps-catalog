@@ -1,4 +1,4 @@
-import { equalsIgnoreCase, trim } from "../../utilities/string";
+import { equalsIgnoreCase } from "../../utilities/string";
 
 const programingLanguages: {
   name: string;
@@ -24,7 +24,7 @@ const programingLanguages: {
       "c++17",
       "cpp17",
       "c++20",
-      "symbiancpp"
+      "symbiancpp",
     ],
   },
   { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
@@ -44,7 +44,7 @@ const programingLanguages: {
   { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
   { name: "Perl", synonym: ["perl", "pl"] },
   { name: "PHP", synonym: ["php"] },
-  { name: "Python", synonym: ["python", "py"] },
+  { name: "Python", synonym: ["python", "py", "python3"] },
   { name: "R", synonym: ["r"] },
   { name: "Ruby", synonym: ["ruby", "rb", "rails"] },
   { name: "Rust", synonym: ["rust"] },
@@ -59,9 +59,6 @@ const programingLanguages: {
 ];
 
 export function getProgramingLanguageDisplay(value: string) {
-  // Remove version
-  value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
-
   for (const language of programingLanguages) {
     if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
       return language.name;

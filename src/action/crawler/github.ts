@@ -4,8 +4,19 @@ import { getJson } from "../../utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
+import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
 
-const ignoredTopics = ["openstreetmap", "osm"];
+const ignoredTopics = [
+  "openstreetmap",
+  "osm",
+  "foss",
+  "github-page",
+  "jekyll",
+  "30daymapchallenge",
+  "dataviz",
+  "hacktoberfest",
+  "hacktoberfest2021",
+];
 
 export function transformGithubResult(result: any) {
   return {
@@ -44,8 +55,9 @@ export function transformGithubResult(result: any) {
       .filter((t: string) => !ignoredTopics.includes(t))
       .map((t: string) => t.replaceAll("-", " "))
       .map(upperFirst)
-      .filter((t: string) => !getPlatformDisplay(t) )
-      .filter((t: string) => !getProgramingLanguageDisplay(t) ),
+      .filter((t: string) => !getPlatformDisplay(t))
+      .filter((t: string) => !getFrameworkDisplay(t))
+      .filter((t: string) => !getProgramingLanguageDisplay(t)),
     platform: result.topics
       .map((t: string) => t.replaceAll("-", " "))
       .map(upperFirst)

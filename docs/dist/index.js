@@ -74687,7 +74687,7 @@ const platforms = [
     },
     {
         name: "Android",
-        synonym: ["android", "android app", "android application"],
+        synonym: ["android", "android app", "android application", "fdroid", "f droid"],
         version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
     },
     { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
@@ -74792,13 +74792,13 @@ const platforms = [
         version: [],
     },
     { name: "Qt", synonym: ["qt"], version: [] },
-    { name: "React Native", synonym: ["react native"], version: [] },
     { name: "Unity", synonym: ["unity"], version: [] },
     {
         name: "Web",
         synonym: [
             "web",
             "web-based",
+            "web based",
             "webapp",
             "web-app",
             "web app",
@@ -76588,7 +76588,7 @@ const programingLanguages = [
             "c++17",
             "cpp17",
             "c++20",
-            "symbiancpp"
+            "symbiancpp",
         ],
     },
     { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
@@ -76608,7 +76608,7 @@ const programingLanguages = [
     { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
     { name: "Perl", synonym: ["perl", "pl"] },
     { name: "PHP", synonym: ["php"] },
-    { name: "Python", synonym: ["python", "py"] },
+    { name: "Python", synonym: ["python", "py", "python3"] },
     { name: "R", synonym: ["r"] },
     { name: "Ruby", synonym: ["ruby", "rb", "rails"] },
     { name: "Rust", synonym: ["rust"] },
@@ -76622,9 +76622,42 @@ const programingLanguages = [
     { name: "Zig", synonym: ["zig"] },
 ];
 function getProgramingLanguageDisplay(value) {
-    // Remove version
-    value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
     for (const language of programingLanguages) {
+        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
+            return language.name;
+    }
+    return "";
+}
+
+;// CONCATENATED MODULE: ./src/action/utilities/getFrameworkDisplay.ts
+
+const frameworks = [
+    { name: "Meteor", synonym: ["meteor", "meteor application"] },
+    {
+        name: "leaflet",
+        synonym: [
+            "leafletjs",
+            "leaflets",
+            "leaflet java",
+            "leaflet4j",
+            "leaflet reactjs",
+            "leaflet markercluster",
+            "react leaflet markercluster",
+        ],
+    },
+    {
+        name: "React",
+        synonym: ["react", "reactjs", "reactnative", "react native"],
+    },
+    { name: "Vite", synonym: ["vite", "vitejs"] },
+    { name: "Reatom", synonym: ["reatom"] },
+    { name: "Tailwind CSS", synonym: ["tailwind css"] },
+    { name: "Nextjs", synonym: ["nextjs"] },
+    { name: "Bootstrap", synonym: ["bootstrap"] },
+    { name: "Flutter", synonym: ["flutter"] },
+];
+function getFrameworkDisplay(value) {
+    for (const language of frameworks) {
         if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
             return language.name;
     }
@@ -76637,7 +76670,18 @@ function getProgramingLanguageDisplay(value) {
 
 
 
-const ignoredTopics = ["openstreetmap", "osm"];
+
+const ignoredTopics = [
+    "openstreetmap",
+    "osm",
+    "foss",
+    "github-page",
+    "jekyll",
+    "30daymapchallenge",
+    "dataviz",
+    "hacktoberfest",
+    "hacktoberfest2021",
+];
 function transformGithubResult(result) {
     return {
         name: result.name || "",
@@ -76673,6 +76717,7 @@ function transformGithubResult(result) {
             .map((t) => t.replaceAll("-", " "))
             .map(lodash.upperFirst)
             .filter((t) => !getPlatformDisplay(t))
+            .filter((t) => !getFrameworkDisplay(t))
             .filter((t) => !getProgramingLanguageDisplay(t)),
         platform: result.topics
             .map((t) => t.replaceAll("-", " "))

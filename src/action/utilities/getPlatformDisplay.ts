@@ -31,7 +31,7 @@ const platforms: {
   },
   {
     name: "Android",
-    synonym: ["android", "android app", "android application"],
+    synonym: ["android", "android app", "android application", "fdroid", "f droid"],
     version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
   },
   { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
@@ -137,13 +137,13 @@ const platforms: {
     version: [],
   },
   { name: "Qt", synonym: ["qt"], version: [] },
-  { name: "React Native", synonym: ["react native"], version: [] },
   { name: "Unity", synonym: ["unity"], version: [] },
   {
     name: "Web",
     synonym: [
       "web",
       "web-based",
+      "web based",
       "webapp",
       "web-app",
       "web app",
