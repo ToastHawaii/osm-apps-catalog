@@ -119,7 +119,7 @@
     "app.contribute.toData.photos": "Fotos für die Kartierung hochladen",
     "select.search.placeholder": "Suche",
     "select.search.noResults": "Kein Resultat",
-    "filter.resetFilters": "Alles anzeigen",
+    "filter.resetFilters": "Alle anzeigen",
     "filter.preview": "Apps werden angezeigt für:",
     "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps verwenden <o>OpenStreetMap</o>."
 }
