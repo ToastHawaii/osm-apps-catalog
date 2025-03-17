@@ -21,7 +21,7 @@
     "app.sourceCode": "Quellcode",
     "app.license": "Lizenz",
     "category.focus.description": "Zehn Apps von den zuletzt aktualisierten Seiten.",
-    "category.mobile.description": "{{numberOfApps}} Apps wurden für Mobilgeräte entwickelt oder unterstützen die Offline-Nutzung.",
+    "category.mobile.description": "{{numberOfApps}} Apps für Mobilgeräte oder die Offline-Nutzung unterstützen.",
     "noResults": "Kein Resultat",
     "category.navigation.description": "{{numberOfApps}} Apps, die Routenführung oder Navigation unterstützen.",
     "app.website": "Webseite",
@@ -44,7 +44,7 @@
     "compare.group.header.accessibility": "Zugänglichkeit",
     "app.install.macAppStore": "Mac App Store",
     "app.install.microsoftApp": "Microsoft Store",
-    "wiki.generatedBy": "Erstellt von OSM Apps Katalog",
+    "wiki.generatedBy": "Erstellt vom OSM Apps Katalog",
     "compare.group.header.tracking": "Tracking",
     "compare.group.header.monitoring": "Überwachung",
     "app.install.asin": "Amazon Appstore",
@@ -73,7 +73,7 @@
     "score.criteria.copyleftLicense": "die Lizenz ist eine Copyleft-Lizenz (z.B. GPL, ODbL, MPL, CC)",
     "score.criteria.issueTracker": "ein Issue-Tracker existiert",
     "score.criteria.lastUpdateYear": "das letzte Update fand innerhalb des letzten Jahres statt",
-    "score.criteria.lastUpdateThreeMonths": "das letzte update fand innerhalb der letzten 3 Monate statt",
+    "score.criteria.lastUpdateThreeMonths": "das letzte Update fand innerhalb der letzten 3 Monate statt",
     "score.criteria.sourceCodeReference": "ein Verweis zum Quellcode ist dokumentiert",
     "score.criteria.multipleLanguages": "die App unterstützt Mehrsprachigkeit (.min 3 Sprachen)",
     "score.criteria.tenLanguages": "die App ist in mindestens 10 Sprachen verfügbar",
@@ -121,5 +121,5 @@
     "select.search.noResults": "Kein Resultat",
     "filter.resetFilters": "Alle anzeigen",
     "filter.preview": "Apps werden angezeigt für:",
-    "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps verwenden <o>OpenStreetMap</o>."
+    "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden."
 }
