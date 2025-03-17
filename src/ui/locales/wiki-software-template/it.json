@@ -1,1 +1,76 @@
-{}
+{
+    "web": {
+        "label": "Indirizzo web"
+    },
+    "date": {
+        "label": "Data di pubblicazione"
+    },
+    "license": {
+        "label": "Licenza"
+    },
+    "status": {
+        "label": "Stato",
+        "description": "Stato attuale del progetto."
+    },
+    "logo": {
+        "label": "Logo"
+    },
+    "name": {
+        "label": "Nome"
+    },
+    "version": {
+        "description": "Ultima versione",
+        "label": "Versione"
+    },
+    "repo": {
+        "label": "Codice sorgente"
+    },
+    "description": {
+        "label": "Descrizione",
+        "description": "Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)"
+    },
+    "price": {
+        "label": "Prezzo"
+    },
+    "author": {
+        "label": "Autore"
+    },
+    "platform": {
+        "label": "Piattaforme supportate"
+    },
+    "genre": {
+        "label": "Genere"
+    },
+    "languages": {
+        "label": "Lingue"
+    },
+    "coverage": {
+        "label": "Copertura"
+    },
+    "code": {
+        "label": "Codice",
+        "description": "Lista dei linguaggi di programmazione utilizzati."
+    },
+    "framework": {
+        "label": "Framework"
+    },
+    "bbWorldID": {
+        "label": "ID BlackBerry"
+    },
+    "fDroidID": {
+        "label": "ID di F-Droid"
+    },
+    "googlePlayID": {
+        "label": "ID di Google Play",
+        "description": "ID dell'applicazione su Google Play Store"
+    },
+    "microsoftAppID": {
+        "label": "ID Microsoft"
+    },
+    "3D": {
+        "label": "Vista 3D"
+    },
+    "showWebsite": {
+        "label": "Mostra la pagina web"
+    }
+}
