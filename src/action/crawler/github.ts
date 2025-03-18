@@ -74,7 +74,7 @@ export function transformGithubResult(result: any) {
         name: "Github",
         wiki: "",
         url: result.html_url,
-        lastChange: result.updated_at,
+        lastChange: result.pushed_at,
       },
     ],
   } as any as App;

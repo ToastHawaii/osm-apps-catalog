@@ -28,6 +28,7 @@ const programingLanguages: {
     ],
   },
   { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
+  { name: "Clojure", synonym: ["clojure", "clojurescript"] },
   { name: "CSS", synonym: ["css"] },
   { name: "Dart", synonym: ["dart"] },
   { name: "Go", synonym: ["go", "golang"] },
@@ -46,7 +47,7 @@ const programingLanguages: {
   { name: "PHP", synonym: ["php"] },
   { name: "Python", synonym: ["python", "py", "python3"] },
   { name: "R", synonym: ["r"] },
-  { name: "Ruby", synonym: ["ruby", "rb", "rails"] },
+  { name: "Ruby", synonym: ["ruby", "rb", "rails","ruby-script"] },
   { name: "Rust", synonym: ["rust"] },
   { name: "SQL", synonym: ["sql"] },
   { name: "Swift", synonym: ["swift"] },
@@ -56,6 +57,7 @@ const programingLanguages: {
     synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
   },
   { name: "Zig", synonym: ["zig"] },
+  { name: "Html", synonym: ["html", "html5"] },
 ];
 
 export function getProgramingLanguageDisplay(value: string) {

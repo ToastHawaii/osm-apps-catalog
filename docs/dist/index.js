@@ -76592,6 +76592,7 @@ const programingLanguages = [
         ],
     },
     { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
+    { name: "Clojure", synonym: ["clojure", "clojurescript"] },
     { name: "CSS", synonym: ["css"] },
     { name: "Dart", synonym: ["dart"] },
     { name: "Go", synonym: ["go", "golang"] },
@@ -76610,7 +76611,7 @@ const programingLanguages = [
     { name: "PHP", synonym: ["php"] },
     { name: "Python", synonym: ["python", "py", "python3"] },
     { name: "R", synonym: ["r"] },
-    { name: "Ruby", synonym: ["ruby", "rb", "rails"] },
+    { name: "Ruby", synonym: ["ruby", "rb", "rails", "ruby-script"] },
     { name: "Rust", synonym: ["rust"] },
     { name: "SQL", synonym: ["sql"] },
     { name: "Swift", synonym: ["swift"] },
@@ -76620,6 +76621,7 @@ const programingLanguages = [
         synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
     },
     { name: "Zig", synonym: ["zig"] },
+    { name: "Html", synonym: ["html", "html5"] },
 ];
 function getProgramingLanguageDisplay(value) {
     for (const language of programingLanguages) {
@@ -76636,6 +76638,7 @@ const frameworks = [
     {
         name: "leaflet",
         synonym: [
+            "leaflet",
             "leafletjs",
             "leaflets",
             "leaflet java",
@@ -76654,7 +76657,12 @@ const frameworks = [
     { name: "Tailwind CSS", synonym: ["tailwind css"] },
     { name: "Nextjs", synonym: ["nextjs"] },
     { name: "Bootstrap", synonym: ["bootstrap"] },
+    { name: "Cesiumjs", synonym: ["cesiumjs"] },
     { name: "Flutter", synonym: ["flutter"] },
+    { name: "Angular", synonym: ["angular", "angular2"] },
+    { name: "ASP.NET", synonym: ["asp net core"] },
+    { name: "JQuery", synonym: ["jquery"] },
+    { name: "Material UI", synonym: ["material ui"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
@@ -76735,7 +76743,7 @@ function transformGithubResult(result) {
                 name: "Github",
                 wiki: "",
                 url: result.html_url,
-                lastChange: result.updated_at,
+                lastChange: result.pushed_at,
             },
         ],
     };
