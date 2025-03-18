@@ -94,5 +94,14 @@
     },
     "appleStoreID": {
         "label": "ID AppStore"
+    },
+    "navigating": {
+        "label": "Naviga"
+    },
+    "dangerWarnings": {
+        "description": "[Accessibilità]"
+    },
+    "screenshot": {
+        "label": "Screenshot"
     }
 }
