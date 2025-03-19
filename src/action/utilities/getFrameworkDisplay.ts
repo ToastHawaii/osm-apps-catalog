@@ -33,6 +33,7 @@ const frameworks: {
   { name: "ASP.NET", synonym: ["asp net core"] },
   { name: "JQuery", synonym: ["jquery"] },
   { name: "Material UI", synonym: ["material ui"] },
+  { name: "Windows form", synonym: ["windowsform","windowsforms", "winforms" ] },
 ];
 
 export function getFrameworkDisplay(value: string) {

@@ -76663,6 +76663,7 @@ const frameworks = [
     { name: "ASP.NET", synonym: ["asp net core"] },
     { name: "JQuery", synonym: ["jquery"] },
     { name: "Material UI", synonym: ["material ui"] },
+    { name: "Windows form", synonym: ["windowsform", "windowsforms", "winforms"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
@@ -76744,7 +76745,7 @@ function transformGithubResult(result) {
                 name: "Github",
                 wiki: "",
                 url: result.html_url,
-                lastChange: result.pushed_at,
+                lastChange: result.updated_at,
             },
         ],
     };
@@ -76923,6 +76924,7 @@ async function run() {
     try {
         let apps = await loadApps(core.getInput("ghToken"));
         await firstCrawled(apps);
+        await main_focus(apps);
         shuffle(apps);
         apps = apps.sort(function (a, b) {
             return b.score - a.score;
@@ -76960,6 +76962,31 @@ async function firstCrawled(apps) {
             }
         }
         app.source = (0,lodash.sortBy)(app.source, getLastMod).reverse();
+    }
+}
+async function main_focus(apps) {
+    const now = new Date().toISOString();
+    var yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
+    const knownApps = (await (await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})).json());
+    for (const app of apps) {
+        const knownApp = knownApps.find((k) => k.id === app.id);
+        if (!knownApp) {
+            app.lastFocus = "0000-00-00T00:00:00Z";
+        }
+        else {
+            app.lastFocus = knownApp.lastFocus || "0000-00-00T00:00:00Z";
+        }
+    }
+    // Find all those that have changed in the last day and show those that have not been displayed 
+    // for the longest time
+    const focusedApps = (0,lodash.chain)(knownApps)
+        .filter((a) => getLastMod(a.source[0]) > yesterday)
+        .sortBy((a) => a.lastFocus)
+        .reverse()
+        .take(10)
+        .value();
+    for (const app of focusedApps) {
+        app.lastFocus = now;
     }
 }
 async function generateSitemap(apps) {

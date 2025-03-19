@@ -9,7 +9,7 @@ import { loadApps } from "./loadApps";
 import { shuffle } from "../utilities/array";
 import { getLastMod } from "../utilities/getLastMod";
 import { App } from "../data/App";
-import { sortBy } from "lodash";
+import { chain, sortBy } from "lodash";
 
 const lastUpdate = new Date("2025-02-04");
 
@@ -22,6 +22,7 @@ export async function run(): Promise<void> {
     let apps = await loadApps(core.getInput("ghToken"));
 
     await firstCrawled(apps);
+    await focus(apps);
 
     shuffle(apps);
     apps = apps.sort(function (a, b) {
@@ -75,6 +76,39 @@ async function firstCrawled(apps: App[]) {
     }
 
     app.source = sortBy(app.source, getLastMod).reverse();
+  }
+}
+
+async function focus(apps: App[]) {
+  const now = new Date().toISOString();
+  var yesterday = new Date(
+    new Date().valueOf() - 1000 * 60 * 60 * 24
+  ).toISOString();
+
+  const knownApps = (await (
+    await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})
+  ).json()) as App[];
+
+  for (const app of apps) {
+    const knownApp = knownApps.find((k) => k.id === app.id);
+    if (!knownApp) {
+      app.lastFocus = "0000-00-00T00:00:00Z";
+    } else {
+      app.lastFocus = knownApp.lastFocus || "0000-00-00T00:00:00Z";
+    }
+  }
+
+  // Find all those that have changed in the last day and show those that have not been displayed 
+  // for the longest time
+  const focusedApps = chain(knownApps)
+    .filter((a) => getLastMod(a.source[0]) > yesterday)
+    .sortBy((a) => a.lastFocus)
+    .reverse()
+    .take(10)
+    .value();
+
+  for (const app of focusedApps) {
+    app.lastFocus = now;
   }
 }
 

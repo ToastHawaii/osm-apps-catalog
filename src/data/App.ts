@@ -134,6 +134,7 @@ export type App = {
     slack?: string;
     reddit?: string;
   };
+  lastFocus: string;
   score: number;
   cache: {
     score?: {

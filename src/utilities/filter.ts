@@ -31,7 +31,7 @@ export function filter({
       .value();
   } else if (category === "focus") {
     filteredApps = chain(filteredApps)
-      .sortBy((a) => getLastMod(a.source[0]))
+      .sortBy((a) => a.lastFocus)
       .reverse()
       .take(10)
       .value();
