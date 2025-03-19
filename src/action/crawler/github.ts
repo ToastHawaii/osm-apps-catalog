@@ -17,11 +17,16 @@ const ignoredTopics = [
   "dataviz",
   "hacktoberfest",
   "hacktoberfest2021",
+  "psram-needed",
+  "mqtt",
+  "kubernetes",
 ];
 
 export function transformGithubResult(result: any) {
   return {
-    name: result.name || "",
+    name: upperFirst(result.name || "")
+      .replaceAll("-", " ")
+      .replaceAll("_", " "),
     unmaintained: result.archived,
     lastRelease: "",
     description: result.description || "",

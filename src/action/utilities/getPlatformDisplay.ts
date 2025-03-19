@@ -31,8 +31,19 @@ const platforms: {
   },
   {
     name: "Android",
-    synonym: ["android", "android app", "android application", "fdroid", "f droid"],
+    synonym: [
+      "android",
+      "android app",
+      "android application",
+      "fdroid",
+      "f droid",
+    ],
     version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
+  },
+  {
+    name: "Arduino",
+    synonym: ["arduino"],
+    version: [{ name: "Arduino® Nano ESP32", synonym: ["esp32 arduino"] }],
   },
   { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
   { name: "Maemo", synonym: ["maemo"], version: [] },
