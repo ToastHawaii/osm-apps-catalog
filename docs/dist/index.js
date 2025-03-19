@@ -77035,7 +77035,6 @@ async function main_focus(apps) {
     const focusedApps = (0,lodash.chain)(apps)
         .filter((a) => getLastMod(a.source[0]) > yesterday)
         .sortBy((a) => a.lastFocus)
-        .reverse()
         .take(10)
         .value();
     for (const app of focusedApps) {

@@ -103,7 +103,6 @@ async function focus(apps: App[]) {
   const focusedApps = chain(apps)
     .filter((a) => getLastMod(a.source[0]) > yesterday)
     .sortBy((a) => a.lastFocus)
-    .reverse()
     .take(10)
     .value();
 
