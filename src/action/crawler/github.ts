@@ -9,6 +9,7 @@ import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
 const ignoredTopics = [
   "openstreetmap",
   "osm",
+  "open-street-map",
   "foss",
   "github-page",
   "jekyll",

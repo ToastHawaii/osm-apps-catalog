@@ -29,7 +29,7 @@ const frameworks: {
   { name: "Bootstrap", synonym: ["bootstrap"] },
   { name: "Cesiumjs", synonym: ["cesiumjs"] },
   { name: "Flutter", synonym: ["flutter"] },
-  { name: "Angular", synonym: ["angular", "angular2"] },
+  { name: "Angular", synonym: ["angular", "angular2", "angularjs", "angular ssr"] },
   { name: "ASP.NET", synonym: ["asp net core"] },
   { name: "JQuery", synonym: ["jquery"] },
   { name: "Material UI", synonym: ["material ui"] },

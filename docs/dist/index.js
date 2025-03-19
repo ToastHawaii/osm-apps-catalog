@@ -76609,7 +76609,7 @@ const programingLanguages = [
     { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
     { name: "Perl", synonym: ["perl", "pl"] },
     { name: "PHP", synonym: ["php"] },
-    { name: "Python", synonym: ["python", "py", "python3"] },
+    { name: "Python", synonym: ["python", "py", "python2", "python3", "python 3"] },
     { name: "R", synonym: ["r"] },
     { name: "Ruby", synonym: ["ruby", "rb", "rails", "ruby-script"] },
     { name: "Rust", synonym: ["rust"] },
@@ -76621,7 +76621,7 @@ const programingLanguages = [
         synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
     },
     { name: "Zig", synonym: ["zig"] },
-    { name: "Html", synonym: ["html", "html5"] },
+    { name: "Html", synonym: ["html", "html5", "html css"] },
 ];
 function getProgramingLanguageDisplay(value) {
     for (const language of programingLanguages) {
@@ -76659,7 +76659,7 @@ const frameworks = [
     { name: "Bootstrap", synonym: ["bootstrap"] },
     { name: "Cesiumjs", synonym: ["cesiumjs"] },
     { name: "Flutter", synonym: ["flutter"] },
-    { name: "Angular", synonym: ["angular", "angular2"] },
+    { name: "Angular", synonym: ["angular", "angular2", "angularjs", "angular ssr"] },
     { name: "ASP.NET", synonym: ["asp net core"] },
     { name: "JQuery", synonym: ["jquery"] },
     { name: "Material UI", synonym: ["material ui"] },
@@ -76682,6 +76682,7 @@ function getFrameworkDisplay(value) {
 const ignoredTopics = [
     "openstreetmap",
     "osm",
+    "open-street-map",
     "foss",
     "github-page",
     "jekyll",
