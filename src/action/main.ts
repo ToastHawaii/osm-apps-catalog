@@ -100,7 +100,7 @@ async function focus(apps: App[]) {
 
   // Find all those that have changed in the last day and show those that have not been displayed 
   // for the longest time
-  const focusedApps = chain(knownApps)
+  const focusedApps = chain(apps)
     .filter((a) => getLastMod(a.source[0]) > yesterday)
     .sortBy((a) => a.lastFocus)
     .reverse()

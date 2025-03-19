@@ -76979,7 +76979,7 @@ async function main_focus(apps) {
     }
     // Find all those that have changed in the last day and show those that have not been displayed 
     // for the longest time
-    const focusedApps = (0,lodash.chain)(knownApps)
+    const focusedApps = (0,lodash.chain)(apps)
         .filter((a) => getLastMod(a.source[0]) > yesterday)
         .sortBy((a) => a.lastFocus)
         .reverse()
