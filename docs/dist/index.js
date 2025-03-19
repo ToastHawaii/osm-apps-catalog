@@ -76725,7 +76725,9 @@ const ignoredTopics = [
 ];
 function transformGithubResult(result) {
     return {
-        name: (result.name || "").replaceAll("-", " ").replaceAll("_", " "),
+        name: (0,lodash.upperFirst)(result.name || "")
+            .replaceAll("-", " ")
+            .replaceAll("_", " "),
         unmaintained: result.archived,
         lastRelease: "",
         description: result.description || "",
@@ -76794,6 +76796,8 @@ async function requestGithub(githubToken) {
         const base = "https://api.github.com/search/repositories";
         const params = {};
         params["q"] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
+        params["sort"] = "stars";
+        params["order"] = "desc";
         params["per_page"] = limit;
         params["page"] = page;
         const result = await getJson(base, params, githubToken
@@ -76805,6 +76809,24 @@ async function requestGithub(githubToken) {
         total = result.total_count;
         objects.push(...result.items);
     } while (limit * page < total && page < 10);
+    while (limit * page < total && page < 20) {
+        page++;
+        const base = "https://api.github.com/search/repositories";
+        const params = {};
+        params["q"] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
+        params["sort"] = "stars";
+        params["order"] = "asc";
+        params["per_page"] = limit;
+        params["page"] = page - 10;
+        const result = await getJson(base, params, githubToken
+            ? {
+                Authorization: "Bearer " + githubToken,
+                "X-GitHub-Api-Version": "2022-11-28",
+            }
+            : {});
+        total = result.total_count;
+        objects.push(...result.items);
+    }
     return objects;
 }
 
