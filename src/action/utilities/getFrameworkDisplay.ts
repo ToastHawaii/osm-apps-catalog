@@ -51,6 +51,7 @@ const frameworks: {
   { name: "Flask", synonym: ["flask", "flask api"] },
   { name: "Django", synonym: ["django"] },
   { name: "nginx", synonym: ["nginx"] },
+  { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
 ];
 
 export function getFrameworkDisplay(value: string) {

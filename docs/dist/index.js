@@ -76602,25 +76602,36 @@ const programingLanguages = [
             "symbiancpp",
         ],
     },
-    { name: "C#", synonym: ["c#", "c-sharp", "c sharp"] },
+    { name: "C#", synonym: ["c#", "c-sharp", "c sharp", "csharp"] },
     { name: "Clojure", synonym: ["clojure", "clojurescript"] },
-    { name: "CSS", synonym: ["css"] },
+    { name: "CSS", synonym: ["css", "css3"] },
     { name: "Dart", synonym: ["dart"] },
     { name: "Go", synonym: ["go", "golang"] },
     { name: "HTML", synonym: ["html"] },
     { name: "Java", synonym: ["java"] },
-    { name: "JavaScript", synonym: ["javascript", "js", "ecmascript", "es"] },
+    {
+        name: "JavaScript",
+        synonym: ["javascript", "js", "ecmascript", "es", "vanilla javascript"],
+    },
     { name: "Kotlin", synonym: ["kotlin"] },
     { name: "Lua", synonym: ["lua"] },
     { name: "Objective-C", synonym: ["objective-c", "objective c", "objc"] },
     {
         name: "Objective-C++",
-        synonym: ["objective-c++", "objective c++", "objc++"],
+        synonym: [
+            "objective-c++",
+            "objective c++",
+            "objc++",
+            "objective c plus plus",
+        ],
     },
     { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
     { name: "Perl", synonym: ["perl", "pl"] },
     { name: "PHP", synonym: ["php"] },
-    { name: "Python", synonym: ["python", "py", "python2", "python3", "python 3"] },
+    {
+        name: "Python",
+        synonym: ["python", "py", "python2", "python3", "python 3"],
+    },
     { name: "R", synonym: ["r"] },
     { name: "Ruby", synonym: ["ruby", "rb", "rails", "ruby-script"] },
     { name: "Rust", synonym: ["rust"] },
@@ -76692,6 +76703,7 @@ const frameworks = [
     { name: "Flask", synonym: ["flask", "flask api"] },
     { name: "Django", synonym: ["django"] },
     { name: "nginx", synonym: ["nginx"] },
+    { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
@@ -76712,6 +76724,8 @@ const ignoredTopics = [
     "openstreetmap",
     "osm",
     "open-street-map",
+    "openstreetmap-data",
+    "osm-data",
     "foss",
     "github-page",
     "jekyll",
@@ -76719,9 +76733,17 @@ const ignoredTopics = [
     "dataviz",
     "hacktoberfest",
     "hacktoberfest2021",
+    "hacktoberfest2022",
+    "hacktoberfest2023",
     "psram-needed",
     "mqtt",
     "kubernetes",
+    "git",
+    "svn",
+    "css-grid",
+    "github",
+    "github",
+    "github actions",
 ];
 function transformGithubResult(result) {
     return {
@@ -76795,7 +76817,7 @@ async function requestGithub(githubToken) {
         page++;
         const base = "https://api.github.com/search/repositories";
         const params = {};
-        params["q"] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
+        params["q"] = `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
         params["sort"] = "stars";
         params["order"] = "desc";
         params["per_page"] = limit;

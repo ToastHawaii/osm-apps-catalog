@@ -10,6 +10,8 @@ const ignoredTopics = [
   "openstreetmap",
   "osm",
   "open-street-map",
+  "openstreetmap-data",
+  "osm-data",
   "foss",
   "github-page",
   "jekyll",
@@ -17,9 +19,17 @@ const ignoredTopics = [
   "dataviz",
   "hacktoberfest",
   "hacktoberfest2021",
+  "hacktoberfest2022",
+  "hacktoberfest2023",
   "psram-needed",
   "mqtt",
   "kubernetes",
+  "git",
+  "svn",
+  "css-grid",
+  "github",
+  "github",
+  "github actions",
 ];
 
 export function transformGithubResult(result: any) {
@@ -106,7 +116,7 @@ export async function requestGithub(githubToken?: string) {
 
     params[
       "q"
-    ] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
+    ] = `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
     params["sort"] = "stars";
     params["order"] = "desc";
     params["per_page"] = limit;
