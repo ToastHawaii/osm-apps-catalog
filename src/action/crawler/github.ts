@@ -51,11 +51,7 @@ export function transformGithubResult(result: any) {
     documentation: result.has_wiki
       ? result.html_url + "/wiki/"
       : result.html_url || "",
-    author: result.organization?.login
-      ? `<a href='${result.organization?.html_url}' target='_blank' rel='noreferrer'>${result.organization?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
-      : result.owner?.login
-      ? `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`
-      : `<a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
+    author: `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
     libre: isFreeAndOpenSource(result.license?.spdx_id),
     license:
       result.license?.spdx_id !== "NOASSERTION"

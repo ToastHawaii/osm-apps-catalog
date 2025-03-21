@@ -11,7 +11,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
-import { mergeWith } from "lodash";
+import { groupBy, mergeWith } from "lodash";
 import { requestGitHub, transformGithubResult } from "./crawler/github";
 
 async function loadAppsFromOsmWikiServiceItems(language: string) {
@@ -78,10 +78,18 @@ async function loadAppsFromWikidata(language: string) {
   return Array.from(objs.values());
 }
 
-async function loadAppsFromGitHub(githubToken: string) {
-  return (await requestGitHub(githubToken)).map((source) =>
-    transformGithubResult(source)
-  );
+async function loadAppsFromGitHub(githubToken?: string | undefined) {
+  const objs = await requestGitHub(githubToken);
+
+  const groupedObjs = groupBy(objs, (o) => o.name);
+  Object.entries(groupedObjs)
+    .filter((o) => o[1].length > 1)
+    .flatMap((o) => o[1])
+    .forEach((o) => {
+      o.name = o.name + " by " + o.owner.login;
+    });
+
+  return objs.map((source) => transformGithubResult(source));
 }
 
 async function loadAppsFromTagInfoProjects() {
@@ -126,23 +134,23 @@ async function loadAppsFromTagInfoProjects() {
         coverage: [],
         install: {},
         community: {},
-      } as App as any)
+      } as any)
   );
 }
 
-async function loadAppsFromWikipediaSoftware(language: string) {
-  // const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
-  //   "Infobox software",
-  //   language
-  // );
-  // const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
-  // for (const source of wikipediaSoftwareObjects.filter(
-  //   (s) => !equalsYes(s["discontinued"])
-  // )) {
-  //   const obj: App = transformWikipediaSoftware(source);
-  //   addApp(apps, obj);
-  // }
-}
+// async function loadAppsFromWikipediaSoftware(language: string) {
+// const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
+//   "Infobox software",
+//   language
+// );
+// const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
+// for (const source of wikipediaSoftwareObjects.filter(
+//   (s) => !equalsYes(s["discontinued"])
+// )) {
+//   const obj: App = transformWikipediaSoftware(source);
+//   addApp(apps, obj);
+// }
+// }
 
 export async function loadApps(githubToken?: string) {
   const apps: App[] = [];
@@ -155,7 +163,7 @@ export async function loadApps(githubToken?: string) {
       loadAppsFromOsmWikiSoftwares(language),
       loadAppsFromWikidata(language),
       loadAppsFromGitHub(githubToken),
-      loadAppsFromTagInfoProjects()
+      loadAppsFromTagInfoProjects(),
     ])
   )
     .flatMap((a) => a)
