@@ -12,83 +12,49 @@ import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
 import { mergeWith } from "lodash";
-import { requestGithub, transformGithubResult } from "./crawler/github";
+import { requestGitHub, transformGithubResult } from "./crawler/github";
 
-export async function loadApps(githubToken?: string) {
-  const apps: App[] = [];
-  const language = "en";
+async function loadAppsFromOsmWikiServiceItems(language: string) {
+  return (await requestTemplates("Service item", language))
+    .filter((s) => !containsOfflineLink(s["name"]))
+    .map((source) => transformServiceItem(source));
+}
+async function loadAppsFromOsmWikiLayers(language: string) {
+  return (await requestTemplates("Layer", language))
+    .filter(
+      (s) =>
+        !containsOfflineLink(s["name"]) &&
+        !containsOfflineLink(s["slippy_web"]) &&
+        !equalsYes(s["discontinued"])
+    )
+    .map((source) => transformLayer(source));
+}
 
-  const serviceItemObjectsRequest = requestTemplates("Service item", language);
-  const layerObjectsRequest = requestTemplates("Layer", language);
-  const softwareObjectsRequest = requestTemplates("Software", language);
-  // const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
-  //   "Infobox software",
-  //   language
-  // );
-  const wikidataRequest = requestWikidata(language);
-  const githubRequest = requestGithub(githubToken);
+async function loadAppsFromOsmWikiSoftwares(language: string) {
+  return (await requestTemplates("Software", language))
+    .filter(
+      (s) =>
+        !containsOfflineLink(s["name"]) &&
+        !containsOfflineLink(s["web"]) &&
+        !equalsIgnoreCase(s["status"], "unfinished") &&
+        (!equalsIgnoreCase(s["status"], "unmaintained") ||
+          // No longer maintained but can still be installed.
+          toUrl(extractWebsite(s["web"])) ||
+          s["asin"] ||
+          s["fDroidID"] ||
+          s["obtainiumLink"] ||
+          s["googlePlayID"] ||
+          s["huaweiAppGalleryID"] ||
+          s["appleStoreID"] ||
+          s["macAppStoreID"] ||
+          s["microsoftAppID"]) &&
+        !equalsIgnoreCase(s["status"], "broken")
+    )
+    .map((source) => transformSoftware(source as any));
+}
 
-  const serviceItemObjects = await serviceItemObjectsRequest;
-  for (const source of serviceItemObjects.filter(
-    (s) => !containsOfflineLink(s["name"])
-  )) {
-    const obj: App = transformServiceItem(source);
-
-    addApp(apps, obj);
-  }
-
-  const layerObjects = await layerObjectsRequest;
-  for (const source of layerObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["slippy_web"]) &&
-      !equalsYes(s["discontinued"])
-  )) {
-    const obj: App = transformLayer(source);
-
-    addApp(apps, obj);
-  }
-
-  const softwareObjects = await softwareObjectsRequest;
-  for (const source of softwareObjects.filter(
-    (s) =>
-      !containsOfflineLink(s["name"]) &&
-      !containsOfflineLink(s["web"]) &&
-      !equalsIgnoreCase(s["status"], "unfinished") &&
-      (!equalsIgnoreCase(s["status"], "unmaintained") ||
-        // No longer maintained but can still be installed.
-        toUrl(extractWebsite(s["web"])) ||
-        s["asin"] ||
-        s["fDroidID"] ||
-        s["obtainiumLink"] ||
-        s["googlePlayID"] ||
-        s["huaweiAppGalleryID"] ||
-        s["appleStoreID"] ||
-        s["macAppStoreID"] ||
-        s["microsoftAppID"]) &&
-      !equalsIgnoreCase(s["status"], "broken")
-  )) {
-    const obj: App = transformSoftware(source as any);
-
-    addApp(apps, obj);
-  }
-
-  // const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
-  // for (const source of wikipediaSoftwareObjects.filter(
-  //   (s) => !equalsYes(s["discontinued"])
-  // )) {
-  //   const obj: App = transformWikipediaSoftware(source);
-
-  //   addApp(apps, obj);
-  // }
-
-  const githubItems = await githubRequest;
-  for (const source of githubItems) {
-    const obj: App = transformGithubResult(source);
-    addApp(apps, obj);
-  }
-
-  const wikidataResults = await Promise.all(wikidataRequest);
+async function loadAppsFromWikidata(language: string) {
+  const wikidataResults = await Promise.all(requestWikidata(language));
 
   const objs = new Map<string, App>();
   for (const wikidataResult of wikidataResults) {
@@ -109,10 +75,16 @@ export async function loadApps(githubToken?: string) {
       }
     }
   }
-  for (const obj of objs) {
-    addApp(apps, obj[1]);
-  }
+  return Array.from(objs.values());
+}
 
+async function loadAppsFromGitHub(githubToken: string) {
+  return (await requestGitHub(githubToken)).map((source) =>
+    transformGithubResult(source)
+  );
+}
+
+async function loadAppsFromTagInfoProjects() {
   const projectObjects = (await getJson(
     "https://taginfo.openstreetmap.org/api/4/projects/all"
   )) as {
@@ -132,31 +104,62 @@ export async function loadApps(githubToken?: string) {
     }[];
   };
   const source = "https://taginfo.openstreetmap.org/projects/";
-  for (const obj of projectObjects.data) {
-    const app: App = {
-      name: obj.name,
-      website: new URL(obj.project_url).toString(),
-      images: obj.icon_url ? [obj.icon_url] : [],
-      documentation: obj.doc_url,
-      source: [
-        {
-          name: "taginfo",
-          url: source + obj.id,
-          lastChange: projectObjects.data_until,
-        },
-      ],
-      description: obj.description,
-      genre: [],
-      topics: [],
-      languages: [],
-      platform: [],
-      coverage: [],
-      install: {},
-      community: {},
-    } as any;
+  return projectObjects.data.map(
+    (obj) =>
+      ({
+        name: obj.name,
+        website: new URL(obj.project_url).toString(),
+        images: obj.icon_url ? [obj.icon_url] : [],
+        documentation: obj.doc_url,
+        source: [
+          {
+            name: "taginfo",
+            url: source + obj.id,
+            lastChange: projectObjects.data_until,
+          },
+        ],
+        description: obj.description,
+        genre: [],
+        topics: [],
+        languages: [],
+        platform: [],
+        coverage: [],
+        install: {},
+        community: {},
+      } as App as any)
+  );
+}
 
-    addApp(apps, app);
-  }
+async function loadAppsFromWikipediaSoftware(language: string) {
+  // const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
+  //   "Infobox software",
+  //   language
+  // );
+  // const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
+  // for (const source of wikipediaSoftwareObjects.filter(
+  //   (s) => !equalsYes(s["discontinued"])
+  // )) {
+  //   const obj: App = transformWikipediaSoftware(source);
+  //   addApp(apps, obj);
+  // }
+}
+
+export async function loadApps(githubToken?: string) {
+  const apps: App[] = [];
+  const language = "en";
+
+  (
+    await Promise.all([
+      loadAppsFromOsmWikiServiceItems(language),
+      loadAppsFromOsmWikiLayers(language),
+      loadAppsFromOsmWikiSoftwares(language),
+      loadAppsFromWikidata(language),
+      loadAppsFromGitHub(githubToken),
+      loadAppsFromTagInfoProjects()
+    ])
+  )
+    .flatMap((a) => a)
+    .forEach((app) => addApp(apps, app));
 
   return apps;
 }

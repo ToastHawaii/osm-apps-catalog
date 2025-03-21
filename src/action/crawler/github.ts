@@ -29,7 +29,7 @@ const ignoredTopics = [
   "css-grid",
   "github",
   "github",
-  "github actions",
+  "github-actions",
 ];
 
 export function transformGithubResult(result: any) {
@@ -96,7 +96,7 @@ export function transformGithubResult(result: any) {
   } as any as App;
 }
 
-export async function requestGithub(githubToken?: string) {
+export async function requestGitHub(githubToken?: string) {
   const objects: any[] = [];
 
   const limit = 100;
