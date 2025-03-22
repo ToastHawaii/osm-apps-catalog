@@ -318,6 +318,16 @@ a.link-create {
   }
 }
 
+.carousel-close {
+  z-index: 10000000;
+  color: white;
+  font-size: 30px;
+  position: fixed;
+  right: 8px;
+  top: 8px;
+  width: 30px;
+}
+
 .app-page {
   width: 480px;
 }

@@ -26,11 +26,16 @@ function Carousel({ app, onClose }: { app: App; onClose: () => void }) {
   }
 
   return (
-    <div className="carousel" onClick={onClose}>
-      {images.map((i) => (
-        <img key={i} src={i} />
-      ))}
-    </div>
+    <>
+      <div className="carousel" onClick={onClose}>
+        {images.map((i) => (
+          <img key={i} src={i} />
+        ))}
+      </div>
+      <span className="carousel-close" onClick={onClose}>
+        <i className="fas fa-times"></i>
+      </span>
+    </>
   );
 }
 
