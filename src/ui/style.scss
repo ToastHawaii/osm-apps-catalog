@@ -92,12 +92,10 @@ a.link-create {
 }
 .row {
   display: table-row;
-  scroll-snap-align: start;
 }
 
 .page-header {
   left: 0;
-  scroll-snap-align: start;
   position: sticky;
   z-index: 1000;
 }
@@ -107,10 +105,6 @@ a.link-create {
 }
 
 #content {
-  scroll-snap-align: start end;
-  scroll-snap-type: y proximity;
-  scroll-padding-top: 10px;
-  scroll-padding-bottom: 10px;
   overflow-x: auto;
   overflow-y: visible;
   height: 100vh;
@@ -151,7 +145,6 @@ a.link-create {
   max-width: 135px;
   width: 15vw;
   position: relative;
-  scroll-snap-align: start;
 }
 
 #compare .header a {
@@ -277,7 +270,6 @@ a.link-create {
 }
 
 .app {
-  scroll-snap-align: start end;
   width: 320px;
   max-width: calc(100% - 40px);
   padding: 0 10px 10px;
