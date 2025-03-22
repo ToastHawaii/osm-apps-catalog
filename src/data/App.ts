@@ -13,6 +13,8 @@ export type App = {
   lastRelease?: string;
   description: string;
   images: string[];
+  commons: string[] | undefined;
+  video: string[] | undefined;
   imageWiki?: string;
   website?: string | undefined;
   documentation?: string;

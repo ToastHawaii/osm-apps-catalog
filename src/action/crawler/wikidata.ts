@@ -68,7 +68,11 @@ export function transformWikidataResult(result: any) {
     name: result.itemLabel.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
-    images: (result.images?.value || "").split(";").filter((v: any) => v),
+    images: [...(result.images?.value || "").split(";").filter((v: any) => v),
+      ...(result.logo?.value || "").split(";").filter((v: any) => v)
+    ],
+    commons: (result.commons?.value || "").split(";").filter((v: any) => v),
+    videos: (result.videos?.value || "").split(";").filter((v: any) => v),
     website:
       result.web?.value || result.webDef?.value
         ? new URL(result.web?.value || result.webDef?.value).toString()
@@ -118,10 +122,10 @@ export function transformWikidataResult(result: any) {
     community: {
       forum: result.forum?.value || result.forumDef?.value,
       irc: extractIrc(result.irc?.value),
-      bluesky: result.blueskyHandle?.value,
-      matrix: result.matrixRoomId?.value,
-      mastodon: result.mastodonAddress?.value,
-      issueTracker: result.issueTrackerUrl?.value,
+      bluesky: result.bluesky?.value,
+      matrix: result.matrix?.value,
+      mastodon: result.mastodon?.value,
+      issueTracker: result.issues?.value,
       telegram: result.telegram?.value || result.telegramDef?.value,
       reddit: result.subreddit?.value,
     },
@@ -153,7 +157,10 @@ export function requestWikidata(lg: string) {
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
+  (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
   (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?images) 
+  (GROUP_CONCAT(DISTINCT ?commons; SEPARATOR = ";") AS ?commons) 
+  (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?video) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
@@ -182,10 +189,10 @@ SELECT DISTINCT
   ?changsetReview
   ?welcomingTool
   ?streetImg
-  (SAMPLE(?matrixRoomId) AS ?matrixRoomId) 
-  (SAMPLE(?blueskyHandle) AS ?blueskyHandle) 
-  (SAMPLE(?mastodonAddress) AS ?mastodonAddress) 
-  (SAMPLE(?issueTrackerUrl) AS ?issueTrackerUrl) 
+  (SAMPLE(?matrix) AS ?matrix) 
+  (SAMPLE(?bluesky) AS ?bluesky) 
+  (SAMPLE(?mastodon) AS ?mastodon) 
+  (SAMPLE(?issues) AS ?issues) 
   (SAMPLE(?telegramDef) AS ?telegramDef)
   (SAMPLE(?telegram) AS ?telegram)
   (SAMPLE(?subreddit) AS ?subreddit) 
@@ -213,7 +220,10 @@ WHERE {
     ?item schema:description ?description.
     FILTER((LANG(?description)) = "${lg}")
   }
+  OPTIONAL { ?item wdt:P154 ?logo. }
   OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P373 ?commons. }
+  OPTIONAL { ?item wdt:P10 ?video. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
@@ -316,10 +326,10 @@ WHERE {
     ?goalStat pq:P12913 wd:Q96470821. 
     BIND("yes" AS ?streetImg)
   }
-  OPTIONAL { ?item wdt:P11478 ?matrixRoomId. }
-  OPTIONAL { ?item wdt:P4033 ?mastodonAddress. }
-  OPTIONAL { ?item wdt:P12361 ?blueskyHandle. }
-  OPTIONAL { ?item wdt:P1401 ?issueTrackerUrl. }
+  OPTIONAL { ?item wdt:P11478 ?matrix. }
+  OPTIONAL { ?item wdt:P4033 ?mastodon. }
+  OPTIONAL { ?item wdt:P12361 ?bluesky. }
+  OPTIONAL { ?item wdt:P1401 ?issues. }
   OPTIONAL { 
     ?item p:P3789 ?telegramStat. 
     ?telegramStat ps:P3789 ?telegramDef; 

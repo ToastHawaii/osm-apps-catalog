@@ -45,6 +45,60 @@ export function Carousel({
     }
   }, [app.images]);
 
+  useEffect(() => {
+    (async function () {
+      if (!app.commons || app.commons.length === 0) {
+        return;
+      }
+
+      const commonsImages = (
+        await Promise.all(
+          app.commons.map(async (c) =>
+            (
+              await (
+                await fetch(
+                  "https://commons.wikimedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:" +
+                    c +
+                    "&cmlimit=6&cmtype=file&format=json"
+                )
+              ).json()
+            ).query.categorymembers.map((m: any) => m.title)
+          )
+        )
+      ).flatMap((c) => c);
+
+      for (const image of chain(commonsImages)
+        .uniqBy((image) => image.substring(image.lastIndexOf("/") + 1))
+        .value()) {
+        isImage(image).then((file) => {
+          if (file && file.width > 50 && file.height > 50) {
+            setImages((images) =>
+              chain([
+                ...images,
+                {
+                  url: image,
+                  file,
+                  size: (performance.getEntriesByName(image)[0] as any)
+                    .transferSize,
+                },
+              ])
+                .uniqBy((i) => i.url)
+                .uniqBy(
+                  (i) =>
+                    i.file.naturalWidth +
+                    "," +
+                    file.naturalHeight +
+                    "," +
+                    i.size
+                )
+                .value()
+            );
+          }
+        });
+      }
+    })();
+  }, [app.commons]);
+
   if (images.length === 0) {
     return null;
   }
@@ -54,6 +108,9 @@ export function Carousel({
       <div className="carousel" onClick={onClose}>
         {images.map((i) => (
           <img key={i.url} src={i.url} />
+        ))}
+        {(app.video || []).map((v) => (
+          <video key={v} src={v} />
         ))}
       </div>
       <span className="carousel-close" onClick={onClose}>
