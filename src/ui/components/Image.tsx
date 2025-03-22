@@ -3,7 +3,7 @@ import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
 import { calculateFilter } from "../../data/calculateFilter";
 import { isImage } from "./LazyLoadImages";
-import { uniq, uniqBy } from "lodash";
+import { chain } from "lodash";
 
 export function Carousel({
   app,
@@ -12,16 +12,34 @@ export function Carousel({
   app: App;
   onClose: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }) {
-  const [images, setImages] = useState([] as string[]);
+  const [images, setImages] = useState(
+    [] as { url: string; file: HTMLImageElement; size: number }[]
+  );
 
   useEffect(() => {
-    for (const image of uniqBy(
-      app.images.filter((image) => !image.includes("/250px-")),
-      (image) => image.substring(image.lastIndexOf("/") + 1)
-    )) {
-      isImage(image).then((size) => {
-        if (size && size > 50) {
-          setImages((images) => uniq([...images, image]));
+    for (const image of chain(app.images)
+      .filter((image) => !image.includes("/250px-"))
+      .uniqBy((image) => image.substring(image.lastIndexOf("/") + 1))
+      .value()) {
+      isImage(image).then((file) => {
+        if (file && file.width > 50 && file.height > 50) {
+          setImages((images) =>
+            chain([
+              ...images,
+              {
+                url: image,
+                file,
+                size: (performance.getEntriesByName(image)[0] as any)
+                  .transferSize,
+              },
+            ])
+              .uniqBy((i) => i.url)
+              .uniqBy(
+                (i) =>
+                  i.file.naturalWidth + "," + file.naturalHeight + "," + i.size
+              )
+              .value()
+          );
         }
       });
     }
@@ -35,7 +53,7 @@ export function Carousel({
     <>
       <div className="carousel" onClick={onClose}>
         {images.map((i) => (
-          <img key={i} src={i} />
+          <img key={i.url} src={i.url} />
         ))}
       </div>
       <span className="carousel-close" onClick={onClose}>

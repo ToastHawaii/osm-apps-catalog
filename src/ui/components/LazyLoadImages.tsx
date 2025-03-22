@@ -21,16 +21,16 @@ let scrollTop = 0;
 let scrollLeft = 0;
 
 export async function isImage(src: string) {
-  return new Promise<number | undefined>((resolve) => {
+  return new Promise<HTMLImageElement | undefined>((resolve) => {
     const img = new Image();
     img.addEventListener("load", () => {
-      resolve(Math.min(img.width, img.height));
+      resolve(img);
     });
     img.addEventListener("error", () => {
       resolve(undefined);
     });
     img.src = src;
-    if (img.complete) resolve(Math.min(img.width, img.height));
+    if (img.complete) resolve(img);
   });
 }
 
@@ -65,10 +65,10 @@ async function lazyLoadImages(reset?: boolean) {
 
         for (const src of sources) {
           if (document.body.contains(elements[i])) {
-            const size = await isImage(src);
-            if (size) {
+            const file = await isImage(src);
+            if (file) {
               elements[i].setAttribute("src", src);
-              if (size > 50) {
+              if (file.width > 50 && file.height > 50) {
                 elements[i].classList.add("has-images");
               }
               break;
