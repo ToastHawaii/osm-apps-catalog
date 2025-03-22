@@ -20,31 +20,17 @@ import React, { useEffect } from "react";
 let scrollTop = 0;
 let scrollLeft = 0;
 
-export async function isImageWithMinSize(src: string, size: number) {
-  return new Promise<boolean>((resolve) => {
-    const img = new Image();
-    img.addEventListener("load", () => {
-      resolve(img.width > size && img.height > size);
-    });
-    img.addEventListener("error", () => {
-      resolve(false);
-    });
-    img.src = src;
-    if (img.complete) resolve(img.width > size && img.height > size);
-  });
-}
-
 export async function isImage(src: string) {
-  return new Promise<boolean>((resolve) => {
+  return new Promise<number | undefined>((resolve) => {
     const img = new Image();
     img.addEventListener("load", () => {
-      resolve(true);
+      resolve(Math.min(img.width, img.height));
     });
     img.addEventListener("error", () => {
-      resolve(false);
+      resolve(undefined);
     });
     img.src = src;
-    if (img.complete) resolve(true);
+    if (img.complete) resolve(Math.min(img.width, img.height));
   });
 }
 
@@ -78,9 +64,15 @@ async function lazyLoadImages(reset?: boolean) {
         ).split(" ");
 
         for (const src of sources) {
-          if (document.body.contains(elements[i]) && (await isImage(src))) {
-            elements[i].setAttribute("src", src);
-            break;
+          if (document.body.contains(elements[i])) {
+            const size = await isImage(src);
+            if (size) {
+              elements[i].setAttribute("src", src);
+              if (size > 50) {
+                elements[i].classList.add("has-images");
+              }
+              break;
+            }
           }
         }
         elements[i].removeAttribute("data-dynamic-src");

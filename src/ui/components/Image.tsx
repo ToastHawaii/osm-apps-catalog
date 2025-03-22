@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import { App } from "../../data/App";
 import { useTranslation } from "react-i18next";
 import { calculateFilter } from "../../data/calculateFilter";
-import { isImageWithMinSize } from "./LazyLoadImages";
+import { isImage } from "./LazyLoadImages";
 import { uniq, uniqBy } from "lodash";
 
-function Carousel({ app, onClose }: { app: App; onClose: () => void }) {
+export function Carousel({
+  app,
+  onClose,
+}: {
+  app: App;
+  onClose: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+}) {
   const [images, setImages] = useState([] as string[]);
 
   useEffect(() => {
@@ -13,8 +19,8 @@ function Carousel({ app, onClose }: { app: App; onClose: () => void }) {
       app.images.filter((image) => !image.includes("/250px-")),
       (image) => image.substring(image.lastIndexOf("/") + 1)
     )) {
-      isImageWithMinSize(image, 50).then((result) => {
-        if (result) {
+      isImage(image).then((size) => {
+        if (size && size > 50) {
           setImages((images) => uniq([...images, image]));
         }
       });
@@ -56,10 +62,24 @@ export function Image({ app }: { app: App }) {
           alt={t("app.imageAlt", {
             name: app.name,
           })}
-          onClick={() => setCarouselShown(true)}
         />
+        <span
+          className="carousel-show"
+          onClick={(e) => {
+            e.preventDefault();
+            return setCarouselShown(true);
+          }}
+        >
+          <i className="fas fa-images fa-flip-horizontal"></i>
+        </span>
         {carouselShown && (
-          <Carousel app={app} onClose={() => setCarouselShown(false)} />
+          <Carousel
+            app={app}
+            onClose={(e) => {
+              e.preventDefault();
+              return setCarouselShown(false);
+            }}
+          />
         )}
       </>
     );
