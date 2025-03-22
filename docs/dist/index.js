@@ -76200,7 +76200,7 @@ function transformWikidataResult(result) {
         lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
         description: result.description?.value || "",
         images: [...(result.images?.value || "").split(";").filter((v) => v),
-            ...(result.logo?.value || "").split(";").filter((v) => v)
+            ...(result.logos?.value || "").split(";").filter((v) => v)
         ],
         commons: (result.commons?.value || "").split(";").filter((v) => v),
         videos: (result.videos?.value || "").split(";").filter((v) => v),
@@ -76254,7 +76254,7 @@ function transformWikidataResult(result) {
             matrix: result.matrix?.value,
             mastodon: result.mastodon?.value,
             issueTracker: result.issues?.value,
-            telegram: result.telegram?.value || result.telegramDef?.value,
+            telegram: result.teleg?.value || result.telegDef?.value,
             reddit: result.subreddit?.value,
         },
         source: [
@@ -76315,8 +76315,8 @@ SELECT DISTINCT
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
   (SAMPLE(?issues) AS ?issues) 
-  (SAMPLE(?telegramDef) AS ?telegramDef)
-  (SAMPLE(?telegram) AS ?telegram)
+  (SAMPLE(?telegDef) AS ?telegDef)
+  (SAMPLE(?teleg) AS ?teleg)
   (SAMPLE(?subreddit) AS ?subreddit) 
   (SAMPLE(?irc) AS ?irc) 
   ?modified 
@@ -76453,17 +76453,17 @@ WHERE {
   OPTIONAL { ?item wdt:P12361 ?bluesky. }
   OPTIONAL { ?item wdt:P1401 ?issues. }
   OPTIONAL { 
-    ?item p:P3789 ?telegramStat. 
-    ?telegramStat ps:P3789 ?telegramDef; 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?telegDef; 
      pq:P3831 wd:Q87410646.
   }
   OPTIONAL { 
-    ?item p:P3789 ?telegramStat. 
-    ?telegramStat ps:P3789 ?telegram; 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?teleg; 
      pq:P3831 wd:Q87410646.
-    ?telegramStat pq:P407 ?telegramLg.
-    ?telegramLg wdt:P218 ?telegramLgCode 
-    FILTER(?telegramLgCode = "${lg}")
+    ?telegStat pq:P407 ?telegLg.
+    ?telegLg wdt:P218 ?telegLgCode 
+    FILTER(?telegLgCode = "${lg}")
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
