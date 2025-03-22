@@ -144,28 +144,24 @@ export function App() {
             </>
           )}
         </p>
-        {!state.app && (
+        {!state.app && state.category !== "focus" && (
           <>
-            {state.category !== "focus" && (
-              <>
-                <Search
-                  apps={apps}
-                  value={state.search}
-                  onChange={debounce((value) => {
-                    setAppState("search", value, { skipUrlUpdate: true });
-                  }, 500)}
-                  onBlur={(value) => {
-                    setAppState("search", value, { forceUpdate: true });
-                  }}
-                />{" "}
-                <Filters
-                  active={moreFilters}
-                  onChange={(value) => {
-                    setMoreFilters(value);
-                  }}
-                />
-              </>
-            )}
+            <Search
+              apps={apps}
+              value={state.search}
+              onChange={debounce((value) => {
+                setAppState("search", value, { skipUrlUpdate: true });
+              }, 500)}
+              onBlur={(value) => {
+                setAppState("search", value, { forceUpdate: true });
+              }}
+            />{" "}
+            <Filters
+              active={moreFilters}
+              onChange={(value) => {
+                setMoreFilters(value);
+              }}
+            />
           </>
         )}
         <hr style={{ border: "1px solid #ccc" }} />
@@ -249,9 +245,9 @@ export function App() {
               ) : (
                 <p className="no-results">{t("noResults")}</p>
               )}
-              {state.category === "all" && !state.app ? (
+              {state.category === "all" && !state.app && (
                 <NotFoundApps apps={apps} />
-              ) : null}
+              )}
             </div>
           ) : (
             <div id="compare" className="table">
