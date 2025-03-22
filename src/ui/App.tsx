@@ -69,6 +69,7 @@ export function App() {
           value={state.category}
           onChange={(value) => {
             if (value === "focus" || state.app) {
+              setMoreFilters(false);
               resetAppState(value);
             } else {
               setAppState("category", value);
@@ -124,13 +125,7 @@ export function App() {
             />
           )}
 
-          {(!!state.app ||
-            state.search.length > 0 ||
-            state.topics.length > 0 ||
-            state.platforms.length > 0 ||
-            state.languages.length > 0 ||
-            state.coverage.length > 0 ||
-            state.contribute.length > 0) && (
+          {!!state.app && (
             <>
               {" "}
               <button
@@ -173,7 +168,7 @@ export function App() {
             state.coverage.length > 0 ||
             state.contribute.length > 0) && (
             <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
-              {t("filter.preview")}{" "}
+              {!isInitState() ? t("filter.preview") : t("filter.preset")}{" "}
               {chain([
                 ...state.topics,
                 ...state.platforms,
@@ -189,6 +184,24 @@ export function App() {
                   </>
                 ))
                 .value()}
+              {(state.search.length > 0 ||
+                state.topics.length > 0 ||
+                state.platforms.length > 0 ||
+                state.languages.length > 0 ||
+                state.coverage.length > 0 ||
+                state.contribute.length > 0) && (
+                <>
+                  {" "}
+                  <button
+                    className="reset-filters"
+                    onClick={() => {
+                      resetAppState(state.category);
+                    }}
+                  >
+                    {t("filter.resetFilters")}
+                  </button>
+                </>
+              )}
             </p>
           )}
         {!state.app && moreFilters && (

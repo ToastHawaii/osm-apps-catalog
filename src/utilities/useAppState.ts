@@ -103,13 +103,21 @@ export function useAppState() {
       if (category === "all") {
         setSearchParams(() => searchParams);
         setTimeout(() => {
-          setSearchParams(() => ({}));
+          const search = searchParams.get("search");
+          if (search) {
+            setSearchParams(() => ({ search }));
+          } else {
+            setSearchParams(() => ({}));
+          }
         }, 10);
         return;
       }
-      setSearchParams({
-        category,
-      });
+      const search = searchParams.get("search");
+      if (search) {
+        setSearchParams(() => ({ search, category }));
+      } else {
+        setSearchParams(() => ({ category }));
+      }
     },
     () => !isEqual([...initSearchParams], [...searchParams]),
   ] as const;
