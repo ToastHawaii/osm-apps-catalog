@@ -2,31 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "../../../data/App";
-import { equalsIgnoreCase } from "../../../utilities/string";
-import { orderBy } from "lodash";
+import { chain } from "lodash";
 
 import "./styles.scss";
 
-export function prepareArray(names: string[]) {
-  names.sort(function (a, b) {
-    if (a?.toUpperCase() < b?.toUpperCase()) return 1;
-    if (a?.toUpperCase() > b?.toUpperCase()) return -1;
-    return 0;
-  });
-  const nameCounts: { name: string; count: number }[] = [];
-  for (const name of names) {
-    const nameCountFiltered = nameCounts.filter((nc) =>
-      equalsIgnoreCase(nc.name, name)
-    );
+function Suggestions({ apps }: { apps: App[] }) {
+  const topics = chain(apps)
+    .flatMap((a) => a.topics)
+    .groupBy((t) => t.toUpperCase())
+    .orderBy((t) => t.length)
+    .reverse()
+    .map((t) => t[0])
+    .value();
 
-    if (nameCountFiltered.length > 0) {
-      nameCountFiltered[0].count++;
-    } else {
-      nameCounts.push({ name: name, count: 1 });
-    }
-  }
-
-  return orderBy(nameCounts, "count", "desc").map((nc) => nc.name);
+  return (
+    <datalist id="search-suggestions">
+      {topics.map((topic) => (
+        <option key={topic} value={topic} />
+      ))}
+    </datalist>
+  );
 }
 
 export function Search({
@@ -52,7 +47,6 @@ export function Search({
     setInnerValue(value);
   }, [hasFocus, value]);
 
-  const topics = prepareArray(apps.flatMap((a) => a.topics));
   return (
     <>
       <input
@@ -75,11 +69,7 @@ export function Search({
           onBlur?.(e.currentTarget.value);
         }}
       />
-      <datalist id="search-suggestions">
-        {topics.map((topic) => (
-          <option key={topic} value={topic} />
-        ))}
-      </datalist>
+      <Suggestions apps={apps} />
     </>
   );
 }
