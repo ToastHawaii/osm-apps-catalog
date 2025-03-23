@@ -121,5 +121,6 @@
     "select.search.noResults": "Tulemusi pole",
     "filter.resetFilters": "Näita kõiki",
     "filter.preview": "Rakenduste kuvamise tingimused:",
-    "category.all.description.filtered": "{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust."
+    "category.all.description.filtered": "{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.",
+    "filter.preset": "Eelseadistatud filter sinu jaoks:"
 }
