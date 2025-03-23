@@ -76024,10 +76024,12 @@ function addApp(apps, obj) {
         app.images.push(...obj.images);
         app.images = (0,lodash.uniq)(app.images);
         app.imageWiki = app.imageWiki || obj.imageWiki;
-        (app.commons || []).push(...(obj.commons || []));
+        app.commons = app.commons || [];
+        app.commons.push(...(obj.commons || []));
         app.commons = (0,lodash.uniq)(app.commons);
-        (app.video || []).push(...(obj.video || []));
-        app.video = (0,lodash.uniq)(app.video);
+        app.videos = app.videos || [];
+        app.videos.push(...(obj.videos || []));
+        app.videos = (0,lodash.uniq)(app.videos);
         app.website = app.website || obj.website;
         if (!app.documentation) {
             app.documentation = obj.documentation;

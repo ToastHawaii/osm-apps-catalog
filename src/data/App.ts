@@ -14,7 +14,7 @@ export type App = {
   description: string;
   images: string[];
   commons: string[] | undefined;
-  video: string[] | undefined;
+  videos: string[] | undefined;
   imageWiki?: string;
   website?: string | undefined;
   documentation?: string;

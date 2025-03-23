@@ -68,10 +68,12 @@ export function addApp(apps: App[], obj: App) {
     app.images.push(...obj.images);
     app.images = uniq(app.images);
     app.imageWiki = app.imageWiki || obj.imageWiki;
-    (app.commons || []).push(...(obj.commons || []));
+    app.commons = app.commons || [];
+    app.commons.push(...(obj.commons || []));
     app.commons = uniq(app.commons);
-    (app.video || []).push(...(obj.video || []));
-    app.video = uniq(app.video);
+    app.videos = app.videos || [];
+    app.videos.push(...(obj.videos || []));
+    app.videos = uniq(app.videos);
 
     app.website = app.website || obj.website;
 

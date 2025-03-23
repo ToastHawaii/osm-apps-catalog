@@ -53,20 +53,31 @@ export function Carousel({
 
       const commonsImages = (
         await Promise.all(
-          app.commons.map(async (c) =>
-            (
+          app.commons.map(async (c) => {
+            // use subcategory that includes screenshots otherwise the given category
+            const category = (
               await (
                 await fetch(
-                  "https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtitle=Category:" +
+                  "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category:" +
                     c +
-                    "&gcmlimit=6&gcmtype=file&prop=imageinfo&&iiprop=url&format=json",
-                  {
-                    mode: "no-cors",
-                  }
+                    "&cmtype=subcat&cmlimit=max&origin=*"
                 )
               ).json()
-            ).query.categorymembers.map((m: any) => m.imageinfo[0].url)
-          )
+            ).query.categorymembers.find((m: any) =>
+              m.title.toUpperCase().includes("SCREENSHOT")
+            )?.title;
+
+            const result = await (
+              await fetch(
+                `https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtitle=${
+                  category || "Category:" + c
+                }&gcmlimit=6&gcmtype=file&prop=imageinfo&&iiprop=url&format=json&origin=*`
+              )
+            ).json();
+            return Object.entries(result.query.pages).map(
+              (m: any) => m[1].imageinfo[0].url
+            );
+          })
         )
       ).flatMap((c) => c);
 
@@ -112,7 +123,7 @@ export function Carousel({
         {images.map((i) => (
           <img key={i.url} src={i.url} />
         ))}
-        {(app.video || []).map((v) => (
+        {(app.videos || []).map((v) => (
           <video key={v} src={v} />
         ))}
       </div>
