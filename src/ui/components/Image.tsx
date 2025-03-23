@@ -57,12 +57,12 @@ export function Carousel({
             (
               await (
                 await fetch(
-                  "https://commons.wikimedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:" +
+                  "https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtitle=Category:" +
                     c +
-                    "&cmlimit=6&cmtype=file&format=json"
+                    "&gcmlimit=6&gcmtype=file&prop=imageinfo&&iiprop=url&format=json"
                 )
               ).json()
-            ).query.categorymembers.map((m: any) => m.title)
+            ).query.categorymembers.map((m: any) => m.imageinfo[0].url)
           )
         )
       ).flatMap((c) => c);

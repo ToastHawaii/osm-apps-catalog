@@ -157,8 +157,8 @@ SELECT DISTINCT
   ?description 
   (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
   (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
-  (GROUP_CONCAT(DISTINCT ?commons; SEPARATOR = ";") AS ?commons) 
-  (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?video) 
+  (GROUP_CONCAT(DISTINCT ?common; SEPARATOR = ";") AS ?commons) 
+  (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?videos) 
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (SAMPLE(?docDef) AS ?docDef)
@@ -211,7 +211,7 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P154 ?logo. }
   OPTIONAL { ?item wdt:P18 ?img. }
-  OPTIONAL { ?item wdt:P373 ?commons. }
+  OPTIONAL { ?item wdt:P373 ?common. }
   OPTIONAL { ?item wdt:P10 ?video. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
@@ -288,7 +288,7 @@ WHERE {
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item 
          ?itemLabel 
@@ -327,7 +327,7 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. } 
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
     BIND("y" AS ?viewing)
@@ -376,9 +376,11 @@ WHERE {
     BIND("y" AS ?streetImg)
   }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
-GROUP BY ?viewing 
+GROUP BY ?item 
+         ?itemLabel 
+         ?viewing 
          ?routing 
          ?editor 
          ?comparing 
@@ -388,6 +390,7 @@ GROUP BY ?viewing
          ?welcomingTool
          ?streetImgSv
          ?streetImg
+         ?modified
 `.replace(/( |\n)+/g, " ")
   );
 
@@ -429,7 +432,7 @@ WHERE {
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item
          ?itemLabel
@@ -483,7 +486,7 @@ WHERE
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
     }
     GROUP BY ?item 
              ?itemLabel
