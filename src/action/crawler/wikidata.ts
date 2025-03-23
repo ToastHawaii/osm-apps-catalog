@@ -42,10 +42,7 @@ function extractGenre(result: any) {
     genre.push("Welcoming tool");
   }
 
-  if (
-    result.streetImgSv?.value === "y" ||
-    result.streetImg?.value === "y"
-  ) {
+  if (result.streetImgSv?.value === "y" || result.streetImg?.value === "y") {
     genre.push("Street-level imagery");
   }
 
@@ -68,8 +65,9 @@ export function transformWikidataResult(result: any) {
     name: result.itemLabel.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
-    images: [...(result.imgs?.value || "").split(";").filter((v: any) => v),
-      ...(result.logos?.value || "").split(";").filter((v: any) => v)
+    images: [
+      ...(result.imgs?.value || "").split(";").filter((v: any) => v),
+      ...(result.logos?.value || "").split(";").filter((v: any) => v),
     ],
     commons: (result.commons?.value || "").split(";").filter((v: any) => v),
     videos: (result.videos?.value || "").split(";").filter((v: any) => v),
@@ -180,15 +178,6 @@ SELECT DISTINCT
   (SAMPLE(?fDroid) AS ?fDroid) 
   (SAMPLE(?appleStore) AS ?appleStore) 
   (SAMPLE(?microsoftStore) AS ?microsoftStore) 
-  ?viewing
-  ?routing
-  ?editor
-  ?comparing
-  ?hashtagTool
-  ?monitoring
-  ?changsetReview
-  ?welcomingTool
-  ?streetImg
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
@@ -279,6 +268,66 @@ WHERE {
   OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
   OPTIONAL { ?item wdt:P3861 ?appleStore. }
   OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
+  OPTIONAL { ?item wdt:P11478 ?matrix. }
+  OPTIONAL { ?item wdt:P4033 ?mastodon. }
+  OPTIONAL { ?item wdt:P12361 ?bluesky. }
+  OPTIONAL { ?item wdt:P1401 ?issues. }
+  OPTIONAL { 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?telegDef; 
+     pq:P3831 wd:Q87410646.
+  }
+  OPTIONAL { 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?teleg; 
+     pq:P3831 wd:Q87410646.
+    ?telegStat pq:P407 ?telegLg.
+    ?telegLg wdt:P218 ?telegLgCode 
+    FILTER(?telegLgCode = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P3984 ?subreddit. }
+  OPTIONAL { ?item wdt:P1613 ?irc. }
+  ?item schema:dateModified ?modified
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+}
+GROUP BY ?item 
+         ?itemLabel 
+         ?description
+         ?modified
+`.replace(/( |\n)+/g, " ")
+  );
+
+  const genre = request(
+    `
+SELECT DISTINCT 
+  ?item ?itemLabel 
+  ?viewing
+  ?routing
+  ?editor
+  ?comparing
+  ?hashtagTool
+  ?monitoring
+  ?changsetReview
+  ?welcomingTool
+  ?streetImg
+  ?modified 
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. } 
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
     BIND("y" AS ?viewing)
@@ -326,32 +375,10 @@ WHERE {
     ?goalStat pq:P12913 wd:Q96470821. 
     BIND("y" AS ?streetImg)
   }
-  OPTIONAL { ?item wdt:P11478 ?matrix. }
-  OPTIONAL { ?item wdt:P4033 ?mastodon. }
-  OPTIONAL { ?item wdt:P12361 ?bluesky. }
-  OPTIONAL { ?item wdt:P1401 ?issues. }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?telegDef; 
-     pq:P3831 wd:Q87410646.
-  }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?teleg; 
-     pq:P3831 wd:Q87410646.
-    ?telegStat pq:P407 ?telegLg.
-    ?telegLg wdt:P218 ?telegLgCode 
-    FILTER(?telegLgCode = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P3984 ?subreddit. }
-  OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
-GROUP BY ?item 
-         ?itemLabel 
-         ?description
-         ?viewing 
+GROUP BY ?viewing 
          ?routing 
          ?editor 
          ?comparing 
@@ -361,7 +388,6 @@ GROUP BY ?item
          ?welcomingTool
          ?streetImgSv
          ?streetImg
-         ?modified
 `.replace(/( |\n)+/g, " ")
   );
 
@@ -403,7 +429,7 @@ WHERE {
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item
          ?itemLabel
@@ -457,7 +483,7 @@ WHERE
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
     }
     GROUP BY ?item 
              ?itemLabel
@@ -473,5 +499,5 @@ GROUP BY ?item
 `.replaceAll("  ", " ")
   );
 
-  return [base, lastRelease, license];
+  return [base, genre, lastRelease, license];
 }
