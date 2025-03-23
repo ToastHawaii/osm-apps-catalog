@@ -123,9 +123,9 @@ export function Carousel({
         {images.map((i) => (
           <img key={i.url} src={i.url} />
         ))}
-        {(app.videos || []).map((v) => (
+        {/* {(app.videos || []).map((v) => (
           <video key={v} src={v} />
-        ))}
+        ))} */}
       </div>
       <span className="carousel-close" onClick={onClose}>
         <i className="fas fa-times"></i>
