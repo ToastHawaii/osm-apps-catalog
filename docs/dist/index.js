@@ -76412,7 +76412,7 @@ WHERE {
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
 }
 GROUP BY ?item 
          ?itemLabel 
@@ -76497,7 +76497,7 @@ WHERE {
     BIND("y" AS ?streetImg)
   }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
 }
 GROUP BY ?viewing 
          ?routing 
@@ -76547,7 +76547,7 @@ WHERE {
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
 }
 GROUP BY ?item
          ?itemLabel
@@ -76598,7 +76598,7 @@ WHERE
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},en". }
     }
     GROUP BY ?item 
              ?itemLabel
