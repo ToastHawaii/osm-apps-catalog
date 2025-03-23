@@ -76155,32 +76155,32 @@ function merge(o1, o2) {
 
 function extractGenre(result) {
     const genre = [];
-    if (result.viewing?.value === "yes") {
+    if (result.viewing?.value === "y") {
         genre.push("Viewing tool");
     }
-    if (result.routing?.value === "yes") {
+    if (result.routing?.value === "y") {
         genre.push("Routing tool");
     }
-    if (result.editor?.value === "yes") {
+    if (result.editor?.value === "y") {
         genre.push("Editor tool");
     }
-    if (result.comparing?.value === "yes") {
+    if (result.comparing?.value === "y") {
         genre.push("Comparing tool");
     }
-    if (result.hashtagTool?.value === "yes") {
+    if (result.hashtagTool?.value === "y") {
         genre.push("Hashtag tool");
     }
-    if (result.monitoring?.value === "yes") {
+    if (result.monitoring?.value === "y") {
         genre.push("Monitoring tool");
     }
-    if (result.changsetReview?.value === "yes") {
+    if (result.changsetReview?.value === "y") {
         genre.push("Changeset review tool");
     }
-    if (result.welcomingTool?.value === "yes") {
+    if (result.welcomingTool?.value === "y") {
         genre.push("Welcoming tool");
     }
-    if (result.streetImgSv?.value === "yes" ||
-        result.streetImg?.value === "yes") {
+    if (result.streetImgSv?.value === "y" ||
+        result.streetImg?.value === "y") {
         genre.push("Street-level imagery");
     }
     return genre;
@@ -76199,7 +76199,7 @@ function transformWikidataResult(result) {
         name: result.itemLabel.value || "",
         lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
         description: result.description?.value || "",
-        images: [...(result.images?.value || "").split(";").filter((v) => v),
+        images: [...(result.imgs?.value || "").split(";").filter((v) => v),
             ...(result.logos?.value || "").split(";").filter((v) => v)
         ],
         commons: (result.commons?.value || "").split(";").filter((v) => v),
@@ -76224,13 +76224,13 @@ function transformWikidataResult(result) {
                 ...(result.platforms?.value || "").split(";"),
                 ...(result.os?.value || "").split(";"),
                 result.asin?.value ||
-                    result.googlePlayID?.value ||
-                    result.huaweiAppGalleryID?.value ||
-                    result.fDroidID?.value
+                    result.googlePlay?.value ||
+                    result.huaweiGallery?.value ||
+                    result.fDroid?.value
                     ? "Android"
                     : undefined,
-                result.appleStoreID?.value ? "iOS" : undefined,
-                result.microsoftAppID?.value ? "Windows" : undefined,
+                result.appleStore?.value ? "iOS" : undefined,
+                result.microsoftStore?.value ? "Windows" : undefined,
             ]
                 .filter(platformFilter)
                 .map((p) => getPlatformDisplay(p) || p)),
@@ -76238,11 +76238,11 @@ function transformWikidataResult(result) {
         coverage: [],
         install: {
             asin: result.asin?.value,
-            googlePlayID: result.googlePlayID?.value,
-            huaweiAppGalleryID: result.huaweiAppGalleryID?.value,
-            fDroidID: result.fDroidID?.value,
-            appleStoreID: result.appleStoreID?.value,
-            microsoftAppID: result.microsoftAppID?.value,
+            googlePlayID: result.googlePlay?.value,
+            huaweiAppGalleryID: result.huaweiGallery?.value,
+            fDroidID: result.fDroid?.value,
+            appleStoreID: result.appleStore?.value,
+            microsoftAppID: result.microsoftStore?.value,
         },
         hasGoal: {
             crowdsourcingStreetLevelImagery: result.streetImg,
@@ -76280,7 +76280,7 @@ SELECT DISTINCT
   ?item ?itemLabel 
   ?description 
   (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
-  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?images) 
+  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
   (GROUP_CONCAT(DISTINCT ?commons; SEPARATOR = ";") AS ?commons) 
   (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?video) 
   (SAMPLE(?webDef) AS ?webDef)
@@ -76297,11 +76297,11 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
   (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
   (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlayID) AS ?googlePlayID) 
-  (SAMPLE(?huaweiAppGalleryID) AS ?huaweiAppGalleryID) 
-  (SAMPLE(?fDroidID) AS ?fDroidID) 
-  (SAMPLE(?appleStoreID) AS ?appleStoreID) 
-  (SAMPLE(?microsoftAppID) AS ?microsoftAppID) 
+  (SAMPLE(?googlePlay) AS ?googlePlay) 
+  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
+  (SAMPLE(?fDroid) AS ?fDroid) 
+  (SAMPLE(?appleStore) AS ?appleStore) 
+  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
   ?viewing
   ?routing
   ?editor
@@ -76396,57 +76396,57 @@ WHERE {
     FILTER(LANG(?platformLabel) = "${lg}")
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
-  OPTIONAL { ?item wdt:P3597 ?fDroidID. }
-  OPTIONAL { ?item wdt:P3418 ?googlePlayID. }
-  OPTIONAL { ?item wdt:P8940 ?huaweiAppGalleryID. }
-  OPTIONAL { ?item wdt:P3861 ?appleStoreID. }
-  OPTIONAL { ?item wdt:P5885 ?microsoftAppID. }
+  OPTIONAL { ?item wdt:P3597 ?fDroid. }
+  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
+  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
+  OPTIONAL { ?item wdt:P3861 ?appleStore. }
+  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
-    BIND("yes" AS ?viewing)
+    BIND("y" AS ?viewing)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264957.
-    BIND("yes" AS ?routing)
+    BIND("y" AS ?routing)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q130404096.
-    BIND("yes" AS ?routing)
+    BIND("y" AS ?routing)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q98163019.
-    BIND("yes" AS ?editor)
+    BIND("y" AS ?editor)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264344.
-    BIND("yes" AS ?comparing)
+    BIND("y" AS ?comparing)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122270779.
-    BIND("yes" AS ?hashtagTool)
+    BIND("y" AS ?hashtagTool)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q122270784.
-    BIND("yes" AS ?monitoring)
+    BIND("y" AS ?monitoring)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q125191237.
-    BIND("yes" AS ?changsetReview)
+    BIND("y" AS ?changsetReview)
   }
   OPTIONAL { 
     ?item wdt:P31 wd:Q125191788.
-    BIND("yes" AS ?welcomingTool)
+    BIND("y" AS ?welcomingTool)
   }  
   OPTIONAL { 
     ?item wdt:P31 wd:Q86715518.
-    BIND("yes" AS ?streetImgSv)
+    BIND("y" AS ?streetImgSv)
   }  
   OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
     ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("yes" AS ?streetImg)
+    BIND("y" AS ?streetImg)
   }
   OPTIONAL { ?item wdt:P11478 ?matrix. }
   OPTIONAL { ?item wdt:P4033 ?mastodon. }
