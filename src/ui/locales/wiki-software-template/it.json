@@ -50,7 +50,8 @@
         "description": "Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate"
     },
     "coverage": {
-        "label": "Copertura"
+        "label": "Copertura",
+        "description": "Copertura o regione per cui l'app è destinata. Formato: \"Continente, Nazione, Regione, ...\". Usa \"Worldwide\" o lascia vuoto per un uso globale."
     },
     "code": {
         "label": "Codice",
