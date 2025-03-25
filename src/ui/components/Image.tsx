@@ -5,6 +5,14 @@ import { calculateFilter } from "../../data/calculateFilter";
 import { isImage } from "./LazyLoadImages";
 import { chain } from "lodash";
 
+function isLogo(fileName: string) {
+  return (
+    fileName.toUpperCase().includes(".SVG") ||
+    fileName.toUpperCase().includes("ICON") ||
+    fileName.toUpperCase().includes("LOGO")
+  );
+}
+
 export function Carousel({
   app,
   onClose,
@@ -15,12 +23,7 @@ export function Carousel({
   const [images, setImages] = useState([] as string[]);
 
   async function processImages(images: string[]) {
-    for (const image of images.filter(
-      (i) =>
-        !i.toUpperCase().includes(".SVG") &&
-        !i.toUpperCase().includes("ICON") &&
-        !i.toUpperCase().includes("LOGO")
-    )) {
+    for (const image of images.filter((i) => !isLogo(i))) {
       const file = await isImage(image);
       if (!file || file.width < 50 || file.height < 50) {
         continue;
@@ -125,7 +128,7 @@ export function Image({ app }: { app: App }) {
             name: app.name,
           })}
         />
-        {app.images.length > 0 && (
+        {app.images.filter((i) => !isLogo(i)).length > 0 && (
           <span
             className="carousel-show"
             onClick={(e) => {
