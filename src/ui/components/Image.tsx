@@ -12,37 +12,36 @@ export function Carousel({
   app: App;
   onClose: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }) {
-  const [images, setImages] = useState(
-    [] as { url: string; file: HTMLImageElement; size: number }[]
-  );
+  const [images, setImages] = useState([] as string[]);
+
+  async function processImages(images: string[]) {
+    for (const image of images.filter(
+      (i) =>
+        !i.toUpperCase().includes(".SVG") &&
+        !i.toUpperCase().includes("ICON") &&
+        !i.toUpperCase().includes("LOGO")
+    )) {
+      const file = await isImage(image);
+      if (!file || file.width < 50 || file.height < 50) {
+        continue;
+      }
+
+      setImages((images) =>
+        chain([...images, image])
+          .uniqBy((i) =>
+            i
+              .substring(i.lastIndexOf("/") + 1)
+              .replaceAll("%20", " ")
+              .replaceAll("_", " ")
+              .replaceAll("-", " ")
+          )
+          .value()
+      );
+    }
+  }
 
   useEffect(() => {
-    for (const image of chain(app.images)
-      .filter((image) => !image.includes("/250px-"))
-      .uniqBy((image) => image.substring(image.lastIndexOf("/") + 1))
-      .value()) {
-      isImage(image).then((file) => {
-        if (file && file.width > 50 && file.height > 50) {
-          setImages((images) =>
-            chain([
-              ...images,
-              {
-                url: image,
-                file,
-                size: (performance.getEntriesByName(image)[0] as any)
-                  .transferSize,
-              },
-            ])
-              .uniqBy((i) => i.url)
-              .uniqBy(
-                (i) =>
-                  i.file.naturalWidth + "," + file.naturalHeight + "," + i.size
-              )
-              .value()
-          );
-        }
-      });
-    }
+    processImages(app.images.filter((image) => !image.includes("/250px-")));
   }, [app.images]);
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export function Carousel({
               await fetch(
                 `https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtitle=${
                   category || "Category:" + c
-                }&gcmlimit=6&gcmtype=file&prop=imageinfo&&iiprop=url&format=json&origin=*`
+                }&gcmlimit=8&gcmtype=file&prop=imageinfo&&iiprop=url&format=json&origin=*`
               )
             ).json();
             return Object.entries(result.query.pages).map(
@@ -81,35 +80,7 @@ export function Carousel({
         )
       ).flatMap((c) => c);
 
-      for (const image of chain(commonsImages)
-        .uniqBy((image) => image.substring(image.lastIndexOf("/") + 1))
-        .value()) {
-        isImage(image).then((file) => {
-          if (file && file.width > 50 && file.height > 50) {
-            setImages((images) =>
-              chain([
-                ...images,
-                {
-                  url: image,
-                  file,
-                  size: (performance.getEntriesByName(image)[0] as any)
-                    .transferSize,
-                },
-              ])
-                .uniqBy((i) => i.url)
-                .uniqBy(
-                  (i) =>
-                    i.file.naturalWidth +
-                    "," +
-                    file.naturalHeight +
-                    "," +
-                    i.size
-                )
-                .value()
-            );
-          }
-        });
-      }
+      processImages(commonsImages);
     })();
   }, [app.commons]);
 
@@ -121,7 +92,7 @@ export function Carousel({
     <>
       <div className="carousel" onClick={onClose}>
         {images.map((i) => (
-          <img key={i.url} src={i.url} />
+          <img key={i} src={i} />
         ))}
         {/* {(app.videos || []).map((v) => (
           <video key={v} src={v} />
