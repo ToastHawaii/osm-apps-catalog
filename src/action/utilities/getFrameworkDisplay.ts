@@ -52,6 +52,9 @@ const frameworks: {
   { name: "Django", synonym: ["django"] },
   { name: "nginx", synonym: ["nginx"] },
   { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
+  { name: "D3", synonym: ["d3", "d3js"] },
+  { name: "WebGl", synonym: ["webgl", "webgl2"] },
+  { name: "Django REST framework", synonym: ["django rest framework"] },
 ];
 
 export function getFrameworkDisplay(value: string) {

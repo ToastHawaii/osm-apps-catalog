@@ -18,6 +18,10 @@ const ignoredTopics = [
   "30daymapchallenge",
   "dataviz",
   "hacktoberfest",
+  "hactoberfest",
+  "hakctoberfest",
+  "hactoberfest2019",
+  "hacktoberfest2020",
   "hacktoberfest2021",
   "hacktoberfest2022",
   "hacktoberfest2023",
@@ -30,6 +34,12 @@ const ignoredTopics = [
   "github",
   "github",
   "github-actions",
+  "520",
+  "705",
+  "955",
+  "1050",
+  "agplv3",
+  "help-wanted",
 ];
 
 export function transformGithubResult(result: any) {

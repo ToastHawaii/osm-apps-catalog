@@ -76652,7 +76652,14 @@ const programingLanguages = [
     { name: "Java", synonym: ["java"] },
     {
         name: "JavaScript",
-        synonym: ["javascript", "js", "ecmascript", "es", "vanilla javascript"],
+        synonym: [
+            "javascript",
+            "js",
+            "ecmascript",
+            "es",
+            "vanilla javascript",
+            "vanillajs",
+        ],
     },
     { name: "Kotlin", synonym: ["kotlin"] },
     { name: "Lua", synonym: ["lua"] },
@@ -76685,6 +76692,8 @@ const programingLanguages = [
     },
     { name: "Zig", synonym: ["zig"] },
     { name: "Html", synonym: ["html", "html5", "html css"] },
+    { name: "Haskell", synonym: ["haskell"] },
+    { name: "Visual Basic", synonym: ["vb6", "vba"] },
 ];
 function getProgramingLanguageDisplay(value) {
     for (const language of programingLanguages) {
@@ -76745,6 +76754,9 @@ const frameworks = [
     { name: "Django", synonym: ["django"] },
     { name: "nginx", synonym: ["nginx"] },
     { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
+    { name: "D3", synonym: ["d3", "d3js"] },
+    { name: "WebGl", synonym: ["webgl", "webgl2"] },
+    { name: "Django REST framework", synonym: ["django rest framework"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
@@ -76773,6 +76785,10 @@ const ignoredTopics = [
     "30daymapchallenge",
     "dataviz",
     "hacktoberfest",
+    "hactoberfest",
+    "hakctoberfest",
+    "hactoberfest2019",
+    "hacktoberfest2020",
     "hacktoberfest2021",
     "hacktoberfest2022",
     "hacktoberfest2023",
@@ -76785,6 +76801,12 @@ const ignoredTopics = [
     "github",
     "github",
     "github-actions",
+    "520",
+    "705",
+    "955",
+    "1050",
+    "agplv3",
+    "help-wanted",
 ];
 function transformGithubResult(result) {
     return {

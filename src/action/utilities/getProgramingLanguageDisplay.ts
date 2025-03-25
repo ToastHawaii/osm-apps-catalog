@@ -36,7 +36,14 @@ const programingLanguages: {
   { name: "Java", synonym: ["java"] },
   {
     name: "JavaScript",
-    synonym: ["javascript", "js", "ecmascript", "es", "vanilla javascript"],
+    synonym: [
+      "javascript",
+      "js",
+      "ecmascript",
+      "es",
+      "vanilla javascript",
+      "vanillajs",
+    ],
   },
   { name: "Kotlin", synonym: ["kotlin"] },
   { name: "Lua", synonym: ["lua"] },
@@ -69,6 +76,8 @@ const programingLanguages: {
   },
   { name: "Zig", synonym: ["zig"] },
   { name: "Html", synonym: ["html", "html5", "html css"] },
+  { name: "Haskell", synonym: ["haskell"] },
+  { name: "Visual Basic", synonym: ["vb6", "vba"] },
 ];
 
 export function getProgramingLanguageDisplay(value: string) {
