@@ -67,6 +67,8 @@ export function addApp(apps: App[], obj: App) {
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
     app.images = uniq(app.images);
+    app.logos.push(...obj.logos);
+    app.logos = uniq(app.logos);
     app.imageWiki = app.imageWiki || obj.imageWiki;
     app.commons = app.commons || [];
     app.commons.push(...(obj.commons || []));

@@ -43,6 +43,7 @@ export function transform(source: { [name: string]: string }) {
     ),
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
+    logos: [],
     imageWiki: source["image"],
     source: [
       {

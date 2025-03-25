@@ -41,6 +41,7 @@ export function transformGithubResult(result: any) {
     lastRelease: "",
     description: result.description || "",
     images: [],
+    logos: [],
     website: result.homepage
       ? new URL(
           !result.homepage.toUpperCase().startsWith("HTTP")

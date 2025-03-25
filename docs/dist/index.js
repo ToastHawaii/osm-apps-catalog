@@ -75244,10 +75244,8 @@ function transform(source) {
         unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
         lastRelease: toDate(source["date"]) || "",
         description: appendFullStop(processWikiText(source["description"] || "")),
-        images: [
-            ...toWikimediaUrl(source["screenshot"], 250),
-            ...toWikimediaUrl(source["logo"], 250),
-        ],
+        images: toWikimediaUrl(source["screenshot"], 250),
+        logos: toWikimediaUrl(source["logo"], 250),
         imageWiki: source["screenshot"] || source["logo"],
         website: toUrl(extractWebsite(source["web"])),
         documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
@@ -75538,6 +75536,7 @@ function serviceItem_transform(source) {
         name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         description: appendFullStop(processWikiText(source["descr"] || "")),
         images: toWikimediaUrl(source["image"], 250),
+        logos: [],
         imageWiki: source["image"],
         source: [
             {
@@ -75621,10 +75620,8 @@ function layer_transform(source) {
         name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         lastRelease: toDate(source["date"]) || "",
         description: appendFullStop(processWikiText(source["description"] || "")),
-        images: [
-            ...toWikimediaUrl(source["screenshot"], 250),
-            ...toWikimediaUrl(source["logo"], 250),
-        ],
+        images: toWikimediaUrl(source["screenshot"], 250),
+        logos: toWikimediaUrl(source["logo"], 250),
         imageWiki: source["screenshot"] || source["logo"],
         website: toUrl(extractWebsite(source["slippy_web"])),
         documentation: toWikiUrl(source.sourceWiki) || "",
@@ -76023,6 +76020,8 @@ function addApp(apps, obj) {
         app.description = app.description || obj.description;
         app.images.push(...obj.images);
         app.images = (0,lodash.uniq)(app.images);
+        app.logos.push(...obj.logos);
+        app.logos = (0,lodash.uniq)(app.logos);
         app.imageWiki = app.imageWiki || obj.imageWiki;
         app.commons = app.commons || [];
         app.commons.push(...(obj.commons || []));
@@ -76200,10 +76199,8 @@ function transformWikidataResult(result) {
         name: result.itemLabel.value || "",
         lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
         description: result.description?.value || "",
-        images: [
-            ...(result.imgs?.value || "").split(";").filter((v) => v),
-            ...(result.logos?.value || "").split(";").filter((v) => v),
-        ],
+        images: (result.imgs?.value || "").split(";").filter((v) => v),
+        logos: (result.logos?.value || "").split(";").filter((v) => v),
         commons: (result.commons?.value || "").split(";").filter((v) => v),
         videos: (result.videos?.value || "").split(";").filter((v) => v),
         website: result.web?.value || result.webDef?.value
@@ -76798,6 +76795,7 @@ function transformGithubResult(result) {
         lastRelease: "",
         description: result.description || "",
         images: [],
+        logos: [],
         website: result.homepage
             ? new URL(!result.homepage.toUpperCase().startsWith("HTTP")
                 ? "https://" + result.homepage
@@ -76976,7 +76974,8 @@ async function loadAppsFromTagInfoProjects() {
     return projectObjects.data.map((obj) => ({
         name: obj.name,
         website: new URL(obj.project_url).toString(),
-        images: obj.icon_url ? [obj.icon_url] : [],
+        images: [],
+        logos: obj.icon_url ? [obj.icon_url] : [],
         documentation: obj.doc_url,
         source: [
             {

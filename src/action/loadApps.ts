@@ -117,7 +117,8 @@ async function loadAppsFromTagInfoProjects() {
       ({
         name: obj.name,
         website: new URL(obj.project_url).toString(),
-        images: obj.icon_url ? [obj.icon_url] : [],
+        images: [],
+        logos: obj.icon_url ? [obj.icon_url] : [],
         documentation: obj.doc_url,
         source: [
           {

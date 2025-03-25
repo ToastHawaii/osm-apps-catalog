@@ -43,10 +43,8 @@ export function transform(source: { [name: string]: string }) {
     ),
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: [
-      ...toWikimediaUrl(source["screenshot"], 250),
-      ...toWikimediaUrl(source["logo"], 250),
-    ],
+    images: toWikimediaUrl(source["screenshot"], 250),
+    logos: toWikimediaUrl(source["logo"], 250),
     imageWiki: source["screenshot"] || source["logo"],
     website: toUrl(extractWebsite(source["slippy_web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",

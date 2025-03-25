@@ -65,10 +65,8 @@ export function transformWikidataResult(result: any) {
     name: result.itemLabel.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
-    images: [
-      ...(result.imgs?.value || "").split(";").filter((v: any) => v),
-      ...(result.logos?.value || "").split(";").filter((v: any) => v),
-    ],
+    images: (result.imgs?.value || "").split(";").filter((v: any) => v),
+    logos: (result.logos?.value || "").split(";").filter((v: any) => v),
     commons: (result.commons?.value || "").split(";").filter((v: any) => v),
     videos: (result.videos?.value || "").split(";").filter((v: any) => v),
     website:
