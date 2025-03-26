@@ -25,11 +25,11 @@ const frameworks: {
   },
   { name: "Vite", synonym: ["vite", "vitejs"] },
   { name: "Reatom", synonym: ["reatom"] },
-  { name: "Tailwind CSS", synonym: ["tailwind css"] },
+  { name: "Tailwind CSS", synonym: ["tailwind css", "tailwind"] },
   { name: "Nextjs", synonym: ["nextjs"] },
-  { name: "Bootstrap", synonym: ["bootstrap"] },
+  { name: "Bootstrap", synonym: ["bootstrap", "bootstrap5"] },
   { name: "Cesiumjs", synonym: ["cesiumjs"] },
-  { name: "Flutter", synonym: ["flutter"] },
+  { name: "Flutter", synonym: ["flutter", "flutter app", "flutter apps  "] },
   {
     name: "Angular",
     synonym: ["angular", "angular2", "angularjs", "angular ssr"],
@@ -55,6 +55,16 @@ const frameworks: {
   { name: "D3", synonym: ["d3", "d3js"] },
   { name: "WebGl", synonym: ["webgl", "webgl2"] },
   { name: "Django REST framework", synonym: ["django rest framework"] },
+  { name: "Flowbite", synonym: ["flowbite", "flowbite svelte"] },
+  { name: "OAuth", synonym: ["oauth", "oauth1", "oauth2"] },
+  {
+    name: "WebSocket",
+    synonym: ["websocket", "gorilla websocket", "websocketpp"],
+  },
+  { name: "Riot JS", synonym: ["riot", "riot mui", "riotjs"] },
+  { name: "mongodb", synonym: ["mongodb",] },
+  { name: "Redux", synonym: ["redux",] },
+  { name: "CORS", synonym: ["cors",] },
 ];
 
 export function getFrameworkDisplay(value: string) {

@@ -11,7 +11,7 @@ import { addApp } from "./addApp";
 import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
-import { groupBy, mergeWith } from "lodash";
+import { groupBy, mergeWith, uniqBy } from "lodash";
 import { requestGitHub, transformGithubResult } from "./crawler/github";
 
 async function loadAppsFromOsmWikiServiceItems(language: string) {
@@ -79,14 +79,16 @@ async function loadAppsFromWikidata(language: string) {
 }
 
 async function loadAppsFromGitHub(githubToken?: string | undefined) {
-  const objs = await requestGitHub(githubToken);
+  let objs = await requestGitHub(githubToken);
+
+  objs = uniqBy(objs, (o) => o.full_name);
 
   const groupedObjs = groupBy(objs, (o) => o.name);
   Object.entries(groupedObjs)
     .filter((o) => o[1].length > 1)
     .flatMap((o) => o[1])
     .forEach((o) => {
-      o.name = o.name + " by " + o.owner.login;
+      o.name = `${o.name} by ${o.owner.login}`;
     });
 
   return objs.map((source) => transformGithubResult(source));

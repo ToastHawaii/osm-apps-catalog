@@ -83,7 +83,11 @@ const platforms: {
       { name: "ArOS", synonym: ["aros"] },
     ],
   },
-
+  {
+    name: "Garmin",
+    synonym: ["garmin", "garmin gps devices"],
+    version: [{ name: "Garmin Watch", synonym: ["garmin watch"] }],
+  },
   { name: "Windows CE", synonym: ["windows ce", "wince"], version: [] },
   {
     name: "Windows Mobile",
