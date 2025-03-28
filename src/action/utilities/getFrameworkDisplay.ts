@@ -25,7 +25,10 @@ const frameworks: {
   },
   { name: "Vite", synonym: ["vite", "vitejs"] },
   { name: "Reatom", synonym: ["reatom"] },
-  { name: "Tailwind CSS", synonym: ["tailwind css", "tailwind", "tailwindcss"] },
+  {
+    name: "Tailwind CSS",
+    synonym: ["tailwind css", "tailwind", "tailwindcss"],
+  },
   { name: "Nextjs", synonym: ["nextjs"] },
   { name: "Bootstrap", synonym: ["bootstrap", "bootstrap5"] },
   { name: "Cesiumjs", synonym: ["cesiumjs"] },

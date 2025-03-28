@@ -59,9 +59,10 @@ const platforms: {
       { name: "iPhone", synonym: ["iphone"] },
       { name: "iPad", synonym: ["ipad", "iPadOS"] },
       { name: "iPod touch", synonym: ["ipod touch", "ipod"] },
-      { name: "WatchOS", synonym: ["watchos", "Apple Watch"] },
     ],
   },
+  { name: "watchOS", synonym: ["watchos", "Apple Watch"], version: [] },
+  { name: "visionOS", synonym: ["visionos"], version: [] },
   {
     name: "MacOS",
     synonym: ["macos", "mac", "mac os", "os x", "osx", "mac os x", "macosx"],

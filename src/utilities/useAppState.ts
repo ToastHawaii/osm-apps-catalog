@@ -115,8 +115,10 @@ export function useAppState() {
       const search = searchParams.get("search");
       if (search && category !== "focus") {
         setSearchParams(() => ({ search, category }));
-      } else {
+      } else if (category) {
         setSearchParams(() => ({ category }));
+      } else {
+        setSearchParams(() => ({}));
       }
     },
     () => !isEqual([...initSearchParams], [...searchParams]),
