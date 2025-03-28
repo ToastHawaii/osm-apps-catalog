@@ -25,7 +25,7 @@ const frameworks: {
   },
   { name: "Vite", synonym: ["vite", "vitejs"] },
   { name: "Reatom", synonym: ["reatom"] },
-  { name: "Tailwind CSS", synonym: ["tailwind css", "tailwind"] },
+  { name: "Tailwind CSS", synonym: ["tailwind css", "tailwind", "tailwindcss"] },
   { name: "Nextjs", synonym: ["nextjs"] },
   { name: "Bootstrap", synonym: ["bootstrap", "bootstrap5"] },
   { name: "Cesiumjs", synonym: ["cesiumjs"] },
@@ -62,9 +62,16 @@ const frameworks: {
     synonym: ["websocket", "gorilla websocket", "websocketpp"],
   },
   { name: "Riot JS", synonym: ["riot", "riot mui", "riotjs"] },
-  { name: "mongodb", synonym: ["mongodb",] },
-  { name: "Redux", synonym: ["redux",] },
-  { name: "CORS", synonym: ["cors",] },
+  { name: "mongodb", synonym: ["mongodb"] },
+  { name: "Redux", synonym: ["redux"] },
+  { name: "CORS", synonym: ["cors"] },
+  { name: "p5.js", synonym: ["p5js"] },
+  { name: "Mappa.js", synonym: ["mappajs"] },
+  { name: "MariaDB", synonym: ["mariadb"] },
+  { name: "DuckDB", synonym: ["duckdb"] },
+  { name: "Apache Spark", synonym: ["apache spark"] },
+  { name: "Apache Arrow", synonym: ["apache arrow"] },
+  { name: "Windows Presentation Foundation", synonym: ["wpf"] },
 ];
 
 export function getFrameworkDisplay(value: string) {

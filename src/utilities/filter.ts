@@ -4,7 +4,6 @@ import { State } from "../State";
 import { includes, some } from "./array";
 import { edit, mobile, navigation } from "./filters";
 import { equalsYes } from "./string";
-import { getLastMod } from "./getLastMod";
 
 export function filter({
   apps,
