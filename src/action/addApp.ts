@@ -165,6 +165,7 @@ export function addApp(apps: App[], obj: App) {
     app.community.irc = app.community.irc || obj.community.irc;
     app.community.matrix = app.community.matrix || obj.community.matrix;
     app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+    app.community.lemmy = app.community.lemmy || obj.community.lemmy;
     app.community.bluesky = app.community.bluesky || obj.community.bluesky;
     app.community.issueTracker =
       app.community.issueTracker || obj.community.issueTracker;

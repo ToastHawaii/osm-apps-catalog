@@ -121,6 +121,7 @@ export function transformWikidataResult(result: any) {
       bluesky: result.bluesky?.value,
       matrix: result.matrix?.value,
       mastodon: result.mastodon?.value,
+      lemmy: result.lemmy?.value,
       issueTracker: result.issues?.value,
       telegram: result.teleg?.value || result.telegDef?.value,
       reddit: result.subreddit?.value,
@@ -179,6 +180,7 @@ SELECT DISTINCT
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
+  (SAMPLE(?lemmy) AS ?lemmy) 
   (SAMPLE(?issues) AS ?issues) 
   (SAMPLE(?telegDef) AS ?telegDef)
   (SAMPLE(?teleg) AS ?teleg)
@@ -268,6 +270,7 @@ WHERE {
   OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
   OPTIONAL { ?item wdt:P11478 ?matrix. }
   OPTIONAL { ?item wdt:P4033 ?mastodon. }
+  OPTIONAL { ?item wdt:P11947 ?lemmy. }
   OPTIONAL { ?item wdt:P12361 ?bluesky. }
   OPTIONAL { ?item wdt:P1401 ?issues. }
   OPTIONAL { 

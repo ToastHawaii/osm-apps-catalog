@@ -28,6 +28,8 @@ import { Score } from "../components/Score";
 import { Group } from "../components/Group";
 import { SourceDisplay } from "../components/SourceDisplay";
 import { State } from "../../State";
+import { getMastodon } from "../utilities/getMastodon";
+import { getLemmy } from "../utilities/getLemmy";
 
 export function Compare({
   apps,
@@ -442,12 +444,23 @@ export function Compare({
                 {app.community.mastodon && (
                   <a
                     className="community"
-                    href={`https://fedirect.toolforge.org/?id=${app.community.mastodon}`}
+                    href={getMastodon(app.community.mastodon)}
                     target="_blank"
                     rel="noreferrer"
                     title={t("app.community.mastodon")}
                   >
                     <i className="fab fa-mastodon fa-fw"></i>
+                  </a>
+                )}
+                {app.community.lemmy && (
+                  <a
+                    className="community"
+                    href={getLemmy(app.community.lemmy)}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={t("app.community.lemmy")}
+                  >
+                    <img src="/icons/lemmy.svg" alt="Lemmy" height="18px" />
                   </a>
                 )}
                 {app.community.bluesky && (

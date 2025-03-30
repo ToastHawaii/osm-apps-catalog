@@ -130,6 +130,7 @@ export type App = {
     irc?: { server?: string; channel: string };
     matrix?: string;
     mastodon?: string;
+    lemmy?: string;
     bluesky?: string;
     issueTracker?: string;
     githubDiscussions?: string;

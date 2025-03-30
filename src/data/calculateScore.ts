@@ -176,6 +176,7 @@ export const Criterias: {
         app.community.irc?.channel ||
         app.community.matrix ||
         app.community.mastodon ||
+        app.community.lemmy ||
         app.community.bluesky
       ),
     points: 0.25,

@@ -75927,6 +75927,7 @@ const Criterias = [
         check: (app) => !!(app.community.irc?.channel ||
             app.community.matrix ||
             app.community.mastodon ||
+            app.community.lemmy ||
             app.community.bluesky),
         points: 0.25,
     },
@@ -76104,6 +76105,7 @@ function addApp(apps, obj) {
         app.community.irc = app.community.irc || obj.community.irc;
         app.community.matrix = app.community.matrix || obj.community.matrix;
         app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
         app.community.bluesky = app.community.bluesky || obj.community.bluesky;
         app.community.issueTracker =
             app.community.issueTracker || obj.community.issueTracker;
@@ -76258,6 +76260,7 @@ function transformWikidataResult(result) {
             bluesky: result.bluesky?.value,
             matrix: result.matrix?.value,
             mastodon: result.mastodon?.value,
+            lemmy: result.lemmy?.value,
             issueTracker: result.issues?.value,
             telegram: result.teleg?.value || result.telegDef?.value,
             reddit: result.subreddit?.value,
@@ -76310,6 +76313,7 @@ SELECT DISTINCT
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
+  (SAMPLE(?lemmy) AS ?lemmy) 
   (SAMPLE(?issues) AS ?issues) 
   (SAMPLE(?telegDef) AS ?telegDef)
   (SAMPLE(?teleg) AS ?teleg)
@@ -76399,6 +76403,7 @@ WHERE {
   OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
   OPTIONAL { ?item wdt:P11478 ?matrix. }
   OPTIONAL { ?item wdt:P4033 ?mastodon. }
+  OPTIONAL { ?item wdt:P11947 ?lemmy. }
   OPTIONAL { ?item wdt:P12361 ?bluesky. }
   OPTIONAL { ?item wdt:P1401 ?issues. }
   OPTIONAL { 
