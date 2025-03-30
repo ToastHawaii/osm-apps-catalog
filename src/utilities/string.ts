@@ -30,7 +30,17 @@ export function notDiffrentString(
   a: string | undefined,
   b: string | undefined
 ) {
-  return !a || !b || equalsString(a, b);
+  if (!a || !b) {
+    return true;
+  }
+
+  const equals = equalsString(a, b);
+
+  if (!equals) {
+    console.info(`Not equals: ${a} ${b}`);
+  }
+
+  return equals;
 }
 
 export function equalsName(a: string, b: string) {
@@ -43,7 +53,17 @@ export function notDiffrentWebsite(
   a: string | undefined,
   b: string | undefined
 ) {
-  return !a || !b || equalsWebsite(a, b);
+  if (!a || !b) {
+    return true;
+  }
+
+  const equals = equalsWebsite(a, b);
+
+  if (!equals) {
+    console.info(`Not equals: ${a} ${b}`);
+  }
+
+  return equals;
 }
 
 export function equalsWebsite(a: string | undefined, b: string | undefined) {
