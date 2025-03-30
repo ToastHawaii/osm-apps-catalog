@@ -71,13 +71,13 @@ export function equalsWebsite(a: string | undefined, b: string | undefined) {
     return false;
   }
 
-  const aUrl = new URL(a.toUpperCase());
-  const bUrl = new URL(b.toUpperCase());
+  const aUrl = new URL(a.toLowerCase());
+  const bUrl = new URL(b.toLowerCase());
   return (
-    trimStart(aUrl.hostname, "WWW.") +
+    trimStart(aUrl.hostname, "www.") +
       trimEnd(aUrl.pathname, "/") +
       aUrl.search ===
-    trimStart(bUrl.hostname, "WWW.") + trimEnd(bUrl.pathname, "/") + bUrl.search
+    trimStart(bUrl.hostname, "www.") + trimEnd(bUrl.pathname, "/") + bUrl.search
   );
 }
 

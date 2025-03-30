@@ -74410,12 +74410,12 @@ function equalsWebsite(a, b) {
     if (!a || !b) {
         return false;
     }
-    const aUrl = new URL(a.toUpperCase());
-    const bUrl = new URL(b.toUpperCase());
-    return ((0,lodash.trimStart)(aUrl.hostname, "WWW.") +
+    const aUrl = new URL(a.toLowerCase());
+    const bUrl = new URL(b.toLowerCase());
+    return ((0,lodash.trimStart)(aUrl.hostname, "www.") +
         (0,lodash.trimEnd)(aUrl.pathname, "/") +
         aUrl.search ===
-        (0,lodash.trimStart)(bUrl.hostname, "WWW.") + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
+        (0,lodash.trimStart)(bUrl.hostname, "www.") + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
 }
 function equalsYes(...values) {
     for (const value of values)
