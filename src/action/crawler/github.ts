@@ -94,7 +94,7 @@ export function transformGithubResult(result: any) {
     },
     source: [
       {
-        name: "Github",
+        name: "GitHub",
         wiki: "",
         url: result.html_url,
         lastChange: result.updated_at,

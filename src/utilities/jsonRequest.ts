@@ -50,7 +50,9 @@ export async function getJson(
 
     return await response.json();
   } catch (e) {
-    console.error(JSON.stringify(e));
+    console.error(
+      `Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`
+    );
     throw e;
   }
 }

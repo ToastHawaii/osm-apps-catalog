@@ -170,7 +170,7 @@ export async function loadApps(githubToken?: string) {
     ])
   )
     .flatMap((a) => a)
-    .forEach((app) => addApp(apps, app));
+    .forEach((app) => addApp(apps, app, app.source[0].name === "GitHub"));
 
   return apps;
 }

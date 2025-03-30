@@ -21,8 +21,10 @@ export async function run(): Promise<void> {
   try {
     let apps = await loadApps(core.getInput("ghToken"));
 
-    await firstCrawled(apps);
-    await focus(apps);
+    const knownApps = await getKnownApps();
+
+    await firstCrawled(apps, knownApps);
+    await focus(apps, knownApps);
 
     shuffle(apps);
     apps = apps.sort(function (a, b) {
@@ -51,12 +53,25 @@ export async function run(): Promise<void> {
   }
 }
 
-async function firstCrawled(apps: App[]) {
+async function getKnownApps() {
+  console.info(`Load: https://osm-apps.zottelig.ch/api/apps/all.json`);
+  try {
+    return (await (
+      await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})
+    ).json()) as App[];
+  } catch (e) {
+    console.error(
+      `Error on loading https://osm-apps.zottelig.ch/api/apps/all.json: ${JSON.stringify(
+        e
+      )}`
+    );
+    throw e;
+  }
+}
+
+async function firstCrawled(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
 
-  const knownApps = (await (
-    await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})
-  ).json()) as App[];
   for (const app of apps) {
     const knownApp = knownApps.find((k) => k.id === app.id);
     if (!knownApp) {
@@ -79,15 +94,11 @@ async function firstCrawled(apps: App[]) {
   }
 }
 
-async function focus(apps: App[]) {
+async function focus(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
   var yesterday = new Date(
     new Date().valueOf() - 1000 * 60 * 60 * 24
   ).toISOString();
-
-  const knownApps = (await (
-    await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})
-  ).json()) as App[];
 
   for (const app of apps) {
     const knownApp = knownApps.find((k) => k.id === app.id);
@@ -98,7 +109,7 @@ async function focus(apps: App[]) {
     }
   }
 
-  // Find all those that have changed in the last day and show those that have not been displayed 
+  // Find all those that have changed in the last day and show those that have not been displayed
   // for the longest time
   const focusedApps = chain(apps)
     .filter((a) => getLastMod(a.source[0]) > yesterday)

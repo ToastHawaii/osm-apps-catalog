@@ -23,6 +23,13 @@ export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
     : a === b;
 }
 
+export function equalsName(a: string, b: string) {
+  return (
+    a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
+    b.toUpperCase().replaceAll("-", " ").replaceAll("_", " ")
+  );
+}
+
 export function equalsWebsite(a: string, b: string) {
   const aUrl = new URL(a.toUpperCase());
   const bUrl = new URL(b.toUpperCase());
