@@ -42,12 +42,17 @@ const platforms: {
   },
   {
     name: "Arduino",
-    synonym: ["arduino"],
-    version: [{ name: "Arduino® Nano ESP32", synonym: ["esp32 arduino"] }],
+    synonym: ["arduino", "arduino library"],
+    version: [
+      {
+        name: "Arduino® Nano ESP32",
+        synonym: ["esp32 arduino", "esp32", "esp32 s2", "esp32 s3"],
+      },
+    ],
   },
   {
     name: "Raspberry Pi",
-    synonym: ["raspberry","raspberry pi"],
+    synonym: ["raspberry", "raspberry pi"],
     version: [],
   },
   { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },

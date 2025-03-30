@@ -78,6 +78,8 @@ const frameworks: {
   { name: "CockroachDB", synonym: ["cockroachdb"] },
   { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
   { name: "Express", synonym: ["express", "expressjs"] },
+  { name: "Espressif IoT Development Framework", synonym: ["esp32 idf"] },
+  { name: "PNGdec", synonym: ["pngdec"] },
 ];
 
 export function getFrameworkDisplay(value: string) {

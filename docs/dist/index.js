@@ -74702,8 +74702,13 @@ const platforms = [
     },
     {
         name: "Arduino",
-        synonym: ["arduino"],
-        version: [{ name: "Arduino® Nano ESP32", synonym: ["esp32 arduino"] }],
+        synonym: ["arduino", "arduino library"],
+        version: [
+            {
+                name: "Arduino® Nano ESP32",
+                synonym: ["esp32 arduino", "esp32", "esp32 s2", "esp32 s3"],
+            },
+        ],
     },
     {
         name: "Raspberry Pi",
@@ -76812,6 +76817,8 @@ const frameworks = [
     { name: "CockroachDB", synonym: ["cockroachdb"] },
     { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
     { name: "Express", synonym: ["express", "expressjs"] },
+    { name: "Espressif IoT Development Framework", synonym: ["esp32 idf"] },
+    { name: "PNGdec", synonym: ["pngdec"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
