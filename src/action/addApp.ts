@@ -9,39 +9,49 @@ export function addApp(
   obj: App,
   includeRepositoryForUniqueCheck: boolean
 ) {
-  const duplicates = apps.filter(
-    (app) =>
-      equalsName(app.name, obj.name) ||
-      (app.website && obj.website && equalsWebsite(app.website, obj.website)) ||
-      (app.install.appleStoreID &&
-        obj.install.appleStoreID &&
-        app.install.appleStoreID === obj.install.appleStoreID) ||
-      (app.install.asin &&
-        obj.install.asin &&
-        app.install.asin === obj.install.asin) ||
-      (app.install.fDroidID &&
-        obj.install.fDroidID &&
-        app.install.fDroidID === obj.install.fDroidID) ||
-      (app.install.googlePlayID &&
-        obj.install.googlePlayID &&
-        app.install.googlePlayID === obj.install.googlePlayID) ||
-      (app.install.obtainiumLink &&
-        obj.install.obtainiumLink &&
-        app.install.obtainiumLink === obj.install.obtainiumLink) ||
-      (app.install.huaweiAppGalleryID &&
-        obj.install.huaweiAppGalleryID &&
-        app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID) ||
-      (app.install.macAppStoreID &&
-        obj.install.macAppStoreID &&
-        app.install.macAppStoreID === obj.install.macAppStoreID) ||
-      (app.install.microsoftAppID &&
-        obj.install.microsoftAppID &&
-        app.install.microsoftAppID === obj.install.microsoftAppID) ||
-      (includeRepositoryForUniqueCheck &&
-        app.sourceCode &&
-        obj.sourceCode &&
-        equalsWebsite(app.sourceCode, obj.sourceCode))
-  );
+  const duplicates = apps
+    .filter(
+      (app) =>
+        equalsName(app.name, obj.name) ||
+        (app.website &&
+          obj.website &&
+          equalsWebsite(app.website, obj.website)) ||
+        (app.install.appleStoreID &&
+          obj.install.appleStoreID &&
+          app.install.appleStoreID === obj.install.appleStoreID) ||
+        (app.install.asin &&
+          obj.install.asin &&
+          app.install.asin === obj.install.asin) ||
+        (app.install.fDroidID &&
+          obj.install.fDroidID &&
+          app.install.fDroidID === obj.install.fDroidID) ||
+        (app.install.googlePlayID &&
+          obj.install.googlePlayID &&
+          app.install.googlePlayID === obj.install.googlePlayID) ||
+        (app.install.obtainiumLink &&
+          obj.install.obtainiumLink &&
+          app.install.obtainiumLink === obj.install.obtainiumLink) ||
+        (app.install.huaweiAppGalleryID &&
+          obj.install.huaweiAppGalleryID &&
+          app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID) ||
+        (app.install.macAppStoreID &&
+          obj.install.macAppStoreID &&
+          app.install.macAppStoreID === obj.install.macAppStoreID) ||
+        (app.install.microsoftAppID &&
+          obj.install.microsoftAppID &&
+          app.install.microsoftAppID === obj.install.microsoftAppID) ||
+        (includeRepositoryForUniqueCheck &&
+          app.sourceCode &&
+          obj.sourceCode &&
+          equalsWebsite(app.sourceCode, obj.sourceCode))
+    )
+    .filter(
+      // if both have a source code, they must be equal
+      (app) =>
+        !app.sourceCode ||
+        !obj.sourceCode ||
+        equalsWebsite(app.sourceCode, obj.sourceCode)
+    );
 
   if (duplicates.length === 0) {
     // only add if external sources exists

@@ -75981,8 +75981,11 @@ function calculateScore(app) {
 
 
 function addApp(apps, obj, includeRepositoryForUniqueCheck) {
-    const duplicates = apps.filter((app) => equalsName(app.name, obj.name) ||
-        (app.website && obj.website && equalsWebsite(app.website, obj.website)) ||
+    const duplicates = apps
+        .filter((app) => equalsName(app.name, obj.name) ||
+        (app.website &&
+            obj.website &&
+            equalsWebsite(app.website, obj.website)) ||
         (app.install.appleStoreID &&
             obj.install.appleStoreID &&
             app.install.appleStoreID === obj.install.appleStoreID) ||
@@ -76010,7 +76013,12 @@ function addApp(apps, obj, includeRepositoryForUniqueCheck) {
         (includeRepositoryForUniqueCheck &&
             app.sourceCode &&
             obj.sourceCode &&
-            equalsWebsite(app.sourceCode, obj.sourceCode)));
+            equalsWebsite(app.sourceCode, obj.sourceCode)))
+        .filter(
+    // if both have a source code, they must be equal
+    (app) => !app.sourceCode ||
+        !obj.sourceCode ||
+        equalsWebsite(app.sourceCode, obj.sourceCode));
     if (duplicates.length === 0) {
         // only add if external sources exists
         if (obj.name !== "" &&
