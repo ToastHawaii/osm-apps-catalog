@@ -119,8 +119,8 @@ export function transform(
       obtainiumLink: source["obtainiumLink"],
       googlePlayID: source["googlePlayID"],
       huaweiAppGalleryID: source["huaweiAppGalleryID"],
-      appleStoreID: source["appleStoreID"].match(/\d+$/)?.[0] || "",
-      macAppStoreID: source["macAppStoreID"].match(/\d+$/)?.[0] || "",
+      appleStoreID: (source["appleStoreID"] || "").match(/\d+$/)?.[0] || "",
+      macAppStoreID: (source["macAppStoreID"] || "").match(/\d+$/)?.[0] || "",
       microsoftAppID: source["microsoftAppID"],
     },
     map: {
