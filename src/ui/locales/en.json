@@ -82,6 +82,7 @@
   "app.community.matrix": "Matrix room",
   "app.community.bluesky": "Bluesky",
   "app.community.mastodon": "Mastodon",
+  "app.community.lemmy": "Lemmy",
   "app.community.issueTracker": "Issues",
   "app.community.githubDiscussions": "GitHub Discussions",
   "app.community.telegram": "Telegram group",
