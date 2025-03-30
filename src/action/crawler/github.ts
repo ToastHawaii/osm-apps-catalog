@@ -45,9 +45,12 @@ const ignoredTopics = [
 
 export function transformGitHubResult(result: any) {
   return {
-    name: upperFirst(result.name || "")
+    name: (result.name || "")
       .replaceAll("-", " ")
-      .replaceAll("_", " "),
+      .replaceAll("_", " ")
+      .split(" ")
+      .map((w: any) => upperFirst(w))
+      .join(" "),
     unmaintained: result.archived,
     lastRelease: "",
     description: result.description || "",

@@ -1,5 +1,11 @@
 import { uniq } from "lodash";
-import { equalsName, equalsWebsite } from "../utilities/string";
+import {
+  equalsName,
+  equalsString,
+  equalsWebsite,
+  notDiffrentString,
+  notDiffrentWebsite,
+} from "../utilities/string";
 import { hashCode } from "./utilities";
 import { App } from "../data/App";
 import { calculateScore } from "../data/calculateScore";
@@ -12,45 +18,48 @@ export function addApp(
   const duplicates = apps
     .filter(
       (app) =>
-        equalsName(app.name, obj.name) ||
-        (app.website &&
-          obj.website &&
-          equalsWebsite(app.website, obj.website)) ||
-        (app.install.appleStoreID &&
-          obj.install.appleStoreID &&
-          app.install.appleStoreID === obj.install.appleStoreID) ||
-        (app.install.asin &&
-          obj.install.asin &&
-          app.install.asin === obj.install.asin) ||
-        (app.install.fDroidID &&
-          obj.install.fDroidID &&
-          app.install.fDroidID === obj.install.fDroidID) ||
-        (app.install.googlePlayID &&
-          obj.install.googlePlayID &&
-          app.install.googlePlayID === obj.install.googlePlayID) ||
-        (app.install.obtainiumLink &&
-          obj.install.obtainiumLink &&
-          app.install.obtainiumLink === obj.install.obtainiumLink) ||
-        (app.install.huaweiAppGalleryID &&
-          obj.install.huaweiAppGalleryID &&
-          app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID) ||
-        (app.install.macAppStoreID &&
-          obj.install.macAppStoreID &&
-          app.install.macAppStoreID === obj.install.macAppStoreID) ||
-        (app.install.microsoftAppID &&
-          obj.install.microsoftAppID &&
-          app.install.microsoftAppID === obj.install.microsoftAppID) ||
+        // if name are equals but websites not we ignore this condition
+        (equalsName(app.name, obj.name) &&
+          notDiffrentWebsite(app.website, obj.website)) ||
+        equalsWebsite(app.website, obj.website) ||
         (includeRepositoryForUniqueCheck &&
-          app.sourceCode &&
-          obj.sourceCode &&
-          equalsWebsite(app.sourceCode, obj.sourceCode))
+          equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+        equalsString(app.install.asin, obj.install.asin) ||
+        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+        equalsString(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsString(
+          app.install.huaweiAppGalleryID,
+          obj.install.huaweiAppGalleryID
+        ) ||
+        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID)
     )
     .filter(
-      // if both have a source code, they must be equal
+      // if both have a source code or an other unique value, they must be equal
       (app) =>
-        !app.sourceCode ||
-        !obj.sourceCode ||
-        equalsWebsite(app.sourceCode, obj.sourceCode)
+        notDiffrentWebsite(app.sourceCode, obj.sourceCode) &&
+        notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
+        notDiffrentString(app.install.asin, obj.install.asin) &&
+        notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
+        notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
+        notDiffrentString(
+          app.install.obtainiumLink,
+          obj.install.obtainiumLink
+        ) &&
+        notDiffrentString(
+          app.install.huaweiAppGalleryID,
+          obj.install.huaweiAppGalleryID
+        ) &&
+        notDiffrentString(
+          app.install.macAppStoreID,
+          obj.install.macAppStoreID
+        ) &&
+        notDiffrentString(
+          app.install.microsoftAppID,
+          obj.install.microsoftAppID
+        )
     );
 
   if (duplicates.length === 0) {

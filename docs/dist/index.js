@@ -74379,11 +74379,23 @@ function equalsIgnoreCase(a, b) {
         ? a.toUpperCase() === b.toUpperCase()
         : a === b;
 }
+function equalsString(a, b) {
+    return a && b && a === b;
+}
+function notDiffrentString(a, b) {
+    return !a || !b || equalsString(a, b);
+}
 function equalsName(a, b) {
     return (a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
         b.toUpperCase().replaceAll("-", " ").replaceAll("_", " "));
 }
+function notDiffrentWebsite(a, b) {
+    return !a || !b || equalsWebsite(a, b);
+}
 function equalsWebsite(a, b) {
+    if (!a || !b) {
+        return false;
+    }
     const aUrl = new URL(a.toUpperCase());
     const bUrl = new URL(b.toUpperCase());
     return (aUrl.hostname + (0,lodash.trimEnd)(aUrl.pathname, "/") + aUrl.search ===
@@ -75987,43 +75999,32 @@ function calculateScore(app) {
 
 function addApp(apps, obj, includeRepositoryForUniqueCheck) {
     const duplicates = apps
-        .filter((app) => equalsName(app.name, obj.name) ||
-        (app.website &&
-            obj.website &&
-            equalsWebsite(app.website, obj.website)) ||
-        (app.install.appleStoreID &&
-            obj.install.appleStoreID &&
-            app.install.appleStoreID === obj.install.appleStoreID) ||
-        (app.install.asin &&
-            obj.install.asin &&
-            app.install.asin === obj.install.asin) ||
-        (app.install.fDroidID &&
-            obj.install.fDroidID &&
-            app.install.fDroidID === obj.install.fDroidID) ||
-        (app.install.googlePlayID &&
-            obj.install.googlePlayID &&
-            app.install.googlePlayID === obj.install.googlePlayID) ||
-        (app.install.obtainiumLink &&
-            obj.install.obtainiumLink &&
-            app.install.obtainiumLink === obj.install.obtainiumLink) ||
-        (app.install.huaweiAppGalleryID &&
-            obj.install.huaweiAppGalleryID &&
-            app.install.huaweiAppGalleryID === obj.install.huaweiAppGalleryID) ||
-        (app.install.macAppStoreID &&
-            obj.install.macAppStoreID &&
-            app.install.macAppStoreID === obj.install.macAppStoreID) ||
-        (app.install.microsoftAppID &&
-            obj.install.microsoftAppID &&
-            app.install.microsoftAppID === obj.install.microsoftAppID) ||
+        .filter((app) => 
+    // if name are equals but websites not we ignore this condition
+    (equalsName(app.name, obj.name) &&
+        notDiffrentWebsite(app.website, obj.website)) ||
+        equalsWebsite(app.website, obj.website) ||
         (includeRepositoryForUniqueCheck &&
-            app.sourceCode &&
-            obj.sourceCode &&
-            equalsWebsite(app.sourceCode, obj.sourceCode)))
+            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+        equalsString(app.install.asin, obj.install.asin) ||
+        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+        equalsString(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
+        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID))
         .filter(
-    // if both have a source code, they must be equal
-    (app) => !app.sourceCode ||
-        !obj.sourceCode ||
-        equalsWebsite(app.sourceCode, obj.sourceCode));
+    // if both have a source code or an other unique value, they must be equal
+    (app) => notDiffrentWebsite(app.sourceCode, obj.sourceCode) &&
+        notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
+        notDiffrentString(app.install.asin, obj.install.asin) &&
+        notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
+        notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
+        notDiffrentString(app.install.obtainiumLink, obj.install.obtainiumLink) &&
+        notDiffrentString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) &&
+        notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
+        notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID));
     if (duplicates.length === 0) {
         // only add if external sources exists
         if (obj.name !== "" &&
@@ -76873,9 +76874,12 @@ const ignoredTopics = [
 ];
 function transformGitHubResult(result) {
     return {
-        name: (0,lodash.upperFirst)(result.name || "")
+        name: (result.name || "")
             .replaceAll("-", " ")
-            .replaceAll("_", " "),
+            .replaceAll("_", " ")
+            .split(" ")
+            .map((w) => (0,lodash.upperFirst)(w))
+            .join(" "),
         unmaintained: result.archived,
         lastRelease: "",
         description: result.description || "",
