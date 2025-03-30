@@ -74386,8 +74386,8 @@ function equalsName(a, b) {
 function equalsWebsite(a, b) {
     const aUrl = new URL(a.toUpperCase());
     const bUrl = new URL(b.toUpperCase());
-    return (aUrl.hostname + aUrl.pathname + aUrl.search ===
-        bUrl.hostname + bUrl.pathname + bUrl.search);
+    return (aUrl.hostname + (0,lodash.trimEnd)(aUrl.pathname, "/") + aUrl.search ===
+        bUrl.hostname + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
 }
 function equalsYes(...values) {
     for (const value of values)
