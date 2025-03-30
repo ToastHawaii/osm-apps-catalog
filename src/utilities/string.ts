@@ -74,8 +74,10 @@ export function equalsWebsite(a: string | undefined, b: string | undefined) {
   const aUrl = new URL(a.toUpperCase());
   const bUrl = new URL(b.toUpperCase());
   return (
-    aUrl.hostname + trimEnd(aUrl.pathname, "/") + aUrl.search ===
-    bUrl.hostname + trimEnd(bUrl.pathname, "/") + bUrl.search
+    trimEnd(aUrl.hostname, "www.") +
+      trimEnd(aUrl.pathname, "/") +
+      aUrl.search ===
+    trimEnd(bUrl.hostname, "www.") + trimEnd(bUrl.pathname, "/") + bUrl.search
   );
 }
 

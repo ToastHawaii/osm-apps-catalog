@@ -74412,8 +74412,10 @@ function equalsWebsite(a, b) {
     }
     const aUrl = new URL(a.toUpperCase());
     const bUrl = new URL(b.toUpperCase());
-    return (aUrl.hostname + (0,lodash.trimEnd)(aUrl.pathname, "/") + aUrl.search ===
-        bUrl.hostname + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
+    return ((0,lodash.trimEnd)(aUrl.hostname, "www.") +
+        (0,lodash.trimEnd)(aUrl.pathname, "/") +
+        aUrl.search ===
+        (0,lodash.trimEnd)(bUrl.hostname, "www.") + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
 }
 function equalsYes(...values) {
     for (const value of values)
