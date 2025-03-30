@@ -155,7 +155,7 @@ export function List({
         app.install.huaweiAppGalleryID && (
           <a
             className="download"
-            href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+            href={`https://appgallery.huawei.com/#/app/C${app.install.huaweiAppGalleryID}`}
             target="_blank"
             rel="noreferrer"
             title={t("app.install.huaweiAppGallery")}

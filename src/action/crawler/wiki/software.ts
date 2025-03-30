@@ -118,7 +118,8 @@ export function transform(
       fDroidID: source["fDroidID"],
       obtainiumLink: source["obtainiumLink"],
       googlePlayID: source["googlePlayID"],
-      huaweiAppGalleryID: source["huaweiAppGalleryID"],
+      huaweiAppGalleryID:
+        (source["huaweiAppGalleryID"] || "").match(/\d+$/)?.[0] || "",
       appleStoreID: (source["appleStoreID"] || "").match(/\d+$/)?.[0] || "",
       macAppStoreID: (source["macAppStoreID"] || "").match(/\d+$/)?.[0] || "",
       microsoftAppID: source["microsoftAppID"],
