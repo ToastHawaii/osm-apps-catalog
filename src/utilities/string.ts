@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { trimEnd, upperFirst } from "lodash";
+import { trimEnd, trimStart, upperFirst } from "lodash";
 
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
@@ -74,10 +74,10 @@ export function equalsWebsite(a: string | undefined, b: string | undefined) {
   const aUrl = new URL(a.toUpperCase());
   const bUrl = new URL(b.toUpperCase());
   return (
-    trimEnd(aUrl.hostname, "www.") +
+    trimStart(aUrl.hostname, "WWW.") +
       trimEnd(aUrl.pathname, "/") +
       aUrl.search ===
-    trimEnd(bUrl.hostname, "www.") + trimEnd(bUrl.pathname, "/") + bUrl.search
+    trimStart(bUrl.hostname, "WWW.") + trimEnd(bUrl.pathname, "/") + bUrl.search
   );
 }
 
