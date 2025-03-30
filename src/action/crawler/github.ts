@@ -28,6 +28,7 @@ const ignoredTopics = [
   "psram-needed",
   "mqtt",
   "kubernetes",
+  "k8s",
   "git",
   "svn",
   "css-grid",
@@ -42,7 +43,7 @@ const ignoredTopics = [
   "help-wanted",
 ];
 
-export function transformGithubResult(result: any) {
+export function transformGitHubResult(result: any) {
   return {
     name: upperFirst(result.name || "")
       .replaceAll("-", " ")

@@ -20,5 +20,6 @@ export function printCalcScore(apps: App[]) {
   console.info("Added GitHub as source");
   console.info("15.03.2025: 2.049 (1919 Apps)");
   console.info("22.03.2025: 2.025 (1995 Apps)");
+  console.info("30.03.2025: 2.042 (1978 Apps)");
   console.info("Today: " + average);
 }

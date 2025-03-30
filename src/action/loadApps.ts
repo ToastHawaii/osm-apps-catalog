@@ -12,7 +12,7 @@ import { toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
-import { requestGitHub, transformGithubResult } from "./crawler/github";
+import { requestGitHub, transformGitHubResult } from "./crawler/github";
 
 async function loadAppsFromOsmWikiServiceItems(language: string) {
   return (await requestTemplates("Service item", language))
@@ -91,7 +91,7 @@ async function loadAppsFromGitHub(githubToken?: string | undefined) {
       o.name = `${o.name} by ${o.owner.login}`;
     });
 
-  return objs.map((source) => transformGithubResult(source));
+  return objs.map((source) => transformGitHubResult(source));
 }
 
 async function loadAppsFromTagInfoProjects() {

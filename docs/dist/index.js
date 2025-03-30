@@ -74705,6 +74705,11 @@ const platforms = [
         synonym: ["arduino"],
         version: [{ name: "Arduino® Nano ESP32", synonym: ["esp32 arduino"] }],
     },
+    {
+        name: "Raspberry Pi",
+        synonym: ["raspberry", "raspberry pi"],
+        version: [],
+    },
     { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
     { name: "Maemo", synonym: ["maemo"], version: [] },
     { name: "MeeGo", synonym: ["meego"], version: [] },
@@ -76796,6 +76801,9 @@ const frameworks = [
     { name: "Apache Spark", synonym: ["apache spark"] },
     { name: "Apache Arrow", synonym: ["apache arrow"] },
     { name: "Windows Presentation Foundation", synonym: ["wpf"] },
+    { name: "CockroachDB", synonym: ["cockroachdb"] },
+    { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
+    { name: "Express", synonym: ["express", "expressjs"] },
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
@@ -76834,6 +76842,7 @@ const ignoredTopics = [
     "psram-needed",
     "mqtt",
     "kubernetes",
+    "k8s",
     "git",
     "svn",
     "css-grid",
@@ -76847,7 +76856,7 @@ const ignoredTopics = [
     "agplv3",
     "help-wanted",
 ];
-function transformGithubResult(result) {
+function transformGitHubResult(result) {
     return {
         name: (0,lodash.upperFirst)(result.name || "")
             .replaceAll("-", " ")
@@ -77028,7 +77037,7 @@ async function loadAppsFromGitHub(githubToken) {
         .forEach((o) => {
         o.name = `${o.name} by ${o.owner.login}`;
     });
-    return objs.map((source) => transformGithubResult(source));
+    return objs.map((source) => transformGitHubResult(source));
 }
 async function loadAppsFromTagInfoProjects() {
     const projectObjects = (await getJson("https://taginfo.openstreetmap.org/api/4/projects/all"));

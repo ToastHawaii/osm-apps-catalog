@@ -45,6 +45,11 @@ const platforms: {
     synonym: ["arduino"],
     version: [{ name: "Arduino® Nano ESP32", synonym: ["esp32 arduino"] }],
   },
+  {
+    name: "Raspberry Pi",
+    synonym: ["raspberry","raspberry pi"],
+    version: [],
+  },
   { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
   { name: "Maemo", synonym: ["maemo"], version: [] },
   { name: "MeeGo", synonym: ["meego"], version: [] },

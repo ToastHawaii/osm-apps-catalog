@@ -75,6 +75,9 @@ const frameworks: {
   { name: "Apache Spark", synonym: ["apache spark"] },
   { name: "Apache Arrow", synonym: ["apache arrow"] },
   { name: "Windows Presentation Foundation", synonym: ["wpf"] },
+  { name: "CockroachDB", synonym: ["cockroachdb"] },
+  { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
+  { name: "Express", synonym: ["express", "expressjs"] },
 ];
 
 export function getFrameworkDisplay(value: string) {
