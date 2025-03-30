@@ -75352,8 +75352,8 @@ function transform(source) {
             obtainiumLink: source["obtainiumLink"],
             googlePlayID: source["googlePlayID"],
             huaweiAppGalleryID: source["huaweiAppGalleryID"],
-            appleStoreID: source["appleStoreID"],
-            macAppStoreID: source["macAppStoreID"],
+            appleStoreID: source["appleStoreID"].match(/\d+$/)?.[0] || "",
+            macAppStoreID: source["macAppStoreID"].match(/\d+$/)?.[0] || "",
             microsoftAppID: source["microsoftAppID"],
         },
         map: {
@@ -76026,7 +76026,7 @@ function addApp(apps, obj, includeRepositoryForUniqueCheck) {
         equalsString(app.install.asin, obj.install.asin) ||
         equalsString(app.install.fDroidID, obj.install.fDroidID) ||
         equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsString(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
         equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
         equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
         equalsString(app.install.microsoftAppID, obj.install.microsoftAppID))
@@ -76037,7 +76037,7 @@ function addApp(apps, obj, includeRepositoryForUniqueCheck) {
         notDiffrentString(app.install.asin, obj.install.asin) &&
         notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
         notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
-        notDiffrentString(app.install.obtainiumLink, obj.install.obtainiumLink) &&
+        notDiffrentWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) &&
         notDiffrentString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) &&
         notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
         notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID));

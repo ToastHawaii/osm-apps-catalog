@@ -28,7 +28,7 @@ export function addApp(
         equalsString(app.install.asin, obj.install.asin) ||
         equalsString(app.install.fDroidID, obj.install.fDroidID) ||
         equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsString(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
         equalsString(
           app.install.huaweiAppGalleryID,
           obj.install.huaweiAppGalleryID
@@ -44,7 +44,7 @@ export function addApp(
         notDiffrentString(app.install.asin, obj.install.asin) &&
         notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
         notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
-        notDiffrentString(
+        notDiffrentWebsite(
           app.install.obtainiumLink,
           obj.install.obtainiumLink
         ) &&

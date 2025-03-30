@@ -168,11 +168,7 @@ export function Compare({
                 {app.install.appleStoreID && (
                   <a
                     className="download"
-                    href={`https://apps.apple.com/app/${
-                      app.install.appleStoreID.toUpperCase().startsWith("ID")
-                        ? app.install.appleStoreID
-                        : `id${app.install.appleStoreID}`
-                    }`}
+                    href={`https://apps.apple.com/app/id${app.install.appleStoreID}`}
                     target="_blank"
                     rel="noreferrer"
                     title={t("app.install.appleStore")}
@@ -183,11 +179,7 @@ export function Compare({
                 {app.install.macAppStoreID && (
                   <a
                     className="download"
-                    href={`https://apps.apple.com/app/${
-                      app.install.macAppStoreID.toUpperCase().startsWith("ID")
-                        ? app.install.macAppStoreID
-                        : `id${app.install.macAppStoreID}`
-                    }`}
+                    href={`https://apps.apple.com/app/id${app.install.macAppStoreID}`}
                     target="_blank"
                     rel="noreferrer"
                     title={t("app.install.macAppStore")}
