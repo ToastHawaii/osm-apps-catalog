@@ -10,57 +10,52 @@ import { hashCode } from "./utilities";
 import { App } from "../data/App";
 import { calculateScore } from "../data/calculateScore";
 
+// if both have a source code or an other unique value, they must be equal
+function notDiffrent(app: App, obj: App) {
+  return (
+    notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
+    notDiffrentString(app.install.asin, obj.install.asin) &&
+    notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
+    notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
+    notDiffrentWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) &&
+    notDiffrentString(
+      app.install.huaweiAppGalleryID,
+      obj.install.huaweiAppGalleryID
+    ) &&
+    notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
+    notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID)
+  );
+}
+
 export function addApp(
   apps: App[],
   obj: App,
-  includeRepositoryForUniqueCheck: boolean
+  options: {
+    includeRepositoryForUniqueCheck: boolean;
+    checkWebsiteWithRepo: boolean;
+  }
 ) {
-  const duplicates = apps
-    .filter(
-      (app) =>
-        // if name are equals but websites not we ignore this condition
-        (equalsName(app.name, obj.name) &&
-          notDiffrentWebsite(app.website, obj.website)) ||
-        equalsWebsite(app.website, obj.website) ||
-        (includeRepositoryForUniqueCheck &&
-          equalsWebsite(app.sourceCode, obj.sourceCode)) ||
-        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
-        equalsString(app.install.asin, obj.install.asin) ||
-        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
-        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
-        equalsString(
-          app.install.huaweiAppGalleryID,
-          obj.install.huaweiAppGalleryID
-        ) ||
-        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
-        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID)
-    )
-    .filter(
-      // if both have a source code or an other unique value, they must be equal
-      (app) =>
-        notDiffrentWebsite(app.sourceCode, obj.sourceCode) &&
-        notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
-        notDiffrentString(app.install.asin, obj.install.asin) &&
-        notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
-        notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
-        notDiffrentWebsite(
-          app.install.obtainiumLink,
-          obj.install.obtainiumLink
-        ) &&
-        notDiffrentString(
-          app.install.huaweiAppGalleryID,
-          obj.install.huaweiAppGalleryID
-        ) &&
-        notDiffrentString(
-          app.install.macAppStoreID,
-          obj.install.macAppStoreID
-        ) &&
-        notDiffrentString(
-          app.install.microsoftAppID,
-          obj.install.microsoftAppID
-        )
-    );
+  const duplicates = apps.filter(
+    (app) =>
+      // if name are equals but websites not we ignore this condition
+      (equalsName(app.name, obj.name) && notDiffrent(app, obj)) ||
+      equalsWebsite(app.website, obj.website) ||
+      (options.includeRepositoryForUniqueCheck &&
+        equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+      (options.checkWebsiteWithRepo &&
+        equalsWebsite(app.sourceCode, obj.website)) ||
+      equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+      equalsString(app.install.asin, obj.install.asin) ||
+      equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+      equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+      equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+      equalsString(
+        app.install.huaweiAppGalleryID,
+        obj.install.huaweiAppGalleryID
+      ) ||
+      equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+      equalsString(app.install.microsoftAppID, obj.install.microsoftAppID)
+  );
 
   if (duplicates.length === 0) {
     // only add if external sources exists

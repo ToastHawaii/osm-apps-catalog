@@ -170,7 +170,12 @@ export async function loadApps(githubToken?: string) {
     ])
   )
     .flatMap((a) => a)
-    .forEach((app) => addApp(apps, app, app.source[0].name === "GitHub"));
+    .forEach((app) =>
+      addApp(apps, app, {
+        includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
+        checkWebsiteWithRepo: app.source[0].name === "taginfo",
+      })
+    );
 
   return apps;
 }
