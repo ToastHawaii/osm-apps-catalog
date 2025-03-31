@@ -38,7 +38,7 @@ export function addApp(
   const duplicates = apps.filter(
     (app) =>
       // if name are equals but websites not we ignore this condition
-      (equalsName(app.name, obj.name) && notDiffrent(app, obj)) ||
+      equalsName(app.name, obj.name) ||
       equalsWebsite(app.website, obj.website) ||
       (options.includeRepositoryForUniqueCheck &&
         equalsWebsite(app.sourceCode, obj.sourceCode)) ||

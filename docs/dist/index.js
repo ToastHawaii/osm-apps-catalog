@@ -74382,7 +74382,7 @@ function equalsIgnoreCase(a, b) {
 function equalsString(a, b) {
     return a && b && a === b;
 }
-function notDiffrentString(a, b) {
+function string_notDiffrentString(a, b) {
     if (!a || !b) {
         return true;
     }
@@ -74396,7 +74396,7 @@ function equalsName(a, b) {
     return (a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
         b.toUpperCase().replaceAll("-", " ").replaceAll("_", " "));
 }
-function notDiffrentWebsite(a, b) {
+function string_notDiffrentWebsite(a, b) {
     if (!a || !b) {
         return true;
     }
@@ -76027,7 +76027,7 @@ function notDiffrent(app, obj) {
 function addApp(apps, obj, options) {
     const duplicates = apps.filter((app) => 
     // if name are equals but websites not we ignore this condition
-    (equalsName(app.name, obj.name) && notDiffrent(app, obj)) ||
+    equalsName(app.name, obj.name) ||
         equalsWebsite(app.website, obj.website) ||
         (options.includeRepositoryForUniqueCheck &&
             equalsWebsite(app.sourceCode, obj.sourceCode)) ||
