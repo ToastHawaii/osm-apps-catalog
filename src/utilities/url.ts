@@ -19,8 +19,8 @@ export function newUrl(url: string) {
   try {
     return new URL(url);
   } catch (e) {
-    console.error(`Error with new URL: ${url}`);
-    throw e
+    console.info(`Error with new URL: ${url}`);
+    throw e;
   }
 }
 
@@ -29,9 +29,9 @@ export const httpRegex = /^https?:\/\//i;
 export function toUrl(url: string | undefined) {
   if (!url) return undefined;
 
-  if (!httpRegex.test(url)) return new URL(`http://${url}`).toString();
+  if (!httpRegex.test(url)) return newUrl(`http://${url}`).toString();
 
-  return new URL(url).toString();
+  return newUrl(url).toString();
 }
 
 export function toWikiUrl(wiki: string) {

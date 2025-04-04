@@ -74273,7 +74273,7 @@ function newUrl(url) {
         return new URL(url);
     }
     catch (e) {
-        console.error(`Error with new URL: ${url}`);
+        console.info(`Error with new URL: ${url}`);
         throw e;
     }
 }
@@ -74282,8 +74282,8 @@ function toUrl(url) {
     if (!url)
         return undefined;
     if (!httpRegex.test(url))
-        return new URL(`http://${url}`).toString();
-    return new URL(url).toString();
+        return newUrl(`http://${url}`).toString();
+    return newUrl(url).toString();
 }
 function toWikiUrl(wiki) {
     if (!wiki)
