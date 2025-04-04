@@ -8,7 +8,7 @@ import { TopicSelect } from "./components/TopicSelect";
 import { PlatformSelect } from "./components/PlatformSelect";
 import { LanguageSelect } from "./components/LanguageSelect";
 import { CoverageSelect } from "./components/CoverageSelect";
-import { ContributeSelect } from "./components/ContributeSelect";
+import { ContributeSelect, mapping } from "./components/ContributeSelect";
 import { useData } from "../useData";
 import { Filters } from "./components/filters";
 import { chain, debounce } from "lodash";
@@ -174,13 +174,31 @@ export function App() {
                 ...state.platforms,
                 ...state.languages,
                 ...state.coverage,
-                ...state.contribute,
               ])
                 .filter((v) => !!v)
                 .uniq()
                 .map((v) => (
                   <>
-                    <span className="filter-value">{v}</span>{" "}
+                    <span
+                      className="filter-value"
+                      onClick={() => {
+                        setMoreFilters(true);
+                      }}
+                    >
+                      {v}
+                    </span>{" "}
+                  </>
+                ))
+                .value()}
+              {chain([...state.contribute])
+                .filter((v) => !!v)
+                .uniq()
+                .map((v) => (
+                  <>
+                    <span className="filter-value"
+                      onClick={() => {
+                        setMoreFilters(true);
+                      }}>{t(mapping[v])}</span>{" "}
                   </>
                 ))
                 .value()}

@@ -3,6 +3,23 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { isEqual } from "lodash";
 
+export const mapping: { [value: string]: string } = {
+  discuss: "app.contribute.toSoftware.discuss",
+  test: "app.contribute.toSoftware.test",
+  translate: "app.contribute.toSoftware.translate",
+  develop: "app.contribute.toSoftware.develop",
+  document: "app.contribute.toSoftware.document",
+
+  edit: "app.contribute.toData.edit",
+  resolve: "app.contribute.toData.resolve",
+  review: "app.contribute.toData.review",
+  photos: "app.contribute.toData.photos",
+  tracks: "app.contribute.toData.tracks",
+  qa: "app.contribute.toData.qa",
+
+  welcome: "app.contribute.toCommunity.welcome",
+};
+
 export function ContributeSelect({
   selected = [],
   onChange,
@@ -11,6 +28,14 @@ export function ContributeSelect({
   onChange: (newValues: string[]) => void;
 }) {
   const { t } = useTranslation();
+
+  function toOptions(...values: string[]) {
+    return values.map((v) => ({
+      text: t(mapping[v]),
+      value: v,
+      selected: selected.includes(v),
+    }));
+  }
 
   return (
     <SlimSelect
@@ -25,78 +50,28 @@ export function ContributeSelect({
       data={[
         {
           label: t("app.contribute.toSoftware"),
-          options: [
-            {
-              text: t("app.contribute.toSoftware.discuss"),
-              value: "discuss",
-              selected: selected.includes("discuss"),
-            },
-            {
-              text: t("app.contribute.toSoftware.test"),
-              value: "test",
-              selected: selected.includes("test"),
-            },
-            {
-              text: t("app.contribute.toSoftware.translate"),
-              value: "translate",
-              selected: selected.includes("translate"),
-            },
-            {
-              text: t("app.contribute.toSoftware.develop"),
-              value: "develop",
-              selected: selected.includes("develop"),
-            },
-            {
-              text: t("app.contribute.toSoftware.document"),
-              value: "document",
-              selected: selected.includes("document"),
-            },
-          ],
+          options: toOptions(
+            "discuss",
+            "test",
+            "translate",
+            "develop",
+            "document"
+          ),
         },
         {
           label: t("app.contribute.toData"),
-          options: [
-            {
-              text: t("app.contribute.toData.edit"),
-              value: "edit",
-              selected: selected.includes("edit"),
-            },
-            {
-              text: t("app.contribute.toData.resolve"),
-              value: "resolve",
-              selected: selected.includes("resolve"),
-            },
-            {
-              text: t("app.contribute.toData.review"),
-              value: "review",
-              selected: selected.includes("review"),
-            },
-            {
-              text: t("app.contribute.toData.photos"),
-              value: "photos",
-              selected: selected.includes("photos"),
-            },
-            {
-              text: t("app.contribute.toData.tracks"),
-              value: "tracks",
-              selected: selected.includes("tracks"),
-            },
-            {
-              text: t("app.contribute.toData.qa"),
-              value: "qa",
-              selected: selected.includes("qa"),
-            },
-          ],
+          options: toOptions(
+            "edit",
+            "resolve",
+            "review",
+            "photos",
+            "tracks",
+            "qa"
+          ),
         },
         {
           label: t("app.contribute.toCommunity"),
-          options: [
-            {
-              text: t("app.contribute.toCommunity.welcome"),
-              value: "welcome",
-              selected: selected.includes("welcome"),
-            },
-          ],
+          options: toOptions("welcome"),
         },
       ]}
       events={{
