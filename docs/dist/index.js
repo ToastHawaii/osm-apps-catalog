@@ -75461,7 +75461,7 @@ function transform(source) {
             matrix: source.communicationChannels["matrix room"],
             bluesky: source.communicationChannels["bluesky handle"],
             mastodon: source.communicationChannels["mastodon address"],
-            issueTracker: toUrl(source.communicationChannels["issue tracker"]),
+            issueTracker: toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
             githubDiscussions: source.communicationChannels["github discussions"],
             telegram: source.communicationChannels["telegram"],
             slack: toUrl(source.communicationChannels["slack url"]),
