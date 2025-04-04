@@ -16,6 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { trimEnd, trimStart, upperFirst } from "lodash";
+import { newUrl } from "./url";
 
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
@@ -71,8 +72,8 @@ export function equalsWebsite(a: string | undefined, b: string | undefined) {
     return false;
   }
 
-  const aUrl = new URL(a.toLowerCase());
-  const bUrl = new URL(b.toLowerCase());
+  const aUrl = newUrl(a.toLowerCase());
+  const bUrl = newUrl(b.toLowerCase());
   return (
     trimStart(aUrl.hostname, "www.") +
       trimEnd(aUrl.pathname, "/") +

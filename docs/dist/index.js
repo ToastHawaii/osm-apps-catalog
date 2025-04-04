@@ -74383,6 +74383,7 @@ var lodash = __nccwpck_require__(2356);
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+
 function equalsIgnoreCase(a, b) {
     return typeof a === "string" && typeof b === "string"
         ? a.toUpperCase() === b.toUpperCase()
@@ -74419,8 +74420,8 @@ function equalsWebsite(a, b) {
     if (!a || !b) {
         return false;
     }
-    const aUrl = new URL(a.toLowerCase());
-    const bUrl = new URL(b.toLowerCase());
+    const aUrl = newUrl(a.toLowerCase());
+    const bUrl = newUrl(b.toLowerCase());
     return ((0,lodash.trimStart)(aUrl.hostname, "www.") +
         (0,lodash.trimEnd)(aUrl.pathname, "/") +
         aUrl.search ===
