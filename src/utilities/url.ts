@@ -20,6 +20,7 @@ export function newUrl(url: string) {
     return new URL(url);
   } catch (e) {
     console.error(`Error with new URL: ${url}`);
+    throw e
   }
 }
 
