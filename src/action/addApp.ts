@@ -9,6 +9,7 @@ import {
 import { hashCode } from "./utilities";
 import { App } from "../data/App";
 import { calculateScore } from "../data/calculateScore";
+import { newUrl } from "../utilities/url";
 
 // if both have a source code or an other unique value, they must be equal
 function notDiffrent(app: App, obj: App) {
@@ -203,7 +204,7 @@ export function addApp(
 
 function calcId(obj: App): number {
   if (obj.website) {
-    const url = new URL(obj.website.toLowerCase());
+    const url = newUrl(obj.website.toLowerCase());
     return hashCode(url.hostname + url.pathname + url.search);
   }
 

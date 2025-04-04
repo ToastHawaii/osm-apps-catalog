@@ -8,7 +8,7 @@ import { equalsIgnoreCase, equalsYes } from "../utilities/string";
 import { containsOfflineLink, extractWebsite } from "./utilities";
 import { App } from "../data/App";
 import { addApp } from "./addApp";
-import { toUrl } from "../utilities/url";
+import { newUrl, toUrl } from "../utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
@@ -118,7 +118,7 @@ async function loadAppsFromTagInfoProjects() {
     (obj) =>
       ({
         name: obj.name,
-        website: new URL(obj.project_url).toString(),
+        website: newUrl(obj.project_url).toString(),
         images: [],
         logos: obj.icon_url ? [obj.icon_url] : [],
         documentation: obj.doc_url,
@@ -161,11 +161,11 @@ export async function loadApps(githubToken?: string) {
 
   (
     await Promise.all([
-      //  loadAppsFromOsmWikiServiceItems(language),
-      //  loadAppsFromOsmWikiLayers(language),
-      //  loadAppsFromOsmWikiSoftwares(language),
+      loadAppsFromOsmWikiServiceItems(language),
+      loadAppsFromOsmWikiLayers(language),
+      loadAppsFromOsmWikiSoftwares(language),
       loadAppsFromWikidata(language),
-       loadAppsFromGitHub(githubToken),
+      loadAppsFromGitHub(githubToken),
       loadAppsFromTagInfoProjects(),
     ])
   )

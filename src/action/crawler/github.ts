@@ -5,6 +5,7 @@ import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
+import { newUrl } from "../../utilities/url";
 
 const ignoredTopics = [
   "openstreetmap",
@@ -57,7 +58,7 @@ export function transformGitHubResult(result: any) {
     images: [],
     logos: [],
     website: result.homepage
-      ? new URL(
+      ? newUrl(
           !result.homepage.toUpperCase().startsWith("HTTP")
             ? "https://" + result.homepage
             : result.homepage

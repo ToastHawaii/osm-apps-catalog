@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { toWikiUrl } from "../utilities/url";
+import { newUrl, toWikiUrl } from "../utilities/url";
 
 export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);
@@ -47,7 +47,7 @@ export function extractNameWebsiteWiki(
     const match = regex.exec(value);
 
     if (match) {
-      obj.website = new URL(match[2]).toString();
+      obj.website = newUrl(match[2]).toString();
       value = value.replace(regex, "").trim();
       if (value) obj.name = value;
     }
@@ -60,7 +60,7 @@ export function extractNameWebsiteWiki(
 
     if (match) {
       obj.name = match[5];
-      obj.website = new URL(match[2]).toString();
+      obj.website = newUrl(match[2]).toString();
       value = value.replace(regex, "");
     }
   }

@@ -15,6 +15,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
+export function newUrl(url: string) {
+  try {
+    return new URL(url);
+  } catch (e) {
+    console.error(`Error with new URL: ${url}`);
+  }
+}
+
 export const httpRegex = /^https?:\/\//i;
 
 export function toUrl(url: string | undefined) {

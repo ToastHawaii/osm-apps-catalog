@@ -6,6 +6,7 @@ import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { languageFilter } from "../utilities/languageFilter";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { platformFilter } from "../utilities/platformFilter";
+import { newUrl } from "../../utilities/url";
 
 function extractGenre(result: any) {
   const genre = [];
@@ -52,7 +53,7 @@ function extractGenre(result: any) {
 function extractIrc(value: any) {
   if (!value) return undefined;
 
-  const url = new URL(value);
+  const url = newUrl(value);
 
   return {
     server: url.hostname,
@@ -71,7 +72,7 @@ export function transformWikidataResult(result: any) {
     videos: (result.videos?.value || "").split(";").filter((v: any) => v),
     website:
       result.web?.value || result.webDef?.value
-        ? new URL(result.web?.value || result.webDef?.value).toString()
+        ? newUrl(result.web?.value || result.webDef?.value).toString()
         : "",
     documentation: result.doc?.value || result.docDef?.value || "",
     author: result.authors?.value || "",
