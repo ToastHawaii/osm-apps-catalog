@@ -9,7 +9,7 @@ Zu einer guten Bewertung führt
 - für viele Menschen zugänglich,
 - und gut dokumentiert ist.
 
-[Klick hier für den Katalog](https://osm-apps.zottelig.ch)
+[Klick hier für den Katalog](https://osm-apps.org)
 
 ## Spezifikation
 

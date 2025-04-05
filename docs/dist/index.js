@@ -74349,7 +74349,7 @@ async function getJson(url, params = {}, headers = {}) {
             headers: {
                 ...headers,
                 ...{
-                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
+                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
                     Accept: "application/json, text/plain, */*",
                     "Content-Type": "application/json",
                 },
@@ -77195,12 +77195,12 @@ async function run() {
     }
 }
 async function getKnownApps() {
-    console.info(`Load: https://osm-apps.zottelig.ch/api/apps/all.json`);
+    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
     try {
-        return (await (await fetch("https://osm-apps.zottelig.ch/api/apps/all.json", {})).json());
+        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
     }
     catch (e) {
-        console.error(`Error on loading https://osm-apps.zottelig.ch/api/apps/all.json: ${JSON.stringify(e)}`);
+        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
         throw e;
     }
 }
@@ -77253,41 +77253,41 @@ async function generateSitemap(apps) {
     // An array with your links
     const links = [];
     links.push({
-        url: "https://osm-apps.zottelig.ch",
+        url: "https://osm-apps.org",
         priority: 1.0,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/docs/",
+        url: "https://osm-apps.org/docs/",
         priority: 0.9,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/?category=focus",
+        url: "https://osm-apps.org/?category=focus",
         priority: 0.8,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/?category=latest",
+        url: "https://osm-apps.org/?category=latest",
         priority: 0.8,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/?category=mobile",
+        url: "https://osm-apps.org/?category=mobile",
         priority: 0.8,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/?category=navigation",
+        url: "https://osm-apps.org/?category=navigation",
         priority: 0.8,
         lastmod: lastUpdate,
     });
     links.push({
-        url: "https://osm-apps.zottelig.ch/?category=edit",
+        url: "https://osm-apps.org/?category=edit",
         priority: 0.8,
     });
     links.push(...apps.map((app) => ({
-        url: `https://osm-apps.zottelig.ch/?app=${app.id}`,
+        url: `https://osm-apps.org/?app=${app.id}`,
         priority: (app.score / 10) * 0.5 + 0.1,
         lastmod: lastUpdate > new Date(getLastMod(app.source[0]))
             ? lastUpdate
@@ -77295,7 +77295,7 @@ async function generateSitemap(apps) {
     })));
     // Create a stream to write to
     const stream = new dist.SitemapStream({
-        hostname: "https://osm-apps.zottelig.ch",
+        hostname: "https://osm-apps.org",
     });
     // Return a promise that resolves with your XML string
     const data = await (0,dist.streamToPromise)(external_stream_.Readable.from(links).pipe(stream));

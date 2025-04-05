@@ -6,7 +6,7 @@ Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetM
 Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre
 přínosu pro komunitu](/docs/score).
 
-[Přejít do katalogu](https://osm-apps.zottelig.ch)
+[Přejít do katalogu](https://osm-apps.org)
 
 [Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným
 způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Tento katalog v současné době obsahuje pouze aplikace z anglické verze
+_Tento katalog v současné době obsahuje pouze aplikace z anglické verze
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) a [taginfo
-project list](https://taginfo.openstreetmap.org/projects).*
+project list](https://taginfo.openstreetmap.org/projects)._
 
 Pomozte s překladem:
 
@@ -63,6 +63,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
 kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
 ## Odmítnutí odpovědnosti
+
 OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation. Tento
 projekt není podporován nadací [OpenStreetMap
 Foundation](https://osmfoundation.org/) ani s ní není spojen.

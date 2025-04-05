@@ -6,7 +6,7 @@ Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
 használja. Naponta frissül. The apps are rated and sorted by the [Community
 Contribution Score](/docs/score).
 
-[Nézd meg a katalógust](https://osm-apps.zottelig.ch)
+[Nézd meg a katalógust](https://osm-apps.org)
 
 [Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
 másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
@@ -41,11 +41,11 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*A katalógus jelenleg csak az [OpenStreetMap
+_A katalógus jelenleg csak az [OpenStreetMap
 wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/),
 [GitHub](https://github.com/) és a [taginfo
 projektlistájának](https://taginfo.openstreetmap.org/projects) angol
-változatairól tartalmaz alkalmazásokat.*
+változatairól tartalmaz alkalmazásokat._
 
 Segítség a fordításban:
 
@@ -65,6 +65,7 @@ szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc a
 teszed közzé.
 
 ## Felelősségi nyilatkozat
+
 Az OpenStreetMap és az OSM az OpenStreetMap Alapítvány védjegye. Az
 [OpenStreetMap Alapítvány](https://osmfoundation.org/) nem támogatja ezt a
 projektet, és nem áll kapcsolatban vele.

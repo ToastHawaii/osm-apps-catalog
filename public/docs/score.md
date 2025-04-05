@@ -1,6 +1,6 @@
 # Community Contribution Score (Beta)
 
-The Community Contribution Score is a rating, specially developed for this app catalog. 
+The Community Contribution Score is a rating, specially developed for this app catalog.
 It highlights apps that contribute to the OpenStreetMap community and enable users to easily contribute to OpenStreetMap themselves.
 
 To achieve a high score, an app should be:
@@ -10,7 +10,7 @@ To achieve a high score, an app should be:
 - accessible to many people,
 - and well-documented.
 
-[Click here for the catalog](https://osm-apps.zottelig.ch)
+[Click here for the catalog](https://osm-apps.org)
 
 ## Specification
 
@@ -117,7 +117,7 @@ This ensures that the score prioritizes apps that actively contribute to the Ope
 | **Development Involvement**            | 3           |
 | **Availability and Accessibility**     | 2           |
 | **Community Channels & Documentation** | 1           |
-| **Total**                              | **10**          |
+| **Total**                              | **10**      |
 
 ### Calculation
 

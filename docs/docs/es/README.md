@@ -6,7 +6,7 @@ This catalog shows applications and services that use OpenStreetMap data. It is
 updated every day. The apps are rated and sorted by the [Community Contribution
 Score](/docs/score).
 
-[Ir al catálogo](https://osm-apps.zottelig.ch)
+[Ir al catálogo](https://osm-apps.org)
 
 [Añada las aplicaciones OSM que conozca o contribuya de otras
 maneras.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of
+_This catalog currently only contains apps from the English version of
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects).*
+[taginfo project list](https://taginfo.openstreetmap.org/projects)._
 
 Ayuda con la traducción:
 
@@ -63,6 +63,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). El
 y modificar de forma gratuita si se publica bajo la misma licencia.
 
 ## Exención de responsabilidad
+
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
 project are not endorsed by or affiliated with the [OpenStreetMap
 Foundation](https://osmfoundation.org/).

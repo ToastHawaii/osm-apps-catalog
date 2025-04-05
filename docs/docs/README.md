@@ -2,9 +2,9 @@
 
 **Experience the world in a creative, productive and unexpected way.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Community Contribution Score](/docs/score). 
+This catalog shows applications and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Community Contribution Score](/docs/score).
 
-[Go to the catalog](https://osm-apps.zottelig.ch)
+[Go to the catalog](https://osm-apps.org)
 
 [Add OSM apps you know or contribute in other ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
@@ -87,7 +87,7 @@ Display the catalog in your language:
 [日本語](/?lang=ja),
 [粵語](/?lang=yue)
 
-*This catalog currently only contains apps from the English version of [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and [taginfo project list](https://taginfo.openstreetmap.org/projects).*
+_This catalog currently only contains apps from the English version of [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and [taginfo project list](https://taginfo.openstreetmap.org/projects)._
 
 Help with the translation:
 
@@ -100,6 +100,7 @@ Help with the translation:
 The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying and modification if you publish under the same license.
 
 ## Disclaimer
+
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This project are not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---

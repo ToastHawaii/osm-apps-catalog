@@ -1,1 +1,1 @@
-Sitemap: https://osm-apps.zottelig.ch/sitemap.xml
+Sitemap: https://osm-apps.org/sitemap.xml

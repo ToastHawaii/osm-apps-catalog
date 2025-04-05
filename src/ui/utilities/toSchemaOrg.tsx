@@ -69,7 +69,7 @@ export function toSchemaOrg(app: App) {
       author: {
         "@type": "Organization",
         name: "OSM Apps Catalog",
-        url: "https://osm-apps.zottelig.ch/",
+        url: "https://osm-apps.org/",
       },
     },
   });

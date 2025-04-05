@@ -41,7 +41,7 @@ export async function getJson(
         ...headers,
         ...{
           "User-Agent":
-            "OsmAppsCatalogBot/1.0 (osm-apps.zottelig.ch;markus@zottelig.ch)",
+            "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json",
         },

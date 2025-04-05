@@ -6,7 +6,7 @@ See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
 OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
 kogukonda - [Community Contribution Score](/docs/score).
 
-[Vaata kataloogi](https://osm-apps.zottelig.ch)
+[Vaata kataloogi](https://osm-apps.org)
 
 [Lisa sulle teadaolevaid OSMi rakendusi või osale muul
 viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
@@ -41,10 +41,10 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-*Siin kataloogis leidub hetkel tarkvara järgnevate teenuste vaid ingliskeelsest
+_Siin kataloogis leidub hetkel tarkvara järgnevate teenuste vaid ingliskeelsest
 versioonist: [OpenStreetMapi viki](https://wiki.openstreetmap.org/),
 [Vikiandmed](https://www.wikidata.org/), [GitHub](https://github.com/) ja
-[siltide projekt](https://taginfo.openstreetmap.org/projects).*
+[siltide projekt](https://taginfo.openstreetmap.org/projects)._
 
 Aita tõlkimisel:
 
@@ -66,6 +66,7 @@ kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
 avaldatud sama litsentsi alusel.
 
 ## Lahtiütlus vastutusest
+
 OpenStreetMap ja OSM on OpenStreetMap Foundationile kuuluvad kaubamärgid. See
 projekt ei ole [OpenStreetMap Foundationi](https://osmfoundation.org/) poolt
 heaks kiidetud ega sellega seotud.
