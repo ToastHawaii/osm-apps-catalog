@@ -17,7 +17,7 @@
 
 import React, { useState } from "react";
 import { Badges } from "../components/Badges";
-import { Image } from "../components/Image";
+import { Carousel, Image } from "../components/Image";
 import { Score } from "../components/Score";
 import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
@@ -40,6 +40,7 @@ export function List({
 }) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
+  const [carouselShown, setCarouselShown] = useState(false);
 
   const link = new URLSearchParams();
   link.set("app", "" + app.id);
@@ -58,12 +59,22 @@ export function List({
             )}
           </h4>
         </div>
-        {app.website ? (
-          <a href={app.website} target="_blank" rel="noreferrer">
-            <Image app={app} />
-          </a>
-        ) : (
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            setCarouselShown(true);
+          }}
+        >
           <Image app={app} />
+        </div>
+        {carouselShown && (
+          <Carousel
+            app={app}
+            onClose={(e) => {
+              e.preventDefault();
+              setCarouselShown(false);
+            }}
+          />
         )}
       </div>
 

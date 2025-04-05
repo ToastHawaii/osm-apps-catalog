@@ -110,45 +110,22 @@ export function Carousel({
 
 export function Image({ app }: { app: App }) {
   const { t } = useTranslation();
-  const [carouselShown, setCarouselShown] = useState(false);
 
   const defaultImage =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
 
   if (app.images.length > 0 || app.logos.length > 0) {
     return (
-      <>
-        <img
-          className="img"
-          src={defaultImage}
-          data-dynamic-src={`${[...app.images, ...app.logos].join(
-            " "
-          )} ${defaultImage}`}
-          alt={t("app.imageAlt", {
-            name: app.name,
-          })}
-        />
-        {app.images.filter((i) => !isLogo(i)).length > 0 && (
-          <span
-            className="carousel-show"
-            onClick={(e) => {
-              e.preventDefault();
-              return setCarouselShown(true);
-            }}
-          >
-            <i className="fas fa-images fa-flip-horizontal"></i>
-          </span>
-        )}
-        {carouselShown && (
-          <Carousel
-            app={app}
-            onClose={(e) => {
-              e.preventDefault();
-              return setCarouselShown(false);
-            }}
-          />
-        )}
-      </>
+      <img
+        className="img"
+        src={defaultImage}
+        data-dynamic-src={`${[...app.images, ...app.logos].join(
+          " "
+        )} ${defaultImage}`}
+        alt={t("app.imageAlt", {
+          name: app.name,
+        })}
+      />
     );
   } else {
     if (!app.cache.filter) {

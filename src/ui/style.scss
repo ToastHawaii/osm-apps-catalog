@@ -287,19 +287,6 @@ a.link-create {
   position: relative;
 }
 
-.carousel-show {
-  display: none;
-  font-size: 24px;
-  position: absolute;
-  right: 0;
-  bottom: 6px;
-  color: #666;
-}
-
-.has-images + .carousel-show {
-  display: inline;
-}
-
 .carousel {
   position: fixed;
   inset: 0px;

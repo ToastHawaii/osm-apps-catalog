@@ -68,9 +68,6 @@ async function lazyLoadImages(reset?: boolean) {
             const file = await isImage(src);
             if (file) {
               elements[i].setAttribute("src", src);
-              if (file.width > 50 && file.height > 50) {
-                elements[i].classList.add("has-images");
-              }
               break;
             }
           }
