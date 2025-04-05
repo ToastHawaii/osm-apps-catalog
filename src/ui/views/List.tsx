@@ -86,7 +86,8 @@ export function List({
         !!app.install.huaweiAppGalleryID ||
         !!app.install.appleStoreID ||
         !!app.install.macAppStoreID ||
-        !!app.install.microsoftAppID) && (
+        !!app.install.microsoftAppID ||
+        !!app.sourceCode) && (
         <span className="downloads">{t("app.getIt")}</span>
       )}
       {app.website && (
@@ -210,6 +211,26 @@ export function List({
             title={t("app.install.microsoftApp")}
           >
             <i className="fab fa-microsoft fa-fw"></i>
+          </a>
+        )}
+      {!app.website &&
+        !app.install.asin &&
+        !app.install.fDroidID &&
+        !app.install.obtainiumLink &&
+        !app.install.googlePlayID &&
+        !app.install.huaweiAppGalleryID &&
+        !app.install.appleStoreID &&
+        !app.install.macAppStoreID &&
+        !app.install.microsoftAppID &&
+        !!app.sourceCode && (
+          <a
+            className="download"
+            href={app.sourceCode}
+            target="_blank"
+            rel="noreferrer"
+            title={t("app.sourceCode")}
+          >
+            <i className="fas fa-code fa-fw"></i>
           </a>
         )}
 

@@ -502,7 +502,6 @@ a.link-create {
   text-transform: uppercase;
   margin-inline-end: 10px;
   font-weight: bold;
-  vertical-align: text-top;
 }
 
 .download {
@@ -514,6 +513,10 @@ a.link-create {
 
 .download i {
   vertical-align: middle;
+}
+
+.download fa-code {
+  font-size: 18px;
 }
 
 .community {
