@@ -78,7 +78,7 @@ export function List({
           </>
         )}
       </p>
-
+      <span className="downloads">{t("app.getIt")}</span>
       {app.website && (
         <a
           className="download"
