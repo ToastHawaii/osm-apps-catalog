@@ -195,10 +195,14 @@ export function App() {
                 .uniq()
                 .map((v) => (
                   <>
-                    <span className="filter-value"
+                    <span
+                      className="filter-value"
                       onClick={() => {
                         setMoreFilters(true);
-                      }}>{t(mapping[v])}</span>{" "}
+                      }}
+                    >
+                      {t(mapping[v])}
+                    </span>{" "}
                   </>
                 ))
                 .value()}

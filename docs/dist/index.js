@@ -76933,18 +76933,22 @@ function transformGitHubResult(result) {
         languages: [],
         languagesUrl: "",
         genre: [],
-        topics: result.topics
+        topics: (0,lodash.chain)(result.topics)
             .filter((t) => !ignoredTopics.includes(t))
             .map((t) => t.replaceAll("-", " "))
             .map(lodash.upperFirst)
             .filter((t) => !getPlatformDisplay(t))
             .filter((t) => !getFrameworkDisplay(t))
-            .filter((t) => !getProgramingLanguageDisplay(t)),
-        platform: result.topics
+            .filter((t) => !getProgramingLanguageDisplay(t))
+            .uniq()
+            .value(),
+        platform: (0,lodash.chain)(result.topics)
             .map((t) => t.replaceAll("-", " "))
             .map(lodash.upperFirst)
             .map((t) => getPlatformDisplay(t))
-            .filter((t) => t),
+            .filter((t) => !!t)
+            .uniq()
+            .value(),
         coverage: [],
         install: {},
         community: {

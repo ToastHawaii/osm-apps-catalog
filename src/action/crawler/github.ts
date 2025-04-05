@@ -1,4 +1,4 @@
-import { upperFirst } from "lodash";
+import { chain, upperFirst } from "lodash";
 import { App } from "../../data/App";
 import { getJson } from "../../utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
@@ -79,18 +79,22 @@ export function transformGitHubResult(result: any) {
     languages: [],
     languagesUrl: "",
     genre: [],
-    topics: result.topics
-      .filter((t: string) => !ignoredTopics.includes(t))
-      .map((t: string) => t.replaceAll("-", " "))
+    topics: chain(result.topics as string[])
+      .filter((t) => !ignoredTopics.includes(t))
+      .map((t) => t.replaceAll("-", " "))
       .map(upperFirst)
-      .filter((t: string) => !getPlatformDisplay(t))
-      .filter((t: string) => !getFrameworkDisplay(t))
-      .filter((t: string) => !getProgramingLanguageDisplay(t)),
-    platform: result.topics
-      .map((t: string) => t.replaceAll("-", " "))
+      .filter((t) => !getPlatformDisplay(t))
+      .filter((t) => !getFrameworkDisplay(t))
+      .filter((t) => !getProgramingLanguageDisplay(t))
+      .uniq()
+      .value(),
+    platform: chain(result.topics as string[])
+      .map((t) => t.replaceAll("-", " "))
       .map(upperFirst)
-      .map((t: string) => getPlatformDisplay(t))
-      .filter((t: string) => t),
+      .map((t) => getPlatformDisplay(t))
+      .filter((t) => !!t)
+      .uniq()
+      .value(),
     coverage: [],
     install: {},
     community: {
