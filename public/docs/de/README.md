@@ -41,9 +41,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
+_Dieser Katalog enthält derzeit nur Apps aus der englischen Version von
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) und
 [taginfo project list](https://taginfo.openstreetmap.org/projects)._
 
 Hilf bei der Übersetzung:
