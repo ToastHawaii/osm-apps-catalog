@@ -44,7 +44,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 _Dieser Katalog enthält derzeit nur Apps aus der englischen Version von
 [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) und
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+[taginfo Projekte](https://taginfo.openstreetmap.org/projects)._
 
 Hilf bei der Übersetzung:
 
