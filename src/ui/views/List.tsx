@@ -78,7 +78,17 @@ export function List({
           </>
         )}
       </p>
-      <span className="downloads">{t("app.getIt")}</span>
+      {(!!app.website ||
+        !!app.install.asin ||
+        !!app.install.fDroidID ||
+        !!app.install.obtainiumLink ||
+        !!app.install.googlePlayID ||
+        !!app.install.huaweiAppGalleryID ||
+        !!app.install.appleStoreID ||
+        !!app.install.macAppStoreID ||
+        !!app.install.microsoftAppID) && (
+        <span className="downloads">{t("app.getIt")}</span>
+      )}
       {app.website && (
         <a
           className="download"
