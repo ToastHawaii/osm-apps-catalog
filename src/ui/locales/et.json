@@ -61,7 +61,7 @@
     "app.install.microsoftApp": "Microsoft Store",
     "app.unmaintained": "(<icon/> hüljatud projekt)",
     "app.unmaintained.wiki": "({{icon}} hüljatud projekt)",
-    "app.author": "Autor",
+    "app.author": "Arendaja",
     "compare.share": "Jaga vikis wiki.openstreetmap.org",
     "category.focus.description": "Kümme hiljuti uuendatud lehte.",
     "category.latest.description": "{{numberOfApps}} rakendust järjestatuna viimase versiooni kuupäeva alusel.",
@@ -120,8 +120,9 @@
     "select.search.placeholder": "Otsi",
     "select.search.noResults": "Tulemusi pole",
     "filter.resetFilters": "Näita kõiki",
-    "filter.preview": "Rakenduste kuvamise tingimused:",
+    "filter.preview": "Filtritingimused on:",
     "category.all.description.filtered": "{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.",
     "filter.preset": "Eelseadistatud filter sinu jaoks:",
-    "app.community.lemmy": "Lemmy"
+    "app.community.lemmy": "Lemmy",
+    "app.getIt": "Laadi siit"
 }
