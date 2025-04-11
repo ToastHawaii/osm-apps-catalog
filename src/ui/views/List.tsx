@@ -19,13 +19,31 @@ import React, { useState } from "react";
 import { Badges } from "../components/Badges";
 import { Carousel, Image } from "../components/Image";
 import { Score } from "../components/Score";
-import { getMatrix } from "../utilities/getMatrix";
 import { App } from "../../data/App";
 import { Trans, useTranslation } from "react-i18next";
 import { SourceDisplay } from "../components/SourceDisplay";
 import { State } from "../../State";
-import { getMastodon } from "../utilities/getMastodon";
-import { getLemmy } from "../utilities/getLemmy";
+import { WebsiteLink } from "../components/links/download/WebsiteLink";
+import { AsinLink } from "../components/links/download/AsinLink";
+import { FDroidLink } from "../components/links/download/FDroidLink";
+import { ObtainiumLink } from "../components/links/download/ObtainiumLink";
+import { GooglePlayLink } from "../components/links/download/GooglePlayLink";
+import { HuaweiAppGalleryLink } from "../components/links/download/HuaweiAppGalleryLink";
+import { AppleStoreLink } from "../components/links/download/AppleStoreLink";
+import { MacAppStoreLink } from "../components/links/download/MacAppStoreLink";
+import { MicrosoftAppLink } from "../components/links/download/MicrosoftAppLink";
+import { SourceCodeLink } from "../components/links/download/SourceCodeLink";
+import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
+import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
+import { TelegramLink } from "../components/links/community/TelegramLink";
+import { SlackLink } from "../components/links/community/SlackLink";
+import { RedditLink } from "../components/links/community/RedditLink";
+import { BlueskyLink } from "../components/links/community/BlueskyLink";
+import { LemmyLink } from "../components/links/community/LemmyLink";
+import { MastodonLink } from "../components/links/community/MastodonLink";
+import { MatrixLink } from "../components/links/community/MatrixLink";
+import { ForumTagLink } from "../components/links/community/ForumTagLink";
+import { ForumLink } from "../components/links/community/ForumLink";
 
 export function List({
   app,
@@ -101,129 +119,25 @@ export function List({
         !!app.sourceCode) && (
         <span className="downloads">{t("app.getIt")}</span>
       )}
-      {app.website && (
-        <a
-          className="download"
-          href={app.website}
-          target="_blank"
-          rel="noreferrer"
-          title={t("app.website")}
-        >
-          <i className="far fa-map fa-fw"></i>
-        </a>
+      <WebsiteLink app={app} />
+      {(state?.platforms.length === 0 ||
+        state?.platforms.includes("Android")) && (
+        <>
+          <FDroidLink app={app} />
+          <ObtainiumLink app={app} />
+          <GooglePlayLink app={app} />
+          <AsinLink app={app} />
+          <HuaweiAppGalleryLink app={app} />
+        </>
+      )}
+      {(state?.platforms.length === 0 || state?.platforms.includes("iOS")) && (
+        <AppleStoreLink app={app} />
       )}
 
       {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Android")) &&
-        app.install.asin && (
-          <a
-            className="download"
-            href={`https://www.amazon.com/dp/${app.install.asin}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.asin")}
-          >
-            <i className="fab fa-amazon fa-fw"></i>
-          </a>
-        )}
-
+        state?.platforms.includes("MacOS")) && <MacAppStoreLink app={app} />}
       {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Android")) &&
-        app.install.fDroidID && (
-          <a
-            className="download"
-            href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.fDroid")}
-          >
-            <i className="fab fa-android fa-fw"></i>
-          </a>
-        )}
-
-      {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Android")) &&
-        app.install.obtainiumLink && (
-          <a
-            className="download"
-            href={app.install.obtainiumLink}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.obtainium")}
-          >
-            <i
-              className="fas fa-gem fa-fw"
-              style={{ transform: "rotate(315deg)" }}
-            ></i>
-          </a>
-        )}
-
-      {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Android")) &&
-        app.install.googlePlayID && (
-          <a
-            className="download"
-            href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.googlePlay")}
-          >
-            <i className="fab fa-google-play fa-fw"></i>
-          </a>
-        )}
-
-      {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Android")) &&
-        app.install.huaweiAppGalleryID && (
-          <a
-            className="download"
-            href={`https://appgallery.huawei.com/#/app/C${app.install.huaweiAppGalleryID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.huaweiAppGallery")}
-          >
-            <i className="fas fa-shopping-bag fa-fw"></i>
-          </a>
-        )}
-
-      {(state?.platforms.length === 0 || state?.platforms.includes("iOS")) &&
-        app.install.appleStoreID && (
-          <a
-            className="download"
-            href={`https://apps.apple.com/app/id${app.install.appleStoreID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.appleStore")}
-          >
-            <i className="fab fa-app-store-ios fa-fw"></i>
-          </a>
-        )}
-
-      {(state?.platforms.length === 0 || state?.platforms.includes("MacOS")) &&
-        app.install.macAppStoreID && (
-          <a
-            className="download"
-            href={`https://apps.apple.com/app/id${app.install.macAppStoreID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.macAppStore")}
-          >
-            <i className="fab fa-app-store fa-fw"></i>
-          </a>
-        )}
-      {(state?.platforms.length === 0 ||
-        state?.platforms.includes("Windows")) &&
-        app.install.microsoftAppID && (
-          <a
-            className="download"
-            href={`https://apps.microsoft.com/detail/${app.install.microsoftAppID}`}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.install.microsoftApp")}
-          >
-            <i className="fab fa-microsoft fa-fw"></i>
-          </a>
-        )}
+        state?.platforms.includes("Windows")) && <MicrosoftAppLink app={app} />}
       {!app.website &&
         !app.install.asin &&
         !app.install.fDroidID &&
@@ -233,17 +147,7 @@ export function List({
         !app.install.appleStoreID &&
         !app.install.macAppStoreID &&
         !app.install.microsoftAppID &&
-        !!app.sourceCode && (
-          <a
-            className="download"
-            href={app.sourceCode}
-            target="_blank"
-            rel="noreferrer"
-            title={t("app.sourceCode")}
-          >
-            <i className="fas fa-code fa-fw"></i>
-          </a>
-        )}
+        !!app.sourceCode && <SourceCodeLink app={app} />}
 
       <div className="badges">
         <Badges values={app.topics} />
@@ -348,130 +252,17 @@ export function List({
           >
             <span className="more-info-title">{t("app.community")}</span>
             <span className="more-info-text">
-              {app.community.forum && (
-                <a
-                  className="community"
-                  href={app.community.forum}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.forum")}
-                >
-                  <i className="fas fa-comments fa-fw"></i>
-                </a>
-              )}
-              {app.community.forumTag && (
-                <a
-                  className="community"
-                  href={`https://community.openstreetmap.org/tag/${app.community.forumTag}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.forumTag")}
-                >
-                  <i className="fas fa-tag fa-fw"></i>
-                </a>
-              )}
-              {getMatrix(app.community.matrix, app.community.irc) && (
-                <a
-                  className="community"
-                  href={`https://matrix.to/#/${getMatrix(
-                    app.community.matrix,
-                    app.community.irc
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.matrix")}
-                >
-                  <i>[m]</i>
-                </a>
-              )}
-              {app.community.mastodon && (
-                <a
-                  className="community"
-                  href={getMastodon(app.community.mastodon)}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.mastodon")}
-                >
-                  <i className="fab fa-mastodon fa-fw"></i>
-                </a>
-              )}
-              {app.community.lemmy && (
-                <a
-                  className="community"
-                  href={getLemmy(app.community.lemmy)}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.lemmy")}
-                >
-                  <img src="/icons/lemmy.svg" alt="Lemmy" height="18px" />
-                </a>
-              )}
-              {app.community.bluesky && (
-                <a
-                  className="community"
-                  href={`https://bsky.app/profile/${app.community.bluesky}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.bluesky")}
-                >
-                  <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
-                </a>
-              )}
-              {app.community.reddit && (
-                <a
-                  className="community"
-                  href={`https://www.reddit.com/r/${app.community.reddit}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.reddit")}
-                >
-                  <i className="fab fa-reddit fa-fw"></i>
-                </a>
-              )}
-              {app.community.slack && (
-                <a
-                  className="community"
-                  href={app.community.slack}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.slack")}
-                >
-                  <i className="fab fa-slack-hash fa-fw"></i>
-                </a>
-              )}
-              {app.community.telegram && (
-                <a
-                  className="community"
-                  href={`https://telegram.me/${app.community.telegram}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.telegram")}
-                >
-                  <i className="fab fa-telegram fa-fw"></i>
-                </a>
-              )}
-              {app.community.githubDiscussions && (
-                <a
-                  className="community"
-                  href={`https://github.com/${app.community.githubDiscussions}/discussions`}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.githubDiscussions")}
-                >
-                  <i className="fab fa-github fa-fw"></i>
-                </a>
-              )}
-              {app.community.issueTracker && (
-                <a
-                  className="community"
-                  href={app.community.issueTracker}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={t("app.community.issueTracker")}
-                >
-                  <i className="fas fa-list fa-fw"></i>
-                </a>
-              )}
+              <ForumLink app={app} />
+              <ForumTagLink app={app} />
+              <MatrixLink app={app} />
+              <MastodonLink app={app} />
+              <LemmyLink app={app} />
+              <BlueskyLink app={app} />
+              <RedditLink app={app} />
+              <SlackLink app={app} />
+              <TelegramLink app={app} />
+              <GitHubDiscussionsLink app={app} />
+              <IssueTrackerLink app={app} />
             </span>
           </div>
         )}
