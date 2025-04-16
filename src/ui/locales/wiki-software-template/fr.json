@@ -1,1 +1,368 @@
-{}
+{
+    "name": {
+        "label": "Nom",
+        "description": "Nom officiel, autrement le plus connu"
+    },
+    "web": {
+        "label": "Adresse Web"
+    },
+    "repo": {
+        "label": "Code source",
+        "description": "URL pour voir ou télécharger le code source (par exemple, un dépôt Git, Subversion ou CVS)"
+    },
+    "logo": {
+        "label": "Logo"
+    },
+    "description": {
+        "description": "Description courte. Qu'est-ce qui le distingue des autres outils ? (Rédigez votre propre description, sans la copier depuis le site web)",
+        "label": "Description"
+    },
+    "author": {
+        "description": "Nom de l'auteur ou lien vers la page d'auteur sur le wiki OSM",
+        "label": "Auteur"
+    },
+    "platform": {
+        "label": "Plateformes prises en charge",
+        "description": "Liste des plateformes prises en charge."
+    },
+    "languages": {
+        "description": "Langues prises en charge (liste de codes de langue séparés par des points-virgules) ou nombre de langues prises en charge",
+        "label": "Langues"
+    },
+    "languagesurl": {
+        "label": "URL des langues",
+        "description": "Lien vers la liste de toutes les langues prises en charge, décrites sur un autre page (par ex. un portail du logiciel ou un dépôt)."
+    },
+    "coverage": {
+        "label": "Couverture",
+        "description": "Couverture ou région cible pour l'application. Format : \"Continent, Pays, Région…\". Utilisez \"Worldwide\" ou laissez vide pour une utilisation mondiale."
+    },
+    "code": {
+        "label": "Code",
+        "description": "Liste des langages de programmation utilisés."
+    },
+    "framework": {
+        "label": "Framework",
+        "description": "Liste des frameworks utilisés."
+    },
+    "version": {
+        "label": "Version",
+        "description": "Dernière version"
+    },
+    "date": {
+        "label": "Date de sortie",
+        "description": "Date de la dernière version"
+    },
+    "asin": {
+        "label": "Identifiant Amazon",
+        "description": "Identifiant Amazon pour Amazon Appstore sur Android"
+    },
+    "bbWorldID": {
+        "label": "Identifiant BlackBerry",
+        "description": "Identifiant d'application BlackBerry"
+    },
+    "fDroidID": {
+        "label": "Identifiant F-Droid",
+        "description": "Identifiant d'application F-Droid"
+    },
+    "firefoxMarketplaceID": {
+        "description": "Identifiant d'application pour Mozilla Firefox Marketplace",
+        "label": "Identifiant Firefox Marketplace"
+    },
+    "googlePlayID": {
+        "label": "Identifiant Google Play",
+        "description": "Identifiant d'application du Google Play Store"
+    },
+    "huaweiAppGalleryID": {
+        "label": "Identifiant Huawei AppGallery",
+        "description": "Identifiant d'application de Huawei AppGallery"
+    },
+    "appleStoreID": {
+        "description": "Identifiant d'application pour iTunes App Store",
+        "label": "Identifiant AppStore"
+    },
+    "macAppStoreID": {
+        "description": "Identifiant d'application du Mac App Store",
+        "label": "Identifiant Mac AppStore"
+    },
+    "microsoftAppID": {
+        "label": "Identifiant Microsoft",
+        "description": "UUID d'application du Microsoft Store pour Windows"
+    },
+    "obtainiumLink": {
+        "label": "Lien de mise à jour Obtainium",
+        "description": "Lien vers les informations de mise à jour sur Obtainium"
+    },
+    "map": {
+        "label": "Affichage de carte",
+        "description": "[Affichage de carte] Est-ce qu'une carte est affichée ?"
+    },
+    "datasource": {
+        "label": "Source",
+        "description": "[Affichage de carte] Pouvez-vous stocker toutes les données cartographiques hors ligne ? Télécharger un fichier séparé ?"
+    },
+    "rotateMap": {
+        "label": "Rotation de la carte",
+        "description": "[Affichage de carte] La carte est-elle affichée dans le sens de la marche ou de la conduite ?"
+    },
+    "3D": {
+        "description": "[Affichage de carte] Existe-t-il une vue en 3D ou en 2,5D ?",
+        "label": "Vue 3D"
+    },
+    "showPhoneNumber": {
+        "label": "Affiche le numéro de téléphone",
+        "description": "[Information des POI] Affiche le numéro de téléphone sur les points d'intérêt"
+    },
+    "showOpeningHours": {
+        "label": "Affiche les horaires",
+        "description": "[Information des POI] Affiche les horaires sur les points d'intérêt"
+    },
+    "routing": {
+        "label": "Guidage",
+        "description": "[Guidage] Pouvez-vous calculer ou planifier un itinéraire ?"
+    },
+    "createRouteManually": {
+        "label": "Créer un itinéraire manuellement",
+        "description": "[Guidage]"
+    },
+    "calculateRoute": {
+        "label": "Calculer un itinéraire",
+        "description": "[Guidage] Peut-il calculer un itinéraire en utilisant le routage ?"
+    },
+    "createRouteViaWaypoints": {
+        "label": "Créer un itinéraire à partir de points",
+        "description": "[Guidage] Capacité de créer un itinéraire à partir de points"
+    },
+    "profiles": {
+        "label": "Profils de guidage",
+        "description": "[Guidage] Quels sont les profils pris en charge s'ils font du routage ?"
+    },
+    "turnRestrictions": {
+        "label": "Restrictions de direction",
+        "description": "[Guidage] Peut-il gérer les restrictions de circulation ?"
+    },
+    "calculateRouteOffline": {
+        "label": "Calcul d'itinéraire sans Internet (Guidage hors-ligne)",
+        "description": "[Guidage] Une connexion Internet est-t-elle nécessaire pour calculer un itinéraire ?"
+    },
+    "routingProviders": {
+        "description": "[Guidage] Quels services sont utilisés ?",
+        "label": "Fournisseurs de guidage"
+    },
+    "avoidTraffic": {
+        "label": "Évitement du trafic",
+        "description": "[Guidage] L'application optimise-t-elle l'itinéraire pour éviter les embouteillages ?"
+    },
+    "navigating": {
+        "label": "Naviguer",
+        "description": "[Navigation] Pouvez-vous naviguer à la manière d'une boussole ?"
+    },
+    "findLocation": {
+        "label": "Rechercher un lieu",
+        "description": "[Navigation] Est-il possible de rechercher une rue ou un lieu ?"
+    },
+    "findNearbyPOI": {
+        "label": "Rechercher des points d'intérêts proches",
+        "description": "[Navigation] Est-il possible de découvrir/afficher des points d'intérêt ?"
+    },
+    "navToPoint": {
+        "label": "Naviguer vers un point",
+        "description": "[Navigation] Est-il possible de naviguer vers un point quelque part ?"
+    },
+    "voice": {
+        "label": "Navigation vocale / Guidage vocal",
+        "description": "[Navigation] Les instructions peuvent-elles être données par synthèse vocale ?"
+    },
+    "keepOnRoad": {
+        "label": "Rester sur la route",
+        "description": "[Navigation] Peut-il vous aider à maintenir votre véhicule sur l'itinéraire calculé ?"
+    },
+    "turnLanes": {
+        "label": "Guidage des voies",
+        "description": "[Navigation] Le guidage des voies est-il pris en charge ?"
+    },
+    "withoutGPS": {
+        "label": "Fonctionne sans GPS",
+        "description": "[Navigation] Est-ce que cela fonctionne même sans GPS ?"
+    },
+    "tracking": {
+        "label": "Créer une trace",
+        "description": "[Enregistrement des traces] Peut-il enregistrer une trace GPS ?"
+    },
+    "customInterval": {
+        "label": "Intervalle d'enregistrement personnalisable",
+        "description": "[Enregistrement des traces] Pouvez-vous régler l'intervalle manuellement ?"
+    },
+    "trackFormats": {
+        "label": "Format des traces",
+        "description": "[Enregistrement des traces] Quels formats de stockage pouvez-vous utiliser pour enregistrer votre trace GPS ?"
+    },
+    "geotagging": {
+        "label": "Géocodage",
+        "description": "[Enregistrement des traces] D'autres techniques de cartographie sont-elles prises en charge ?"
+    },
+    "fastWayPointAdding": {
+        "label": "Bouton d'ajout rapide",
+        "description": "[Enregistrement des traces] Facile d'ajouter un nouveau point  ?"
+    },
+    "uploadGPX": {
+        "label": "Importer des GPX dans OSM",
+        "description": "[Enregistrement des traces] Peut-on envoyer les traces directement à OSM ?"
+    },
+    "monitoring": {
+        "description": "[Suivi des traces] Pouvez-vous suivre les données GPS ?",
+        "label": "Suivi"
+    },
+    "showTrack": {
+        "label": "Afficher la trace actuelle",
+        "description": "[Suivi de trace] Affichage la trace en cours ?"
+    },
+    "showExistingTrack": {
+        "description": "[Suivi des traces] Peut-il charger des traces existantes afin que vous puissiez les suivre ?",
+        "label": "Ouvrir une trace existante"
+    },
+    "showDOP": {
+        "description": "[Suivi des traces] Affichage de la qualité du signal ?"
+    },
+    "showSatellites": {
+        "label": "Vue satellite",
+        "description": "[Suivi des traces] Affichage en vue satellite ?"
+    },
+    "showNMEAlive": {
+        "description": "[Suivi des traces] Pouvez-vous voir le flux GPS brut ?"
+    },
+    "showSpeed": {
+        "label": "Afficher la vitesse",
+        "description": "[Suivi des traces]"
+    },
+    "sendPosition": {
+        "label": "Envoyer la position actuelle",
+        "description": "[Suivi des traces] Peut-il envoyer sa position à d'autres personnes ?"
+    },
+    "addPOI": {
+        "label": "Ajouter des points",
+        "description": "[Éditeur] Pouvez-vous ajouter un nœud ?"
+    },
+    "editPOI": {
+        "description": "[Éditeur] Pouvez-vous modifier un nœud ?",
+        "label": "Modifier/Supprimer des points"
+    },
+    "addWay": {
+        "label": "Ajouter un chemin",
+        "description": "[Éditeur] Pouvez-vous ajouter un chemin ?"
+    },
+    "editGeom": {
+        "description": "[Éditeur] Pouvez-vous modifier des nœuds/chemins ?",
+        "label": "Modifier des formes"
+    },
+    "editTags": {
+        "label": "Modifier les propriétés des objets OSM existants",
+        "description": "[Éditeur] Pouvez-vous modifier les propriétés existantes ?"
+    },
+    "editRelations": {
+        "description": "[Éditeur] Pouvez-vous modifier les relations ?",
+        "label": "Modifier les relations"
+    },
+    "createNotes": {
+        "label": "Créer des notes",
+        "description": "[Éditeur] Pouvez vous créer des notes OSM ?"
+    },
+    "editNotes": {
+        "label": "Modifier les notes",
+        "description": "[Éditeur] Pouvez-vous commenter/fermer les notes OSM ?"
+    },
+    "editSource": {
+        "description": "[Éditeur] Pouvez-vous travailler hors-ligne ?",
+        "label": "Travailler hors-ligne"
+    },
+    "offsetDBsupport": {
+        "label": "Prendre en charge le décalage d'image",
+        "description": "[Éditeur] Le décalage d'image est-il pris en charge ?"
+    },
+    "uploadOSMData": {
+        "description": "[Éditeur] Pouvez-vous envoyer directement les modifications vers OSM ?",
+        "label": "Envoyer vers OSM"
+    },
+    "rendererOutputFormats": {
+        "label": "Formats de sortie du moteur de rendu",
+        "description": "[Moteur de rendu] Formats de sortie pris en charge."
+    },
+    "accessibility": {
+        "description": "[Accessibilité] Y a-t-il de l'aide affichée quelque part ?",
+        "label": "Prise en charge de l'accessibilité"
+    },
+    "brailleUI": {
+        "label": "Interface braille",
+        "description": "[Accessibilité] Interface spécifique pour le braille ?"
+    },
+    "explorerMode": {
+        "label": "Mode exploration",
+        "description": "[Accessibilité] Comporte un mode d'exploration (indique tous les objets en approche) ?"
+    },
+    "publicTransportMode": {
+        "description": "[Accessibilité] Les itinéraires de transport en commun sont-ils pris en charge ?",
+        "label": "Mode transport en commun"
+    },
+    "dangerWarnings": {
+        "description": "[Accessibilité]",
+        "label": "Avertissement des dangers"
+    },
+    "screenReader": {
+        "description": "[Accessibilité] Liste des lecteurs d'écran pris en charge",
+        "label": "Lecteur d'écran"
+    },
+    "screenReaderLang": {
+        "label": "Langue des lecteurs d'écran",
+        "description": "[Accessibilité] Liste des langues prises en charge par les lecteurs d'écran"
+    },
+    "textOnlyUI": {
+        "description": "[Accessibilité] Y a t-il une interface compatible braille ?"
+    },
+    "trafficProvider": {
+        "label": "Fournisseur de trafic",
+        "description": "[Guidage] Fournisseur des données de trafic."
+    },
+    "genre": {
+        "label": "Genre",
+        "description": "Catégorie principale de cet outil."
+    },
+    "price": {
+        "description": "Payant si propriétaire. Si le prix est vide, l'application est gratuite.",
+        "label": "Prix"
+    },
+    "mapData": {
+        "description": "[Affichage de carte] Les cartes sont-elles dessinées à partir d'images précalculées/rastérisées (raster) ou « à la volée » (vecteur) ?",
+        "label": "Données de carte"
+    },
+    "status": {
+        "label": "État",
+        "description": "État actuel du projet."
+    },
+    "license": {
+        "description": "Quelle licence ? Libre ou propriétaire ?",
+        "label": "Licence"
+    },
+    "lang": {
+        "description": "Langue dans laquelle les textes du modèle sont affichés.",
+        "label": "Langue du modèle"
+    },
+    "showWebsite": {
+        "description": "[Information des POI] Affiche un lien vers le site Web sur les points d'intérêt",
+        "label": "Affiche le site Web"
+    },
+    "viewNotes": {
+        "description": "[Éditeur] Pouvez-vous voir les notes OSM ?",
+        "label": "Voir les notes"
+    },
+    "screenshot": {
+        "label": "Capture d'écran"
+    },
+    "showAltitudeDiagram": {
+        "description": "[Suivi des traces]",
+        "label": "Diagramme d'altitude"
+    },
+    "predefinedRoute": {
+        "description": "[Navigation] Peut-il suivre d'autres traces GPS ?",
+        "label": "Naviguer le long d'un itinéraire prédéfini"
+    }
+}
