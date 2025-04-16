@@ -72,6 +72,7 @@ const platforms: {
     ],
   },
   { name: "watchOS", synonym: ["watchos", "Apple Watch"], version: [] },
+  { name: "tvOS", synonym: ["tvos"], version: [] },
   { name: "visionOS", synonym: ["visionos"], version: [] },
   {
     name: "MacOS",
@@ -176,6 +177,7 @@ const platforms: {
       "browser",
       "web browser",
       "web application",
+      "pwa",
     ],
     version: [],
   },

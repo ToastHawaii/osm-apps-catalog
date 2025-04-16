@@ -74770,6 +74770,7 @@ const platforms = [
         ],
     },
     { name: "watchOS", synonym: ["watchos", "Apple Watch"], version: [] },
+    { name: "tvOS", synonym: ["tvos"], version: [] },
     { name: "visionOS", synonym: ["visionos"], version: [] },
     {
         name: "MacOS",
@@ -74874,6 +74875,7 @@ const platforms = [
             "browser",
             "web browser",
             "web application",
+            "pwa",
         ],
         version: [],
     },
@@ -76865,9 +76867,11 @@ function getFrameworkDisplay(value) {
 
 
 
+
 const ignoredTopics = [
     "openstreetmap",
     "osm",
+    "openstreetmaps",
     "open-street-map",
     "openstreetmap-data",
     "osm-data",
@@ -76900,6 +76904,10 @@ const ignoredTopics = [
     "1050",
     "agplv3",
     "help-wanted",
+    "firebase",
+    "firebase-auth",
+    "firebase-firestore",
+    "firebase-realtime-database",
 ];
 function transformGitHubResult(result) {
     return {
@@ -76934,6 +76942,7 @@ function transformGitHubResult(result) {
         languagesUrl: "",
         genre: [],
         topics: (0,lodash.chain)(result.topics)
+            .filter((t) => equalsIgnoreCase(t, result.name))
             .filter((t) => !ignoredTopics.includes(t))
             .map((t) => t.replaceAll("-", " "))
             .map(lodash.upperFirst)

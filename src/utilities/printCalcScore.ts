@@ -1,5 +1,6 @@
 import { sum } from "lodash";
 import { App } from "../data/App";
+import { prepareArrayForSelect } from "./prepareArrayForSelect";
 
 export function printCalcScore(apps: App[]) {
   const average = sum(apps.map((a) => a.score)) / apps.length;
@@ -21,5 +22,15 @@ export function printCalcScore(apps: App[]) {
   console.info("15.03.2025: 2.049 (1919 Apps)");
   console.info("22.03.2025: 2.025 (1995 Apps)");
   console.info("31.03.2025: 2.050 (1964 Apps)");
+  console.info("16.04.2025: 2.081 (1973 Apps)");
   console.info("Today: " + average);
+
+  console.info("---");
+
+  console.info("Topics");
+  const preparedData = prepareArrayForSelect(
+    apps.flatMap((app) => app.topics.map((v) => v)),
+    []
+  );
+  console.info(preparedData.map((d) => d.value).join("\n"));
 }

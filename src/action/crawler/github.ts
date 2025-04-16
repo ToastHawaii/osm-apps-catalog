@@ -6,10 +6,12 @@ import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
 import { newUrl } from "../../utilities/url";
+import { equalsIgnoreCase } from "../../utilities/string";
 
 const ignoredTopics = [
   "openstreetmap",
   "osm",
+  "openstreetmaps",
   "open-street-map",
   "openstreetmap-data",
   "osm-data",
@@ -42,6 +44,10 @@ const ignoredTopics = [
   "1050",
   "agplv3",
   "help-wanted",
+  "firebase",
+  "firebase-auth",
+  "firebase-firestore",
+  "firebase-realtime-database",
 ];
 
 export function transformGitHubResult(result: any) {
@@ -80,6 +86,7 @@ export function transformGitHubResult(result: any) {
     languagesUrl: "",
     genre: [],
     topics: chain(result.topics as string[])
+      .filter((t) => equalsIgnoreCase(t, result.name))
       .filter((t) => !ignoredTopics.includes(t))
       .map((t) => t.replaceAll("-", " "))
       .map(upperFirst)
