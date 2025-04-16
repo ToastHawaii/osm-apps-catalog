@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# À propos du Catalogue des applications d'OSM
 
 **Experience the world in a creative, productive and unexpected way.**
 
