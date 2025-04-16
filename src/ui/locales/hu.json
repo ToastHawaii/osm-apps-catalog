@@ -35,7 +35,7 @@
     "app.unmaintained.wiki": "({{icon}} nincs karbantartva)",
     "app.languages": "Nyelvek",
     "app.coverage": "Terület",
-    "app.author": "Szerző",
+    "app.author": "Fejlesztő",
     "app.license": "Licenc",
     "app.sourceCode": "Forráskód",
     "app.source": "Forrás",
@@ -119,7 +119,10 @@
     "app.contribute.toSoftware": "A szoftverhez",
     "app.contribute.toSoftware.discuss": "Ötletek megvitatása és megosztása",
     "app.contribute.toData.edit": "Térképadatok szerkesztése",
-    "filter.preview": "Megjelenített alkalmazások jellemzői:",
+    "filter.preview": "A szűrő beállítása:",
     "category.all.description.filtered": "{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás (összes: {{totalNumberOfApps}})",
-    "filter.resetFilters": "Összes megjelenítése"
+    "filter.resetFilters": "Összes megjelenítése",
+    "app.getIt": "Beszerezhető itt:",
+    "app.community.lemmy": "Lemmy",
+    "filter.preset": "Az előre beállított szűrő:"
 }
