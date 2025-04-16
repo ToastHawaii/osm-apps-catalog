@@ -108,10 +108,10 @@ export function List({
         )}
       </p>
       {(!!app.website ||
-        !!app.install.asin ||
         !!app.install.fDroidID ||
         !!app.install.obtainiumLink ||
         !!app.install.googlePlayID ||
+        !!app.install.asin ||
         !!app.install.huaweiAppGalleryID ||
         !!app.install.appleStoreID ||
         !!app.install.macAppStoreID ||
