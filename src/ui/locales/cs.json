@@ -1,5 +1,5 @@
 {
-    "app.author": "Autor",
+    "app.author": "Vyvinul",
     "app.website": "Webová stránka",
     "app.sourceCode": "zdrojový kód",
     "app.license": "Licence",
@@ -120,6 +120,9 @@
     "select.search.placeholder": "Hledat",
     "select.search.noResults": "Žádné výsledky",
     "filter.resetFilters": "Zobrazit vše",
-    "filter.preview": "Zobrazují se aplikace pro:",
-    "category.all.description.filtered": "{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>."
+    "filter.preview": "Filtr je nastaven na:",
+    "category.all.description.filtered": "{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.",
+    "app.getIt": "Získejte ho",
+    "app.community.lemmy": "Lemmy",
+    "filter.preset": "Filtr je pro vás přednastavený:"
 }
