@@ -86,7 +86,7 @@ export function transformGitHubResult(result: any) {
     languagesUrl: "",
     genre: [],
     topics: chain(result.topics as string[])
-      .filter((t) => equalsIgnoreCase(t, result.name))
+      .filter((t) => !equalsIgnoreCase(t, result.name))
       .filter((t) => !ignoredTopics.includes(t))
       .map((t) => t.replaceAll("-", " "))
       .map(upperFirst)
