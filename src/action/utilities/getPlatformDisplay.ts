@@ -31,14 +31,12 @@ const platforms: {
   },
   {
     name: "Android",
-    synonym: [
-      "android",
-      "android app",
-      "android application",
-      "fdroid",
-      "f droid",
+    synonym: ["android", "android app", "android application"],
+    version: [
+      { name: "Android Jelly Bean", synonym: ["android jelly bean"] },
+      { name: "F-Droid", synonym: ["fdroid", "f droid"] },
+      { name: "osmdroid", synonym: ["osmdroid"] },
     ],
-    version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
   },
   {
     name: "Arduino",

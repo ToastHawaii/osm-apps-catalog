@@ -9,13 +9,14 @@ import { newUrl } from "../../utilities/url";
 import { equalsIgnoreCase } from "../../utilities/string";
 
 const ignoredTopics = [
+  // OpenStreetMap
   "openstreetmap",
   "osm",
   "openstreetmaps",
   "open-street-map",
   "openstreetmap-data",
   "osm-data",
-  "foss",
+
   "github-page",
   "jekyll",
   "30daymapchallenge",
@@ -42,12 +43,19 @@ const ignoredTopics = [
   "705",
   "955",
   "1050",
+  // License
   "agplv3",
+  "gplv3",
+  "foss",
+  // Tools
+  "cmake",
+
   "help-wanted",
   "firebase",
   "firebase-auth",
   "firebase-firestore",
   "firebase-realtime-database",
+  "released",
 ];
 
 export function transformGitHubResult(result: any) {

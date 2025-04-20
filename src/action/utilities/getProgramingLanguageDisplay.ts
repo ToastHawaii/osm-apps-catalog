@@ -78,6 +78,7 @@ const programingLanguages: {
   { name: "Html", synonym: ["html", "html5", "html css"] },
   { name: "Haskell", synonym: ["haskell"] },
   { name: "Visual Basic", synonym: ["vb6", "vba"] },
+  { name: "Nim", synonym: ["nim", "nim lang"] },
 ];
 
 export function getProgramingLanguageDisplay(value: string) {

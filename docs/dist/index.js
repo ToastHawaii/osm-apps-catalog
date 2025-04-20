@@ -74729,14 +74729,12 @@ const platforms = [
     },
     {
         name: "Android",
-        synonym: [
-            "android",
-            "android app",
-            "android application",
-            "fdroid",
-            "f droid",
+        synonym: ["android", "android app", "android application"],
+        version: [
+            { name: "Android Jelly Bean", synonym: ["android jelly bean"] },
+            { name: "F-Droid", synonym: ["fdroid", "f droid"] },
+            { name: "osmdroid", synonym: ["osmdroid"] },
         ],
-        version: [{ name: "Android Jelly Bean", synonym: ["android jelly bean"] }],
     },
     {
         name: "Arduino",
@@ -76762,6 +76760,7 @@ const programingLanguages = [
     { name: "Html", synonym: ["html", "html5", "html css"] },
     { name: "Haskell", synonym: ["haskell"] },
     { name: "Visual Basic", synonym: ["vb6", "vba"] },
+    { name: "Nim", synonym: ["nim", "nim lang"] },
 ];
 function getProgramingLanguageDisplay(value) {
     for (const language of programingLanguages) {
@@ -76869,13 +76868,13 @@ function getFrameworkDisplay(value) {
 
 
 const ignoredTopics = [
+    // OpenStreetMap
     "openstreetmap",
     "osm",
     "openstreetmaps",
     "open-street-map",
     "openstreetmap-data",
     "osm-data",
-    "foss",
     "github-page",
     "jekyll",
     "30daymapchallenge",
@@ -76902,12 +76901,18 @@ const ignoredTopics = [
     "705",
     "955",
     "1050",
+    // License
     "agplv3",
+    "gplv3",
+    "foss",
+    // Tools
+    "cmake",
     "help-wanted",
     "firebase",
     "firebase-auth",
     "firebase-firestore",
     "firebase-realtime-database",
+    "released",
 ];
 function transformGitHubResult(result) {
     return {
