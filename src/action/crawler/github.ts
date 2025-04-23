@@ -7,6 +7,7 @@ import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguage
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
 import { newUrl } from "../../utilities/url";
 import { equalsIgnoreCase } from "../../utilities/string";
+import { eld } from "eld";
 
 const ignoredTopics = [
   // OpenStreetMap
@@ -17,18 +18,14 @@ const ignoredTopics = [
   "openstreetmap-data",
   "osm-data",
 
+  // General map
+  "map",
+  "maps",
+  "mapping",
+
   "github-page",
   "jekyll",
-  "30daymapchallenge",
   "dataviz",
-  "hacktoberfest",
-  "hactoberfest",
-  "hakctoberfest",
-  "hactoberfest2019",
-  "hacktoberfest2020",
-  "hacktoberfest2021",
-  "hacktoberfest2022",
-  "hacktoberfest2023",
   "psram-needed",
   "mqtt",
   "kubernetes",
@@ -43,12 +40,6 @@ const ignoredTopics = [
   "705",
   "955",
   "1050",
-  // License
-  "agplv3",
-  "gplv3",
-  "foss",
-  // Tools
-  "cmake",
 
   "help-wanted",
   "firebase",
@@ -56,9 +47,40 @@ const ignoredTopics = [
   "firebase-firestore",
   "firebase-realtime-database",
   "released",
+
+  // License
+  "agplv3",
+  "gplv3",
+  "foss",
+
+  // Tools
+  "cmake",
+
+  // Events
+  "hacktoberfest",
+  "hactoberfest",
+  "hakctoberfest",
+  "hactoberfest2019",
+  "hacktoberfest2020",
+  "hacktoberfest2021",
+  "hacktoberfest2022",
+  "hacktoberfest2023",
+  "30daymapchallenge",
+  "eccv2020",
+
+  // Companies
+  "interline-io",
 ];
 
 export function transformGitHubResult(result: any) {
+  let language: string | undefined;
+  if (result.description) {
+    const detected = eld.detect(result.description);
+    if (detected.isReliable()) {
+      language = detected.language;
+    }
+  }
+
   return {
     name: (result.name || "")
       .replaceAll("-", " ")
@@ -90,7 +112,7 @@ export function transformGitHubResult(result: any) {
           : []
         : [],
     sourceCode: result.html_url || "",
-    languages: [],
+    languages: language ? [language] : [],
     languagesUrl: "",
     genre: [],
     topics: chain(result.topics as string[])

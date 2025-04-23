@@ -1,4 +1,4 @@
-import { uniq } from "lodash";
+import { uniq, uniqBy } from "lodash";
 import {
   equalsName,
   equalsString,
@@ -89,16 +89,16 @@ export function addApp(
 
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
-    app.images = uniq(app.images);
+    app.images = uniqBy(app.images, v => v.toUpperCase());
     app.logos.push(...obj.logos);
-    app.logos = uniq(app.logos);
+    app.logos = uniqBy(app.logos, v => v.toUpperCase());
     app.imageWiki = app.imageWiki || obj.imageWiki;
     app.commons = app.commons || [];
     app.commons.push(...(obj.commons || []));
-    app.commons = uniq(app.commons);
+    app.commons = uniqBy(app.commons, v => v.toUpperCase());
     app.videos = app.videos || [];
     app.videos.push(...(obj.videos || []));
-    app.videos = uniq(app.videos);
+    app.videos = uniqBy(app.videos, v => v.toUpperCase());
 
     app.website = app.website || obj.website;
 
@@ -109,7 +109,7 @@ export function addApp(
     }
 
     app.coverage.push(...obj.coverage);
-    app.coverage = uniq(app.coverage);
+    app.coverage = uniqBy(app.coverage, v => v.toUpperCase());
 
     if (
       // only add if not same source
@@ -139,19 +139,19 @@ export function addApp(
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
     app.languages.push(...obj.languages);
-    app.languages = uniq(app.languages).sort();
+    app.languages = uniqBy(app.languages, v => v.toUpperCase()).sort();
     app.languagesUrl = app.languagesUrl || obj.languagesUrl;
 
     app.genre.push(...obj.genre);
-    app.genre = uniq(app.genre);
+    app.genre = uniqBy(app.genre, v => v.toUpperCase());
     app.topics.push(...obj.topics);
-    app.topics = uniq(app.topics).sort();
+    app.topics = uniqBy(app.topics, v => v.toUpperCase()).sort();
 
     app.platform.push(...obj.platform);
-    app.platform = uniq(app.platform).sort();
+    app.platform = uniqBy(app.platform, v => v.toUpperCase()).sort();
 
     app.coverage.push(...obj.coverage);
-    app.coverage = uniq(app.coverage).sort();
+    app.coverage = uniqBy(app.coverage, v => v.toUpperCase()).sort();
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;

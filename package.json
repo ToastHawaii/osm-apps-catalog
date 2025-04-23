@@ -15,6 +15,7 @@
     "@actions/core": "1.11.1",
     "@actions/github": "6.0.0",
     "@vercel/ncc": "0.38.3",
+    "eld": "^1.0.1",
     "i18next": "23.15.1",
     "i18next-browser-languagedetector": "8.0.0",
     "i18next-client": "1.11.4",

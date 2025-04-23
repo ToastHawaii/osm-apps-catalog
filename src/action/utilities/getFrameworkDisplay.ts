@@ -80,6 +80,11 @@ const frameworks: {
   { name: "Express", synonym: ["express", "expressjs"] },
   { name: "Espressif IoT Development Framework", synonym: ["esp32 idf"] },
   { name: "PNGdec", synonym: ["pngdec"] },
+  { name: "Xamarin", synonym: ["xamarin"] },
+  { name: "Avalonia UI", synonym: ["avalonia"] },
+  { name: "Blazor", synonym: ["blazor"] },
+  { name: "Maui", synonym: ["maui"] },
+  { name: "Uno platform", synonym: ["uno platform"] },
 ];
 
 export function getFrameworkDisplay(value: string) {
