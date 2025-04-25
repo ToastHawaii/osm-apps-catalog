@@ -34,6 +34,7 @@ export function addApp(
   options: {
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
+    onlyAddLanguageIfEmpty: boolean;
   }
 ) {
   const duplicates = apps.filter(
@@ -89,16 +90,16 @@ export function addApp(
 
     app.description = app.description || obj.description;
     app.images.push(...obj.images);
-    app.images = uniqBy(app.images, v => v.toUpperCase());
+    app.images = uniqBy(app.images, (v) => v.toUpperCase());
     app.logos.push(...obj.logos);
-    app.logos = uniqBy(app.logos, v => v.toUpperCase());
+    app.logos = uniqBy(app.logos, (v) => v.toUpperCase());
     app.imageWiki = app.imageWiki || obj.imageWiki;
     app.commons = app.commons || [];
     app.commons.push(...(obj.commons || []));
-    app.commons = uniqBy(app.commons, v => v.toUpperCase());
+    app.commons = uniqBy(app.commons, (v) => v.toUpperCase());
     app.videos = app.videos || [];
     app.videos.push(...(obj.videos || []));
-    app.videos = uniqBy(app.videos, v => v.toUpperCase());
+    app.videos = uniqBy(app.videos, (v) => v.toUpperCase());
 
     app.website = app.website || obj.website;
 
@@ -109,7 +110,7 @@ export function addApp(
     }
 
     app.coverage.push(...obj.coverage);
-    app.coverage = uniqBy(app.coverage, v => v.toUpperCase());
+    app.coverage = uniqBy(app.coverage, (v) => v.toUpperCase());
 
     if (
       // only add if not same source
@@ -138,20 +139,23 @@ export function addApp(
 
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
-    app.languages.push(...obj.languages);
-    app.languages = uniqBy(app.languages, v => v.toUpperCase()).sort();
+    if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+      app.languages.push(...obj.languages);
+    }
+
+    app.languages = uniqBy(app.languages, (v) => v.toUpperCase()).sort();
     app.languagesUrl = app.languagesUrl || obj.languagesUrl;
 
     app.genre.push(...obj.genre);
-    app.genre = uniqBy(app.genre, v => v.toUpperCase());
+    app.genre = uniqBy(app.genre, (v) => v.toUpperCase());
     app.topics.push(...obj.topics);
-    app.topics = uniqBy(app.topics, v => v.toUpperCase()).sort();
+    app.topics = uniqBy(app.topics, (v) => v.toUpperCase()).sort();
 
     app.platform.push(...obj.platform);
-    app.platform = uniqBy(app.platform, v => v.toUpperCase()).sort();
+    app.platform = uniqBy(app.platform, (v) => v.toUpperCase()).sort();
 
     app.coverage.push(...obj.coverage);
-    app.coverage = uniqBy(app.coverage, v => v.toUpperCase()).sort();
+    app.coverage = uniqBy(app.coverage, (v) => v.toUpperCase()).sort();
 
     app.install.asin = app.install.asin || obj.install.asin;
     app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;

@@ -174,6 +174,9 @@ export async function loadApps(githubToken?: string) {
       addApp(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
+        // The language of github is only recognised automatically based on the description, so if 
+        // there is another source, use language from there
+        onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
       })
     );
 

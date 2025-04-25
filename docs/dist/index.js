@@ -68871,16 +68871,16 @@ function addApp(apps, obj, options) {
         app.unmaintained = app.unmaintained || obj.unmaintained;
         app.description = app.description || obj.description;
         app.images.push(...obj.images);
-        app.images = (0,lodash.uniqBy)(app.images, v => v.toUpperCase());
+        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
         app.logos.push(...obj.logos);
-        app.logos = (0,lodash.uniqBy)(app.logos, v => v.toUpperCase());
+        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
         app.imageWiki = app.imageWiki || obj.imageWiki;
         app.commons = app.commons || [];
         app.commons.push(...(obj.commons || []));
-        app.commons = (0,lodash.uniqBy)(app.commons, v => v.toUpperCase());
+        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
         app.videos = app.videos || [];
         app.videos.push(...(obj.videos || []));
-        app.videos = (0,lodash.uniqBy)(app.videos, v => v.toUpperCase());
+        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
         app.website = app.website || obj.website;
         if (!app.documentation) {
             app.documentation = obj.documentation;
@@ -68889,7 +68889,7 @@ function addApp(apps, obj, options) {
             app.documentation = obj.documentation || app.documentation;
         }
         app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, v => v.toUpperCase());
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
         if (
         // only add if not same source
         !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
@@ -68908,17 +68908,19 @@ function addApp(apps, obj, options) {
         app.libre = app.libre || obj.libre;
         app.license = app.license || obj.license;
         app.sourceCode = app.sourceCode || obj.sourceCode;
-        app.languages.push(...obj.languages);
-        app.languages = (0,lodash.uniqBy)(app.languages, v => v.toUpperCase()).sort();
+        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+            app.languages.push(...obj.languages);
+        }
+        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
         app.languagesUrl = app.languagesUrl || obj.languagesUrl;
         app.genre.push(...obj.genre);
-        app.genre = (0,lodash.uniqBy)(app.genre, v => v.toUpperCase());
+        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
         app.topics.push(...obj.topics);
-        app.topics = (0,lodash.uniqBy)(app.topics, v => v.toUpperCase()).sort();
+        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
         app.platform.push(...obj.platform);
-        app.platform = (0,lodash.uniqBy)(app.platform, v => v.toUpperCase()).sort();
+        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
         app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, v => v.toUpperCase()).sort();
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
         app.install.asin = app.install.asin || obj.install.asin;
         app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
         app.install.obtainiumLink =
@@ -69044,6 +69046,11 @@ const ignoredTopics = [
     "map",
     "maps",
     "mapping",
+    // General
+    "gui",
+    "gui-application",
+    "application",
+    "app",
     "github-page",
     "jekyll",
     "dataviz",
@@ -69089,7 +69096,7 @@ const ignoredTopics = [
 ];
 function transformGitHubResult(result) {
     let language;
-    if (result.description) {
+    if (result.description && (0,lodash__WEBPACK_IMPORTED_MODULE_0__.words)(result.description).length >= 6) {
         const detected = eld__WEBPACK_IMPORTED_MODULE_6__/* .eld */ .W.detect(result.description);
         if (detected.isReliable()) {
             language = detected.language;
@@ -70566,6 +70573,9 @@ async function loadApps(githubToken) {
         .forEach((app) => (0,_addApp__WEBPACK_IMPORTED_MODULE_5__/* .addApp */ .$)(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
+        // The language of github is only recognised automatically based on the description, so if 
+        // there is another source, use language from there
+        onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
     }));
     return apps;
 }

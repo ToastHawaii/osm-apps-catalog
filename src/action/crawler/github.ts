@@ -1,4 +1,4 @@
-import { chain, upperFirst } from "lodash";
+import { chain, upperFirst, words } from "lodash";
 import { App } from "../../data/App";
 import { getJson } from "../../utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
@@ -22,6 +22,12 @@ const ignoredTopics = [
   "map",
   "maps",
   "mapping",
+
+  // General
+  "gui",
+  "gui-application",
+  "application",
+  "app",
 
   "github-page",
   "jekyll",
@@ -74,7 +80,7 @@ const ignoredTopics = [
 
 export function transformGitHubResult(result: any) {
   let language: string | undefined;
-  if (result.description) {
+  if (result.description && words(result.description).length >= 6) {
     const detected = eld.detect(result.description);
     if (detected.isReliable()) {
       language = detected.language;
