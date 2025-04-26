@@ -24,7 +24,7 @@ export function hexToRgb(hex: string) {
 
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
-  if (!result) throw "hex has a unexpected format.";
+  if (!result) throw new Error("hex has a unexpected format.");
 
   return [
     parseInt(result[1], 16),
