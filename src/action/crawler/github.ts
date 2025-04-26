@@ -1,12 +1,12 @@
 import { chain, upperFirst, words } from "lodash";
-import { App } from "../../data/App";
-import { getJson } from "../../utilities/jsonRequest";
+import { App } from "../../shared/data/App";
+import { getJson } from "../../shared/utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
-import { newUrl } from "../../utilities/url";
-import { equalsIgnoreCase } from "../../utilities/string";
+import { newUrl } from "../../shared/utilities/url";
+import { equalsIgnoreCase } from "../../shared/utilities/string";
 import { eld } from "eld";
 
 const ignoredTopics = [

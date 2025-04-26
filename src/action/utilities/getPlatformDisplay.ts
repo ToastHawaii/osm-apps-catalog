@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { equalsIgnoreCase, trim } from "../../utilities/string";
+import { equalsIgnoreCase, trim } from "../../shared/utilities/string";
 
 const platforms: {
   name: string;

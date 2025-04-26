@@ -5,11 +5,11 @@ import {
   equalsWebsite,
   notDiffrentString,
   notDiffrentWebsite,
-} from "../utilities/string";
+} from "../shared/utilities/string";
 import { hashCode } from "./utilities";
-import { App } from "../data/App";
-import { calculateScore } from "../data/calculateScore";
-import { newUrl } from "../utilities/url";
+import { App } from "../shared/data/App";
+import { calculateScore } from "../shared/data/calculateScore";
+import { newUrl } from "../shared/utilities/url";
 
 // if both have a source code or an other unique value, they must be equal
 function notDiffrent(app: App, obj: App) {

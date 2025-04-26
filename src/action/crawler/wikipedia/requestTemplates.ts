@@ -15,8 +15,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { getJson } from "../../../utilities/jsonRequest";
-import { findClosingBracketIndex } from "../../../utilities/string";
+import { getJson } from "../../../shared/utilities/jsonRequest";
+import { findClosingBracketIndex } from "../../../shared/utilities/string";
 
 async function getCategoryMembers(
   category: string,

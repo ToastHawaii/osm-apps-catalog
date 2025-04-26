@@ -68509,7 +68509,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 8437:
+/***/ 2190:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -68521,11 +68521,11 @@ __nccwpck_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
-// EXTERNAL MODULE: ./src/utilities/string.ts
-var string = __nccwpck_require__(1807);
+// EXTERNAL MODULE: ./src/shared/utilities/string.ts
+var string = __nccwpck_require__(205);
 // EXTERNAL MODULE: ./src/action/utilities.ts
 var utilities = __nccwpck_require__(3046);
-;// CONCATENATED MODULE: ./src/utilities/filters.ts
+;// CONCATENATED MODULE: ./src/shared/utilities/filters.ts
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -68614,7 +68614,7 @@ function edit(a) {
 
 // EXTERNAL MODULE: ./node_modules/i18next/dist/esm/i18next.js
 var i18next = __nccwpck_require__(8612);
-;// CONCATENATED MODULE: ./src/data/calculateScore.ts
+;// CONCATENATED MODULE: ./src/shared/data/calculateScore.ts
 
 
 
@@ -68807,8 +68807,8 @@ function calculateScore(app) {
     };
 }
 
-// EXTERNAL MODULE: ./src/utilities/url.ts
-var utilities_url = __nccwpck_require__(5157);
+// EXTERNAL MODULE: ./src/shared/utilities/url.ts
+var utilities_url = __nccwpck_require__(9051);
 ;// CONCATENATED MODULE: ./src/action/addApp.ts
 
 
@@ -69015,13 +69015,13 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(4886);
+/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9571);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1646);
 /* harmony import */ var _utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(5553);
 /* harmony import */ var _utilities_getFrameworkDisplay__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(6227);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(5157);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(9051);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(205);
 /* harmony import */ var eld__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(4591);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([eld__WEBPACK_IMPORTED_MODULE_6__]);
 eld__WEBPACK_IMPORTED_MODULE_6__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
@@ -69115,7 +69115,7 @@ function transformGitHubResult(result) {
         images: [],
         logos: [],
         website: result.homepage
-            ? (0,_utilities_url__WEBPACK_IMPORTED_MODULE_7__/* .newUrl */ .KR)(!result.homepage.toUpperCase().startsWith("HTTP")
+            ? (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_7__/* .newUrl */ .KR)(!result.homepage.toUpperCase().startsWith("HTTP")
                 ? "https://" + result.homepage
                 : result.homepage).toString()
             : "",
@@ -69134,7 +69134,7 @@ function transformGitHubResult(result) {
         languagesUrl: "",
         genre: [],
         topics: (0,lodash__WEBPACK_IMPORTED_MODULE_0__.chain)(result.topics)
-            .filter((t) => !(0,_utilities_string__WEBPACK_IMPORTED_MODULE_5__/* .equalsIgnoreCase */ .Q_)(t, result.name))
+            .filter((t) => !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_5__/* .equalsIgnoreCase */ .Q_)(t, result.name))
             .filter((t) => !ignoredTopics.includes(t))
             .map((t) => t.replaceAll("-", " "))
             .map(lodash__WEBPACK_IMPORTED_MODULE_0__.upperFirst)
@@ -69183,7 +69183,7 @@ async function requestGitHub(githubToken) {
         params["order"] = "desc";
         params["per_page"] = limit;
         params["page"] = page;
-        const result = await (0,_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
+        const result = await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
             ? {
                 Authorization: "Bearer " + githubToken,
                 "X-GitHub-Api-Version": "2022-11-28",
@@ -69201,7 +69201,7 @@ async function requestGitHub(githubToken) {
         params["order"] = "asc";
         params["per_page"] = limit;
         params["page"] = page - 10;
-        const result = await (0,_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
+        const result = await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
             ? {
                 Authorization: "Bearer " + githubToken,
                 "X-GitHub-Api-Version": "2022-11-28",
@@ -69226,11 +69226,11 @@ __webpack_async_result__();
 /* harmony export */   p: () => (/* binding */ transform)
 /* harmony export */ });
 /* harmony import */ var _utilities_image__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9028);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(5157);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(9051);
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4397);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(3046);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var _plainText__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(9077);
@@ -69263,33 +69263,33 @@ __webpack_async_result__();
 function transform(source) {
     const obj = {
         name: (0,_plainText__WEBPACK_IMPORTED_MODULE_3__/* .plainText */ .w)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractNameWebsiteWiki */ .sG)(source["name"], source.sourceWiki).name),
-        lastRelease: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toDate */ .ay)(source["date"]) || "",
-        description: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["description"] || "")),
+        lastRelease: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toDate */ .ay)(source["date"]) || "",
+        description: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["description"] || "")),
         images: (0,_utilities_image__WEBPACK_IMPORTED_MODULE_0__/* .toWikimediaUrl */ .R)(source["screenshot"], 250),
         logos: (0,_utilities_image__WEBPACK_IMPORTED_MODULE_0__/* .toWikimediaUrl */ .R)(source["logo"], 250),
         imageWiki: source["screenshot"] || source["logo"],
-        website: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["slippy_web"])),
-        documentation: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
+        website: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["slippy_web"])),
+        documentation: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
         source: [
             {
                 name: "Layer",
                 wiki: source.sourceWiki,
-                url: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
+                url: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
                 lastChange: source["timestamp"] || "",
             },
         ],
-        sourceCode: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["style_web"]) || (0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["repo"])),
+        sourceCode: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["style_web"]) || (0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["repo"])),
         author: (0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["author"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .join(", "),
         languages: (source["tiles_languages"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter(_utilities_languageFilter__WEBPACK_IMPORTED_MODULE_6__/* .languageFilter */ .n)
             .map(_utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_7__/* .languageValueFormat */ .F),
-        languagesUrl: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)(source["tiles_languagesurl"]),
+        languagesUrl: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)(source["tiles_languagesurl"]),
         genre: [],
         topics: [],
         platform: ["Web"],
@@ -69297,12 +69297,12 @@ function transform(source) {
         install: {},
         license: (0,lodash__WEBPACK_IMPORTED_MODULE_1__.uniq)([
             ...(0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["tiles_license"] || "")
-                .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-                .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+                .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+                .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
                 .filter((v) => v),
             ...(0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["style_license"] || "")
-                .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-                .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+                .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+                .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
                 .filter((v) => v),
         ]),
         libre: (0,_utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__/* .isFreeAndOpenSource */ .J)([
@@ -69310,10 +69310,10 @@ function transform(source) {
             source["style_license"],
         ]),
         community: {
-            issueTracker: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)(source["bugtracker_web"]),
+            issueTracker: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)(source["bugtracker_web"]),
         },
     };
-    if (!(0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["notlayer"])) {
+    if (!(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["notlayer"])) {
         obj.topics.push("Tile layer");
         obj.genre.push("Tile layer");
     }
@@ -69355,8 +69355,8 @@ function plainText(html) {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   Z: () => (/* binding */ requestTemplates)
 /* harmony export */ });
-/* harmony import */ var _utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4886);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9571);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(205);
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -69398,7 +69398,7 @@ async function osmMediaApiQuery(params) {
     params["action"] = "query";
     params["formatversion"] = "2";
     params["format"] = "json";
-    return await (0,_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
+    return await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
 }
 async function processPagesByTemplateResult(response, template, language) {
     const pages = response.query.embeddedin;
@@ -69453,7 +69453,7 @@ function parsePage(content, template) {
     let start = content.search(regexTemplate);
     while (start !== -1) {
         let templateContent = content.substring(start);
-        const closing = (0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .findClosingBracketIndex */ .xi)(templateContent, 0);
+        const closing = (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .findClosingBracketIndex */ .xi)(templateContent, 0);
         content = templateContent.substring(closing + 1);
         templateContent = templateContent.substring(0, closing + 1);
         templateContent = templateContent
@@ -69492,11 +69492,11 @@ function parseTemplateToObject(content) {
 /* harmony export */   p: () => (/* binding */ transform)
 /* harmony export */ });
 /* harmony import */ var _utilities_image__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9028);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(5157);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(9051);
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4397);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(3046);
 /* harmony import */ var _plainText__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(9077);
 /* harmony import */ var _utilities_languageFilter__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5733);
@@ -69527,7 +69527,7 @@ function parseTemplateToObject(content) {
 function transform(source) {
     const obj = {
         name: (0,_plainText__WEBPACK_IMPORTED_MODULE_3__/* .plainText */ .w)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractNameWebsiteWiki */ .sG)(source["name"], source.sourceWiki).name),
-        description: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["descr"] || "")),
+        description: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .processWikiText */ .Hr)(source["descr"] || "")),
         images: (0,_utilities_image__WEBPACK_IMPORTED_MODULE_0__/* .toWikimediaUrl */ .R)(source["image"], 250),
         logos: [],
         imageWiki: source["image"],
@@ -69535,28 +69535,28 @@ function transform(source) {
             {
                 name: "ServiceItem",
                 wiki: source.sourceWiki,
-                url: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
+                url: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
                 lastChange: source["timestamp"] || "",
             },
         ],
-        sourceCode: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["material"])),
-        libre: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .startsWithIgnoreCase */ .GP)(source["material"], "{{yes"),
+        sourceCode: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["material"])),
+        libre: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .startsWithIgnoreCase */ .GP)(source["material"], "{{yes"),
         languages: (source["lang"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
             .map(_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractLanguageCodeFromTemplate */ .L)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter(_utilities_languageFilter__WEBPACK_IMPORTED_MODULE_6__/* .languageFilter */ .n)
             .map(_utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_7__/* .languageValueFormat */ .F),
-        languagesUrl: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["lang"])),
+        languagesUrl: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_5__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_4__/* .extractWebsite */ .ln)(source["lang"])),
         genre: (source["genre"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_1__.upperFirst)
             .sort(),
         topics: (source["genre"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_1__.upperFirst)
             .sort(),
@@ -69567,8 +69567,8 @@ function transform(source) {
     };
     if (source["region"]) {
         obj.coverage.push(...source["region"]
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitBySemicolonButNotInsideBraceRegex */ .L7)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitBySemicolonButNotInsideBraceRegex */ .L7)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_1__.upperFirst));
     }
@@ -69593,12 +69593,12 @@ function transform(source) {
 /* harmony export */   p: () => (/* binding */ transform)
 /* harmony export */ });
 /* harmony import */ var _utilities_image__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9028);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5157);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(9051);
 /* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1646);
 /* harmony import */ var _utilities_platformFilter__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(6860);
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(4397);
-/* harmony import */ var _utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4569);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(8339);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(3046);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(2356);
@@ -69636,49 +69636,49 @@ function transform(source) {
 function transform(source) {
     const obj = {
         name: (0,_plainText__WEBPACK_IMPORTED_MODULE_4__/* .plainText */ .w)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractNameWebsiteWiki */ .sG)(source["name"], source.sourceWiki).name),
-        unmaintained: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsIgnoreCase */ .Q_)(source["status"], "unmaintained"),
-        lastRelease: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toDate */ .ay)(source["date"]) || "",
-        description: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .processWikiText */ .Hr)(source["description"] || "")),
+        unmaintained: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsIgnoreCase */ .Q_)(source["status"], "unmaintained"),
+        lastRelease: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toDate */ .ay)(source["date"]) || "",
+        description: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .appendFullStop */ .Mx)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .processWikiText */ .Hr)(source["description"] || "")),
         images: (0,_utilities_image__WEBPACK_IMPORTED_MODULE_0__/* .toWikimediaUrl */ .R)(source["screenshot"], 250),
         logos: (0,_utilities_image__WEBPACK_IMPORTED_MODULE_0__/* .toWikimediaUrl */ .R)(source["logo"], 250),
         imageWiki: source["screenshot"] || source["logo"],
-        website: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source["web"])),
-        documentation: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toWikiUrl */ .B4)(source["wiki"] || source.sourceWiki) || "",
+        website: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source["web"])),
+        documentation: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toWikiUrl */ .B4)(source["wiki"] || source.sourceWiki) || "",
         source: [
             {
                 name: "Software",
                 wiki: source.sourceWiki,
-                url: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
+                url: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toWikiUrl */ .B4)(source.sourceWiki) || "",
                 lastChange: source["timestamp"] || "",
             },
         ],
         author: (0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .processWikiText */ .Hr)(source["author"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .join(", "),
-        sourceCode: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source["repo"] || source["git"] || source["svn"])),
-        gratis: (0,_utilities_array__WEBPACK_IMPORTED_MODULE_7__/* .some */ .zN)([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
+        sourceCode: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source["repo"] || source["git"] || source["svn"])),
+        gratis: (0,_shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__/* .some */ .zN)([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
         libre: (0,_utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__/* .isFreeAndOpenSource */ .J)(source["license"]),
         price: source["price"],
         license: (0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .processWikiText */ .Hr)(source["license"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v),
         languages: (source["languages"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter(_utilities_languageFilter__WEBPACK_IMPORTED_MODULE_9__/* .languageFilter */ .n)
             .map(_utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_10__/* .languageValueFormat */ .F),
-        languagesUrl: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)(source["languagesurl"]),
-        genre: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["genre"]),
-        topics: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["genre"]),
+        languagesUrl: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)(source["languagesurl"]),
+        genre: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["genre"]),
+        topics: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["genre"]),
         platform: [
             ...(source["platform"] || "")
                 .replace(/\[\[/g, "")
                 .replace(/\]\]/g, "")
-                .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-                .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq),
+                .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+                .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq),
             source["asin"] ||
                 source["fDroidID"] ||
                 source["obtainiumLink"] ||
@@ -69704,85 +69704,85 @@ function transform(source) {
             microsoftAppID: source["microsoftAppID"],
         },
         map: {
-            map: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["map"]),
-            mapData: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["mapData"]),
-            datasource: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["datasource"]),
-            rotateMap: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["rotateMap"]),
-            "3D": (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["3D"]),
-            showWebsite: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showWebsite"]),
-            showPhoneNumber: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showPhoneNumber"]),
-            showOpeningHours: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showOpeningHours"]),
+            map: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["map"]),
+            mapData: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["mapData"]),
+            datasource: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["datasource"]),
+            rotateMap: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["rotateMap"]),
+            "3D": (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["3D"]),
+            showWebsite: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showWebsite"]),
+            showPhoneNumber: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showPhoneNumber"]),
+            showOpeningHours: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showOpeningHours"]),
         },
         routing: {
-            routing: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["routing"]),
-            createRouteManually: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createRouteManually"]),
-            calculateRoute: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["calculateRoute"]),
-            createRouteViaWaypoints: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createRouteViaWaypoints"]),
-            profiles: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["profiles"]),
-            turnRestrictions: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["turnRestrictions"]),
-            calculateRouteOffline: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["calculateRouteOffline"]),
-            routingProviders: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["routingProviders"]),
-            avoidTraffic: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["avoidTraffic"]),
-            trafficProvider: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["trafficProvider"]),
+            routing: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["routing"]),
+            createRouteManually: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createRouteManually"]),
+            calculateRoute: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["calculateRoute"]),
+            createRouteViaWaypoints: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createRouteViaWaypoints"]),
+            profiles: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["profiles"]),
+            turnRestrictions: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["turnRestrictions"]),
+            calculateRouteOffline: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["calculateRouteOffline"]),
+            routingProviders: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["routingProviders"]),
+            avoidTraffic: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["avoidTraffic"]),
+            trafficProvider: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["trafficProvider"]),
         },
         navigating: {
-            navigating: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["navigating"]),
-            findLocation: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["findLocation"]),
-            findNearbyPOI: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["findNearbyPOI"]),
-            navToPoint: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["navToPoint"]),
-            voice: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["voice"]),
-            keepOnRoad: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["keepOnRoad"]),
-            turnLanes: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["turnLanes"]),
-            withoutGPS: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["withoutGPS"]),
-            predefinedRoute: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["predefinedRoute"]),
+            navigating: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["navigating"]),
+            findLocation: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["findLocation"]),
+            findNearbyPOI: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["findNearbyPOI"]),
+            navToPoint: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["navToPoint"]),
+            voice: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["voice"]),
+            keepOnRoad: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["keepOnRoad"]),
+            turnLanes: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["turnLanes"]),
+            withoutGPS: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["withoutGPS"]),
+            predefinedRoute: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["predefinedRoute"]),
         },
         tracking: {
-            tracking: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["tracking"]),
-            customInterval: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["customInterval"]),
-            trackFormats: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["trackFormats"] || source["formats"]),
-            geotagging: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["geotagging"]),
-            fastWayPointAdding: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["fastWayPointAdding"]),
-            uploadGPX: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["uploadGPX"]),
+            tracking: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["tracking"]),
+            customInterval: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["customInterval"]),
+            trackFormats: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["trackFormats"] || source["formats"]),
+            geotagging: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["geotagging"]),
+            fastWayPointAdding: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["fastWayPointAdding"]),
+            uploadGPX: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["uploadGPX"]),
         },
         monitoring: {
-            monitoring: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["monitoring"]),
-            showTrack: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showTrack"]),
-            showExistingTrack: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showExistingTrack"]),
-            showAltitudeDiagram: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showAltitudeDiagram"]),
-            showDOP: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showDOP"]),
-            showSatellites: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showSatellites"]),
-            showNMEAlive: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showNMEAlive"]),
-            showSpeed: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showSpeed"]),
-            sendPosition: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["sendPosition"]),
+            monitoring: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["monitoring"]),
+            showTrack: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showTrack"]),
+            showExistingTrack: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showExistingTrack"]),
+            showAltitudeDiagram: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showAltitudeDiagram"]),
+            showDOP: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showDOP"]),
+            showSatellites: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showSatellites"]),
+            showNMEAlive: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showNMEAlive"]),
+            showSpeed: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["showSpeed"]),
+            sendPosition: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["sendPosition"]),
         },
         editing: {
-            addPOI: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["addPOI"]),
-            editPOI: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editPOI"]),
-            addWay: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["addWay"]),
-            editGeom: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editGeom"]),
-            editTags: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editTags"]),
-            editRelations: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editRelations"]),
-            viewNotes: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["viewNotes"]),
-            createNotes: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createNotes"]),
-            editNotes: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editNotes"]),
-            editSource: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editSource"]),
-            offsetDBsupport: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["offsetDBsupport"]),
-            uploadOSMData: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["uploadOSMData"]),
+            addPOI: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["addPOI"]),
+            editPOI: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editPOI"]),
+            addWay: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["addWay"]),
+            editGeom: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editGeom"]),
+            editTags: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editTags"]),
+            editRelations: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editRelations"]),
+            viewNotes: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["viewNotes"]),
+            createNotes: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["createNotes"]),
+            editNotes: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editNotes"]),
+            editSource: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["editSource"]),
+            offsetDBsupport: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["offsetDBsupport"]),
+            uploadOSMData: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["uploadOSMData"]),
         },
         rendering: {
-            rendererOutputFormats: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["rendererOutputFormats"]),
+            rendererOutputFormats: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["rendererOutputFormats"]),
         },
         accessibility: {
-            accessibility: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["accessibility"]),
-            textOnlyUI: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["textOnlyUI"]),
-            brailleUI: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["brailleUI"]),
-            explorerMode: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["explorerMode"]),
-            publicTransportMode: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["publicTransportMode"]),
-            dangerWarnings: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["dangerWarnings"]),
-            screenReader: (0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["screenReader"]),
+            accessibility: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["accessibility"]),
+            textOnlyUI: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["textOnlyUI"]),
+            brailleUI: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["brailleUI"]),
+            explorerMode: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["explorerMode"]),
+            publicTransportMode: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["publicTransportMode"]),
+            dangerWarnings: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["dangerWarnings"]),
+            screenReader: (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .toValues */ .g8)(source["screenReader"]),
             screenReaderLang: (source["screenReaderLang"] || "")
-                .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-                .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+                .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+                .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
                 .filter(_utilities_languageFilter__WEBPACK_IMPORTED_MODULE_9__/* .languageFilter */ .n)
                 .map(_utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_10__/* .languageValueFormat */ .F),
         },
@@ -69798,16 +69798,16 @@ function transform(source) {
             matrix: source.communicationChannels["matrix room"],
             bluesky: source.communicationChannels["bluesky handle"],
             mastodon: source.communicationChannels["mastodon address"],
-            issueTracker: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source.communicationChannels["issue tracker"])),
+            issueTracker: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_5__/* .extractWebsite */ .ln)(source.communicationChannels["issue tracker"])),
             githubDiscussions: source.communicationChannels["github discussions"],
             telegram: source.communicationChannels["telegram"],
-            slack: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)(source.communicationChannels["slack url"]),
+            slack: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .toUrl */ .bb)(source.communicationChannels["slack url"]),
         },
     };
     if (source["coverage"]) {
         const coverage = source["coverage"]
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitBySemicolonButNotInsideBraceRegex */ .L7)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitBySemicolonButNotInsideBraceRegex */ .L7)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst);
         obj.coverage.push(...coverage);
@@ -69817,59 +69817,59 @@ function transform(source) {
     obj.coverage = (0,lodash__WEBPACK_IMPORTED_MODULE_3__.uniq)(obj.coverage).sort();
     if (hasValue(source["datasource"]))
         obj.topics.push(...(source["datasource"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst));
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["3D"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["3D"]))
         obj.topics.push("3D");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
         obj.topics.push("POI");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
         obj.topics.push("Routing");
     if (hasValue(source["profiles"]))
         obj.topics.push(...(source["profiles"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst));
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["navigating"], source["navToPoint"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["navigating"], source["navToPoint"]))
         obj.topics.push("Navi");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["findLocation"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["findLocation"]))
         obj.topics.push("Search");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["tracking"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["tracking"]))
         obj.topics.push("Track logging");
     if (hasValue(source["geotagging"]))
         obj.topics.push(...(source["geotagging"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst));
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["monitoring"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["monitoring"]))
         obj.topics.push("Track monitoring");
     if (source["rendererOutputFormats"])
         obj.topics.push("Rendering");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
         obj.topics.push("Editor");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["viewNotes"], source["createNotes"], source["editNotes"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["viewNotes"], source["createNotes"], source["editNotes"]))
         obj.topics.push("Notes");
     if (hasValue(source["editSource"]))
         obj.topics.push(...(source["editSource"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst));
     if (hasValue(source["accessibility"])) {
         obj.topics.push(...(source["accessibility"] || "")
-            .split(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
-            .map(_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
+            .split(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .splitByCommaButNotInsideBraceRegex */ .P6)
+            .map(_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .trim */ .Bq)
             .filter((v) => v)
             .map(lodash__WEBPACK_IMPORTED_MODULE_3__.upperFirst));
         obj.topics.push("Accessibility");
     }
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["accessibility"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["accessibility"]))
         obj.topics.push("Accessibility");
-    if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
+    if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__/* .equalsYes */ .RB)(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
         obj.topics.push("Blind");
     obj.topics = (0,lodash__WEBPACK_IMPORTED_MODULE_3__.uniq)(obj.topics).sort();
     {
@@ -69913,13 +69913,13 @@ function hasValue(value = "") {
 /* harmony export */   _: () => (/* binding */ requestWikidata)
 /* harmony export */ });
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(4397);
-/* harmony import */ var _utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4886);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9571);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(4863);
 /* harmony import */ var _utilities_languageFilter__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(5733);
 /* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1646);
 /* harmony import */ var _utilities_platformFilter__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(6860);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(5157);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(9051);
 
 
 
@@ -69962,7 +69962,7 @@ function extractGenre(result) {
 function extractIrc(value) {
     if (!value)
         return undefined;
-    const url = (0,_utilities_url__WEBPACK_IMPORTED_MODULE_3__/* .newUrl */ .KR)(value);
+    const url = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_3__/* .newUrl */ .KR)(value);
     return {
         server: url.hostname,
         channel: url.pathname.substring(1) || url.hash,
@@ -69978,7 +69978,7 @@ function transformWikidataResult(result) {
         commons: (result.commons?.value || "").split(";").filter((v) => v),
         videos: (result.videos?.value || "").split(";").filter((v) => v),
         website: result.web?.value || result.webDef?.value
-            ? (0,_utilities_url__WEBPACK_IMPORTED_MODULE_3__/* .newUrl */ .KR)(result.web?.value || result.webDef?.value).toString()
+            ? (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_3__/* .newUrl */ .KR)(result.web?.value || result.webDef?.value).toString()
             : "",
         documentation: result.doc?.value || result.docDef?.value || "",
         author: result.authors?.value || "",
@@ -69991,7 +69991,7 @@ function transformWikidataResult(result) {
             .map(_utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_6__/* .languageValueFormat */ .F),
         languagesUrl: result.lgsUrl?.value || "",
         genre: extractGenre(result),
-        topics: [...extractGenre(result), ...(0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .toValues */ .g8)(result.topics?.value)],
+        topics: [...extractGenre(result), ...(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .toValues */ .g8)(result.topics?.value)],
         platform: [
             ...new Set([
                 ...(result.platforms?.value || "").split(";"),
@@ -70046,7 +70046,7 @@ async function request(query) {
     const params = {};
     params["query"] = query;
     params["format"] = "json";
-    return await (0,_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
+    return await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
 }
 function requestWikidata(lg) {
     const base = request(`
@@ -70430,12 +70430,12 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _crawler_wiki_software__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1437);
 /* harmony import */ var _crawler_wiki_serviceItem__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(974);
 /* harmony import */ var _crawler_wiki_layer__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(6219);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(3046);
-/* harmony import */ var _addApp__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(8437);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(5157);
+/* harmony import */ var _addApp__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(2190);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(9051);
 /* harmony import */ var _crawler_wikidata__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5221);
-/* harmony import */ var _utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4886);
+/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(9571);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _crawler_github__WEBPACK_IMPORTED_MODULE_9__ = __nccwpck_require__(5974);
@@ -70464,17 +70464,17 @@ async function loadAppsFromOsmWikiLayers(language) {
     return (await (0,_crawler_wiki_requestTemplates__WEBPACK_IMPORTED_MODULE_0__/* .requestTemplates */ .Z)("Layer", language))
         .filter((s) => !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
         !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["slippy_web"]) &&
-        !(0,_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsYes */ .RB)(s["discontinued"]))
+        !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsYes */ .RB)(s["discontinued"]))
         .map((source) => (0,_crawler_wiki_layer__WEBPACK_IMPORTED_MODULE_3__/* .transform */ .p)(source));
 }
 async function loadAppsFromOsmWikiSoftwares(language) {
     return (await (0,_crawler_wiki_requestTemplates__WEBPACK_IMPORTED_MODULE_0__/* .requestTemplates */ .Z)("Software", language))
         .filter((s) => !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
         !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["web"]) &&
-        !(0,_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unfinished") &&
-        (!(0,_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unmaintained") ||
+        !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unfinished") &&
+        (!(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unmaintained") ||
             // No longer maintained but can still be installed.
-            (0,_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .extractWebsite */ .ln)(s["web"])) ||
+            (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .extractWebsite */ .ln)(s["web"])) ||
             s["asin"] ||
             s["fDroidID"] ||
             s["obtainiumLink"] ||
@@ -70483,7 +70483,7 @@ async function loadAppsFromOsmWikiSoftwares(language) {
             s["appleStoreID"] ||
             s["macAppStoreID"] ||
             s["microsoftAppID"]) &&
-        !(0,_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "broken"))
+        !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "broken"))
         .map((source) => (0,_crawler_wiki_software__WEBPACK_IMPORTED_MODULE_1__/* .transform */ .p)(source));
 }
 async function loadAppsFromWikidata(language) {
@@ -70520,11 +70520,11 @@ async function loadAppsFromGitHub(githubToken) {
     return objs.map((source) => (0,_crawler_github__WEBPACK_IMPORTED_MODULE_9__/* .transformGitHubResult */ .F)(source));
 }
 async function loadAppsFromTagInfoProjects() {
-    const projectObjects = (await (0,_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__/* .getJson */ .T)("https://taginfo.openstreetmap.org/api/4/projects/all"));
+    const projectObjects = (await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__/* .getJson */ .T)("https://taginfo.openstreetmap.org/api/4/projects/all"));
     const source = "https://taginfo.openstreetmap.org/projects/";
     return projectObjects.data.map((obj) => ({
         name: obj.name,
-        website: (0,_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .newUrl */ .KR)(obj.project_url).toString(),
+        website: (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .newUrl */ .KR)(obj.project_url).toString(),
         images: [],
         logos: obj.icon_url ? [obj.icon_url] : [],
         documentation: obj.doc_url,
@@ -70601,10 +70601,10 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var sitemap__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(sitemap__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(2203);
 /* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(stream__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ui_utilities_i18n__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(6997);
+/* harmony import */ var _app_ui_utilities_i18n__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(2430);
 /* harmony import */ var _loadApps__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(720);
-/* harmony import */ var _utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4569);
-/* harmony import */ var _utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(7686);
+/* harmony import */ var _shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(8339);
+/* harmony import */ var _shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(2760);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_loadApps__WEBPACK_IMPORTED_MODULE_5__]);
@@ -70629,7 +70629,7 @@ async function run() {
         const knownApps = await getKnownApps();
         await firstCrawled(apps, knownApps);
         await focus(apps, knownApps);
-        (0,_utilities_array__WEBPACK_IMPORTED_MODULE_7__/* .shuffle */ .k4)(apps);
+        (0,_shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__/* .shuffle */ .k4)(apps);
         apps = apps.sort(function (a, b) {
             return b.score - a.score;
         });
@@ -70674,7 +70674,7 @@ async function firstCrawled(apps, knownApps) {
                 }
             }
         }
-        app.source = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.sortBy)(app.source, _utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P).reverse();
+        app.source = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.sortBy)(app.source, _shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P).reverse();
     }
 }
 async function focus(apps, knownApps) {
@@ -70692,7 +70692,7 @@ async function focus(apps, knownApps) {
     // Find all those that have changed in the last day and show those that have not been displayed
     // for the longest time
     const focusedApps = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.chain)(apps)
-        .filter((a) => (0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(a.source[0]) > yesterday)
+        .filter((a) => (0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(a.source[0]) > yesterday)
         .sortBy((a) => a.lastFocus)
         .take(10)
         .value();
@@ -70740,9 +70740,9 @@ async function generateSitemap(apps) {
     links.push(...apps.map((app) => ({
         url: `https://osm-apps.org/?app=${app.id}`,
         priority: (app.score / 10) * 0.5 + 0.1,
-        lastmod: lastUpdate > new Date((0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0]))
+        lastmod: lastUpdate > new Date((0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0]))
             ? lastUpdate
-            : new Date((0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0])),
+            : new Date((0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0])),
     })));
     // Create a stream to write to
     const stream = new sitemap__WEBPACK_IMPORTED_MODULE_2__.SitemapStream({
@@ -70808,7 +70808,7 @@ __webpack_async_result__();
 /* harmony export */   tr: () => (/* binding */ containsOfflineLink)
 /* harmony export */ });
 /* unused harmony export toWikiText */
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(5157);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9051);
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -70842,7 +70842,7 @@ function extractNameWebsiteWiki(value, pageName) {
         const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
         const match = regex.exec(value);
         if (match) {
-            obj.website = (0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
+            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
             value = value.replace(regex, "").trim();
             if (value)
                 obj.name = value;
@@ -70853,7 +70853,7 @@ function extractNameWebsiteWiki(value, pageName) {
         const match = regex.exec(value);
         if (match) {
             obj.name = match[5];
-            obj.website = (0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
+            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
             value = value.replace(regex, "");
         }
     }
@@ -70865,7 +70865,7 @@ function extractNameWebsiteWiki(value, pageName) {
                 obj.name = match[3];
             else
                 obj.name = match[1];
-            obj.wiki = (0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
             value = value.replace(regex, "");
         }
     }
@@ -70874,7 +70874,7 @@ function extractNameWebsiteWiki(value, pageName) {
         const match = regex.exec(value);
         if (match) {
             obj.name = match[1];
-            obj.wiki = (0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
             value = value.replace(regex, "");
         }
     }
@@ -70900,7 +70900,7 @@ function extractWebsite(value = "") {
         const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
         const match = regex.exec(value);
         if (match) {
-            return (0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+            return (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
         }
     }
     {
@@ -70953,7 +70953,7 @@ function processWikiText(text = "") {
         const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
         let match = regex.exec(text);
         while (match) {
-            text = text.replace(regex, `<a href="${(0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
+            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
             match = regex.exec(text);
         }
     }
@@ -70961,7 +70961,7 @@ function processWikiText(text = "") {
         const regex = /\[\[([^\]]*)\]\]/;
         let match = regex.exec(text);
         while (match) {
-            text = text.replace(regex, `<a href="${(0,_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
+            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
             match = regex.exec(text);
         }
     }
@@ -71088,7 +71088,7 @@ function hashCode(str) {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   Z: () => (/* binding */ getFrameworkDisplay)
 /* harmony export */ });
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(205);
 
 const frameworks = [
     { name: "Meteor", synonym: ["meteor", "meteor application"] },
@@ -71175,7 +71175,7 @@ const frameworks = [
 ];
 function getFrameworkDisplay(value) {
     for (const language of frameworks) {
-        if (language.synonym.find((s) => (0,_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
+        if (language.synonym.find((s) => (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
             return language.name;
     }
     return "";
@@ -71191,7 +71191,7 @@ function getFrameworkDisplay(value) {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   K: () => (/* binding */ getPlatformDisplay)
 /* harmony export */ });
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(205);
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -71375,13 +71375,13 @@ const platforms = [
 ];
 function getPlatformDisplay(value) {
     // Remove version
-    value = (0,_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .trim */ .Bq)(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
+    value = (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .trim */ .Bq)(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
     for (const platform of platforms) {
         for (const version of platform.version) {
-            if (version.synonym.find((s) => (0,_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
+            if (version.synonym.find((s) => (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
                 return platform.name;
         }
-        if (platform.synonym.find((s) => (0,_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
+        if (platform.synonym.find((s) => (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
             return platform.name;
     }
     return "";
@@ -71397,7 +71397,7 @@ function getPlatformDisplay(value) {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   x: () => (/* binding */ getProgramingLanguageDisplay)
 /* harmony export */ });
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(205);
 
 const programingLanguages = [
     { name: "ActionScript", synonym: ["actionscript", "flash"] },
@@ -71478,7 +71478,7 @@ const programingLanguages = [
 ];
 function getProgramingLanguageDisplay(value) {
     for (const language of programingLanguages) {
-        if (language.synonym.find((s) => (0,_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
+        if (language.synonym.find((s) => (0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_0__/* .equalsIgnoreCase */ .Q_)(s, value)))
             return language.name;
     }
     return "";
@@ -71496,8 +71496,8 @@ function getProgramingLanguageDisplay(value) {
 /* harmony export */ });
 /* harmony import */ var md5__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2296);
 /* harmony import */ var md5__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(md5__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utilities_url__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(5157);
-/* harmony import */ var _utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1807);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(9051);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(205);
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -71520,23 +71520,23 @@ function getProgramingLanguageDisplay(value) {
 function toWikimediaUrl(source, size) {
     if (!source)
         return [];
-    if (_utilities_url__WEBPACK_IMPORTED_MODULE_2__/* .httpRegex */ .G0.test(source)) {
+    if (_shared_utilities_url__WEBPACK_IMPORTED_MODULE_2__/* .httpRegex */ .G0.test(source)) {
         return [source];
     }
-    else if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "File:")) {
+    else if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "File:")) {
         const fileName = source.substring(5, source.length);
         return [
             ...generateOsmWikimediaUrls(fileName, size),
             ...generateCommonsWikimediaUrls(fileName, size),
         ];
     }
-    else if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "https://wiki.openstreetmap.org/wiki/File:"))
+    else if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "https://wiki.openstreetmap.org/wiki/File:"))
         return generateOsmWikimediaUrls(source.substring(41, source.length), size);
-    else if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "http://wiki.openstreetmap.org/wiki/File:"))
+    else if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "http://wiki.openstreetmap.org/wiki/File:"))
         return generateOsmWikimediaUrls(source.substring(40, source.length), size);
-    else if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "https://commons.wikimedia.org/wiki/File:"))
+    else if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "https://commons.wikimedia.org/wiki/File:"))
         return generateCommonsWikimediaUrls(source.substring(40, source.length), size);
-    else if ((0,_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "http://commons.wikimedia.org/wiki/File:"))
+    else if ((0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__/* .startsWithIgnoreCase */ .GP)(source, "http://commons.wikimedia.org/wiki/File:"))
         return generateCommonsWikimediaUrls(source.substring(39, source.length), size);
     else
         return [
@@ -71656,7 +71656,7 @@ function platformFilter(value) {
 
 /***/ }),
 
-/***/ 6997:
+/***/ 2430:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -72745,96 +72745,96 @@ Browser.type = 'languageDetector';
 
 
 
-;// CONCATENATED MODULE: ./src/ui/locales/en.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
 const en_namespaceObject = /*#__PURE__*/JSON.parse('{"about":"About","list":"List","compare":"Compare","filter.search":"Search","filter.moreFilters":"Filters","filter.resetFilters":"Show all","filter.preview":"The filter is set to:","filter.preset":"The filter is preset for you:","filter.topic":"Topic","filter.platform":"Platform","filter.language":"Language","filter.coverage":"Coverage","filter.category":"Menu","filter.category.all":"All","filter.category.focus":"Focus","filter.category.latest":"Latest","filter.category.mobile":"To go","filter.category.navigation":"Find your way","filter.category.edit":"Improve the map","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.focus.description":"Ten apps from the most recently updated pages.","category.latest.description":"{{numberOfApps}} apps sorted by last release date.","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation.description":"{{numberOfApps}} apps that support routing or navigation.","category.edit.description":"{{numberOfApps}} apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.","relatedApps":"{{numberOfApps}} related apps","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","noResults":"No results","select.search.placeholder":"Search","select.search.noResults":"No results","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.routing":"Routing","compare.group.header.navigating":"Navigating","compare.group.header.tracking":"Tracking","compare.group.header.monitoring":"Monitoring","compare.group.header.editing":"Editing","compare.group.header.rendering":"Rendering","compare.group.header.accessibility":"Accessibility","multilingual":"Multilingual","list.documentation":"Documentation","list.more":"More","list.moreInfos":"Informations","app.imageAlt":"Image from {{name}}.","app.getIt":"Get it on","app.website":"Website","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.platforms":"Platforms","app.lastRelease":"Last release","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.languages":"Languages","app.coverage":"Coverage","app.contribute":"Contribute","app.contribute.toSoftware":"To software","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.resolve":"Resolve map notes","app.contribute.toData.review":"Review edits","app.contribute.toData.photos":"Upload photos for mapping","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.community":"Community","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.matrix":"Matrix room","app.community.bluesky":"Bluesky","app.community.mastodon":"Mastodon","app.community.lemmy":"Lemmy","app.community.issueTracker":"Issues","app.community.githubDiscussions":"GitHub Discussions","app.community.telegram":"Telegram group","app.community.slack":"Slack","app.community.reddit":"Reddit","app.author":"Developed by","app.price":"Price","app.license":"License","app.sourceCode":"Source code","app.source":"Source","app.source.date":"Last change: {{date}}\\nFirst crawled: {{added}}","app.source.description":"Source where this data comes from.","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.none":"none","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","score.results":"Community Contribution Score\\nTotal: {{total}} points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nFulfilled:\\n{{fulfilled}}","score.result":"- {{description}} ({{points}} points)","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.openSource":"the app is open source","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.worldwideData":"the app covers worldwide map data","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)"}');
 var locales_en_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(en_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/cs.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
 const cs_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Vyvinul","app.website":"Webová stránka","app.sourceCode":"zdrojový kód","app.license":"Licence","filter.platform":"Platforma","filter.language":"Jazyk","app.languages":"Jazyky","app.platforms":"Platformy","filter.coverage":"Pokrytí","category.all.description":"{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","about":"O aplikaci","filter.search":"Hledat","filter.topic":"Téma","filter.category":"Nabídka","filter.category.all":"Vše","filter.category.focus":"Zaměření","filter.category.latest":"Nejnovější","filter.category.mobile":"Přejít","filter.category.navigation":"Najděte svou cestu","filter.category.edit":"Vylepšete mapu","category.focus.description":"Deset aplikací z naposledy aktualizovaných stránek.","category.latest.description":"{{numberOfApps}} aplikace řazené podle data posledního vydání.","category.mobile.description":"{{numberOfApps}} aplikací vyvinutých pro mobilní zařízení nebo podporující offline použití.","app.install.huaweiAppGallery":"Huawei App Gallery","wiki.generatedByOsmAppsCatalog":"Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.","compare.group.header.map":"Zobrazení mapy","compare.share":"Sdílet na wiki.openstreetmap.org","category.navigation.description":"{{numberOfApps}} aplikací, které podporují navigaci.","category.edit.description":"{{numberOfApps}} aplikací, které podporují přidávání, úpravy nebo analýzu dat OpenStreetMap, nebo záznam geotras.","relatedApps":"{{numberOfApps}} souvisejících aplikací","noResults":"Žádné výsledky","compare.group.header.general":"Obecné","notFound":"Nenašli jste, co hledáte?","notFound.desc":"Pomocí následujících služeb si můžete vytvořit vlastní tematické mapy bez znalosti programování. Možná již někdo vytvořil mapu, kterou hledáte, nebo si můžete vytvořit vlastní tematickou mapu.","compare.group.header.navigating":"Navigace","compare.group.header.tracking":"Sledování","compare.group.header.monitoring":"Monitorování","compare.group.header.editing":"Úpravy","compare.group.header.rendering":"Vykreslování","compare.group.header.accessibility":"Přístupnost","multilingual":"Vícejazyčný","list.documentation":"Dokumentace","list.moreInfos":"Informace","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Poslední verze","app.unmaintained":"(<icon/> Neudržovaný)","app.unmaintained.wiki":"({{icon}} Neudržovaný)","app.coverage":"Pokrytí","app.price":"Cena","app.source":"Zdroj","compare.group.header.routing":"Hledání trasy","compare.unknown":"neznámý","share.wiki":"Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.","wiki.generatedBy":"Vytvořeno pomocí OSM Apps Catalog","wiki.none":"žádný","app.source.description":"Zdroj odkud pochází data.","compare":"Porovnat","list":"Seznam","app.community":"Komunita","app.community.forumTag":"Štítek fóra","app.community.matrix":"Matrixová místnost","app.community.issueTracker":"Problémy","app.community.githubDiscussions":"Diskuse na GitHubu","app.community.telegram":"Skupina na Telegram","app.community.slack":"Slack","app.community.mastodon":"Mastodon","app.community.reddit":"Reddit","app.community.forum":"Fórum","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.result":"- {{description}} ({{points}} bodů)","filter.moreFilters":"Filtry","app.imageAlt":"Obrázek z {{name}}.","score.criteria.supportsContributions":"aplikace podporuje příspěvky (editace, analýzy atd.) do OpenStreetMap","score.criteria.addingAndEditingPossible":"je možné přidávat a upravovat body zájmu, cesty atd","score.criteria.openSource":"aplikace má otevřený zdrojový kód","score.criteria.displaysMaps":"aplikace zobrazuje mapy nebo data OSM","score.criteria.sourceCodeReference":"odkaz na zdrojový kód je zdokumentován","score.criteria.lastUpdateThreeMonths":"poslední aktualizace proběhla během posledních 3 měsíců","score.criteria.translationContributions":"je možné přispět k překladům","score.criteria.tenLanguages":"aplikace je k dispozici nejméně v 10 jazycích","score.criteria.openSourceStores":"aplikace je dostupná prostřednictvím obchodů s otevřeným zdrojovým kódem (např. F-Droid)","score.criteria.worldwideData":"aplikace pokrývá mapové podklady celého světa","score.criteria.communityChannelExists":"existuje komunikační kanál pro komunitu (např. fórum, Mastodon)","score.criteria.openSourceChannel":"kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)","score.criteria.documentedMultiplePlatforms":"aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)","app.source.date":"Poslední změna: {{date}}\\nPrvní načteno: {{added}}","score.results":"Hodnocení příspěvku komunity\\nCelkem: {{total}} bodů\\n\\nČinnosti potřebné pro získání vyššího počtu bodů:\\n{{notFulfilled}}\\n\\nSplněno:\\n{{fulfilled}}","score.criteria.multiplePlatforms":"aplikace je dostupná na více platformách (např. web, Android, iOS)","score.criteria.documentationLink":"je k dispozici odkaz na dokumentaci","score.criteria.copyleftLicense":"licence je copyleftová (např. GPL, ODbL, MPL, CC)","score.criteria.multipleLanguages":"aplikace podporuje více jazyků (min. 3 jazyky)","score.criteria.freeOfCharge":"aplikace je zdarma","score.criteria.issueTracker":"existuje nástroj pro sledování problémů","score.criteria.lastUpdateYear":"poslední aktualizace proběhla během posledního roku","score.criteria.accessibilitySupported":"je podporována přístupnost (např. kompatibilita se čtečkou obrazovky nebo výpočet trasy pro vozíčkáře)","list.more":"Více","app.contribute.toSoftware":"Na software","app.contribute.toSoftware.discuss":"Diskutujte a sdílejte nápady","app.contribute.toSoftware.test":"Testujte a poskytněte zpětnou vazbu","app.contribute.toSoftware.develop":"Vyvíjejte kód","app.contribute.toSoftware.document":"Zlepšete dokumentaci","app.contribute.toData":"K datům OSM","app.contribute.toData.edit":"Upravujte mapová data","app.contribute.toData.photos":"Nahrajte fotografie pro mapování","app.contribute.toData.tracks":"Nahrávejte a sdílejte trasy","app.contribute.toData.qa":"Zajistěte kvalitu","app.contribute.toCommunity":"Pro komunitu","app.contribute.toCommunity.welcome":"Přivítejte nové uživatele","app.contribute":"Přispějte","app.contribute.toSoftware.translate":"Pomozte přeložit","app.contribute.toData.resolve":"Vyřešte poznámky k mapě","app.contribute.toData.review":"Zkontrolujte úpravy","select.search.placeholder":"Hledat","select.search.noResults":"Žádné výsledky","filter.resetFilters":"Zobrazit vše","filter.preview":"Filtr je nastaven na:","category.all.description.filtered":"{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","app.getIt":"Získejte ho","app.community.lemmy":"Lemmy","filter.preset":"Filtr je pro vás přednastavený:"}');
 var locales_cs_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(cs_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/de.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/de.json
 const de_namespaceObject = /*#__PURE__*/JSON.parse('{"compare.group.header.general":"Allgemein","wiki.generatedByOsmAppsCatalog":"Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert.","filter.category.focus":"Fokus","filter.category.latest":"Aktuellste","filter.language":"Sprache","filter.category":"Menü","filter.category.all":"Alle","filter.category.navigation":"Finde deinen Weg","filter.coverage":"Abdeckung","filter.category.edit":"Karte verbessern","filter.category.mobile":"Für unterwegs","list.documentation":"Dokumentation","category.latest.description":"{{numberOfApps}} Apps, sortiert nach dem letzten Veröffentlichungsdatum.","app.author":"Author","multilingual":"Mehrsprachig","wiki.none":"Keine","list.moreInfos":"Informationen","category.all.description":"{{numberOfApps}} Apps, die <o>OpenStreetMap</o> verwenden.","filter.topic":"Themen","app.sourceCode":"Quellcode","app.license":"Lizenz","category.focus.description":"Zehn Apps von den zuletzt aktualisierten Seiten.","category.mobile.description":"{{numberOfApps}} Apps für Mobilgeräte oder die Offline-Nutzung unterstützen.","noResults":"Kein Resultat","category.navigation.description":"{{numberOfApps}} Apps, die Routenführung oder Navigation unterstützen.","app.website":"Webseite","app.source":"Quelle","app.coverage":"Abdeckung","compare.unknown":"Unbekannt","app.platforms":"Platformen","filter.platform":"Platform","app.price":"Preis","app.languages":"Sprachen","category.edit.description":"{{numberOfApps}} Apps, die das Hinzufügen, Bearbeiten oder Analysieren von OpenStreetMap-Daten oder das Aufzeichnen von Geotracks unterstützen.","app.lastRelease":"Letzte Veröffentlichung","relatedApps":"{{numberOfApps}} ähnliche Apps","filter.search":"Suche","compare.group.header.map":"Kartenanzeige","about":"Über","compare.group.header.routing":"Routenplanung","compare.group.header.navigating":"Navigieren","compare.group.header.editing":"Bearbeiten","compare.group.header.accessibility":"Zugänglichkeit","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","wiki.generatedBy":"Erstellt vom OSM Apps Katalog","compare.group.header.tracking":"Tracking","compare.group.header.monitoring":"Überwachung","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.appleStore":"Apple App Store","app.unmaintained":"(<icon/> Ungewartet)","app.unmaintained.wiki":"({{icon}} Ungewartet)","compare.share":"Teilen in wiki.openstreetmap.org","compare.group.header.rendering":"Rendering","share.wiki":"Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.","notFound":"Nicht gefunden, was Du suchst?","notFound.desc":"Mit den folgenden Diensten kannst du deine eigenen Themenkarten erstellen, ohne Programmierkenntnisse zu benötigen. Vielleicht hat schon jemand die Karte erstellt, die du suchst, oder du kannst deine eigene Themenkarte erstellen.","app.source.description":"Quelle, aus der diese Daten stammen.","list":"Liste","compare":"Vergleichen","app.community.githubDiscussions":"GitHub-Diskussionen","app.community.matrix":"Matrix Raum","app.community.telegram":"Telegram Gruppe","app.community.slack":"Slack","app.community.mastodon":"Mastodon","app.community.reddit":"Reddit","app.community":"Community","app.community.forumTag":"Forum tag","score.criteria.copyleftLicense":"die Lizenz ist eine Copyleft-Lizenz (z.B. GPL, ODbL, MPL, CC)","score.criteria.issueTracker":"ein Issue-Tracker existiert","score.criteria.lastUpdateYear":"das letzte Update fand innerhalb des letzten Jahres statt","score.criteria.lastUpdateThreeMonths":"das letzte Update fand innerhalb der letzten 3 Monate statt","score.criteria.sourceCodeReference":"ein Verweis zum Quellcode ist dokumentiert","score.criteria.multipleLanguages":"die App unterstützt Mehrsprachigkeit (.min 3 Sprachen)","score.criteria.tenLanguages":"die App ist in mindestens 10 Sprachen verfügbar","score.criteria.freeOfCharge":"die App ist kostenlos","score.criteria.openSourceStores":"die App ist über einen freien Store (z.B. F-Droid) verfügbar","score.criteria.worldwideData":"die App deckt weltweite Kartendaten ab","score.criteria.accessibilitySupported":"Barrierefreiheit (z.B. Screenreader-Kompatibilität oder Routenberechnung für Rollstuhlfahrende) wird unterstützt","score.criteria.openSourceChannel":"ein Kanal ist auf einem Open-Source-Medien (z.B. Matrix) betrieben","score.criteria.communityChannelExists":"ein Kommunikationskanal für die Community existiert (z.B. Forum, Mastodon)","score.criteria.documentationLink":"ein Dokumentationslink ist verfügbar","score.criteria.documentedMultiplePlatforms":"die App ist auf mehreren Plattformen dokumentiert (z.B. OSM-Wiki, taginfo, Wikidata)","app.source.date":"Letzte Änderung: {{date}}\\nErstmals gecrawlt: {{added}}","score.result":"- {{description}} ({{points}} Punkte)","score.criteria.displaysMaps":"die App zeigt Karten oder OSM-Daten an","score.criteria.openSource":"die App ist Open Source","score.criteria.translationContributions":"zur Übersetzung kann beigetragen werden","score.criteria.multiplePlatforms":"die App ist auf mehreren Plattformen verfügbar (z.B. Web, Android, iOS)","score.results":"Community Contribution Score\\nTotal: {{total}} Punkte\\n\\nErforderliche Massnahmen für eine höhere Punktzahl:\\n{{notFulfilled}}\\n\\nErfüllt:\\n{{fulfilled}}","score.criteria.supportsContributions":"die App unterstützt Beiträge (Bearbeiten, Analyse, etc.) zu OpenStreetMap","score.criteria.addingAndEditingPossible":"das Hinzufügen als auch das Bearbeiten oder Löschen von POIs, Wegen etc. ist möglich","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.issueTracker":"Probleme","list.more":"Mehr","filter.moreFilters":"Filter","app.imageAlt":"Bild von {{name}}.","app.contribute.toSoftware":"Zur Software","app.contribute.toSoftware.discuss":"Ideen diskutieren & austauschen","app.contribute.toSoftware.test":"Rückmeldung geben & testen","app.contribute.toSoftware.translate":"Beim Übersetzen helfen","app.contribute.toSoftware.develop":"Code weiter entwickeln","app.contribute.toData.edit":"Kartendaten bearbeiten","app.contribute.toData.resolve":"Kartennotizen klären","app.contribute.toData.review":"Bearbeitungen überprüfen","app.contribute.toData.qa":"Qualitätssicherung durchführen","app.contribute.toCommunity.welcome":"Neue Nutzer willkommen heißen","app.contribute":"Beitragen","app.contribute.toData.tracks":"Touren aufzeichnen & teilen","app.contribute.toCommunity":"Zur Gemeinschaft","app.contribute.toData":"Zu den OSM-Daten","app.contribute.toSoftware.document":"Dokumentation verbessern","app.contribute.toData.photos":"Fotos für die Kartierung hochladen","select.search.placeholder":"Suche","select.search.noResults":"Kein Resultat","filter.resetFilters":"Alle anzeigen","filter.preview":"Apps werden angezeigt für:","category.all.description.filtered":"{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden."}');
 var locales_de_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(de_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/el.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/el.json
 const el_namespaceObject = /*#__PURE__*/JSON.parse('{"about":"Σχετικά","filter.search":"Αναζήτηση","filter.topic":"Θεματική","filter.platform":"Πλατφόρμα","filter.language":"Γλώσσα","filter.coverage":"Κάλυψη","filter.category":"Κατηγορία","filter.category.all":"Όλα","filter.category.focus":"Εστίαση","filter.category.latest":"Τελευταία","filter.category.mobile":"Φορητό","filter.category.navigation":"Βρες τον δρόμο σου","filter.category.edit":"Συνείσφερε","category.all.description":"Δείχνει {{numberOfApps}} εφαρμογές που βρέθηκαν στο Wiki του OpenStreetMap και πληροφορίες ετικέτας με τυχαία σειρά.","category.focus.description":"Δείχνει δέκα εφαρμογές με τις πιο πρόσφατα ανανεωμένες σελίδες.","category.latest.description":"Δείχνει {{numberOfApps}} εφαρμογές σε σειρά τελευταίας κυκλοφορίας.","category.navigation.description":"Δείχνει {{numberOfApps}} εφαρμογές που υποστηρίζουν τη δρομολόγηση ή την πλοήγηση.","relatedApps":"{{numberOfApps}} σχετικές εφαρμογές","compare.group.header.general":"Γενικά","compare.group.header.map":"Προβολή χάρτη","compare.group.header.navigating":"Πλοήγηση","compare.group.header.tracking":"Διαδρομές","compare.group.header.monitoring":"Παρακολούθηση","compare.group.header.editing":"Επεξεργασία","compare.group.header.rendering":"Απόδοση","compare.group.header.accessibility":"Προσβασιμότητα","list.documentation":"Οδηγίες","list.moreInfos":"Πληροφορίες","app.website":"Ιστοσελίδα","app.install.asin":"Amazon Appstore","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Τελευταία έκδοση","app.languages":"Γλώσσες","app.coverage":"Κάλυψη","compare.unknown":"άγνωστο","share.wiki":"Αντιγράφηκε ο πίνακας {{group}} στο πρόχειρο σε μορφή για το wiki.openstreetmap.org.","wiki.generatedBy":"Παρήχθη από τον Κατάλογο Εφαρμογών OSM","wiki.none":"κανένα","wiki.generatedByOsmAppsCatalog":"Αυτός ο πίνακας παρήχθη από τον [{{link}} Κατάλογο Εφαρμογών OSM] στις {{date}}.","category.mobile.description":"Δείχνει {{numberOfApps}} εφαρμογές ανεπτυγμένες για φορητές συσκευές ή που υποστηρίζουν την χρήση εκτός δικτύου.","category.edit.description":"Δείχνει {{numberOfApps}} εφαρμογές που υποστηρίζουν την προσθήκη, επεξεργασία ή ανάλυση δεδομένων OpenStreetMap ή την καταγραφή γεωγραφικών διαδρομών.","compare.group.header.routing":"Δρομολόγηση","noResults":"Καθόλου αποτελέσματα","multilingual":"Πολύγλωσση","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.platforms":"Πλατφόρμες","app.unmaintained":"(<icon/> Δεν υποστηρίζεται)","app.unmaintained.wiki":"({{icon}} Δεν υποστηρίζεται)","app.price":"Τιμή","app.author":"Συγγραφέας","app.license":"Άδεια","app.sourceCode":"Πηγαίος κώδικας","compare.share":"Μοιραστείτε στο wiki.openstreetmap.org","app.source":"Πηγή"}');
 var locales_el_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(el_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/es.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/es.json
 const locales_es_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Muestra {{numberOfApps}} aplicaciones ordenadas por la última fecha de lanzamiento.","filter.category.focus":"Enfoque","filter.category.latest":"Última","wiki.none":"ninguno","category.all.description":"Muestra {{numberOfApps}} aplicaciones del wiki de OpenStreetMap, Wikidata y taginfo, ordenadas por puntuación de colaboración de la comunidad.","filter.language":"Idioma","category.focus.description":"Muestra diez aplicaciones de las páginas actualizadas más recientemente.","wiki.generatedByOsmAppsCatalog":"Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.","filter.category":"Categoría","category.mobile.description":"Muestra {{numberOfApps}} aplicaciones desarrolladas para dispositivos móviles o que admiten el uso sin conexión.","filter.category.all":"Todo","noResults":"Sin resultados","category.navigation.description":"Muestra {{numberOfApps}} las aplicaciones que admiten enrutamiento o navegación.","filter.category.navigation":"Encuentra tu camino","compare.group.header.general":"General","filter.coverage":"Cobertura","filter.category.edit":"Contribuir","compare.group.header.map":"Visualización del mapa","filter.platform":"Plataforma","filter.category.mobile":"Ir a","category.edit.description":"Muestra {{numberOfApps}} aplicaciones que permiten añadir, editar o analizar datos de OpenStreetMap o grabar geotracks.","relatedApps":"{{numberOfApps}} aplicaciones relacionadas","list.documentation":"Documentación","filter.topic":"Tema","app.website":"Página web","compare.share":"Compartir en wiki.openstreetmap.org","share.wiki":"Copiada la tabla {{group}} al portapapeles con formato para wiki.openstreetmap.org.","app.install.macAppStore":"Mac App Store","app.author":"Autor","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.microsoftApp":"Microsoft Store","list.moreInfos":"Información","app.sourceCode":"Código fuente","app.license":"Licencia","app.install.appleStore":"App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.asin":"Amazon Appstore","app.source":"Fuente","app.coverage":"Cobertura","compare.unknown":"desconocido","app.platforms":"Plataformas","wiki.generatedBy":"Creado por OSM Apps Catalog","app.price":"Precio","app.languages":"Idiomas","app.lastRelease":"Última edición","compare.group.header.monitoring":"Seguimiento","compare.group.header.rendering":"Renderizado","multilingual":"Multilingüe","compare.group.header.editing":"Editar","app.unmaintained":"(<icon/> Sin mantenimiento)","app.unmaintained.wiki":"({{icon}} Sin mantenimiento)","filter.search":"Buscar","compare.group.header.routing":"Enrutamiento","compare.group.header.navigating":"Navegando","compare.group.header.tracking":"Rastreo","compare.group.header.accessibility":"Accesibilidad","about":"Acerca de","notFound.desc":"Con los siguientes servicios puedes crear tus propios mapas temáticos sin conocimientos de programación. Puede que alguien ya haya creado el mapa que buscas, o puedes crear tu propio mapa temático.","notFound":"¿No encuentras lo que buscas?","app.source.description":"La fuente de donde provienen estos datos.","list":"Lista","compare":"Comparar","app.community.matrix":"Sala de Matrix","app.community.issueTracker":"Problemas","app.community.githubDiscussions":"Discusiones en GitHub","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community":"Comunidad","app.community.forumTag":"Foro","app.community.telegram":"Grupo de Telegram","app.community.mastodon":"Mastodon","app.community.forum":"Foro","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.criteria.translationContributions":"Son posibles colaboraciones a las traducciones","score.criteria.documentedMultiplePlatforms":"La aplicación está documentada en múltiples plataformas (por ejemplo, OSM-Wiki, taginfo, Wikidata)","score.criteria.addingAndEditingPossible":"Es posible añadir y editar POI, caminos, etc","score.criteria.multiplePlatforms":"La aplicación está disponible en múltiples plataformas (por ejemplo, Web, Android, iOS)","score.criteria.copyleftLicense":"La licencia es una licencia copyleft (por ejemplo, GPL, ODbL, MPL, CC)","score.criteria.freeOfCharge":"La aplicación es gratuita","score.criteria.lastUpdateThreeMonths":"La última actualización se produjo en los últimos 3 meses","score.criteria.lastUpdateYear":"La última actualización se produjo durante el último año","score.result":"- {{description}} ({{points}} puntos)","score.criteria.sourceCodeReference":"se documenta una referencia al código fuente","score.criteria.issueTracker":"Existe un rastreador de problemas","score.criteria.multipleLanguages":"La aplicación soporta varios idiomas (mínimo 3 idiomas)","score.criteria.tenLanguages":"La aplicación está disponible en al menos 10 idiomas","score.criteria.communityChannelExists":"Existe un canal para la comunidad (por ejemplo, foro, Mastodon)","score.criteria.documentationLink":"Hay un enlace a la documentación disponible","score.criteria.worldwideData":"La aplicación cubre datos de mapas de todo el mundo","score.criteria.openSource":"La aplicación es de código abierto","score.criteria.supportsContributions":"La aplicación admite colaboraciones (edición, análisis, etc.) a OpenStreetMap","score.criteria.openSourceStores":"La aplicación es accesible a través de tiendas de código abierto (por ejemplo, F-Droid)","score.criteria.openSourceChannel":"Un canal está alojado en plataformas de código abierto (por ejemplo, Matrix)","score.results":"Puntuación de la contribución comunitaria\\nTotal: {{total}} puntos\\n\\nAcciones requeridas para una puntuación más alta:\\n{{notFulfilled}}\\n\\nCumplido:\\n{{fulfilled}}","score.criteria.accessibilitySupported":"Se admite la accesibilidad (por ejemplo, compatibilidad con lectores de pantalla)","score.criteria.displaysMaps":"La aplicación muestra mapas o datos OSM"}');
 var ui_locales_es_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(locales_es_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/et.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/et.json
 const et_namespaceObject = /*#__PURE__*/JSON.parse('{"filter.topic":"Teema","filter.platform":"Platvorm","filter.language":"Keel","filter.coverage":"Piirkond","filter.category":"Menüü","filter.category.all":"Kõik","about":"Veebirakenduse teave","filter.search":"Otsi","app.install.obtainium":"Obtainium","app.community.forum":"Foorum","app.community.bluesky":"Bluesky","app.price":"Hind","wiki.generatedByOsmAppsCatalog":"Selle tabeli koostas [{{link}} OSMi rakenduste kataloog] {{date}}.","category.all.description":"{{numberOfApps}} <o>OpenStreetMap</o>pi kasutavat rakendust.","list":"Loend","compare":"Võrdle","app.license":"Litsents","app.source.description":"Nende andmete allikas.","compare.unknown":"teadmata","app.install.appleStore":"Apple App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.languages":"Keeled","app.coverage":"Katvus","share.wiki":"Kopeerisime „{{group}}“ tabeli lõikelauale arvestades vorminguga wiki.openstreetmap.org jaoks.","score.criteria.supportsContributions":"rakendus võimaldab teha kaastööd OpenStreetMapile (muutmine, analüüs, jne)","score.criteria.addingAndEditingPossible":"huvipunktide, joonte jne lisamine ning muutmine on võimalik","score.criteria.copyleftLicense":"kasutusel on vaba tarkvara litsents (näiteks GPL, ODbL, MPL, CC)","wiki.generatedBy":"Koostaja: OSMi rakenduste kataloog","score.results":"Panuse kogukonna arendusse\\nKokku: {{total}} punkti\\n\\nNeed tegevused tagaks suurema punktiskoori:\\n{{notFulfilled}}\\n\\nJuba korras:\\n{{fulfilled}}","filter.moreFilters":"Filtrid","filter.category.mobile":"Teele kaasa","filter.category.navigation":"Tee juhatamine","compare.group.header.rendering":"Esitusvalmendus","app.imageAlt":"Pilt rakendusest {{name}}.","app.website":"Veebisait","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","score.criteria.sourceCodeReference":"lähtekoodi viited on dokumenteeritud","score.criteria.issueTracker":"olemas on rakenduse veahaldus","filter.category.latest":"Viimatimuudetud","filter.category.focus":"Fookuses","filter.category.edit":"Täienda kaarti","notFound":"Kas sa ei leidnud, mida otsisid?","category.navigation.description":"{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.","category.edit.description":"{{numberOfApps}} rakendust, mis võimaldavad lisada, muuta või analüüsida OpenStreetMapi andmeid või salvestada teekondi.","relatedApps":"{{numberOfApps}} seotud rakendust","compare.group.header.general":"Üldist","noResults":"Tulemusi pole","compare.group.header.map":"Kaardivaade","compare.group.header.routing":"Teekonna koostamine","compare.group.header.tracking":"Radade loomine","compare.group.header.monitoring":"Monitooring","compare.group.header.editing":"Kaardi muutmine","compare.group.header.navigating":"Tee juhatamine","list.moreInfos":"Rakenduse teave","list.documentation":"Dokumentatsioon","app.install.macAppStore":"Mac App Store","app.platforms":"Platvormid","app.lastRelease":"Viimati uuendatud","app.install.microsoftApp":"Microsoft Store","app.unmaintained":"(<icon/> hüljatud projekt)","app.unmaintained.wiki":"({{icon}} hüljatud projekt)","app.author":"Arendaja","compare.share":"Jaga vikis wiki.openstreetmap.org","category.focus.description":"Kümme hiljuti uuendatud lehte.","category.latest.description":"{{numberOfApps}} rakendust järjestatuna viimase versiooni kuupäeva alusel.","category.mobile.description":"{{numberOfApps}} rakendust, mis on mõeldud kasutamiseks nutiseadmetes või toetavad vallasrežiimi.","list.more":"Detailne vaade","app.sourceCode":"Lähtekood","app.source":"Andmeallikas","score.result":"- {{description}} ({{points}} punkti)","score.criteria.displaysMaps":"rakendus kuvab kaartde või OSMi andmeid","score.criteria.openSource":"rakendus põhineb avatud lähtekoodil","score.criteria.lastUpdateThreeMonths":"rakenduse viimane versioon on välja antud möödunud 3 kuu jooksul","score.criteria.translationContributions":"rakendus on tõlgitav","score.criteria.multipleLanguages":"rakendus on antud välja mitmekeelsena (vähemalt 3 keelt)","score.criteria.tenLanguages":"rakendus on saadaval vähemalt kümnes keeles","score.criteria.freeOfCharge":"rakendus on tasuta saadaval","score.criteria.openSourceStores":"rakendus on saadaval avatud lähtekoodil põhinevate rakenduste poes (näiteks F-Droid)","score.criteria.multiplePlatforms":"rakendus on saadaval mitmetel platvormidel (näiteks veebis, Androidile ja iOSis)","score.criteria.accessibilitySupported":"rakendusel on ligipääsetavuse funktsionaalsus (näiteks ekraanilugeja või teekonna koostamine ratastoolis liikujatele)","score.criteria.communityChannelExists":"kogukonnal on olemas suhtluskanalid (näiteks foorum, jututuba või Mastodon)","score.criteria.worldwideData":"rakendus katab kaardiandmeid üle maailma","score.criteria.documentedMultiplePlatforms":"rakendus on dokumenteeritud mitmes keskkonnas (näiteks OSMi Viki, siltide andmekogu, Vikiandmed)","app.community":"Kogukond","app.community.forumTag":"Foorumi silt","app.community.matrix":"Matrixi jututuba","app.community.mastodon":"Mastodon","app.community.issueTracker":"Veahaldus","app.community.telegram":"Telegrami grupp","app.community.githubDiscussions":"GitHub Discussions","app.community.slack":"Slack","app.community.reddit":"Reddit","app.source.date":"Viimati muudetud: {{date}}\\nEsmane töötlus: {{added}}","wiki.none":"puudub","score.criteria.documentationLink":"olemas on viide dokumentatsioonile","score.criteria.openSourceChannel":"suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)","compare.group.header.accessibility":"Ligipääsetavus","multilingual":"Mitmekeelne","notFound.desc":"Järgnevate teenuste abil saad luua sulle meeldivaid kaarte ja selleks pole vaja programmeerimisoskusi. Keegi võib juba olla loonud sulle huvipakkuva kaardi ning kui ei, siis saad seda ise teha.","app.install.asin":"Amazon Appstore","score.criteria.lastUpdateYear":"rakenduse viimane versioon on välja antud möödunud aasta jooksul","app.contribute.toSoftware.discuss":"Osale keskusteludes ja jaga ideesid","app.contribute.toSoftware.test":"Testi ja jaga tagasisidet","app.contribute.toSoftware.develop":"Kirjuta lähtekoodi","app.contribute.toSoftware.document":"Täienda dokumentatsiooni","app.contribute.toSoftware":"Tarkvarale","app.contribute.toData":"OpenStreerMapi andmetele","app.contribute.toData.edit":"Muuda kaardiandmeid","app.contribute.toData.resolve":"Lahenda kaardimärkusi","app.contribute.toData.review":"Vaata üle kaardimuudatusi","app.contribute.toData.tracks":"Salvesta ja jaga GPS-radu","app.contribute.toData.qa":"Kontrolli kvaliteeti","app.contribute.toCommunity":"Kogukonnale","app.contribute.toCommunity.welcome":"Juhata teed uutele kasutajatele","app.contribute.toSoftware.translate":"Aita tõlkida","app.contribute":"Tee kaastööd","app.contribute.toData.photos":"Laadi üles kaardistamiseks vajalikke fotosid","select.search.placeholder":"Otsi","select.search.noResults":"Tulemusi pole","filter.resetFilters":"Näita kõiki","filter.preview":"Filtritingimused on:","category.all.description.filtered":"{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.","filter.preset":"Eelseadistatud filter sinu jaoks:","app.community.lemmy":"Lemmy","app.getIt":"Laadi siit"}');
 var locales_et_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(et_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/fr.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/fr.json
 const fr_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Affiche les {{numberOfApps}} applications classées par date de sortie.","filter.category.focus":"En vedette","filter.category.latest":"Les plus récents","wiki.none":"aucun","category.all.description":"Affichage de {{numberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","filter.language":"Langue","category.focus.description":"Affiche dix applications parmi les pages les plus récemment mises à jour.","wiki.generatedByOsmAppsCatalog":"Ce tableau a été généré par le [{{link}} Catalogue des applications OSM] le {{date}}.","filter.category":"Menu","category.mobile.description":"Affiche les {{numberOfApps}} applications développées pour les appareils mobiles ou qui permettent une utilisation hors ligne.","filter.category.all":"Tout","noResults":"Aucun résultat","category.navigation.description":"Affiche les {{numberOfApps}} applications qui prennent en charge le guidage ou la navigation.","filter.category.navigation":"Trouver son chemin","compare.group.header.general":"Général","filter.coverage":"Couverture","filter.category.edit":"Améliorer la carte","compare.group.header.map":"Affichage de carte","filter.platform":"Plateforme","filter.category.mobile":"À emporter","category.edit.description":"Affiche les {{numberOfApps}} applications qui permettent d\'ajouter, de modifier ou d\'analyser des données d\'OpenStreetMap ou d\'enregistrer des traces GPS.","relatedApps":"{{numberOfApps}} applications associées","app.website":"Site Internet","app.author":"Développé par","app.sourceCode":"Code source","app.license":"Licence","app.languages":"Langues","app.platforms":"Plateformes","app.community.reddit":"Reddit","compare.unknown":"inconnu","app.getIt":"Obtenir sur","app.community.forumTag":"Étiquette du forum","app.community.matrix":"Salon Matrix","app.community.bluesky":"Bluesky","app.community.mastodon":"Mastodon","app.community.issueTracker":"Problèmes","share.wiki":"Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.","score.criteria.supportsContributions":"l\'application prend en charge les contributions (édition, analyse, etc) à OpenStreetMap","score.criteria.addingAndEditingPossible":"l\'ajout et l\'édition de points d\'interêt, chemins, etc est possible","score.criteria.sourceCodeReference":"une référence au code source est documentée","score.criteria.multiplePlatforms":"l\'application est disponible sur plusieurs plateformes (par ex. Web, Android, iOS)","score.criteria.documentationLink":"un lien vers la documentation est disponible","app.community.lemmy":"Lemmy","score.results":"Score de contribution de la communauté\\nTotal : {{total}} points\\n\\nActions requises pour un meilleure score :\\n{{notFulfilled}}\\n\\nDéjà effectué :\\n{{fulfilled}}","score.criteria.openSourceChannel":"un canal est hébergé sur des plateformes open source (par ex. Matrix)","score.criteria.freeOfCharge":"l\'application est gratuite","score.criteria.openSourceStores":"l\'application est disponible sur des magasins open source (par ex. F-Droid)","score.criteria.accessibilitySupported":"l\'accessibilité est prise en charge (par ex. compatibilité avec les lecteurs d\'écran ou calcul d\'itinéraire pour les personnes en fauteuil roulant)","app.contribute.toData.review":"Examiner des modifications","filter.preset":"Les filtres présélectionnés sont :","app.contribute.toData":"Aux données OSM","app.contribute.toCommunity.welcome":"Accueillir les nouveaux utilisateurs","app.community":"Communauté","app.source.date":"Dernière modification : {{date}}\\nPremière analyse : {{added}}","app.price":"Prix","app.source.description":"Source des données.","compare.share":"Partager dans wiki.openstreetmap.org","app.contribute.toData.tracks":"Enregistrer et partager des traces","app.contribute.toData.qa":"S\'assurer de la qualité","app.contribute.toData.photos":"Importer des photos pour la cartographie","app.contribute.toCommunity":"À la communauté","score.result":"- {{description}} ({{points}} points)","score.criteria.displaysMaps":"l\'application affiche des cartes ou des données OSM","score.criteria.openSource":"l\'application est open source","score.criteria.copyleftLicense":"la licence est de type copyleft (par ex. GPL, ODbL, MPL, CC)","score.criteria.tenLanguages":"l\'application est disponible dans au moins 10 langues","score.criteria.multipleLanguages":"l\'application prend en charge plusieurs langues (3 langues minimum)","select.search.placeholder":"Rechercher","compare.group.header.monitoring":"Suivi","compare.group.header.editing":"Édition","compare.group.header.rendering":"Rendu","compare.group.header.accessibility":"Accessibilité","list.moreInfos":"Informations","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","app.unmaintained":"(<icon/> Non maintenu)","app.unmaintained.wiki":"({{icon}} Non maintenu)","app.coverage":"Couverture","app.contribute":"Contribuer","app.contribute.toData.edit":"Modifier les données de la carte","app.contribute.toData.resolve":"Résoudre des notes de carte","app.source":"Source","score.criteria.lastUpdateThreeMonths":"la dernière mise à jour a eu lieu dans les 3 derniers mois","select.search.noResults":"Aucun résultat","filter.resetFilters":"Afficher tout","filter.preview":"Les filtres définis sont :","category.all.description.filtered":"{{numberOfApps}} sur {{totalNumberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","compare.group.header.routing":"Guidage","compare.group.header.navigating":"Navigation","list.documentation":"Documentation","list.more":"Plus","compare.group.header.tracking":"Traçage","app.install.asin":"Amazon Appstore","multilingual":"Multilingue","app.imageAlt":"Image de {{name}}.","app.install.googlePlay":"Google Play","app.contribute.toSoftware":"Au logiciel","app.install.fDroid":"F-Droid","app.install.huaweiAppGallery":"Huawei App Gallery","app.contribute.toSoftware.document":"Améliorer la documentation","app.contribute.toSoftware.translate":"Aider à traduire","app.contribute.toSoftware.develop":"Contribuer au code","app.community.forum":"Forum","app.community.githubDiscussions":"Discussions GitHub","score.criteria.issueTracker":"il existe un outil de suivi des problèmes","score.criteria.communityChannelExists":"un canal de communication existe pour la communauté (par ex. forum, Mastodon)","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Dernière version","about":"À propos","filter.moreFilters":"Filtres","filter.topic":"Sujet","notFound":"Vous n\'avez pas trouvé ce que vous cherchiez ?","score.criteria.lastUpdateYear":"la dernière mise à jour à eu lieu dans l\'année","app.community.telegram":"Groupe Telegram","list":"Liste","app.contribute.toSoftware.test":"Tester et faire des retours","app.community.slack":"Slack","notFound.desc":"Les services suivants vous permettent de créer vos propres cartes thématiques sans aucune connaissance en programmation. Il se peut que quelqu\'un ait déjà créé la carte que vous recherchez, ou vous pouvez créer votre propre carte thématique.","app.contribute.toSoftware.discuss":"Discuter et partager des idées","score.criteria.worldwideData":"l\'application couvre des données cartographiques à l\'échelle mondiale","compare":"Comparer","score.criteria.documentedMultiplePlatforms":"l\'application est documentée sur plusieurs plateformes (par ex. Wiki OSM, taginfo, Wikidata)","filter.search":"Rechercher","wiki.generatedBy":"Généré par le Catalogue des applications OSM","score.criteria.translationContributions":"il est possible de contribuer aux traductions"}');
 var locales_fr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(fr_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/hu.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/hu.json
 const hu_namespaceObject = /*#__PURE__*/JSON.parse('{"filter.category.navigation":"Útvonaltervezés","filter.category.edit":"Térképjavítás","category.all.description":"{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás.","category.focus.description":"Tíz alkalmazás a legutóbb frissített oldalakról.","category.latest.description":"{{numberOfApps}} alkalmazás az utolsó kiadás dátuma szerint rendezve.","category.mobile.description":"{{numberOfApps}} alkalmazás amelyet mobileszközre fejlesztettek vagy offline is használhatók.","category.edit.description":"{{numberOfApps}} alkalmazás, amely támogatja OpenStreetMap-adatok felvitelét, szerkesztését vagy elemzését, illetve nyomvonalak rögzítését.","category.navigation.description":"{{numberOfApps}} alkalmazás, amely támogat útvonaltervezést vagy navigációt.","relatedApps":"{{numberOfApps}} kapcsolódó alkalmazás","compare.group.header.map":"Térkép-megjelenítés","compare.group.header.routing":"Útvonaltervezés","compare.group.header.navigating":"Navigáció","notFound":"Nem találod, amit keresel?","notFound.desc":"A következő szolgáltatásokkal programozási ismeretek nélkül is létrehozhatsz saját tematikus térképet. Az is lehet, hogy valaki már el is készítette az általad keresett térképet, de saját tematikus térképet is létrehozhatsz.","compare.group.header.general":"Általános","compare.group.header.tracking":"Nyomvonal rögzítése","compare.group.header.monitoring":"Figyelemmel kísérés","compare.group.header.editing":"Szerkesztés","compare.group.header.rendering":"Térképkirajzolás","compare.group.header.accessibility":"Akadálymentesség","list.documentation":"Dokumentáció","list.moreInfos":"Információk","app.website":"Weboldal","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.platforms":"Platformok","app.lastRelease":"Legutóbbi kiadás","app.unmaintained":"(<icon/> nincs karbantartva)","app.unmaintained.wiki":"({{icon}} nincs karbantartva)","app.languages":"Nyelvek","app.coverage":"Terület","app.author":"Fejlesztő","app.license":"Licenc","app.sourceCode":"Forráskód","app.source":"Forrás","app.source.description":"Ezen adatok forrása.","compare.share":"Megosztás a wiki.openstreetmap.org oldalon","compare.unknown":"ismeretlen","share.wiki":"{{group}} táblázat kimásolva a vágólapra, a wiki.openstreetmap.org számára formázva.","wiki.generatedBy":"Létrehozta: OSM Apps Catalog","wiki.none":"nincs","wiki.generatedByOsmAppsCatalog":"Ezt a táblázatot az [{{link}} OSM Apps Catalog] hozta létre ({{date}}).","about":"Névjegy","filter.search":"Keresés","filter.topic":"Téma","filter.platform":"Platform","filter.language":"Nyelv","filter.coverage":"Terület","filter.category":"Menü","filter.category.all":"Összes","filter.category.focus":"Fókusz","filter.category.latest":"Legfrissebb","filter.category.mobile":"Mobil","noResults":"Nincs találat","multilingual":"Többnyelvű","app.price":"Ár","app.community":"Közösség","app.community.mastodon":"Mastodon","app.community.forumTag":"Fórumcímke","app.community.githubDiscussions":"GitHub megbeszélések","app.community.slack":"Slack","app.community.telegram":"Telegram csoport","app.community.reddit":"Reddit","list":"Lista","compare":"Összehasonlítás","app.community.matrix":"Mátrix szoba","app.community.issueTracker":"Problémák","app.community.forum":"Fórum","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.result":"- {{description}} ({{points}} pont)","score.criteria.openSourceChannel":"egy csatorna nyílt forráskódú platformon található (pl. Matrix)","score.criteria.lastUpdateThreeMonths":"az elmúlt 3 hónapban frissült","score.criteria.supportsContributions":"az alkalmazás támogatja az OpenStreetMapen történő közreműködést (szerkesztés, elemzés stb.)","score.criteria.copyleftLicense":"a szerzői jogok formája „copyleft” licenc (pl. GPL, ODbL, MPL vagy CC)","score.criteria.lastUpdateYear":"az elmúlt év során frissült","score.criteria.translationContributions":"közre lehet működni a fordításban","score.criteria.freeOfCharge":"az alkalmazás ingyenes","score.criteria.multiplePlatforms":"az alkalmazás több platformon is rendelkezésre áll (pl. Web, Android, iOS)","score.criteria.worldwideData":"az alkalmazás az egész világ térképadataira kiterjed","score.criteria.accessibilitySupported":"akadálymentesség támogatott (pl. képernyőolvasó-kompbatilitás vagy útvonaltervezés kerekesszékeseknek)","score.criteria.communityChannelExists":"a közösségnek van kommunikációs csatornája (pl. egy fórum vagy Mastodon)","score.results":"Közösségi hozzájárulási eredmény\\nÖsszesen: {{total}} pont\\n\\nMagasabb pontszámhoz szükséges intézkedések:\\n{{notFulfilled}}\\n\\nTeljesült:\\n{{fulfilled}}","score.criteria.addingAndEditingPossible":"lehet érdekes pontokat (POI-kat), vonalakat stb. felvenni és szerkeszteni","score.criteria.displaysMaps":"az alkalmazás megjelenít térképeket vagy OSM-adatokat","score.criteria.openSource":"az alkalmazás nyílt forráskódú","score.criteria.sourceCodeReference":"dokumentálva van a forráskódra való hivatkozás","score.criteria.issueTracker":"van hozzá problémakövető (issue tracker)","score.criteria.multipleLanguages":"az alkalmazás több (legalább 3) nyelvet támogat","score.criteria.tenLanguages":"az alkalmazás legalább 10 nyelven elérhető","score.criteria.openSourceStores":"az alkalmazás nyílt forráskódú áruházakból is letölthető (pl. F-Droid)","score.criteria.documentationLink":"rendelkezésre áll egy link a dokumentációra","score.criteria.documentedMultiplePlatforms":"az alkalmazás több platformon is dokumentálva van (pl. OSM Wiki, taginfo, Wikidata)","app.source.date":"Legutóbbi módosítás: {{date}}\\nElső automatikus észlelés (crawl): {{added}}","filter.moreFilters":"Szűrők","app.imageAlt":"Kép forrása: {{name}}.","list.more":"Tovább","select.search.noResults":"Nincs találat","app.contribute.toSoftware.develop":"Kód fejlesztése","app.contribute.toSoftware.test":"Tesztelés és visszajelzés","app.contribute.toData":"Az OSM-adatokhoz","app.contribute.toSoftware.document":"Dokumentáció javítása","app.contribute.toSoftware.translate":"Segítség a fordításban","app.contribute.toData.resolve":"Térképjegyzetek megoldása","app.contribute.toData.review":"Szerkesztések felülvizsgálata","app.contribute.toData.photos":"Fényképek feltöltése térképezéshez","app.contribute.toData.tracks":"Nyomvonal rögzítése és megosztása","app.contribute.toData.qa":"Minőségbiztosítás","app.contribute.toCommunity":"A közösséghez","app.contribute.toCommunity.welcome":"Új felhasználók üdvözlése","select.search.placeholder":"Keresés","app.contribute":"Közreműködés","app.contribute.toSoftware":"A szoftverhez","app.contribute.toSoftware.discuss":"Ötletek megvitatása és megosztása","app.contribute.toData.edit":"Térképadatok szerkesztése","filter.preview":"A szűrő beállítása:","category.all.description.filtered":"{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás (összes: {{totalNumberOfApps}})","filter.resetFilters":"Összes megjelenítése","app.getIt":"Beszerezhető itt:","app.community.lemmy":"Lemmy","filter.preset":"Az előre beállított szűrő:"}');
 var locales_hu_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(hu_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/id.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/id.json
 const id_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Situs web","app.sourceCode":"Kode sumber","app.license":"Lisensi","filter.language":"Bahasa","app.languages":"Bahasa","filter.category.focus":"Fokus","filter.search":"Cari","about":"Tentang","filter.platform":"Platform","filter.category":"Kategori","filter.category.latest":"Terbaru","filter.topic":"Topik","filter.coverage":"Cakupan","filter.category.all":"Semua","relatedApps":"{{jumlahAplikasi}} aplikasi terkait","category.mobile.description":"Menampilkan aplikasi {{numberOfApps}} yang dikembangkan untuk perangkat seluler atau yang mendukung penggunaan offline.","category.focus.description":"Menampilkan sepuluh aplikasi dari halaman yang paling baru diperbarui.","category.navigation.description":"Menampilkan {{numberOfApps}} aplikasi yang mendukung perutean atau navigasi.","category.edit.description":"Menampilkan aplikasi {{numberOfApps}} yang mendukung penambahan, pengeditan, atau analisis data OpenStreetMap atau perekaman geolokasi.","filter.category.mobile":"Untuk pergi","filter.category.navigation":"Temukan jalan Anda","filter.category.edit":"Kontribusi","category.all.description":"Menampilkan {{numberOfApps}} aplikasi yang ditemukan di wiki OpenStreetMap, Wikidata, dan taginfo secara acak.","category.latest.description":"Menampilkan {{numberOfApps}} aplikasi yang diurutkan berdasarkan tanggal rilis terakhir."}');
 var locales_id_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(id_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/it.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/it.json
 const it_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Sito web","app.author":"Autore","app.sourceCode":"Codice sorgente","app.license":"Licenza","filter.language":"Linguaggi","filter.platform":"Piattaforme","app.languages":"Linguaggio","app.platforms":"Piattaforma","app.community":"Comunità","app.community.forum":"Forum","app.community.mastodon":"Mastodon","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.asin":"Amazon Appstore","app.contribute.toSoftware.translate":"Aiuta a tradurre","app.install.fDroid":"F-Droid","compare.group.header.accessibility":"Accessibilità","app.install.googlePlay":"Google Play","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","select.search.placeholder":"Cerca","select.search.noResults":"Nessun risultato","list.moreInfos":"Informazioni","filter.resetFilters":"Mostra tutti","app.imageAlt":"Immagine da {{name}}.","app.install.huaweiAppGallery":"Huawei App Gallery","app.community.bluesky":"Bluesky","list":"Lista","filter.search":"Cerca","filter.moreFilters":"Filtri","filter.coverage":"Copertura","filter.category":"Menù","filter.category.edit":"Migliora la mappa","notFound":"Non hai trovato quello che stai cercando?","noResults":"Nessun risultato","compare.group.header.general":"Generale"}');
 var locales_it_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(it_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/ja.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/ja.json
 const ja_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"ウェブサイト","app.sourceCode":"ソースコード","app.license":"ライセンス","filter.platform":"動作環境","filter.language":"言語","app.platforms":"動作環境","app.languages":"言語"}');
 var locales_ja_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ja_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/ko.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/ko.json
 const ko_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"웹 사이트","app.author":"제작","app.sourceCode":"소스 코드","app.license":"라이선스","filter.platform":"플랫폼","filter.language":"언어","app.platforms":"플랫폼","app.languages":"언어"}');
 var locales_ko_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ko_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/nb_NO.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/nb_NO.json
 const nb_NO_namespaceObject = /*#__PURE__*/JSON.parse('{"compare.group.header.general":"Generelt","app.website":"Nettsted","app.sourceCode":"Kildekode","app.license":"Lisens","filter.platform":"Platform","filter.language":"Språk","app.languages":"Språk"}');
 var locales_nb_NO_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(nb_NO_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/pl.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/pl.json
 const pl_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Pokaż {{numberOfApps}} aplikacji posortowanych według daty wydania.","filter.category.focus":"Skupienie","filter.category.latest":"Ostatnie","wiki.none":"brak","filter.language":"Język","filter.category":"Kategoria","filter.category.all":"Wszystko","noResults":"Brak wyników","category.navigation.description":"Pokaż {{numberOfApps}} aplikacji, które wspierają wyznaczanie trasy i nawigację.","filter.category.navigation":"Znajdź swoją drogę","compare.group.header.general":"Ogólne","filter.category.edit":"Pomóż w rozwoju projektu","compare.group.header.map":"Wyświetlanie mapy","filter.platform":"Platforma","relatedApps":"{{numberOfApps}} powiązanych aplikacji","app.website":"Strona internetowa","app.author":"Autor","app.sourceCode":"Kod źródłowy","app.license":"Licencja","app.languages":"Języki","app.platforms":"Platformy"}');
 var locales_pl_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(pl_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/pt.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/pt.json
 const pt_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Site da Internet","app.author":"Autor","app.sourceCode":"Código fonte","app.license":"Licença","filter.platform":"Plataforma","filter.language":"Linguagem","app.languages":"Linguagens","app.platforms":"Plataformas"}');
 var locales_pt_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(pt_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/ru.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/ru.json
 const ru_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","app.website":"веб-сайт","app.sourceCode":"исходный код","app.license":"лицензия","filter.language":"язык","filter.platform":"платформa","app.platforms":"платформ","app.languages":"языки"}');
 var locales_ru_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ru_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/ta.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/ta.json
 const ta_namespaceObject = /*#__PURE__*/JSON.parse('{"score.results":"சமூக பங்களிப்பு மதிப்பெண்\\n மொத்தம்: {{total}} புள்ளிகள்\\n\\n அதிக மதிப்பெண்ணுக்கு தேவையான நடவடிக்கைகள்:\\n {{notFulfilled}}}\\n\\n நிறைவேறியது:\\n {{fulfilled}}}","score.criteria.supportsContributions":"OpenStreetMap க்கு பங்களிப்புகளை (எடிட்டிங், பகுப்பாய்வு போன்றவை) பயன்பாடு ஆதரிக்கிறது","score.criteria.sourceCodeReference":"மூலக் குறியீட்டைப் பற்றிய குறிப்பு ஆவணப்படுத்தப்பட்டுள்ளது","score.criteria.lastUpdateYear":"கடைசி புதுப்பிப்பு கடந்த ஆண்டுக்குள் நிகழ்ந்தது","score.criteria.lastUpdateThreeMonths":"கடைசி புதுப்பிப்பு கடந்த 3 மாதங்களுக்குள் நிகழ்ந்தது","score.criteria.translationContributions":"மொழிபெயர்ப்புகளுக்கான பங்களிப்புகள் சாத்தியமாகும்","score.criteria.accessibilitySupported":"அணுகல் ஆதரிக்கப்படுகிறது (எ.கா. திரை ரீடர் பொருந்தக்கூடிய தன்மை அல்லது சக்கர நாற்காலி பயனர்களுக்கான பாதை கணக்கீடு)","score.criteria.communityChannelExists":"சமூகத்திற்கான தகவல்தொடர்பு சேனல் உள்ளது (எ.கா. மன்றம், மாச்டோடன்)","score.criteria.openSourceChannel":"திறந்த மூல தளங்களில் (எ.கா. மேட்ரிக்ச்) ஒரு சேனல் புரவலன் செய்யப்படுகிறது","about":"பற்றி","list":"பட்டியல்","compare":"ஒப்பிடுக","filter.search":"தேடல்","filter.moreFilters":"வடிப்பான்கள்","filter.topic":"தலைப்பு","filter.coverage":"பாதுகாப்பு","filter.category":"வகை","filter.category.all":"அனைத்தும்","filter.category.focus":"குவி","filter.category.latest":"அண்மைக் கால","filter.category.mobile":"செல்ல","filter.category.navigation":"உங்கள் வழியைக் கண்டறியவும்","filter.category.edit":"பங்களிப்பு","category.focus.description":"மிக அண்மைக் காலத்தில் புதுப்பிக்கப்பட்ட பக்கங்களிலிருந்து பத்து பயன்பாடுகள்.","category.latest.description":"{{numberOfApps}} பயன்பாடுகள் கடைசி வெளியீட்டு தேதியால் வரிசைப்படுத்தப்பட்டன.","category.all.description":"திற {{numberOfApps}} திற openstreetmap ஐப் பயன்படுத்தும் பயன்பாடுகள், சமூக பங்களிப்பு மதிப்பெண்ணால் வரிசைப்படுத்தப்படுகின்றன.","category.navigation.description":"{{numberOfApps}} ரூட்டிங் அல்லது வழிசெலுத்தலை ஆதரிக்கும் பயன்பாடுகள்.","category.edit.description":"திற {{numberOfApps}} opentretmap தரவைச் சேர்ப்பது, திருத்துதல் அல்லது பகுப்பாய்வு செய்தல் அல்லது சியோட்ராக்களை பதிவுசெய்தல் ஆகியவற்றை ஆதரிக்கும் பயன்பாடுகள்.","relatedApps":"{{numberOfApps}} தொடர்புடைய பயன்பாடுகள்","notFound":"நீங்கள் தேடுவதைக் கண்டுபிடிக்கவில்லை?","noResults":"முடிவுகள் இல்லை","compare.group.header.general":"பொது","compare.group.header.map":"வரைபட காட்சி","compare.group.header.routing":"ரூட்டிங்","compare.group.header.navigating":"வழிசெலுத்தல்","compare.group.header.tracking":"கண்காணிப்பு","compare.group.header.monitoring":"கண்காணிப்பு","compare.group.header.editing":"திருத்துதல்","compare.group.header.rendering":"வழங்குதல்","multilingual":"பன்மொழி","list.documentation":"ஆவணப்படுத்துதல்","list.more":"மேலும்","list.moreInfos":"தகவல்கள்","app.imageAlt":"{{name}} இருந்து இலிருந்து படம்.","app.languages":"மொழிகள்","app.community.mastodon":"மாச்டோடன்","app.community.issueTracker":"சிக்கல்கள்","app.community.githubDiscussions":"அறிவிலிமையம் விவாதங்கள்","app.community.reddit":"ரெடிட்","app.source.date":"கடைசி மாற்றம்: {{date}}","wiki.generatedByOsmAppsCatalog":"இந்த அட்டவணை {{link}} இல் [{{date}} osm பயன்பாடுகளின் பட்டியல்] ஆல் உருவாக்கப்பட்டது.","score.result":"- {{description}} ({{points}} புள்ளிகள்)","score.criteria.copyleftLicense":"உரிமம் ஒரு நகல் உரிமம் (எ.கா., சிபிஎல், ஓடிபிஎல், எம்.பி.எல், சிசி)","score.criteria.addingAndEditingPossible":"POI கள், வழிகள் போன்றவற்றைச் சேர்ப்பது மற்றும் திருத்துவது சாத்தியமாகும்","score.criteria.displaysMaps":"பயன்பாடு வரைபடங்கள் அல்லது OSM தரவைக் காட்டுகிறது","score.criteria.openSource":"பயன்பாடு திறந்த மூலமாகும்","score.criteria.issueTracker":"ஒரு சிக்கல் டிராக்கர் உள்ளது","score.criteria.multipleLanguages":"பயன்பாடு பல மொழிகளை ஆதரிக்கிறது (நிமிடம் 3 மொழிகள்)","score.criteria.tenLanguages":"பயன்பாடு குறைந்தது 10 மொழிகளில் கிடைக்கிறது","score.criteria.freeOfCharge":"பயன்பாடு இலவசம்","score.criteria.multiplePlatforms":"பயன்பாடு பல தளங்களில் கிடைக்கிறது (எ.கா. வலை, ஆண்ட்ராய்டு, iOS)","score.criteria.openSourceStores":"திறந்த-மூல கடைகள் வழியாக (எ.கா. எஃப்-டிராய்டு) பயன்பாட்டை அணுகலாம்","score.criteria.worldwideData":"பயன்பாடு உலகளாவிய வரைபடத் தரவை உள்ளடக்கியது","score.criteria.documentationLink":"ஆவணப்படுத்தல் இணைப்பு கிடைக்கிறது","score.criteria.documentedMultiplePlatforms":"பயன்பாடு பல தளங்களில் ஆவணப்படுத்தப்பட்டுள்ளது (எ.கா. ஓஎச்எம்-விக்கி, டாகின்ஃபோ, விக்கிடேட்டா)","app.community":"சமூகம்","app.community.forum":"மன்றம்","app.community.forumTag":"மன்ற நாள்","app.community.matrix":"அணி அறை","filter.platform":"இயங்குதளம்","filter.language":"மொழி","category.mobile.description":"Mobile {{numberOfApps}} மொபைல் சாதனங்களுக்காக உருவாக்கப்பட்ட பயன்பாடுகள் அல்லது இணைப்பில்லாத பயன்பாட்டை ஆதரிக்கின்றன.","notFound.desc":"பின்வரும் சேவைகள் மூலம் எந்த நிரலாக்க அறிவும் இல்லாமல் உங்கள் சொந்த கருப்பொருள் வரைபடங்களை உருவாக்கலாம். நீங்கள் தேடும் வரைபடத்தை யாராவது ஏற்கனவே உருவாக்கியிருக்கலாம் அல்லது உங்கள் சொந்த கருப்பொருள் வரைபடத்தை உருவாக்கலாம்.","compare.group.header.accessibility":"அணுகல்","app.website":"வலைத்தளம்","app.install.asin":"அமேசான் ஆப்ச்டோர்","app.install.fDroid":"எஃப்-டிராய்டு","app.install.googlePlay":"கூகிள் ப்ளே","app.install.huaweiAppGallery":"அவாய் ஆப் கேலரி","app.install.obtainium":"பெறுங்கள்","app.install.appleStore":"ஆப்பிள் ஆப் கடை","app.install.macAppStore":"மேக் ஆப் கடை","app.install.microsoftApp":"நுண்மென் கடை","app.platforms":"தளங்கள்","app.lastRelease":"கடைசி வெளியீடு","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.coverage":"பாதுகாப்பு","app.community.bluesky":"ப்ளூச்கி","app.community.telegram":"தந்தி குழு","app.community.slack":"மந்தமான","app.author":"நூலாசிரியர்","app.price":"விலை","app.license":"உரிமம்","app.sourceCode":"மூலக் குறியீடு","app.source":"மூலம்","app.source.description":"இந்த தரவு எங்கிருந்து வருகிறது என்பதற்கான மூல.","compare.share":"Wiki.openstreetmap.org இல் பங்கு","compare.unknown":"தெரியவில்லை","share.wiki":"Wiki.openstreetmap.org க்காக வடிவமைக்கப்பட்ட இடைநிலைப்பலகைக்கு {{group}} அட்டவணை நகலெடுக்கப்பட்டது.","wiki.generatedBy":"OSM APPS பட்டியலால் உருவாக்கப்பட்டது","wiki.none":"எதுவுமில்லை"}');
 var locales_ta_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ta_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/tr.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/tr.json
 const tr_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Internet sitesi","app.sourceCode":"Kaynak kodu","app.license":"Lisans","filter.platform":"Platform","filter.language":"Dili","app.languages":"Dilleri","app.platforms":"Platformlar"}');
 var locales_tr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(tr_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/uk.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/uk.json
 const uk_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","app.website":"веб-сайт","app.sourceCode":"сирці","app.license":"ліцензія","filter.language":"мовa","filter.platform":"платформa","app.platforms":"платформи","app.languages":"мови"}');
 var locales_uk_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(uk_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/zh_Hant.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hant.json
 const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"網站","app.author":"作者","app.sourceCode":"原始碼","app.license":"許可證","filter.platform":"平臺","filter.language":"語言","app.languages":"語言","app.platforms":"平臺","about":"關於","filter.category.edit":"貢獻","filter.category":"類別","filter.category.all":"全部","filter.category.latest":"最新","category.all.description":"以隨機順序顯示在 OpenStreetMap wiki 和 taginfo 上找到的 {{numberOfApps}} 個應用程式。","category.latest.description":"顯示按上次發佈日期排序的 {{numberOfApps}} 個應用程式。","category.mobile.description":"顯示為行動裝置開發或支援離線使用的 {{numberOfApps}} 個應用程式。","compare.group.header.monitoring":"監測","compare.group.header.navigating":"導航","compare.group.header.tracking":"追蹤","compare.group.header.editing":"編輯","compare.group.header.accessibility":"無障礙","list.moreInfos":"資訊","multilingual":"多種語言","app.coverage":"覆蓋範圍","app.install.macAppStore":"Mac App Store","filter.topic":"主題","category.edit.description":"顯示支援新增、編輯或分析 OpenStreetMap 資料或記錄地理軌跡的 {{numberOfApps}} 個應用程式。","relatedApps":"{{numberOfApps}} 個相關應用程式","noResults":"沒有結果","app.unmaintained":"（<icon/> 未維護）","app.unmaintained.wiki":"（{{icon}} 未維護）","app.price":"價格","app.source":"來源","compare.share":"在 wiki.openstreetmap.org 中分享","filter.search":"搜尋","compare.group.header.routing":"路由","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"上次發佈","filter.coverage":"覆蓋範圍","filter.category.focus":"焦點","category.focus.description":"顯示最近更新頁面的十個應用程式。","category.navigation.description":"顯示支援路由或導航的 {{numberOfApps}} 個應用程式。","compare.group.header.general":"一般","compare.group.header.map":"地圖顯示","list.documentation":"文件","app.install.asin":"亞馬遜應用商店","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"華為應用市場","app.install.appleStore":"Apple App Store","compare.unknown":"未知","share.wiki":"已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。","wiki.generatedBy":"由 OSM Apps Catalog 產生","wiki.none":"無","wiki.generatedByOsmAppsCatalog":"此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。"}');
 var locales_zh_Hant_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(zh_Hant_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/zh_Hans.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hans.json
 const zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"网站","app.sourceCode":"源代码","app.license":"执照","filter.platform":"平台","filter.language":"语言","app.platforms":"平台","app.languages":"语言"}');
 var locales_zh_Hans_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(zh_Hans_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/utilities/templateData.json
+;// CONCATENATED MODULE: ./src/app/ui/utilities/templateData.json
 const templateData_namespaceObject = {};
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/en.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/en.json
 const wiki_software_template_en_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Template language","description":"Language in which the template texts are displayed."},"name":{"label":"Name","description":"Official name, otherwise most common one"},"status":{"label":"Status","description":"Current status of the project."},"license":{"label":"License","description":"What free license or proprietary?"},"price":{"label":"Price","description":"Costs if proprietary. If price is empty, application is for free."},"web":{"label":"Web address"},"repo":{"label":"Source code","description":"URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"},"logo":{"label":"Logo"},"screenshot":{"label":"Screenshot"},"description":{"label":"Description","description":"Brief description. What distinguishes this from other tools? (Write your own description, don\'t just copy it from the website)"},"author":{"label":"Author","description":"Name of the author or a link to their OSM-wiki user page"},"platform":{"label":"Supported platforms","description":"List of platforms it runs on."},"genre":{"label":"Genre","description":"Main category for this tool."},"languages":{"label":"Languages","description":"Supported languages (list of valid language codes separated by semicolons) or number of languages supported"},"languagesurl":{"label":"Languages URL","description":"Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."},"coverage":{"label":"Coverage","description":"Coverage or target region of the app. Formatting: \\"Continent, Country, Region, ...\\". Use \\"Worldwide\\" or leave it empty for global use."},"code":{"label":"Code","description":"List of programming languages used."},"framework":{"label":"Framework","description":"List of frameworks used."},"version":{"label":"Version","description":"Latest version"},"date":{"label":"Release date","description":"Latest release date"},"asin":{"label":"Amazon Identification","description":"Amazon Standard Identification Number for the Amazon Appstore for Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World application ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid application ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace application ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store application ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery application ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store application ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store application ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows application UUID"},"obtainiumLink":{"label":"Obtainium Updater Link","description":"Link to Obtainium updater information"},"map":{"label":"Display map","description":"[Map display] Can it show a map?"},"mapData":{"label":"Map data","description":"[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \\"on the fly\\" (vector)?"},"datasource":{"label":"Source","description":"[Map display] Can you store all map data offline? Download a separate file?"},"rotateMap":{"label":"Rotate map","description":"[Map display] Does it turn the map in driving/walking direction?"},"3D":{"label":"3D view","description":"[Map display] Is there some 3D or 2.5D view?"},"showWebsite":{"label":"Shows website","description":"[POI Information] Shows link to the website from POI"},"showPhoneNumber":{"label":"Shows phone number","description":"[POI Information] Shows phone number from POI"},"showOpeningHours":{"label":"Shows operation hours","description":"[POI Information] Shows hours of operation from POI"},"routing":{"label":"Routing","description":"[Routing] Can you calculate or otherwise plan a route?"},"createRouteManually":{"label":"Create route manually","description":"[Routing]"},"calculateRoute":{"label":"Calculate route","description":"[Routing] Can it calculate a route using routing?"},"createRouteViaWaypoints":{"label":"Create route via Waypoints","description":"[Routing] Able to calculate route via Waypoints"},"profiles":{"label":"Routing profiles","description":"[Routing] What profiles supported if it makes routing?"},"turnRestrictions":{"label":"Turn restrictions","description":"[Routing] Can it deal with turn restrictions?"},"calculateRouteOffline":{"label":"Calculate route without Internet (Offline routing)","description":"[Routing] Does it need internet to calculate a route?"},"routingProviders":{"label":"Routing providers","description":"[Routing] What routing service(s) does it use?"},"avoidTraffic":{"label":"Avoid traffic","description":"[Routing] Does app optimize route to avoid traffic jams?"},"trafficProvider":{"label":"Traffic Provider","description":"[Routing] Traffic data source provider."},"navigating":{"label":"Navigate","description":"[Navigation] Can you navigate in a compass like way?"},"findLocation":{"label":"Find location","description":"[Navigation] Can it search for a street/place?"},"findNearbyPOI":{"label":"Find nearby POIs","description":"[Navigation] Can it discover/display Points of interests?"},"navToPoint":{"label":"Navigate to point","description":"[Navigation] Can it guide you to a point somewhere?"},"voice":{"label":"Navigation with voice / Voice guidance","description":"[Navigation] Can it give you commands with a computer voice?"},"keepOnRoad":{"label":"Keep on road","description":"[Navigation] Can it assist you to keep your vehicle on the calculated route?"},"turnLanes":{"label":"Lane guidance","description":"[Navigation] Does it support lane guidance?"},"withoutGPS":{"label":"Works without GPS","description":"[Navigation] Does it work even without a GPS?"},"predefinedRoute":{"label":"Navigate along predefined route","description":"[Navigation] Can it follow other GPS tracks?"},"tracking":{"label":"Make track","description":"[Track logging] Can it record a GPS track?"},"customInterval":{"label":"Customizable log interval","description":"[Track logging] Can you tune the interval manually?"},"trackFormats":{"label":"Track formats","description":"[Track logging] What formats for storage can you save your GPS track?"},"geotagging":{"label":"Geotagging","description":"[Track logging] Are further mapping techniques supported"},"fastWayPointAdding":{"label":"Fast POI buttons","description":"[Track logging] Easy to add a new Waypoint?"},"uploadGPX":{"label":"Upload GPX to OSM","description":"[Track logging] Can it send tracks directly to OSM?"},"monitoring":{"label":"Monitoring","description":"[Track monitoring] Can you monitor GPS datas?"},"showTrack":{"label":"Show current track","description":"[Track monitoring] Show your current track?"},"showExistingTrack":{"label":"Open existing track","description":"[Track monitoring] Can it load existing tracks so you can follow them?"},"showAltitudeDiagram":{"label":"Altitude diagram","description":"[Track monitoring]"},"showDOP":{"label":"Show POD value","description":"[Track monitoring] Shows signal quality?"},"showSatellites":{"label":"Satellite view","description":"[Track monitoring] Displays satellites?"},"showNMEAlive":{"label":"Show live NMEA data","description":"[Track monitoring] Can you see the raw GPS stream?"},"showSpeed":{"label":"Show speed","description":"[Track monitoring]"},"sendPosition":{"label":"Send current position","description":"[Track monitoring] Can it send position to others?"},"addPOI":{"label":"Add POIs","description":"[Editor] Can you add a node?"},"editPOI":{"label":"Edit / Delete POIs","description":"[Editor] Can you edit a node?"},"addWay":{"label":"Add way","description":"[Editor] Can you add a way?"},"editGeom":{"label":"Edit geometries","description":"[Editor] Can you edit nodes/ways?"},"editTags":{"label":"Edit arbitrary tags of existing OSM objects","description":"[Editor] Can you edit existing tags?"},"editRelations":{"label":"Edit relations","description":"[Editor] Can you edit relations?"},"viewNotes":{"label":"View notes","description":"[Editor] Can you view OSM Notes?"},"createNotes":{"label":"Create notes","description":"[Editor] Can you add OSM Notes?"},"editNotes":{"label":"Edit notes","description":"[Editor] Can you comment/close OSM Notes?"},"editSource":{"label":"Work offline","description":"[Editor] Can you work offline?"},"offsetDBsupport":{"label":"Support imagery offset DB","description":"[Editor] Does it support the imagery offset DB?"},"uploadOSMData":{"label":"Upload to OSM","description":"[Editor] Can you send changes to OSM directly?"},"rendererOutputFormats":{"label":"Renderer output formats","description":"[Renderer] Supported output formats."},"accessibility":{"label":"Accessibility support","description":"[Accessibility] Does it help disabled people in some kind?"},"textOnlyUI":{"label":"Complete non graphics text output","description":"[Accessibility] Text to braille compatible interface?"},"brailleUI":{"label":"Braille interface","description":"[Accessibility] A special braille interface?"},"explorerMode":{"label":"Exploration modus","description":"[Accessibility] Has a exploration modus (tell all objects approaching)?"},"publicTransportMode":{"label":"Public Transport mode","description":"[Accessibility] Supports routing with public transport?"},"dangerWarnings":{"label":"Danger Warnings","description":"[Accessibility]"},"screenReader":{"label":"Screenreader","description":"[Accessibility] List of supported screenreaders"},"screenReaderLang":{"label":"Screenreader languages","description":"[Accessibility] List of supported screenreaders languages"}}');
 var locales_wiki_software_template_en_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_en_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/cs.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/cs.json
 const wiki_software_template_cs_namespaceObject = /*#__PURE__*/JSON.parse('{"status":{"label":"Stav","description":"Aktuální stav projektu."},"lang":{"label":"Jazyk šablony","description":"Jazyk, ve kterém se zobrazují texty šablony."},"name":{"label":"Název","description":"Oficiální název, jinak nejběžnější název"},"license":{"label":"Licence","description":"Je licence svobodná nebo proprietární?"},"price":{"label":"Cena","description":"Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma."},"web":{"label":"Webová adresa"},"repo":{"label":"Zdrojový kód","description":"URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)"},"logo":{"label":"Logo"},"screenshot":{"label":"Otisk obrazovky"},"description":{"label":"Popis","description":"Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)"},"author":{"label":"Autor","description":"Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"},"platform":{"label":"Podporované platformy","description":"Seznam platforem, na kterých běží."},"genre":{"label":"Typ","description":"Hlavní kategorie tohoto nástroje."},"languages":{"label":"Jazyky","description":"Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků"},"coverage":{"label":"Pokrytí","description":"Pokrytí nebo cílová oblast aplikace. Formátování: \\"Kontinent, země, region, ...\\". Pro globální použití použijte \\"Worldwide\\" nebo jej nechte prázdný."},"languagesurl":{"label":"URL pro jazyky","description":"Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště)."},"code":{"label":"Kód","description":"Seznam použitých programovacích jazyků."},"framework":{"label":"Framework","description":"Seznam použitých frameworků."},"version":{"label":"Verze","description":"Nejnovější verze"},"date":{"label":"Datum vydání","description":"Nejnovější datum vydání"},"asin":{"label":"Identifikace Amazon","description":"Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android"},"bbWorldID":{"label":"BlackBerry ID","description":"ID aplikace v BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"ID aplikace F-Droid"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"ID aplikace Mozilla Firefox Marketplace"},"googlePlayID":{"label":"Google Play ID","description":"ID aplikace v Obchodě Google Play"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"ID aplikace Huawei AppGallery"},"appleStoreID":{"label":"AppStore ID","description":"ID aplikace iTunes App Store"},"macAppStoreID":{"label":"Mac AppStore ID","description":"ID aplikace Mac App Store"},"microsoftAppID":{"label":"Microsoft ID","description":"UUID aplikace Microsoft Store pro systém Windows"},"map":{"description":"[Zobrazení mapy] Lze zobrazit mapu?","label":"Zobrazení mapy"},"mapData":{"label":"Mapová data","description":"[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \\"za běhu\\" (vektory)?"},"datasource":{"label":"Zdroj","description":"[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?"},"rotateMap":{"label":"Rotace mapy","description":"[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?"},"3D":{"label":"3D pohled","description":"[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?"},"showWebsite":{"label":"Zobrazení webové stránky","description":"[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu"},"showPhoneNumber":{"label":"Zobrazí telefonní číslo","description":"[Informace o POI] Zobrazí telefonní číslo z POI"},"showOpeningHours":{"label":"Zobrazuje provozní dobu","description":"[Informace o POI] Zobrazí provozní dobu z POI"},"routing":{"label":"Hledání trasy","description":"[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?"},"createRouteManually":{"label":"Vytvoření trasy ručně","description":"[Hledání trasy]"},"calculateRoute":{"label":"Výpočet trasy","description":"[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?"},"createRouteViaWaypoints":{"label":"Vytvoření trasy pomocí bodů trasy","description":"[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů"},"profiles":{"label":"Profily hledání trasy","description":"[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?"},"turnRestrictions":{"description":"[Hledání trasy] Dokáže se vypořádat s omezením otáčení?","label":"Omezení otáčení"},"calculateRouteOffline":{"label":"Výpočet trasy bez internetu (hledání trasy offline)","description":"[Hledání trasy] Potřebuje k výpočtu trasy internet?"},"routingProviders":{"description":"[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?","label":"Poskytovatelé hledání tras"},"trafficProvider":{"label":"Poskytovatel informací o provozu","description":"[Hledání trasy] Poskytovatel zdroje dopravních dat."},"navigating":{"label":"Navigace","description":"[Navigace] Umíte se orientovat podle kompasu?"},"findLocation":{"label":"Hledání polohy","description":"[Navigace] Umí vyhledat ulici/místo?"},"findNearbyPOI":{"label":"Hledání blízkých bodů zájmu","description":"[Navigace] Umí najít/zobrazit body zájmu?"},"navToPoint":{"label":"Navigace do bodu","description":"[Navigace] Dokáže vás navigovat někam?"},"voice":{"label":"Navigace s hlasem / Hlasové navádění","description":"[Navigace] Umí vám dávat příkazy počítačovým hlasem?"},"turnLanes":{"label":"Navádění do jízdních pruhů","description":"[Navigace] Podporuje navádění do jízdních pruhů?"},"withoutGPS":{"description":"[Navigace] Bude fungovat i bez GPS?","label":"Fungování bez GPS"},"predefinedRoute":{"description":"[Navigace] Umí sledovat jiné GPS trasy?","label":"Navigace po předem definované trase"},"tracking":{"label":"Vytvoření trasy","description":"[Záznam trasy] Lze zaznamenat trasu GPS?"},"customInterval":{"label":"Přizpůsobitelný interval záznamu","description":"[Záznam trasy] Lze interval nastavit ručně?"},"trackFormats":{"label":"Formáty tras","description":"[Záznam trasy] V jakých formátech lze uložit trasu GPS?"},"fastWayPointAdding":{"label":"Rychlá tlačítka POI","description":"[Záznam trasy] Snadné přidání nového bodu trasy?"},"uploadGPX":{"description":"[Záznam tras] Lze odesílat trasy přímo do OSM?","label":"Nahrání GPX do OSM"},"monitoring":{"label":"Monitorování","description":"[Monitorování trasy] Můžete monitorovat data GPS?"},"showTrack":{"label":"Zobrazení aktuální trasy","description":"[Monitorování trasy] Zobrazuje aktuální trasu?"},"showAltitudeDiagram":{"label":"Výškový diagram","description":"[Monitorování trasy]"},"showDOP":{"description":"[Monitorování trasy] Zobrazuje kvalitu signálu?","label":"Zobrazení hodnoty POD"},"showSatellites":{"description":"[Monitorování trasy] Zobrazuje satelity?","label":"Zobrazení satelitů"},"showSpeed":{"label":"Zobrazení rychlosti","description":"[Monitorování trasy]"},"sendPosition":{"label":"Odeslání aktuální polohy","description":"[Monitorování trasy] Může odesílat polohu ostatním?"},"addPOI":{"label":"Přidání bodů zájmu","description":"[Editor] Můžete přidat uzel?"},"avoidTraffic":{"description":"[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?","label":"Vyhýbání se provozu"},"showExistingTrack":{"label":"Otevření existující trasy","description":"[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"},"showNMEAlive":{"label":"Zobrazení živých dat NMEA","description":"[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"},"keepOnRoad":{"label":"Pokračování v cestě","description":"[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?"},"geotagging":{"label":"Geotagging","description":"[Záznam trasy] Jsou podporovány další techniky mapování"},"editPOI":{"label":"Úprava / odstranění bodů zájmu","description":"[Editor] Je možné upravit uzel?"},"addWay":{"label":"Přidání cesty","description":"[Editor] Můžete přidat cestu?"},"editGeom":{"description":"[Editor] Lze upravovat uzly/cesty?","label":"Úprava geometrie"},"editTags":{"label":"Úprava libovolných značek existujících objektů OSM","description":"[Editor] Lze upravovat existující značky?"},"editRelations":{"label":"Úprava relací","description":"[Editor] Lze upravit relace?"},"viewNotes":{"label":"Zobrazení poznámek","description":"[Editor] Lze zobrazit poznámky OSM?"},"createNotes":{"label":"Tvorba poznámek","description":"[Editor] Lze přidat poznámky OSM?"},"editSource":{"description":"[Editor] Lze pracovat offline?","label":"Fungování v režimu offline"},"offsetDBsupport":{"label":"Podpora posunu snímků DB","description":"[Editor] Podporuje obrazový posun DB?"},"uploadOSMData":{"label":"Nahrání do OSM","description":"[Editor] Lze změny odeslat přímo do OSM?"},"rendererOutputFormats":{"label":"Výstupní formáty rendereru","description":"[Renderer] Podporované výstupní formáty."},"accessibility":{"description":"[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?","label":"Podpora přístupnosti"},"textOnlyUI":{"label":"Úplný negrafický textový výstup","description":"[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?"},"brailleUI":{"label":"Rozhraní Braillova písma","description":"[Přístupnost] Speciální braillovo rozhraní?"},"publicTransportMode":{"label":"Režim veřejné dopravy","description":"[Dostupnost] Podporuje hledání trasy veřejnou dopravou?"},"dangerWarnings":{"label":"Výstrahy před nebezpečím","description":"[Přístupnost]"},"screenReader":{"label":"Čtení obrazovky","description":"[Přístupnost] Seznam podporovaných čteček obrazovky"},"screenReaderLang":{"label":"Jazyky čtečky obrazovky","description":"[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky"},"editNotes":{"label":"Úprava poznámek","description":"[Editor] Lze komentovat/zavřít poznámky OSM?"},"explorerMode":{"label":"Modus průzkumu","description":"[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"},"obtainiumLink":{"description":"Odkaz na informace o aktualizačním programu Obtainium","label":"Odkaz na aktualizační program Obtainium"}}');
 var locales_wiki_software_template_cs_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_cs_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/de.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/de.json
 const wiki_software_template_de_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Sprache der Vorlage","description":"Sprache, in der die Texte der Vorlage angezeigt werden."},"name":{"label":"Name","description":"Offizieller Name, ansonsten der verbreitetste"},"license":{"label":"Lizenz","description":"Welche freie Lizenz oder proprietär?"},"price":{"label":"Preis","description":"Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos."},"repo":{"label":"Quellcode","description":"URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)"},"screenshot":{"label":"Bildschirmfoto"},"description":{"label":"Beschreibung","description":"Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)"},"author":{"label":"Autor","description":"Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"},"platform":{"label":"Plattform","description":"Liste der Plattformen, auf denen es läuft."},"languages":{"label":"Sprachen","description":"Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen"},"code":{"label":"Code","description":"Liste der verwendeten Programmiersprachen."},"framework":{"label":"Framework","description":"Liste der verwendeten Frameworks."},"version":{"label":"Version","description":"Aktuellste Version"},"map":{"label":"Karte anzeigen","description":"[Kartenanzeige] Kann eine Karte angezeigt werden?"},"rotateMap":{"label":"Karte drehen","description":"[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?"},"3D":{"label":"3D-Ansicht","description":"[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?"},"routing":{"description":"Funktionen: Können Sie eine Route berechnen oder sonst wie planen?","label":"Routenplanung"},"createRouteManually":{"label":"Route von Hand eingeben","description":"[Routenplanung]"},"calculateRoute":{"label":"Route berechnen","description":"[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"},"turnRestrictions":{"label":"Abbiegebeschränkungen","description":"[Routing] Kann es mit Abbiegeverboten umgehen?"},"calculateRouteOffline":{"label":"Route berechnen ohne Internet","description":"[Routing] Braucht es Internet, um eine Route zu berechnen?"},"navigating":{"label":"Navigieren","description":"[Navigation] Kann man mit einem Kompass navigieren?"},"findLocation":{"label":"Finde eine Position","description":"[Navigation] Kann man nach einer Straße/einem Ort suchen?"},"findNearbyPOI":{"label":"Finde POI in der Nähe","description":"[Navigation] Kann es Points of Interest anzeigen?"},"navToPoint":{"label":"Navigiere zu einem Punkt","description":"[Navigation] Kann es einen zu einem bestimmten Punkt führen?"},"voice":{"label":"Navigation mit Sprachansage","description":"[Navigation] Kann es Befehle mit einer Computerstimme geben?"},"withoutGPS":{"label":"Funktioniert ohne GPS","description":"[Navigation] Funktioniert auch ohne GPS?"},"predefinedRoute":{"label":"Folge einer vordefinierten Route","description":"[Navigation] Kann anderen GPS-Tracks folgen?"},"tracking":{"label":"Track aufzeichnen","description":"[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?"},"customInterval":{"label":"Einstellbares Aufzeichnungsintervall","description":"[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?"},"fastWayPointAdding":{"label":"Knöpfe zum schnellen Setzen von Wegpunkten","description":"[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?"},"monitoring":{"label":"Monitoring","description":"[Streckenüberwachung] Kann man GPS-Daten überwachen?"},"showTrack":{"label":"Zeige aktuellen Track","description":"[Streckenüberwachung] Zeigt es den aktuellen Kurs an?"},"showExistingTrack":{"label":"Öffne existierenden Track","description":"[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?"},"showAltitudeDiagram":{"label":"Höhendiagramm","description":"[Streckenüberwachung]"},"showDOP":{"label":"Zeige DOP-Wert","description":"[Streckenüberwachung] Zeigt es die Signalqualität an?"},"showSatellites":{"label":"Zeige Satelliten","description":"[Streckenüberwachung] Zeigt es Satelliten an?"},"showNMEAlive":{"label":"Zeige NMEA-Livedaten","description":"[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?"},"sendPosition":{"label":"Sende aktuelle Position","description":"[Streckenüberwachung] Kann man seine Position an andere senden?"},"addPOI":{"label":"POI hinzufügen","description":"[Editor] Kann man Punkte hinzufügen?"},"editPOI":{"label":"POI bearbeiten/löschen","description":"[Editor] Kann man Punkte bearbeiten?"},"editGeom":{"label":"Geometrie bearbeiten","description":"[Editor] Kann man Knoten/Wege bearbeiten?"},"editTags":{"label":"Beliebige Tags an vorhandenen OSM-Objekten bearbeiten","description":"[Editor] Kann man bestehende Tags bearbeiten?"},"offsetDBsupport":{"label":"Unterstützt Luftbildversatz DB","description":"[Editor] Unterstützt es die Bildoffset-DB?"},"uploadOSMData":{"label":"Zu OSM hochladen","description":"[Editor] Kann man Änderungen direkt an OSM senden?"},"textOnlyUI":{"label":"Komplett ohne Grafik bedienbar","description":"[Barrierefreiheit] Text in Braille kompatible Schnittstelle?"},"brailleUI":{"label":"Braille-Oberfläche","description":"[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?"},"explorerMode":{"label":"Erkundungsmodus","description":"[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?"},"publicTransportMode":{"label":"ÖPNV-Modus","description":"[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?"},"dangerWarnings":{"label":"Gefahrenwarnungen","description":"[Barrierefreiheit]"},"screenReader":{"label":"Screenreader","description":"[Barrierefreiheit] Liste der unterstützten Screenreader"},"screenReaderLang":{"label":"Screenreader-Sprachen","description":"[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen"},"status":{"label":"Status","description":"Aktueller Status des Projekts."},"web":{"label":"Internetadresse"},"date":{"label":"Veröffentlichungsdatum","description":"Letztes Veröffentlichungsdatum"},"coverage":{"label":"Abdeckung","description":"Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."},"mapData":{"label":"Kartendaten","description":"[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows-Anwendungs-UUID"},"obtainiumLink":{"label":"Obtainium Updater Verweis","description":"Verweis zu Obtainium updater Informationen"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store Anwendungs-D"},"editRelations":{"label":"Relationen bearbeiten","description":"[Editor] Kann man Relationen bearbeiten?"},"genre":{"label":"Genre","description":"Hauptkategorie für dieses Tool."},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store Anwendungs-ID"},"datasource":{"label":"Quelle","description":"[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"},"logo":{"label":"Logo"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid-Anwendungs-ID"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World-Anwendungs-ID"},"languagesurl":{"label":"Sprachen-URL","description":"Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository)."},"asin":{"label":"Amazon Identifikation","description":"Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marktplatz-Anwendungs-ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery Anwendungs-ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store Anwendungs-ID"},"showPhoneNumber":{"description":"[POI-Informationen] Zeigt die Telefonnummer des POI an","label":"Zeigt Telefonnummer"},"showOpeningHours":{"label":"Zeigt die Betriebszeiten an","description":"[POI-Informationen] Zeigt die Betriebszeiten des POI an."},"createRouteViaWaypoints":{"label":"Route über Wegpunkte erstellen","description":"[Routenplanung] Kann Route über Wegpunkte berechnen"},"showWebsite":{"label":"Website anzeigen","description":"[POI Information] Zeigt den Link zur Website vom POI an"},"profiles":{"label":"Routing Profile","description":"[Routing] Welche Profile werden beim Routing unterstützt?"},"routingProviders":{"description":"[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?","label":"Routing-Anbieter"},"avoidTraffic":{"label":"Verkehr vermeiden","description":"[Routing] Optimiert die App die Route, um Staus zu vermeiden?"},"trafficProvider":{"label":"Verkehrsanbieter","description":"[Routing] Anbieter der Verkehrsdatenquelle."},"keepOnRoad":{"label":"Auf der Straße bleiben","description":"[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"},"turnLanes":{"label":"Fahrspurführung","description":"[Navigation] Unterstützt es die Fahrspurführung?"},"uploadGPX":{"label":"GPX zu OSM hochladen","description":"[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?"},"trackFormats":{"label":"Track-Formate","description":"[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?"},"viewNotes":{"label":"Notizen anzeigen","description":"[Editor] Kann man OSM-Notizen anzeigen?"},"addWay":{"label":"Weg hinzufügen","description":"[Editor] Kann man Wege hinzufpgen?"},"editNotes":{"label":"Notizen bearbeiten","description":"[Editor] Kann man OSM-Notizen kommentieren/schließen?"},"createNotes":{"label":"Notizen erstellen","description":"[Editor] Kann man OSM-Notizen anlegen?"},"geotagging":{"label":"Geotagging","description":"[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?"},"showSpeed":{"label":"Geschwindigkeit anzeigen","description":"[Streckenüberwachung]"},"editSource":{"label":"Offline benutzen","description":"[Editor] Kannst man offline arbeiten?"},"rendererOutputFormats":{"label":"Renderer-Ausgabeformate","description":"[Renderer] Unterstützte Ausgabeformate."},"accessibility":{"label":"Unterstützung der Barrierefreiheit","description":"[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?"}}');
 var locales_wiki_software_template_de_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_de_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/es.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/es.json
 const wiki_software_template_es_namespaceObject = /*#__PURE__*/JSON.parse('{"name":{"label":"Nombre","description":"Nombre oficial, el más común"},"status":{"label":"Estado","description":"Estado actual del proyecto."},"price":{"label":"Precio","description":"Precio de la licencia si es propietaria. Y sin el, sí es gratuita."},"web":{"label":"Dirección web"},"repo":{"label":"Código fuente","description":"URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"},"logo":{"label":"Logotipo"},"screenshot":{"label":"Captura de pantalla"},"lang":{"description":"Idioma en el que se muestran los textos de la plantilla.","label":"Idioma de la plantilla"},"description":{"label":"Descripción","description":"Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"},"license":{"label":"Licencia","description":"¿Qué licencia tiene?"},"author":{"label":"Autor","description":"Nombre del autor o un enlace a su página de usuario de OSM-wiki"},"platform":{"label":"Plataformas compatibles","description":"Lista de plataformas en las que se ejecuta."},"genre":{"description":"Categoría principal de esta herramienta.","label":"Género"},"languagesurl":{"label":"Idiomas URL","description":"Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."},"code":{"label":"Código","description":"Lista de lenguajes de programación utilizados."},"framework":{"label":"Framework","description":"Lista de marcos utilizados."},"version":{"description":"Última versión","label":"Versión"},"date":{"label":"Fecha de publicación","description":"Última fecha de lanzamiento"},"asin":{"description":"Número de identificación estándar de Amazon para Amazon Appstore para Android","label":"Identificación de Amazon"},"bbWorldID":{"label":"ID de BlackBerry","description":"ID de la aplicación de BlackBerry World"},"languages":{"label":"Idiomas","description":"Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"},"coverage":{"label":"Cobertura","description":"Cobertura o región de destino de la aplicación. Formato: \\"Continente, País, Región, ...\\". Utilice \\"Worldwide\\" o déjelo vacío para un uso global."},"fDroidID":{"label":"ID de F-Droid","description":"ID de la aplicación F-Droid"},"firefoxMarketplaceID":{"label":"ID de Firefox Marketplace","description":"ID de la aplicación Mozilla Firefox Marketplace"},"googlePlayID":{"label":"ID de Google Play","description":"ID de la aplicación Google Play Store"},"huaweiAppGalleryID":{"label":"ID de Huawei AppGallery","description":"ID de la aplicación Huawei AppGallery"},"appleStoreID":{"label":"ID de la AppStore","description":"ID de la aplicación iTunes App Store"},"macAppStoreID":{"description":"ID de la aplicación Mac App Store","label":"ID de la Mac AppStore"},"microsoftAppID":{"label":"ID de Microsoft","description":"UUID de la aplicación Windows de Microsoft Store"},"map":{"label":"Mostrar mapa","description":"[Visualización de mapa] ¿Puede mostrar un mapa?"},"mapData":{"label":"Datos del mapa","description":"[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \\"sobre la marcha\\" (vector)?"},"datasource":{"description":"[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?","label":"Fuente"},"3D":{"label":"Vista 3D","description":"[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"},"showPhoneNumber":{"label":"Muestra el número de teléfono","description":"[Información del PDI] Muestra el número de teléfono del PDI"},"showOpeningHours":{"description":"[Información del POI] Muestra el horario de funcionamiento del POI","label":"Indica el horario de apertura"},"calculateRoute":{"label":"Calcular ruta","description":"[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"},"createRouteViaWaypoints":{"label":"Crear ruta a través de Waypoints","description":"[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"},"showWebsite":{"description":"[Información del POI] Muestra el enlace a la página web desde el POI","label":"Muestra la página web"},"rotateMap":{"label":"Girar el mapa","description":"[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"},"createRouteManually":{"label":"Crear ruta manualmente","description":"[Enrutamiento]"},"routing":{"label":"Enrutamiento","description":"[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"},"profiles":{"label":"Perfiles de enrutamiento","description":"[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"},"turnRestrictions":{"label":"Restricciones de giro","description":"[Enrutamiento] ¿Puede lidiar con restricciones de giro?"},"calculateRouteOffline":{"description":"[Enrutamiento] ¿Necesita Internet para calcular una ruta?","label":"Calcular ruta sin Internet (Enrutamiento sin conexión)"},"routingProviders":{"label":"Proveedores de enrutamiento","description":"[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"},"trafficProvider":{"description":"[Enrutamiento] Proveedor de la fuente de datos del tráfico.","label":"Proveedor de tráfico"},"navigating":{"label":"Navegar","description":"[Navegación] ¿Puedes navegar con una brújula?"},"findLocation":{"label":"Encontrar ubicación","description":"[Navegación] ¿Puede buscar una calle/lugar?"},"findNearbyPOI":{"description":"[Navegación] ¿Puede descubrir/mostrar puntos de interés?","label":"Encuentra puntos de interés cercanos"},"navToPoint":{"label":"Navegar hasta el punto","description":"[Navegación] ¿Puede guiarte a un punto en algún lugar?"},"voice":{"label":"Navegación por voz / Guía por voz","description":"[Navegación] ¿Puede darte comandos con una voz artificial?"},"keepOnRoad":{"label":"Siga por la carretera","description":"[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"},"turnLanes":{"label":"Guía de carriles","description":"[Navegación] ¿Es compatible con la guía de carriles?"},"withoutGPS":{"description":"[Navegación] ¿Funciona incluso sin GPS?","label":"Funcionar sin GPS"},"customInterval":{"label":"Intervalo de registro personalizable","description":"[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"},"trackFormats":{"label":"Formatos de pista","description":"[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"},"geotagging":{"label":"Geoetiquetado","description":"[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"},"fastWayPointAdding":{"label":"Botones rápidos de PDI","description":"[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"},"uploadGPX":{"label":"Cargar GPX a OSM","description":"[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"},"monitoring":{"label":"Monitorización","description":"[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"},"showExistingTrack":{"label":"Abrir pista existente","description":"[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"},"showAltitudeDiagram":{"label":"Gráfico de elevación","description":"[Seguimiento de la pista]"},"showDOP":{"label":"Mostrar valor DOP","description":"[Monitoreo de pista] ¿Muestra la calidad de la señal?"},"showSatellites":{"label":"Vista satelital","description":"[Monitoreo de trayectoria] ¿Muestra satélites?"},"showNMEAlive":{"label":"Mostrar datos NMEA en directo","description":"[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"},"showSpeed":{"label":"Mostrar velocidad","description":"[Seguimiento de la pista]"},"sendPosition":{"label":"Enviar posición actual","description":"[Monitoreo de pistas] ¿Puede enviar posición a otros?"},"addPOI":{"label":"Agregar puntos de interés","description":"[Editor] ¿Puedes agregar un nodo?"},"editPOI":{"label":"Editar/eliminar puntos de interés","description":"[Editor] ¿Puedes editar un nodo?"},"addWay":{"label":"Agregar vía","description":"[Editor] ¿Puedes agregar una vía?"},"editGeom":{"label":"Editar geometrías","description":"[Editor] ¿Puedes editar nodos/vías?"},"editTags":{"description":"[Editor] ¿Puedes editar etiquetas existentes?","label":"Editar etiquetas aleatorias de objetos OSM existentes"},"editRelations":{"label":"Editar relaciones","description":"[Editor] ¿Puedes editar las relaciones?"},"viewNotes":{"label":"Ver notas","description":"[Editor] ¿Puedes ver las notas de OSM?"},"createNotes":{"label":"Crear notas","description":"[Editor] ¿Puedes agregar notas a OSM?"},"editNotes":{"label":"Editar notas","description":"[Editor] ¿Puedes comentar/cerrar Notas en OSM?"},"editSource":{"label":"Trabajar sin conexión","description":"[Editor] ¿Puedes trabajar sin conexión?"},"predefinedRoute":{"label":"Navegar por una ruta predefinida","description":"[Navegación] ¿Puede seguir otras rutas GPS?"},"avoidTraffic":{"label":"Evitar el tráfico","description":"[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"},"tracking":{"label":"Realizar un seguimiento","description":"[Registro de seguimiento] ¿Puede grabar un track de GPS?"},"showTrack":{"label":"Mostrar pista actual","description":"[Monitoreo de pista] ¿Mostrar tu pista actual?"},"uploadOSMData":{"label":"Cargar en OSM","description":"[Editor] ¿Puede enviar los cambios a OSM directamente?"},"rendererOutputFormats":{"label":"Formatos del renderizador","description":"[Renderizador] Formatos de salida admitidos."},"accessibility":{"label":"Ayuda a la accesibilidad","description":"[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"},"brailleUI":{"label":"Interfaz en Braille","description":"[Accesibilidad] ¿Una interfaz braille especial?"},"explorerMode":{"label":"Modo exploración","description":"[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"},"publicTransportMode":{"label":"Modo de transporte público","description":"[Accesibilidad] ¿Admite rutas con transporte público?"},"dangerWarnings":{"label":"Avisos de peligro","description":"[Accesibilidad]"},"screenReader":{"label":"Lector de pantalla","description":"[Accesibilidad] Lista de lectores de pantalla compatibles"},"screenReaderLang":{"label":"Idiomas del lector de pantalla","description":"[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"},"offsetDBsupport":{"label":"Admite el desplazamiento de imágenes aéreas DB","description":"[Editor] ¿Soporta el offset de imágenes DB?"},"textOnlyUI":{"label":"Salida de texto sin gráficos","description":"[Accesibilidad] ¿Interfaz compatible de texto a braille?"},"obtainiumLink":{"label":"Enlace de actualización de Obtainium","description":"Enlace a la información de actualización de Obtainium"}}');
 var locales_wiki_software_template_es_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_es_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/et.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/et.json
 const wiki_software_template_et_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Malli keel","description":"Keel, milles malli tekstid on kuvatud."},"name":{"label":"Nimi","description":"Ametlik nimi või selle puudumisel üldlevinud nimi"},"status":{"label":"Olek","description":"Projekti praegune olek."},"license":{"label":"Litsents","description":"Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?"},"price":{"label":"Hind","description":"Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta."},"web":{"label":"Veebiaadress"},"repo":{"description":"Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)","label":"Lähtekood"},"screenshot":{"label":"Ekraanitõmmis"},"description":{"label":"Kirjeldus","description":"Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)"},"author":{"label":"Autor","description":"Autori nimi ja/või link vastavale OSM-viki kasutajalehele"},"platform":{"label":"Toetatud platvormid","description":"Platvormide loend, kus see rakendus töötab."},"genre":{"label":"Žanr","description":"Selle tarviku põhikategooria."},"languages":{"label":"Keeled","description":"Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"},"logo":{"label":"Logo"},"languagesurl":{"label":"Keelte võrguaadress","description":"Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel)."},"version":{"description":"Viimane versioon","label":"Versioon"},"asin":{"description":"Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)","label":"Amazoni kasutajatunnus"},"coverage":{"label":"Katvus","description":"Rakenduse kasutatvuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."},"code":{"label":"Lähtekood","description":"Kasutatud programmeerimiskeelte loend."},"framework":{"label":"Arendusraamistik","description":"Koodi kirjutamisel kasutatud arendusraamistik."},"date":{"label":"Väljalaske kuupäev","description":"Viimase versiooni avaldamise kuupäev"},"mapData":{"description":"[Kaardi kuvamine] Kas kaart kuvatakse varemloodud piltide ja paanidena (rasterkaart) või „lennult“ (vektorkaart)?","label":"Kaardiandmed"},"obtainiumLink":{"description":"Link lehele, mis kirjeldab uuendamist Obtainiumi jaoks","label":"Uuendamise link Obtainiumis"},"map":{"description":"[Kaardi kuvamine] Kas rakenduses on kaardivaade?","label":"Kaardi kuvamine"},"bbWorldID":{"label":"BlackBerry ID","description":"Rakenduse tunnus BlackBerry Worldis"},"fDroidID":{"label":"F-Droid ID","description":"Rakenduse tunnus F-Droidis"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Rakenduse tunnus Mozilla Firefox Marketplace\'is"},"googlePlayID":{"label":"Google Play ID","description":"Rakenduse tunnus Google Play Store\'is"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Rakenduse tunnus Huawei AppGallery\'s"},"appleStoreID":{"label":"AppStore ID","description":"Rakenduse tunnus iTunes App Store\'is"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Rakenduse tunnus Mac App Store\'is"},"microsoftAppID":{"label":"Microsoft ID","description":"Windowsi rakenduse UUID-tunnus Microsoft Store\'is"},"datasource":{"label":"Kaardiallikas","description":"[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?"},"rotateMap":{"label":"Kardi pööramine","description":"[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?"},"3D":{"label":"3D-vaade","description":"[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"}}');
 var locales_wiki_software_template_et_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_et_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/hu.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/hu.json
 const wiki_software_template_hu_namespaceObject = /*#__PURE__*/JSON.parse('{"map":{"label":"Térkép megjelenítése","description":"[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"},"microsoftAppID":{"description":"Microsoft Store Windows alkalmazás UUID","label":"Microsoft ID"},"mapData":{"label":"Térképadatok","description":"[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"},"datasource":{"label":"Forrás","description":"[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"},"rotateMap":{"label":"Térkép elforgatása","description":"[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"},"3D":{"label":"3D nézet","description":"[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"},"showWebsite":{"label":"Megjelenít-e weboldalt?","description":"[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalra mutató linkjét?"},"showPhoneNumber":{"label":"Megjelenít-e telefonszámot?","description":"[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"},"showOpeningHours":{"label":"Megjelenít-e nyitva tartást?","description":"[POI információ] Megjeleníti-e a POI nyitvatartási idejét?"},"routing":{"label":"Útvonaltervezés","description":"[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"},"createRouteManually":{"label":"Útvonal létrehozása manuálisan","description":"[Útvonaltervezés]"},"calculateRoute":{"label":"Útvonal kiszámítása","description":"[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"},"createRouteViaWaypoints":{"label":"Útvonal létrehozása útpontokkal","description":"[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"},"profiles":{"label":"Útvonaltervezési profilok","description":"[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"},"turnRestrictions":{"label":"Bekanyarodási korlátozások","description":"[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"},"calculateRouteOffline":{"label":"Útvonal kiszámítása internet nélkül (offline útvonaltervezés)","description":"[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"},"routingProviders":{"label":"Útvonaltervezési szolgáltatók","description":"[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"},"avoidTraffic":{"label":"Forgalom elkerülése","description":"[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"},"trafficProvider":{"label":"Forgalmi szolgáltató","description":"[Útvonaltervezés] Forgalmi adatok forrásának szolgáltatója"},"navigating":{"label":"Navigáció","description":"[Navigáció] Tud-e iránytűszerűen navigálni?"},"findLocation":{"label":"Hely keresése","description":"[Navigáció] Lehet-e utcát/helyet keresni?"},"findNearbyPOI":{"label":"Közeli POI-k keresése","description":"[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"},"navToPoint":{"label":"Navigáció ponthoz","description":"[Navigáció] El tud-e vezetni valahová?"},"voice":{"label":"Hangos navigáció / Hangvezérlés","description":"[Navigáció] Tud-e számítógéphanggal utasítást adni?"},"keepOnRoad":{"label":"Úton tartás","description":"[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"},"turnLanes":{"label":"Sávvezetés","description":"[Navigáció] Támogatja-e a sávok közötti vezetést?"},"withoutGPS":{"label":"Működés GPS nélkül","description":"[Navigáció] Működik-e akár GPS nélkül is?"},"predefinedRoute":{"label":"Navigálás előre meghatározott útvonalon","description":"[Navigáció] Tud-e más GPS-nyomvonalat követni?"},"tracking":{"label":"Nyomvonalkészítés","description":"[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"},"customInterval":{"label":"Testreszabható naplózási intervallum","description":"[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"},"trackFormats":{"label":"Nyomvonalformátumok","description":"[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"},"geotagging":{"label":"Geotagging","description":"[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"},"fastWayPointAdding":{"label":"Gyors POI-gombok","description":"[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"},"uploadGPX":{"label":"GPX feltöltése az OSM-re","description":"[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"},"monitoring":{"label":"Követés","description":"[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"},"showTrack":{"label":"Jelenlegi nyomvonal megjelenítése","description":"[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"},"showExistingTrack":{"label":"Meglévő nyomvonal megnyitása","description":"[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"},"showAltitudeDiagram":{"label":"Magassági diagram","description":"[Nyomvonalkövetés]"},"showSpeed":{"description":"[Nyomvonalkövetés]","label":"Sebesség megjelenítése"},"showDOP":{"label":"DOP-érték megjelenítése","description":"[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"},"showSatellites":{"label":"Műholdak nézet","description":"[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"},"editTags":{"description":"[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?","label":"Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"},"showNMEAlive":{"label":"Élő NMEA-adatok megjelenítése","description":"[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"},"editRelations":{"label":"Kapcsolat szerkesztése","description":"[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"},"viewNotes":{"label":"Jegyzetek megtekintése","description":"[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"},"createNotes":{"label":"Jegyzet létrehozása","description":"[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"},"editNotes":{"label":"Jegyzet szerkesztése","description":"[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"},"editSource":{"label":"Offline munka","description":"[Szerkesztő] Lehet-e vele offline dolgozni?"},"offsetDBsupport":{"label":"Légifelvétel-eltolási adatbázis támogatása","description":"[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"},"uploadOSMData":{"label":"Feltöltés az OSM-re","description":"[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"},"rendererOutputFormats":{"label":"Megjelenítő kimeneti formátumai","description":"[Megjelenítő] Támogatott kimeneti formátumok"},"accessibility":{"label":"Kisegítő lehetőségek támogatása","description":"[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"},"textOnlyUI":{"label":"Teljes nem grafikus szöveges kimenet","description":"[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"},"brailleUI":{"label":"Braille-írás interfész","description":"[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"},"explorerMode":{"label":"Feltáró mód","description":"[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)"},"publicTransportMode":{"label":"Tömegközlekedési mód","description":"[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"},"dangerWarnings":{"label":"Figyelmeztetés veszélyre","description":"[Akadálymentesség]"},"screenReader":{"label":"Képernyő-felolvasó","description":"[Akadálymentesség] Támogatott képernyő-felolvasók listája"},"screenReaderLang":{"label":"Képernyő-felolvasó nyelvei","description":"[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"},"genre":{"label":"Típus","description":"Az eszköz fő kategóriája"},"googlePlayID":{"description":"Google Play Store alkalmazásazonosító","label":"Google Play ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery alkalmazásazonosító"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store alkalmazásazonosító"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store alkalmazásazonosító"},"lang":{"label":"Sablon nyelve","description":"A sablonszövegek megjelenítésének nyelve"},"name":{"label":"Név","description":"Hivatalos név, annak híján a legelterjedtebb"},"languagesurl":{"description":"Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban).","label":"Nyelvek URL-je"},"code":{"label":"Kód","description":"A felhasznált programozási nyelvek listája"},"framework":{"label":"Keretrendszer","description":"A felhasznált keretrendszerek listája"},"version":{"label":"Verzió","description":"Legújabb verzió"},"date":{"label":"Kiadás dátuma","description":"A legutóbbi megjelenés dátuma"},"asin":{"label":"Amazon azonosító","description":"Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World alkalmazásazonosító"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid alkalmazásazonosító"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace alkalmazásazonosító"},"sendPosition":{"label":"Jelenlegi pozíció elküldése","description":"[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"},"addPOI":{"label":"Érdekes pont (POI-k) felvétele","description":"[Szerkesztő] Fel lehet-e venni egy pontot?"},"editPOI":{"label":"Érdekes pont szerkesztésetörlése","description":"[Szerkesztő] Lehet-e vele pontot szerkeszteni?"},"addWay":{"label":"Vonal felvétele","description":"[Szerkesztő] Lehet-e vele vonalat felrajzolni?"},"editGeom":{"label":"Alakzat szerkesztése","description":"[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"},"status":{"label":"Állapot","description":"A projekt jelenlegi állapota"},"license":{"label":"Licenc","description":"Milyen szabad vagy tulajdonosi licenc alá tartozik?"},"price":{"label":"Ár","description":"Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."},"web":{"label":"Webcím"},"repo":{"label":"Forráskód","description":"URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"},"logo":{"label":"Logó"},"screenshot":{"label":"Képernyőkép"},"description":{"label":"Leírás","description":"Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"},"author":{"label":"Szerző","description":"A szerző neve vagy OSM-wiki felhasználói oldalának linkje"},"platform":{"label":"Támogatott platformok","description":"Azon platformok listája, amelyeken fut"},"languages":{"label":"Nyelvek","description":"Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"},"coverage":{"label":"Lefedés","description":"Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."},"obtainiumLink":{"label":"Obtainium frissítési link","description":"Link az Obtainium frissítési információkhoz"}}');
 var locales_wiki_software_template_hu_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_hu_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/ta.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ta.json
 const wiki_software_template_ta_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"வார்ப்புரு மொழி","description":"வார்ப்புரு நூல்கள் காட்டப்படும் மொழி."},"name":{"label":"பெயர்","description":"அதிகாரப்பூர்வ பெயர், இல்லையெனில் மிகவும் பொதுவானது"},"status":{"label":"நிலை","description":"திட்டத்தின் தற்போதைய நிலை."},"description":{"description":"சுருக்கமான விளக்கம். இதை மற்ற கருவிகளிலிருந்து வேறுபடுத்துவது எது? (உங்கள் சொந்த விளக்கத்தை எழுதுங்கள், வலைத்தளத்திலிருந்து நகலெடுக்க வேண்டாம்)","label":"விவரம்"},"author":{"label":"நூலாசிரியர்","description":"ஆசிரியரின் பெயர் அல்லது அவர்களின் OSM-wiki பயனர் பக்கத்திற்கான இணைப்பு"},"platform":{"label":"ஆதரிக்கப்பட்ட தளங்கள்","description":"அது இயங்கும் தளங்களின் பட்டியல்."},"genre":{"label":"வகை","description":"இந்த கருவிக்கான முக்கிய வகை."},"languagesurl":{"label":"மொழிகள் முகவரி","description":"மற்றொரு பக்கத்தில் விவரிக்கப்பட்டுள்ள, ஆதரிக்கப்படும் மொழிகளின் உண்மையான முழு பட்டியலுக்கான இணைப்பு (எ.கா. மென்பொருளுக்கான போர்ட்டல் பக்கம் அல்லது களஞ்சியம்)."},"languages":{"description":"ஆதரிக்கப்படும் மொழிகள் (அரைக்காற்புள்ளிகளால் பிரிக்கப்பட்ட செல்லுபடியாகும் மொழிக் குறியீடுகளின் பட்டியல்) அல்லது ஆதரிக்கப்படும் மொழிகளின் எண்ணிக்கை","label":"மொழிகள்"},"coverage":{"label":"பாதுகாப்பு","description":"பயன்பாட்டின் பாதுகாப்பு அல்லது இலக்கு பகுதி. வடிவமைப்பு: \\"கண்டம், நாடு, பகுதி, ...\\". \\"உலகளவில்\\" பயன்படுத்தவும் அல்லது உலகளாவிய பயன்பாட்டிற்காக காலியாக விடவும்."},"asin":{"label":"அமேசான் அடையாளம்","description":"ஆண்ட்ராய்டு க்கான அமேசான் ஆப்ச்டோரிற்கான அமேசான் தரநிலை அடையாள எண்"},"bbWorldID":{"label":"பிளாக்பெர்ரி ஐடி","description":"பிளாக்பெர்ரி உலக பயன்பாட்டு ஐடி"},"fDroidID":{"label":"எஃப்-டிராய்டு ஐடி","description":"எஃப்-டிராய்டு பயன்பாட்டு ஐடி"},"firefoxMarketplaceID":{"label":"பயர்பாக்ச் சந்தை ஐடி","description":"மொசில்லா பயர்பாக்ச் மார்க்கெட்ப்ளேச் பயன்பாட்டு ஐடி"},"googlePlayID":{"label":"கூகிள் பிளே ஐடி","description":"கூகிள் பிளே கடை பயன்பாட்டு ஐடி"},"huaweiAppGalleryID":{"label":"அவாய் AppGallery ஐடி","description":"HUAWEI AppGallery பயன்பாட்டு ஐடி"},"appleStoreID":{"label":"ஆப்ச்டோர் ஐடி","description":"ஐடியூன்ச் ஆப் கடை பயன்பாட்டு ஐடி"},"macAppStoreID":{"description":"மேக் ஆப் கடை பயன்பாட்டு ஐடி","label":"மேக் ஆப்ச்டோர் ஐடி"},"microsoftAppID":{"label":"நுண்மென் ஐடி","description":"நுண்மென் கடை சாளரங்கள் பயன்பாடு UUID"},"obtainiumLink":{"description":"புதுப்பிப்பு தகவல்களைப் பெறுவதற்கான இணைப்பு","label":"புதுப்பிப்பு இணைப்பைப் பெறுங்கள்"},"mapData":{"description":"[Map display] Maps drawn using pre-calculated/rasterized படங்கள் (raster) or \\"on the fly\\" (vector)?","label":"வரைபட தரவு"},"map":{"description":"[வரைபட காட்சி] இது ஒரு வரைபடத்தைக் காட்ட முடியுமா?","label":"வரைபடம் காட்சி"},"datasource":{"label":"மூலம்","description":"[வரைபட காட்சி] எல்லா வரைபடத் தரவையும் ஆஃப்லைனில் சேமிக்க முடியுமா? தனி கோப்பைப் பதிவிறக்கவா?"},"showPhoneNumber":{"description":"[POI தகவல்] POI இலிருந்து தொலைபேசி எண்ணைக் காட்டுகிறது","label":"தொலைபேசி எண்ணைக் காட்டுகிறது"},"profiles":{"description":"[ரூட்டிங்] ரூட்டிங் செய்தால் என்ன சுயவிவரங்கள் ஆதரிக்கின்றன?","label":"ரூட்டிங் சுயவிவரங்கள்"},"turnRestrictions":{"label":"கட்டுப்பாடுகளைத் திருப்புங்கள்","description":"[ரூட்டிங்] திருப்பக் கட்டுப்பாடுகளைச் சமாளிக்க முடியுமா?"},"calculateRouteOffline":{"label":"இணையம் இல்லாமல் பாதையை கணக்கிடுங்கள் (ஆஃப்லைன் ரூட்டிங்)","description":"[ரூட்டிங்] ஒரு வழியைக் கணக்கிட இணையம் தேவையா?"},"routingProviders":{"description":"[ரூட்டிங்] என்ன ரூட்டிங் சேவைகள்) இது பயன்படுத்துகிறது?","label":"ரூட்டிங் வழங்குநர்கள்"},"avoidTraffic":{"label":"போக்குவரத்தைத் தவிர்க்கவும்","description":"[ரூட்டிங்] போக்குவரத்து நெரிசல்களைத் தவிர்க்க பயன்பாடு பாதையை மேம்படுத்துகிறதா?"},"trafficProvider":{"label":"போக்குவரத்து வழங்குநர்","description":"[ரூட்டிங்] போக்குவரத்து தரவு மூல வழங்குநர்."},"navigating":{"label":"செல்லவும்","description":"[வழிசெலுத்தல்] நீங்கள் ஒரு திசைகாட்டி வழியில் செல்ல முடியுமா?"},"findLocation":{"label":"இருப்பிடத்தைக் கண்டறியவும்","description":"[வழிசெலுத்தல்] இது ஒரு தெரு/இடத்தைத் தேட முடியுமா?"},"findNearbyPOI":{"label":"அருகிலுள்ள POI களைக் கண்டுபிடி","description":"[வழிசெலுத்தல்] ஆர்வங்களின் புள்ளிகளைக் கண்டறிய/காண்பிக்க முடியுமா?"},"navToPoint":{"label":"புள்ளிக்கு செல்லவும்","description":"[வழிசெலுத்தல்] எங்காவது ஒரு கட்டத்திற்கு உங்களை வழிநடத்த முடியுமா?"},"voice":{"label":"குரல் / குரல் வழிகாட்டுதலுடன் வழிசெலுத்தல்","description":"[வழிசெலுத்தல்] இது கணினி குரலுடன் கட்டளைகளை வழங்க முடியுமா?"},"keepOnRoad":{"description":"[வழிசெலுத்தல்] உங்கள் வாகனத்தை கணக்கிடப்பட்ட பாதையில் வைக்க இது உங்களுக்கு உதவ முடியுமா?","label":"சாலையில் வைத்திருங்கள்"},"turnLanes":{"label":"சந்து வழிகாட்டுதல்","description":"[வழிசெலுத்தல்] இது பாதை வழிகாட்டலை ஆதரிக்கிறதா?"},"withoutGPS":{"description":"[வழிசெலுத்தல்] சி.பி.எச் இல்லாமல் கூட இது வேலை செய்யுமா?","label":"சி.பி.எச் இல்லாமல் வேலை செய்கிறது"},"predefinedRoute":{"label":"முன் வரையறுக்கப்பட்ட பாதையில் செல்லவும்","description":"[வழிசெலுத்தல்] இது மற்ற சி.பி.எச் தடங்களைப் பின்பற்ற முடியுமா?"},"tracking":{"description":"[ட்ராக் லாக்கிங்] சி.பி.எச் பாதையை பதிவு செய்ய முடியுமா?","label":"கண்காணிக்கவும்"},"customInterval":{"label":"தனிப்பயனாக்கக்கூடிய பதிவு இடைவெளி","description":"[ட்ராக் லாக்கிங்] இடைவெளியை கைமுறையாக இசைக்க முடியுமா?"},"trackFormats":{"description":"[ட்ராக் லாக்கிங்] சேமிப்பகத்திற்கான எந்த வடிவங்கள் உங்கள் சி.பி.எச் பாதையை சேமிக்க முடியும்?","label":"டிராக் வடிவங்கள்"},"geotagging":{"label":"சியோடாகிங்","description":"[ட்ராக் லாக்கிங்] மேலும் மேப்பிங் நுட்பங்கள் ஆதரிக்கப்படுகின்றன"},"fastWayPointAdding":{"label":"வேகமான POI பொத்தான்கள்","description":"[ட்ராக் லாக்கிங்] புதிய வழிப்பாதையைச் சேர்க்க எளிதானதா?"},"uploadGPX":{"label":"GPX ஐ OSM இல் பதிவேற்றவும்","description":"[ட்ராக் லாக்கிங்] இது நேரடியாக OSM க்கு தடங்களை அனுப்ப முடியுமா?"},"monitoring":{"label":"கண்காணிப்பு","description":"[கண்காணிப்பு கண்காணிப்பு] சி.பி.எச் தரவை கண்காணிக்க முடியுமா?"},"showTrack":{"label":"தற்போதைய பாதையைக் காட்டு","description":"[கண்காணிப்பு கண்காணிப்பு] உங்கள் தற்போதைய பாதையைக் காட்டவா?"},"showExistingTrack":{"label":"தற்போதுள்ள பாதையைத் திறக்கவும்","description":"[கண்காணிப்பு கண்காணிப்பு] ஏற்கனவே இருக்கும் தடங்களை ஏற்ற முடியுமா, எனவே அவற்றை நீங்கள் பின்பற்றலாமா?"},"showAltitudeDiagram":{"label":"உயர வரைபடம்","description":"[கண்காணிப்பு கண்காணிப்பு]"},"showDOP":{"description":"[கண்காணிப்பு கண்காணிப்பு] சமிக்ஞை தரத்தைக் காட்டுகிறது?","label":"நெற்று மதிப்பைக் காட்டு"},"showSatellites":{"label":"செயற்கைக்கோள் பார்வை","description":"[கண்காணிப்பு கண்காணிப்பு] செயற்கைக்கோள்களைக் காட்டுகிறது?"},"showNMEAlive":{"label":"நேரடி NMEA தரவைக் காட்டு","description":"[கண்காணிப்பு கண்காணிப்பு] மூல சி.பி.எச் ச்ட்ரீமை பார்க்க முடியுமா?"},"showSpeed":{"description":"[கண்காணிப்பு கண்காணிப்பு]","label":"வேகத்தைக் காட்டு"},"sendPosition":{"label":"தற்போதைய நிலையை அனுப்பவும்","description":"[கண்காணிப்பு கண்காணிப்பு] இது மற்றவர்களுக்கு நிலையை அனுப்ப முடியுமா?"},"addPOI":{"label":"ஏனெனில் சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைச் சேர்க்க முடியுமா?"},"editPOI":{"description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைத் திருத்த முடியுமா?","label":"ஏனெனில் திருத்து / நீக்கு"},"addWay":{"label":"வழி சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு வழியைச் சேர்க்க முடியுமா?"},"editGeom":{"label":"வடிவவியலைத் திருத்தவும்","description":"[ஆசிரியர்] நீங்கள் முனைகள்/வழிகளைத் திருத்த முடியுமா?"},"editTags":{"label":"இருக்கும் OSM பொருள்களின் தன்னிச்சையான குறிச்சொற்களைத் திருத்தவும்","description":"[ஆசிரியர்] ஏற்கனவே உள்ள குறிச்சொற்களைத் திருத்த முடியுமா?"},"editRelations":{"description":"[ஆசிரியர்] நீங்கள் உறவுகளைத் திருத்த முடியுமா?","label":"உறவுகளைத் திருத்து"},"viewNotes":{"label":"குறிப்புகளைக் காண்க","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைக் காண முடியுமா?"},"createNotes":{"label":"குறிப்புகளை உருவாக்கவும்","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைச் சேர்க்க முடியுமா?"},"editNotes":{"label":"குறிப்புகளைத் திருத்து","description":"[ஆசிரியர்] OSM குறிப்புகளை நீங்கள் கருத்து தெரிவிக்க/மூட முடியுமா?"},"editSource":{"label":"ஆஃப்லைனில் வேலை செய்யுங்கள்","description":"[ஆசிரியர்] நீங்கள் ஆஃப்லைனில் வேலை செய்ய முடியுமா?"},"offsetDBsupport":{"label":"உதவி படங்கள் ஆஃப்செட் டி.பி.","description":"[ஆசிரியர்] இது ஆஃப்செட் டி.பி."},"rendererOutputFormats":{"label":"ரெண்டரர் வெளியீட்டு வடிவங்கள்","description":"[ரெண்டரர்] ஆதரிக்கப்பட்ட வெளியீட்டு வடிவங்கள்."},"accessibility":{"label":"அணுகல் உதவி","description":"[அணுகல்] இது ஊனமுற்றோருக்கு ஒருவிதமாக உதவுகிறதா?"},"brailleUI":{"label":"பிரெய்ல் இடைமுகம்","description":"[அணுகல்] ஒரு சிறப்பு பிரெய்ல் இடைமுகம்?"},"publicTransportMode":{"label":"பொது போக்குவரத்து முறை","description":"[அணுகல்] பொது போக்குவரத்துடன் ரூட்டிங் செய்வதை ஆதரிக்கிறதா?"},"dangerWarnings":{"label":"இடர் எச்சரிக்கைகள்","description":"[அணுகல்]"},"screenReader":{"label":"திரை ரீடர்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசிப்பாளர்களின் பட்டியல்"},"screenReaderLang":{"label":"திரை ரீடர் மொழிகள்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசகர்களின் பட்டியல்"},"license":{"label":"உரிமம்","description":"என்ன இலவச உரிமம் அல்லது தனியுரிம?"},"price":{"label":"விலை","description":"உரிமையாளரின் செலவு. விலை காலியாக இருந்தால், விண்ணப்பம் இலவசமாக இருக்கும்."},"web":{"label":"வலை முகவரி"},"repo":{"label":"மூலக் குறியீடு","description":"மூலக் குறியீட்டைக் காண அல்லது பதிவிறக்க முகவரி (எடுத்துக்காட்டாக, ஒரு அறிவிலி, அடிபணிதல் அல்லது சி.வி.எச் களஞ்சியத்தை)"},"logo":{"label":"சின்னம்"},"screenshot":{"label":"திரைக்காட்சி"},"code":{"label":"குறியீடு","description":"பயன்படுத்தப்படும் நிரலாக்க மொழிகளின் பட்டியல்."},"framework":{"label":"கட்டமைப்பு","description":"பயன்படுத்தப்படும் கட்டமைப்புகளின் பட்டியல்."},"version":{"label":"பதிப்பு","description":"அண்மைக் கால பதிப்பு"},"date":{"label":"வெளியீட்டு தேதி","description":"அண்மைக் கால வெளியீட்டு தேதி"},"rotateMap":{"label":"வரைபடத்தை சுழற்றுங்கள்","description":"[வரைபட காட்சி] இது ஓட்டுநர்/நடைபயிற்சி திசையில் வரைபடத்தைத் திருப்புமா?"},"3D":{"label":"3 டி பார்வை","description":"[வரைபட காட்சி] சில 3D அல்லது 2.5D பார்வை உள்ளதா?"},"showWebsite":{"label":"வலைத்தளத்தைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து வலைத்தளத்திற்கான இணைப்பைக் காட்டுகிறது"},"showOpeningHours":{"label":"செயல்பாட்டு நேரங்களைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து செயல்படும் மணிநேரங்களைக் காட்டுகிறது"},"routing":{"description":"[ரூட்டிங்] நீங்கள் ஒரு வழியைக் கணக்கிட அல்லது திட்டமிட முடியுமா?","label":"ரூட்டிங்"},"createRouteManually":{"label":"வழியை கைமுறையாக உருவாக்கவும்","description":"[ரூட்டிங்]"},"calculateRoute":{"label":"வழியைக் கணக்கிடுங்கள்","description":"[ரூட்டிங்] ரூட்டிங் பயன்படுத்தி ஒரு வழியைக் கணக்கிட முடியுமா?"},"createRouteViaWaypoints":{"label":"வழிப்பாதைகள் வழியாக வழியை உருவாக்கவும்","description":"[ரூட்டிங்] வழிப்பாதைகள் வழியாக வழியைக் கணக்கிட முடியும்"},"uploadOSMData":{"label":"OSM இல் பதிவேற்றவும்","description":"[ஆசிரியர்] நீங்கள் நேரடியாக OSM க்கு மாற்றங்களை அனுப்ப முடியுமா?"},"textOnlyUI":{"label":"கிராபிக்ச் அல்லாத உரை வெளியீடு முழுமையானது","description":"[அணுகல்] பிரெய்ல் இணக்கமான இடைமுகத்திற்கு உரை?"},"explorerMode":{"label":"ஆய்வு முறை","description":"[அணுகல்] ஒரு ஆய்வு மோடச் உள்ளது (எல்லா பொருள்களையும் நெருங்குகிறது என்று சொல்லுங்கள்)?"}}');
 var locales_wiki_software_template_ta_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ta_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/locales/wiki-software-template/zh_Hans.json
+;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh_Hans.json
 const wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模板语言"},"name":{"label":"名称"},"status":{},"license":{},"price":{},"web":{},"repo":{"label":"源代码"},"logo":{},"screenshot":{"label":"截图"},"description":{"label":"描述"},"author":{"label":"作者"},"platform":{},"genre":{},"languages":{},"coverage":{},"languagesurl":{},"code":{},"framework":{},"version":{"label":"版本"},"date":{"label":"日期"},"asin":{},"bbWorldID":{},"fDroidID":{},"firefoxMarketplaceID":{},"googlePlayID":{},"huaweiAppGalleryID":{},"appleStoreID":{},"macAppStoreID":{},"microsoftAppID":{},"map":{},"mapData":{},"datasource":{},"rotateMap":{},"3D":{},"showWebsite":{},"showPhoneNumber":{},"showOpeningHours":{},"routing":{},"createRouteManually":{},"calculateRoute":{},"createRouteViaWaypoints":{},"profiles":{},"turnRestrictions":{},"calculateRouteOffline":{},"routingProviders":{},"avoidTraffic":{},"trafficProvider":{},"navigating":{},"findLocation":{},"findNearbyPOI":{},"navToPoint":{},"voice":{},"keepOnRoad":{},"turnLanes":{},"withoutGPS":{},"predefinedRoute":{},"tracking":{},"customInterval":{},"trackFormats":{},"geotagging":{},"fastWayPointAdding":{},"uploadGPX":{},"monitoring":{},"showTrack":{},"showExistingTrack":{},"showAltitudeDiagram":{},"showDOP":{},"showSatellites":{},"showNMEAlive":{},"showSpeed":{},"sendPosition":{},"addPOI":{},"editPOI":{},"addWay":{},"editGeom":{},"editTags":{},"editRelations":{},"viewNotes":{},"createNotes":{},"editNotes":{},"editSource":{},"offsetDBsupport":{},"uploadOSMData":{},"rendererOutputFormats":{},"accessibility":{},"textOnlyUI":{},"brailleUI":{},"explorerMode":{},"publicTransportMode":{},"dangerWarnings":{},"screenReader":{},"screenReaderLang":{}}');
 var locales_wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_zh_Hans_namespaceObject, 2);
-;// CONCATENATED MODULE: ./src/ui/utilities/i18n.ts
+;// CONCATENATED MODULE: ./src/app/ui/utilities/i18n.ts
 
 
 
@@ -72974,7 +72974,7 @@ function convertJsonToTemplateData() {
 
 /***/ }),
 
-/***/ 4569:
+/***/ 8339:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -73015,7 +73015,7 @@ function shuffle(array) {
 
 /***/ }),
 
-/***/ 7686:
+/***/ 2760:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -73032,7 +73032,7 @@ function getLastMod(source) {
 
 /***/ }),
 
-/***/ 4886:
+/***/ 9571:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -73042,12 +73042,12 @@ __nccwpck_require__.d(__webpack_exports__, {
   T: () => (/* binding */ getJson)
 });
 
-;// CONCATENATED MODULE: ./src/utilities/isDevelopment.ts
+;// CONCATENATED MODULE: ./src/shared/utilities/isDevelopment.ts
 const isDevelopment = typeof window !== "undefined" && window.location.host === "localhost:3000";
 
-// EXTERNAL MODULE: ./src/utilities/url.ts
-var utilities_url = __nccwpck_require__(5157);
-;// CONCATENATED MODULE: ./src/utilities/jsonRequest.ts
+// EXTERNAL MODULE: ./src/shared/utilities/url.ts
+var utilities_url = __nccwpck_require__(9051);
+;// CONCATENATED MODULE: ./src/shared/utilities/jsonRequest.ts
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -73096,7 +73096,7 @@ async function getJson(url, params = {}, headers = {}) {
 
 /***/ }),
 
-/***/ 1807:
+/***/ 205:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -73119,7 +73119,7 @@ async function getJson(url, params = {}, headers = {}) {
 /* unused harmony exports notDiffrentString, notDiffrentWebsite, textToColor, strip */
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _url__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(5157);
+/* harmony import */ var _url__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9051);
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -73269,7 +73269,7 @@ function strip(html) {
 
 /***/ }),
 
-/***/ 5157:
+/***/ 9051:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";

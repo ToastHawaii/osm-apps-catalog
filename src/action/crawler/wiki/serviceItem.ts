@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { toWikimediaUrl } from "../../utilities/image";
-import { toWikiUrl, toUrl } from "../../../utilities/url";
+import { toWikiUrl, toUrl } from "../../../shared/utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { uniq, upperFirst } from "lodash";
 import {
@@ -25,14 +25,14 @@ import {
   startsWithIgnoreCase,
   splitByCommaButNotInsideBraceRegex,
   splitBySemicolonButNotInsideBraceRegex,
-} from "../../../utilities/string";
+} from "../../../shared/utilities/string";
 import {
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
   extractLanguageCodeFromTemplate,
 } from "../../utilities";
-import { App } from "../../../data/App";
+import { App } from "../../../shared/data/App";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 

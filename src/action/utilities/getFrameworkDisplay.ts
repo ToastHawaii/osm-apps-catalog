@@ -1,4 +1,4 @@
-import { equalsIgnoreCase } from "../../utilities/string";
+import { equalsIgnoreCase } from "../../shared/utilities/string";
 
 const frameworks: {
   name: string;

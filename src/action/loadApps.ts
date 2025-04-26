@@ -4,13 +4,13 @@ import { transform as transformSoftware } from "./crawler/wiki/software";
 import { transform as transformServiceItem } from "./crawler/wiki/serviceItem";
 import { transform as transformLayer } from "./crawler/wiki/layer";
 // import { transform as transformWikipediaSoftware } from "./crawler/wikipedia/software";
-import { equalsIgnoreCase, equalsYes } from "../utilities/string";
+import { equalsIgnoreCase, equalsYes } from "../shared/utilities/string";
 import { containsOfflineLink, extractWebsite } from "./utilities";
-import { App } from "../data/App";
+import { App } from "../shared/data/App";
 import { addApp } from "./addApp";
-import { newUrl, toUrl } from "../utilities/url";
+import { newUrl, toUrl } from "../shared/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
-import { getJson } from "../utilities/jsonRequest";
+import { getJson } from "../shared/utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
 import { requestGitHub, transformGitHubResult } from "./crawler/github";
 
