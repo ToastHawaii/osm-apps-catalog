@@ -1,11 +1,9 @@
 import { requestTemplates } from "./crawler/wiki/requestTemplates";
-// import { requestTemplates as requestWikipediaTemplates } from "./crawler/wikipedia/requestTemplates";
 import { transform as transformSoftware } from "./crawler/wiki/software";
 import { transform as transformServiceItem } from "./crawler/wiki/serviceItem";
 import { transform as transformLayer } from "./crawler/wiki/layer";
-// import { transform as transformWikipediaSoftware } from "./crawler/wikipedia/software";
 import { equalsIgnoreCase, equalsYes } from "../shared/utilities/string";
-import { containsOfflineLink, extractWebsite } from "./utilities";
+import { containsOfflineLink, extractWebsite } from "./crawler/wiki/utilities";
 import { App } from "../shared/data/App";
 import { addApp } from "./addApp";
 import { newUrl, toUrl } from "../shared/utilities/url";
@@ -141,20 +139,6 @@ async function loadAppsFromTagInfoProjects() {
   );
 }
 
-// async function loadAppsFromWikipediaSoftware(language: string) {
-// const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
-//   "Infobox software",
-//   language
-// );
-// const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
-// for (const source of wikipediaSoftwareObjects.filter(
-//   (s) => !equalsYes(s["discontinued"])
-// )) {
-//   const obj: App = transformWikipediaSoftware(source);
-//   addApp(apps, obj);
-// }
-// }
-
 export async function loadApps(githubToken?: string) {
   const apps: App[] = [];
   const language = "en";
@@ -174,7 +158,7 @@ export async function loadApps(githubToken?: string) {
       addApp(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
-        // The language of github is only recognised automatically based on the description, so if 
+        // The language of github is only recognised automatically based on the description, so if
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
       })

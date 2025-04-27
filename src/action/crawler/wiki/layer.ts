@@ -30,7 +30,7 @@ import {
   processWikiText,
   extractWebsite,
   extractNameWebsiteWiki,
-} from "../../utilities";
+} from "./utilities";
 import { App } from "../../../shared/data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
 import { plainText } from "./plainText";

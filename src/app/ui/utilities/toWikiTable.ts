@@ -1,4 +1,3 @@
-import { toWikiText } from "../../../action/utilities";
 import { templateData } from "./templateData";
 import { getLocalizedValue } from "./getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "../../../shared/utilities/string";
@@ -18,6 +17,26 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
   }
 
   return equalsIgnoreCase(value, "?") || !value;
+}
+
+function toWikiText(text: string = "") {
+  text = text.replaceAll(/!!/g, "!&#33;");
+
+  const regex =
+    /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^\<]*)<\/a>/i;
+
+  let match = regex.exec(text);
+  while (match) {
+    if (match[1].startsWith("https://wiki.openstreetmap.org/wiki/")) {
+      text = text.replace(regex, `[[${match[1].substring(36)}|${match[4]}]]`);
+    } else {
+      text = text.replace(regex, `[${match[1]} ${match[4]}]`);
+    }
+
+    match = regex.exec(text);
+  }
+
+  return text;
 }
 
 export function toWikiTable(

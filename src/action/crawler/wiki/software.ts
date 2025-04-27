@@ -35,7 +35,7 @@ import {
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
-} from "../../utilities";
+} from "./utilities";
 import { App } from "../../../shared/data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
 import { uniq, upperFirst } from "lodash";
@@ -219,7 +219,9 @@ export function transform(
       matrix: source.communicationChannels["matrix room"],
       bluesky: source.communicationChannels["bluesky handle"],
       mastodon: source.communicationChannels["mastodon address"],
-      issueTracker: toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
+      issueTracker: toUrl(
+        extractWebsite(source.communicationChannels["issue tracker"])
+      ),
       githubDiscussions: source.communicationChannels["github discussions"],
       telegram: source.communicationChannels["telegram"],
       slack: toUrl(source.communicationChannels["slack url"]),

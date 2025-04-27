@@ -31,7 +31,7 @@ import {
   extractNameWebsiteWiki,
   extractWebsite,
   extractLanguageCodeFromTemplate,
-} from "../../utilities";
+} from "./utilities";
 import { App } from "../../../shared/data/App";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";

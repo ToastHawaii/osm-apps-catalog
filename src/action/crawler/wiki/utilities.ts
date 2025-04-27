@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
-import { newUrl, toWikiUrl } from "../shared/utilities/url";
+import { newUrl, toWikiUrl } from "../../../shared/utilities/url";
 
 export function containsOfflineLink(value: string = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);
@@ -200,7 +200,9 @@ export function processWikiText(text: string = "") {
     while (match) {
       text = text.replace(
         regex,
-        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`
+        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${
+          match[3]
+        }</a>`
       );
 
       match = regex.exec(text);
@@ -213,7 +215,9 @@ export function processWikiText(text: string = "") {
     while (match) {
       text = text.replace(
         regex,
-        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`
+        `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${
+          match[1]
+        }</a>`
       );
 
       match = regex.exec(text);
@@ -224,12 +228,18 @@ export function processWikiText(text: string = "") {
     const regex =
       /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
 
-    text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
+    text = text.replace(
+      regex,
+      `<a href="$2" target="_blank" rel="noreferrer">$2</a>`
+    );
   }
   {
     const regex =
       /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
-    text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
+    text = text.replace(
+      regex,
+      `<a href="$2" target="_blank" rel="noreferrer">$5</a>`
+    );
   }
 
   {
@@ -344,40 +354,4 @@ export function processWikiText(text: string = "") {
   text = text.replaceAll(/!&#33;/g, "!!");
 
   return text;
-}
-
-export function toWikiText(text: string = "") {
-  text = text.replaceAll(/!!/g, "!&#33;");
-
-  const regex =
-    /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^\<]*)<\/a>/i;
-
-  let match = regex.exec(text);
-  while (match) {
-    if (match[1].startsWith("https://wiki.openstreetmap.org/wiki/")) {
-      text = text.replace(regex, `[[${match[1].substring(36)}|${match[4]}]]`);
-    } else {
-      text = text.replace(regex, `[${match[1]} ${match[4]}]`);
-    }
-
-    match = regex.exec(text);
-  }
-
-  return text;
-}
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-export function hashCode(str: string) {
-  let hash = 0;
-  for (let i = 0, len = str.length; i < len; i++) {
-    let chr = str.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return Math.abs(hash);
 }
