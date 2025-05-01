@@ -1,5 +1,5 @@
 import { sum } from "lodash";
-import { App } from "../data/App";
+import { App } from "../../shared/data/App";
 import { prepareArrayForSelect } from "./prepareArrayForSelect";
 
 export function printCalcScore(apps: App[]) {

@@ -1,6 +1,6 @@
 import { chain, upperFirst, words } from "lodash";
 import { App } from "../../shared/data/App";
-import { getJson } from "../../shared/utilities/jsonRequest";
+import { getJson } from "../../app/utilities/jsonRequest";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";

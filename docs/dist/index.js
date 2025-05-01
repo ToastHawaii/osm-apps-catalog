@@ -68523,8 +68523,6 @@ __nccwpck_require__.d(__webpack_exports__, {
 var lodash = __nccwpck_require__(2356);
 // EXTERNAL MODULE: ./src/shared/utilities/string.ts
 var string = __nccwpck_require__(205);
-// EXTERNAL MODULE: ./src/action/utilities.ts
-var utilities = __nccwpck_require__(3046);
 ;// CONCATENATED MODULE: ./src/shared/utilities/filters.ts
 // Copyright (C) 2020 Markus Peloso
 //
@@ -68814,7 +68812,6 @@ var utilities_url = __nccwpck_require__(9051);
 
 
 
-
 // if both have a source code or an other unique value, they must be equal
 function notDiffrent(app, obj) {
     return (notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
@@ -68825,6 +68822,28 @@ function notDiffrent(app, obj) {
         notDiffrentString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) &&
         notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
         notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID));
+}
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        let chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = (0,utilities_url/* newUrl */.KR)(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
 }
 function addApp(apps, obj, options) {
     const duplicates = apps.filter((app) => 
@@ -68964,13 +68983,6 @@ function addApp(apps, obj, options) {
         app.score = calculateScore(app).total;
     }
 }
-function calcId(obj) {
-    if (obj.website) {
-        const url = (0,utilities_url/* newUrl */.KR)(obj.website.toLowerCase());
-        return (0,utilities/* hashCode */.s5)(url.hostname + url.pathname + url.search);
-    }
-    return (0,utilities/* hashCode */.s5)(obj.name.toUpperCase());
-}
 // Todo: replace mit lodash?
 function merge(o1, o2) {
     if (!o1 && !o2) {
@@ -69015,7 +69027,7 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9571);
+/* harmony import */ var _app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9882);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1646);
 /* harmony import */ var _utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(5553);
@@ -69183,7 +69195,7 @@ async function requestGitHub(githubToken) {
         params["order"] = "desc";
         params["per_page"] = limit;
         params["page"] = page;
-        const result = await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
+        const result = await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
             ? {
                 Authorization: "Bearer " + githubToken,
                 "X-GitHub-Api-Version": "2022-11-28",
@@ -69201,7 +69213,7 @@ async function requestGitHub(githubToken) {
         params["order"] = "asc";
         params["per_page"] = limit;
         params["page"] = page - 10;
-        const result = await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
+        const result = await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
             ? {
                 Authorization: "Bearer " + githubToken,
                 "X-GitHub-Api-Version": "2022-11-28",
@@ -69231,7 +69243,7 @@ __webpack_async_result__();
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(3046);
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(8818);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var _plainText__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(9077);
 /* harmony import */ var _utilities_languageFilter__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5733);
@@ -69355,7 +69367,7 @@ function plainText(html) {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   Z: () => (/* binding */ requestTemplates)
 /* harmony export */ });
-/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9571);
+/* harmony import */ var _app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9882);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(205);
 // Copyright (C) 2020 Markus Peloso
 //
@@ -69398,7 +69410,7 @@ async function osmMediaApiQuery(params) {
     params["action"] = "query";
     params["formatversion"] = "2";
     params["format"] = "json";
-    return await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
+    return await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
 }
 async function processPagesByTemplateResult(response, template, language) {
     const pages = response.query.embeddedin;
@@ -69497,7 +69509,7 @@ function parseTemplateToObject(content) {
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(3046);
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(8818);
 /* harmony import */ var _plainText__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(9077);
 /* harmony import */ var _utilities_languageFilter__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5733);
 // Copyright (C) 2020 Markus Peloso
@@ -69599,7 +69611,7 @@ function transform(source) {
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(4397);
 /* harmony import */ var _shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(8339);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(205);
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(3046);
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(8818);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
@@ -69904,6 +69916,260 @@ function hasValue(value = "") {
 
 /***/ }),
 
+/***/ 8818:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   Hr: () => (/* binding */ processWikiText),
+/* harmony export */   L: () => (/* binding */ extractLanguageCodeFromTemplate),
+/* harmony export */   ln: () => (/* binding */ extractWebsite),
+/* harmony export */   sG: () => (/* binding */ extractNameWebsiteWiki),
+/* harmony export */   tr: () => (/* binding */ containsOfflineLink)
+/* harmony export */ });
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9051);
+// Copyright (C) 2020 Markus Peloso
+//
+// This file is part of OSM Apps Catalog.
+//
+// OSM Apps Catalog is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// OSM Apps Catalog is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+
+function containsOfflineLink(value = "") {
+    return /<((s(trike)?)|(del))>/gi.test(value);
+}
+function extractLanguageCodeFromTemplate(value) {
+    const match = /{{#language:([\w-]+)/.exec(value);
+    if (match)
+        return match[1];
+    return value;
+}
+function extractNameWebsiteWiki(value, pageName) {
+    value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
+    const obj = { name: value };
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
+            value = value.replace(regex, "").trim();
+            if (value)
+                obj.name = value;
+        }
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            obj.name = match[5];
+            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
+            value = value.replace(regex, "");
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            if (match[3])
+                obj.name = match[3];
+            else
+                obj.name = match[1];
+            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+            value = value.replace(regex, "");
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*)\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            obj.name = match[1];
+            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+            value = value.replace(regex, "");
+        }
+    }
+    obj.name = processWikiText(obj.name);
+    return obj;
+}
+function extractWebsite(value = "") {
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[2];
+        }
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[2];
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            return (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
+        }
+    }
+    {
+        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[1];
+        }
+    }
+    {
+        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return `https://github.com/${match[1]}`;
+        }
+    }
+    {
+        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return `https://gitlab.com/${match[1]}`;
+        }
+    }
+    {
+        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[1];
+        }
+    }
+    return undefined;
+}
+function processWikiText(text = "") {
+    // clean up <ref>
+    {
+        const regex = /<ref>([^<]*)<\/ref>/g;
+        text = text.replace(regex, ``);
+    }
+    // Wikipedia
+    {
+        const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/gi;
+        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`);
+    }
+    {
+        const regex = /\[\[:wikipedia:([^\]]*)\]\]/gi;
+        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$1</a>`);
+    }
+    // Url
+    {
+        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
+        let match = regex.exec(text);
+        while (match) {
+            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
+            match = regex.exec(text);
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*)\]\]/;
+        let match = regex.exec(text);
+        while (match) {
+            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
+            match = regex.exec(text);
+        }
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
+    }
+    {
+        const regex = /{{(Key|Tag|TagKey)\|([^}|]*)(\|([^}|]*))?}}/gi;
+        let match = regex.exec(text);
+        while (match) {
+            if (!match[4]) {
+                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=*`);
+            }
+            else {
+                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=<a href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4" target="_blank" rel="noreferrer">$4</a>`);
+            }
+            match = regex.exec(text);
+        }
+    }
+    // Format
+    {
+        const strongRegex = /'''([^(''')]*)'''/g;
+        text = text.replace(strongRegex, `<strong>$1</strong>`);
+        const emRegex = /''([^('')]*)''/g;
+        text = text.replace(emRegex, `<em>$1</em>`);
+    }
+    // GitHub
+    {
+        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
+        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`);
+    }
+    {
+        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`);
+    }
+    // GitLab
+    {
+        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
+        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`);
+    }
+    {
+        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`);
+    }
+    // User
+    {
+        const regex = /{{User(\|([^(}})]+))}}/gi;
+        text = text.replace(regex, (substring) => {
+            const parts = substring.substring(2, substring.length - 2).split("|");
+            const displayName = parts[1];
+            let wiki = displayName;
+            let osm = displayName;
+            let link;
+            const params = Object.fromEntries(parts.slice(2).map((s) => s.split("=")));
+            if (typeof params["wiki"] === "string") {
+                wiki = params["wiki"];
+            }
+            if (typeof params["osm"] === "string") {
+                osm = params["osm"];
+            }
+            if (wiki) {
+                link = `https://wiki.openstreetmap.org/wiki/User:${wiki}`;
+            }
+            else if (osm) {
+                link = `https://www.openstreetmap.org/user/${osm}`;
+            }
+            return `<a href="${link}" target="_blank" rel="noreferrer">${displayName}</a>`;
+        });
+    }
+    {
+        const regex = /{{Osm( )?User(\|([^(}})]+))}}/gi;
+        text = text.replace(regex, (substring) => {
+            const parts = substring.substring(2, substring.length - 2).split("|");
+            const name = parts[1];
+            return `<a href="https://www.openstreetmap.org/user/${name}" target="_blank" rel="noreferrer">${name}</a>`;
+        });
+    }
+    text = text.replaceAll(/!&#33;/g, "!!");
+    return text;
+}
+
+
+/***/ }),
+
 /***/ 5221:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
@@ -69913,7 +70179,7 @@ function hasValue(value = "") {
 /* harmony export */   _: () => (/* binding */ requestWikidata)
 /* harmony export */ });
 /* harmony import */ var _utilities_languageValueFormat__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(4397);
-/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9571);
+/* harmony import */ var _app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9882);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(205);
 /* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(4863);
 /* harmony import */ var _utilities_languageFilter__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(5733);
@@ -70046,7 +70312,7 @@ async function request(query) {
     const params = {};
     params["query"] = query;
     params["format"] = "json";
-    return await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
+    return await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_0__/* .getJson */ .T)(base, params);
 }
 function requestWikidata(lg) {
     const base = request(`
@@ -70431,22 +70697,20 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _crawler_wiki_serviceItem__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(974);
 /* harmony import */ var _crawler_wiki_layer__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(6219);
 /* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(205);
-/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(3046);
+/* harmony import */ var _crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__ = __nccwpck_require__(8818);
 /* harmony import */ var _addApp__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(2190);
 /* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__ = __nccwpck_require__(9051);
 /* harmony import */ var _crawler_wikidata__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(5221);
-/* harmony import */ var _shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(9571);
+/* harmony import */ var _app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(9882);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _crawler_github__WEBPACK_IMPORTED_MODULE_9__ = __nccwpck_require__(5974);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_crawler_github__WEBPACK_IMPORTED_MODULE_9__]);
 _crawler_github__WEBPACK_IMPORTED_MODULE_9__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
-// import { requestTemplates as requestWikipediaTemplates } from "./crawler/wikipedia/requestTemplates";
 
 
 
-// import { transform as transformWikipediaSoftware } from "./crawler/wikipedia/software";
 
 
 
@@ -70457,24 +70721,24 @@ _crawler_github__WEBPACK_IMPORTED_MODULE_9__ = (__webpack_async_dependencies__.t
 
 async function loadAppsFromOsmWikiServiceItems(language) {
     return (await (0,_crawler_wiki_requestTemplates__WEBPACK_IMPORTED_MODULE_0__/* .requestTemplates */ .Z)("Service item", language))
-        .filter((s) => !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]))
+        .filter((s) => !(0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]))
         .map((source) => (0,_crawler_wiki_serviceItem__WEBPACK_IMPORTED_MODULE_2__/* .transform */ .p)(source));
 }
 async function loadAppsFromOsmWikiLayers(language) {
     return (await (0,_crawler_wiki_requestTemplates__WEBPACK_IMPORTED_MODULE_0__/* .requestTemplates */ .Z)("Layer", language))
-        .filter((s) => !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
-        !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["slippy_web"]) &&
+        .filter((s) => !(0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
+        !(0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["slippy_web"]) &&
         !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsYes */ .RB)(s["discontinued"]))
         .map((source) => (0,_crawler_wiki_layer__WEBPACK_IMPORTED_MODULE_3__/* .transform */ .p)(source));
 }
 async function loadAppsFromOsmWikiSoftwares(language) {
     return (await (0,_crawler_wiki_requestTemplates__WEBPACK_IMPORTED_MODULE_0__/* .requestTemplates */ .Z)("Software", language))
-        .filter((s) => !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
-        !(0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["web"]) &&
+        .filter((s) => !(0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["name"]) &&
+        !(0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .containsOfflineLink */ .tr)(s["web"]) &&
         !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unfinished") &&
         (!(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "unmaintained") ||
             // No longer maintained but can still be installed.
-            (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .toUrl */ .bb)((0,_utilities__WEBPACK_IMPORTED_MODULE_10__/* .extractWebsite */ .ln)(s["web"])) ||
+            (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_11__/* .toUrl */ .bb)((0,_crawler_wiki_utilities__WEBPACK_IMPORTED_MODULE_10__/* .extractWebsite */ .ln)(s["web"])) ||
             s["asin"] ||
             s["fDroidID"] ||
             s["obtainiumLink"] ||
@@ -70520,7 +70784,7 @@ async function loadAppsFromGitHub(githubToken) {
     return objs.map((source) => (0,_crawler_github__WEBPACK_IMPORTED_MODULE_9__/* .transformGitHubResult */ .F)(source));
 }
 async function loadAppsFromTagInfoProjects() {
-    const projectObjects = (await (0,_shared_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__/* .getJson */ .T)("https://taginfo.openstreetmap.org/api/4/projects/all"));
+    const projectObjects = (await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_7__/* .getJson */ .T)("https://taginfo.openstreetmap.org/api/4/projects/all"));
     const source = "https://taginfo.openstreetmap.org/projects/";
     return projectObjects.data.map((obj) => ({
         name: obj.name,
@@ -70545,19 +70809,6 @@ async function loadAppsFromTagInfoProjects() {
         community: {},
     }));
 }
-// async function loadAppsFromWikipediaSoftware(language: string) {
-// const wikipediaSoftwareObjectsRequest = requestWikipediaTemplates(
-//   "Infobox software",
-//   language
-// );
-// const wikipediaSoftwareObjects = await wikipediaSoftwareObjectsRequest;
-// for (const source of wikipediaSoftwareObjects.filter(
-//   (s) => !equalsYes(s["discontinued"])
-// )) {
-//   const obj: App = transformWikipediaSoftware(source);
-//   addApp(apps, obj);
-// }
-// }
 async function loadApps(githubToken) {
     const apps = [];
     const language = "en";
@@ -70573,7 +70824,7 @@ async function loadApps(githubToken) {
         .forEach((app) => (0,_addApp__WEBPACK_IMPORTED_MODULE_5__/* .addApp */ .$)(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
-        // The language of github is only recognised automatically based on the description, so if 
+        // The language of github is only recognised automatically based on the description, so if
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
     }));
@@ -70604,7 +70855,7 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _app_ui_utilities_i18n__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(2430);
 /* harmony import */ var _loadApps__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(720);
 /* harmony import */ var _shared_utilities_array__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(8339);
-/* harmony import */ var _shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(2760);
+/* harmony import */ var _utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(5521);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_loadApps__WEBPACK_IMPORTED_MODULE_5__]);
@@ -70619,6 +70870,10 @@ _loadApps__WEBPACK_IMPORTED_MODULE_5__ = (__webpack_async_dependencies__.then ? 
 
 
 const lastUpdate = new Date("2025-02-04");
+// todo: statistik erstellen, neuer ablauf,
+// apps loaden
+// jmergen
+// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
@@ -70674,7 +70929,7 @@ async function firstCrawled(apps, knownApps) {
                 }
             }
         }
-        app.source = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.sortBy)(app.source, _shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P).reverse();
+        app.source = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.sortBy)(app.source, _utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P).reverse();
     }
 }
 async function focus(apps, knownApps) {
@@ -70692,7 +70947,7 @@ async function focus(apps, knownApps) {
     // Find all those that have changed in the last day and show those that have not been displayed
     // for the longest time
     const focusedApps = (0,lodash__WEBPACK_IMPORTED_MODULE_6__.chain)(apps)
-        .filter((a) => (0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(a.source[0]) > yesterday)
+        .filter((a) => (0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(a.source[0]) > yesterday)
         .sortBy((a) => a.lastFocus)
         .take(10)
         .value();
@@ -70740,9 +70995,9 @@ async function generateSitemap(apps) {
     links.push(...apps.map((app) => ({
         url: `https://osm-apps.org/?app=${app.id}`,
         priority: (app.score / 10) * 0.5 + 0.1,
-        lastmod: lastUpdate > new Date((0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0]))
+        lastmod: lastUpdate > new Date((0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0]))
             ? lastUpdate
-            : new Date((0,_shared_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0])),
+            : new Date((0,_utilities_getLastMod__WEBPACK_IMPORTED_MODULE_8__/* .getLastMod */ .P)(app.source[0])),
     })));
     // Create a stream to write to
     const stream = new sitemap__WEBPACK_IMPORTED_MODULE_2__.SitemapStream({
@@ -70792,292 +71047,6 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
-
-/***/ }),
-
-/***/ 3046:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   Hr: () => (/* binding */ processWikiText),
-/* harmony export */   L: () => (/* binding */ extractLanguageCodeFromTemplate),
-/* harmony export */   ln: () => (/* binding */ extractWebsite),
-/* harmony export */   s5: () => (/* binding */ hashCode),
-/* harmony export */   sG: () => (/* binding */ extractNameWebsiteWiki),
-/* harmony export */   tr: () => (/* binding */ containsOfflineLink)
-/* harmony export */ });
-/* unused harmony export toWikiText */
-/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(9051);
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
-
-function containsOfflineLink(value = "") {
-    return /<((s(trike)?)|(del))>/gi.test(value);
-}
-function extractLanguageCodeFromTemplate(value) {
-    const match = /{{#language:([\w-]+)/.exec(value);
-    if (match)
-        return match[1];
-    return value;
-}
-function extractNameWebsiteWiki(value, pageName) {
-    value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
-    const obj = { name: value };
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
-            value = value.replace(regex, "").trim();
-            if (value)
-                obj.name = value;
-        }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            obj.name = match[5];
-            obj.website = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .newUrl */ .KR)(match[2]).toString();
-            value = value.replace(regex, "");
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            if (match[3])
-                obj.name = match[3];
-            else
-                obj.name = match[1];
-            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
-            value = value.replace(regex, "");
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*)\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            obj.name = match[1];
-            obj.wiki = (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
-            value = value.replace(regex, "");
-        }
-    }
-    obj.name = processWikiText(obj.name);
-    return obj;
-}
-function extractWebsite(value = "") {
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[2];
-        }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[2];
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            return (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1]);
-        }
-    }
-    {
-        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[1];
-        }
-    }
-    {
-        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return `https://github.com/${match[1]}`;
-        }
-    }
-    {
-        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return `https://gitlab.com/${match[1]}`;
-        }
-    }
-    {
-        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[1];
-        }
-    }
-    return undefined;
-}
-function processWikiText(text = "") {
-    // clean up <ref>
-    {
-        const regex = /<ref>([^<]*)<\/ref>/g;
-        text = text.replace(regex, ``);
-    }
-    // Wikipedia
-    {
-        const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/gi;
-        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`);
-    }
-    {
-        const regex = /\[\[:wikipedia:([^\]]*)\]\]/gi;
-        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    // Url
-    {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
-        let match = regex.exec(text);
-        while (match) {
-            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
-            match = regex.exec(text);
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*)\]\]/;
-        let match = regex.exec(text);
-        while (match) {
-            text = text.replace(regex, `<a href="${(0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_0__/* .toWikiUrl */ .B4)(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
-            match = regex.exec(text);
-        }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
-        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
-        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    {
-        const regex = /{{(Key|Tag|TagKey)\|([^}|]*)(\|([^}|]*))?}}/gi;
-        let match = regex.exec(text);
-        while (match) {
-            if (!match[4]) {
-                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=*`);
-            }
-            else {
-                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=<a href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4" target="_blank" rel="noreferrer">$4</a>`);
-            }
-            match = regex.exec(text);
-        }
-    }
-    // Format
-    {
-        const strongRegex = /'''([^(''')]*)'''/g;
-        text = text.replace(strongRegex, `<strong>$1</strong>`);
-        const emRegex = /''([^('')]*)''/g;
-        text = text.replace(emRegex, `<em>$1</em>`);
-    }
-    // GitHub
-    {
-        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
-        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    {
-        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    // GitLab
-    {
-        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
-        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    {
-        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    // User
-    {
-        const regex = /{{User(\|([^(}})]+))}}/gi;
-        text = text.replace(regex, (substring) => {
-            const parts = substring.substring(2, substring.length - 2).split("|");
-            const displayName = parts[1];
-            let wiki = displayName;
-            let osm = displayName;
-            let link;
-            const params = Object.fromEntries(parts.slice(2).map((s) => s.split("=")));
-            if (typeof params["wiki"] === "string") {
-                wiki = params["wiki"];
-            }
-            if (typeof params["osm"] === "string") {
-                osm = params["osm"];
-            }
-            if (wiki) {
-                link = `https://wiki.openstreetmap.org/wiki/User:${wiki}`;
-            }
-            else if (osm) {
-                link = `https://www.openstreetmap.org/user/${osm}`;
-            }
-            return `<a href="${link}" target="_blank" rel="noreferrer">${displayName}</a>`;
-        });
-    }
-    {
-        const regex = /{{Osm( )?User(\|([^(}})]+))}}/gi;
-        text = text.replace(regex, (substring) => {
-            const parts = substring.substring(2, substring.length - 2).split("|");
-            const name = parts[1];
-            return `<a href="https://www.openstreetmap.org/user/${name}" target="_blank" rel="noreferrer">${name}</a>`;
-        });
-    }
-    text = text.replaceAll(/!&#33;/g, "!!");
-    return text;
-}
-function toWikiText(text = "") {
-    text = text.replaceAll(/!!/g, "!&#33;");
-    const regex = /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^\<]*)<\/a>/i;
-    let match = regex.exec(text);
-    while (match) {
-        if (match[1].startsWith("https://wiki.openstreetmap.org/wiki/")) {
-            text = text.replace(regex, `[[${match[1].substring(36)}|${match[4]}]]`);
-        }
-        else {
-            text = text.replace(regex, `[${match[1]} ${match[4]}]`);
-        }
-        match = regex.exec(text);
-    }
-    return text;
-}
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        let chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-}
-
 
 /***/ }),
 
@@ -71179,6 +71148,23 @@ function getFrameworkDisplay(value) {
             return language.name;
     }
     return "";
+}
+
+
+/***/ }),
+
+/***/ 5521:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   P: () => (/* binding */ getLastMod)
+/* harmony export */ });
+function getLastMod(source) {
+    if (source.name === "taginfo" || source.name === "ServiceItem") {
+        return source.firstCrawled;
+    }
+    return source.lastChange;
 }
 
 
@@ -72974,65 +72960,7 @@ function convertJsonToTemplateData() {
 
 /***/ }),
 
-/***/ 8339:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   k4: () => (/* binding */ shuffle),
-/* harmony export */   zN: () => (/* binding */ some)
-/* harmony export */ });
-/* unused harmony export includes */
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
-function includes(arr, target) {
-    return target.every((v) => arr.includes(v));
-}
-function some(arr, target) {
-    return target.some((v) => arr.includes(v));
-}
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-
-/***/ }),
-
-/***/ 2760:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   P: () => (/* binding */ getLastMod)
-/* harmony export */ });
-function getLastMod(source) {
-    if (source.name === "taginfo" || source.name === "ServiceItem") {
-        return source.firstCrawled;
-    }
-    return source.lastChange;
-}
-
-
-/***/ }),
-
-/***/ 9571:
+/***/ 9882:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -73042,12 +72970,12 @@ __nccwpck_require__.d(__webpack_exports__, {
   T: () => (/* binding */ getJson)
 });
 
-;// CONCATENATED MODULE: ./src/shared/utilities/isDevelopment.ts
+;// CONCATENATED MODULE: ./src/app/utilities/isDevelopment.ts
 const isDevelopment = typeof window !== "undefined" && window.location.host === "localhost:3000";
 
 // EXTERNAL MODULE: ./src/shared/utilities/url.ts
 var utilities_url = __nccwpck_require__(9051);
-;// CONCATENATED MODULE: ./src/shared/utilities/jsonRequest.ts
+;// CONCATENATED MODULE: ./src/app/utilities/jsonRequest.ts
 // Copyright (C) 2020 Markus Peloso
 //
 // This file is part of OSM Apps Catalog.
@@ -73090,6 +73018,47 @@ async function getJson(url, params = {}, headers = {}) {
     catch (e) {
         console.error(`Error on loading ${url}?${(0,utilities_url/* utilQsString */.Su)(params)}: ${JSON.stringify(e)}`);
         throw e;
+    }
+}
+
+
+/***/ }),
+
+/***/ 8339:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   k4: () => (/* binding */ shuffle),
+/* harmony export */   zN: () => (/* binding */ some)
+/* harmony export */ });
+/* unused harmony export includes */
+// Copyright (C) 2020 Markus Peloso
+//
+// This file is part of OSM Apps Catalog.
+//
+// OSM Apps Catalog is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// OSM Apps Catalog is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
+function includes(arr, target) {
+    return target.every((v) => arr.includes(v));
+}
+function some(arr, target) {
+    return target.some((v) => arr.includes(v));
+}
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "../../../shared/data/App";
-import { prepareArrayForSelect } from "../../../shared/utilities/prepareArrayForSelect";
+import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
 import { isEqual } from "lodash";
 
 export function CoverageSelect({

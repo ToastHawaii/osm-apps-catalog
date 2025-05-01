@@ -1,5 +1,5 @@
 import { languageValueFormat } from "../utilities/languageValueFormat";
-import { getJson } from "../../shared/utilities/jsonRequest";
+import { getJson } from "../../app/utilities/jsonRequest";
 import { toValues } from "../../shared/utilities/string";
 import { App } from "../../shared/data/App";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";

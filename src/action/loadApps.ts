@@ -8,7 +8,7 @@ import { App } from "../shared/data/App";
 import { addApp } from "./addApp";
 import { newUrl, toUrl } from "../shared/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
-import { getJson } from "../shared/utilities/jsonRequest";
+import { getJson } from "../app/utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
 import { requestGitHub, transformGitHubResult } from "./crawler/github";
 

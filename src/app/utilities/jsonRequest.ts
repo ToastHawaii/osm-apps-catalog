@@ -16,7 +16,7 @@
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 import { isDevelopment } from "./isDevelopment";
-import { utilQsString } from "./url";
+import { utilQsString } from "../../shared/utilities/url";
 
 export async function getJson(
   url: string,

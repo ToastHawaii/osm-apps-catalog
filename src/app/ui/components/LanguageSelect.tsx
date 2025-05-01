@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { isEqual } from "lodash";
-import { prepareArrayForSelect } from "../../../shared/utilities/prepareArrayForSelect";
+import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
 import { App } from "../../../shared/data/App";
 
 export function LanguageSelect({
@@ -19,7 +19,7 @@ export function LanguageSelect({
 
   data.push(...apps.flatMap((app) => app.languages.map((v) => v)));
   const preparedData = prepareArrayForSelect(data, selected);
-  
+
   return (
     <SlimSelect
       className="ss-or"
@@ -28,7 +28,7 @@ export function LanguageSelect({
       settings={{
         placeholderText: t("filter.language"),
         allowDeselect: true,
-        showSearch: preparedData.length > 9
+        showSearch: preparedData.length > 9,
       }}
       events={{
         afterChange: (newOptions) => {

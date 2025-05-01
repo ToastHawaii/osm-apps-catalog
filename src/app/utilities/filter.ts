@@ -1,9 +1,9 @@
 import { chain } from "lodash";
-import { App } from "../data/App";
-import { includes, some } from "./array";
-import { edit, mobile, navigation } from "./filters";
-import { equalsYes } from "./string";
-import { State } from "../../app/ui/State";
+import { App } from "../../shared/data/App";
+import { includes, some } from "../../shared/utilities/array";
+import { edit, mobile, navigation } from "../../shared/utilities/filters";
+import { equalsYes } from "../../shared/utilities/string";
+import { State } from "../ui/State";
 
 export function filter({
   apps,

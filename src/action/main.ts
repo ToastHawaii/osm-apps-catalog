@@ -7,11 +7,18 @@ import "../app/ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "../shared/utilities/array";
-import { getLastMod } from "../shared/utilities/getLastMod";
+import { getLastMod } from "./utilities/getLastMod";
 import { App } from "../shared/data/App";
 import { chain, sortBy } from "lodash";
 
 const lastUpdate = new Date("2025-02-04");
+
+
+// todo: statistik erstellen, neuer ablauf,
+// apps loaden
+// jmergen
+// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
+
 
 /**
  * The main function for the action.

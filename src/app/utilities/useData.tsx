@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { getJson } from "../../shared/utilities/jsonRequest";
+import { getJson } from "./jsonRequest";
 import { App } from "../../shared/data/App";
-import { isDevelopment } from "../../shared/utilities/isDevelopment";
-import { printCalcScore } from "../../shared/utilities/printCalcScore";
+import { isDevelopment } from "./isDevelopment";
+import { printCalcScore } from "./printCalcScore";
 import { prepareLanguage } from "../../shared/data/prepareLanguage";
 
 async function loadData() {
   // for testing
-  // return (await import ("./action/loadApps")).loadApps()
+  // return (await import("../../action/loadApps")).loadApps();
 
   if (!isDevelopment) {
     try {
