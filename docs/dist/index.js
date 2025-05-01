@@ -68925,7 +68925,10 @@ function addApp(apps, obj, options) {
         app.author = app.author || obj.author;
         app.gratis = app.gratis || obj.gratis;
         app.libre = app.libre || obj.libre;
-        app.license = app.license || obj.license;
+        app.price = app.price || obj.price;
+        app.license = app.license || [];
+        app.license.push(...(obj.license || []));
+        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
         app.sourceCode = app.sourceCode || obj.sourceCode;
         if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
             app.languages.push(...obj.languages);

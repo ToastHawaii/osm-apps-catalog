@@ -159,8 +159,11 @@ export function addApp(
 
     app.gratis = app.gratis || obj.gratis;
     app.libre = app.libre || obj.libre;
+    app.price = app.price || obj.price;
 
-    app.license = app.license || obj.license;
+    app.license = app.license || [];
+    app.license.push(...(obj.license || []));
+    app.license = uniqBy(app.license, (v) => v.toUpperCase());
 
     app.sourceCode = app.sourceCode || obj.sourceCode;
 
