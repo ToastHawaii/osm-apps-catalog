@@ -23,6 +23,7 @@ export function printCalcScore(apps: App[]) {
   console.info("22.03.2025: 2.025 (1995 Apps)");
   console.info("31.03.2025: 2.050 (1964 Apps)");
   console.info("16.04.2025: 2.081 (1973 Apps)");
+  console.info("01.05.2025: 2.088 (1972 Apps)");
   console.info("Today: " + average);
 
   console.info("---");

@@ -19,7 +19,8 @@ export function toSchemaOrg(app: App) {
     name: app.name || undefined,
     description: strip(app.description) || undefined,
     keywords: app.topics.join(","),
-    image: app.images[0] || undefined,
+    image: app.logos[0] || undefined,
+    screenshots: app.images || undefined,
     url: app.website || undefined,
     installUrl: app.install.fDroidID
       ? "https://f-droid.org/repository/browse/?fdid=" + app.install.fDroidID
@@ -64,7 +65,9 @@ export function toSchemaOrg(app: App) {
       "@type": "Review",
       reviewRating: {
         "@type": "Rating",
-        ratingValue: 0.4 * app.score + 1,
+        bestRating: "10",
+        worstRating: "0",
+        ratingValue: app.score,
       },
       author: {
         "@type": "Organization",

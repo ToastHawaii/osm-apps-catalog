@@ -26,6 +26,13 @@ import { toSchemaOrg } from "./utilities/toSchemaOrg";
 
 import "./style.scss";
 
+function appendMeta(property: string, content: string) {
+  const meta = document.createElement("meta");
+  meta.setAttribute("property", property);
+  meta.setAttribute("content", content);
+  document.head.appendChild(meta);
+}
+
 export function App() {
   const { t } = useTranslation();
 
@@ -41,10 +48,16 @@ export function App() {
   useEffect(() => {
     if (!!state.app && filteredApps[0]) {
       const app = filteredApps[0];
+
+      appendMeta("og:title", app.name);
+      appendMeta("og:description", app.description);
+      appendMeta("og:image", app.logos[0]);
+
       const script = document.createElement("script");
       script.setAttribute("type", "application/ld+json");
       script.textContent = toSchemaOrg(app);
       document.head.appendChild(script);
+
       document.title = `${app.name} - OSM Apps Catalog`;
       document
         .querySelector('meta[name="description"]')
