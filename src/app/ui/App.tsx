@@ -51,7 +51,9 @@ export function App() {
 
       appendMeta("og:title", app.name);
       appendMeta("og:description", app.description);
-      appendMeta("og:image", app.logos[0]);
+      if (app.logos[0]) {
+        appendMeta("og:image", app.logos[0]);
+      }
 
       const script = document.createElement("script");
       script.setAttribute("type", "application/ld+json");

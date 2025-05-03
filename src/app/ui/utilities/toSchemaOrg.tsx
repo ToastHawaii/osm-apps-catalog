@@ -1,3 +1,4 @@
+import { round } from "lodash";
 import { App } from "../../../shared/data/App";
 import {
   display,
@@ -20,7 +21,7 @@ export function toSchemaOrg(app: App) {
     description: strip(app.description) || undefined,
     keywords: app.topics.join(","),
     image: app.logos[0] || undefined,
-    screenshots: app.images || undefined,
+    screenshot: app.images[0] || undefined,
     url: app.website || undefined,
     installUrl: app.install.fDroidID
       ? "https://f-droid.org/repository/browse/?fdid=" + app.install.fDroidID
@@ -67,7 +68,7 @@ export function toSchemaOrg(app: App) {
         "@type": "Rating",
         bestRating: "10",
         worstRating: "0",
-        ratingValue: app.score,
+        ratingValue: round(app.score),
       },
       author: {
         "@type": "Organization",
