@@ -11,7 +11,7 @@ import { getLastMod } from "./utilities/getLastMod";
 import { App } from "../shared/data/App";
 import { chain, sortBy } from "lodash";
 
-const lastUpdate = new Date("2025-02-04");
+const lastUpdate = new Date("2025-05-03");
 
 
 // todo: statistik erstellen, neuer ablauf,

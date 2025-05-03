@@ -70872,7 +70872,7 @@ _loadApps__WEBPACK_IMPORTED_MODULE_5__ = (__webpack_async_dependencies__.then ? 
 
 
 
-const lastUpdate = new Date("2025-02-04");
+const lastUpdate = new Date("2025-05-03");
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden
 // jmergen
