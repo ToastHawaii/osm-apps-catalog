@@ -69111,7 +69111,8 @@ const ignoredTopics = [
 ];
 function transformGitHubResult(result) {
     let language;
-    if (result.description && (0,lodash__WEBPACK_IMPORTED_MODULE_0__.words)(result.description).length >= 6) {
+    if (result.description &&
+        ((0,lodash__WEBPACK_IMPORTED_MODULE_0__.words)(result.description).length >= 6 || result.description.length > 42)) {
         const detected = eld__WEBPACK_IMPORTED_MODULE_6__/* .eld */ .W.detect(result.description);
         if (detected.isReliable()) {
             language = detected.language;

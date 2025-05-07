@@ -80,7 +80,10 @@ const ignoredTopics = [
 
 export function transformGitHubResult(result: any) {
   let language: string | undefined;
-  if (result.description && words(result.description).length >= 6) {
+  if (
+    result.description &&
+    (words(result.description).length >= 6 || result.description.length > 42)
+  ) {
     const detected = eld.detect(result.description);
     if (detected.isReliable()) {
       language = detected.language;
