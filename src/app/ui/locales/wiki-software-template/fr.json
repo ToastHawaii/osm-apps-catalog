@@ -222,14 +222,16 @@
         "label": "Ouvrir une trace existante"
     },
     "showDOP": {
-        "description": "[Suivi des traces] Affichage de la qualité du signal ?"
+        "description": "[Suivi des traces] Affichage de la qualité du signal ?",
+        "label": "Afficher la valeur POD"
     },
     "showSatellites": {
         "label": "Vue satellite",
         "description": "[Suivi des traces] Affichage en vue satellite ?"
     },
     "showNMEAlive": {
-        "description": "[Suivi des traces] Pouvez-vous voir le flux GPS brut ?"
+        "description": "[Suivi des traces] Pouvez-vous voir le flux GPS brut ?",
+        "label": "Afficher les données NMEA en direct"
     },
     "showSpeed": {
         "label": "Afficher la vitesse",
@@ -316,7 +318,8 @@
         "description": "[Accessibilité] Liste des langues prises en charge par les lecteurs d'écran"
     },
     "textOnlyUI": {
-        "description": "[Accessibilité] Y a t-il une interface compatible braille ?"
+        "description": "[Accessibilité] Y a t-il une interface compatible braille ?",
+        "label": "Sortie de texte non graphique complète"
     },
     "trafficProvider": {
         "label": "Fournisseur de trafic",
