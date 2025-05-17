@@ -69213,7 +69213,7 @@ async function requestGitHub(githubToken) {
 async function request(pushedAfter, cursor, githubToken, sort) {
     const query = `
       query {
-        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
           pageInfo {
             hasNextPage
             endCursor
@@ -70800,7 +70800,8 @@ async function loadAppsFromOsmWikiSoftwares(language) {
             s["macAppStoreID"] ||
             s["microsoftAppID"]) &&
         !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(s["status"], "broken"))
-        .map((source) => (0,_crawler_wiki_software__WEBPACK_IMPORTED_MODULE_1__/* .transform */ .p)(source));
+        .map((source) => (0,_crawler_wiki_software__WEBPACK_IMPORTED_MODULE_1__/* .transform */ .p)(source))
+        .filter((app) => !app.genre.includes("Library"));
 }
 async function loadAppsFromWikidata(language) {
     const wikidataResults = await Promise.all((0,_crawler_wikidata__WEBPACK_IMPORTED_MODULE_6__/* .requestWikidata */ ._)(language));

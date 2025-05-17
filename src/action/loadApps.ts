@@ -48,7 +48,8 @@ async function loadAppsFromOsmWikiSoftwares(language: string) {
           s["microsoftAppID"]) &&
         !equalsIgnoreCase(s["status"], "broken")
     )
-    .map((source) => transformSoftware(source as any));
+    .map((source) => transformSoftware(source as any))
+    .filter((app) => !app.genre.includes("Library"));
 }
 
 async function loadAppsFromWikidata(language: string) {
@@ -76,7 +77,7 @@ async function loadAppsFromWikidata(language: string) {
   return Array.from(objs.values());
 }
 
-async function loadAppsFromGitHub(githubToken: string ) {
+async function loadAppsFromGitHub(githubToken: string) {
   let objs = await requestGitHub(githubToken);
 
   objs = uniqBy(objs, (o) => o.nameWithOwner);
@@ -89,7 +90,9 @@ async function loadAppsFromGitHub(githubToken: string ) {
       o.name = `${o.name} by ${o.owner.login}`;
     });
 
-  return objs.map((source) => transformGitHubResult(source)) as unknown as App[];
+  return objs.map((source) =>
+    transformGitHubResult(source)
+  ) as unknown as App[];
 }
 
 async function loadAppsFromTagInfoProjects() {
