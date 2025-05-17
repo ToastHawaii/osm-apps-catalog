@@ -73050,7 +73050,7 @@ var utilities_url = __nccwpck_require__(9051);
 // along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
-async function getJson(url, params = {}, headers = {}) {
+async function getJson(url, params = {}, headers = {}, isRetry = false) {
     if (isDevelopment) {
         const response = await fetch("https://corsproxy.io/?" +
             encodeURIComponent(`${url}?${(0,utilities_url/* utilQsString */.Su)(params)}`) +
@@ -73073,8 +73073,16 @@ async function getJson(url, params = {}, headers = {}) {
     }
     catch (e) {
         console.error(`Error on loading ${url}?${(0,utilities_url/* utilQsString */.Su)(params)}: ${JSON.stringify(e)}`);
+        if (!isRetry) {
+            // retry one time after a delay of 3 seconds
+            await delay(3000);
+            return getJson(url, params, headers, true);
+        }
         throw e;
     }
+}
+function delay(ms) {
+    return new Promise((r) => setTimeout(r, ms));
 }
 
 

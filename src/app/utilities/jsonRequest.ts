@@ -21,8 +21,9 @@ import { utilQsString } from "../../shared/utilities/url";
 export async function getJson(
   url: string,
   params: any = {},
-  headers: any = {}
-) {
+  headers: any = {},
+  isRetry = false
+): Promise<any> {
   if (isDevelopment) {
     const response = await fetch(
       "https://corsproxy.io/?" +
@@ -53,6 +54,17 @@ export async function getJson(
     console.error(
       `Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`
     );
+
+    if (!isRetry) {
+      // retry one time after a delay of 3 seconds
+      await delay(3000);
+      return getJson(url, params, headers, true);
+    }
+
     throw e;
   }
+}
+
+function delay(ms: number) {
+  return new Promise((r) => setTimeout(r, ms));
 }
