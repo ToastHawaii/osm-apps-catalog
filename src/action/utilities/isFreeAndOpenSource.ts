@@ -1,5 +1,5 @@
 function check(value: string) {
-  return !!value.match(
+  return !!value?.match(
     "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
   );
 }

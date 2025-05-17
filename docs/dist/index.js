@@ -71612,7 +71612,7 @@ function generateWikimediaUrls(base, fileName, size) {
 /* harmony export */   J: () => (/* binding */ isFreeAndOpenSource)
 /* harmony export */ });
 function check(value) {
-    return !!value.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
+    return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
 function isFreeAndOpenSource(value) {
     if (!value) {
