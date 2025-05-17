@@ -1,6 +1,4 @@
-import { chain, upperFirst, words } from "lodash";
-import { App } from "../../shared/data/App";
-import { getJson } from "../../app/utilities/jsonRequest";
+import { chain, uniqBy, upperFirst, words } from "lodash";
 import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
@@ -53,6 +51,7 @@ const ignoredTopics = [
   "firebase-firestore",
   "firebase-realtime-database",
   "released",
+  "multilanguage",
 
   // License
   "agplv3",
@@ -90,6 +89,12 @@ export function transformGitHubResult(result: any) {
     }
   }
 
+  const topics = result.repositoryTopics.nodes.map(
+    (n: any) => n.topic.name
+  ) as string[];
+
+  const mul = topics.includes("multilanguage");
+
   return {
     name: (result.name || "")
       .replaceAll("-", " ")
@@ -97,34 +102,34 @@ export function transformGitHubResult(result: any) {
       .split(" ")
       .map((w: any) => upperFirst(w))
       .join(" "),
-    unmaintained: result.archived,
-    lastRelease: "",
-    description: result.description || "",
-    images: [],
+    unmaintained: result.isArchived,
+    lastRelease: result.latestRelease?.publishedAt.substring(0, 10),
+    description: result.descriptionHTML || "",
+    images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
     logos: [],
-    website: result.homepage
+    website: result.homepageUrl
       ? newUrl(
-          !result.homepage.toUpperCase().startsWith("HTTP")
-            ? "https://" + result.homepage
-            : result.homepage
+          !result.homepageUrl.toUpperCase().startsWith("HTTP")
+            ? "https://" + result.homepageUrl
+            : result.homepageUrl
         ).toString()
       : "",
-    documentation: result.has_wiki
-      ? result.html_url + "/wiki/"
-      : result.html_url || "",
-    author: `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
-    libre: isFreeAndOpenSource(result.license?.spdx_id),
+    documentation: result.hasWikiEnabled
+      ? result.url + "/wiki/"
+      : result.url || "",
+    author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
+    libre: isFreeAndOpenSource(result.licenseInfo?.spdxId),
     license:
-      result.license?.spdx_id !== "NOASSERTION"
-        ? result.license?.spdx_id
-          ? [result.license?.spdx_id]
+      result.licenseInfo?.spdxId !== "NOASSERTION"
+        ? result.licenseInfo?.spdxId
+          ? [result.licenseInfo.spdxId]
           : []
         : [],
-    sourceCode: result.html_url || "",
-    languages: language ? [language] : [],
+    sourceCode: result.url || "",
+    languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
     languagesUrl: "",
     genre: [],
-    topics: chain(result.topics as string[])
+    topics: chain(topics)
       .filter((t) => !equalsIgnoreCase(t, result.name))
       .filter((t) => !ignoredTopics.includes(t))
       .map((t) => t.replaceAll("-", " "))
@@ -134,7 +139,7 @@ export function transformGitHubResult(result: any) {
       .filter((t) => !getProgramingLanguageDisplay(t))
       .uniq()
       .value(),
-    platform: chain(result.topics as string[])
+    platform: chain(topics)
       .map((t) => t.replaceAll("-", " "))
       .map(upperFirst)
       .map((t) => getPlatformDisplay(t))
@@ -144,88 +149,128 @@ export function transformGitHubResult(result: any) {
     coverage: [],
     install: {},
     community: {
-      githubDiscussions: result.has_discussions ? result.full_name : "",
-      issueTracker: result.has_issues ? result.html_url + "/issues/" : "",
+      githubDiscussions: result.hasDiscussionsEnabled
+        ? result.nameWithOwner
+        : "",
+      issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
     },
     source: [
       {
         name: "GitHub",
         wiki: "",
-        url: result.html_url,
-        lastChange: result.updated_at,
+        url: result.url,
+        lastChange: result.updatedAt,
       },
     ],
-  } as any as App;
+  };
 }
 
-export async function requestGitHub(githubToken?: string) {
-  const objects: any[] = [];
-
-  const limit = 100;
-  let page = 0;
-  let total = 0;
+export async function requestGitHub(githubToken: string) {
+  const results: any[] = [];
+  let hasNextPage = true;
+  let cursor: string | null = null;
 
   const newerThen5Year = new Date();
   newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
-  const dateFilter = newerThen5Year.toISOString().substring(0, 10);
+  const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
+  while (hasNextPage && results.length < 1000) {
+    const json: any = await request(pushedAfter, cursor, githubToken, "desc");
 
-  do {
-    page++;
+    const edgeNodes = json.data.search.edges.map((e: any) => e.node);
+    results.push(...edgeNodes);
 
-    const base = "https://api.github.com/search/repositories";
-
-    const params: any = {};
-
-    params[
-      "q"
-    ] = `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
-    params["sort"] = "stars";
-    params["order"] = "desc";
-    params["per_page"] = limit;
-    params["page"] = page;
-
-    const result = await getJson(
-      base,
-      params,
-      githubToken
-        ? {
-            Authorization: "Bearer " + githubToken,
-            "X-GitHub-Api-Version": "2022-11-28",
-          }
-        : {}
-    );
-    total = result.total_count;
-    objects.push(...result.items);
-  } while (limit * page < total && page < 10);
-
-  while (limit * page < total && page < 20) {
-    page++;
-
-    const base = "https://api.github.com/search/repositories";
-
-    const params: any = {};
-
-    params[
-      "q"
-    ] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
-    params["sort"] = "stars";
-    params["order"] = "asc";
-    params["per_page"] = limit;
-    params["page"] = page - 10;
-
-    const result = await getJson(
-      base,
-      params,
-      githubToken
-        ? {
-            Authorization: "Bearer " + githubToken,
-            "X-GitHub-Api-Version": "2022-11-28",
-          }
-        : {}
-    );
-    total = result.total_count;
-    objects.push(...result.items);
+    hasNextPage = json.data.search.pageInfo.hasNextPage;
+    cursor = json.data.search.pageInfo.endCursor;
   }
 
-  return objects;
+  hasNextPage = true;
+  cursor = null;
+  while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
+    const json: any = await request(pushedAfter, cursor, githubToken, "asc");
+
+    const edgeNodes = json.data.search.edges.map((e: any) => e.node);
+    results.push(...edgeNodes);
+
+    hasNextPage = json.data.search.pageInfo.hasNextPage;
+    cursor = json.data.search.pageInfo.endCursor;
+  }
+
+  return results;
+}
+async function request(
+  pushedAfter: string,
+  cursor: string | null,
+  githubToken: string,
+  sort: string
+) {
+  const query: string = `
+      query {
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${
+    cursor ? `, after: "${cursor}"` : ""
+  }) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          edges {
+            node {
+              ... on Repository {
+                name
+                nameWithOwner
+                description
+                descriptionHTML
+                url
+                homepageUrl
+                openGraphImageUrl
+                usesCustomOpenGraphImage
+                stargazerCount
+                isArchived
+                hasDiscussionsEnabled
+                hasIssuesEnabled
+                hasWikiEnabled
+                updatedAt
+                licenseInfo {
+                  spdxId
+                }
+                owner {
+                  login
+                  url
+                }
+                repositoryTopics(first: 100) {
+                  nodes {
+                    topic {
+                      name
+                    }
+                  }
+                }
+                latestRelease {
+                  publishedAt 
+                }        
+              }
+            }
+          }
+        }
+      }
+    `;
+
+  const response = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${githubToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`GitHub API error: ${response.status} ${errorText}`);
+  }
+
+  const json = await response.json();
+  return json;
+}
+
+function hasDuplicates(a: any[]) {
+  return uniqBy(a, (a) => a.nameWithOwner).length !== a.length;
 }

@@ -13,12 +13,10 @@ import { chain, sortBy } from "lodash";
 
 const lastUpdate = new Date("2025-05-03");
 
-
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden
 // jmergen
 // ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
-
 
 /**
  * The main function for the action.
@@ -206,7 +204,10 @@ async function uploadToRepo(
   const owner = context.repo.owner;
   const repo = context.repo.repo;
 
-  // JSON-Inhalt als Base64 kodieren
+  // Branch aus context.ref extrahieren (z.B. "refs/heads/my-feature-branch" => "my-feature-branch")
+  const ref = context.ref;
+  const branch = ref.replace("refs/heads/", "");
+
   const base64Content = Buffer.from(content).toString("base64");
 
   // Prüfen, ob die Datei existiert
@@ -216,6 +217,7 @@ async function uploadToRepo(
       owner,
       repo,
       path: filePath,
+      ref: branch,
     });
     if ("sha" in data) {
       sha = data.sha; // SHA der vorhandenen Datei speichern
@@ -234,7 +236,8 @@ async function uploadToRepo(
     message: commitMessage,
     content: base64Content,
     sha,
+    branch,
   });
 
-  console.log(`File "${filePath}" has been uploaded to the repository.`);
+  console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
 }

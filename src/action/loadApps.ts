@@ -76,10 +76,10 @@ async function loadAppsFromWikidata(language: string) {
   return Array.from(objs.values());
 }
 
-async function loadAppsFromGitHub(githubToken?: string | undefined) {
+async function loadAppsFromGitHub(githubToken: string ) {
   let objs = await requestGitHub(githubToken);
 
-  objs = uniqBy(objs, (o) => o.full_name);
+  objs = uniqBy(objs, (o) => o.nameWithOwner);
 
   const groupedObjs = groupBy(objs, (o) => o.name);
   Object.entries(groupedObjs)
@@ -89,7 +89,7 @@ async function loadAppsFromGitHub(githubToken?: string | undefined) {
       o.name = `${o.name} by ${o.owner.login}`;
     });
 
-  return objs.map((source) => transformGitHubResult(source));
+  return objs.map((source) => transformGitHubResult(source)) as unknown as App[];
 }
 
 async function loadAppsFromTagInfoProjects() {
@@ -139,7 +139,7 @@ async function loadAppsFromTagInfoProjects() {
   );
 }
 
-export async function loadApps(githubToken?: string) {
+export async function loadApps(githubToken: string) {
   const apps: App[] = [];
   const language = "en";
 
