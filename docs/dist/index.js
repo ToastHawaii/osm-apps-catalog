@@ -69030,17 +69030,15 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2356);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(9882);
-/* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__ = __nccwpck_require__(4863);
-/* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(1646);
-/* harmony import */ var _utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(5553);
-/* harmony import */ var _utilities_getFrameworkDisplay__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(6227);
-/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(9051);
-/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(205);
-/* harmony import */ var eld__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(4591);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([eld__WEBPACK_IMPORTED_MODULE_6__]);
-eld__WEBPACK_IMPORTED_MODULE_6__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
-
+/* harmony import */ var _utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_7__ = __nccwpck_require__(4863);
+/* harmony import */ var _utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1646);
+/* harmony import */ var _utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(5553);
+/* harmony import */ var _utilities_getFrameworkDisplay__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(6227);
+/* harmony import */ var _shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__ = __nccwpck_require__(9051);
+/* harmony import */ var _shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(205);
+/* harmony import */ var eld__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(4591);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([eld__WEBPACK_IMPORTED_MODULE_5__]);
+eld__WEBPACK_IMPORTED_MODULE_5__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
 
 
@@ -69089,6 +69087,7 @@ const ignoredTopics = [
     "firebase-firestore",
     "firebase-realtime-database",
     "released",
+    "multilanguage",
     // License
     "agplv3",
     "gplv3",
@@ -69113,11 +69112,13 @@ function transformGitHubResult(result) {
     let language;
     if (result.description &&
         ((0,lodash__WEBPACK_IMPORTED_MODULE_0__.words)(result.description).length >= 6 || result.description.length > 42)) {
-        const detected = eld__WEBPACK_IMPORTED_MODULE_6__/* .eld */ .W.detect(result.description);
+        const detected = eld__WEBPACK_IMPORTED_MODULE_5__/* .eld */ .W.detect(result.description);
         if (detected.isReliable()) {
             language = detected.language;
         }
     }
+    const topics = result.repositoryTopics.nodes.map((n) => n.topic.name);
+    const mul = topics.includes("multilanguage");
     return {
         name: (result.name || "")
             .replaceAll("-", " ")
@@ -69125,108 +69126,155 @@ function transformGitHubResult(result) {
             .split(" ")
             .map((w) => (0,lodash__WEBPACK_IMPORTED_MODULE_0__.upperFirst)(w))
             .join(" "),
-        unmaintained: result.archived,
-        lastRelease: "",
-        description: result.description || "",
-        images: [],
+        unmaintained: result.isArchived,
+        lastRelease: result.latestRelease?.publishedAt.substring(0, 10),
+        description: result.descriptionHTML || "",
+        images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
         logos: [],
-        website: result.homepage
-            ? (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_7__/* .newUrl */ .KR)(!result.homepage.toUpperCase().startsWith("HTTP")
-                ? "https://" + result.homepage
-                : result.homepage).toString()
+        website: result.homepageUrl
+            ? (0,_shared_utilities_url__WEBPACK_IMPORTED_MODULE_6__/* .newUrl */ .KR)(!result.homepageUrl.toUpperCase().startsWith("HTTP")
+                ? "https://" + result.homepageUrl
+                : result.homepageUrl).toString()
             : "",
-        documentation: result.has_wiki
-            ? result.html_url + "/wiki/"
-            : result.html_url || "",
-        author: `<a href='${result.owner?.html_url}' target='_blank' rel='noreferrer'>${result.owner?.login}</a> and other <a href='${result.html_url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
-        libre: (0,_utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_8__/* .isFreeAndOpenSource */ .J)(result.license?.spdx_id),
-        license: result.license?.spdx_id !== "NOASSERTION"
-            ? result.license?.spdx_id
-                ? [result.license?.spdx_id]
+        documentation: result.hasWikiEnabled
+            ? result.url + "/wiki/"
+            : result.url || "",
+        author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
+        libre: (0,_utilities_isFreeAndOpenSource__WEBPACK_IMPORTED_MODULE_7__/* .isFreeAndOpenSource */ .J)(result.licenseInfo?.spdxId),
+        license: result.licenseInfo?.spdxId !== "NOASSERTION"
+            ? result.licenseInfo?.spdxId
+                ? [result.licenseInfo.spdxId]
                 : []
             : [],
-        sourceCode: result.html_url || "",
-        languages: language ? [language] : [],
+        sourceCode: result.url || "",
+        languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
         languagesUrl: "",
         genre: [],
-        topics: (0,lodash__WEBPACK_IMPORTED_MODULE_0__.chain)(result.topics)
-            .filter((t) => !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_5__/* .equalsIgnoreCase */ .Q_)(t, result.name))
+        topics: (0,lodash__WEBPACK_IMPORTED_MODULE_0__.chain)(topics)
+            .filter((t) => !(0,_shared_utilities_string__WEBPACK_IMPORTED_MODULE_4__/* .equalsIgnoreCase */ .Q_)(t, result.name))
             .filter((t) => !ignoredTopics.includes(t))
             .map((t) => t.replaceAll("-", " "))
             .map(lodash__WEBPACK_IMPORTED_MODULE_0__.upperFirst)
-            .filter((t) => !(0,_utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__/* .getPlatformDisplay */ .K)(t))
-            .filter((t) => !(0,_utilities_getFrameworkDisplay__WEBPACK_IMPORTED_MODULE_4__/* .getFrameworkDisplay */ .Z)(t))
-            .filter((t) => !(0,_utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_3__/* .getProgramingLanguageDisplay */ .x)(t))
+            .filter((t) => !(0,_utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_1__/* .getPlatformDisplay */ .K)(t))
+            .filter((t) => !(0,_utilities_getFrameworkDisplay__WEBPACK_IMPORTED_MODULE_3__/* .getFrameworkDisplay */ .Z)(t))
+            .filter((t) => !(0,_utilities_getProgramingLanguageDisplay__WEBPACK_IMPORTED_MODULE_2__/* .getProgramingLanguageDisplay */ .x)(t))
             .uniq()
             .value(),
-        platform: (0,lodash__WEBPACK_IMPORTED_MODULE_0__.chain)(result.topics)
+        platform: (0,lodash__WEBPACK_IMPORTED_MODULE_0__.chain)(topics)
             .map((t) => t.replaceAll("-", " "))
             .map(lodash__WEBPACK_IMPORTED_MODULE_0__.upperFirst)
-            .map((t) => (0,_utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_2__/* .getPlatformDisplay */ .K)(t))
+            .map((t) => (0,_utilities_getPlatformDisplay__WEBPACK_IMPORTED_MODULE_1__/* .getPlatformDisplay */ .K)(t))
             .filter((t) => !!t)
             .uniq()
             .value(),
         coverage: [],
         install: {},
         community: {
-            githubDiscussions: result.has_discussions ? result.full_name : "",
-            issueTracker: result.has_issues ? result.html_url + "/issues/" : "",
+            githubDiscussions: result.hasDiscussionsEnabled
+                ? result.nameWithOwner
+                : "",
+            issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
         },
         source: [
             {
                 name: "GitHub",
                 wiki: "",
-                url: result.html_url,
-                lastChange: result.updated_at,
+                url: result.url,
+                lastChange: result.updatedAt,
             },
         ],
     };
 }
 async function requestGitHub(githubToken) {
-    const objects = [];
-    const limit = 100;
-    let page = 0;
-    let total = 0;
+    const results = [];
+    let hasNextPage = true;
+    let cursor = null;
     const newerThen5Year = new Date();
     newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
-    const dateFilter = newerThen5Year.toISOString().substring(0, 10);
-    do {
-        page++;
-        const base = "https://api.github.com/search/repositories";
-        const params = {};
-        params["q"] = `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
-        params["sort"] = "stars";
-        params["order"] = "desc";
-        params["per_page"] = limit;
-        params["page"] = page;
-        const result = await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
-            ? {
-                Authorization: "Bearer " + githubToken,
-                "X-GitHub-Api-Version": "2022-11-28",
-            }
-            : {});
-        total = result.total_count;
-        objects.push(...result.items);
-    } while (limit * page < total && page < 10);
-    while (limit * page < total && page < 20) {
-        page++;
-        const base = "https://api.github.com/search/repositories";
-        const params = {};
-        params["q"] = `topic:openstreetmap pushed:>${dateFilter} stars:>=3 -topic:java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension`;
-        params["sort"] = "stars";
-        params["order"] = "asc";
-        params["per_page"] = limit;
-        params["page"] = page - 10;
-        const result = await (0,_app_utilities_jsonRequest__WEBPACK_IMPORTED_MODULE_1__/* .getJson */ .T)(base, params, githubToken
-            ? {
-                Authorization: "Bearer " + githubToken,
-                "X-GitHub-Api-Version": "2022-11-28",
-            }
-            : {});
-        total = result.total_count;
-        objects.push(...result.items);
+    const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
+    while (hasNextPage && results.length < 1000) {
+        const json = await request(pushedAfter, cursor, githubToken, "desc");
+        const edgeNodes = json.data.search.edges.map((e) => e.node);
+        results.push(...edgeNodes);
+        hasNextPage = json.data.search.pageInfo.hasNextPage;
+        cursor = json.data.search.pageInfo.endCursor;
     }
-    return objects;
+    hasNextPage = true;
+    cursor = null;
+    while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
+        const json = await request(pushedAfter, cursor, githubToken, "asc");
+        const edgeNodes = json.data.search.edges.map((e) => e.node);
+        results.push(...edgeNodes);
+        hasNextPage = json.data.search.pageInfo.hasNextPage;
+        cursor = json.data.search.pageInfo.endCursor;
+    }
+    return results;
+}
+async function request(pushedAfter, cursor, githubToken, sort) {
+    const query = `
+      query {
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          edges {
+            node {
+              ... on Repository {
+                name
+                nameWithOwner
+                description
+                descriptionHTML
+                url
+                homepageUrl
+                openGraphImageUrl
+                usesCustomOpenGraphImage
+                stargazerCount
+                isArchived
+                hasDiscussionsEnabled
+                hasIssuesEnabled
+                hasWikiEnabled
+                updatedAt
+                licenseInfo {
+                  spdxId
+                }
+                owner {
+                  login
+                  url
+                }
+                repositoryTopics(first: 100) {
+                  nodes {
+                    topic {
+                      name
+                    }
+                  }
+                }
+                latestRelease {
+                  publishedAt 
+                }        
+              }
+            }
+          }
+        }
+      }
+    `;
+    const response = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${githubToken}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`GitHub API error: ${response.status} ${errorText}`);
+    }
+    const json = await response.json();
+    return json;
+}
+function hasDuplicates(a) {
+    return (0,lodash__WEBPACK_IMPORTED_MODULE_0__.uniqBy)(a, (a) => a.nameWithOwner).length !== a.length;
 }
 
 __webpack_async_result__();
@@ -70777,7 +70825,7 @@ async function loadAppsFromWikidata(language) {
 }
 async function loadAppsFromGitHub(githubToken) {
     let objs = await (0,_crawler_github__WEBPACK_IMPORTED_MODULE_9__/* .requestGitHub */ .P)(githubToken);
-    objs = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.uniqBy)(objs, (o) => o.full_name);
+    objs = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.uniqBy)(objs, (o) => o.nameWithOwner);
     const groupedObjs = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.groupBy)(objs, (o) => o.name);
     Object.entries(groupedObjs)
         .filter((o) => o[1].length > 1)
@@ -71018,7 +71066,9 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(ghToken);
     const owner = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.owner;
     const repo = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.repo.repo;
-    // JSON-Inhalt als Base64 kodieren
+    // Branch aus context.ref extrahieren (z.B. "refs/heads/my-feature-branch" => "my-feature-branch")
+    const ref = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.ref;
+    const branch = ref.replace("refs/heads/", "");
     const base64Content = Buffer.from(content).toString("base64");
     // Prüfen, ob die Datei existiert
     let sha;
@@ -71027,6 +71077,7 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
             owner,
             repo,
             path: filePath,
+            ref: branch,
         });
         if ("sha" in data) {
             sha = data.sha; // SHA der vorhandenen Datei speichern
@@ -71045,8 +71096,9 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
         message: commitMessage,
         content: base64Content,
         sha,
+        branch,
     });
-    console.log(`File "${filePath}" has been uploaded to the repository.`);
+    console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
 }
 
 __webpack_async_result__();
@@ -71560,7 +71612,7 @@ function generateWikimediaUrls(base, fileName, size) {
 /* harmony export */   J: () => (/* binding */ isFreeAndOpenSource)
 /* harmony export */ });
 function check(value) {
-    return value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
+    return !!value.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
 function isFreeAndOpenSource(value) {
     if (!value) {
@@ -71569,7 +71621,7 @@ function isFreeAndOpenSource(value) {
     if (typeof value === "string") {
         return check(value);
     }
-    return !!value.find((v) => check(v));
+    return value.some((v) => check(v));
 }
 
 

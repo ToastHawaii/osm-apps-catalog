@@ -1,19 +1,19 @@
-# À propos du Catalogue des applications d'OSM
+# À propos du catalogue des applications d'OSM
 
-**Experience the world in a creative, productive and unexpected way.**
+**Découvrez le monde d’une manière créative, productive et inattendue..**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Ce catalogue présente les applications et services utilisant les données
+OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées
+et triées selon le score de contribution communautaire (/docs/score).
 
-[Go to the catalog](https://osm-apps.org)
+[Accéder au catalogue](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Ajoutez les applications OSM que vous connaissez ou contribuez d'une autre
+manière.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Autres langues
 
-Display the catalog in your language:
+Afficher le catalogue dans votre langue :
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,40 +41,40 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_Ce catalogue ne contient actuellement que des applications de la version
+anglaise de [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) et [taginfo
+project list](https://taginfo.openstreetmap.org/projects)._
 
-Help with the translation:
+Aide à la traduction :
 
-- from the OSM Apps Catalog on
+- du catalogue d'applications OSM sur
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap
+- à partir des applications documentées dans [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Licence
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+L'application est sous licence [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). Le
+[code](https://github.com/ToastHawaii/osm-apps-catalog) est libre d'utilisation,
+de copie et de modification si vous le publiez sous cette même licence.
 
-## Disclaimer
+## Clause de non-responsabilité
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
-project are not endorsed by or affiliated with the [OpenStreetMap
-Foundation](https://osmfoundation.org/).
+OpenStreetMap et OSM sont des marques déposées de la Fondation OpenStreetMap. Ce
+projet n'est ni approuvé ni affilié à la Fondation
+OpenStreetMap(https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Devenez membre de la [communauté
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT)
+  : [Rejoignez un groupe local](https://usergroups.openstreetmap.de/),
+  [rencontrez](https://osmcal.org/) et [discutez](https://community.osm.be/)
+- [Contribuer à
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [À propos de moi](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
