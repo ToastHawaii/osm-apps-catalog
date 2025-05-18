@@ -30,7 +30,9 @@ import * as templateCs from "../locales/wiki-software-template/cs.json";
 import * as templateDe from "../locales/wiki-software-template/de.json";
 import * as templateEs from "../locales/wiki-software-template/es.json";
 import * as templateEt from "../locales/wiki-software-template/et.json";
+import * as templateFr from "../locales/wiki-software-template/fr.json";
 import * as templateHu from "../locales/wiki-software-template/hu.json";
+import * as templateIt from "../locales/wiki-software-template/it.json";
 import * as templateTa from "../locales/wiki-software-template/ta.json";
 import * as templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
 
@@ -49,10 +51,10 @@ i18next
       el: { translation: el },
       es: { translation: { ...es, "app.props": templateEs } },
       et: { translation: { ...et, "app.props": templateEt } },
-      fr: { translation: fr },
+      fr: { translation: { ...fr, "app.props": templateFr } },
       hu: { translation: { ...hu, "app.props": templateHu } },
       id: { translation: id },
-      it: { translation: it },
+      it: { translation: { ...it, "app.props": templateIt } },
       ja: { translation: ja },
       ko: { translation: ko },
       no: { translation: nb_NO },
@@ -67,7 +69,18 @@ i18next
     },
   });
 
-const templateLangs = ["en", "cs", "de", "es", "et", "hu", "ta", "zh-hans"];
+const templateLangs = [
+  "en",
+  "cs",
+  "de",
+  "es",
+  "et",
+  "fr",
+  "hu",
+  "it",
+  "ta",
+  "zh-hans",
+];
 
 function convertTemplateDataToJson() {
   const files = {} as {
@@ -127,7 +140,9 @@ function convertJsonToTemplateData() {
     de: templateDe,
     es: templateEs,
     et: templateEt,
+    fr: templateFr,
     hu: templateHu,
+    it: templateIt,
     ta: templateTa,
     "zh-hans": templateZh_Hans,
   } as {

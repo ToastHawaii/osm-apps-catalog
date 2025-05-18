@@ -7,7 +7,7 @@ const programingLanguages: {
   { name: "ActionScript", synonym: ["actionscript", "flash"] },
   { name: "ActiveScript", synonym: ["activescript"] },
   { name: "AppleScript", synonym: ["applescript"] },
-  { name: "C", synonym: ["c"] },
+  { name: "C", synonym: ["c", "clang"] },
   {
     name: "C++",
     synonym: [
@@ -25,15 +25,31 @@ const programingLanguages: {
       "cpp17",
       "c++20",
       "symbiancpp",
+      "gcc",
     ],
   },
   { name: "C#", synonym: ["c#", "c-sharp", "c sharp", "csharp"] },
   { name: "Clojure", synonym: ["clojure", "clojurescript"] },
-  { name: "CSS", synonym: ["css", "css3"] },
+  {
+    name: "CSS",
+    synonym: [
+      "css",
+      "css3",
+      // none synonym but a hint
+      "css grid",
+    ],
+  },
   { name: "Dart", synonym: ["dart"] },
   { name: "Go", synonym: ["go", "golang"] },
   { name: "HTML", synonym: ["html"] },
-  { name: "Java", synonym: ["java"] },
+  {
+    name: "Java",
+    synonym: [
+      "java",
+      // none synonym but a hint
+      "osm java",
+    ],
+  },
   {
     name: "JavaScript",
     synonym: [

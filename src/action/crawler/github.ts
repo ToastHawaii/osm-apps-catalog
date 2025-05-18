@@ -20,46 +20,57 @@ const ignoredTopics = [
   "map",
   "maps",
   "mapping",
+  "geo",
+  "cartography",
 
   // General
   "gui",
   "gui-application",
   "application",
   "app",
+  "static-website",
 
+  // Hosting/Dev platform
   "github-page",
+  "azure",
   "jekyll",
-  "dataviz",
-  "psram-needed",
-  "mqtt",
-  "kubernetes",
-  "k8s",
-  "git",
-  "svn",
-  "css-grid",
+  "firebase",
+  "firebase-auth",
+  "firebase-firestore",
+  "firebase-realtime-database",
   "github",
   "github",
   "github-actions",
+  "git",
+  "svn",
+  "kubernetes",
+  "k8s",
+  "dataviz",
+
+  // Not specific enough
   "520",
   "705",
   "955",
   "1050",
 
-  "help-wanted",
-  "firebase",
-  "firebase-auth",
-  "firebase-firestore",
-  "firebase-realtime-database",
-  "released",
+  // Used feature/standard
+  "mqtt",
+
+  // Offtopic
   "multilanguage",
+  "released",
+  "help-wanted",
+  "psram-needed",
 
   // License
   "agplv3",
   "gplv3",
   "foss",
+  "open-source",
 
   // Tools
   "cmake",
+  "tkinter",
 
   // Events
   "hacktoberfest",

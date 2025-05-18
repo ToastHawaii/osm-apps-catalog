@@ -47,6 +47,7 @@ const frameworks: {
   { name: "LovyanGFX", synonym: ["lovyangfx"] },
   { name: "shadcn/ui", synonym: ["shadcn ui"] },
   { name: "SQLite", synonym: ["sqlite"] },
+  { name: "Microsoft SQL Server", synonym: ["sqlserver"] },
   { name: "Turso", synonym: ["turso db"] },
   { name: "Supabase", synonym: ["supabase"] },
   { name: "TanStack Table", synonym: ["tanstack table"] },
@@ -85,6 +86,7 @@ const frameworks: {
   { name: "Blazor", synonym: ["blazor"] },
   { name: "Maui", synonym: ["maui"] },
   { name: "Uno platform", synonym: ["uno platform"] },
+  { name: "libosmscout", synonym: ["libosmscout"] },
 ];
 
 export function getFrameworkDisplay(value: string) {

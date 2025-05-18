@@ -44,6 +44,7 @@ import { MastodonLink } from "../components/links/community/MastodonLink";
 import { MatrixLink } from "../components/links/community/MatrixLink";
 import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
+import { plainText } from "../../../action/crawler/wiki/plainText";
 
 export function List({
   app,
@@ -100,7 +101,11 @@ export function List({
         <span dangerouslySetInnerHTML={{ __html: app.description }}></span>
         {app.documentation && (
           <>
-            {" "}
+            {plainText(app.description)
+              ? plainText(app.description).endsWith(".")
+                ? " "
+                : " – "
+              : ""}
             <a href={app.documentation} target="_blank" rel="noreferrer">
               {t("list.documentation")}
             </a>

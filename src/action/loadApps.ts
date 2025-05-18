@@ -23,7 +23,8 @@ async function loadAppsFromOsmWikiLayers(language: string) {
       (s) =>
         !containsOfflineLink(s["name"]) &&
         !containsOfflineLink(s["slippy_web"]) &&
-        !equalsYes(s["discontinued"])
+        !equalsYes(s["discontinued"]) &&
+        s["name"] !== "layer template"
     )
     .map((source) => transformLayer(source));
 }
@@ -46,7 +47,8 @@ async function loadAppsFromOsmWikiSoftwares(language: string) {
           s["appleStoreID"] ||
           s["macAppStoreID"] ||
           s["microsoftAppID"]) &&
-        !equalsIgnoreCase(s["status"], "broken")
+        !equalsIgnoreCase(s["status"], "broken") &&
+        s["name"] !== "software template"
     )
     .map((source) => transformSoftware(source as any))
     .filter((app) => !app.genre.includes("Library"));

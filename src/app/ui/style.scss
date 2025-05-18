@@ -185,6 +185,9 @@ a.link-create {
 #compare .param-text {
   font-size: small;
 }
+#compare .param-text span div {
+  display: inline;
+}
 #compare .row.focus {
   .param-title {
     color: #333;
@@ -285,6 +288,10 @@ a.link-create {
   border-radius: 0.28571429rem;
   overflow: hidden;
   position: relative;
+}
+
+.app > p div {
+  display: inline;
 }
 
 .carousel {

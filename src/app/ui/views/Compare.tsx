@@ -48,6 +48,7 @@ import { SlackLink } from "../components/links/community/SlackLink";
 import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
+import { plainText } from "../../../action/crawler/wiki/plainText";
 
 export function Compare({
   apps,
@@ -198,9 +199,27 @@ export function Compare({
               }),
             hasValue: (app) => !!app.description,
             renderToHtml: (app) => (
-              <span
-                dangerouslySetInnerHTML={{ __html: app.description }}
-              ></span>
+              <>
+                <span
+                  dangerouslySetInnerHTML={{ __html: app.description }}
+                ></span>
+                {app.documentation && (
+                  <>
+                    {plainText(app.description)
+                      ? plainText(app.description).endsWith(".")
+                        ? " "
+                        : " – "
+                      : ""}
+                    <a
+                      href={app.documentation}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {t("list.documentation")}
+                    </a>
+                  </>
+                )}
+              </>
             ),
             renderToWiki: (app) => toWikiValue(app.description, lang),
             more: true,

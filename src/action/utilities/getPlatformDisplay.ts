@@ -184,6 +184,11 @@ const platforms: {
     synonym: ["web assembly", "webassembly", "wasm"],
     version: [],
   },
+  {
+    name: "Docker",
+    synonym: ["docker"],
+    version: [],
+  },
 ];
 
 export function getPlatformDisplay(value: string) {
