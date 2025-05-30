@@ -121,5 +121,8 @@
     "select.search.noResults": "Kein Resultat",
     "filter.resetFilters": "Alle anzeigen",
     "filter.preview": "Apps werden angezeigt für:",
-    "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden."
+    "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden.",
+    "filter.preset": "Der Filter ist schon für dich eingestellt:",
+    "app.getIt": "Hol es",
+    "app.community.lemmy": "Lemmy"
 }
