@@ -64,7 +64,7 @@ lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
 für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
 veröffentlichen wird.
 
-## Disclaimer
+## Haftungsausschluss
 
 OpenStreetMap und OSM sind Marken der OpenStreetMap Foundation. Dieses Projekt
 wird nicht von der [OpenStreetMap Foundation](https://osmfoundation.org/)
