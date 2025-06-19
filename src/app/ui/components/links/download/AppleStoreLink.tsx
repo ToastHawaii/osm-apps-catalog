@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "../../../../../shared/data/App";
 
 export function AppleStoreLink({ app }: { app: App }) {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    (window as any).goatcounter.bind_events();
+  });
 
   if (!app.install.appleStoreID) {
     return null;
