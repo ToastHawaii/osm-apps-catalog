@@ -19,7 +19,7 @@ export function ObtainiumLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.obtainium")}
-      data-goatcounter-click="app/download/obtainium"
+      data-goatcounter-click="/app/download/obtainium"
       data-goatcounter-title="Download app via Obtainium."
     >
       <i

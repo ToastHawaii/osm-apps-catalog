@@ -297,7 +297,7 @@ export function Compare({
                     href={app.languagesUrl}
                     target="_blank"
                     rel="noreferrer"
-                    data-goatcounter-click="app/translationContribution"
+                    data-goatcounter-click="/app/translationContribution"
                     data-goatcounter-title="Go to translation contribution page from app."
                   >
                     {app.languages.length > 0 ? (
@@ -474,7 +474,7 @@ export function Compare({
                   href={app.sourceCode}
                   target="_blank"
                   rel="noreferrer"
-                  data-goatcounter-click="app/sourceCode"
+                  data-goatcounter-click="/app/sourceCode"
                   data-goatcounter-title="Go to source code from app."
                 >
                   <i className="fas fa-code"></i>

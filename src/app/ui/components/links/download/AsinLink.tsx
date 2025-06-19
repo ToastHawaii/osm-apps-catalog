@@ -19,7 +19,7 @@ export function AsinLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.asin")}
-      data-goatcounter-click="app/download/asin"
+      data-goatcounter-click="/app/download/asin"
       data-goatcounter-title="Download app via Amazon Appstore."
     >
       <i className="fab fa-amazon fa-fw"></i>

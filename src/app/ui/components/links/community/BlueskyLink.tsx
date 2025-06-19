@@ -19,7 +19,7 @@ export function BlueskyLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.bluesky")}
-      data-goatcounter-click="app/community/bluesky"
+      data-goatcounter-click="/app/community/bluesky"
       data-goatcounter-title="Follow Bluesky link from app."
     >
       <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />

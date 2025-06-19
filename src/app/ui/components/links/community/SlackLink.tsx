@@ -19,7 +19,7 @@ export function SlackLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.slack")}
-      data-goatcounter-click="app/community/slack"
+      data-goatcounter-click="/app/community/slack"
       data-goatcounter-title="Follow Slack link from app."
     >
       <i className="fab fa-slack-hash fa-fw"></i>

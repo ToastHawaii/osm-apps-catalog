@@ -19,7 +19,7 @@ export function GitHubDiscussionsLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.githubDiscussions")}
-      data-goatcounter-click="app/community/githubDiscussions"
+      data-goatcounter-click="/app/community/githubDiscussions"
       data-goatcounter-title="Follow GitHub Discussions from app."
     >
       <i className="fab fa-github fa-fw"></i>

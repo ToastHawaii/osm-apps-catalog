@@ -19,7 +19,7 @@ export function MicrosoftAppLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.microsoftApp")}
-      data-goatcounter-click="app/download/microsoftApp"
+      data-goatcounter-click="/app/download/microsoftApp"
       data-goatcounter-title="Download app via Microsoft Store."
     >
       <i className="fab fa-microsoft fa-fw"></i>

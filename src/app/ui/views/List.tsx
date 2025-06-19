@@ -62,7 +62,7 @@ export function List({
   const [isOpen, setIsOpen] = useState(open);
   const [carouselShown, setCarouselShown] = useState(false);
 
-  useGoatCounterEvents()
+  useGoatCounterEvents();
 
   const link = new URLSearchParams();
   link.set("app", "" + app.id);
@@ -210,7 +210,7 @@ export function List({
           href={app.languagesUrl}
           target="_blank"
           rel="noreferrer"
-          data-goatcounter-click="app/translationContribution"
+          data-goatcounter-click="/app/translationContribution"
           data-goatcounter-title="Go to translation contribution page from app."
         >
           <span className="more-info-title">{t("app.languages")}</span>
@@ -311,7 +311,7 @@ export function List({
           href={app.sourceCode}
           target="_blank"
           rel="noreferrer"
-          data-goatcounter-click="app/sourceCode"
+          data-goatcounter-click="/app/sourceCode"
           data-goatcounter-title="Go to source code from app."
         >
           <span className="more-info-title">{t("app.sourceCode")}</span>

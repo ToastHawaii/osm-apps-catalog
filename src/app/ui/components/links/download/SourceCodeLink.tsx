@@ -15,7 +15,7 @@ export function SourceCodeLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.sourceCode")}
-      data-goatcounter-click="app/download/sourceCode"
+      data-goatcounter-click="/app/download/sourceCode"
       data-goatcounter-title="Download app via Source code."
     >
       <i className="fas fa-code fa-fw"></i>

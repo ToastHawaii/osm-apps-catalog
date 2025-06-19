@@ -19,7 +19,7 @@ export function WebsiteLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.website")}
-      data-goatcounter-click="app/download/website"
+      data-goatcounter-click="/app/download/website"
       data-goatcounter-title="Download app via Website."
     >
       <i className="far fa-map fa-fw"></i>

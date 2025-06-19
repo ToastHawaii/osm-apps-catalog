@@ -22,7 +22,7 @@ export function MatrixLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.matrix")}
-      data-goatcounter-click="app/community/matrix"
+      data-goatcounter-click="/app/community/matrix"
       data-goatcounter-title="Follow Matrix room link from app."
     >
       <i>[m]</i>

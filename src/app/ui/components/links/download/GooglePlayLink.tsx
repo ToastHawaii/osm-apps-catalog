@@ -19,7 +19,7 @@ export function GooglePlayLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.googlePlay")}
-      data-goatcounter-click="app/download/googlePlay"
+      data-goatcounter-click="/app/download/googlePlay"
       data-goatcounter-title="Download app via Google Play."
     >
       <i className="fab fa-google-play fa-fw"></i>

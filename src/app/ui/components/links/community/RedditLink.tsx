@@ -19,7 +19,7 @@ export function RedditLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.reddit")}
-      data-goatcounter-click="app/community/reddit"
+      data-goatcounter-click="/app/community/reddit"
       data-goatcounter-title="Follow Reddit link from app."
     >
       <i className="fab fa-reddit fa-fw"></i>

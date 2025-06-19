@@ -19,7 +19,7 @@ export function HuaweiAppGalleryLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.huaweiAppGallery")}
-      data-goatcounter-click="app/download/huaweiAppGallery"
+      data-goatcounter-click="/app/download/huaweiAppGallery"
       data-goatcounter-title="Download app via Huawei App Gallery."
     >
       <i className="fas fa-shopping-bag fa-fw"></i>

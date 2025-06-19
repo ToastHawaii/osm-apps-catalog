@@ -19,7 +19,7 @@ export function FDroidLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.fDroid")}
-      data-goatcounter-click="app/download/fDroid"
+      data-goatcounter-click="/app/download/fDroid"
       data-goatcounter-title="Download app via Amazon F-Droid."
     >
       <i className="fab fa-android fa-fw"></i>

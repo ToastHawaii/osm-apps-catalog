@@ -19,7 +19,7 @@ export function IssueTrackerLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.issueTracker")}
-      data-goatcounter-click="app/community/issueTracker"
+      data-goatcounter-click="/app/community/issueTracker"
       data-goatcounter-title="Follow Issues link from app."
     >
       <i className="fas fa-list fa-fw"></i>

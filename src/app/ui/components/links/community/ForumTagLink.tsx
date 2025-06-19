@@ -19,7 +19,7 @@ export function ForumTagLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.forumTag")}
-      data-goatcounter-click="app/community/forumTag"
+      data-goatcounter-click="/app/community/forumTag"
       data-goatcounter-title="Follow Forum tag link from app."
     >
       <i className="fas fa-tag fa-fw"></i>
