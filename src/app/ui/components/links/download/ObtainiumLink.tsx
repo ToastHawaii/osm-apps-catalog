@@ -1,9 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "../../../../../shared/data/App";
+import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
 
 export function ObtainiumLink({ app }: { app: App }) {
   const { t } = useTranslation();
+
+  useGoatCounterEvents();
 
   if (!app.install.obtainiumLink) {
     return null;
@@ -16,6 +19,8 @@ export function ObtainiumLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.obtainium")}
+      data-goatcounter-click="app/download/obtainium"
+      data-goatcounter-title="Download app via Obtainium."
     >
       <i
         className="fas fa-gem fa-fw"

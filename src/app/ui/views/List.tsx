@@ -45,6 +45,7 @@ import { MatrixLink } from "../components/links/community/MatrixLink";
 import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
 import { plainText } from "../../../action/crawler/wiki/plainText";
+import { useGoatCounterEvents } from "../../utilities/useGoatCounterEvents";
 
 export function List({
   app,
@@ -60,6 +61,8 @@ export function List({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
   const [carouselShown, setCarouselShown] = useState(false);
+
+  useGoatCounterEvents()
 
   const link = new URLSearchParams();
   link.set("app", "" + app.id);
@@ -207,6 +210,8 @@ export function List({
           href={app.languagesUrl}
           target="_blank"
           rel="noreferrer"
+          data-goatcounter-click="app/translationContribution"
+          data-goatcounter-title="Go to translation contribution page from app."
         >
           <span className="more-info-title">{t("app.languages")}</span>
           <span className="more-info-text">
@@ -306,6 +311,8 @@ export function List({
           href={app.sourceCode}
           target="_blank"
           rel="noreferrer"
+          data-goatcounter-click="app/sourceCode"
+          data-goatcounter-title="Go to source code from app."
         >
           <span className="more-info-title">{t("app.sourceCode")}</span>
           <span className="more-info-text">

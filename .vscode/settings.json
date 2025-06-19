@@ -3,5 +3,6 @@
     "i18n-ally.localesPaths": [
         "src/app/ui/locales/wiki-software-template",
         "src/app/ui/locales"
-    ]
+    ],
+    "i18n-ally.keystyle": "nested"
 }

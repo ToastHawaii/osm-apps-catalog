@@ -1,9 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "../../../../../shared/data/App";
+import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
 
 export function MacAppStoreLink({ app }: { app: App }) {
   const { t } = useTranslation();
+
+  useGoatCounterEvents();
 
   if (!app.install.macAppStoreID) {
     return null;
@@ -16,6 +19,8 @@ export function MacAppStoreLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.macAppStore")}
+      data-goatcounter-click="app/download/macAppStore"
+      data-goatcounter-title="Download app via Mac App Store."
     >
       <i className="fab fa-app-store fa-fw"></i>
     </a>

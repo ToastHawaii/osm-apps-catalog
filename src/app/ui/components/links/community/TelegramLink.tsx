@@ -1,9 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "../../../../../shared/data/App";
+import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
 
 export function TelegramLink({ app }: { app: App }) {
   const { t } = useTranslation();
+
+  useGoatCounterEvents();
 
   if (!app.community.telegram) {
     return null;
@@ -16,6 +19,8 @@ export function TelegramLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.telegram")}
+      data-goatcounter-click="app/community/telegram"
+      data-goatcounter-title="Follow Telegram group link from app."
     >
       <i className="fab fa-telegram fa-fw"></i>
     </a>

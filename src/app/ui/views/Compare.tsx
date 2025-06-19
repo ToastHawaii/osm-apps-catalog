@@ -49,6 +49,7 @@ import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
 import { plainText } from "../../../action/crawler/wiki/plainText";
+import { useGoatCounterEvents } from "../../utilities/useGoatCounterEvents";
 
 export function Compare({
   apps,
@@ -60,6 +61,8 @@ export function Compare({
   state: State;
 }) {
   const { t } = useTranslation();
+
+  useGoatCounterEvents();
 
   return (
     <>
@@ -294,6 +297,8 @@ export function Compare({
                     href={app.languagesUrl}
                     target="_blank"
                     rel="noreferrer"
+                    data-goatcounter-click="app/translationContribution"
+                    data-goatcounter-title="Go to translation contribution page from app."
                   >
                     {app.languages.length > 0 ? (
                       <Badges values={app.languages} />
@@ -465,7 +470,13 @@ export function Compare({
             hasValue: (app) => !!app.sourceCode,
             renderToHtml: (app) =>
               app.sourceCode ? (
-                <a href={app.sourceCode} target="_blank" rel="noreferrer">
+                <a
+                  href={app.sourceCode}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-goatcounter-click="app/sourceCode"
+                  data-goatcounter-title="Go to source code from app."
+                >
                   <i className="fas fa-code"></i>
                 </a>
               ) : null,
