@@ -299,7 +299,7 @@ export function Compare({
                     rel="noreferrer"
                     data-goatcounter-click="/app/translationContribution"
                     data-goatcounter-title="Go to translation contribution page from app."
-                    data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
+                    data-goatcounter-referrer={`/?app=${app.id}`}
                   >
                     {app.languages.length > 0 ? (
                       <Badges values={app.languages} />
@@ -477,7 +477,7 @@ export function Compare({
                   rel="noreferrer"
                   data-goatcounter-click="/app/sourceCode"
                   data-goatcounter-title="Go to source code from app."
-                  data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
+                  data-goatcounter-referrer={`/?app=${app.id}`}
                 >
                   <i className="fas fa-code"></i>
                 </a>

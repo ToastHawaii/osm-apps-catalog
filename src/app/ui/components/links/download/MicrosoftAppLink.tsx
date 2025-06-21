@@ -24,7 +24,7 @@ export function MicrosoftAppLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Microsoft Store."
-      data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
+      data-goatcounter-referrer={`/?app=${app.id}`}
     >
       <i className="fab fa-microsoft fa-fw"></i>
     </a>

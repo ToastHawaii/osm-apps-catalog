@@ -20,7 +20,7 @@ export function SourceCodeLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Source code."
-      data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
+      data-goatcounter-referrer={`/?app=${app.id}`}
     >
       <i className="fas fa-code fa-fw"></i>
     </a>
