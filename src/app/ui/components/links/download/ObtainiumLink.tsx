@@ -24,7 +24,7 @@ export function ObtainiumLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Obtainium."
-      data-goatcounter-referrer={`/?app=${app.id}`}
+      data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
     >
       <i
         className="fas fa-gem fa-fw"

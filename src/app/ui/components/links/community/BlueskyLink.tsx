@@ -21,7 +21,7 @@ export function BlueskyLink({ app }: { app: App }) {
       title={t("app.community.bluesky")}
       data-goatcounter-click="/app/community/bluesky"
       data-goatcounter-title="Follow Bluesky link from app."
-      data-goatcounter-referrer={`/?app=${app.id}`}
+      data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
     >
       <img src="/icons/bluesky.svg" height="18px" alt="Bluesky" />
     </a>

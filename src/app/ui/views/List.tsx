@@ -212,7 +212,7 @@ export function List({
           rel="noreferrer"
           data-goatcounter-click="/app/translationContribution"
           data-goatcounter-title="Go to translation contribution page from app."
-          data-goatcounter-referrer={`/?app=${app.id}`}
+          data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
         >
           <span className="more-info-title">{t("app.languages")}</span>
           <span className="more-info-text">
@@ -314,7 +314,7 @@ export function List({
           rel="noreferrer"
           data-goatcounter-click="/app/sourceCode"
           data-goatcounter-title="Go to source code from app."
-          data-goatcounter-referrer={`/?app=${app.id}`}
+          data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
         >
           <span className="more-info-title">{t("app.sourceCode")}</span>
           <span className="more-info-text">
