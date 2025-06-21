@@ -1,1 +1,199 @@
-{}
+{
+    "name": {
+        "label": "Όνομα",
+        "description": "Επίσημο όνομα, διαφορετικά το πιο κοινό"
+    },
+    "status": {
+        "description": "Τρέχουσα κατάσταση του έργου.",
+        "label": "Κατάσταση"
+    },
+    "license": {
+        "label": "Άδεια"
+    },
+    "price": {
+        "label": "Τιμή"
+    },
+    "web": {
+        "label": "Διεύθυνση ιστότοπου"
+    },
+    "logo": {
+        "label": "Λογότυπο"
+    },
+    "repo": {
+        "label": "Πηγαίος κώδικας"
+    },
+    "screenshot": {
+        "label": "Στιγμιότυπο"
+    },
+    "description": {
+        "label": "Περιγραφή"
+    },
+    "platform": {
+        "label": "Υποστηριζόμενες πλατφόρμες"
+    },
+    "genre": {
+        "label": "Είδος",
+        "description": "Κύρια κατηγορία γι' αυτό το εργαλείο."
+    },
+    "author": {
+        "label": "Δημιουργός",
+        "description": "Όνομα του δημιουργού ή σύνδεσμος στο προφίλ χρήστη του στο OSM-wiki"
+    },
+    "languages": {
+        "label": "Γλώσσες"
+    },
+    "coverage": {
+        "label": "Κάλυψη"
+    },
+    "languagesurl": {
+        "label": "URL γλωσσών"
+    },
+    "code": {
+        "label": "Κώδικας",
+        "description": "Λίστα των γλωσσών προγραμματισμού που χρησιμοποιήθηκαν."
+    },
+    "version": {
+        "label": "Έκδοση",
+        "description": "Τελευταία έκδοση"
+    },
+    "date": {
+        "description": "Τελευταία ημερομηνία κυκλοφορίας",
+        "label": "Ημερομηνία κυκλοφορίας"
+    },
+    "bbWorldID": {
+        "label": "BlackBerry ID",
+        "description": "ID εφαρμογής στο BlackBerry World"
+    },
+    "fDroidID": {
+        "label": "F-Droid ID",
+        "description": "ID εφαρμογής στο F-Droid"
+    },
+    "googlePlayID": {
+        "label": "Google Play ID",
+        "description": "ID εφαρμογής στο Google Play Store"
+    },
+    "firefoxMarketplaceID": {
+        "label": "Firefox Marketplace ID",
+        "description": "ID εφαρμογής στο Mozilla Firefox Marketplace"
+    },
+    "huaweiAppGalleryID": {
+        "label": "Huawei AppGallery ID",
+        "description": "ID εφαρμογής στο Huawei AppGallery"
+    },
+    "appleStoreID": {
+        "label": "AppStore ID",
+        "description": "ID εφαρμογής στο iTunes App Store"
+    },
+    "macAppStoreID": {
+        "label": "Mac AppStore ID",
+        "description": "ID εφαρμογής στο Mac App Store"
+    },
+    "microsoftAppID": {
+        "label": "Microsoft ID"
+    },
+    "map": {
+        "label": "Προβολή χάρτη"
+    },
+    "mapData": {
+        "label": "Δεδομένα χάρτη"
+    },
+    "datasource": {
+        "label": "Πηγή"
+    },
+    "3D": {
+        "label": "3D προβολή"
+    },
+    "showWebsite": {
+        "label": "Εμφάνιση ιστότοπου"
+    },
+    "rotateMap": {
+        "label": "Περιστροφή χάρτη"
+    },
+    "showPhoneNumber": {
+        "label": "Εμφάνιση αριθμού τηλεφώνου"
+    },
+    "showOpeningHours": {
+        "label": "Εμφάνιση ωραρίου λειτουργίας"
+    },
+    "routing": {
+        "label": "Δρομολόγηση"
+    },
+    "createRouteManually": {
+        "label": "Δημιουργία διαδρομής χειροκίνητα",
+        "description": "[Δρομολόγηση]"
+    },
+    "calculateRoute": {
+        "label": "Υπολογισμός διαδρομής",
+        "description": "[Δρομολόγηση] Μπορεί να υπολογίσει μια διαδρομή χρησιμοποιώντας δρομολόγηση;"
+    },
+    "turnRestrictions": {
+        "label": "Περιορισμοί στροφής",
+        "description": "[Δρομολόγηση] Μπορεί να χειριστεί περιορισμούς στροφής;"
+    },
+    "routingProviders": {
+        "label": "Πάροχοι δρομολόγησης",
+        "description": "[Δρομολόγηση] Τι υπηρεσία/ες δρομολόγησης χρησιμοποιεί;"
+    },
+    "avoidTraffic": {
+        "label": "Αποφυγή κίνησης"
+    },
+    "navigating": {
+        "label": "Πλοήγηση"
+    },
+    "navToPoint": {
+        "label": "Πλοήγηση σε σημείο"
+    },
+    "tracking": {
+        "label": "Δημιουργία ίχνους"
+    },
+    "uploadGPX": {
+        "label": "Ανέβασμα GPX στο OSM"
+    },
+    "monitoring": {
+        "label": "Παρακολούθηση"
+    },
+    "showSpeed": {
+        "label": "Εμφάνιση ταχύτητας"
+    },
+    "addWay": {
+        "label": "Προσθήκη γραμμής",
+        "description": "[Επεξεργαστής] Μπορείτε να προσθέστε μια γραμμή;"
+    },
+    "editGeom": {
+        "label": "Επεξεργασία γεωμετριών",
+        "description": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε κόμβους/γραμμές;"
+    },
+    "editRelations": {
+        "label": "Επεξεργασία σχέσεων",
+        "description": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε σχέσεις;"
+    },
+    "viewNotes": {
+        "label": "Προβολή σημειώσεων",
+        "description": "[Επεξεργαστής] Μπορείτε να δείτε Σημειώσεις του OSM;"
+    },
+    "createNotes": {
+        "label": "Δημιουργία σημειώσεων",
+        "description": "[Επεξεργαστής] Μπορείτε να προσθέσετε Σημειώσεις του OSM;"
+    },
+    "editNotes": {
+        "label": "Επεξεργασία σημειώσεων",
+        "description": "[Επεξεργαστής] Μπορείτε να σχολιάσετε/κλείσετε Σημειώσεις του OSM;"
+    },
+    "uploadOSMData": {
+        "label": "Ανέβασμα στο OSM",
+        "description": "[Επεξεργαστής] Μπορείτε να στείλετε αλλαγές απευθείας στο OSM;"
+    },
+    "accessibility": {
+        "label": "Υποστήριξη προσβασιμότητας"
+    },
+    "brailleUI": {
+        "label": "Διεπαφή Braille"
+    },
+    "publicTransportMode": {
+        "description": "[Προσβασιμότητα] Υποστηρίζει δρομολόγηση με χρήση δημόσιας συγκοινωνίας;",
+        "label": "Λειτουργία Δημόσιας Συγκοινωνίας"
+    },
+    "findLocation": {
+        "label": "Εύρεση τοποθεσίας"
+    }
+}
