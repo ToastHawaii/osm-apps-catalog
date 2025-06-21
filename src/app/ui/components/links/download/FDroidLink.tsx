@@ -24,7 +24,7 @@ export function FDroidLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Amazon F-Droid."
-      data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
+      data-goatcounter-referrer={`https://osm-apps.org/app/${app.id}`}
     >
       <i className="fab fa-android fa-fw"></i>
     </a>

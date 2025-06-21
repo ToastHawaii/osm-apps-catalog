@@ -24,7 +24,7 @@ export function HuaweiAppGalleryLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Huawei App Gallery."
-      data-goatcounter-referrer={`https://osm-apps.org/?app=${app.id}`}
+      data-goatcounter-referrer={`https://osm-apps.org/app/${app.id}`}
     >
       <i className="fas fa-shopping-bag fa-fw"></i>
     </a>
