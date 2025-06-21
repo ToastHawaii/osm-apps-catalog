@@ -21,7 +21,6 @@ export function TelegramLink({ app }: { app: App }) {
       title={t("app.community.telegram")}
       data-goatcounter-click="/app/community/telegram"
       data-goatcounter-title="Follow Telegram group link from app."
-      data-goatcounter-referrer={`https://osm-apps.org/app/${app.id}`}
     >
       <i className="fab fa-telegram fa-fw"></i>
     </a>

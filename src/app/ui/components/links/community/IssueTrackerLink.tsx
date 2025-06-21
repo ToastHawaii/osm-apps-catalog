@@ -21,7 +21,6 @@ export function IssueTrackerLink({ app }: { app: App }) {
       title={t("app.community.issueTracker")}
       data-goatcounter-click="/app/community/issueTracker"
       data-goatcounter-title="Follow Issues link from app."
-      data-goatcounter-referrer={`https://osm-apps.org/app/${app.id}`}
     >
       <i className="fas fa-list fa-fw"></i>
     </a>

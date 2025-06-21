@@ -24,7 +24,6 @@ export function MatrixLink({ app }: { app: App }) {
       title={t("app.community.matrix")}
       data-goatcounter-click="/app/community/matrix"
       data-goatcounter-title="Follow Matrix room link from app."
-      data-goatcounter-referrer={`https://osm-apps.org/app/${app.id}`}
     >
       <i>[m]</i>
     </a>
