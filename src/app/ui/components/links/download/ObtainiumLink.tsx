@@ -20,9 +20,11 @@ export function ObtainiumLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.obtainium")}
-      data-goatcounter-click={`/app/download/obtainium${edit(app) ? "?category=edit" : ""}`}
+      data-goatcounter-click={`/app/download/obtainium${
+        edit(app) ? "?category=edit" : ""
+      }`}
       data-goatcounter-title="Download app via Obtainium."
-      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
+      data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
     >
       <i
         className="fas fa-gem fa-fw"

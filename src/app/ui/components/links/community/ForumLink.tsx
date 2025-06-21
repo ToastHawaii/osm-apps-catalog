@@ -21,7 +21,7 @@ export function ForumLink({ app }: { app: App }) {
       title={t("app.community.forum")}
       data-goatcounter-click="/app/community/forum"
       data-goatcounter-title="Follow Forum link from app."
-      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
+      data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
     >
       <i className="fas fa-comments fa-fw"></i>
     </a>

@@ -20,9 +20,11 @@ export function HuaweiAppGalleryLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.huaweiAppGallery")}
-      data-goatcounter-click={`/app/download/huaweiAppGallery${edit(app) ? "?category=edit" : ""}`}
+      data-goatcounter-click={`/app/download/huaweiAppGallery${
+        edit(app) ? "?category=edit" : ""
+      }`}
       data-goatcounter-title="Download app via Huawei App Gallery."
-      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
+      data-goatcounter-referrer={`osm-apps.org/?app=${app.id}`}
     >
       <i className="fas fa-shopping-bag fa-fw"></i>
     </a>
