@@ -22,6 +22,7 @@ export function AppleStoreLink({ app }: { app: App }) {
       title={t("app.install.appleStore")}
       data-goatcounter-click={`/app/download/appleStore${edit(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Download app via Apple App Store."
+      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
     >
       <i className="fab fa-app-store-ios fa-fw"></i>
     </a>

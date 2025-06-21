@@ -1,19 +1,19 @@
-# About OSM Apps Catalog
+# Σχετικά με το OSM Apps Catalog
 
 **Experience the world in a creative, productive and unexpected way.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα
+OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
+ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
 
-[Go to the catalog](https://osm-apps.org)
+[Πηγαίνετε στον κατάλογο](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους
+τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Άλλες γλώσσες
 
-Display the catalog in your language:
+Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,29 +41,29 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_Αυτός ο κατάλογος περιλαμβάνει αυτή την στιγμή μόνο εφαρμογές από την Αγγλική
+έκδοση του [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) και [λίστα
+έργων του taginfo (https://taginfo.openstreetmap.org/projects)._
 
-Help with the translation:
+Βοηθήστε με τη μετάφραση:
 
-- from the OSM Apps Catalog on
+- από το OSM Apps Catalog στο
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap
+- από τις εφαρμογές που καταγράφονται στο [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Άδεια
 
 The app is licensed under the [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
 [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
 and modification if you publish under the same license.
 
-## Disclaimer
+## Αποποίηση
 
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
 project are not endorsed by or affiliated with the [OpenStreetMap
@@ -71,10 +71,10 @@ Foundation](https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Γίνεται μέλος της [κοινότητας του
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Μπείτε σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/),
+  [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
+- [Συνεισφέρετε στο
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [Σχετικά με εμένα](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

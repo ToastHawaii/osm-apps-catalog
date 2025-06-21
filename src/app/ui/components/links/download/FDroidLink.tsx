@@ -22,6 +22,7 @@ export function FDroidLink({ app }: { app: App }) {
       title={t("app.install.fDroid")}
       data-goatcounter-click={`/app/download/fDroid${edit(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Download app via Amazon F-Droid."
+      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
     >
       <i className="fab fa-android fa-fw"></i>
     </a>

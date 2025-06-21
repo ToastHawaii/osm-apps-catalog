@@ -22,6 +22,7 @@ export function WebsiteLink({ app }: { app: App }) {
       title={t("app.website")}
       data-goatcounter-click={`/app/download/website${edit(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Download app via Website."
+      data-goatcounter-referrer={`osm-apps.org?app=${app.id}`}
     >
       <i className="far fa-map fa-fw"></i>
     </a>
