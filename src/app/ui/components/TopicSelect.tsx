@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "../../../shared/data/App";
 import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
-import { isEqual } from "lodash";
+import { difference, isEqual } from "lodash";
 
 export function TopicSelect({
   apps,
@@ -36,6 +36,14 @@ export function TopicSelect({
           const newValues = newOptions.map((o) => o.value);
           if (isEqual(newValues, selected)) {
             return;
+          }
+          const onlyNewValues = difference(newValues, selected);
+          if ((window as any).goatcounter && onlyNewValues.length > 0) {
+            (window as any).goatcounter.count({
+              path: `/?topics=${onlyNewValues.join()}`,
+              title: "Topic selected",
+              event: true,
+            });
           }
           onChange(newValues);
         },
