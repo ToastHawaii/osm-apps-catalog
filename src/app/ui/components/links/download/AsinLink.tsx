@@ -24,6 +24,7 @@ export function AsinLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Amazon Appstore."
+      data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-amazon fa-fw"></i>
     </a>

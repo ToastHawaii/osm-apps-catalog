@@ -22,6 +22,7 @@ export function LemmyLink({ app }: { app: App }) {
       title={t("app.community.lemmy")}
       data-goatcounter-click="/app/community/lemmy"
       data-goatcounter-title="Follow Lemmy link from app."
+      data-goatcounter-referrer="https://osm-apps.org/"
     >
       <img src="/icons/lemmy.svg" alt="Lemmy" height="18px" />
     </a>

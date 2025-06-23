@@ -21,6 +21,7 @@ export function SlackLink({ app }: { app: App }) {
       title={t("app.community.slack")}
       data-goatcounter-click="/app/community/slack"
       data-goatcounter-title="Follow Slack link from app."
+      data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-slack-hash fa-fw"></i>
     </a>

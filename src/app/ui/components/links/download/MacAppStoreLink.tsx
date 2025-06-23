@@ -24,6 +24,7 @@ export function MacAppStoreLink({ app }: { app: App }) {
         edit(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Download app via Mac App Store."
+      data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-app-store fa-fw"></i>
     </a>

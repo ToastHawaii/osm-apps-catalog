@@ -21,6 +21,7 @@ export function RedditLink({ app }: { app: App }) {
       title={t("app.community.reddit")}
       data-goatcounter-click="/app/community/reddit"
       data-goatcounter-title="Follow Reddit link from app."
+      data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-reddit fa-fw"></i>
     </a>
