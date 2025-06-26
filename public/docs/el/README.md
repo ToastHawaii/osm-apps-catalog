@@ -1,6 +1,6 @@
 # Σχετικά με το OSM Apps Catalog
 
-**Experience the world in a creative, productive and unexpected way.**
+**Ζήστε τον κόσμο με δημιουργικό, παραγωγικό και απρόσμενο τρόπο.**
 
 Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα
 OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
@@ -44,7 +44,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 _Αυτός ο κατάλογος περιλαμβάνει αυτή την στιγμή μόνο εφαρμογές από την Αγγλική
 έκδοση του [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) και [λίστα
-έργων του taginfo (https://taginfo.openstreetmap.org/projects)._
+έργων του taginfo](https://taginfo.openstreetmap.org/projects)._
 
 Βοηθήστε με τη μετάφραση:
 
@@ -58,16 +58,16 @@ _Αυτός ο κατάλογος περιλαμβάνει αυτή την στ�
 
 ## Άδεια
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+Η εφαρμογή διατίθεται με την άδεια χρήσης [Γενική Άδεια Δημόσιας Χρήσης Affero
+GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
+Ο [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
+χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
 ## Αποποίηση
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation. This
-project are not endorsed by or affiliated with the [OpenStreetMap
-Foundation](https://osmfoundation.org/).
+Το OpenStreetMap και το OSM είναι σήματα κατατεθέντα του Ιδρύματος
+OpenStreetMap. Αυτό το έργο δεν προωθείται από ούτε συνδέεται με το [Ίδρυμα
+OpenStreetMap](https://osmfoundation.org/).
 
 ---
 
