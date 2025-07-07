@@ -92,6 +92,13 @@ export function Menu({
           if (value === i[0].value) {
             return;
           }
+          if ((window as any).goatcounter) {
+            (window as any).goatcounter.count({
+              path: `/?category=${value}`,
+              title: "Has switched the category.",
+              event: true,
+            });
+          }
           onChange(i[0].value);
         },
       }}

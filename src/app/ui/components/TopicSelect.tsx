@@ -41,7 +41,7 @@ export function TopicSelect({
           if ((window as any).goatcounter && onlyNewValues.length > 0) {
             (window as any).goatcounter.count({
               path: `/?topics=${onlyNewValues.join()}`,
-              title: "Topic selected",
+              title: "Has selected a topic.",
               event: true,
             });
           }

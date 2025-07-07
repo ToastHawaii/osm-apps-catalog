@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
-import { isEqual } from "lodash";
+import { difference, isEqual } from "lodash";
 
 export const mapping: { [value: string]: string } = {
   discuss: "app.contribute.toSoftware.discuss",
@@ -79,6 +79,14 @@ export function ContributeSelect({
           const newValues = newOptions.map((o) => o.value);
           if (isEqual(newValues, selected)) {
             return;
+          }
+          const onlyNewValues = difference(newValues, selected);
+          if ((window as any).goatcounter && onlyNewValues.length > 0) {
+            (window as any).goatcounter.count({
+              path: `/?contribute=${onlyNewValues.join()}`,
+              title: "Has selected a contribute filter.",
+              event: true,
+            });
           }
           onChange(newValues);
         },

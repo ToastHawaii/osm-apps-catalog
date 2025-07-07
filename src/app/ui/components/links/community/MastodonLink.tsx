@@ -20,8 +20,8 @@ export function MastodonLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.community.mastodon")}
-      data-goatcounter-click="/app/community/mastodon"
-      data-goatcounter-title="Follow Mastodon link from app."
+      data-goatcounter-click="/app/community"
+      data-goatcounter-title="Follows a community link of a app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-mastodon fa-fw"></i>

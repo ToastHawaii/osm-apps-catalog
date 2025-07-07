@@ -20,10 +20,10 @@ export function GooglePlayLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.googlePlay")}
-      data-goatcounter-click={`/app/download/googlePlay${
+      data-goatcounter-click={`/app/download/${
         edit(app) ? "?category=edit" : ""
       }`}
-      data-goatcounter-title="Download app via Google Play."
+      data-goatcounter-title="Goes to a download page of a app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-google-play fa-fw"></i>
