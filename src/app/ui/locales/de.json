@@ -123,6 +123,6 @@
     "filter.preview": "Apps werden angezeigt für:",
     "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden.",
     "filter.preset": "Der Filter ist schon für dich eingestellt:",
-    "app.getIt": "Hol es",
+    "app.getIt": "Get it on",
     "app.community.lemmy": "Lemmy"
 }
