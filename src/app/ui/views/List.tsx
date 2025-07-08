@@ -211,7 +211,7 @@ export function List({
           target="_blank"
           rel="noreferrer"
           data-goatcounter-click="/app/translation-contribution"
-          data-goatcounter-title="Goes to the translation contribution page of a app."
+          data-goatcounter-title="Goes to the translation contribution page of an app."
           data-goatcounter-referrer="https://osm-apps.org/"
         >
           <span className="more-info-title">{t("app.languages")}</span>
@@ -313,7 +313,7 @@ export function List({
           target="_blank"
           rel="noreferrer"
           data-goatcounter-click="/app/source-code"
-          data-goatcounter-title="Goes to source code of a app."
+          data-goatcounter-title="Goes to source code of an app."
           data-goatcounter-referrer="https://osm-apps.org/"
         >
           <span className="more-info-title">{t("app.sourceCode")}</span>

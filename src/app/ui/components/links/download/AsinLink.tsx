@@ -20,10 +20,10 @@ export function AsinLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.install.asin")}
-      data-goatcounter-click={`/app/download/${
+      data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
       }`}
-      data-goatcounter-title="Goes to a download page of a app."
+      data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-amazon fa-fw"></i>

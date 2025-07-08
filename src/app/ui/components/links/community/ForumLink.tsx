@@ -20,7 +20,7 @@ export function ForumLink({ app }: { app: App }) {
       rel="noreferrer"
       title={t("app.community.forum")}
       data-goatcounter-click="/app/community"
-      data-goatcounter-title="Follows a community link of a app."
+      data-goatcounter-title="Follows a community link of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fas fa-comments fa-fw"></i>

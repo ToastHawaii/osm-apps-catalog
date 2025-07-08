@@ -16,10 +16,10 @@ export function SourceCodeLink({ app }: { app: App }) {
       target="_blank"
       rel="noreferrer"
       title={t("app.sourceCode")}
-      data-goatcounter-click={`/app/download/${
+      data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
       }`}
-      data-goatcounter-title="Goes to a download page of a app."
+      data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fas fa-code fa-fw"></i>

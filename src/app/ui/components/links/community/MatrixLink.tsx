@@ -23,7 +23,7 @@ export function MatrixLink({ app }: { app: App }) {
       rel="noreferrer"
       title={t("app.community.matrix")}
       data-goatcounter-click="/app/community"
-      data-goatcounter-title="Follows a community link of a app."
+      data-goatcounter-title="Follows a community link of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i>[m]</i>
