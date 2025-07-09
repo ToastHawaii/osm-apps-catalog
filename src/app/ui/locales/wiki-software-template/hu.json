@@ -25,7 +25,7 @@
     },
     "showWebsite": {
         "label": "Megjelenít-e weboldalt?",
-        "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalra mutató linkjét?"
+        "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalára mutató linket?"
     },
     "showPhoneNumber": {
         "label": "Megjelenít-e telefonszámot?",
@@ -73,7 +73,7 @@
     },
     "trafficProvider": {
         "label": "Forgalmi szolgáltató",
-        "description": "[Útvonaltervezés] Forgalmi adatok forrásának szolgáltatója"
+        "description": "[Útvonaltervezés] Forgalmi adatok forrása"
     },
     "navigating": {
         "label": "Navigáció",
