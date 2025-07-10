@@ -55,6 +55,10 @@ export function App() {
         appendMeta("og:image", app.logos[0]);
       }
 
+      if (app.install.appleStoreID) {
+        appendMeta("apple-itunes-app", `app-id=${app.install.appleStoreID}`);
+      }
+
       const script = document.createElement("script");
       script.setAttribute("type", "application/ld+json");
       script.textContent = toSchemaOrg(app);
