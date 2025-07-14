@@ -79,7 +79,7 @@
     "app.community": "Gemenskap",
     "app.community.forum": "Forumet",
     "app.community.forumTag": "Forumtagg",
-    "app.community.matrix": "Matrisrummet",
+    "app.community.matrix": "Matrix rummet",
     "app.community.bluesky": "Bluesky",
     "app.community.issueTracker": "Frågor",
     "app.community.githubDiscussions": "GitHub diskussioner",
@@ -121,5 +121,6 @@
     "score.criteria.communityChannelExists": "en kommunikationskanal för samhället finns (t.ex. forum, Mastodon)",
     "score.criteria.openSourceChannel": "en kanal finns på open-source plattformar (t.ex. Matrix)",
     "score.criteria.documentationLink": "en dokumentationslänk är tillgänglig",
-    "score.criteria.documentedMultiplePlatforms": "appen är dokumenterad på flera plattformar (t.ex. OSM-Wiki, taginfo, Wikidata)"
+    "score.criteria.documentedMultiplePlatforms": "appen är dokumenterad på flera plattformar (t.ex. OSM-Wiki, taginfo, Wikidata)",
+    "compare.group.header.map": "Kartvisning"
 }
