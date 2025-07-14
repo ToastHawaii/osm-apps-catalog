@@ -32,5 +32,10 @@
     "select.search.placeholder": "Sök",
     "select.search.noResults": "Inga resultat",
     "compare.group.header.general": "Generell",
-    "compare.group.header.routing": "Routing"
+    "compare.group.header.routing": "Routing",
+    "compare.group.header.navigating": "Navigera",
+    "compare.group.header.tracking": "Spårning",
+    "compare.group.header.monitoring": "Övervakning",
+    "compare.group.header.editing": "Redigering",
+    "compare.group.header.rendering": "Rendering"
 }
