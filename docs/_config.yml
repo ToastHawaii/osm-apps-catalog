@@ -25,7 +25,7 @@ defaults:
     values:
       lang: "el"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "Ζήστε τον κόσμο με δημιουργικό, παραγωγικό και απρόσμενο τρόπο."
       base: "/el/"
   - scope:
       path: "docs/es/README.md"
@@ -38,15 +38,15 @@ defaults:
       path: "docs/et/README.md"
     values:
       lang: "et"
-      title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      title: "Veebirakenduse teave - OSM Apps Catalog"
+      description: "Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil."
       base: "/et/"
   - scope:
       path: "docs/fr/README.md"
     values:
       lang: "fr"
-      title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      title: "À propos - OSM Apps Catalog"
+      description: "Découvrez le monde d’une manière créative, productive et inattendue."
       base: "/fr/"
   - scope:
       path: "docs/hu/README.md"
@@ -59,7 +59,7 @@ defaults:
       path: "docs/id/README.md"
     values:
       lang: "id"
-      title: "About - OSM Apps Catalog"
+      title: "Tentang - OSM Apps Catalog"
       description: "Experience the world in a creative, productive and unexpected way."
       base: "/id/"
   - scope:
@@ -112,6 +112,20 @@ defaults:
       description: "Experience the world in a creative, productive and unexpected way."
       base: "/ru/"
   - scope:
+      path: "docs/sv/README.md"
+    values:
+      lang: "sv"
+      title: "Om - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/sv/"
+  - scope:
+      path: "docs/ta/README.md"
+    values:
+      lang: "ta"
+      title: "பற்றி - OSM Apps Catalog"
+      description: "Experience the world in a creative, productive and unexpected way."
+      base: "/ta/"
+  - scope:
       path: "docs/tr/README.md"
     values:
       lang: "tr"
@@ -136,6 +150,6 @@ defaults:
       path: "docs/zh-Hans/README.md"
     values:
       lang: "zh-Hans"
-      title: "About - OSM Apps Catalog"
+      title: "關於 - OSM Apps Catalog"
       description: "Experience the world in a creative, productive and unexpected way."
       base: "/zh-hans/"
