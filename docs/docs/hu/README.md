@@ -60,10 +60,10 @@ Segítség a fordításban:
 ## Licenc
 
 Az alkalmazás [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog)
-szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt
-teszed közzé.
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) licenc
+alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog) szabadon
+felhasználható, másolható és módosítható, ha ugyanezen licenc alatt teszed
+közzé.
 
 ## Felelősségi nyilatkozat
 
