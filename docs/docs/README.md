@@ -98,7 +98,7 @@ Help with the translation:
 
 ## License
 
-The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE). The [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying and modification if you publish under the same license.
+The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying and modification if you publish under the same license.
 
 ## Disclaimer
 
