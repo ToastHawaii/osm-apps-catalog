@@ -59,11 +59,10 @@ Aita tõlkimisel:
 ## Litsents
 
 See rakendus on litsentseeritud [GNU Affero Üldise Avaliku Litsentsi versioon
-3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
-alusel. Veebirakenduse
-[lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on kõigile vabalt
-kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on jätkuvalt
-avaldatud sama litsentsi alusel.
+3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) alusel.
+Veebirakenduse [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on
+kõigile vabalt kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on
+jätkuvalt avaldatud sama litsentsi alusel.
 
 ## Lahtiütlus vastutusest
 

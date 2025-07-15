@@ -59,7 +59,7 @@ Hilf bei der Übersetzung:
 ## Lizenz
 
 Die App ist unter der [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE)
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
 lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
 für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
 veröffentlichen wird.
