@@ -59,8 +59,8 @@ _Αυτός ο κατάλογος περιλαμβάνει αυτή την στ�
 ## Άδεια
 
 Η εφαρμογή διατίθεται με την άδεια χρήσης [Γενική Άδεια Δημόσιας Χρήσης Affero
-GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/master/LICENSE).
-Ο [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
+GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
+[κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
 ## Αποποίηση
