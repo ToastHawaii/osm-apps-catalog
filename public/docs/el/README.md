@@ -49,7 +49,7 @@ _Αυτός ο κατάλογος περιλαμβάνει αυτή την στ�
 Βοηθήστε με τη μετάφραση:
 
 - από το OSM Apps Catalog στο
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
