@@ -93,10 +93,14 @@ _This catalog currently only contains apps from the English version of [OpenStre
 
 Help with the translation:
 
-- from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
+- from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+
+## 📈 Statistic
+
+Take a look at [the usage statistics of the OSM Apps Catalog](https://osm-apps.goatcounter.com/?group=day)
 
 ## 🙏 Special thanks to
 
