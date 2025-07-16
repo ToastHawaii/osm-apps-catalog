@@ -49,7 +49,7 @@ _Dieser Katalog enthält derzeit nur Apps aus der englischen Version von
 Hilf bei der Übersetzung:
 
 - des OSM Apps Katalogs auf
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog)
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
