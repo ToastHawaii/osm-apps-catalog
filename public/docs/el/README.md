@@ -65,9 +65,9 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 
 ## Αποποίηση
 
-Το OpenStreetMap και το OSM είναι σήματα κατατεθέντα του Ιδρύματος
-OpenStreetMap. Αυτό το έργο δεν προωθείται από ούτε συνδέεται με το [Ίδρυμα
-OpenStreetMap](https://osmfoundation.org/).
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
+used with their permission. This project are not endorsed by or affiliated with
+the [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
