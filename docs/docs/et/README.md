@@ -66,9 +66,10 @@ jätkuvalt avaldatud sama litsentsi alusel.
 
 ## Lahtiütlus vastutusest
 
-OpenStreetMap ja OSM on OpenStreetMap Foundationile kuuluvad kaubamärgid. See
-projekt ei ole [OpenStreetMap Foundationi](https://osmfoundation.org/) poolt
-heaks kiidetud ega sellega seotud.
+OpenStreetMap ja OSM OpenStreetMap Foundationi kaubamärgid ning nad on kasutusel
+organisatsioonilt saadud loa alusel. See projekt pole [OpenStreetMap
+Foundationi](https://osmfoundation.org/) poolt heaks kiidetud ega nendega
+seotud.
 
 ---
 
