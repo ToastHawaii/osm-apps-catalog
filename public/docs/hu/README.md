@@ -67,9 +67,9 @@ közzé.
 
 ## Felelősségi nyilatkozat
 
-Az OpenStreetMap és az OSM az OpenStreetMap Alapítvány védjegye. Az
-[OpenStreetMap Alapítvány](https://osmfoundation.org/) nem támogatja ezt a
-projektet, és nem áll kapcsolatban vele.
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
+used with their permission. This project are not endorsed by or affiliated with
+the [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 

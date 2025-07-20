@@ -135,5 +135,8 @@
     "3D": {
         "label": "3D-vaade",
         "description": "[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"
+    },
+    "showWebsite": {
+        "label": "Näitab veebisaiti"
     }
 }
