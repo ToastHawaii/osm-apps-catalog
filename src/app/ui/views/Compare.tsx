@@ -276,7 +276,8 @@ export function Compare({
                     ? "????-??-??"
                     : "") +
                   (app.unmaintained
-                    ? t("app.unmaintained.wiki", { icon: `⚠️`, lng: lang })
+                    ? " " +
+                      t("app.unmaintained.wiki", { icon: `⚠️`, lng: lang })
                     : ""),
                 lang
               ),
