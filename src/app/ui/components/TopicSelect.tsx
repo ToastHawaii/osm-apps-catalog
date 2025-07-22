@@ -42,6 +42,7 @@ export function TopicSelect({
             (window as any).goatcounter.count({
               path: `/?topics=${onlyNewValues.join()}`,
               title: "Has selected a topic.",
+              referrer: "https://osm-apps.org/",
               event: true,
             });
           }

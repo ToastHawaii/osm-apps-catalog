@@ -96,6 +96,7 @@ export function Menu({
             (window as any).goatcounter.count({
               path: `/?category=${value}`,
               title: "Has switched the category.",
+              referrer: "https://osm-apps.org/",
               event: true,
             });
           }

@@ -85,6 +85,7 @@ export function ContributeSelect({
             (window as any).goatcounter.count({
               path: `/?contribute=${onlyNewValues.join()}`,
               title: "Has selected a contribute filter.",
+              referrer: "https://osm-apps.org/",
               event: true,
             });
           }
