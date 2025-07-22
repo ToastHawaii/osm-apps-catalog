@@ -65,9 +65,9 @@ de copie et de modification si vous le publiez sous cette même licence.
 
 ## Clause de non-responsabilité
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap et OSM sont des marques déposées de la Fondation OpenStreetMap et
+sont utilisées avec son autorisation. Ce projet n'est ni approuvé, ni affilié à
+la Fondation OpenStreetMap(https://osmfoundation.org/).
 
 ---
 
