@@ -66,9 +66,10 @@ veröffentlichen wird.
 
 ## Haftungsausschluss
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden
+mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap
+Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr
+verbunden.
 
 ---
 
