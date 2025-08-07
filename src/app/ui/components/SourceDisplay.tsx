@@ -18,6 +18,7 @@ export function SourceDisplay({ app }: { app: App }) {
               date: s.lastChange,
               added: s.firstCrawled,
             })}
+            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={s.name} />
           </a>
@@ -39,6 +40,7 @@ export function SourceDisplay({ app }: { app: App }) {
             }
             target="_blank"
             rel="noreferrer"
+            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Software"} create />
           </a>
@@ -55,6 +57,7 @@ export function SourceDisplay({ app }: { app: App }) {
             }
             target="_blank"
             rel="noreferrer"
+            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Wikidata"} create />
           </a>

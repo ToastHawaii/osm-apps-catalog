@@ -18,19 +18,19 @@ export function SourceDisplayText({
       return <>taginfo</>;
 
     case "Wikidata":
-      return <>Wikidata&nbsp;{icon}</>;
+      return <>Wikidata {icon}</>;
 
     case "GitHub":
       return <>GitHub</>;
 
     case "Layer":
-      return <>Wiki (Layer)&nbsp;{icon}</>;
+      return <>Wiki (Layer) {icon}</>;
 
     case "ServiceItem":
-      return <>Wiki (ServiceItem)&nbsp;{icon}</>;
+      return <>Wiki (ServiceItem) {icon}</>;
 
     case "Software":
-      return <>Wiki (Software)&nbsp;{icon}</>;
+      return <>Wiki (Software) {icon}</>;
 
     default:
       throw new Error(`Unexpected value for name: ${name}`);
