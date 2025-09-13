@@ -1,19 +1,19 @@
-# About OSM Apps Catalog
+# OSM APPS பட்டியல் பற்றி
 
-**Experience the world in a creative, productive and unexpected way.**
+** ஒரு படைப்பு, விளைவாக்கம் மற்றும் எதிர்பாராத வழியில் உலகை அனுபவிக்கவும். **
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+இந்த பட்டியல் ஓபன்ச்ட்ரீட்மேப் தரவைப் பயன்படுத்தும் பயன்பாடுகள் மற்றும்
+சேவைகளைக் காட்டுகிறது. இது ஒவ்வொரு நாளும் புதுப்பிக்கப்படுகிறது. பயன்பாடுகள்
+[சமூக பங்களிப்பு மதிப்பெண்] {1 by ஆல் மதிப்பிடப்பட்டு வரிசைப்படுத்தப்படுகின்றன.
 
-[Go to the catalog](https://osm-apps.org)
+[பட்டியலுக்குச் செல்லுங்கள்] (https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[உங்களுக்குத் தெரிந்த அல்லது பங்களிக்கும் OSM பயன்பாடுகளை வேறு வழிகளில்
+சேர்க்கவும்.] (https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## பிற மொழிகள்
 
-Display the catalog in your language:
+உங்கள் மொழியில் பட்டியலைக் காண்பி:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,40 +41,40 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_இந்த பட்டியலில் தற்போது [openstreetmap wiki](https://wiki.openstreetmap.org/),
+[விக்கிடேட்டா](https://www.wikidata.org/), [github](https://github.com/) மற்றும்
+[taginfo திட்டப் பட்டியல்](https://taginfo.openstreetmap.org/projects)._
 
-Help with the translation:
+மொழிபெயர்ப்புக்கு உதவுங்கள்:
 
-- from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
+- [வெப்லேட்] (https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a>
-- from the apps documented in [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+  </a> இல் உள்ள ஓஎச்எம் பயன்பாடுகள் பட்டியலிலிருந்து
+- [OpenStreetMap wiki] (https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+  இல் ஆவணப்படுத்தப்பட்ட பயன்பாடுகளிலிருந்து
 
-## License
+## உரிமம்
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+இந்தப் பயன்பாடு [குனு அஃபெரோ பொது பொதுமக்கள் உரிமம்
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) இருந்து
+இன் கீழ் உரிமம் பெற்றது. அதே உரிமத்தின் கீழ் நீங்கள் வெளியிட்டால்
+[குறியீடு](https://github.com/ToastHawaii/osm-apps-catalog) பயன்பாடு,
+நகலெடுத்தல் மற்றும் மாற்றத்திற்கு இலவசம்.
 
-## Disclaimer
+## மறுப்பு
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+ஓபன்ச்ட்ரீட்மேப் மற்றும் ஓஎச்எம் என்பது ஓபன்ச்ட்ரீட்மேப் அறக்கட்டளையின் வர்த்தக
+முத்திரையாகும், மேலும் இது அவர்களின் அனுமதியுடன் பயன்படுத்தப்படுகிறது. இந்த
+திட்டம் [ஓபன்ச்ட்ரீட்மேப் அறக்கட்டளை] (https://osmfoundation.org/) உடன்
+அங்கீகரிக்கப்படவில்லை அல்லது இணைக்கப்படவில்லை.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [OSM சமூகத்தின்]
+  (https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [ஒரு உள்ளக குழுவில் சேரவும்] (https://usergroups.openstreetmap.de/),
+  [சந்திக்கவும்] (https://osmcal.org/) & [அரட்டை] (https://community.osm.be/)
+- [OpenStreetMap க்கு பங்களிப்பு]
+  (https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- [என்னைப் பற்றி] (https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
