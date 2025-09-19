@@ -97,7 +97,8 @@
         "description": "ID εφαρμογής στο Mac App Store"
     },
     "microsoftAppID": {
-        "label": "Microsoft ID"
+        "label": "Microsoft ID",
+        "description": "UUID Windows εφαρμογής του Microsoft Store"
     },
     "map": {
         "label": "Προβολή χάρτη",
@@ -302,5 +303,9 @@
     "screenReaderLang": {
         "label": "Γλώσσες αναγνώστη οθόνης",
         "description": "[Προσβασιμότητα] Λίστα των υποστηριζόμενων γλωσσών για αναγνώστες οθόνης"
+    },
+    "asin": {
+        "label": "Ταυτοποίηση Amazon",
+        "description": "Amazon Standard Identification Number για το Amazon Appstore για Android"
     }
 }
