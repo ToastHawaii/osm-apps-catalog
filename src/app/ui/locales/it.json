@@ -34,5 +34,8 @@
     "filter.category.edit": "Migliora la mappa",
     "notFound": "Non hai trovato quello che stai cercando?",
     "noResults": "Nessun risultato",
-    "compare.group.header.general": "Generale"
+    "compare.group.header.general": "Generale",
+    "compare": "Compara",
+    "filter.preview": "Il filtro è impostato per:",
+    "filter.category.all": "Tutti"
 }
