@@ -24,14 +24,16 @@
         "label": "Versione"
     },
     "repo": {
-        "label": "Codice sorgente"
+        "label": "Codice sorgente",
+        "description": "URL per visualizzare o scaricare il codice sorgente (ad esempio, un repository Git, Subversion o CVS)"
     },
     "description": {
         "label": "Descrizione",
         "description": "Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)"
     },
     "price": {
-        "label": "Prezzo"
+        "label": "Prezzo",
+        "description": "Costi se proprietari. Se il prezzo è vuoto, l'applicazione è gratuita."
     },
     "author": {
         "label": "Autore",
@@ -104,5 +106,8 @@
     },
     "screenshot": {
         "label": "Screenshot"
+    },
+    "lang": {
+        "description": "Lingua in cui vengono visualizzati i testi del modello."
     }
 }
