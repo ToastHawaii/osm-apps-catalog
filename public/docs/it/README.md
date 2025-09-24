@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# Su OSM Apps Catalog
 
 **Experience the world in a creative, productive and unexpected way.**
 
@@ -8,8 +8,8 @@ Viene aggiornato quotidianamente. Le app sono valutate e ordinate secondo il
 
 [Vai al catalogo](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Aggiungi app OSM che conosci o contribuisci in altri
+modi.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Altre lingue
 
@@ -41,14 +41,14 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_Questo catalogo attualmente contiene solo app provenienti dalla versione
+inglese di [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) e [taginfo
+project list](https://taginfo.openstreetmap.org/projects)._
 
 Aiuta a tradurre:
 
-- from the OSM Apps Catalog on
+- da OSM Apps Catalog su
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
@@ -56,12 +56,12 @@ Aiuta a tradurre:
 - dalle app documentate su [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Licenza
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+L'app è sotto la licenza [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Il
+[codice](https://github.com/ToastHawaii/osm-apps-catalog) è libero per l'uso, la
+copia e la modifica a patto che pubblichi sotto la stessa licenza.
 
 ## Disclaimer
 
