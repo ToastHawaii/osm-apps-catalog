@@ -1,19 +1,19 @@
-# About OSM Apps Catalog
+# Про каталог програм OSM
 
-**Experience the world in a creative, productive and unexpected way.**
+**Пізнавайте світ творчим, продуктивним та несподіваним чином.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+У цьому каталозі представлені програми та сервіси, що використовують дані
+OpenStreetMap. Він оновлюється щодня. Програми оцінюються та сортуються за
+[оцінкою внеску спільноти](/docs/score).
 
-[Go to the catalog](https://osm-apps.org)
+[Перейти до каталогу](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Додайте знайомі вам програми OSM або зробіть свій внесок іншими
+способами.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Інші мови
 
-Display the catalog in your language:
+Відобразити каталог вашою мовою:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,40 +41,42 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_Цей каталог наразі містить лише програми з англійської версії [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/),
+[GitHub](https://github.com/) та [список проектів
+taginfo](https://taginfo.openstreetmap.org/projects)._
 
-Help with the translation:
+Допоможіть з перекладом:
 
-- from the OSM Apps Catalog on
+- з каталогу програм OSM на
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap
+- з програм, описаних у [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Ліцензія
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+Програма ліцензована за ліцензією [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
+[Код](https://github.com/ToastHawaii/osm-apps-catalog) можна використовувати,
+копіювати та модифікувати безкоштовно, якщо ви публікуєте його за тією ж
+ліцензією.
 
-## Disclaimer
+## Застереження
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap та OSM є торговою маркою OpenStreetMap Foundation та
+використовуються з їхнього дозволу. Цей проект не схвалений та не пов'язаний з
+[OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Станьте частиною [спільноти
+  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Приєднайтеся до локальної групи](https://usergroups.openstreetmap.de/),
+  [познайомтеся](https://osmcal.org/) та [поспілкуйтеся в
+  чаті](https://community.osm.be/)
+- [Зробіть свій внесок у
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [Про мене](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
