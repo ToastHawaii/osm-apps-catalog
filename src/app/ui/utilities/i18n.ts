@@ -17,24 +17,37 @@ import * as nb_NO from "../locales/nb_NO.json";
 import * as pl from "../locales/pl.json";
 import * as pt from "../locales/pt.json";
 import * as ru from "../locales/ru.json";
+import * as sv from "../locales/sv.json";
 import * as ta from "../locales/ta.json";
 import * as tr from "../locales/tr.json";
 import * as uk from "../locales/uk.json";
-import * as zh_Hant from "../locales/zh_Hant.json";
 import * as zh_Hans from "../locales/zh_Hans.json";
+import * as zh_Hant from "../locales/zh_Hant.json";
 
 import { templateData } from "./templateData";
 
 import * as templateEn from "../locales/wiki-software-template/en.json";
 import * as templateCs from "../locales/wiki-software-template/cs.json";
 import * as templateDe from "../locales/wiki-software-template/de.json";
+import * as templateEl from "../locales/wiki-software-template/el.json";
 import * as templateEs from "../locales/wiki-software-template/es.json";
 import * as templateEt from "../locales/wiki-software-template/et.json";
 import * as templateFr from "../locales/wiki-software-template/fr.json";
 import * as templateHu from "../locales/wiki-software-template/hu.json";
+import * as templateId from "../locales/wiki-software-template/id.json";
 import * as templateIt from "../locales/wiki-software-template/it.json";
+import * as templateJa from "../locales/wiki-software-template/ja.json";
+import * as templateKo from "../locales/wiki-software-template/ko.json";
+import * as templateNb_NO from "../locales/wiki-software-template/nb-NO.json";
+import * as templatePl from "../locales/wiki-software-template/pl.json";
+import * as templatePt from "../locales/wiki-software-template/pt.json";
+import * as templateRu from "../locales/wiki-software-template/ru.json";
+import * as templateSv from "../locales/wiki-software-template/sv.json";
 import * as templateTa from "../locales/wiki-software-template/ta.json";
+import * as templateTr from "../locales/wiki-software-template/tr.json";
+import * as templateUk from "../locales/wiki-software-template/uk.json";
 import * as templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
+import * as templateZh_Hant from "../locales/wiki-software-template/zh-Hant.json";
 
 i18next
   .use(initReactI18next)
@@ -48,24 +61,25 @@ i18next
       en: { translation: { ...en, "app.props": templateEn } },
       cs: { translation: { ...cs, "app.props": templateCs } },
       de: { translation: { ...de, "app.props": templateDe } },
-      el: { translation: el },
+      el: { translation: { ...el, "app.props": templateEl } },
       es: { translation: { ...es, "app.props": templateEs } },
       et: { translation: { ...et, "app.props": templateEt } },
       fr: { translation: { ...fr, "app.props": templateFr } },
       hu: { translation: { ...hu, "app.props": templateHu } },
-      id: { translation: id },
+      id: { translation: { ...id, "app.props": templateId } },
       it: { translation: { ...it, "app.props": templateIt } },
-      ja: { translation: ja },
-      ko: { translation: ko },
-      no: { translation: nb_NO },
-      pl: { translation: pl },
-      pt: { translation: pt },
-      ru: { translation: ru },
-      tr: { translation: tr },
+      ja: { translation: { ...ja, "app.props": templateJa } },
+      ko: { translation: { ...ko, "app.props": templateKo } },
+      no: { translation: { ...nb_NO, "app.props": templateNb_NO } },
+      pl: { translation: { ...pl, "app.props": templatePl } },
+      pt: { translation: { ...pt, "app.props": templatePt } },
+      ru: { translation: { ...ru, "app.props": templateRu } },
+      sv: { translation: { ...sv, "app.props": templateSv } },
       ta: { translation: { ...ta, "app.props": templateTa } },
-      uk: { translation: uk },
-      zh: { translation: zh_Hant },
-      "zh-Hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
+      tr: { translation: { ...tr, "app.props": templateTr } },
+      uk: { translation: { ...uk, "app.props": templateUk } },
+      "zh-hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
+      "zh-hant": { translation: { ...zh_Hant, "app.props": templateZh_Hant } },
     },
   });
 
@@ -73,13 +87,25 @@ const templateLangs = [
   "en",
   "cs",
   "de",
+  "el",
   "es",
   "et",
   "fr",
   "hu",
+  "id",
   "it",
+  "ja",
+  "ko",
+  "no",
+  "pl",
+  "pt",
+  "ru",
+  "sv",
   "ta",
+  "tr",
+  "uk",
   "zh-hans",
+  "zh-hant",
 ];
 
 function convertTemplateDataToJson() {
@@ -138,13 +164,25 @@ function convertJsonToTemplateData() {
     en: templateEn,
     cs: templateCs,
     de: templateDe,
+    el: templateEl,
     es: templateEs,
     et: templateEt,
     fr: templateFr,
     hu: templateHu,
+    id: templateId,
     it: templateIt,
+    ja: templateJa,
+    ko: templateKo,
+    no: templateNb_NO,
+    pl: templatePl,
+    pt: templatePt,
+    ru: templateRu,
+    sv: templateSv,
     ta: templateTa,
+    tr: templateTr,
+    uk: templateUk,
     "zh-hans": templateZh_Hans,
+    "zh-hant": templateZh_Hant,
   } as {
     [lang: string]: {
       [param: string]: { label?: string; description?: string };
