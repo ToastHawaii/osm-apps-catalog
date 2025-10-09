@@ -1,1 +1,166 @@
-{}
+{
+    "lang": {
+        "label": "模版語言",
+        "description": "模版文字所顯示的語言。"
+    },
+    "name": {
+        "label": "名稱",
+        "description": "正式名稱，或是最常見的名稱"
+    },
+    "status": {
+        "label": "狀態",
+        "description": "目前專案的狀態。"
+    },
+    "license": {
+        "label": "授權條款",
+        "description": "何種自由或是專屬授權條款？"
+    },
+    "price": {
+        "label": "價格",
+        "description": "如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"
+    },
+    "web": {
+        "label": "網址"
+    },
+    "repo": {
+        "label": "原始碼",
+        "description": "檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"
+    },
+    "logo": {
+        "label": "圖示"
+    },
+    "screenshot": {
+        "label": "截圖"
+    },
+    "description": {
+        "label": "描述",
+        "description": "簡單敘述，與其他工具的差異在那裡？ (請寫下你自己的描述，不要直接從網站複製)"
+    },
+    "author": {
+        "label": "作者",
+        "description": "作者的名字或是作者 OSM-wiki 使用者頁面連結"
+    },
+    "platform": {
+        "label": "支援的平台",
+        "description": "運作的平台清單。"
+    },
+    "genre": {
+        "label": "類型",
+        "description": "此工具主要的類別。"
+    },
+    "languages": {
+        "label": "語言",
+        "description": "支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"
+    },
+    "languagesurl": {
+        "label": "語言連結",
+        "description": "完整實際的支援語言清單的連結，描述則在其他頁面 (例如軟體的平台頁面，或是倉儲庫)。"
+    },
+    "coverage": {
+        "label": "範圍",
+        "description": "app 的範圍或是目標地區：「大陸、國家、地區等等。」使用「全球」或是留空白則表示能夠全球使用。"
+    },
+    "code": {
+        "label": "程式碼",
+        "description": "使用的程式語言清單。"
+    },
+    "framework": {
+        "label": "架構",
+        "description": "使用的架構清單。"
+    },
+    "version": {
+        "label": "版本",
+        "description": "最新版本"
+    },
+    "date": {
+        "label": "發佈日期",
+        "description": "最新發佈日期"
+    },
+    "asin": {
+        "label": "亞馬遜識別碼",
+        "description": "Amazon Appstore 的 Android 亞馬遜標準識別碼號碼"
+    },
+    "bbWorldID": {
+        "label": "黑莓編號",
+        "description": "黑莓世界應用程式編號"
+    },
+    "fDroidID": {
+        "label": "F-Droid 編號",
+        "description": "F-Droid 應用程式編號"
+    },
+    "firefoxMarketplaceID": {
+        "label": "Firefox 商城編號",
+        "description": "Mozilla Firefox 商城應用程式編號"
+    },
+    "googlePlayID": {
+        "label": "Google Play 編號",
+        "description": "Google Play 商場應用程式編號"
+    },
+    "huaweiAppGalleryID": {
+        "label": "華為應用程式市場編號",
+        "description": "華為應用程式市場應用程式編號"
+    },
+    "appleStoreID": {
+        "label": "AppStore 編號",
+        "description": "iTunes App Store 應用程式編號"
+    },
+    "macAppStoreID": {
+        "label": "Mac AppStore 編號",
+        "description": "Mac App Store 應用程式編號"
+    },
+    "microsoftAppID": {
+        "label": "微軟編號",
+        "description": "微軟商城 Windows 應用程式 UUID"
+    },
+    "obtainiumLink": {
+        "label": "Obtainium 更新器連結",
+        "description": "Obtainium 更新器資訊的連結"
+    },
+    "map": {
+        "label": "顯示地圖",
+        "description": "[地圖顯示] 能夠顯示地圖嗎？"
+    },
+    "mapData": {
+        "label": "地圖資料",
+        "description": "[地圖顯示] 使用預先計算／渲染的圖片 (點陣) 來繪製地圖或是「即刻」 (向量)？"
+    },
+    "datasource": {
+        "label": "來源",
+        "description": "[地圖顯示] 你是否能將地圖資料離線儲存？下載為獨立的檔案？"
+    },
+    "rotateMap": {
+        "label": "旋轉地圖",
+        "description": "[地圖顯示] 開車/行走時地圖是否會隨行進方向轉動？"
+    },
+    "3D": {
+        "label": "3D 檢視",
+        "description": "[地圖顯示] 是否有 3D 或是 2.5D 檢視？"
+    },
+    "showWebsite": {
+        "label": "顯示網站",
+        "description": "[興趣點資訊] 從興趣點顯示網站的連結"
+    },
+    "showPhoneNumber": {
+        "label": "顯示電話號碼",
+        "description": "[興趣點資訊] 從興趣點顯示電話號碼"
+    },
+    "showOpeningHours": {
+        "label": "顯示營運時間",
+        "description": "[興趣點資訊] 從興趣點顯示營運時間"
+    },
+    "routing": {
+        "label": "導航",
+        "description": "[導航] 你是否能計算或是計畫行進路線？"
+    },
+    "createRouteManually": {
+        "label": "手動創建導航",
+        "description": "[導航]"
+    },
+    "calculateRoute": {
+        "label": "計算導航路線",
+        "description": "[導航] 是否透過導航計算行進路線？"
+    },
+    "createRouteViaWaypoints": {
+        "label": "透過路徑點創建導航"
+    }
+}
