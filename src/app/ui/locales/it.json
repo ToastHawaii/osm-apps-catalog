@@ -37,5 +37,20 @@
     "compare.group.header.general": "Generale",
     "compare": "Compara",
     "filter.preview": "Il filtro è impostato per:",
-    "filter.category.all": "Tutti"
+    "filter.category.all": "Tutti",
+    "filter.category.focus": "Fissa",
+    "filter.category.latest": "Più recenti",
+    "category.all.description": "{{numberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.",
+    "category.all.description.filtered": "{{numberOfApps}} di {{totalNumberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.",
+    "category.focus.description": "Dieci applicazioni che sono le piu recentemente aggiornate",
+    "category.latest.description": "{{numberOfApps}} applicazioni filtrate per last release date.",
+    "category.mobile.description": "{{numberOfApps}} applicazioni sviluppate per dispositivi mobili o che supportano l'uso offline.",
+    "list.more": "Altro",
+    "list.documentation": "Documentazione",
+    "multilingual": "Multilingua",
+    "compare.group.header.monitoring": "Monitoraggio",
+    "compare.group.header.navigating": "Navigazione",
+    "app.contribute.toSoftware.discuss": "Discutere e condividere idee",
+    "app.contribute.toSoftware.document": "Migliora la documentazione",
+    "app.unmaintained.wiki": "({{icon}} Non mantenuto)"
 }
