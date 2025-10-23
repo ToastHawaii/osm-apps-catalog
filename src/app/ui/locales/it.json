@@ -52,5 +52,12 @@
     "compare.group.header.navigating": "Navigazione",
     "app.contribute.toSoftware.discuss": "Discutere e condividere idee",
     "app.contribute.toSoftware.document": "Migliora la documentazione",
-    "app.unmaintained.wiki": "({{icon}} Non mantenuto)"
+    "app.unmaintained.wiki": "({{icon}} Non mantenuto)",
+    "filter.topic": "Argomento",
+    "compare.group.header.tracking": "Tracciamento",
+    "app.lastRelease": "Ultimo rilascio",
+    "app.unmaintained": "(<icon/> Non mantenuto)",
+    "app.contribute.toSoftware.develop": "Sviluppare codice",
+    "app.contribute.toData.review": "Revisionare le modifiche",
+    "app.contribute.toData.tracks": "Registrare e condividere tracce"
 }
