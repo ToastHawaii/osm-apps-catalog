@@ -1,19 +1,19 @@
-# About OSM Apps Catalog
+# Om OSM Apps-katalogen
 
-**Experience the world in a creative, productive and unexpected way.**
+** Upplev världen på ett kreativt, produktivt och oväntat sätt.**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data.
+Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
+Contribution Score](/docs/score).
 
 [Go to the catalog](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[Lägg till OSM-appar du känner till eller bidrar på andra
+sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
-## Other languages
+## Andra språk
 
-Display the catalog in your language:
+Visa katalogen på ditt språk:
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,40 +41,40 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
+_Denna katalog innehåller för närvarande endast appar från den engelska
+versionen av [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
+[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) och
 [taginfo project list](https://taginfo.openstreetmap.org/projects)._
 
-Help with the translation:
+Hjälp med översättningen:
 
-- from the OSM Apps Catalog on
+- från OSM Apps Catalog på
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap
+- från apparna som dokumenterats i [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
-## License
+## Licens
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+Appen är licensierad under [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
+[koden](https://github.com/ToastHawaii/osm-apps-catalog) är gratis att använda,
+kopiera och ändra om du publicerar under samma licens.
 
-## Disclaimer
+## Ansvarsfriskrivning
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap och OSM är ett varumärke för OpenStreetMap Foundation och används
+med deras tillstånd. Detta projekt stöds inte av eller ansluts till
+[OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Contribute to
+- Bli en del av
+  [OSM-gemenskapen](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  [Gå med i en lokal grupp](https://usergroups.openstreetmap.de/),
+  [möte](https://osmcal.org/) & [chatt](https://community.osm.be/)
+- [Bidra till
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-- [About me](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
+- [Om mig] (https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
