@@ -1,1 +1,62 @@
-{}
+{
+    "lang": {
+        "label": "Mallspråk",
+        "description": "Språk som malltexterna visas på."
+    },
+    "name": {
+        "label": "Namn",
+        "description": "Officiellt namn, annars vanligast använda"
+    },
+    "status": {
+        "label": "Status",
+        "description": "Nuvarande status för projektet."
+    },
+    "license": {
+        "label": "Licens",
+        "description": "Vilken fri licens eller proprietär?"
+    },
+    "price": {
+        "label": "Pris",
+        "description": "Kostnader om proprietär. Om priset är tomt är ansökan gratis."
+    },
+    "web": {
+        "label": "Webbadress"
+    },
+    "repo": {
+        "label": "Källkod",
+        "description": "URL för att visa eller ladda ner källkoden (till exempel ett Git, Subversion eller CVS-arkiv)"
+    },
+    "logo": {
+        "label": "Logotyp"
+    },
+    "screenshot": {
+        "label": "Skärmdump"
+    },
+    "description": {
+        "label": "Beskrivning",
+        "description": "Kort beskrivning. Vad skiljer detta från andra verktyg? (Skriv din egen beskrivning, kopiera inte bara den från webbplatsen)"
+    },
+    "author": {
+        "label": "Författare",
+        "description": "Namn på författaren eller en länk till deras OSM-wiki användarsida"
+    },
+    "platform": {
+        "label": "Plattformar som stöds",
+        "description": "Lista över plattformar den kan köras på."
+    },
+    "genre": {
+        "description": "Huvudkategori för detta verktyg."
+    },
+    "languages": {
+        "label": "Språk",
+        "description": "Stödda språk (lista över giltiga språkkoder separerade av semikoloner) eller antal språk som stöds"
+    },
+    "languagesurl": {
+        "label": "Språk URL",
+        "description": "Länk till den faktiska fullständiga listan över språk som stöds, beskrivs på en annan sida (t.ex. en portalsida för programvaran eller ett arkiv)."
+    },
+    "coverage": {
+        "label": "Täckning",
+        "description": "Täckning eller målregion i appen. Formatering: \"Kontinent, land, region, ...\" Använd \"Worldwide\" eller lämna den tom för global användning."
+    }
+}
