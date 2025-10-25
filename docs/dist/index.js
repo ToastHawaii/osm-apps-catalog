@@ -25573,6 +25573,88 @@ function onceStrict (fn) {
 
 /***/ }),
 
+/***/ 7336:
+/***/ ((module) => {
+
+let p = process || {}, argv = p.argv || [], env = p.env || {}
+let isColorSupported =
+	!(!!env.NO_COLOR || argv.includes("--no-color")) &&
+	(!!env.FORCE_COLOR || argv.includes("--color") || p.platform === "win32" || ((p.stdout || {}).isTTY && env.TERM !== "dumb") || !!env.CI)
+
+let formatter = (open, close, replace = open) =>
+	input => {
+		let string = "" + input, index = string.indexOf(close, open.length)
+		return ~index ? open + replaceClose(string, close, replace, index) + close : open + string + close
+	}
+
+let replaceClose = (string, close, replace, index) => {
+	let result = "", cursor = 0
+	do {
+		result += string.substring(cursor, index) + replace
+		cursor = index + close.length
+		index = string.indexOf(close, cursor)
+	} while (~index)
+	return result + string.substring(cursor)
+}
+
+let createColors = (enabled = isColorSupported) => {
+	let f = enabled ? formatter : () => String
+	return {
+		isColorSupported: enabled,
+		reset: f("\x1b[0m", "\x1b[0m"),
+		bold: f("\x1b[1m", "\x1b[22m", "\x1b[22m\x1b[1m"),
+		dim: f("\x1b[2m", "\x1b[22m", "\x1b[22m\x1b[2m"),
+		italic: f("\x1b[3m", "\x1b[23m"),
+		underline: f("\x1b[4m", "\x1b[24m"),
+		inverse: f("\x1b[7m", "\x1b[27m"),
+		hidden: f("\x1b[8m", "\x1b[28m"),
+		strikethrough: f("\x1b[9m", "\x1b[29m"),
+
+		black: f("\x1b[30m", "\x1b[39m"),
+		red: f("\x1b[31m", "\x1b[39m"),
+		green: f("\x1b[32m", "\x1b[39m"),
+		yellow: f("\x1b[33m", "\x1b[39m"),
+		blue: f("\x1b[34m", "\x1b[39m"),
+		magenta: f("\x1b[35m", "\x1b[39m"),
+		cyan: f("\x1b[36m", "\x1b[39m"),
+		white: f("\x1b[37m", "\x1b[39m"),
+		gray: f("\x1b[90m", "\x1b[39m"),
+
+		bgBlack: f("\x1b[40m", "\x1b[49m"),
+		bgRed: f("\x1b[41m", "\x1b[49m"),
+		bgGreen: f("\x1b[42m", "\x1b[49m"),
+		bgYellow: f("\x1b[43m", "\x1b[49m"),
+		bgBlue: f("\x1b[44m", "\x1b[49m"),
+		bgMagenta: f("\x1b[45m", "\x1b[49m"),
+		bgCyan: f("\x1b[46m", "\x1b[49m"),
+		bgWhite: f("\x1b[47m", "\x1b[49m"),
+
+		blackBright: f("\x1b[90m", "\x1b[39m"),
+		redBright: f("\x1b[91m", "\x1b[39m"),
+		greenBright: f("\x1b[92m", "\x1b[39m"),
+		yellowBright: f("\x1b[93m", "\x1b[39m"),
+		blueBright: f("\x1b[94m", "\x1b[39m"),
+		magentaBright: f("\x1b[95m", "\x1b[39m"),
+		cyanBright: f("\x1b[96m", "\x1b[39m"),
+		whiteBright: f("\x1b[97m", "\x1b[39m"),
+
+		bgBlackBright: f("\x1b[100m", "\x1b[49m"),
+		bgRedBright: f("\x1b[101m", "\x1b[49m"),
+		bgGreenBright: f("\x1b[102m", "\x1b[49m"),
+		bgYellowBright: f("\x1b[103m", "\x1b[49m"),
+		bgBlueBright: f("\x1b[104m", "\x1b[49m"),
+		bgMagentaBright: f("\x1b[105m", "\x1b[49m"),
+		bgCyanBright: f("\x1b[106m", "\x1b[49m"),
+		bgWhiteBright: f("\x1b[107m", "\x1b[49m"),
+	}
+}
+
+module.exports = createColors()
+module.exports.createColors = createColors
+
+
+/***/ }),
+
 /***/ 2179:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -26088,7 +26170,7 @@ Container.rebuild = node => {
 "use strict";
 
 
-let pico = __nccwpck_require__(6607)
+let pico = __nccwpck_require__(7336)
 
 let terminalHighlight = __nccwpck_require__(7280)
 
@@ -29761,7 +29843,7 @@ module.exports.my = Symbol('my')
 "use strict";
 
 
-let pico = __nccwpck_require__(6607)
+let pico = __nccwpck_require__(7336)
 
 let tokenizer = __nccwpck_require__(3992)
 
@@ -30169,88 +30251,6 @@ class Warning {
 
 module.exports = Warning
 Warning.default = Warning
-
-
-/***/ }),
-
-/***/ 6607:
-/***/ ((module) => {
-
-let p = process || {}, argv = p.argv || [], env = p.env || {}
-let isColorSupported =
-	!(!!env.NO_COLOR || argv.includes("--no-color")) &&
-	(!!env.FORCE_COLOR || argv.includes("--color") || p.platform === "win32" || ((p.stdout || {}).isTTY && env.TERM !== "dumb") || !!env.CI)
-
-let formatter = (open, close, replace = open) =>
-	input => {
-		let string = "" + input, index = string.indexOf(close, open.length)
-		return ~index ? open + replaceClose(string, close, replace, index) + close : open + string + close
-	}
-
-let replaceClose = (string, close, replace, index) => {
-	let result = "", cursor = 0
-	do {
-		result += string.substring(cursor, index) + replace
-		cursor = index + close.length
-		index = string.indexOf(close, cursor)
-	} while (~index)
-	return result + string.substring(cursor)
-}
-
-let createColors = (enabled = isColorSupported) => {
-	let f = enabled ? formatter : () => String
-	return {
-		isColorSupported: enabled,
-		reset: f("\x1b[0m", "\x1b[0m"),
-		bold: f("\x1b[1m", "\x1b[22m", "\x1b[22m\x1b[1m"),
-		dim: f("\x1b[2m", "\x1b[22m", "\x1b[22m\x1b[2m"),
-		italic: f("\x1b[3m", "\x1b[23m"),
-		underline: f("\x1b[4m", "\x1b[24m"),
-		inverse: f("\x1b[7m", "\x1b[27m"),
-		hidden: f("\x1b[8m", "\x1b[28m"),
-		strikethrough: f("\x1b[9m", "\x1b[29m"),
-
-		black: f("\x1b[30m", "\x1b[39m"),
-		red: f("\x1b[31m", "\x1b[39m"),
-		green: f("\x1b[32m", "\x1b[39m"),
-		yellow: f("\x1b[33m", "\x1b[39m"),
-		blue: f("\x1b[34m", "\x1b[39m"),
-		magenta: f("\x1b[35m", "\x1b[39m"),
-		cyan: f("\x1b[36m", "\x1b[39m"),
-		white: f("\x1b[37m", "\x1b[39m"),
-		gray: f("\x1b[90m", "\x1b[39m"),
-
-		bgBlack: f("\x1b[40m", "\x1b[49m"),
-		bgRed: f("\x1b[41m", "\x1b[49m"),
-		bgGreen: f("\x1b[42m", "\x1b[49m"),
-		bgYellow: f("\x1b[43m", "\x1b[49m"),
-		bgBlue: f("\x1b[44m", "\x1b[49m"),
-		bgMagenta: f("\x1b[45m", "\x1b[49m"),
-		bgCyan: f("\x1b[46m", "\x1b[49m"),
-		bgWhite: f("\x1b[47m", "\x1b[49m"),
-
-		blackBright: f("\x1b[90m", "\x1b[39m"),
-		redBright: f("\x1b[91m", "\x1b[39m"),
-		greenBright: f("\x1b[92m", "\x1b[39m"),
-		yellowBright: f("\x1b[93m", "\x1b[39m"),
-		blueBright: f("\x1b[94m", "\x1b[39m"),
-		magentaBright: f("\x1b[95m", "\x1b[39m"),
-		cyanBright: f("\x1b[96m", "\x1b[39m"),
-		whiteBright: f("\x1b[97m", "\x1b[39m"),
-
-		bgBlackBright: f("\x1b[100m", "\x1b[49m"),
-		bgRedBright: f("\x1b[101m", "\x1b[49m"),
-		bgGreenBright: f("\x1b[102m", "\x1b[49m"),
-		bgYellowBright: f("\x1b[103m", "\x1b[49m"),
-		bgBlueBright: f("\x1b[104m", "\x1b[49m"),
-		bgMagentaBright: f("\x1b[105m", "\x1b[49m"),
-		bgCyanBright: f("\x1b[106m", "\x1b[49m"),
-		bgWhiteBright: f("\x1b[107m", "\x1b[49m"),
-	}
-}
-
-module.exports = createColors()
-module.exports.createColors = createColors
 
 
 /***/ }),
@@ -51575,7 +51575,7 @@ module.exports = {
 
 
 const { parseSetCookie } = __nccwpck_require__(8915)
-const { stringify, getHeadersList } = __nccwpck_require__(3834)
+const { stringify } = __nccwpck_require__(3834)
 const { webidl } = __nccwpck_require__(4222)
 const { Headers } = __nccwpck_require__(6349)
 
@@ -51651,14 +51651,13 @@ function getSetCookies (headers) {
 
   webidl.brandCheck(headers, Headers, { strict: false })
 
-  const cookies = getHeadersList(headers).cookies
+  const cookies = headers.getSetCookie()
 
   if (!cookies) {
     return []
   }
 
-  // In older versions of undici, cookies is a list of name:value.
-  return cookies.map((pair) => parseSetCookie(Array.isArray(pair) ? pair[1] : pair))
+  return cookies.map((pair) => parseSetCookie(pair))
 }
 
 /**
@@ -52086,14 +52085,15 @@ module.exports = {
 /***/ }),
 
 /***/ 3834:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((module) => {
 
 "use strict";
 
 
-const assert = __nccwpck_require__(2613)
-const { kHeadersList } = __nccwpck_require__(6443)
-
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
 function isCTLExcludingHtab (value) {
   if (value.length === 0) {
     return false
@@ -52354,31 +52354,13 @@ function stringify (cookie) {
   return out.join('; ')
 }
 
-let kHeadersListNode
-
-function getHeadersList (headers) {
-  if (headers[kHeadersList]) {
-    return headers[kHeadersList]
-  }
-
-  if (!kHeadersListNode) {
-    kHeadersListNode = Object.getOwnPropertySymbols(headers).find(
-      (symbol) => symbol.description === 'headers list'
-    )
-
-    assert(kHeadersListNode, 'Headers cannot be parsed')
-  }
-
-  const headersList = headers[kHeadersListNode]
-  assert(headersList)
-
-  return headersList
-}
-
 module.exports = {
   isCTLExcludingHtab,
-  stringify,
-  getHeadersList
+  validateCookieName,
+  validateCookiePath,
+  validateCookieValue,
+  toIMFDate,
+  stringify
 }
 
 
@@ -56382,6 +56364,7 @@ const {
   isValidHeaderName,
   isValidHeaderValue
 } = __nccwpck_require__(5523)
+const util = __nccwpck_require__(9023)
 const { webidl } = __nccwpck_require__(4222)
 const assert = __nccwpck_require__(2613)
 
@@ -56935,6 +56918,9 @@ Object.defineProperties(Headers.prototype, {
   [Symbol.toStringTag]: {
     value: 'Headers',
     configurable: true
+  },
+  [util.inspect.custom]: {
+    enumerable: false
   }
 })
 
@@ -66111,6 +66097,20 @@ class Pool extends PoolBase {
       ? { ...options.interceptors }
       : undefined
     this[kFactory] = factory
+
+    this.on('connectionError', (origin, targets, error) => {
+      // If a connection error occurs, we remove the client from the pool,
+      // and emit a connectionError event. They will not be re-used.
+      // Fixes https://github.com/nodejs/undici/issues/3895
+      for (const target of targets) {
+        // Do not use kRemoveClient here, as it will close the client,
+        // but the client cannot be closed in this state.
+        const idx = this[kClients].indexOf(target)
+        if (idx !== -1) {
+          this[kClients].splice(idx, 1)
+        }
+      }
+    })
   }
 
   [kGetDispatcher] () {
@@ -72850,7 +72850,7 @@ var locales_hu_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(hu_namespace
 const id_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Situs web","app.sourceCode":"Kode sumber","app.license":"Lisensi","filter.language":"Bahasa","app.languages":"Bahasa","filter.category.focus":"Fokus","filter.search":"Cari","about":"Tentang","filter.platform":"Platform","filter.category":"Kategori","filter.category.latest":"Terbaru","filter.topic":"Topik","filter.coverage":"Cakupan","filter.category.all":"Semua","relatedApps":"{{jumlahAplikasi}} aplikasi terkait","category.mobile.description":"Menampilkan aplikasi {{numberOfApps}} yang dikembangkan untuk perangkat seluler atau yang mendukung penggunaan offline.","category.focus.description":"Menampilkan sepuluh aplikasi dari halaman yang paling baru diperbarui.","category.navigation.description":"Menampilkan {{numberOfApps}} aplikasi yang mendukung perutean atau navigasi.","category.edit.description":"Menampilkan aplikasi {{numberOfApps}} yang mendukung penambahan, pengeditan, atau analisis data OpenStreetMap atau perekaman geolokasi.","filter.category.mobile":"Untuk pergi","filter.category.navigation":"Temukan jalan Anda","filter.category.edit":"Kontribusi","category.all.description":"Menampilkan {{numberOfApps}} aplikasi yang ditemukan di wiki OpenStreetMap, Wikidata, dan taginfo secara acak.","category.latest.description":"Menampilkan {{numberOfApps}} aplikasi yang diurutkan berdasarkan tanggal rilis terakhir."}');
 var locales_id_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(id_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/it.json
-const it_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Sito web","app.author":"Autore","app.sourceCode":"Codice sorgente","app.license":"Licenza","filter.language":"Linguaggi","filter.platform":"Piattaforme","app.languages":"Linguaggio","app.platforms":"Piattaforma","app.community":"Comunità","app.community.forum":"Forum","app.community.mastodon":"Mastodon","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.asin":"Amazon Appstore","app.contribute.toSoftware.translate":"Aiuta a tradurre","app.install.fDroid":"F-Droid","compare.group.header.accessibility":"Accessibilità","app.install.googlePlay":"Google Play","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","select.search.placeholder":"Cerca","select.search.noResults":"Nessun risultato","list.moreInfos":"Informazioni","filter.resetFilters":"Mostra tutti","app.imageAlt":"Immagine da {{name}}.","app.install.huaweiAppGallery":"Huawei App Gallery","app.community.bluesky":"Bluesky","list":"Lista","filter.search":"Cerca","filter.moreFilters":"Filtri","filter.coverage":"Copertura","filter.category":"Menù","filter.category.edit":"Migliora la mappa","notFound":"Non hai trovato quello che stai cercando?","noResults":"Nessun risultato","compare.group.header.general":"Generale","compare":"Compara","filter.preview":"Il filtro è impostato per:","filter.category.all":"Tutti","filter.category.focus":"Fissa","filter.category.latest":"Più recenti","category.all.description":"{{numberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} di {{totalNumberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.focus.description":"Dieci applicazioni che sono le piu recentemente aggiornate","category.latest.description":"{{numberOfApps}} applicazioni filtrate per last release date.","category.mobile.description":"{{numberOfApps}} applicazioni sviluppate per dispositivi mobili o che supportano l\'uso offline.","list.more":"Altro","list.documentation":"Documentazione","multilingual":"Multilingua","compare.group.header.monitoring":"Monitoraggio","compare.group.header.navigating":"Navigazione","app.contribute.toSoftware.discuss":"Discutere e condividere idee","app.contribute.toSoftware.document":"Migliora la documentazione","app.unmaintained.wiki":"({{icon}} Non mantenuto)"}');
+const it_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Sito web","app.author":"Autore","app.sourceCode":"Codice sorgente","app.license":"Licenza","filter.language":"Linguaggi","filter.platform":"Piattaforme","app.languages":"Linguaggio","app.platforms":"Piattaforma","app.community":"Comunità","app.community.forum":"Forum","app.community.mastodon":"Mastodon","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.asin":"Amazon Appstore","app.contribute.toSoftware.translate":"Aiuta a tradurre","app.install.fDroid":"F-Droid","compare.group.header.accessibility":"Accessibilità","app.install.googlePlay":"Google Play","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","select.search.placeholder":"Cerca","select.search.noResults":"Nessun risultato","list.moreInfos":"Informazioni","filter.resetFilters":"Mostra tutti","app.imageAlt":"Immagine da {{name}}.","app.install.huaweiAppGallery":"Huawei App Gallery","app.community.bluesky":"Bluesky","list":"Lista","filter.search":"Cerca","filter.moreFilters":"Filtri","filter.coverage":"Copertura","filter.category":"Menù","filter.category.edit":"Migliora la mappa","notFound":"Non hai trovato quello che stai cercando?","noResults":"Nessun risultato","compare.group.header.general":"Generale","compare":"Compara","filter.preview":"Il filtro è impostato per:","filter.category.all":"Tutti","filter.category.focus":"Fissa","filter.category.latest":"Più recenti","category.all.description":"{{numberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} di {{totalNumberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.focus.description":"Dieci applicazioni che sono le piu recentemente aggiornate","category.latest.description":"{{numberOfApps}} applicazioni filtrate per last release date.","category.mobile.description":"{{numberOfApps}} applicazioni sviluppate per dispositivi mobili o che supportano l\'uso offline.","list.more":"Altro","list.documentation":"Documentazione","multilingual":"Multilingua","compare.group.header.monitoring":"Monitoraggio","compare.group.header.navigating":"Navigazione","app.contribute.toSoftware.discuss":"Discutere e condividere idee","app.contribute.toSoftware.document":"Migliora la documentazione","app.unmaintained.wiki":"({{icon}} Non mantenuto)","filter.topic":"Argomento","compare.group.header.tracking":"Tracciamento","app.lastRelease":"Ultimo rilascio","app.unmaintained":"(<icon/> Non mantenuto)","app.contribute.toSoftware.develop":"Sviluppare codice","app.contribute.toData.review":"Revisionare le modifiche","app.contribute.toData.tracks":"Registrare e condividere tracce"}');
 var locales_it_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(it_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ja.json
 const ja_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"ウェブサイト","app.sourceCode":"ソースコード","app.license":"ライセンス","filter.platform":"動作環境","filter.language":"言語","app.platforms":"動作環境","app.languages":"言語"}');
@@ -72939,7 +72939,7 @@ var locales_wiki_software_template_pt_namespaceObject = /*#__PURE__*/__nccwpck_r
 const wiki_software_template_ru_namespaceObject = {};
 var locales_wiki_software_template_ru_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ru_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/sv.json
-const wiki_software_template_sv_namespaceObject = {};
+const wiki_software_template_sv_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Mallspråk","description":"Språk som malltexterna visas på."},"name":{"label":"Namn","description":"Officiellt namn, annars vanligast använda"},"status":{"label":"Status","description":"Nuvarande status för projektet."},"license":{"label":"Licens","description":"Vilken fri licens eller proprietär?"},"price":{"label":"Pris","description":"Kostnader om proprietär. Om priset är tomt är ansökan gratis."},"web":{"label":"Webbadress"},"repo":{"label":"Källkod","description":"URL för att visa eller ladda ner källkoden (till exempel ett Git, Subversion eller CVS-arkiv)"},"logo":{"label":"Logotyp"},"screenshot":{"label":"Skärmdump"},"description":{"label":"Beskrivning","description":"Kort beskrivning. Vad skiljer detta från andra verktyg? (Skriv din egen beskrivning, kopiera inte bara den från webbplatsen)"},"author":{"label":"Författare","description":"Namn på författaren eller en länk till deras OSM-wiki användarsida"},"platform":{"label":"Plattformar som stöds","description":"Lista över plattformar den kan köras på."},"genre":{"description":"Huvudkategori för detta verktyg."},"languages":{"label":"Språk","description":"Stödda språk (lista över giltiga språkkoder separerade av semikoloner) eller antal språk som stöds"},"languagesurl":{"label":"Språk URL","description":"Länk till den faktiska fullständiga listan över språk som stöds, beskrivs på en annan sida (t.ex. en portalsida för programvaran eller ett arkiv)."},"coverage":{"label":"Täckning","description":"Täckning eller målregion i appen. Formatering: \\"Kontinent, land, region, ...\\" Använd \\"Worldwide\\" eller lämna den tom för global användning."}}');
 var locales_wiki_software_template_sv_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_sv_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ta.json
 const wiki_software_template_ta_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"வார்ப்புரு மொழி","description":"வார்ப்புரு நூல்கள் காட்டப்படும் மொழி."},"name":{"label":"பெயர்","description":"அதிகாரப்பூர்வ பெயர், இல்லையெனில் மிகவும் பொதுவானது"},"status":{"label":"நிலை","description":"திட்டத்தின் தற்போதைய நிலை."},"description":{"description":"சுருக்கமான விளக்கம். இதை மற்ற கருவிகளிலிருந்து வேறுபடுத்துவது எது? (உங்கள் சொந்த விளக்கத்தை எழுதுங்கள், வலைத்தளத்திலிருந்து நகலெடுக்க வேண்டாம்)","label":"விவரம்"},"author":{"label":"நூலாசிரியர்","description":"ஆசிரியரின் பெயர் அல்லது அவர்களின் OSM-wiki பயனர் பக்கத்திற்கான இணைப்பு"},"platform":{"label":"ஆதரிக்கப்பட்ட தளங்கள்","description":"அது இயங்கும் தளங்களின் பட்டியல்."},"genre":{"label":"வகை","description":"இந்த கருவிக்கான முக்கிய வகை."},"languagesurl":{"label":"மொழிகள் முகவரி","description":"மற்றொரு பக்கத்தில் விவரிக்கப்பட்டுள்ள, ஆதரிக்கப்படும் மொழிகளின் உண்மையான முழு பட்டியலுக்கான இணைப்பு (எ.கா. மென்பொருளுக்கான போர்ட்டல் பக்கம் அல்லது களஞ்சியம்)."},"languages":{"description":"ஆதரிக்கப்படும் மொழிகள் (அரைக்காற்புள்ளிகளால் பிரிக்கப்பட்ட செல்லுபடியாகும் மொழிக் குறியீடுகளின் பட்டியல்) அல்லது ஆதரிக்கப்படும் மொழிகளின் எண்ணிக்கை","label":"மொழிகள்"},"coverage":{"label":"பாதுகாப்பு","description":"பயன்பாட்டின் பாதுகாப்பு அல்லது இலக்கு பகுதி. வடிவமைப்பு: \\"கண்டம், நாடு, பகுதி, ...\\". \\"உலகளவில்\\" பயன்படுத்தவும் அல்லது உலகளாவிய பயன்பாட்டிற்காக காலியாக விடவும்."},"asin":{"label":"அமேசான் அடையாளம்","description":"ஆண்ட்ராய்டு க்கான அமேசான் ஆப்ச்டோரிற்கான அமேசான் தரநிலை அடையாள எண்"},"bbWorldID":{"label":"பிளாக்பெர்ரி ஐடி","description":"பிளாக்பெர்ரி உலக பயன்பாட்டு ஐடி"},"fDroidID":{"label":"எஃப்-டிராய்டு ஐடி","description":"எஃப்-டிராய்டு பயன்பாட்டு ஐடி"},"firefoxMarketplaceID":{"label":"பயர்பாக்ச் சந்தை ஐடி","description":"மொசில்லா பயர்பாக்ச் மார்க்கெட்ப்ளேச் பயன்பாட்டு ஐடி"},"googlePlayID":{"label":"கூகிள் பிளே ஐடி","description":"கூகிள் பிளே கடை பயன்பாட்டு ஐடி"},"huaweiAppGalleryID":{"label":"அவாய் AppGallery ஐடி","description":"HUAWEI AppGallery பயன்பாட்டு ஐடி"},"appleStoreID":{"label":"ஆப்ச்டோர் ஐடி","description":"ஐடியூன்ச் ஆப் கடை பயன்பாட்டு ஐடி"},"macAppStoreID":{"description":"மேக் ஆப் கடை பயன்பாட்டு ஐடி","label":"மேக் ஆப்ச்டோர் ஐடி"},"microsoftAppID":{"label":"நுண்மென் ஐடி","description":"நுண்மென் கடை சாளரங்கள் பயன்பாடு UUID"},"obtainiumLink":{"description":"புதுப்பிப்பு தகவல்களைப் பெறுவதற்கான இணைப்பு","label":"புதுப்பிப்பு இணைப்பைப் பெறுங்கள்"},"mapData":{"description":"[Map display] Maps drawn using pre-calculated/rasterized படங்கள் (raster) or \\"on the fly\\" (vector)?","label":"வரைபட தரவு"},"map":{"description":"[வரைபட காட்சி] இது ஒரு வரைபடத்தைக் காட்ட முடியுமா?","label":"வரைபடம் காட்சி"},"datasource":{"label":"மூலம்","description":"[வரைபட காட்சி] எல்லா வரைபடத் தரவையும் ஆஃப்லைனில் சேமிக்க முடியுமா? தனி கோப்பைப் பதிவிறக்கவா?"},"showPhoneNumber":{"description":"[POI தகவல்] POI இலிருந்து தொலைபேசி எண்ணைக் காட்டுகிறது","label":"தொலைபேசி எண்ணைக் காட்டுகிறது"},"profiles":{"description":"[வழிசெலுத்துதல்] வழிசெலுத்துதல் செய்தால் என்ன சுயவிவரங்கள் ஆதரிக்கின்றன?","label":"ரூட்டிங் சுயவிவரங்கள்"},"turnRestrictions":{"label":"கட்டுப்பாடுகளைத் திருப்புங்கள்","description":"[ரூட்டிங்] திருப்பக் கட்டுப்பாடுகளைச் சமாளிக்க முடியுமா?"},"calculateRouteOffline":{"label":"இணையம் இல்லாமல் பாதையை கணக்கிடுங்கள் (ஆஃப்லைன் ரூட்டிங்)","description":"[ரூட்டிங்] ஒரு வழியைக் கணக்கிட இணையம் தேவையா?"},"routingProviders":{"description":"[ரூட்டிங்] என்ன ரூட்டிங் சேவைகள்) இது பயன்படுத்துகிறது?","label":"ரூட்டிங் வழங்குநர்கள்"},"avoidTraffic":{"label":"போக்குவரத்தைத் தவிர்க்கவும்","description":"[ரூட்டிங்] போக்குவரத்து நெரிசல்களைத் தவிர்க்க பயன்பாடு பாதையை மேம்படுத்துகிறதா?"},"trafficProvider":{"label":"போக்குவரத்து வழங்குநர்","description":"[ரூட்டிங்] போக்குவரத்து தரவு மூல வழங்குநர்."},"navigating":{"label":"செல்லவும்","description":"[வழிசெலுத்தல்] நீங்கள் ஒரு திசைகாட்டி வழியில் செல்ல முடியுமா?"},"findLocation":{"label":"இருப்பிடத்தைக் கண்டறியவும்","description":"[வழிசெலுத்தல்] இது ஒரு தெரு/இடத்தைத் தேட முடியுமா?"},"findNearbyPOI":{"label":"அருகிலுள்ள POI களைக் கண்டுபிடி","description":"[வழிசெலுத்தல்] ஆர்வங்களின் புள்ளிகளைக் கண்டறிய/காண்பிக்க முடியுமா?"},"navToPoint":{"label":"புள்ளிக்கு செல்லவும்","description":"[வழிசெலுத்தல்] எங்காவது ஒரு கட்டத்திற்கு உங்களை வழிநடத்த முடியுமா?"},"voice":{"label":"குரல் வழிகாட்டுதலுடன் வழிசெலுத்தல்","description":"[வழிசெலுத்தல்] இது கணினி குரலுடன் கட்டளைகளை வழங்க முடியுமா?"},"keepOnRoad":{"description":"[வழிசெலுத்தல்] உங்கள் வாகனத்தை கணக்கிடப்பட்ட பாதையில் வைக்க இது உங்களுக்கு உதவ முடியுமா?","label":"சாலையில் வைத்திருங்கள்"},"turnLanes":{"label":"சந்து வழிகாட்டுதல்","description":"[வழிசெலுத்தல்] இது பாதை வழிகாட்டலை ஆதரிக்கிறதா?"},"withoutGPS":{"description":"[வழிசெலுத்தல்] சி.பி.எச் இல்லாமல் கூட இது வேலை செய்யுமா?","label":"சி.பி.எச் இல்லாமல் வேலை செய்கிறது"},"predefinedRoute":{"label":"முன் வரையறுக்கப்பட்ட பாதையில் செல்லவும்","description":"[வழிசெலுத்தல்] இது மற்ற சி.பி.எச் தடங்களைப் பின்பற்ற முடியுமா?"},"tracking":{"description":"[ட்ராக் லாக்கிங்] சி.பி.எச் பாதையை பதிவு செய்ய முடியுமா?","label":"கண்காணிக்கவும்"},"customInterval":{"label":"தனிப்பயனாக்கக்கூடிய பதிவு இடைவெளி","description":"[ட்ராக் லாக்கிங்] இடைவெளியை கைமுறையாக இசைக்க முடியுமா?"},"trackFormats":{"description":"[ட்ராக் லாக்கிங்] சேமிப்பகத்திற்கான எந்த வடிவங்கள் உங்கள் சி.பி.எச் பாதையை சேமிக்க முடியும்?","label":"டிராக் வடிவங்கள்"},"geotagging":{"label":"சியோடாகிங்","description":"[ட்ராக் லாக்கிங்] மேலும் மேப்பிங் நுட்பங்கள் ஆதரிக்கப்படுகின்றன"},"fastWayPointAdding":{"label":"வேகமான POI பொத்தான்கள்","description":"[ட்ராக் லாக்கிங்] புதிய வழிப்பாதையைச் சேர்க்க எளிதானதா?"},"uploadGPX":{"label":"GPX ஐ OSM இல் பதிவேற்றவும்","description":"[ட்ராக் லாக்கிங்] இது நேரடியாக OSM க்கு தடங்களை அனுப்ப முடியுமா?"},"monitoring":{"label":"கண்காணிப்பு","description":"[கண்காணிப்பு தடம்] சிபிஎச் தரவைக் கண்காணிக்க முடியுமா?"},"showTrack":{"label":"தற்போதைய பாதையைக் காட்டு","description":"[கண்காணிப்பு தடம்] உங்கள் தற்போதைய பாதையைக் காட்டவா?"},"showExistingTrack":{"label":"தற்போதுள்ள பாதையைத் திறக்கவும்","description":"[கண்காணிப்பு தடம்] ஏற்கனவே இருக்கும் தடங்களை ஏற்ற முடியுமா, எனவே அவற்றை நீங்கள் பின்பற்றலாமா?"},"showAltitudeDiagram":{"label":"உயர வரைபடம்","description":"[கண்காணிப்பு தடம்]"},"showDOP":{"description":"[கண்காணிப்பு தடம்] சமிக்ஞை தரத்தைக் காட்டுகிறது?","label":"நெற்று மதிப்பைக் காட்டு"},"showSatellites":{"label":"செயற்கைக்கோள் பார்வை","description":"[கண்காணிப்பு தடம்] செயற்கைக்கோள்களைக் காட்டுகிறது?"},"showNMEAlive":{"label":"நேரடி NMEA தரவைக் காட்டு","description":"[கண்காணிப்பு தடம்] மூல சி.பி.எச் ச்ட்ரீமை பார்க்க முடியுமா?"},"showSpeed":{"description":"[கண்காணிப்பு தடம்]","label":"வேகத்தைக் காட்டு"},"sendPosition":{"label":"தற்போதைய நிலையை அனுப்பவும்","description":"[கண்காணிப்பு தடம்] இது மற்றவர்களுக்கு நிலையை அனுப்ப முடியுமா?"},"addPOI":{"label":"ஏனெனில் சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைச் சேர்க்க முடியுமா?"},"editPOI":{"description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைத் திருத்த முடியுமா?","label":"ஏனெனில் திருத்து / நீக்கு"},"addWay":{"label":"வழி சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு வழியைச் சேர்க்க முடியுமா?"},"editGeom":{"label":"வடிவவியலைத் திருத்தவும்","description":"[ஆசிரியர்] நீங்கள் முனைகள்/வழிகளைத் திருத்த முடியுமா?"},"editTags":{"label":"இருக்கும் OSM பொருள்களின் தன்னிச்சையான குறிச்சொற்களைத் திருத்தவும்","description":"[ஆசிரியர்] ஏற்கனவே உள்ள குறிச்சொற்களைத் திருத்த முடியுமா?"},"editRelations":{"description":"[ஆசிரியர்] நீங்கள் உறவுகளைத் திருத்த முடியுமா?","label":"உறவுகளைத் திருத்து"},"viewNotes":{"label":"குறிப்புகளைக் காண்க","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைக் காண முடியுமா?"},"createNotes":{"label":"குறிப்புகளை உருவாக்கவும்","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைச் சேர்க்க முடியுமா?"},"editNotes":{"label":"குறிப்புகளைத் திருத்து","description":"[ஆசிரியர்] OSM குறிப்புகளை நீங்கள் கருத்து தெரிவிக்க/மூட முடியுமா?"},"editSource":{"label":"ஆஃப்லைனில் வேலை செய்யுங்கள்","description":"[ஆசிரியர்] நீங்கள் ஆஃப்லைனில் வேலை செய்ய முடியுமா?"},"offsetDBsupport":{"label":"உதவி படங்கள் ஆஃப்செட் டிபி","description":"[ஆசிரியர்] இது கற்பனை ஆஃப்செட் டி.பி ஆதரிக்கிறதா?"},"rendererOutputFormats":{"label":"ரெண்டரர் வெளியீட்டு வடிவங்கள்","description":"[ரெண்டரர்] ஆதரிக்கப்பட்ட வெளியீட்டு வடிவங்கள்."},"accessibility":{"label":"அணுகல் உதவி","description":"[அணுகல்] இது ஊனமுற்றோருக்கு ஒருவிதமாக உதவுகிறதா?"},"brailleUI":{"label":"பிரெய்ல் இடைமுகம்","description":"[அணுகல்] ஒரு சிறப்பு பிரெய்ல் இடைமுகம்?"},"publicTransportMode":{"label":"பொது போக்குவரத்து முறை","description":"[அணுகல்] பொது போக்குவரத்துடன் ரூட்டிங் செய்வதை ஆதரிக்கிறதா?"},"dangerWarnings":{"label":"இடர் எச்சரிக்கைகள்","description":"[அணுகல்]"},"screenReader":{"label":"திரை ரீடர்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசிப்பாளர்களின் பட்டியல்"},"screenReaderLang":{"label":"திரை ரீடர் மொழிகள்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசகர்களின் பட்டியல்"},"license":{"label":"உரிமம்","description":"என்ன இலவச உரிமம் அல்லது தனியுரிம?"},"price":{"label":"விலை","description":"உரிமையாளரின் செலவு. விலை காலியாக இருந்தால், விண்ணப்பம் இலவசமாக இருக்கும்."},"web":{"label":"வலை முகவரி"},"repo":{"label":"மூலக் குறியீடு","description":"மூலக் குறியீட்டைக் காண அல்லது பதிவிறக்க முகவரி (எடுத்துக்காட்டாக, ஒரு அறிவிலி, அடிபணிதல் அல்லது சி.வி.எச் களஞ்சியத்தை)"},"logo":{"label":"சின்னம்"},"screenshot":{"label":"திரைக்காட்சி"},"code":{"label":"குறியீடு","description":"பயன்படுத்தப்படும் நிரலாக்க மொழிகளின் பட்டியல்."},"framework":{"label":"கட்டமைப்பு","description":"பயன்படுத்தப்படும் கட்டமைப்புகளின் பட்டியல்."},"version":{"label":"பதிப்பு","description":"அண்மைக் கால பதிப்பு"},"date":{"label":"வெளியீட்டு தேதி","description":"அண்மைக் கால வெளியீட்டு தேதி"},"rotateMap":{"label":"வரைபடத்தை சுழற்றுங்கள்","description":"[வரைபட காட்சி] இது ஓட்டுநர்/நடைபயிற்சி திசையில் வரைபடத்தைத் திருப்புமா?"},"3D":{"label":"3 டி பார்வை","description":"[வரைபட காட்சி] சில 3D அல்லது 2.5D பார்வை உள்ளதா?"},"showWebsite":{"label":"வலைத்தளத்தைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து வலைத்தளத்திற்கான இணைப்பைக் காட்டுகிறது"},"showOpeningHours":{"label":"செயல்பாட்டு நேரங்களைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து செயல்படும் மணிநேரங்களைக் காட்டுகிறது"},"routing":{"description":"[ரூட்டிங்] நீங்கள் ஒரு வழியைக் கணக்கிட அல்லது திட்டமிட முடியுமா?","label":"ரூட்டிங்"},"createRouteManually":{"label":"வழியை கைமுறையாக உருவாக்கவும்","description":"[ரூட்டிங்]"},"calculateRoute":{"label":"வழியைக் கணக்கிடுங்கள்","description":"[வழிசெலுத்துதல்] வழிசெலுத்துதல் பயன்படுத்தி ஒரு வழியைக் கணக்கிட முடியுமா?"},"createRouteViaWaypoints":{"label":"வழிப்பாதைகள் வழியாக வழியை உருவாக்கவும்","description":"[ரூட்டிங்] வழிப்பாதைகள் வழியாக வழியைக் கணக்கிட முடியும்"},"uploadOSMData":{"label":"OSM இல் பதிவேற்றவும்","description":"[ஆசிரியர்] நீங்கள் நேரடியாக OSM க்கு மாற்றங்களை அனுப்ப முடியுமா?"},"textOnlyUI":{"label":"கிராபிக்ச் அல்லாத உரை வெளியீடு முழுமையானது","description":"[அணுகல்] பிரெய்ல் இணக்கமான இடைமுகத்திற்கு உரை?"},"explorerMode":{"label":"ஆய்வு முறை","description":"[அணுகல்] ஒரு ஆய்வு மோடச் உள்ளது (எல்லா பொருள்களையும் நெருங்குகிறது என்று சொல்லுங்கள்)?"}}');

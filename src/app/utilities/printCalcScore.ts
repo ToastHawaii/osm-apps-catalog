@@ -26,7 +26,8 @@ export function printCalcScore(apps: App[]) {
   console.info("01.05.2025: 2.088 (1972 Apps)");
   console.info("Switch to GitHubs GraphQL and filter all libraries");
   console.info("17.05.2025: 2.142 (1911 Apps)");
-  console.info("08.010.2025: 2.156 (1954 Apps)");
+  console.info("08.10.2025: 2.156 (1954 Apps)");
+  console.info("25.10.2025: 2.158 (1960 Apps)");
   console.info("Today: " + average);
 
   console.info("---");
