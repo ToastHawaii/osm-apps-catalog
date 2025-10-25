@@ -58,5 +58,112 @@
     "coverage": {
         "label": "Täckning",
         "description": "Täckning eller målregion i appen. Formatering: \"Kontinent, land, region, ...\" Använd \"Worldwide\" eller lämna den tom för global användning."
+    },
+    "map": {
+        "description": "[Map display] Kan det visa en karta?"
+    },
+    "mapData": {
+        "label": "Kartdata",
+        "description": "[Kartvisning] Kartor ritade med förberäknade/rastrerade bilder (raster) eller \"on the fly\" (vektor)?"
+    },
+    "datasource": {
+        "label": "Källa",
+        "description": "[Map display] Kan du lagra alla kartdata offline? Ladda ner en separat fil?"
+    },
+    "rotateMap": {
+        "label": "Rotera kartan",
+        "description": "[Kartvisning] Vrider den kartan i kör-/gångriktning?"
+    },
+    "3D": {
+        "label": "3D-vy",
+        "description": "[Map display] Finns det någon 3D eller 2,5D-vy?"
+    },
+    "showWebsite": {
+        "label": "Visar hemsida",
+        "description": "[POI Information] Visar länk till webbplatsen från POI"
+    },
+    "showPhoneNumber": {
+        "label": "Visar telefonnummer",
+        "description": "[POI Information] Visar telefonnummer från POI"
+    },
+    "showOpeningHours": {
+        "label": "Visar öppettider",
+        "description": "[POI-information] Visar öppettider från POI"
+    },
+    "routing": {
+        "description": "[Routing] Kan du beräkna eller på annat sätt planera en rutt?"
+    },
+    "createRouteManually": {
+        "label": "Skapa rutt manuellt",
+        "description": "[Routing]"
+    },
+    "calculateRoute": {
+        "label": "Beräkna rutt",
+        "description": "[Ruttläggning] Kan den beräkna en rutt med hjälp av routing?"
+    },
+    "createRouteViaWaypoints": {
+        "label": "Skapa rutt via vägpunkter",
+        "description": "[Ruttplanering] Kan beräkna rutt via vägpunkter"
+    },
+    "findLocation": {
+        "label": "Hitta plats",
+        "description": "[Navigering] Kan det söka efter en gata/plats?"
+    },
+    "findNearbyPOI": {
+        "label": "Hitta närliggande POI",
+        "description": "[Navigering] Kan den upptäcka/visa intressanta platser?"
+    },
+    "navigating": {
+        "label": "Navigera",
+        "description": "[Navigering] Kan du navigera på ett kompass liknande sätt?"
+    },
+    "navToPoint": {
+        "label": "Navigera till punkt",
+        "description": "[Navigering] Kan den vägleda dig till en punkt någonstans?"
+    },
+    "voice": {
+        "label": "Navigering med röst / röstvägledning",
+        "description": "[Navigering] Kan det ge dig kommandon med en datorröst?"
+    },
+    "keepOnRoad": {
+        "description": "[Navigering] Kan det hjälpa dig att hålla ditt fordon på den beräknade vägen?"
+    },
+    "turnLanes": {
+        "label": "Körfältsvägledning",
+        "description": "[Navigering] Har den stöd för filvägledning?"
+    },
+    "withoutGPS": {
+        "label": "Fungerar utan GPS",
+        "description": "[Navigering] Fungerar det även utan GPS?"
+    },
+    "predefinedRoute": {
+        "label": "Navigera längs fördefinierad rutt",
+        "description": "[Navigering] Kan det följa andra GPS-spår?"
+    },
+    "tracking": {
+        "description": "[Track logging] Kan det spela in ett GPS-spår?"
+    },
+    "customInterval": {
+        "label": "Anpassningsbart loggintervall",
+        "description": "[Track logging] Kan du ställa in intervallet manuellt?"
+    },
+    "geotagging": {
+        "label": "Geotagging",
+        "description": "[Spårloggning] Stöds ytterligare kartläggningstekniker"
+    },
+    "fastWayPointAdding": {
+        "label": "Snabbknappar för POI"
+    },
+    "uploadGPX": {
+        "label": "Ladda upp GPX till OSM"
+    },
+    "monitoring": {
+        "label": "Övervakning"
+    },
+    "showTrack": {
+        "label": "Visa aktuellt spår"
+    },
+    "showExistingTrack": {
+        "label": "Öppna befintliga spår"
     }
 }
