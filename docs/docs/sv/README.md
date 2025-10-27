@@ -6,7 +6,7 @@ Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data
 Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
 Contribution Score](/docs/score).
 
-[Go to the catalog](https://osm-apps.org)
+[Gå till katalogen](https://osm-apps.org)
 
 [Lägg till OSM-appar du känner till eller bidrar på andra
 sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
