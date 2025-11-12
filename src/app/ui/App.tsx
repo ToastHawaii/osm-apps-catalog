@@ -144,12 +144,12 @@ export function App() {
             <>
               {" "}
               <button
-                className="reset-filters"
+                className="show-all"
                 onClick={() => {
                   resetAppState(state.category);
                 }}
               >
-                {t("filter.resetFilters")}
+                {t("filter.showAll")}
               </button>
             </>
           )}
@@ -230,12 +230,12 @@ export function App() {
                 <>
                   {" "}
                   <button
-                    className="reset-filters"
+                    className="show-all"
                     onClick={() => {
                       resetAppState(state.category);
                     }}
                   >
-                    {t("filter.resetFilters")}
+                    {t("filter.showAll")}
                   </button>
                 </>
               )}
@@ -293,7 +293,25 @@ export function App() {
                   />
                 </PagedList>
               ) : (
-                <p className="no-results">{t("noResults")}</p>
+                <>
+                  <p className="no-results">
+                    {t("noResults")}{" "}
+                    {(state.topics.length > 0 ||
+                      state.platforms.length > 0 ||
+                      state.languages.length > 0 ||
+                      state.coverage.length > 0 ||
+                      state.contribute.length > 0) && (
+                      <button
+                        className="reset-filters"
+                        onClick={() => {
+                          resetAppState(state.category);
+                        }}
+                      >
+                        {t("filter.resetFilters")}
+                      </button>
+                    )}
+                  </p>
+                </>
               )}
               {state.category === "all" && !state.app && (
                 <NotFoundApps apps={apps} />
