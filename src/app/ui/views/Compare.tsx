@@ -55,10 +55,12 @@ export function Compare({
   apps,
   lang,
   state,
+  isInitState,
 }: {
   apps: App[];
   lang: string;
   state: State;
+  isInitState: (key?: string | undefined) => boolean;
 }) {
   const { t } = useTranslation();
 
@@ -234,7 +236,7 @@ export function Compare({
             hasValue: (app) => app.platform?.length > 0,
             renderToHtml: (app) => <Badges values={app.platform} />,
             renderToWiki: (app) => toWikiValue(app.platform.join(", "), lang),
-            focus: !!state.platforms.length,
+            focus: !!state.platforms.length && !isInitState?.("platforms"),
           },
           {
             label: (lang) => t("app.props.date.label", { lng: lang }),
@@ -327,7 +329,7 @@ export function Compare({
               ),
             more: true,
             focus:
-              !!state?.languages.length ||
+              (!!state?.languages.length && !isInitState?.("languages")) ||
               state?.contribute.includes("translate"),
           },
           {
@@ -338,7 +340,7 @@ export function Compare({
             renderToHtml: (app) => <>{app.coverage[app.coverage.length - 1]}</>,
             renderToWiki: (app) =>
               toWikiValue(app.coverage[app.coverage.length - 1], lang),
-            focus: !!state?.coverage.length,
+            focus: !!state?.coverage.length && !isInitState?.("coverage"),
           },
           {
             label: (lang) => t("app.community", { lng: lang }),

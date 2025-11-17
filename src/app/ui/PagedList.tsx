@@ -43,7 +43,7 @@ export function PagedList({
   open: boolean;
   children: any;
   state: State;
-  isInitState: boolean;
+  isInitState: (key?: string | undefined) => boolean;
 }) {
   const [showNext, setShowNext] = useState(false);
 

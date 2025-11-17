@@ -221,8 +221,7 @@ export function App() {
                   </>
                 ))
                 .value()}
-              {(state.search.length > 0 ||
-                state.topics.length > 0 ||
+              {(state.topics.length > 0 ||
                 state.platforms.length > 0 ||
                 state.languages.length > 0 ||
                 state.coverage.length > 0 ||
@@ -285,7 +284,7 @@ export function App() {
                   apps={filteredApps}
                   open={!!state.app}
                   state={state}
-                  isInitState={isInitState()}
+                  isInitState={isInitState}
                 >
                   <RelatedApps
                     findSimilarApps={findSimilarApps}
@@ -326,6 +325,7 @@ export function App() {
                       apps={filteredApps}
                       lang={state.lang}
                       state={state}
+                      isInitState={isInitState}
                     />
                   </LazyInitMore>
                 </LazyLoadImages>

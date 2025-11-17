@@ -6,40 +6,37 @@ import { getUserRegion } from "./getUserRegion";
 import { getUserOS } from "./getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
+function usersBrowserSearchParams() {
+  const userLanguages = navigator.languages.map((l) =>
+    languageValueToDisplay(l)
+  );
+  const userRegion = getUserRegion();
+  const userPlatform = getUserOS();
+
+  return {
+    languages:
+      userLanguages.length > 0
+        ? uniq([languageValueToDisplay("en"), ...userLanguages]).join("+")
+        : "",
+    coverage: userRegion ? uniq(["Worldwide", userRegion]).join("+") : "",
+    platforms: userPlatform ? uniq(["Web", userPlatform]).join("+") : "",
+  };
+}
+
 export function useAppState() {
   let initState: {
-    languages: string[];
-    coverage: string[];
-    platforms: string[];
-  } = { languages: [], coverage: [], platforms: [] };
+    languages: string;
+    coverage: string;
+    platforms: string;
+  } = { languages: "", coverage: "", platforms: "" };
   const [initSearchParams] = useSearchParams();
 
   if (isEmpty(Object.fromEntries(initSearchParams.entries()))) {
-    const userLanguages = navigator.languages.map((l) =>
-      languageValueToDisplay(l)
-    );
-    const userRegion = getUserRegion();
-    const userPlatform = getUserOS();
-
-    initState = {
-      languages:
-        userLanguages.length > 0
-          ? uniq([languageValueToDisplay("en"), ...userLanguages])
-          : [],
-      coverage: userRegion ? uniq(["Worldwide", userRegion]) : [],
-      platforms: userPlatform ? uniq(["Web", userPlatform]) : [],
-    };
+    initState = usersBrowserSearchParams();
   }
 
   const [searchParams, setSearchParams] = useSearchParams(
-    pickBy(
-      {
-        languages: initState.languages.join("+"),
-        coverage: initState.coverage.join("+"),
-        platforms: initState.platforms.join("+"),
-      },
-      (v) => v
-    )
+    pickBy(initState, (v) => v)
   );
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
@@ -121,6 +118,20 @@ export function useAppState() {
         setSearchParams(() => ({}));
       }
     },
-    () => !isEqual([...initSearchParams], [...searchParams]),
+    (key?: string) => {
+      if (key) {
+        return isEqual(
+          [...Object.entries(usersBrowserSearchParams())].filter(
+            (e) => e[0] === key
+          ),
+          [...searchParams].filter((e) => e[0] === key)
+        );
+      }
+
+      return isEqual(
+        [...Object.entries(usersBrowserSearchParams())],
+        [...searchParams].filter((e) => e[0] !== "search")
+      );
+    },
   ] as const;
 }

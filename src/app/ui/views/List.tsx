@@ -56,7 +56,7 @@ export function List({
   app: App;
   open: boolean;
   state?: State;
-  isInitState?: boolean;
+  isInitState?: (key?: string | undefined) => boolean;
 }) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
@@ -163,11 +163,13 @@ export function List({
 
       <div className="more-infos"></div>
       {isOpen && <div className="more-infos-title">{t("list.moreInfos")}</div>}
-      {(isOpen || (!!state?.platforms.length && !isInitState)) &&
+      {(isOpen || (!!state?.platforms.length && !isInitState?.("platforms"))) &&
         app.platform.length > 0 && (
           <div
             className={`more-info${
-              !!state?.platforms.length && !isInitState ? " focus" : ""
+              !!state?.platforms.length && !isInitState?.("platforms")
+                ? " focus"
+                : ""
             }`}
           >
             <span className="more-info-title">{t("app.platforms")}</span>
@@ -197,12 +199,12 @@ export function List({
       )}
 
       {(isOpen ||
-        (!!state?.languages.length && !isInitState) ||
+        (!!state?.languages.length && !isInitState?.("languages")) ||
         state?.contribute.includes("translate")) &&
       app.languagesUrl ? (
         <a
           className={`more-info${
-            (!!state?.languages.length && !isInitState) ||
+            (!!state?.languages.length && !isInitState?.("languages")) ||
             state?.contribute.includes("translate")
               ? " focus"
               : ""
@@ -224,11 +226,13 @@ export function List({
           </span>
         </a>
       ) : (
-        (isOpen || (!!state?.languages.length && !isInitState)) &&
+        (isOpen || (!!state?.languages.length && !isInitState?.("languages"))) &&
         app.languages.length > 0 && (
           <div
             className={`more-info${
-              !!state?.languages.length && !isInitState ? " focus" : ""
+              !!state?.languages.length && !isInitState?.("languages")
+                ? " focus"
+                : ""
             }`}
           >
             <span className="more-info-title">{t("app.languages")}</span>
@@ -236,11 +240,13 @@ export function List({
           </div>
         )
       )}
-      {(isOpen || (!!state?.coverage.length && !isInitState)) &&
+      {(isOpen || (!!state?.coverage.length && !isInitState?.("coverage"))) &&
         app.coverage.length > 0 && (
           <div
             className={`more-info${
-              !!state?.coverage.length && !isInitState ? " focus" : ""
+              !!state?.coverage.length && !isInitState?.("coverage")
+                ? " focus"
+                : ""
             }`}
           >
             <span className="more-info-title">{t("app.coverage")}</span>
