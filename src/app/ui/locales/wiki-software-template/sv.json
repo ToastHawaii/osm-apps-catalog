@@ -45,7 +45,8 @@
         "description": "Lista över plattformar den kan köras på."
     },
     "genre": {
-        "description": "Huvudkategori för detta verktyg."
+        "description": "Huvudkategori för detta verktyg.",
+        "label": "Genre"
     },
     "languages": {
         "label": "Språk",
@@ -60,7 +61,8 @@
         "description": "Täckning eller målregion i appen. Formatering: \"Kontinent, land, region, ...\" Använd \"Worldwide\" eller lämna den tom för global användning."
     },
     "map": {
-        "description": "[Map display] Kan det visa en karta?"
+        "description": "[Map display] Kan det visa en karta?",
+        "label": "Visa karta"
     },
     "mapData": {
         "label": "Kartdata",
@@ -91,7 +93,8 @@
         "description": "[POI-information] Visar öppettider från POI"
     },
     "routing": {
-        "description": "[Routing] Kan du beräkna eller på annat sätt planera en rutt?"
+        "description": "[Routing] Kan du beräkna eller på annat sätt planera en rutt?",
+        "label": "Ruttläggning"
     },
     "createRouteManually": {
         "label": "Skapa rutt manuellt",
@@ -99,11 +102,11 @@
     },
     "calculateRoute": {
         "label": "Beräkna rutt",
-        "description": "[Ruttläggning] Kan den beräkna en rutt med hjälp av routing?"
+        "description": "[Ruttläggning] Kan den beräkna en rutt med hjälp av Ruttplanering?"
     },
     "createRouteViaWaypoints": {
         "label": "Skapa rutt via vägpunkter",
-        "description": "[Ruttplanering] Kan beräkna rutt via vägpunkter"
+        "description": "[Ruttläggning] Kan beräkna rutt via Vägpunkter"
     },
     "findLocation": {
         "label": "Hitta plats",
@@ -126,7 +129,8 @@
         "description": "[Navigering] Kan det ge dig kommandon med en datorröst?"
     },
     "keepOnRoad": {
-        "description": "[Navigering] Kan det hjälpa dig att hålla ditt fordon på den beräknade vägen?"
+        "description": "[Navigering] Kan det hjälpa dig att hålla ditt fordon på den beräknade vägen?",
+        "label": "Håll dig på vägen"
     },
     "turnLanes": {
         "label": "Körfältsvägledning",
@@ -141,7 +145,8 @@
         "description": "[Navigering] Kan det följa andra GPS-spår?"
     },
     "tracking": {
-        "description": "[Track logging] Kan det spela in ett GPS-spår?"
+        "description": "[Track logging] Kan det spela in ett GPS-spår?",
+        "label": "Gör spår"
     },
     "customInterval": {
         "label": "Anpassningsbart loggintervall",
@@ -152,18 +157,129 @@
         "description": "[Spårloggning] Stöds ytterligare kartläggningstekniker"
     },
     "fastWayPointAdding": {
-        "label": "Snabbknappar för POI"
+        "label": "Snabbknappar för POI",
+        "description": "[Spårloggning] Lätt att lägga till en ny vägpunkt?"
     },
     "uploadGPX": {
-        "label": "Ladda upp GPX till OSM"
+        "label": "Ladda upp GPX till OSM",
+        "description": "[Spårloggning] Kan den skicka spår direkt till OSM?"
     },
     "monitoring": {
-        "label": "Övervakning"
+        "label": "Övervakning",
+        "description": "[Spårövervakning] Kan du övervaka GPS-data?"
     },
     "showTrack": {
-        "label": "Visa aktuellt spår"
+        "label": "Visa aktuellt spår",
+        "description": "[Spårövervakning] Visa ditt aktuella spår?"
     },
     "showExistingTrack": {
-        "label": "Öppna befintliga spår"
+        "label": "Öppna befintliga spår",
+        "description": "[Spårövervakning] Kan den ladda befintliga spår så att du kan följa dem?"
+    },
+    "code": {
+        "label": "Kodkod",
+        "description": "Lista över programmeringsspråk som används."
+    },
+    "framework": {
+        "label": "Ramverk",
+        "description": "Förteckning över de ramverk som används."
+    },
+    "version": {
+        "label": "Version",
+        "description": "Senaste versionen"
+    },
+    "date": {
+        "label": "Utgivningsdatum",
+        "description": "Senaste utgivningsdatum"
+    },
+    "asin": {
+        "label": "Amazon Identifiering",
+        "description": "Amazons standardidentifieringsnummer för Amazon Appstore för Android"
+    },
+    "bbWorldID": {
+        "label": "BlackBerry ID"
+    },
+    "fDroidID": {
+        "label": "F-Droid ID",
+        "description": "F-Droid applikations ID"
+    },
+    "firefoxMarketplaceID": {
+        "label": "Firefox Marketplace ID",
+        "description": "Mozilla Firefox Marketplace applikations ID"
+    },
+    "googlePlayID": {
+        "label": "Google Play ID",
+        "description": "Google Play Store Applications ID"
+    },
+    "huaweiAppGalleryID": {
+        "label": "Huawei AppGallery ID",
+        "description": "Huawei AppGallery applikations ID"
+    },
+    "appleStoreID": {
+        "label": "AppStore ID",
+        "description": "iTunes App Store applikations ID"
+    },
+    "macAppStoreID": {
+        "label": "Mac AppStore ID",
+        "description": "Mac App Store applikations ID"
+    },
+    "microsoftAppID": {
+        "label": "Microsoft ID",
+        "description": "Microsoft Store Windows-program UUID"
+    },
+    "profiles": {
+        "label": "Ruttplaneringsprofiler",
+        "description": "[Ruttläggning] Vilka profiler stöds om den gör Ruttplanering?"
+    },
+    "turnRestrictions": {
+        "label": "Svängrestriktioner",
+        "description": "[Ruttläggning] Kan den hantera svängbegränsningar?"
+    },
+    "calculateRouteOffline": {
+        "label": "Beräkna rutt utan internet (offline-ruttläggning)",
+        "description": "[Ruttberäkning] Behöver den internet för att beräkna en rutt?"
+    },
+    "routingProviders": {
+        "label": "Ruttläggningleverantörer",
+        "description": "[Ruttläggning] Vilka ruttläggningtjänster använder den?"
+    },
+    "avoidTraffic": {
+        "label": "Undvik trafik",
+        "description": "[Ruttplanering] Optimerar appen rutten för att undvika trafikstockningar?"
+    },
+    "trafficProvider": {
+        "label": "Trafikleverantör",
+        "description": "[Ruttläggning] Leverantör av trafikdatakälla."
+    },
+    "trackFormats": {
+        "label": "Spårformat",
+        "description": "[Spårloggning] Vilka format kan du spara ditt GPS-spår i?"
+    },
+    "showAltitudeDiagram": {
+        "label": "Höjddiagram",
+        "description": "[Spårövervakning]"
+    },
+    "showDOP": {
+        "description": "[Spårövervakning] Visar signalkvalitet?"
+    },
+    "showSatellites": {
+        "label": "Satellitvy",
+        "description": "[Spårövervakning] Visar satelliter?"
+    },
+    "showNMEAlive": {
+        "label": "Visa live NMEA data",
+        "description": "[Spårövervakning] Kan du se den råa GPS-strömmen?"
+    },
+    "showSpeed": {
+        "label": "Visa hastighet",
+        "description": "[Spårövervakning]"
+    },
+    "sendPosition": {
+        "label": "Skicka aktuell position",
+        "description": "[Spårövervakning] Kan den skicka position till andra?"
+    },
+    "addPOI": {
+        "label": "Lägg till POI",
+        "description": "[Editor] Kan du lägga till en nod?"
     }
 }
