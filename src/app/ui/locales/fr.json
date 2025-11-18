@@ -125,5 +125,5 @@
     "filter.search": "Rechercher",
     "wiki.generatedBy": "Généré par le Catalogue des applications OSM",
     "score.criteria.translationContributions": "il est possible de contribuer aux traductions",
-    "filter.resetFilters": "Réinitialiser les filtres prédéfinis"
+    "filter.resetFilters": "Supprimer les filtres prédéfinis"
 }
