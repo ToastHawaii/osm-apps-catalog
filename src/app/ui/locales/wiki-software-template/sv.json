@@ -260,7 +260,8 @@
         "description": "[Spårövervakning]"
     },
     "showDOP": {
-        "description": "[Spårövervakning] Visar signalkvalitet?"
+        "description": "[Spårövervakning] Visar signalkvalitet?",
+        "label": "Visa POD-värde"
     },
     "showSatellites": {
         "label": "Satellitvy",
@@ -281,5 +282,15 @@
     "addPOI": {
         "label": "Lägg till POI",
         "description": "[Editor] Kan du lägga till en nod?"
+    },
+    "editPOI": {
+        "label": "Redigera/ta bort POIs",
+        "description": "[Editor] Kan du redigera en nod?"
+    },
+    "editGeom": {
+        "label": "Redigera geometrier"
+    },
+    "editTags": {
+        "label": "Redigera godtyckliga taggar av befintliga OSM-objekt"
     }
 }
