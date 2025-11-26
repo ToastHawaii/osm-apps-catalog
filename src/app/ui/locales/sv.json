@@ -33,11 +33,11 @@
     "select.search.noResults": "Inga resultat",
     "compare.group.header.general": "Generell",
     "compare.group.header.routing": "Ruttplanering",
-    "compare.group.header.navigating": "Navigera",
+    "compare.group.header.navigating": "Navigering",
     "compare.group.header.tracking": "Spårning",
     "compare.group.header.monitoring": "Övervakning",
     "compare.group.header.editing": "Redigering",
-    "compare.group.header.rendering": "Rendering",
+    "compare.group.header.rendering": "Återgivning",
     "compare.group.header.accessibility": "Tillgänglighet",
     "multilingual": "Flerspråkig",
     "list.documentation": "Dokumentation",
@@ -126,5 +126,6 @@
     "filter": {
         "resetFilters": "Ta bort förinställda filter"
     },
-    "app.community.mastodon": "Mastodont"
+    "app.community.mastodon": "Mastodont",
+    "app.community.lemmy": "Lemmy"
 }
