@@ -197,7 +197,8 @@
         "description": "Amazons standardidentifieringsnummer för Amazon Appstore för Android"
     },
     "bbWorldID": {
-        "label": "BlackBerry ID"
+        "label": "BlackBerry ID",
+        "description": "BlackBerry World applikations ID"
     },
     "fDroidID": {
         "label": "F-Droid ID",
@@ -288,9 +289,83 @@
         "description": "[Editor] Kan du redigera en nod?"
     },
     "editGeom": {
-        "label": "Redigera geometrier"
+        "label": "Redigera geometrier",
+        "description": "[Redigera] Kan du redigera noder/vägar?"
     },
     "editTags": {
-        "label": "Redigera godtyckliga taggar av befintliga OSM-objekt"
+        "label": "Redigera godtyckliga taggar av befintliga OSM-objekt",
+        "description": "[Redigera] Kan du redigera befintliga taggar?"
+    },
+    "addWay": {
+        "label": "Lägg till väg",
+        "description": "[Redigera] Kan du lägga till ett sätt?"
+    },
+    "editRelations": {
+        "label": "Redigera relationer",
+        "description": "[Redigera] Kan du redigera relationer?"
+    },
+    "viewNotes": {
+        "label": "Visa anteckningar",
+        "description": "[Redigera] Kan du visa OSM-anteckningar?"
+    },
+    "createNotes": {
+        "label": "Skapa anteckningar",
+        "description": "[Redigera] Kan du lägga till OSM-anteckningar?"
+    },
+    "editNotes": {
+        "label": "Redigera anteckningar",
+        "description": "[Redigera] Kan du kommentera/stänga OSM Notes?"
+    },
+    "editSource": {
+        "label": "Arbeta offline",
+        "description": "[Redigera] Kan du arbeta offline?"
+    },
+    "offsetDBsupport": {
+        "label": "Stöd för bildoffset-DB",
+        "description": "[Redigera] Stöder den bildoffset-databasen?"
+    },
+    "uploadOSMData": {
+        "label": "Ladda upp till OSM",
+        "description": "[Redigera] Kan man skicka ändringar direkt till OSM?"
+    },
+    "accessibility": {
+        "label": "Tillgänglighetsstöd",
+        "description": "[Tillgänglighet] Hjälper det funktionshindrade personer på något sätt?"
+    },
+    "textOnlyUI": {
+        "label": "Komplett icke-grafisk textutmatning",
+        "description": "[Tillgänglighet] Gränssnitt kompatibelt med text till punktskrift?"
+    },
+    "brailleUI": {
+        "label": "Punktgränssnitt",
+        "description": "[Tillgänglighet] Ett särskilt punktskriftgränssnitt?"
+    },
+    "explorerMode": {
+        "label": "Utforskningsläge",
+        "description": "[Tillgänglighet] Har ett utforskningsläge (tala alla objekt som närmar sig)?"
+    },
+    "publicTransportMode": {
+        "label": "Kollektivtrafiksläge",
+        "description": "[Tillgänglighet] Stöder ruttförbindelser med kollektivtrafik?"
+    },
+    "dangerWarnings": {
+        "label": "Varningar om fara",
+        "description": "[Tillgänglighet]"
+    },
+    "screenReader": {
+        "label": "Skärmläsare",
+        "description": "[Tillgänglighet] Lista över skärmläsare som stöds"
+    },
+    "screenReaderLang": {
+        "label": "Skärmläsarspråk",
+        "description": "[Tillgänglighet] Lista över skärmläsarspråk som stöds"
+    },
+    "obtainiumLink": {
+        "label": "Obtainium Updater länk",
+        "description": "Länk till Obtainium updater information"
+    },
+    "rendererOutputFormats": {
+        "label": "Återgivningsformat",
+        "description": "[Återgivningsformat] Utdataformat som stöds."
     }
 }
