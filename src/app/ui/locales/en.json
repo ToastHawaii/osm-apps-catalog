@@ -126,8 +126,5 @@
   "score.criteria.communityChannelExists": "a communication channel for the community exists (e.g. forum, Mastodon)",
   "score.criteria.openSourceChannel": "a channel is hosted on open-source platforms (e.g. Matrix)",
   "score.criteria.documentationLink": "a documentation link is available",
-  "score.criteria.documentedMultiplePlatforms": "the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)",
-  "filter": {
-    "resetFilters": "Remove preset filters"
-  }
+  "score.criteria.documentedMultiplePlatforms": "the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)"
 }
