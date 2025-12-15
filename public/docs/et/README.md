@@ -1,6 +1,6 @@
 # Teave OSM rakenduste kataloogi kohta
 
-**There isn't just one, there are thousands.**
+**Pole ainult ühte, neid on tuhandeid.**
 
 See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
 OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
