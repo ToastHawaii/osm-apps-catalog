@@ -1,6 +1,6 @@
 # À propos du catalogue des applications d'OSM
 
-**Découvrez le monde d’une manière créative, productive et inattendue..**
+**There isn't just one, there are thousands.**
 
 Ce catalogue présente les applications et services utilisant les données
 OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées

@@ -1,6 +1,6 @@
 # Über den OSM Apps Katalog
 
-**Erlebe die Welt auf kreative, produktive und unerwartete Weise.**
+**There isn't just one, there are thousands.**
 
 Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
 wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution

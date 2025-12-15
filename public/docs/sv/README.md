@@ -1,6 +1,6 @@
 # Om OSM Apps-katalogen
 
-** Upplev världen på ett kreativt, produktivt och oväntat sätt.**
+**There isn't just one, there are thousands.**
 
 Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data.
 Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
