@@ -4,7 +4,7 @@ defaults:
     values:
       lang: "en"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/"
   - scope:
       path: "docs/cs/README.md"
@@ -60,96 +60,96 @@ defaults:
     values:
       lang: "id"
       title: "Tentang - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/id/"
   - scope:
       path: "docs/it/README.md"
     values:
       lang: "it"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/it/"
   - scope:
       path: "docs/ja/README.md"
     values:
       lang: "ja"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/ja/"
   - scope:
       path: "docs/ko/README.md"
     values:
       lang: "ko"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/ko/"
   - scope:
       path: "docs/nb_NO/README.md"
     values:
       lang: "no"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/no/"
   - scope:
       path: "docs/pl/README.md"
     values:
       lang: "pl"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/pl/"
   - scope:
       path: "docs/pt/README.md"
     values:
       lang: "pt"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/pt/"
   - scope:
       path: "docs/ru/README.md"
     values:
       lang: "ru"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/ru/"
   - scope:
       path: "docs/sv/README.md"
     values:
       lang: "sv"
       title: "Om - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/sv/"
   - scope:
       path: "docs/ta/README.md"
     values:
       lang: "ta"
       title: "பற்றி - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/ta/"
   - scope:
       path: "docs/tr/README.md"
     values:
       lang: "tr"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/tr/"
   - scope:
       path: "docs/uk/README.md"
     values:
       lang: "uk"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/uk/"
   - scope:
       path: "docs/zh_Hant/README.md"
     values:
       lang: "zh"
       title: "About - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/zh/"
   - scope:
       path: "docs/zh-Hans/README.md"
     values:
       lang: "zh-Hans"
       title: "關於 - OSM Apps Catalog"
-      description: "Experience the world in a creative, productive and unexpected way."
+      description: "There isn't just one, there are thousands."
       base: "/zh-hans/"

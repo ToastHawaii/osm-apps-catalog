@@ -1,6 +1,6 @@
 # OSM Apps Catalog
 
-**Experience the world in a creative, productive and unexpected way.**
+**There isn't just one, there are thousands.**
 
 This catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate.
 
