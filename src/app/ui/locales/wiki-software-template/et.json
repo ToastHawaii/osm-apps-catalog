@@ -129,7 +129,7 @@
         "description": "[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?"
     },
     "rotateMap": {
-        "label": "Kardi pööramine",
+        "label": "Kaardi pööramine",
         "description": "[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?"
     },
     "3D": {
