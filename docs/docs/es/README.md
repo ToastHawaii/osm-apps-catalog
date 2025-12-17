@@ -1,6 +1,6 @@
 # Acerca del Catálogo de aplicaciones de OSM
 
-**Experimente el mundo de maneras creativas, productivas e inesperadas.**
+**There isn't just one, there are thousands.**
 
 This catalog shows applications and services that use OpenStreetMap data. It is
 updated every day. The apps are rated and sorted by the [Community Contribution

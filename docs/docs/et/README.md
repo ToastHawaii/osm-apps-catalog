@@ -1,6 +1,6 @@
 # Teave OSM rakenduste kataloogi kohta
 
-**Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil.**
+**Pole ainult ühte, neid on tuhandeid.**
 
 See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
 OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
