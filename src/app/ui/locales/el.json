@@ -125,5 +125,6 @@
     "score.criteria.openSourceChannel": "φιλοξενείται κανάλι επικοινωνίας σε πλατφόρμα ανοιχτού-κώδικα (π.χ. Matrix)",
     "score.criteria.documentationLink": "υπάρχει διαθέσιμος σύνδεσμος προς την τεκμηρίωση της εφαρμογής",
     "score.criteria.documentedMultiplePlatforms": "η εφαρμογή είναι τεκμηριωμένη σε πολλαπλές πλατφόρμες (π.χ. OSM-WIki, taginfo, Wikidata)",
-    "filter.resetFilters": "Αφαίρεση προρυθμισμένων φίλτρων"
+    "filter.resetFilters": "Αφαίρεση προρυθμισμένων φίλτρων",
+    "survey": "Με ενδιαφέρει η γνώμη σας. Βοηθήστε στον επανασχεδιασμό του OSM App Catalog. <u>Πάρτε μέρος στην έρευνα. Πατήστε εδώ.</u>"
 }

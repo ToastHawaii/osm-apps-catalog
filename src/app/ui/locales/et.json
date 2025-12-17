@@ -125,5 +125,6 @@
     "filter.preset": "Eelseadistatud filter sinu jaoks:",
     "app.community.lemmy": "Lemmy",
     "app.getIt": "Laadi siit",
-    "filter.resetFilters": "Eemalda eelseadistatud filtrid"
+    "filter.resetFilters": "Eemalda eelseadistatud filtrid",
+    "survey": "Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>"
 }

@@ -127,5 +127,6 @@
     "score.criteria.documentedMultiplePlatforms": "在多個平台有說明文件的 app (例如 OSM-Wiki、taginfo、維基數據)",
     "filter": {
         "resetFilters": "移除預置篩選"
-    }
+    },
+    "survey": "我們重視你的回饋意見，幫忙重新設計 OSM App Catalog。<u>點這裡填寫問券。</u>"
 }

@@ -1,6 +1,6 @@
 # O katalogu aplikací OSM
 
-**Zažijte svět kreativním, produktivním a nečekaným způsobem.**
+**There isn't just one, there are thousands.**
 
 Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap.
 Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre

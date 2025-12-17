@@ -1,6 +1,6 @@
 # OSM Apps Catalog – névjegy
 
-**Tapasztald meg a világot kreatívan, produktívan és kalandosan!**
+**There isn't just one, there are thousands.**
 
 Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
 használja. Naponta frissül. The apps are rated and sorted by the [Community
