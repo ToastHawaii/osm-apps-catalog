@@ -1,6 +1,6 @@
 # À propos du catalogue des applications d'OSM
 
-**There isn't just one, there are thousands.**
+**Il n'y en a pas qu'un, il y en a des milliers.**
 
 Ce catalogue présente les applications et services utilisant les données
 OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées
