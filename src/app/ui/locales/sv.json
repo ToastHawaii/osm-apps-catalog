@@ -127,5 +127,6 @@
         "resetFilters": "Ta bort förinställda filter"
     },
     "app.community.mastodon": "Mastodont",
-    "app.community.lemmy": "Lemmy"
+    "app.community.lemmy": "Lemmy",
+    "survey": "Jag är intresserad av din åsikt. Hjälp till att omforma OSM-appkatalogen. <u>Delta i undersökningen. Klicka här.</u>"
 }
