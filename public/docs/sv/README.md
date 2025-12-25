@@ -1,6 +1,6 @@
 # Om OSM Apps-katalogen
 
-**There isn't just one, there are thousands.**
+**Det finns inte bara en, det finns tusentals.**
 
 Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data.
 Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
