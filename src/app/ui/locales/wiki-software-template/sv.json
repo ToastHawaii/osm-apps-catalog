@@ -365,7 +365,7 @@
         "description": "Länk till Obtainium updater information"
     },
     "rendererOutputFormats": {
-        "label": "Återgivningsformat",
-        "description": "[Återgivningsformat] Utdataformat som stöds."
+        "label": "Renderings utdata format",
+        "description": "[Rendering] Utdataformat som stöds."
     }
 }
