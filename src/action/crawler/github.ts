@@ -89,6 +89,7 @@ const ignoredTopics = [
 ];
 
 export function transformGitHubResult(result: any) {
+  (eld as any).load("large");
   let language: string | undefined;
   if (
     result.description &&

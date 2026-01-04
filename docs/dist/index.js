@@ -77900,6 +77900,7 @@ const ignoredTopics = [
     "interline-io",
 ];
 function transformGitHubResult(result) {
+    withLoader.load("large");
     let language;
     if (result.description &&
         ((0,lodash.words)(result.description).length >= 6 || result.description.length > 42)) {
