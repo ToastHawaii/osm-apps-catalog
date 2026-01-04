@@ -11,6 +11,7 @@ import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 import { getJson } from "../app/utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
 import { requestGitHub, transformGitHubResult } from "./crawler/github";
+import eld from "eld";
 
 async function loadAppsFromOsmWikiServiceItems(language: string) {
   return (await requestTemplates("Service item", language))
@@ -92,8 +93,10 @@ async function loadAppsFromGitHub(githubToken: string) {
       o.name = `${o.name} by ${o.owner.login}`;
     });
 
+  await (eld as any).load("large");
+
   return objs.map((source) =>
-    transformGitHubResult(source)
+    transformGitHubResult(eld, source)
   ) as unknown as App[];
 }
 

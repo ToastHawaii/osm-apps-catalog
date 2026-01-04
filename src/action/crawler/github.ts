@@ -5,7 +5,6 @@ import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguage
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
 import { newUrl } from "../../shared/utilities/url";
 import { equalsIgnoreCase } from "../../shared/utilities/string";
-import { eld } from "eld";
 
 const ignoredTopics = [
   // OpenStreetMap
@@ -88,8 +87,8 @@ const ignoredTopics = [
   "interline-io",
 ];
 
-export function transformGitHubResult(result: any) {
-  (eld as any).load("large");
+export function transformGitHubResult(eld:any, result: any) {
+
   let language: string | undefined;
   if (
     result.description &&
