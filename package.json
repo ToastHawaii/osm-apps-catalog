@@ -30,29 +30,30 @@
     "sass": "1.97.1",
     "sitemap": "8.0.0",
     "slim-select": "2.10.0",
-    "typescript": "4.9.5",
     "ua-parser-js": "2.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "9.39.2",
     "@github/local-action": "2.2.1",
+    "@nabla/vite-plugin-eslint": "2.0.6",
     "@types/lodash": "4.17.14",
     "@types/md5": "2.3.5",
     "@types/react": "18.3.8",
     "@types/react-dom": "18.3.0",
     "@types/sanitize-html": "2.13.0",
     "@vitejs/plugin-react": "5.1.2",
+    "eslint": "9.39.2",
+    "eslint-plugin-react": "7.37.5",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.53.0",
     "vite": "7.3.1"
   },
   "scripts": {
-    "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npm run app:build && npm run action:build",
+    "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && eslint . && npm run app:build && npm run action:build",
     "app:start": "cp docs/api/apps/all.json src/shared/data && vite",
     "app:build": "vite build",
-    "action:build": "npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "action:build": "npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt",
+    "lint": "eslint ."
   },
   "browserslist": {
     "production": [
