@@ -9,7 +9,7 @@ import SlimSelect, { Config, Events } from "slim-select";
 import "slim-select/styles";
 import { useTranslation } from "react-i18next";
 
-export type SlimSelectProps = {
+export interface SlimSelectProps {
   style?: React.CSSProperties;
   id?: string | undefined;
   modelValue?: string | string[] | undefined;
@@ -19,7 +19,7 @@ export type SlimSelectProps = {
   events?: Events;
   children?: React.ReactNode;
   className?: string;
-};
+}
 export interface SlimSelectRef {
   set: (newValue: string | string[]) => void;
   // Potentially call other functions on SlimSelect that have not been exposed via Ref yet
@@ -38,7 +38,7 @@ const SlimSelectComponent = (
     children,
     className,
   }: SlimSelectProps,
-  ref: React.Ref<any>
+  ref: React.Ref<any>,
 ): JSX.Element => {
   const { t } = useTranslation();
 
@@ -117,20 +117,16 @@ const SlimSelectComponent = (
     };
   }, [modelValue, multiple, data, settings, events, children]);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        set(newValue: string | string[]): void {
-          (slimSelect.current as SlimSelect)?.setSelected(newValue);
-        },
-        getSlimSelectInstance(): SlimSelect {
-          return slimSelect.current as SlimSelect;
-        },
-      } as SlimSelectRef;
-    },
-    []
-  );
+  useImperativeHandle(ref, () => {
+    return {
+      set(newValue: string | string[]): void {
+        (slimSelect.current as SlimSelect)?.setSelected(newValue);
+      },
+      getSlimSelectInstance(): SlimSelect {
+        return slimSelect.current as SlimSelect;
+      },
+    } as SlimSelectRef;
+  }, []);
 
   return (
     <>

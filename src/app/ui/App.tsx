@@ -72,7 +72,7 @@ export function App() {
         "content",
         t(`category.${state.category}.description`, {
           numberOfApps: filteredApps.length,
-        })
+        }),
       );
     }
   });

@@ -18,18 +18,14 @@
 import { getJson } from "../../../app/utilities/jsonRequest";
 import { findClosingBracketIndex } from "../../../shared/utilities/string";
 
-type Template = {
-  [name: string]: string;
-};
+type Template = Record<string, string>;
 
 export async function requestTemplates(template: string, language: string) {
   const objects: Template[] = [];
   let con;
 
   do {
-    const params: {
-      [name: string]: string;
-    } = {
+    const params: Record<string, string> = {
       list: "embeddedin",
       eititle: "Template:" + template,
       eilimit: "500",
@@ -39,7 +35,7 @@ export async function requestTemplates(template: string, language: string) {
     const response = await osmMediaApiQuery(params);
 
     objects.push(
-      ...(await processPagesByTemplateResult(response, template, language))
+      ...(await processPagesByTemplateResult(response, template, language)),
     );
 
     con = response.continue?.eicontinue;
@@ -48,7 +44,7 @@ export async function requestTemplates(template: string, language: string) {
   return objects;
 }
 
-async function osmMediaApiQuery(params: { [name: string]: string }) {
+async function osmMediaApiQuery(params: Record<string, string>) {
   const base = "https://wiki.openstreetmap.org/w/api.php";
 
   params["origin"] = "*";
@@ -62,7 +58,7 @@ async function osmMediaApiQuery(params: { [name: string]: string }) {
 async function processPagesByTemplateResult(
   response: { continue: { eicontinue: any }; query: { embeddedin: any } },
   template: string,
-  language: string
+  language: string,
 ) {
   const pages = response.query.embeddedin;
 
@@ -72,7 +68,7 @@ async function processPagesByTemplateResult(
     if (language === "en") {
       if (
         !/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/gi.test(
-          pages[p].title
+          pages[p].title,
         )
       )
         ids.push(pages[p].pageid);
@@ -93,7 +89,7 @@ async function processPagesByTemplateResult(
 }
 
 async function loadPages(ids: string[], template: string) {
-  const params: { [name: string]: string } = {
+  const params: Record<string, string> = {
     prop: "revisions",
     rvprop: "content|timestamp",
     pageids: ids.join("|"),
@@ -156,7 +152,7 @@ function parsePage(content: string, template: string) {
 
 function parseTemplateToObject(content: string) {
   const obj: Template = {};
-  const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
+  const props = content.split(/\|(?![^{]*})(?![^[]*\])/g);
   props.shift();
 
   for (const p in props) {

@@ -77,7 +77,7 @@ export function Menu({
         c.selected = true;
       }
       return c;
-    })
+    }),
   );
 
   return (

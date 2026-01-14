@@ -50,26 +50,26 @@ export function filter({
         a.description.toUpperCase().includes(search) ||
         a.cache.topics.some((t) => t.includes(search)) ||
         a.cache.platform.some((t) => t.includes(search)) ||
-        a.cache.coverage.some((t) => t.includes(search))
+        a.cache.coverage.some((t) => t.includes(search)),
     );
   }
 
   const topicsUp = topics.map((t) => t.toUpperCase());
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      includes(a.cache.topics, topicsUp)
+      includes(a.cache.topics, topicsUp),
     );
 
   const platformsUp = platforms.map((t) => t.toUpperCase());
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      some(a.cache.platform, platformsUp)
+      some(a.cache.platform, platformsUp),
     );
 
   const languagesUp = languages.map((t) => t.toUpperCase());
   if (languagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      some(a.cache.languages, languagesUp)
+      some(a.cache.languages, languagesUp),
     );
 
   const coverageUp = coverage.map((t) => t.toUpperCase());
@@ -78,15 +78,15 @@ export function filter({
     filteredApps = filteredApps.filter(
       (a) =>
         a.cache.coverage.some((a) =>
-          coverageUp.some((c) => a.startsWith(c) || c.startsWith(a))
+          coverageUp.some((c) => a.startsWith(c) || c.startsWith(a)),
         ) ||
-        (containsWorldWide && a.coverage.length === 0)
+        (containsWorldWide && a.coverage.length === 0),
     );
   }
 
   if (contribute.includes("discuss")) {
     filteredApps = filteredApps.filter((app) =>
-      Object.values(app.community).some((v) => v)
+      Object.values(app.community).some((v) => v),
     );
   }
   if (contribute.includes("test")) {
@@ -102,7 +102,7 @@ export function filter({
     filteredApps = filteredApps.filter(
       (app) =>
         !app.source.find((s) => s.name === "Software" || s.name === "Layer") ||
-        !app.source.find((s) => s.name === "Wikidata")
+        !app.source.find((s) => s.name === "Wikidata"),
     );
   }
   if (contribute.includes("edit")) {
@@ -117,46 +117,46 @@ export function filter({
             "EDITOR",
             "EDITOR SOFTWARE",
             "EDITOR TOOL",
-          ].includes(topic)
-        )
+          ].includes(topic),
+        ),
     );
   }
   if (contribute.includes("resolve")) {
     filteredApps = filteredApps.filter((app) =>
-      equalsYes(...(app.editing?.editNotes || []))
+      equalsYes(...(app.editing?.editNotes || [])),
     );
   }
   if (contribute.includes("review")) {
     filteredApps = filteredApps.filter((app) =>
       app.cache.topics.some((topic) =>
-        ["CHANGESET REVIEW TOOL"].includes(topic)
-      )
+        ["CHANGESET REVIEW TOOL"].includes(topic),
+      ),
     );
   }
   if (contribute.includes("photos")) {
     filteredApps = filteredApps.filter(
-      (app) => app.hasGoal?.crowdsourcingStreetLevelImagery
+      (app) => app.hasGoal?.crowdsourcingStreetLevelImagery,
     );
   }
   if (contribute.includes("tracks")) {
     filteredApps = filteredApps.filter((app) =>
-      equalsYes(...(app.tracking?.uploadGPX || []))
+      equalsYes(...(app.tracking?.uploadGPX || [])),
     );
   }
   if (contribute.includes("qa")) {
     filteredApps = filteredApps.filter((app) =>
       app.cache.topics.some((topic) =>
         ["ANALYSE", "ANALYSER", "ANALYSIS", "QA", "QUALITY CONTROL"].includes(
-          topic
-        )
-      )
+          topic,
+        ),
+      ),
     );
   }
   if (contribute.includes("welcome")) {
     filteredApps = filteredApps.filter((app) =>
       app.topics
         .map((topic) => topic.toUpperCase())
-        .some((topic) => ["WELCOMING TOOL"].includes(topic))
+        .some((topic) => ["WELCOMING TOOL"].includes(topic)),
     );
   }
 
@@ -170,8 +170,8 @@ export function filter({
         topicsUp.every(
           (t) =>
             a.name.toUpperCase().includes(t) ||
-            a.description.toUpperCase().includes(t)
-        )
+            a.description.toUpperCase().includes(t),
+        ),
       );
 
       if (search)
@@ -181,22 +181,22 @@ export function filter({
             a.description.toUpperCase().includes(search) ||
             a.cache.topics.filter((t) => t.includes(search)).length > 0 ||
             a.cache.platform.filter((t) => t.includes(search)).length > 0 ||
-            a.cache.coverage.filter((t) => t.includes(search)).length > 0
+            a.cache.coverage.filter((t) => t.includes(search)).length > 0,
         );
 
       if (platformsUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          includes(a.cache.platform, platformsUp)
+          includes(a.cache.platform, platformsUp),
         );
 
       if (languagesUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          some(a.cache.languages, languagesUp)
+          some(a.cache.languages, languagesUp),
         );
 
       if (coverageUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          some(a.cache.coverage, coverageUp)
+          some(a.cache.coverage, coverageUp),
         );
     }
     return similarApps;

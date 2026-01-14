@@ -58,7 +58,7 @@ export function Group({
     };
   });
 
-  let elements = extendedParams
+  const elements = extendedParams
     .map((p, i) => {
       if (!apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))) {
         return undefined;
@@ -109,11 +109,11 @@ export function Group({
                 const wikiTable = toWikiTable(
                   apps,
                   extendedParams.filter((p) => !!p.renderToWiki) as any,
-                  lang
+                  lang,
                 );
 
                 navigator.clipboard.writeText(`== ${display} == <!-- ${t(
-                  "wiki.generatedBy"
+                  "wiki.generatedBy",
                 )} -->
 ${wikiTable}`);
                 alert(t("share.wiki", { group: display }));

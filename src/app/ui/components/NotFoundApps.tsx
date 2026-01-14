@@ -12,7 +12,7 @@ const notFoundAppsTitle = [
 
 export function NotFoundApps({ apps }: { apps: AppData[] }) {
   const { t } = useTranslation();
-  let notFound = notFoundAppsTitle
+  const notFound = notFoundAppsTitle
     .map((f) => apps.find((a) => a.name === f))
     .filter((a) => a) as AppData[];
 

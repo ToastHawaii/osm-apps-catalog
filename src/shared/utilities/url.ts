@@ -48,7 +48,7 @@ export function utilQsString(obj: any, noencode?: boolean) {
   function softEncode(s: string | number | boolean) {
     return encodeURIComponent(s).replace(
       /(%2F|%3A|%2C|%7B|%7D)/g,
-      decodeURIComponent
+      decodeURIComponent,
     );
   }
   return Object.keys(obj)
@@ -57,7 +57,7 @@ export function utilQsString(obj: any, noencode?: boolean) {
       (key) =>
         `${encodeURIComponent(key)}=${
           noencode ? softEncode(obj[key]) : encodeURIComponent(obj[key])
-        }`
+        }`,
     )
     .join("&");
 }

@@ -22,13 +22,13 @@ export async function getJson(
   url: string,
   params: any = {},
   headers: any = {},
-  isRetry = false
+  isRetry = false,
 ): Promise<any> {
   if (isDevelopment) {
     const response = await fetch(
       "https://corsproxy.io/?" +
         encodeURIComponent(`${url}?${utilQsString(params)}`) +
-        "%26asdf"
+        "%26asdf",
     );
 
     return await response.json();
@@ -52,7 +52,7 @@ export async function getJson(
     return await response.json();
   } catch (e) {
     console.error(
-      `Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`
+      `Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`,
     );
 
     if (!isRetry) {

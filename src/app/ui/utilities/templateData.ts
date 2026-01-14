@@ -3,8 +3,9 @@ import { LocalizedValue } from "./getLocalizedValue";
 import * as td from "./templateData.json";
 
 export const templateData: {
-  params: {
-    [param: string]: {
+  params: Record<
+    string,
+    {
       label?: LocalizedValue;
       type?: string;
       required?: boolean;
@@ -16,8 +17,8 @@ export const templateData: {
       suggestedvalues?: string[];
       aliases?: string[];
       deprecated?: boolean;
-    };
-  };
+    }
+  >;
   paramOrder: string[];
   format?: string;
   description?: LocalizedValue;

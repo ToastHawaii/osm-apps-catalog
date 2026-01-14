@@ -1,12 +1,8 @@
-export type LocalizedValue =
-  | string
-  | {
-      [x: string]: string | undefined;
-    };
+export type LocalizedValue = string | Record<string, string | undefined>;
 
 export function getLocalizedValue(
   setting: LocalizedValue | undefined | null,
-  locale: string
+  locale: string,
 ) {
   if (!setting) {
     return undefined;

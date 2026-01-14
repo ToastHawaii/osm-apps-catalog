@@ -3,29 +3,10 @@ import {
   equalsName,
   equalsString,
   equalsWebsite,
-  notDiffrentString,
-  notDiffrentWebsite,
 } from "../shared/utilities/string";
 import { App } from "../shared/data/App";
 import { calculateScore } from "../shared/data/calculateScore";
 import { newUrl } from "../shared/utilities/url";
-
-// if both have a source code or an other unique value, they must be equal
-function notDiffrent(app: App, obj: App) {
-  return (
-    notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
-    notDiffrentString(app.install.asin, obj.install.asin) &&
-    notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
-    notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
-    notDiffrentWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) &&
-    notDiffrentString(
-      app.install.huaweiAppGalleryID,
-      obj.install.huaweiAppGalleryID
-    ) &&
-    notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
-    notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID)
-  );
-}
 
 /**
  * Returns a hash code from a string
@@ -37,7 +18,7 @@ function notDiffrent(app: App, obj: App) {
 function hashCode(str: string) {
   let hash = 0;
   for (let i = 0, len = str.length; i < len; i++) {
-    let chr = str.charCodeAt(i);
+    const chr = str.charCodeAt(i);
     hash = (hash << 5) - hash + chr;
     hash |= 0; // Convert to 32bit integer
   }
@@ -60,7 +41,7 @@ export function addApp(
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
     onlyAddLanguageIfEmpty: boolean;
-  }
+  },
 ) {
   const duplicates = apps.filter(
     (app) =>
@@ -78,10 +59,10 @@ export function addApp(
       equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
       equalsString(
         app.install.huaweiAppGalleryID,
-        obj.install.huaweiAppGalleryID
+        obj.install.huaweiAppGalleryID,
       ) ||
       equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
-      equalsString(app.install.microsoftAppID, obj.install.microsoftAppID)
+      equalsString(app.install.microsoftAppID, obj.install.microsoftAppID),
   );
 
   if (duplicates.length === 0) {
@@ -142,7 +123,7 @@ export function addApp(
       !app.source.some(
         (s) =>
           s.lastChange === obj.source[0].lastChange &&
-          s.name === obj.source[0].name
+          s.name === obj.source[0].name,
       )
     ) {
       // make the first source the newest
@@ -235,9 +216,9 @@ export function addApp(
 }
 
 // Todo: replace mit lodash?
-function merge<T extends { [name: string]: string[] }>(
+function merge<T extends Record<string, string[]>>(
   o1: T | undefined,
-  o2: T | undefined
+  o2: T | undefined,
 ) {
   if (!o1 && !o2) {
     return undefined;

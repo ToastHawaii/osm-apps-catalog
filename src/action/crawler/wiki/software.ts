@@ -43,13 +43,13 @@ import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
 export function transform(
-  source: { [name: string]: string } & {
-    communicationChannels: { [name: string]: string };
-  }
+  source: Record<string, string> & {
+    communicationChannels: Record<string, string>;
+  },
 ) {
   const obj: App = {
     name: plainText(
-      extractNameWebsiteWiki(source["name"], source.sourceWiki).name
+      extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     ),
     unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
     lastRelease: toDate(source["date"]) || "",
@@ -73,11 +73,11 @@ export function transform(
       .filter((v) => v)
       .join(", "),
     sourceCode: toUrl(
-      extractWebsite(source["repo"] || source["git"] || source["svn"])
+      extractWebsite(source["repo"] || source["git"] || source["svn"]),
     ),
     gratis: some(
       [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
-      ["GRATIS", "FREE", "0"]
+      ["GRATIS", "FREE", "0"],
     ),
     libre: isFreeAndOpenSource(source["license"]),
     price: source["price"],
@@ -220,7 +220,7 @@ export function transform(
       bluesky: source.communicationChannels["bluesky handle"],
       mastodon: source.communicationChannels["mastodon address"],
       issueTracker: toUrl(
-        extractWebsite(source.communicationChannels["issue tracker"])
+        extractWebsite(source.communicationChannels["issue tracker"]),
       ),
       githubDiscussions: source.communicationChannels["github discussions"],
       telegram: source.communicationChannels["telegram"],
@@ -248,7 +248,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
 
   if (equalsYes(source["3D"])) obj.topics.push("3D");
@@ -258,7 +258,7 @@ export function transform(
       source["showWebsite"],
       source["showPhoneNumber"],
       source["showOpeningHours"],
-      source["findNearbyPOI"]
+      source["findNearbyPOI"],
     )
   )
     obj.topics.push("POI");
@@ -268,7 +268,7 @@ export function transform(
       source["routing"],
       source["createRouteManually"],
       source["calculateRoute"],
-      source["calculateRouteOffline"]
+      source["calculateRouteOffline"],
     )
   )
     obj.topics.push("Routing");
@@ -279,7 +279,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
 
   if (equalsYes(source["navigating"], source["navToPoint"]))
@@ -295,7 +295,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
 
   if (equalsYes(source["monitoring"])) obj.topics.push("Track monitoring");
@@ -309,7 +309,7 @@ export function transform(
       source["addWay"],
       source["editGeom"],
       source["editTags"],
-      source["editRelations"]
+      source["editRelations"],
     )
   )
     obj.topics.push("Editor");
@@ -325,7 +325,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
 
   if (hasValue(source["accessibility"])) {
@@ -334,7 +334,7 @@ export function transform(
         .split(splitByCommaButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
     obj.topics.push("Accessibility");
   }
@@ -344,7 +344,7 @@ export function transform(
       source["textOnlyUI"],
       source["brailleUI"],
       source["explorerMode"],
-      source["screenReader"]
+      source["screenReader"],
     )
   )
     obj.topics.push("Blind");
@@ -372,7 +372,7 @@ export function transform(
   return obj;
 }
 
-function hasValue(value: string = "") {
+function hasValue(value = "") {
   value = value.toUpperCase();
   return (
     value &&

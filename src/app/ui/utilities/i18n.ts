@@ -108,12 +108,12 @@ const templateLangs = [
   "zh-hant",
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function convertTemplateDataToJson() {
-  const files = {} as {
-    [lang: string]: {
-      [param: string]: { label?: string; description?: string };
-    };
-  };
+  const files = {} as Record<
+    string,
+    Record<string, { label?: string; description?: string }>
+  >;
   {
     const lang = "en";
     Object.entries(templateData.params).forEach((e) => {
@@ -159,6 +159,7 @@ function convertTemplateDataToJson() {
   console.info(JSON.stringify(files));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function convertJsonToTemplateData() {
   const files = {
     en: templateEn,
@@ -183,11 +184,7 @@ function convertJsonToTemplateData() {
     uk: templateUk,
     "zh-hans": templateZh_Hans,
     "zh-hant": templateZh_Hant,
-  } as {
-    [lang: string]: {
-      [param: string]: { label?: string; description?: string };
-    };
-  };
+  } as Record<string, Record<string, { label?: string; description?: string }>>;
 
   Object.entries(templateData.params).forEach((e) => {
     const label = {} as any;

@@ -30,7 +30,7 @@ let scrollLeft = 0;
 
 async function lazyInitMore(
   t: TFunction<"translation", undefined>,
-  reset?: boolean
+  reset?: boolean,
 ) {
   if (reset) {
     scrollLeft = 0;
@@ -52,21 +52,22 @@ async function lazyInitMore(
   scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
 
   const elements = document.querySelectorAll("#compare .dynamic-more");
-  for (let i = 0; i < elements.length; i++) {
-    const boundingClientRect = elements[i].getBoundingClientRect();
+  for (const element of elements) {
+    const boundingClientRect = element.getBoundingClientRect();
     if (boundingClientRect.left < contentElement.clientWidth * 3) {
-      if (isOverflown(elements[i])) {
-        elements[i].classList.add("more");
-        var div = document.createElement("div");
+      if (isOverflown(element)) {
+        element.classList.add("more");
+        const div = document.createElement("div");
         div.classList.add("fade-out");
         div.innerHTML = `<div class="button"><span class="text">&mdash; ${t(
-          "list.more"
+          "list.more",
         )} &mdash;</span></div>`;
-        elements[i].appendChild(div);
+        element.appendChild(div);
 
-        div.addEventListener("click", function () {
+        div.addEventListener("click", function (this: HTMLElement) {
           this.style.display = "none";
-          var h = this.parentElement as any;
+          const h = this.parentElement as HTMLElement | null;
+          if (!h) return;
           h.style.height = h.scrollHeight + "px";
 
           setTimeout(function () {
@@ -74,12 +75,12 @@ async function lazyInitMore(
           }, 1200);
         });
       }
-      elements[i].classList.remove("dynamic-more");
+      element.classList.remove("dynamic-more");
     }
   }
 }
 
-export function LazyInitMore({ children }: { children: any }) {
+export function LazyInitMore({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const element = document.getElementById("content");
 

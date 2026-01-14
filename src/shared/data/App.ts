@@ -1,12 +1,12 @@
-export type Source = {
+export interface Source {
   name: string;
   wiki?: string;
   url: string;
   lastChange: string;
   firstCrawled: string;
-};
+}
 
-export type App = {
+export interface App {
   id: number;
   name: string;
   unmaintained?: boolean;
@@ -155,4 +155,4 @@ export type App = {
     languages: string[];
     coverage: string[];
   };
-};
+}

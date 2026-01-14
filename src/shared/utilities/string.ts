@@ -27,44 +27,12 @@ export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
 export function equalsString(a: string | undefined, b: string | undefined) {
   return a && b && a === b;
 }
-export function notDiffrentString(
-  a: string | undefined,
-  b: string | undefined
-) {
-  if (!a || !b) {
-    return true;
-  }
-
-  const equals = equalsString(a, b);
-
-  if (!equals) {
-    console.info(`Not equals: ${a} ${b}`);
-  }
-
-  return equals;
-}
 
 export function equalsName(a: string, b: string) {
   return (
     a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
     b.toUpperCase().replaceAll("-", " ").replaceAll("_", " ")
   );
-}
-export function notDiffrentWebsite(
-  a: string | undefined,
-  b: string | undefined
-) {
-  if (!a || !b) {
-    return true;
-  }
-
-  const equals = equalsWebsite(a, b);
-
-  if (!equals) {
-    console.info(`Not equals: ${a} ${b}`);
-  }
-
-  return equals;
 }
 
 export function equalsWebsite(a: string | undefined, b: string | undefined) {
@@ -91,7 +59,7 @@ export function equalsYes(...values: (string | undefined)[]) {
 export function notNo(value: string | string[] | undefined) {
   if (Array.isArray(value)) {
     return value.some(
-      (v) => v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none")
+      (v) => v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none"),
     );
   }
   return !equalsIgnoreCase(value, "no") && !equalsIgnoreCase(value, "none");
@@ -100,7 +68,7 @@ export function notNo(value: string | string[] | undefined) {
 export function startsWithIgnoreCase(
   s: string,
   searchString: string,
-  position?: number
+  position?: number,
 ) {
   return s?.toUpperCase().startsWith(searchString.toUpperCase(), position);
 }
@@ -130,7 +98,7 @@ export function appendFullStop(value: string): string {
 }
 
 export function trim(value: string | undefined): string {
-  return (value || "").replace(/^[\.\s]+|[\.\s]+$/gm, "");
+  return (value || "").replace(/^[.\s]+|[.\s]+$/gm, "");
 }
 
 export function toDate(value: string) {
@@ -165,7 +133,7 @@ export function textToColor(s: string) {
 export const splitBySemicolonButNotInsideBraceRegex = /[;]+(?![^(]*\))/;
 export const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^(]*\))/;
 
-export function toValues(value: string = "") {
+export function toValues(value = "") {
   return value
     .split(splitByCommaButNotInsideBraceRegex)
     .map(trim)
@@ -174,6 +142,6 @@ export function toValues(value: string = "") {
 }
 
 export function strip(html: string) {
-  let doc = new DOMParser().parseFromString(html, "text/html");
+  const doc = new DOMParser().parseFromString(html, "text/html");
   return doc.body.textContent || "";
 }

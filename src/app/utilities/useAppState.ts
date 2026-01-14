@@ -8,7 +8,7 @@ import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
 function usersBrowserSearchParams() {
   const userLanguages = navigator.languages.map((l) =>
-    languageValueToDisplay(l)
+    languageValueToDisplay(l),
   );
   const userRegion = getUserRegion();
   const userPlatform = getUserOS();
@@ -36,7 +36,7 @@ export function useAppState() {
   }
 
   const [searchParams, setSearchParams] = useSearchParams(
-    pickBy(initState, (v) => v)
+    pickBy(initState, (v) => v),
   );
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
@@ -65,7 +65,7 @@ export function useAppState() {
       option?: {
         forceUpdate?: boolean | undefined;
         skipUrlUpdate?: boolean | undefined;
-      }
+      },
     ) {
       let formatedValue;
       if (Array.isArray(value)) {
@@ -122,15 +122,15 @@ export function useAppState() {
       if (key) {
         return isEqual(
           [...Object.entries(usersBrowserSearchParams())].filter(
-            (e) => e[0] === key
+            (e) => e[0] === key,
           ),
-          [...searchParams].filter((e) => e[0] === key)
+          [...searchParams].filter((e) => e[0] === key),
         );
       }
 
       return isEqual(
         [...Object.entries(usersBrowserSearchParams())],
-        [...searchParams].filter((e) => e[0] !== "search")
+        [...searchParams].filter((e) => e[0] !== "search"),
       );
     },
   ] as const;

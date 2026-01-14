@@ -44,13 +44,13 @@ export async function run(): Promise<void> {
       "docs/api/apps/all.json",
       JSON.stringify(apps),
       "Update app catalog",
-      core.getInput("ghToken")
+      core.getInput("ghToken"),
     );
     await uploadToRepo(
       "docs/sitemap.xml",
       await generateSitemap(apps),
       "Update sitemap",
-      core.getInput("ghToken")
+      core.getInput("ghToken"),
     );
   } catch (error) {
     // Fail the workflow run if an error occurs
@@ -67,8 +67,8 @@ async function getKnownApps() {
   } catch (e) {
     console.error(
       `Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(
-        e
-      )}`
+        e,
+      )}`,
     );
     throw e;
   }
@@ -84,7 +84,7 @@ async function firstCrawled(apps: App[], knownApps: App[]) {
     } else {
       for (const source of app.source) {
         const knownSource = knownApp.source.find(
-          (k) => k.name === source.name && k.url === source.url
+          (k) => k.name === source.name && k.url === source.url,
         );
         if (!knownSource) {
           source.firstCrawled = now;
@@ -101,8 +101,8 @@ async function firstCrawled(apps: App[], knownApps: App[]) {
 
 async function focus(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
-  var yesterday = new Date(
-    new Date().valueOf() - 1000 * 60 * 60 * 24
+  const yesterday = new Date(
+    new Date().valueOf() - 1000 * 60 * 60 * 24,
   ).toISOString();
 
   for (const app of apps) {
@@ -177,7 +177,7 @@ async function generateSitemap(apps: App[]) {
         lastUpdate > new Date(getLastMod(app.source[0]))
           ? lastUpdate
           : new Date(getLastMod(app.source[0])),
-    }))
+    })),
   );
 
   // Create a stream to write to
@@ -194,7 +194,7 @@ async function uploadToRepo(
   filePath: string,
   content: string,
   commitMessage: string,
-  ghToken: string
+  ghToken: string,
 ): Promise<void> {
   if (!ghToken) {
     throw new Error("GitHub token is required to upload files.");

@@ -2,7 +2,7 @@ export function getMatrix(
   matrixRoom: string | undefined,
   irc?:
     | { server?: string | undefined; channel?: string | undefined }
-    | undefined
+    | undefined,
 ) {
   if (matrixRoom) {
     return matrixRoom;
@@ -14,7 +14,7 @@ export function getMatrix(
       : "#" + irc.channel;
 
     // See https://matrix-org.github.io/matrix-appservice-irc/latest/bridged_networks.html
-    const matrix_irc_bridges: { [name: string]: string | undefined } = {
+    const matrix_irc_bridges: Record<string, string | undefined> = {
       "irc.freenode.net": `#freenode_${channel}:matrix.org`,
       "irc.oftc.net": `#_oftc_${channel}:matrix.org`,
       "irc.libera.chat": `${channel}:libera.chat`,

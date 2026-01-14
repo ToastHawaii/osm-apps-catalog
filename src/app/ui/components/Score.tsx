@@ -45,7 +45,7 @@ export function Score({ app }: { app: App }) {
         t("score.result", {
           description: t("score.criteria." + e.translationKey),
           points: e.points,
-        })
+        }),
       )
       .join("\n"),
     notFulfilled: score.details
@@ -54,7 +54,7 @@ export function Score({ app }: { app: App }) {
         t("score.result", {
           description: t("score.criteria." + e.translationKey),
           points: e.points,
-        })
+        }),
       )
       .join("\n"),
   });

@@ -87,8 +87,7 @@ const ignoredTopics = [
   "interline-io",
 ];
 
-export function transformGitHubResult(eld:any, result: any) {
-
+export function transformGitHubResult(eld: any, result: any) {
   let language: string | undefined;
   if (
     result.description &&
@@ -101,7 +100,7 @@ export function transformGitHubResult(eld:any, result: any) {
   }
 
   const topics = result.repositoryTopics.nodes.map(
-    (n: any) => n.topic.name
+    (n: any) => n.topic.name,
   ) as string[];
 
   const mul = topics.includes("multilanguage");
@@ -122,7 +121,7 @@ export function transformGitHubResult(eld:any, result: any) {
       ? newUrl(
           !result.homepageUrl.toUpperCase().startsWith("HTTP")
             ? "https://" + result.homepageUrl
-            : result.homepageUrl
+            : result.homepageUrl,
         ).toString()
       : "",
     documentation: result.hasWikiEnabled
@@ -212,13 +211,13 @@ async function request(
   pushedAfter: string,
   cursor: string | null,
   githubToken: string,
-  sort: string
+  sort: string,
 ) {
-  const query: string = `
+  const query = `
       query {
         search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${
-    cursor ? `, after: "${cursor}"` : ""
-  }) {
+          cursor ? `, after: "${cursor}"` : ""
+        }) {
           pageInfo {
             hasNextPage
             endCursor

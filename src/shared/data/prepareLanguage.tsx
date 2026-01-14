@@ -8,7 +8,7 @@ export function prepareLanguage(apps: AppData[]) {
     if (app.accessibility) {
       app.accessibility.screenReaderLang =
         app.accessibility.screenReaderLang.map((l) =>
-          languageValueToDisplay(l)
+          languageValueToDisplay(l),
         );
     }
   });

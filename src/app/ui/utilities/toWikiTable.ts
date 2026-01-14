@@ -19,11 +19,11 @@ function isUnknown(value: string | string[] | undefined): value is undefined {
   return equalsIgnoreCase(value, "?") || !value;
 }
 
-function toWikiText(text: string = "") {
+function toWikiText(text = "") {
   text = text.replaceAll(/!!/g, "!&#33;");
 
   const regex =
-    /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^\<]*)<\/a>/i;
+    /<a href="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//= ]*))" target="_blank" rel="noreferrer">([^<]*)<\/a>/i;
 
   let match = regex.exec(text);
   while (match) {
@@ -49,19 +49,19 @@ export function toWikiTable(
     renderToWiki: (app: App, lang: string) => string | undefined;
     more?: boolean;
   }[],
-  lang: string
+  lang: string,
 ) {
   // Filter params with none values or all no
   params = params
     .filter((p) =>
-      apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app)))
+      apps.some((app) => p.hasValue(app) && (!p.notNo || p.notNo(app))),
     )
     .filter((e) => e);
 
   const more = params.some((p) => p.more);
   const appWithFields = apps
     .filter((app) =>
-      params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app)))
+      params.some((p) => p.hasValue(app) && (!p.notNo || p.notNo(app))),
     )
     .sort((a, b) => {
       const nameA = a.name?.toUpperCase() || "";
@@ -79,7 +79,7 @@ export function toWikiTable(
   const url = new URL(document.location.href);
   url.searchParams.set("lang", lang);
 
-  let rows = params.map((p) => {
+  const rows = params.map((p) => {
     return `! title="${p.description(lang)}" |${p.label(lang)}
 ${appWithFields
   .map((app) => {
@@ -101,7 +101,7 @@ ${appWithFields
 |+
 ! title="${getLocalizedValue(
     templateData.params["name"].description,
-    lang
+    lang,
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
 ${appWithFields
   .map((app) => {
@@ -111,7 +111,7 @@ ${appWithFields
 
     return `! style="min-width: ${more ? 160 : 120}px" |[[${toWikiValue(
       wiki || app.name,
-      lang
+      lang,
     )}|${toWikiValue(app.name, lang)}]]\n`;
   })
   .join("")}|-
@@ -129,7 +129,7 @@ ${rows.join("|-\n")}|}
 
 export function toWikiValue(
   value: string | string[] | undefined,
-  lang: string
+  lang: string,
 ): string {
   if (isUnknown(value)) {
     return "{{?}}";

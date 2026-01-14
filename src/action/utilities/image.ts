@@ -44,14 +44,14 @@ export function toWikimediaUrl(source: string, size: number) {
   )
     return generateCommonsWikimediaUrls(
       source.substring(40, source.length),
-      size
+      size,
     );
   else if (
     startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:")
   )
     return generateCommonsWikimediaUrls(
       source.substring(39, source.length),
-      size
+      size,
     );
   else
     return [
@@ -64,7 +64,7 @@ function generateOsmWikimediaUrls(fileName: string, size: number) {
   return generateWikimediaUrls(
     "https://wiki.openstreetmap.org/w/images",
     fileName,
-    size
+    size,
   );
 }
 
@@ -72,7 +72,7 @@ function generateCommonsWikimediaUrls(fileName: string, size: number) {
   return generateWikimediaUrls(
     "https://upload.wikimedia.org/wikipedia/commons",
     fileName,
-    size
+    size,
   );
 }
 
@@ -83,7 +83,7 @@ function generateWikimediaUrls(base: string, fileName: string, size: number) {
   return [
     `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(
       0,
-      2
+      2,
     )}/${fileName}/${size}px-${fileName}${
       fileName.toUpperCase().endsWith(".SVG") ? ".png" : ""
     }`,

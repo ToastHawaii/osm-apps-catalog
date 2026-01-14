@@ -1,6 +1,6 @@
 function check(value: string) {
   return !!value?.match(
-    "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)"
+    "(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)",
   );
 }
 export function isFreeAndOpenSource(value: string | string[] | undefined) {

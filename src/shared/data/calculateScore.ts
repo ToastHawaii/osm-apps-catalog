@@ -25,7 +25,7 @@ export const Criterias: {
     translationKey: "addingAndEditingPossible",
     check: (app) =>
       equalsYes(
-        ...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]
+        ...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])],
       ) &&
       equalsYes(
         ...[
@@ -33,7 +33,7 @@ export const Criterias: {
           ...(app.editing?.editGeom || []),
           ...(app.editing?.editRelations || []),
           ...(app.editing?.editTags || []),
-        ]
+        ],
       ),
     points: 1,
   },
@@ -165,7 +165,7 @@ export const Criterias: {
     translationKey: "communityChannelExists",
     check: (app) =>
       Object.entries(app.community).filter(
-        (e) => e[1] && e[0] !== "issueTracker"
+        (e) => e[1] && e[0] !== "issueTracker",
       ).length > 0,
     points: 0.5,
   },
@@ -196,7 +196,7 @@ export const Criterias: {
           (s) =>
             s.name === "Layer" ||
             s.name === "ServiceItem" ||
-            s.name === "Software"
+            s.name === "Software",
         ),
       ].filter((s) => s).length >= 2,
     points: 0.125,
@@ -210,7 +210,7 @@ export function calculateScore(app: App) {
   // C >= 4
   // D >= 2
   // E < 2
-  let results = Criterias.map((c) => ({
+  const results = Criterias.map((c) => ({
     translationKey: c.translationKey,
     points: c.points,
     fulfilled: c.check(app),

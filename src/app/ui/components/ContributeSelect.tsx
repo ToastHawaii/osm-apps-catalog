@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { difference, isEqual } from "lodash";
 
-export const mapping: { [value: string]: string } = {
+export const mapping: Record<string, string> = {
   discuss: "app.contribute.toSoftware.discuss",
   test: "app.contribute.toSoftware.test",
   translate: "app.contribute.toSoftware.translate",
@@ -55,7 +55,7 @@ export function ContributeSelect({
             "test",
             "translate",
             "develop",
-            "document"
+            "document",
           ),
         },
         {
@@ -66,7 +66,7 @@ export function ContributeSelect({
             "review",
             "photos",
             "tracks",
-            "qa"
+            "qa",
           ),
         },
         {

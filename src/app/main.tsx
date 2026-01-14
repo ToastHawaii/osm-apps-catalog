@@ -7,7 +7,7 @@ import { App } from "./ui/App";
 
 export function render() {
   const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement,
   );
 
   root.render(
@@ -15,6 +15,6 @@ export function render() {
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </StrictMode>
+    </StrictMode>,
   );
 }

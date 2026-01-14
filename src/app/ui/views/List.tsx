@@ -226,7 +226,8 @@ export function List({
           </span>
         </a>
       ) : (
-        (isOpen || (!!state?.languages.length && !isInitState?.("languages"))) &&
+        (isOpen ||
+          (!!state?.languages.length && !isInitState?.("languages"))) &&
         app.languages.length > 0 && (
           <div
             className={`more-info${

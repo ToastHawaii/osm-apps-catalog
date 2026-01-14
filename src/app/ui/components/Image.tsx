@@ -36,9 +36,9 @@ export function Carousel({
               .substring(i.lastIndexOf("/") + 1)
               .replaceAll("%20", " ")
               .replaceAll("_", " ")
-              .replaceAll("-", " ")
+              .replaceAll("-", " "),
           )
-          .value()
+          .value(),
       );
     }
   }
@@ -62,24 +62,24 @@ export function Carousel({
                 await fetch(
                   "https://commons.wikimedia.org/w/api.php?action=query&format=json&list=categorymembers&cmtitle=Category:" +
                     c +
-                    "&cmtype=subcat&cmlimit=max&origin=*"
+                    "&cmtype=subcat&cmlimit=max&origin=*",
                 )
               ).json()
             ).query.categorymembers.find((m: any) =>
-              m.title.toUpperCase().includes("SCREENSHOT")
+              m.title.toUpperCase().includes("SCREENSHOT"),
             )?.title;
 
             const result = await (
               await fetch(
                 `https://commons.wikimedia.org/w/api.php?action=query&generator=categorymembers&gcmtitle=${
                   category || "Category:" + c
-                }&gcmlimit=8&gcmtype=file&prop=imageinfo&&iiprop=url&format=json&origin=*`
+                }&gcmlimit=8&gcmtype=file&prop=imageinfo&&iiprop=url&format=json&origin=*`,
               )
             ).json();
             return Object.entries(result.query.pages).map(
-              (m: any) => m[1].imageinfo[0].url
+              (m: any) => m[1].imageinfo[0].url,
             );
-          })
+          }),
         )
       ).flatMap((c) => c);
 
@@ -120,7 +120,7 @@ export function Image({ app }: { app: App }) {
         className="img"
         src={defaultImage}
         data-dynamic-src={`${[...app.images, ...app.logos].join(
-          " "
+          " ",
         )} ${defaultImage}`}
         alt={t("app.imageAlt", {
           name: app.name,

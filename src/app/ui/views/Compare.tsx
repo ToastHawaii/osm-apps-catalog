@@ -146,7 +146,7 @@ export function Compare({
                       "app.install.obtainium",
                       {
                         lng: lang,
-                      }
+                      },
                     )}]`
                   : "",
                 app.install.googlePlayID
@@ -157,7 +157,7 @@ export function Compare({
                 app.install.asin
                   ? `[https://www.amazon.com/dp/${app.install.asin} ${t(
                       "app.install.asin",
-                      { lng: lang }
+                      { lng: lang },
                     )}]`
                   : "",
                 app.install.huaweiAppGalleryID
@@ -248,8 +248,8 @@ export function Compare({
                 {app.lastRelease
                   ? app.lastRelease
                   : app.unmaintained
-                  ? "????-??-??"
-                  : ""}
+                    ? "????-??-??"
+                    : ""}
                 {app.unmaintained ? (
                   <>
                     {" "}
@@ -275,13 +275,13 @@ export function Compare({
                   (app.lastRelease
                     ? app.lastRelease
                     : app.unmaintained
-                    ? "????-??-??"
-                    : "") +
+                      ? "????-??-??"
+                      : "") +
                   (app.unmaintained
                     ? " " +
                       t("app.unmaintained.wiki", { icon: `⚠️`, lng: lang })
                     : ""),
-                lang
+                lang,
               ),
           },
           {
@@ -325,7 +325,7 @@ export function Compare({
                         : languageValueToDisplay("mul")
                     }]`
                   : app.languages.join(", "),
-                lang
+                lang,
               ),
             more: true,
             focus:
@@ -377,7 +377,7 @@ export function Compare({
                 getMatrix(app.community.matrix, app.community.irc)
                   ? `[https://matrix.to/#/${getMatrix(
                       app.community.matrix,
-                      app.community.irc
+                      app.community.irc,
                     )} ${t("app.community.matrix", { lng: lang })}]`
                   : "",
                 app.community.mastodon
@@ -388,13 +388,13 @@ export function Compare({
                 app.community.bluesky
                   ? `[https://bsky.app/profile/${app.community.bluesky} ${t(
                       "app.community.bluesky",
-                      { lng: lang }
+                      { lng: lang },
                     )}]`
                   : "",
                 app.community.reddit
                   ? `[https://www.reddit.com/r/${app.community.reddit} ${t(
                       "app.community.reddit",
-                      { lng: lang }
+                      { lng: lang },
                     )}]`
                   : "",
                 app.community.slack
@@ -405,7 +405,7 @@ export function Compare({
                 app.community.telegram
                   ? `[https://telegram.me/${app.community.telegram} ${t(
                       "app.community.telegram",
-                      { lng: lang }
+                      { lng: lang },
                     )}]`
                   : "",
                 app.community.githubDiscussions
@@ -418,7 +418,7 @@ export function Compare({
                 app.community.issueTracker
                   ? `[${app.community.issueTracker} ${t(
                       "app.community.issueTracker",
-                      { lng: lang }
+                      { lng: lang },
                     )}]`
                   : "",
               ]
@@ -451,7 +451,7 @@ export function Compare({
                 app.gratis
                   ? `{{free|{{TranslationOf gratis|{{{lang|}}}}}}}`
                   : app.price,
-                lang
+                lang,
               ),
           },
           {
@@ -488,7 +488,7 @@ export function Compare({
             renderToWiki: (app) =>
               toWikiValue(
                 app.sourceCode ? `[${app.sourceCode} </>]` : "",
-                lang
+                lang,
               ),
             focus: state?.contribute.includes("develop"),
           },

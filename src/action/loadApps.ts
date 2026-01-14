@@ -25,7 +25,7 @@ async function loadAppsFromOsmWikiLayers(language: string) {
         !containsOfflineLink(s["name"]) &&
         !containsOfflineLink(s["slippy_web"]) &&
         !equalsYes(s["discontinued"]) &&
-        s["name"] !== "layer template"
+        s["name"] !== "layer template",
     )
     .map((source) => transformLayer(source));
 }
@@ -49,7 +49,7 @@ async function loadAppsFromOsmWikiSoftwares(language: string) {
           s["macAppStoreID"] ||
           s["microsoftAppID"]) &&
         !equalsIgnoreCase(s["status"], "broken") &&
-        s["name"] !== "software template"
+        s["name"] !== "software template",
     )
     .map((source) => transformSoftware(source as any))
     .filter((app) => !app.genre.includes("Library"));
@@ -72,7 +72,7 @@ async function loadAppsFromWikidata(language: string) {
             if (typeof o === "string") {
               return o || s;
             }
-          })
+          }),
         );
       }
     }
@@ -96,13 +96,13 @@ async function loadAppsFromGitHub(githubToken: string) {
   await (eld as any).load("large");
 
   return objs.map((source) =>
-    transformGitHubResult(eld, source)
+    transformGitHubResult(eld, source),
   ) as unknown as App[];
 }
 
 async function loadAppsFromTagInfoProjects() {
   const projectObjects = (await getJson(
-    "https://taginfo.openstreetmap.org/api/4/projects/all"
+    "https://taginfo.openstreetmap.org/api/4/projects/all",
   )) as {
     url: string;
     data_until: string;
@@ -143,7 +143,7 @@ async function loadAppsFromTagInfoProjects() {
         coverage: [],
         install: {},
         community: {},
-      } as any)
+      }) as any,
   );
 }
 
@@ -169,7 +169,7 @@ export async function loadApps(githubToken: string) {
         // The language of github is only recognised automatically based on the description, so if
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
-      })
+      }),
     );
 
   return apps;

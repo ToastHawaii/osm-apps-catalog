@@ -36,10 +36,10 @@ import { App } from "../../../shared/data/App";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
-export function transform(source: { [name: string]: string }) {
+export function transform(source: Record<string, string>) {
   const obj: App = {
     name: plainText(
-      extractNameWebsiteWiki(source["name"], source.sourceWiki).name
+      extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     ),
     description: appendFullStop(processWikiText(source["descr"] || "")),
     images: toWikimediaUrl(source["image"], 250),
@@ -86,7 +86,7 @@ export function transform(source: { [name: string]: string }) {
         .split(splitBySemicolonButNotInsideBraceRegex)
         .map(trim)
         .filter((v) => v)
-        .map(upperFirst)
+        .map(upperFirst),
     );
   }
 
@@ -94,7 +94,7 @@ export function transform(source: { [name: string]: string }) {
   obj.coverage = uniq(obj.coverage).sort();
   obj.topics = uniq(obj.topics).sort();
 
-  let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
+  const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
   obj.name = plainText(name.name || obj.name);
   obj.website = name.website;
   obj.documentation = name.wiki || obj.documentation;

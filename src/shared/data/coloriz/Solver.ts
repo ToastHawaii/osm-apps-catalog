@@ -31,7 +31,7 @@ export class Solver {
     return {
       values: result.values,
       loss: result.loss,
-      filter: this.css(result.values)
+      filter: this.css(result.values),
     };
   }
   public solveWide() {
@@ -40,7 +40,7 @@ export class Solver {
     const a = [60, 180, 18000, 600, 1.2, 1.2];
     let best: { loss: number; values: number[] } = {
       loss: Infinity,
-      values: []
+      values: [],
     };
     for (let i = 0; best.loss > 25 && i < 3; i++) {
       const initial = [50, 20, 3750, 50, 100, 100];
@@ -63,7 +63,7 @@ export class Solver {
     a: number[],
     c: number,
     values: number[],
-    iters: number
+    iters: number,
   ) {
     const alpha = 1;
     const gamma = 0.16666666666666666;
@@ -138,9 +138,9 @@ export class Solver {
       return Math.round(filters[idx] * multiplier);
     }
     return `invert(${fmt(0)}%) sepia(${fmt(1)}%) saturate(${fmt(
-      2
+      2,
     )}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(
-      5
+      5,
     )}%)`;
   }
 }

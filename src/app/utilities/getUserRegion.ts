@@ -1,7 +1,7 @@
 import latest from "moment-timezone/data/meta/latest.json";
 
 export function getUserRegion() {
-  const timeZoneCityToCountry: { [city: string]: string } = {};
+  const timeZoneCityToCountry: Record<string, string> = {};
 
   Object.keys(latest.zones).forEach((zone) => {
     const zoneSplitted = zone.split("/");
@@ -16,7 +16,7 @@ export function getUserRegion() {
 
   if (Intl) {
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    var tzArr = userTimeZone.split("/");
+    const tzArr = userTimeZone.split("/");
     const userCity = tzArr[tzArr.length - 1];
     return timeZoneCityToCountry[userCity];
   }

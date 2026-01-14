@@ -36,10 +36,10 @@ import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
 import { plainText } from "./plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
-export function transform(source: { [name: string]: string }) {
+export function transform(source: Record<string, string>) {
   const obj: App = {
     name: plainText(
-      extractNameWebsiteWiki(source["name"], source.sourceWiki).name
+      extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     ),
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
@@ -57,7 +57,7 @@ export function transform(source: { [name: string]: string }) {
       },
     ],
     sourceCode: toUrl(
-      extractWebsite(source["style_web"]) || extractWebsite(source["repo"])
+      extractWebsite(source["style_web"]) || extractWebsite(source["repo"]),
     ),
     author: processWikiText(source["author"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

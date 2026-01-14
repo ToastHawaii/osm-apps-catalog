@@ -20,7 +20,7 @@ import { App } from "../data/App";
 export function display(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
-    ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t)
+    ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t),
   );
 }
 
@@ -64,7 +64,7 @@ export function mobile(a: App) {
 export function navigation(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
-    ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t)
+    ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t),
   );
 }
 
@@ -97,7 +97,7 @@ export function edit(a: App) {
         "MONITORING TOOL",
         "CHANGESET REVIEW TOOL",
         "WELCOMING TOOL",
-      ].includes(t)
+      ].includes(t),
     )
   );
 }

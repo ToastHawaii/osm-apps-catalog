@@ -23,8 +23,8 @@ function init(onNextPage: () => void, reset?: boolean) {
     scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
     const elements = document.querySelectorAll(".next-page");
-    for (let i = 0; i < elements.length; i++) {
-      const boundingClientRect = elements[i].getBoundingClientRect();
+    for (const element of elements) {
+      const boundingClientRect = element.getBoundingClientRect();
       if (boundingClientRect.top < contentElement?.clientHeight * 3) {
         onNextPage();
       }

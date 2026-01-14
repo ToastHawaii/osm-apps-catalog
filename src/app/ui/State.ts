@@ -1,4 +1,4 @@
-export type State = {
+export interface State {
   lang: string;
   category: "" | "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
   app?: number | undefined;
@@ -9,4 +9,4 @@ export type State = {
   coverage: string[];
   contribute: string[];
   view: "list" | "compare";
-};
+}

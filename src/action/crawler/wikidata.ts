@@ -101,7 +101,7 @@ export function transformWikidataResult(result: any) {
           result.microsoftStore?.value ? "Windows" : undefined,
         ]
           .filter(platformFilter)
-          .map((p) => getPlatformDisplay(p) || p)
+          .map((p) => getPlatformDisplay(p) || p),
       ),
     ],
     coverage: [],
@@ -296,7 +296,7 @@ GROUP BY ?item
          ?itemLabel 
          ?description
          ?modified
-`.replace(/( |\n)+/g, " ")
+`.replace(/( |\n)+/g, " "),
   );
 
   const genre = request(
@@ -393,7 +393,7 @@ GROUP BY ?item
          ?streetImgSv
          ?streetImg
          ?modified
-`.replace(/( |\n)+/g, " ")
+`.replace(/( |\n)+/g, " "),
   );
 
   const lastRelease = request(
@@ -439,7 +439,7 @@ WHERE {
 GROUP BY ?item
          ?itemLabel
          ?modified
-`.replaceAll("  ", " ")
+`.replaceAll("  ", " "),
   );
 
   const license = request(
@@ -501,7 +501,7 @@ WHERE
 GROUP BY ?item 
          ?itemLabel
          ?modified
-`.replaceAll("  ", " ")
+`.replaceAll("  ", " "),
   );
 
   return [base, genre, lastRelease, license];

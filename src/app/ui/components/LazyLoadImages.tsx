@@ -53,26 +53,26 @@ async function lazyLoadImages(reset?: boolean) {
     scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
     const elements = document.querySelectorAll("#list *[data-dynamic-src]");
-    for (let i = 0; i < elements.length; i++) {
-      const boundingClientRect = elements[i].getBoundingClientRect();
+    for (const element of elements) {
+      const boundingClientRect = element.getBoundingClientRect();
       if (
-        elements[i].hasAttribute("data-dynamic-src") &&
+        element.hasAttribute("data-dynamic-src") &&
         boundingClientRect.top < contentElement?.clientHeight * 3
       ) {
-        const sources = (
-          elements[i].getAttribute("data-dynamic-src") || ""
-        ).split(" ");
+        const sources = (element.getAttribute("data-dynamic-src") || "").split(
+          " ",
+        );
 
         for (const src of sources) {
-          if (document.body.contains(elements[i])) {
+          if (document.body.contains(element)) {
             const file = await isImage(src);
             if (file) {
-              elements[i].setAttribute("src", src);
+              element.setAttribute("src", src);
               break;
             }
           }
         }
-        elements[i].removeAttribute("data-dynamic-src");
+        element.removeAttribute("data-dynamic-src");
       }
     }
   }
@@ -84,23 +84,23 @@ async function lazyLoadImages(reset?: boolean) {
     scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
 
     const elements = document.querySelectorAll("#compare *[data-dynamic-src]");
-    for (let i = 0; i < elements.length; i++) {
-      const boundingClientRect = elements[i].getBoundingClientRect();
+    for (const element of elements) {
+      const boundingClientRect = element.getBoundingClientRect();
       if (
-        elements[i].hasAttribute("data-dynamic-src") &&
+        element.hasAttribute("data-dynamic-src") &&
         boundingClientRect.left < contentElement?.clientWidth * 2
       ) {
-        const sources = (
-          elements[i].getAttribute("data-dynamic-src") || ""
-        ).split(" ");
+        const sources = (element.getAttribute("data-dynamic-src") || "").split(
+          " ",
+        );
 
         for (const src of sources) {
-          if (document.body.contains(elements[i]) && (await isImage(src))) {
-            elements[i].setAttribute("src", src);
+          if (document.body.contains(element) && (await isImage(src))) {
+            element.setAttribute("src", src);
             break;
           }
         }
-        elements[i].removeAttribute("data-dynamic-src");
+        element.removeAttribute("data-dynamic-src");
       }
     }
   }
