@@ -1,2 +1,2 @@
 export const isDevelopment =
-  typeof window !== "undefined" && window.location.host === "localhost:3000";
+  typeof window !== "undefined" && window.location.host.startsWith("localhost");
