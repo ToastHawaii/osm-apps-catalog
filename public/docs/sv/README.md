@@ -27,8 +27,8 @@ ayisyen](/?lang=ht), [kréyòl gwadloupéyen](/?lang=gcf), [kurdî](/?lang=ku),
 [latviešu](/?lang=lv), [Lëtzebuergesch](/?lang=lb), [lietuvių](/?lang=lt),
 [magyar](/?lang=hu), [Nederlands](/?lang=nl), [norsk](/?lang=no), [norsk
 nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
-[português](/?lang=pt), [română](/?lang=ro), [shqip](/?lang=sq),
-[slovenčina](/?lang=sk), [slovenščina](/?lang=sl), [srpski
+[پنجابی](/?lang=pnb), [português](/?lang=pt), [română](/?lang=ro),
+[shqip](/?lang=sq), [slovenčina](/?lang=sk), [slovenščina](/?lang=sl), [srpski
 (latinica)](/?lang=sr-latn), [suomi](/?lang=fi), [svenska](/?lang=sv),
 [Tagalog](/?lang=tl), [Tiếng Việt](/?lang=vi), [Türkçe](/?lang=tr),
 [Zazaki](/?lang=diq), [Ελληνικά](/?lang=el), [беларуская](/?lang=be),
