@@ -134,7 +134,7 @@ export function Image({ app }: { app: App }) {
 
     return (
       <img
-        className="img"
+        className="img inline-block"
         style={{ filter: app.cache.filter }}
         src={defaultImage}
         alt={t("app.imageAlt", {
