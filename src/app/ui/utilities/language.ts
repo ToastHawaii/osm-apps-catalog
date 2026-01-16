@@ -202,6 +202,7 @@ const languages: {
   { code: "pih", display: "Norfuk" },
   { code: "pl", display: "Polski" },
   { code: "pms", display: "Piemontèis" },
+  { code: "pnb", display: "پنجابی" },
   { code: "ps", display: "پښتو" },
   { code: "pt", display: "Português" },
   { code: "qu", display: "Runa Simi" },

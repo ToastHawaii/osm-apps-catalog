@@ -47,6 +47,7 @@ Display the catalog in your language:
 [norsk nynorsk](/?lang=nn),
 [occitan](/?lang=oc),
 [polski](/?lang=pl),
+[پنجابی](/?lang=pnb),
 [português](/?lang=pt),
 [română](/?lang=ro),
 [shqip](/?lang=sq),
