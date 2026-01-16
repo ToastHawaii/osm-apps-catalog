@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-
-import "./styles.scss";
 
 export function Filters({
   active,
@@ -13,20 +11,10 @@ export function Filters({
 }) {
   const { t } = useTranslation();
 
-  const [toggle, setToggle] = useState(false);
-
-  useEffect(() => {
-    setToggle(active);
-  }, [active]);
-
   return (
     <Button
-      id="more-filters"
-      className={"filter" + (active ? " active" : "")}
-      onClick={() => {
-        setToggle(!toggle);
-        onChange(!toggle);
-      }}
+      variant={active ? "default" : "outline"}
+      onClick={() => onChange(!active)}
     >
       {t("filter.moreFilters")}
     </Button>

@@ -36,7 +36,7 @@ export function Param({
         <React.Fragment key={i}>
           {more ? (
             <div
-              className={`cell param-text${
+              className={`cell param-text ${
                 centered ? "text-center align-middle" : ""
               }`}
             >
@@ -44,7 +44,7 @@ export function Param({
             </div>
           ) : (
             <div
-              className={`cell param-text${
+              className={`cell param-text ${
                 centered ? "text-center align-middle" : ""
               }`}
             >

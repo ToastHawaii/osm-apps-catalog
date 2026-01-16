@@ -136,7 +136,7 @@ export function App() {
             }
           }}
         />
-        <h1 style={{ clear: "both", margin: "0" }}>
+        <h1 className="text-3xl font-bold" style={{ clear: "both" }}>
           {apps.length === 0 && (
             <>
               <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
@@ -219,7 +219,7 @@ export function App() {
             />
           </>
         )}
-        <hr style={{ border: "1px solid #ccc" }} />
+        <hr className="my-2" />
         {!state.app &&
           !moreFilters &&
           (state.topics.length > 0 ||

@@ -117,7 +117,7 @@ export function Image({ app }: { app: App }) {
   if (app.images.length > 0 || app.logos.length > 0) {
     return (
       <img
-        className="img"
+        className="img inline-block"
         src={defaultImage}
         data-dynamic-src={`${[...app.images, ...app.logos].join(
           " ",

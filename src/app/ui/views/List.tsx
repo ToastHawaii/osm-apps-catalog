@@ -54,7 +54,7 @@ export function List({
       <div className="header">
         <div className="with-corner-badge">
           <Score app={app} />
-          <h4>
+          <h4 className="font-bold">
             {app.website ? (
               <a href={app.website} target="_blank" rel="noreferrer">
                 {app.name}

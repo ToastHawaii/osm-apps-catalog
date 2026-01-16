@@ -59,7 +59,7 @@ export function Compare({
             className="cell header with-corner-badge text-center"
           >
             <Score app={app} />
-            <h4>
+            <h4 className="font-bold">
               {app.website ? (
                 <a href={app.website} target="_blank" rel="noreferrer">
                   {app.name}
