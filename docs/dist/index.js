@@ -22,36 +22,68 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.issue = exports.issueCommand = void 0;
+exports.issueCommand = issueCommand;
+exports.issue = issue;
 const os = __importStar(__nccwpck_require__(857));
 const utils_1 = __nccwpck_require__(302);
 /**
- * Commands
+ * Issues a command to the GitHub Actions runner
+ *
+ * @param command - The command name to issue
+ * @param properties - Additional properties for the command (key-value pairs)
+ * @param message - The message to include with the command
+ * @remarks
+ * This function outputs a specially formatted string to stdout that the Actions
+ * runner interprets as a command. These commands can control workflow behavior,
+ * set outputs, create annotations, mask values, and more.
  *
  * Command Format:
  *   ::name key=value,key=value::message
  *
- * Examples:
- *   ::warning::This is the message
- *   ::set-env name=MY_VAR::some value
+ * @example
+ * ```typescript
+ * // Issue a warning annotation
+ * issueCommand('warning', {}, 'This is a warning message');
+ * // Output: ::warning::This is a warning message
+ *
+ * // Set an environment variable
+ * issueCommand('set-env', { name: 'MY_VAR' }, 'some value');
+ * // Output: ::set-env name=MY_VAR::some value
+ *
+ * // Add a secret mask
+ * issueCommand('add-mask', {}, 'secretValue123');
+ * // Output: ::add-mask::secretValue123
+ * ```
+ *
+ * @internal
+ * This is an internal utility function that powers the public API functions
+ * such as setSecret, warning, error, and exportVariable.
  */
 function issueCommand(command, properties, message) {
     const cmd = new Command(command, properties, message);
     process.stdout.write(cmd.toString() + os.EOL);
 }
-exports.issueCommand = issueCommand;
 function issue(name, message = '') {
     issueCommand(name, {}, message);
 }
-exports.issue = issue;
 const CMD_STRING = '::';
 class Command {
     constructor(command, properties, message) {
@@ -125,13 +157,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -142,7 +184,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.platform = exports.toPlatformPath = exports.toWin32Path = exports.toPosixPath = exports.markdownSummary = exports.summary = exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
+exports.platform = exports.toPlatformPath = exports.toWin32Path = exports.toPosixPath = exports.markdownSummary = exports.summary = exports.ExitCode = void 0;
+exports.exportVariable = exportVariable;
+exports.setSecret = setSecret;
+exports.addPath = addPath;
+exports.getInput = getInput;
+exports.getMultilineInput = getMultilineInput;
+exports.getBooleanInput = getBooleanInput;
+exports.setOutput = setOutput;
+exports.setCommandEcho = setCommandEcho;
+exports.setFailed = setFailed;
+exports.isDebug = isDebug;
+exports.debug = debug;
+exports.error = error;
+exports.warning = warning;
+exports.notice = notice;
+exports.info = info;
+exports.startGroup = startGroup;
+exports.endGroup = endGroup;
+exports.group = group;
+exports.saveState = saveState;
+exports.getState = getState;
+exports.getIDToken = getIDToken;
 const command_1 = __nccwpck_require__(4914);
 const file_command_1 = __nccwpck_require__(4753);
 const utils_1 = __nccwpck_require__(302);
@@ -181,15 +244,38 @@ function exportVariable(name, val) {
     }
     (0, command_1.issueCommand)('set-env', { name }, convertedVal);
 }
-exports.exportVariable = exportVariable;
 /**
  * Registers a secret which will get masked from logs
- * @param secret value of the secret
+ *
+ * @param secret - Value of the secret to be masked
+ * @remarks
+ * This function instructs the Actions runner to mask the specified value in any
+ * logs produced during the workflow run. Once registered, the secret value will
+ * be replaced with asterisks (***) whenever it appears in console output, logs,
+ * or error messages.
+ *
+ * This is useful for protecting sensitive information such as:
+ * - API keys
+ * - Access tokens
+ * - Authentication credentials
+ * - URL parameters containing signatures (SAS tokens)
+ *
+ * Note that masking only affects future logs; any previous appearances of the
+ * secret in logs before calling this function will remain unmasked.
+ *
+ * @example
+ * ```typescript
+ * // Register an API token as a secret
+ * const apiToken = "abc123xyz456";
+ * setSecret(apiToken);
+ *
+ * // Now any logs containing this value will show *** instead
+ * console.log(`Using token: ${apiToken}`); // Outputs: "Using token: ***"
+ * ```
  */
 function setSecret(secret) {
     (0, command_1.issueCommand)('add-mask', {}, secret);
 }
-exports.setSecret = setSecret;
 /**
  * Prepends inputPath to the PATH (for this action and future actions)
  * @param inputPath
@@ -204,7 +290,6 @@ function addPath(inputPath) {
     }
     process.env['PATH'] = `${inputPath}${path.delimiter}${process.env['PATH']}`;
 }
-exports.addPath = addPath;
 /**
  * Gets the value of an input.
  * Unless trimWhitespace is set to false in InputOptions, the value is also trimmed.
@@ -224,7 +309,6 @@ function getInput(name, options) {
     }
     return val.trim();
 }
-exports.getInput = getInput;
 /**
  * Gets the values of an multiline input.  Each value is also trimmed.
  *
@@ -242,7 +326,6 @@ function getMultilineInput(name, options) {
     }
     return inputs.map(input => input.trim());
 }
-exports.getMultilineInput = getMultilineInput;
 /**
  * Gets the input value of the boolean type in the YAML 1.2 "core schema" specification.
  * Support boolean input list: `true | True | TRUE | false | False | FALSE` .
@@ -264,7 +347,6 @@ function getBooleanInput(name, options) {
     throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}\n` +
         `Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
 }
-exports.getBooleanInput = getBooleanInput;
 /**
  * Sets the value of an output.
  *
@@ -280,7 +362,6 @@ function setOutput(name, value) {
     process.stdout.write(os.EOL);
     (0, command_1.issueCommand)('set-output', { name }, (0, utils_1.toCommandValue)(value));
 }
-exports.setOutput = setOutput;
 /**
  * Enables or disables the echoing of commands into stdout for the rest of the step.
  * Echoing is disabled by default if ACTIONS_STEP_DEBUG is not set.
@@ -289,7 +370,6 @@ exports.setOutput = setOutput;
 function setCommandEcho(enabled) {
     (0, command_1.issue)('echo', enabled ? 'on' : 'off');
 }
-exports.setCommandEcho = setCommandEcho;
 //-----------------------------------------------------------------------
 // Results
 //-----------------------------------------------------------------------
@@ -302,7 +382,6 @@ function setFailed(message) {
     process.exitCode = ExitCode.Failure;
     error(message);
 }
-exports.setFailed = setFailed;
 //-----------------------------------------------------------------------
 // Logging Commands
 //-----------------------------------------------------------------------
@@ -312,7 +391,6 @@ exports.setFailed = setFailed;
 function isDebug() {
     return process.env['RUNNER_DEBUG'] === '1';
 }
-exports.isDebug = isDebug;
 /**
  * Writes debug message to user log
  * @param message debug message
@@ -320,7 +398,6 @@ exports.isDebug = isDebug;
 function debug(message) {
     (0, command_1.issueCommand)('debug', {}, message);
 }
-exports.debug = debug;
 /**
  * Adds an error issue
  * @param message error issue message. Errors will be converted to string via toString()
@@ -329,7 +406,6 @@ exports.debug = debug;
 function error(message, properties = {}) {
     (0, command_1.issueCommand)('error', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
-exports.error = error;
 /**
  * Adds a warning issue
  * @param message warning issue message. Errors will be converted to string via toString()
@@ -338,7 +414,6 @@ exports.error = error;
 function warning(message, properties = {}) {
     (0, command_1.issueCommand)('warning', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
-exports.warning = warning;
 /**
  * Adds a notice issue
  * @param message notice issue message. Errors will be converted to string via toString()
@@ -347,7 +422,6 @@ exports.warning = warning;
 function notice(message, properties = {}) {
     (0, command_1.issueCommand)('notice', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
-exports.notice = notice;
 /**
  * Writes info to log with console.log.
  * @param message info message
@@ -355,7 +429,6 @@ exports.notice = notice;
 function info(message) {
     process.stdout.write(message + os.EOL);
 }
-exports.info = info;
 /**
  * Begin an output group.
  *
@@ -366,14 +439,12 @@ exports.info = info;
 function startGroup(name) {
     (0, command_1.issue)('group', name);
 }
-exports.startGroup = startGroup;
 /**
  * End an output group.
  */
 function endGroup() {
     (0, command_1.issue)('endgroup');
 }
-exports.endGroup = endGroup;
 /**
  * Wrap an asynchronous function call in a group.
  *
@@ -395,7 +466,6 @@ function group(name, fn) {
         return result;
     });
 }
-exports.group = group;
 //-----------------------------------------------------------------------
 // Wrapper action state
 //-----------------------------------------------------------------------
@@ -413,7 +483,6 @@ function saveState(name, value) {
     }
     (0, command_1.issueCommand)('save-state', { name }, (0, utils_1.toCommandValue)(value));
 }
-exports.saveState = saveState;
 /**
  * Gets the value of an state set by this action's main execution.
  *
@@ -423,13 +492,11 @@ exports.saveState = saveState;
 function getState(name) {
     return process.env[`STATE_${name}`] || '';
 }
-exports.getState = getState;
 function getIDToken(aud) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield oidc_utils_1.OidcClient.getIDToken(aud);
     });
 }
-exports.getIDToken = getIDToken;
 /**
  * Summary exports
  */
@@ -477,15 +544,26 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.prepareKeyValueMessage = exports.issueFileCommand = void 0;
+exports.issueFileCommand = issueFileCommand;
+exports.prepareKeyValueMessage = prepareKeyValueMessage;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const crypto = __importStar(__nccwpck_require__(6982));
@@ -504,7 +582,6 @@ function issueFileCommand(command, message) {
         encoding: 'utf8'
     });
 }
-exports.issueFileCommand = issueFileCommand;
 function prepareKeyValueMessage(key, value) {
     const delimiter = `ghadelimiter_${crypto.randomUUID()}`;
     const convertedValue = (0, utils_1.toCommandValue)(value);
@@ -519,7 +596,6 @@ function prepareKeyValueMessage(key, value) {
     }
     return `${key}<<${delimiter}${os.EOL}${convertedValue}${os.EOL}${delimiter}`;
 }
-exports.prepareKeyValueMessage = prepareKeyValueMessage;
 //# sourceMappingURL=file-command.js.map
 
 /***/ }),
@@ -566,8 +642,8 @@ class OidcClient {
         return runtimeUrl;
     }
     static getCall(id_token_url) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const httpclient = OidcClient.createHttpClient();
             const res = yield httpclient
                 .getJson(id_token_url)
@@ -629,15 +705,27 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toPlatformPath = exports.toWin32Path = exports.toPosixPath = void 0;
+exports.toPosixPath = toPosixPath;
+exports.toWin32Path = toWin32Path;
+exports.toPlatformPath = toPlatformPath;
 const path = __importStar(__nccwpck_require__(6928));
 /**
  * toPosixPath converts the given path to the posix form. On Windows, \\ will be
@@ -649,7 +737,6 @@ const path = __importStar(__nccwpck_require__(6928));
 function toPosixPath(pth) {
     return pth.replace(/[\\]/g, '/');
 }
-exports.toPosixPath = toPosixPath;
 /**
  * toWin32Path converts the given path to the win32 form. On Linux, / will be
  * replaced with \\.
@@ -660,7 +747,6 @@ exports.toPosixPath = toPosixPath;
 function toWin32Path(pth) {
     return pth.replace(/[/]/g, '\\');
 }
-exports.toWin32Path = toWin32Path;
 /**
  * toPlatformPath converts the given path to a platform-specific path. It does
  * this by replacing instances of / and \ with the platform-specific path
@@ -672,7 +758,6 @@ exports.toWin32Path = toWin32Path;
 function toPlatformPath(pth) {
     return pth.replace(/[/\\]/g, path.sep);
 }
-exports.toPlatformPath = toPlatformPath;
 //# sourceMappingURL=path-utils.js.map
 
 /***/ }),
@@ -698,13 +783,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -718,7 +813,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getDetails = exports.isLinux = exports.isMacOS = exports.isWindows = exports.arch = exports.platform = void 0;
+exports.isLinux = exports.isMacOS = exports.isWindows = exports.arch = exports.platform = void 0;
+exports.getDetails = getDetails;
 const os_1 = __importDefault(__nccwpck_require__(857));
 const exec = __importStar(__nccwpck_require__(5236));
 const getWindowsInfo = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -773,7 +869,6 @@ function getDetails() {
             isLinux: exports.isLinux });
     });
 }
-exports.getDetails = getDetails;
 //# sourceMappingURL=platform.js.map
 
 /***/ }),
@@ -1076,7 +1171,8 @@ exports.summary = _summary;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toCommandProperties = exports.toCommandValue = void 0;
+exports.toCommandValue = toCommandValue;
+exports.toCommandProperties = toCommandProperties;
 /**
  * Sanitizes an input into a string so it can be passed into issueCommand safely
  * @param input input to sanitize into a string
@@ -1090,7 +1186,6 @@ function toCommandValue(input) {
     }
     return JSON.stringify(input);
 }
-exports.toCommandValue = toCommandValue;
 /**
  *
  * @param annotationProperties
@@ -1110,7 +1205,6 @@ function toCommandProperties(annotationProperties) {
         endColumn: annotationProperties.endColumn
     };
 }
-exports.toCommandProperties = toCommandProperties;
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
@@ -1122,7 +1216,11 @@ exports.toCommandProperties = toCommandProperties;
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -1132,13 +1230,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1149,7 +1257,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getExecOutput = exports.exec = void 0;
+exports.exec = exec;
+exports.getExecOutput = getExecOutput;
 const string_decoder_1 = __nccwpck_require__(3193);
 const tr = __importStar(__nccwpck_require__(6665));
 /**
@@ -1175,7 +1284,6 @@ function exec(commandLine, args, options) {
         return runner.exec();
     });
 }
-exports.exec = exec;
 /**
  * Exec a command and get the output.
  * Output will be streamed to the live console.
@@ -1187,8 +1295,8 @@ exports.exec = exec;
  * @returns   Promise<ExecOutput>   exit code, stdout, and stderr
  */
 function getExecOutput(commandLine, args, options) {
-    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
+        var _a, _b;
         let stdout = '';
         let stderr = '';
         //Using string decoder covers the case where a mult-byte character is split
@@ -1220,7 +1328,6 @@ function getExecOutput(commandLine, args, options) {
         };
     });
 }
-exports.getExecOutput = getExecOutput;
 //# sourceMappingURL=exec.js.map
 
 /***/ }),
@@ -1232,7 +1339,11 @@ exports.getExecOutput = getExecOutput;
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -1242,13 +1353,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1259,7 +1380,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.argStringToArray = exports.ToolRunner = void 0;
+exports.ToolRunner = void 0;
+exports.argStringToArray = argStringToArray;
 const os = __importStar(__nccwpck_require__(857));
 const events = __importStar(__nccwpck_require__(4434));
 const child = __importStar(__nccwpck_require__(5317));
@@ -1491,10 +1613,7 @@ class ToolRunner extends events.EventEmitter {
             }
         }
         reverse += '"';
-        return reverse
-            .split('')
-            .reverse()
-            .join('');
+        return reverse.split('').reverse().join('');
     }
     _uvQuoteCmdArg(arg) {
         // Tool runner wraps child_process.spawn() and needs to apply the same quoting as
@@ -1570,10 +1689,7 @@ class ToolRunner extends events.EventEmitter {
             }
         }
         reverse += '"';
-        return reverse
-            .split('')
-            .reverse()
-            .join('');
+        return reverse.split('').reverse().join('');
     }
     _cloneExecOptions(options) {
         options = options || {};
@@ -1777,7 +1893,6 @@ function argStringToArray(argString) {
     }
     return args;
 }
-exports.argStringToArray = argStringToArray;
 class ExecState extends events.EventEmitter {
     constructor(options, toolPath) {
         super();
@@ -1806,7 +1921,7 @@ class ExecState extends events.EventEmitter {
             this._setResult();
         }
         else if (this.processExited) {
-            this.timeout = timers_1.setTimeout(ExecState.HandleTimeout, this.delay, this);
+            this.timeout = (0, timers_1.setTimeout)(ExecState.HandleTimeout, this.delay, this);
         }
     }
     _debug(message) {
@@ -1839,8 +1954,7 @@ class ExecState extends events.EventEmitter {
             return;
         }
         if (!state.processClosed && state.processExited) {
-            const message = `The STDIO streams did not close within ${state.delay /
-                1000} seconds of the exit event from process '${state.toolPath}'. This may indicate a child process inherited the STDIO streams and has not yet exited.`;
+            const message = `The STDIO streams did not close within ${state.delay / 1000} seconds of the exit event from process '${state.toolPath}'. This may indicate a child process inherited the STDIO streams and has not yet exited.`;
             state._debug(message);
         }
         state._setResult();
@@ -1882,6 +1996,7 @@ class Context {
         this.action = process.env.GITHUB_ACTION;
         this.actor = process.env.GITHUB_ACTOR;
         this.job = process.env.GITHUB_JOB;
+        this.runAttempt = parseInt(process.env.GITHUB_RUN_ATTEMPT, 10);
         this.runNumber = parseInt(process.env.GITHUB_RUN_NUMBER, 10);
         this.runId = parseInt(process.env.GITHUB_RUN_ID, 10);
         this.apiUrl = (_a = process.env.GITHUB_API_URL) !== null && _a !== void 0 ? _a : `https://api.github.com`;
@@ -1933,15 +2048,26 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getOctokit = exports.context = void 0;
+exports.context = void 0;
+exports.getOctokit = getOctokit;
 const Context = __importStar(__nccwpck_require__(1648));
 const utils_1 = __nccwpck_require__(8006);
 exports.context = new Context.Context();
@@ -1955,7 +2081,6 @@ function getOctokit(token, options, ...additionalPlugins) {
     const GitHubWithPlugins = utils_1.GitHub.plugin(...additionalPlugins);
     return new GitHubWithPlugins((0, utils_1.getOctokitOptions)(token, options));
 }
-exports.getOctokit = getOctokit;
 //# sourceMappingURL=github.js.map
 
 /***/ }),
@@ -1981,13 +2106,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1998,7 +2133,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getApiBaseUrl = exports.getProxyFetch = exports.getProxyAgentDispatcher = exports.getProxyAgent = exports.getAuthString = void 0;
+exports.getAuthString = getAuthString;
+exports.getProxyAgent = getProxyAgent;
+exports.getProxyAgentDispatcher = getProxyAgentDispatcher;
+exports.getProxyFetch = getProxyFetch;
+exports.getApiBaseUrl = getApiBaseUrl;
 const httpClient = __importStar(__nccwpck_require__(4844));
 const undici_1 = __nccwpck_require__(6752);
 function getAuthString(token, options) {
@@ -2010,17 +2149,14 @@ function getAuthString(token, options) {
     }
     return typeof options.auth === 'string' ? options.auth : `token ${token}`;
 }
-exports.getAuthString = getAuthString;
 function getProxyAgent(destinationUrl) {
     const hc = new httpClient.HttpClient();
     return hc.getAgent(destinationUrl);
 }
-exports.getProxyAgent = getProxyAgent;
 function getProxyAgentDispatcher(destinationUrl) {
     const hc = new httpClient.HttpClient();
     return hc.getAgentDispatcher(destinationUrl);
 }
-exports.getProxyAgentDispatcher = getProxyAgentDispatcher;
 function getProxyFetch(destinationUrl) {
     const httpDispatcher = getProxyAgentDispatcher(destinationUrl);
     const proxyFetch = (url, opts) => __awaiter(this, void 0, void 0, function* () {
@@ -2028,11 +2164,9 @@ function getProxyFetch(destinationUrl) {
     });
     return proxyFetch;
 }
-exports.getProxyFetch = getProxyFetch;
 function getApiBaseUrl() {
     return process.env['GITHUB_API_URL'] || 'https://api.github.com';
 }
-exports.getApiBaseUrl = getApiBaseUrl;
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
@@ -2058,15 +2192,26 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getOctokitOptions = exports.GitHub = exports.defaults = exports.context = void 0;
+exports.GitHub = exports.defaults = exports.context = void 0;
+exports.getOctokitOptions = getOctokitOptions;
 const Context = __importStar(__nccwpck_require__(1648));
 const Utils = __importStar(__nccwpck_require__(5156));
 // octokit + plugins
@@ -2098,7 +2243,6 @@ function getOctokitOptions(token, options) {
     }
     return opts;
 }
-exports.getOctokitOptions = getOctokitOptions;
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
@@ -2213,13 +2357,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2230,7 +2384,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.HttpClient = exports.isHttps = exports.HttpClientResponse = exports.HttpClientError = exports.getProxyUrl = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
+exports.HttpClient = exports.HttpClientResponse = exports.HttpClientError = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
+exports.getProxyUrl = getProxyUrl;
+exports.isHttps = isHttps;
 const http = __importStar(__nccwpck_require__(8611));
 const https = __importStar(__nccwpck_require__(5692));
 const pm = __importStar(__nccwpck_require__(4988));
@@ -2283,7 +2439,6 @@ function getProxyUrl(serverUrl) {
     const proxyUrl = pm.getProxyUrl(new URL(serverUrl));
     return proxyUrl ? proxyUrl.href : '';
 }
-exports.getProxyUrl = getProxyUrl;
 const HttpRedirectCodes = [
     HttpCodes.MovedPermanently,
     HttpCodes.ResourceMoved,
@@ -2344,7 +2499,6 @@ function isHttps(requestUrl) {
     const parsedUrl = new URL(requestUrl);
     return parsedUrl.protocol === 'https:';
 }
-exports.isHttps = isHttps;
 class HttpClient {
     constructor(userAgent, handlers, requestOptions) {
         this._ignoreSslError = false;
@@ -2355,7 +2509,7 @@ class HttpClient {
         this._maxRetries = 1;
         this._keepAlive = false;
         this._disposed = false;
-        this.userAgent = userAgent;
+        this.userAgent = this._getUserAgentWithOrchestrationId(userAgent);
         this.handlers = handlers || [];
         this.requestOptions = requestOptions;
         if (requestOptions) {
@@ -2427,36 +2581,39 @@ class HttpClient {
      * Gets a typed object from an endpoint
      * Be aware that not found returns a null.  Other errors (4xx, 5xx) reject the promise
      */
-    getJson(requestUrl, additionalHeaders = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    getJson(requestUrl_1) {
+        return __awaiter(this, arguments, void 0, function* (requestUrl, additionalHeaders = {}) {
             additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
             const res = yield this.get(requestUrl, additionalHeaders);
             return this._processResponse(res, this.requestOptions);
         });
     }
-    postJson(requestUrl, obj, additionalHeaders = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    postJson(requestUrl_1, obj_1) {
+        return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
             const data = JSON.stringify(obj, null, 2);
             additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
-            additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+            additionalHeaders[Headers.ContentType] =
+                this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
             const res = yield this.post(requestUrl, data, additionalHeaders);
             return this._processResponse(res, this.requestOptions);
         });
     }
-    putJson(requestUrl, obj, additionalHeaders = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    putJson(requestUrl_1, obj_1) {
+        return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
             const data = JSON.stringify(obj, null, 2);
             additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
-            additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+            additionalHeaders[Headers.ContentType] =
+                this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
             const res = yield this.put(requestUrl, data, additionalHeaders);
             return this._processResponse(res, this.requestOptions);
         });
     }
-    patchJson(requestUrl, obj, additionalHeaders = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    patchJson(requestUrl_1, obj_1) {
+        return __awaiter(this, arguments, void 0, function* (requestUrl, obj, additionalHeaders = {}) {
             const data = JSON.stringify(obj, null, 2);
             additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
-            additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+            additionalHeaders[Headers.ContentType] =
+                this._getExistingOrDefaultContentTypeHeader(additionalHeaders, MediaTypes.ApplicationJson);
             const res = yield this.patch(requestUrl, data, additionalHeaders);
             return this._processResponse(res, this.requestOptions);
         });
@@ -2685,12 +2842,73 @@ class HttpClient {
         }
         return lowercaseKeys(headers || {});
     }
+    /**
+     * Gets an existing header value or returns a default.
+     * Handles converting number header values to strings since HTTP headers must be strings.
+     * Note: This returns string | string[] since some headers can have multiple values.
+     * For headers that must always be a single string (like Content-Type), use the
+     * specialized _getExistingOrDefaultContentTypeHeader method instead.
+     */
     _getExistingOrDefaultHeader(additionalHeaders, header, _default) {
         let clientHeader;
         if (this.requestOptions && this.requestOptions.headers) {
-            clientHeader = lowercaseKeys(this.requestOptions.headers)[header];
+            const headerValue = lowercaseKeys(this.requestOptions.headers)[header];
+            if (headerValue) {
+                clientHeader =
+                    typeof headerValue === 'number' ? headerValue.toString() : headerValue;
+            }
         }
-        return additionalHeaders[header] || clientHeader || _default;
+        const additionalValue = additionalHeaders[header];
+        if (additionalValue !== undefined) {
+            return typeof additionalValue === 'number'
+                ? additionalValue.toString()
+                : additionalValue;
+        }
+        if (clientHeader !== undefined) {
+            return clientHeader;
+        }
+        return _default;
+    }
+    /**
+     * Specialized version of _getExistingOrDefaultHeader for Content-Type header.
+     * Always returns a single string (not an array) since Content-Type should be a single value.
+     * Converts arrays to comma-separated strings and numbers to strings to ensure type safety.
+     * This was split from _getExistingOrDefaultHeader to provide stricter typing for callers
+     * that assign the result to places expecting a string (e.g., additionalHeaders[Headers.ContentType]).
+     */
+    _getExistingOrDefaultContentTypeHeader(additionalHeaders, _default) {
+        let clientHeader;
+        if (this.requestOptions && this.requestOptions.headers) {
+            const headerValue = lowercaseKeys(this.requestOptions.headers)[Headers.ContentType];
+            if (headerValue) {
+                if (typeof headerValue === 'number') {
+                    clientHeader = String(headerValue);
+                }
+                else if (Array.isArray(headerValue)) {
+                    clientHeader = headerValue.join(', ');
+                }
+                else {
+                    clientHeader = headerValue;
+                }
+            }
+        }
+        const additionalValue = additionalHeaders[Headers.ContentType];
+        // Return the first non-undefined value, converting numbers or arrays to strings if necessary
+        if (additionalValue !== undefined) {
+            if (typeof additionalValue === 'number') {
+                return String(additionalValue);
+            }
+            else if (Array.isArray(additionalValue)) {
+                return additionalValue.join(', ');
+            }
+            else {
+                return additionalValue;
+            }
+        }
+        if (clientHeader !== undefined) {
+            return clientHeader;
+        }
+        return _default;
     }
     _getAgent(parsedUrl) {
         let agent;
@@ -2770,6 +2988,17 @@ class HttpClient {
             });
         }
         return proxyAgent;
+    }
+    _getUserAgentWithOrchestrationId(userAgent) {
+        const baseUserAgent = userAgent || 'actions/http-client';
+        const orchId = process.env['ACTIONS_ORCHESTRATION_ID'];
+        if (orchId) {
+            // Sanitize the orchestration ID to ensure it contains only valid characters
+            // Valid characters: 0-9, a-z, _, -, .
+            const sanitizedId = orchId.replace(/[^a-z0-9_.-]/gi, '_');
+            return `${baseUserAgent} actions_orchestration_id/${sanitizedId}`;
+        }
+        return baseUserAgent;
     }
     _performExponentialBackoff(retryNumber) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -2856,7 +3085,8 @@ const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCa
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.checkBypass = exports.getProxyUrl = void 0;
+exports.getProxyUrl = getProxyUrl;
+exports.checkBypass = checkBypass;
 function getProxyUrl(reqUrl) {
     const usingSsl = reqUrl.protocol === 'https:';
     if (checkBypass(reqUrl)) {
@@ -2883,7 +3113,6 @@ function getProxyUrl(reqUrl) {
         return undefined;
     }
 }
-exports.getProxyUrl = getProxyUrl;
 function checkBypass(reqUrl) {
     if (!reqUrl.hostname) {
         return false;
@@ -2927,7 +3156,6 @@ function checkBypass(reqUrl) {
     }
     return false;
 }
-exports.checkBypass = checkBypass;
 function isLoopbackAddress(host) {
     const hostLower = host.toLowerCase();
     return (hostLower === 'localhost' ||
@@ -2959,7 +3187,11 @@ class DecodedURL extends URL {
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -2969,13 +3201,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2987,21 +3229,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getCmdPath = exports.tryGetExecutablePath = exports.isRooted = exports.isDirectory = exports.exists = exports.READONLY = exports.UV_FS_O_EXLOCK = exports.IS_WINDOWS = exports.unlink = exports.symlink = exports.stat = exports.rmdir = exports.rm = exports.rename = exports.readlink = exports.readdir = exports.open = exports.mkdir = exports.lstat = exports.copyFile = exports.chmod = void 0;
+exports.READONLY = exports.UV_FS_O_EXLOCK = exports.IS_WINDOWS = exports.unlink = exports.symlink = exports.stat = exports.rmdir = exports.rm = exports.rename = exports.readdir = exports.open = exports.mkdir = exports.lstat = exports.copyFile = exports.chmod = void 0;
+exports.readlink = readlink;
+exports.exists = exists;
+exports.isDirectory = isDirectory;
+exports.isRooted = isRooted;
+exports.tryGetExecutablePath = tryGetExecutablePath;
+exports.getCmdPath = getCmdPath;
 const fs = __importStar(__nccwpck_require__(9896));
 const path = __importStar(__nccwpck_require__(6928));
 _a = fs.promises
 // export const {open} = 'fs'
-, exports.chmod = _a.chmod, exports.copyFile = _a.copyFile, exports.lstat = _a.lstat, exports.mkdir = _a.mkdir, exports.open = _a.open, exports.readdir = _a.readdir, exports.readlink = _a.readlink, exports.rename = _a.rename, exports.rm = _a.rm, exports.rmdir = _a.rmdir, exports.stat = _a.stat, exports.symlink = _a.symlink, exports.unlink = _a.unlink;
+, exports.chmod = _a.chmod, exports.copyFile = _a.copyFile, exports.lstat = _a.lstat, exports.mkdir = _a.mkdir, exports.open = _a.open, exports.readdir = _a.readdir, exports.rename = _a.rename, exports.rm = _a.rm, exports.rmdir = _a.rmdir, exports.stat = _a.stat, exports.symlink = _a.symlink, exports.unlink = _a.unlink;
 // export const {open} = 'fs'
 exports.IS_WINDOWS = process.platform === 'win32';
+/**
+ * Custom implementation of readlink to ensure Windows junctions
+ * maintain trailing backslash for backward compatibility with Node.js < 24
+ *
+ * In Node.js 20, Windows junctions (directory symlinks) always returned paths
+ * with trailing backslashes. Node.js 24 removed this behavior, which breaks
+ * code that relied on this format for path operations.
+ *
+ * This implementation restores the Node 20 behavior by adding a trailing
+ * backslash to all junction results on Windows.
+ */
+function readlink(fsPath) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const result = yield fs.promises.readlink(fsPath);
+        // On Windows, restore Node 20 behavior: add trailing backslash to all results
+        // since junctions on Windows are always directory links
+        if (exports.IS_WINDOWS && !result.endsWith('\\')) {
+            return `${result}\\`;
+        }
+        return result;
+    });
+}
 // See https://github.com/nodejs/node/blob/d0153aee367422d0858105abec186da4dff0a0c5/deps/uv/include/uv/win.h#L691
 exports.UV_FS_O_EXLOCK = 0x10000000;
 exports.READONLY = fs.constants.O_RDONLY;
 function exists(fsPath) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield exports.stat(fsPath);
+            yield (0, exports.stat)(fsPath);
         }
         catch (err) {
             if (err.code === 'ENOENT') {
@@ -3012,14 +3282,12 @@ function exists(fsPath) {
         return true;
     });
 }
-exports.exists = exists;
-function isDirectory(fsPath, useStat = false) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const stats = useStat ? yield exports.stat(fsPath) : yield exports.lstat(fsPath);
+function isDirectory(fsPath_1) {
+    return __awaiter(this, arguments, void 0, function* (fsPath, useStat = false) {
+        const stats = useStat ? yield (0, exports.stat)(fsPath) : yield (0, exports.lstat)(fsPath);
         return stats.isDirectory();
     });
 }
-exports.isDirectory = isDirectory;
 /**
  * On OSX/Linux, true if path starts with '/'. On Windows, true for paths like:
  * \, \hello, \\hello\share, C:, and C:\hello (and corresponding alternate separator cases).
@@ -3035,7 +3303,6 @@ function isRooted(p) {
     }
     return p.startsWith('/');
 }
-exports.isRooted = isRooted;
 /**
  * Best effort attempt to determine whether a file exists and is executable.
  * @param filePath    file path to check
@@ -3047,7 +3314,7 @@ function tryGetExecutablePath(filePath, extensions) {
         let stats = undefined;
         try {
             // test file exists
-            stats = yield exports.stat(filePath);
+            stats = yield (0, exports.stat)(filePath);
         }
         catch (err) {
             if (err.code !== 'ENOENT') {
@@ -3075,7 +3342,7 @@ function tryGetExecutablePath(filePath, extensions) {
             filePath = originalFilePath + extension;
             stats = undefined;
             try {
-                stats = yield exports.stat(filePath);
+                stats = yield (0, exports.stat)(filePath);
             }
             catch (err) {
                 if (err.code !== 'ENOENT') {
@@ -3089,7 +3356,7 @@ function tryGetExecutablePath(filePath, extensions) {
                     try {
                         const directory = path.dirname(filePath);
                         const upperName = path.basename(filePath).toUpperCase();
-                        for (const actualName of yield exports.readdir(directory)) {
+                        for (const actualName of yield (0, exports.readdir)(directory)) {
                             if (upperName === actualName.toUpperCase()) {
                                 filePath = path.join(directory, actualName);
                                 break;
@@ -3112,7 +3379,6 @@ function tryGetExecutablePath(filePath, extensions) {
         return '';
     });
 }
-exports.tryGetExecutablePath = tryGetExecutablePath;
 function normalizeSeparators(p) {
     p = p || '';
     if (exports.IS_WINDOWS) {
@@ -3129,15 +3395,18 @@ function normalizeSeparators(p) {
 //   256 128 64 32 16 8 4 2 1
 function isUnixExecutable(stats) {
     return ((stats.mode & 1) > 0 ||
-        ((stats.mode & 8) > 0 && stats.gid === process.getgid()) ||
-        ((stats.mode & 64) > 0 && stats.uid === process.getuid()));
+        ((stats.mode & 8) > 0 &&
+            process.getgid !== undefined &&
+            stats.gid === process.getgid()) ||
+        ((stats.mode & 64) > 0 &&
+            process.getuid !== undefined &&
+            stats.uid === process.getuid()));
 }
 // Get the path of cmd.exe in windows
 function getCmdPath() {
     var _a;
     return (_a = process.env['COMSPEC']) !== null && _a !== void 0 ? _a : `cmd.exe`;
 }
-exports.getCmdPath = getCmdPath;
 //# sourceMappingURL=io-util.js.map
 
 /***/ }),
@@ -3149,7 +3418,11 @@ exports.getCmdPath = getCmdPath;
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -3159,13 +3432,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -3176,7 +3459,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.findInPath = exports.which = exports.mkdirP = exports.rmRF = exports.mv = exports.cp = void 0;
+exports.cp = cp;
+exports.mv = mv;
+exports.rmRF = rmRF;
+exports.mkdirP = mkdirP;
+exports.which = which;
+exports.findInPath = findInPath;
 const assert_1 = __nccwpck_require__(2613);
 const path = __importStar(__nccwpck_require__(6928));
 const ioUtil = __importStar(__nccwpck_require__(5207));
@@ -3188,8 +3476,8 @@ const ioUtil = __importStar(__nccwpck_require__(5207));
  * @param     dest      destination path
  * @param     options   optional. See CopyOptions.
  */
-function cp(source, dest, options = {}) {
-    return __awaiter(this, void 0, void 0, function* () {
+function cp(source_1, dest_1) {
+    return __awaiter(this, arguments, void 0, function* (source, dest, options = {}) {
         const { force, recursive, copySourceDirectory } = readCopyOptions(options);
         const destStat = (yield ioUtil.exists(dest)) ? yield ioUtil.stat(dest) : null;
         // Dest is an existing file, but not forcing
@@ -3221,7 +3509,6 @@ function cp(source, dest, options = {}) {
         }
     });
 }
-exports.cp = cp;
 /**
  * Moves a path.
  *
@@ -3229,8 +3516,8 @@ exports.cp = cp;
  * @param     dest      destination path
  * @param     options   optional. See MoveOptions.
  */
-function mv(source, dest, options = {}) {
-    return __awaiter(this, void 0, void 0, function* () {
+function mv(source_1, dest_1) {
+    return __awaiter(this, arguments, void 0, function* (source, dest, options = {}) {
         if (yield ioUtil.exists(dest)) {
             let destExists = true;
             if (yield ioUtil.isDirectory(dest)) {
@@ -3251,7 +3538,6 @@ function mv(source, dest, options = {}) {
         yield ioUtil.rename(source, dest);
     });
 }
-exports.mv = mv;
 /**
  * Remove a path recursively with force
  *
@@ -3280,7 +3566,6 @@ function rmRF(inputPath) {
         }
     });
 }
-exports.rmRF = rmRF;
 /**
  * Make a directory.  Creates the full path with folders in between
  * Will throw if it fails
@@ -3290,11 +3575,10 @@ exports.rmRF = rmRF;
  */
 function mkdirP(fsPath) {
     return __awaiter(this, void 0, void 0, function* () {
-        assert_1.ok(fsPath, 'a path argument must be provided');
+        (0, assert_1.ok)(fsPath, 'a path argument must be provided');
         yield ioUtil.mkdir(fsPath, { recursive: true });
     });
 }
-exports.mkdirP = mkdirP;
 /**
  * Returns path of a tool had the tool actually been invoked.  Resolves via paths.
  * If you check and the tool does not exist, it will throw.
@@ -3328,7 +3612,6 @@ function which(tool, check) {
         return '';
     });
 }
-exports.which = which;
 /**
  * Returns a list of all occurrences of the given tool on the system path.
  *
@@ -3385,7 +3668,6 @@ function findInPath(tool) {
         return matches;
     });
 }
-exports.findInPath = findInPath;
 function readCopyOptions(options) {
     const force = options.force == null ? true : options.force;
     const recursive = Boolean(options.recursive);
@@ -25740,6 +26022,16 @@ function markTreeDirty(node) {
 }
 
 class Container extends Node {
+  get first() {
+    if (!this.proxyOf.nodes) return undefined
+    return this.proxyOf.nodes[0]
+  }
+
+  get last() {
+    if (!this.proxyOf.nodes) return undefined
+    return this.proxyOf.nodes[this.proxyOf.nodes.length - 1]
+  }
+
   append(...children) {
     for (let child of children) {
       let nodes = this.normalize(child, this.last)
@@ -26106,16 +26398,6 @@ class Container extends Node {
       }
     })
   }
-
-  get first() {
-    if (!this.proxyOf.nodes) return undefined
-    return this.proxyOf.nodes[0]
-  }
-
-  get last() {
-    if (!this.proxyOf.nodes) return undefined
-    return this.proxyOf.nodes[this.proxyOf.nodes.length - 1]
-  }
 }
 
 Container.registerParse = dependant => {
@@ -26314,6 +26596,10 @@ CssSyntaxError.default = CssSyntaxError
 let Node = __nccwpck_require__(8997)
 
 class Declaration extends Node {
+  get variable() {
+    return this.prop.startsWith('--') || this.prop[0] === '$'
+  }
+
   constructor(defaults) {
     if (
       defaults &&
@@ -26324,10 +26610,6 @@ class Declaration extends Node {
     }
     super(defaults)
     this.type = 'decl'
-  }
-
-  get variable() {
-    return this.prop.startsWith('--') || this.prop[0] === '$'
   }
 }
 
@@ -26455,12 +26737,31 @@ let CssSyntaxError = __nccwpck_require__(4451)
 let PreviousMap = __nccwpck_require__(3427)
 let terminalHighlight = __nccwpck_require__(7280)
 
-let fromOffsetCache = Symbol('fromOffsetCache')
+let lineToIndexCache = Symbol('lineToIndexCache')
 
 let sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator)
 let pathAvailable = Boolean(resolve && isAbsolute)
 
+function getLineToIndex(input) {
+  if (input[lineToIndexCache]) return input[lineToIndexCache]
+  let lines = input.css.split('\n')
+  let lineToIndex = new Array(lines.length)
+  let prevIndex = 0
+
+  for (let i = 0, l = lines.length; i < l; i++) {
+    lineToIndex[i] = prevIndex
+    prevIndex += lines[i].length + 1
+  }
+
+  input[lineToIndexCache] = lineToIndex
+  return lineToIndex
+}
+
 class Input {
+  get from() {
+    return this.file || this.id
+  }
+
   constructor(css, opts = {}) {
     if (
       css === null ||
@@ -26510,31 +26811,38 @@ class Input {
   }
 
   error(message, line, column, opts = {}) {
-    let endColumn, endLine, result
+    let endColumn, endLine, endOffset, offset, result
 
     if (line && typeof line === 'object') {
       let start = line
       let end = column
       if (typeof start.offset === 'number') {
-        let pos = this.fromOffset(start.offset)
+        offset = start.offset
+        let pos = this.fromOffset(offset)
         line = pos.line
         column = pos.col
       } else {
         line = start.line
         column = start.column
+        offset = this.fromLineAndColumn(line, column)
       }
       if (typeof end.offset === 'number') {
-        let pos = this.fromOffset(end.offset)
+        endOffset = end.offset
+        let pos = this.fromOffset(endOffset)
         endLine = pos.line
         endColumn = pos.col
       } else {
         endLine = end.line
         endColumn = end.column
+        endOffset = this.fromLineAndColumn(end.line, end.column)
       }
     } else if (!column) {
-      let pos = this.fromOffset(line)
+      offset = line
+      let pos = this.fromOffset(offset)
       line = pos.line
       column = pos.col
+    } else {
+      offset = this.fromLineAndColumn(line, column)
     }
 
     let origin = this.origin(line, column, endLine, endColumn)
@@ -26562,7 +26870,7 @@ class Input {
       )
     }
 
-    result.input = { column, endColumn, endLine, line, source: this.css }
+    result.input = { column, endColumn, endLine, endOffset, line, offset, source: this.css }
     if (this.file) {
       if (pathToFileURL) {
         result.input.url = pathToFileURL(this.file).toString()
@@ -26573,23 +26881,15 @@ class Input {
     return result
   }
 
+  fromLineAndColumn(line, column) {
+    let lineToIndex = getLineToIndex(this)
+    let index = lineToIndex[line - 1]
+    return index + column - 1
+  }
+
   fromOffset(offset) {
-    let lastLine, lineToIndex
-    if (!this[fromOffsetCache]) {
-      let lines = this.css.split('\n')
-      lineToIndex = new Array(lines.length)
-      let prevIndex = 0
-
-      for (let i = 0, l = lines.length; i < l; i++) {
-        lineToIndex[i] = prevIndex
-        prevIndex += lines[i].length + 1
-      }
-
-      this[fromOffsetCache] = lineToIndex
-    } else {
-      lineToIndex = this[fromOffsetCache]
-    }
-    lastLine = lineToIndex[lineToIndex.length - 1]
+    let lineToIndex = getLineToIndex(this)
+    let lastLine = lineToIndex[lineToIndex.length - 1]
 
     let min = 0
     if (offset >= lastLine) {
@@ -26682,10 +26982,6 @@ class Input {
       }
     }
     return json
-  }
-
-  get from() {
-    return this.file || this.id
   }
 }
 
@@ -26810,6 +27106,38 @@ function cleanMarks(node) {
 let postcss = {}
 
 class LazyResult {
+  get content() {
+    return this.stringify().content
+  }
+
+  get css() {
+    return this.stringify().css
+  }
+
+  get map() {
+    return this.stringify().map
+  }
+
+  get messages() {
+    return this.sync().messages
+  }
+
+  get opts() {
+    return this.result.opts
+  }
+
+  get processor() {
+    return this.result.processor
+  }
+
+  get root() {
+    return this.sync().root
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'LazyResult'
+  }
+
   constructor(processor, css, opts) {
     this.stringified = false
     this.processed = false
@@ -27209,38 +27537,6 @@ class LazyResult {
 
   warnings() {
     return this.sync().warnings()
-  }
-
-  get content() {
-    return this.stringify().content
-  }
-
-  get css() {
-    return this.stringify().css
-  }
-
-  get map() {
-    return this.stringify().map
-  }
-
-  get messages() {
-    return this.sync().messages
-  }
-
-  get opts() {
-    return this.result.opts
-  }
-
-  get processor() {
-    return this.result.processor
-  }
-
-  get root() {
-    return this.sync().root
-  }
-
-  get [Symbol.toStringTag]() {
-    return 'LazyResult'
   }
 }
 
@@ -27712,6 +28008,56 @@ let stringify = __nccwpck_require__(7452)
 let warnOnce = __nccwpck_require__(2991)
 
 class NoWorkResult {
+  get content() {
+    return this.result.css
+  }
+
+  get css() {
+    return this.result.css
+  }
+
+  get map() {
+    return this.result.map
+  }
+
+  get messages() {
+    return []
+  }
+
+  get opts() {
+    return this.result.opts
+  }
+
+  get processor() {
+    return this.result.processor
+  }
+
+  get root() {
+    if (this._root) {
+      return this._root
+    }
+
+    let root
+    let parser = parse
+
+    try {
+      root = parser(this._css, this._opts)
+    } catch (error) {
+      this.error = error
+    }
+
+    if (this.error) {
+      throw this.error
+    } else {
+      this._root = root
+      return root
+    }
+  }
+
+  get [Symbol.toStringTag]() {
+    return 'NoWorkResult'
+  }
+
   constructor(processor, css, opts) {
     css = css.toString()
     this.stringified = false
@@ -27787,56 +28133,6 @@ class NoWorkResult {
   warnings() {
     return []
   }
-
-  get content() {
-    return this.result.css
-  }
-
-  get css() {
-    return this.result.css
-  }
-
-  get map() {
-    return this.result.map
-  }
-
-  get messages() {
-    return []
-  }
-
-  get opts() {
-    return this.result.opts
-  }
-
-  get processor() {
-    return this.result.processor
-  }
-
-  get root() {
-    if (this._root) {
-      return this._root
-    }
-
-    let root
-    let parser = parse
-
-    try {
-      root = parser(this._css, this._opts)
-    } catch (error) {
-      this.error = error
-    }
-
-    if (this.error) {
-      throw this.error
-    } else {
-      this._root = root
-      return root
-    }
-  }
-
-  get [Symbol.toStringTag]() {
-    return 'NoWorkResult'
-  }
 }
 
 module.exports = NoWorkResult
@@ -27885,11 +28181,8 @@ function cloneNode(obj, parent) {
 
 function sourceOffset(inputCSS, position) {
   // Not all custom syntaxes support `offset` in `source.start` and `source.end`
-  if (
-    position &&
-    typeof position.offset !== 'undefined'
-  ) {
-    return position.offset;
+  if (position && typeof position.offset !== 'undefined') {
+    return position.offset
   }
 
   let column = 1
@@ -27914,6 +28207,10 @@ function sourceOffset(inputCSS, position) {
 }
 
 class Node {
+  get proxyOf() {
+    return this
+  }
+
   constructor(defaults = {}) {
     this.raws = {}
     this[isClean] = false
@@ -28055,14 +28352,15 @@ class Node {
     return this.parent.nodes[index + 1]
   }
 
-  positionBy(opts) {
+  positionBy(opts = {}) {
     let pos = this.source.start
     if (opts.index) {
       pos = this.positionInside(opts.index)
     } else if (opts.word) {
-      let inputString = ('document' in this.source.input)
-        ? this.source.input.document
-        : this.source.input.css
+      let inputString =
+        'document' in this.source.input
+          ? this.source.input.document
+          : this.source.input.css
       let stringRepresentation = inputString.slice(
         sourceOffset(inputString, this.source.start),
         sourceOffset(inputString, this.source.end)
@@ -28076,9 +28374,10 @@ class Node {
   positionInside(index) {
     let column = this.source.start.column
     let line = this.source.start.line
-    let inputString = ('document' in this.source.input)
-      ? this.source.input.document
-      : this.source.input.css
+    let inputString =
+      'document' in this.source.input
+        ? this.source.input.document
+        : this.source.input.css
     let offset = sourceOffset(inputString, this.source.start)
     let end = offset + index
 
@@ -28091,7 +28390,7 @@ class Node {
       }
     }
 
-    return { column, line }
+    return { column, line, offset: end }
   }
 
   prev() {
@@ -28100,25 +28399,36 @@ class Node {
     return this.parent.nodes[index - 1]
   }
 
-  rangeBy(opts) {
+  rangeBy(opts = {}) {
+    let inputString =
+      'document' in this.source.input
+        ? this.source.input.document
+        : this.source.input.css
     let start = {
       column: this.source.start.column,
-      line: this.source.start.line
+      line: this.source.start.line,
+      offset: sourceOffset(inputString, this.source.start)
     }
     let end = this.source.end
       ? {
           column: this.source.end.column + 1,
-          line: this.source.end.line
+          line: this.source.end.line,
+          offset:
+            typeof this.source.end.offset === 'number'
+              ? // `source.end.offset` is exclusive, so we don't need to add 1
+                this.source.end.offset
+              : // Since line/column in this.source.end is inclusive,
+                // the `sourceOffset(... , this.source.end)` returns an inclusive offset.
+                // So, we add 1 to convert it to exclusive.
+                sourceOffset(inputString, this.source.end) + 1
         }
       : {
           column: start.column + 1,
-          line: start.line
+          line: start.line,
+          offset: start.offset + 1
         }
 
     if (opts.word) {
-      let inputString = ('document' in this.source.input)
-        ? this.source.input.document
-        : this.source.input.css
       let stringRepresentation = inputString.slice(
         sourceOffset(inputString, this.source.start),
         sourceOffset(inputString, this.source.end)
@@ -28126,15 +28436,14 @@ class Node {
       let index = stringRepresentation.indexOf(opts.word)
       if (index !== -1) {
         start = this.positionInside(index)
-        end = this.positionInside(
-          index + opts.word.length,
-        )
+        end = this.positionInside(index + opts.word.length)
       }
     } else {
       if (opts.start) {
         start = {
           column: opts.start.column,
-          line: opts.start.line
+          line: opts.start.line,
+          offset: sourceOffset(inputString, opts.start)
         }
       } else if (opts.index) {
         start = this.positionInside(opts.index)
@@ -28143,7 +28452,8 @@ class Node {
       if (opts.end) {
         end = {
           column: opts.end.column,
-          line: opts.end.line
+          line: opts.end.line,
+          offset: sourceOffset(inputString, opts.end)
         }
       } else if (typeof opts.endIndex === 'number') {
         end = this.positionInside(opts.endIndex)
@@ -28156,7 +28466,11 @@ class Node {
       end.line < start.line ||
       (end.line === start.line && end.column <= start.column)
     ) {
-      end = { column: start.column + 1, line: start.line }
+      end = {
+        column: start.column + 1,
+        line: start.line,
+        offset: start.offset + 1
+      }
     }
 
     return { end, start }
@@ -28231,6 +28545,7 @@ class Node {
       } else if (typeof value === 'object' && value.toJSON) {
         fixed[name] = value.toJSON(null, inputs)
       } else if (name === 'source') {
+        if (value == null) continue
         let inputId = inputs.get(value.input)
         if (inputId == null) {
           inputId = inputsNextIndex
@@ -28270,14 +28585,10 @@ class Node {
     return result
   }
 
-  warn(result, text, opts) {
+  warn(result, text, opts = {}) {
     let data = { node: this }
     for (let i in opts) data[i] = opts[i]
     return result.warn(text, data)
-  }
-
-  get proxyOf() {
-    return this
   }
 }
 
@@ -28690,6 +29001,8 @@ class Parser {
       if (prev && prev.type === 'rule' && !prev.raws.ownSemicolon) {
         prev.raws.ownSemicolon = this.spaces
         this.spaces = ''
+        prev.source.end = this.getPosition(token[2])
+        prev.source.end.offset += prev.raws.ownSemicolon.length
       }
     }
   }
@@ -28934,7 +29247,7 @@ class Parser {
 
   unknownWord(tokens) {
     throw this.input.error(
-      'Unknown word',
+      'Unknown word ' + tokens[0][1],
       { offset: tokens[0][2] },
       { offset: tokens[0][2] + tokens[0][1].length }
     )
@@ -29228,7 +29541,7 @@ let Root = __nccwpck_require__(973)
 
 class Processor {
   constructor(plugins = []) {
-    this.version = '8.5.1'
+    this.version = '8.5.6'
     this.plugins = this.normalize(plugins)
   }
 
@@ -29299,12 +29612,16 @@ Document.registerProcessor(Processor)
 let Warning = __nccwpck_require__(3733)
 
 class Result {
+  get content() {
+    return this.css
+  }
+
   constructor(processor, root, opts) {
     this.processor = processor
     this.messages = []
     this.root = root
     this.opts = opts
-    this.css = undefined
+    this.css = ''
     this.map = undefined
   }
 
@@ -29327,10 +29644,6 @@ class Result {
 
   warnings() {
     return this.messages.filter(i => i.type === 'warning')
-  }
-
-  get content() {
-    return this.css
   }
 }
 
@@ -29419,12 +29732,6 @@ let Container = __nccwpck_require__(4966)
 let list = __nccwpck_require__(2901)
 
 class Rule extends Container {
-  constructor(defaults) {
-    super(defaults)
-    this.type = 'rule'
-    if (!this.nodes) this.nodes = []
-  }
-
   get selectors() {
     return list.comma(this.selector)
   }
@@ -29433,6 +29740,12 @@ class Rule extends Container {
     let match = this.selector ? this.selector.match(/,\s*/) : null
     let sep = match ? match[0] : ',' + this.raw('between', 'beforeOpen')
     this.selector = values.join(sep)
+  }
+
+  constructor(defaults) {
+    super(defaults)
+    this.type = 'rule'
+    if (!this.nodes) this.nodes = []
   }
 }
 
@@ -70523,36 +70836,6 @@ module.exports = { nanoid, customAlphabet }
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/create fake namespace object */
-/******/ 	(() => {
-/******/ 		var getProto = Object.getPrototypeOf ? (obj) => (Object.getPrototypeOf(obj)) : (obj) => (obj.__proto__);
-/******/ 		var leafPrototypes;
-/******/ 		// create a fake namespace object
-/******/ 		// mode & 1: value is a module id, require it
-/******/ 		// mode & 2: merge all properties of value into the ns
-/******/ 		// mode & 4: return value when already ns object
-/******/ 		// mode & 16: return value when it's Promise-like
-/******/ 		// mode & 8|1: behave like require
-/******/ 		__nccwpck_require__.t = function(value, mode) {
-/******/ 			if(mode & 1) value = this(value);
-/******/ 			if(mode & 8) return value;
-/******/ 			if(typeof value === 'object' && value) {
-/******/ 				if((mode & 4) && value.__esModule) return value;
-/******/ 				if((mode & 16) && typeof value.then === 'function') return value;
-/******/ 			}
-/******/ 			var ns = Object.create(null);
-/******/ 			__nccwpck_require__.r(ns);
-/******/ 			var def = {};
-/******/ 			leafPrototypes = leafPrototypes || [null, getProto({}), getProto([]), getProto(getProto)];
-/******/ 			for(var current = mode & 2 && value; typeof current == 'object' && !~leafPrototypes.indexOf(current); current = getProto(current)) {
-/******/ 				Object.getOwnPropertyNames(current).forEach((key) => (def[key] = () => (value[key])));
-/******/ 			}
-/******/ 			def['default'] = () => (value);
-/******/ 			__nccwpck_require__.d(ns, def);
-/******/ 			return ns;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -74132,138 +74415,94 @@ Browser.type = 'languageDetector';
 
 ;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
 const en_namespaceObject = /*#__PURE__*/JSON.parse('{"survey":"I am interested in your opinion. Help redesign the OSM App Catalog. <u>Take part in the survey. Click here.</u>","about":"About","list":"List","compare":"Compare","filter.search":"Search","filter.moreFilters":"Filters","filter.showAll":"Show all","filter.resetFilters":"Remove preset filters","filter.preview":"The filter is set to:","filter.preset":"The filter is preset for you:","filter.topic":"Topic","filter.platform":"Platform","filter.language":"Language","filter.coverage":"Coverage","filter.category":"Menu","filter.category.all":"All","filter.category.focus":"Focus","filter.category.latest":"Latest","filter.category.mobile":"To go","filter.category.navigation":"Find your way","filter.category.edit":"Improve the map","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.focus.description":"Ten apps from the most recently updated pages.","category.latest.description":"{{numberOfApps}} apps sorted by last release date.","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation.description":"{{numberOfApps}} apps that support routing or navigation.","category.edit.description":"{{numberOfApps}} apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.","relatedApps":"{{numberOfApps}} related apps","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","noResults":"No results","select.search.placeholder":"Search","select.search.noResults":"No results","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.routing":"Routing","compare.group.header.navigating":"Navigating","compare.group.header.tracking":"Tracking","compare.group.header.monitoring":"Monitoring","compare.group.header.editing":"Editing","compare.group.header.rendering":"Rendering","compare.group.header.accessibility":"Accessibility","multilingual":"Multilingual","list.documentation":"Documentation","list.more":"More","list.moreInfos":"Informations","app.imageAlt":"Image from {{name}}.","app.getIt":"Get it on","app.website":"Website","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.platforms":"Platforms","app.lastRelease":"Last release","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.languages":"Languages","app.coverage":"Coverage","app.contribute":"Contribute","app.contribute.toSoftware":"To software","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.resolve":"Resolve map notes","app.contribute.toData.review":"Review edits","app.contribute.toData.photos":"Upload photos for mapping","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.community":"Community","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.matrix":"Matrix room","app.community.bluesky":"Bluesky","app.community.mastodon":"Mastodon","app.community.lemmy":"Lemmy","app.community.issueTracker":"Issues","app.community.githubDiscussions":"GitHub Discussions","app.community.telegram":"Telegram group","app.community.slack":"Slack","app.community.reddit":"Reddit","app.author":"Developed by","app.price":"Price","app.license":"License","app.sourceCode":"Source code","app.source":"Source","app.source.date":"Last change: {{date}}\\nFirst crawled: {{added}}","app.source.description":"Source where this data comes from.","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.none":"none","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","score.results":"Community Contribution Score\\nTotal: {{total}} points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nFulfilled:\\n{{fulfilled}}","score.result":"- {{description}} ({{points}} points)","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.openSource":"the app is open source","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.worldwideData":"the app covers worldwide map data","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)"}');
-var locales_en_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(en_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
 const cs_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Vyvinul","app.website":"Webová stránka","app.sourceCode":"zdrojový kód","app.license":"Licence","filter.platform":"Platforma","filter.language":"Jazyk","app.languages":"Jazyky","app.platforms":"Platformy","filter.coverage":"Pokrytí","category.all.description":"{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","about":"O aplikaci","filter.search":"Hledat","filter.topic":"Téma","filter.category":"Nabídka","filter.category.all":"Vše","filter.category.focus":"Zaměření","filter.category.latest":"Nejnovější","filter.category.mobile":"Přejít","filter.category.navigation":"Najděte svou cestu","filter.category.edit":"Vylepšete mapu","category.focus.description":"Deset aplikací z naposledy aktualizovaných stránek.","category.latest.description":"{{numberOfApps}} aplikace řazené podle data posledního vydání.","category.mobile.description":"{{numberOfApps}} aplikací vyvinutých pro mobilní zařízení nebo podporující offline použití.","app.install.huaweiAppGallery":"Huawei App Gallery","wiki.generatedByOsmAppsCatalog":"Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.","compare.group.header.map":"Zobrazení mapy","compare.share":"Sdílet na wiki.openstreetmap.org","category.navigation.description":"{{numberOfApps}} aplikací, které podporují navigaci.","category.edit.description":"{{numberOfApps}} aplikací, které podporují přidávání, úpravy nebo analýzu dat OpenStreetMap, nebo záznam geotras.","relatedApps":"{{numberOfApps}} souvisejících aplikací","noResults":"Žádné výsledky","compare.group.header.general":"Obecné","notFound":"Nenašli jste, co hledáte?","notFound.desc":"Pomocí následujících služeb si můžete vytvořit vlastní tematické mapy bez znalosti programování. Možná již někdo vytvořil mapu, kterou hledáte, nebo si můžete vytvořit vlastní tematickou mapu.","compare.group.header.navigating":"Navigace","compare.group.header.tracking":"Sledování","compare.group.header.monitoring":"Monitorování","compare.group.header.editing":"Úpravy","compare.group.header.rendering":"Vykreslování","compare.group.header.accessibility":"Přístupnost","multilingual":"Vícejazyčný","list.documentation":"Dokumentace","list.moreInfos":"Informace","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Poslední verze","app.unmaintained":"(<icon/> Neudržovaný)","app.unmaintained.wiki":"({{icon}} Neudržovaný)","app.coverage":"Pokrytí","app.price":"Cena","app.source":"Zdroj","compare.group.header.routing":"Hledání trasy","compare.unknown":"neznámý","share.wiki":"Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.","wiki.generatedBy":"Vytvořeno pomocí OSM Apps Catalog","wiki.none":"žádný","app.source.description":"Zdroj odkud pochází data.","compare":"Porovnat","list":"Seznam","app.community":"Komunita","app.community.forumTag":"Štítek fóra","app.community.matrix":"Matrixová místnost","app.community.issueTracker":"Problémy","app.community.githubDiscussions":"Diskuse na GitHubu","app.community.telegram":"Skupina na Telegram","app.community.slack":"Slack","app.community.mastodon":"Mastodon","app.community.reddit":"Reddit","app.community.forum":"Fórum","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.result":"- {{description}} ({{points}} bodů)","filter.moreFilters":"Filtry","app.imageAlt":"Obrázek z {{name}}.","score.criteria.supportsContributions":"aplikace podporuje příspěvky (editace, analýzy atd.) do OpenStreetMap","score.criteria.addingAndEditingPossible":"je možné přidávat a upravovat body zájmu, cesty atd","score.criteria.openSource":"aplikace má otevřený zdrojový kód","score.criteria.displaysMaps":"aplikace zobrazuje mapy nebo data OSM","score.criteria.sourceCodeReference":"odkaz na zdrojový kód je zdokumentován","score.criteria.lastUpdateThreeMonths":"poslední aktualizace proběhla během posledních 3 měsíců","score.criteria.translationContributions":"je možné přispět k překladům","score.criteria.tenLanguages":"aplikace je k dispozici nejméně v 10 jazycích","score.criteria.openSourceStores":"aplikace je dostupná prostřednictvím obchodů s otevřeným zdrojovým kódem (např. F-Droid)","score.criteria.worldwideData":"aplikace pokrývá mapové podklady celého světa","score.criteria.communityChannelExists":"existuje komunikační kanál pro komunitu (např. fórum, Mastodon)","score.criteria.openSourceChannel":"kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)","score.criteria.documentedMultiplePlatforms":"aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)","app.source.date":"Poslední změna: {{date}}\\nPrvní načteno: {{added}}","score.results":"Hodnocení příspěvku komunity\\nCelkem: {{total}} bodů\\n\\nČinnosti potřebné pro získání vyššího počtu bodů:\\n{{notFulfilled}}\\n\\nSplněno:\\n{{fulfilled}}","score.criteria.multiplePlatforms":"aplikace je dostupná na více platformách (např. web, Android, iOS)","score.criteria.documentationLink":"je k dispozici odkaz na dokumentaci","score.criteria.copyleftLicense":"licence je copyleftová (např. GPL, ODbL, MPL, CC)","score.criteria.multipleLanguages":"aplikace podporuje více jazyků (min. 3 jazyky)","score.criteria.freeOfCharge":"aplikace je zdarma","score.criteria.issueTracker":"existuje nástroj pro sledování problémů","score.criteria.lastUpdateYear":"poslední aktualizace proběhla během posledního roku","score.criteria.accessibilitySupported":"je podporována přístupnost (např. kompatibilita se čtečkou obrazovky nebo výpočet trasy pro vozíčkáře)","list.more":"Více","app.contribute.toSoftware":"Na software","app.contribute.toSoftware.discuss":"Diskutujte a sdílejte nápady","app.contribute.toSoftware.test":"Testujte a poskytněte zpětnou vazbu","app.contribute.toSoftware.develop":"Vyvíjejte kód","app.contribute.toSoftware.document":"Zlepšete dokumentaci","app.contribute.toData":"K datům OSM","app.contribute.toData.edit":"Upravujte mapová data","app.contribute.toData.photos":"Nahrajte fotografie pro mapování","app.contribute.toData.tracks":"Nahrávejte a sdílejte trasy","app.contribute.toData.qa":"Zajistěte kvalitu","app.contribute.toCommunity":"Pro komunitu","app.contribute.toCommunity.welcome":"Přivítejte nové uživatele","app.contribute":"Přispějte","app.contribute.toSoftware.translate":"Pomozte přeložit","app.contribute.toData.resolve":"Vyřešte poznámky k mapě","app.contribute.toData.review":"Zkontrolujte úpravy","select.search.placeholder":"Hledat","select.search.noResults":"Žádné výsledky","filter.showAll":"Zobrazit vše","filter.preview":"Filtr je nastaven na:","category.all.description.filtered":"{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","app.getIt":"Získejte ho","app.community.lemmy":"Lemmy","filter.preset":"Filtr je pro vás přednastavený:","filter":{"resetFilters":"Odebrat přednastavené filtry"}}');
-var locales_cs_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(cs_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/de.json
 const de_namespaceObject = /*#__PURE__*/JSON.parse('{"compare.group.header.general":"Allgemein","wiki.generatedByOsmAppsCatalog":"Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert.","filter.category.focus":"Fokus","filter.category.latest":"Aktuellste","filter.language":"Sprache","filter.category":"Menü","filter.category.all":"Alle","filter.category.navigation":"Finde deinen Weg","filter.coverage":"Abdeckung","filter.category.edit":"Karte verbessern","filter.category.mobile":"Für unterwegs","list.documentation":"Dokumentation","category.latest.description":"{{numberOfApps}} Apps, sortiert nach dem letzten Veröffentlichungsdatum.","app.author":"Author","multilingual":"Mehrsprachig","wiki.none":"Keine","list.moreInfos":"Informationen","category.all.description":"{{numberOfApps}} Apps, die <o>OpenStreetMap</o> verwenden.","filter.topic":"Themen","app.sourceCode":"Quellcode","app.license":"Lizenz","category.focus.description":"Zehn Apps von den zuletzt aktualisierten Seiten.","category.mobile.description":"{{numberOfApps}} Apps für Mobilgeräte oder die Offline-Nutzung unterstützen.","noResults":"Kein Resultat","category.navigation.description":"{{numberOfApps}} Apps, die Routenführung oder Navigation unterstützen.","app.website":"Webseite","app.source":"Quelle","app.coverage":"Abdeckung","compare.unknown":"Unbekannt","app.platforms":"Platformen","filter.platform":"Platform","app.price":"Preis","app.languages":"Sprachen","category.edit.description":"{{numberOfApps}} Apps, die das Hinzufügen, Bearbeiten oder Analysieren von OpenStreetMap-Daten oder das Aufzeichnen von Geotracks unterstützen.","app.lastRelease":"Letzte Veröffentlichung","relatedApps":"{{numberOfApps}} ähnliche Apps","filter.search":"Suche","compare.group.header.map":"Kartenanzeige","about":"Über","compare.group.header.routing":"Routenplanung","compare.group.header.navigating":"Navigieren","compare.group.header.editing":"Bearbeiten","compare.group.header.accessibility":"Zugänglichkeit","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","wiki.generatedBy":"Erstellt vom OSM Apps Katalog","compare.group.header.tracking":"Tracking","compare.group.header.monitoring":"Überwachung","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.appleStore":"Apple App Store","app.unmaintained":"(<icon/> Ungewartet)","app.unmaintained.wiki":"({{icon}} Ungewartet)","compare.share":"Teilen in wiki.openstreetmap.org","compare.group.header.rendering":"Rendering","share.wiki":"Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.","notFound":"Nicht gefunden, was Du suchst?","notFound.desc":"Mit den folgenden Diensten kannst du deine eigenen Themenkarten erstellen, ohne Programmierkenntnisse zu benötigen. Vielleicht hat schon jemand die Karte erstellt, die du suchst, oder du kannst deine eigene Themenkarte erstellen.","app.source.description":"Quelle, aus der diese Daten stammen.","list":"Liste","compare":"Vergleichen","app.community.githubDiscussions":"GitHub-Diskussionen","app.community.matrix":"Matrix Raum","app.community.telegram":"Telegram Gruppe","app.community.slack":"Slack","app.community.mastodon":"Mastodon","app.community.reddit":"Reddit","app.community":"Community","app.community.forumTag":"Forum tag","score.criteria.copyleftLicense":"die Lizenz ist eine Copyleft-Lizenz (z.B. GPL, ODbL, MPL, CC)","score.criteria.issueTracker":"ein Issue-Tracker existiert","score.criteria.lastUpdateYear":"das letzte Update fand innerhalb des letzten Jahres statt","score.criteria.lastUpdateThreeMonths":"das letzte Update fand innerhalb der letzten 3 Monate statt","score.criteria.sourceCodeReference":"ein Verweis zum Quellcode ist dokumentiert","score.criteria.multipleLanguages":"die App unterstützt Mehrsprachigkeit (.min 3 Sprachen)","score.criteria.tenLanguages":"die App ist in mindestens 10 Sprachen verfügbar","score.criteria.freeOfCharge":"die App ist kostenlos","score.criteria.openSourceStores":"die App ist über einen freien Store (z.B. F-Droid) verfügbar","score.criteria.worldwideData":"die App deckt weltweite Kartendaten ab","score.criteria.accessibilitySupported":"Barrierefreiheit (z.B. Screenreader-Kompatibilität oder Routenberechnung für Rollstuhlfahrende) wird unterstützt","score.criteria.openSourceChannel":"ein Kanal ist auf einem Open-Source-Medien (z.B. Matrix) betrieben","score.criteria.communityChannelExists":"ein Kommunikationskanal für die Community existiert (z.B. Forum, Mastodon)","score.criteria.documentationLink":"ein Dokumentationslink ist verfügbar","score.criteria.documentedMultiplePlatforms":"die App ist auf mehreren Plattformen dokumentiert (z.B. OSM-Wiki, taginfo, Wikidata)","app.source.date":"Letzte Änderung: {{date}}\\nErstmals gecrawlt: {{added}}","score.result":"- {{description}} ({{points}} Punkte)","score.criteria.displaysMaps":"die App zeigt Karten oder OSM-Daten an","score.criteria.openSource":"die App ist Open Source","score.criteria.translationContributions":"zur Übersetzung kann beigetragen werden","score.criteria.multiplePlatforms":"die App ist auf mehreren Plattformen verfügbar (z.B. Web, Android, iOS)","score.results":"Community Contribution Score\\nTotal: {{total}} Punkte\\n\\nErforderliche Massnahmen für eine höhere Punktzahl:\\n{{notFulfilled}}\\n\\nErfüllt:\\n{{fulfilled}}","score.criteria.supportsContributions":"die App unterstützt Beiträge (Bearbeiten, Analyse, etc.) zu OpenStreetMap","score.criteria.addingAndEditingPossible":"das Hinzufügen als auch das Bearbeiten oder Löschen von POIs, Wegen etc. ist möglich","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.issueTracker":"Probleme","list.more":"Mehr","filter.moreFilters":"Filter","app.imageAlt":"Bild von {{name}}.","app.contribute.toSoftware":"Zur Software","app.contribute.toSoftware.discuss":"Ideen diskutieren & austauschen","app.contribute.toSoftware.test":"Rückmeldung geben & testen","app.contribute.toSoftware.translate":"Beim Übersetzen helfen","app.contribute.toSoftware.develop":"Code weiter entwickeln","app.contribute.toData.edit":"Kartendaten bearbeiten","app.contribute.toData.resolve":"Kartennotizen klären","app.contribute.toData.review":"Bearbeitungen überprüfen","app.contribute.toData.qa":"Qualitätssicherung durchführen","app.contribute.toCommunity.welcome":"Neue Nutzer willkommen heißen","app.contribute":"Beitragen","app.contribute.toData.tracks":"Touren aufzeichnen & teilen","app.contribute.toCommunity":"Zur Gemeinschaft","app.contribute.toData":"Zu den OSM-Daten","app.contribute.toSoftware.document":"Dokumentation verbessern","app.contribute.toData.photos":"Fotos für die Kartierung hochladen","select.search.placeholder":"Suche","select.search.noResults":"Kein Resultat","filter.showAll":"Alle anzeigen","filter.preview":"Apps werden angezeigt für:","category.all.description.filtered":"{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden.","filter.preset":"Der Filter ist schon für dich eingestellt:","app.getIt":"Get it on","app.community.lemmy":"Lemmy","filter":{"resetFilters":"Voreingestellte Filter entfernen"},"survey":"Deine Meinung interessiert mich. Hilf mit, den OSM App-Katalog neu zu gestalten. <u>Mach bei der Umfrage mit. Klicke hier.</u>"}');
-var locales_de_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(de_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/el.json
 const el_namespaceObject = /*#__PURE__*/JSON.parse('{"about":"Σχετικά","filter.search":"Αναζήτηση","filter.topic":"Θέμα","filter.platform":"Πλατφόρμα","filter.language":"Γλώσσα","filter.coverage":"Κάλυψη","filter.category":"Κατηγορία","filter.category.all":"Όλα","filter.category.focus":"Εστίαση","filter.category.latest":"Τελευταία","filter.category.mobile":"Φορητή","filter.category.navigation":"Βρες τον δρόμο σου","filter.category.edit":"Συνείσφερε","category.all.description":"{{numberOfApps}} εφαρμογές που χρησιμοποιούν το <o>OpenStreetMap</o>.","category.focus.description":"Δέκα εφαρμογές από τις πιο πρόσφατα ανανεωμένες σελίδες.","category.latest.description":"{{numberOfApps}} εφαρμογές ταξινομημένες κατά ημερομηνία τελευταίας κυκλοφορίας.","category.navigation.description":"{{numberOfApps}} εφαρμογές που υποστηρίζουν τη δρομολόγηση ή την πλοήγηση.","relatedApps":"{{numberOfApps}} σχετικές εφαρμογές","compare.group.header.general":"Γενικά","compare.group.header.map":"Προβολή χάρτη","compare.group.header.navigating":"Πλοήγηση","compare.group.header.tracking":"Διαδρομές","compare.group.header.monitoring":"Παρακολούθηση","compare.group.header.editing":"Επεξεργασία","compare.group.header.rendering":"Απόδοση","compare.group.header.accessibility":"Προσβασιμότητα","list.documentation":"Οδηγίες","list.moreInfos":"Πληροφορίες","app.website":"Ιστοσελίδα","app.install.asin":"Amazon Appstore","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Τελευταία κυκλοφορία","app.languages":"Γλώσσες","app.coverage":"Κάλυψη","compare.unknown":"άγνωστο","share.wiki":"Αντιγράφηκε ο πίνακας {{group}} στο πρόχειρο σε μορφή για το wiki.openstreetmap.org.","wiki.generatedBy":"Παρήχθη από τον Κατάλογο Εφαρμογών OSM","wiki.none":"κανένα","wiki.generatedByOsmAppsCatalog":"Αυτός ο πίνακας παρήχθη από τον [{{link}} Κατάλογο Εφαρμογών OSM] στις {{date}}.","category.mobile.description":"{{numberOfApps}} εφαρμογές ανεπτυγμένες για φορητές συσκευές ή που υποστηρίζουν την χρήση εκτός δικτύου.","category.edit.description":"{{numberOfApps}} εφαρμογές που υποστηρίζουν την προσθήκη, επεξεργασία ή ανάλυση δεδομένων OpenStreetMap ή την καταγραφή γεωγραφικών διαδρομών.","compare.group.header.routing":"Δρομολόγηση","noResults":"Κανένα αποτέλεσμα","multilingual":"Πολύγλωσση","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.platforms":"Πλατφόρμες","app.unmaintained":"(<icon/> Δεν υποστηρίζεται)","app.unmaintained.wiki":"({{icon}} Δεν υποστηρίζεται)","app.price":"Τιμή","app.author":"Αναπτύχθηκε από","app.license":"Άδεια","app.sourceCode":"Πηγαίος κώδικας","compare.share":"Μοιραστείτε στο wiki.openstreetmap.org","app.source":"Πηγή","list":"Λίστα","compare":"Σύγκριση","filter.moreFilters":"Φίλτρα","filter.showAll":"Εμφάνιση όλων","filter.preview":"Το φίλτρο είναι ρυθμισμένο σε:","filter.preset":"Το φίλτρο είναι προρυθμισμένο για εσάς:","category.all.description.filtered":"{{numberOfApps}} από {{totalNumberOfApps}} εφαρμογές που χρησιμοποιούν το <o>OpenStreetMap</o>.","notFound":"Δεν βρήκατε αυτό που ψάχνετε;","select.search.placeholder":"Αναζήτησε","select.search.noResults":"Κανένα αποτέλεσμα","notFound.desc":"Με τις ακόλουθες υπηρεσίες μπορείτε να δημιουργήσετε τους δικούς σας θεματικούς χάρτες χωρίς γνώση προγραμματισμού. Ίσως κάποιος να έχει ήδη δημιουργήσει τον χάρτη που αναζητάτε ή μπορείτε εσείς να δημουργήσετε τον δικό σας θεματικό χάρτη.","list.more":"Περισσότερα","app.imageAlt":"Εικόνα από {{name}}.","app.install.obtainium":"Obtainium","app.getIt":"Λάβετε το στο","app.contribute":"Συνεισφορά","app.contribute.toSoftware":"Στην εφαρμογή","app.contribute.toSoftware.discuss":"Συζήτηση & μοιρασμός ιδεών","app.contribute.toSoftware.test":"Δοκιμή & παροχή ανατροφοδότησης","app.contribute.toSoftware.translate":"Βοήθεια στη μετάφραση","app.contribute.toSoftware.develop":"Ανάπτυξη κώδικα","app.contribute.toSoftware.document":"Βελτίωση της τεκμηρίωσης","app.community":"Κοινότητα","app.community.forum":"Φόρουμ","app.community.forumTag":"Ετικέτα φόρουμ","app.community.matrix":"Δωμάτιο Matrix","app.contribute.toData":"Στα δεδομένα OSM","app.contribute.toData.edit":"Επεξεργασία δεδομένων χάρτη","app.contribute.toData.resolve":"Επίλυση σημειώσεων χάρτη","app.contribute.toData.review":"Έλεγχος επεξεργασιών","app.contribute.toData.photos":"Ανέβασμα φωτογραφιών για χαρτογράφηση","app.contribute.toData.tracks":"Καταγραφή & διαμοιρασμός ιχνών","app.contribute.toCommunity":"Στην Κοινότητα","app.community.bluesky":"Bluesky","app.community.mastodon":"Mastodon","app.community.lemmy":"Lemmy","app.community.githubDiscussions":"Συζητήσεις GitHub","app.community.telegram":"Ομάδα Telegram","app.community.issueTracker":"Ζητήματα","app.community.slack":"Slack","app.community.reddit":"Reddit","app.source.description":"Πηγή από όπου προέρχονται αυτά τα δεδομένα.","app.source.date":"Τελευταία αλλαγή: {{date}}\\nΠρώτη ανάκτηση: {{added}}","score.result":"- {{description}} ({{points}} πόντοι)","app.contribute.toCommunity.welcome":"Καλωσορίστε νέους χρήστες","app.contribute.toData.qa":"Εκτέλεση διασφάλισης ποιότητας","score.results":"Σκορ Συνεισφοράς Κοινότητας\\nΣύνολο: {{total}} πόντοι\\n\\nΑπαιτούμενες ενέργειες για υψηλότερο σκορ:\\n{{notFulfilled}}\\n\\nΕκπληρώθηκαν:\\n{{fulfilled}}","score.criteria.displaysMaps":"η εφαρμογή προβάλει χάρτες ή δεδομένα OSM","score.criteria.openSource":"η εφαρμογή είναι ανοιχτού κώδικα","score.criteria.addingAndEditingPossible":"είναι εφικτή η προσθήκη και επεξεργασία ΣΕ, γραμμών, κλπ.","score.criteria.supportsContributions":"η εφαρμογή υποστηρίζει συνεισφορές (επεξεργασία, ανάλυση, κλπ.) προς το OpenStreetMap","score.criteria.copyleftLicense":"η άδεια χρήσης είναι τύπου copyleft (π.χ. GPL, ODbL, MPL, CC)","score.criteria.issueTracker":"υπάρχει παρακολούθηση ζητημάτων","score.criteria.lastUpdateYear":"η τελευταία ενημέρωση έγινε εντός του τελευταίου έτους","score.criteria.lastUpdateThreeMonths":"η τελευταία ενημέρωση έγινε εντός των τελευταίων 3 μηνών","score.criteria.translationContributions":"συνεισφορές στις μεταφράσεις είναι εφικτές","score.criteria.sourceCodeReference":"υπάρχει τεκμηριωμένη αναφορά προς τον πηγαίο κώδικα","score.criteria.multipleLanguages":"η εφαρμογή υποστηρίζει πολλαπλές γλώσσες (τουλάχιστον 3 γλώσσες)","score.criteria.tenLanguages":"η εφαρμογή είναι διαθέσιμη σε τουλάχιστον 10 γλώσσες","score.criteria.freeOfCharge":"η εφαρμογή είναι δωρεάν","score.criteria.multiplePlatforms":"η εφαρμογή είναι διαθέσιμη σε πολλαπλές πλατφόρμες (π.χ. Web, Android, iOS)","score.criteria.openSourceStores":"η εφαρμογή είναι προσβάσιμη μέσω καταστημάτων ανοιχτού-κώδικα (π.χ. F-Droid)","score.criteria.worldwideData":"η εφαρμογή καλύπτει παγκόσμια δεδομένα χάρτη","score.criteria.accessibilitySupported":"υποστηρίζεται η προσβασιμότητα (π.χ. συμβατότητα αναγνώστη οθόνης ή υπολογισμός διαδρομής για χρήστες με αναπηρικό αμαξίδιο)","score.criteria.communityChannelExists":"υπάρχει κανάλι επικοινωνίας για την κοινότητα (π.χ. φόρουμ, Mastodon)","score.criteria.openSourceChannel":"φιλοξενείται κανάλι επικοινωνίας σε πλατφόρμα ανοιχτού-κώδικα (π.χ. Matrix)","score.criteria.documentationLink":"υπάρχει διαθέσιμος σύνδεσμος προς την τεκμηρίωση της εφαρμογής","score.criteria.documentedMultiplePlatforms":"η εφαρμογή είναι τεκμηριωμένη σε πολλαπλές πλατφόρμες (π.χ. OSM-WIki, taginfo, Wikidata)","filter.resetFilters":"Αφαίρεση προρυθμισμένων φίλτρων","survey":"Με ενδιαφέρει η γνώμη σας. Βοηθήστε στον επανασχεδιασμό του OSM App Catalog. <u>Πάρτε μέρος στην έρευνα. Πατήστε εδώ.</u>"}');
-var locales_el_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(el_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/es.json
 const locales_es_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Muestra {{numberOfApps}} aplicaciones ordenadas por la última fecha de lanzamiento.","filter.category.focus":"Enfoque","filter.category.latest":"Última","wiki.none":"ninguno","category.all.description":"Muestra {{numberOfApps}} aplicaciones del wiki de OpenStreetMap, Wikidata y taginfo, ordenadas por puntuación de colaboración de la comunidad.","filter.language":"Idioma","category.focus.description":"Muestra diez aplicaciones de las páginas actualizadas más recientemente.","wiki.generatedByOsmAppsCatalog":"Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.","filter.category":"Categoría","category.mobile.description":"Muestra {{numberOfApps}} aplicaciones desarrolladas para dispositivos móviles o que admiten el uso sin conexión.","filter.category.all":"Todo","noResults":"Sin resultados","category.navigation.description":"Muestra {{numberOfApps}} las aplicaciones que admiten enrutamiento o navegación.","filter.category.navigation":"Encuentra tu camino","compare.group.header.general":"General","filter.coverage":"Cobertura","filter.category.edit":"Contribuir","compare.group.header.map":"Visualización del mapa","filter.platform":"Plataforma","filter.category.mobile":"Ir a","category.edit.description":"Muestra {{numberOfApps}} aplicaciones que permiten añadir, editar o analizar datos de OpenStreetMap o grabar geotracks.","relatedApps":"{{numberOfApps}} aplicaciones relacionadas","list.documentation":"Documentación","filter.topic":"Tema","app.website":"Página web","compare.share":"Compartir en wiki.openstreetmap.org","share.wiki":"Copiada la tabla {{group}} al portapapeles con formato para wiki.openstreetmap.org.","app.install.macAppStore":"Mac App Store","app.author":"Autor","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.microsoftApp":"Microsoft Store","list.moreInfos":"Información","app.sourceCode":"Código fuente","app.license":"Licencia","app.install.appleStore":"App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.asin":"Amazon Appstore","app.source":"Fuente","app.coverage":"Cobertura","compare.unknown":"desconocido","app.platforms":"Plataformas","wiki.generatedBy":"Creado por OSM Apps Catalog","app.price":"Precio","app.languages":"Idiomas","app.lastRelease":"Última edición","compare.group.header.monitoring":"Seguimiento","compare.group.header.rendering":"Renderizado","multilingual":"Multilingüe","compare.group.header.editing":"Editar","app.unmaintained":"(<icon/> Sin mantenimiento)","app.unmaintained.wiki":"({{icon}} Sin mantenimiento)","filter.search":"Buscar","compare.group.header.routing":"Enrutamiento","compare.group.header.navigating":"Navegando","compare.group.header.tracking":"Rastreo","compare.group.header.accessibility":"Accesibilidad","about":"Acerca de","notFound.desc":"Con los siguientes servicios puedes crear tus propios mapas temáticos sin conocimientos de programación. Puede que alguien ya haya creado el mapa que buscas, o puedes crear tu propio mapa temático.","notFound":"¿No encuentras lo que buscas?","app.source.description":"La fuente de donde provienen estos datos.","list":"Lista","compare":"Comparar","app.community.matrix":"Sala de Matrix","app.community.issueTracker":"Problemas","app.community.githubDiscussions":"Discusiones en GitHub","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community":"Comunidad","app.community.forumTag":"Foro","app.community.telegram":"Grupo de Telegram","app.community.mastodon":"Mastodon","app.community.forum":"Foro","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.criteria.translationContributions":"Son posibles colaboraciones a las traducciones","score.criteria.documentedMultiplePlatforms":"La aplicación está documentada en múltiples plataformas (por ejemplo, OSM-Wiki, taginfo, Wikidata)","score.criteria.addingAndEditingPossible":"Es posible añadir y editar POI, caminos, etc","score.criteria.multiplePlatforms":"La aplicación está disponible en múltiples plataformas (por ejemplo, Web, Android, iOS)","score.criteria.copyleftLicense":"La licencia es una licencia copyleft (por ejemplo, GPL, ODbL, MPL, CC)","score.criteria.freeOfCharge":"La aplicación es gratuita","score.criteria.lastUpdateThreeMonths":"La última actualización se produjo en los últimos 3 meses","score.criteria.lastUpdateYear":"La última actualización se produjo durante el último año","score.result":"- {{description}} ({{points}} puntos)","score.criteria.sourceCodeReference":"se documenta una referencia al código fuente","score.criteria.issueTracker":"Existe un rastreador de problemas","score.criteria.multipleLanguages":"La aplicación soporta varios idiomas (mínimo 3 idiomas)","score.criteria.tenLanguages":"La aplicación está disponible en al menos 10 idiomas","score.criteria.communityChannelExists":"Existe un canal para la comunidad (por ejemplo, foro, Mastodon)","score.criteria.documentationLink":"Hay un enlace a la documentación disponible","score.criteria.worldwideData":"La aplicación cubre datos de mapas de todo el mundo","score.criteria.openSource":"La aplicación es de código abierto","score.criteria.supportsContributions":"La aplicación admite colaboraciones (edición, análisis, etc.) a OpenStreetMap","score.criteria.openSourceStores":"La aplicación es accesible a través de tiendas de código abierto (por ejemplo, F-Droid)","score.criteria.openSourceChannel":"Un canal está alojado en plataformas de código abierto (por ejemplo, Matrix)","score.results":"Puntuación de la contribución comunitaria\\nTotal: {{total}} puntos\\n\\nAcciones requeridas para una puntuación más alta:\\n{{notFulfilled}}\\n\\nCumplido:\\n{{fulfilled}}","score.criteria.accessibilitySupported":"Se admite la accesibilidad (por ejemplo, compatibilidad con lectores de pantalla)","score.criteria.displaysMaps":"La aplicación muestra mapas o datos OSM"}');
-var ui_locales_es_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(locales_es_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/et.json
 const et_namespaceObject = /*#__PURE__*/JSON.parse('{"filter.topic":"Teema","filter.platform":"Platvorm","filter.language":"Keel","filter.coverage":"Piirkond","filter.category":"Menüü","filter.category.all":"Kõik","about":"Veebirakenduse teave","filter.search":"Otsi","app.install.obtainium":"Obtainium","app.community.forum":"Foorum","app.community.bluesky":"Bluesky","app.price":"Hind","wiki.generatedByOsmAppsCatalog":"Selle tabeli koostas [{{link}} OSMi rakenduste kataloog] {{date}}.","category.all.description":"{{numberOfApps}} <o>OpenStreetMap</o>pi kasutavat rakendust.","list":"Loend","compare":"Võrdle","app.license":"Litsents","app.source.description":"Nende andmete allikas.","compare.unknown":"teadmata","app.install.appleStore":"Apple App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.languages":"Keeled","app.coverage":"Katvus","share.wiki":"Kopeerisime „{{group}}“ tabeli lõikelauale arvestades vorminguga wiki.openstreetmap.org jaoks.","score.criteria.supportsContributions":"rakendus võimaldab teha kaastööd OpenStreetMapile (muutmine, analüüs, jne)","score.criteria.addingAndEditingPossible":"huvipunktide, joonte jne lisamine ning muutmine on võimalik","score.criteria.copyleftLicense":"kasutusel on vaba tarkvara litsents (näiteks GPL, ODbL, MPL, CC)","wiki.generatedBy":"Koostaja: OSMi rakenduste kataloog","score.results":"Panuse kogukonna arendusse\\nKokku: {{total}} punkti\\n\\nNeed tegevused tagaks suurema punktiskoori:\\n{{notFulfilled}}\\n\\nJuba korras:\\n{{fulfilled}}","filter.moreFilters":"Filtrid","filter.category.mobile":"Teele kaasa","filter.category.navigation":"Tee juhatamine","compare.group.header.rendering":"Esitusvalmendus","app.imageAlt":"Pilt rakendusest {{name}}.","app.website":"Veebisait","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","score.criteria.sourceCodeReference":"lähtekoodi viited on dokumenteeritud","score.criteria.issueTracker":"olemas on rakenduse veahaldus","filter.category.latest":"Viimatimuudetud","filter.category.focus":"Fookuses","filter.category.edit":"Täienda kaarti","notFound":"Kas sa ei leidnud, mida otsisid?","category.navigation.description":"{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.","category.edit.description":"{{numberOfApps}} rakendust, mis võimaldavad lisada, muuta või analüüsida OpenStreetMapi andmeid või salvestada teekondi.","relatedApps":"{{numberOfApps}} seotud rakendust","compare.group.header.general":"Üldist","noResults":"Tulemusi pole","compare.group.header.map":"Kaardivaade","compare.group.header.routing":"Teekonna koostamine","compare.group.header.tracking":"Radade loomine","compare.group.header.monitoring":"Monitooring","compare.group.header.editing":"Kaardi muutmine","compare.group.header.navigating":"Tee juhatamine","list.moreInfos":"Rakenduse teave","list.documentation":"Dokumentatsioon","app.install.macAppStore":"Mac App Store","app.platforms":"Platvormid","app.lastRelease":"Viimati uuendatud","app.install.microsoftApp":"Microsoft Store","app.unmaintained":"(<icon/> hüljatud projekt)","app.unmaintained.wiki":"({{icon}} hüljatud projekt)","app.author":"Arendaja","compare.share":"Jaga vikis wiki.openstreetmap.org","category.focus.description":"Kümme hiljuti uuendatud lehte.","category.latest.description":"{{numberOfApps}} rakendust järjestatuna viimase versiooni kuupäeva alusel.","category.mobile.description":"{{numberOfApps}} rakendust, mis on mõeldud kasutamiseks nutiseadmetes või toetavad vallasrežiimi.","list.more":"Detailne vaade","app.sourceCode":"Lähtekood","app.source":"Andmeallikas","score.result":"- {{description}} ({{points}} punkti)","score.criteria.displaysMaps":"rakendus kuvab kaartde või OSMi andmeid","score.criteria.openSource":"rakendus põhineb avatud lähtekoodil","score.criteria.lastUpdateThreeMonths":"rakenduse viimane versioon on välja antud möödunud 3 kuu jooksul","score.criteria.translationContributions":"rakendus on tõlgitav","score.criteria.multipleLanguages":"rakendus on antud välja mitmekeelsena (vähemalt 3 keelt)","score.criteria.tenLanguages":"rakendus on saadaval vähemalt kümnes keeles","score.criteria.freeOfCharge":"rakendus on tasuta saadaval","score.criteria.openSourceStores":"rakendus on saadaval avatud lähtekoodil põhinevate rakenduste poes (näiteks F-Droid)","score.criteria.multiplePlatforms":"rakendus on saadaval mitmetel platvormidel (näiteks veebis, Androidile ja iOSis)","score.criteria.accessibilitySupported":"rakendusel on ligipääsetavuse funktsionaalsus (näiteks ekraanilugeja või teekonna koostamine ratastoolis liikujatele)","score.criteria.communityChannelExists":"kogukonnal on olemas suhtluskanalid (näiteks foorum, jututuba või Mastodon)","score.criteria.worldwideData":"rakendus katab kaardiandmeid üle maailma","score.criteria.documentedMultiplePlatforms":"rakendus on dokumenteeritud mitmes keskkonnas (näiteks OSMi Viki, siltide andmekogu, Vikiandmed)","app.community":"Kogukond","app.community.forumTag":"Foorumi silt","app.community.matrix":"Matrixi jututuba","app.community.mastodon":"Mastodon","app.community.issueTracker":"Veahaldus","app.community.telegram":"Telegrami grupp","app.community.githubDiscussions":"GitHub Discussions","app.community.slack":"Slack","app.community.reddit":"Reddit","app.source.date":"Viimati muudetud: {{date}}\\nEsmane töötlus: {{added}}","wiki.none":"puudub","score.criteria.documentationLink":"olemas on viide dokumentatsioonile","score.criteria.openSourceChannel":"suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)","compare.group.header.accessibility":"Ligipääsetavus","multilingual":"Mitmekeelne","notFound.desc":"Järgnevate teenuste abil saad luua sulle meeldivaid kaarte ja selleks pole vaja programmeerimisoskusi. Keegi võib juba olla loonud sulle huvipakkuva kaardi ning kui ei, siis saad seda ise teha.","app.install.asin":"Amazon Appstore","score.criteria.lastUpdateYear":"rakenduse viimane versioon on välja antud möödunud aasta jooksul","app.contribute.toSoftware.discuss":"Osale keskusteludes ja jaga ideesid","app.contribute.toSoftware.test":"Testi ja jaga tagasisidet","app.contribute.toSoftware.develop":"Kirjuta lähtekoodi","app.contribute.toSoftware.document":"Täienda dokumentatsiooni","app.contribute.toSoftware":"Tarkvarale","app.contribute.toData":"OpenStreerMapi andmetele","app.contribute.toData.edit":"Muuda kaardiandmeid","app.contribute.toData.resolve":"Lahenda kaardimärkusi","app.contribute.toData.review":"Vaata üle kaardimuudatusi","app.contribute.toData.tracks":"Salvesta ja jaga GPS-radu","app.contribute.toData.qa":"Kontrolli kvaliteeti","app.contribute.toCommunity":"Kogukonnale","app.contribute.toCommunity.welcome":"Juhata teed uutele kasutajatele","app.contribute.toSoftware.translate":"Aita tõlkida","app.contribute":"Tee kaastööd","app.contribute.toData.photos":"Laadi üles kaardistamiseks vajalikke fotosid","select.search.placeholder":"Otsi","select.search.noResults":"Tulemusi pole","filter.showAll":"Näita kõiki","filter.preview":"Filtritingimused on:","category.all.description.filtered":"{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.","filter.preset":"Eelseadistatud filter sinu jaoks:","app.community.lemmy":"Lemmy","app.getIt":"Laadi siit","filter.resetFilters":"Eemalda eelseadistatud filtrid","survey":"Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>"}');
-var locales_et_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(et_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/fr.json
 const fr_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Affiche les {{numberOfApps}} applications classées par date de sortie.","filter.category.focus":"En vedette","filter.category.latest":"Les plus récents","wiki.none":"aucun","category.all.description":"Affichage de {{numberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","filter.language":"Langue","category.focus.description":"Affiche dix applications parmi les pages les plus récemment mises à jour.","wiki.generatedByOsmAppsCatalog":"Ce tableau a été généré par le [{{link}} Catalogue des applications OSM] le {{date}}.","filter.category":"Menu","category.mobile.description":"Affiche les {{numberOfApps}} applications développées pour les appareils mobiles ou qui permettent une utilisation hors ligne.","filter.category.all":"Tout","noResults":"Aucun résultat","category.navigation.description":"Affiche les {{numberOfApps}} applications qui prennent en charge le guidage ou la navigation.","filter.category.navigation":"Trouver son chemin","compare.group.header.general":"Général","filter.coverage":"Couverture","filter.category.edit":"Améliorer la carte","compare.group.header.map":"Affichage de carte","filter.platform":"Plateforme","filter.category.mobile":"À emporter","category.edit.description":"Affiche les {{numberOfApps}} applications qui permettent d\'ajouter, de modifier ou d\'analyser des données d\'OpenStreetMap ou d\'enregistrer des traces GPS.","relatedApps":"{{numberOfApps}} applications associées","app.website":"Site Internet","app.author":"Développé par","app.sourceCode":"Code source","app.license":"Licence","app.languages":"Langues","app.platforms":"Plateformes","app.community.reddit":"Reddit","compare.unknown":"inconnu","app.getIt":"Obtenir sur","app.community.forumTag":"Étiquette du forum","app.community.matrix":"Salon Matrix","app.community.bluesky":"Bluesky","app.community.mastodon":"Mastodon","app.community.issueTracker":"Problèmes","share.wiki":"Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.","score.criteria.supportsContributions":"l\'application prend en charge les contributions (édition, analyse, etc) à OpenStreetMap","score.criteria.addingAndEditingPossible":"l\'ajout et l\'édition de points d\'interêt, chemins, etc est possible","score.criteria.sourceCodeReference":"une référence au code source est documentée","score.criteria.multiplePlatforms":"l\'application est disponible sur plusieurs plateformes (par ex. Web, Android, iOS)","score.criteria.documentationLink":"un lien vers la documentation est disponible","app.community.lemmy":"Lemmy","score.results":"Score de contribution de la communauté\\nTotal : {{total}} points\\n\\nActions requises pour un meilleure score :\\n{{notFulfilled}}\\n\\nDéjà effectué :\\n{{fulfilled}}","score.criteria.openSourceChannel":"un canal est hébergé sur des plateformes open source (par ex. Matrix)","score.criteria.freeOfCharge":"l\'application est gratuite","score.criteria.openSourceStores":"l\'application est disponible sur des magasins open source (par ex. F-Droid)","score.criteria.accessibilitySupported":"l\'accessibilité est prise en charge (par ex. compatibilité avec les lecteurs d\'écran ou calcul d\'itinéraire pour les personnes en fauteuil roulant)","app.contribute.toData.review":"Examiner des modifications","filter.preset":"Les filtres présélectionnés sont :","app.contribute.toData":"Aux données OSM","app.contribute.toCommunity.welcome":"Accueillir les nouveaux utilisateurs","app.community":"Communauté","app.source.date":"Dernière modification : {{date}}\\nPremière analyse : {{added}}","app.price":"Prix","app.source.description":"Source des données.","compare.share":"Partager dans wiki.openstreetmap.org","app.contribute.toData.tracks":"Enregistrer et partager des traces","app.contribute.toData.qa":"S\'assurer de la qualité","app.contribute.toData.photos":"Importer des photos pour la cartographie","app.contribute.toCommunity":"À la communauté","score.result":"- {{description}} ({{points}} points)","score.criteria.displaysMaps":"l\'application affiche des cartes ou des données OSM","score.criteria.openSource":"l\'application est open source","score.criteria.copyleftLicense":"la licence est de type copyleft (par ex. GPL, ODbL, MPL, CC)","score.criteria.tenLanguages":"l\'application est disponible dans au moins 10 langues","score.criteria.multipleLanguages":"l\'application prend en charge plusieurs langues (3 langues minimum)","select.search.placeholder":"Rechercher","compare.group.header.monitoring":"Suivi","compare.group.header.editing":"Édition","compare.group.header.rendering":"Rendu","compare.group.header.accessibility":"Accessibilité","list.moreInfos":"Informations","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","app.unmaintained":"(<icon/> Non maintenu)","app.unmaintained.wiki":"({{icon}} Non maintenu)","app.coverage":"Couverture","app.contribute":"Contribuer","app.contribute.toData.edit":"Modifier les données de la carte","app.contribute.toData.resolve":"Résoudre des notes de carte","app.source":"Source","score.criteria.lastUpdateThreeMonths":"la dernière mise à jour a eu lieu dans les 3 derniers mois","select.search.noResults":"Aucun résultat","filter.showAll":"Afficher tout","filter.preview":"Les filtres définis sont :","category.all.description.filtered":"{{numberOfApps}} sur {{totalNumberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","compare.group.header.routing":"Guidage","compare.group.header.navigating":"Navigation","list.documentation":"Documentation","list.more":"Plus","compare.group.header.tracking":"Traçage","app.install.asin":"Amazon Appstore","multilingual":"Multilingue","app.imageAlt":"Image de {{name}}.","app.install.googlePlay":"Google Play","app.contribute.toSoftware":"Au logiciel","app.install.fDroid":"F-Droid","app.install.huaweiAppGallery":"Huawei App Gallery","app.contribute.toSoftware.document":"Améliorer la documentation","app.contribute.toSoftware.translate":"Aider à traduire","app.contribute.toSoftware.develop":"Contribuer au code","app.community.forum":"Forum","app.community.githubDiscussions":"Discussions GitHub","score.criteria.issueTracker":"il existe un outil de suivi des problèmes","score.criteria.communityChannelExists":"un canal de communication existe pour la communauté (par ex. forum, Mastodon)","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Dernière version","about":"À propos","filter.moreFilters":"Filtres","filter.topic":"Sujet","notFound":"Vous n\'avez pas trouvé ce que vous cherchiez ?","score.criteria.lastUpdateYear":"la dernière mise à jour à eu lieu dans l\'année","app.community.telegram":"Groupe Telegram","list":"Liste","app.contribute.toSoftware.test":"Tester et faire des retours","app.community.slack":"Slack","notFound.desc":"Les services suivants vous permettent de créer vos propres cartes thématiques sans aucune connaissance en programmation. Il se peut que quelqu\'un ait déjà créé la carte que vous recherchez, ou vous pouvez créer votre propre carte thématique.","app.contribute.toSoftware.discuss":"Discuter et partager des idées","score.criteria.worldwideData":"l\'application couvre des données cartographiques à l\'échelle mondiale","compare":"Comparer","score.criteria.documentedMultiplePlatforms":"l\'application est documentée sur plusieurs plateformes (par ex. Wiki OSM, taginfo, Wikidata)","filter.search":"Rechercher","wiki.generatedBy":"Généré par le Catalogue des applications OSM","score.criteria.translationContributions":"il est possible de contribuer aux traductions","filter.resetFilters":"Supprimer les filtres prédéfinis","survey":"Votre avis m\'intéresse. Aidez-nous à repenser le catalogue d\'applications OSM. <u>Participez à l\'enquête. Cliquez ici.</u>"}');
-var locales_fr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(fr_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/hu.json
 const hu_namespaceObject = /*#__PURE__*/JSON.parse('{"filter.category.navigation":"Útvonaltervezés","filter.category.edit":"Térképjavítás","category.all.description":"{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás.","category.focus.description":"Tíz alkalmazás a legutóbb frissített oldalakról.","category.latest.description":"{{numberOfApps}} alkalmazás az utolsó kiadás dátuma szerint rendezve.","category.mobile.description":"{{numberOfApps}} alkalmazás amelyet mobileszközre fejlesztettek vagy offline is használhatók.","category.edit.description":"{{numberOfApps}} alkalmazás, amely támogatja OpenStreetMap-adatok felvitelét, szerkesztését vagy elemzését, illetve nyomvonalak rögzítését.","category.navigation.description":"{{numberOfApps}} alkalmazás, amely támogat útvonaltervezést vagy navigációt.","relatedApps":"{{numberOfApps}} kapcsolódó alkalmazás","compare.group.header.map":"Térkép-megjelenítés","compare.group.header.routing":"Útvonaltervezés","compare.group.header.navigating":"Navigáció","notFound":"Nem találod, amit keresel?","notFound.desc":"A következő szolgáltatásokkal programozási ismeretek nélkül is létrehozhatsz saját tematikus térképet. Az is lehet, hogy valaki már el is készítette az általad keresett térképet, de saját tematikus térképet is létrehozhatsz.","compare.group.header.general":"Általános","compare.group.header.tracking":"Nyomvonal rögzítése","compare.group.header.monitoring":"Figyelemmel kísérés","compare.group.header.editing":"Szerkesztés","compare.group.header.rendering":"Térképkirajzolás","compare.group.header.accessibility":"Akadálymentesség","list.documentation":"Dokumentáció","list.moreInfos":"Információk","app.website":"Weboldal","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.platforms":"Platformok","app.lastRelease":"Legutóbbi kiadás","app.unmaintained":"(<icon/> nincs karbantartva)","app.unmaintained.wiki":"({{icon}} nincs karbantartva)","app.languages":"Nyelvek","app.coverage":"Terület","app.author":"Fejlesztő","app.license":"Licenc","app.sourceCode":"Forráskód","app.source":"Forrás","app.source.description":"Ezen adatok forrása.","compare.share":"Megosztás a wiki.openstreetmap.org oldalon","compare.unknown":"ismeretlen","share.wiki":"{{group}} táblázat kimásolva a vágólapra, a wiki.openstreetmap.org számára formázva.","wiki.generatedBy":"Létrehozta: OSM Apps Catalog","wiki.none":"nincs","wiki.generatedByOsmAppsCatalog":"Ezt a táblázatot az [{{link}} OSM Apps Catalog] hozta létre ({{date}}).","about":"Névjegy","filter.search":"Keresés","filter.topic":"Téma","filter.platform":"Platform","filter.language":"Nyelv","filter.coverage":"Terület","filter.category":"Menü","filter.category.all":"Összes","filter.category.focus":"Fókusz","filter.category.latest":"Legfrissebb","filter.category.mobile":"Mobil","noResults":"Nincs találat","multilingual":"Többnyelvű","app.price":"Ár","app.community":"Közösség","app.community.mastodon":"Mastodon","app.community.forumTag":"Fórumcímke","app.community.githubDiscussions":"GitHub megbeszélések","app.community.slack":"Slack","app.community.telegram":"Telegram csoport","app.community.reddit":"Reddit","list":"Lista","compare":"Összehasonlítás","app.community.matrix":"Mátrix szoba","app.community.issueTracker":"Problémák","app.community.forum":"Fórum","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.result":"- {{description}} ({{points}} pont)","score.criteria.openSourceChannel":"egy csatorna nyílt forráskódú platformon található (pl. Matrix)","score.criteria.lastUpdateThreeMonths":"az elmúlt 3 hónapban frissült","score.criteria.supportsContributions":"az alkalmazás támogatja az OpenStreetMapen történő közreműködést (szerkesztés, elemzés stb.)","score.criteria.copyleftLicense":"a szerzői jogok formája „copyleft” licenc (pl. GPL, ODbL, MPL vagy CC)","score.criteria.lastUpdateYear":"az elmúlt év során frissült","score.criteria.translationContributions":"közre lehet működni a fordításban","score.criteria.freeOfCharge":"az alkalmazás ingyenes","score.criteria.multiplePlatforms":"az alkalmazás több platformon is rendelkezésre áll (pl. Web, Android, iOS)","score.criteria.worldwideData":"az alkalmazás az egész világ térképadataira kiterjed","score.criteria.accessibilitySupported":"akadálymentesség támogatott (pl. képernyőolvasó-kompbatilitás vagy útvonaltervezés kerekesszékeseknek)","score.criteria.communityChannelExists":"a közösségnek van kommunikációs csatornája (pl. egy fórum vagy Mastodon)","score.results":"Közösségi hozzájárulási eredmény\\nÖsszesen: {{total}} pont\\n\\nMagasabb pontszámhoz szükséges intézkedések:\\n{{notFulfilled}}\\n\\nTeljesült:\\n{{fulfilled}}","score.criteria.addingAndEditingPossible":"lehet érdekes pontokat (POI-kat), vonalakat stb. felvenni és szerkeszteni","score.criteria.displaysMaps":"az alkalmazás megjelenít térképeket vagy OSM-adatokat","score.criteria.openSource":"az alkalmazás nyílt forráskódú","score.criteria.sourceCodeReference":"dokumentálva van a forráskódra való hivatkozás","score.criteria.issueTracker":"van hozzá problémakövető (issue tracker)","score.criteria.multipleLanguages":"az alkalmazás több (legalább 3) nyelvet támogat","score.criteria.tenLanguages":"az alkalmazás legalább 10 nyelven elérhető","score.criteria.openSourceStores":"az alkalmazás nyílt forráskódú áruházakból is letölthető (pl. F-Droid)","score.criteria.documentationLink":"rendelkezésre áll egy link a dokumentációra","score.criteria.documentedMultiplePlatforms":"az alkalmazás több platformon is dokumentálva van (pl. OSM Wiki, taginfo, Wikidata)","app.source.date":"Legutóbbi módosítás: {{date}}\\nElső automatikus észlelés (crawl): {{added}}","filter.moreFilters":"Szűrők","app.imageAlt":"Kép forrása: {{name}}.","list.more":"Tovább","select.search.noResults":"Nincs találat","app.contribute.toSoftware.develop":"Kód fejlesztése","app.contribute.toSoftware.test":"Tesztelés és visszajelzés","app.contribute.toData":"Az OSM-adatokhoz","app.contribute.toSoftware.document":"Dokumentáció javítása","app.contribute.toSoftware.translate":"Segítség a fordításban","app.contribute.toData.resolve":"Térképjegyzetek megoldása","app.contribute.toData.review":"Szerkesztések felülvizsgálata","app.contribute.toData.photos":"Fényképek feltöltése térképezéshez","app.contribute.toData.tracks":"Nyomvonal rögzítése és megosztása","app.contribute.toData.qa":"Minőségbiztosítás","app.contribute.toCommunity":"A közösséghez","app.contribute.toCommunity.welcome":"Új felhasználók üdvözlése","select.search.placeholder":"Keresés","app.contribute":"Közreműködés","app.contribute.toSoftware":"A szoftverhez","app.contribute.toSoftware.discuss":"Ötletek megvitatása és megosztása","app.contribute.toData.edit":"Térképadatok szerkesztése","filter.preview":"A szűrő beállítása:","category.all.description.filtered":"{{numberOfApps}} <o>OpenStreetMapet</o> használó alkalmazás (összes: {{totalNumberOfApps}})","filter.showAll":"Összes megjelenítése","app.getIt":"Beszerezhető itt:","app.community.lemmy":"Lemmy","filter.preset":"Az előre beállított szűrő:"}');
-var locales_hu_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(hu_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/id.json
 const id_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Situs web","app.sourceCode":"Kode sumber","app.license":"Lisensi","filter.language":"Bahasa","app.languages":"Bahasa","filter.category.focus":"Fokus","filter.search":"Cari","about":"Tentang","filter.platform":"Platform","filter.category":"Kategori","filter.category.latest":"Terbaru","filter.topic":"Topik","filter.coverage":"Cakupan","filter.category.all":"Semua","relatedApps":"{{jumlahAplikasi}} aplikasi terkait","category.mobile.description":"Menampilkan aplikasi {{numberOfApps}} yang dikembangkan untuk perangkat seluler atau yang mendukung penggunaan offline.","category.focus.description":"Menampilkan sepuluh aplikasi dari halaman yang paling baru diperbarui.","category.navigation.description":"Menampilkan {{numberOfApps}} aplikasi yang mendukung perutean atau navigasi.","category.edit.description":"Menampilkan aplikasi {{numberOfApps}} yang mendukung penambahan, pengeditan, atau analisis data OpenStreetMap atau perekaman geolokasi.","filter.category.mobile":"Untuk pergi","filter.category.navigation":"Temukan jalan Anda","filter.category.edit":"Kontribusi","category.all.description":"Menampilkan {{numberOfApps}} aplikasi yang ditemukan di wiki OpenStreetMap, Wikidata, dan taginfo secara acak.","category.latest.description":"Menampilkan {{numberOfApps}} aplikasi yang diurutkan berdasarkan tanggal rilis terakhir."}');
-var locales_id_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(id_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/it.json
 const it_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Sito web","app.author":"Autore","app.sourceCode":"Codice sorgente","app.license":"Licenza","filter.language":"Linguaggi","filter.platform":"Piattaforme","app.languages":"Linguaggio","app.platforms":"Piattaforma","app.community":"Comunità","app.community.forum":"Forum","app.community.mastodon":"Mastodon","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.asin":"Amazon Appstore","app.contribute.toSoftware.translate":"Aiuta a tradurre","app.install.fDroid":"F-Droid","compare.group.header.accessibility":"Accessibilità","app.install.googlePlay":"Google Play","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","select.search.placeholder":"Cerca","select.search.noResults":"Nessun risultato","list.moreInfos":"Informazioni","filter.showAll":"Mostra tutti","app.imageAlt":"Immagine da {{name}}.","app.install.huaweiAppGallery":"Huawei App Gallery","app.community.bluesky":"Bluesky","list":"Lista","filter.search":"Cerca","filter.moreFilters":"Filtri","filter.coverage":"Copertura","filter.category":"Menù","filter.category.edit":"Migliora la mappa","notFound":"Non hai trovato quello che stai cercando?","noResults":"Nessun risultato","compare.group.header.general":"Generale","compare":"Compara","filter.preview":"Il filtro è impostato per:","filter.category.all":"Tutti","filter.category.focus":"Fissa","filter.category.latest":"Più recenti","category.all.description":"{{numberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} di {{totalNumberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.","category.focus.description":"Dieci applicazioni che sono le piu recentemente aggiornate","category.latest.description":"{{numberOfApps}} applicazioni filtrate per last release date.","category.mobile.description":"{{numberOfApps}} applicazioni sviluppate per dispositivi mobili o che supportano l\'uso offline.","list.more":"Altro","list.documentation":"Documentazione","multilingual":"Multilingua","compare.group.header.monitoring":"Monitoraggio","compare.group.header.navigating":"Navigazione","app.contribute.toSoftware.discuss":"Discutere e condividere idee","app.contribute.toSoftware.document":"Migliora la documentazione","app.unmaintained.wiki":"({{icon}} Non mantenuto)","filter.topic":"Argomento","compare.group.header.tracking":"Tracciamento","app.lastRelease":"Ultimo rilascio","app.unmaintained":"(<icon/> Non mantenuto)","app.contribute.toSoftware.develop":"Sviluppare codice","app.contribute.toData.review":"Revisionare le modifiche","app.contribute.toData.tracks":"Registrare e condividere tracce"}');
-var locales_it_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(it_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ja.json
 const ja_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"ウェブサイト","app.sourceCode":"ソースコード","app.license":"ライセンス","filter.platform":"動作環境","filter.language":"言語","app.platforms":"動作環境","app.languages":"言語"}');
-var locales_ja_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ja_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ko.json
 const ko_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"웹 사이트","app.author":"제작","app.sourceCode":"소스 코드","app.license":"라이선스","filter.platform":"플랫폼","filter.language":"언어","app.platforms":"플랫폼","app.languages":"언어"}');
-var locales_ko_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ko_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/nb_NO.json
 const nb_NO_namespaceObject = /*#__PURE__*/JSON.parse('{"compare.group.header.general":"Generelt","app.website":"Nettsted","app.sourceCode":"Kildekode","app.license":"Lisens","filter.platform":"Platform","filter.language":"Språk","app.languages":"Språk"}');
-var locales_nb_NO_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(nb_NO_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/pl.json
 const pl_namespaceObject = /*#__PURE__*/JSON.parse('{"category.latest.description":"Pokaż {{numberOfApps}} aplikacji posortowanych według daty wydania.","filter.category.focus":"Skupienie","filter.category.latest":"Ostatnie","wiki.none":"brak","filter.language":"Język","filter.category":"Kategoria","filter.category.all":"Wszystko","noResults":"Brak wyników","category.navigation.description":"Pokaż {{numberOfApps}} aplikacji, które wspierają wyznaczanie trasy i nawigację.","filter.category.navigation":"Znajdź swoją drogę","compare.group.header.general":"Ogólne","filter.category.edit":"Pomóż w rozwoju projektu","compare.group.header.map":"Wyświetlanie mapy","filter.platform":"Platforma","relatedApps":"{{numberOfApps}} powiązanych aplikacji","app.website":"Strona internetowa","app.author":"Autor","app.sourceCode":"Kod źródłowy","app.license":"Licencja","app.languages":"Języki","app.platforms":"Platformy"}');
-var locales_pl_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(pl_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/pt.json
 const pt_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Site da Internet","app.author":"Autor","app.sourceCode":"Código fonte","app.license":"Licença","filter.platform":"Plataforma","filter.language":"Linguagem","app.languages":"Linguagens","app.platforms":"Plataformas"}');
-var locales_pt_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(pt_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ru.json
 const ru_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","app.website":"веб-сайт","app.sourceCode":"исходный код","app.license":"лицензия","filter.language":"язык","filter.platform":"платформa","app.platforms":"платформ","app.languages":"языки"}');
-var locales_ru_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ru_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/sv.json
 const sv_namespaceObject = /*#__PURE__*/JSON.parse('{"about":"Om","list":"Lista","compare":"Jämför","filter.search":"Sök","filter.moreFilters":"Filter","filter.showAll":"Visa alla","filter.preview":"Filtret är inställt på:","filter.preset":"Filtret är förinställt för dig:","filter.topic":"Ämne","filter.platform":"Plattform","filter.language":"Språk","filter.coverage":"Täckning","filter.category":"Meny","filter.category.all":"Allt","filter.category.focus":"Fokus","filter.category.latest":"Senaste","filter.category.mobile":"Att gå","filter.category.navigation":"Hitta din väg","filter.category.edit":"Förbättra kartan","category.all.description":"{{numberOfApps}} appar som använder <o>OpenStreetMap </o>.","category.all.description.filtered":"{{numberOfApps}} av {{totalNumberOfApps}} appar som använder <o>OpenStreetMap </o>.","category.focus.description":"Tio appar från de senaste uppdaterade sidorna.","category.latest.description":"{{numberOfApps}} appar sorterade efter senaste releasedatum.","category.mobile.description":"{{numberOfApps}} appar som utvecklats för mobila enheter eller som stöder offline-användning.","category.navigation.description":"{{numberOfApps}} appar som stöder routing eller navigering.","category.edit.description":"{{numberOfApps}} appar som stöder att lägga till, redigera eller analysera OpenStreetMap-data eller spela in geotracks.","relatedApps":"{{numberOfApps}} relaterade appar","notFound":"Hittade inte vad du letar efter?","notFound.desc":"Med följande tjänster kan du skapa dina egna temakartor utan programmeringskunskaper. Kanske har någon redan skapat kartan du letar efter, eller så kan du skapa din egen temakarta.","noResults":"Inga resultat","select.search.placeholder":"Sök","select.search.noResults":"Inga resultat","compare.group.header.general":"Generell","compare.group.header.routing":"Ruttplanering","compare.group.header.navigating":"Navigering","compare.group.header.tracking":"Spårning","compare.group.header.monitoring":"Övervakning","compare.group.header.editing":"Redigering","compare.group.header.rendering":"Rendering","compare.group.header.accessibility":"Tillgänglighet","multilingual":"Flerspråkig","list.documentation":"Dokumentation","list.more":"Mer","list.moreInfos":"Information","app.imageAlt":"Bild från {{name}}.","app.getIt":"Få det på","app.website":"Webbplats","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.obtainium":"Obtainium","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.platforms":"Plattformar","app.lastRelease":"Senaste utgåvan","app.unmaintained":"(<icon/> Ounderhållet)","app.unmaintained.wiki":"({{icon}} Ounderhållet)","app.languages":"Språk","app.coverage":"Täckning","app.contribute":"Bidrag","app.contribute.toSoftware":"Till programvara","app.contribute.toSoftware.discuss":"Diskutera och dela idéer","app.contribute.toSoftware.test":"Test & ge feedback","app.contribute.toSoftware.translate":"Hjälp översätta","app.contribute.toSoftware.develop":"Utveckla kod","app.contribute.toSoftware.document":"Förbättra dokumentationen","app.contribute.toData":"För OSM-data","app.contribute.toData.edit":"Redigera kartdata","app.contribute.toData.resolve":"Lös kartnoteringar","app.contribute.toData.review":"Granska redigeringar","app.contribute.toData.photos":"Ladda upp bilder för kartläggning","app.contribute.toData.tracks":"Spela in och dela spår","app.contribute.toData.qa":"Utför kvalitetssäkring","app.contribute.toCommunity":"Till gemenskap","app.contribute.toCommunity.welcome":"Välkomna nya användare","app.community":"Gemenskap","app.community.forum":"Forumet","app.community.forumTag":"Forumtagg","app.community.matrix":"Matrisrummet","app.community.bluesky":"Bluesky","app.community.issueTracker":"Frågor","app.community.githubDiscussions":"GitHub diskussioner","app.community.telegram":"Telegramgrupp","app.community.slack":"Slack","app.community.reddit":"Reddit","app.author":"Utvecklat av","app.price":"Pris","app.license":"Licens","app.sourceCode":"Källkod","app.source":"Källa","app.source.date":"Sista förändringen: {{date}}\\nFörsta crawled: {{added}}","app.source.description":"Källa där dessa data kommer ifrån.","compare.share":"Dela i wiki.openstreetmap.org","compare.unknown":"okänd","share.wiki":"Kopierad {{group}} tabell till klippbordet formaterat för wiki.openstreetmap.org.","wiki.generatedBy":"Genererad av OSM Apps Catalog","wiki.none":"ingen","wiki.generatedByOsmAppsCatalog":"Denna tabell genererades av [{{link}} OSM Apps Catalog] på {{date}}.","score.results":"Community Contribution Score\\nTotalt: {{total}} poäng\\n\\nÅtgärder som krävs för en högre poäng:\\n{{notFulfilled}}\\n\\nFulfylld:\\n{{fulfilled}}","score.result":"{{description}} ({{points}} poäng)","score.criteria.supportsContributions":"appen stöder bidrag (redigering, analys etc.) till OpenStreetMap","score.criteria.addingAndEditingPossible":"lägga till och redigera POI, sätt, etc., är möjligt","score.criteria.displaysMaps":"appen visar kartor eller OSM-data","score.criteria.openSource":"appen är öppen källkod","score.criteria.copyleftLicense":"licensen är en copyleft licens (t.ex. GPL, ODbL, MPL, CC)","score.criteria.sourceCodeReference":"en hänvisning till källkoden dokumenteras","score.criteria.issueTracker":"ett problem tracker existerar","score.criteria.lastUpdateYear":"den senaste uppdateringen inträffade under det senaste året","score.criteria.lastUpdateThreeMonths":"den senaste uppdateringen inträffade inom de senaste 3 månaderna","score.criteria.translationContributions":"bidrag till översättningar är möjliga","score.criteria.multipleLanguages":"appen stöder flera språk (min. 3 språk)","score.criteria.tenLanguages":"appen är tillgänglig på minst 10 språk","score.criteria.freeOfCharge":"appen är gratis","score.criteria.multiplePlatforms":"appen är tillgänglig på flera plattformar (t.ex. Web, Android, iOS)","score.criteria.openSourceStores":"appen är tillgänglig via open-source-butiker (t.ex. F-Droid)","score.criteria.worldwideData":"appen täcker globala kartdata","score.criteria.accessibilitySupported":"tillgänglighet stöds (t.ex. skärmläsarkompatibilitet eller ruttberäkning för rullstolsanvändare)","score.criteria.communityChannelExists":"en kommunikationskanal för samhället finns (t.ex. forum, Mastodon)","score.criteria.openSourceChannel":"en kanal finns på open-source plattformar (t.ex. Matrix)","score.criteria.documentationLink":"en dokumentationslänk är tillgänglig","score.criteria.documentedMultiplePlatforms":"appen är dokumenterad på flera plattformar (t.ex. OSM-Wiki, taginfo, Wikidata)","compare.group.header.map":"Kartvisning","filter":{"resetFilters":"Ta bort förinställda filter"},"app.community.mastodon":"Mastodont","app.community.lemmy":"Lemmy","survey":"Jag är intresserad av din åsikt. Hjälp till att omforma OSM-appkatalogen. <u>Delta i undersökningen. Klicka här.</u>"}');
-var locales_sv_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(sv_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ta.json
 const ta_namespaceObject = /*#__PURE__*/JSON.parse('{"score.results":"சமூக பங்களிப்பு மதிப்பெண்\\n மொத்தம்: {{total}} புள்ளிகள்\\n\\n அதிக மதிப்பெண்ணுக்கு தேவையான நடவடிக்கைகள்:\\n {{notFulfilled}}}\\n\\n நிறைவேறியது:\\n {{fulfilled}}}","score.criteria.supportsContributions":"OpenStreetMap க்கு பங்களிப்புகளை (எடிட்டிங், பகுப்பாய்வு போன்றவை) பயன்பாடு ஆதரிக்கிறது","score.criteria.sourceCodeReference":"மூலக் குறியீட்டைப் பற்றிய குறிப்பு ஆவணப்படுத்தப்பட்டுள்ளது","score.criteria.lastUpdateYear":"கடைசி புதுப்பிப்பு கடந்த ஆண்டுக்குள் நிகழ்ந்தது","score.criteria.lastUpdateThreeMonths":"கடைசி புதுப்பிப்பு கடந்த 3 மாதங்களுக்குள் நிகழ்ந்தது","score.criteria.translationContributions":"மொழிபெயர்ப்புகளுக்கான பங்களிப்புகள் சாத்தியமாகும்","score.criteria.accessibilitySupported":"அணுகல் ஆதரிக்கப்படுகிறது (எ.கா. திரை ரீடர் பொருந்தக்கூடிய தன்மை அல்லது சக்கர நாற்காலி பயனர்களுக்கான பாதை கணக்கீடு)","score.criteria.communityChannelExists":"சமூகத்திற்கான தகவல்தொடர்பு சேனல் உள்ளது (எ.கா. மன்றம், மாச்டோடன்)","score.criteria.openSourceChannel":"திறந்த மூல தளங்களில் (எ.கா. மேட்ரிக்ச்) ஒரு சேனல் புரவலன் செய்யப்படுகிறது","about":"பற்றி","list":"பட்டியல்","compare":"ஒப்பிடுக","filter.search":"தேடல்","filter.moreFilters":"வடிப்பான்கள்","filter.topic":"தலைப்பு","filter.coverage":"பாதுகாப்பு","filter.category":"பட்டியல்","filter.category.all":"அனைத்தும்","filter.category.focus":"குவி","filter.category.latest":"அண்மைக் கால","filter.category.mobile":"செல்ல","filter.category.navigation":"உங்கள் வழியைக் கண்டறியவும்","filter.category.edit":"வரைபடத்தை மேம்படுத்தவும்","category.focus.description":"மிக அண்மைக் காலத்தில் புதுப்பிக்கப்பட்ட பக்கங்களிலிருந்து பத்து பயன்பாடுகள்.","category.latest.description":"{{numberOfApps}} பயன்பாடுகள் கடைசி வெளியீட்டு தேதியால் வரிசைப்படுத்தப்பட்டன.","category.all.description":"திற {{numberOfApps}} திற <o>திறந்தவீதிவரைபடம்</o> ஐப் பயன்படுத்தும் பயன்பாடுகள், சமூக பங்களிப்பு மதிப்பெண்ணால் வரிசைப்படுத்தப்படுகின்றன.","category.navigation.description":"{{numberOfApps}} ரூட்டிங் அல்லது வழிசெலுத்தலை ஆதரிக்கும் பயன்பாடுகள்.","category.edit.description":"திற {{numberOfApps}} opentretmap தரவைச் சேர்ப்பது, திருத்துதல் அல்லது பகுப்பாய்வு செய்தல் அல்லது சியோட்ராக்களை பதிவுசெய்தல் ஆகியவற்றை ஆதரிக்கும் பயன்பாடுகள்.","relatedApps":"{{numberOfApps}} தொடர்புடைய பயன்பாடுகள்","notFound":"நீங்கள் தேடுவதைக் கண்டுபிடிக்கவில்லை?","noResults":"முடிவுகள் இல்லை","compare.group.header.general":"பொது","compare.group.header.map":"வரைபட காட்சி","compare.group.header.routing":"ரூட்டிங்","compare.group.header.navigating":"வழிசெலுத்தல்","compare.group.header.tracking":"கண்காணிப்பு","compare.group.header.monitoring":"கண்காணிப்பு","compare.group.header.editing":"திருத்துதல்","compare.group.header.rendering":"வழங்குதல்","multilingual":"பன்மொழி","list.documentation":"ஆவணப்படுத்துதல்","list.more":"மேலும்","list.moreInfos":"தகவல்கள்","app.imageAlt":"{{name}} இருந்து இலிருந்து படம்.","app.languages":"மொழிகள்","app.community.mastodon":"மாச்டோடன்","app.community.issueTracker":"சிக்கல்கள்","app.community.githubDiscussions":"அறிவிலிமையம் விவாதங்கள்","app.community.reddit":"ரெடிட்","app.source.date":"கடைசி மாற்றம்: {{date}}\\nமுதலில் ஊர்ந்து சென்றது: {{added}}","wiki.generatedByOsmAppsCatalog":"இந்த அட்டவணை {{link}} இல் [{{date}} osm பயன்பாடுகளின் பட்டியல்] ஆல் உருவாக்கப்பட்டது.","score.result":"- {{description}} ({{points}} புள்ளிகள்)","score.criteria.copyleftLicense":"உரிமம் ஒரு நகல் உரிமம் (எ.கா., சிபிஎல், ஓடிபிஎல், எம்.பி.எல், சிசி)","score.criteria.addingAndEditingPossible":"POI கள், வழிகள் போன்றவற்றைச் சேர்ப்பது மற்றும் திருத்துவது சாத்தியமாகும்","score.criteria.displaysMaps":"பயன்பாடு வரைபடங்கள் அல்லது OSM தரவைக் காட்டுகிறது","score.criteria.openSource":"பயன்பாடு திறந்த மூலமாகும்","score.criteria.issueTracker":"ஒரு சிக்கல் டிராக்கர் உள்ளது","score.criteria.multipleLanguages":"பயன்பாடு பல மொழிகளை ஆதரிக்கிறது (நிமிடம் 3 மொழிகள்)","score.criteria.tenLanguages":"பயன்பாடு குறைந்தது 10 மொழிகளில் கிடைக்கிறது","score.criteria.freeOfCharge":"பயன்பாடு இலவசம்","score.criteria.multiplePlatforms":"பயன்பாடு பல தளங்களில் கிடைக்கிறது (எ.கா. வலை, ஆண்ட்ராய்டு, iOS)","score.criteria.openSourceStores":"திறந்த-மூல கடைகள் வழியாக (எ.கா. எஃப்-டிராய்டு) பயன்பாட்டை அணுகலாம்","score.criteria.worldwideData":"பயன்பாடு உலகளாவிய வரைபடத் தரவை உள்ளடக்கியது","score.criteria.documentationLink":"ஆவணப்படுத்தல் இணைப்பு கிடைக்கிறது","score.criteria.documentedMultiplePlatforms":"பயன்பாடு பல தளங்களில் ஆவணப்படுத்தப்பட்டுள்ளது (எ.கா. ஓஎச்எம்-விக்கி, டாகின்ஃபோ, விக்கிடேட்டா)","app.community":"சமூகம்","app.community.forum":"மன்றம்","app.community.forumTag":"மன்ற நாள்","app.community.matrix":"அணி அறை","filter.platform":"இயங்குதளம்","filter.language":"மொழி","category.mobile.description":"Mobile {{numberOfApps}} மொபைல் சாதனங்களுக்காக உருவாக்கப்பட்ட பயன்பாடுகள் அல்லது இணைப்பில்லாத பயன்பாட்டை ஆதரிக்கின்றன.","notFound.desc":"பின்வரும் சேவைகள் மூலம் எந்த நிரலாக்க அறிவும் இல்லாமல் உங்கள் சொந்த கருப்பொருள் வரைபடங்களை உருவாக்கலாம். நீங்கள் தேடும் வரைபடத்தை யாராவது ஏற்கனவே உருவாக்கியிருக்கலாம் அல்லது உங்கள் சொந்த கருப்பொருள் வரைபடத்தை உருவாக்கலாம்.","compare.group.header.accessibility":"அணுகல்","app.website":"வலைத்தளம்","app.install.asin":"அமேசான் ஆப்ச்டோர்","app.install.fDroid":"எஃப்-டிராய்டு","app.install.googlePlay":"கூகிள் ப்ளே","app.install.huaweiAppGallery":"அவாய் ஆப் கேலரி","app.install.obtainium":"பெறுங்கள்","app.install.appleStore":"ஆப்பிள் ஆப் கடை","app.install.macAppStore":"மேக் ஆப் கடை","app.install.microsoftApp":"நுண்மென் கடை","app.platforms":"தளங்கள்","app.lastRelease":"கடைசி வெளியீடு","app.unmaintained":"(<icon/> பராமரிக்கப்படாதது)","app.unmaintained.wiki":"({{icon}} பராமரிக்கப்படாதது)","app.coverage":"பாதுகாப்பு","app.community.bluesky":"ப்ளூச்கி","app.community.telegram":"தந்தி குழு","app.community.slack":"மந்தமான","app.author":"உருவாக்கியது","app.price":"விலை","app.license":"உரிமம்","app.sourceCode":"மூலக் குறியீடு","app.source":"மூலம்","app.source.description":"இந்த தரவு எங்கிருந்து வருகிறது என்பதற்கான மூல.","compare.share":"Wiki.openstreetmap.org இல் பங்கு","compare.unknown":"தெரியவில்லை","share.wiki":"Wiki.openstreetmap.org க்காக வடிவமைக்கப்பட்ட இடைநிலைப்பலகைக்கு {{group}} அட்டவணை நகலெடுக்கப்பட்டது.","wiki.generatedBy":"OSM APPS பட்டியலால் உருவாக்கப்பட்டது","wiki.none":"எதுவுமில்லை","filter.showAll":"அனைத்தையும் காட்டு","filter.preview":"வடிகட்டி இதற்கு அமைக்கப்பட்டுள்ளது:","filter.preset":"வடிகட்டி உங்களுக்காக முன்னமைக்கப்பட்டுள்ளது:","category.all.description.filtered":"{{numberOfApps}} {{totalNumberOfApps}}} பயன்பாடுகள் <o> openstreetmap </o>.","select.search.placeholder":"தேடல்","select.search.noResults":"முடிவுகள் இல்லை","app.getIt":"அதைப் பெறுங்கள்","app.contribute":"பங்களிப்பு","app.contribute.toSoftware":"மென்பொருளுக்கு","app.contribute.toSoftware.discuss":"யோசனைகளைப் பற்றி விவாதிக்கவும் பகிர்ந்து கொள்ளவும்","app.contribute.toSoftware.test":"சோதனை மற்றும் கருத்துக்களை வழங்கவும்","app.contribute.toSoftware.translate":"மொழிபெயர்க்க உதவுங்கள்","app.contribute.toSoftware.develop":"குறியீட்டை உருவாக்குங்கள்","app.contribute.toSoftware.document":"ஆவணங்களை மேம்படுத்தவும்","app.contribute.toData":"OSM தரவுக்கு","app.contribute.toData.edit":"வரைபடத் தரவைத் திருத்தவும்","app.contribute.toData.resolve":"வரைபட குறிப்புகளை தீர்க்கவும்","app.contribute.toData.review":"திருத்தங்களை மதிப்பாய்வு செய்யுங்கள்","app.contribute.toData.photos":"மேப்பிங்கிற்கான புகைப்படங்களை பதிவேற்றவும்","app.contribute.toData.tracks":"தடங்களை பதிவு செய்து பகிரவும்","app.contribute.toData.qa":"தர உத்தரவாதத்தை செய்யுங்கள்","app.contribute.toCommunity":"சமூகத்திற்கு","app.contribute.toCommunity.welcome":"புதிய பயனர்களை வரவேற்கிறோம்","app.community.lemmy":"லெம்மி"}');
-var locales_ta_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(ta_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/tr.json
 const tr_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"Internet sitesi","app.sourceCode":"Kaynak kodu","app.license":"Lisans","filter.platform":"Platform","filter.language":"Dili","app.languages":"Dilleri","app.platforms":"Platformlar"}');
-var locales_tr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(tr_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/uk.json
 const uk_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","app.website":"веб-сайт","app.sourceCode":"сирці","app.license":"ліцензія","filter.language":"мовa","filter.platform":"платформa","app.platforms":"платформи","app.languages":"мови","about":"Про нас","list":"Список","compare":"Порівняти","filter.search":"Пошук","filter.moreFilters":"Фільтри","filter.showAll":"Показати всі","filter.preview":"Фільтр встановлено на:","filter.preset":"Фільтр попередньо налаштовано для вас:","filter.topic":"Тема","filter.coverage":"Покриття","filter.category":"Меню","filter.category.all":"Усі","filter.category.focus":"Фокус","filter.category.latest":"Найновіші","filter.category.mobile":"Йти","filter.category.navigation":"Знайди свій шлях","filter.category.edit":"Покращити карту","category.all.description":"{{numberOfApps}} програм, що використовують <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} з {{totalNumberOfApps}} програм, що використовують <o>OpenStreetMap</o>.","category.focus.description":"Десять програм з останніх оновлених сторінок.","category.latest.description":"{{numberOfApps}} програм, відсортованих за датою останнього випуску.","category.mobile.description":"{{numberOfApps}} програм, розроблених для мобільних пристроїв або таких, що підтримують використання офлайн.","category.navigation.description":"{{numberOfApps}} програм, що підтримують маршрутизацію або навігацію.","category.edit.description":"{{numberOfApps}} програм, що підтримують додавання, редагування або аналіз даних OpenStreetMap або запис геотреків.","relatedApps":"{{numberOfApps}} пов’язаних програм","notFound":"Не знайшли те, що шукали?","notFound.desc":"За допомогою наступних сервісів ви можете створювати власні тематичні карти без будь-яких знань програмування. Можливо, хтось уже створив карту, яку ви шукаєте, або ви можете створити свою власну тематичну карту.","noResults":"Немає результатів","select.search.placeholder":"Пошук","select.search.noResults":"Немає результатів","compare.group.header.general":"Загальне","compare.group.header.map":"Відображення карти","compare.group.header.routing":"Маршрутизація","compare.group.header.navigating":"Навігація","compare.group.header.tracking":"Відстеження","compare.group.header.monitoring":"Моніторинг","compare.group.header.editing":"Редагування","compare.group.header.rendering":"Рендеринг","compare.group.header.accessibility":"Доступність","multilingual":"Багатомовний","list.documentation":"Документація","list.more":"Більше","list.moreInfos":"Інформація","app.imageAlt":"Зображення з {{name}}.","app.getIt":"Отримай це","app.install.asin":"Магазин додатків Amazon","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Галерея додатків Huawei","app.install.obtainium":"Obtainium","app.install.appleStore":"Магазин додатків Apple","app.install.macAppStore":"Магазин додатків Mac","app.install.microsoftApp":"Магазин Microsoft","app.lastRelease":"Останній реліз","app.unmaintained":"(<icon/> Не підтримується)","app.unmaintained.wiki":"({{icon}} Не підтримується)","app.coverage":"Покриття","app.contribute":"Зробити внесок","app.contribute.toSoftware":"До програмного забезпечення","app.contribute.toSoftware.discuss":"Обговорюйте та діліться ідеями","app.contribute.toSoftware.test":"Тестування та надання відгуків","app.contribute.toSoftware.translate":"Допоможіть перекласти","app.contribute.toSoftware.develop":"Розробка коду","app.contribute.toSoftware.document":"Покращення документації","app.contribute.toData":"До даних OSM","app.contribute.toData.edit":"Редагувати дані карти","app.contribute.toData.resolve":"Вирішення приміток до карти","app.contribute.toData.review":"Переглянути зміни","app.contribute.toData.photos":"Завантажте фотографії для картографування","app.contribute.toData.tracks":"Записуйте та діліться треками","app.contribute.toData.qa":"Виконайте контроль якості","filter":{"resetFilters":"Вилучити попередньо встановлені фільтри"},"app.contribute.toCommunity":"До спільноти","app.contribute.toCommunity.welcome":"Ласкаво просимо нових користувачів","app.community":"Громада","app.community.forum":"Форум","app.community.forumTag":"Тег форуму","app.community.matrix":"Матрична кімната","app.community.bluesky":"Блускай","app.community.mastodon":"Мастодонт","app.community.lemmy":"Леммі","app.community.issueTracker":"Проблеми","app.community.githubDiscussions":"Обговорення на GitHub","app.community.telegram":"Група в Телеграмі","app.community.slack":"Слак","app.community.reddit":"Reddit","app.price":"Ціна","app.source":"Джерело","app.source.date":"Остання зміна: {{date}}\\nПерше сканування: {{added}}","app.source.description":"Джерело, звідки беруться ці дані.","compare.share":"Поділитися wiki.openstreetmap.org","compare.unknown":"невідомий","share.wiki":"Таблицю {{group}} скопійовано в буфер обміну, відформатовану для wiki.openstreetmap.org.","wiki.generatedBy":"Згенеровано від OSM Apps Catalog","wiki.none":"жодного","wiki.generatedByOsmAppsCatalog":"Цю таблицю було створено [{{link}} OSM Apps Catalog] о {{date}}.","score.results":"Оцінка внеску в спільноту\\nВсього: {{total}} балів\\n\\nДії, необхідні для отримання вищого балу:\\n{{notFulfilled}}\\n\\nВиконано:\\n{{fulfilled}}","score.result":"- {{description}} ({{points}} бали)","score.criteria.supportsContributions":"додаток підтримує внески (редагування, аналіз тощо) до OpenStreetMap","score.criteria.addingAndEditingPossible":"можливе додавання та редагування точок інтересу, шляхів тощо","score.criteria.displaysMaps":"додаток відображає карти або дані OSM","score.criteria.openSource":"додаток має відкритий вихідний код","score.criteria.copyleftLicense":"ліцензія є ліцензією авторського лефту (наприклад, GPL, ODbL, MPL, CC)","score.criteria.sourceCodeReference":"посилання на вихідний код задокументовано","score.criteria.issueTracker":"існує система відстеження проблем","score.criteria.lastUpdateYear":"останнє оновлення відбулося протягом останнього року","score.criteria.lastUpdateThreeMonths":"останнє оновлення відбулося протягом останніх 3 місяців","score.criteria.translationContributions":"можливий внесок у переклади","score.criteria.multipleLanguages":"додаток підтримує кілька мов (мінімум 3 мови)","score.criteria.tenLanguages":"додаток доступний щонайменше 10 мовами","score.criteria.freeOfCharge":"додаток безкоштовний","score.criteria.multiplePlatforms":"додаток доступний на кількох платформах (наприклад, Web, Android, iOS)","score.criteria.openSourceStores":"додаток доступний через магазини з відкритим кодом (наприклад, F-Droid)","score.criteria.worldwideData":"додаток охоплює дані карт усього світу","score.criteria.accessibilitySupported":"підтримується доступність (наприклад, сумісність із програмою зчитування з екрана або розрахунок маршруту для користувачів інвалідних візків)","score.criteria.communityChannelExists":"існує канал зв\'язку для спільноти (наприклад, форум, Mastodon)","score.criteria.openSourceChannel":"канал розміщено на платформах з відкритим кодом (наприклад, Matrix)","score.criteria.documentationLink":"посилання на документацію доступне","score.criteria.documentedMultiplePlatforms":"додаток задокументовано на кількох платформах (наприклад, OSM-Wiki, taginfo, Wikidata)","survey":"Мені цікава ваша думка. Допоможіть переробити каталог додатків OSM. <u>Візьміть участь в опитуванні. Натисніть тут.</u>"}');
-var locales_uk_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(uk_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hans.json
 const zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"网站","app.sourceCode":"源代码","app.license":"执照","filter.platform":"平台","filter.language":"语言","app.platforms":"平台","app.languages":"语言"}');
-var locales_zh_Hans_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(zh_Hans_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hant.json
 const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"網站","app.author":"作者","app.sourceCode":"原始碼","app.license":"許可證","filter.platform":"平臺","filter.language":"語言","app.languages":"語言","app.platforms":"平臺","about":"關於","filter.category.edit":"貢獻","filter.category":"類別","filter.category.all":"全部","filter.category.latest":"最新","category.all.description":"{{numberOfApps}} 使用<o>開放街圖</o>的 app。","category.latest.description":"顯示按上次發佈日期排序的 {{numberOfApps}} 個應用程式。","category.mobile.description":"顯示為行動裝置開發或支援離線使用的 {{numberOfApps}} 個應用程式。","compare.group.header.monitoring":"監測","compare.group.header.navigating":"導航","compare.group.header.tracking":"追蹤","compare.group.header.editing":"編輯","compare.group.header.accessibility":"無障礙","list.moreInfos":"資訊","multilingual":"多種語言","app.coverage":"覆蓋範圍","app.install.macAppStore":"Mac App Store","filter.topic":"主題","category.edit.description":"顯示支援新增、編輯或分析 OpenStreetMap 資料或記錄地理軌跡的 {{numberOfApps}} 個應用程式。","relatedApps":"{{numberOfApps}} 個相關應用程式","noResults":"沒有結果","app.unmaintained":"（<icon/> 未維護）","app.unmaintained.wiki":"（{{icon}} 未維護）","app.price":"價格","app.source":"來源","compare.share":"在 wiki.openstreetmap.org 中分享","filter.search":"搜尋","compare.group.header.routing":"路由","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"上次發佈","filter.coverage":"覆蓋範圍","filter.category.focus":"焦點","category.focus.description":"顯示最近更新頁面的十個應用程式。","category.navigation.description":"顯示支援路由或導航的 {{numberOfApps}} 個應用程式。","compare.group.header.general":"一般","compare.group.header.map":"地圖顯示","list.documentation":"文件","app.install.asin":"亞馬遜應用商店","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"華為應用市場","app.install.appleStore":"Apple App Store","compare.unknown":"未知","share.wiki":"已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。","wiki.generatedBy":"由 OSM Apps Catalog 產生","wiki.none":"無","wiki.generatedByOsmAppsCatalog":"此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。","list":"清單","compare":"比較","filter.moreFilters":"篩選","filter.showAll":"顯示全部","filter.preview":"篩選已經設定：","filter.preset":"這篩選已經是你的預置：","filter.category.mobile":"要走了","filter.category.navigation":"尋找你的方向","category.all.description.filtered":"{{totalNumberOfApps}}當中有{{numberOfApps}} 個 app 使用<o>開放街圖</o>。","notFound":"沒找到你想找的嗎？","notFound.desc":"使用以下服務可以不用任何程式語言知識，就能創建自己的主題地圖。也許有人已經創建你想建的主題地圖，或是你可以自行建立你心目中的主題地圖。","select.search.placeholder":"搜尋","select.search.noResults":"沒有結果","compare.group.header.rendering":"渲染中","list.more":"更多","app.imageAlt":"影像來自{{name}}。","app.getIt":"從…取得","app.install.obtainium":"Obtainium","app.contribute":"貢獻","app.contribute.toSoftware":"到軟體","app.contribute.toSoftware.discuss":"討論與分享想法","app.contribute.toSoftware.test":"測試與提供回饋意見","app.contribute.toSoftware.translate":"幫忙翻譯","app.contribute.toSoftware.develop":"開發程式碼","app.contribute.toSoftware.document":"改進說明文件","app.contribute.toData":"到OSM資料","app.contribute.toData.edit":"編輯地圖資料","app.contribute.toData.resolve":"解決地圖註記","app.contribute.toData.review":"審核編輯","app.contribute.toData.photos":"上傳照片以供畫地圖","app.contribute.toData.tracks":"記錄與分享軌跡","app.contribute.toData.qa":"進行品質管控","app.contribute.toCommunity":"到社群","app.contribute.toCommunity.welcome":"歡迎新使用者","app.community":"社群","app.community.forum":"論壇","app.community.forumTag":"論壇標籤","app.community.matrix":"Matrix 房間","app.community.bluesky":"藍天","app.community.mastodon":"乳齒象","app.community.lemmy":"Lemmy","app.community.issueTracker":"議題","app.community.githubDiscussions":"GitHub 討論","app.community.telegram":"Telegram 群組","app.community.slack":"Slack","app.community.reddit":"Reddit","app.source.date":"最後更改：{{date}}\\n第一次爬取：{{added}}","app.source.description":"資料的來源。","score.results":"社群貢獻分數\\n總計：{{total}}分數\\n\\n更高分數所需行動：\\n{{notFulfilled}}\\n\\n完成：\\n{{fulfilled}}","score.result":"- {{description}} ({{points}} 分數)","score.criteria.supportsContributions":"支援貢獻 (編輯、分析等) 開放街圖的 app","score.criteria.addingAndEditingPossible":"如果可能，新增與編輯興趣點、路徑等","score.criteria.displaysMaps":"顯示地圖或是 OSM 資料的 app","score.criteria.openSource":"開放原始碼的 app","score.criteria.copyleftLicense":"授權條款為著佐權 (例如 GPL、ODbL、MPL、CC)","score.criteria.sourceCodeReference":"原始碼的參考資訊已經被記錄了","score.criteria.issueTracker":"有議題追蹤","score.criteria.lastUpdateYear":"最新更新日期是最近一年","score.criteria.lastUpdateThreeMonths":"最新更新日期是三個月內","score.criteria.translationContributions":"有可能貢獻翻譯","score.criteria.multipleLanguages":"支援多語言的 app (至少三種語言)","score.criteria.tenLanguages":"支援至少 10 種語言的 app","score.criteria.freeOfCharge":"app 為免費的","score.criteria.multiplePlatforms":"支搜多個平台 (例如網頁、Android、iOS) 的 app","score.criteria.openSourceStores":"在開放原始碼的市集 (例如 F-Droid) 的 app","score.criteria.worldwideData":"涵蓋全球地圖資料的 app","score.criteria.accessibilitySupported":"支援無障礙 (例如螢幕閱讀器相容或是輢椅使用者導航)","score.criteria.communityChannelExists":"有為社群存在的溝通頻道 (例如論壇、乳齒象)","score.criteria.openSourceChannel":"基於開放原始碼平台的頻道 (例如 Matrix)","score.criteria.documentationLink":"有連結到說明文件","score.criteria.documentedMultiplePlatforms":"在多個平台有說明文件的 app (例如 OSM-Wiki、taginfo、維基數據)","filter":{"resetFilters":"移除預置篩選"},"survey":"我們重視你的回饋意見，幫忙重新設計 OSM App Catalog。<u>點這裡填寫問券。</u>"}');
-var locales_zh_Hant_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(zh_Hant_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/utilities/templateData.json
 const templateData_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/en.json
 const wiki_software_template_en_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Template language","description":"Language in which the template texts are displayed."},"name":{"label":"Name","description":"Official name, otherwise most common one"},"status":{"label":"Status","description":"Current status of the project."},"license":{"label":"License","description":"What free license or proprietary?"},"price":{"label":"Price","description":"Costs if proprietary. If price is empty, application is for free."},"web":{"label":"Web address"},"repo":{"label":"Source code","description":"URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"},"logo":{"label":"Logo"},"screenshot":{"label":"Screenshot"},"description":{"label":"Description","description":"Brief description. What distinguishes this from other tools? (Write your own description, don\'t just copy it from the website)"},"author":{"label":"Author","description":"Name of the author or a link to their OSM-wiki user page"},"platform":{"label":"Supported platforms","description":"List of platforms it runs on."},"genre":{"label":"Genre","description":"Main category for this tool."},"languages":{"label":"Languages","description":"Supported languages (list of valid language codes separated by semicolons) or number of languages supported"},"languagesurl":{"label":"Languages URL","description":"Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."},"coverage":{"label":"Coverage","description":"Coverage or target region of the app. Formatting: \\"Continent, Country, Region, ...\\". Use \\"Worldwide\\" or leave it empty for global use."},"code":{"label":"Code","description":"List of programming languages used."},"framework":{"label":"Framework","description":"List of frameworks used."},"version":{"label":"Version","description":"Latest version"},"date":{"label":"Release date","description":"Latest release date"},"asin":{"label":"Amazon Identification","description":"Amazon Standard Identification Number for the Amazon Appstore for Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World application ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid application ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace application ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store application ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery application ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store application ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store application ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows application UUID"},"obtainiumLink":{"label":"Obtainium Updater Link","description":"Link to Obtainium updater information"},"map":{"label":"Display map","description":"[Map display] Can it show a map?"},"mapData":{"label":"Map data","description":"[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \\"on the fly\\" (vector)?"},"datasource":{"label":"Source","description":"[Map display] Can you store all map data offline? Download a separate file?"},"rotateMap":{"label":"Rotate map","description":"[Map display] Does it turn the map in driving/walking direction?"},"3D":{"label":"3D view","description":"[Map display] Is there some 3D or 2.5D view?"},"showWebsite":{"label":"Shows website","description":"[POI Information] Shows link to the website from POI"},"showPhoneNumber":{"label":"Shows phone number","description":"[POI Information] Shows phone number from POI"},"showOpeningHours":{"label":"Shows operation hours","description":"[POI Information] Shows hours of operation from POI"},"routing":{"label":"Routing","description":"[Routing] Can you calculate or otherwise plan a route?"},"createRouteManually":{"label":"Create route manually","description":"[Routing]"},"calculateRoute":{"label":"Calculate route","description":"[Routing] Can it calculate a route using routing?"},"createRouteViaWaypoints":{"label":"Create route via Waypoints","description":"[Routing] Able to calculate route via Waypoints"},"profiles":{"label":"Routing profiles","description":"[Routing] What profiles supported if it makes routing?"},"turnRestrictions":{"label":"Turn restrictions","description":"[Routing] Can it deal with turn restrictions?"},"calculateRouteOffline":{"label":"Calculate route without Internet (Offline routing)","description":"[Routing] Does it need internet to calculate a route?"},"routingProviders":{"label":"Routing providers","description":"[Routing] What routing service(s) does it use?"},"avoidTraffic":{"label":"Avoid traffic","description":"[Routing] Does app optimize route to avoid traffic jams?"},"trafficProvider":{"label":"Traffic Provider","description":"[Routing] Traffic data source provider."},"navigating":{"label":"Navigate","description":"[Navigation] Can you navigate in a compass like way?"},"findLocation":{"label":"Find location","description":"[Navigation] Can it search for a street/place?"},"findNearbyPOI":{"label":"Find nearby POIs","description":"[Navigation] Can it discover/display Points of interests?"},"navToPoint":{"label":"Navigate to point","description":"[Navigation] Can it guide you to a point somewhere?"},"voice":{"label":"Navigation with voice / Voice guidance","description":"[Navigation] Can it give you commands with a computer voice?"},"keepOnRoad":{"label":"Keep on road","description":"[Navigation] Can it assist you to keep your vehicle on the calculated route?"},"turnLanes":{"label":"Lane guidance","description":"[Navigation] Does it support lane guidance?"},"withoutGPS":{"label":"Works without GPS","description":"[Navigation] Does it work even without a GPS?"},"predefinedRoute":{"label":"Navigate along predefined route","description":"[Navigation] Can it follow other GPS tracks?"},"tracking":{"label":"Make track","description":"[Track logging] Can it record a GPS track?"},"customInterval":{"label":"Customizable log interval","description":"[Track logging] Can you tune the interval manually?"},"trackFormats":{"label":"Track formats","description":"[Track logging] What formats for storage can you save your GPS track?"},"geotagging":{"label":"Geotagging","description":"[Track logging] Are further mapping techniques supported"},"fastWayPointAdding":{"label":"Fast POI buttons","description":"[Track logging] Easy to add a new Waypoint?"},"uploadGPX":{"label":"Upload GPX to OSM","description":"[Track logging] Can it send tracks directly to OSM?"},"monitoring":{"label":"Monitoring","description":"[Track monitoring] Can you monitor GPS datas?"},"showTrack":{"label":"Show current track","description":"[Track monitoring] Show your current track?"},"showExistingTrack":{"label":"Open existing track","description":"[Track monitoring] Can it load existing tracks so you can follow them?"},"showAltitudeDiagram":{"label":"Altitude diagram","description":"[Track monitoring]"},"showDOP":{"label":"Show POD value","description":"[Track monitoring] Shows signal quality?"},"showSatellites":{"label":"Satellite view","description":"[Track monitoring] Displays satellites?"},"showNMEAlive":{"label":"Show live NMEA data","description":"[Track monitoring] Can you see the raw GPS stream?"},"showSpeed":{"label":"Show speed","description":"[Track monitoring]"},"sendPosition":{"label":"Send current position","description":"[Track monitoring] Can it send position to others?"},"addPOI":{"label":"Add POIs","description":"[Editor] Can you add a node?"},"editPOI":{"label":"Edit / Delete POIs","description":"[Editor] Can you edit a node?"},"addWay":{"label":"Add way","description":"[Editor] Can you add a way?"},"editGeom":{"label":"Edit geometries","description":"[Editor] Can you edit nodes/ways?"},"editTags":{"label":"Edit arbitrary tags of existing OSM objects","description":"[Editor] Can you edit existing tags?"},"editRelations":{"label":"Edit relations","description":"[Editor] Can you edit relations?"},"viewNotes":{"label":"View notes","description":"[Editor] Can you view OSM Notes?"},"createNotes":{"label":"Create notes","description":"[Editor] Can you add OSM Notes?"},"editNotes":{"label":"Edit notes","description":"[Editor] Can you comment/close OSM Notes?"},"editSource":{"label":"Work offline","description":"[Editor] Can you work offline?"},"offsetDBsupport":{"label":"Support imagery offset DB","description":"[Editor] Does it support the imagery offset DB?"},"uploadOSMData":{"label":"Upload to OSM","description":"[Editor] Can you send changes to OSM directly?"},"rendererOutputFormats":{"label":"Renderer output formats","description":"[Renderer] Supported output formats."},"accessibility":{"label":"Accessibility support","description":"[Accessibility] Does it help disabled people in some kind?"},"textOnlyUI":{"label":"Complete non graphics text output","description":"[Accessibility] Text to braille compatible interface?"},"brailleUI":{"label":"Braille interface","description":"[Accessibility] A special braille interface?"},"explorerMode":{"label":"Exploration modus","description":"[Accessibility] Has a exploration modus (tell all objects approaching)?"},"publicTransportMode":{"label":"Public Transport mode","description":"[Accessibility] Supports routing with public transport?"},"dangerWarnings":{"label":"Danger Warnings","description":"[Accessibility]"},"screenReader":{"label":"Screenreader","description":"[Accessibility] List of supported screenreaders"},"screenReaderLang":{"label":"Screenreader languages","description":"[Accessibility] List of supported screenreaders languages"}}');
-var locales_wiki_software_template_en_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_en_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/cs.json
 const wiki_software_template_cs_namespaceObject = /*#__PURE__*/JSON.parse('{"status":{"label":"Stav","description":"Aktuální stav projektu."},"lang":{"label":"Jazyk šablony","description":"Jazyk, ve kterém se zobrazují texty šablony."},"name":{"label":"Název","description":"Oficiální název, jinak nejběžnější název"},"license":{"label":"Licence","description":"Je licence svobodná nebo proprietární?"},"price":{"label":"Cena","description":"Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma."},"web":{"label":"Webová adresa"},"repo":{"label":"Zdrojový kód","description":"URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)"},"logo":{"label":"Logo"},"screenshot":{"label":"Otisk obrazovky"},"description":{"label":"Popis","description":"Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)"},"author":{"label":"Autor","description":"Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"},"platform":{"label":"Podporované platformy","description":"Seznam platforem, na kterých běží."},"genre":{"label":"Typ","description":"Hlavní kategorie tohoto nástroje."},"languages":{"label":"Jazyky","description":"Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků"},"coverage":{"label":"Pokrytí","description":"Pokrytí nebo cílová oblast aplikace. Formátování: \\"Kontinent, země, region, ...\\". Pro globální použití použijte \\"Worldwide\\" nebo jej nechte prázdný."},"languagesurl":{"label":"URL pro jazyky","description":"Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště)."},"code":{"label":"Kód","description":"Seznam použitých programovacích jazyků."},"framework":{"label":"Framework","description":"Seznam použitých frameworků."},"version":{"label":"Verze","description":"Nejnovější verze"},"date":{"label":"Datum vydání","description":"Nejnovější datum vydání"},"asin":{"label":"Identifikace Amazon","description":"Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android"},"bbWorldID":{"label":"BlackBerry ID","description":"ID aplikace v BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"ID aplikace F-Droid"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"ID aplikace Mozilla Firefox Marketplace"},"googlePlayID":{"label":"Google Play ID","description":"ID aplikace v Obchodě Google Play"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"ID aplikace Huawei AppGallery"},"appleStoreID":{"label":"AppStore ID","description":"ID aplikace iTunes App Store"},"macAppStoreID":{"label":"Mac AppStore ID","description":"ID aplikace Mac App Store"},"microsoftAppID":{"label":"Microsoft ID","description":"UUID aplikace Microsoft Store pro systém Windows"},"map":{"description":"[Zobrazení mapy] Lze zobrazit mapu?","label":"Zobrazení mapy"},"mapData":{"label":"Mapová data","description":"[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \\"za běhu\\" (vektory)?"},"datasource":{"label":"Zdroj","description":"[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?"},"rotateMap":{"label":"Rotace mapy","description":"[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?"},"3D":{"label":"3D pohled","description":"[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?"},"showWebsite":{"label":"Zobrazení webové stránky","description":"[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu"},"showPhoneNumber":{"label":"Zobrazí telefonní číslo","description":"[Informace o POI] Zobrazí telefonní číslo z POI"},"showOpeningHours":{"label":"Zobrazuje provozní dobu","description":"[Informace o POI] Zobrazí provozní dobu z POI"},"routing":{"label":"Hledání trasy","description":"[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?"},"createRouteManually":{"label":"Vytvoření trasy ručně","description":"[Hledání trasy]"},"calculateRoute":{"label":"Výpočet trasy","description":"[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?"},"createRouteViaWaypoints":{"label":"Vytvoření trasy pomocí bodů trasy","description":"[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů"},"profiles":{"label":"Profily hledání trasy","description":"[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?"},"turnRestrictions":{"description":"[Hledání trasy] Dokáže se vypořádat s omezením otáčení?","label":"Omezení otáčení"},"calculateRouteOffline":{"label":"Výpočet trasy bez internetu (hledání trasy offline)","description":"[Hledání trasy] Potřebuje k výpočtu trasy internet?"},"routingProviders":{"description":"[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?","label":"Poskytovatelé hledání tras"},"trafficProvider":{"label":"Poskytovatel informací o provozu","description":"[Hledání trasy] Poskytovatel zdroje dopravních dat."},"navigating":{"label":"Navigace","description":"[Navigace] Umíte se orientovat podle kompasu?"},"findLocation":{"label":"Hledání polohy","description":"[Navigace] Umí vyhledat ulici/místo?"},"findNearbyPOI":{"label":"Hledání blízkých bodů zájmu","description":"[Navigace] Umí najít/zobrazit body zájmu?"},"navToPoint":{"label":"Navigace do bodu","description":"[Navigace] Dokáže vás navigovat někam?"},"voice":{"label":"Navigace s hlasem / Hlasové navádění","description":"[Navigace] Umí vám dávat příkazy počítačovým hlasem?"},"turnLanes":{"label":"Navádění do jízdních pruhů","description":"[Navigace] Podporuje navádění do jízdních pruhů?"},"withoutGPS":{"description":"[Navigace] Bude fungovat i bez GPS?","label":"Fungování bez GPS"},"predefinedRoute":{"description":"[Navigace] Umí sledovat jiné GPS trasy?","label":"Navigace po předem definované trase"},"tracking":{"label":"Vytvoření trasy","description":"[Záznam trasy] Lze zaznamenat trasu GPS?"},"customInterval":{"label":"Přizpůsobitelný interval záznamu","description":"[Záznam trasy] Lze interval nastavit ručně?"},"trackFormats":{"label":"Formáty tras","description":"[Záznam trasy] V jakých formátech lze uložit trasu GPS?"},"fastWayPointAdding":{"label":"Rychlá tlačítka POI","description":"[Záznam trasy] Snadné přidání nového bodu trasy?"},"uploadGPX":{"description":"[Záznam tras] Lze odesílat trasy přímo do OSM?","label":"Nahrání GPX do OSM"},"monitoring":{"label":"Monitorování","description":"[Monitorování trasy] Můžete monitorovat data GPS?"},"showTrack":{"label":"Zobrazení aktuální trasy","description":"[Monitorování trasy] Zobrazuje aktuální trasu?"},"showAltitudeDiagram":{"label":"Výškový diagram","description":"[Monitorování trasy]"},"showDOP":{"description":"[Monitorování trasy] Zobrazuje kvalitu signálu?","label":"Zobrazení hodnoty POD"},"showSatellites":{"description":"[Monitorování trasy] Zobrazuje satelity?","label":"Zobrazení satelitů"},"showSpeed":{"label":"Zobrazení rychlosti","description":"[Monitorování trasy]"},"sendPosition":{"label":"Odeslání aktuální polohy","description":"[Monitorování trasy] Může odesílat polohu ostatním?"},"addPOI":{"label":"Přidání bodů zájmu","description":"[Editor] Můžete přidat uzel?"},"avoidTraffic":{"description":"[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?","label":"Vyhýbání se provozu"},"showExistingTrack":{"label":"Otevření existující trasy","description":"[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"},"showNMEAlive":{"label":"Zobrazení živých dat NMEA","description":"[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"},"keepOnRoad":{"label":"Pokračování v cestě","description":"[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?"},"geotagging":{"label":"Geotagging","description":"[Záznam trasy] Jsou podporovány další techniky mapování"},"editPOI":{"label":"Úprava / odstranění bodů zájmu","description":"[Editor] Je možné upravit uzel?"},"addWay":{"label":"Přidání cesty","description":"[Editor] Můžete přidat cestu?"},"editGeom":{"description":"[Editor] Lze upravovat uzly/cesty?","label":"Úprava geometrie"},"editTags":{"label":"Úprava libovolných značek existujících objektů OSM","description":"[Editor] Lze upravovat existující značky?"},"editRelations":{"label":"Úprava relací","description":"[Editor] Lze upravit relace?"},"viewNotes":{"label":"Zobrazení poznámek","description":"[Editor] Lze zobrazit poznámky OSM?"},"createNotes":{"label":"Tvorba poznámek","description":"[Editor] Lze přidat poznámky OSM?"},"editSource":{"description":"[Editor] Lze pracovat offline?","label":"Fungování v režimu offline"},"offsetDBsupport":{"label":"Podpora posunu snímků DB","description":"[Editor] Podporuje obrazový posun DB?"},"uploadOSMData":{"label":"Nahrání do OSM","description":"[Editor] Lze změny odeslat přímo do OSM?"},"rendererOutputFormats":{"label":"Výstupní formáty rendereru","description":"[Renderer] Podporované výstupní formáty."},"accessibility":{"description":"[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?","label":"Podpora přístupnosti"},"textOnlyUI":{"label":"Úplný negrafický textový výstup","description":"[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?"},"brailleUI":{"label":"Rozhraní Braillova písma","description":"[Přístupnost] Speciální braillovo rozhraní?"},"publicTransportMode":{"label":"Režim veřejné dopravy","description":"[Dostupnost] Podporuje hledání trasy veřejnou dopravou?"},"dangerWarnings":{"label":"Výstrahy před nebezpečím","description":"[Přístupnost]"},"screenReader":{"label":"Čtení obrazovky","description":"[Přístupnost] Seznam podporovaných čteček obrazovky"},"screenReaderLang":{"label":"Jazyky čtečky obrazovky","description":"[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky"},"editNotes":{"label":"Úprava poznámek","description":"[Editor] Lze komentovat/zavřít poznámky OSM?"},"explorerMode":{"label":"Modus průzkumu","description":"[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"},"obtainiumLink":{"description":"Odkaz na informace o aktualizačním programu Obtainium","label":"Odkaz na aktualizační program Obtainium"}}');
-var locales_wiki_software_template_cs_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_cs_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/de.json
 const wiki_software_template_de_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Sprache der Vorlage","description":"Sprache, in der die Texte der Vorlage angezeigt werden."},"name":{"label":"Name","description":"Offizieller Name, ansonsten der verbreitetste"},"license":{"label":"Lizenz","description":"Welche freie Lizenz oder proprietär?"},"price":{"label":"Preis","description":"Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos."},"repo":{"label":"Quellcode","description":"URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)"},"screenshot":{"label":"Bildschirmfoto"},"description":{"label":"Beschreibung","description":"Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)"},"author":{"label":"Autor","description":"Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"},"platform":{"label":"Plattform","description":"Liste der Plattformen, auf denen es läuft."},"languages":{"label":"Sprachen","description":"Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen"},"code":{"label":"Code","description":"Liste der verwendeten Programmiersprachen."},"framework":{"label":"Framework","description":"Liste der verwendeten Frameworks."},"version":{"label":"Version","description":"Aktuellste Version"},"map":{"label":"Karte anzeigen","description":"[Kartenanzeige] Kann eine Karte angezeigt werden?"},"rotateMap":{"label":"Karte drehen","description":"[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?"},"3D":{"label":"3D-Ansicht","description":"[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?"},"routing":{"description":"Funktionen: Können Sie eine Route berechnen oder sonst wie planen?","label":"Routenplanung"},"createRouteManually":{"label":"Route von Hand eingeben","description":"[Routenplanung]"},"calculateRoute":{"label":"Route berechnen","description":"[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"},"turnRestrictions":{"label":"Abbiegebeschränkungen","description":"[Routing] Kann es mit Abbiegeverboten umgehen?"},"calculateRouteOffline":{"label":"Route berechnen ohne Internet","description":"[Routing] Braucht es Internet, um eine Route zu berechnen?"},"navigating":{"label":"Navigieren","description":"[Navigation] Kann man mit einem Kompass navigieren?"},"findLocation":{"label":"Finde eine Position","description":"[Navigation] Kann man nach einer Straße/einem Ort suchen?"},"findNearbyPOI":{"label":"Finde POI in der Nähe","description":"[Navigation] Kann es Points of Interest anzeigen?"},"navToPoint":{"label":"Navigiere zu einem Punkt","description":"[Navigation] Kann es einen zu einem bestimmten Punkt führen?"},"voice":{"label":"Navigation mit Sprachansage","description":"[Navigation] Kann es Befehle mit einer Computerstimme geben?"},"withoutGPS":{"label":"Funktioniert ohne GPS","description":"[Navigation] Funktioniert auch ohne GPS?"},"predefinedRoute":{"label":"Folge einer vordefinierten Route","description":"[Navigation] Kann anderen GPS-Tracks folgen?"},"tracking":{"label":"Track aufzeichnen","description":"[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?"},"customInterval":{"label":"Einstellbares Aufzeichnungsintervall","description":"[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?"},"fastWayPointAdding":{"label":"Knöpfe zum schnellen Setzen von Wegpunkten","description":"[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?"},"monitoring":{"label":"Monitoring","description":"[Streckenüberwachung] Kann man GPS-Daten überwachen?"},"showTrack":{"label":"Zeige aktuellen Track","description":"[Streckenüberwachung] Zeigt es den aktuellen Kurs an?"},"showExistingTrack":{"label":"Öffne existierenden Track","description":"[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?"},"showAltitudeDiagram":{"label":"Höhendiagramm","description":"[Streckenüberwachung]"},"showDOP":{"label":"Zeige DOP-Wert","description":"[Streckenüberwachung] Zeigt es die Signalqualität an?"},"showSatellites":{"label":"Zeige Satelliten","description":"[Streckenüberwachung] Zeigt es Satelliten an?"},"showNMEAlive":{"label":"Zeige NMEA-Livedaten","description":"[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?"},"sendPosition":{"label":"Sende aktuelle Position","description":"[Streckenüberwachung] Kann man seine Position an andere senden?"},"addPOI":{"label":"POI hinzufügen","description":"[Editor] Kann man Punkte hinzufügen?"},"editPOI":{"label":"POI bearbeiten/löschen","description":"[Editor] Kann man Punkte bearbeiten?"},"editGeom":{"label":"Geometrie bearbeiten","description":"[Editor] Kann man Knoten/Wege bearbeiten?"},"editTags":{"label":"Beliebige Tags an vorhandenen OSM-Objekten bearbeiten","description":"[Editor] Kann man bestehende Tags bearbeiten?"},"offsetDBsupport":{"label":"Unterstützt Luftbildversatz DB","description":"[Editor] Unterstützt es die Bildoffset-DB?"},"uploadOSMData":{"label":"Zu OSM hochladen","description":"[Editor] Kann man Änderungen direkt an OSM senden?"},"textOnlyUI":{"label":"Komplett ohne Grafik bedienbar","description":"[Barrierefreiheit] Text in Braille kompatible Schnittstelle?"},"brailleUI":{"label":"Braille-Oberfläche","description":"[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?"},"explorerMode":{"label":"Erkundungsmodus","description":"[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?"},"publicTransportMode":{"label":"ÖPNV-Modus","description":"[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?"},"dangerWarnings":{"label":"Gefahrenwarnungen","description":"[Barrierefreiheit]"},"screenReader":{"label":"Screenreader","description":"[Barrierefreiheit] Liste der unterstützten Screenreader"},"screenReaderLang":{"label":"Screenreader-Sprachen","description":"[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen"},"status":{"label":"Status","description":"Aktueller Status des Projekts."},"web":{"label":"Internetadresse"},"date":{"label":"Veröffentlichungsdatum","description":"Letztes Veröffentlichungsdatum"},"coverage":{"label":"Abdeckung","description":"Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."},"mapData":{"label":"Kartendaten","description":"[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows-Anwendungs-UUID"},"obtainiumLink":{"label":"Obtainium Updater Verweis","description":"Verweis zu Obtainium updater Informationen"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store Anwendungs-D"},"editRelations":{"label":"Relationen bearbeiten","description":"[Editor] Kann man Relationen bearbeiten?"},"genre":{"label":"Genre","description":"Hauptkategorie für dieses Tool."},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store Anwendungs-ID"},"datasource":{"label":"Quelle","description":"[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"},"logo":{"label":"Logo"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid-Anwendungs-ID"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World-Anwendungs-ID"},"languagesurl":{"label":"Sprachen-URL","description":"Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository)."},"asin":{"label":"Amazon Identifikation","description":"Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marktplatz-Anwendungs-ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery Anwendungs-ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store Anwendungs-ID"},"showPhoneNumber":{"description":"[POI-Informationen] Zeigt die Telefonnummer des POI an","label":"Zeigt Telefonnummer"},"showOpeningHours":{"label":"Zeigt die Betriebszeiten an","description":"[POI-Informationen] Zeigt die Betriebszeiten des POI an."},"createRouteViaWaypoints":{"label":"Route über Wegpunkte erstellen","description":"[Routenplanung] Kann Route über Wegpunkte berechnen"},"showWebsite":{"label":"Website anzeigen","description":"[POI Information] Zeigt den Link zur Website vom POI an"},"profiles":{"label":"Routing Profile","description":"[Routing] Welche Profile werden beim Routing unterstützt?"},"routingProviders":{"description":"[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?","label":"Routing-Anbieter"},"avoidTraffic":{"label":"Verkehr vermeiden","description":"[Routing] Optimiert die App die Route, um Staus zu vermeiden?"},"trafficProvider":{"label":"Verkehrsanbieter","description":"[Routing] Anbieter der Verkehrsdatenquelle."},"keepOnRoad":{"label":"Auf der Straße bleiben","description":"[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"},"turnLanes":{"label":"Fahrspurführung","description":"[Navigation] Unterstützt es die Fahrspurführung?"},"uploadGPX":{"label":"GPX zu OSM hochladen","description":"[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?"},"trackFormats":{"label":"Track-Formate","description":"[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?"},"viewNotes":{"label":"Notizen anzeigen","description":"[Editor] Kann man OSM-Notizen anzeigen?"},"addWay":{"label":"Weg hinzufügen","description":"[Editor] Kann man Wege hinzufpgen?"},"editNotes":{"label":"Notizen bearbeiten","description":"[Editor] Kann man OSM-Notizen kommentieren/schließen?"},"createNotes":{"label":"Notizen erstellen","description":"[Editor] Kann man OSM-Notizen anlegen?"},"geotagging":{"label":"Geotagging","description":"[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?"},"showSpeed":{"label":"Geschwindigkeit anzeigen","description":"[Streckenüberwachung]"},"editSource":{"label":"Offline benutzen","description":"[Editor] Kannst man offline arbeiten?"},"rendererOutputFormats":{"label":"Renderer-Ausgabeformate","description":"[Renderer] Unterstützte Ausgabeformate."},"accessibility":{"label":"Unterstützung der Barrierefreiheit","description":"[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?"}}');
-var locales_wiki_software_template_de_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_de_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/el.json
 const wiki_software_template_el_namespaceObject = /*#__PURE__*/JSON.parse('{"name":{"label":"Όνομα","description":"Επίσημο όνομα, διαφορετικά το πιο κοινό"},"status":{"description":"Τρέχουσα κατάσταση του έργου.","label":"Κατάσταση"},"license":{"label":"Άδεια","description":"Τι ελεύθερη ή εμπορική άδεια χρήσης;"},"price":{"label":"Τιμή","description":"Κόστος εαν είναι εμπορική. Αν η τιμή είναι κενή, η εφαρμογή διατίθεται δωρεάν."},"web":{"label":"Διεύθυνση ιστότοπου"},"logo":{"label":"Λογότυπο"},"repo":{"label":"Πηγαίος κώδικας","description":"URL για την προβολή ή λήψη του πηγαίου κώδικα (για παράδειγμα, ένα Git, Subversion, ή CVS repository)"},"screenshot":{"label":"Στιγμιότυπο"},"description":{"label":"Περιγραφή","description":"Σύντομη περιγραφή. Τι ξεχωρίζει αυτό το εργαλείο από άλλα; (Γράψτε την δική σας περιγραφή, μην αντιγράφετε απλά από τον ιστότοπο)"},"platform":{"label":"Υποστηριζόμενες πλατφόρμες","description":"Λίστα με τις πλατφόρμες όπου τρέχει."},"genre":{"label":"Είδος","description":"Κύρια κατηγορία γι\' αυτό το εργαλείο."},"author":{"label":"Δημιουργός","description":"Όνομα του δημιουργού ή σύνδεσμος στο προφίλ χρήστη του στο OSM-wiki"},"languages":{"label":"Γλώσσες","description":"Υποστηριζόμενες γλώσσες (λίστα των διαθέσιμων κωδικών γλωσσών χωρισμένα με ελληνικό ερωτηματικό) ή αριθμός των υποστηριζόμενων γλωσσών"},"coverage":{"label":"Κάλυψη","description":"Κάλυψη ή περιοχή-στόχος της εφαρμογής. Της μορφής: \\"Ήπειρος, Χώρα, Περιφέρεια, ...\\". Χρησιμοποιήστε \\"Παγκόσμια\\" ή αφήστε το κενό για παγκόσμια χρήση."},"languagesurl":{"label":"URL γλωσσών","description":"Σύνδεσμος προς την πλήρη λίστα των υποστηριζόμενων γλωσσών, περιγραφόμενα σε άλλη σε σελίδα (π.χ. σελίδα πύλης του λογισμικού ή ένα repository)."},"code":{"label":"Κώδικας","description":"Λίστα των γλωσσών προγραμματισμού που χρησιμοποιήθηκαν."},"version":{"label":"Έκδοση","description":"Τελευταία έκδοση"},"date":{"description":"Τελευταία ημερομηνία κυκλοφορίας","label":"Ημερομηνία κυκλοφορίας"},"bbWorldID":{"label":"BlackBerry ID","description":"ID εφαρμογής στο BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"ID εφαρμογής στο F-Droid"},"googlePlayID":{"label":"Google Play ID","description":"ID εφαρμογής στο Google Play Store"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"ID εφαρμογής στο Mozilla Firefox Marketplace"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"ID εφαρμογής στο Huawei AppGallery"},"appleStoreID":{"label":"AppStore ID","description":"ID εφαρμογής στο iTunes App Store"},"macAppStoreID":{"label":"Mac AppStore ID","description":"ID εφαρμογής στο Mac App Store"},"microsoftAppID":{"label":"Microsoft ID","description":"UUID Windows εφαρμογής του Microsoft Store"},"map":{"label":"Προβολή χάρτη","description":"[Προβολή χάρτη] Μπορεί να εμφανίσει χάρτη;"},"mapData":{"label":"Δεδομένα χάρτη"},"datasource":{"label":"Πηγή","description":"[Προβολή χάρτη] Μπορεί να αποθηκεύσει όλα τα δεδομένα χάρτη εκτός σύνδεσης; Να κάνει λήψη ξεχωριστού αρχείου;"},"3D":{"label":"3D προβολή","description":"[Προβολή χάρτη] Υπάρχει διαθέσιμη προβολή 3D ή 2.5D;"},"showWebsite":{"label":"Εμφάνιση ιστότοπου","description":"[Πληφοροφίες ΣΕ] Εμφανίζει σύνδεσμο προς τον ιστότοπο ενός ΣΕ"},"rotateMap":{"label":"Περιστροφή χάρτη","description":"[Προβολή χάρτη] Μπορεί να περιστρέψει τον χάρτη κατά την οδική/πεζή καθοδήγηση;"},"showPhoneNumber":{"label":"Εμφάνιση αριθμού τηλεφώνου","description":"[Πληφοροφίες ΣΕ] Εμφανίζει τον αριθμό τηλεφώνου ενός ΣΕ"},"showOpeningHours":{"label":"Εμφάνιση ωραρίου λειτουργίας","description":"[Πληφοροφίες ΣΕ] Εμφανίζει το ωράριο λειτουργίας ενός ΣΕ"},"routing":{"label":"Δρομολόγηση","description":"[Δρομολόγηση] Μπορείτε να υπολογίσετε ή να σχεδιάσετε μια διαδρομή;"},"createRouteManually":{"label":"Δημιουργία διαδρομής χειροκίνητα","description":"[Δρομολόγηση]"},"calculateRoute":{"label":"Υπολογισμός διαδρομής","description":"[Δρομολόγηση] Μπορεί να υπολογίσει μια διαδρομή χρησιμοποιώντας δρομολόγηση;"},"turnRestrictions":{"label":"Περιορισμοί στροφής","description":"[Δρομολόγηση] Μπορεί να χειριστεί περιορισμούς στροφής;"},"routingProviders":{"label":"Πάροχοι δρομολόγησης","description":"[Δρομολόγηση] Τι υπηρεσία/ες δρομολόγησης χρησιμοποιεί;"},"avoidTraffic":{"label":"Αποφυγή κίνησης","description":"[Δρομολόγηση] Βελτιστοποιεί η εφαρμοφή την διαδρομή για αποφυγή μποτιλιαρίσματος;"},"navigating":{"label":"Πλοήγηση","description":"[Πλοήγηση] Μπορεί να σας πλοηγήσει σε μορφή πυξίδας;"},"navToPoint":{"label":"Πλοήγηση σε σημείο","description":"[Πλοήγηση] Μπορεί να σας καθοδηγήσει σε κάποιο σημείο;"},"tracking":{"label":"Δημιουργία ίχνους","description":"[Καταγραφή ίχνους] Μπορεί να καταγράψει ένα ίχνος GPS;"},"uploadGPX":{"label":"Ανέβασμα GPX στο OSM","description":"[Καταγραφή ίχνους] Μπορεί να στείλει τα ίχνη απευθείας στο OSM;"},"monitoring":{"label":"Παρακολούθηση","description":"[Παρακολούθηση ίχνους] Μπορείτε να παρακολουθήσετε τα δεδομένα του GPS;"},"showSpeed":{"label":"Εμφάνιση ταχύτητας","description":"[Παρακολούθηση ίχνους]"},"addWay":{"label":"Προσθήκη γραμμής","description":"[Επεξεργαστής] Μπορείτε να προσθέστε μια γραμμή;"},"editGeom":{"label":"Επεξεργασία γεωμετριών","description":"[Επεξεργαστής] Μπορείτε να επεξεργαστείτε κόμβους/γραμμές;"},"editRelations":{"label":"Επεξεργασία σχέσεων","description":"[Επεξεργαστής] Μπορείτε να επεξεργαστείτε σχέσεις;"},"viewNotes":{"label":"Προβολή σημειώσεων","description":"[Επεξεργαστής] Μπορείτε να δείτε Σημειώσεις του OSM;"},"createNotes":{"label":"Δημιουργία σημειώσεων","description":"[Επεξεργαστής] Μπορείτε να προσθέσετε Σημειώσεις του OSM;"},"editNotes":{"label":"Επεξεργασία σημειώσεων","description":"[Επεξεργαστής] Μπορείτε να σχολιάσετε/κλείσετε Σημειώσεις του OSM;"},"uploadOSMData":{"label":"Ανέβασμα στο OSM","description":"[Επεξεργαστής] Μπορείτε να στείλετε αλλαγές απευθείας στο OSM;"},"accessibility":{"label":"Υποστήριξη προσβασιμότητας","description":"[Προσβασιμότητα] Βοηθάει με κάποιον τρόπο τα άτομα με αναπηρία;"},"brailleUI":{"label":"Διεπαφή Braille","description":"[Προσβασιμότητα] Μια ειδική διεπαφή Braille;"},"publicTransportMode":{"description":"[Προσβασιμότητα] Υποστηρίζει δρομολόγηση με χρήση δημόσιας συγκοινωνίας;","label":"Λειτουργία Δημόσιας Συγκοινωνίας"},"findLocation":{"label":"Εύρεση τοποθεσίας","description":"[Πλοήγηση] Μπορεί να αναζητήσει για οδό/μέρος;"},"lang":{"label":"Γλώσσα προτύπου","description":"Γλώσσα στην οποία τα κείμενα του προτύπου θα προβάλλονται."},"findNearbyPOI":{"label":"Εύρεση κοντινών ΣΕ","description":"[Πλοήγηση] Μπορεί να ανακαλύψει/εμφανίσει Σημεία Ενδιαφέροντος;"},"voice":{"label":"Πλοήγηση με φωνή / Φωνητική πλοήγηση","description":"[Πλοήγηση] Μπορεί να σας δώσει οδηγίες με φωνή υπολογιστή;"},"turnLanes":{"label":"Καθοδήγηση λωρίδας","description":"[Πλοήγηση] Υποστηρίζει καθοδήγηση λωρίδας;"},"withoutGPS":{"label":"Εργασία χωρίς GPS","description":"[Πλοήγηση] Μπορεί να δουλέψει χωρίς το GPS;"},"predefinedRoute":{"label":"Πλοήγηση μέσω προκαθορισμένης διαδρομής","description":"[Πλοήγηση] Μπορεί να ακολουθήσει άλλα ίχνη GPS;"},"trackFormats":{"label":"Μορφές ιχνών","description":"[Καταγραφή ίχνους] Σε τι μορφές μπορείτε να αποθηκεύσετε τα ίχνη GPS σας;"},"fastWayPointAdding":{"label":"Γρήγορα κουμπιά ΣΕ"},"showTrack":{"label":"Εμφάνιση τρέχοντος ίχνους","description":"[Παρακολούθηση ίχνους] Εμφανίζει το τρέχον ίχνος σας;"},"showAltitudeDiagram":{"label":"Υψομετρικό διάγραμμα","description":"[Παρακολούθηση ίχνους]"},"showExistingTrack":{"label":"Άνοιγμα τρέχοντος ίχνους","description":"[Παρακολούθηση ίχνους] Μπορεί να φορτώσει υπάρχοντα ίχνη ώστε να μπορείτε να τα ακολουθήσετε;"},"showSatellites":{"label":"Προβολή δορυφόρων","description":"[Παρακολούθηση ίχνους] Προβάλλει δορυφόρους;"},"showDOP":{"description":"[Παρακολούθηση ίχνους] Εμφανίζει την ποιότητα του σήματος;","label":"Εμφάνιση τιμής POD"},"sendPosition":{"label":"Αποστολή τρέχουσας τοποθεσίας","description":"[Παρακολούθηση ίχνους] Μπορεί να στείλει την τοποθεσία σε άλλους;"},"showNMEAlive":{"label":"Εμφάνιση ζωντανών δεδομένων NMEA","description":"[Παρακολούθηση ίχνους] Μπορείτε να δείτε την ανεπεξέργαστη ροή του GPS;"},"addPOI":{"description":"[Επεξεργαστής] Μπορείτε να προσθέσετε έναν κόμβο;","label":"Προσθήκη ΣΕ"},"editPOI":{"label":"Επεξεργασία / Διαγραφή ΣΕ","description":"[Επεξεργαστής] Μπορείτε να επεξεργαστείτε έναν κόμβο;"},"editTags":{"label":"Επεξεργασία ετικετών των υπαρχόντων OSM αντικειμένων","description":"[Επεξεργαστής] Μπορείτε να επεξεργαστείτε υπάρχουσες ετικέτες;"},"editSource":{"description":"[Επεξεργαστής] Μπορείτε να δουλέψετε εκτός σύνδεσης;","label":"Εργασία εκτός σύνδεσης"},"screenReader":{"label":"Αναγνώστης οθόνης","description":"[Προσβασιμότητα] Λίστα των υποστηριζόμενων αναγνωστών οθόνης"},"dangerWarnings":{"label":"Προειδοποιήσεις Κινδύνου","description":"[Προσβασιμότητα]"},"screenReaderLang":{"label":"Γλώσσες αναγνώστη οθόνης","description":"[Προσβασιμότητα] Λίστα των υποστηριζόμενων γλωσσών για αναγνώστες οθόνης"},"asin":{"label":"Ταυτοποίηση Amazon","description":"Amazon Standard Identification Number για το Amazon Appstore για Android"},"keepOnRoad":{"label":"Διατήρηση στο δρόμο","description":"[Πλοήγηση] Μπορεί να σας βοηθήσει στο να διατηρήσετε το όχημά σας στην υπολογισμένη διαδρομή;"},"trafficProvider":{"label":"Πάροχος κίνησης","description":"[Δρομολόγηση] Πηγή παρόχου για δεδομένα κυκλοφορίας."},"profiles":{"label":"Προφίλ δρομολόγησης","description":"[Δρομολόγηση] Τι προφίλ υποστηρίζονται εάν κάνει δρομολόγηση;"},"rendererOutputFormats":{"label":"Μορφές εξόδου απεικονιστή","description":"[Απεικονιστής] Υποστηριζόμενες μορφές εξόδου."},"textOnlyUI":{"description":"[Προσβασιμότητα] Συμβατή διεπαφή για κείμενο σε Braille;","label":"Έξοδος πλήρους μη-γραφικού κειμένου"},"explorerMode":{"label":"Μέθοδος εξερεύνησης","description":"[Προσβασιμότητα] Έχει μέθοδο εξερεύνησης (αναφέρει όλα τα επικείμενα αντικείμενα);"},"calculateRouteOffline":{"description":"[Δρομολόγηση] Χρειάζεται σύνδεση στο Διαδίκτυο για τον υπολογισμός διαδρομής;","label":"Υπολογισμός διαδρομής χωρίς Διαδίκτυο (Δρομολόγηση χωρίς σύνδεση)"},"obtainiumLink":{"label":"Σύνδεσμος Ενημερωτή Obtainium","description":"Σύνδεσμος για τις πληροφορίες ενημερωτή του Obtainium"},"customInterval":{"label":"Προσαρμοσμένο μεσοδιάστημα καταγραφής","description":"[Καταγραφή ίχνος] Μπορείτε να ρυθμίσετε το μεσοδιάστημα χειροκίνητα;"},"geotagging":{"description":"[Καταγραφή ίχνους] Υποστηρίζονται περαιτέρω τεχνικές χαρτογράφησης"}}');
-var locales_wiki_software_template_el_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_el_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/es.json
 const wiki_software_template_es_namespaceObject = /*#__PURE__*/JSON.parse('{"name":{"label":"Nombre","description":"Nombre oficial, el más común"},"status":{"label":"Estado","description":"Estado actual del proyecto."},"price":{"label":"Precio","description":"Precio de la licencia si es propietaria. Y sin el, sí es gratuita."},"web":{"label":"Dirección web"},"repo":{"label":"Código fuente","description":"URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)"},"logo":{"label":"Logotipo"},"screenshot":{"label":"Captura de pantalla"},"lang":{"description":"Idioma en el que se muestran los textos de la plantilla.","label":"Idioma de la plantilla"},"description":{"label":"Descripción","description":"Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)"},"license":{"label":"Licencia","description":"¿Qué licencia tiene?"},"author":{"label":"Autor","description":"Nombre del autor o un enlace a su página de usuario de OSM-wiki"},"platform":{"label":"Plataformas compatibles","description":"Lista de plataformas en las que se ejecuta."},"genre":{"description":"Categoría principal de esta herramienta.","label":"Género"},"languagesurl":{"label":"Idiomas URL","description":"Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio)."},"code":{"label":"Código","description":"Lista de lenguajes de programación utilizados."},"framework":{"label":"Framework","description":"Lista de marcos utilizados."},"version":{"description":"Última versión","label":"Versión"},"date":{"label":"Fecha de publicación","description":"Última fecha de lanzamiento"},"asin":{"description":"Número de identificación estándar de Amazon para Amazon Appstore para Android","label":"Identificación de Amazon"},"bbWorldID":{"label":"ID de BlackBerry","description":"ID de la aplicación de BlackBerry World"},"languages":{"label":"Idiomas","description":"Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos"},"coverage":{"label":"Cobertura","description":"Cobertura o región de destino de la aplicación. Formato: \\"Continente, País, Región, ...\\". Utilice \\"Worldwide\\" o déjelo vacío para un uso global."},"fDroidID":{"label":"ID de F-Droid","description":"ID de la aplicación F-Droid"},"firefoxMarketplaceID":{"label":"ID de Firefox Marketplace","description":"ID de la aplicación Mozilla Firefox Marketplace"},"googlePlayID":{"label":"ID de Google Play","description":"ID de la aplicación Google Play Store"},"huaweiAppGalleryID":{"label":"ID de Huawei AppGallery","description":"ID de la aplicación Huawei AppGallery"},"appleStoreID":{"label":"ID de la AppStore","description":"ID de la aplicación iTunes App Store"},"macAppStoreID":{"description":"ID de la aplicación Mac App Store","label":"ID de la Mac AppStore"},"microsoftAppID":{"label":"ID de Microsoft","description":"UUID de la aplicación Windows de Microsoft Store"},"map":{"label":"Mostrar mapa","description":"[Visualización de mapa] ¿Puede mostrar un mapa?"},"mapData":{"label":"Datos del mapa","description":"[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \\"sobre la marcha\\" (vector)?"},"datasource":{"description":"[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?","label":"Fuente"},"3D":{"label":"Vista 3D","description":"[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?"},"showPhoneNumber":{"label":"Muestra el número de teléfono","description":"[Información del PDI] Muestra el número de teléfono del PDI"},"showOpeningHours":{"description":"[Información del POI] Muestra el horario de funcionamiento del POI","label":"Indica el horario de apertura"},"calculateRoute":{"label":"Calcular ruta","description":"[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?"},"createRouteViaWaypoints":{"label":"Crear ruta a través de Waypoints","description":"[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia"},"showWebsite":{"description":"[Información del POI] Muestra el enlace a la página web desde el POI","label":"Muestra la página web"},"rotateMap":{"label":"Girar el mapa","description":"[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?"},"createRouteManually":{"label":"Crear ruta manualmente","description":"[Enrutamiento]"},"routing":{"label":"Enrutamiento","description":"[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?"},"profiles":{"label":"Perfiles de enrutamiento","description":"[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?"},"turnRestrictions":{"label":"Restricciones de giro","description":"[Enrutamiento] ¿Puede lidiar con restricciones de giro?"},"calculateRouteOffline":{"description":"[Enrutamiento] ¿Necesita Internet para calcular una ruta?","label":"Calcular ruta sin Internet (Enrutamiento sin conexión)"},"routingProviders":{"label":"Proveedores de enrutamiento","description":"[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?"},"trafficProvider":{"description":"[Enrutamiento] Proveedor de la fuente de datos del tráfico.","label":"Proveedor de tráfico"},"navigating":{"label":"Navegar","description":"[Navegación] ¿Puedes navegar con una brújula?"},"findLocation":{"label":"Encontrar ubicación","description":"[Navegación] ¿Puede buscar una calle/lugar?"},"findNearbyPOI":{"description":"[Navegación] ¿Puede descubrir/mostrar puntos de interés?","label":"Encuentra puntos de interés cercanos"},"navToPoint":{"label":"Navegar hasta el punto","description":"[Navegación] ¿Puede guiarte a un punto en algún lugar?"},"voice":{"label":"Navegación por voz / Guía por voz","description":"[Navegación] ¿Puede darte comandos con una voz artificial?"},"keepOnRoad":{"label":"Siga por la carretera","description":"[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?"},"turnLanes":{"label":"Guía de carriles","description":"[Navegación] ¿Es compatible con la guía de carriles?"},"withoutGPS":{"description":"[Navegación] ¿Funciona incluso sin GPS?","label":"Funcionar sin GPS"},"customInterval":{"label":"Intervalo de registro personalizable","description":"[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?"},"trackFormats":{"label":"Formatos de pista","description":"[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?"},"geotagging":{"label":"Geoetiquetado","description":"[Registro de seguimiento] ¿Se admiten más técnicas de mapeo"},"fastWayPointAdding":{"label":"Botones rápidos de PDI","description":"[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?"},"uploadGPX":{"label":"Cargar GPX a OSM","description":"[Registro de pistas] ¿Puede enviar pistas directamente a OSM?"},"monitoring":{"label":"Monitorización","description":"[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?"},"showExistingTrack":{"label":"Abrir pista existente","description":"[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?"},"showAltitudeDiagram":{"label":"Gráfico de elevación","description":"[Seguimiento de la pista]"},"showDOP":{"label":"Mostrar valor DOP","description":"[Monitoreo de pista] ¿Muestra la calidad de la señal?"},"showSatellites":{"label":"Vista satelital","description":"[Monitoreo de trayectoria] ¿Muestra satélites?"},"showNMEAlive":{"label":"Mostrar datos NMEA en directo","description":"[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?"},"showSpeed":{"label":"Mostrar velocidad","description":"[Seguimiento de la pista]"},"sendPosition":{"label":"Enviar posición actual","description":"[Monitoreo de pistas] ¿Puede enviar posición a otros?"},"addPOI":{"label":"Agregar puntos de interés","description":"[Editor] ¿Puedes agregar un nodo?"},"editPOI":{"label":"Editar/eliminar puntos de interés","description":"[Editor] ¿Puedes editar un nodo?"},"addWay":{"label":"Agregar vía","description":"[Editor] ¿Puedes agregar una vía?"},"editGeom":{"label":"Editar geometrías","description":"[Editor] ¿Puedes editar nodos/vías?"},"editTags":{"description":"[Editor] ¿Puedes editar etiquetas existentes?","label":"Editar etiquetas aleatorias de objetos OSM existentes"},"editRelations":{"label":"Editar relaciones","description":"[Editor] ¿Puedes editar las relaciones?"},"viewNotes":{"label":"Ver notas","description":"[Editor] ¿Puedes ver las notas de OSM?"},"createNotes":{"label":"Crear notas","description":"[Editor] ¿Puedes agregar notas a OSM?"},"editNotes":{"label":"Editar notas","description":"[Editor] ¿Puedes comentar/cerrar Notas en OSM?"},"editSource":{"label":"Trabajar sin conexión","description":"[Editor] ¿Puedes trabajar sin conexión?"},"predefinedRoute":{"label":"Navegar por una ruta predefinida","description":"[Navegación] ¿Puede seguir otras rutas GPS?"},"avoidTraffic":{"label":"Evitar el tráfico","description":"[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?"},"tracking":{"label":"Realizar un seguimiento","description":"[Registro de seguimiento] ¿Puede grabar un track de GPS?"},"showTrack":{"label":"Mostrar pista actual","description":"[Monitoreo de pista] ¿Mostrar tu pista actual?"},"uploadOSMData":{"label":"Cargar en OSM","description":"[Editor] ¿Puede enviar los cambios a OSM directamente?"},"rendererOutputFormats":{"label":"Formatos del renderizador","description":"[Renderizador] Formatos de salida admitidos."},"accessibility":{"label":"Ayuda a la accesibilidad","description":"[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?"},"brailleUI":{"label":"Interfaz en Braille","description":"[Accesibilidad] ¿Una interfaz braille especial?"},"explorerMode":{"label":"Modo exploración","description":"[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?"},"publicTransportMode":{"label":"Modo de transporte público","description":"[Accesibilidad] ¿Admite rutas con transporte público?"},"dangerWarnings":{"label":"Avisos de peligro","description":"[Accesibilidad]"},"screenReader":{"label":"Lector de pantalla","description":"[Accesibilidad] Lista de lectores de pantalla compatibles"},"screenReaderLang":{"label":"Idiomas del lector de pantalla","description":"[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla"},"offsetDBsupport":{"label":"Admite el desplazamiento de imágenes aéreas DB","description":"[Editor] ¿Soporta el offset de imágenes DB?"},"textOnlyUI":{"label":"Salida de texto sin gráficos","description":"[Accesibilidad] ¿Interfaz compatible de texto a braille?"},"obtainiumLink":{"label":"Enlace de actualización de Obtainium","description":"Enlace a la información de actualización de Obtainium"}}');
-var locales_wiki_software_template_es_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_es_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/et.json
 const wiki_software_template_et_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Malli keel","description":"Keel, milles malli tekstid on kuvatud."},"name":{"label":"Nimi","description":"Ametlik nimi või selle puudumisel üldlevinud nimi"},"status":{"label":"Olek","description":"Projekti praegune olek."},"license":{"label":"Litsents","description":"Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?"},"price":{"label":"Hind","description":"Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta."},"web":{"label":"Veebiaadress"},"repo":{"description":"Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)","label":"Lähtekood"},"screenshot":{"label":"Ekraanitõmmis"},"description":{"label":"Kirjeldus","description":"Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)"},"author":{"label":"Autor","description":"Autori nimi ja/või link vastavale OSM-viki kasutajalehele"},"platform":{"label":"Toetatud platvormid","description":"Platvormide loend, kus see rakendus töötab."},"genre":{"label":"Žanr","description":"Selle tarviku põhikategooria."},"languages":{"label":"Keeled","description":"Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"},"logo":{"label":"Logo"},"languagesurl":{"label":"Keelte võrguaadress","description":"Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel)."},"version":{"description":"Viimane versioon","label":"Versioon"},"asin":{"description":"Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)","label":"Amazoni kasutajatunnus"},"coverage":{"label":"Katvus","description":"Rakenduse kasutatvuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."},"code":{"label":"Lähtekood","description":"Kasutatud programmeerimiskeelte loend."},"framework":{"label":"Arendusraamistik","description":"Koodi kirjutamisel kasutatud arendusraamistik."},"date":{"label":"Väljalaske kuupäev","description":"Viimase versiooni avaldamise kuupäev"},"mapData":{"description":"[Kaardi kuvamine] Kas kaart kuvatakse varemloodud piltide ja paanidena (rasterkaart) või „lennult“ (vektorkaart)?","label":"Kaardiandmed"},"obtainiumLink":{"description":"Link lehele, mis kirjeldab uuendamist Obtainiumi jaoks","label":"Uuendamise link Obtainiumis"},"map":{"description":"[Kaardi kuvamine] Kas rakenduses on kaardivaade?","label":"Kaardi kuvamine"},"bbWorldID":{"label":"BlackBerry ID","description":"Rakenduse tunnus BlackBerry Worldis"},"fDroidID":{"label":"F-Droid ID","description":"Rakenduse tunnus F-Droidis"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Rakenduse tunnus Mozilla Firefox Marketplace\'is"},"googlePlayID":{"label":"Google Play ID","description":"Rakenduse tunnus Google Play Store\'is"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Rakenduse tunnus Huawei AppGallery\'s"},"appleStoreID":{"label":"AppStore ID","description":"Rakenduse tunnus iTunes App Store\'is"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Rakenduse tunnus Mac App Store\'is"},"microsoftAppID":{"label":"Microsoft ID","description":"Windowsi rakenduse UUID-tunnus Microsoft Store\'is"},"datasource":{"label":"Kaardiallikas","description":"[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?"},"rotateMap":{"label":"Kaardi pööramine","description":"[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?"},"3D":{"label":"3D-vaade","description":"[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"},"showWebsite":{"label":"Näitab veebisaiti"}}');
-var locales_wiki_software_template_et_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_et_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/fr.json
 const wiki_software_template_fr_namespaceObject = /*#__PURE__*/JSON.parse('{"name":{"label":"Nom","description":"Nom officiel, autrement le plus connu"},"web":{"label":"Adresse Web"},"repo":{"label":"Code source","description":"URL pour voir ou télécharger le code source (par exemple, un dépôt Git, Subversion ou CVS)"},"logo":{"label":"Logo"},"description":{"description":"Description courte. Qu\'est-ce qui le distingue des autres outils ? (Rédigez votre propre description, sans la copier depuis le site web)","label":"Description"},"author":{"description":"Nom de l\'auteur ou lien vers la page d\'auteur sur le wiki OSM","label":"Auteur"},"platform":{"label":"Plateformes prises en charge","description":"Liste des plateformes prises en charge."},"languages":{"description":"Langues prises en charge (liste de codes de langue séparés par des points-virgules) ou nombre de langues prises en charge","label":"Langues"},"languagesurl":{"label":"URL des langues","description":"Lien vers la liste de toutes les langues prises en charge, décrites sur un autre page (par ex. un portail du logiciel ou un dépôt)."},"coverage":{"label":"Couverture","description":"Couverture ou région cible pour l\'application. Format : \\"Continent, Pays, Région…\\". Utilisez \\"Worldwide\\" ou laissez vide pour une utilisation mondiale."},"code":{"label":"Code","description":"Liste des langages de programmation utilisés."},"framework":{"label":"Framework","description":"Liste des frameworks utilisés."},"version":{"label":"Version","description":"Dernière version"},"date":{"label":"Date de sortie","description":"Date de la dernière version"},"asin":{"label":"Identifiant Amazon","description":"Identifiant Amazon pour Amazon Appstore sur Android"},"bbWorldID":{"label":"Identifiant BlackBerry","description":"Identifiant d\'application BlackBerry"},"fDroidID":{"label":"Identifiant F-Droid","description":"Identifiant d\'application F-Droid"},"firefoxMarketplaceID":{"description":"Identifiant d\'application pour Mozilla Firefox Marketplace","label":"Identifiant Firefox Marketplace"},"googlePlayID":{"label":"Identifiant Google Play","description":"Identifiant d\'application du Google Play Store"},"huaweiAppGalleryID":{"label":"Identifiant Huawei AppGallery","description":"Identifiant d\'application de Huawei AppGallery"},"appleStoreID":{"description":"Identifiant d\'application pour iTunes App Store","label":"Identifiant AppStore"},"macAppStoreID":{"description":"Identifiant d\'application du Mac App Store","label":"Identifiant Mac AppStore"},"microsoftAppID":{"label":"Identifiant Microsoft","description":"UUID d\'application du Microsoft Store pour Windows"},"obtainiumLink":{"label":"Lien de mise à jour Obtainium","description":"Lien vers les informations de mise à jour sur Obtainium"},"map":{"label":"Affichage de carte","description":"[Affichage de carte] Est-ce qu\'une carte est affichée ?"},"datasource":{"label":"Source","description":"[Affichage de carte] Pouvez-vous stocker toutes les données cartographiques hors ligne ? Télécharger un fichier séparé ?"},"rotateMap":{"label":"Rotation de la carte","description":"[Affichage de carte] La carte est-elle affichée dans le sens de la marche ou de la conduite ?"},"3D":{"description":"[Affichage de carte] Existe-t-il une vue en 3D ou en 2,5D ?","label":"Vue 3D"},"showPhoneNumber":{"label":"Affiche le numéro de téléphone","description":"[Information des POI] Affiche le numéro de téléphone sur les points d\'intérêt"},"showOpeningHours":{"label":"Affiche les horaires","description":"[Information des POI] Affiche les horaires sur les points d\'intérêt"},"routing":{"label":"Guidage","description":"[Guidage] Pouvez-vous calculer ou planifier un itinéraire ?"},"createRouteManually":{"label":"Créer un itinéraire manuellement","description":"[Guidage]"},"calculateRoute":{"label":"Calculer un itinéraire","description":"[Guidage] Peut-il calculer un itinéraire en utilisant le routage ?"},"createRouteViaWaypoints":{"label":"Créer un itinéraire à partir de points","description":"[Guidage] Capacité de créer un itinéraire à partir de points"},"profiles":{"label":"Profils de guidage","description":"[Guidage] Quels sont les profils pris en charge s\'ils font du routage ?"},"turnRestrictions":{"label":"Restrictions de direction","description":"[Guidage] Peut-il gérer les restrictions de circulation ?"},"calculateRouteOffline":{"label":"Calcul d\'itinéraire sans Internet (Guidage hors-ligne)","description":"[Guidage] Une connexion Internet est-t-elle nécessaire pour calculer un itinéraire ?"},"routingProviders":{"description":"[Guidage] Quels services sont utilisés ?","label":"Fournisseurs de guidage"},"avoidTraffic":{"label":"Évitement du trafic","description":"[Guidage] L\'application optimise-t-elle l\'itinéraire pour éviter les embouteillages ?"},"navigating":{"label":"Naviguer","description":"[Navigation] Pouvez-vous naviguer à la manière d\'une boussole ?"},"findLocation":{"label":"Rechercher un lieu","description":"[Navigation] Est-il possible de rechercher une rue ou un lieu ?"},"findNearbyPOI":{"label":"Rechercher des points d\'intérêts proches","description":"[Navigation] Est-il possible de découvrir/afficher des points d\'intérêt ?"},"navToPoint":{"label":"Naviguer vers un point","description":"[Navigation] Est-il possible de naviguer vers un point quelque part ?"},"voice":{"label":"Navigation vocale / Guidage vocal","description":"[Navigation] Les instructions peuvent-elles être données par synthèse vocale ?"},"keepOnRoad":{"label":"Rester sur la route","description":"[Navigation] Peut-il vous aider à maintenir votre véhicule sur l\'itinéraire calculé ?"},"turnLanes":{"label":"Guidage des voies","description":"[Navigation] Le guidage des voies est-il pris en charge ?"},"withoutGPS":{"label":"Fonctionne sans GPS","description":"[Navigation] Est-ce que cela fonctionne même sans GPS ?"},"tracking":{"label":"Créer une trace","description":"[Enregistrement des traces] Peut-il enregistrer une trace GPS ?"},"customInterval":{"label":"Intervalle d\'enregistrement personnalisable","description":"[Enregistrement des traces] Pouvez-vous régler l\'intervalle manuellement ?"},"trackFormats":{"label":"Format des traces","description":"[Enregistrement des traces] Quels formats de stockage pouvez-vous utiliser pour enregistrer votre trace GPS ?"},"geotagging":{"label":"Géocodage","description":"[Enregistrement des traces] D\'autres techniques de cartographie sont-elles prises en charge ?"},"fastWayPointAdding":{"label":"Bouton d\'ajout rapide","description":"[Enregistrement des traces] Facile d\'ajouter un nouveau point  ?"},"uploadGPX":{"label":"Importer des GPX dans OSM","description":"[Enregistrement des traces] Peut-on envoyer les traces directement à OSM ?"},"monitoring":{"description":"[Suivi des traces] Pouvez-vous suivre les données GPS ?","label":"Suivi"},"showTrack":{"label":"Afficher la trace actuelle","description":"[Suivi de trace] Affichage la trace en cours ?"},"showExistingTrack":{"description":"[Suivi des traces] Peut-il charger des traces existantes afin que vous puissiez les suivre ?","label":"Ouvrir une trace existante"},"showDOP":{"description":"[Suivi des traces] Affichage de la qualité du signal ?","label":"Afficher la valeur POD"},"showSatellites":{"label":"Vue satellite","description":"[Suivi des traces] Affichage en vue satellite ?"},"showNMEAlive":{"description":"[Suivi des traces] Pouvez-vous voir le flux GPS brut ?","label":"Afficher les données NMEA en direct"},"showSpeed":{"label":"Afficher la vitesse","description":"[Suivi des traces]"},"sendPosition":{"label":"Envoyer la position actuelle","description":"[Suivi des traces] Peut-il envoyer sa position à d\'autres personnes ?"},"addPOI":{"label":"Ajouter des points","description":"[Éditeur] Pouvez-vous ajouter un nœud ?"},"editPOI":{"description":"[Éditeur] Pouvez-vous modifier un nœud ?","label":"Modifier/Supprimer des points"},"addWay":{"label":"Ajouter un chemin","description":"[Éditeur] Pouvez-vous ajouter un chemin ?"},"editGeom":{"description":"[Éditeur] Pouvez-vous modifier des nœuds/chemins ?","label":"Modifier des formes"},"editTags":{"label":"Modifier les propriétés des objets OSM existants","description":"[Éditeur] Pouvez-vous modifier les propriétés existantes ?"},"editRelations":{"description":"[Éditeur] Pouvez-vous modifier les relations ?","label":"Modifier les relations"},"createNotes":{"label":"Créer des notes","description":"[Éditeur] Pouvez vous créer des notes OSM ?"},"editNotes":{"label":"Modifier les notes","description":"[Éditeur] Pouvez-vous commenter/fermer les notes OSM ?"},"editSource":{"description":"[Éditeur] Pouvez-vous travailler hors-ligne ?","label":"Travailler hors-ligne"},"offsetDBsupport":{"label":"Prendre en charge le décalage d\'image","description":"[Éditeur] Le décalage d\'image est-il pris en charge ?"},"uploadOSMData":{"description":"[Éditeur] Pouvez-vous envoyer directement les modifications vers OSM ?","label":"Envoyer vers OSM"},"rendererOutputFormats":{"label":"Formats de sortie du moteur de rendu","description":"[Moteur de rendu] Formats de sortie pris en charge."},"accessibility":{"description":"[Accessibilité] Y a-t-il de l\'aide affichée quelque part ?","label":"Prise en charge de l\'accessibilité"},"brailleUI":{"label":"Interface braille","description":"[Accessibilité] Interface spécifique pour le braille ?"},"explorerMode":{"label":"Mode exploration","description":"[Accessibilité] Comporte un mode d\'exploration (indique tous les objets en approche) ?"},"publicTransportMode":{"description":"[Accessibilité] Les itinéraires de transport en commun sont-ils pris en charge ?","label":"Mode transport en commun"},"dangerWarnings":{"description":"[Accessibilité]","label":"Avertissement des dangers"},"screenReader":{"description":"[Accessibilité] Liste des lecteurs d\'écran pris en charge","label":"Lecteur d\'écran"},"screenReaderLang":{"label":"Langue des lecteurs d\'écran","description":"[Accessibilité] Liste des langues prises en charge par les lecteurs d\'écran"},"textOnlyUI":{"description":"[Accessibilité] Y a t-il une interface compatible braille ?","label":"Sortie de texte non graphique complète"},"trafficProvider":{"label":"Fournisseur de trafic","description":"[Guidage] Fournisseur des données de trafic."},"genre":{"label":"Genre","description":"Catégorie principale de cet outil."},"price":{"description":"Payant si propriétaire. Si le prix est vide, l\'application est gratuite.","label":"Prix"},"mapData":{"description":"[Affichage de carte] Les cartes sont-elles dessinées à partir d\'images précalculées/rastérisées (raster) ou « à la volée » (vecteur) ?","label":"Données de carte"},"status":{"label":"État","description":"État actuel du projet."},"license":{"description":"Quelle licence ? Libre ou propriétaire ?","label":"Licence"},"lang":{"description":"Langue dans laquelle les textes du modèle sont affichés.","label":"Langue du modèle"},"showWebsite":{"description":"[Information des POI] Affiche un lien vers le site Web sur les points d\'intérêt","label":"Affiche le site Web"},"viewNotes":{"description":"[Éditeur] Pouvez-vous voir les notes OSM ?","label":"Voir les notes"},"screenshot":{"label":"Capture d\'écran"},"showAltitudeDiagram":{"description":"[Suivi des traces]","label":"Diagramme d\'altitude"},"predefinedRoute":{"description":"[Navigation] Peut-il suivre d\'autres traces GPS ?","label":"Naviguer le long d\'un itinéraire prédéfini"}}');
-var locales_wiki_software_template_fr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_fr_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/hu.json
 const wiki_software_template_hu_namespaceObject = /*#__PURE__*/JSON.parse('{"map":{"label":"Térkép megjelenítése","description":"[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"},"microsoftAppID":{"description":"Microsoft Store Windows alkalmazás UUID","label":"Microsoft ID"},"mapData":{"label":"Térképadatok","description":"[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"},"datasource":{"label":"Forrás","description":"[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"},"rotateMap":{"label":"Térkép elforgatása","description":"[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"},"3D":{"label":"3D nézet","description":"[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"},"showWebsite":{"label":"Megjelenít-e weboldalt?","description":"[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalára mutató linket?"},"showPhoneNumber":{"label":"Megjelenít-e telefonszámot?","description":"[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"},"showOpeningHours":{"label":"Megjelenít-e nyitva tartást?","description":"[POI információ] Megjeleníti-e a POI nyitvatartási idejét?"},"routing":{"label":"Útvonaltervezés","description":"[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"},"createRouteManually":{"label":"Útvonal létrehozása manuálisan","description":"[Útvonaltervezés]"},"calculateRoute":{"label":"Útvonal kiszámítása","description":"[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"},"createRouteViaWaypoints":{"label":"Útvonal létrehozása útpontokkal","description":"[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"},"profiles":{"label":"Útvonaltervezési profilok","description":"[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"},"turnRestrictions":{"label":"Bekanyarodási korlátozások","description":"[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"},"calculateRouteOffline":{"label":"Útvonal kiszámítása internet nélkül (offline útvonaltervezés)","description":"[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"},"routingProviders":{"label":"Útvonaltervezési szolgáltatók","description":"[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"},"avoidTraffic":{"label":"Forgalom elkerülése","description":"[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"},"trafficProvider":{"label":"Forgalmi szolgáltató","description":"[Útvonaltervezés] Forgalmi adatok forrása"},"navigating":{"label":"Navigáció","description":"[Navigáció] Tud-e iránytűszerűen navigálni?"},"findLocation":{"label":"Hely keresése","description":"[Navigáció] Lehet-e utcát/helyet keresni?"},"findNearbyPOI":{"label":"Közeli POI-k keresése","description":"[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"},"navToPoint":{"label":"Navigáció ponthoz","description":"[Navigáció] El tud-e vezetni valahová?"},"voice":{"label":"Hangos navigáció / Hangvezérlés","description":"[Navigáció] Tud-e számítógéphanggal utasítást adni?"},"keepOnRoad":{"label":"Úton tartás","description":"[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"},"turnLanes":{"label":"Sávvezetés","description":"[Navigáció] Támogatja-e a sávok közötti vezetést?"},"withoutGPS":{"label":"Működés GPS nélkül","description":"[Navigáció] Működik-e akár GPS nélkül is?"},"predefinedRoute":{"label":"Navigálás előre meghatározott útvonalon","description":"[Navigáció] Tud-e más GPS-nyomvonalat követni?"},"tracking":{"label":"Nyomvonalkészítés","description":"[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"},"customInterval":{"label":"Testreszabható naplózási intervallum","description":"[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"},"trackFormats":{"label":"Nyomvonalformátumok","description":"[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"},"geotagging":{"label":"Geotagging","description":"[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"},"fastWayPointAdding":{"label":"Gyors POI-gombok","description":"[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"},"uploadGPX":{"label":"GPX feltöltése az OSM-re","description":"[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"},"monitoring":{"label":"Követés","description":"[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"},"showTrack":{"label":"Jelenlegi nyomvonal megjelenítése","description":"[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"},"showExistingTrack":{"label":"Meglévő nyomvonal megnyitása","description":"[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"},"showAltitudeDiagram":{"label":"Magassági diagram","description":"[Nyomvonalkövetés]"},"showSpeed":{"description":"[Nyomvonalkövetés]","label":"Sebesség megjelenítése"},"showDOP":{"label":"DOP-érték megjelenítése","description":"[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"},"showSatellites":{"label":"Műholdak nézet","description":"[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"},"editTags":{"description":"[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?","label":"Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"},"showNMEAlive":{"label":"Élő NMEA-adatok megjelenítése","description":"[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"},"editRelations":{"label":"Kapcsolat szerkesztése","description":"[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"},"viewNotes":{"label":"Jegyzetek megtekintése","description":"[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"},"createNotes":{"label":"Jegyzet létrehozása","description":"[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"},"editNotes":{"label":"Jegyzet szerkesztése","description":"[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"},"editSource":{"label":"Offline munka","description":"[Szerkesztő] Lehet-e vele offline dolgozni?"},"offsetDBsupport":{"label":"Légifelvétel-eltolási adatbázis támogatása","description":"[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"},"uploadOSMData":{"label":"Feltöltés az OSM-re","description":"[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"},"rendererOutputFormats":{"label":"Megjelenítő kimeneti formátumai","description":"[Megjelenítő] Támogatott kimeneti formátumok"},"accessibility":{"label":"Kisegítő lehetőségek támogatása","description":"[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"},"textOnlyUI":{"label":"Teljes nem grafikus szöveges kimenet","description":"[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"},"brailleUI":{"label":"Braille-írás interfész","description":"[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"},"explorerMode":{"label":"Feltáró mód","description":"[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)"},"publicTransportMode":{"label":"Tömegközlekedési mód","description":"[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"},"dangerWarnings":{"label":"Figyelmeztetés veszélyre","description":"[Akadálymentesség]"},"screenReader":{"label":"Képernyő-felolvasó","description":"[Akadálymentesség] Támogatott képernyő-felolvasók listája"},"screenReaderLang":{"label":"Képernyő-felolvasó nyelvei","description":"[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"},"genre":{"label":"Típus","description":"Az eszköz fő kategóriája"},"googlePlayID":{"description":"Google Play Store alkalmazásazonosító","label":"Google Play ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery alkalmazásazonosító"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store alkalmazásazonosító"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store alkalmazásazonosító"},"lang":{"label":"Sablon nyelve","description":"A sablonszövegek megjelenítésének nyelve"},"name":{"label":"Név","description":"Hivatalos név, annak híján a legelterjedtebb"},"languagesurl":{"description":"Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban).","label":"Nyelvek URL-je"},"code":{"label":"Kód","description":"A felhasznált programozási nyelvek listája"},"framework":{"label":"Keretrendszer","description":"A felhasznált keretrendszerek listája"},"version":{"label":"Verzió","description":"Legújabb verzió"},"date":{"label":"Kiadás dátuma","description":"A legutóbbi megjelenés dátuma"},"asin":{"label":"Amazon azonosító","description":"Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World alkalmazásazonosító"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid alkalmazásazonosító"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace alkalmazásazonosító"},"sendPosition":{"label":"Jelenlegi pozíció elküldése","description":"[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"},"addPOI":{"label":"Érdekes pont (POI-k) felvétele","description":"[Szerkesztő] Fel lehet-e venni egy pontot?"},"editPOI":{"label":"Érdekes pont szerkesztésetörlése","description":"[Szerkesztő] Lehet-e vele pontot szerkeszteni?"},"addWay":{"label":"Vonal felvétele","description":"[Szerkesztő] Lehet-e vele vonalat felrajzolni?"},"editGeom":{"label":"Alakzat szerkesztése","description":"[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"},"status":{"label":"Állapot","description":"A projekt jelenlegi állapota"},"license":{"label":"Licenc","description":"Milyen szabad vagy tulajdonosi licenc alá tartozik?"},"price":{"label":"Ár","description":"Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."},"web":{"label":"Webcím"},"repo":{"label":"Forráskód","description":"URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"},"logo":{"label":"Logó"},"screenshot":{"label":"Képernyőkép"},"description":{"label":"Leírás","description":"Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"},"author":{"label":"Szerző","description":"A szerző neve vagy OSM-wiki felhasználói oldalának linkje"},"platform":{"label":"Támogatott platformok","description":"Azon platformok listája, amelyeken fut"},"languages":{"label":"Nyelvek","description":"Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"},"coverage":{"label":"Lefedés","description":"Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."},"obtainiumLink":{"label":"Obtainium frissítési link","description":"Link az Obtainium frissítési információkhoz"}}');
-var locales_wiki_software_template_hu_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_hu_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/id.json
 const wiki_software_template_id_namespaceObject = {};
-var locales_wiki_software_template_id_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_id_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/it.json
 const wiki_software_template_it_namespaceObject = /*#__PURE__*/JSON.parse('{"web":{"label":"Indirizzo web"},"date":{"label":"Data di pubblicazione"},"license":{"label":"Licenza"},"status":{"label":"Stato","description":"Stato attuale del progetto."},"logo":{"label":"Logo"},"name":{"label":"Nome","description":"Nome ufficiale, o il nome più comunemente usato"},"version":{"description":"Ultima versione","label":"Versione"},"repo":{"label":"Codice sorgente","description":"URL per visualizzare o scaricare il codice sorgente (ad esempio, un repository Git, Subversion o CVS)"},"description":{"label":"Descrizione","description":"Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)"},"price":{"label":"Prezzo","description":"Costi se proprietari. Se il prezzo è vuoto, l\'applicazione è gratuita."},"author":{"label":"Autore","description":"Nome dell\'autore o collegamento alla sua pagina utente di OSM-wiki"},"platform":{"label":"Piattaforme supportate","description":"Elenco delle piattaforme su cui è utilizzabile."},"genre":{"label":"Genere","description":"Categoria principale di questo strumento."},"languages":{"label":"Lingue","description":"Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate"},"coverage":{"label":"Copertura","description":"Copertura o regione per cui l\'app è destinata. Formato: \\"Continente, Nazione, Regione, ...\\". Usa \\"Worldwide\\" o lascia vuoto per un uso globale."},"code":{"label":"Codice","description":"Lista dei linguaggi di programmazione utilizzati."},"framework":{"label":"Framework","description":"Lista di framework utilizzati."},"bbWorldID":{"label":"ID BlackBerry","description":"ID dell\'applicazione BlackBerry World"},"fDroidID":{"label":"ID di F-Droid","description":"ID dell\'applicazione su F-Droid"},"googlePlayID":{"label":"ID di Google Play","description":"ID dell\'applicazione su Google Play Store"},"microsoftAppID":{"label":"ID Microsoft"},"3D":{"label":"Vista 3D"},"showWebsite":{"label":"Mostra la pagina web"},"languagesurl":{"description":"Collegamento alla lista completa delle lingue supportate, descritte in un altra pagina (per esempio una repository o una pagina del portale per il software)"},"firefoxMarketplaceID":{"label":"ID di Firefox Marketplace","description":"ID dell\'applicazione su Firefox Marketplace"},"huaweiAppGalleryID":{"label":"ID di Huawei AppGallery","description":"ID dell\'applicazione su Huawei AppGallery"},"appleStoreID":{"label":"ID AppStore"},"navigating":{"label":"Naviga"},"dangerWarnings":{"description":"[Accessibilità]"},"screenshot":{"label":"Screenshot"},"lang":{"description":"Lingua in cui vengono visualizzati i testi del modello."}}');
-var locales_wiki_software_template_it_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_it_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ja.json
 const wiki_software_template_ja_namespaceObject = {};
-var locales_wiki_software_template_ja_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ja_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ko.json
 const wiki_software_template_ko_namespaceObject = {};
-var locales_wiki_software_template_ko_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ko_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/nb-NO.json
 const wiki_software_template_nb_NO_namespaceObject = {};
-var locales_wiki_software_template_nb_NO_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_nb_NO_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/pl.json
 const wiki_software_template_pl_namespaceObject = {};
-var locales_wiki_software_template_pl_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_pl_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/pt.json
 const wiki_software_template_pt_namespaceObject = {};
-var locales_wiki_software_template_pt_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_pt_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ru.json
 const wiki_software_template_ru_namespaceObject = {};
-var locales_wiki_software_template_ru_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ru_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/sv.json
 const wiki_software_template_sv_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Mallspråk","description":"Språk som malltexterna visas på."},"name":{"label":"Namn","description":"Officiellt namn, annars vanligast använda"},"status":{"label":"Status","description":"Nuvarande status för projektet."},"license":{"label":"Licens","description":"Vilken fri licens eller proprietär?"},"price":{"label":"Pris","description":"Kostnader om proprietär. Om priset är tomt är ansökan gratis."},"web":{"label":"Webbadress"},"repo":{"label":"Källkod","description":"URL för att visa eller ladda ner källkoden (till exempel ett Git, Subversion eller CVS-arkiv)"},"logo":{"label":"Logotyp"},"screenshot":{"label":"Skärmdump"},"description":{"label":"Beskrivning","description":"Kort beskrivning. Vad skiljer detta från andra verktyg? (Skriv din egen beskrivning, kopiera inte bara den från webbplatsen)"},"author":{"label":"Författare","description":"Namn på författaren eller en länk till deras OSM-wiki användarsida"},"platform":{"label":"Plattformar som stöds","description":"Lista över plattformar den kan köras på."},"genre":{"description":"Huvudkategori för detta verktyg.","label":"Genre"},"languages":{"label":"Språk","description":"Stödda språk (lista över giltiga språkkoder separerade av semikoloner) eller antal språk som stöds"},"languagesurl":{"label":"Språk URL","description":"Länk till den faktiska fullständiga listan över språk som stöds, beskrivs på en annan sida (t.ex. en portalsida för programvaran eller ett arkiv)."},"coverage":{"label":"Täckning","description":"Täckning eller målregion i appen. Formatering: \\"Kontinent, land, region, ...\\" Använd \\"Worldwide\\" eller lämna den tom för global användning."},"map":{"description":"[Map display] Kan det visa en karta?","label":"Visa karta"},"mapData":{"label":"Kartdata","description":"[Kartvisning] Kartor ritade med förberäknade/rastrerade bilder (raster) eller \\"on the fly\\" (vektor)?"},"datasource":{"label":"Källa","description":"[Map display] Kan du lagra alla kartdata offline? Ladda ner en separat fil?"},"rotateMap":{"label":"Rotera kartan","description":"[Kartvisning] Vrider den kartan i kör-/gångriktning?"},"3D":{"label":"3D-vy","description":"[Map display] Finns det någon 3D eller 2,5D-vy?"},"showWebsite":{"label":"Visar hemsida","description":"[POI Information] Visar länk till webbplatsen från POI"},"showPhoneNumber":{"label":"Visar telefonnummer","description":"[POI Information] Visar telefonnummer från POI"},"showOpeningHours":{"label":"Visar öppettider","description":"[POI-information] Visar öppettider från POI"},"routing":{"description":"[Routing] Kan du beräkna eller på annat sätt planera en rutt?","label":"Ruttläggning"},"createRouteManually":{"label":"Skapa rutt manuellt","description":"[Routing]"},"calculateRoute":{"label":"Beräkna rutt","description":"[Ruttläggning] Kan den beräkna en rutt med hjälp av Ruttplanering?"},"createRouteViaWaypoints":{"label":"Skapa rutt via vägpunkter","description":"[Ruttläggning] Kan beräkna rutt via Vägpunkter"},"findLocation":{"label":"Hitta plats","description":"[Navigering] Kan det söka efter en gata/plats?"},"findNearbyPOI":{"label":"Hitta närliggande POI","description":"[Navigering] Kan den upptäcka/visa intressanta platser?"},"navigating":{"label":"Navigera","description":"[Navigering] Kan du navigera på ett kompass liknande sätt?"},"navToPoint":{"label":"Navigera till punkt","description":"[Navigering] Kan den vägleda dig till en punkt någonstans?"},"voice":{"label":"Navigering med röst / röstvägledning","description":"[Navigering] Kan det ge dig kommandon med en datorröst?"},"keepOnRoad":{"description":"[Navigering] Kan det hjälpa dig att hålla ditt fordon på den beräknade vägen?","label":"Håll dig på vägen"},"turnLanes":{"label":"Körfältsvägledning","description":"[Navigering] Har den stöd för filvägledning?"},"withoutGPS":{"label":"Fungerar utan GPS","description":"[Navigering] Fungerar det även utan GPS?"},"predefinedRoute":{"label":"Navigera längs fördefinierad rutt","description":"[Navigering] Kan det följa andra GPS-spår?"},"tracking":{"description":"[Track logging] Kan det spela in ett GPS-spår?","label":"Gör spår"},"customInterval":{"label":"Anpassningsbart loggintervall","description":"[Track logging] Kan du ställa in intervallet manuellt?"},"geotagging":{"label":"Geotagging","description":"[Spårloggning] Stöds ytterligare kartläggningstekniker"},"fastWayPointAdding":{"label":"Snabbknappar för POI","description":"[Spårloggning] Lätt att lägga till en ny vägpunkt?"},"uploadGPX":{"label":"Ladda upp GPX till OSM","description":"[Spårloggning] Kan den skicka spår direkt till OSM?"},"monitoring":{"label":"Övervakning","description":"[Spårövervakning] Kan du övervaka GPS-data?"},"showTrack":{"label":"Visa aktuellt spår","description":"[Spårövervakning] Visa ditt aktuella spår?"},"showExistingTrack":{"label":"Öppna befintliga spår","description":"[Spårövervakning] Kan den ladda befintliga spår så att du kan följa dem?"},"code":{"label":"Kodkod","description":"Lista över programmeringsspråk som används."},"framework":{"label":"Ramverk","description":"Förteckning över de ramverk som används."},"version":{"label":"Version","description":"Senaste versionen"},"date":{"label":"Utgivningsdatum","description":"Senaste utgivningsdatum"},"asin":{"label":"Amazon Identifiering","description":"Amazons standardidentifieringsnummer för Amazon Appstore för Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World applikations ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid applikations ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace applikations ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store Applications ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery applikations ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store applikations ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store applikations ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows-program UUID"},"profiles":{"label":"Ruttplaneringsprofiler","description":"[Ruttläggning] Vilka profiler stöds om den gör Ruttplanering?"},"turnRestrictions":{"label":"Svängrestriktioner","description":"[Ruttläggning] Kan den hantera svängbegränsningar?"},"calculateRouteOffline":{"label":"Beräkna rutt utan internet (offline-ruttläggning)","description":"[Ruttberäkning] Behöver den internet för att beräkna en rutt?"},"routingProviders":{"label":"Ruttläggningleverantörer","description":"[Ruttläggning] Vilka ruttläggningtjänster använder den?"},"avoidTraffic":{"label":"Undvik trafik","description":"[Ruttplanering] Optimerar appen rutten för att undvika trafikstockningar?"},"trafficProvider":{"label":"Trafikleverantör","description":"[Ruttläggning] Leverantör av trafikdatakälla."},"trackFormats":{"label":"Spårformat","description":"[Spårloggning] Vilka format kan du spara ditt GPS-spår i?"},"showAltitudeDiagram":{"label":"Höjddiagram","description":"[Spårövervakning]"},"showDOP":{"description":"[Spårövervakning] Visar signalkvalitet?","label":"Visa POD-värde"},"showSatellites":{"label":"Satellitvy","description":"[Spårövervakning] Visar satelliter?"},"showNMEAlive":{"label":"Visa live NMEA data","description":"[Spårövervakning] Kan du se den råa GPS-strömmen?"},"showSpeed":{"label":"Visa hastighet","description":"[Spårövervakning]"},"sendPosition":{"label":"Skicka aktuell position","description":"[Spårövervakning] Kan den skicka position till andra?"},"addPOI":{"label":"Lägg till POI","description":"[Editor] Kan du lägga till en nod?"},"editPOI":{"label":"Redigera/ta bort POIs","description":"[Editor] Kan du redigera en nod?"},"editGeom":{"label":"Redigera geometrier","description":"[Redigera] Kan du redigera noder/vägar?"},"editTags":{"label":"Redigera godtyckliga taggar av befintliga OSM-objekt","description":"[Redigera] Kan du redigera befintliga taggar?"},"addWay":{"label":"Lägg till väg","description":"[Redigera] Kan du lägga till ett sätt?"},"editRelations":{"label":"Redigera relationer","description":"[Redigera] Kan du redigera relationer?"},"viewNotes":{"label":"Visa anteckningar","description":"[Redigera] Kan du visa OSM-anteckningar?"},"createNotes":{"label":"Skapa anteckningar","description":"[Redigera] Kan du lägga till OSM-anteckningar?"},"editNotes":{"label":"Redigera anteckningar","description":"[Redigera] Kan du kommentera/stänga OSM Notes?"},"editSource":{"label":"Arbeta offline","description":"[Redigera] Kan du arbeta offline?"},"offsetDBsupport":{"label":"Stöd för bildoffset-DB","description":"[Redigera] Stöder den bildoffset-databasen?"},"uploadOSMData":{"label":"Ladda upp till OSM","description":"[Redigera] Kan man skicka ändringar direkt till OSM?"},"accessibility":{"label":"Tillgänglighetsstöd","description":"[Tillgänglighet] Hjälper det funktionshindrade personer på något sätt?"},"textOnlyUI":{"label":"Komplett icke-grafisk textutmatning","description":"[Tillgänglighet] Gränssnitt kompatibelt med text till punktskrift?"},"brailleUI":{"label":"Punktgränssnitt","description":"[Tillgänglighet] Ett särskilt punktskriftgränssnitt?"},"explorerMode":{"label":"Utforskningsläge","description":"[Tillgänglighet] Har ett utforskningsläge (tala alla objekt som närmar sig)?"},"publicTransportMode":{"label":"Kollektivtrafiksläge","description":"[Tillgänglighet] Stöder ruttförbindelser med kollektivtrafik?"},"dangerWarnings":{"label":"Varningar om fara","description":"[Tillgänglighet]"},"screenReader":{"label":"Skärmläsare","description":"[Tillgänglighet] Lista över skärmläsare som stöds"},"screenReaderLang":{"label":"Skärmläsarspråk","description":"[Tillgänglighet] Lista över skärmläsarspråk som stöds"},"obtainiumLink":{"label":"Obtainium Updater länk","description":"Länk till Obtainium updater information"},"rendererOutputFormats":{"label":"Renderings utdata format","description":"[Rendering] Utdataformat som stöds."}}');
-var locales_wiki_software_template_sv_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_sv_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/ta.json
 const wiki_software_template_ta_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"வார்ப்புரு மொழி","description":"வார்ப்புரு நூல்கள் காட்டப்படும் மொழி."},"name":{"label":"பெயர்","description":"அதிகாரப்பூர்வ பெயர், இல்லையெனில் மிகவும் பொதுவானது"},"status":{"label":"நிலை","description":"திட்டத்தின் தற்போதைய நிலை."},"description":{"description":"சுருக்கமான விளக்கம். இதை மற்ற கருவிகளிலிருந்து வேறுபடுத்துவது எது? (உங்கள் சொந்த விளக்கத்தை எழுதுங்கள், வலைத்தளத்திலிருந்து நகலெடுக்க வேண்டாம்)","label":"விவரம்"},"author":{"label":"நூலாசிரியர்","description":"ஆசிரியரின் பெயர் அல்லது அவர்களின் OSM-wiki பயனர் பக்கத்திற்கான இணைப்பு"},"platform":{"label":"ஆதரிக்கப்பட்ட தளங்கள்","description":"அது இயங்கும் தளங்களின் பட்டியல்."},"genre":{"label":"வகை","description":"இந்த கருவிக்கான முக்கிய வகை."},"languagesurl":{"label":"மொழிகள் முகவரி","description":"மற்றொரு பக்கத்தில் விவரிக்கப்பட்டுள்ள, ஆதரிக்கப்படும் மொழிகளின் உண்மையான முழு பட்டியலுக்கான இணைப்பு (எ.கா. மென்பொருளுக்கான போர்ட்டல் பக்கம் அல்லது களஞ்சியம்)."},"languages":{"description":"ஆதரிக்கப்படும் மொழிகள் (அரைக்காற்புள்ளிகளால் பிரிக்கப்பட்ட செல்லுபடியாகும் மொழிக் குறியீடுகளின் பட்டியல்) அல்லது ஆதரிக்கப்படும் மொழிகளின் எண்ணிக்கை","label":"மொழிகள்"},"coverage":{"label":"பாதுகாப்பு","description":"பயன்பாட்டின் பாதுகாப்பு அல்லது இலக்கு பகுதி. வடிவமைப்பு: \\"கண்டம், நாடு, பகுதி, ...\\". \\"உலகளவில்\\" பயன்படுத்தவும் அல்லது உலகளாவிய பயன்பாட்டிற்காக காலியாக விடவும்."},"asin":{"label":"அமேசான் அடையாளம்","description":"ஆண்ட்ராய்டு க்கான அமேசான் ஆப்ச்டோரிற்கான அமேசான் தரநிலை அடையாள எண்"},"bbWorldID":{"label":"பிளாக்பெர்ரி ஐடி","description":"பிளாக்பெர்ரி உலக பயன்பாட்டு ஐடி"},"fDroidID":{"label":"எஃப்-டிராய்டு ஐடி","description":"எஃப்-டிராய்டு பயன்பாட்டு ஐடி"},"firefoxMarketplaceID":{"label":"பயர்பாக்ச் சந்தை ஐடி","description":"மொசில்லா பயர்பாக்ச் மார்க்கெட்ப்ளேச் பயன்பாட்டு ஐடி"},"googlePlayID":{"label":"கூகிள் பிளே ஐடி","description":"கூகிள் பிளே கடை பயன்பாட்டு ஐடி"},"huaweiAppGalleryID":{"label":"அவாய் AppGallery ஐடி","description":"HUAWEI AppGallery பயன்பாட்டு ஐடி"},"appleStoreID":{"label":"ஆப்ச்டோர் ஐடி","description":"ஐடியூன்ச் ஆப் கடை பயன்பாட்டு ஐடி"},"macAppStoreID":{"description":"மேக் ஆப் கடை பயன்பாட்டு ஐடி","label":"மேக் ஆப்ச்டோர் ஐடி"},"microsoftAppID":{"label":"நுண்மென் ஐடி","description":"நுண்மென் கடை சாளரங்கள் பயன்பாடு UUID"},"obtainiumLink":{"description":"புதுப்பிப்பு தகவல்களைப் பெறுவதற்கான இணைப்பு","label":"புதுப்பிப்பு இணைப்பைப் பெறுங்கள்"},"mapData":{"description":"[Map display] Maps drawn using pre-calculated/rasterized படங்கள் (raster) or \\"on the fly\\" (vector)?","label":"வரைபட தரவு"},"map":{"description":"[வரைபட காட்சி] இது ஒரு வரைபடத்தைக் காட்ட முடியுமா?","label":"வரைபடம் காட்சி"},"datasource":{"label":"மூலம்","description":"[வரைபட காட்சி] எல்லா வரைபடத் தரவையும் ஆஃப்லைனில் சேமிக்க முடியுமா? தனி கோப்பைப் பதிவிறக்கவா?"},"showPhoneNumber":{"description":"[POI தகவல்] POI இலிருந்து தொலைபேசி எண்ணைக் காட்டுகிறது","label":"தொலைபேசி எண்ணைக் காட்டுகிறது"},"profiles":{"description":"[வழிசெலுத்துதல்] வழிசெலுத்துதல் செய்தால் என்ன சுயவிவரங்கள் ஆதரிக்கின்றன?","label":"ரூட்டிங் சுயவிவரங்கள்"},"turnRestrictions":{"label":"கட்டுப்பாடுகளைத் திருப்புங்கள்","description":"[ரூட்டிங்] திருப்பக் கட்டுப்பாடுகளைச் சமாளிக்க முடியுமா?"},"calculateRouteOffline":{"label":"இணையம் இல்லாமல் பாதையை கணக்கிடுங்கள் (ஆஃப்லைன் ரூட்டிங்)","description":"[ரூட்டிங்] ஒரு வழியைக் கணக்கிட இணையம் தேவையா?"},"routingProviders":{"description":"[ரூட்டிங்] என்ன ரூட்டிங் சேவைகள்) இது பயன்படுத்துகிறது?","label":"ரூட்டிங் வழங்குநர்கள்"},"avoidTraffic":{"label":"போக்குவரத்தைத் தவிர்க்கவும்","description":"[ரூட்டிங்] போக்குவரத்து நெரிசல்களைத் தவிர்க்க பயன்பாடு பாதையை மேம்படுத்துகிறதா?"},"trafficProvider":{"label":"போக்குவரத்து வழங்குநர்","description":"[ரூட்டிங்] போக்குவரத்து தரவு மூல வழங்குநர்."},"navigating":{"label":"செல்லவும்","description":"[வழிசெலுத்தல்] நீங்கள் ஒரு திசைகாட்டி வழியில் செல்ல முடியுமா?"},"findLocation":{"label":"இருப்பிடத்தைக் கண்டறியவும்","description":"[வழிசெலுத்தல்] இது ஒரு தெரு/இடத்தைத் தேட முடியுமா?"},"findNearbyPOI":{"label":"அருகிலுள்ள POI களைக் கண்டுபிடி","description":"[வழிசெலுத்தல்] ஆர்வங்களின் புள்ளிகளைக் கண்டறிய/காண்பிக்க முடியுமா?"},"navToPoint":{"label":"புள்ளிக்கு செல்லவும்","description":"[வழிசெலுத்தல்] எங்காவது ஒரு கட்டத்திற்கு உங்களை வழிநடத்த முடியுமா?"},"voice":{"label":"குரல் வழிகாட்டுதலுடன் வழிசெலுத்தல்","description":"[வழிசெலுத்தல்] இது கணினி குரலுடன் கட்டளைகளை வழங்க முடியுமா?"},"keepOnRoad":{"description":"[வழிசெலுத்தல்] உங்கள் வாகனத்தை கணக்கிடப்பட்ட பாதையில் வைக்க இது உங்களுக்கு உதவ முடியுமா?","label":"சாலையில் வைத்திருங்கள்"},"turnLanes":{"label":"சந்து வழிகாட்டுதல்","description":"[வழிசெலுத்தல்] இது பாதை வழிகாட்டலை ஆதரிக்கிறதா?"},"withoutGPS":{"description":"[வழிசெலுத்தல்] சி.பி.எச் இல்லாமல் கூட இது வேலை செய்யுமா?","label":"சி.பி.எச் இல்லாமல் வேலை செய்கிறது"},"predefinedRoute":{"label":"முன் வரையறுக்கப்பட்ட பாதையில் செல்லவும்","description":"[வழிசெலுத்தல்] இது மற்ற சி.பி.எச் தடங்களைப் பின்பற்ற முடியுமா?"},"tracking":{"description":"[ட்ராக் லாக்கிங்] சி.பி.எச் பாதையை பதிவு செய்ய முடியுமா?","label":"கண்காணிக்கவும்"},"customInterval":{"label":"தனிப்பயனாக்கக்கூடிய பதிவு இடைவெளி","description":"[ட்ராக் லாக்கிங்] இடைவெளியை கைமுறையாக இசைக்க முடியுமா?"},"trackFormats":{"description":"[ட்ராக் லாக்கிங்] சேமிப்பகத்திற்கான எந்த வடிவங்கள் உங்கள் சி.பி.எச் பாதையை சேமிக்க முடியும்?","label":"டிராக் வடிவங்கள்"},"geotagging":{"label":"சியோடாகிங்","description":"[ட்ராக் லாக்கிங்] மேலும் மேப்பிங் நுட்பங்கள் ஆதரிக்கப்படுகின்றன"},"fastWayPointAdding":{"label":"வேகமான POI பொத்தான்கள்","description":"[ட்ராக் லாக்கிங்] புதிய வழிப்பாதையைச் சேர்க்க எளிதானதா?"},"uploadGPX":{"label":"GPX ஐ OSM இல் பதிவேற்றவும்","description":"[ட்ராக் லாக்கிங்] இது நேரடியாக OSM க்கு தடங்களை அனுப்ப முடியுமா?"},"monitoring":{"label":"கண்காணிப்பு","description":"[கண்காணிப்பு தடம்] சிபிஎச் தரவைக் கண்காணிக்க முடியுமா?"},"showTrack":{"label":"தற்போதைய பாதையைக் காட்டு","description":"[கண்காணிப்பு தடம்] உங்கள் தற்போதைய பாதையைக் காட்டவா?"},"showExistingTrack":{"label":"தற்போதுள்ள பாதையைத் திறக்கவும்","description":"[கண்காணிப்பு தடம்] ஏற்கனவே இருக்கும் தடங்களை ஏற்ற முடியுமா, எனவே அவற்றை நீங்கள் பின்பற்றலாமா?"},"showAltitudeDiagram":{"label":"உயர வரைபடம்","description":"[கண்காணிப்பு தடம்]"},"showDOP":{"description":"[கண்காணிப்பு தடம்] சமிக்ஞை தரத்தைக் காட்டுகிறது?","label":"நெற்று மதிப்பைக் காட்டு"},"showSatellites":{"label":"செயற்கைக்கோள் பார்வை","description":"[கண்காணிப்பு தடம்] செயற்கைக்கோள்களைக் காட்டுகிறது?"},"showNMEAlive":{"label":"நேரடி NMEA தரவைக் காட்டு","description":"[கண்காணிப்பு தடம்] மூல சி.பி.எச் ச்ட்ரீமை பார்க்க முடியுமா?"},"showSpeed":{"description":"[கண்காணிப்பு தடம்]","label":"வேகத்தைக் காட்டு"},"sendPosition":{"label":"தற்போதைய நிலையை அனுப்பவும்","description":"[கண்காணிப்பு தடம்] இது மற்றவர்களுக்கு நிலையை அனுப்ப முடியுமா?"},"addPOI":{"label":"ஏனெனில் சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைச் சேர்க்க முடியுமா?"},"editPOI":{"description":"[ஆசிரியர்] நீங்கள் ஒரு முனையைத் திருத்த முடியுமா?","label":"ஏனெனில் திருத்து / நீக்கு"},"addWay":{"label":"வழி சேர்க்கவும்","description":"[ஆசிரியர்] நீங்கள் ஒரு வழியைச் சேர்க்க முடியுமா?"},"editGeom":{"label":"வடிவவியலைத் திருத்தவும்","description":"[ஆசிரியர்] நீங்கள் முனைகள்/வழிகளைத் திருத்த முடியுமா?"},"editTags":{"label":"இருக்கும் OSM பொருள்களின் தன்னிச்சையான குறிச்சொற்களைத் திருத்தவும்","description":"[ஆசிரியர்] ஏற்கனவே உள்ள குறிச்சொற்களைத் திருத்த முடியுமா?"},"editRelations":{"description":"[ஆசிரியர்] நீங்கள் உறவுகளைத் திருத்த முடியுமா?","label":"உறவுகளைத் திருத்து"},"viewNotes":{"label":"குறிப்புகளைக் காண்க","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைக் காண முடியுமா?"},"createNotes":{"label":"குறிப்புகளை உருவாக்கவும்","description":"[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைச் சேர்க்க முடியுமா?"},"editNotes":{"label":"குறிப்புகளைத் திருத்து","description":"[ஆசிரியர்] OSM குறிப்புகளை நீங்கள் கருத்து தெரிவிக்க/மூட முடியுமா?"},"editSource":{"label":"ஆஃப்லைனில் வேலை செய்யுங்கள்","description":"[ஆசிரியர்] நீங்கள் ஆஃப்லைனில் வேலை செய்ய முடியுமா?"},"offsetDBsupport":{"label":"உதவி படங்கள் ஆஃப்செட் டிபி","description":"[ஆசிரியர்] இது கற்பனை ஆஃப்செட் டி.பி ஆதரிக்கிறதா?"},"rendererOutputFormats":{"label":"ரெண்டரர் வெளியீட்டு வடிவங்கள்","description":"[ரெண்டரர்] ஆதரிக்கப்பட்ட வெளியீட்டு வடிவங்கள்."},"accessibility":{"label":"அணுகல் உதவி","description":"[அணுகல்] இது ஊனமுற்றோருக்கு ஒருவிதமாக உதவுகிறதா?"},"brailleUI":{"label":"பிரெய்ல் இடைமுகம்","description":"[அணுகல்] ஒரு சிறப்பு பிரெய்ல் இடைமுகம்?"},"publicTransportMode":{"label":"பொது போக்குவரத்து முறை","description":"[அணுகல்] பொது போக்குவரத்துடன் ரூட்டிங் செய்வதை ஆதரிக்கிறதா?"},"dangerWarnings":{"label":"இடர் எச்சரிக்கைகள்","description":"[அணுகல்]"},"screenReader":{"label":"திரை ரீடர்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசிப்பாளர்களின் பட்டியல்"},"screenReaderLang":{"label":"திரை ரீடர் மொழிகள்","description":"[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசகர்களின் பட்டியல்"},"license":{"label":"உரிமம்","description":"என்ன இலவச உரிமம் அல்லது தனியுரிம?"},"price":{"label":"விலை","description":"உரிமையாளரின் செலவு. விலை காலியாக இருந்தால், விண்ணப்பம் இலவசமாக இருக்கும்."},"web":{"label":"வலை முகவரி"},"repo":{"label":"மூலக் குறியீடு","description":"மூலக் குறியீட்டைக் காண அல்லது பதிவிறக்க முகவரி (எடுத்துக்காட்டாக, ஒரு அறிவிலி, அடிபணிதல் அல்லது சி.வி.எச் களஞ்சியத்தை)"},"logo":{"label":"சின்னம்"},"screenshot":{"label":"திரைக்காட்சி"},"code":{"label":"குறியீடு","description":"பயன்படுத்தப்படும் நிரலாக்க மொழிகளின் பட்டியல்."},"framework":{"label":"கட்டமைப்பு","description":"பயன்படுத்தப்படும் கட்டமைப்புகளின் பட்டியல்."},"version":{"label":"பதிப்பு","description":"அண்மைக் கால பதிப்பு"},"date":{"label":"வெளியீட்டு தேதி","description":"அண்மைக் கால வெளியீட்டு தேதி"},"rotateMap":{"label":"வரைபடத்தை சுழற்றுங்கள்","description":"[வரைபட காட்சி] இது ஓட்டுநர்/நடைபயிற்சி திசையில் வரைபடத்தைத் திருப்புமா?"},"3D":{"label":"3 டி பார்வை","description":"[வரைபட காட்சி] சில 3D அல்லது 2.5D பார்வை உள்ளதா?"},"showWebsite":{"label":"வலைத்தளத்தைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து வலைத்தளத்திற்கான இணைப்பைக் காட்டுகிறது"},"showOpeningHours":{"label":"செயல்பாட்டு நேரங்களைக் காட்டுகிறது","description":"[POI தகவல்] POI இலிருந்து செயல்படும் மணிநேரங்களைக் காட்டுகிறது"},"routing":{"description":"[ரூட்டிங்] நீங்கள் ஒரு வழியைக் கணக்கிட அல்லது திட்டமிட முடியுமா?","label":"ரூட்டிங்"},"createRouteManually":{"label":"வழியை கைமுறையாக உருவாக்கவும்","description":"[ரூட்டிங்]"},"calculateRoute":{"label":"வழியைக் கணக்கிடுங்கள்","description":"[வழிசெலுத்துதல்] வழிசெலுத்துதல் பயன்படுத்தி ஒரு வழியைக் கணக்கிட முடியுமா?"},"createRouteViaWaypoints":{"label":"வழிப்பாதைகள் வழியாக வழியை உருவாக்கவும்","description":"[ரூட்டிங்] வழிப்பாதைகள் வழியாக வழியைக் கணக்கிட முடியும்"},"uploadOSMData":{"label":"OSM இல் பதிவேற்றவும்","description":"[ஆசிரியர்] நீங்கள் நேரடியாக OSM க்கு மாற்றங்களை அனுப்ப முடியுமா?"},"textOnlyUI":{"label":"கிராபிக்ச் அல்லாத உரை வெளியீடு முழுமையானது","description":"[அணுகல்] பிரெய்ல் இணக்கமான இடைமுகத்திற்கு உரை?"},"explorerMode":{"label":"ஆய்வு முறை","description":"[அணுகல்] ஒரு ஆய்வு மோடச் உள்ளது (எல்லா பொருள்களையும் நெருங்குகிறது என்று சொல்லுங்கள்)?"}}');
-var locales_wiki_software_template_ta_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_ta_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/tr.json
 const wiki_software_template_tr_namespaceObject = {};
-var locales_wiki_software_template_tr_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_tr_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/uk.json
 const wiki_software_template_uk_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Мова шаблону","description":"Мова, якою відображаються тексти шаблонів."},"name":{"label":"Ім\'я","description":"Офіційна назва, інакше найпоширеніша"},"status":{"label":"Статус","description":"Поточний стан проекту."},"license":{"label":"Ліцензія","description":"Яка безкоштовна ліцензія чи власницька?"},"price":{"label":"Ціна","description":"Вартість, якщо власна. Якщо ціна порожня, додаток безкоштовний."},"web":{"label":"Веб-адреса"},"repo":{"label":"Вихідний код","description":"URL-адреса для перегляду або завантаження вихідного коду (наприклад, репозиторій Git, Subversion або CVS)"},"logo":{"label":"Логотип"},"screenshot":{"label":"Знімок екрана"},"description":{"label":"Опис","description":"Короткий опис. Що відрізняє цей інструмент від інших? (Напишіть свій власний опис, не просто копіюйте його з вебсайту)"},"author":{"label":"Автор","description":"Ім\'я автора або посилання на його сторінку користувача OSM-wiki"},"platform":{"label":"Підтримувані платформи","description":"Список платформ, на яких він працює."},"genre":{"label":"Жанр","description":"Основна категорія для цього інструменту."},"languages":{"label":"Мови","description":"Підтримувані мови (список дійсних кодів мов, розділених крапкою з комою) або кількість підтримуваних мов"},"languagesurl":{"label":"URL-адреса мов","description":"Посилання на повний список підтримуваних мов, описаний на іншій сторінці (наприклад, сторінка порталу програмного забезпечення або репозиторій)."},"coverage":{"label":"Покриття","description":"Охоплення або цільовий регіон програми. Форматування: «Континент, Країна, Регіон тощо». Використовуйте «Увесь світ» або залиште поле порожнім для глобального використання."},"code":{"label":"Код","description":"Список використовуваних мов програмування."},"framework":{"label":"Рамка","description":"Список використаних фреймворків."},"version":{"label":"Версія","description":"Найновіша версія"},"date":{"label":"Дата випуску","description":"Дата останнього випуску"},"asin":{"label":"Ідентифікація Amazon","description":"Стандартний ідентифікаційний номер Amazon для магазину додатків Amazon для Android"},"bbWorldID":{"label":"Ідентифікатор BlackBerry","description":"Ідентифікатор програми BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"Ідентифікатор програми F-Droid"},"firefoxMarketplaceID":{"label":"Ідентифікатор торговельного майданчика Firefox","description":"Ідентифікатор програми Mozilla Firefox Marketplace"},"googlePlayID":{"label":"Ідентифікатор Google Play","description":"Ідентифікатор програми в Google Play Маркеті"},"huaweiAppGalleryID":{"label":"Ідентифікатор галереї додатків Huawei","description":"Ідентифікатор програми Huawei AppGallery"},"appleStoreID":{"label":"Ідентифікатор AppStore","description":"Ідентифікатор програми iTunes App Store"},"macAppStoreID":{"label":"Ідентифікатор Mac AppStore","description":"Ідентифікатор програми Mac App Store"},"microsoftAppID":{"label":"Ідентифікатор Microsoft","description":"UUID програми Windows від Microsoft Store"},"obtainiumLink":{"label":"Посилання для оновлення Obtainium","description":"Посилання на інформацію про оновлення Obtainium"},"map":{"label":"Показати карту","description":"[Відображення карти] Чи може вона відображати карту?"},"mapData":{"label":"Дані карти","description":"[Відображення карти] Карти, намальовані з використанням попередньо розрахованих/растрованих зображень (растрові) або «на льоту» (векторні)?"},"datasource":{"label":"Джерело","description":"[Відображення карти] Чи можна зберігати всі дані карти офлайн? Завантажити окремий файл?"},"rotateMap":{"label":"Повернути карту","description":"[Відображення карти] Чи повертає карта в напрямку руху/пішохідного руху?"},"3D":{"label":"3D-вигляд","description":"[Відображення карти] Чи є 3D або 2.5D зображення?"},"showWebsite":{"label":"Показує веб-сайт","description":"[Інформація про POI] Показує посилання на вебсайт з POI"},"showPhoneNumber":{"label":"Показує номер телефону","description":"[Інформація про POI] Показує номер телефону з POI"},"showOpeningHours":{"label":"Показує години роботи","description":"[Інформація про POI] Показує години роботи від POI"},"routing":{"label":"Маршрутизація","description":"[Маршрут] Чи можете ви розрахувати або іншим чином спланувати маршрут?"},"createRouteManually":{"label":"Створити маршрут вручну","description":"[Маршрутизація]"},"calculateRoute":{"label":"Розрахувати маршрут","description":"[Маршрутизація] Чи може він розрахувати маршрут за допомогою маршрутизації?"},"createRouteViaWaypoints":{"label":"Створіть маршрут через Waypoints","description":"[Маршрутизація] Можливість розраховувати маршрут через Waypoints"},"profiles":{"label":"Профілі маршрутизації","description":"[Маршрутизація] Які профілі підтримуються, якщо виконується маршрутизація?"},"turnRestrictions":{"label":"Обмеження поворотів","description":"[Маршрут] Чи може він враховувати обмеження повороту?"},"calculateRouteOffline":{"label":"Розрахувати маршрут без Інтернету (офлайн-маршрутизація)","description":"[Маршрутизація] Чи потрібен інтернет для розрахунку маршруту?"},"routingProviders":{"label":"Постачальники маршрутизації","description":"[Маршрутизація] Які служби маршрутизації використовуються?"},"avoidTraffic":{"label":"Уникайте заторів","description":"[Маршрутизація] Чи оптимізує додаток маршрут, щоб уникнути заторів?"},"trafficProvider":{"label":"Постачальник трафіку","description":"[Маршрутизація] Постачальник джерела даних про трафік."},"navigating":{"label":"Навігації","description":"[Навігація] Чи можете ви орієнтуватися за допомогою компаса?"},"findLocation":{"label":"Знайти місцезнаходження","description":"[Навігація] Чи може він шукати вулицю/місце?"},"findNearbyPOI":{"label":"Знайти поблизу об\'єктів загального призначення","description":"[Навігація] Чи може воно знаходити/відображати цікаві місця?"},"navToPoint":{"label":"Перейти до точки","description":"[Навігація] Чи може це направити вас до певної точки?"},"voice":{"label":"Навігація з голосом / Голосові підказки","description":"[Навігація] Чи може він віддавати команди комп\'ютерним голосом?"},"keepOnRoad":{"label":"Тримайтеся дороги","description":"[Навігація] Чи може це допомогти вам утримувати ваш автомобіль на розрахованому маршруті?"},"turnLanes":{"label":"Керування смугою руху","description":"[Навігація] Чи підтримується підказка щодо смуги руху?"},"withoutGPS":{"label":"Працює без GPS","description":"[Навігація] Чи працює це навіть без GPS?"},"predefinedRoute":{"label":"Навігація за заздалегідь визначеним маршрутом","description":"[Навігація] Чи може він слідувати за іншими GPS-треками?"},"tracking":{"label":"Зробити трек","description":"[Реєстрація треку] Чи може він записувати GPS-трек?"},"customInterval":{"label":"Налаштовуваний інтервал журналу","description":"[Реєстрація треку] Чи можна налаштувати інтервал вручну?"},"trackFormats":{"label":"Формати треків","description":"[Реєстрація треку] У яких форматах можна зберігати ваш GPS-трек?"},"geotagging":{"label":"Геотегування","description":"[Реєстрація треків] Чи підтримуються додаткові методи картографування"},"fastWayPointAdding":{"label":"Кнопки швидкого доступу до точок інтересу (POI)","description":"[Реєстрація треку] Легко додати нову точку маршруту?"},"uploadGPX":{"label":"Завантажити GPX до OSM","description":"[Реєстрація треків] Чи може воно надсилати треки безпосередньо до OSM?"},"monitoring":{"label":"Моніторинг","description":"[Моніторинг треку] Чи можете ви відстежувати дані GPS?"},"showTrack":{"label":"Показати поточний трек","description":"[Моніторинг треку] Показати ваш поточний трек?"},"showExistingTrack":{"label":"Відкрити існуючу доріжку","description":"[Моніторинг треків] Чи може він завантажувати існуючі треки, щоб ви могли слідувати ними?"},"showAltitudeDiagram":{"label":"Діаграма висоти","description":"[Моніторинг треків]"},"showDOP":{"label":"Показати значення POD","description":"[Моніторинг треку] Показує якість сигналу?"},"showSatellites":{"label":"Вигляд із супутника","description":"[Моніторинг треку] Відображає супутники?"},"showNMEAlive":{"label":"Показати дані NMEA в реальному часі","description":"[Моніторинг треку] Чи бачите ви необроблений GPS-потік?"},"showSpeed":{"label":"Показати швидкість","description":"[Моніторинг треків]"},"sendPosition":{"label":"Надіслати поточну позицію","description":"[Моніторинг відстеження] Чи може він надсилати місцезнаходження іншим?"},"addPOI":{"label":"Додати цікаві місця (POI)","description":"[Редактор] Чи можете ви додати вузол?"},"editPOI":{"label":"Редагувати / Видалити об\'єкти пікселів","description":"[Редактор] Чи можна редагувати вузол?"},"addWay":{"label":"Додати шлях","description":"[Редактор] Чи можете ви додати спосіб?"},"editGeom":{"label":"Редагувати геометрію","description":"[Редактор] Чи можна редагувати вузли/шляхи?"},"editTags":{"label":"Редагування довільних тегів існуючих об\'єктів OSM","description":"[Редактор] Чи можна редагувати існуючі теги?"},"editRelations":{"label":"Редагувати зв\'язки","description":"[Редактор] Чи можете ви редагувати зв\'язки?"},"viewNotes":{"label":"Переглянути нотатки","description":"[Редактор] Чи можете ви переглянути нотатки OSM?"},"createNotes":{"label":"Створювати нотатки","description":"[Редактор] Чи можете ви додати нотатки OSM?"},"editNotes":{"label":"Редагувати нотатки","description":"[Редактор] Чи можете ви прокоментувати/закрити нотатки OSM?"},"editSource":{"label":"Працюйте офлайн","description":"[Редактор] Чи можете ви працювати офлайн?"},"offsetDBsupport":{"label":"Підтримка зміщення зображень у базі даних","description":"[Редактор] Чи підтримує він базу даних зміщення зображень?"},"uploadOSMData":{"label":"Завантажити в OSM","description":"[Редактор] Чи можете ви надсилати зміни безпосередньо до OSM?"},"rendererOutputFormats":{"label":"Формати виводу рендерера","description":"[Рендерер] Підтримувані формати виводу."},"accessibility":{"label":"Підтримка доступності","description":"[Доступність] Чи допомагає це якимось чином людям з інвалідністю?"},"textOnlyUI":{"label":"Повний вивід неграфічного тексту","description":"[Доступність] Інтерфейс, сумісний з перетворенням тексту на брайля?"},"brailleUI":{"label":"Інтерфейс Брайля","description":"[Доступність] Спеціальний інтерфейс Брайля?"},"explorerMode":{"label":"Режим дослідження","description":"[Доступність] Має режим дослідження (повідомляти про всі об\'єкти, що наближаються)?"},"publicTransportMode":{"label":"Громадський транспорт","description":"[Доступність] Чи підтримується маршрутизація громадським транспортом?"},"dangerWarnings":{"label":"Попередження про небезпеку","description":"[Доступність]"},"screenReader":{"label":"Програма зчитування з екрана","description":"[Доступність] Список підтримуваних програм зчитування з екрана"},"screenReaderLang":{"label":"Мови програми зчитування з екрана","description":"[Доступність] Список підтримуваних мов програм зчитування з екрана"}}');
-var locales_wiki_software_template_uk_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_uk_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh_Hans.json
 const wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模板语言"},"name":{"label":"名称"},"status":{},"license":{},"price":{},"web":{},"repo":{"label":"源代码"},"logo":{},"screenshot":{"label":"截图"},"description":{"label":"描述"},"author":{"label":"作者"},"platform":{},"genre":{},"languages":{},"coverage":{},"languagesurl":{},"code":{},"framework":{},"version":{"label":"版本"},"date":{"label":"日期"},"asin":{},"bbWorldID":{},"fDroidID":{},"firefoxMarketplaceID":{},"googlePlayID":{},"huaweiAppGalleryID":{},"appleStoreID":{},"macAppStoreID":{},"microsoftAppID":{},"map":{},"mapData":{},"datasource":{},"rotateMap":{},"3D":{},"showWebsite":{},"showPhoneNumber":{},"showOpeningHours":{},"routing":{},"createRouteManually":{},"calculateRoute":{},"createRouteViaWaypoints":{},"profiles":{},"turnRestrictions":{},"calculateRouteOffline":{},"routingProviders":{},"avoidTraffic":{},"trafficProvider":{},"navigating":{},"findLocation":{},"findNearbyPOI":{},"navToPoint":{},"voice":{},"keepOnRoad":{},"turnLanes":{},"withoutGPS":{},"predefinedRoute":{},"tracking":{},"customInterval":{},"trackFormats":{},"geotagging":{},"fastWayPointAdding":{},"uploadGPX":{},"monitoring":{},"showTrack":{},"showExistingTrack":{},"showAltitudeDiagram":{},"showDOP":{},"showSatellites":{},"showNMEAlive":{},"showSpeed":{},"sendPosition":{},"addPOI":{},"editPOI":{},"addWay":{},"editGeom":{},"editTags":{},"editRelations":{},"viewNotes":{},"createNotes":{},"editNotes":{},"editSource":{},"offsetDBsupport":{},"uploadOSMData":{},"rendererOutputFormats":{},"accessibility":{},"textOnlyUI":{},"brailleUI":{},"explorerMode":{},"publicTransportMode":{},"dangerWarnings":{},"screenReader":{},"screenReaderLang":{}}');
-var locales_wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_zh_Hans_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh-Hant.json
 const wiki_software_template_zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模版語言","description":"模版文字所顯示的語言。"},"name":{"label":"名稱","description":"正式名稱，或是最常見的名稱"},"status":{"label":"狀態","description":"目前專案的狀態。"},"license":{"label":"授權條款","description":"何種自由或是專屬授權條款？"},"price":{"label":"價格","description":"如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"},"web":{"label":"網址"},"repo":{"label":"原始碼","description":"檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"},"logo":{"label":"圖示"},"screenshot":{"label":"截圖"},"description":{"label":"描述","description":"簡單敘述，與其他工具的差異在那裡？ (請寫下你自己的描述，不要直接從網站複製)"},"author":{"label":"作者","description":"作者的名字或是作者 OSM-wiki 使用者頁面連結"},"platform":{"label":"支援的平台","description":"運作的平台清單。"},"genre":{"label":"類型","description":"此工具主要的類別。"},"languages":{"label":"語言","description":"支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"},"languagesurl":{"label":"語言連結","description":"完整實際的支援語言清單的連結，描述則在其他頁面 (例如軟體的平台頁面，或是倉儲庫)。"},"coverage":{"label":"範圍","description":"app 的範圍或是目標地區：「大陸、國家、地區等等。」使用「全球」或是留空白則表示能夠全球使用。"},"code":{"label":"程式碼","description":"使用的程式語言清單。"},"framework":{"label":"架構","description":"使用的架構清單。"},"version":{"label":"版本","description":"最新版本"},"date":{"label":"發佈日期","description":"最新發佈日期"},"asin":{"label":"亞馬遜識別碼","description":"Amazon Appstore 的 Android 亞馬遜標準識別碼號碼"},"bbWorldID":{"label":"黑莓編號","description":"黑莓世界應用程式編號"},"fDroidID":{"label":"F-Droid 編號","description":"F-Droid 應用程式編號"},"firefoxMarketplaceID":{"label":"Firefox 商城編號","description":"Mozilla Firefox 商城應用程式編號"},"googlePlayID":{"label":"Google Play 編號","description":"Google Play 商場應用程式編號"},"huaweiAppGalleryID":{"label":"華為應用程式市場編號","description":"華為應用程式市場應用程式編號"},"appleStoreID":{"label":"AppStore 編號","description":"iTunes App Store 應用程式編號"},"macAppStoreID":{"label":"Mac AppStore 編號","description":"Mac App Store 應用程式編號"},"microsoftAppID":{"label":"微軟編號","description":"微軟商城 Windows 應用程式 UUID"},"obtainiumLink":{"label":"Obtainium 更新器連結","description":"Obtainium 更新器資訊的連結"},"map":{"label":"顯示地圖","description":"[地圖顯示] 能夠顯示地圖嗎？"},"mapData":{"label":"地圖資料","description":"[地圖顯示] 使用預先計算／渲染的圖片 (點陣) 來繪製地圖或是「即刻」 (向量)？"},"datasource":{"label":"來源","description":"[地圖顯示] 你是否能將地圖資料離線儲存？下載為獨立的檔案？"},"rotateMap":{"label":"旋轉地圖","description":"[地圖顯示] 開車/行走時地圖是否會隨行進方向轉動？"},"3D":{"label":"3D 檢視","description":"[地圖顯示] 是否有 3D 或是 2.5D 檢視？"},"showWebsite":{"label":"顯示網站","description":"[興趣點資訊] 從興趣點顯示網站的連結"},"showPhoneNumber":{"label":"顯示電話號碼","description":"[興趣點資訊] 從興趣點顯示電話號碼"},"showOpeningHours":{"label":"顯示營運時間","description":"[興趣點資訊] 從興趣點顯示營運時間"},"routing":{"label":"導航","description":"[導航] 你是否能計算或是計畫行進路線？"},"createRouteManually":{"label":"手動創建導航","description":"[導航]"},"calculateRoute":{"label":"計算導航路線","description":"[導航] 是否透過導航計算行進路線？"},"createRouteViaWaypoints":{"label":"透過路徑點創建導航"}}');
-var locales_wiki_software_template_zh_Hant_namespaceObject = /*#__PURE__*/__nccwpck_require__.t(wiki_software_template_zh_Hant_namespaceObject, 2);
 ;// CONCATENATED MODULE: ./src/app/ui/utilities/i18n.ts
 
 
@@ -74321,28 +74560,28 @@ instance.use(initReactI18next)
     },
     fallbackLng: "en",
     resources: {
-        en: { translation: { ...locales_en_namespaceObject, "app.props": locales_wiki_software_template_en_namespaceObject } },
-        cs: { translation: { ...locales_cs_namespaceObject, "app.props": locales_wiki_software_template_cs_namespaceObject } },
-        de: { translation: { ...locales_de_namespaceObject, "app.props": locales_wiki_software_template_de_namespaceObject } },
-        el: { translation: { ...locales_el_namespaceObject, "app.props": locales_wiki_software_template_el_namespaceObject } },
-        es: { translation: { ...ui_locales_es_namespaceObject, "app.props": locales_wiki_software_template_es_namespaceObject } },
-        et: { translation: { ...locales_et_namespaceObject, "app.props": locales_wiki_software_template_et_namespaceObject } },
-        fr: { translation: { ...locales_fr_namespaceObject, "app.props": locales_wiki_software_template_fr_namespaceObject } },
-        hu: { translation: { ...locales_hu_namespaceObject, "app.props": locales_wiki_software_template_hu_namespaceObject } },
-        id: { translation: { ...locales_id_namespaceObject, "app.props": locales_wiki_software_template_id_namespaceObject } },
-        it: { translation: { ...locales_it_namespaceObject, "app.props": locales_wiki_software_template_it_namespaceObject } },
-        ja: { translation: { ...locales_ja_namespaceObject, "app.props": locales_wiki_software_template_ja_namespaceObject } },
-        ko: { translation: { ...locales_ko_namespaceObject, "app.props": locales_wiki_software_template_ko_namespaceObject } },
-        no: { translation: { ...locales_nb_NO_namespaceObject, "app.props": locales_wiki_software_template_nb_NO_namespaceObject } },
-        pl: { translation: { ...locales_pl_namespaceObject, "app.props": locales_wiki_software_template_pl_namespaceObject } },
-        pt: { translation: { ...locales_pt_namespaceObject, "app.props": locales_wiki_software_template_pt_namespaceObject } },
-        ru: { translation: { ...locales_ru_namespaceObject, "app.props": locales_wiki_software_template_ru_namespaceObject } },
-        sv: { translation: { ...locales_sv_namespaceObject, "app.props": locales_wiki_software_template_sv_namespaceObject } },
-        ta: { translation: { ...locales_ta_namespaceObject, "app.props": locales_wiki_software_template_ta_namespaceObject } },
-        tr: { translation: { ...locales_tr_namespaceObject, "app.props": locales_wiki_software_template_tr_namespaceObject } },
-        uk: { translation: { ...locales_uk_namespaceObject, "app.props": locales_wiki_software_template_uk_namespaceObject } },
-        "zh-hans": { translation: { ...locales_zh_Hans_namespaceObject, "app.props": locales_wiki_software_template_zh_Hans_namespaceObject } },
-        "zh-hant": { translation: { ...locales_zh_Hant_namespaceObject, "app.props": locales_wiki_software_template_zh_Hant_namespaceObject } },
+        en: { translation: { ...en_namespaceObject, "app.props": wiki_software_template_en_namespaceObject } },
+        cs: { translation: { ...cs_namespaceObject, "app.props": wiki_software_template_cs_namespaceObject } },
+        de: { translation: { ...de_namespaceObject, "app.props": wiki_software_template_de_namespaceObject } },
+        el: { translation: { ...el_namespaceObject, "app.props": wiki_software_template_el_namespaceObject } },
+        es: { translation: { ...locales_es_namespaceObject, "app.props": wiki_software_template_es_namespaceObject } },
+        et: { translation: { ...et_namespaceObject, "app.props": wiki_software_template_et_namespaceObject } },
+        fr: { translation: { ...fr_namespaceObject, "app.props": wiki_software_template_fr_namespaceObject } },
+        hu: { translation: { ...hu_namespaceObject, "app.props": wiki_software_template_hu_namespaceObject } },
+        id: { translation: { ...id_namespaceObject, "app.props": wiki_software_template_id_namespaceObject } },
+        it: { translation: { ...it_namespaceObject, "app.props": wiki_software_template_it_namespaceObject } },
+        ja: { translation: { ...ja_namespaceObject, "app.props": wiki_software_template_ja_namespaceObject } },
+        ko: { translation: { ...ko_namespaceObject, "app.props": wiki_software_template_ko_namespaceObject } },
+        no: { translation: { ...nb_NO_namespaceObject, "app.props": wiki_software_template_nb_NO_namespaceObject } },
+        pl: { translation: { ...pl_namespaceObject, "app.props": wiki_software_template_pl_namespaceObject } },
+        pt: { translation: { ...pt_namespaceObject, "app.props": wiki_software_template_pt_namespaceObject } },
+        ru: { translation: { ...ru_namespaceObject, "app.props": wiki_software_template_ru_namespaceObject } },
+        sv: { translation: { ...sv_namespaceObject, "app.props": wiki_software_template_sv_namespaceObject } },
+        ta: { translation: { ...ta_namespaceObject, "app.props": wiki_software_template_ta_namespaceObject } },
+        tr: { translation: { ...tr_namespaceObject, "app.props": wiki_software_template_tr_namespaceObject } },
+        uk: { translation: { ...uk_namespaceObject, "app.props": wiki_software_template_uk_namespaceObject } },
+        "zh-hans": { translation: { ...zh_Hans_namespaceObject, "app.props": wiki_software_template_zh_Hans_namespaceObject } },
+        "zh-hant": { translation: { ...zh_Hant_namespaceObject, "app.props": wiki_software_template_zh_Hant_namespaceObject } },
     },
 });
 const templateLangs = (/* unused pure expression or super */ null && ([
@@ -74455,25 +74694,9 @@ function convertJsonToTemplateData() {
 // convertJsonToTemplateData();
 
 ;// CONCATENATED MODULE: ./src/app/utilities/isDevelopment.ts
-const isDevelopment = typeof window !== "undefined" && window.location.host === "localhost:3000";
+const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
 
 ;// CONCATENATED MODULE: ./src/shared/utilities/url.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 function newUrl(url) {
     try {
         return new URL(url);
@@ -74524,22 +74747,6 @@ function findGetParameter(parameterName) {
 }
 
 ;// CONCATENATED MODULE: ./src/app/utilities/jsonRequest.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 async function getJson(url, params = {}, headers = {}, isRetry = false) {
@@ -74580,22 +74787,6 @@ function delay(ms) {
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./src/shared/utilities/string.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 function equalsIgnoreCase(a, b) {
@@ -74606,29 +74797,9 @@ function equalsIgnoreCase(a, b) {
 function equalsString(a, b) {
     return a && b && a === b;
 }
-function string_notDiffrentString(a, b) {
-    if (!a || !b) {
-        return true;
-    }
-    const equals = equalsString(a, b);
-    if (!equals) {
-        console.info(`Not equals: ${a} ${b}`);
-    }
-    return equals;
-}
 function equalsName(a, b) {
     return (a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
         b.toUpperCase().replaceAll("-", " ").replaceAll("_", " "));
-}
-function string_notDiffrentWebsite(a, b) {
-    if (!a || !b) {
-        return true;
-    }
-    const equals = equalsWebsite(a, b);
-    if (!equals) {
-        console.info(`Not equals: ${a} ${b}`);
-    }
-    return equals;
 }
 function equalsWebsite(a, b) {
     if (!a || !b) {
@@ -74680,7 +74851,7 @@ function appendFullStop(value) {
     return value;
 }
 function trim(value) {
-    return (value || "").replace(/^[\.\s]+|[\.\s]+$/gm, "");
+    return (value || "").replace(/^[.\s]+|[.\s]+$/gm, "");
 }
 function toDate(value) {
     value = trim(value);
@@ -74722,27 +74893,11 @@ function toValues(value = "") {
         .map(lodash.upperFirst);
 }
 function strip(html) {
-    let doc = new DOMParser().parseFromString(html, "text/html");
+    const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/requestTemplates.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 async function requestTemplates(template, language) {
@@ -74838,7 +74993,7 @@ function parsePage(content, template) {
 }
 function parseTemplateToObject(content) {
     const obj = {};
-    const props = content.split(/\|(?![^{]*})(?![^\[]*\])/g);
+    const props = content.split(/\|(?![^{]*})(?![^[]*\])/g);
     props.shift();
     for (const p in props) {
         const pair = props[p].trim();
@@ -74854,22 +75009,6 @@ function parseTemplateToObject(content) {
 // EXTERNAL MODULE: ./node_modules/md5/md5.js
 var md5 = __nccwpck_require__(2296);
 ;// CONCATENATED MODULE: ./src/action/utilities/image.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
@@ -74916,22 +75055,6 @@ function generateWikimediaUrls(base, fileName, size) {
 }
 
 ;// CONCATENATED MODULE: ./src/action/utilities/getPlatformDisplay.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 const platforms = [
     {
@@ -75144,22 +75267,6 @@ function languageValueFormat(value) {
 }
 
 ;// CONCATENATED MODULE: ./src/shared/utilities/array.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 function includes(arr, target) {
     return target.every((v) => arr.includes(v));
 }
@@ -75174,22 +75281,6 @@ function shuffle(array) {
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/utilities.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 function containsOfflineLink(value = "") {
     return /<((s(trike)?)|(del))>/gi.test(value);
@@ -75204,7 +75295,7 @@ function extractNameWebsiteWiki(value, pageName) {
     value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
     const obj = { name: value };
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
         const match = regex.exec(value);
         if (match) {
             obj.website = newUrl(match[2]).toString();
@@ -75214,7 +75305,7 @@ function extractNameWebsiteWiki(value, pageName) {
         }
     }
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
         const match = regex.exec(value);
         if (match) {
             obj.name = match[5];
@@ -75223,7 +75314,7 @@ function extractNameWebsiteWiki(value, pageName) {
         }
     }
     {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
         const match = regex.exec(value);
         if (match) {
             if (match[3])
@@ -75248,49 +75339,49 @@ function extractNameWebsiteWiki(value, pageName) {
 }
 function extractWebsite(value = "") {
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
         const match = regex.exec(value);
         if (match) {
             return match[2];
         }
     }
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
         const match = regex.exec(value);
         if (match) {
             return match[2];
         }
     }
     {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/g;
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
         const match = regex.exec(value);
         if (match) {
             return toWikiUrl(match[1]);
         }
     }
     {
-        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))}}/gi;
+        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))}}/gi;
         const match = regex.exec(value);
         if (match) {
             return match[1];
         }
     }
     {
-        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
         const match = regex.exec(value);
         if (match) {
             return `https://github.com/${match[1]}`;
         }
     }
     {
-        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
         const match = regex.exec(value);
         if (match) {
             return `https://gitlab.com/${match[1]}`;
         }
     }
     {
-        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
+        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))/gi;
         const match = regex.exec(value);
         if (match) {
             return match[1];
@@ -75306,7 +75397,7 @@ function processWikiText(text = "") {
     }
     // Wikipedia
     {
-        const regex = /\[\[:wikipedia:([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/gi;
+        const regex = /\[\[:wikipedia:([^\]]*(?![^|]))(\|([^\]]*))?\]\]/gi;
         text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`);
     }
     {
@@ -75315,7 +75406,7 @@ function processWikiText(text = "") {
     }
     // Url
     {
-        const regex = /\[\[([^\]]*(?![^\|]))(\|([^\]]*))?\]\]/;
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/;
         let match = regex.exec(text);
         while (match) {
             text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
@@ -75331,11 +75422,11 @@ function processWikiText(text = "") {
         }
     }
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
         text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
     }
     {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
         text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
     }
     {
@@ -75360,20 +75451,20 @@ function processWikiText(text = "") {
     }
     // GitHub
     {
-        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
+        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
         text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`);
     }
     {
-        const regex = /{{GitHub[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
         text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`);
     }
     // GitLab
     {
-        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)}}/gi;
+        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
         text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`);
     }
     {
-        const regex = /{{GitLab[_ ]link\|(((?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
         text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`);
     }
     // User
@@ -75457,22 +75548,6 @@ function languageFilter(value) {
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/software.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
@@ -75754,22 +75829,6 @@ function hasValue(value = "") {
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/serviceItem.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
@@ -75829,7 +75888,7 @@ function serviceItem_transform(source) {
     obj.languages = (0,lodash.uniq)(obj.languages).sort();
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
-    let name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
+    const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
     obj.name = plainText(name.name || obj.name);
     obj.website = name.website;
     obj.documentation = name.wiki || obj.documentation;
@@ -75837,22 +75896,6 @@ function serviceItem_transform(source) {
 }
 
 ;// CONCATENATED MODULE: ./src/action/crawler/wiki/layer.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
@@ -75928,22 +75971,6 @@ function layer_transform(source) {
 }
 
 ;// CONCATENATED MODULE: ./src/shared/utilities/filters.ts
-// Copyright (C) 2020 Markus Peloso
-//
-// This file is part of OSM Apps Catalog.
-//
-// OSM Apps Catalog is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// OSM Apps Catalog is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with OSM Apps Catalog.  If not, see <http://www.gnu.org/licenses/>.
 function display(a) {
     const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
     return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
@@ -76196,7 +76223,7 @@ function calculateScore(app) {
     // C >= 4
     // D >= 2
     // E < 2
-    let results = Criterias.map((c) => ({
+    const results = Criterias.map((c) => ({
         translationKey: c.translationKey,
         points: c.points,
         fulfilled: c.check(app),
@@ -76212,17 +76239,6 @@ function calculateScore(app) {
 
 
 
-// if both have a source code or an other unique value, they must be equal
-function notDiffrent(app, obj) {
-    return (notDiffrentString(app.install.appleStoreID, obj.install.appleStoreID) &&
-        notDiffrentString(app.install.asin, obj.install.asin) &&
-        notDiffrentString(app.install.fDroidID, obj.install.fDroidID) &&
-        notDiffrentString(app.install.googlePlayID, obj.install.googlePlayID) &&
-        notDiffrentWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) &&
-        notDiffrentString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) &&
-        notDiffrentString(app.install.macAppStoreID, obj.install.macAppStoreID) &&
-        notDiffrentString(app.install.microsoftAppID, obj.install.microsoftAppID));
-}
 /**
  * Returns a hash code from a string
  * @param str The string to hash.
@@ -76232,7 +76248,7 @@ function notDiffrent(app, obj) {
 function hashCode(str) {
     let hash = 0;
     for (let i = 0, len = str.length; i < len; i++) {
-        let chr = str.charCodeAt(i);
+        const chr = str.charCodeAt(i);
         hash = (hash << 5) - hash + chr;
         hash |= 0; // Convert to 32bit integer
     }
@@ -78280,7 +78296,7 @@ async function firstCrawled(apps, knownApps) {
 }
 async function main_focus(apps, knownApps) {
     const now = new Date().toISOString();
-    var yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
+    const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
     for (const app of apps) {
         const knownApp = knownApps.find((k) => k.id === app.id);
         if (!knownApp) {
@@ -78400,7 +78416,6 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
  * The entrypoint for the action.
  */
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 run();
 
 })();

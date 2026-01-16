@@ -108,9 +108,7 @@ const templateLangs = [
   "zh-hant",
 ];
 
-// @ts-expect-error: sometimes used for import of template data translations
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function convertTemplateDataToJson() {
+export function convertTemplateDataToJson() {
   const files = {} as Record<
     string,
     Record<string, { label?: string; description?: string }>
@@ -160,9 +158,7 @@ function convertTemplateDataToJson() {
   console.info(JSON.stringify(files));
 }
 
-// @ts-expect-error: sometimes used for export of template data translations
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function convertJsonToTemplateData() {
+export function convertJsonToTemplateData() {
   const files = {
     en: templateEn,
     cs: templateCs,
