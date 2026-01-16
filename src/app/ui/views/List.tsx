@@ -149,9 +149,9 @@ export function List({
       {(isOpen || (!!state?.platforms.length && !isInitState?.("platforms"))) &&
         app.platform.length > 0 && (
           <div
-            className={`more-info${
+            className={`more-info ${
               !!state?.platforms.length && !isInitState?.("platforms")
-                ? " focus"
+                ? "focus"
                 : ""
             }`}
           >
@@ -186,10 +186,10 @@ export function List({
         state?.contribute.includes("translate")) &&
       app.languagesUrl ? (
         <a
-          className={`more-info${
+          className={`more-info ${
             (!!state?.languages.length && !isInitState?.("languages")) ||
             state?.contribute.includes("translate")
-              ? " focus"
+              ? "focus"
               : ""
           }`}
           href={app.languagesUrl}
@@ -213,9 +213,9 @@ export function List({
           (!!state?.languages.length && !isInitState?.("languages"))) &&
         app.languages.length > 0 && (
           <div
-            className={`more-info${
+            className={`more-info ${
               !!state?.languages.length && !isInitState?.("languages")
-                ? " focus"
+                ? "focus"
                 : ""
             }`}
           >
@@ -227,9 +227,9 @@ export function List({
       {(isOpen || (!!state?.coverage.length && !isInitState?.("coverage"))) &&
         app.coverage.length > 0 && (
           <div
-            className={`more-info${
+            className={`more-info ${
               !!state?.coverage.length && !isInitState?.("coverage")
-                ? " focus"
+                ? "focus"
                 : ""
             }`}
           >
@@ -244,10 +244,10 @@ export function List({
         state?.contribute.includes("test")) &&
         Object.values(app.community).filter((v) => v).length > 0 && (
           <div
-            className={`more-info${
+            className={`more-info ${
               state?.contribute.includes("discuss") ||
               state?.contribute.includes("test")
-                ? " focus"
+                ? "focus"
                 : ""
             }`}
           >
@@ -296,8 +296,8 @@ export function List({
 
       {(isOpen || state?.contribute.includes("develop")) && app.sourceCode && (
         <a
-          className={`more-info${
-            state?.contribute.includes("develop") ? " focus" : ""
+          className={`more-info ${
+            state?.contribute.includes("develop") ? "focus" : ""
           }`}
           href={app.sourceCode}
           target="_blank"
@@ -315,8 +315,8 @@ export function List({
 
       {(isOpen || state?.contribute.includes("document")) && (
         <div
-          className={`more-info${
-            state?.contribute.includes("document") ? " focus" : ""
+          className={`more-info ${
+            state?.contribute.includes("document") ? "focus" : ""
           }`}
         >
           <span className="more-info-title">{t("app.source")}</span>

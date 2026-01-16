@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -19,7 +20,7 @@ export function Filters({
   }, [active]);
 
   return (
-    <button
+    <Button
       id="more-filters"
       className={"filter" + (active ? " active" : "")}
       onClick={() => {
@@ -28,6 +29,6 @@ export function Filters({
       }}
     >
       {t("filter.moreFilters")}
-    </button>
+    </Button>
   );
 }

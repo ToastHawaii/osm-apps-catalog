@@ -28,7 +28,7 @@ export function Param({
   }
 
   const element = (
-    <div className={`row ${group} ${focus ? " focus" : ""}`}>
+    <div className={`row ${group} ${focus ? "focus" : ""}`}>
       <div className="cell header param-title" title={description}>
         {label}
       </div>
@@ -37,7 +37,7 @@ export function Param({
           {more ? (
             <div
               className={`cell param-text${
-                centered ? " align-middle text-center" : ""
+                centered ? "text-center align-middle" : ""
               }`}
             >
               <div className="dynamic-more">{v || <Unknown />}</div>
@@ -45,7 +45,7 @@ export function Param({
           ) : (
             <div
               className={`cell param-text${
-                centered ? " align-middle text-center" : ""
+                centered ? "text-center align-middle" : ""
               }`}
             >
               {v || <Unknown />}

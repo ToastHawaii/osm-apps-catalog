@@ -56,7 +56,7 @@ export function Compare({
         {apps.map((app) => (
           <div
             key={app.id}
-            className="cell header text-center with-corner-badge"
+            className="cell header with-corner-badge text-center"
           >
             <Score app={app} />
             <h4>

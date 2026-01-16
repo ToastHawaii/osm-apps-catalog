@@ -25,6 +25,7 @@ import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 
 import "./style.scss";
+import "./style.css";
 
 function appendMeta(property: string, content: string) {
   const meta = document.createElement("meta");
