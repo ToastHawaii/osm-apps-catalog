@@ -74891,7 +74891,7 @@ function strip(html) {
     return doc.body.textContent || "";
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/requestTemplates.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/requestTemplates.ts
 
 
 async function requestTemplates(template, language) {
@@ -75002,7 +75002,7 @@ function parseTemplateToObject(content) {
 
 // EXTERNAL MODULE: ./node_modules/md5/md5.js
 var md5 = __nccwpck_require__(2296);
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/image.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/image.ts
 
 
 
@@ -75048,7 +75048,7 @@ function generateWikimediaUrls(base, fileName, size) {
     ];
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getPlatformDisplay.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getPlatformDisplay.ts
 
 const platforms = [
     {
@@ -75233,7 +75233,7 @@ function getPlatformDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/platformFilter.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/platformFilter.ts
 function platformFilter(value) {
     if (!value) {
         return false;
@@ -75249,7 +75249,7 @@ function platformFilter(value) {
     return true;
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/languageValueFormat.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/languageValueFormat.ts
 function languageValueFormat(value) {
     if (!Number.isNaN(Number.parseInt(value, 10))) {
         value = "mul";
@@ -75274,7 +75274,7 @@ function shuffle(array) {
     }
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/utilities.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/utilities.ts
 
 function containsOfflineLink(value = "") {
     return /<((s(trike)?)|(del))>/gi.test(value);
@@ -75498,7 +75498,7 @@ function processWikiText(text = "") {
     return text;
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/isFreeAndOpenSource.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/isFreeAndOpenSource.ts
 function check(value) {
     return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
@@ -75512,7 +75512,7 @@ function isFreeAndOpenSource(value) {
     return value.some((v) => check(v));
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/languageFilter.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/languageFilter.ts
 function languageFilter(value) {
     if (!value) {
         return false;
@@ -75541,7 +75541,7 @@ function plainText(html) {
     }).replaceAll("&amp;", "&");
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/software.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/software.ts
 
 
 
@@ -75822,7 +75822,7 @@ function hasValue(value = "") {
         value !== "?");
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/serviceItem.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/serviceItem.ts
 
 
 
@@ -75889,7 +75889,7 @@ function serviceItem_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/layer.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/layer.ts
 
 
 
@@ -75964,7 +75964,7 @@ function layer_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wikidata.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wikidata.ts
 
 
 
@@ -76439,7 +76439,7 @@ GROUP BY ?item
     return [base, genre, lastRelease, license];
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getProgramingLanguageDisplay.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getProgramingLanguageDisplay.ts
 
 const programingLanguages = [
     { name: "ActionScript", synonym: ["actionscript", "flash"] },
@@ -76542,7 +76542,7 @@ function getProgramingLanguageDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getFrameworkDisplay.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getFrameworkDisplay.ts
 
 const frameworks = [
     { name: "Meteor", synonym: ["meteor", "meteor application"] },
@@ -76637,7 +76637,7 @@ function getFrameworkDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/github.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/github.ts
 
 
 
@@ -77880,7 +77880,7 @@ function calculateScore(app) {
     };
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/addApp.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/addApp.ts
 
 
 
@@ -78078,7 +78078,7 @@ function merge(o1, o2) {
     throw new Error("Not expected...");
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/loadApps.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/loadApps.ts
 
 
 
@@ -78210,7 +78210,7 @@ async function loadApps(githubToken) {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/uploadToRepo.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/uploadToRepo.ts
 
 async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     if (!ghToken) {
@@ -78254,7 +78254,7 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getLastMod.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getLastMod.ts
 function getLastMod(source) {
     if (source.name === "taginfo" || source.name === "ServiceItem") {
         return source.firstCrawled;
@@ -78262,7 +78262,7 @@ function getLastMod(source) {
     return source.lastChange;
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/enrichFocus.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichFocus.ts
 
 
 async function enrichFocus(apps, knownApps) {
@@ -78289,7 +78289,7 @@ async function enrichFocus(apps, knownApps) {
     }
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/enrichFirstCrawled.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichFirstCrawled.ts
 
 
 async function enrichFirstCrawled(apps, knownApps) {
@@ -78319,7 +78319,7 @@ async function enrichFirstCrawled(apps, knownApps) {
 var external_node_stream_ = __nccwpck_require__(7075);
 // EXTERNAL MODULE: ./node_modules/sitemap/dist/index.js
 var dist = __nccwpck_require__(5480);
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/generateSitemap.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/generateSitemap.ts
 
 
 
@@ -78377,7 +78377,7 @@ async function generateSitemap(apps) {
     return data.toString();
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/main.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/main.ts
 
 
 
@@ -78429,7 +78429,7 @@ async function getKnownApps() {
     }
 }
 
-;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/index.ts
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/index.ts
 /**
  * The entrypoint for the action.
  */
