@@ -191,6 +191,7 @@ export const Criterias: {
     check: (app) =>
       [
         app.source.some((s) => s.name === "taginfo"),
+        app.source.some((s) => s.name === "GitHub"),
         app.source.some((s) => s.name === "Wikidata"),
         app.source.some(
           (s) =>
