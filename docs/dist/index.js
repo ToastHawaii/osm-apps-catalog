@@ -74687,10 +74687,10 @@ function convertJsonToTemplateData() {
 // convertTemplateDataToJson();
 // convertJsonToTemplateData();
 
-;// CONCATENATED MODULE: ./src/app/utilities/isDevelopment.ts
+;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
 const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
 
-;// CONCATENATED MODULE: ./src/shared/utilities/url.ts
+;// CONCATENATED MODULE: ./shared/utilities/url.ts
 function newUrl(url) {
     try {
         return new URL(url);
@@ -74740,7 +74740,7 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-;// CONCATENATED MODULE: ./src/app/utilities/jsonRequest.ts
+;// CONCATENATED MODULE: ./shared/utilities/jsonRequest.ts
 
 
 async function getJson(url, params = {}, headers = {}, isRetry = false) {
@@ -74780,7 +74780,7 @@ function delay(ms) {
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
-;// CONCATENATED MODULE: ./src/shared/utilities/string.ts
+;// CONCATENATED MODULE: ./shared/utilities/string.ts
 
 
 function equalsIgnoreCase(a, b) {
@@ -74891,7 +74891,7 @@ function strip(html) {
     return doc.body.textContent || "";
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/requestTemplates.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/requestTemplates.ts
 
 
 async function requestTemplates(template, language) {
@@ -75002,7 +75002,7 @@ function parseTemplateToObject(content) {
 
 // EXTERNAL MODULE: ./node_modules/md5/md5.js
 var md5 = __nccwpck_require__(2296);
-;// CONCATENATED MODULE: ./src/action/utilities/image.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/image.ts
 
 
 
@@ -75048,7 +75048,7 @@ function generateWikimediaUrls(base, fileName, size) {
     ];
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/getPlatformDisplay.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getPlatformDisplay.ts
 
 const platforms = [
     {
@@ -75233,7 +75233,7 @@ function getPlatformDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/platformFilter.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/platformFilter.ts
 function platformFilter(value) {
     if (!value) {
         return false;
@@ -75249,7 +75249,7 @@ function platformFilter(value) {
     return true;
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/languageValueFormat.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/languageValueFormat.ts
 function languageValueFormat(value) {
     if (!Number.isNaN(Number.parseInt(value, 10))) {
         value = "mul";
@@ -75260,7 +75260,7 @@ function languageValueFormat(value) {
     return value;
 }
 
-;// CONCATENATED MODULE: ./src/shared/utilities/array.ts
+;// CONCATENATED MODULE: ./shared/utilities/array.ts
 function includes(arr, target) {
     return target.every((v) => arr.includes(v));
 }
@@ -75274,7 +75274,7 @@ function shuffle(array) {
     }
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/utilities.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/utilities.ts
 
 function containsOfflineLink(value = "") {
     return /<((s(trike)?)|(del))>/gi.test(value);
@@ -75498,7 +75498,7 @@ function processWikiText(text = "") {
     return text;
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/isFreeAndOpenSource.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/isFreeAndOpenSource.ts
 function check(value) {
     return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
@@ -75512,19 +75512,7 @@ function isFreeAndOpenSource(value) {
     return value.some((v) => check(v));
 }
 
-// EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
-var sanitize_html = __nccwpck_require__(3595);
-var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/plainText.ts
-
-function plainText(html) {
-    return sanitize_html_default()(html, {
-        allowedTags: [],
-        allowedAttributes: {},
-    }).replaceAll("&amp;", "&");
-}
-
-;// CONCATENATED MODULE: ./src/action/utilities/languageFilter.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/languageFilter.ts
 function languageFilter(value) {
     if (!value) {
         return false;
@@ -75541,7 +75529,19 @@ function languageFilter(value) {
     return true;
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/software.ts
+// EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
+var sanitize_html = __nccwpck_require__(3595);
+var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
+;// CONCATENATED MODULE: ./shared/utilities/plainText.ts
+
+function plainText(html) {
+    return sanitize_html_default()(html, {
+        allowedTags: [],
+        allowedAttributes: {},
+    }).replaceAll("&amp;", "&");
+}
+
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/software.ts
 
 
 
@@ -75822,7 +75822,7 @@ function hasValue(value = "") {
         value !== "?");
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/serviceItem.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/serviceItem.ts
 
 
 
@@ -75889,7 +75889,7 @@ function serviceItem_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/wiki/layer.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wiki/layer.ts
 
 
 
@@ -75964,470 +75964,7 @@ function layer_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./src/shared/utilities/filters.ts
-function display(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
-}
-const mobilePlatforms = (/* unused pure expression or super */ null && ([
-    "ANDROID",
-    "GARMIN",
-    "KINDLE",
-    "MAEMO",
-    "MEEGO",
-    "PALM OS",
-    "SYMBIAN",
-    "UBUNTU PHONE",
-    "UBUNTU TOUCH",
-    "WEBOS",
-    "WINDOWS MOBILE",
-    "WINDOWS PHONE",
-    "IOS",
-    "ZAURUS",
-]));
-function web(a) {
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return platform.some((p) => p === "WEB");
-}
-function mobile(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        platform.some((t) => mobilePlatforms.includes(t)) ||
-        a.install.asin ||
-        a.install.fDroidID ||
-        a.install.obtainiumLink ||
-        a.install.googlePlayID ||
-        a.install.huaweiAppGalleryID ||
-        a.install.appleStoreID);
-}
-function navigation(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
-}
-function edit(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        topics.some((t) => [
-            "ADD POIS",
-            "EDIT",
-            "EDITING",
-            "EDITOR",
-            "EDITOR SOFTWARE",
-            "ANALYSE",
-            "ANALYSER",
-            "ANALYSIS",
-            "TRACK RECORDING",
-            "TRACKER",
-            "TRACKING",
-            "TRACK LOGGING",
-            "VALIDATOR",
-            "OSM TOOL",
-            "QA",
-            "QUALITY CONTROL",
-            "NOTES",
-            "EDITOR TOOL",
-            "COMPARING TOOL",
-            "HASHTAG TOOL",
-            "MONITORING TOOL",
-            "CHANGESET REVIEW TOOL",
-            "WELCOMING TOOL",
-        ].includes(t)));
-}
-
-;// CONCATENATED MODULE: ./src/shared/data/calculateScore.ts
-
-
-
-
-const multilingual = [
-    "MUL",
-    instance.t("multilingual", { lng: "en" }).toUpperCase(),
-    instance.t("multilingual").toUpperCase(),
-];
-const Criterias = [
-    // OSM Participation
-    {
-        translationKey: "supportsContributions",
-        check: (app) => edit(app),
-        points: 2,
-    },
-    {
-        translationKey: "addingAndEditingPossible",
-        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
-            equalsYes(...[
-                ...(app.editing?.editPOI || []),
-                ...(app.editing?.editGeom || []),
-                ...(app.editing?.editRelations || []),
-                ...(app.editing?.editTags || []),
-            ]),
-        points: 1,
-    },
-    {
-        translationKey: "displaysMaps",
-        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
-        points: 1,
-    },
-    // Development Participation
-    {
-        translationKey: "openSource",
-        check: (app) => !!app.libre,
-        points: 1.0,
-    },
-    {
-        translationKey: "copyleftLicense",
-        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
-        points: 0.5,
-    },
-    {
-        translationKey: "sourceCodeReference",
-        check: (app) => !!app.sourceCode,
-        points: 0.25,
-    },
-    {
-        translationKey: "issueTracker",
-        check: (app) => !!app.community.issueTracker,
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateThreeMonths",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            return lastRelease > threeMonthsAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateYear",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-            return lastRelease > oneYearAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "translationContributions",
-        check: (app) => !!app.languagesUrl,
-        points: 0.5,
-    },
-    // Availability/Accessibility
-    {
-        translationKey: "multipleLanguages",
-        check: (app) => app.languages.length >= 3 ||
-            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
-        points: 0.125,
-    },
-    {
-        translationKey: "tenLanguages",
-        check: (app) => app.languages.length >= 10,
-        points: 0.125,
-    },
-    {
-        translationKey: "freeOfCharge",
-        check: (app) => !!app.gratis,
-        points: 0.25,
-    },
-    {
-        translationKey: "multiplePlatforms",
-        check: (app) => {
-            const i = app.install;
-            return ([
-                i.appleStoreID || i.macAppStoreID,
-                i.asin,
-                i.fDroidID ||
-                    i.googlePlayID ||
-                    i.huaweiAppGalleryID ||
-                    i.obtainiumLink,
-                i.microsoftAppID,
-            ].filter((i) => i).length > 1 ||
-                app.platform.length > 1 ||
-                web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "openSourceStores",
-        check: (app) => {
-            const i = app.install;
-            return !!(i.fDroidID || i.obtainiumLink || web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "worldwideData",
-        check: (app) => app.coverage.includes("Worldwide"),
-        points: 0.5,
-    },
-    {
-        translationKey: "accessibilitySupported",
-        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
-            0 ||
-            app.routing?.profiles
-                .map((p) => p.toUpperCase())
-                .includes("WHEELCHAIR") ||
-            false,
-        points: 0.5,
-    },
-    // Community channels & Documentation
-    {
-        translationKey: "communityChannelExists",
-        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
-        points: 0.5,
-    },
-    {
-        translationKey: "openSourceChannel",
-        check: (app) => !!(app.community.irc?.channel ||
-            app.community.matrix ||
-            app.community.mastodon ||
-            app.community.lemmy ||
-            app.community.bluesky),
-        points: 0.25,
-    },
-    {
-        translationKey: "documentationLink",
-        check: (app) => !!app.documentation,
-        points: 0.125,
-    },
-    {
-        translationKey: "documentedMultiplePlatforms",
-        check: (app) => [
-            app.source.some((s) => s.name === "taginfo"),
-            app.source.some((s) => s.name === "GitHub"),
-            app.source.some((s) => s.name === "Wikidata"),
-            app.source.some((s) => s.name === "Layer" ||
-                s.name === "ServiceItem" ||
-                s.name === "Software"),
-        ].filter((s) => s).length >= 2,
-        points: 0.125,
-    },
-];
-function calculateScore(app) {
-    // Community Contribution Score (A - E)
-    // A >= 8
-    // B >= 6
-    // C >= 4
-    // D >= 2
-    // E < 2
-    const results = Criterias.map((c) => ({
-        translationKey: c.translationKey,
-        points: c.points,
-        fulfilled: c.check(app),
-    }));
-    return {
-        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
-        details: results,
-    };
-}
-
-;// CONCATENATED MODULE: ./src/action/addApp.ts
-
-
-
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        const chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-}
-function calcId(obj) {
-    if (obj.website) {
-        const url = newUrl(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname + url.search);
-    }
-    return hashCode(obj.name.toUpperCase());
-}
-function addApp(apps, obj, options) {
-    const duplicates = apps.filter((app) => 
-    // if name are equals but websites not we ignore this condition
-    equalsName(app.name, obj.name) ||
-        equalsWebsite(app.website, obj.website) ||
-        (options.includeRepositoryForUniqueCheck &&
-            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
-        (options.checkWebsiteWithRepo &&
-            equalsWebsite(app.sourceCode, obj.website)) ||
-        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
-        equalsString(app.install.asin, obj.install.asin) ||
-        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
-        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
-        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
-        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
-        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
-    if (duplicates.length === 0) {
-        // only add if external sources exists
-        if (obj.name !== "" &&
-            (obj.website ||
-                obj.documentation ||
-                obj.install.appleStoreID ||
-                obj.install.asin ||
-                obj.install.fDroidID ||
-                obj.install.googlePlayID ||
-                obj.install.obtainiumLink ||
-                obj.install.huaweiAppGalleryID ||
-                obj.install.macAppStoreID ||
-                obj.install.microsoftAppID ||
-                obj.sourceCode)) {
-            obj.id = calcId(obj);
-            obj.score = calculateScore(obj).total;
-            apps.push(obj);
-        }
-    }
-    else {
-        const app = duplicates[0];
-        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
-            app.lastRelease = obj.lastRelease;
-        else
-            app.lastRelease = app.lastRelease || obj.lastRelease;
-        app.unmaintained = app.unmaintained || obj.unmaintained;
-        app.description = app.description || obj.description;
-        app.images.push(...obj.images);
-        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
-        app.logos.push(...obj.logos);
-        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
-        app.imageWiki = app.imageWiki || obj.imageWiki;
-        app.commons = app.commons || [];
-        app.commons.push(...(obj.commons || []));
-        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
-        app.videos = app.videos || [];
-        app.videos.push(...(obj.videos || []));
-        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
-        app.website = app.website || obj.website;
-        if (!app.documentation) {
-            app.documentation = obj.documentation;
-        }
-        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
-            app.documentation = obj.documentation || app.documentation;
-        }
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
-        if (
-        // only add if not same source
-        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
-            s.name === obj.source[0].name)) {
-            // make the first source the newest
-            if (app.source[0].lastChange.toUpperCase() >
-                obj.source[0].lastChange.toUpperCase()) {
-                app.source = [...app.source, ...obj.source];
-            }
-            else {
-                app.source = [...obj.source, ...app.source];
-            }
-        }
-        app.author = app.author || obj.author;
-        app.gratis = app.gratis || obj.gratis;
-        app.libre = app.libre || obj.libre;
-        app.price = app.price || obj.price;
-        app.license = app.license || [];
-        app.license.push(...(obj.license || []));
-        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
-        app.sourceCode = app.sourceCode || obj.sourceCode;
-        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
-            app.languages.push(...obj.languages);
-        }
-        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
-        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
-        app.genre.push(...obj.genre);
-        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
-        app.topics.push(...obj.topics);
-        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
-        app.platform.push(...obj.platform);
-        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
-        app.install.asin = app.install.asin || obj.install.asin;
-        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-        app.install.obtainiumLink =
-            app.install.obtainiumLink || obj.install.obtainiumLink;
-        app.install.googlePlayID =
-            app.install.googlePlayID || obj.install.googlePlayID;
-        app.install.huaweiAppGalleryID =
-            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
-        app.install.appleStoreID =
-            app.install.appleStoreID || obj.install.appleStoreID;
-        app.install.macAppStoreID =
-            app.install.macAppStoreID || obj.install.macAppStoreID;
-        app.install.microsoftAppID =
-            app.install.microsoftAppID || obj.install.microsoftAppID;
-        app.map = merge(app.map, obj.map);
-        app.routing = merge(app.routing, obj.routing);
-        app.navigating = merge(app.navigating, obj.navigating);
-        app.tracking = merge(app.tracking, obj.tracking);
-        app.monitoring = merge(app.monitoring, obj.monitoring);
-        app.editing = merge(app.editing, obj.editing);
-        app.rendering = merge(app.rendering, obj.rendering);
-        app.accessibility = merge(app.accessibility, obj.accessibility);
-        app.hasGoal = {
-            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
-                obj.hasGoal?.crowdsourcingStreetLevelImagery,
-        };
-        app.community.forum = app.community.forum || obj.community.forum;
-        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
-        app.community.irc = app.community.irc || obj.community.irc;
-        app.community.matrix = app.community.matrix || obj.community.matrix;
-        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
-        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
-        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
-        app.community.issueTracker =
-            app.community.issueTracker || obj.community.issueTracker;
-        app.community.githubDiscussions =
-            app.community.githubDiscussions || obj.community.githubDiscussions;
-        app.community.telegram = app.community.telegram || obj.community.telegram;
-        app.community.slack = app.community.slack || obj.community.slack;
-        app.community.reddit = app.community.reddit || obj.community.reddit;
-        app.score = calculateScore(app).total;
-    }
-}
-// Todo: replace mit lodash?
-function merge(o1, o2) {
-    if (!o1 && !o2) {
-        return undefined;
-    }
-    if (o1 && !o2) {
-        return o1;
-    }
-    if (!o1 && o2) {
-        return o2;
-    }
-    if (o1 && o2) {
-        const keys = Object.keys(o1);
-        keys.push(...Object.keys(o2));
-        keys.forEach((k) => {
-            if (o1[k] && !o2[k]) {
-                return;
-            }
-            if (!o1[k] && o2[k]) {
-                o1[k] = o2[k];
-                return;
-            }
-            o1[k].push(...o2[k]);
-            o1[k] = (0,lodash.uniq)(o1[k]);
-        });
-        return o1;
-    }
-    throw new Error("Not expected...");
-}
-
-;// CONCATENATED MODULE: ./src/action/crawler/wikidata.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/wikidata.ts
 
 
 
@@ -76902,7 +76439,7 @@ GROUP BY ?item
     return [base, genre, lastRelease, license];
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/getProgramingLanguageDisplay.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getProgramingLanguageDisplay.ts
 
 const programingLanguages = [
     { name: "ActionScript", synonym: ["actionscript", "flash"] },
@@ -77005,7 +76542,7 @@ function getProgramingLanguageDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/getFrameworkDisplay.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getFrameworkDisplay.ts
 
 const frameworks = [
     { name: "Meteor", synonym: ["meteor", "meteor application"] },
@@ -77100,7 +76637,7 @@ function getFrameworkDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./src/action/crawler/github.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/crawler/github.ts
 
 
 
@@ -78078,7 +77615,470 @@ const withLoader = {...eld, load, loadNgrams: load};
 
 
 /* harmony default export */ const dynamic = (withLoader);
-;// CONCATENATED MODULE: ./src/action/loadApps.ts
+;// CONCATENATED MODULE: ./shared/utilities/filters.ts
+function display(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+}
+const mobilePlatforms = (/* unused pure expression or super */ null && ([
+    "ANDROID",
+    "GARMIN",
+    "KINDLE",
+    "MAEMO",
+    "MEEGO",
+    "PALM OS",
+    "SYMBIAN",
+    "UBUNTU PHONE",
+    "UBUNTU TOUCH",
+    "WEBOS",
+    "WINDOWS MOBILE",
+    "WINDOWS PHONE",
+    "IOS",
+    "ZAURUS",
+]));
+function web(a) {
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return platform.some((p) => p === "WEB");
+}
+function mobile(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        platform.some((t) => mobilePlatforms.includes(t)) ||
+        a.install.asin ||
+        a.install.fDroidID ||
+        a.install.obtainiumLink ||
+        a.install.googlePlayID ||
+        a.install.huaweiAppGalleryID ||
+        a.install.appleStoreID);
+}
+function navigation(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+}
+function edit(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
+        topics.some((t) => [
+            "ADD POIS",
+            "EDIT",
+            "EDITING",
+            "EDITOR",
+            "EDITOR SOFTWARE",
+            "ANALYSE",
+            "ANALYSER",
+            "ANALYSIS",
+            "TRACK RECORDING",
+            "TRACKER",
+            "TRACKING",
+            "TRACK LOGGING",
+            "VALIDATOR",
+            "OSM TOOL",
+            "QA",
+            "QUALITY CONTROL",
+            "NOTES",
+            "EDITOR TOOL",
+            "COMPARING TOOL",
+            "HASHTAG TOOL",
+            "MONITORING TOOL",
+            "CHANGESET REVIEW TOOL",
+            "WELCOMING TOOL",
+        ].includes(t)));
+}
+
+;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
+
+
+
+
+const multilingual = [
+    "MUL",
+    instance.t("multilingual", { lng: "en" }).toUpperCase(),
+    instance.t("multilingual").toUpperCase(),
+];
+const Criterias = [
+    // OSM Participation
+    {
+        translationKey: "supportsContributions",
+        check: (app) => edit(app),
+        points: 2,
+    },
+    {
+        translationKey: "addingAndEditingPossible",
+        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
+            equalsYes(...[
+                ...(app.editing?.editPOI || []),
+                ...(app.editing?.editGeom || []),
+                ...(app.editing?.editRelations || []),
+                ...(app.editing?.editTags || []),
+            ]),
+        points: 1,
+    },
+    {
+        translationKey: "displaysMaps",
+        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+        points: 1,
+    },
+    // Development Participation
+    {
+        translationKey: "openSource",
+        check: (app) => !!app.libre,
+        points: 1.0,
+    },
+    {
+        translationKey: "copyleftLicense",
+        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+        points: 0.5,
+    },
+    {
+        translationKey: "sourceCodeReference",
+        check: (app) => !!app.sourceCode,
+        points: 0.25,
+    },
+    {
+        translationKey: "issueTracker",
+        check: (app) => !!app.community.issueTracker,
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateThreeMonths",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            return lastRelease > threeMonthsAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateYear",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            return lastRelease > oneYearAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "translationContributions",
+        check: (app) => !!app.languagesUrl,
+        points: 0.5,
+    },
+    // Availability/Accessibility
+    {
+        translationKey: "multipleLanguages",
+        check: (app) => app.languages.length >= 3 ||
+            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
+        points: 0.125,
+    },
+    {
+        translationKey: "tenLanguages",
+        check: (app) => app.languages.length >= 10,
+        points: 0.125,
+    },
+    {
+        translationKey: "freeOfCharge",
+        check: (app) => !!app.gratis,
+        points: 0.25,
+    },
+    {
+        translationKey: "multiplePlatforms",
+        check: (app) => {
+            const i = app.install;
+            return ([
+                i.appleStoreID || i.macAppStoreID,
+                i.asin,
+                i.fDroidID ||
+                    i.googlePlayID ||
+                    i.huaweiAppGalleryID ||
+                    i.obtainiumLink,
+                i.microsoftAppID,
+            ].filter((i) => i).length > 1 ||
+                app.platform.length > 1 ||
+                web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "openSourceStores",
+        check: (app) => {
+            const i = app.install;
+            return !!(i.fDroidID || i.obtainiumLink || web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "worldwideData",
+        check: (app) => app.coverage.includes("Worldwide"),
+        points: 0.5,
+    },
+    {
+        translationKey: "accessibilitySupported",
+        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
+            0 ||
+            app.routing?.profiles
+                .map((p) => p.toUpperCase())
+                .includes("WHEELCHAIR") ||
+            false,
+        points: 0.5,
+    },
+    // Community channels & Documentation
+    {
+        translationKey: "communityChannelExists",
+        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
+        points: 0.5,
+    },
+    {
+        translationKey: "openSourceChannel",
+        check: (app) => !!(app.community.irc?.channel ||
+            app.community.matrix ||
+            app.community.mastodon ||
+            app.community.lemmy ||
+            app.community.bluesky),
+        points: 0.25,
+    },
+    {
+        translationKey: "documentationLink",
+        check: (app) => !!app.documentation,
+        points: 0.125,
+    },
+    {
+        translationKey: "documentedMultiplePlatforms",
+        check: (app) => [
+            app.source.some((s) => s.name === "taginfo"),
+            app.source.some((s) => s.name === "GitHub"),
+            app.source.some((s) => s.name === "Wikidata"),
+            app.source.some((s) => s.name === "Layer" ||
+                s.name === "ServiceItem" ||
+                s.name === "Software"),
+        ].filter((s) => s).length >= 2,
+        points: 0.125,
+    },
+];
+function calculateScore(app) {
+    // Community Contribution Score (A - E)
+    // A >= 8
+    // B >= 6
+    // C >= 4
+    // D >= 2
+    // E < 2
+    const results = Criterias.map((c) => ({
+        translationKey: c.translationKey,
+        points: c.points,
+        fulfilled: c.check(app),
+    }));
+    return {
+        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
+        details: results,
+    };
+}
+
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/addApp.ts
+
+
+
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = newUrl(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
+}
+function addApp(apps, obj, options) {
+    const duplicates = apps.filter((app) => 
+    // if name are equals but websites not we ignore this condition
+    equalsName(app.name, obj.name) ||
+        equalsWebsite(app.website, obj.website) ||
+        (options.includeRepositoryForUniqueCheck &&
+            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+        (options.checkWebsiteWithRepo &&
+            equalsWebsite(app.sourceCode, obj.website)) ||
+        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+        equalsString(app.install.asin, obj.install.asin) ||
+        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
+        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
+    if (duplicates.length === 0) {
+        // only add if external sources exists
+        if (obj.name !== "" &&
+            (obj.website ||
+                obj.documentation ||
+                obj.install.appleStoreID ||
+                obj.install.asin ||
+                obj.install.fDroidID ||
+                obj.install.googlePlayID ||
+                obj.install.obtainiumLink ||
+                obj.install.huaweiAppGalleryID ||
+                obj.install.macAppStoreID ||
+                obj.install.microsoftAppID ||
+                obj.sourceCode)) {
+            obj.id = calcId(obj);
+            obj.score = calculateScore(obj).total;
+            apps.push(obj);
+        }
+    }
+    else {
+        const app = duplicates[0];
+        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+            app.lastRelease = obj.lastRelease;
+        else
+            app.lastRelease = app.lastRelease || obj.lastRelease;
+        app.unmaintained = app.unmaintained || obj.unmaintained;
+        app.description = app.description || obj.description;
+        app.images.push(...obj.images);
+        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
+        app.logos.push(...obj.logos);
+        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
+        app.imageWiki = app.imageWiki || obj.imageWiki;
+        app.commons = app.commons || [];
+        app.commons.push(...(obj.commons || []));
+        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
+        app.videos = app.videos || [];
+        app.videos.push(...(obj.videos || []));
+        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
+        app.website = app.website || obj.website;
+        if (!app.documentation) {
+            app.documentation = obj.documentation;
+        }
+        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+            app.documentation = obj.documentation || app.documentation;
+        }
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
+        if (
+        // only add if not same source
+        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
+            s.name === obj.source[0].name)) {
+            // make the first source the newest
+            if (app.source[0].lastChange.toUpperCase() >
+                obj.source[0].lastChange.toUpperCase()) {
+                app.source = [...app.source, ...obj.source];
+            }
+            else {
+                app.source = [...obj.source, ...app.source];
+            }
+        }
+        app.author = app.author || obj.author;
+        app.gratis = app.gratis || obj.gratis;
+        app.libre = app.libre || obj.libre;
+        app.price = app.price || obj.price;
+        app.license = app.license || [];
+        app.license.push(...(obj.license || []));
+        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
+        app.sourceCode = app.sourceCode || obj.sourceCode;
+        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+            app.languages.push(...obj.languages);
+        }
+        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
+        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
+        app.genre.push(...obj.genre);
+        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
+        app.topics.push(...obj.topics);
+        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
+        app.platform.push(...obj.platform);
+        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
+        app.install.asin = app.install.asin || obj.install.asin;
+        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
+        app.install.obtainiumLink =
+            app.install.obtainiumLink || obj.install.obtainiumLink;
+        app.install.googlePlayID =
+            app.install.googlePlayID || obj.install.googlePlayID;
+        app.install.huaweiAppGalleryID =
+            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
+        app.install.appleStoreID =
+            app.install.appleStoreID || obj.install.appleStoreID;
+        app.install.macAppStoreID =
+            app.install.macAppStoreID || obj.install.macAppStoreID;
+        app.install.microsoftAppID =
+            app.install.microsoftAppID || obj.install.microsoftAppID;
+        app.map = merge(app.map, obj.map);
+        app.routing = merge(app.routing, obj.routing);
+        app.navigating = merge(app.navigating, obj.navigating);
+        app.tracking = merge(app.tracking, obj.tracking);
+        app.monitoring = merge(app.monitoring, obj.monitoring);
+        app.editing = merge(app.editing, obj.editing);
+        app.rendering = merge(app.rendering, obj.rendering);
+        app.accessibility = merge(app.accessibility, obj.accessibility);
+        app.hasGoal = {
+            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
+                obj.hasGoal?.crowdsourcingStreetLevelImagery,
+        };
+        app.community.forum = app.community.forum || obj.community.forum;
+        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
+        app.community.irc = app.community.irc || obj.community.irc;
+        app.community.matrix = app.community.matrix || obj.community.matrix;
+        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
+        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
+        app.community.issueTracker =
+            app.community.issueTracker || obj.community.issueTracker;
+        app.community.githubDiscussions =
+            app.community.githubDiscussions || obj.community.githubDiscussions;
+        app.community.telegram = app.community.telegram || obj.community.telegram;
+        app.community.slack = app.community.slack || obj.community.slack;
+        app.community.reddit = app.community.reddit || obj.community.reddit;
+        app.score = calculateScore(app).total;
+    }
+}
+// Todo: replace mit lodash?
+function merge(o1, o2) {
+    if (!o1 && !o2) {
+        return undefined;
+    }
+    if (o1 && !o2) {
+        return o1;
+    }
+    if (!o1 && o2) {
+        return o2;
+    }
+    if (o1 && o2) {
+        const keys = Object.keys(o1);
+        keys.push(...Object.keys(o2));
+        keys.forEach((k) => {
+            if (o1[k] && !o2[k]) {
+                return;
+            }
+            if (!o1[k] && o2[k]) {
+                o1[k] = o2[k];
+                return;
+            }
+            o1[k].push(...o2[k]);
+            o1[k] = (0,lodash.uniq)(o1[k]);
+        });
+        return o1;
+    }
+    throw new Error("Not expected...");
+}
+
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/loadApps.ts
 
 
 
@@ -78210,7 +78210,7 @@ async function loadApps(githubToken) {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
-;// CONCATENATED MODULE: ./src/action/uploadToRepo.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/uploadToRepo.ts
 
 async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     if (!ghToken) {
@@ -78254,7 +78254,7 @@ async function uploadToRepo(filePath, content, commitMessage, ghToken) {
     console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
 }
 
-;// CONCATENATED MODULE: ./src/action/utilities/getLastMod.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/utilities/getLastMod.ts
 function getLastMod(source) {
     if (source.name === "taginfo" || source.name === "ServiceItem") {
         return source.firstCrawled;
@@ -78262,7 +78262,7 @@ function getLastMod(source) {
     return source.lastChange;
 }
 
-;// CONCATENATED MODULE: ./src/action/enrichFocus.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/enrichFocus.ts
 
 
 async function enrichFocus(apps, knownApps) {
@@ -78289,7 +78289,7 @@ async function enrichFocus(apps, knownApps) {
     }
 }
 
-;// CONCATENATED MODULE: ./src/action/enrichFirstCrawled.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/enrichFirstCrawled.ts
 
 
 async function enrichFirstCrawled(apps, knownApps) {
@@ -78319,7 +78319,7 @@ async function enrichFirstCrawled(apps, knownApps) {
 var external_node_stream_ = __nccwpck_require__(7075);
 // EXTERNAL MODULE: ./node_modules/sitemap/dist/index.js
 var dist = __nccwpck_require__(5480);
-;// CONCATENATED MODULE: ./src/action/generateSitemap.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/generateSitemap.ts
 
 
 
@@ -78377,7 +78377,7 @@ async function generateSitemap(apps) {
     return data.toString();
 }
 
-;// CONCATENATED MODULE: ./src/action/main.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/main.ts
 
 
 
@@ -78429,7 +78429,7 @@ async function getKnownApps() {
     }
 }
 
-;// CONCATENATED MODULE: ./src/action/index.ts
+;// CONCATENATED MODULE: ./github-actions/collect-osm-apps/index.ts
 /**
  * The entrypoint for the action.
  */
