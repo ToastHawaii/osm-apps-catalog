@@ -7137,7 +7137,7 @@ __export(dist_src_exports, {
 });
 module.exports = __toCommonJS(dist_src_exports);
 var import_deprecation = __nccwpck_require__(4150);
-var import_once = __toESM(__nccwpck_require__(5560));
+var import_once = __toESM(__nccwpck_require__(3179));
 var logOnceCode = (0, import_once.default)((deprecation) => console.warn(deprecation));
 var logOnceHeaders = (0, import_once.default)((deprecation) => console.warn(deprecation));
 var RequestError = class extends Error {
@@ -25469,7 +25469,7 @@ exports.isPlainObject = isPlainObject;
 
 /***/ }),
 
-/***/ 5560:
+/***/ 3179:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 var wrappy = __nccwpck_require__(8264)
@@ -26619,7 +26619,7 @@ Declaration.default = Declaration
 
 /***/ }),
 
-/***/ 3179:
+/***/ 5560:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -27002,7 +27002,7 @@ if (terminalHighlight && terminalHighlight.registerInput) {
 
 
 let Container = __nccwpck_require__(4966)
-let Document = __nccwpck_require__(3179)
+let Document = __nccwpck_require__(5560)
 let MapGenerator = __nccwpck_require__(5795)
 let parse = __nccwpck_require__(8994)
 let Result = __nccwpck_require__(1052)
@@ -29278,7 +29278,7 @@ let Comment = __nccwpck_require__(2024)
 let Container = __nccwpck_require__(4966)
 let CssSyntaxError = __nccwpck_require__(4451)
 let Declaration = __nccwpck_require__(913)
-let Document = __nccwpck_require__(3179)
+let Document = __nccwpck_require__(5560)
 let fromJSON = __nccwpck_require__(3707)
 let Input = __nccwpck_require__(1149)
 let LazyResult = __nccwpck_require__(7789)
@@ -29534,7 +29534,7 @@ PreviousMap.default = PreviousMap
 "use strict";
 
 
-let Document = __nccwpck_require__(3179)
+let Document = __nccwpck_require__(5560)
 let LazyResult = __nccwpck_require__(7789)
 let NoWorkResult = __nccwpck_require__(9818)
 let Root = __nccwpck_require__(973)
@@ -70949,12 +70949,6 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(7484);
-// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
-var github = __nccwpck_require__(3228);
-// EXTERNAL MODULE: ./node_modules/sitemap/dist/index.js
-var dist = __nccwpck_require__(5480);
-// EXTERNAL MODULE: external "stream"
-var external_stream_ = __nccwpck_require__(2203);
 ;// CONCATENATED MODULE: ./node_modules/i18next/dist/esm/i18next.js
 const consoleLogger = {
   type: 'logger',
@@ -74931,7 +74925,7 @@ async function processPagesByTemplateResult(response, template, language) {
     let ids = [];
     for (const p in pages) {
         if (language === "en") {
-            if (!/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/gi.test(pages[p].title))
+            if (!/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/gi.test(pages[p].title))
                 ids.push(pages[p].pageid);
         }
         else if (new RegExp(`^${language}:`, "ig").test(pages[p].title))
@@ -76208,6 +76202,7 @@ const Criterias = [
         translationKey: "documentedMultiplePlatforms",
         check: (app) => [
             app.source.some((s) => s.name === "taginfo"),
+            app.source.some((s) => s.name === "GitHub"),
             app.source.some((s) => s.name === "Wikidata"),
             app.source.some((s) => s.name === "Layer" ||
                 s.name === "ServiceItem" ||
@@ -78213,6 +78208,52 @@ async function loadApps(githubToken) {
     return apps;
 }
 
+// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
+var github = __nccwpck_require__(3228);
+;// CONCATENATED MODULE: ./src/action/uploadToRepo.ts
+
+async function uploadToRepo(filePath, content, commitMessage, ghToken) {
+    if (!ghToken) {
+        throw new Error("GitHub token is required to upload files.");
+    }
+    const octokit = (0,github.getOctokit)(ghToken);
+    const owner = github.context.repo.owner;
+    const repo = github.context.repo.repo;
+    // Branch aus context.ref extrahieren (z.B. "refs/heads/my-feature-branch" => "my-feature-branch")
+    const ref = github.context.ref;
+    const branch = ref.replace("refs/heads/", "");
+    const base64Content = Buffer.from(content).toString("base64");
+    // Prüfen, ob die Datei existiert
+    let sha;
+    try {
+        const { data } = await octokit.rest.repos.getContent({
+            owner,
+            repo,
+            path: filePath,
+            ref: branch,
+        });
+        if ("sha" in data) {
+            sha = data.sha; // SHA der vorhandenen Datei speichern
+        }
+    }
+    catch (error) {
+        if (error?.status !== 404) {
+            throw error; // Fehler weitergeben, falls es kein 404 ist
+        }
+    }
+    // Datei erstellen oder aktualisieren
+    await octokit.rest.repos.createOrUpdateFileContents({
+        owner,
+        repo,
+        path: filePath,
+        message: commitMessage,
+        content: base64Content,
+        sha,
+        branch,
+    });
+    console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
+}
+
 ;// CONCATENATED MODULE: ./src/action/utilities/getLastMod.ts
 function getLastMod(source) {
     if (source.name === "taginfo" || source.name === "ServiceItem") {
@@ -78221,80 +78262,10 @@ function getLastMod(source) {
     return source.lastChange;
 }
 
-;// CONCATENATED MODULE: ./src/action/main.ts
+;// CONCATENATED MODULE: ./src/action/enrichFocus.ts
 
 
-
-
-
-
-
-
-
-const lastUpdate = new Date("2025-05-03");
-// todo: statistik erstellen, neuer ablauf,
-// apps loaden
-// jmergen
-// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
-/**
- * The main function for the action.
- * @returns Resolves when the action is complete.
- */
-async function run() {
-    try {
-        let apps = await loadApps(core.getInput("ghToken"));
-        const knownApps = await getKnownApps();
-        await firstCrawled(apps, knownApps);
-        await main_focus(apps, knownApps);
-        shuffle(apps);
-        apps = apps.sort(function (a, b) {
-            return b.score - a.score;
-        });
-        apps.forEach((app) => {
-            delete app.score.details;
-        });
-        await uploadToRepo("docs/api/apps/all.json", JSON.stringify(apps), "Update app catalog", core.getInput("ghToken"));
-        await uploadToRepo("docs/sitemap.xml", await generateSitemap(apps), "Update sitemap", core.getInput("ghToken"));
-    }
-    catch (error) {
-        // Fail the workflow run if an error occurs
-        if (error instanceof Error)
-            core.setFailed(error.message);
-    }
-}
-async function getKnownApps() {
-    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
-    try {
-        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
-    }
-    catch (e) {
-        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
-        throw e;
-    }
-}
-async function firstCrawled(apps, knownApps) {
-    const now = new Date().toISOString();
-    for (const app of apps) {
-        const knownApp = knownApps.find((k) => k.id === app.id);
-        if (!knownApp) {
-            app.source = app.source.map((s) => ({ ...s, firstCrawled: now }));
-        }
-        else {
-            for (const source of app.source) {
-                const knownSource = knownApp.source.find((k) => k.name === source.name && k.url === source.url);
-                if (!knownSource) {
-                    source.firstCrawled = now;
-                }
-                else {
-                    source.firstCrawled =
-                        knownSource.firstCrawled || "2025-03-01T00:00:00Z";
-                }
-            }
-        }
-        app.source = (0,lodash.sortBy)(app.source, getLastMod).reverse();
-    }
-}
-async function main_focus(apps, knownApps) {
+async function enrichFocus(apps, knownApps) {
     const now = new Date().toISOString();
     const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
     for (const app of apps) {
@@ -78317,6 +78288,42 @@ async function main_focus(apps, knownApps) {
         app.lastFocus = now;
     }
 }
+
+;// CONCATENATED MODULE: ./src/action/enrichFirstCrawled.ts
+
+
+async function enrichFirstCrawled(apps, knownApps) {
+    const now = new Date().toISOString();
+    for (const app of apps) {
+        const knownApp = knownApps.find((k) => k.id === app.id);
+        if (!knownApp) {
+            app.source = app.source.map((s) => ({ ...s, firstCrawled: now }));
+        }
+        else {
+            for (const source of app.source) {
+                const knownSource = knownApp.source.find((k) => k.name === source.name && k.url === source.url);
+                if (!knownSource) {
+                    source.firstCrawled = now;
+                }
+                else {
+                    source.firstCrawled =
+                        knownSource.firstCrawled || "2025-03-01T00:00:00Z";
+                }
+            }
+        }
+        app.source = (0,lodash.sortBy)(app.source, getLastMod).reverse();
+    }
+}
+
+// EXTERNAL MODULE: external "node:stream"
+var external_node_stream_ = __nccwpck_require__(7075);
+// EXTERNAL MODULE: ./node_modules/sitemap/dist/index.js
+var dist = __nccwpck_require__(5480);
+;// CONCATENATED MODULE: ./src/action/generateSitemap.ts
+
+
+
+
 async function generateSitemap(apps) {
     // An array with your links
     const links = [];
@@ -78366,49 +78373,60 @@ async function generateSitemap(apps) {
         hostname: "https://osm-apps.org",
     });
     // Return a promise that resolves with your XML string
-    const data = await (0,dist.streamToPromise)(external_stream_.Readable.from(links).pipe(stream));
+    const data = await (0,dist.streamToPromise)(external_node_stream_.Readable.from(links).pipe(stream));
     return data.toString();
 }
-async function uploadToRepo(filePath, content, commitMessage, ghToken) {
-    if (!ghToken) {
-        throw new Error("GitHub token is required to upload files.");
-    }
-    const octokit = (0,github.getOctokit)(ghToken);
-    const owner = github.context.repo.owner;
-    const repo = github.context.repo.repo;
-    // Branch aus context.ref extrahieren (z.B. "refs/heads/my-feature-branch" => "my-feature-branch")
-    const ref = github.context.ref;
-    const branch = ref.replace("refs/heads/", "");
-    const base64Content = Buffer.from(content).toString("base64");
-    // Prüfen, ob die Datei existiert
-    let sha;
+
+;// CONCATENATED MODULE: ./src/action/main.ts
+
+
+
+
+
+
+
+
+const lastUpdate = new Date("2025-05-03");
+// todo: statistik erstellen, neuer ablauf,
+// apps loaden
+// jmergen
+// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
+/**
+ * The main function for the action.
+ * @returns Resolves when the action is complete.
+ */
+async function run() {
     try {
-        const { data } = await octokit.rest.repos.getContent({
-            owner,
-            repo,
-            path: filePath,
-            ref: branch,
+        let apps = await loadApps(core.getInput("ghToken"));
+        const knownApps = await getKnownApps();
+        await enrichFirstCrawled(apps, knownApps);
+        await enrichFocus(apps, knownApps);
+        // Shuffle before sorting to get a random order for apps with the same score
+        shuffle(apps);
+        apps = apps.sort((a, b) => b.score - a.score);
+        // remove details from score to reduce file size, can be re-calculated on client side
+        apps.forEach((app) => {
+            delete app.score.details;
         });
-        if ("sha" in data) {
-            sha = data.sha; // SHA der vorhandenen Datei speichern
-        }
+        await uploadToRepo("docs/api/apps/all.json", JSON.stringify(apps), "Update app catalog", core.getInput("ghToken"));
+        await uploadToRepo("docs/sitemap.xml", await generateSitemap(apps), "Update sitemap", core.getInput("ghToken"));
     }
     catch (error) {
-        if (error?.status !== 404) {
-            throw error; // Fehler weitergeben, falls es kein 404 ist
+        // Fail the workflow run if an error occurs
+        if (error instanceof Error) {
+            core.setFailed(error.message);
         }
     }
-    // Datei erstellen oder aktualisieren
-    await octokit.rest.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path: filePath,
-        message: commitMessage,
-        content: base64Content,
-        sha,
-        branch,
-    });
-    console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
+}
+async function getKnownApps() {
+    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
+    try {
+        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
+    }
+    catch (e) {
+        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
+        throw e;
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/action/index.ts
