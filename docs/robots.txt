@@ -1,1 +1,0 @@
-Sitemap: https://osm-apps.org/sitemap.xml
