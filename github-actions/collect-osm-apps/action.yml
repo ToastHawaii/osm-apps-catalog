@@ -1,4 +1,4 @@
-name: "Update osm app catalog"
+name: "Collect OSM Apps Action"
 
 inputs:
   ghToken:
@@ -7,4 +7,4 @@ inputs:
 
 runs:
   using: node20
-  main: docs/dist/index.js
+  main: ../../docs/dist/actions/collect-osm-apps/index.js

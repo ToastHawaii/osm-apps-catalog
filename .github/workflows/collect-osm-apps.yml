@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   collect-osm-apps-action:
-    name: 
+    name: Collect OSM Apps
     runs-on: ubuntu-latest
 
     steps:
