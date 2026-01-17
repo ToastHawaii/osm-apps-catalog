@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { App } from "../../../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
-import { edit } from "../../../../../shared/utilities/filters";
+import { edit } from "@shared/utilities/filters";
 
 export function GooglePlayLink({ app }: { app: App }) {
   const { t } = useTranslation();

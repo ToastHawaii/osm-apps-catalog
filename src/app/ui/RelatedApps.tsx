@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { App as AppData } from "../../shared/data/App";
+import { App as AppData } from "@shared/data/App";
 import { List } from "./views/List";
 import { State } from "./State";
 

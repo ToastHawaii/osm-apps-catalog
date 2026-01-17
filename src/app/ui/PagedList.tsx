@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { App as AppData } from "../../shared/data/App";
+import { App as AppData } from "@shared/data/App";
 import { List } from "./views/List";
 import { LazyLoadImages } from "./components/LazyLoadImages";
 import { State } from "./State";

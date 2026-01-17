@@ -6,7 +6,7 @@ import { Image } from "../components/Image";
 import { toWikiValue } from "../utilities/toWikiTable";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "../utilities/getMatrix";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
 import { SourceDisplay } from "../components/SourceDisplay";
@@ -31,8 +31,8 @@ import { SlackLink } from "../components/links/community/SlackLink";
 import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
-import { plainText } from "../../../action/crawler/wiki/plainText";
 import { useGoatCounterEvents } from "../../utilities/useGoatCounterEvents";
+import { plainText } from "@shared/utilities/plainText";
 
 export function Compare({
   apps,

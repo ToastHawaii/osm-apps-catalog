@@ -3,8 +3,8 @@ import { isFreeAndOpenSource } from "../utilities/isFreeAndOpenSource";
 import { getPlatformDisplay } from "../utilities/getPlatformDisplay";
 import { getProgramingLanguageDisplay } from "../utilities/getProgramingLanguageDisplay";
 import { getFrameworkDisplay } from "../utilities/getFrameworkDisplay";
-import { newUrl } from "../../shared/utilities/url";
-import { equalsIgnoreCase } from "../../shared/utilities/string";
+import { newUrl } from "@shared/utilities/url";
+import { equalsIgnoreCase } from "@shared/utilities/string";
 
 const ignoredTopics = [
   // OpenStreetMap

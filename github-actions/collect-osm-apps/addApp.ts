@@ -3,10 +3,10 @@ import {
   equalsName,
   equalsString,
   equalsWebsite,
-} from "../shared/utilities/string";
-import { App } from "../shared/data/App";
-import { calculateScore } from "../shared/data/calculateScore";
-import { newUrl } from "../shared/utilities/url";
+} from "@shared/utilities/string";
+import { App } from "@shared/data/App";
+import { calculateScore } from "@shared/data/calculateScore";
+import { newUrl } from "@shared/utilities/url";
 
 /**
  * Returns a hash code from a string

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
-import { calculateFilter } from "../../../shared/data/calculateFilter";
+import { calculateFilter } from "@shared/data/calculateFilter";
 import { isImage } from "./LazyLoadImages";
 import { chain } from "lodash";
 

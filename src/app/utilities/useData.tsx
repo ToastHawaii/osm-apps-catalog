@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { getJson } from "./jsonRequest";
-import { App } from "../../shared/data/App";
-import { isDevelopment } from "./isDevelopment";
+import { getJson } from "@shared/utilities/jsonRequest";
+import { App } from "@shared/data/App";
+import { isDevelopment } from "@shared/utilities/isDevelopment";
 import { printCalcScore } from "./printCalcScore";
-import { prepareLanguage } from "../../shared/data/prepareLanguage";
+import { prepareLanguage } from "@shared/data/prepareLanguage";
 
 async function loadData() {
   // for testing
@@ -14,10 +14,10 @@ async function loadData() {
       return await getJson("/api/apps/all.json", {});
     } catch {
       console.error("Data could not be loaded, the local cache is used.");
-      return (await import("../../shared/data/all.json")).default;
+      return (await import("@shared/data/all.json")).default;
     }
   } else {
-    return (await import("../../shared/data/all.json")).default;
+    return (await import("@shared/data/all.json")).default;
   }
 }
 

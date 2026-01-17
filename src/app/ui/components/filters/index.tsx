@@ -1,4 +1,4 @@
-import { Toggle } from "@/components/ui/toggle";
+import { Toggle } from "@components/ui/toggle";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

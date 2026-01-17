@@ -10,7 +10,12 @@
     /* Import alias */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@app/*": ["src/app/*"],               // app root (frontend)
+      "@features/*": ["src/features/*"],     // feature modules
+      "@components/*": ["src/components/*"], // frontend components
+      "@shared/*": ["shared/*"],             // shared code between frontend/backend
+      "@actions/*": ["github-actions/*"],    // GitHub actions scripts (backend)
+      "@lib/*": ["src/lib/*"]                // utils/helpers
     },
 
     /* Bundler mode */
@@ -28,5 +33,5 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src"],
+  "include": ["src", "shared", "github-actions/collect-osm-apps"],
 }

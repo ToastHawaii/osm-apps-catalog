@@ -1,4 +1,4 @@
-import { equalsIgnoreCase, trim } from "../../shared/utilities/string";
+import { equalsIgnoreCase, trim } from "@shared/utilities/string";
 
 const platforms: {
   name: string;

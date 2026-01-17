@@ -61,10 +61,10 @@
   },
   "scripts": {
     "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npm run lint && npm run app:build && npm run action:build",
-    "app:start": "cp docs/api/apps/all.json src/shared/data && vite",
+    "app:start": "cp docs/api/apps/all.json shared/data && vite",
     "app:build": "vite build",
-    "action:start": "npx local-action . src/action/main.ts .env",
-    "action:build": "npx ncc build src/action/index.ts -o docs/dist --source-map --license licenses.txt",
+    "action:start": "npx local-action . github-actions/collect-osm-apps/main.ts .env",
+    "action:build": "npx ncc build github-actions/collect-osm-apps/index.ts -o docs/dist --source-map --license licenses.txt",
     "lint": "eslint src && prettier --check 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint src --fix && prettier --write 'src/**/*.{ts,tsx}'",
     "type-check": "tsc"

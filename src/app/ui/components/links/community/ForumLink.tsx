@@ -1,5 +1,5 @@
 import React from "react";
-import { App } from "../../../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
 import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
 

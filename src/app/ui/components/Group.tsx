@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Badges } from "./Badges";
 import { toWikiValue, toWikiTable } from "../utilities/toWikiTable";
 import { Param } from "./Param";
-import { notNo } from "../../../shared/utilities/string";
-import { App } from "../../../shared/data/App";
+import { notNo } from "@shared/utilities/string";
+import { App } from "@shared/data/App";
 
 export function Group({
   id,

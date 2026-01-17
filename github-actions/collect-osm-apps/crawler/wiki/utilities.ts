@@ -1,4 +1,4 @@
-import { newUrl, toWikiUrl } from "../../../shared/utilities/url";
+import { newUrl, toWikiUrl } from "@shared/utilities/url";
 
 export function containsOfflineLink(value = "") {
   return /<((s(trike)?)|(del))>/gi.test(value);

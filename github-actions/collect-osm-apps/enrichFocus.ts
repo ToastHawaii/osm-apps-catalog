@@ -1,5 +1,5 @@
-import { getLastMod } from "@/action/utilities/getLastMod";
-import { App } from "@/shared/data/App";
+import { getLastMod } from "@actions/collect-osm-apps/utilities/getLastMod";
+import { App } from "@shared/data/App";
 import { chain } from "lodash";
 
 export async function enrichFocus(apps: App[], knownApps: App[]) {

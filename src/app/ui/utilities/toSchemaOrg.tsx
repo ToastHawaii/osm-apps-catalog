@@ -1,13 +1,13 @@
 import { round } from "lodash";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import {
   display,
   edit,
   mobile,
   navigation,
   web,
-} from "../../../shared/utilities/filters";
-import { strip } from "../../../shared/utilities/string";
+} from "@shared/utilities/filters";
+import { strip } from "@shared/utilities/string";
 
 export function toSchemaOrg(app: App) {
   return JSON.stringify({

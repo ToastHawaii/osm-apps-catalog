@@ -18,14 +18,14 @@ import { LazyLoadImages } from "./components/LazyLoadImages";
 import { Compare } from "./views/Compare";
 import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "./components/NotFoundApps";
-import { strip } from "../../shared/utilities/string";
+import { strip } from "@shared/utilities/string";
 import { LazyInitMore } from "./components/LazyInitMore";
 import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 
-import "./style.scss";
-import "./style.css";
+import "../../styles/globals.scss";
+import "../../styles/globals.css";
 
 function appendMeta(property: string, content: string) {
   const meta = document.createElement("meta");

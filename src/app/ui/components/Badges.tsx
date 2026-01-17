@@ -1,5 +1,5 @@
 import React from "react";
-import { textToColor } from "../../../shared/utilities/string";
+import { textToColor } from "@shared/utilities/string";
 
 function Badge({
   value,

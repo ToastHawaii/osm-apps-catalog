@@ -1,14 +1,14 @@
 import * as core from "@actions/core";
 
-import "../app/ui/utilities/i18n";
+import "../../src/app/ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
-import { shuffle } from "../shared/utilities/array";
-import { App } from "../shared/data/App";
-import { uploadToRepo } from "@/action/uploadToRepo";
-import { enrichFocus } from "@/action/enrichFocus";
-import { enrichFirstCrawled } from "@/action/enrichFirstCrawled";
-import { generateSitemap } from "@/action/generateSitemap";
+import { shuffle } from "@shared/utilities/array";
+import { App } from "@shared/data/App";
+import { uploadToRepo } from "@actions/collect-osm-apps/uploadToRepo";
+import { enrichFocus } from "@actions/collect-osm-apps/enrichFocus";
+import { enrichFirstCrawled } from "@actions/collect-osm-apps/enrichFirstCrawled";
+import { generateSitemap } from "@actions/collect-osm-apps/generateSitemap";
 
 export const lastUpdate = new Date("2025-05-03");
 

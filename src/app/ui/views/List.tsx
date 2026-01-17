@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Badges } from "../components/Badges";
 import { Carousel, Image } from "../components/Image";
 import { Score } from "../components/Score";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { Trans, useTranslation } from "react-i18next";
 import { SourceDisplay } from "../components/SourceDisplay";
 import { State } from "../State";
@@ -27,8 +27,8 @@ import { MastodonLink } from "../components/links/community/MastodonLink";
 import { MatrixLink } from "../components/links/community/MatrixLink";
 import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
-import { plainText } from "../../../action/crawler/wiki/plainText";
 import { useGoatCounterEvents } from "../../utilities/useGoatCounterEvents";
+import { plainText } from "@shared/utilities/plainText";
 
 export function List({
   app,

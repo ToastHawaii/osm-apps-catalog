@@ -1,6 +1,6 @@
-import { lastUpdate } from "@/action/main";
-import { getLastMod } from "@/action/utilities/getLastMod";
-import { App } from "@/shared/data/App";
+import { lastUpdate } from "@actions/collect-osm-apps/main";
+import { getLastMod } from "@actions/collect-osm-apps/utilities/getLastMod";
+import { App } from "@shared/data/App";
 import { Readable } from "node:stream";
 import { SitemapStream, streamToPromise } from "sitemap";
 

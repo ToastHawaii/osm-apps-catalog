@@ -1,7 +1,7 @@
 import React from "react";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
-import { calculateScore } from "../../../shared/data/calculateScore";
+import { calculateScore } from "@shared/data/calculateScore";
 
 export function Score({ app }: { app: App }) {
   const { t } = useTranslation();

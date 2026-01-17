@@ -1,6 +1,6 @@
 import * as md5 from "md5";
-import { httpRegex } from "../../shared/utilities/url";
-import { startsWithIgnoreCase } from "../../shared/utilities/string";
+import { httpRegex } from "@shared/utilities/url";
+import { startsWithIgnoreCase } from "@shared/utilities/string";
 
 export function toWikimediaUrl(source: string, size: number) {
   if (!source) return [] as string[];

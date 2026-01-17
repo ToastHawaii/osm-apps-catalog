@@ -2,16 +2,16 @@ import { requestTemplates } from "./crawler/wiki/requestTemplates";
 import { transform as transformSoftware } from "./crawler/wiki/software";
 import { transform as transformServiceItem } from "./crawler/wiki/serviceItem";
 import { transform as transformLayer } from "./crawler/wiki/layer";
-import { equalsIgnoreCase, equalsYes } from "../shared/utilities/string";
+import { equalsIgnoreCase, equalsYes } from "@shared/utilities/string";
 import { containsOfflineLink, extractWebsite } from "./crawler/wiki/utilities";
-import { App } from "../shared/data/App";
-import { addApp } from "./addApp";
-import { newUrl, toUrl } from "../shared/utilities/url";
+import { App } from "@shared/data/App";
+import { newUrl, toUrl } from "@shared/utilities/url";
 import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
-import { getJson } from "../app/utilities/jsonRequest";
+import { getJson } from "@shared/utilities/jsonRequest";
 import { groupBy, mergeWith, uniqBy } from "lodash";
 import { requestGitHub, transformGitHubResult } from "./crawler/github";
 import eld from "eld";
+import { addApp } from "@actions/collect-osm-apps/addApp";
 
 async function loadAppsFromOsmWikiServiceItems(language: string) {
   return (await requestTemplates("Service item", language))

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { SourceDisplayText } from "../components/SourceDisplayText";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 
 export function SourceDisplay({ app }: { app: App }) {
   const { t } = useTranslation();

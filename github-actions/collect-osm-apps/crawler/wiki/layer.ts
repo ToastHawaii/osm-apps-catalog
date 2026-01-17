@@ -1,5 +1,5 @@
 import { toWikimediaUrl } from "../../utilities/image";
-import { toWikiUrl, toUrl } from "../../../shared/utilities/url";
+import { toWikiUrl, toUrl } from "@shared/utilities/url";
 import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { uniq } from "lodash";
 import {
@@ -8,15 +8,15 @@ import {
   splitByCommaButNotInsideBraceRegex,
   toDate,
   trim,
-} from "../../../shared/utilities/string";
+} from "@shared/utilities/string";
 import {
   processWikiText,
   extractWebsite,
   extractNameWebsiteWiki,
 } from "./utilities";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
-import { plainText } from "./plainText";
+import { plainText } from "@shared/utilities/plainText";
 import { languageFilter } from "../../utilities/languageFilter";
 
 export function transform(source: Record<string, string>) {

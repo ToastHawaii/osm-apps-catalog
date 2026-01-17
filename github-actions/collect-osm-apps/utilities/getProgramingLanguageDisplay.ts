@@ -1,4 +1,4 @@
-import { equalsIgnoreCase } from "../../shared/utilities/string";
+import { equalsIgnoreCase } from "@shared/utilities/string";
 
 const programingLanguages: {
   name: string;

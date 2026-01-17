@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { isEqual } from "lodash";
 import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 
 export function LanguageSelect({
   apps,

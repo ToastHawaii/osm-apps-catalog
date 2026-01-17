@@ -1,5 +1,5 @@
 import { chain } from "lodash";
-import { equalsIgnoreCase } from "../../shared/utilities/string";
+import { equalsIgnoreCase } from "@shared/utilities/string";
 
 export function prepareArrayForSelect(names: string[], selected: string[]) {
   return chain(names)

@@ -1,5 +1,5 @@
 import { isDevelopment } from "./isDevelopment";
-import { utilQsString } from "../../shared/utilities/url";
+import { utilQsString } from "@shared/utilities/url";
 
 export async function getJson(
   url: string,

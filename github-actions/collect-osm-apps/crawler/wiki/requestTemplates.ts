@@ -1,5 +1,5 @@
-import { getJson } from "../../../app/utilities/jsonRequest";
-import { findClosingBracketIndex } from "../../../shared/utilities/string";
+import { getJson } from "@shared/utilities/jsonRequest";
+import { findClosingBracketIndex } from "@shared/utilities/string";
 
 type Template = Record<string, string>;
 

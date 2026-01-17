@@ -1,5 +1,5 @@
 import React from "react";
-import { App } from "../../../shared/data/App";
+import { App } from "@shared/data/App";
 import { Unknown } from "./Unknown";
 
 export function Param({
