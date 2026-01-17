@@ -6,9 +6,8 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig(() => {
   return {
-    root: "./src",
     build: {
-      outDir: "../docs",
+      outDir: "./docs",
     },
     plugins: [react(), tailwindcss()],
     resolve: {
