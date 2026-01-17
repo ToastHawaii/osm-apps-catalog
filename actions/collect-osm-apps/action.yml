@@ -7,4 +7,4 @@ inputs:
 
 runs:
   using: node20
-  main: ../../dist/github-actions/collect-osm-apps/index.js
+  main: ../../dist/actions/collect-osm-apps/index.js
