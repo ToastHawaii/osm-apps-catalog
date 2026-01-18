@@ -1,4 +1,4 @@
-name: "Collect OSM Apps Action"
+name: "Collect osm apps action"
 
 inputs:
   ghToken:

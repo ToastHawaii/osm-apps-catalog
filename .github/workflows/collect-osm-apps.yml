@@ -1,4 +1,4 @@
-name: Collect OSM Apps
+name: Collect osm apps
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   collect-osm-apps-action:
-    name: Collect OSM Apps
+    name: Collect osm apps
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Collect OSM Apps
+      - name: Collect osm apps
         id: collect-osm-apps-action
         uses: ./actions/collect-osm-apps
         with:

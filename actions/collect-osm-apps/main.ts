@@ -4,11 +4,11 @@ import "../../src/app/ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "@shared/utilities/array";
-import { App } from "@shared/data/App";
 import { uploadToRepo } from "@actions/collect-osm-apps/uploadToRepo";
 import { enrichFocus } from "@actions/collect-osm-apps/enrichFocus";
 import { enrichFirstCrawled } from "@actions/collect-osm-apps/enrichFirstCrawled";
 import { generateSitemap } from "@actions/collect-osm-apps/generateSitemap";
+import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 
 export const lastUpdate = new Date("2025-05-03");
 
@@ -56,21 +56,5 @@ export async function run(): Promise<void> {
     if (error instanceof Error) {
       core.setFailed(error.message);
     }
-  }
-}
-
-async function getKnownApps() {
-  console.info(`Load: https://osm-apps.org/api/apps/all.json`);
-  try {
-    return (await (
-      await fetch("https://osm-apps.org/api/apps/all.json", {})
-    ).json()) as App[];
-  } catch (e) {
-    console.error(
-      `Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(
-        e,
-      )}`,
-    );
-    throw e;
   }
 }
