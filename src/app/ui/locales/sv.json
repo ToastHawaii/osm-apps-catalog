@@ -91,7 +91,6 @@
     "app.license": "Licens",
     "app.sourceCode": "Källkod",
     "app.source": "Källa",
-    "app.source.date": "Sista förändringen: {{date}}\nFörsta crawled: {{added}}",
     "app.source.description": "Källa där dessa data kommer ifrån.",
     "compare.share": "Dela i wiki.openstreetmap.org",
     "compare.unknown": "okänd",

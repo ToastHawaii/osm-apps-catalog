@@ -90,7 +90,6 @@
     "score.criteria.communityChannelExists": "existuje komunikační kanál pro komunitu (např. fórum, Mastodon)",
     "score.criteria.openSourceChannel": "kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)",
     "score.criteria.documentedMultiplePlatforms": "aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)",
-    "app.source.date": "Poslední změna: {{date}}\nPrvní načteno: {{added}}",
     "score.results": "Hodnocení příspěvku komunity\nCelkem: {{total}} bodů\n\nČinnosti potřebné pro získání vyššího počtu bodů:\n{{notFulfilled}}\n\nSplněno:\n{{fulfilled}}",
     "score.criteria.multiplePlatforms": "aplikace je dostupná na více platformách (např. web, Android, iOS)",
     "score.criteria.documentationLink": "je k dispozici odkaz na dokumentaci",

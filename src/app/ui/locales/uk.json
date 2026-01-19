@@ -97,7 +97,6 @@
     "app.community.reddit": "Reddit",
     "app.price": "Ціна",
     "app.source": "Джерело",
-    "app.source.date": "Остання зміна: {{date}}\nПерше сканування: {{added}}",
     "app.source.description": "Джерело, звідки беруться ці дані.",
     "compare.share": "Поділитися wiki.openstreetmap.org",
     "compare.unknown": "невідомий",

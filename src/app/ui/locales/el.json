@@ -99,7 +99,6 @@
     "app.community.slack": "Slack",
     "app.community.reddit": "Reddit",
     "app.source.description": "Πηγή από όπου προέρχονται αυτά τα δεδομένα.",
-    "app.source.date": "Τελευταία αλλαγή: {{date}}\nΠρώτη ανάκτηση: {{added}}",
     "score.result": "- {{description}} ({{points}} πόντοι)",
     "app.contribute.toCommunity.welcome": "Καλωσορίστε νέους χρήστες",
     "app.contribute.toData.qa": "Εκτέλεση διασφάλισης ποιότητας",

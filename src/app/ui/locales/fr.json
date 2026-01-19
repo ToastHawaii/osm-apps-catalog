@@ -52,7 +52,6 @@
     "app.contribute.toData": "Aux données OSM",
     "app.contribute.toCommunity.welcome": "Accueillir les nouveaux utilisateurs",
     "app.community": "Communauté",
-    "app.source.date": "Dernière modification : {{date}}\nPremière analyse : {{added}}",
     "app.price": "Prix",
     "app.source.description": "Source des données.",
     "compare.share": "Partager dans wiki.openstreetmap.org",

@@ -100,7 +100,6 @@
     "app.community.telegram": "Telegram 群組",
     "app.community.slack": "Slack",
     "app.community.reddit": "Reddit",
-    "app.source.date": "最後更改：{{date}}\n第一次爬取：{{added}}",
     "app.source.description": "資料的來源。",
     "score.results": "社群貢獻分數\n總計：{{total}}分數\n\n更高分數所需行動：\n{{notFulfilled}}\n\n完成：\n{{fulfilled}}",
     "score.result": "- {{description}} ({{points}} 分數)",
