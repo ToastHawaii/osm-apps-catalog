@@ -6,7 +6,6 @@ import { loadApps } from "./loadApps";
 import { uploadToRepo } from "@actions/collect-osm-apps/uploadToRepo";
 //import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 import { chain } from "lodash";
-import { calcId } from "@actions/lib/utilities/calcId";
 
 /**
  * The main function for the action.
@@ -14,19 +13,19 @@ import { calcId } from "@actions/lib/utilities/calcId";
  */
 export async function run(): Promise<void> {
   try {
-    const apps = chain((await loadApps(/* core.getInput("ghToken") */)))
-      .map((app) => ({
-        id: calcId(app),
-        name: app.name,
-        description: app.description,
-        documentation: app.documentation,
-        community: app.community,
-        source: app.source,
-      }))
-      .groupBy((app) => app.source[0].language)
+    const apps = chain(await loadApps(/* core.getInput("ghToken") */))
       .map((apps, lang) => ({
         filePath: `docs/api/apps/all.${lang}.json`,
-        content: JSON.stringify(apps),
+        content: JSON.stringify(
+          apps.map((app) => ({
+            id: app.id,
+            name: app.name,
+            description: app.description,
+            documentation: app.documentation,
+            community: app.community,
+            source: app.source,
+          })),
+        ),
       }))
       .value();
 

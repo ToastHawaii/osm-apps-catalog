@@ -1,5 +1,5 @@
 import { App } from "@shared/data/App";
-import { addApp } from "@actions/collect-osm-apps/addApp";
+import { addOrMergeApp } from "@actions/collect-osm-apps/addOrMergeApp";
 import { loadAppsFromGitHub } from "@actions/lib/utilities/loadAppsFromSource/gitHub";
 import {
   loadAppsFromOsmWikiServiceItems,
@@ -25,7 +25,7 @@ export async function loadApps(githubToken: string) {
   )
     .flatMap((a) => a)
     .forEach((app) =>
-      addApp(apps, app, {
+      addOrMergeApp(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
         // The language of github is only recognised automatically based on the description, so if
