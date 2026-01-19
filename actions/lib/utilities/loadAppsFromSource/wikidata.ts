@@ -1,6 +1,9 @@
+import {
+  requestWikidata,
+  transformWikidataResult,
+} from "@actions/lib/utilities/crawler/wikidata";
 import { App } from "@shared/data/App";
 import { mergeWith } from "lodash";
-import { requestWikidata, transformWikidataResult } from "./crawler/wikidata";
 
 export async function loadAppsFromWikidata(language: string) {
   const wikidataResults = await Promise.all(requestWikidata(language));

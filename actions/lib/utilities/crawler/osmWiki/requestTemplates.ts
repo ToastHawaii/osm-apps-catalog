@@ -3,7 +3,10 @@ import { findClosingBracketIndex } from "@shared/utilities/string";
 
 type Template = Record<string, string>;
 
-export async function requestTemplates(template: string, language: string) {
+export async function requestTemplates(
+  template: string,
+  languageMode: "en" | "notEn",
+) {
   const objects: Template[] = [];
   let con;
 
@@ -18,7 +21,7 @@ export async function requestTemplates(template: string, language: string) {
     const response = await osmMediaApiQuery(params);
 
     objects.push(
-      ...(await processPagesByTemplateResult(response, template, language)),
+      ...(await processPagesByTemplateResult(response, template, languageMode)),
     );
 
     con = response.continue?.eicontinue;
@@ -38,25 +41,26 @@ async function osmMediaApiQuery(params: Record<string, string>) {
   return await getJson(base, params);
 }
 
+const languages =
+  "af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue";
+
 async function processPagesByTemplateResult(
   response: { continue: { eicontinue: any }; query: { embeddedin: any } },
   template: string,
-  language: string,
+  languageMode: "en" | "notEn",
 ) {
   const pages = response.query.embeddedin;
 
   const objects: Template[] = [];
   let ids = [];
   for (const p in pages) {
-    if (language === "en") {
-      if (
-        !/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/gi.test(
-          pages[p].title,
-        )
-      )
+    if (languageMode === "en") {
+      if (!new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
         ids.push(pages[p].pageid);
-    } else if (new RegExp(`^${language}:`, "ig").test(pages[p].title))
+      }
+    } else if (new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
       ids.push(pages[p].pageid);
+    }
 
     if (ids.length >= 50) {
       objects.push(...(await loadPages(ids, template)));
@@ -88,6 +92,9 @@ async function loadPages(ids: string[], template: string) {
     const content = pages[p].revisions[0].slots.main.content;
     const pageObjects = parsePage(content, template);
     for (const o of pageObjects) {
+      o.language = pages[p].title.includes(":")
+        ? pages[p].title.split(":")[0]
+        : "en";
       o.sourceWiki = pages[p].title;
       o.timestamp = pages[p].revisions[0].timestamp;
     }

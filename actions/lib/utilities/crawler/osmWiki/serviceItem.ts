@@ -1,6 +1,4 @@
-import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "@shared/utilities/url";
-import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { uniq, upperFirst } from "lodash";
 import {
   appendFullStop,
@@ -17,7 +15,9 @@ import {
 } from "./utilities";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utilities/plainText";
-import { languageFilter } from "../../utilities/languageFilter";
+import { toWikimediaUrl } from "@actions/lib/utilities/image";
+import { languageFilter } from "@actions/lib/utilities/languageFilter";
+import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
 
 export function transform(source: Record<string, string>) {
   const obj: App = {

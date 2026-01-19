@@ -1,4 +1,4 @@
-import { getLastMod } from "@actions/collect-osm-apps/utilities/getLastMod";
+import { getLastMod } from "@actions/lib/utilities/getLastMod";
 import { App } from "@shared/data/App";
 import { sortBy } from "lodash";
 

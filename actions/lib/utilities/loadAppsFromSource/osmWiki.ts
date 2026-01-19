@@ -6,8 +6,8 @@ import { transform as transformSoftware } from "../crawler/osmWiki/software";
 import { transform as transformServiceItem } from "../crawler/osmWiki/serviceItem";
 import { transform as transformLayer } from "../crawler/osmWiki/layer";
 
-export async function loadAppsFromOsmWikiSoftwares(language: string) {
-  return (await requestTemplates("Software", language))
+export async function loadAppsFromOsmWikiSoftwares(languageMode: "en" | "notEn") {
+  return (await requestTemplates("Software", languageMode))
     .filter(
       (s) =>
         !containsOfflineLink(s["name"]) &&
@@ -30,8 +30,8 @@ export async function loadAppsFromOsmWikiSoftwares(language: string) {
     .map((source) => transformSoftware(source as any))
     .filter((app) => !app.genre.includes("Library"));
 }
-export async function loadAppsFromOsmWikiLayers(language: string) {
-  return (await requestTemplates("Layer", language))
+export async function loadAppsFromOsmWikiLayers(languageMode: "en" | "notEn") {
+  return (await requestTemplates("Layer", languageMode))
     .filter(
       (s) =>
         !containsOfflineLink(s["name"]) &&
@@ -42,8 +42,8 @@ export async function loadAppsFromOsmWikiLayers(language: string) {
     .map((source) => transformLayer(source));
 }
 
-export async function loadAppsFromOsmWikiServiceItems(language: string) {
-  return (await requestTemplates("Service item", language))
+export async function loadAppsFromOsmWikiServiceItems(languageMode: "en" | "notEn") {
+  return (await requestTemplates("Service item", languageMode))
     .filter((s) => !containsOfflineLink(s["name"]))
     .map((source) => transformServiceItem(source));
 }

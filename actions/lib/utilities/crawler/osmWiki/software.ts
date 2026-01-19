@@ -1,8 +1,4 @@
-import { toWikimediaUrl } from "../../utilities/image";
 import { toWikiUrl, toUrl } from "@shared/utilities/url";
-import { getPlatformDisplay } from "../../utilities/getPlatformDisplay";
-import { platformFilter } from "../../utilities/platformFilter";
-import { languageValueFormat } from "../../utilities/languageValueFormat";
 import { some } from "@shared/utilities/array";
 import {
   appendFullStop,
@@ -20,10 +16,14 @@ import {
   extractWebsite,
 } from "./utilities";
 import { App } from "@shared/data/App";
-import { isFreeAndOpenSource } from "../../utilities/isFreeAndOpenSource";
 import { uniq, upperFirst } from "lodash";
-import { languageFilter } from "../../utilities/languageFilter";
 import { plainText } from "@shared/utilities/plainText";
+import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource";
+import { getPlatformDisplay } from "@actions/lib/utilities/getPlatformDisplay";
+import { toWikimediaUrl } from "@actions/lib/utilities/image";
+import { languageFilter } from "@actions/lib/utilities/languageFilter";
+import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
+import { platformFilter } from "@actions/lib/utilities/platformFilter";
 
 export function transform(
   source: Record<string, string> & {
@@ -45,6 +45,7 @@ export function transform(
     source: [
       {
         name: "Software",
+        language: source["language"],
         wiki: source.sourceWiki,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
