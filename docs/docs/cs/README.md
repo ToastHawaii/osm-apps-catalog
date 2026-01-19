@@ -15,25 +15,26 @@ způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Zobrazte katalog ve svém jazyce:
 
-[Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
-[Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
-[bosanski](/?lang=bs), [brezhoneg](/?lang=br), [català](/?lang=ca),
-[čeština](/?lang=cs), [dansk](/?lang=da), [Deutsch](/?lang=de),
-[eesti](/?lang=et), [English](/?lang=en), [español](/?lang=es),
-[Esperanto](/?lang=eo), [euskara](/?lang=eu), [français](/?lang=fr),
-[Frysk](/?lang=fy), [galego](/?lang=gl), [hrvatski](/?lang=hr),
-[interlingua](/?lang=ia), [íslenska](/?lang=is), [italiano](/?lang=it), [Kreyòl
-ayisyen](/?lang=ht), [kréyòl gwadloupéyen](/?lang=gcf), [kurdî](/?lang=ku),
-[latviešu](/?lang=lv), [Lëtzebuergesch](/?lang=lb), [lietuvių](/?lang=lt),
-[magyar](/?lang=hu), [Nederlands](/?lang=nl), [norsk](/?lang=no), [norsk
-nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
-[پنجابی](/?lang=pnb), [português](/?lang=pt), [română](/?lang=ro),
-[shqip](/?lang=sq), [slovenčina](/?lang=sk), [slovenščina](/?lang=sl), [srpski
-(latinica)](/?lang=sr-latn), [suomi](/?lang=fi), [svenska](/?lang=sv),
-[Tagalog](/?lang=tl), [Tiếng Việt](/?lang=vi), [Türkçe](/?lang=tr),
-[Zazaki](/?lang=diq), [Ελληνικά](/?lang=el), [беларуская](/?lang=be),
-[български](/?lang=bg), [македонски](/?lang=mk), [монгол](/?lang=mn),
-[русский](/?lang=ru), [српски / srpski](/?lang=sr), [українська](/?lang=uk),
+[afrikánština](/?lang=af), [asturština](/?lang=ast),
+[ázerbájdžánština](/?lang=az), [indonéština](/?lang=id),
+[malajština](/?lang=ms), [bosenština](/?lang=bs), [bretaňština](/?lang=br),
+[katalánština] (/?lang=ca), [čeština] (/?lang=cs), [dánština] (/?lang=da),
+[němčina] (/?lang=de), [estonština] (/?lang=et), [angličtina] (/?lang=en),
+[španělština] (/?lang=es), [esperanto] (/?lang=eo), [baskičtina] (/?lang=eu),
+[francouzština] (/?lang=fr), [frisština](/?lang=fy), [galština](/?lang=gl),
+[chorvatština](/?lang=hr), [interlingua](/?lang=ia), [islandština](/?lang=is),
+[italština](/?lang=it), [Kreyòl ayisyen](/?lang=ht), [kréyòl
+gwadloupéyen](/?lang=gcf), [kurdština](/?lang=ku), [lotyština](/?lang=lv),
+[lucemburština](/?lang=lb), [litevština](/?lang=lt), [maďarština](/?lang=hu),
+[nizozemština](/?lang=nl), [norština](/?lang=no), [norština nynorsk](/?lang=nn),
+[okcitánština](/?lang=oc), [polština](/?lang=pl), [pandžábština](/?lang=pnb),
+[portugalština](/?lang=pt), [română](/?lang=ro), [shqip](/?lang=sq),
+[slovinština](/?lang=sk), [slovenština](/?lang=sl), [srbština
+(latinka)](/?lang=sr-latn), [suomi](/?lang=fi), [švédština](/?lang=sv),
+[tagalog](/?lang=tl), [vietnamština](/?lang=vi), [turečtina](/?lang=tr),
+[zazaki](/?lang=diq), [řečtina](/?lang=el), [běloruština](/?lang=be),
+[bulharština](/?lang=bg), [makedonština](/?lang=mk), [mongolština](/?lang=mn),
+[ruština](/?lang=ru), [srbština](/?lang=sr), [ukrajinština](/?lang=uk),
 [հայերեն](/?lang=hy), [עברית](/?lang=he), [العربية](/?lang=ar),
 [فارسی](/?lang=fa), [پښتو](/?lang=ps), [नेपाली](/?lang=ne), [বাংলা](/?lang=bn),
 [தமிழ்](/?lang=ta), [മലയാളം](/?lang=ml), [සිංහල](/?lang=si), [ไทย](/?lang=th),

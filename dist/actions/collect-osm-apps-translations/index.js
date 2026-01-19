@@ -70659,6 +70659,7 @@ function convertJsonToTemplateData() {
     });
     console.info(JSON.stringify(templateData, undefined, "  "));
 }
+// do not forget to update templateData.json
 // convertTemplateDataToJson();
 // convertJsonToTemplateData();
 
@@ -72121,6 +72122,7 @@ async function run() {
             id: calcId(app),
             name: app.name,
             description: app.description,
+            documentation: app.documentation,
             community: app.community,
             source: app.source,
         }))
@@ -72130,7 +72132,7 @@ async function run() {
             content: JSON.stringify(apps),
         }))
             .value();
-        await uploadToRepo(apps, "chore: update apps translations", core.getInput("ghToken"));
+        await uploadToRepo(apps, "chore: auto update apps translations", core.getInput("ghToken"));
     }
     catch (error) {
         // Fail the workflow run if an error occurs

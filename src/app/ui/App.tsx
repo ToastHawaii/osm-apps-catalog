@@ -35,10 +35,10 @@ function appendMeta(property: string, content: string) {
 }
 
 export function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [state, setAppState, resetAppState, isInitState] = useAppState();
-  const apps = useData();
+  const apps = useData(i18n.language);
   const [moreFilters, setMoreFilters] = useState(false);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
@@ -96,7 +96,7 @@ export function App() {
               <a
                 style={{ fontWeight: "900" }}
                 href={
-                  state.lang === "de" || state.languages.includes("Deutsch")
+                  i18n.language === "de" || state.languages.includes("Deutsch")
                     ? "https://docs.google.com/forms/d/e/1FAIpQLSf0UZThZrVZQZgu1lIcXjQ3A1h_L2NznjMC9ntM_NREV6d2fQ/viewform?usp=dialog"
                     : "https://docs.google.com/forms/d/e/1FAIpQLSezDOrvRCoSyXfhsCXHp-w_rBJgi2a8ITANi9xaryylTP9ASQ/viewform?usp=publish-editor"
                 }
@@ -368,7 +368,7 @@ export function App() {
                   <LazyInitMore>
                     <Compare
                       apps={filteredApps}
-                      lang={state.lang}
+                      lang={i18n.language}
                       state={state}
                       isInitState={isInitState}
                     />

@@ -19,6 +19,7 @@ export async function run(): Promise<void> {
         id: calcId(app),
         name: app.name,
         description: app.description,
+        documentation: app.documentation,
         community: app.community,
         source: app.source,
       }))

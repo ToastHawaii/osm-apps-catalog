@@ -200,5 +200,6 @@ export function convertJsonToTemplateData() {
   console.info(JSON.stringify(templateData, undefined, "  "));
 }
 
+// do not forget to update templateData.json
 // convertTemplateDataToJson();
 // convertJsonToTemplateData();
