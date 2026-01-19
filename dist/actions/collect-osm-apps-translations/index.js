@@ -72204,7 +72204,7 @@ async function loadApps( /*githubToken: string*/) {
         .flatMap((a) => a)
         .groupBy((app) => app.source[0].language)
         .forEach((apps, lang) => {
-        appsByLang[lang] = appsByLang[lang] || [];
+        appsByLang[lang] = [];
         apps.forEach((app) => addOrMergeApp(appsByLang[lang], knownApps, app, {
             includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
             checkWebsiteWithRepo: app.source[0].name === "taginfo",
@@ -72212,7 +72212,8 @@ async function loadApps( /*githubToken: string*/) {
             // there is another source, use language from there
             onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
         }));
-    });
+    })
+        .value();
     return appsByLang;
 }
 

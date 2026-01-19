@@ -30,7 +30,7 @@ export async function loadApps(/*githubToken: string*/) {
     .flatMap((a) => a)
     .groupBy((app) => app.source[0].language)
     .forEach((apps, lang) => {
-      appsByLang[lang] = appsByLang[lang] || [];
+      appsByLang[lang] = [];
       apps.forEach((app) =>
         addOrMergeApp(appsByLang[lang], knownApps, app, {
           includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
@@ -40,7 +40,8 @@ export async function loadApps(/*githubToken: string*/) {
           onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
         }),
       );
-    });
+    })
+    .value();
 
   return appsByLang;
 }
