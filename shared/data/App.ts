@@ -1,6 +1,8 @@
 export interface Source {
   name: string;
-  wiki?: string;
+  /** id of the source, eg. the wiki.osm.org page name or wikidata item id */
+  id: string;
+  language: string;
   url: string;
   lastChange: string;
   firstCrawled: string;

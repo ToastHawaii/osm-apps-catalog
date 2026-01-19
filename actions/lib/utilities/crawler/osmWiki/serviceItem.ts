@@ -31,7 +31,8 @@ export function transform(source: Record<string, string>) {
     source: [
       {
         name: "ServiceItem",
-        wiki: source.sourceWiki,
+        language: source["language"].toLowerCase(),
+        id: source.sourceWiki,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },

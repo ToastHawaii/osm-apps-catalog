@@ -45,8 +45,8 @@ export function transform(
     source: [
       {
         name: "Software",
-        language: source["language"],
-        wiki: source.sourceWiki,
+        language: source["language"].toLowerCase(),
+        id: source.sourceWiki,
         url: toWikiUrl(source.sourceWiki) || "",
         lastChange: source["timestamp"] || "",
       },

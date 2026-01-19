@@ -105,12 +105,12 @@ ${appWithFields
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
 ${appWithFields
   .map((app) => {
-    const wiki =
-      app.source.find((s) => s.name === "Software")?.wiki ||
-      app.source.find((s) => s.name === "Layer")?.wiki;
+    const wikiPage =
+      app.source.find((s) => s.name === "Software")?.id ||
+      app.source.find((s) => s.name === "Layer")?.id;
 
     return `! style="min-width: ${more ? 160 : 120}px" |[[${toWikiValue(
-      wiki || app.name,
+      wikiPage || app.name,
       lang,
     )}|${toWikiValue(app.name, lang)}]]\n`;
   })
