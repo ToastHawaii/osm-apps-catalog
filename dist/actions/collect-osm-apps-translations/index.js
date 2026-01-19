@@ -70826,472 +70826,6 @@ function strip(html) {
     return doc.body.textContent || "";
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/filters.ts
-function display(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
-}
-const mobilePlatforms = (/* unused pure expression or super */ null && ([
-    "ANDROID",
-    "GARMIN",
-    "KINDLE",
-    "MAEMO",
-    "MEEGO",
-    "PALM OS",
-    "SYMBIAN",
-    "UBUNTU PHONE",
-    "UBUNTU TOUCH",
-    "WEBOS",
-    "WINDOWS MOBILE",
-    "WINDOWS PHONE",
-    "IOS",
-    "ZAURUS",
-]));
-function web(a) {
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return platform.some((p) => p === "WEB");
-}
-function mobile(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        platform.some((t) => mobilePlatforms.includes(t)) ||
-        a.install.asin ||
-        a.install.fDroidID ||
-        a.install.obtainiumLink ||
-        a.install.googlePlayID ||
-        a.install.huaweiAppGalleryID ||
-        a.install.appleStoreID);
-}
-function navigation(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
-}
-function edit(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        topics.some((t) => [
-            "ADD POIS",
-            "EDIT",
-            "EDITING",
-            "EDITOR",
-            "EDITOR SOFTWARE",
-            "ANALYSE",
-            "ANALYSER",
-            "ANALYSIS",
-            "TRACK RECORDING",
-            "TRACKER",
-            "TRACKING",
-            "TRACK LOGGING",
-            "VALIDATOR",
-            "OSM TOOL",
-            "QA",
-            "QUALITY CONTROL",
-            "NOTES",
-            "EDITOR TOOL",
-            "COMPARING TOOL",
-            "HASHTAG TOOL",
-            "MONITORING TOOL",
-            "CHANGESET REVIEW TOOL",
-            "WELCOMING TOOL",
-        ].includes(t)));
-}
-
-;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
-
-
-
-
-const multilingual = [
-    "MUL",
-    instance.t("multilingual", { lng: "en" }).toUpperCase(),
-    instance.t("multilingual").toUpperCase(),
-];
-const Criterias = [
-    // OSM Participation
-    {
-        translationKey: "supportsContributions",
-        check: (app) => edit(app),
-        points: 2,
-    },
-    {
-        translationKey: "addingAndEditingPossible",
-        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
-            equalsYes(...[
-                ...(app.editing?.editPOI || []),
-                ...(app.editing?.editGeom || []),
-                ...(app.editing?.editRelations || []),
-                ...(app.editing?.editTags || []),
-            ]),
-        points: 1,
-    },
-    {
-        translationKey: "displaysMaps",
-        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
-        points: 1,
-    },
-    // Development Participation
-    {
-        translationKey: "openSource",
-        check: (app) => !!app.libre,
-        points: 1.0,
-    },
-    {
-        translationKey: "copyleftLicense",
-        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
-        points: 0.5,
-    },
-    {
-        translationKey: "sourceCodeReference",
-        check: (app) => !!app.sourceCode,
-        points: 0.25,
-    },
-    {
-        translationKey: "issueTracker",
-        check: (app) => !!app.community.issueTracker,
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateThreeMonths",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            return lastRelease > threeMonthsAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateYear",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-            return lastRelease > oneYearAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "translationContributions",
-        check: (app) => !!app.languagesUrl,
-        points: 0.5,
-    },
-    // Availability/Accessibility
-    {
-        translationKey: "multipleLanguages",
-        check: (app) => app.languages.length >= 3 ||
-            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
-        points: 0.125,
-    },
-    {
-        translationKey: "tenLanguages",
-        check: (app) => app.languages.length >= 10,
-        points: 0.125,
-    },
-    {
-        translationKey: "freeOfCharge",
-        check: (app) => !!app.gratis,
-        points: 0.25,
-    },
-    {
-        translationKey: "multiplePlatforms",
-        check: (app) => {
-            const i = app.install;
-            return ([
-                i.appleStoreID || i.macAppStoreID,
-                i.asin,
-                i.fDroidID ||
-                    i.googlePlayID ||
-                    i.huaweiAppGalleryID ||
-                    i.obtainiumLink,
-                i.microsoftAppID,
-            ].filter((i) => i).length > 1 ||
-                app.platform.length > 1 ||
-                web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "openSourceStores",
-        check: (app) => {
-            const i = app.install;
-            return !!(i.fDroidID || i.obtainiumLink || web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "worldwideData",
-        check: (app) => app.coverage.includes("Worldwide"),
-        points: 0.5,
-    },
-    {
-        translationKey: "accessibilitySupported",
-        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
-            0 ||
-            app.routing?.profiles
-                .map((p) => p.toUpperCase())
-                .includes("WHEELCHAIR") ||
-            false,
-        points: 0.5,
-    },
-    // Community channels & Documentation
-    {
-        translationKey: "communityChannelExists",
-        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
-        points: 0.5,
-    },
-    {
-        translationKey: "openSourceChannel",
-        check: (app) => !!(app.community.irc?.channel ||
-            app.community.matrix ||
-            app.community.mastodon ||
-            app.community.lemmy ||
-            app.community.bluesky),
-        points: 0.25,
-    },
-    {
-        translationKey: "documentationLink",
-        check: (app) => !!app.documentation,
-        points: 0.125,
-    },
-    {
-        translationKey: "documentedMultiplePlatforms",
-        check: (app) => [
-            app.source.some((s) => s.name === "taginfo"),
-            app.source.some((s) => s.name === "GitHub"),
-            app.source.some((s) => s.name === "Wikidata"),
-            app.source.some((s) => s.name === "Layer" ||
-                s.name === "ServiceItem" ||
-                s.name === "Software"),
-        ].filter((s) => s).length >= 2,
-        points: 0.125,
-    },
-];
-function calculateScore(app) {
-    // Community Contribution Score (A - E)
-    // A >= 8
-    // B >= 6
-    // C >= 4
-    // D >= 2
-    // E < 2
-    const results = Criterias.map((c) => ({
-        translationKey: c.translationKey,
-        points: c.points,
-        fulfilled: c.check(app),
-    }));
-    return {
-        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
-        details: results,
-    };
-}
-
-;// CONCATENATED MODULE: ./actions/lib/utilities/calcId.ts
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        const chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-}
-function calcId(obj) {
-    if (obj.website) {
-        const url = newUrl(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname + url.search);
-    }
-    return hashCode(obj.name.toUpperCase());
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/addApp.ts
-
-
-
-
-function addApp(apps, obj, options) {
-    const duplicates = apps.filter((app) => 
-    // if name are equals but websites not we ignore this condition
-    equalsName(app.name, obj.name) ||
-        equalsWebsite(app.website, obj.website) ||
-        (options.includeRepositoryForUniqueCheck &&
-            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
-        (options.checkWebsiteWithRepo &&
-            equalsWebsite(app.sourceCode, obj.website)) ||
-        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
-        equalsString(app.install.asin, obj.install.asin) ||
-        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
-        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
-        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
-        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
-        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
-    if (duplicates.length === 0) {
-        // only add if external sources exists
-        if (obj.name !== "" &&
-            (obj.website ||
-                obj.documentation ||
-                obj.install.appleStoreID ||
-                obj.install.asin ||
-                obj.install.fDroidID ||
-                obj.install.googlePlayID ||
-                obj.install.obtainiumLink ||
-                obj.install.huaweiAppGalleryID ||
-                obj.install.macAppStoreID ||
-                obj.install.microsoftAppID ||
-                obj.sourceCode)) {
-            obj.id = calcId(obj);
-            obj.score = calculateScore(obj).total;
-            apps.push(obj);
-        }
-    }
-    else {
-        const app = duplicates[0];
-        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
-            app.lastRelease = obj.lastRelease;
-        else
-            app.lastRelease = app.lastRelease || obj.lastRelease;
-        app.unmaintained = app.unmaintained || obj.unmaintained;
-        app.description = app.description || obj.description;
-        app.images.push(...obj.images);
-        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
-        app.logos.push(...obj.logos);
-        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
-        app.imageWiki = app.imageWiki || obj.imageWiki;
-        app.commons = app.commons || [];
-        app.commons.push(...(obj.commons || []));
-        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
-        app.videos = app.videos || [];
-        app.videos.push(...(obj.videos || []));
-        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
-        app.website = app.website || obj.website;
-        if (!app.documentation) {
-            app.documentation = obj.documentation;
-        }
-        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
-            app.documentation = obj.documentation || app.documentation;
-        }
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
-        if (
-        // only add if not same source
-        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
-            s.name === obj.source[0].name)) {
-            // make the first source the newest
-            if (app.source[0].lastChange.toUpperCase() >
-                obj.source[0].lastChange.toUpperCase()) {
-                app.source = [...app.source, ...obj.source];
-            }
-            else {
-                app.source = [...obj.source, ...app.source];
-            }
-        }
-        app.author = app.author || obj.author;
-        app.gratis = app.gratis || obj.gratis;
-        app.libre = app.libre || obj.libre;
-        app.price = app.price || obj.price;
-        app.license = app.license || [];
-        app.license.push(...(obj.license || []));
-        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
-        app.sourceCode = app.sourceCode || obj.sourceCode;
-        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
-            app.languages.push(...obj.languages);
-        }
-        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
-        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
-        app.genre.push(...obj.genre);
-        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
-        app.topics.push(...obj.topics);
-        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
-        app.platform.push(...obj.platform);
-        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
-        app.install.asin = app.install.asin || obj.install.asin;
-        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-        app.install.obtainiumLink =
-            app.install.obtainiumLink || obj.install.obtainiumLink;
-        app.install.googlePlayID =
-            app.install.googlePlayID || obj.install.googlePlayID;
-        app.install.huaweiAppGalleryID =
-            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
-        app.install.appleStoreID =
-            app.install.appleStoreID || obj.install.appleStoreID;
-        app.install.macAppStoreID =
-            app.install.macAppStoreID || obj.install.macAppStoreID;
-        app.install.microsoftAppID =
-            app.install.microsoftAppID || obj.install.microsoftAppID;
-        app.map = merge(app.map, obj.map);
-        app.routing = merge(app.routing, obj.routing);
-        app.navigating = merge(app.navigating, obj.navigating);
-        app.tracking = merge(app.tracking, obj.tracking);
-        app.monitoring = merge(app.monitoring, obj.monitoring);
-        app.editing = merge(app.editing, obj.editing);
-        app.rendering = merge(app.rendering, obj.rendering);
-        app.accessibility = merge(app.accessibility, obj.accessibility);
-        app.hasGoal = {
-            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
-                obj.hasGoal?.crowdsourcingStreetLevelImagery,
-        };
-        app.community.forum = app.community.forum || obj.community.forum;
-        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
-        app.community.irc = app.community.irc || obj.community.irc;
-        app.community.matrix = app.community.matrix || obj.community.matrix;
-        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
-        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
-        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
-        app.community.issueTracker =
-            app.community.issueTracker || obj.community.issueTracker;
-        app.community.githubDiscussions =
-            app.community.githubDiscussions || obj.community.githubDiscussions;
-        app.community.telegram = app.community.telegram || obj.community.telegram;
-        app.community.slack = app.community.slack || obj.community.slack;
-        app.community.reddit = app.community.reddit || obj.community.reddit;
-        app.score = calculateScore(app).total;
-    }
-}
-// Todo: replace mit lodash?
-function merge(o1, o2) {
-    if (!o1 && !o2) {
-        return undefined;
-    }
-    if (o1 && !o2) {
-        return o1;
-    }
-    if (!o1 && o2) {
-        return o2;
-    }
-    if (o1 && o2) {
-        const keys = Object.keys(o1);
-        keys.push(...Object.keys(o2));
-        keys.forEach((k) => {
-            if (o1[k] && !o2[k]) {
-                return;
-            }
-            if (!o1[k] && o2[k]) {
-                o1[k] = o2[k];
-                return;
-            }
-            o1[k].push(...o2[k]);
-            o1[k] = (0,lodash.uniq)(o1[k]);
-        });
-        return o1;
-    }
-    throw new Error("Not expected...");
-}
-
 ;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
 const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
 
@@ -72459,16 +71993,207 @@ async function loadAppsFromOsmWikiServiceItems(languageMode) {
         .map((source) => serviceItem_transform(source));
 }
 
-;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/loadApps.ts
+;// CONCATENATED MODULE: ./actions/lib/utilities/equalApp.ts
 
+function equals(app1, app2, options) {
+    // if name are equals but websites not we ignore this condition
+    return (equalsName(app1.name, app2.name) ||
+        equalsWebsite(app1.website, app2.website) ||
+        (options.includeRepositoryForUniqueCheck &&
+            equalsWebsite(app1.sourceCode, app2.sourceCode)) ||
+        (options.checkWebsiteWithRepo &&
+            equalsWebsite(app1.sourceCode, app2.website)) ||
+        equalsString(app1.install.appleStoreID, app2.install.appleStoreID) ||
+        equalsString(app1.install.asin, app2.install.asin) ||
+        equalsString(app1.install.fDroidID, app2.install.fDroidID) ||
+        equalsString(app1.install.googlePlayID, app2.install.googlePlayID) ||
+        equalsWebsite(app1.install.obtainiumLink, app2.install.obtainiumLink) ||
+        equalsString(app1.install.huaweiAppGalleryID, app2.install.huaweiAppGalleryID) ||
+        equalsString(app1.install.macAppStoreID, app2.install.macAppStoreID) ||
+        equalsString(app1.install.microsoftAppID, app2.install.microsoftAppID));
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/mergeApps.ts
+
+function mergeApps(app, obj, options) {
+    if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+        app.lastRelease = obj.lastRelease;
+    else
+        app.lastRelease = app.lastRelease || obj.lastRelease;
+    app.unmaintained = app.unmaintained || obj.unmaintained;
+    app.description = app.description || obj.description;
+    app.images.push(...obj.images);
+    app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
+    app.logos.push(...obj.logos);
+    app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
+    app.imageWiki = app.imageWiki || obj.imageWiki;
+    app.commons = app.commons || [];
+    app.commons.push(...(obj.commons || []));
+    app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
+    app.videos = app.videos || [];
+    app.videos.push(...(obj.videos || []));
+    app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
+    app.website = app.website || obj.website;
+    if (!app.documentation) {
+        app.documentation = obj.documentation;
+    }
+    else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+        app.documentation = obj.documentation || app.documentation;
+    }
+    app.coverage.push(...obj.coverage);
+    app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
+    if (
+    // only add if not same source
+    !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
+        s.name === obj.source[0].name)) {
+        // make the first source the newest
+        if (app.source[0].lastChange.toUpperCase() >
+            obj.source[0].lastChange.toUpperCase()) {
+            app.source = [...app.source, ...obj.source];
+        }
+        else {
+            app.source = [...obj.source, ...app.source];
+        }
+    }
+    app.author = app.author || obj.author;
+    app.gratis = app.gratis || obj.gratis;
+    app.libre = app.libre || obj.libre;
+    app.price = app.price || obj.price;
+    app.license = app.license || [];
+    app.license.push(...(obj.license || []));
+    app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
+    app.sourceCode = app.sourceCode || obj.sourceCode;
+    if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+        app.languages.push(...obj.languages);
+    }
+    app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
+    app.languagesUrl = app.languagesUrl || obj.languagesUrl;
+    app.genre.push(...obj.genre);
+    app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
+    app.topics.push(...obj.topics);
+    app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
+    app.platform.push(...obj.platform);
+    app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
+    app.coverage.push(...obj.coverage);
+    app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
+    app.install.asin = app.install.asin || obj.install.asin;
+    app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
+    app.install.obtainiumLink =
+        app.install.obtainiumLink || obj.install.obtainiumLink;
+    app.install.googlePlayID =
+        app.install.googlePlayID || obj.install.googlePlayID;
+    app.install.huaweiAppGalleryID =
+        app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
+    app.install.appleStoreID =
+        app.install.appleStoreID || obj.install.appleStoreID;
+    app.install.macAppStoreID =
+        app.install.macAppStoreID || obj.install.macAppStoreID;
+    app.install.microsoftAppID =
+        app.install.microsoftAppID || obj.install.microsoftAppID;
+    app.map = merge(app.map, obj.map);
+    app.routing = merge(app.routing, obj.routing);
+    app.navigating = merge(app.navigating, obj.navigating);
+    app.tracking = merge(app.tracking, obj.tracking);
+    app.monitoring = merge(app.monitoring, obj.monitoring);
+    app.editing = merge(app.editing, obj.editing);
+    app.rendering = merge(app.rendering, obj.rendering);
+    app.accessibility = merge(app.accessibility, obj.accessibility);
+    app.hasGoal = {
+        crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
+            obj.hasGoal?.crowdsourcingStreetLevelImagery,
+    };
+    app.community.forum = app.community.forum || obj.community.forum;
+    app.community.forumTag = app.community.forumTag || obj.community.forumTag;
+    app.community.irc = app.community.irc || obj.community.irc;
+    app.community.matrix = app.community.matrix || obj.community.matrix;
+    app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+    app.community.lemmy = app.community.lemmy || obj.community.lemmy;
+    app.community.bluesky = app.community.bluesky || obj.community.bluesky;
+    app.community.issueTracker =
+        app.community.issueTracker || obj.community.issueTracker;
+    app.community.githubDiscussions =
+        app.community.githubDiscussions || obj.community.githubDiscussions;
+    app.community.telegram = app.community.telegram || obj.community.telegram;
+    app.community.slack = app.community.slack || obj.community.slack;
+    app.community.reddit = app.community.reddit || obj.community.reddit;
+}
+// Todo: replace mit lodash?
+function merge(o1, o2) {
+    if (!o1 && !o2) {
+        return undefined;
+    }
+    if (o1 && !o2) {
+        return o1;
+    }
+    if (!o1 && o2) {
+        return o2;
+    }
+    if (o1 && o2) {
+        const keys = Object.keys(o1);
+        keys.push(...Object.keys(o2));
+        keys.forEach((k) => {
+            if (o1[k] && !o2[k]) {
+                return;
+            }
+            if (!o1[k] && o2[k]) {
+                o1[k] = o2[k];
+                return;
+            }
+            o1[k].push(...o2[k]);
+            o1[k] = (0,lodash.uniq)(o1[k]);
+        });
+        return o1;
+    }
+    throw new Error("Not expected...");
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/addOrMergeApp.ts
+
+
+function addOrMergeApp(apps, knownApps, obj, options) {
+    const duplicates = apps.filter((app) => equals(app, obj, options));
+    if (duplicates.length === 0) {
+        const existingApp = knownApps.filter((app) => equals(app, obj, options));
+        // only add if en app is  already known
+        if (existingApp.length > 0) {
+            obj.id = existingApp[0].id;
+            apps.push(obj);
+        }
+        else {
+            console.log(`Could not find existing app for ${obj.name} (${obj.website})`);
+        }
+    }
+    else {
+        const app = duplicates[0];
+        mergeApps(app, obj, options);
+    }
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/getKnownApps.ts
+async function getKnownApps() {
+    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
+    try {
+        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
+    }
+    catch (e) {
+        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
+        throw e;
+    }
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/loadApps.ts
 // import { loadAppsFromGitHub } from "@actions/lib/utilities/loadAppsFromSource/gitHub";
+
+
+
 
 // import { loadAppsFromTagInfoProjects } from "@actions/lib/utilities/loadAppsFromSource/tagInfo";
 //  import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
 async function loadApps( /*githubToken: string*/) {
-    const apps = [];
+    const knownApps = await getKnownApps();
+    const appsByLang = {};
     const languageMode = "notEn";
-    (await Promise.all([
+    (0,lodash.chain)(await Promise.all([
         loadAppsFromOsmWikiServiceItems(languageMode),
         loadAppsFromOsmWikiLayers(languageMode),
         loadAppsFromOsmWikiSoftwares(languageMode),
@@ -72477,14 +72202,18 @@ async function loadApps( /*githubToken: string*/) {
         // loadAppsFromTagInfoProjects(),
     ]))
         .flatMap((a) => a)
-        .forEach((app) => addApp(apps, app, {
-        includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
-        checkWebsiteWithRepo: app.source[0].name === "taginfo",
-        // The language of github is only recognised automatically based on the description, so if
-        // there is another source, use language from there
-        onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
-    }));
-    return apps;
+        .groupBy((app) => app.source[0].language)
+        .forEach((apps, lang) => {
+        appsByLang[lang] = appsByLang[lang] || [];
+        apps.forEach((app) => addOrMergeApp(appsByLang[lang], knownApps, app, {
+            includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
+            checkWebsiteWithRepo: app.source[0].name === "taginfo",
+            // The language of github is only recognised automatically based on the description, so if
+            // there is another source, use language from there
+            onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
+        }));
+    });
+    return appsByLang;
 }
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
@@ -72565,26 +72294,23 @@ async function uploadToRepo(files, commitMessage, ghToken) {
 
 //import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 
-
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
  */
 async function run() {
     try {
-        const apps = (0,lodash.chain)((await loadApps( /* core.getInput("ghToken") */)))
-            .map((app) => ({
-            id: calcId(app),
-            name: app.name,
-            description: app.description,
-            documentation: app.documentation,
-            community: app.community,
-            source: app.source,
-        }))
-            .groupBy((app) => app.source[0].language)
+        const apps = (0,lodash.chain)(await loadApps( /* core.getInput("ghToken") */))
             .map((apps, lang) => ({
             filePath: `docs/api/apps/all.${lang}.json`,
-            content: JSON.stringify(apps),
+            content: JSON.stringify(apps.map((app) => ({
+                id: app.id,
+                name: app.name,
+                description: app.description,
+                documentation: app.documentation,
+                community: app.community,
+                source: app.source,
+            }))),
         }))
             .value();
         await uploadToRepo(apps, "chore: auto update apps translations", core.getInput("ghToken"));
