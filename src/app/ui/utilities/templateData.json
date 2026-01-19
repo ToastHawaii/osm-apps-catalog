@@ -1,21 +1,136 @@
 {
+  "description": {
+    "en": "This template collects all notes of a software together. Some common information is displayed as an infobox other are display in third-party software.",
+    "de": "Diese Vorlage fasst alle Informationen zu einer Software zusammen. Einige allgemeine Informationen werden als Infobox angezeigt, andere werden in Drittanbieter-Software angezeigt."
+  },
+  "format": "block",
+  "paramOrder": [
+    "lang",
+    "name",
+    "status",
+    "license",
+    "price",
+    "web",
+    "repo",
+    "logo",
+    "screenshot",
+    "description",
+    "author",
+    "platform",
+    "genre",
+    "languages",
+    "languagesurl",
+    "coverage",
+    "code",
+    "framework",
+    "version",
+    "date",
+    "asin",
+    "bbWorldID",
+    "fDroidID",
+    "firefoxMarketplaceID",
+    "googlePlayID",
+    "huaweiAppGalleryID",
+    "appleStoreID",
+    "macAppStoreID",
+    "microsoftAppID",
+    "obtainiumLink",
+    "map",
+    "mapData",
+    "datasource",
+    "rotateMap",
+    "3D",
+    "showWebsite",
+    "showPhoneNumber",
+    "showOpeningHours",
+    "routing",
+    "createRouteManually",
+    "calculateRoute",
+    "createRouteViaWaypoints",
+    "profiles",
+    "turnRestrictions",
+    "calculateRouteOffline",
+    "routingProviders",
+    "avoidTraffic",
+    "trafficProvider",
+    "navigating",
+    "findLocation",
+    "findNearbyPOI",
+    "navToPoint",
+    "voice",
+    "keepOnRoad",
+    "turnLanes",
+    "withoutGPS",
+    "predefinedRoute",
+    "tracking",
+    "customInterval",
+    "trackFormats",
+    "geotagging",
+    "fastWayPointAdding",
+    "uploadGPX",
+    "monitoring",
+    "showTrack",
+    "showExistingTrack",
+    "showAltitudeDiagram",
+    "showDOP",
+    "showSatellites",
+    "showNMEAlive",
+    "showSpeed",
+    "sendPosition",
+    "addPOI",
+    "editPOI",
+    "addWay",
+    "editGeom",
+    "editTags",
+    "editRelations",
+    "viewNotes",
+    "createNotes",
+    "editNotes",
+    "editSource",
+    "offsetDBsupport",
+    "uploadOSMData",
+    "rendererOutputFormats",
+    "accessibility",
+    "textOnlyUI",
+    "brailleUI",
+    "explorerMode",
+    "publicTransportMode",
+    "dangerWarnings",
+    "screenReader",
+    "screenReaderLang"
+  ],
   "params": {
     "lang": {
       "label": {
         "en": "Template language",
         "cs": "Jazyk šablony",
         "de": "Sprache der Vorlage",
+        "el": "Γλώσσα προτύπου",
         "es": "Idioma de la plantilla",
+        "et": "Malli keel",
+        "fr": "Langue du modèle",
         "hu": "Sablon nyelve",
-        "zh-hans": "模板语言"
+        "sv": "Mallspråk",
+        "ta": "வார்ப்புரு மொழி",
+        "uk": "Мова шаблону",
+        "zh-hans": "模板语言",
+        "zh-hant": "模版語言"
       },
       "type": "line",
       "description": {
         "en": "Language in which the template texts are displayed.",
         "cs": "Jazyk, ve kterém se zobrazují texty šablony.",
         "de": "Sprache, in der die Texte der Vorlage angezeigt werden.",
+        "el": "Γλώσσα στην οποία τα κείμενα του προτύπου θα προβάλλονται.",
         "es": "Idioma en el que se muestran los textos de la plantilla.",
-        "hu": "A sablonszövegek megjelenítésének nyelve"
+        "et": "Keel, milles malli tekstid on kuvatud.",
+        "fr": "Langue dans laquelle les textes du modèle sont affichés.",
+        "hu": "A sablonszövegek megjelenítésének nyelve",
+        "it": "Lingua in cui vengono visualizzati i testi del modello.",
+        "sv": "Språk som malltexterna visas på.",
+        "ta": "வார்ப்புரு நூல்கள் காட்டப்படும் மொழி.",
+        "uk": "Мова, якою відображаються тексти шаблонів.",
+        "zh-hant": "模版文字所顯示的語言。"
       },
       "example": {
         "de": "de",
@@ -27,16 +142,32 @@
         "en": "Name",
         "cs": "Název",
         "de": "Name",
+        "el": "Όνομα",
         "es": "Nombre",
+        "et": "Nimi",
+        "fr": "Nom",
         "hu": "Név",
-        "zh-hans": "名称"
+        "it": "Nome",
+        "sv": "Namn",
+        "ta": "பெயர்",
+        "uk": "Ім'я",
+        "zh-hans": "名称",
+        "zh-hant": "名稱"
       },
       "description": {
         "en": "Official name, otherwise most common one",
         "cs": "Oficiální název, jinak nejběžnější název",
         "de": "Offizieller Name, ansonsten der verbreitetste",
+        "el": "Επίσημο όνομα, διαφορετικά το πιο κοινό",
         "es": "Nombre oficial, el más común",
-        "hu": "Hivatalos név, annak híján a legelterjedtebb"
+        "et": "Ametlik nimi või selle puudumisel üldlevinud nimi",
+        "fr": "Nom officiel, autrement le plus connu",
+        "hu": "Hivatalos név, annak híján a legelterjedtebb",
+        "it": "Nome ufficiale, o il nome più comunemente usato",
+        "sv": "Officiellt namn, annars vanligast använda",
+        "ta": "அதிகாரப்பூர்வ பெயர், இல்லையெனில் மிகவும் பொதுவானது",
+        "uk": "Офіційна назва, інакше найпоширеніша",
+        "zh-hant": "正式名稱，或是最常見的名稱"
       },
       "type": "line",
       "required": true,
@@ -47,17 +178,38 @@
         "en": "Current status of the project.",
         "cs": "Aktuální stav projektu.",
         "de": "Aktueller Status des Projekts.",
+        "el": "Τρέχουσα κατάσταση του έργου.",
         "es": "Estado actual del proyecto.",
-        "hu": "A projekt jelenlegi állapota"
+        "et": "Projekti praegune olek.",
+        "fr": "État actuel du projet.",
+        "hu": "A projekt jelenlegi állapota",
+        "it": "Stato attuale del progetto.",
+        "sv": "Nuvarande status för projektet.",
+        "ta": "திட்டத்தின் தற்போதைய நிலை.",
+        "uk": "Поточний стан проекту.",
+        "zh-hant": "目前專案的狀態。"
       },
       "label": {
         "en": "Status",
         "cs": "Stav",
         "de": "Status",
+        "el": "Κατάσταση",
         "es": "Estado",
-        "hu": "Állapot"
+        "et": "Olek",
+        "fr": "État",
+        "hu": "Állapot",
+        "it": "Stato",
+        "sv": "Status",
+        "ta": "நிலை",
+        "uk": "Статус",
+        "zh-hant": "狀態"
       },
-      "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
+      "suggestedvalues": [
+        "active",
+        "unmaintained",
+        "broken",
+        "unfinished"
+      ],
       "type": "line",
       "default": "active",
       "suggested": true
@@ -67,18 +219,40 @@
         "en": "What free license or proprietary?",
         "cs": "Je licence svobodná nebo proprietární?",
         "de": "Welche freie Lizenz oder proprietär?",
+        "el": "Τι ελεύθερη ή εμπορική άδεια χρήσης;",
         "es": "¿Qué licencia tiene?",
-        "hu": "Milyen szabad vagy tulajdonosi licenc alá tartozik?"
+        "et": "Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?",
+        "fr": "Quelle licence ? Libre ou propriétaire ?",
+        "hu": "Milyen szabad vagy tulajdonosi licenc alá tartozik?",
+        "sv": "Vilken fri licens eller proprietär?",
+        "ta": "என்ன இலவச உரிமம் அல்லது தனியுரிம?",
+        "uk": "Яка безкоштовна ліцензія чи власницька?",
+        "zh-hant": "何種自由或是專屬授權條款？"
       },
       "example": "GPL",
       "label": {
         "en": "License",
         "cs": "Licence",
         "de": "Lizenz",
+        "el": "Άδεια",
         "es": "Licencia",
-        "hu": "Licenc"
+        "et": "Litsents",
+        "fr": "Licence",
+        "hu": "Licenc",
+        "it": "Licenza",
+        "sv": "Licens",
+        "ta": "உரிமம்",
+        "uk": "Ліцензія",
+        "zh-hant": "授權條款"
       },
-      "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"],
+      "suggestedvalues": [
+        "GPL",
+        "BSD",
+        "MIT",
+        "free",
+        "proprietary",
+        "AGPL"
+      ],
       "type": "line"
     },
     "price": {
@@ -86,27 +260,55 @@
         "en": "Costs if proprietary. If price is empty, application is for free.",
         "cs": "Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma.",
         "de": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos.",
+        "el": "Κόστος εαν είναι εμπορική. Αν η τιμή είναι κενή, η εφαρμογή διατίθεται δωρεάν.",
         "es": "Precio de la licencia si es propietaria. Y sin el, sí es gratuita.",
-        "hu": "Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."
+        "et": "Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta.",
+        "fr": "Payant si propriétaire. Si le prix est vide, l'application est gratuite.",
+        "hu": "Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes.",
+        "it": "Costi se proprietari. Se il prezzo è vuoto, l'applicazione è gratuita.",
+        "sv": "Kostnader om proprietär. Om priset är tomt är ansökan gratis.",
+        "ta": "உரிமையாளரின் செலவு. விலை காலியாக இருந்தால், விண்ணப்பம் இலவசமாக இருக்கும்.",
+        "uk": "Вартість, якщо власна. Якщо ціна порожня, додаток безкоштовний.",
+        "zh-hant": "如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"
       },
       "example": "free;20$;35€;in-app purchases",
       "label": {
         "en": "Price",
         "cs": "Cena",
         "de": "Preis",
+        "el": "Τιμή",
         "es": "Precio",
-        "hu": "Ár"
+        "et": "Hind",
+        "fr": "Prix",
+        "hu": "Ár",
+        "it": "Prezzo",
+        "sv": "Pris",
+        "ta": "விலை",
+        "uk": "Ціна",
+        "zh-hant": "價格"
       },
       "type": "line",
-      "suggestedvalues": ["free", "in-app purchases", "ads"]
+      "suggestedvalues": [
+        "free",
+        "in-app purchases",
+        "ads"
+      ]
     },
     "web": {
       "label": {
         "en": "Web address",
         "cs": "Webová adresa",
         "de": "Internetadresse",
+        "el": "Διεύθυνση ιστότοπου",
         "es": "Dirección web",
-        "hu": "Webcím"
+        "et": "Veebiaadress",
+        "fr": "Adresse Web",
+        "hu": "Webcím",
+        "it": "Indirizzo web",
+        "sv": "Webbadress",
+        "ta": "வலை முகவரி",
+        "uk": "Веб-адреса",
+        "zh-hant": "網址"
       },
       "example": "https://www.example.org",
       "suggested": true,
@@ -114,111 +316,39 @@
     },
     "repo": {
       "label": {
-        "am": "ምንጭ ኮድ",
-        "ar": "الشفرة المصدرية",
-        "az": "mənbə kodu",
-        "be": "зыходнікі",
-        "bg": "програмен код",
-        "bn": "সোর্স কোড",
-        "bs": "izvorni kod",
-        "ca": "codi font",
-        "co": "còdice",
-        "cs": "zdrojový kód",
-        "cy": "cod ffynhonnell",
-        "da": "kildekode",
+        "en": "Source code",
+        "cs": "Zdrojový kód",
         "de": "Quellcode",
-        "el": "πηγαίο κώδικα",
-        "en": "source code",
-        "es": "código fuente",
-        "et": "lähtekood",
-        "eu": "iturburu kodea",
-        "fa": "کد منبع",
-        "fi": "lähdekoodi",
-        "fr": "code source",
-        "fy": "boarnekoade",
-        "ga": "cód foinse",
-        "gl": "código fonte",
-        "gu": "સ્ત્રોત કોડ",
-        "haw": "hoʻopā'ālua",
-        "he": "קוד מקור",
-        "hi": "सोर्स कोड",
-        "hmn": "qhov code",
-        "hr": "izvorni kod",
-        "ht": "kòd sous",
-        "hu": "forráskód",
-        "hy": "աղբյուրը կոդը",
-        "id": "kode sumber",
-        "is": "uppspretta kóðinn",
-        "it": "codice sorgente",
-        "ja": "ソースコード",
-        "jw": " kode sumber",
-        "ka": "საწყისი კოდი",
-        "kk": "бастапқы коды",
-        "km": "ប្រភព​កូដ",
-        "kn": "ಮೂಲ ಕೋಡ್",
-        "ko": "소스 코드",
-        "ku": "kodê çavkanîyê",
-        "ky": "булак коду",
-        "la": "ລະຫັດທີ່ມາ",
-        "lt": "pirminis kodas",
-        "lu": "Quellcode",
-        "lv": "avota kods",
-        "mg": "mari-tomboky",
-        "mi": "waehere pūtake",
-        "mk": "изворен код",
-        "ml": "സോഴ്സ് കോഡ്",
-        "mn": "эх код",
-        "mr": "मूळ सांकेतिक शब्दकोश",
-        "ms": "kod sumber",
-        "mt": "kodiċi tas-sors",
-        "nb": "kildekode",
-        "ne": "स्रोत कोड",
-        "nl": "broncode",
-        "nn": "kildekode",
-        "no": "kildekode",
-        "ny": "gwero kachidindo",
-        "pa": "ਸਰੋਤ ਦਾ ਕੋਡ",
-        "pt": "código fonte",
-        "pl": "kod źródłowy",
-        "ps": "د سرچينې کوډ",
-        "ro": "cod sursa",
-        "ru": "исходный код",
-        "sd": "سورس ڪوڊ",
-        "si": "ප්රභව කේතය",
-        "sk": "zdrojový kód",
-        "sl": "izvorna koda",
-        "sm": "code puna",
-        "sn": "mabviro romutemo",
-        "sq": "kodi i burimit",
-        "sr": "изворни код",
-        "st": "khoutu ya mohlodi",
-        "su": "kode sumber",
-        "sv": "källkod",
-        "sw": "chanzo kanuni",
-        "ta": "மூல குறியீடு",
-        "te": "సోర్స్ కోడ్",
-        "tg": "рамзи",
-        "tl": "kodigo pinagmulan",
-        "th": "รหัสแหล่งที่มา",
-        "tr": "kaynak kodu",
-        "ur": "سورس کوڈ",
-        "uk": "сирці",
-        "uz": "manba kodi",
-        "vi": "mã nguồn",
-        "xh": "ikhowudi yonikezo",
-        "yi": "מקור קאָד",
-        "yo": "orisun koodu",
+        "el": "Πηγαίος κώδικας",
+        "es": "Código fuente",
+        "et": "Lähtekood",
+        "fr": "Code source",
+        "hu": "Forráskód",
+        "it": "Codice sorgente",
+        "sv": "Källkod",
+        "ta": "மூலக் குறியீடு",
+        "uk": "Вихідний код",
         "zh-hans": "源代码",
-        "zh-hant": "源代碼",
-        "zu": "ikhodi yomthombo"
+        "zh-hant": "原始碼"
       },
-      "aliases": ["git", "svn"],
+      "aliases": [
+        "git",
+        "svn"
+      ],
       "description": {
         "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
         "cs": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)",
         "de": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)",
+        "el": "URL για την προβολή ή λήψη του πηγαίου κώδικα (για παράδειγμα, ένα Git, Subversion, ή CVS repository)",
         "es": "URL para ver o descargar el código fuente (por ejemplo, un repositorio Git o CVS)",
-        "hu": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"
+        "et": "Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)",
+        "fr": "URL pour voir ou télécharger le code source (par exemple, un dépôt Git, Subversion ou CVS)",
+        "hu": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)",
+        "it": "URL per visualizzare o scaricare il codice sorgente (ad esempio, un repository Git, Subversion o CVS)",
+        "sv": "URL för att visa eller ladda ner källkoden (till exempel ett Git, Subversion eller CVS-arkiv)",
+        "ta": "மூலக் குறியீட்டைக் காண அல்லது பதிவிறக்க முகவரி (எடுத்துக்காட்டாக, ஒரு அறிவிலி, அடிபணிதல் அல்லது சி.வி.எச் களஞ்சியத்தை)",
+        "uk": "URL-адреса для перегляду або завантаження вихідного коду (наприклад, репозиторій Git, Subversion або CVS)",
+        "zh-hant": "檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"
       },
       "example": "https://git.example.org",
       "type": "url"
@@ -228,8 +358,16 @@
         "en": "Logo",
         "cs": "Logo",
         "de": "Logo",
+        "el": "Λογότυπο",
         "es": "Logotipo",
-        "hu": "Logó"
+        "et": "Logo",
+        "fr": "Logo",
+        "hu": "Logó",
+        "it": "Logo",
+        "sv": "Logotyp",
+        "ta": "சின்னம்",
+        "uk": "Логотип",
+        "zh-hant": "圖示"
       },
       "example": "xyz.png",
       "type": "wiki-file-name"
@@ -239,9 +377,17 @@
         "en": "Screenshot",
         "cs": "Otisk obrazovky",
         "de": "Bildschirmfoto",
+        "el": "Στιγμιότυπο",
         "es": "Captura de pantalla",
+        "et": "Ekraanitõmmis",
+        "fr": "Capture d'écran",
         "hu": "Képernyőkép",
-        "zh-hans": "截图"
+        "it": "Screenshot",
+        "sv": "Skärmdump",
+        "ta": "திரைக்காட்சி",
+        "uk": "Знімок екрана",
+        "zh-hans": "截图",
+        "zh-hant": "截圖"
       },
       "suggested": true,
       "type": "wiki-file-name",
@@ -252,9 +398,17 @@
         "en": "Description",
         "cs": "Popis",
         "de": "Beschreibung",
+        "el": "Περιγραφή",
         "es": "Descripción",
+        "et": "Kirjeldus",
+        "fr": "Description",
         "hu": "Leírás",
-        "zh-hans": "描述"
+        "it": "Descrizione",
+        "sv": "Beskrivning",
+        "ta": "விவரம்",
+        "uk": "Опис",
+        "zh-hans": "描述",
+        "zh-hant": "描述"
       },
       "type": "string",
       "suggested": true,
@@ -262,8 +416,16 @@
         "en": "Brief description. What distinguishes this from other tools? (Write your own description, don't just copy it from the website)",
         "cs": "Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)",
         "de": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)",
+        "el": "Σύντομη περιγραφή. Τι ξεχωρίζει αυτό το εργαλείο από άλλα; (Γράψτε την δική σας περιγραφή, μην αντιγράφετε απλά από τον ιστότοπο)",
         "es": "Breve descripción. ¿Qué la distingue de otras herramientas? (Escribe tu propia descripción, no la copies de la página web)",
-        "hu": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"
+        "et": "Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)",
+        "fr": "Description courte. Qu'est-ce qui le distingue des autres outils ? (Rédigez votre propre description, sans la copier depuis le site web)",
+        "hu": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)",
+        "it": "Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)",
+        "sv": "Kort beskrivning. Vad skiljer detta från andra verktyg? (Skriv din egen beskrivning, kopiera inte bara den från webbplatsen)",
+        "ta": "சுருக்கமான விளக்கம். இதை மற்ற கருவிகளிலிருந்து வேறுபடுத்துவது எது? (உங்கள் சொந்த விளக்கத்தை எழுதுங்கள், வலைத்தளத்திலிருந்து நகலெடுக்க வேண்டாம்)",
+        "uk": "Короткий опис. Що відрізняє цей інструмент від інших? (Напишіть свій власний опис, не просто копіюйте його з вебсайту)",
+        "zh-hant": "簡單敘述，與其他工具的差異在那裡？ (請寫下你自己的描述，不要直接從網站複製)"
       },
       "example": "Easy to use, nice UI"
     },
@@ -272,16 +434,32 @@
         "en": "Author",
         "cs": "Autor",
         "de": "Autor",
+        "el": "Δημιουργός",
         "es": "Autor",
+        "et": "Autor",
+        "fr": "Auteur",
         "hu": "Szerző",
-        "zh-hans": "作者"
+        "it": "Autore",
+        "sv": "Författare",
+        "ta": "நூலாசிரியர்",
+        "uk": "Автор",
+        "zh-hans": "作者",
+        "zh-hant": "作者"
       },
       "description": {
         "en": "Name of the author or a link to their OSM-wiki user page",
         "cs": "Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki",
         "de": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite",
+        "el": "Όνομα του δημιουργού ή σύνδεσμος στο προφίλ χρήστη του στο OSM-wiki",
         "es": "Nombre del autor o un enlace a su página de usuario de OSM-wiki",
-        "hu": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje"
+        "et": "Autori nimi ja/või link vastavale OSM-viki kasutajalehele",
+        "fr": "Nom de l'auteur ou lien vers la page d'auteur sur le wiki OSM",
+        "hu": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje",
+        "it": "Nome dell'autore o collegamento alla sua pagina utente di OSM-wiki",
+        "sv": "Namn på författaren eller en länk till deras OSM-wiki användarsida",
+        "ta": "ஆசிரியரின் பெயர் அல்லது அவர்களின் OSM-wiki பயனர் பக்கத்திற்கான இணைப்பு",
+        "uk": "Ім'я автора або посилання на його сторінку користувача OSM-wiki",
+        "zh-hant": "作者的名字或是作者 OSM-wiki 使用者頁面連結"
       },
       "type": "line",
       "suggested": true
@@ -291,8 +469,16 @@
         "en": "List of platforms it runs on.",
         "cs": "Seznam platforem, na kterých běží.",
         "de": "Liste der Plattformen, auf denen es läuft.",
+        "el": "Λίστα με τις πλατφόρμες όπου τρέχει.",
         "es": "Lista de plataformas en las que se ejecuta.",
-        "hu": "Azon platformok listája, amelyeken fut"
+        "et": "Platvormide loend, kus see rakendus töötab.",
+        "fr": "Liste des plateformes prises en charge.",
+        "hu": "Azon platformok listája, amelyeken fut",
+        "it": "Elenco delle piattaforme su cui è utilizzabile.",
+        "sv": "Lista över plattformar den kan köras på.",
+        "ta": "அது இயங்கும் தளங்களின் பட்டியல்.",
+        "uk": "Список платформ, на яких він працює.",
+        "zh-hant": "運作的平台清單。"
       },
       "suggested": true,
       "type": "line",
@@ -352,8 +538,16 @@
         "en": "Supported platforms",
         "cs": "Podporované platformy",
         "de": "Plattform",
+        "el": "Υποστηριζόμενες πλατφόρμες",
         "es": "Plataformas compatibles",
-        "hu": "Támogatott platformok"
+        "et": "Toetatud platvormid",
+        "fr": "Plateformes prises en charge",
+        "hu": "Támogatott platformok",
+        "it": "Piattaforme supportate",
+        "sv": "Plattformar som stöds",
+        "ta": "ஆதரிக்கப்பட்ட தளங்கள்",
+        "uk": "Підтримувані платформи",
+        "zh-hant": "支援的平台"
       }
     },
     "genre": {
@@ -361,16 +555,32 @@
         "en": "Main category for this tool.",
         "cs": "Hlavní kategorie tohoto nástroje.",
         "de": "Hauptkategorie für dieses Tool.",
+        "el": "Κύρια κατηγορία γι' αυτό το εργαλείο.",
         "es": "Categoría principal de esta herramienta.",
-        "hu": "Az eszköz fő kategóriája"
+        "et": "Selle tarviku põhikategooria.",
+        "fr": "Catégorie principale de cet outil.",
+        "hu": "Az eszköz fő kategóriája",
+        "it": "Categoria principale di questo strumento.",
+        "sv": "Huvudkategori för detta verktyg.",
+        "ta": "இந்த கருவிக்கான முக்கிய வகை.",
+        "uk": "Основна категорія для цього інструменту.",
+        "zh-hant": "此工具主要的類別。"
       },
       "suggested": true,
       "label": {
         "en": "Genre",
         "cs": "Typ",
         "de": "Genre",
+        "el": "Είδος",
         "es": "Género",
-        "hu": "Típus"
+        "et": "Žanr",
+        "fr": "Genre",
+        "hu": "Típus",
+        "it": "Genere",
+        "sv": "Genre",
+        "ta": "வகை",
+        "uk": "Жанр",
+        "zh-hant": "類型"
       },
       "suggestedvalues": [
         "display",
@@ -389,8 +599,16 @@
         "en": "Supported languages (list of valid language codes separated by semicolons) or number of languages supported",
         "cs": "Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků",
         "de": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen",
+        "el": "Υποστηριζόμενες γλώσσες (λίστα των διαθέσιμων κωδικών γλωσσών χωρισμένα με ελληνικό ερωτηματικό) ή αριθμός των υποστηριζόμενων γλωσσών",
         "es": "Idiomas soportados (lista de códigos de idiomas válidos separados por punto y coma) o número de idiomas admitidos",
-        "hu": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"
+        "et": "Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv",
+        "fr": "Langues prises en charge (liste de codes de langue séparés par des points-virgules) ou nombre de langues prises en charge",
+        "hu": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma",
+        "it": "Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate",
+        "sv": "Stödda språk (lista över giltiga språkkoder separerade av semikoloner) eller antal språk som stöds",
+        "ta": "ஆதரிக்கப்படும் மொழிகள் (அரைக்காற்புள்ளிகளால் பிரிக்கப்பட்ட செல்லுபடியாகும் மொழிக் குறியீடுகளின் பட்டியல்) அல்லது ஆதரிக்கப்படும் மொழிகளின் எண்ணிக்கை",
+        "uk": "Підтримувані мови (список дійсних кодів мов, розділених крапкою з комою) або кількість підтримуваних мов",
+        "zh-hant": "支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"
       },
       "example": "DE;EN;MUL",
       "type": "line",
@@ -585,7 +803,6 @@
         "pih",
         "pl",
         "pms",
-        "pnb",
         "ps",
         "pt",
         "qu",
@@ -672,8 +889,16 @@
         "en": "Languages",
         "cs": "Jazyky",
         "de": "Sprachen",
+        "el": "Γλώσσες",
         "es": "Idiomas",
-        "hu": "Nyelvek"
+        "et": "Keeled",
+        "fr": "Langues",
+        "hu": "Nyelvek",
+        "it": "Lingue",
+        "sv": "Språk",
+        "ta": "மொழிகள்",
+        "uk": "Мови",
+        "zh-hant": "語言"
       }
     },
     "languagesurl": {
@@ -681,15 +906,30 @@
         "en": "Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository).",
         "cs": "Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště).",
         "de": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository).",
+        "el": "Σύνδεσμος προς την πλήρη λίστα των υποστηριζόμενων γλωσσών, περιγραφόμενα σε άλλη σε σελίδα (π.χ. σελίδα πύλης του λογισμικού ή ένα repository).",
         "es": "Enlace a la lista completa real de idiomas admitidos, descrita en otra página (por ejemplo, una página de portal para el software, o un repositorio).",
-        "hu": "Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban)."
+        "et": "Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel).",
+        "fr": "Lien vers la liste de toutes les langues prises en charge, décrites sur un autre page (par ex. un portail du logiciel ou un dépôt).",
+        "hu": "Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban).",
+        "it": "Collegamento alla lista completa delle lingue supportate, descritte in un altra pagina (per esempio una repository o una pagina del portale per il software)",
+        "sv": "Länk till den faktiska fullständiga listan över språk som stöds, beskrivs på en annan sida (t.ex. en portalsida för programvaran eller ett arkiv).",
+        "ta": "மற்றொரு பக்கத்தில் விவரிக்கப்பட்டுள்ள, ஆதரிக்கப்படும் மொழிகளின் உண்மையான முழு பட்டியலுக்கான இணைப்பு (எ.கா. மென்பொருளுக்கான போர்ட்டல் பக்கம் அல்லது களஞ்சியம்).",
+        "uk": "Посилання на повний список підтримуваних мов, описаний на іншій сторінці (наприклад, сторінка порталу програмного забезпечення або репозиторій).",
+        "zh-hant": "完整實際的支援語言清單的連結，描述則在其他頁面 (例如軟體的平台頁面，或是倉儲庫)。"
       },
       "label": {
         "en": "Languages URL",
         "cs": "URL pro jazyky",
         "de": "Sprachen-URL",
+        "el": "URL γλωσσών",
         "es": "Idiomas URL",
-        "hu": "Nyelvek URL-je"
+        "et": "Keelte võrguaadress",
+        "fr": "URL des langues",
+        "hu": "Nyelvek URL-je",
+        "sv": "Språk URL",
+        "ta": "மொழிகள் முகவரி",
+        "uk": "URL-адреса мов",
+        "zh-hant": "語言連結"
       },
       "type": "url"
     },
@@ -698,16 +938,32 @@
         "en": "Coverage or target region of the app. Formatting: \"Continent, Country, Region, ...\". Use \"Worldwide\" or leave it empty for global use.",
         "cs": "Pokrytí nebo cílová oblast aplikace. Formátování: \"Kontinent, země, region, ...\". Pro globální použití použijte \"Worldwide\" nebo jej nechte prázdný.",
         "de": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst.",
+        "el": "Κάλυψη ή περιοχή-στόχος της εφαρμογής. Της μορφής: \"Ήπειρος, Χώρα, Περιφέρεια, ...\". Χρησιμοποιήστε \"Παγκόσμια\" ή αφήστε το κενό για παγκόσμια χρήση.",
         "es": "Cobertura o región de destino de la aplicación. Formato: \"Continente, País, Región, ...\". Utilice \"Worldwide\" o déjelo vacío para un uso global.",
-        "hu": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."
+        "et": "Rakenduse kasutatvuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks.",
+        "fr": "Couverture ou région cible pour l'application. Format : \"Continent, Pays, Région…\". Utilisez \"Worldwide\" ou laissez vide pour une utilisation mondiale.",
+        "hu": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen.",
+        "it": "Copertura o regione per cui l'app è destinata. Formato: \"Continente, Nazione, Regione, ...\". Usa \"Worldwide\" o lascia vuoto per un uso globale.",
+        "sv": "Täckning eller målregion i appen. Formatering: \"Kontinent, land, region, ...\" Använd \"Worldwide\" eller lämna den tom för global användning.",
+        "ta": "பயன்பாட்டின் பாதுகாப்பு அல்லது இலக்கு பகுதி. வடிவமைப்பு: \"கண்டம், நாடு, பகுதி, ...\". \"உலகளவில்\" பயன்படுத்தவும் அல்லது உலகளாவிய பயன்பாட்டிற்காக காலியாக விடவும்.",
+        "uk": "Охоплення або цільовий регіон програми. Форматування: «Континент, Країна, Регіон тощо». Використовуйте «Увесь світ» або залиште поле порожнім для глобального використання.",
+        "zh-hant": "app 的範圍或是目標地區：「大陸、國家、地區等等。」使用「全球」或是留空白則表示能夠全球使用。"
       },
       "example": "Europe, Switzerland, Zurich, Gossau",
       "label": {
         "en": "Coverage",
         "cs": "Pokrytí",
         "de": "Abdeckung",
+        "el": "Κάλυψη",
         "es": "Cobertura",
-        "hu": "Lefedés"
+        "et": "Katvus",
+        "fr": "Couverture",
+        "hu": "Lefedés",
+        "it": "Copertura",
+        "sv": "Täckning",
+        "ta": "பாதுகாப்பு",
+        "uk": "Покриття",
+        "zh-hant": "範圍"
       },
       "default": "Worldwide",
       "type": "line"
@@ -717,8 +973,16 @@
         "en": "List of programming languages used.",
         "cs": "Seznam použitých programovacích jazyků.",
         "de": "Liste der verwendeten Programmiersprachen.",
+        "el": "Λίστα των γλωσσών προγραμματισμού που χρησιμοποιήθηκαν.",
         "es": "Lista de lenguajes de programación utilizados.",
-        "hu": "A felhasznált programozási nyelvek listája"
+        "et": "Kasutatud programmeerimiskeelte loend.",
+        "fr": "Liste des langages de programmation utilisés.",
+        "hu": "A felhasznált programozási nyelvek listája",
+        "it": "Lista dei linguaggi di programmazione utilizzati.",
+        "sv": "Lista över programmeringsspråk som används.",
+        "ta": "பயன்படுத்தப்படும் நிரலாக்க மொழிகளின் பட்டியல்.",
+        "uk": "Список використовуваних мов програмування.",
+        "zh-hant": "使用的程式語言清單。"
       },
       "type": "line",
       "suggestedvalues": [
@@ -749,8 +1013,16 @@
         "en": "Code",
         "cs": "Kód",
         "de": "Code",
+        "el": "Κώδικας",
         "es": "Código",
-        "hu": "Kód"
+        "et": "Lähtekood",
+        "fr": "Code",
+        "hu": "Kód",
+        "it": "Codice",
+        "sv": "Kodkod",
+        "ta": "குறியீடு",
+        "uk": "Код",
+        "zh-hant": "程式碼"
       }
     },
     "framework": {
@@ -759,16 +1031,35 @@
         "cs": "Seznam použitých frameworků.",
         "de": "Liste der verwendeten Frameworks.",
         "es": "Lista de marcos utilizados.",
-        "hu": "A felhasznált keretrendszerek listája"
+        "et": "Koodi kirjutamisel kasutatud arendusraamistik.",
+        "fr": "Liste des frameworks utilisés.",
+        "hu": "A felhasznált keretrendszerek listája",
+        "it": "Lista di framework utilizzati.",
+        "sv": "Förteckning över de ramverk som används.",
+        "ta": "பயன்படுத்தப்படும் கட்டமைப்புகளின் பட்டியல்.",
+        "uk": "Список використаних фреймворків.",
+        "zh-hant": "使用的架構清單。"
       },
       "example": "GTK+;mono;J2ME;OpenGL",
-      "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
+      "suggestedvalues": [
+        "GTK+",
+        "mono",
+        "J2ME",
+        "OpenGL"
+      ],
       "label": {
         "en": "Framework",
         "cs": "Framework",
         "de": "Framework",
         "es": "Framework",
-        "hu": "Keretrendszer"
+        "et": "Arendusraamistik",
+        "fr": "Framework",
+        "hu": "Keretrendszer",
+        "it": "Framework",
+        "sv": "Ramverk",
+        "ta": "கட்டமைப்பு",
+        "uk": "Рамка",
+        "zh-hant": "架構"
       },
       "type": "line"
     },
@@ -777,16 +1068,32 @@
         "en": "Version",
         "cs": "Verze",
         "de": "Version",
+        "el": "Έκδοση",
         "es": "Versión",
+        "et": "Versioon",
+        "fr": "Version",
         "hu": "Verzió",
-        "zh-hans": "版本"
+        "it": "Versione",
+        "sv": "Version",
+        "ta": "பதிப்பு",
+        "uk": "Версія",
+        "zh-hans": "版本",
+        "zh-hant": "版本"
       },
       "description": {
         "en": "Latest version",
         "cs": "Nejnovější verze",
         "de": "Aktuellste Version",
+        "el": "Τελευταία έκδοση",
         "es": "Última versión",
-        "hu": "Legújabb verzió"
+        "et": "Viimane versioon",
+        "fr": "Dernière version",
+        "hu": "Legújabb verzió",
+        "it": "Ultima versione",
+        "sv": "Senaste versionen",
+        "ta": "அண்மைக் கால பதிப்பு",
+        "uk": "Найновіша версія",
+        "zh-hant": "最新版本"
       },
       "example": "1.0",
       "type": "line"
@@ -796,16 +1103,31 @@
         "en": "Release date",
         "cs": "Datum vydání",
         "de": "Veröffentlichungsdatum",
+        "el": "Ημερομηνία κυκλοφορίας",
         "es": "Fecha de publicación",
+        "et": "Väljalaske kuupäev",
+        "fr": "Date de sortie",
         "hu": "Kiadás dátuma",
-        "zh-hans": "日期"
+        "it": "Data di pubblicazione",
+        "sv": "Utgivningsdatum",
+        "ta": "வெளியீட்டு தேதி",
+        "uk": "Дата випуску",
+        "zh-hans": "日期",
+        "zh-hant": "發佈日期"
       },
       "description": {
         "en": "Latest release date",
         "cs": "Nejnovější datum vydání",
         "de": "Letztes Veröffentlichungsdatum",
+        "el": "Τελευταία ημερομηνία κυκλοφορίας",
         "es": "Última fecha de lanzamiento",
-        "hu": "A legutóbbi megjelenés dátuma"
+        "et": "Viimase versiooni avaldamise kuupäev",
+        "fr": "Date de la dernière version",
+        "hu": "A legutóbbi megjelenés dátuma",
+        "sv": "Senaste utgivningsdatum",
+        "ta": "அண்மைக் கால வெளியீட்டு தேதி",
+        "uk": "Дата останнього випуску",
+        "zh-hant": "最新發佈日期"
       },
       "example": "2010-12-24",
       "type": "date"
@@ -815,16 +1137,30 @@
         "en": "Amazon Standard Identification Number for the Amazon Appstore for Android",
         "cs": "Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android",
         "de": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android",
+        "el": "Amazon Standard Identification Number για το Amazon Appstore για Android",
         "es": "Número de identificación estándar de Amazon para Amazon Appstore para Android",
-        "hu": "Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"
+        "et": "Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)",
+        "fr": "Identifiant Amazon pour Amazon Appstore sur Android",
+        "hu": "Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz",
+        "sv": "Amazons standardidentifieringsnummer för Amazon Appstore för Android",
+        "ta": "ஆண்ட்ராய்டு க்கான அமேசான் ஆப்ச்டோரிற்கான அமேசான் தரநிலை அடையாள எண்",
+        "uk": "Стандартний ідентифікаційний номер Amazon для магазину додатків Amazon для Android",
+        "zh-hant": "Amazon Appstore 的 Android 亞馬遜標準識別碼號碼"
       },
       "example": "XXXXXXXXXX",
       "label": {
         "en": "Amazon Identification",
         "cs": "Identifikace Amazon",
         "de": "Amazon Identifikation",
+        "el": "Ταυτοποίηση Amazon",
         "es": "Identificación de Amazon",
-        "hu": "Amazon azonosító"
+        "et": "Amazoni kasutajatunnus",
+        "fr": "Identifiant Amazon",
+        "hu": "Amazon azonosító",
+        "sv": "Amazon Identifiering",
+        "ta": "அமேசான் அடையாளம்",
+        "uk": "Ідентифікація Amazon",
+        "zh-hant": "亞馬遜識別碼"
       },
       "type": "line"
     },
@@ -833,15 +1169,31 @@
         "en": "BlackBerry World application ID",
         "cs": "ID aplikace v BlackBerry World",
         "de": "BlackBerry World-Anwendungs-ID",
+        "el": "ID εφαρμογής στο BlackBerry World",
         "es": "ID de la aplicación de BlackBerry World",
-        "hu": "BlackBerry World alkalmazásazonosító"
+        "et": "Rakenduse tunnus BlackBerry Worldis",
+        "fr": "Identifiant d'application BlackBerry",
+        "hu": "BlackBerry World alkalmazásazonosító",
+        "it": "ID dell'applicazione BlackBerry World",
+        "sv": "BlackBerry World applikations ID",
+        "ta": "பிளாக்பெர்ரி உலக பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми BlackBerry World",
+        "zh-hant": "黑莓世界應用程式編號"
       },
       "label": {
         "en": "BlackBerry ID",
         "cs": "BlackBerry ID",
         "de": "BlackBerry ID",
+        "el": "BlackBerry ID",
         "es": "ID de BlackBerry",
-        "hu": "BlackBerry ID"
+        "et": "BlackBerry ID",
+        "fr": "Identifiant BlackBerry",
+        "hu": "BlackBerry ID",
+        "it": "ID BlackBerry",
+        "sv": "BlackBerry ID",
+        "ta": "பிளாக்பெர்ரி ஐடி",
+        "uk": "Ідентифікатор BlackBerry",
+        "zh-hant": "黑莓編號"
       },
       "deprecated": true,
       "example": "XXX",
@@ -852,15 +1204,31 @@
         "en": "F-Droid application ID",
         "cs": "ID aplikace F-Droid",
         "de": "F-Droid-Anwendungs-ID",
+        "el": "ID εφαρμογής στο F-Droid",
         "es": "ID de la aplicación F-Droid",
-        "hu": "F-Droid alkalmazásazonosító"
+        "et": "Rakenduse tunnus F-Droidis",
+        "fr": "Identifiant d'application F-Droid",
+        "hu": "F-Droid alkalmazásazonosító",
+        "it": "ID dell'applicazione su F-Droid",
+        "sv": "F-Droid applikations ID",
+        "ta": "எஃப்-டிராய்டு பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми F-Droid",
+        "zh-hant": "F-Droid 應用程式編號"
       },
       "label": {
         "en": "F-Droid ID",
         "cs": "F-Droid ID",
         "de": "F-Droid ID",
+        "el": "F-Droid ID",
         "es": "ID de F-Droid",
-        "hu": "F-Droid ID"
+        "et": "F-Droid ID",
+        "fr": "Identifiant F-Droid",
+        "hu": "F-Droid ID",
+        "it": "ID di F-Droid",
+        "sv": "F-Droid ID",
+        "ta": "எஃப்-டிராய்டு ஐடி",
+        "uk": "F-Droid ID",
+        "zh-hant": "F-Droid 編號"
       },
       "example": "org.example",
       "type": "line"
@@ -869,16 +1237,32 @@
       "description": {
         "en": "Mozilla Firefox Marketplace application ID",
         "cs": "ID aplikace Mozilla Firefox Marketplace",
-        "de": "Mozilla Firefox Marketplace-Anwendungs-ID",
+        "de": "Mozilla Firefox Marktplatz-Anwendungs-ID",
+        "el": "ID εφαρμογής στο Mozilla Firefox Marketplace",
         "es": "ID de la aplicación Mozilla Firefox Marketplace",
-        "hu": "Mozilla Firefox Marketplace alkalmazásazonosító"
+        "et": "Rakenduse tunnus Mozilla Firefox Marketplace'is",
+        "fr": "Identifiant d'application pour Mozilla Firefox Marketplace",
+        "hu": "Mozilla Firefox Marketplace alkalmazásazonosító",
+        "it": "ID dell'applicazione su Firefox Marketplace",
+        "sv": "Mozilla Firefox Marketplace applikations ID",
+        "ta": "மொசில்லா பயர்பாக்ச் மார்க்கெட்ப்ளேச் பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми Mozilla Firefox Marketplace",
+        "zh-hant": "Mozilla Firefox 商城應用程式編號"
       },
       "label": {
         "en": "Firefox Marketplace ID",
         "cs": "Firefox Marketplace ID",
         "de": "Firefox Marketplace ID",
+        "el": "Firefox Marketplace ID",
         "es": "ID de Firefox Marketplace",
-        "hu": "Firefox Marketplace ID"
+        "et": "Firefox Marketplace ID",
+        "fr": "Identifiant Firefox Marketplace",
+        "hu": "Firefox Marketplace ID",
+        "it": "ID di Firefox Marketplace",
+        "sv": "Firefox Marketplace ID",
+        "ta": "பயர்பாக்ச் சந்தை ஐடி",
+        "uk": "Ідентифікатор торговельного майданчика Firefox",
+        "zh-hant": "Firefox 商城編號"
       },
       "deprecated": true,
       "type": "line"
@@ -887,16 +1271,32 @@
       "description": {
         "en": "Google Play Store application ID",
         "cs": "ID aplikace v Obchodě Google Play",
-        "de": "Google Play Store-Anwendungs-ID",
+        "de": "Google Play Store Anwendungs-ID",
+        "el": "ID εφαρμογής στο Google Play Store",
         "es": "ID de la aplicación Google Play Store",
-        "hu": "Google Play Store alkalmazásazonosító"
+        "et": "Rakenduse tunnus Google Play Store'is",
+        "fr": "Identifiant d'application du Google Play Store",
+        "hu": "Google Play Store alkalmazásazonosító",
+        "it": "ID dell'applicazione su Google Play Store",
+        "sv": "Google Play Store Applications ID",
+        "ta": "கூகிள் பிளே கடை பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми в Google Play Маркеті",
+        "zh-hant": "Google Play 商場應用程式編號"
       },
       "label": {
         "en": "Google Play ID",
         "cs": "Google Play ID",
         "de": "Google Play ID",
+        "el": "Google Play ID",
         "es": "ID de Google Play",
-        "hu": "Google Play ID"
+        "et": "Google Play ID",
+        "fr": "Identifiant Google Play",
+        "hu": "Google Play ID",
+        "it": "ID di Google Play",
+        "sv": "Google Play ID",
+        "ta": "கூகிள் பிளே ஐடி",
+        "uk": "Ідентифікатор Google Play",
+        "zh-hant": "Google Play 編號"
       },
       "example": "org.example",
       "type": "line"
@@ -906,8 +1306,16 @@
         "en": "Huawei AppGallery application ID",
         "cs": "ID aplikace Huawei AppGallery",
         "de": "Huawei AppGallery Anwendungs-ID",
+        "el": "ID εφαρμογής στο Huawei AppGallery",
         "es": "ID de la aplicación Huawei AppGallery",
-        "hu": "Huawei AppGallery alkalmazásazonosító"
+        "et": "Rakenduse tunnus Huawei AppGallery's",
+        "fr": "Identifiant d'application de Huawei AppGallery",
+        "hu": "Huawei AppGallery alkalmazásazonosító",
+        "it": "ID dell'applicazione su Huawei AppGallery",
+        "sv": "Huawei AppGallery applikations ID",
+        "ta": "HUAWEI AppGallery பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми Huawei AppGallery",
+        "zh-hant": "華為應用程式市場應用程式編號"
       },
       "example": "CXXXXXXXXX",
       "type": "line",
@@ -915,24 +1323,47 @@
         "en": "Huawei AppGallery ID",
         "cs": "Huawei AppGallery ID",
         "de": "Huawei AppGallery ID",
+        "el": "Huawei AppGallery ID",
         "es": "ID de Huawei AppGallery",
-        "hu": "Huawei AppGallery ID"
+        "et": "Huawei AppGallery ID",
+        "fr": "Identifiant Huawei AppGallery",
+        "hu": "Huawei AppGallery ID",
+        "it": "ID di Huawei AppGallery",
+        "sv": "Huawei AppGallery ID",
+        "ta": "அவாய் AppGallery ஐடி",
+        "uk": "Ідентифікатор галереї додатків Huawei",
+        "zh-hant": "華為應用程式市場編號"
       }
     },
     "appleStoreID": {
       "description": {
         "en": "iTunes App Store application ID",
         "cs": "ID aplikace iTunes App Store",
-        "de": "iTunes App Store Anwendungs-ID",
+        "de": "iTunes App Store Anwendungs-D",
+        "el": "ID εφαρμογής στο iTunes App Store",
         "es": "ID de la aplicación iTunes App Store",
-        "hu": "iTunes App Store alkalmazásazonosító"
+        "et": "Rakenduse tunnus iTunes App Store'is",
+        "fr": "Identifiant d'application pour iTunes App Store",
+        "hu": "iTunes App Store alkalmazásazonosító",
+        "sv": "iTunes App Store applikations ID",
+        "ta": "ஐடியூன்ச் ஆப் கடை பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми iTunes App Store",
+        "zh-hant": "iTunes App Store 應用程式編號"
       },
       "label": {
         "en": "AppStore ID",
         "cs": "AppStore ID",
         "de": "AppStore ID",
+        "el": "AppStore ID",
         "es": "ID de la AppStore",
-        "hu": "AppStore ID"
+        "et": "AppStore ID",
+        "fr": "Identifiant AppStore",
+        "hu": "AppStore ID",
+        "it": "ID AppStore",
+        "sv": "AppStore ID",
+        "ta": "ஆப்ச்டோர் ஐடி",
+        "uk": "Ідентифікатор AppStore",
+        "zh-hant": "AppStore 編號"
       },
       "example": "id12344556",
       "type": "line"
@@ -942,15 +1373,29 @@
         "en": "Mac App Store application ID",
         "cs": "ID aplikace Mac App Store",
         "de": "Mac App Store Anwendungs-ID",
+        "el": "ID εφαρμογής στο Mac App Store",
         "es": "ID de la aplicación Mac App Store",
-        "hu": "Mac App Store alkalmazásazonosító"
+        "et": "Rakenduse tunnus Mac App Store'is",
+        "fr": "Identifiant d'application du Mac App Store",
+        "hu": "Mac App Store alkalmazásazonosító",
+        "sv": "Mac App Store applikations ID",
+        "ta": "மேக் ஆப் கடை பயன்பாட்டு ஐடி",
+        "uk": "Ідентифікатор програми Mac App Store",
+        "zh-hant": "Mac App Store 應用程式編號"
       },
       "label": {
         "en": "Mac AppStore ID",
         "cs": "Mac AppStore ID",
         "de": "Mac AppStore ID",
+        "el": "Mac AppStore ID",
         "es": "ID de la Mac AppStore",
-        "hu": "Mac AppStore ID"
+        "et": "Mac AppStore ID",
+        "fr": "Identifiant Mac AppStore",
+        "hu": "Mac AppStore ID",
+        "sv": "Mac AppStore ID",
+        "ta": "மேக் ஆப்ச்டோர் ஐடி",
+        "uk": "Ідентифікатор Mac AppStore",
+        "zh-hant": "Mac AppStore 編號"
       },
       "example": "id12344556",
       "type": "line"
@@ -960,15 +1405,30 @@
         "en": "Microsoft Store Windows application UUID",
         "cs": "UUID aplikace Microsoft Store pro systém Windows",
         "de": "Microsoft Store Windows-Anwendungs-UUID",
+        "el": "UUID Windows εφαρμογής του Microsoft Store",
         "es": "UUID de la aplicación Windows de Microsoft Store",
-        "hu": "Microsoft Store Windows alkalmazás UUID"
+        "et": "Windowsi rakenduse UUID-tunnus Microsoft Store'is",
+        "fr": "UUID d'application du Microsoft Store pour Windows",
+        "hu": "Microsoft Store Windows alkalmazás UUID",
+        "sv": "Microsoft Store Windows-program UUID",
+        "ta": "நுண்மென் கடை சாளரங்கள் பயன்பாடு UUID",
+        "uk": "UUID програми Windows від Microsoft Store",
+        "zh-hant": "微軟商城 Windows 應用程式 UUID"
       },
       "label": {
         "en": "Microsoft ID",
         "cs": "Microsoft ID",
         "de": "Microsoft ID",
+        "el": "Microsoft ID",
         "es": "ID de Microsoft",
-        "hu": "Microsoft ID"
+        "et": "Microsoft ID",
+        "fr": "Identifiant Microsoft",
+        "hu": "Microsoft ID",
+        "it": "ID Microsoft",
+        "sv": "Microsoft ID",
+        "ta": "நுண்மென் ஐடி",
+        "uk": "Ідентифікатор Microsoft",
+        "zh-hant": "微軟編號"
       },
       "example": "XXXXXXXXXXXX",
       "type": "line"
@@ -976,11 +1436,31 @@
     "obtainiumLink": {
       "description": {
         "en": "Link to Obtainium updater information",
-        "de": "Verweis zu Obtainium updater Informationen"
+        "cs": "Odkaz na informace o aktualizačním programu Obtainium",
+        "de": "Verweis zu Obtainium updater Informationen",
+        "el": "Σύνδεσμος για τις πληροφορίες ενημερωτή του Obtainium",
+        "es": "Enlace a la información de actualización de Obtainium",
+        "et": "Link lehele, mis kirjeldab uuendamist Obtainiumi jaoks",
+        "fr": "Lien vers les informations de mise à jour sur Obtainium",
+        "hu": "Link az Obtainium frissítési információkhoz",
+        "sv": "Länk till Obtainium updater information",
+        "ta": "புதுப்பிப்பு தகவல்களைப் பெறுவதற்கான இணைப்பு",
+        "uk": "Посилання на інформацію про оновлення Obtainium",
+        "zh-hant": "Obtainium 更新器資訊的連結"
       },
       "label": {
         "en": "Obtainium Updater Link",
-        "de": "Obtainium Updater Verweis"
+        "cs": "Odkaz na aktualizační program Obtainium",
+        "de": "Obtainium Updater Verweis",
+        "el": "Σύνδεσμος Ενημερωτή Obtainium",
+        "es": "Enlace de actualización de Obtainium",
+        "et": "Uuendamise link Obtainiumis",
+        "fr": "Lien de mise à jour Obtainium",
+        "hu": "Obtainium frissítési link",
+        "sv": "Obtainium Updater länk",
+        "ta": "புதுப்பிப்பு இணைப்பைப் பெறுங்கள்",
+        "uk": "Посилання для оновлення Obtainium",
+        "zh-hant": "Obtainium 更新器連結"
       },
       "example": "https://github.com/organicmaps/organicmaps/wiki/Installing-Organic-Maps-from-GitHub-using-Obtainium",
       "type": "line"
@@ -990,18 +1470,35 @@
         "en": "[Map display] Can it show a map?",
         "cs": "[Zobrazení mapy] Lze zobrazit mapu?",
         "de": "[Kartenanzeige] Kann eine Karte angezeigt werden?",
+        "el": "[Προβολή χάρτη] Μπορεί να εμφανίσει χάρτη;",
         "es": "[Visualización de mapa] ¿Puede mostrar un mapa?",
-        "hu": "[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"
+        "et": "[Kaardi kuvamine] Kas rakenduses on kaardivaade?",
+        "fr": "[Affichage de carte] Est-ce qu'une carte est affichée ?",
+        "hu": "[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?",
+        "sv": "[Map display] Kan det visa en karta?",
+        "ta": "[வரைபட காட்சி] இது ஒரு வரைபடத்தைக் காட்ட முடியுமா?",
+        "uk": "[Відображення карти] Чи може вона відображати карту?",
+        "zh-hant": "[地圖顯示] 能夠顯示地圖嗎？"
       },
       "label": {
         "en": "Display map",
         "cs": "Zobrazení mapy",
         "de": "Karte anzeigen",
+        "el": "Προβολή χάρτη",
         "es": "Mostrar mapa",
-        "hu": "Térkép megjelenítése"
+        "et": "Kaardi kuvamine",
+        "fr": "Affichage de carte",
+        "hu": "Térkép megjelenítése",
+        "sv": "Visa karta",
+        "ta": "வரைபடம் காட்சி",
+        "uk": "Показати карту",
+        "zh-hant": "顯示地圖"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "mapData": {
       "description": {
@@ -1009,71 +1506,140 @@
         "cs": "[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \"za běhu\" (vektory)?",
         "de": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?",
         "es": "[Visualización de mapas] ¿Mapas dibujados utilizando imágenes precalculadas/rasterizadas (raster) o \"sobre la marcha\" (vector)?",
-        "hu": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"
+        "et": "[Kaardi kuvamine] Kas kaart kuvatakse varemloodud piltide ja paanidena (rasterkaart) või „lennult“ (vektorkaart)?",
+        "fr": "[Affichage de carte] Les cartes sont-elles dessinées à partir d'images précalculées/rastérisées (raster) ou « à la volée » (vecteur) ?",
+        "hu": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)",
+        "sv": "[Kartvisning] Kartor ritade med förberäknade/rastrerade bilder (raster) eller \"on the fly\" (vektor)?",
+        "ta": "[Map display] Maps drawn using pre-calculated/rasterized படங்கள் (raster) or \"on the fly\" (vector)?",
+        "uk": "[Відображення карти] Карти, намальовані з використанням попередньо розрахованих/растрованих зображень (растрові) або «на льоту» (векторні)?",
+        "zh-hant": "[地圖顯示] 使用預先計算／渲染的圖片 (點陣) 來繪製地圖或是「即刻」 (向量)？"
       },
       "label": {
         "en": "Map data",
         "cs": "Mapová data",
         "de": "Kartendaten",
+        "el": "Δεδομένα χάρτη",
         "es": "Datos del mapa",
-        "hu": "Térképadatok"
+        "et": "Kaardiandmed",
+        "fr": "Données de carte",
+        "hu": "Térképadatok",
+        "sv": "Kartdata",
+        "ta": "வரைபட தரவு",
+        "uk": "Дані карти",
+        "zh-hant": "地圖資料"
       },
       "type": "line",
-      "suggestedvalues": ["raster", "vector"]
+      "suggestedvalues": [
+        "raster",
+        "vector"
+      ]
     },
     "datasource": {
       "description": {
         "en": "[Map display] Can you store all map data offline? Download a separate file?",
         "cs": "[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?",
         "de": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?",
+        "el": "[Προβολή χάρτη] Μπορεί να αποθηκεύσει όλα τα δεδομένα χάρτη εκτός σύνδεσης; Να κάνει λήψη ξεχωριστού αρχείου;",
         "es": "[Visualización de mapas] ¿Se pueden almacenar todos los datos de mapas sin conexión? ¿Se puede descargar un archivo aparte?",
-        "hu": "[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"
+        "et": "[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?",
+        "fr": "[Affichage de carte] Pouvez-vous stocker toutes les données cartographiques hors ligne ? Télécharger un fichier séparé ?",
+        "hu": "[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?",
+        "sv": "[Map display] Kan du lagra alla kartdata offline? Ladda ner en separat fil?",
+        "ta": "[வரைபட காட்சி] எல்லா வரைபடத் தரவையும் ஆஃப்லைனில் சேமிக்க முடியுமா? தனி கோப்பைப் பதிவிறக்கவா?",
+        "uk": "[Відображення карти] Чи можна зберігати всі дані карти офлайн? Завантажити окремий файл?",
+        "zh-hant": "[地圖顯示] 你是否能將地圖資料離線儲存？下載為獨立的檔案？"
       },
       "label": {
         "en": "Source",
         "cs": "Zdroj",
         "de": "Quelle",
+        "el": "Πηγή",
         "es": "Fuente",
-        "hu": "Forrás"
+        "et": "Kaardiallikas",
+        "fr": "Source",
+        "hu": "Forrás",
+        "sv": "Källa",
+        "ta": "மூலம்",
+        "uk": "Джерело",
+        "zh-hant": "來源"
       },
       "example": "online;cache",
       "type": "line",
-      "suggestedvalues": ["online", "cache", "offline"]
+      "suggestedvalues": [
+        "online",
+        "cache",
+        "offline"
+      ]
     },
     "rotateMap": {
       "description": {
         "en": "[Map display] Does it turn the map in driving/walking direction?",
         "cs": "[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?",
         "de": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?",
+        "el": "[Προβολή χάρτη] Μπορεί να περιστρέψει τον χάρτη κατά την οδική/πεζή καθοδήγηση;",
         "es": "[Visualización del mapa] ¿Gira el mapa en la dirección de conducción/caminata?",
-        "hu": "[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"
+        "et": "[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?",
+        "fr": "[Affichage de carte] La carte est-elle affichée dans le sens de la marche ou de la conduite ?",
+        "hu": "[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?",
+        "sv": "[Kartvisning] Vrider den kartan i kör-/gångriktning?",
+        "ta": "[வரைபட காட்சி] இது ஓட்டுநர்/நடைபயிற்சி திசையில் வரைபடத்தைத் திருப்புமா?",
+        "uk": "[Відображення карти] Чи повертає карта в напрямку руху/пішохідного руху?",
+        "zh-hant": "[地圖顯示] 開車/行走時地圖是否會隨行進方向轉動？"
       },
       "label": {
         "en": "Rotate map",
         "cs": "Rotace mapy",
         "de": "Karte drehen",
+        "el": "Περιστροφή χάρτη",
         "es": "Girar el mapa",
-        "hu": "Térkép elforgatása"
+        "et": "Kaardi pööramine",
+        "fr": "Rotation de la carte",
+        "hu": "Térkép elforgatása",
+        "sv": "Rotera kartan",
+        "ta": "வரைபடத்தை சுழற்றுங்கள்",
+        "uk": "Повернути карту",
+        "zh-hant": "旋轉地圖"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "3D": {
       "description": {
         "en": "[Map display] Is there some 3D or 2.5D view?",
         "cs": "[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?",
         "de": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?",
+        "el": "[Προβολή χάρτη] Υπάρχει διαθέσιμη προβολή 3D ή 2.5D;",
         "es": "[Visualización del mapa] ¿Hay alguna vista 3D o 2.5D?",
-        "hu": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"
+        "et": "[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?",
+        "fr": "[Affichage de carte] Existe-t-il une vue en 3D ou en 2,5D ?",
+        "hu": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?",
+        "sv": "[Map display] Finns det någon 3D eller 2,5D-vy?",
+        "ta": "[வரைபட காட்சி] சில 3D அல்லது 2.5D பார்வை உள்ளதா?",
+        "uk": "[Відображення карти] Чи є 3D або 2.5D зображення?",
+        "zh-hant": "[地圖顯示] 是否有 3D 或是 2.5D 檢視？"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"],
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ],
       "label": {
         "en": "3D view",
         "cs": "3D pohled",
         "de": "3D-Ansicht",
+        "el": "3D προβολή",
         "es": "Vista 3D",
-        "hu": "3D nézet"
+        "et": "3D-vaade",
+        "fr": "Vue 3D",
+        "hu": "3D nézet",
+        "it": "Vista 3D",
+        "sv": "3D-vy",
+        "ta": "3 டி பார்வை",
+        "uk": "3D-вигляд",
+        "zh-hant": "3D 檢視"
       }
     },
     "showWebsite": {
@@ -1081,108 +1647,200 @@
         "en": "[POI Information] Shows link to the website from POI",
         "cs": "[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu",
         "de": "[POI Information] Zeigt den Link zur Website vom POI an",
+        "el": "[Πληφοροφίες ΣΕ] Εμφανίζει σύνδεσμο προς τον ιστότοπο ενός ΣΕ",
         "es": "[Información del POI] Muestra el enlace a la página web desde el POI",
-        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalra mutató linkjét?"
+        "fr": "[Information des POI] Affiche un lien vers le site Web sur les points d'intérêt",
+        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalára mutató linket?",
+        "sv": "[POI Information] Visar länk till webbplatsen från POI",
+        "ta": "[POI தகவல்] POI இலிருந்து வலைத்தளத்திற்கான இணைப்பைக் காட்டுகிறது",
+        "uk": "[Інформація про POI] Показує посилання на вебсайт з POI",
+        "zh-hant": "[興趣點資訊] 從興趣點顯示網站的連結"
       },
       "label": {
         "en": "Shows website",
         "cs": "Zobrazení webové stránky",
         "de": "Website anzeigen",
+        "el": "Εμφάνιση ιστότοπου",
         "es": "Muestra la página web",
-        "hu": "Megjelenít-e weboldalt?"
+        "et": "Näitab veebisaiti",
+        "fr": "Affiche le site Web",
+        "hu": "Megjelenít-e weboldalt?",
+        "it": "Mostra la pagina web",
+        "sv": "Visar hemsida",
+        "ta": "வலைத்தளத்தைக் காட்டுகிறது",
+        "uk": "Показує веб-сайт",
+        "zh-hant": "顯示網站"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showPhoneNumber": {
       "description": {
         "en": "[POI Information] Shows phone number from POI",
         "cs": "[Informace o POI] Zobrazí telefonní číslo z POI",
         "de": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
+        "el": "[Πληφοροφίες ΣΕ] Εμφανίζει τον αριθμό τηλεφώνου ενός ΣΕ",
         "es": "[Información del PDI] Muestra el número de teléfono del PDI",
-        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"
+        "fr": "[Information des POI] Affiche le numéro de téléphone sur les points d'intérêt",
+        "hu": "[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?",
+        "sv": "[POI Information] Visar telefonnummer från POI",
+        "ta": "[POI தகவல்] POI இலிருந்து தொலைபேசி எண்ணைக் காட்டுகிறது",
+        "uk": "[Інформація про POI] Показує номер телефону з POI",
+        "zh-hant": "[興趣點資訊] 從興趣點顯示電話號碼"
       },
       "label": {
         "en": "Shows phone number",
         "cs": "Zobrazí telefonní číslo",
         "de": "Zeigt Telefonnummer",
+        "el": "Εμφάνιση αριθμού τηλεφώνου",
         "es": "Muestra el número de teléfono",
-        "hu": "Megjelenít-e telefonszámot?"
+        "fr": "Affiche le numéro de téléphone",
+        "hu": "Megjelenít-e telefonszámot?",
+        "sv": "Visar telefonnummer",
+        "ta": "தொலைபேசி எண்ணைக் காட்டுகிறது",
+        "uk": "Показує номер телефону",
+        "zh-hant": "顯示電話號碼"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showOpeningHours": {
       "description": {
         "en": "[POI Information] Shows hours of operation from POI",
         "cs": "[Informace o POI] Zobrazí provozní dobu z POI",
         "de": "[POI-Informationen] Zeigt die Betriebszeiten des POI an.",
+        "el": "[Πληφοροφίες ΣΕ] Εμφανίζει το ωράριο λειτουργίας ενός ΣΕ",
         "es": "[Información del POI] Muestra el horario de funcionamiento del POI",
-        "hu": "[POI információ] Megjeleníti-e a POI nyitvatartási idejét?"
+        "fr": "[Information des POI] Affiche les horaires sur les points d'intérêt",
+        "hu": "[POI információ] Megjeleníti-e a POI nyitvatartási idejét?",
+        "sv": "[POI-information] Visar öppettider från POI",
+        "ta": "[POI தகவல்] POI இலிருந்து செயல்படும் மணிநேரங்களைக் காட்டுகிறது",
+        "uk": "[Інформація про POI] Показує години роботи від POI",
+        "zh-hant": "[興趣點資訊] 從興趣點顯示營運時間"
       },
       "label": {
         "en": "Shows operation hours",
         "cs": "Zobrazuje provozní dobu",
         "de": "Zeigt die Betriebszeiten an",
+        "el": "Εμφάνιση ωραρίου λειτουργίας",
         "es": "Indica el horario de apertura",
-        "hu": "Megjelenít-e nyitva tartást?"
+        "fr": "Affiche les horaires",
+        "hu": "Megjelenít-e nyitva tartást?",
+        "sv": "Visar öppettider",
+        "ta": "செயல்பாட்டு நேரங்களைக் காட்டுகிறது",
+        "uk": "Показує години роботи",
+        "zh-hant": "顯示營運時間"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "routing": {
       "description": {
         "en": "[Routing] Can you calculate or otherwise plan a route?",
         "cs": "[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?",
         "de": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
+        "el": "[Δρομολόγηση] Μπορείτε να υπολογίσετε ή να σχεδιάσετε μια διαδρομή;",
         "es": "[Enrutamiento] ¿Puedes calcular o planificar de alguna manera una ruta?",
-        "hu": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"
+        "fr": "[Guidage] Pouvez-vous calculer ou planifier un itinéraire ?",
+        "hu": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?",
+        "sv": "[Routing] Kan du beräkna eller på annat sätt planera en rutt?",
+        "ta": "[ரூட்டிங்] நீங்கள் ஒரு வழியைக் கணக்கிட அல்லது திட்டமிட முடியுமா?",
+        "uk": "[Маршрут] Чи можете ви розрахувати або іншим чином спланувати маршрут?",
+        "zh-hant": "[導航] 你是否能計算或是計畫行進路線？"
       },
       "label": {
         "en": "Routing",
         "cs": "Hledání trasy",
         "de": "Routenplanung",
+        "el": "Δρομολόγηση",
         "es": "Enrutamiento",
-        "hu": "Útvonaltervezés"
+        "fr": "Guidage",
+        "hu": "Útvonaltervezés",
+        "sv": "Ruttläggning",
+        "ta": "ரூட்டிங்",
+        "uk": "Маршрутизація",
+        "zh-hant": "導航"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "createRouteManually": {
       "description": {
         "en": "[Routing]",
         "cs": "[Hledání trasy]",
         "de": "[Routenplanung]",
+        "el": "[Δρομολόγηση]",
         "es": "[Enrutamiento]",
-        "hu": "[Útvonaltervezés]"
+        "fr": "[Guidage]",
+        "hu": "[Útvonaltervezés]",
+        "sv": "[Routing]",
+        "ta": "[ரூட்டிங்]",
+        "uk": "[Маршрутизація]",
+        "zh-hant": "[導航]"
       },
       "label": {
         "en": "Create route manually",
         "cs": "Vytvoření trasy ručně",
         "de": "Route von Hand eingeben",
+        "el": "Δημιουργία διαδρομής χειροκίνητα",
         "es": "Crear ruta manualmente",
-        "hu": "Útvonal létrehozása manuálisan"
+        "fr": "Créer un itinéraire manuellement",
+        "hu": "Útvonal létrehozása manuálisan",
+        "sv": "Skapa rutt manuellt",
+        "ta": "வழியை கைமுறையாக உருவாக்கவும்",
+        "uk": "Створити маршрут вручну",
+        "zh-hant": "手動創建導航"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "calculateRoute": {
       "description": {
         "en": "[Routing] Can it calculate a route using routing?",
         "cs": "[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?",
         "de": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?",
+        "el": "[Δρομολόγηση] Μπορεί να υπολογίσει μια διαδρομή χρησιμοποιώντας δρομολόγηση;",
         "es": "[Enrutamiento] ¿Puede calcular una ruta utilizando enrutamiento?",
-        "hu": "[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"
+        "fr": "[Guidage] Peut-il calculer un itinéraire en utilisant le routage ?",
+        "hu": "[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?",
+        "sv": "[Ruttläggning] Kan den beräkna en rutt med hjälp av Ruttplanering?",
+        "ta": "[வழிசெலுத்துதல்] வழிசெலுத்துதல் பயன்படுத்தி ஒரு வழியைக் கணக்கிட முடியுமா?",
+        "uk": "[Маршрутизація] Чи може він розрахувати маршрут за допомогою маршрутизації?",
+        "zh-hant": "[導航] 是否透過導航計算行進路線？"
       },
       "label": {
         "en": "Calculate route",
         "cs": "Výpočet trasy",
         "de": "Route berechnen",
+        "el": "Υπολογισμός διαδρομής",
         "es": "Calcular ruta",
-        "hu": "Útvonal kiszámítása"
+        "fr": "Calculer un itinéraire",
+        "hu": "Útvonal kiszámítása",
+        "sv": "Beräkna rutt",
+        "ta": "வழியைக் கணக்கிடுங்கள்",
+        "uk": "Розрахувати маршрут",
+        "zh-hant": "計算導航路線"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "createRouteViaWaypoints": {
       "description": {
@@ -1190,32 +1848,54 @@
         "cs": "[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů",
         "de": "[Routenplanung] Kann Route über Wegpunkte berechnen",
         "es": "[Enrutamiento] Posibilidad de calcular la ruta a través de puntos de referencia",
-        "hu": "[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"
+        "fr": "[Guidage] Capacité de créer un itinéraire à partir de points",
+        "hu": "[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?",
+        "sv": "[Ruttläggning] Kan beräkna rutt via Vägpunkter",
+        "ta": "[ரூட்டிங்] வழிப்பாதைகள் வழியாக வழியைக் கணக்கிட முடியும்",
+        "uk": "[Маршрутизація] Можливість розраховувати маршрут через Waypoints"
       },
       "label": {
         "en": "Create route via Waypoints",
         "cs": "Vytvoření trasy pomocí bodů trasy",
         "de": "Route über Wegpunkte erstellen",
         "es": "Crear ruta a través de Waypoints",
-        "hu": "Útvonal létrehozása útpontokkal"
+        "fr": "Créer un itinéraire à partir de points",
+        "hu": "Útvonal létrehozása útpontokkal",
+        "sv": "Skapa rutt via vägpunkter",
+        "ta": "வழிப்பாதைகள் வழியாக வழியை உருவாக்கவும்",
+        "uk": "Створіть маршрут через Waypoints",
+        "zh-hant": "透過路徑點創建導航"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "profiles": {
       "description": {
         "en": "[Routing] What profiles supported if it makes routing?",
         "cs": "[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?",
         "de": "[Routing] Welche Profile werden beim Routing unterstützt?",
+        "el": "[Δρομολόγηση] Τι προφίλ υποστηρίζονται εάν κάνει δρομολόγηση;",
         "es": "[Enrutamiento] ¿Qué perfiles se admiten si se realiza enrutamiento?",
-        "hu": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"
+        "fr": "[Guidage] Quels sont les profils pris en charge s'ils font du routage ?",
+        "hu": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?",
+        "sv": "[Ruttläggning] Vilka profiler stöds om den gör Ruttplanering?",
+        "ta": "[வழிசெலுத்துதல்] வழிசெலுத்துதல் செய்தால் என்ன சுயவிவரங்கள் ஆதரிக்கின்றன?",
+        "uk": "[Маршрутизація] Які профілі підтримуються, якщо виконується маршрутизація?"
       },
       "label": {
         "en": "Routing profiles",
         "cs": "Profily hledání trasy",
         "de": "Routing Profile",
+        "el": "Προφίλ δρομολόγησης",
         "es": "Perfiles de enrutamiento",
-        "hu": "Útvonaltervezési profilok"
+        "fr": "Profils de guidage",
+        "hu": "Útvonaltervezési profilok",
+        "sv": "Ruttplaneringsprofiler",
+        "ta": "ரூட்டிங் சுயவிவரங்கள்",
+        "uk": "Профілі маршрутизації"
       },
       "example": "car;bike;foot;wheelchair;public transport",
       "type": "line",
@@ -1232,51 +1912,87 @@
         "en": "[Routing] Can it deal with turn restrictions?",
         "cs": "[Hledání trasy] Dokáže se vypořádat s omezením otáčení?",
         "de": "[Routing] Kann es mit Abbiegeverboten umgehen?",
+        "el": "[Δρομολόγηση] Μπορεί να χειριστεί περιορισμούς στροφής;",
         "es": "[Enrutamiento] ¿Puede lidiar con restricciones de giro?",
-        "hu": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"
+        "fr": "[Guidage] Peut-il gérer les restrictions de circulation ?",
+        "hu": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?",
+        "sv": "[Ruttläggning] Kan den hantera svängbegränsningar?",
+        "ta": "[ரூட்டிங்] திருப்பக் கட்டுப்பாடுகளைச் சமாளிக்க முடியுமா?",
+        "uk": "[Маршрут] Чи може він враховувати обмеження повороту?"
       },
       "label": {
         "en": "Turn restrictions",
         "cs": "Omezení otáčení",
         "de": "Abbiegebeschränkungen",
+        "el": "Περιορισμοί στροφής",
         "es": "Restricciones de giro",
-        "hu": "Bekanyarodási korlátozások"
+        "fr": "Restrictions de direction",
+        "hu": "Bekanyarodási korlátozások",
+        "sv": "Svängrestriktioner",
+        "ta": "கட்டுப்பாடுகளைத் திருப்புங்கள்",
+        "uk": "Обмеження поворотів"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "calculateRouteOffline": {
       "description": {
         "en": "[Routing] Does it need internet to calculate a route?",
         "cs": "[Hledání trasy] Potřebuje k výpočtu trasy internet?",
         "de": "[Routing] Braucht es Internet, um eine Route zu berechnen?",
+        "el": "[Δρομολόγηση] Χρειάζεται σύνδεση στο Διαδίκτυο για τον υπολογισμός διαδρομής;",
         "es": "[Enrutamiento] ¿Necesita Internet para calcular una ruta?",
-        "hu": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"
+        "fr": "[Guidage] Une connexion Internet est-t-elle nécessaire pour calculer un itinéraire ?",
+        "hu": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?",
+        "sv": "[Ruttberäkning] Behöver den internet för att beräkna en rutt?",
+        "ta": "[ரூட்டிங்] ஒரு வழியைக் கணக்கிட இணையம் தேவையா?",
+        "uk": "[Маршрутизація] Чи потрібен інтернет для розрахунку маршруту?"
       },
       "label": {
         "en": "Calculate route without Internet (Offline routing)",
         "cs": "Výpočet trasy bez internetu (hledání trasy offline)",
         "de": "Route berechnen ohne Internet",
+        "el": "Υπολογισμός διαδρομής χωρίς Διαδίκτυο (Δρομολόγηση χωρίς σύνδεση)",
         "es": "Calcular ruta sin Internet (Enrutamiento sin conexión)",
-        "hu": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)"
+        "fr": "Calcul d'itinéraire sans Internet (Guidage hors-ligne)",
+        "hu": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)",
+        "sv": "Beräkna rutt utan internet (offline-ruttläggning)",
+        "ta": "இணையம் இல்லாமல் பாதையை கணக்கிடுங்கள் (ஆஃப்லைன் ரூட்டிங்)",
+        "uk": "Розрахувати маршрут без Інтернету (офлайн-маршрутизація)"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "routingProviders": {
       "description": {
         "en": "[Routing] What routing service(s) does it use?",
         "cs": "[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?",
         "de": "[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?",
+        "el": "[Δρομολόγηση] Τι υπηρεσία/ες δρομολόγησης χρησιμοποιεί;",
         "es": "[Enrutamiento] ¿Qué servicio(s) de enrutamiento utiliza?",
-        "hu": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
+        "fr": "[Guidage] Quels services sont utilisés ?",
+        "hu": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?",
+        "sv": "[Ruttläggning] Vilka ruttläggningtjänster använder den?",
+        "ta": "[ரூட்டிங்] என்ன ரூட்டிங் சேவைகள்) இது பயன்படுத்துகிறது?",
+        "uk": "[Маршрутизація] Які служби маршрутизації використовуються?"
       },
       "label": {
         "en": "Routing providers",
         "cs": "Poskytovatelé hledání tras",
         "de": "Routing-Anbieter",
+        "el": "Πάροχοι δρομολόγησης",
         "es": "Proveedores de enrutamiento",
-        "hu": "Útvonaltervezési szolgáltatók"
+        "fr": "Fournisseurs de guidage",
+        "hu": "Útvonaltervezési szolgáltatók",
+        "sv": "Ruttläggningleverantörer",
+        "ta": "ரூட்டிங் வழங்குநர்கள்",
+        "uk": "Постачальники маршрутизації"
       },
       "example": "OpenRouteService;Yours",
       "type": "line",
@@ -1295,33 +2011,56 @@
         "en": "[Routing] Does app optimize route to avoid traffic jams?",
         "cs": "[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?",
         "de": "[Routing] Optimiert die App die Route, um Staus zu vermeiden?",
+        "el": "[Δρομολόγηση] Βελτιστοποιεί η εφαρμοφή την διαδρομή για αποφυγή μποτιλιαρίσματος;",
         "es": "[Enrutamiento] ¿La aplicación optimiza la ruta para evitar atascos?",
-        "hu": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"
+        "fr": "[Guidage] L'application optimise-t-elle l'itinéraire pour éviter les embouteillages ?",
+        "hu": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?",
+        "sv": "[Ruttplanering] Optimerar appen rutten för att undvika trafikstockningar?",
+        "ta": "[ரூட்டிங்] போக்குவரத்து நெரிசல்களைத் தவிர்க்க பயன்பாடு பாதையை மேம்படுத்துகிறதா?",
+        "uk": "[Маршрутизація] Чи оптимізує додаток маршрут, щоб уникнути заторів?"
       },
       "label": {
         "en": "Avoid traffic",
         "cs": "Vyhýbání se provozu",
         "de": "Verkehr vermeiden",
+        "el": "Αποφυγή κίνησης",
         "es": "Evitar el tráfico",
-        "hu": "Forgalom elkerülése"
+        "fr": "Évitement du trafic",
+        "hu": "Forgalom elkerülése",
+        "sv": "Undvik trafik",
+        "ta": "போக்குவரத்தைத் தவிர்க்கவும்",
+        "uk": "Уникайте заторів"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "trafficProvider": {
       "description": {
         "en": "[Routing] Traffic data source provider.",
         "cs": "[Hledání trasy] Poskytovatel zdroje dopravních dat.",
         "de": "[Routing] Anbieter der Verkehrsdatenquelle.",
+        "el": "[Δρομολόγηση] Πηγή παρόχου για δεδομένα κυκλοφορίας.",
         "es": "[Enrutamiento] Proveedor de la fuente de datos del tráfico.",
-        "hu": "[Útvonaltervezés] Forgalmi adatok forrásának szolgáltatója"
+        "fr": "[Guidage] Fournisseur des données de trafic.",
+        "hu": "[Útvonaltervezés] Forgalmi adatok forrása",
+        "sv": "[Ruttläggning] Leverantör av trafikdatakälla.",
+        "ta": "[ரூட்டிங்] போக்குவரத்து தரவு மூல வழங்குநர்.",
+        "uk": "[Маршрутизація] Постачальник джерела даних про трафік."
       },
       "label": {
         "en": "Traffic Provider",
         "cs": "Poskytovatel informací o provozu",
         "de": "Verkehrsanbieter",
+        "el": "Πάροχος κίνησης",
         "es": "Proveedor de tráfico",
-        "hu": "Forgalmi szolgáltató"
+        "fr": "Fournisseur de trafic",
+        "hu": "Forgalmi szolgáltató",
+        "sv": "Trafikleverantör",
+        "ta": "போக்குவரத்து வழங்குநர்",
+        "uk": "Постачальник трафіку"
       },
       "type": "line"
     },
@@ -1330,636 +2069,1154 @@
         "en": "[Navigation] Can you navigate in a compass like way?",
         "cs": "[Navigace] Umíte se orientovat podle kompasu?",
         "de": "[Navigation] Kann man mit einem Kompass navigieren?",
+        "el": "[Πλοήγηση] Μπορεί να σας πλοηγήσει σε μορφή πυξίδας;",
         "es": "[Navegación] ¿Puedes navegar con una brújula?",
-        "hu": "[Navigáció] Tud-e iránytűszerűen navigálni?"
+        "fr": "[Navigation] Pouvez-vous naviguer à la manière d'une boussole ?",
+        "hu": "[Navigáció] Tud-e iránytűszerűen navigálni?",
+        "sv": "[Navigering] Kan du navigera på ett kompass liknande sätt?",
+        "ta": "[வழிசெலுத்தல்] நீங்கள் ஒரு திசைகாட்டி வழியில் செல்ல முடியுமா?",
+        "uk": "[Навігація] Чи можете ви орієнтуватися за допомогою компаса?"
       },
       "label": {
         "en": "Navigate",
         "cs": "Navigace",
         "de": "Navigieren",
+        "el": "Πλοήγηση",
         "es": "Navegar",
-        "hu": "Navigáció"
+        "fr": "Naviguer",
+        "hu": "Navigáció",
+        "it": "Naviga",
+        "sv": "Navigera",
+        "ta": "செல்லவும்",
+        "uk": "Навігації"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "findLocation": {
       "description": {
         "en": "[Navigation] Can it search for a street/place?",
         "cs": "[Navigace] Umí vyhledat ulici/místo?",
         "de": "[Navigation] Kann man nach einer Straße/einem Ort suchen?",
+        "el": "[Πλοήγηση] Μπορεί να αναζητήσει για οδό/μέρος;",
         "es": "[Navegación] ¿Puede buscar una calle/lugar?",
-        "hu": "[Navigáció] Lehet-e utcát/helyet keresni?"
+        "fr": "[Navigation] Est-il possible de rechercher une rue ou un lieu ?",
+        "hu": "[Navigáció] Lehet-e utcát/helyet keresni?",
+        "sv": "[Navigering] Kan det söka efter en gata/plats?",
+        "ta": "[வழிசெலுத்தல்] இது ஒரு தெரு/இடத்தைத் தேட முடியுமா?",
+        "uk": "[Навігація] Чи може він шукати вулицю/місце?"
       },
       "label": {
         "en": "Find location",
         "cs": "Hledání polohy",
         "de": "Finde eine Position",
+        "el": "Εύρεση τοποθεσίας",
         "es": "Encontrar ubicación",
-        "hu": "Hely keresése"
+        "fr": "Rechercher un lieu",
+        "hu": "Hely keresése",
+        "sv": "Hitta plats",
+        "ta": "இருப்பிடத்தைக் கண்டறியவும்",
+        "uk": "Знайти місцезнаходження"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "findNearbyPOI": {
       "description": {
         "en": "[Navigation] Can it discover/display Points of interests?",
         "cs": "[Navigace] Umí najít/zobrazit body zájmu?",
         "de": "[Navigation] Kann es Points of Interest anzeigen?",
+        "el": "[Πλοήγηση] Μπορεί να ανακαλύψει/εμφανίσει Σημεία Ενδιαφέροντος;",
         "es": "[Navegación] ¿Puede descubrir/mostrar puntos de interés?",
-        "hu": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"
+        "fr": "[Navigation] Est-il possible de découvrir/afficher des points d'intérêt ?",
+        "hu": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?",
+        "sv": "[Navigering] Kan den upptäcka/visa intressanta platser?",
+        "ta": "[வழிசெலுத்தல்] ஆர்வங்களின் புள்ளிகளைக் கண்டறிய/காண்பிக்க முடியுமா?",
+        "uk": "[Навігація] Чи може воно знаходити/відображати цікаві місця?"
       },
       "label": {
         "en": "Find nearby POIs",
         "cs": "Hledání blízkých bodů zájmu",
         "de": "Finde POI in der Nähe",
+        "el": "Εύρεση κοντινών ΣΕ",
         "es": "Encuentra puntos de interés cercanos",
-        "hu": "Közeli POI-k keresése"
+        "fr": "Rechercher des points d'intérêts proches",
+        "hu": "Közeli POI-k keresése",
+        "sv": "Hitta närliggande POI",
+        "ta": "அருகிலுள்ள POI களைக் கண்டுபிடி",
+        "uk": "Знайти поблизу об'єктів загального призначення"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "navToPoint": {
       "description": {
         "en": "[Navigation] Can it guide you to a point somewhere?",
         "cs": "[Navigace] Dokáže vás navigovat někam?",
         "de": "[Navigation] Kann es einen zu einem bestimmten Punkt führen?",
+        "el": "[Πλοήγηση] Μπορεί να σας καθοδηγήσει σε κάποιο σημείο;",
         "es": "[Navegación] ¿Puede guiarte a un punto en algún lugar?",
-        "hu": "[Navigáció] El tud-e vezetni valahová?"
+        "fr": "[Navigation] Est-il possible de naviguer vers un point quelque part ?",
+        "hu": "[Navigáció] El tud-e vezetni valahová?",
+        "sv": "[Navigering] Kan den vägleda dig till en punkt någonstans?",
+        "ta": "[வழிசெலுத்தல்] எங்காவது ஒரு கட்டத்திற்கு உங்களை வழிநடத்த முடியுமா?",
+        "uk": "[Навігація] Чи може це направити вас до певної точки?"
       },
       "label": {
         "en": "Navigate to point",
         "cs": "Navigace do bodu",
         "de": "Navigiere zu einem Punkt",
+        "el": "Πλοήγηση σε σημείο",
         "es": "Navegar hasta el punto",
-        "hu": "Navigáció ponthoz"
+        "fr": "Naviguer vers un point",
+        "hu": "Navigáció ponthoz",
+        "sv": "Navigera till punkt",
+        "ta": "புள்ளிக்கு செல்லவும்",
+        "uk": "Перейти до точки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "voice": {
       "description": {
         "en": "[Navigation] Can it give you commands with a computer voice?",
         "cs": "[Navigace] Umí vám dávat příkazy počítačovým hlasem?",
         "de": "[Navigation] Kann es Befehle mit einer Computerstimme geben?",
+        "el": "[Πλοήγηση] Μπορεί να σας δώσει οδηγίες με φωνή υπολογιστή;",
         "es": "[Navegación] ¿Puede darte comandos con una voz artificial?",
-        "hu": "[Navigáció] Tud-e számítógéphanggal utasítást adni?"
+        "fr": "[Navigation] Les instructions peuvent-elles être données par synthèse vocale ?",
+        "hu": "[Navigáció] Tud-e számítógéphanggal utasítást adni?",
+        "sv": "[Navigering] Kan det ge dig kommandon med en datorröst?",
+        "ta": "[வழிசெலுத்தல்] இது கணினி குரலுடன் கட்டளைகளை வழங்க முடியுமா?",
+        "uk": "[Навігація] Чи може він віддавати команди комп'ютерним голосом?"
       },
       "label": {
         "en": "Navigation with voice / Voice guidance",
         "cs": "Navigace s hlasem / Hlasové navádění",
         "de": "Navigation mit Sprachansage",
+        "el": "Πλοήγηση με φωνή / Φωνητική πλοήγηση",
         "es": "Navegación por voz / Guía por voz",
-        "hu": "Hangos navigáció / Hangvezérlés"
+        "fr": "Navigation vocale / Guidage vocal",
+        "hu": "Hangos navigáció / Hangvezérlés",
+        "sv": "Navigering med röst / röstvägledning",
+        "ta": "குரல் வழிகாட்டுதலுடன் வழிசெலுத்தல்",
+        "uk": "Навігація з голосом / Голосові підказки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "keepOnRoad": {
       "description": {
         "en": "[Navigation] Can it assist you to keep your vehicle on the calculated route?",
         "cs": "[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?",
         "de": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?",
+        "el": "[Πλοήγηση] Μπορεί να σας βοηθήσει στο να διατηρήσετε το όχημά σας στην υπολογισμένη διαδρομή;",
         "es": "[Navegación] ¿Puede ayudarle a mantener su vehículo en la ruta calculada?",
-        "hu": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"
+        "fr": "[Navigation] Peut-il vous aider à maintenir votre véhicule sur l'itinéraire calculé ?",
+        "hu": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?",
+        "sv": "[Navigering] Kan det hjälpa dig att hålla ditt fordon på den beräknade vägen?",
+        "ta": "[வழிசெலுத்தல்] உங்கள் வாகனத்தை கணக்கிடப்பட்ட பாதையில் வைக்க இது உங்களுக்கு உதவ முடியுமா?",
+        "uk": "[Навігація] Чи може це допомогти вам утримувати ваш автомобіль на розрахованому маршруті?"
       },
       "label": {
         "en": "Keep on road",
         "cs": "Pokračování v cestě",
         "de": "Auf der Straße bleiben",
+        "el": "Διατήρηση στο δρόμο",
         "es": "Siga por la carretera",
-        "hu": "Úton tartás"
+        "fr": "Rester sur la route",
+        "hu": "Úton tartás",
+        "sv": "Håll dig på vägen",
+        "ta": "சாலையில் வைத்திருங்கள்",
+        "uk": "Тримайтеся дороги"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "turnLanes": {
       "description": {
         "en": "[Navigation] Does it support lane guidance?",
         "cs": "[Navigace] Podporuje navádění do jízdních pruhů?",
+        "de": "[Navigation] Unterstützt es die Fahrspurführung?",
+        "el": "[Πλοήγηση] Υποστηρίζει καθοδήγηση λωρίδας;",
         "es": "[Navegación] ¿Es compatible con la guía de carriles?",
-        "hu": "[Navigáció] Támogatja-e a sávok közötti vezetést?"
+        "fr": "[Navigation] Le guidage des voies est-il pris en charge ?",
+        "hu": "[Navigáció] Támogatja-e a sávok közötti vezetést?",
+        "sv": "[Navigering] Har den stöd för filvägledning?",
+        "ta": "[வழிசெலுத்தல்] இது பாதை வழிகாட்டலை ஆதரிக்கிறதா?",
+        "uk": "[Навігація] Чи підтримується підказка щодо смуги руху?"
       },
       "label": {
         "en": "Lane guidance",
         "cs": "Navádění do jízdních pruhů",
         "de": "Fahrspurführung",
+        "el": "Καθοδήγηση λωρίδας",
         "es": "Guía de carriles",
-        "hu": "Sávvezetés"
+        "fr": "Guidage des voies",
+        "hu": "Sávvezetés",
+        "sv": "Körfältsvägledning",
+        "ta": "சந்து வழிகாட்டுதல்",
+        "uk": "Керування смугою руху"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "withoutGPS": {
       "description": {
         "en": "[Navigation] Does it work even without a GPS?",
         "cs": "[Navigace] Bude fungovat i bez GPS?",
+        "de": "[Navigation] Funktioniert auch ohne GPS?",
+        "el": "[Πλοήγηση] Μπορεί να δουλέψει χωρίς το GPS;",
         "es": "[Navegación] ¿Funciona incluso sin GPS?",
-        "hu": "[Navigáció] Működik-e akár GPS nélkül is?"
+        "fr": "[Navigation] Est-ce que cela fonctionne même sans GPS ?",
+        "hu": "[Navigáció] Működik-e akár GPS nélkül is?",
+        "sv": "[Navigering] Fungerar det även utan GPS?",
+        "ta": "[வழிசெலுத்தல்] சி.பி.எச் இல்லாமல் கூட இது வேலை செய்யுமா?",
+        "uk": "[Навігація] Чи працює це навіть без GPS?"
       },
       "label": {
         "en": "Works without GPS",
         "cs": "Fungování bez GPS",
         "de": "Funktioniert ohne GPS",
+        "el": "Εργασία χωρίς GPS",
         "es": "Funcionar sin GPS",
-        "hu": "Működés GPS nélkül"
+        "fr": "Fonctionne sans GPS",
+        "hu": "Működés GPS nélkül",
+        "sv": "Fungerar utan GPS",
+        "ta": "சி.பி.எச் இல்லாமல் வேலை செய்கிறது",
+        "uk": "Працює без GPS"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "predefinedRoute": {
       "description": {
         "en": "[Navigation] Can it follow other GPS tracks?",
         "cs": "[Navigace] Umí sledovat jiné GPS trasy?",
+        "de": "[Navigation] Kann anderen GPS-Tracks folgen?",
+        "el": "[Πλοήγηση] Μπορεί να ακολουθήσει άλλα ίχνη GPS;",
         "es": "[Navegación] ¿Puede seguir otras rutas GPS?",
-        "hu": "[Navigáció] Tud-e más GPS-nyomvonalat követni?"
+        "fr": "[Navigation] Peut-il suivre d'autres traces GPS ?",
+        "hu": "[Navigáció] Tud-e más GPS-nyomvonalat követni?",
+        "sv": "[Navigering] Kan det följa andra GPS-spår?",
+        "ta": "[வழிசெலுத்தல்] இது மற்ற சி.பி.எச் தடங்களைப் பின்பற்ற முடியுமா?",
+        "uk": "[Навігація] Чи може він слідувати за іншими GPS-треками?"
       },
       "label": {
         "en": "Navigate along predefined route",
         "cs": "Navigace po předem definované trase",
         "de": "Folge einer vordefinierten Route",
+        "el": "Πλοήγηση μέσω προκαθορισμένης διαδρομής",
         "es": "Navegar por una ruta predefinida",
-        "hu": "Navigálás előre meghatározott útvonalon"
+        "fr": "Naviguer le long d'un itinéraire prédéfini",
+        "hu": "Navigálás előre meghatározott útvonalon",
+        "sv": "Navigera längs fördefinierad rutt",
+        "ta": "முன் வரையறுக்கப்பட்ட பாதையில் செல்லவும்",
+        "uk": "Навігація за заздалегідь визначеним маршрутом"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "tracking": {
       "description": {
         "en": "[Track logging] Can it record a GPS track?",
         "cs": "[Záznam trasy] Lze zaznamenat trasu GPS?",
+        "de": "[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?",
+        "el": "[Καταγραφή ίχνους] Μπορεί να καταγράψει ένα ίχνος GPS;",
         "es": "[Registro de seguimiento] ¿Puede grabar un track de GPS?",
-        "hu": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"
+        "fr": "[Enregistrement des traces] Peut-il enregistrer une trace GPS ?",
+        "hu": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?",
+        "sv": "[Track logging] Kan det spela in ett GPS-spår?",
+        "ta": "[ட்ராக் லாக்கிங்] சி.பி.எச் பாதையை பதிவு செய்ய முடியுமா?",
+        "uk": "[Реєстрація треку] Чи може він записувати GPS-трек?"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"],
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ],
       "label": {
         "en": "Make track",
         "cs": "Vytvoření trasy",
         "de": "Track aufzeichnen",
+        "el": "Δημιουργία ίχνους",
         "es": "Realizar un seguimiento",
-        "hu": "Nyomvonalkészítés"
+        "fr": "Créer une trace",
+        "hu": "Nyomvonalkészítés",
+        "sv": "Gör spår",
+        "ta": "கண்காணிக்கவும்",
+        "uk": "Зробити трек"
       }
     },
     "customInterval": {
       "description": {
         "en": "[Track logging] Can you tune the interval manually?",
         "cs": "[Záznam trasy] Lze interval nastavit ručně?",
+        "de": "[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?",
+        "el": "[Καταγραφή ίχνος] Μπορείτε να ρυθμίσετε το μεσοδιάστημα χειροκίνητα;",
         "es": "[Registro de pistas] ¿Puedes ajustar el intervalo manualmente?",
-        "hu": "[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"
+        "fr": "[Enregistrement des traces] Pouvez-vous régler l'intervalle manuellement ?",
+        "hu": "[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?",
+        "sv": "[Track logging] Kan du ställa in intervallet manuellt?",
+        "ta": "[ட்ராக் லாக்கிங்] இடைவெளியை கைமுறையாக இசைக்க முடியுமா?",
+        "uk": "[Реєстрація треку] Чи можна налаштувати інтервал вручну?"
       },
       "label": {
         "en": "Customizable log interval",
         "cs": "Přizpůsobitelný interval záznamu",
         "de": "Einstellbares Aufzeichnungsintervall",
+        "el": "Προσαρμοσμένο μεσοδιάστημα καταγραφής",
         "es": "Intervalo de registro personalizable",
-        "hu": "Testreszabható naplózási intervallum"
+        "fr": "Intervalle d'enregistrement personnalisable",
+        "hu": "Testreszabható naplózási intervallum",
+        "sv": "Anpassningsbart loggintervall",
+        "ta": "தனிப்பயனாக்கக்கூடிய பதிவு இடைவெளி",
+        "uk": "Налаштовуваний інтервал журналу"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "trackFormats": {
       "description": {
         "en": "[Track logging] What formats for storage can you save your GPS track?",
         "cs": "[Záznam trasy] V jakých formátech lze uložit trasu GPS?",
+        "de": "[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?",
+        "el": "[Καταγραφή ίχνους] Σε τι μορφές μπορείτε να αποθηκεύσετε τα ίχνη GPS σας;",
         "es": "[Registro de seguimiento] ¿En qué formatos de almacenamiento puedes guardar tu track GPS?",
-        "hu": "[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"
+        "fr": "[Enregistrement des traces] Quels formats de stockage pouvez-vous utiliser pour enregistrer votre trace GPS ?",
+        "hu": "[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?",
+        "sv": "[Spårloggning] Vilka format kan du spara ditt GPS-spår i?",
+        "ta": "[ட்ராக் லாக்கிங்] சேமிப்பகத்திற்கான எந்த வடிவங்கள் உங்கள் சி.பி.எச் பாதையை சேமிக்க முடியும்?",
+        "uk": "[Реєстрація треку] У яких форматах можна зберігати ваш GPS-трек?"
       },
       "example": "gpx;csv",
-      "aliases": ["formats"],
+      "aliases": [
+        "formats"
+      ],
       "label": {
         "en": "Track formats",
         "cs": "Formáty tras",
         "de": "Track-Formate",
+        "el": "Μορφές ιχνών",
         "es": "Formatos de pista",
-        "hu": "Nyomvonalformátumok"
+        "fr": "Format des traces",
+        "hu": "Nyomvonalformátumok",
+        "sv": "Spårformat",
+        "ta": "டிராக் வடிவங்கள்",
+        "uk": "Формати треків"
       },
       "type": "line",
-      "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
+      "suggestedvalues": [
+        "gpx",
+        "kml",
+        "nmea",
+        "csv",
+        "trk"
+      ]
     },
     "geotagging": {
       "description": {
         "en": "[Track logging] Are further mapping techniques supported",
         "cs": "[Záznam trasy] Jsou podporovány další techniky mapování",
+        "de": "[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?",
+        "el": "[Καταγραφή ίχνους] Υποστηρίζονται περαιτέρω τεχνικές χαρτογράφησης",
         "es": "[Registro de seguimiento] ¿Se admiten más técnicas de mapeo",
-        "hu": "[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"
+        "fr": "[Enregistrement des traces] D'autres techniques de cartographie sont-elles prises en charge ?",
+        "hu": "[Nyomvonalnaplózás] Támogat-e további térképezési technikát?",
+        "sv": "[Spårloggning] Stöds ytterligare kartläggningstekniker",
+        "ta": "[ட்ராக் லாக்கிங்] மேலும் மேப்பிங் நுட்பங்கள் ஆதரிக்கப்படுகின்றன",
+        "uk": "[Реєстрація треків] Чи підтримуються додаткові методи картографування"
       },
       "label": {
         "en": "Geotagging",
         "cs": "Geotagging",
         "de": "Geotagging",
         "es": "Geoetiquetado",
-        "hu": "Geotagging"
+        "fr": "Géocodage",
+        "hu": "Geotagging",
+        "sv": "Geotagging",
+        "ta": "சியோடாகிங்",
+        "uk": "Геотегування"
       },
       "example": "note;photo",
       "type": "line",
-      "suggestedvalues": ["note", "photo", "audio"]
+      "suggestedvalues": [
+        "note",
+        "photo",
+        "audio"
+      ]
     },
     "fastWayPointAdding": {
       "description": {
         "en": "[Track logging] Easy to add a new Waypoint?",
         "cs": "[Záznam trasy] Snadné přidání nového bodu trasy?",
+        "de": "[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?",
         "es": "[Registro de seguimiento] ¿Es fácil agregar un nuevo punto de referencia?",
-        "hu": "[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"
+        "fr": "[Enregistrement des traces] Facile d'ajouter un nouveau point  ?",
+        "hu": "[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?",
+        "sv": "[Spårloggning] Lätt att lägga till en ny vägpunkt?",
+        "ta": "[ட்ராக் லாக்கிங்] புதிய வழிப்பாதையைச் சேர்க்க எளிதானதா?",
+        "uk": "[Реєстрація треку] Легко додати нову точку маршруту?"
       },
       "label": {
         "en": "Fast POI buttons",
         "cs": "Rychlá tlačítka POI",
         "de": "Knöpfe zum schnellen Setzen von Wegpunkten",
+        "el": "Γρήγορα κουμπιά ΣΕ",
         "es": "Botones rápidos de PDI",
-        "hu": "Gyors POI-gombok"
+        "fr": "Bouton d'ajout rapide",
+        "hu": "Gyors POI-gombok",
+        "sv": "Snabbknappar för POI",
+        "ta": "வேகமான POI பொத்தான்கள்",
+        "uk": "Кнопки швидкого доступу до точок інтересу (POI)"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "uploadGPX": {
       "description": {
         "en": "[Track logging] Can it send tracks directly to OSM?",
         "cs": "[Záznam tras] Lze odesílat trasy přímo do OSM?",
+        "de": "[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?",
+        "el": "[Καταγραφή ίχνους] Μπορεί να στείλει τα ίχνη απευθείας στο OSM;",
         "es": "[Registro de pistas] ¿Puede enviar pistas directamente a OSM?",
-        "hu": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
+        "fr": "[Enregistrement des traces] Peut-on envoyer les traces directement à OSM ?",
+        "hu": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?",
+        "sv": "[Spårloggning] Kan den skicka spår direkt till OSM?",
+        "ta": "[ட்ராக் லாக்கிங்] இது நேரடியாக OSM க்கு தடங்களை அனுப்ப முடியுமா?",
+        "uk": "[Реєстрація треків] Чи може воно надсилати треки безпосередньо до OSM?"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"],
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ],
       "label": {
         "en": "Upload GPX to OSM",
         "cs": "Nahrání GPX do OSM",
         "de": "GPX zu OSM hochladen",
+        "el": "Ανέβασμα GPX στο OSM",
         "es": "Cargar GPX a OSM",
-        "hu": "GPX feltöltése az OSM-re"
+        "fr": "Importer des GPX dans OSM",
+        "hu": "GPX feltöltése az OSM-re",
+        "sv": "Ladda upp GPX till OSM",
+        "ta": "GPX ஐ OSM இல் பதிவேற்றவும்",
+        "uk": "Завантажити GPX до OSM"
       }
     },
     "monitoring": {
       "description": {
         "en": "[Track monitoring] Can you monitor GPS datas?",
         "cs": "[Monitorování trasy] Můžete monitorovat data GPS?",
+        "de": "[Streckenüberwachung] Kann man GPS-Daten überwachen?",
+        "el": "[Παρακολούθηση ίχνους] Μπορείτε να παρακολουθήσετε τα δεδομένα του GPS;",
         "es": "[Monitoreo de seguimiento] ¿Puedes monitorear datos GPS?",
-        "hu": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
+        "fr": "[Suivi des traces] Pouvez-vous suivre les données GPS ?",
+        "hu": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?",
+        "sv": "[Spårövervakning] Kan du övervaka GPS-data?",
+        "ta": "[கண்காணிப்பு தடம்] சிபிஎச் தரவைக் கண்காணிக்க முடியுமா?",
+        "uk": "[Моніторинг треку] Чи можете ви відстежувати дані GPS?"
       },
       "label": {
         "en": "Monitoring",
         "cs": "Monitorování",
         "de": "Monitoring",
+        "el": "Παρακολούθηση",
         "es": "Monitorización",
-        "hu": "Követés"
+        "fr": "Suivi",
+        "hu": "Követés",
+        "sv": "Övervakning",
+        "ta": "கண்காணிப்பு",
+        "uk": "Моніторинг"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showTrack": {
       "description": {
         "en": "[Track monitoring] Show your current track?",
         "cs": "[Monitorování trasy] Zobrazuje aktuální trasu?",
+        "de": "[Streckenüberwachung] Zeigt es den aktuellen Kurs an?",
+        "el": "[Παρακολούθηση ίχνους] Εμφανίζει το τρέχον ίχνος σας;",
         "es": "[Monitoreo de pista] ¿Mostrar tu pista actual?",
-        "hu": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"
+        "fr": "[Suivi de trace] Affichage la trace en cours ?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?",
+        "sv": "[Spårövervakning] Visa ditt aktuella spår?",
+        "ta": "[கண்காணிப்பு தடம்] உங்கள் தற்போதைய பாதையைக் காட்டவா?",
+        "uk": "[Моніторинг треку] Показати ваш поточний трек?"
       },
       "label": {
         "en": "Show current track",
         "cs": "Zobrazení aktuální trasy",
         "de": "Zeige aktuellen Track",
+        "el": "Εμφάνιση τρέχοντος ίχνους",
         "es": "Mostrar pista actual",
-        "hu": "Jelenlegi nyomvonal megjelenítése"
+        "fr": "Afficher la trace actuelle",
+        "hu": "Jelenlegi nyomvonal megjelenítése",
+        "sv": "Visa aktuellt spår",
+        "ta": "தற்போதைய பாதையைக் காட்டு",
+        "uk": "Показати поточний трек"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showExistingTrack": {
       "description": {
         "en": "[Track monitoring] Can it load existing tracks so you can follow them?",
         "cs": "[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?",
+        "de": "[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?",
+        "el": "[Παρακολούθηση ίχνους] Μπορεί να φορτώσει υπάρχοντα ίχνη ώστε να μπορείτε να τα ακολουθήσετε;",
         "es": "[Monitoreo de pistas] ¿Puede cargar pistas existentes para poder seguirlas?",
-        "hu": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"
+        "fr": "[Suivi des traces] Peut-il charger des traces existantes afin que vous puissiez les suivre ?",
+        "hu": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?",
+        "sv": "[Spårövervakning] Kan den ladda befintliga spår så att du kan följa dem?",
+        "ta": "[கண்காணிப்பு தடம்] ஏற்கனவே இருக்கும் தடங்களை ஏற்ற முடியுமா, எனவே அவற்றை நீங்கள் பின்பற்றலாமா?",
+        "uk": "[Моніторинг треків] Чи може він завантажувати існуючі треки, щоб ви могли слідувати ними?"
       },
       "label": {
         "en": "Open existing track",
         "cs": "Otevření existující trasy",
         "de": "Öffne existierenden Track",
+        "el": "Άνοιγμα τρέχοντος ίχνους",
         "es": "Abrir pista existente",
-        "hu": "Meglévő nyomvonal megnyitása"
+        "fr": "Ouvrir une trace existante",
+        "hu": "Meglévő nyomvonal megnyitása",
+        "sv": "Öppna befintliga spår",
+        "ta": "தற்போதுள்ள பாதையைத் திறக்கவும்",
+        "uk": "Відкрити існуючу доріжку"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showAltitudeDiagram": {
       "description": {
         "en": "[Track monitoring]",
         "cs": "[Monitorování trasy]",
+        "de": "[Streckenüberwachung]",
+        "el": "[Παρακολούθηση ίχνους]",
         "es": "[Seguimiento de la pista]",
-        "hu": "[Nyomvonalkövetés]"
+        "fr": "[Suivi des traces]",
+        "hu": "[Nyomvonalkövetés]",
+        "sv": "[Spårövervakning]",
+        "ta": "[கண்காணிப்பு தடம்]",
+        "uk": "[Моніторинг треків]"
       },
       "label": {
         "en": "Altitude diagram",
         "cs": "Výškový diagram",
         "de": "Höhendiagramm",
+        "el": "Υψομετρικό διάγραμμα",
         "es": "Gráfico de elevación",
-        "hu": "Magassági diagram"
+        "fr": "Diagramme d'altitude",
+        "hu": "Magassági diagram",
+        "sv": "Höjddiagram",
+        "ta": "உயர வரைபடம்",
+        "uk": "Діаграма висоти"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showDOP": {
       "description": {
         "en": "[Track monitoring] Shows signal quality?",
         "cs": "[Monitorování trasy] Zobrazuje kvalitu signálu?",
+        "de": "[Streckenüberwachung] Zeigt es die Signalqualität an?",
+        "el": "[Παρακολούθηση ίχνους] Εμφανίζει την ποιότητα του σήματος;",
         "es": "[Monitoreo de pista] ¿Muestra la calidad de la señal?",
-        "hu": "[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"
+        "fr": "[Suivi des traces] Affichage de la qualité du signal ?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?",
+        "sv": "[Spårövervakning] Visar signalkvalitet?",
+        "ta": "[கண்காணிப்பு தடம்] சமிக்ஞை தரத்தைக் காட்டுகிறது?",
+        "uk": "[Моніторинг треку] Показує якість сигналу?"
       },
       "label": {
         "en": "Show POD value",
         "cs": "Zobrazení hodnoty POD",
         "de": "Zeige DOP-Wert",
+        "el": "Εμφάνιση τιμής POD",
         "es": "Mostrar valor DOP",
-        "hu": "DOP-érték megjelenítése"
+        "fr": "Afficher la valeur POD",
+        "hu": "DOP-érték megjelenítése",
+        "sv": "Visa POD-värde",
+        "ta": "நெற்று மதிப்பைக் காட்டு",
+        "uk": "Показати значення POD"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showSatellites": {
       "description": {
         "en": "[Track monitoring] Displays satellites?",
         "cs": "[Monitorování trasy] Zobrazuje satelity?",
+        "de": "[Streckenüberwachung] Zeigt es Satelliten an?",
+        "el": "[Παρακολούθηση ίχνους] Προβάλλει δορυφόρους;",
         "es": "[Monitoreo de trayectoria] ¿Muestra satélites?",
-        "hu": "[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"
+        "fr": "[Suivi des traces] Affichage en vue satellite ?",
+        "hu": "[Nyomvonalkövetés] Megjeleníti-e a műholdakat?",
+        "sv": "[Spårövervakning] Visar satelliter?",
+        "ta": "[கண்காணிப்பு தடம்] செயற்கைக்கோள்களைக் காட்டுகிறது?",
+        "uk": "[Моніторинг треку] Відображає супутники?"
       },
       "label": {
         "en": "Satellite view",
         "cs": "Zobrazení satelitů",
         "de": "Zeige Satelliten",
+        "el": "Προβολή δορυφόρων",
         "es": "Vista satelital",
-        "hu": "Műholdak nézet"
+        "fr": "Vue satellite",
+        "hu": "Műholdak nézet",
+        "sv": "Satellitvy",
+        "ta": "செயற்கைக்கோள் பார்வை",
+        "uk": "Вигляд із супутника"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showNMEAlive": {
       "description": {
         "en": "[Track monitoring] Can you see the raw GPS stream?",
         "cs": "[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?",
+        "de": "[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?",
+        "el": "[Παρακολούθηση ίχνους] Μπορείτε να δείτε την ανεπεξέργαστη ροή του GPS;",
         "es": "[Monitoreo de seguimiento] ¿Puedes ver la transmisión GPS sin procesar?",
-        "hu": "[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"
+        "fr": "[Suivi des traces] Pouvez-vous voir le flux GPS brut ?",
+        "hu": "[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?",
+        "sv": "[Spårövervakning] Kan du se den råa GPS-strömmen?",
+        "ta": "[கண்காணிப்பு தடம்] மூல சி.பி.எச் ச்ட்ரீமை பார்க்க முடியுமா?",
+        "uk": "[Моніторинг треку] Чи бачите ви необроблений GPS-потік?"
       },
       "label": {
         "en": "Show live NMEA data",
         "cs": "Zobrazení živých dat NMEA",
         "de": "Zeige NMEA-Livedaten",
+        "el": "Εμφάνιση ζωντανών δεδομένων NMEA",
         "es": "Mostrar datos NMEA en directo",
-        "hu": "Élő NMEA-adatok megjelenítése"
+        "fr": "Afficher les données NMEA en direct",
+        "hu": "Élő NMEA-adatok megjelenítése",
+        "sv": "Visa live NMEA data",
+        "ta": "நேரடி NMEA தரவைக் காட்டு",
+        "uk": "Показати дані NMEA в реальному часі"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "showSpeed": {
       "description": {
         "en": "[Track monitoring]",
         "cs": "[Monitorování trasy]",
+        "de": "[Streckenüberwachung]",
+        "el": "[Παρακολούθηση ίχνους]",
         "es": "[Seguimiento de la pista]",
-        "hu": "[Nyomvonalkövetés]"
+        "fr": "[Suivi des traces]",
+        "hu": "[Nyomvonalkövetés]",
+        "sv": "[Spårövervakning]",
+        "ta": "[கண்காணிப்பு தடம்]",
+        "uk": "[Моніторинг треків]"
       },
       "label": {
         "en": "Show speed",
         "cs": "Zobrazení rychlosti",
         "de": "Geschwindigkeit anzeigen",
+        "el": "Εμφάνιση ταχύτητας",
         "es": "Mostrar velocidad",
-        "hu": "Sebesség megjelenítése"
+        "fr": "Afficher la vitesse",
+        "hu": "Sebesség megjelenítése",
+        "sv": "Visa hastighet",
+        "ta": "வேகத்தைக் காட்டு",
+        "uk": "Показати швидкість"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "sendPosition": {
       "description": {
         "en": "[Track monitoring] Can it send position to others?",
         "cs": "[Monitorování trasy] Může odesílat polohu ostatním?",
+        "de": "[Streckenüberwachung] Kann man seine Position an andere senden?",
+        "el": "[Παρακολούθηση ίχνους] Μπορεί να στείλει την τοποθεσία σε άλλους;",
         "es": "[Monitoreo de pistas] ¿Puede enviar posición a otros?",
-        "hu": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"
+        "fr": "[Suivi des traces] Peut-il envoyer sa position à d'autres personnes ?",
+        "hu": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?",
+        "sv": "[Spårövervakning] Kan den skicka position till andra?",
+        "ta": "[கண்காணிப்பு தடம்] இது மற்றவர்களுக்கு நிலையை அனுப்ப முடியுமா?",
+        "uk": "[Моніторинг відстеження] Чи може він надсилати місцезнаходження іншим?"
       },
       "example": "yes;mail;www",
       "label": {
         "en": "Send current position",
         "cs": "Odeslání aktuální polohy",
         "de": "Sende aktuelle Position",
+        "el": "Αποστολή τρέχουσας τοποθεσίας",
         "es": "Enviar posición actual",
-        "hu": "Jelenlegi pozíció elküldése"
+        "fr": "Envoyer la position actuelle",
+        "hu": "Jelenlegi pozíció elküldése",
+        "sv": "Skicka aktuell position",
+        "ta": "தற்போதைய நிலையை அனுப்பவும்",
+        "uk": "Надіслати поточну позицію"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no", "sms", "mail", "www"]
+      "suggestedvalues": [
+        "yes",
+        "no",
+        "sms",
+        "mail",
+        "www"
+      ]
     },
     "addPOI": {
       "description": {
         "en": "[Editor] Can you add a node?",
         "cs": "[Editor] Můžete přidat uzel?",
+        "de": "[Editor] Kann man Punkte hinzufügen?",
+        "el": "[Επεξεργαστής] Μπορείτε να προσθέσετε έναν κόμβο;",
         "es": "[Editor] ¿Puedes agregar un nodo?",
-        "hu": "[Szerkesztő] Fel lehet-e venni egy pontot?"
+        "fr": "[Éditeur] Pouvez-vous ajouter un nœud ?",
+        "hu": "[Szerkesztő] Fel lehet-e venni egy pontot?",
+        "sv": "[Editor] Kan du lägga till en nod?",
+        "ta": "[ஆசிரியர்] நீங்கள் ஒரு முனையைச் சேர்க்க முடியுமா?",
+        "uk": "[Редактор] Чи можете ви додати вузол?"
       },
       "label": {
         "en": "Add POIs",
         "cs": "Přidání bodů zájmu",
         "de": "POI hinzufügen",
+        "el": "Προσθήκη ΣΕ",
         "es": "Agregar puntos de interés",
-        "hu": "Érdekes pont (POI-k) felvétele"
+        "fr": "Ajouter des points",
+        "hu": "Érdekes pont (POI-k) felvétele",
+        "sv": "Lägg till POI",
+        "ta": "ஏனெனில் சேர்க்கவும்",
+        "uk": "Додати цікаві місця (POI)"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editPOI": {
       "description": {
         "en": "[Editor] Can you edit a node?",
         "cs": "[Editor] Je možné upravit uzel?",
+        "de": "[Editor] Kann man Punkte bearbeiten?",
+        "el": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε έναν κόμβο;",
         "es": "[Editor] ¿Puedes editar un nodo?",
-        "hu": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?"
+        "fr": "[Éditeur] Pouvez-vous modifier un nœud ?",
+        "hu": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?",
+        "sv": "[Editor] Kan du redigera en nod?",
+        "ta": "[ஆசிரியர்] நீங்கள் ஒரு முனையைத் திருத்த முடியுமா?",
+        "uk": "[Редактор] Чи можна редагувати вузол?"
       },
       "label": {
         "en": "Edit / Delete POIs",
         "cs": "Úprava / odstranění bodů zájmu",
         "de": "POI bearbeiten/löschen",
+        "el": "Επεξεργασία / Διαγραφή ΣΕ",
         "es": "Editar/eliminar puntos de interés",
-        "hu": "Érdekes pont szerkesztésetörlése"
+        "fr": "Modifier/Supprimer des points",
+        "hu": "Érdekes pont szerkesztésetörlése",
+        "sv": "Redigera/ta bort POIs",
+        "ta": "ஏனெனில் திருத்து / நீக்கு",
+        "uk": "Редагувати / Видалити об'єкти пікселів"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "addWay": {
       "description": {
         "en": "[Editor] Can you add a way?",
         "cs": "[Editor] Můžete přidat cestu?",
+        "de": "[Editor] Kann man Wege hinzufpgen?",
+        "el": "[Επεξεργαστής] Μπορείτε να προσθέστε μια γραμμή;",
         "es": "[Editor] ¿Puedes agregar una vía?",
-        "hu": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?"
+        "fr": "[Éditeur] Pouvez-vous ajouter un chemin ?",
+        "hu": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?",
+        "sv": "[Redigera] Kan du lägga till ett sätt?",
+        "ta": "[ஆசிரியர்] நீங்கள் ஒரு வழியைச் சேர்க்க முடியுமா?",
+        "uk": "[Редактор] Чи можете ви додати спосіб?"
       },
       "label": {
         "en": "Add way",
         "cs": "Přidání cesty",
         "de": "Weg hinzufügen",
+        "el": "Προσθήκη γραμμής",
         "es": "Agregar vía",
-        "hu": "Vonal felvétele"
+        "fr": "Ajouter un chemin",
+        "hu": "Vonal felvétele",
+        "sv": "Lägg till väg",
+        "ta": "வழி சேர்க்கவும்",
+        "uk": "Додати шлях"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editGeom": {
       "description": {
         "en": "[Editor] Can you edit nodes/ways?",
         "cs": "[Editor] Lze upravovat uzly/cesty?",
+        "de": "[Editor] Kann man Knoten/Wege bearbeiten?",
+        "el": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε κόμβους/γραμμές;",
         "es": "[Editor] ¿Puedes editar nodos/vías?",
-        "hu": "[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"
+        "fr": "[Éditeur] Pouvez-vous modifier des nœuds/chemins ?",
+        "hu": "[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?",
+        "sv": "[Redigera] Kan du redigera noder/vägar?",
+        "ta": "[ஆசிரியர்] நீங்கள் முனைகள்/வழிகளைத் திருத்த முடியுமா?",
+        "uk": "[Редактор] Чи можна редагувати вузли/шляхи?"
       },
       "label": {
         "en": "Edit geometries",
         "cs": "Úprava geometrie",
         "de": "Geometrie bearbeiten",
+        "el": "Επεξεργασία γεωμετριών",
         "es": "Editar geometrías",
-        "hu": "Alakzat szerkesztése"
+        "fr": "Modifier des formes",
+        "hu": "Alakzat szerkesztése",
+        "sv": "Redigera geometrier",
+        "ta": "வடிவவியலைத் திருத்தவும்",
+        "uk": "Редагувати геометрію"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editTags": {
       "description": {
         "en": "[Editor] Can you edit existing tags?",
         "cs": "[Editor] Lze upravovat existující značky?",
+        "de": "[Editor] Kann man bestehende Tags bearbeiten?",
+        "el": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε υπάρχουσες ετικέτες;",
         "es": "[Editor] ¿Puedes editar etiquetas existentes?",
-        "hu": "[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?"
+        "fr": "[Éditeur] Pouvez-vous modifier les propriétés existantes ?",
+        "hu": "[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?",
+        "sv": "[Redigera] Kan du redigera befintliga taggar?",
+        "ta": "[ஆசிரியர்] ஏற்கனவே உள்ள குறிச்சொற்களைத் திருத்த முடியுமா?",
+        "uk": "[Редактор] Чи можна редагувати існуючі теги?"
       },
       "label": {
         "en": "Edit arbitrary tags of existing OSM objects",
         "cs": "Úprava libovolných značek existujících objektů OSM",
         "de": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
+        "el": "Επεξεργασία ετικετών των υπαρχόντων OSM αντικειμένων",
         "es": "Editar etiquetas aleatorias de objetos OSM existentes",
-        "hu": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"
+        "fr": "Modifier les propriétés des objets OSM existants",
+        "hu": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése",
+        "sv": "Redigera godtyckliga taggar av befintliga OSM-objekt",
+        "ta": "இருக்கும் OSM பொருள்களின் தன்னிச்சையான குறிச்சொற்களைத் திருத்தவும்",
+        "uk": "Редагування довільних тегів існуючих об'єктів OSM"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editRelations": {
       "description": {
         "en": "[Editor] Can you edit relations?",
         "cs": "[Editor] Lze upravit relace?",
+        "de": "[Editor] Kann man Relationen bearbeiten?",
+        "el": "[Επεξεργαστής] Μπορείτε να επεξεργαστείτε σχέσεις;",
         "es": "[Editor] ¿Puedes editar las relaciones?",
-        "hu": "[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"
+        "fr": "[Éditeur] Pouvez-vous modifier les relations ?",
+        "hu": "[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?",
+        "sv": "[Redigera] Kan du redigera relationer?",
+        "ta": "[ஆசிரியர்] நீங்கள் உறவுகளைத் திருத்த முடியுமா?",
+        "uk": "[Редактор] Чи можете ви редагувати зв'язки?"
       },
       "label": {
         "en": "Edit relations",
         "cs": "Úprava relací",
         "de": "Relationen bearbeiten",
+        "el": "Επεξεργασία σχέσεων",
         "es": "Editar relaciones",
-        "hu": "Kapcsolat szerkesztése"
+        "fr": "Modifier les relations",
+        "hu": "Kapcsolat szerkesztése",
+        "sv": "Redigera relationer",
+        "ta": "உறவுகளைத் திருத்து",
+        "uk": "Редагувати зв'язки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "viewNotes": {
       "description": {
         "en": "[Editor] Can you view OSM Notes?",
         "cs": "[Editor] Lze zobrazit poznámky OSM?",
+        "de": "[Editor] Kann man OSM-Notizen anzeigen?",
+        "el": "[Επεξεργαστής] Μπορείτε να δείτε Σημειώσεις του OSM;",
         "es": "[Editor] ¿Puedes ver las notas de OSM?",
-        "hu": "[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"
+        "fr": "[Éditeur] Pouvez-vous voir les notes OSM ?",
+        "hu": "[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?",
+        "sv": "[Redigera] Kan du visa OSM-anteckningar?",
+        "ta": "[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைக் காண முடியுமா?",
+        "uk": "[Редактор] Чи можете ви переглянути нотатки OSM?"
       },
       "label": {
         "en": "View notes",
         "cs": "Zobrazení poznámek",
         "de": "Notizen anzeigen",
+        "el": "Προβολή σημειώσεων",
         "es": "Ver notas",
-        "hu": "Jegyzetek megtekintése"
+        "fr": "Voir les notes",
+        "hu": "Jegyzetek megtekintése",
+        "sv": "Visa anteckningar",
+        "ta": "குறிப்புகளைக் காண்க",
+        "uk": "Переглянути нотатки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "createNotes": {
       "description": {
         "en": "[Editor] Can you add OSM Notes?",
         "cs": "[Editor] Lze přidat poznámky OSM?",
+        "de": "[Editor] Kann man OSM-Notizen anlegen?",
+        "el": "[Επεξεργαστής] Μπορείτε να προσθέσετε Σημειώσεις του OSM;",
         "es": "[Editor] ¿Puedes agregar notas a OSM?",
-        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"
+        "fr": "[Éditeur] Pouvez vous créer des notes OSM ?",
+        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?",
+        "sv": "[Redigera] Kan du lägga till OSM-anteckningar?",
+        "ta": "[ஆசிரியர்] நீங்கள் OSM குறிப்புகளைச் சேர்க்க முடியுமா?",
+        "uk": "[Редактор] Чи можете ви додати нотатки OSM?"
       },
       "label": {
         "en": "Create notes",
         "cs": "Tvorba poznámek",
         "de": "Notizen erstellen",
+        "el": "Δημιουργία σημειώσεων",
         "es": "Crear notas",
-        "hu": "Jegyzet létrehozása"
+        "fr": "Créer des notes",
+        "hu": "Jegyzet létrehozása",
+        "sv": "Skapa anteckningar",
+        "ta": "குறிப்புகளை உருவாக்கவும்",
+        "uk": "Створювати нотатки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editNotes": {
       "description": {
         "en": "[Editor] Can you comment/close OSM Notes?",
         "cs": "[Editor] Lze komentovat/zavřít poznámky OSM?",
+        "de": "[Editor] Kann man OSM-Notizen kommentieren/schließen?",
+        "el": "[Επεξεργαστής] Μπορείτε να σχολιάσετε/κλείσετε Σημειώσεις του OSM;",
         "es": "[Editor] ¿Puedes comentar/cerrar Notas en OSM?",
-        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"
+        "fr": "[Éditeur] Pouvez-vous commenter/fermer les notes OSM ?",
+        "hu": "[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?",
+        "sv": "[Redigera] Kan du kommentera/stänga OSM Notes?",
+        "ta": "[ஆசிரியர்] OSM குறிப்புகளை நீங்கள் கருத்து தெரிவிக்க/மூட முடியுமா?",
+        "uk": "[Редактор] Чи можете ви прокоментувати/закрити нотатки OSM?"
       },
       "label": {
         "en": "Edit notes",
         "cs": "Úprava poznámek",
         "de": "Notizen bearbeiten",
+        "el": "Επεξεργασία σημειώσεων",
         "es": "Editar notas",
-        "hu": "Jegyzet szerkesztése"
+        "fr": "Modifier les notes",
+        "hu": "Jegyzet szerkesztése",
+        "sv": "Redigera anteckningar",
+        "ta": "குறிப்புகளைத் திருத்து",
+        "uk": "Редагувати нотатки"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "editSource": {
       "description": {
         "en": "[Editor] Can you work offline?",
         "cs": "[Editor] Lze pracovat offline?",
+        "de": "[Editor] Kannst man offline arbeiten?",
+        "el": "[Επεξεργαστής] Μπορείτε να δουλέψετε εκτός σύνδεσης;",
         "es": "[Editor] ¿Puedes trabajar sin conexión?",
-        "hu": "[Szerkesztő] Lehet-e vele offline dolgozni?"
+        "fr": "[Éditeur] Pouvez-vous travailler hors-ligne ?",
+        "hu": "[Szerkesztő] Lehet-e vele offline dolgozni?",
+        "sv": "[Redigera] Kan du arbeta offline?",
+        "ta": "[ஆசிரியர்] நீங்கள் ஆஃப்லைனில் வேலை செய்ய முடியுமா?",
+        "uk": "[Редактор] Чи можете ви працювати офлайн?"
       },
       "label": {
         "en": "Work offline",
         "cs": "Fungování v režimu offline",
+        "de": "Offline benutzen",
+        "el": "Εργασία εκτός σύνδεσης",
         "es": "Trabajar sin conexión",
-        "hu": "Offline munka"
+        "fr": "Travailler hors-ligne",
+        "hu": "Offline munka",
+        "sv": "Arbeta offline",
+        "ta": "ஆஃப்லைனில் வேலை செய்யுங்கள்",
+        "uk": "Працюйте офлайн"
       },
       "example": "online;cache",
       "type": "line",
-      "suggestedvalues": ["online", "cache", "offline"]
+      "suggestedvalues": [
+        "online",
+        "cache",
+        "offline"
+      ]
     },
     "offsetDBsupport": {
       "description": {
         "en": "[Editor] Does it support the imagery offset DB?",
         "cs": "[Editor] Podporuje obrazový posun DB?",
+        "de": "[Editor] Unterstützt es die Bildoffset-DB?",
         "es": "[Editor] ¿Soporta el offset de imágenes DB?",
-        "hu": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"
+        "fr": "[Éditeur] Le décalage d'image est-il pris en charge ?",
+        "hu": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?",
+        "sv": "[Redigera] Stöder den bildoffset-databasen?",
+        "ta": "[ஆசிரியர்] இது கற்பனை ஆஃப்செட் டி.பி ஆதரிக்கிறதா?",
+        "uk": "[Редактор] Чи підтримує він базу даних зміщення зображень?"
       },
       "label": {
         "en": "Support imagery offset DB",
         "cs": "Podpora posunu snímků DB",
         "de": "Unterstützt Luftbildversatz DB",
         "es": "Admite el desplazamiento de imágenes aéreas DB",
-        "hu": "Légifelvétel-eltolási adatbázis támogatása"
+        "fr": "Prendre en charge le décalage d'image",
+        "hu": "Légifelvétel-eltolási adatbázis támogatása",
+        "sv": "Stöd för bildoffset-DB",
+        "ta": "உதவி படங்கள் ஆஃப்செட் டிபி",
+        "uk": "Підтримка зміщення зображень у базі даних"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "uploadOSMData": {
       "description": {
         "en": "[Editor] Can you send changes to OSM directly?",
         "cs": "[Editor] Lze změny odeslat přímo do OSM?",
+        "de": "[Editor] Kann man Änderungen direkt an OSM senden?",
+        "el": "[Επεξεργαστής] Μπορείτε να στείλετε αλλαγές απευθείας στο OSM;",
         "es": "[Editor] ¿Puede enviar los cambios a OSM directamente?",
-        "hu": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"
+        "fr": "[Éditeur] Pouvez-vous envoyer directement les modifications vers OSM ?",
+        "hu": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?",
+        "sv": "[Redigera] Kan man skicka ändringar direkt till OSM?",
+        "ta": "[ஆசிரியர்] நீங்கள் நேரடியாக OSM க்கு மாற்றங்களை அனுப்ப முடியுமா?",
+        "uk": "[Редактор] Чи можете ви надсилати зміни безпосередньо до OSM?"
       },
       "label": {
         "en": "Upload to OSM",
         "cs": "Nahrání do OSM",
         "de": "Zu OSM hochladen",
+        "el": "Ανέβασμα στο OSM",
         "es": "Cargar en OSM",
-        "hu": "Feltöltés az OSM-re"
+        "fr": "Envoyer vers OSM",
+        "hu": "Feltöltés az OSM-re",
+        "sv": "Ladda upp till OSM",
+        "ta": "OSM இல் பதிவேற்றவும்",
+        "uk": "Завантажити в OSM"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "rendererOutputFormats": {
       "description": {
         "en": "[Renderer] Supported output formats.",
         "cs": "[Renderer] Podporované výstupní formáty.",
+        "de": "[Renderer] Unterstützte Ausgabeformate.",
+        "el": "[Απεικονιστής] Υποστηριζόμενες μορφές εξόδου.",
         "es": "[Renderizador] Formatos de salida admitidos.",
-        "hu": "[Megjelenítő] Támogatott kimeneti formátumok"
+        "fr": "[Moteur de rendu] Formats de sortie pris en charge.",
+        "hu": "[Megjelenítő] Támogatott kimeneti formátumok",
+        "sv": "[Rendering] Utdataformat som stöds.",
+        "ta": "[ரெண்டரர்] ஆதரிக்கப்பட்ட வெளியீட்டு வடிவங்கள்.",
+        "uk": "[Рендерер] Підтримувані формати виводу."
       },
       "example": "svg;pdf;png",
       "label": {
         "en": "Renderer output formats",
         "cs": "Výstupní formáty rendereru",
+        "de": "Renderer-Ausgabeformate",
+        "el": "Μορφές εξόδου απεικονιστή",
         "es": "Formatos del renderizador",
-        "hu": "Megjelenítő kimeneti formátumai"
+        "fr": "Formats de sortie du moteur de rendu",
+        "hu": "Megjelenítő kimeneti formátumai",
+        "sv": "Renderings utdata format",
+        "ta": "ரெண்டரர் வெளியீட்டு வடிவங்கள்",
+        "uk": "Формати виводу рендерера"
       },
       "type": "line"
     },
@@ -1967,119 +3224,215 @@
       "description": {
         "en": "[Accessibility] Does it help disabled people in some kind?",
         "cs": "[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?",
+        "de": "[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?",
+        "el": "[Προσβασιμότητα] Βοηθάει με κάποιον τρόπο τα άτομα με αναπηρία;",
         "es": "[Accesibilidad] ¿Ayuda de algún modo a las personas discapacitadas?",
-        "hu": "[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"
+        "fr": "[Accessibilité] Y a-t-il de l'aide affichée quelque part ?",
+        "hu": "[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?",
+        "sv": "[Tillgänglighet] Hjälper det funktionshindrade personer på något sätt?",
+        "ta": "[அணுகல்] இது ஊனமுற்றோருக்கு ஒருவிதமாக உதவுகிறதா?",
+        "uk": "[Доступність] Чи допомагає це якимось чином людям з інвалідністю?"
       },
       "example": "blind;wheelchair",
       "label": {
         "en": "Accessibility support",
         "cs": "Podpora přístupnosti",
+        "de": "Unterstützung der Barrierefreiheit",
+        "el": "Υποστήριξη προσβασιμότητας",
         "es": "Ayuda a la accesibilidad",
-        "hu": "Kisegítő lehetőségek támogatása"
+        "fr": "Prise en charge de l'accessibilité",
+        "hu": "Kisegítő lehetőségek támogatása",
+        "sv": "Tillgänglighetsstöd",
+        "ta": "அணுகல் உதவி",
+        "uk": "Підтримка доступності"
       },
       "type": "line",
-      "suggestedvalues": ["blind", "wheelchair"]
+      "suggestedvalues": [
+        "blind",
+        "wheelchair"
+      ]
     },
     "textOnlyUI": {
       "description": {
         "en": "[Accessibility] Text to braille compatible interface?",
         "cs": "[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?",
+        "de": "[Barrierefreiheit] Text in Braille kompatible Schnittstelle?",
+        "el": "[Προσβασιμότητα] Συμβατή διεπαφή για κείμενο σε Braille;",
         "es": "[Accesibilidad] ¿Interfaz compatible de texto a braille?",
-        "hu": "[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"
+        "fr": "[Accessibilité] Y a t-il une interface compatible braille ?",
+        "hu": "[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?",
+        "sv": "[Tillgänglighet] Gränssnitt kompatibelt med text till punktskrift?",
+        "ta": "[அணுகல்] பிரெய்ல் இணக்கமான இடைமுகத்திற்கு உரை?",
+        "uk": "[Доступність] Інтерфейс, сумісний з перетворенням тексту на брайля?"
       },
       "label": {
         "en": "Complete non graphics text output",
         "cs": "Úplný negrafický textový výstup",
         "de": "Komplett ohne Grafik bedienbar",
+        "el": "Έξοδος πλήρους μη-γραφικού κειμένου",
         "es": "Salida de texto sin gráficos",
-        "hu": "Teljes nem grafikus szöveges kimenet"
+        "fr": "Sortie de texte non graphique complète",
+        "hu": "Teljes nem grafikus szöveges kimenet",
+        "sv": "Komplett icke-grafisk textutmatning",
+        "ta": "கிராபிக்ச் அல்லாத உரை வெளியீடு முழுமையானது",
+        "uk": "Повний вивід неграфічного тексту"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "brailleUI": {
       "description": {
         "en": "[Accessibility] A special braille interface?",
         "cs": "[Přístupnost] Speciální braillovo rozhraní?",
+        "de": "[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?",
+        "el": "[Προσβασιμότητα] Μια ειδική διεπαφή Braille;",
         "es": "[Accesibilidad] ¿Una interfaz braille especial?",
-        "hu": "[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"
+        "fr": "[Accessibilité] Interface spécifique pour le braille ?",
+        "hu": "[Akadálymentesség] Van-e benne speciális Braille-írásos felület?",
+        "sv": "[Tillgänglighet] Ett särskilt punktskriftgränssnitt?",
+        "ta": "[அணுகல்] ஒரு சிறப்பு பிரெய்ல் இடைமுகம்?",
+        "uk": "[Доступність] Спеціальний інтерфейс Брайля?"
       },
       "label": {
         "en": "Braille interface",
         "cs": "Rozhraní Braillova písma",
         "de": "Braille-Oberfläche",
+        "el": "Διεπαφή Braille",
         "es": "Interfaz en Braille",
-        "hu": "Braille-írás interfész"
+        "fr": "Interface braille",
+        "hu": "Braille-írás interfész",
+        "sv": "Punktgränssnitt",
+        "ta": "பிரெய்ல் இடைமுகம்",
+        "uk": "Інтерфейс Брайля"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "explorerMode": {
       "description": {
         "en": "[Accessibility] Has a exploration modus (tell all objects approaching)?",
         "cs": "[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?",
+        "de": "[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?",
+        "el": "[Προσβασιμότητα] Έχει μέθοδο εξερεύνησης (αναφέρει όλα τα επικείμενα αντικείμενα);",
         "es": "[Accesibilidad] ¿Dispone de un modo de exploración (indicar todos los objetos que se acercan)?",
-        "hu": "[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)"
+        "fr": "[Accessibilité] Comporte un mode d'exploration (indique tous les objets en approche) ?",
+        "hu": "[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)",
+        "sv": "[Tillgänglighet] Har ett utforskningsläge (tala alla objekt som närmar sig)?",
+        "ta": "[அணுகல்] ஒரு ஆய்வு மோடச் உள்ளது (எல்லா பொருள்களையும் நெருங்குகிறது என்று சொல்லுங்கள்)?",
+        "uk": "[Доступність] Має режим дослідження (повідомляти про всі об'єкти, що наближаються)?"
       },
       "label": {
         "en": "Exploration modus",
         "cs": "Modus průzkumu",
         "de": "Erkundungsmodus",
+        "el": "Μέθοδος εξερεύνησης",
         "es": "Modo exploración",
-        "hu": "Feltáró mód"
+        "fr": "Mode exploration",
+        "hu": "Feltáró mód",
+        "sv": "Utforskningsläge",
+        "ta": "ஆய்வு முறை",
+        "uk": "Режим дослідження"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "publicTransportMode": {
       "description": {
         "en": "[Accessibility] Supports routing with public transport?",
         "cs": "[Dostupnost] Podporuje hledání trasy veřejnou dopravou?",
+        "de": "[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?",
+        "el": "[Προσβασιμότητα] Υποστηρίζει δρομολόγηση με χρήση δημόσιας συγκοινωνίας;",
         "es": "[Accesibilidad] ¿Admite rutas con transporte público?",
-        "hu": "[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"
+        "fr": "[Accessibilité] Les itinéraires de transport en commun sont-ils pris en charge ?",
+        "hu": "[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?",
+        "sv": "[Tillgänglighet] Stöder ruttförbindelser med kollektivtrafik?",
+        "ta": "[அணுகல்] பொது போக்குவரத்துடன் ரூட்டிங் செய்வதை ஆதரிக்கிறதா?",
+        "uk": "[Доступність] Чи підтримується маршрутизація громадським транспортом?"
       },
       "label": {
         "en": "Public Transport mode",
         "cs": "Režim veřejné dopravy",
         "de": "ÖPNV-Modus",
+        "el": "Λειτουργία Δημόσιας Συγκοινωνίας",
         "es": "Modo de transporte público",
-        "hu": "Tömegközlekedési mód"
+        "fr": "Mode transport en commun",
+        "hu": "Tömegközlekedési mód",
+        "sv": "Kollektivtrafiksläge",
+        "ta": "பொது போக்குவரத்து முறை",
+        "uk": "Громадський транспорт"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "dangerWarnings": {
       "description": {
         "en": "[Accessibility]",
         "cs": "[Přístupnost]",
         "de": "[Barrierefreiheit]",
+        "el": "[Προσβασιμότητα]",
         "es": "[Accesibilidad]",
-        "hu": "[Akadálymentesség]"
+        "fr": "[Accessibilité]",
+        "hu": "[Akadálymentesség]",
+        "it": "[Accessibilità]",
+        "sv": "[Tillgänglighet]",
+        "ta": "[அணுகல்]",
+        "uk": "[Доступність]"
       },
       "label": {
         "en": "Danger Warnings",
         "cs": "Výstrahy před nebezpečím",
         "de": "Gefahrenwarnungen",
+        "el": "Προειδοποιήσεις Κινδύνου",
         "es": "Avisos de peligro",
-        "hu": "Figyelmeztetés veszélyre"
+        "fr": "Avertissement des dangers",
+        "hu": "Figyelmeztetés veszélyre",
+        "sv": "Varningar om fara",
+        "ta": "இடர் எச்சரிக்கைகள்",
+        "uk": "Попередження про небезпеку"
       },
       "type": "line",
-      "suggestedvalues": ["yes", "no"]
+      "suggestedvalues": [
+        "yes",
+        "no"
+      ]
     },
     "screenReader": {
       "description": {
         "en": "[Accessibility] List of supported screenreaders",
         "cs": "[Přístupnost] Seznam podporovaných čteček obrazovky",
+        "de": "[Barrierefreiheit] Liste der unterstützten Screenreader",
+        "el": "[Προσβασιμότητα] Λίστα των υποστηριζόμενων αναγνωστών οθόνης",
         "es": "[Accesibilidad] Lista de lectores de pantalla compatibles",
-        "hu": "[Akadálymentesség] Támogatott képernyő-felolvasók listája"
+        "fr": "[Accessibilité] Liste des lecteurs d'écran pris en charge",
+        "hu": "[Akadálymentesség] Támogatott képernyő-felolvasók listája",
+        "sv": "[Tillgänglighet] Lista över skärmläsare som stöds",
+        "ta": "[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசிப்பாளர்களின் பட்டியல்",
+        "uk": "[Доступність] Список підтримуваних програм зчитування з екрана"
       },
       "example": "NVDA",
       "label": {
         "en": "Screenreader",
         "cs": "Čtení obrazovky",
         "de": "Screenreader",
+        "el": "Αναγνώστης οθόνης",
         "es": "Lector de pantalla",
-        "hu": "Képernyő-felolvasó"
+        "fr": "Lecteur d'écran",
+        "hu": "Képernyő-felolvasó",
+        "sv": "Skärmläsare",
+        "ta": "திரை ரீடர்",
+        "uk": "Програма зчитування з екрана"
       },
       "type": "line"
     },
@@ -2087,118 +3440,29 @@
       "description": {
         "en": "[Accessibility] List of supported screenreaders languages",
         "cs": "[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky",
+        "de": "[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen",
+        "el": "[Προσβασιμότητα] Λίστα των υποστηριζόμενων γλωσσών για αναγνώστες οθόνης",
         "es": "[Accesibilidad] Lista de idiomas compatibles con lectores de pantalla",
-        "hu": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"
+        "fr": "[Accessibilité] Liste des langues prises en charge par les lecteurs d'écran",
+        "hu": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája",
+        "sv": "[Tillgänglighet] Lista över skärmläsarspråk som stöds",
+        "ta": "[அணுகல்] ஆதரிக்கப்பட்ட திரைக்கதை வாசகர்களின் பட்டியல்",
+        "uk": "[Доступність] Список підтримуваних мов програм зчитування з екрана"
       },
       "example": "EN;DE",
       "label": {
         "en": "Screenreader languages",
         "cs": "Jazyky čtečky obrazovky",
         "de": "Screenreader-Sprachen",
+        "el": "Γλώσσες αναγνώστη οθόνης",
         "es": "Idiomas del lector de pantalla",
-        "hu": "Képernyő-felolvasó nyelvei"
+        "fr": "Langue des lecteurs d'écran",
+        "hu": "Képernyő-felolvasó nyelvei",
+        "sv": "Skärmläsarspråk",
+        "ta": "திரை ரீடர் மொழிகள்",
+        "uk": "Мови програми зчитування з екрана"
       },
       "type": "line"
     }
-  },
-  "paramOrder": [
-    "lang",
-    "name",
-    "status",
-    "license",
-    "price",
-    "web",
-    "repo",
-    "logo",
-    "screenshot",
-    "description",
-    "author",
-    "platform",
-    "genre",
-    "languages",
-    "languagesurl",
-    "coverage",
-    "code",
-    "framework",
-    "version",
-    "date",
-    "asin",
-    "bbWorldID",
-    "fDroidID",
-    "firefoxMarketplaceID",
-    "googlePlayID",
-    "huaweiAppGalleryID",
-    "appleStoreID",
-    "macAppStoreID",
-    "microsoftAppID",
-    "obtainiumLink",
-    "map",
-    "mapData",
-    "datasource",
-    "rotateMap",
-    "3D",
-    "showWebsite",
-    "showPhoneNumber",
-    "showOpeningHours",
-    "routing",
-    "createRouteManually",
-    "calculateRoute",
-    "createRouteViaWaypoints",
-    "profiles",
-    "turnRestrictions",
-    "calculateRouteOffline",
-    "routingProviders",
-    "avoidTraffic",
-    "trafficProvider",
-    "navigating",
-    "findLocation",
-    "findNearbyPOI",
-    "navToPoint",
-    "voice",
-    "keepOnRoad",
-    "turnLanes",
-    "withoutGPS",
-    "predefinedRoute",
-    "tracking",
-    "customInterval",
-    "trackFormats",
-    "geotagging",
-    "fastWayPointAdding",
-    "uploadGPX",
-    "monitoring",
-    "showTrack",
-    "showExistingTrack",
-    "showAltitudeDiagram",
-    "showDOP",
-    "showSatellites",
-    "showNMEAlive",
-    "showSpeed",
-    "sendPosition",
-    "addPOI",
-    "editPOI",
-    "addWay",
-    "editGeom",
-    "editTags",
-    "editRelations",
-    "viewNotes",
-    "createNotes",
-    "editNotes",
-    "editSource",
-    "offsetDBsupport",
-    "uploadOSMData",
-    "rendererOutputFormats",
-    "accessibility",
-    "textOnlyUI",
-    "brailleUI",
-    "explorerMode",
-    "publicTransportMode",
-    "dangerWarnings",
-    "screenReader",
-    "screenReaderLang"
-  ],
-  "format": "block",
-  "description": {
-    "en": "This template collects all notes of a software together. Some common information is displayed as an infobox other are display in third-party software.",
-    "de": "Diese Vorlage fasst alle Informationen zu einer Software zusammen. Einige allgemeine Informationen werden als Infobox angezeigt, andere werden in Drittanbieter-Software angezeigt."
   }
 }
