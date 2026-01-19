@@ -44,7 +44,7 @@ export async function run(): Promise<void> {
         { filePath: "docs/api/apps/all.json", content: JSON.stringify(apps) },
         { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
       ],
-      "chore: update app catalog data and sitemap",
+      "chore: update apps data and sitemap",
       core.getInput("ghToken"),
     );
   } catch (error) {

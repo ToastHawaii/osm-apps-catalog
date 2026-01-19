@@ -72130,7 +72130,7 @@ async function run() {
             content: JSON.stringify(apps),
         }))
             .value();
-        await uploadToRepo(apps, "Update app catalog translations", core.getInput("ghToken"));
+        await uploadToRepo(apps, "chore: update apps translations", core.getInput("ghToken"));
     }
     catch (error) {
         // Fail the workflow run if an error occurs
