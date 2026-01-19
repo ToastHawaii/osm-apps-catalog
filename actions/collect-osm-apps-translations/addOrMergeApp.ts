@@ -23,7 +23,7 @@ export function addOrMergeApp(
       apps.push(obj);
     } else {
       console.log(
-        `Could not find existing app for ${obj.name} (${obj.website})`,
+        `Could not find existing app for ${obj.name} (${obj.source[0].url})`,
       );
     }
   } else {

@@ -5,6 +5,7 @@ import { isDevelopment } from "@shared/utilities/isDevelopment";
 import { printCalcScore } from "./printCalcScore";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
+import { mergeAppSources } from "@shared/utilities/mergeAppSources";
 
 async function loadData() {
   // for testing
@@ -51,6 +52,7 @@ export function useData(lang: string) {
           app.description = translation.description || app.description;
           app.documentation = translation.documentation || app.documentation;
           app.community = { ...app.community, ...translation.community };
+          app.source = mergeAppSources(app.source, translation.source);
         }
       });
 

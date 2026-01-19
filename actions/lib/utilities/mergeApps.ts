@@ -1,3 +1,4 @@
+import { mergeAppSources } from "@shared/utilities/mergeAppSources";
 import { App } from "@shared/data/App";
 import { uniq, uniqBy } from "lodash";
 
@@ -38,24 +39,8 @@ export function mergeApps(
   app.coverage.push(...obj.coverage);
   app.coverage = uniqBy(app.coverage, (v) => v.toUpperCase());
 
-  if (
-    // only add if not same source
-    !app.source.some(
-      (s) =>
-        s.lastChange === obj.source[0].lastChange &&
-        s.name === obj.source[0].name,
-    )
-  ) {
-    // make the first source the newest
-    if (
-      app.source[0].lastChange.toUpperCase() >
-      obj.source[0].lastChange.toUpperCase()
-    ) {
-      app.source = [...app.source, ...obj.source];
-    } else {
-      app.source = [...obj.source, ...app.source];
-    }
-  }
+  app.source = mergeAppSources(app.source, obj.source);
+
   app.author = app.author || obj.author;
 
   app.gratis = app.gratis || obj.gratis;
