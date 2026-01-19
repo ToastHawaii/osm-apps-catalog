@@ -60,11 +60,14 @@
     "vite": "7.3.1"
   },
   "scripts": {
-    "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npm run lint && npm run app:build && npm run action:build",
+    "build": "cp docs/sitemap.xml public && cp docs/api/apps/all.json public/api/apps && npm run lint && npm run app:build && npm run actions:build",
     "app:start": "cp docs/api/apps/all.json shared/data && vite",
     "app:build": "vite build",
-    "action:start": "npx local-action . actions/collect-osm-apps/main.ts .env",
-    "action:build": "npx ncc build actions/collect-osm-apps/index.ts -o dist/actions/collect-osm-apps",
+    "actions:build": "npm run actions:collect-osm-apps:build && npm run actions:collect-osm-apps-translations:build",
+    "actions:collect-osm-apps:start": "npx local-action . actions/collect-osm-apps/main.ts .env",
+    "actions:collect-osm-apps:build": "npx ncc build actions/collect-osm-apps/index.ts -o dist/actions/collect-osm-apps",
+    "actions:collect-osm-apps-translations:start": "npx local-action actions/collect-osm-apps-translations main.ts .env",
+    "actions:collect-osm-apps-translations:build": "npx ncc build actions/collect-osm-apps-translations/index.ts -o dist/actions/collect-osm-apps-translations",
     "lint": "eslint src && prettier --check 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint src --fix && prettier --write 'src/**/*.{ts,tsx}'",
     "type-check": "tsc"

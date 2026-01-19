@@ -1,0 +1,10 @@
+name: "Collect osm apps action translations"
+
+inputs:
+  ghToken:
+    description: "GitHub access token"
+    required: true
+
+runs:
+  using: node20
+  main: ../../dist/actions/collect-osm-apps-translations/index.js

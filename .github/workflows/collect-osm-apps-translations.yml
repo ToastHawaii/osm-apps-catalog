@@ -1,0 +1,27 @@
+name: Collect osm apps translations
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 1 * * 1" # Jeden Montag um 01.00 Uhr
+
+permissions:
+  contents: write
+
+jobs:
+  collect-osm-apps-translations-action:
+    name: Collect osm apps translations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Collect osm apps translations
+        id: collect-osm-apps-action-translations
+        uses: ./actions/collect-osm-apps-translations
+        with:
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+
