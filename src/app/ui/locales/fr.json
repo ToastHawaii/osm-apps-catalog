@@ -125,5 +125,7 @@
     "wiki.generatedBy": "Généré par le Catalogue des applications OSM",
     "score.criteria.translationContributions": "il est possible de contribuer aux traductions",
     "filter.resetFilters": "Supprimer les filtres prédéfinis",
-    "survey": "Votre avis m'intéresse. Aidez-nous à repenser le catalogue d'applications OSM. <u>Participez à l'enquête. Cliquez ici.</u>"
+    "survey": "Votre avis m'intéresse. Aidez-nous à repenser le catalogue d'applications OSM. <u>Participez à l'enquête. Cliquez ici.</u>",
+    "app.source.lastChange": "Dernière modification : {{date}}",
+    "app.source.firstCrawled": "Première exploration : {{added}}"
 }
