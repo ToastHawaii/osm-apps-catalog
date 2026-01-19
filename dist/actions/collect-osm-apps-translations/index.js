@@ -70665,122 +70665,8 @@ function convertJsonToTemplateData() {
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
-;// CONCATENATED MODULE: ./shared/utilities/string.ts
-
-
-function equalsIgnoreCase(a, b) {
-    return typeof a === "string" && typeof b === "string"
-        ? a.toUpperCase() === b.toUpperCase()
-        : a === b;
-}
-function equalsString(a, b) {
-    return a && b && a === b;
-}
-function equalsName(a, b) {
-    return (a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
-        b.toUpperCase().replaceAll("-", " ").replaceAll("_", " "));
-}
-function equalsWebsite(a, b) {
-    if (!a || !b) {
-        return false;
-    }
-    const aUrl = newUrl(a.toLowerCase());
-    const bUrl = newUrl(b.toLowerCase());
-    return (trimStart(aUrl.hostname, "www.") +
-        trimEnd(aUrl.pathname, "/") +
-        aUrl.search ===
-        trimStart(bUrl.hostname, "www.") + trimEnd(bUrl.pathname, "/") + bUrl.search);
-}
-function string_equalsYes(...values) {
-    for (const value of values)
-        if (value?.toUpperCase() === "YES")
-            return true;
-    return false;
-}
-function notNo(value) {
-    if (Array.isArray(value)) {
-        return value.some((v) => v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none"));
-    }
-    return !equalsIgnoreCase(value, "no") && !equalsIgnoreCase(value, "none");
-}
-function string_startsWithIgnoreCase(s, searchString, position) {
-    return s?.toUpperCase().startsWith(searchString.toUpperCase(), position);
-}
-function findClosingBracketIndex(str, pos) {
-    if (str[pos] !== "{") {
-        throw new Error("The position must contain an opening bracket");
-    }
-    let level = 1;
-    for (let index = pos + 1; index < str.length; index++) {
-        if (str[index] === "{") {
-            level++;
-        }
-        else if (str[index] === "}") {
-            level--;
-        }
-        if (level === 0) {
-            return index;
-        }
-    }
-    return -1;
-}
-function string_appendFullStop(value) {
-    if (value && value[value.length - 1] !== ".")
-        return `${value}.`;
-    return value;
-}
-function string_trim(value) {
-    return (value || "").replace(/^[.\s]+|[.\s]+$/gm, "");
-}
-function string_toDate(value) {
-    value = string_trim(value);
-    if (/^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/gi.test(value))
-        return value;
-    else
-        return "";
-}
-function textToColor(s) {
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    // fixed colors
-    switch (s.toUpperCase()) {
-        case "FREE":
-        case "YES":
-            return { r: 153, g: 255, b: 153 };
-        case "NO":
-        case "NONE":
-            return { r: 255, g: 153, b: 153 };
-    }
-    for (let i = 0; i < s.length; i++) {
-        if (i % 3 === 0)
-            r = (r + s.charCodeAt(i)) % 256;
-        else if (i % 3 === 1)
-            g = (g + s.charCodeAt(i)) % 256;
-        else
-            b = (b + s.charCodeAt(i)) % 256;
-    }
-    return { r, g, b };
-}
-const string_splitBySemicolonButNotInsideBraceRegex = /[;]+(?![^(]*\))/;
-const string_splitByCommaButNotInsideBraceRegex = /[,;]+(?![^(]*\))/;
-function toValues(value = "") {
-    return value
-        .split(string_splitByCommaButNotInsideBraceRegex)
-        .map(string_trim)
-        .filter((v) => v)
-        .map(lodash.upperFirst);
-}
-function strip(html) {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
-}
-
-;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
-const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
-
 ;// CONCATENATED MODULE: ./shared/utilities/url.ts
-function url_newUrl(url) {
+function newUrl(url) {
     try {
         return new URL(url);
     }
@@ -70790,14 +70676,14 @@ function url_newUrl(url) {
     }
 }
 const httpRegex = /^https?:\/\//i;
-function url_toUrl(url) {
+function toUrl(url) {
     if (!url)
         return undefined;
     if (!httpRegex.test(url))
-        return url_newUrl(`http://${url}`).toString();
-    return url_newUrl(url).toString();
+        return newUrl(`http://${url}`).toString();
+    return newUrl(url).toString();
 }
-function url_toWikiUrl(wiki) {
+function toWikiUrl(wiki) {
     if (!wiki)
         return undefined;
     if (httpRegex.test(wiki))
@@ -70828,6 +70714,586 @@ function findGetParameter(parameterName) {
     });
     return result;
 }
+
+;// CONCATENATED MODULE: ./shared/utilities/string.ts
+
+
+function equalsIgnoreCase(a, b) {
+    return typeof a === "string" && typeof b === "string"
+        ? a.toUpperCase() === b.toUpperCase()
+        : a === b;
+}
+function equalsString(a, b) {
+    return a && b && a === b;
+}
+function equalsName(a, b) {
+    return (a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
+        b.toUpperCase().replaceAll("-", " ").replaceAll("_", " "));
+}
+function equalsWebsite(a, b) {
+    if (!a || !b) {
+        return false;
+    }
+    const aUrl = newUrl(a.toLowerCase());
+    const bUrl = newUrl(b.toLowerCase());
+    return ((0,lodash.trimStart)(aUrl.hostname, "www.") +
+        (0,lodash.trimEnd)(aUrl.pathname, "/") +
+        aUrl.search ===
+        (0,lodash.trimStart)(bUrl.hostname, "www.") + (0,lodash.trimEnd)(bUrl.pathname, "/") + bUrl.search);
+}
+function equalsYes(...values) {
+    for (const value of values)
+        if (value?.toUpperCase() === "YES")
+            return true;
+    return false;
+}
+function notNo(value) {
+    if (Array.isArray(value)) {
+        return value.some((v) => v && !equalsIgnoreCase(v, "no") && !equalsIgnoreCase(v, "none"));
+    }
+    return !equalsIgnoreCase(value, "no") && !equalsIgnoreCase(value, "none");
+}
+function startsWithIgnoreCase(s, searchString, position) {
+    return s?.toUpperCase().startsWith(searchString.toUpperCase(), position);
+}
+function findClosingBracketIndex(str, pos) {
+    if (str[pos] !== "{") {
+        throw new Error("The position must contain an opening bracket");
+    }
+    let level = 1;
+    for (let index = pos + 1; index < str.length; index++) {
+        if (str[index] === "{") {
+            level++;
+        }
+        else if (str[index] === "}") {
+            level--;
+        }
+        if (level === 0) {
+            return index;
+        }
+    }
+    return -1;
+}
+function appendFullStop(value) {
+    if (value && value[value.length - 1] !== ".")
+        return `${value}.`;
+    return value;
+}
+function trim(value) {
+    return (value || "").replace(/^[.\s]+|[.\s]+$/gm, "");
+}
+function toDate(value) {
+    value = trim(value);
+    if (/^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/gi.test(value))
+        return value;
+    else
+        return "";
+}
+function textToColor(s) {
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    // fixed colors
+    switch (s.toUpperCase()) {
+        case "FREE":
+        case "YES":
+            return { r: 153, g: 255, b: 153 };
+        case "NO":
+        case "NONE":
+            return { r: 255, g: 153, b: 153 };
+    }
+    for (let i = 0; i < s.length; i++) {
+        if (i % 3 === 0)
+            r = (r + s.charCodeAt(i)) % 256;
+        else if (i % 3 === 1)
+            g = (g + s.charCodeAt(i)) % 256;
+        else
+            b = (b + s.charCodeAt(i)) % 256;
+    }
+    return { r, g, b };
+}
+const splitBySemicolonButNotInsideBraceRegex = /[;]+(?![^(]*\))/;
+const splitByCommaButNotInsideBraceRegex = /[,;]+(?![^(]*\))/;
+function toValues(value = "") {
+    return value
+        .split(splitByCommaButNotInsideBraceRegex)
+        .map(trim)
+        .filter((v) => v)
+        .map(lodash.upperFirst);
+}
+function strip(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+}
+
+;// CONCATENATED MODULE: ./shared/utilities/filters.ts
+function display(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+}
+const mobilePlatforms = (/* unused pure expression or super */ null && ([
+    "ANDROID",
+    "GARMIN",
+    "KINDLE",
+    "MAEMO",
+    "MEEGO",
+    "PALM OS",
+    "SYMBIAN",
+    "UBUNTU PHONE",
+    "UBUNTU TOUCH",
+    "WEBOS",
+    "WINDOWS MOBILE",
+    "WINDOWS PHONE",
+    "IOS",
+    "ZAURUS",
+]));
+function web(a) {
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return platform.some((p) => p === "WEB");
+}
+function mobile(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        platform.some((t) => mobilePlatforms.includes(t)) ||
+        a.install.asin ||
+        a.install.fDroidID ||
+        a.install.obtainiumLink ||
+        a.install.googlePlayID ||
+        a.install.huaweiAppGalleryID ||
+        a.install.appleStoreID);
+}
+function navigation(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+}
+function edit(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
+        topics.some((t) => [
+            "ADD POIS",
+            "EDIT",
+            "EDITING",
+            "EDITOR",
+            "EDITOR SOFTWARE",
+            "ANALYSE",
+            "ANALYSER",
+            "ANALYSIS",
+            "TRACK RECORDING",
+            "TRACKER",
+            "TRACKING",
+            "TRACK LOGGING",
+            "VALIDATOR",
+            "OSM TOOL",
+            "QA",
+            "QUALITY CONTROL",
+            "NOTES",
+            "EDITOR TOOL",
+            "COMPARING TOOL",
+            "HASHTAG TOOL",
+            "MONITORING TOOL",
+            "CHANGESET REVIEW TOOL",
+            "WELCOMING TOOL",
+        ].includes(t)));
+}
+
+;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
+
+
+
+
+const multilingual = [
+    "MUL",
+    instance.t("multilingual", { lng: "en" }).toUpperCase(),
+    instance.t("multilingual").toUpperCase(),
+];
+const Criterias = [
+    // OSM Participation
+    {
+        translationKey: "supportsContributions",
+        check: (app) => edit(app),
+        points: 2,
+    },
+    {
+        translationKey: "addingAndEditingPossible",
+        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
+            equalsYes(...[
+                ...(app.editing?.editPOI || []),
+                ...(app.editing?.editGeom || []),
+                ...(app.editing?.editRelations || []),
+                ...(app.editing?.editTags || []),
+            ]),
+        points: 1,
+    },
+    {
+        translationKey: "displaysMaps",
+        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+        points: 1,
+    },
+    // Development Participation
+    {
+        translationKey: "openSource",
+        check: (app) => !!app.libre,
+        points: 1.0,
+    },
+    {
+        translationKey: "copyleftLicense",
+        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+        points: 0.5,
+    },
+    {
+        translationKey: "sourceCodeReference",
+        check: (app) => !!app.sourceCode,
+        points: 0.25,
+    },
+    {
+        translationKey: "issueTracker",
+        check: (app) => !!app.community.issueTracker,
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateThreeMonths",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            return lastRelease > threeMonthsAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateYear",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            return lastRelease > oneYearAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "translationContributions",
+        check: (app) => !!app.languagesUrl,
+        points: 0.5,
+    },
+    // Availability/Accessibility
+    {
+        translationKey: "multipleLanguages",
+        check: (app) => app.languages.length >= 3 ||
+            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
+        points: 0.125,
+    },
+    {
+        translationKey: "tenLanguages",
+        check: (app) => app.languages.length >= 10,
+        points: 0.125,
+    },
+    {
+        translationKey: "freeOfCharge",
+        check: (app) => !!app.gratis,
+        points: 0.25,
+    },
+    {
+        translationKey: "multiplePlatforms",
+        check: (app) => {
+            const i = app.install;
+            return ([
+                i.appleStoreID || i.macAppStoreID,
+                i.asin,
+                i.fDroidID ||
+                    i.googlePlayID ||
+                    i.huaweiAppGalleryID ||
+                    i.obtainiumLink,
+                i.microsoftAppID,
+            ].filter((i) => i).length > 1 ||
+                app.platform.length > 1 ||
+                web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "openSourceStores",
+        check: (app) => {
+            const i = app.install;
+            return !!(i.fDroidID || i.obtainiumLink || web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "worldwideData",
+        check: (app) => app.coverage.includes("Worldwide"),
+        points: 0.5,
+    },
+    {
+        translationKey: "accessibilitySupported",
+        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
+            0 ||
+            app.routing?.profiles
+                .map((p) => p.toUpperCase())
+                .includes("WHEELCHAIR") ||
+            false,
+        points: 0.5,
+    },
+    // Community channels & Documentation
+    {
+        translationKey: "communityChannelExists",
+        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
+        points: 0.5,
+    },
+    {
+        translationKey: "openSourceChannel",
+        check: (app) => !!(app.community.irc?.channel ||
+            app.community.matrix ||
+            app.community.mastodon ||
+            app.community.lemmy ||
+            app.community.bluesky),
+        points: 0.25,
+    },
+    {
+        translationKey: "documentationLink",
+        check: (app) => !!app.documentation,
+        points: 0.125,
+    },
+    {
+        translationKey: "documentedMultiplePlatforms",
+        check: (app) => [
+            app.source.some((s) => s.name === "taginfo"),
+            app.source.some((s) => s.name === "GitHub"),
+            app.source.some((s) => s.name === "Wikidata"),
+            app.source.some((s) => s.name === "Layer" ||
+                s.name === "ServiceItem" ||
+                s.name === "Software"),
+        ].filter((s) => s).length >= 2,
+        points: 0.125,
+    },
+];
+function calculateScore(app) {
+    // Community Contribution Score (A - E)
+    // A >= 8
+    // B >= 6
+    // C >= 4
+    // D >= 2
+    // E < 2
+    const results = Criterias.map((c) => ({
+        translationKey: c.translationKey,
+        points: c.points,
+        fulfilled: c.check(app),
+    }));
+    return {
+        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
+        details: results,
+    };
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/calcId.ts
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = newUrl(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/addApp.ts
+
+
+
+
+function addApp(apps, obj, options) {
+    const duplicates = apps.filter((app) => 
+    // if name are equals but websites not we ignore this condition
+    equalsName(app.name, obj.name) ||
+        equalsWebsite(app.website, obj.website) ||
+        (options.includeRepositoryForUniqueCheck &&
+            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+        (options.checkWebsiteWithRepo &&
+            equalsWebsite(app.sourceCode, obj.website)) ||
+        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+        equalsString(app.install.asin, obj.install.asin) ||
+        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
+        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
+    if (duplicates.length === 0) {
+        // only add if external sources exists
+        if (obj.name !== "" &&
+            (obj.website ||
+                obj.documentation ||
+                obj.install.appleStoreID ||
+                obj.install.asin ||
+                obj.install.fDroidID ||
+                obj.install.googlePlayID ||
+                obj.install.obtainiumLink ||
+                obj.install.huaweiAppGalleryID ||
+                obj.install.macAppStoreID ||
+                obj.install.microsoftAppID ||
+                obj.sourceCode)) {
+            obj.id = calcId(obj);
+            obj.score = calculateScore(obj).total;
+            apps.push(obj);
+        }
+    }
+    else {
+        const app = duplicates[0];
+        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+            app.lastRelease = obj.lastRelease;
+        else
+            app.lastRelease = app.lastRelease || obj.lastRelease;
+        app.unmaintained = app.unmaintained || obj.unmaintained;
+        app.description = app.description || obj.description;
+        app.images.push(...obj.images);
+        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
+        app.logos.push(...obj.logos);
+        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
+        app.imageWiki = app.imageWiki || obj.imageWiki;
+        app.commons = app.commons || [];
+        app.commons.push(...(obj.commons || []));
+        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
+        app.videos = app.videos || [];
+        app.videos.push(...(obj.videos || []));
+        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
+        app.website = app.website || obj.website;
+        if (!app.documentation) {
+            app.documentation = obj.documentation;
+        }
+        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+            app.documentation = obj.documentation || app.documentation;
+        }
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
+        if (
+        // only add if not same source
+        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
+            s.name === obj.source[0].name)) {
+            // make the first source the newest
+            if (app.source[0].lastChange.toUpperCase() >
+                obj.source[0].lastChange.toUpperCase()) {
+                app.source = [...app.source, ...obj.source];
+            }
+            else {
+                app.source = [...obj.source, ...app.source];
+            }
+        }
+        app.author = app.author || obj.author;
+        app.gratis = app.gratis || obj.gratis;
+        app.libre = app.libre || obj.libre;
+        app.price = app.price || obj.price;
+        app.license = app.license || [];
+        app.license.push(...(obj.license || []));
+        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
+        app.sourceCode = app.sourceCode || obj.sourceCode;
+        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+            app.languages.push(...obj.languages);
+        }
+        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
+        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
+        app.genre.push(...obj.genre);
+        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
+        app.topics.push(...obj.topics);
+        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
+        app.platform.push(...obj.platform);
+        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
+        app.install.asin = app.install.asin || obj.install.asin;
+        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
+        app.install.obtainiumLink =
+            app.install.obtainiumLink || obj.install.obtainiumLink;
+        app.install.googlePlayID =
+            app.install.googlePlayID || obj.install.googlePlayID;
+        app.install.huaweiAppGalleryID =
+            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
+        app.install.appleStoreID =
+            app.install.appleStoreID || obj.install.appleStoreID;
+        app.install.macAppStoreID =
+            app.install.macAppStoreID || obj.install.macAppStoreID;
+        app.install.microsoftAppID =
+            app.install.microsoftAppID || obj.install.microsoftAppID;
+        app.map = merge(app.map, obj.map);
+        app.routing = merge(app.routing, obj.routing);
+        app.navigating = merge(app.navigating, obj.navigating);
+        app.tracking = merge(app.tracking, obj.tracking);
+        app.monitoring = merge(app.monitoring, obj.monitoring);
+        app.editing = merge(app.editing, obj.editing);
+        app.rendering = merge(app.rendering, obj.rendering);
+        app.accessibility = merge(app.accessibility, obj.accessibility);
+        app.hasGoal = {
+            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
+                obj.hasGoal?.crowdsourcingStreetLevelImagery,
+        };
+        app.community.forum = app.community.forum || obj.community.forum;
+        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
+        app.community.irc = app.community.irc || obj.community.irc;
+        app.community.matrix = app.community.matrix || obj.community.matrix;
+        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
+        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
+        app.community.issueTracker =
+            app.community.issueTracker || obj.community.issueTracker;
+        app.community.githubDiscussions =
+            app.community.githubDiscussions || obj.community.githubDiscussions;
+        app.community.telegram = app.community.telegram || obj.community.telegram;
+        app.community.slack = app.community.slack || obj.community.slack;
+        app.community.reddit = app.community.reddit || obj.community.reddit;
+        app.score = calculateScore(app).total;
+    }
+}
+// Todo: replace mit lodash?
+function merge(o1, o2) {
+    if (!o1 && !o2) {
+        return undefined;
+    }
+    if (o1 && !o2) {
+        return o1;
+    }
+    if (!o1 && o2) {
+        return o2;
+    }
+    if (o1 && o2) {
+        const keys = Object.keys(o1);
+        keys.push(...Object.keys(o2));
+        keys.forEach((k) => {
+            if (o1[k] && !o2[k]) {
+                return;
+            }
+            if (!o1[k] && o2[k]) {
+                o1[k] = o2[k];
+                return;
+            }
+            o1[k].push(...o2[k]);
+            o1[k] = (0,lodash.uniq)(o1[k]);
+        });
+        return o1;
+    }
+    throw new Error("Not expected...");
+}
+
+;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
+const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
 
 ;// CONCATENATED MODULE: ./shared/utilities/jsonRequest.ts
 
@@ -70870,7 +71336,7 @@ function delay(ms) {
 ;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/requestTemplates.ts
 
 
-async function requestTemplates_requestTemplates(template, languageMode) {
+async function requestTemplates(template, languageMode) {
     const objects = [];
     let con;
     do {
@@ -70984,23 +71450,23 @@ function parseTemplateToObject(content) {
 
 ;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/utilities.ts
 
-function utilities_containsOfflineLink(value = "") {
+function containsOfflineLink(value = "") {
     return /<((s(trike)?)|(del))>/gi.test(value);
 }
-function utilities_extractLanguageCodeFromTemplate(value) {
+function extractLanguageCodeFromTemplate(value) {
     const match = /{{#language:([\w-]+)/.exec(value);
     if (match)
         return match[1];
     return value;
 }
-function utilities_extractNameWebsiteWiki(value, pageName) {
+function extractNameWebsiteWiki(value, pageName) {
     value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
     const obj = { name: value };
     {
         const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
         const match = regex.exec(value);
         if (match) {
-            obj.website = url_newUrl(match[2]).toString();
+            obj.website = newUrl(match[2]).toString();
             value = value.replace(regex, "").trim();
             if (value)
                 obj.name = value;
@@ -71011,7 +71477,7 @@ function utilities_extractNameWebsiteWiki(value, pageName) {
         const match = regex.exec(value);
         if (match) {
             obj.name = match[5];
-            obj.website = url_newUrl(match[2]).toString();
+            obj.website = newUrl(match[2]).toString();
             value = value.replace(regex, "");
         }
     }
@@ -71023,7 +71489,7 @@ function utilities_extractNameWebsiteWiki(value, pageName) {
                 obj.name = match[3];
             else
                 obj.name = match[1];
-            obj.wiki = url_toWikiUrl(match[1]);
+            obj.wiki = toWikiUrl(match[1]);
             value = value.replace(regex, "");
         }
     }
@@ -71032,14 +71498,14 @@ function utilities_extractNameWebsiteWiki(value, pageName) {
         const match = regex.exec(value);
         if (match) {
             obj.name = match[1];
-            obj.wiki = url_toWikiUrl(match[1]);
+            obj.wiki = toWikiUrl(match[1]);
             value = value.replace(regex, "");
         }
     }
-    obj.name = utilities_processWikiText(obj.name);
+    obj.name = processWikiText(obj.name);
     return obj;
 }
-function utilities_extractWebsite(value = "") {
+function extractWebsite(value = "") {
     {
         const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
         const match = regex.exec(value);
@@ -71058,7 +71524,7 @@ function utilities_extractWebsite(value = "") {
         const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
         const match = regex.exec(value);
         if (match) {
-            return url_toWikiUrl(match[1]);
+            return toWikiUrl(match[1]);
         }
     }
     {
@@ -71091,7 +71557,7 @@ function utilities_extractWebsite(value = "") {
     }
     return undefined;
 }
-function utilities_processWikiText(text = "") {
+function processWikiText(text = "") {
     // clean up <ref>
     {
         const regex = /<ref>([^<]*)<\/ref>/g;
@@ -71111,7 +71577,7 @@ function utilities_processWikiText(text = "") {
         const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/;
         let match = regex.exec(text);
         while (match) {
-            text = text.replace(regex, `<a href="${url_toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
+            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
             match = regex.exec(text);
         }
     }
@@ -71119,7 +71585,7 @@ function utilities_processWikiText(text = "") {
         const regex = /\[\[([^\]]*)\]\]/;
         let match = regex.exec(text);
         while (match) {
-            text = text.replace(regex, `<a href="${url_toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
+            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
             match = regex.exec(text);
         }
     }
@@ -71225,7 +71691,7 @@ var sanitize_html = __nccwpck_require__(3595);
 var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
 ;// CONCATENATED MODULE: ./shared/utilities/plainText.ts
 
-function plainText_plainText(html) {
+function plainText(html) {
     return sanitize_html_default()(html, {
         allowedTags: [],
         allowedAttributes: {},
@@ -71236,7 +71702,7 @@ function plainText_plainText(html) {
 function check(value) {
     return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
-function isFreeAndOpenSource_isFreeAndOpenSource(value) {
+function isFreeAndOpenSource(value) {
     if (!value) {
         return false;
     }
@@ -71419,7 +71885,7 @@ const platforms = [
 ];
 function getPlatformDisplay(value) {
     // Remove version
-    value = string_trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
+    value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
     for (const platform of platforms) {
         for (const version of platform.version) {
             if (version.synonym.find((s) => equalsIgnoreCase(s, value)))
@@ -71438,26 +71904,26 @@ var md5_default = /*#__PURE__*/__nccwpck_require__.n(md5);
 
 
 
-function image_toWikimediaUrl(source, size) {
+function toWikimediaUrl(source, size) {
     if (!source)
         return [];
     if (httpRegex.test(source)) {
         return [source];
     }
-    else if (string_startsWithIgnoreCase(source, "File:")) {
+    else if (startsWithIgnoreCase(source, "File:")) {
         const fileName = source.substring(5, source.length);
         return [
             ...generateOsmWikimediaUrls(fileName, size),
             ...generateCommonsWikimediaUrls(fileName, size),
         ];
     }
-    else if (string_startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:"))
+    else if (startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:"))
         return generateOsmWikimediaUrls(source.substring(41, source.length), size);
-    else if (string_startsWithIgnoreCase(source, "http://wiki.openstreetmap.org/wiki/File:"))
+    else if (startsWithIgnoreCase(source, "http://wiki.openstreetmap.org/wiki/File:"))
         return generateOsmWikimediaUrls(source.substring(40, source.length), size);
-    else if (string_startsWithIgnoreCase(source, "https://commons.wikimedia.org/wiki/File:"))
+    else if (startsWithIgnoreCase(source, "https://commons.wikimedia.org/wiki/File:"))
         return generateCommonsWikimediaUrls(source.substring(40, source.length), size);
-    else if (string_startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:"))
+    else if (startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:"))
         return generateCommonsWikimediaUrls(source.substring(39, source.length), size);
     else
         return [
@@ -71481,7 +71947,7 @@ function generateWikimediaUrls(base, fileName, size) {
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/utilities/languageFilter.ts
-function languageFilter_languageFilter(value) {
+function languageFilter(value) {
     if (!value) {
         return false;
     }
@@ -71498,7 +71964,7 @@ function languageFilter_languageFilter(value) {
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/utilities/languageValueFormat.ts
-function languageValueFormat_languageValueFormat(value) {
+function languageValueFormat(value) {
     if (!Number.isNaN(Number.parseInt(value, 10))) {
         value = "mul";
     }
@@ -71539,51 +72005,51 @@ function platformFilter(value) {
 
 function transform(source) {
     const obj = {
-        name: plainText_plainText(utilities_extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
-        lastRelease: string_toDate(source["date"]) || "",
-        description: string_appendFullStop(utilities_processWikiText(source["description"] || "")),
-        images: image_toWikimediaUrl(source["screenshot"], 250),
-        logos: image_toWikimediaUrl(source["logo"], 250),
+        lastRelease: toDate(source["date"]) || "",
+        description: appendFullStop(processWikiText(source["description"] || "")),
+        images: toWikimediaUrl(source["screenshot"], 250),
+        logos: toWikimediaUrl(source["logo"], 250),
         imageWiki: source["screenshot"] || source["logo"],
-        website: url_toUrl(utilities_extractWebsite(source["web"])),
-        documentation: url_toWikiUrl(source["wiki"] || source.sourceWiki) || "",
+        website: toUrl(extractWebsite(source["web"])),
+        documentation: toWikiUrl(source.sourceWiki) || "",
         source: [
             {
                 name: "Software",
                 language: source["language"].toLowerCase(),
                 id: source.sourceWiki,
-                url: url_toWikiUrl(source.sourceWiki) || "",
+                url: toWikiUrl(source.sourceWiki) || "",
                 lastChange: source["timestamp"] || "",
             },
         ],
-        author: utilities_processWikiText(source["author"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+        author: processWikiText(source["author"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .join(", "),
-        sourceCode: url_toUrl(utilities_extractWebsite(source["repo"] || source["git"] || source["svn"])),
+        sourceCode: toUrl(extractWebsite(source["repo"] || source["git"] || source["svn"])),
         gratis: some([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
-        libre: isFreeAndOpenSource_isFreeAndOpenSource(source["license"]),
+        libre: isFreeAndOpenSource(source["license"]),
         price: source["price"],
-        license: utilities_processWikiText(source["license"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+        license: processWikiText(source["license"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v),
         languages: (source["languages"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
-            .filter(languageFilter_languageFilter)
-            .map(languageValueFormat_languageValueFormat),
-        languagesUrl: url_toUrl(source["languagesurl"]),
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter(languageFilter)
+            .map(languageValueFormat),
+        languagesUrl: toUrl(source["languagesurl"]),
         genre: toValues(source["genre"]),
         topics: toValues(source["genre"]),
         platform: [
             ...(source["platform"] || "")
                 .replace(/\[\[/g, "")
                 .replace(/\]\]/g, "")
-                .split(string_splitByCommaButNotInsideBraceRegex)
-                .map(string_trim),
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim),
             source["asin"] ||
                 source["fDroidID"] ||
                 source["obtainiumLink"] ||
@@ -71686,10 +72152,10 @@ function transform(source) {
             dangerWarnings: toValues(source["dangerWarnings"]),
             screenReader: toValues(source["screenReader"]),
             screenReaderLang: (source["screenReaderLang"] || "")
-                .split(string_splitByCommaButNotInsideBraceRegex)
-                .map(string_trim)
-                .filter(languageFilter_languageFilter)
-                .map(languageValueFormat_languageValueFormat),
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim)
+                .filter(languageFilter)
+                .map(languageValueFormat),
         },
         community: {
             forum: source.communicationChannels["forum"],
@@ -71703,16 +72169,16 @@ function transform(source) {
             matrix: source.communicationChannels["matrix room"],
             bluesky: source.communicationChannels["bluesky handle"],
             mastodon: source.communicationChannels["mastodon address"],
-            issueTracker: url_toUrl(utilities_extractWebsite(source.communicationChannels["issue tracker"])),
+            issueTracker: toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
             githubDiscussions: source.communicationChannels["github discussions"],
             telegram: source.communicationChannels["telegram"],
-            slack: url_toUrl(source.communicationChannels["slack url"]),
+            slack: toUrl(source.communicationChannels["slack url"]),
         },
     };
     if (source["coverage"]) {
         const coverage = source["coverage"]
-            .split(string_splitBySemicolonButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitBySemicolonButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst);
         obj.coverage.push(...coverage);
@@ -71722,76 +72188,76 @@ function transform(source) {
     obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
     if (hasValue(source["datasource"]))
         obj.topics.push(...(source["datasource"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst));
-    if (string_equalsYes(source["3D"]))
+    if (equalsYes(source["3D"]))
         obj.topics.push("3D");
-    if (string_equalsYes(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
+    if (equalsYes(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
         obj.topics.push("POI");
-    if (string_equalsYes(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
+    if (equalsYes(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
         obj.topics.push("Routing");
     if (hasValue(source["profiles"]))
         obj.topics.push(...(source["profiles"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst));
-    if (string_equalsYes(source["navigating"], source["navToPoint"]))
+    if (equalsYes(source["navigating"], source["navToPoint"]))
         obj.topics.push("Navi");
-    if (string_equalsYes(source["findLocation"]))
+    if (equalsYes(source["findLocation"]))
         obj.topics.push("Search");
-    if (string_equalsYes(source["tracking"]))
+    if (equalsYes(source["tracking"]))
         obj.topics.push("Track logging");
     if (hasValue(source["geotagging"]))
         obj.topics.push(...(source["geotagging"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst));
-    if (string_equalsYes(source["monitoring"]))
+    if (equalsYes(source["monitoring"]))
         obj.topics.push("Track monitoring");
     if (source["rendererOutputFormats"])
         obj.topics.push("Rendering");
-    if (string_equalsYes(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
+    if (equalsYes(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
         obj.topics.push("Editor");
-    if (string_equalsYes(source["viewNotes"], source["createNotes"], source["editNotes"]))
+    if (equalsYes(source["viewNotes"], source["createNotes"], source["editNotes"]))
         obj.topics.push("Notes");
     if (hasValue(source["editSource"]))
         obj.topics.push(...(source["editSource"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst));
     if (hasValue(source["accessibility"])) {
         obj.topics.push(...(source["accessibility"] || "")
-            .split(string_splitByCommaButNotInsideBraceRegex)
-            .map(string_trim)
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
             .filter((v) => v)
             .map(lodash.upperFirst));
         obj.topics.push("Accessibility");
     }
-    if (string_equalsYes(source["accessibility"]))
+    if (equalsYes(source["accessibility"]))
         obj.topics.push("Accessibility");
-    if (string_equalsYes(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
+    if (equalsYes(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
         obj.topics.push("Blind");
     obj.topics = (0,lodash.uniq)(obj.topics).sort();
     {
-        const name = utilities_extractNameWebsiteWiki(source["name"], source.sourceWiki);
-        obj.name = plainText_plainText(name.name || obj.name);
+        const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
+        obj.name = plainText(name.name || obj.name);
         obj.website = obj.website || name.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
-        const name = utilities_extractNameWebsiteWiki(source["web"], source.sourceWiki);
-        obj.name = plainText_plainText(obj.name || name.name);
+        const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
+        obj.name = plainText(obj.name || name.name);
         obj.website = name.website || obj.website;
         obj.documentation = obj.documentation || name.wiki || "";
     }
     {
-        const name = utilities_extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-        obj.name = plainText_plainText(obj.name || name.name);
+        const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
+        obj.name = plainText(obj.name || name.name);
         obj.website = obj.website || name.website;
         obj.documentation = name.wiki || obj.documentation;
     }
@@ -71844,13 +72310,13 @@ function serviceItem_transform(source) {
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(upperFirst)
+            .map(lodash.upperFirst)
             .sort(),
         topics: (source["genre"] || "")
             .split(splitByCommaButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(upperFirst)
+            .map(lodash.upperFirst)
             .sort(),
         platform: [],
         coverage: [],
@@ -71862,11 +72328,11 @@ function serviceItem_transform(source) {
             .split(splitBySemicolonButNotInsideBraceRegex)
             .map(trim)
             .filter((v) => v)
-            .map(upperFirst));
+            .map(lodash.upperFirst));
     }
-    obj.languages = uniq(obj.languages).sort();
-    obj.coverage = uniq(obj.coverage).sort();
-    obj.topics = uniq(obj.topics).sort();
+    obj.languages = (0,lodash.uniq)(obj.languages).sort();
+    obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
+    obj.topics = (0,lodash.uniq)(obj.topics).sort();
     const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
     obj.name = plainText(name.name || obj.name);
     obj.website = name.website;
@@ -71920,7 +72386,7 @@ function layer_transform(source) {
         platform: ["Web"],
         coverage: [],
         install: {},
-        license: uniq([
+        license: (0,lodash.uniq)([
             ...processWikiText(source["tiles_license"] || "")
                 .split(splitByCommaButNotInsideBraceRegex)
                 .map(trim)
@@ -71946,7 +72412,7 @@ function layer_transform(source) {
         obj.topics.push("Slippy map");
         obj.genre.push("Slippy map");
     }
-    obj.languages = uniq(obj.languages).sort();
+    obj.languages = (0,lodash.uniq)(obj.languages).sort();
     return obj;
 }
 
@@ -71959,13 +72425,13 @@ function layer_transform(source) {
 
 
 async function loadAppsFromOsmWikiSoftwares(languageMode) {
-    return (await requestTemplates_requestTemplates("Software", languageMode))
-        .filter((s) => !utilities_containsOfflineLink(s["name"]) &&
-        !utilities_containsOfflineLink(s["web"]) &&
+    return (await requestTemplates("Software", languageMode))
+        .filter((s) => !containsOfflineLink(s["name"]) &&
+        !containsOfflineLink(s["web"]) &&
         !equalsIgnoreCase(s["status"], "unfinished") &&
         (!equalsIgnoreCase(s["status"], "unmaintained") ||
             // No longer maintained but can still be installed.
-            url_toUrl(utilities_extractWebsite(s["web"])) ||
+            toUrl(extractWebsite(s["web"])) ||
             s["asin"] ||
             s["fDroidID"] ||
             s["obtainiumLink"] ||
@@ -71985,26 +72451,40 @@ async function loadAppsFromOsmWikiLayers(languageMode) {
         !containsOfflineLink(s["slippy_web"]) &&
         !equalsYes(s["discontinued"]) &&
         s["name"] !== "layer template")
-        .map((source) => transformLayer(source));
+        .map((source) => layer_transform(source));
 }
 async function loadAppsFromOsmWikiServiceItems(languageMode) {
     return (await requestTemplates("Service item", languageMode))
         .filter((s) => !containsOfflineLink(s["name"]))
-        .map((source) => transformServiceItem(source));
+        .map((source) => serviceItem_transform(source));
 }
 
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/loadApps.ts
-// import { App } from "@shared/data/App";
-// import { addApp } from "@actions/collect-osm-apps/addApp";
 
+// import { loadAppsFromGitHub } from "@actions/lib/utilities/loadAppsFromSource/gitHub";
+
+// import { loadAppsFromTagInfoProjects } from "@actions/lib/utilities/loadAppsFromSource/tagInfo";
+//  import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
 async function loadApps( /*githubToken: string*/) {
-    return await Promise.all([
-        // loadAppsFromOsmWikiServiceItems("notEn"),
-        // loadAppsFromOsmWikiLayers("notEn"),
-        loadAppsFromOsmWikiSoftwares("notEn"),
-        // loadAppsFromWikidata(language),
+    const apps = [];
+    const languageMode = "notEn";
+    (await Promise.all([
+        loadAppsFromOsmWikiServiceItems(languageMode),
+        loadAppsFromOsmWikiLayers(languageMode),
+        loadAppsFromOsmWikiSoftwares(languageMode),
+        //  loadAppsFromWikidata(languageMode),
         // loadAppsFromGitHub(githubToken),
-    ]);
+        // loadAppsFromTagInfoProjects(),
+    ]))
+        .flatMap((a) => a)
+        .forEach((app) => addApp(apps, app, {
+        includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
+        checkWebsiteWithRepo: app.source[0].name === "taginfo",
+        // The language of github is only recognised automatically based on the description, so if
+        // there is another source, use language from there
+        onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
+    }));
+    return apps;
 }
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
@@ -72078,31 +72558,6 @@ async function uploadToRepo(files, commitMessage, ghToken) {
     console.log(`Uploaded ${files.length} file(s) to branch "${branch}" in one commit:\n${files.map((f) => f.filePath).join("\n")}`);
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/calcId.ts
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        const chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-}
-function calcId(obj) {
-    if (obj.website) {
-        const url = url_newUrl(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname + url.search);
-    }
-    return hashCode(obj.name.toUpperCase());
-}
-
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/main.ts
 
 
@@ -72117,7 +72572,7 @@ function calcId(obj) {
  */
 async function run() {
     try {
-        const apps = (0,lodash.chain)((await loadApps( /* core.getInput("ghToken") */))[0])
+        const apps = (0,lodash.chain)((await loadApps( /* core.getInput("ghToken") */)))
             .map((app) => ({
             id: calcId(app),
             name: app.name,

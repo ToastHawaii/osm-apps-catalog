@@ -14,7 +14,7 @@ import { calcId } from "@actions/lib/utilities/calcId";
  */
 export async function run(): Promise<void> {
   try {
-    const apps = chain((await loadApps(/* core.getInput("ghToken") */))[0])
+    const apps = chain((await loadApps(/* core.getInput("ghToken") */)))
       .map((app) => ({
         id: calcId(app),
         name: app.name,

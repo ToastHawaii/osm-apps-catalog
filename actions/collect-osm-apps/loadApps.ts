@@ -11,14 +11,14 @@ import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/
 
 export async function loadApps(githubToken: string) {
   const apps: App[] = [];
-  const language = "en";
+  const languageMode = "en";
 
   (
     await Promise.all([
-      loadAppsFromOsmWikiServiceItems(language),
-      loadAppsFromOsmWikiLayers(language),
-      loadAppsFromOsmWikiSoftwares(language),
-      loadAppsFromWikidata(language),
+      loadAppsFromOsmWikiServiceItems(languageMode),
+      loadAppsFromOsmWikiLayers(languageMode),
+      loadAppsFromOsmWikiSoftwares(languageMode),
+      loadAppsFromWikidata(languageMode),
       loadAppsFromGitHub(githubToken),
       loadAppsFromTagInfoProjects(),
     ])

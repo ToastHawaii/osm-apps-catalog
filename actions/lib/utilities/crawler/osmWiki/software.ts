@@ -41,7 +41,7 @@ export function transform(
     logos: toWikimediaUrl(source["logo"], 250),
     imageWiki: source["screenshot"] || source["logo"],
     website: toUrl(extractWebsite(source["web"])),
-    documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
+    documentation: toWikiUrl(source.sourceWiki) || "",
     source: [
       {
         name: "Software",
