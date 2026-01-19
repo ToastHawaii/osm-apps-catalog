@@ -72077,12 +72077,38 @@ async function uploadToRepo(files, commitMessage, ghToken) {
     console.log(`Uploaded ${files.length} file(s) to branch "${branch}" in one commit:\n${files.map((f) => f.filePath).join("\n")}`);
 }
 
+;// CONCATENATED MODULE: ./actions/lib/utilities/calcId.ts
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = url_newUrl(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
+}
+
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps-translations/main.ts
 
 
 
 
 //import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
+
 
 /**
  * The main function for the action.
@@ -72091,6 +72117,13 @@ async function uploadToRepo(files, commitMessage, ghToken) {
 async function run() {
     try {
         const apps = (0,lodash.chain)((await loadApps( /* core.getInput("ghToken") */))[0])
+            .map((app) => ({
+            id: calcId(app),
+            name: app.name,
+            description: app.description,
+            community: app.community,
+            source: app.source,
+        }))
             .groupBy((app) => app.source[0].language)
             .map((apps, lang) => ({
             filePath: `docs/api/apps/all.${lang}.json`,
