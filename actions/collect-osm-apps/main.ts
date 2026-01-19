@@ -40,15 +40,11 @@ export async function run(): Promise<void> {
     });
 
     await uploadToRepo(
-      "docs/api/apps/all.json",
-      JSON.stringify(apps),
-      "Update app catalog",
-      core.getInput("ghToken"),
-    );
-    await uploadToRepo(
-      "docs/sitemap.xml",
-      await generateSitemap(apps),
-      "Update sitemap",
+      [
+        { filePath: "docs/api/apps/all.json", content: JSON.stringify(apps) },
+        { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
+      ],
+      "chore: update app catalog data and sitemap",
       core.getInput("ghToken"),
     );
   } catch (error) {

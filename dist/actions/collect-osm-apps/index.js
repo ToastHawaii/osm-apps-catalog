@@ -74687,9 +74687,8 @@ function convertJsonToTemplateData() {
 // convertTemplateDataToJson();
 // convertJsonToTemplateData();
 
-;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
-const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
-
+// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
+var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./shared/utilities/url.ts
 function newUrl(url) {
     try {
@@ -74740,46 +74739,6 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/jsonRequest.ts
-
-
-async function getJson(url, params = {}, headers = {}, isRetry = false) {
-    if (isDevelopment) {
-        const response = await fetch("https://corsproxy.io/?" +
-            encodeURIComponent(`${url}?${utilQsString(params)}`) +
-            "%26asdf");
-        return await response.json();
-    }
-    console.info(`Load: ${url}?${utilQsString(params)}`);
-    try {
-        const response = await fetch(`${url}?${utilQsString(params)}`, {
-            headers: {
-                ...headers,
-                ...{
-                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json",
-                },
-            },
-        });
-        return await response.json();
-    }
-    catch (e) {
-        console.error(`Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`);
-        if (!isRetry) {
-            // retry one time after a delay of 3 seconds
-            await delay(3000);
-            return getJson(url, params, headers, true);
-        }
-        throw e;
-    }
-}
-function delay(ms) {
-    return new Promise((r) => setTimeout(r, ms));
-}
-
-// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
-var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./shared/utilities/string.ts
 
 
@@ -74891,1997 +74850,467 @@ function strip(html) {
     return doc.body.textContent || "";
 }
 
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/requestTemplates.ts
-
-
-async function requestTemplates(template, language) {
-    const objects = [];
-    let con;
-    do {
-        const params = {
-            list: "embeddedin",
-            eititle: "Template:" + template,
-            eilimit: "500",
-        };
-        if (con)
-            params.eicontinue = con;
-        const response = await osmMediaApiQuery(params);
-        objects.push(...(await processPagesByTemplateResult(response, template, language)));
-        con = response.continue?.eicontinue;
-    } while (con);
-    return objects;
+;// CONCATENATED MODULE: ./shared/utilities/filters.ts
+function display(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
 }
-async function osmMediaApiQuery(params) {
-    const base = "https://wiki.openstreetmap.org/w/api.php";
-    params["origin"] = "*";
-    params["action"] = "query";
-    params["formatversion"] = "2";
-    params["format"] = "json";
-    return await getJson(base, params);
+const mobilePlatforms = (/* unused pure expression or super */ null && ([
+    "ANDROID",
+    "GARMIN",
+    "KINDLE",
+    "MAEMO",
+    "MEEGO",
+    "PALM OS",
+    "SYMBIAN",
+    "UBUNTU PHONE",
+    "UBUNTU TOUCH",
+    "WEBOS",
+    "WINDOWS MOBILE",
+    "WINDOWS PHONE",
+    "IOS",
+    "ZAURUS",
+]));
+function web(a) {
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return platform.some((p) => p === "WEB");
 }
-async function processPagesByTemplateResult(response, template, language) {
-    const pages = response.query.embeddedin;
-    const objects = [];
-    let ids = [];
-    for (const p in pages) {
-        if (language === "en") {
-            if (!/^(af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue):/gi.test(pages[p].title))
-                ids.push(pages[p].pageid);
-        }
-        else if (new RegExp(`^${language}:`, "ig").test(pages[p].title))
-            ids.push(pages[p].pageid);
-        if (ids.length >= 50) {
-            objects.push(...(await loadPages(ids, template)));
-            ids = [];
-        }
-    }
-    if (ids.length > 0) {
-        objects.push(...(await loadPages(ids, template)));
-    }
-    return objects;
+function mobile(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        platform.some((t) => mobilePlatforms.includes(t)) ||
+        a.install.asin ||
+        a.install.fDroidID ||
+        a.install.obtainiumLink ||
+        a.install.googlePlayID ||
+        a.install.huaweiAppGalleryID ||
+        a.install.appleStoreID);
 }
-async function loadPages(ids, template) {
-    const params = {
-        prop: "revisions",
-        rvprop: "content|timestamp",
-        pageids: ids.join("|"),
-        rvslots: "*",
-    };
-    const response = await osmMediaApiQuery(params);
-    const pages = response.query.pages;
-    const objects = [];
-    for (const p in pages) {
-        const content = pages[p].revisions[0].slots.main.content;
-        const pageObjects = parsePage(content, template);
-        for (const o of pageObjects) {
-            o.sourceWiki = pages[p].title;
-            o.timestamp = pages[p].revisions[0].timestamp;
-        }
-        objects.push(...pageObjects);
-    }
-    return objects;
+function navigation(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
 }
-function parsePage(content, template) {
-    const objects = [];
-    let communicationChannels;
-    if ("Communication channels" !== template) {
-        communicationChannels = parsePage(content, "Communication channels")[0];
-    }
-    content = content.replace(/(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)/g, "");
-    const regexTemplate = new RegExp("{{" + template.replace(" ", "[_ ]"), "gi");
-    let start = content.search(regexTemplate);
-    while (start !== -1) {
-        let templateContent = content.substring(start);
-        const closing = findClosingBracketIndex(templateContent, 0);
-        content = templateContent.substring(closing + 1);
-        templateContent = templateContent.substring(0, closing + 1);
-        templateContent = templateContent
-            .substring(templateContent.indexOf("|"), templateContent.length - 2)
-            .trim();
-        const object = parseTemplateToObject(templateContent);
-        object.communicationChannels = communicationChannels || {};
-        objects.push(object);
-        start = content.search(regexTemplate);
-    }
-    return objects;
-}
-function parseTemplateToObject(content) {
-    const obj = {};
-    const props = content.split(/\|(?![^{]*})(?![^[]*\])/g);
-    props.shift();
-    for (const p in props) {
-        const pair = props[p].trim();
-        const start = pair.indexOf("=");
-        const name = pair.substring(0, start).trim();
-        const value = pair.substring(start + 1).trim();
-        if (value)
-            obj[name] = value;
-    }
-    return obj;
+function edit(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
+        topics.some((t) => [
+            "ADD POIS",
+            "EDIT",
+            "EDITING",
+            "EDITOR",
+            "EDITOR SOFTWARE",
+            "ANALYSE",
+            "ANALYSER",
+            "ANALYSIS",
+            "TRACK RECORDING",
+            "TRACKER",
+            "TRACKING",
+            "TRACK LOGGING",
+            "VALIDATOR",
+            "OSM TOOL",
+            "QA",
+            "QUALITY CONTROL",
+            "NOTES",
+            "EDITOR TOOL",
+            "COMPARING TOOL",
+            "HASHTAG TOOL",
+            "MONITORING TOOL",
+            "CHANGESET REVIEW TOOL",
+            "WELCOMING TOOL",
+        ].includes(t)));
 }
 
-// EXTERNAL MODULE: ./node_modules/md5/md5.js
-var md5 = __nccwpck_require__(2296);
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/image.ts
+;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
 
 
 
-function toWikimediaUrl(source, size) {
-    if (!source)
-        return [];
-    if (httpRegex.test(source)) {
-        return [source];
-    }
-    else if (startsWithIgnoreCase(source, "File:")) {
-        const fileName = source.substring(5, source.length);
-        return [
-            ...generateOsmWikimediaUrls(fileName, size),
-            ...generateCommonsWikimediaUrls(fileName, size),
-        ];
-    }
-    else if (startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:"))
-        return generateOsmWikimediaUrls(source.substring(41, source.length), size);
-    else if (startsWithIgnoreCase(source, "http://wiki.openstreetmap.org/wiki/File:"))
-        return generateOsmWikimediaUrls(source.substring(40, source.length), size);
-    else if (startsWithIgnoreCase(source, "https://commons.wikimedia.org/wiki/File:"))
-        return generateCommonsWikimediaUrls(source.substring(40, source.length), size);
-    else if (startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:"))
-        return generateCommonsWikimediaUrls(source.substring(39, source.length), size);
-    else
-        return [
-            ...generateOsmWikimediaUrls(source, size),
-            ...generateCommonsWikimediaUrls(source, size),
-        ];
-}
-function generateOsmWikimediaUrls(fileName, size) {
-    return generateWikimediaUrls("https://wiki.openstreetmap.org/w/images", fileName, size);
-}
-function generateCommonsWikimediaUrls(fileName, size) {
-    return generateWikimediaUrls("https://upload.wikimedia.org/wikipedia/commons", fileName, size);
-}
-function generateWikimediaUrls(base, fileName, size) {
-    fileName = decodeURI(fileName).replace(/ /g, "_");
-    const hash = md5(fileName);
-    return [
-        `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}/${size}px-${fileName}${fileName.toUpperCase().endsWith(".SVG") ? ".png" : ""}`,
-        `${base}/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}`,
-    ];
-}
 
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getPlatformDisplay.ts
-
-const platforms = [
+const multilingual = [
+    "MUL",
+    instance.t("multilingual", { lng: "en" }).toUpperCase(),
+    instance.t("multilingual").toUpperCase(),
+];
+const Criterias = [
+    // OSM Participation
     {
-        name: "Linux",
-        synonym: ["linux", "GNU/Linux"],
-        version: [
-            { name: "Openmoko Linux", synonym: ["openmoko", "openmoko linux"] },
-        ],
+        translationKey: "supportsContributions",
+        check: (app) => edit(app),
+        points: 2,
     },
     {
-        name: "Android",
-        synonym: ["android", "android app", "android application"],
-        version: [
-            { name: "Android Jelly Bean", synonym: ["android jelly bean"] },
-            { name: "F-Droid", synonym: ["fdroid", "f droid"] },
-            { name: "osmdroid", synonym: ["osmdroid"] },
-        ],
+        translationKey: "addingAndEditingPossible",
+        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
+            equalsYes(...[
+                ...(app.editing?.editPOI || []),
+                ...(app.editing?.editGeom || []),
+                ...(app.editing?.editRelations || []),
+                ...(app.editing?.editTags || []),
+            ]),
+        points: 1,
     },
     {
-        name: "Arduino",
-        synonym: ["arduino", "arduino library"],
-        version: [
-            {
-                name: "Arduino® Nano ESP32",
-                synonym: ["esp32 arduino", "esp32", "esp32 s2", "esp32 s3"],
-            },
-        ],
+        translationKey: "displaysMaps",
+        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+        points: 1,
+    },
+    // Development Participation
+    {
+        translationKey: "openSource",
+        check: (app) => !!app.libre,
+        points: 1.0,
     },
     {
-        name: "Raspberry Pi",
-        synonym: ["raspberry", "raspberry pi"],
-        version: [],
-    },
-    { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
-    { name: "Maemo", synonym: ["maemo"], version: [] },
-    { name: "MeeGo", synonym: ["meego"], version: [] },
-    { name: "Sailfish OS", synonym: ["sailfishos"], version: [] },
-    { name: "Tizen", synonym: ["tizen"], version: [] },
-    { name: "WebOS", synonym: ["webos"], version: [] },
-    { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
-    {
-        name: "iOS",
-        synonym: ["ios", "ios app"],
-        version: [
-            { name: "iPhone", synonym: ["iphone"] },
-            { name: "iPad", synonym: ["ipad", "iPadOS"] },
-            { name: "iPod touch", synonym: ["ipod touch", "ipod"] },
-        ],
-    },
-    { name: "watchOS", synonym: ["watchos", "Apple Watch"], version: [] },
-    { name: "tvOS", synonym: ["tvos"], version: [] },
-    { name: "visionOS", synonym: ["visionos"], version: [] },
-    {
-        name: "MacOS",
-        synonym: ["macos", "mac", "mac os", "os x", "osx", "mac os x", "macosx"],
-        version: [],
-    },
-    { name: "Unix", synonym: ["unix"], version: [] },
-    { name: "Bada OS", synonym: ["bada"], version: [] },
-    {
-        name: "BSD",
-        synonym: ["bsd", "Berkeley Software Distribution"],
-        version: [],
-    },
-    { name: "FreeBSD", synonym: ["freebsd"], version: [] },
-    {
-        name: "Amiga OS",
-        synonym: ["amigaos", "amiga os", "amiga"],
-        version: [
-            { name: "MorphOS", synonym: ["morphos"] },
-            { name: "ArOS", synonym: ["aros"] },
-        ],
+        translationKey: "copyleftLicense",
+        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+        points: 0.5,
     },
     {
-        name: "Garmin",
-        synonym: ["garmin", "garmin gps devices"],
-        version: [{ name: "Garmin Watch", synonym: ["garmin watch"] }],
-    },
-    { name: "Windows CE", synonym: ["windows ce", "wince"], version: [] },
-    {
-        name: "Windows Mobile",
-        synonym: ["windows mobile", "wm"],
-        version: [
-            { name: "Windows Mobile 5", synonym: ["windows mobile 5", "wm5"] },
-            { name: "Windows Mobile 6", synonym: ["windows mobile 6", "wm6"] },
-            {
-                name: "Windows Mobile 2000",
-                synonym: ["windows mobile 2000", "wm2000"],
-            },
-            {
-                name: "Windows Mobile 2003",
-                synonym: ["windows mobile 2003", "wm2003"],
-            },
-            { name: "Pocket PC", synonym: ["pocket pc", "pocketpc"] },
-        ],
+        translationKey: "sourceCodeReference",
+        check: (app) => !!app.sourceCode,
+        points: 0.25,
     },
     {
-        name: "Windows Phone",
-        synonym: ["windows phone", "windows phone 10"],
-        version: [],
+        translationKey: "issueTracker",
+        check: (app) => !!app.community.issueTracker,
+        points: 0.25,
     },
     {
-        name: "Windows",
-        synonym: ["windows", "win", "Microsoft Windows"],
-        version: [
-            { name: "Windows XP", synonym: ["windows xp", "winxp"] },
-            { name: "Windows 2000", synonym: ["windows 2000", "win2k"] },
-            { name: "Windows Vista", synonym: ["windows vista", "vista"] },
-            { name: "Windows 7", synonym: ["windows 7", "win7"] },
-            { name: "Windows 8", synonym: ["windows 8", "win8"] },
-            { name: "Windows 8.1", synonym: ["windows 8.1", "win8.1"] },
-            { name: "Windows 10", synonym: ["windows 10", "win10"] },
-            { name: "Windows 11", synonym: ["windows 11", "win11"] },
-        ],
+        translationKey: "lastUpdateThreeMonths",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            return lastRelease > threeMonthsAgo;
+        },
+        points: 0.25,
     },
     {
-        name: "BlackBerry OS",
-        synonym: ["blackberry os", "blackberry", "bbos"],
-        version: [],
-    },
-    { name: "Brew", synonym: ["brew"], version: [] },
-    { name: "Palm OS", synonym: ["palm", "palm os", "palmos"], version: [] },
-    { name: "Symbian", synonym: ["symbian", "s60"], version: [] },
-    {
-        name: "Cross-platform",
-        synonym: ["cross-platform", "cross platform"],
-        version: [],
-    },
-    {
-        name: "Java",
-        synonym: ["java"],
-        version: [
-            { name: "Java ME", synonym: ["j2me", "java me"] },
-            { name: "Java SE", synonym: ["j2se", "java se"] },
-        ],
+        translationKey: "lastUpdateYear",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            return lastRelease > oneYearAgo;
+        },
+        points: 0.25,
     },
     {
-        name: "Node.js",
-        synonym: ["node", "node.js", "nodejs", "node-js", "node js"],
-        version: [],
+        translationKey: "translationContributions",
+        check: (app) => !!app.languagesUrl,
+        points: 0.5,
     },
-    { name: "Qt", synonym: ["qt"], version: [] },
-    { name: "Unity", synonym: ["unity"], version: [] },
+    // Availability/Accessibility
     {
-        name: "Web",
-        synonym: [
-            "web",
-            "web-based",
-            "web based",
-            "webapp",
-            "web-app",
-            "web app",
-            "browser",
-            "web browser",
-            "web application",
-            "pwa",
-        ],
-        version: [],
+        translationKey: "multipleLanguages",
+        check: (app) => app.languages.length >= 3 ||
+            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
+        points: 0.125,
     },
     {
-        name: "Web Assembly",
-        synonym: ["web assembly", "webassembly", "wasm"],
-        version: [],
+        translationKey: "tenLanguages",
+        check: (app) => app.languages.length >= 10,
+        points: 0.125,
     },
     {
-        name: "Docker",
-        synonym: ["docker"],
-        version: [],
+        translationKey: "freeOfCharge",
+        check: (app) => !!app.gratis,
+        points: 0.25,
+    },
+    {
+        translationKey: "multiplePlatforms",
+        check: (app) => {
+            const i = app.install;
+            return ([
+                i.appleStoreID || i.macAppStoreID,
+                i.asin,
+                i.fDroidID ||
+                    i.googlePlayID ||
+                    i.huaweiAppGalleryID ||
+                    i.obtainiumLink,
+                i.microsoftAppID,
+            ].filter((i) => i).length > 1 ||
+                app.platform.length > 1 ||
+                web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "openSourceStores",
+        check: (app) => {
+            const i = app.install;
+            return !!(i.fDroidID || i.obtainiumLink || web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "worldwideData",
+        check: (app) => app.coverage.includes("Worldwide"),
+        points: 0.5,
+    },
+    {
+        translationKey: "accessibilitySupported",
+        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
+            0 ||
+            app.routing?.profiles
+                .map((p) => p.toUpperCase())
+                .includes("WHEELCHAIR") ||
+            false,
+        points: 0.5,
+    },
+    // Community channels & Documentation
+    {
+        translationKey: "communityChannelExists",
+        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
+        points: 0.5,
+    },
+    {
+        translationKey: "openSourceChannel",
+        check: (app) => !!(app.community.irc?.channel ||
+            app.community.matrix ||
+            app.community.mastodon ||
+            app.community.lemmy ||
+            app.community.bluesky),
+        points: 0.25,
+    },
+    {
+        translationKey: "documentationLink",
+        check: (app) => !!app.documentation,
+        points: 0.125,
+    },
+    {
+        translationKey: "documentedMultiplePlatforms",
+        check: (app) => [
+            app.source.some((s) => s.name === "taginfo"),
+            app.source.some((s) => s.name === "GitHub"),
+            app.source.some((s) => s.name === "Wikidata"),
+            app.source.some((s) => s.name === "Layer" ||
+                s.name === "ServiceItem" ||
+                s.name === "Software"),
+        ].filter((s) => s).length >= 2,
+        points: 0.125,
     },
 ];
-function getPlatformDisplay(value) {
-    // Remove version
-    value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
-    for (const platform of platforms) {
-        for (const version of platform.version) {
-            if (version.synonym.find((s) => equalsIgnoreCase(s, value)))
-                return platform.name;
+function calculateScore(app) {
+    // Community Contribution Score (A - E)
+    // A >= 8
+    // B >= 6
+    // C >= 4
+    // D >= 2
+    // E < 2
+    const results = Criterias.map((c) => ({
+        translationKey: c.translationKey,
+        points: c.points,
+        fulfilled: c.check(app),
+    }));
+    return {
+        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
+        details: results,
+    };
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/addApp.ts
+
+
+
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = newUrl(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
+}
+function addApp(apps, obj, options) {
+    const duplicates = apps.filter((app) => 
+    // if name are equals but websites not we ignore this condition
+    equalsName(app.name, obj.name) ||
+        equalsWebsite(app.website, obj.website) ||
+        (options.includeRepositoryForUniqueCheck &&
+            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
+        (options.checkWebsiteWithRepo &&
+            equalsWebsite(app.sourceCode, obj.website)) ||
+        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
+        equalsString(app.install.asin, obj.install.asin) ||
+        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
+        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
+        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
+        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
+        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
+        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
+    if (duplicates.length === 0) {
+        // only add if external sources exists
+        if (obj.name !== "" &&
+            (obj.website ||
+                obj.documentation ||
+                obj.install.appleStoreID ||
+                obj.install.asin ||
+                obj.install.fDroidID ||
+                obj.install.googlePlayID ||
+                obj.install.obtainiumLink ||
+                obj.install.huaweiAppGalleryID ||
+                obj.install.macAppStoreID ||
+                obj.install.microsoftAppID ||
+                obj.sourceCode)) {
+            obj.id = calcId(obj);
+            obj.score = calculateScore(obj).total;
+            apps.push(obj);
         }
-        if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
-            return platform.name;
-    }
-    return "";
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/platformFilter.ts
-function platformFilter(value) {
-    if (!value) {
-        return false;
-    }
-    const valueUp = value.toUpperCase();
-    switch (valueUp) {
-        case "ARM ARCHITECTURE":
-        case "GTK":
-        case "X86":
-        case "X86-64":
-            return false;
-    }
-    return true;
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/languageValueFormat.ts
-function languageValueFormat(value) {
-    if (!Number.isNaN(Number.parseInt(value, 10))) {
-        value = "mul";
     }
     else {
-        value = value.replaceAll("_", "-").toLowerCase();
-    }
-    return value;
-}
-
-;// CONCATENATED MODULE: ./shared/utilities/array.ts
-function includes(arr, target) {
-    return target.every((v) => arr.includes(v));
-}
-function some(arr, target) {
-    return target.some((v) => arr.includes(v));
-}
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/utilities.ts
-
-function containsOfflineLink(value = "") {
-    return /<((s(trike)?)|(del))>/gi.test(value);
-}
-function extractLanguageCodeFromTemplate(value) {
-    const match = /{{#language:([\w-]+)/.exec(value);
-    if (match)
-        return match[1];
-    return value;
-}
-function extractNameWebsiteWiki(value, pageName) {
-    value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
-    const obj = { name: value };
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            obj.website = newUrl(match[2]).toString();
-            value = value.replace(regex, "").trim();
-            if (value)
-                obj.name = value;
+        const app = duplicates[0];
+        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+            app.lastRelease = obj.lastRelease;
+        else
+            app.lastRelease = app.lastRelease || obj.lastRelease;
+        app.unmaintained = app.unmaintained || obj.unmaintained;
+        app.description = app.description || obj.description;
+        app.images.push(...obj.images);
+        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
+        app.logos.push(...obj.logos);
+        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
+        app.imageWiki = app.imageWiki || obj.imageWiki;
+        app.commons = app.commons || [];
+        app.commons.push(...(obj.commons || []));
+        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
+        app.videos = app.videos || [];
+        app.videos.push(...(obj.videos || []));
+        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
+        app.website = app.website || obj.website;
+        if (!app.documentation) {
+            app.documentation = obj.documentation;
         }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            obj.name = match[5];
-            obj.website = newUrl(match[2]).toString();
-            value = value.replace(regex, "");
+        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
+            app.documentation = obj.documentation || app.documentation;
         }
-    }
-    {
-        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            if (match[3])
-                obj.name = match[3];
-            else
-                obj.name = match[1];
-            obj.wiki = toWikiUrl(match[1]);
-            value = value.replace(regex, "");
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*)\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            obj.name = match[1];
-            obj.wiki = toWikiUrl(match[1]);
-            value = value.replace(regex, "");
-        }
-    }
-    obj.name = processWikiText(obj.name);
-    return obj;
-}
-function extractWebsite(value = "") {
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[2];
-        }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[2];
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
-        const match = regex.exec(value);
-        if (match) {
-            return toWikiUrl(match[1]);
-        }
-    }
-    {
-        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[1];
-        }
-    }
-    {
-        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return `https://github.com/${match[1]}`;
-        }
-    }
-    {
-        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return `https://gitlab.com/${match[1]}`;
-        }
-    }
-    {
-        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))/gi;
-        const match = regex.exec(value);
-        if (match) {
-            return match[1];
-        }
-    }
-    return undefined;
-}
-function processWikiText(text = "") {
-    // clean up <ref>
-    {
-        const regex = /<ref>([^<]*)<\/ref>/g;
-        text = text.replace(regex, ``);
-    }
-    // Wikipedia
-    {
-        const regex = /\[\[:wikipedia:([^\]]*(?![^|]))(\|([^\]]*))?\]\]/gi;
-        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`);
-    }
-    {
-        const regex = /\[\[:wikipedia:([^\]]*)\]\]/gi;
-        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    // Url
-    {
-        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/;
-        let match = regex.exec(text);
-        while (match) {
-            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
-            match = regex.exec(text);
-        }
-    }
-    {
-        const regex = /\[\[([^\]]*)\]\]/;
-        let match = regex.exec(text);
-        while (match) {
-            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
-            match = regex.exec(text);
-        }
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
-        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
-    }
-    {
-        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
-        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    {
-        const regex = /{{(Key|Tag|TagKey)\|([^}|]*)(\|([^}|]*))?}}/gi;
-        let match = regex.exec(text);
-        while (match) {
-            if (!match[4]) {
-                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=*`);
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
+        if (
+        // only add if not same source
+        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
+            s.name === obj.source[0].name)) {
+            // make the first source the newest
+            if (app.source[0].lastChange.toUpperCase() >
+                obj.source[0].lastChange.toUpperCase()) {
+                app.source = [...app.source, ...obj.source];
             }
             else {
-                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=<a href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4" target="_blank" rel="noreferrer">$4</a>`);
+                app.source = [...obj.source, ...app.source];
             }
-            match = regex.exec(text);
         }
+        app.author = app.author || obj.author;
+        app.gratis = app.gratis || obj.gratis;
+        app.libre = app.libre || obj.libre;
+        app.price = app.price || obj.price;
+        app.license = app.license || [];
+        app.license.push(...(obj.license || []));
+        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
+        app.sourceCode = app.sourceCode || obj.sourceCode;
+        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
+            app.languages.push(...obj.languages);
+        }
+        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
+        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
+        app.genre.push(...obj.genre);
+        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
+        app.topics.push(...obj.topics);
+        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
+        app.platform.push(...obj.platform);
+        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
+        app.coverage.push(...obj.coverage);
+        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
+        app.install.asin = app.install.asin || obj.install.asin;
+        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
+        app.install.obtainiumLink =
+            app.install.obtainiumLink || obj.install.obtainiumLink;
+        app.install.googlePlayID =
+            app.install.googlePlayID || obj.install.googlePlayID;
+        app.install.huaweiAppGalleryID =
+            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
+        app.install.appleStoreID =
+            app.install.appleStoreID || obj.install.appleStoreID;
+        app.install.macAppStoreID =
+            app.install.macAppStoreID || obj.install.macAppStoreID;
+        app.install.microsoftAppID =
+            app.install.microsoftAppID || obj.install.microsoftAppID;
+        app.map = merge(app.map, obj.map);
+        app.routing = merge(app.routing, obj.routing);
+        app.navigating = merge(app.navigating, obj.navigating);
+        app.tracking = merge(app.tracking, obj.tracking);
+        app.monitoring = merge(app.monitoring, obj.monitoring);
+        app.editing = merge(app.editing, obj.editing);
+        app.rendering = merge(app.rendering, obj.rendering);
+        app.accessibility = merge(app.accessibility, obj.accessibility);
+        app.hasGoal = {
+            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
+                obj.hasGoal?.crowdsourcingStreetLevelImagery,
+        };
+        app.community.forum = app.community.forum || obj.community.forum;
+        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
+        app.community.irc = app.community.irc || obj.community.irc;
+        app.community.matrix = app.community.matrix || obj.community.matrix;
+        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
+        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
+        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
+        app.community.issueTracker =
+            app.community.issueTracker || obj.community.issueTracker;
+        app.community.githubDiscussions =
+            app.community.githubDiscussions || obj.community.githubDiscussions;
+        app.community.telegram = app.community.telegram || obj.community.telegram;
+        app.community.slack = app.community.slack || obj.community.slack;
+        app.community.reddit = app.community.reddit || obj.community.reddit;
+        app.score = calculateScore(app).total;
     }
-    // Format
-    {
-        const strongRegex = /'''([^(''')]*)'''/g;
-        text = text.replace(strongRegex, `<strong>$1</strong>`);
-        const emRegex = /''([^('')]*)''/g;
-        text = text.replace(emRegex, `<em>$1</em>`);
-    }
-    // GitHub
-    {
-        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
-        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    {
-        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    // GitLab
-    {
-        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
-        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`);
-    }
-    {
-        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
-        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`);
-    }
-    // User
-    {
-        const regex = /{{User(\|([^(}})]+))}}/gi;
-        text = text.replace(regex, (substring) => {
-            const parts = substring.substring(2, substring.length - 2).split("|");
-            const displayName = parts[1];
-            let wiki = displayName;
-            let osm = displayName;
-            let link;
-            const params = Object.fromEntries(parts.slice(2).map((s) => s.split("=")));
-            if (typeof params["wiki"] === "string") {
-                wiki = params["wiki"];
-            }
-            if (typeof params["osm"] === "string") {
-                osm = params["osm"];
-            }
-            if (wiki) {
-                link = `https://wiki.openstreetmap.org/wiki/User:${wiki}`;
-            }
-            else if (osm) {
-                link = `https://www.openstreetmap.org/user/${osm}`;
-            }
-            return `<a href="${link}" target="_blank" rel="noreferrer">${displayName}</a>`;
-        });
-    }
-    {
-        const regex = /{{Osm( )?User(\|([^(}})]+))}}/gi;
-        text = text.replace(regex, (substring) => {
-            const parts = substring.substring(2, substring.length - 2).split("|");
-            const name = parts[1];
-            return `<a href="https://www.openstreetmap.org/user/${name}" target="_blank" rel="noreferrer">${name}</a>`;
-        });
-    }
-    text = text.replaceAll(/!&#33;/g, "!!");
-    return text;
 }
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/isFreeAndOpenSource.ts
-function check(value) {
-    return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
-}
-function isFreeAndOpenSource(value) {
-    if (!value) {
-        return false;
-    }
-    if (typeof value === "string") {
-        return check(value);
-    }
-    return value.some((v) => check(v));
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/languageFilter.ts
-function languageFilter(value) {
-    if (!value) {
-        return false;
-    }
-    const valueUp = value.toUpperCase();
-    switch (valueUp) {
-        case "C":
-        case "C++":
-        case "PYTHON":
-        case "SQL":
-        case "WEBSITE":
-            return false;
-    }
-    return true;
-}
-
-// EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
-var sanitize_html = __nccwpck_require__(3595);
-var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
-;// CONCATENATED MODULE: ./shared/utilities/plainText.ts
-
-function plainText(html) {
-    return sanitize_html_default()(html, {
-        allowedTags: [],
-        allowedAttributes: {},
-    }).replaceAll("&amp;", "&");
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/software.ts
-
-
-
-
-
-
-
-
-
-
-
-
-function transform(source) {
-    const obj = {
-        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
-        unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
-        lastRelease: toDate(source["date"]) || "",
-        description: appendFullStop(processWikiText(source["description"] || "")),
-        images: toWikimediaUrl(source["screenshot"], 250),
-        logos: toWikimediaUrl(source["logo"], 250),
-        imageWiki: source["screenshot"] || source["logo"],
-        website: toUrl(extractWebsite(source["web"])),
-        documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
-        source: [
-            {
-                name: "Software",
-                wiki: source.sourceWiki,
-                url: toWikiUrl(source.sourceWiki) || "",
-                lastChange: source["timestamp"] || "",
-            },
-        ],
-        author: processWikiText(source["author"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .join(", "),
-        sourceCode: toUrl(extractWebsite(source["repo"] || source["git"] || source["svn"])),
-        gratis: some([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
-        libre: isFreeAndOpenSource(source["license"]),
-        price: source["price"],
-        license: processWikiText(source["license"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v),
-        languages: (source["languages"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter(languageFilter)
-            .map(languageValueFormat),
-        languagesUrl: toUrl(source["languagesurl"]),
-        genre: toValues(source["genre"]),
-        topics: toValues(source["genre"]),
-        platform: [
-            ...(source["platform"] || "")
-                .replace(/\[\[/g, "")
-                .replace(/\]\]/g, "")
-                .split(splitByCommaButNotInsideBraceRegex)
-                .map(trim),
-            source["asin"] ||
-                source["fDroidID"] ||
-                source["obtainiumLink"] ||
-                source["googlePlayID"] ||
-                source["huaweiAppGalleryID"]
-                ? "Android"
-                : "",
-            source["appleStoreID"] ? "iOS" : "",
-            source["macAppStoreID"] ? "Mac OS" : "",
-            source["microsoftAppID"] ? "Windows" : "",
-        ]
-            .filter(platformFilter)
-            .map((p) => getPlatformDisplay(p) || p),
-        coverage: [],
-        install: {
-            asin: source["asin"],
-            fDroidID: source["fDroidID"],
-            obtainiumLink: source["obtainiumLink"],
-            googlePlayID: source["googlePlayID"],
-            huaweiAppGalleryID: (source["huaweiAppGalleryID"] || "").match(/\d+$/)?.[0] || "",
-            appleStoreID: (source["appleStoreID"] || "").match(/\d+$/)?.[0] || "",
-            macAppStoreID: (source["macAppStoreID"] || "").match(/\d+$/)?.[0] || "",
-            microsoftAppID: source["microsoftAppID"],
-        },
-        map: {
-            map: toValues(source["map"]),
-            mapData: toValues(source["mapData"]),
-            datasource: toValues(source["datasource"]),
-            rotateMap: toValues(source["rotateMap"]),
-            "3D": toValues(source["3D"]),
-            showWebsite: toValues(source["showWebsite"]),
-            showPhoneNumber: toValues(source["showPhoneNumber"]),
-            showOpeningHours: toValues(source["showOpeningHours"]),
-        },
-        routing: {
-            routing: toValues(source["routing"]),
-            createRouteManually: toValues(source["createRouteManually"]),
-            calculateRoute: toValues(source["calculateRoute"]),
-            createRouteViaWaypoints: toValues(source["createRouteViaWaypoints"]),
-            profiles: toValues(source["profiles"]),
-            turnRestrictions: toValues(source["turnRestrictions"]),
-            calculateRouteOffline: toValues(source["calculateRouteOffline"]),
-            routingProviders: toValues(source["routingProviders"]),
-            avoidTraffic: toValues(source["avoidTraffic"]),
-            trafficProvider: toValues(source["trafficProvider"]),
-        },
-        navigating: {
-            navigating: toValues(source["navigating"]),
-            findLocation: toValues(source["findLocation"]),
-            findNearbyPOI: toValues(source["findNearbyPOI"]),
-            navToPoint: toValues(source["navToPoint"]),
-            voice: toValues(source["voice"]),
-            keepOnRoad: toValues(source["keepOnRoad"]),
-            turnLanes: toValues(source["turnLanes"]),
-            withoutGPS: toValues(source["withoutGPS"]),
-            predefinedRoute: toValues(source["predefinedRoute"]),
-        },
-        tracking: {
-            tracking: toValues(source["tracking"]),
-            customInterval: toValues(source["customInterval"]),
-            trackFormats: toValues(source["trackFormats"] || source["formats"]),
-            geotagging: toValues(source["geotagging"]),
-            fastWayPointAdding: toValues(source["fastWayPointAdding"]),
-            uploadGPX: toValues(source["uploadGPX"]),
-        },
-        monitoring: {
-            monitoring: toValues(source["monitoring"]),
-            showTrack: toValues(source["showTrack"]),
-            showExistingTrack: toValues(source["showExistingTrack"]),
-            showAltitudeDiagram: toValues(source["showAltitudeDiagram"]),
-            showDOP: toValues(source["showDOP"]),
-            showSatellites: toValues(source["showSatellites"]),
-            showNMEAlive: toValues(source["showNMEAlive"]),
-            showSpeed: toValues(source["showSpeed"]),
-            sendPosition: toValues(source["sendPosition"]),
-        },
-        editing: {
-            addPOI: toValues(source["addPOI"]),
-            editPOI: toValues(source["editPOI"]),
-            addWay: toValues(source["addWay"]),
-            editGeom: toValues(source["editGeom"]),
-            editTags: toValues(source["editTags"]),
-            editRelations: toValues(source["editRelations"]),
-            viewNotes: toValues(source["viewNotes"]),
-            createNotes: toValues(source["createNotes"]),
-            editNotes: toValues(source["editNotes"]),
-            editSource: toValues(source["editSource"]),
-            offsetDBsupport: toValues(source["offsetDBsupport"]),
-            uploadOSMData: toValues(source["uploadOSMData"]),
-        },
-        rendering: {
-            rendererOutputFormats: toValues(source["rendererOutputFormats"]),
-        },
-        accessibility: {
-            accessibility: toValues(source["accessibility"]),
-            textOnlyUI: toValues(source["textOnlyUI"]),
-            brailleUI: toValues(source["brailleUI"]),
-            explorerMode: toValues(source["explorerMode"]),
-            publicTransportMode: toValues(source["publicTransportMode"]),
-            dangerWarnings: toValues(source["dangerWarnings"]),
-            screenReader: toValues(source["screenReader"]),
-            screenReaderLang: (source["screenReaderLang"] || "")
-                .split(splitByCommaButNotInsideBraceRegex)
-                .map(trim)
-                .filter(languageFilter)
-                .map(languageValueFormat),
-        },
-        community: {
-            forum: source.communicationChannels["forum"],
-            forumTag: source.communicationChannels["forum tag"],
-            irc: source.communicationChannels["irc channel"]
-                ? {
-                    server: source.communicationChannels["irc server"],
-                    channel: source.communicationChannels["irc channel"],
-                }
-                : undefined,
-            matrix: source.communicationChannels["matrix room"],
-            bluesky: source.communicationChannels["bluesky handle"],
-            mastodon: source.communicationChannels["mastodon address"],
-            issueTracker: toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
-            githubDiscussions: source.communicationChannels["github discussions"],
-            telegram: source.communicationChannels["telegram"],
-            slack: toUrl(source.communicationChannels["slack url"]),
-        },
-    };
-    if (source["coverage"]) {
-        const coverage = source["coverage"]
-            .split(splitBySemicolonButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst);
-        obj.coverage.push(...coverage);
-    }
-    obj.platform = (0,lodash.uniq)(obj.platform).sort();
-    obj.languages = (0,lodash.uniq)(obj.languages).sort();
-    obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
-    if (hasValue(source["datasource"]))
-        obj.topics.push(...(source["datasource"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-    if (equalsYes(source["3D"]))
-        obj.topics.push("3D");
-    if (equalsYes(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
-        obj.topics.push("POI");
-    if (equalsYes(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
-        obj.topics.push("Routing");
-    if (hasValue(source["profiles"]))
-        obj.topics.push(...(source["profiles"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-    if (equalsYes(source["navigating"], source["navToPoint"]))
-        obj.topics.push("Navi");
-    if (equalsYes(source["findLocation"]))
-        obj.topics.push("Search");
-    if (equalsYes(source["tracking"]))
-        obj.topics.push("Track logging");
-    if (hasValue(source["geotagging"]))
-        obj.topics.push(...(source["geotagging"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-    if (equalsYes(source["monitoring"]))
-        obj.topics.push("Track monitoring");
-    if (source["rendererOutputFormats"])
-        obj.topics.push("Rendering");
-    if (equalsYes(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
-        obj.topics.push("Editor");
-    if (equalsYes(source["viewNotes"], source["createNotes"], source["editNotes"]))
-        obj.topics.push("Notes");
-    if (hasValue(source["editSource"]))
-        obj.topics.push(...(source["editSource"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-    if (hasValue(source["accessibility"])) {
-        obj.topics.push(...(source["accessibility"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-        obj.topics.push("Accessibility");
-    }
-    if (equalsYes(source["accessibility"]))
-        obj.topics.push("Accessibility");
-    if (equalsYes(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
-        obj.topics.push("Blind");
-    obj.topics = (0,lodash.uniq)(obj.topics).sort();
-    {
-        const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-        obj.name = plainText(name.name || obj.name);
-        obj.website = obj.website || name.website;
-        obj.documentation = obj.documentation || name.wiki || "";
-    }
-    {
-        const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
-        obj.name = plainText(obj.name || name.name);
-        obj.website = name.website || obj.website;
-        obj.documentation = obj.documentation || name.wiki || "";
-    }
-    {
-        const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
-        obj.name = plainText(obj.name || name.name);
-        obj.website = obj.website || name.website;
-        obj.documentation = name.wiki || obj.documentation;
-    }
-    return obj;
-}
-function hasValue(value = "") {
-    value = value.toUpperCase();
-    return (value &&
-        value !== "YES" &&
-        value !== "NO" &&
-        value !== "NONE" &&
-        value !== "?");
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/serviceItem.ts
-
-
-
-
-
-
-
-
-function serviceItem_transform(source) {
-    const obj = {
-        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
-        description: appendFullStop(processWikiText(source["descr"] || "")),
-        images: toWikimediaUrl(source["image"], 250),
-        logos: [],
-        imageWiki: source["image"],
-        source: [
-            {
-                name: "ServiceItem",
-                wiki: source.sourceWiki,
-                url: toWikiUrl(source.sourceWiki) || "",
-                lastChange: source["timestamp"] || "",
-            },
-        ],
-        sourceCode: toUrl(extractWebsite(source["material"])),
-        libre: startsWithIgnoreCase(source["material"], "{{yes"),
-        languages: (source["lang"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(extractLanguageCodeFromTemplate)
-            .map(trim)
-            .filter(languageFilter)
-            .map(languageValueFormat),
-        languagesUrl: toUrl(extractWebsite(source["lang"])),
-        genre: (source["genre"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst)
-            .sort(),
-        topics: (source["genre"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst)
-            .sort(),
-        platform: [],
-        coverage: [],
-        install: {},
-        community: {},
-    };
-    if (source["region"]) {
-        obj.coverage.push(...source["region"]
-            .split(splitBySemicolonButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .map(lodash.upperFirst));
-    }
-    obj.languages = (0,lodash.uniq)(obj.languages).sort();
-    obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
-    obj.topics = (0,lodash.uniq)(obj.topics).sort();
-    const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
-    obj.name = plainText(name.name || obj.name);
-    obj.website = name.website;
-    obj.documentation = name.wiki || obj.documentation;
-    return obj;
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wiki/layer.ts
-
-
-
-
-
-
-
-
-
-function layer_transform(source) {
-    const obj = {
-        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
-        lastRelease: toDate(source["date"]) || "",
-        description: appendFullStop(processWikiText(source["description"] || "")),
-        images: toWikimediaUrl(source["screenshot"], 250),
-        logos: toWikimediaUrl(source["logo"], 250),
-        imageWiki: source["screenshot"] || source["logo"],
-        website: toUrl(extractWebsite(source["slippy_web"])),
-        documentation: toWikiUrl(source.sourceWiki) || "",
-        source: [
-            {
-                name: "Layer",
-                wiki: source.sourceWiki,
-                url: toWikiUrl(source.sourceWiki) || "",
-                lastChange: source["timestamp"] || "",
-            },
-        ],
-        sourceCode: toUrl(extractWebsite(source["style_web"]) || extractWebsite(source["repo"])),
-        author: processWikiText(source["author"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter((v) => v)
-            .join(", "),
-        languages: (source["tiles_languages"] || "")
-            .split(splitByCommaButNotInsideBraceRegex)
-            .map(trim)
-            .filter(languageFilter)
-            .map(languageValueFormat),
-        languagesUrl: toUrl(source["tiles_languagesurl"]),
-        genre: [],
-        topics: [],
-        platform: ["Web"],
-        coverage: [],
-        install: {},
-        license: (0,lodash.uniq)([
-            ...processWikiText(source["tiles_license"] || "")
-                .split(splitByCommaButNotInsideBraceRegex)
-                .map(trim)
-                .filter((v) => v),
-            ...processWikiText(source["style_license"] || "")
-                .split(splitByCommaButNotInsideBraceRegex)
-                .map(trim)
-                .filter((v) => v),
-        ]),
-        libre: isFreeAndOpenSource([
-            source["tiles_license"],
-            source["style_license"],
-        ]),
-        community: {
-            issueTracker: toUrl(source["bugtracker_web"]),
-        },
-    };
-    if (!equalsYes(source["notlayer"])) {
-        obj.topics.push("Tile layer");
-        obj.genre.push("Tile layer");
-    }
-    if (source["slippy_web"]) {
-        obj.topics.push("Slippy map");
-        obj.genre.push("Slippy map");
-    }
-    obj.languages = (0,lodash.uniq)(obj.languages).sort();
-    return obj;
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/wikidata.ts
-
-
-
-
-
-
-
-
-function extractGenre(result) {
-    const genre = [];
-    if (result.viewing?.value === "y") {
-        genre.push("Viewing tool");
-    }
-    if (result.routing?.value === "y") {
-        genre.push("Routing tool");
-    }
-    if (result.editor?.value === "y") {
-        genre.push("Editor tool");
-    }
-    if (result.comparing?.value === "y") {
-        genre.push("Comparing tool");
-    }
-    if (result.hashtagTool?.value === "y") {
-        genre.push("Hashtag tool");
-    }
-    if (result.monitoring?.value === "y") {
-        genre.push("Monitoring tool");
-    }
-    if (result.changsetReview?.value === "y") {
-        genre.push("Changeset review tool");
-    }
-    if (result.welcomingTool?.value === "y") {
-        genre.push("Welcoming tool");
-    }
-    if (result.streetImgSv?.value === "y" || result.streetImg?.value === "y") {
-        genre.push("Street-level imagery");
-    }
-    return genre;
-}
-function extractIrc(value) {
-    if (!value)
+// Todo: replace mit lodash?
+function merge(o1, o2) {
+    if (!o1 && !o2) {
         return undefined;
-    const url = newUrl(value);
-    return {
-        server: url.hostname,
-        channel: url.pathname.substring(1) || url.hash,
-    };
-}
-function transformWikidataResult(result) {
-    return {
-        name: result.itemLabel.value || "",
-        lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
-        description: result.description?.value || "",
-        images: (result.imgs?.value || "").split(";").filter((v) => v),
-        logos: (result.logos?.value || "").split(";").filter((v) => v),
-        commons: (result.commons?.value || "").split(";").filter((v) => v),
-        videos: (result.videos?.value || "").split(";").filter((v) => v),
-        website: result.web?.value || result.webDef?.value
-            ? newUrl(result.web?.value || result.webDef?.value).toString()
-            : "",
-        documentation: result.doc?.value || result.docDef?.value || "",
-        author: result.authors?.value || "",
-        libre: isFreeAndOpenSource(result.license?.value),
-        license: (result.license?.value || "").split(";").filter((v) => v),
-        sourceCode: result.sourceCode?.value || "",
-        languages: (result.lgs?.value || "")
-            .split(";")
-            .filter(languageFilter)
-            .map(languageValueFormat),
-        languagesUrl: result.lgsUrl?.value || "",
-        genre: extractGenre(result),
-        topics: [...extractGenre(result), ...toValues(result.topics?.value)],
-        platform: [
-            ...new Set([
-                ...(result.platforms?.value || "").split(";"),
-                ...(result.os?.value || "").split(";"),
-                result.asin?.value ||
-                    result.googlePlay?.value ||
-                    result.huaweiGallery?.value ||
-                    result.fDroid?.value
-                    ? "Android"
-                    : undefined,
-                result.appleStore?.value ? "iOS" : undefined,
-                result.microsoftStore?.value ? "Windows" : undefined,
-            ]
-                .filter(platformFilter)
-                .map((p) => getPlatformDisplay(p) || p)),
-        ],
-        coverage: [],
-        install: {
-            asin: result.asin?.value,
-            googlePlayID: result.googlePlay?.value,
-            huaweiAppGalleryID: result.huaweiGallery?.value,
-            fDroidID: result.fDroid?.value,
-            appleStoreID: result.appleStore?.value,
-            microsoftAppID: result.microsoftStore?.value,
-        },
-        hasGoal: {
-            crowdsourcingStreetLevelImagery: result.streetImg,
-        },
-        community: {
-            forum: result.forum?.value || result.forumDef?.value,
-            irc: extractIrc(result.irc?.value),
-            bluesky: result.bluesky?.value,
-            matrix: result.matrix?.value,
-            mastodon: result.mastodon?.value,
-            lemmy: result.lemmy?.value,
-            issueTracker: result.issues?.value,
-            telegram: result.teleg?.value || result.telegDef?.value,
-            reddit: result.subreddit?.value,
-        },
-        source: [
-            {
-                name: "Wikidata",
-                wiki: "",
-                url: result.item.value,
-                lastChange: result.modified.value,
-            },
-        ],
-    };
-}
-async function request(query) {
-    const base = "https://query.wikidata.org/sparql";
-    const params = {};
-    params["query"] = query;
-    params["format"] = "json";
-    return await getJson(base, params);
-}
-function requestWikidata(lg) {
-    const base = request(`
-SELECT DISTINCT 
-  ?item ?itemLabel 
-  ?description 
-  (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
-  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
-  (GROUP_CONCAT(DISTINCT ?common; SEPARATOR = ";") AS ?commons) 
-  (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?videos) 
-  (SAMPLE(?webDef) AS ?webDef)
-  (SAMPLE(?web) AS ?web)
-  (SAMPLE(?docDef) AS ?docDef)
-  (SAMPLE(?doc) AS ?doc)
-  (SAMPLE(?forumDef) AS ?forumDef)
-  (SAMPLE(?forum) AS ?forum)
-  (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
-  (SAMPLE(?sourceCode) AS ?sourceCode)
-  (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
-  (SAMPLE(?lgsUrl) AS ?lgsUrl) 
-  (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
-  (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
-  (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
-  (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlay) AS ?googlePlay) 
-  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
-  (SAMPLE(?fDroid) AS ?fDroid) 
-  (SAMPLE(?appleStore) AS ?appleStore) 
-  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
-  (SAMPLE(?matrix) AS ?matrix) 
-  (SAMPLE(?bluesky) AS ?bluesky) 
-  (SAMPLE(?mastodon) AS ?mastodon) 
-  (SAMPLE(?lemmy) AS ?lemmy) 
-  (SAMPLE(?issues) AS ?issues) 
-  (SAMPLE(?telegDef) AS ?telegDef)
-  (SAMPLE(?teleg) AS ?teleg)
-  (SAMPLE(?subreddit) AS ?subreddit) 
-  (SAMPLE(?irc) AS ?irc) 
-  ?modified 
-WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  
-  OPTIONAL {
-    ?item schema:description ?description.
-    FILTER((LANG(?description)) = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P154 ?logo. }
-  OPTIONAL { ?item wdt:P18 ?img. }
-  OPTIONAL { ?item wdt:P373 ?common. }
-  OPTIONAL { ?item wdt:P10 ?video. }
-  OPTIONAL { ?item wdt:P856 ?webDef. }
-  OPTIONAL { 
-    ?item p:P856 ?webStat. 
-    ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLg.
-    ?webLg wdt:P218 ?webLgCode 
-    FILTER(?webLgCode = "${lg}")
-  }
-  OPTIONAL { 
-    ?item p:P1343 ?docDefStat. 
-    ?docDefStat pq:P2699 ?docDef.
     }
-  OPTIONAL { 
-    ?item p:P973 ?docStat. 
-    ?docStat ps:P973 ?doc.
-    ?docStat pq:P407 ?docLg.
-    ?docLg wdt:P218 ?docLgCode 
-    FILTER(?docLgCode = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P10027 ?forumDef. }
-  OPTIONAL { 
-    ?item p:P10027 ?forumStat. 
-    ?forumStat ps:P10027 ?forum.
-    ?forumStat pq:P407 ?forumLg.
-    ?forumLg wdt:P218 ?forumLgCode 
-    FILTER(?forumLgCode = "${lg}")
-  }
-  OPTIONAL { 
-    ?item wdt:P178/rdfs:label ?authorLabel.
-    FILTER(LANG(?authorLabel) = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P1324 ?sourceCode. }
-  OPTIONAL { 
-    ?item wdt:P407 ?lg.
-    ?lg wdt:P218 ?lgCode.
-  }
-  OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
-  OPTIONAL { 
-    ?item wdt:P366/rdfs:label ?topicLabel.
-    FILTER(LANG(?topicLabel) = "${lg}")
-  }
-  OPTIONAL { 
-    ?item wdt:P306/rdfs:label ?osLabel.
-    FILTER(LANG(?osLabel) = "${lg}")
-  }
-  OPTIONAL { 
-    ?item wdt:P400/rdfs:label ?platformLabel.
-    FILTER(LANG(?platformLabel) = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P5749 ?asin. }
-  OPTIONAL { ?item wdt:P3597 ?fDroid. }
-  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
-  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
-  OPTIONAL { ?item wdt:P3861 ?appleStore. }
-  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
-  OPTIONAL { ?item wdt:P11478 ?matrix. }
-  OPTIONAL { ?item wdt:P4033 ?mastodon. }
-  OPTIONAL { ?item wdt:P11947 ?lemmy. }
-  OPTIONAL { ?item wdt:P12361 ?bluesky. }
-  OPTIONAL { ?item wdt:P1401 ?issues. }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?telegDef; 
-     pq:P3831 wd:Q87410646.
-  }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?teleg; 
-     pq:P3831 wd:Q87410646.
-    ?telegStat pq:P407 ?telegLg.
-    ?telegLg wdt:P218 ?telegLgCode 
-    FILTER(?telegLgCode = "${lg}")
-  }
-  OPTIONAL { ?item wdt:P3984 ?subreddit. }
-  OPTIONAL { ?item wdt:P1613 ?irc. }
-  ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
-}
-GROUP BY ?item 
-         ?itemLabel 
-         ?description
-         ?modified
-`.replace(/( |\n)+/g, " "));
-    const genre = request(`
-SELECT DISTINCT 
-  ?item ?itemLabel 
-  ?viewing
-  ?routing
-  ?editor
-  ?comparing
-  ?hashtagTool
-  ?monitoring
-  ?changsetReview
-  ?welcomingTool
-  ?streetImg
-  ?modified 
-WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122264265.
-    BIND("y" AS ?viewing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122264957.
-    BIND("y" AS ?routing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q130404096.
-    BIND("y" AS ?routing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q98163019.
-    BIND("y" AS ?editor)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122264344.
-    BIND("y" AS ?comparing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122270779.
-    BIND("y" AS ?hashtagTool)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122270784.
-    BIND("y" AS ?monitoring)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q125191237.
-    BIND("y" AS ?changsetReview)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q125191788.
-    BIND("y" AS ?welcomingTool)
-  }  
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q86715518.
-    BIND("y" AS ?streetImgSv)
-  }  
-  OPTIONAL { 
-    ?item p:P3712 ?goalStat. 
-    ?goalStat ps:P3712 ?goal. 
-    FILTER(?goal = wd:Q275969)
-    ?goalStat pq:P12913 wd:Q96470821. 
-    BIND("y" AS ?streetImg)
-  }
-  ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
-}
-GROUP BY ?item 
-         ?itemLabel 
-         ?viewing 
-         ?routing 
-         ?editor 
-         ?comparing 
-         ?hashtagTool 
-         ?monitoring 
-         ?changsetReview 
-         ?welcomingTool
-         ?streetImgSv
-         ?streetImg
-         ?modified
-`.replace(/( |\n)+/g, " "));
-    const lastRelease = request(`
-SELECT DISTINCT 
-  ?item ?itemLabel
-  (SAMPLE(?webDef) AS ?webDef)
-  (SAMPLE(?web) AS ?web)
-  (MAX(?date) AS ?lastRelease)
-  ?modified 
-WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-
-  OPTIONAL { ?item wdt:P856 ?webDef. }
-  OPTIONAL { 
-    ?item p:P856 ?webStat. 
-    ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLg.
-    ?webLg wdt:P218 ?webLgCode 
-    FILTER(?webLgCode = "${lg}")
-  }
-      
-  ?item p:P348/pq:P577 ?date.
-
-  ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
-}
-GROUP BY ?item
-         ?itemLabel
-         ?modified
-`.replaceAll("  ", " "));
-    const license = request(`
-SELECT DISTINCT 
-  ?item ?itemLabel
-  (SAMPLE(?webDef) AS ?webDef)
-  (SAMPLE(?web) AS ?web)
-  (GROUP_CONCAT(?licenseShortName; SEPARATOR = ";") AS ?license)
-  ?modified 
-WHERE
-{
-  {
-    SELECT DISTINCT 
-      ?item ?itemLabel
-      (SAMPLE(?licenseShortName) AS ?licenseShortName)
-      ?modified 
-    WHERE {
-      ?item (wdt:P31/(wdt:P279*)) ?type.
-      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-      { ?item wdt:P144 wd:Q936. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-      UNION { ?item wdt:P2283 wd:Q936. }
-      UNION { ?item wdt:P144 wd:Q125124940. }
-      UNION { ?item wdt:P2283 wd:Q125124940. }
-      UNION { ?item wdt:P144 wd:Q116859711. }
-      UNION { ?item wdt:P2283 wd:Q116859711. }
-      UNION { ?item wdt:P144 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q121746037. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-
-      OPTIONAL { ?item wdt:P856 ?webDef. }
-      OPTIONAL { 
-        ?item p:P856 ?webStat. 
-        ?webStat ps:P856 ?web.
-        ?webStat pq:P407 ?webLg.
-        ?webLg wdt:P218 ?webLgCode 
-        FILTER(?webLgCode = "${lg}")
-      }
-          
-      ?item wdt:P275 ?license.
-      ?license wdt:P1813 ?licenseShortName.
-      
-      ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+    if (o1 && !o2) {
+        return o1;
     }
-    GROUP BY ?item 
-             ?itemLabel
-             ?license
-             ?modified
-  }
-  
-  OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
-}
-GROUP BY ?item 
-         ?itemLabel
-         ?modified
-`.replaceAll("  ", " "));
-    return [base, genre, lastRelease, license];
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getProgramingLanguageDisplay.ts
-
-const programingLanguages = [
-    { name: "ActionScript", synonym: ["actionscript", "flash"] },
-    { name: "ActiveScript", synonym: ["activescript"] },
-    { name: "AppleScript", synonym: ["applescript"] },
-    { name: "C", synonym: ["c", "clang"] },
-    {
-        name: "C++",
-        synonym: [
-            "c++",
-            "cpp",
-            "cplusplus",
-            "c-plus-plus",
-            "c plus plus",
-            "c++0x",
-            "c++1x",
-            "c++03",
-            "c++11",
-            "c++14",
-            "c++17",
-            "cpp17",
-            "c++20",
-            "symbiancpp",
-            "gcc",
-        ],
-    },
-    { name: "C#", synonym: ["c#", "c-sharp", "c sharp", "csharp"] },
-    { name: "Clojure", synonym: ["clojure", "clojurescript"] },
-    {
-        name: "CSS",
-        synonym: [
-            "css",
-            "css3",
-            // none synonym but a hint
-            "css grid",
-        ],
-    },
-    { name: "Dart", synonym: ["dart"] },
-    { name: "Go", synonym: ["go", "golang"] },
-    { name: "HTML", synonym: ["html"] },
-    {
-        name: "Java",
-        synonym: [
-            "java",
-            // none synonym but a hint
-            "osm java",
-        ],
-    },
-    {
-        name: "JavaScript",
-        synonym: [
-            "javascript",
-            "js",
-            "ecmascript",
-            "es",
-            "vanilla javascript",
-            "vanillajs",
-        ],
-    },
-    { name: "Kotlin", synonym: ["kotlin"] },
-    { name: "Lua", synonym: ["lua"] },
-    { name: "Objective-C", synonym: ["objective-c", "objective c", "objc"] },
-    {
-        name: "Objective-C++",
-        synonym: [
-            "objective-c++",
-            "objective c++",
-            "objc++",
-            "objective c plus plus",
-        ],
-    },
-    { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
-    { name: "Perl", synonym: ["perl", "pl"] },
-    { name: "PHP", synonym: ["php"] },
-    {
-        name: "Python",
-        synonym: ["python", "py", "python2", "python3", "python 3"],
-    },
-    { name: "R", synonym: ["r"] },
-    { name: "Ruby", synonym: ["ruby", "rb", "rails", "ruby-script"] },
-    { name: "Rust", synonym: ["rust"] },
-    { name: "SQL", synonym: ["sql"] },
-    { name: "Swift", synonym: ["swift"] },
-    { name: "TypeScript", synonym: ["typescript", "ts"] },
-    {
-        name: "Visual Basic .NET",
-        synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
-    },
-    { name: "Zig", synonym: ["zig"] },
-    { name: "Html", synonym: ["html", "html5", "html css"] },
-    { name: "Haskell", synonym: ["haskell"] },
-    { name: "Visual Basic", synonym: ["vb6", "vba"] },
-    { name: "Nim", synonym: ["nim", "nim lang"] },
-];
-function getProgramingLanguageDisplay(value) {
-    for (const language of programingLanguages) {
-        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
-            return language.name;
+    if (!o1 && o2) {
+        return o2;
     }
-    return "";
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getFrameworkDisplay.ts
-
-const frameworks = [
-    { name: "Meteor", synonym: ["meteor", "meteor application"] },
-    {
-        name: "leaflet",
-        synonym: [
-            "leaflet",
-            "leafletjs",
-            "leaflets",
-            "leaflet java",
-            "leaflet4j",
-            "leaflet reactjs",
-            "leaflet markercluster",
-            "react leaflet",
-            "react leaflet markercluster",
-        ],
-    },
-    {
-        name: "React",
-        synonym: ["react", "reactjs", "reactnative", "react native"],
-    },
-    { name: "Vite", synonym: ["vite", "vitejs"] },
-    { name: "Reatom", synonym: ["reatom"] },
-    {
-        name: "Tailwind CSS",
-        synonym: ["tailwind css", "tailwind", "tailwindcss"],
-    },
-    { name: "Nextjs", synonym: ["nextjs"] },
-    { name: "Bootstrap", synonym: ["bootstrap", "bootstrap5"] },
-    { name: "Cesiumjs", synonym: ["cesiumjs"] },
-    { name: "Flutter", synonym: ["flutter", "flutter app", "flutter apps  "] },
-    {
-        name: "Angular",
-        synonym: ["angular", "angular2", "angularjs", "angular ssr"],
-    },
-    { name: "ASP.NET", synonym: ["asp net core"] },
-    { name: "JQuery", synonym: ["jquery"] },
-    { name: "Material UI", synonym: ["material ui"] },
-    {
-        name: "Windows form",
-        synonym: ["windowsform", "windowsforms", "winforms"],
-    },
-    { name: "LovyanGFX", synonym: ["lovyangfx"] },
-    { name: "shadcn/ui", synonym: ["shadcn ui"] },
-    { name: "SQLite", synonym: ["sqlite"] },
-    { name: "Microsoft SQL Server", synonym: ["sqlserver"] },
-    { name: "Turso", synonym: ["turso db"] },
-    { name: "Supabase", synonym: ["supabase"] },
-    { name: "TanStack Table", synonym: ["tanstack table"] },
-    { name: "Recharts", synonym: ["recharts"] },
-    { name: "Flask", synonym: ["flask", "flask api"] },
-    { name: "Django", synonym: ["django"] },
-    { name: "nginx", synonym: ["nginx"] },
-    { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
-    { name: "D3", synonym: ["d3", "d3js"] },
-    { name: "WebGl", synonym: ["webgl", "webgl2"] },
-    { name: "Django REST framework", synonym: ["django rest framework"] },
-    { name: "Flowbite", synonym: ["flowbite", "flowbite svelte"] },
-    { name: "OAuth", synonym: ["oauth", "oauth1", "oauth2"] },
-    {
-        name: "WebSocket",
-        synonym: ["websocket", "gorilla websocket", "websocketpp"],
-    },
-    { name: "Riot JS", synonym: ["riot", "riot mui", "riotjs"] },
-    { name: "mongodb", synonym: ["mongodb"] },
-    { name: "Redux", synonym: ["redux"] },
-    { name: "CORS", synonym: ["cors"] },
-    { name: "p5.js", synonym: ["p5js"] },
-    { name: "Mappa.js", synonym: ["mappajs"] },
-    { name: "MariaDB", synonym: ["mariadb"] },
-    { name: "DuckDB", synonym: ["duckdb"] },
-    { name: "Apache Spark", synonym: ["apache spark"] },
-    { name: "Apache Arrow", synonym: ["apache arrow"] },
-    { name: "Windows Presentation Foundation", synonym: ["wpf"] },
-    { name: "CockroachDB", synonym: ["cockroachdb"] },
-    { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
-    { name: "Express", synonym: ["express", "expressjs"] },
-    { name: "Espressif IoT Development Framework", synonym: ["esp32 idf"] },
-    { name: "PNGdec", synonym: ["pngdec"] },
-    { name: "Xamarin", synonym: ["xamarin"] },
-    { name: "Avalonia UI", synonym: ["avalonia"] },
-    { name: "Blazor", synonym: ["blazor"] },
-    { name: "Maui", synonym: ["maui"] },
-    { name: "Uno platform", synonym: ["uno platform"] },
-    { name: "libosmscout", synonym: ["libosmscout"] },
-];
-function getFrameworkDisplay(value) {
-    for (const language of frameworks) {
-        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
-            return language.name;
-    }
-    return "";
-}
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/crawler/github.ts
-
-
-
-
-
-
-
-const ignoredTopics = [
-    // OpenStreetMap
-    "openstreetmap",
-    "osm",
-    "openstreetmaps",
-    "open-street-map",
-    "openstreetmap-data",
-    "osm-data",
-    // General map
-    "map",
-    "maps",
-    "mapping",
-    "geo",
-    "cartography",
-    // General
-    "gui",
-    "gui-application",
-    "application",
-    "app",
-    "static-website",
-    // Hosting/Dev platform
-    "github-page",
-    "azure",
-    "jekyll",
-    "firebase",
-    "firebase-auth",
-    "firebase-firestore",
-    "firebase-realtime-database",
-    "github",
-    "github",
-    "github-actions",
-    "git",
-    "svn",
-    "kubernetes",
-    "k8s",
-    "dataviz",
-    // Not specific enough
-    "520",
-    "705",
-    "955",
-    "1050",
-    // Used feature/standard
-    "mqtt",
-    // Offtopic
-    "multilanguage",
-    "released",
-    "help-wanted",
-    "psram-needed",
-    // License
-    "agplv3",
-    "gplv3",
-    "foss",
-    "open-source",
-    // Tools
-    "cmake",
-    "tkinter",
-    // Events
-    "hacktoberfest",
-    "hactoberfest",
-    "hakctoberfest",
-    "hactoberfest2019",
-    "hacktoberfest2020",
-    "hacktoberfest2021",
-    "hacktoberfest2022",
-    "hacktoberfest2023",
-    "30daymapchallenge",
-    "eccv2020",
-    // Companies
-    "interline-io",
-];
-function transformGitHubResult(eld, result) {
-    let language;
-    if (result.description &&
-        ((0,lodash.words)(result.description).length >= 6 || result.description.length > 42)) {
-        const detected = eld.detect(result.description);
-        if (detected.isReliable()) {
-            language = detected.language;
-        }
-    }
-    const topics = result.repositoryTopics.nodes.map((n) => n.topic.name);
-    const mul = topics.includes("multilanguage");
-    return {
-        name: (result.name || "")
-            .replaceAll("-", " ")
-            .replaceAll("_", " ")
-            .split(" ")
-            .map((w) => (0,lodash.upperFirst)(w))
-            .join(" "),
-        unmaintained: result.isArchived,
-        lastRelease: result.latestRelease?.publishedAt.substring(0, 10),
-        description: result.descriptionHTML || "",
-        images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
-        logos: [],
-        website: result.homepageUrl
-            ? newUrl(!result.homepageUrl.toUpperCase().startsWith("HTTP")
-                ? "https://" + result.homepageUrl
-                : result.homepageUrl).toString()
-            : "",
-        documentation: result.hasWikiEnabled
-            ? result.url + "/wiki/"
-            : result.url || "",
-        author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
-        libre: isFreeAndOpenSource(result.licenseInfo?.spdxId),
-        license: result.licenseInfo?.spdxId !== "NOASSERTION"
-            ? result.licenseInfo?.spdxId
-                ? [result.licenseInfo.spdxId]
-                : []
-            : [],
-        sourceCode: result.url || "",
-        languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
-        languagesUrl: "",
-        genre: [],
-        topics: (0,lodash.chain)(topics)
-            .filter((t) => !equalsIgnoreCase(t, result.name))
-            .filter((t) => !ignoredTopics.includes(t))
-            .map((t) => t.replaceAll("-", " "))
-            .map(lodash.upperFirst)
-            .filter((t) => !getPlatformDisplay(t))
-            .filter((t) => !getFrameworkDisplay(t))
-            .filter((t) => !getProgramingLanguageDisplay(t))
-            .uniq()
-            .value(),
-        platform: (0,lodash.chain)(topics)
-            .map((t) => t.replaceAll("-", " "))
-            .map(lodash.upperFirst)
-            .map((t) => getPlatformDisplay(t))
-            .filter((t) => !!t)
-            .uniq()
-            .value(),
-        coverage: [],
-        install: {},
-        community: {
-            githubDiscussions: result.hasDiscussionsEnabled
-                ? result.nameWithOwner
-                : "",
-            issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
-        },
-        source: [
-            {
-                name: "GitHub",
-                wiki: "",
-                url: result.url,
-                lastChange: result.updatedAt,
-            },
-        ],
-    };
-}
-async function requestGitHub(githubToken) {
-    const results = [];
-    let hasNextPage = true;
-    let cursor = null;
-    const newerThen5Year = new Date();
-    newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
-    const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
-    while (hasNextPage && results.length < 1000) {
-        const json = await github_request(pushedAfter, cursor, githubToken, "desc");
-        const edgeNodes = json.data.search.edges.map((e) => e.node);
-        results.push(...edgeNodes);
-        hasNextPage = json.data.search.pageInfo.hasNextPage;
-        cursor = json.data.search.pageInfo.endCursor;
-    }
-    hasNextPage = true;
-    cursor = null;
-    while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
-        const json = await github_request(pushedAfter, cursor, githubToken, "asc");
-        const edgeNodes = json.data.search.edges.map((e) => e.node);
-        results.push(...edgeNodes);
-        hasNextPage = json.data.search.pageInfo.hasNextPage;
-        cursor = json.data.search.pageInfo.endCursor;
-    }
-    return results;
-}
-async function github_request(pushedAfter, cursor, githubToken, sort) {
-    const query = `
-      query {
-        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-          edges {
-            node {
-              ... on Repository {
-                name
-                nameWithOwner
-                description
-                descriptionHTML
-                url
-                homepageUrl
-                openGraphImageUrl
-                usesCustomOpenGraphImage
-                stargazerCount
-                isArchived
-                hasDiscussionsEnabled
-                hasIssuesEnabled
-                hasWikiEnabled
-                updatedAt
-                licenseInfo {
-                  spdxId
-                }
-                owner {
-                  login
-                  url
-                }
-                repositoryTopics(first: 100) {
-                  nodes {
-                    topic {
-                      name
-                    }
-                  }
-                }
-                latestRelease {
-                  publishedAt 
-                }        
-              }
+    if (o1 && o2) {
+        const keys = Object.keys(o1);
+        keys.push(...Object.keys(o2));
+        keys.forEach((k) => {
+            if (o1[k] && !o2[k]) {
+                return;
             }
-          }
-        }
-      }
-    `;
-    const response = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${githubToken}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query }),
-    });
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`GitHub API error: ${response.status} ${errorText}`);
+            if (!o1[k] && o2[k]) {
+                o1[k] = o2[k];
+                return;
+            }
+            o1[k].push(...o2[k]);
+            o1[k] = (0,lodash.uniq)(o1[k]);
+        });
+        return o1;
     }
-    const json = await response.json();
-    return json;
-}
-function hasDuplicates(a) {
-    return (0,lodash.uniqBy)(a, (a) => a.nameWithOwner).length !== a.length;
+    throw new Error("Not expected...");
 }
 
 ;// CONCATENATED MODULE: ./node_modules/eld/src/avgScore.js
@@ -77615,498 +76044,1603 @@ const withLoader = {...eld, load, loadNgrams: load};
 
 
 /* harmony default export */ const dynamic = (withLoader);
-;// CONCATENATED MODULE: ./shared/utilities/filters.ts
-function display(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
-}
-const mobilePlatforms = (/* unused pure expression or super */ null && ([
-    "ANDROID",
-    "GARMIN",
-    "KINDLE",
-    "MAEMO",
-    "MEEGO",
-    "PALM OS",
-    "SYMBIAN",
-    "UBUNTU PHONE",
-    "UBUNTU TOUCH",
-    "WEBOS",
-    "WINDOWS MOBILE",
-    "WINDOWS PHONE",
-    "IOS",
-    "ZAURUS",
-]));
-function web(a) {
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return platform.some((p) => p === "WEB");
-}
-function mobile(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        platform.some((t) => mobilePlatforms.includes(t)) ||
-        a.install.asin ||
-        a.install.fDroidID ||
-        a.install.obtainiumLink ||
-        a.install.googlePlayID ||
-        a.install.huaweiAppGalleryID ||
-        a.install.appleStoreID);
-}
-function navigation(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
-}
-function edit(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        topics.some((t) => [
-            "ADD POIS",
-            "EDIT",
-            "EDITING",
-            "EDITOR",
-            "EDITOR SOFTWARE",
-            "ANALYSE",
-            "ANALYSER",
-            "ANALYSIS",
-            "TRACK RECORDING",
-            "TRACKER",
-            "TRACKING",
-            "TRACK LOGGING",
-            "VALIDATOR",
-            "OSM TOOL",
-            "QA",
-            "QUALITY CONTROL",
-            "NOTES",
-            "EDITOR TOOL",
-            "COMPARING TOOL",
-            "HASHTAG TOOL",
-            "MONITORING TOOL",
-            "CHANGESET REVIEW TOOL",
-            "WELCOMING TOOL",
-        ].includes(t)));
-}
+;// CONCATENATED MODULE: ./actions/lib/utilities/getFrameworkDisplay.ts
 
-;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
-
-
-
-
-const multilingual = [
-    "MUL",
-    instance.t("multilingual", { lng: "en" }).toUpperCase(),
-    instance.t("multilingual").toUpperCase(),
+const frameworks = [
+    { name: "Meteor", synonym: ["meteor", "meteor application"] },
+    {
+        name: "leaflet",
+        synonym: [
+            "leaflet",
+            "leafletjs",
+            "leaflets",
+            "leaflet java",
+            "leaflet4j",
+            "leaflet reactjs",
+            "leaflet markercluster",
+            "react leaflet",
+            "react leaflet markercluster",
+        ],
+    },
+    {
+        name: "React",
+        synonym: ["react", "reactjs", "reactnative", "react native"],
+    },
+    { name: "Vite", synonym: ["vite", "vitejs"] },
+    { name: "Reatom", synonym: ["reatom"] },
+    {
+        name: "Tailwind CSS",
+        synonym: ["tailwind css", "tailwind", "tailwindcss"],
+    },
+    { name: "Nextjs", synonym: ["nextjs"] },
+    { name: "Bootstrap", synonym: ["bootstrap", "bootstrap5"] },
+    { name: "Cesiumjs", synonym: ["cesiumjs"] },
+    { name: "Flutter", synonym: ["flutter", "flutter app", "flutter apps  "] },
+    {
+        name: "Angular",
+        synonym: ["angular", "angular2", "angularjs", "angular ssr"],
+    },
+    { name: "ASP.NET", synonym: ["asp net core"] },
+    { name: "JQuery", synonym: ["jquery"] },
+    { name: "Material UI", synonym: ["material ui"] },
+    {
+        name: "Windows form",
+        synonym: ["windowsform", "windowsforms", "winforms"],
+    },
+    { name: "LovyanGFX", synonym: ["lovyangfx"] },
+    { name: "shadcn/ui", synonym: ["shadcn ui"] },
+    { name: "SQLite", synonym: ["sqlite"] },
+    { name: "Microsoft SQL Server", synonym: ["sqlserver"] },
+    { name: "Turso", synonym: ["turso db"] },
+    { name: "Supabase", synonym: ["supabase"] },
+    { name: "TanStack Table", synonym: ["tanstack table"] },
+    { name: "Recharts", synonym: ["recharts"] },
+    { name: "Flask", synonym: ["flask", "flask api"] },
+    { name: "Django", synonym: ["django"] },
+    { name: "nginx", synonym: ["nginx"] },
+    { name: "Vue.js", synonym: ["vuejs", "vue", "vue3", "vuetify"] },
+    { name: "D3", synonym: ["d3", "d3js"] },
+    { name: "WebGl", synonym: ["webgl", "webgl2"] },
+    { name: "Django REST framework", synonym: ["django rest framework"] },
+    { name: "Flowbite", synonym: ["flowbite", "flowbite svelte"] },
+    { name: "OAuth", synonym: ["oauth", "oauth1", "oauth2"] },
+    {
+        name: "WebSocket",
+        synonym: ["websocket", "gorilla websocket", "websocketpp"],
+    },
+    { name: "Riot JS", synonym: ["riot", "riot mui", "riotjs"] },
+    { name: "mongodb", synonym: ["mongodb"] },
+    { name: "Redux", synonym: ["redux"] },
+    { name: "CORS", synonym: ["cors"] },
+    { name: "p5.js", synonym: ["p5js"] },
+    { name: "Mappa.js", synonym: ["mappajs"] },
+    { name: "MariaDB", synonym: ["mariadb"] },
+    { name: "DuckDB", synonym: ["duckdb"] },
+    { name: "Apache Spark", synonym: ["apache spark"] },
+    { name: "Apache Arrow", synonym: ["apache arrow"] },
+    { name: "Windows Presentation Foundation", synonym: ["wpf"] },
+    { name: "CockroachDB", synonym: ["cockroachdb"] },
+    { name: "lanelet", synonym: ["lanelet", "lanelet2"] },
+    { name: "Express", synonym: ["express", "expressjs"] },
+    { name: "Espressif IoT Development Framework", synonym: ["esp32 idf"] },
+    { name: "PNGdec", synonym: ["pngdec"] },
+    { name: "Xamarin", synonym: ["xamarin"] },
+    { name: "Avalonia UI", synonym: ["avalonia"] },
+    { name: "Blazor", synonym: ["blazor"] },
+    { name: "Maui", synonym: ["maui"] },
+    { name: "Uno platform", synonym: ["uno platform"] },
+    { name: "libosmscout", synonym: ["libosmscout"] },
 ];
-const Criterias = [
-    // OSM Participation
+function getFrameworkDisplay(value) {
+    for (const language of frameworks) {
+        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
+            return language.name;
+    }
+    return "";
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/getPlatformDisplay.ts
+
+const platforms = [
     {
-        translationKey: "supportsContributions",
-        check: (app) => edit(app),
-        points: 2,
+        name: "Linux",
+        synonym: ["linux", "GNU/Linux"],
+        version: [
+            { name: "Openmoko Linux", synonym: ["openmoko", "openmoko linux"] },
+        ],
     },
     {
-        translationKey: "addingAndEditingPossible",
-        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
-            equalsYes(...[
-                ...(app.editing?.editPOI || []),
-                ...(app.editing?.editGeom || []),
-                ...(app.editing?.editRelations || []),
-                ...(app.editing?.editTags || []),
-            ]),
-        points: 1,
+        name: "Android",
+        synonym: ["android", "android app", "android application"],
+        version: [
+            { name: "Android Jelly Bean", synonym: ["android jelly bean"] },
+            { name: "F-Droid", synonym: ["fdroid", "f droid"] },
+            { name: "osmdroid", synonym: ["osmdroid"] },
+        ],
     },
     {
-        translationKey: "displaysMaps",
-        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
-        points: 1,
-    },
-    // Development Participation
-    {
-        translationKey: "openSource",
-        check: (app) => !!app.libre,
-        points: 1.0,
-    },
-    {
-        translationKey: "copyleftLicense",
-        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
-        points: 0.5,
+        name: "Arduino",
+        synonym: ["arduino", "arduino library"],
+        version: [
+            {
+                name: "Arduino® Nano ESP32",
+                synonym: ["esp32 arduino", "esp32", "esp32 s2", "esp32 s3"],
+            },
+        ],
     },
     {
-        translationKey: "sourceCodeReference",
-        check: (app) => !!app.sourceCode,
-        points: 0.25,
+        name: "Raspberry Pi",
+        synonym: ["raspberry", "raspberry pi"],
+        version: [],
+    },
+    { name: "Firefox OS", synonym: ["firefox os", "firefoxos"], version: [] },
+    { name: "Maemo", synonym: ["maemo"], version: [] },
+    { name: "MeeGo", synonym: ["meego"], version: [] },
+    { name: "Sailfish OS", synonym: ["sailfishos"], version: [] },
+    { name: "Tizen", synonym: ["tizen"], version: [] },
+    { name: "WebOS", synonym: ["webos"], version: [] },
+    { name: "KaiOS", synonym: ["kaios", "kai os"], version: [] },
+    {
+        name: "iOS",
+        synonym: ["ios", "ios app"],
+        version: [
+            { name: "iPhone", synonym: ["iphone"] },
+            { name: "iPad", synonym: ["ipad", "iPadOS"] },
+            { name: "iPod touch", synonym: ["ipod touch", "ipod"] },
+        ],
+    },
+    { name: "watchOS", synonym: ["watchos", "Apple Watch"], version: [] },
+    { name: "tvOS", synonym: ["tvos"], version: [] },
+    { name: "visionOS", synonym: ["visionos"], version: [] },
+    {
+        name: "MacOS",
+        synonym: ["macos", "mac", "mac os", "os x", "osx", "mac os x", "macosx"],
+        version: [],
+    },
+    { name: "Unix", synonym: ["unix"], version: [] },
+    { name: "Bada OS", synonym: ["bada"], version: [] },
+    {
+        name: "BSD",
+        synonym: ["bsd", "Berkeley Software Distribution"],
+        version: [],
+    },
+    { name: "FreeBSD", synonym: ["freebsd"], version: [] },
+    {
+        name: "Amiga OS",
+        synonym: ["amigaos", "amiga os", "amiga"],
+        version: [
+            { name: "MorphOS", synonym: ["morphos"] },
+            { name: "ArOS", synonym: ["aros"] },
+        ],
     },
     {
-        translationKey: "issueTracker",
-        check: (app) => !!app.community.issueTracker,
-        points: 0.25,
+        name: "Garmin",
+        synonym: ["garmin", "garmin gps devices"],
+        version: [{ name: "Garmin Watch", synonym: ["garmin watch"] }],
+    },
+    { name: "Windows CE", synonym: ["windows ce", "wince"], version: [] },
+    {
+        name: "Windows Mobile",
+        synonym: ["windows mobile", "wm"],
+        version: [
+            { name: "Windows Mobile 5", synonym: ["windows mobile 5", "wm5"] },
+            { name: "Windows Mobile 6", synonym: ["windows mobile 6", "wm6"] },
+            {
+                name: "Windows Mobile 2000",
+                synonym: ["windows mobile 2000", "wm2000"],
+            },
+            {
+                name: "Windows Mobile 2003",
+                synonym: ["windows mobile 2003", "wm2003"],
+            },
+            { name: "Pocket PC", synonym: ["pocket pc", "pocketpc"] },
+        ],
     },
     {
-        translationKey: "lastUpdateThreeMonths",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            return lastRelease > threeMonthsAgo;
-        },
-        points: 0.25,
+        name: "Windows Phone",
+        synonym: ["windows phone", "windows phone 10"],
+        version: [],
     },
     {
-        translationKey: "lastUpdateYear",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-            return lastRelease > oneYearAgo;
-        },
-        points: 0.25,
+        name: "Windows",
+        synonym: ["windows", "win", "Microsoft Windows"],
+        version: [
+            { name: "Windows XP", synonym: ["windows xp", "winxp"] },
+            { name: "Windows 2000", synonym: ["windows 2000", "win2k"] },
+            { name: "Windows Vista", synonym: ["windows vista", "vista"] },
+            { name: "Windows 7", synonym: ["windows 7", "win7"] },
+            { name: "Windows 8", synonym: ["windows 8", "win8"] },
+            { name: "Windows 8.1", synonym: ["windows 8.1", "win8.1"] },
+            { name: "Windows 10", synonym: ["windows 10", "win10"] },
+            { name: "Windows 11", synonym: ["windows 11", "win11"] },
+        ],
     },
     {
-        translationKey: "translationContributions",
-        check: (app) => !!app.languagesUrl,
-        points: 0.5,
+        name: "BlackBerry OS",
+        synonym: ["blackberry os", "blackberry", "bbos"],
+        version: [],
     },
-    // Availability/Accessibility
+    { name: "Brew", synonym: ["brew"], version: [] },
+    { name: "Palm OS", synonym: ["palm", "palm os", "palmos"], version: [] },
+    { name: "Symbian", synonym: ["symbian", "s60"], version: [] },
     {
-        translationKey: "multipleLanguages",
-        check: (app) => app.languages.length >= 3 ||
-            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
-        points: 0.125,
-    },
-    {
-        translationKey: "tenLanguages",
-        check: (app) => app.languages.length >= 10,
-        points: 0.125,
+        name: "Cross-platform",
+        synonym: ["cross-platform", "cross platform"],
+        version: [],
     },
     {
-        translationKey: "freeOfCharge",
-        check: (app) => !!app.gratis,
-        points: 0.25,
+        name: "Java",
+        synonym: ["java"],
+        version: [
+            { name: "Java ME", synonym: ["j2me", "java me"] },
+            { name: "Java SE", synonym: ["j2se", "java se"] },
+        ],
     },
     {
-        translationKey: "multiplePlatforms",
-        check: (app) => {
-            const i = app.install;
-            return ([
-                i.appleStoreID || i.macAppStoreID,
-                i.asin,
-                i.fDroidID ||
-                    i.googlePlayID ||
-                    i.huaweiAppGalleryID ||
-                    i.obtainiumLink,
-                i.microsoftAppID,
-            ].filter((i) => i).length > 1 ||
-                app.platform.length > 1 ||
-                web(app));
-        },
-        points: 0.25,
+        name: "Node.js",
+        synonym: ["node", "node.js", "nodejs", "node-js", "node js"],
+        version: [],
+    },
+    { name: "Qt", synonym: ["qt"], version: [] },
+    { name: "Unity", synonym: ["unity"], version: [] },
+    {
+        name: "Web",
+        synonym: [
+            "web",
+            "web-based",
+            "web based",
+            "webapp",
+            "web-app",
+            "web app",
+            "browser",
+            "web browser",
+            "web application",
+            "pwa",
+        ],
+        version: [],
     },
     {
-        translationKey: "openSourceStores",
-        check: (app) => {
-            const i = app.install;
-            return !!(i.fDroidID || i.obtainiumLink || web(app));
-        },
-        points: 0.25,
+        name: "Web Assembly",
+        synonym: ["web assembly", "webassembly", "wasm"],
+        version: [],
     },
     {
-        translationKey: "worldwideData",
-        check: (app) => app.coverage.includes("Worldwide"),
-        points: 0.5,
-    },
-    {
-        translationKey: "accessibilitySupported",
-        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
-            0 ||
-            app.routing?.profiles
-                .map((p) => p.toUpperCase())
-                .includes("WHEELCHAIR") ||
-            false,
-        points: 0.5,
-    },
-    // Community channels & Documentation
-    {
-        translationKey: "communityChannelExists",
-        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
-        points: 0.5,
-    },
-    {
-        translationKey: "openSourceChannel",
-        check: (app) => !!(app.community.irc?.channel ||
-            app.community.matrix ||
-            app.community.mastodon ||
-            app.community.lemmy ||
-            app.community.bluesky),
-        points: 0.25,
-    },
-    {
-        translationKey: "documentationLink",
-        check: (app) => !!app.documentation,
-        points: 0.125,
-    },
-    {
-        translationKey: "documentedMultiplePlatforms",
-        check: (app) => [
-            app.source.some((s) => s.name === "taginfo"),
-            app.source.some((s) => s.name === "GitHub"),
-            app.source.some((s) => s.name === "Wikidata"),
-            app.source.some((s) => s.name === "Layer" ||
-                s.name === "ServiceItem" ||
-                s.name === "Software"),
-        ].filter((s) => s).length >= 2,
-        points: 0.125,
+        name: "Docker",
+        synonym: ["docker"],
+        version: [],
     },
 ];
-function calculateScore(app) {
-    // Community Contribution Score (A - E)
-    // A >= 8
-    // B >= 6
-    // C >= 4
-    // D >= 2
-    // E < 2
-    const results = Criterias.map((c) => ({
-        translationKey: c.translationKey,
-        points: c.points,
-        fulfilled: c.check(app),
-    }));
+function getPlatformDisplay(value) {
+    // Remove version
+    value = trim(value.replaceAll(/[0-9]+((\.[0-9]+)+\+?|\+)$/gi, ""));
+    for (const platform of platforms) {
+        for (const version of platform.version) {
+            if (version.synonym.find((s) => equalsIgnoreCase(s, value)))
+                return platform.name;
+        }
+        if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
+            return platform.name;
+    }
+    return "";
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/getProgramingLanguageDisplay.ts
+
+const programingLanguages = [
+    { name: "ActionScript", synonym: ["actionscript", "flash"] },
+    { name: "ActiveScript", synonym: ["activescript"] },
+    { name: "AppleScript", synonym: ["applescript"] },
+    { name: "C", synonym: ["c", "clang"] },
+    {
+        name: "C++",
+        synonym: [
+            "c++",
+            "cpp",
+            "cplusplus",
+            "c-plus-plus",
+            "c plus plus",
+            "c++0x",
+            "c++1x",
+            "c++03",
+            "c++11",
+            "c++14",
+            "c++17",
+            "cpp17",
+            "c++20",
+            "symbiancpp",
+            "gcc",
+        ],
+    },
+    { name: "C#", synonym: ["c#", "c-sharp", "c sharp", "csharp"] },
+    { name: "Clojure", synonym: ["clojure", "clojurescript"] },
+    {
+        name: "CSS",
+        synonym: [
+            "css",
+            "css3",
+            // none synonym but a hint
+            "css grid",
+        ],
+    },
+    { name: "Dart", synonym: ["dart"] },
+    { name: "Go", synonym: ["go", "golang"] },
+    { name: "HTML", synonym: ["html"] },
+    {
+        name: "Java",
+        synonym: [
+            "java",
+            // none synonym but a hint
+            "osm java",
+        ],
+    },
+    {
+        name: "JavaScript",
+        synonym: [
+            "javascript",
+            "js",
+            "ecmascript",
+            "es",
+            "vanilla javascript",
+            "vanillajs",
+        ],
+    },
+    { name: "Kotlin", synonym: ["kotlin"] },
+    { name: "Lua", synonym: ["lua"] },
+    { name: "Objective-C", synonym: ["objective-c", "objective c", "objc"] },
+    {
+        name: "Objective-C++",
+        synonym: [
+            "objective-c++",
+            "objective c++",
+            "objc++",
+            "objective c plus plus",
+        ],
+    },
+    { name: "Pascal", synonym: ["pascal", "object pascal", "delphi"] },
+    { name: "Perl", synonym: ["perl", "pl"] },
+    { name: "PHP", synonym: ["php"] },
+    {
+        name: "Python",
+        synonym: ["python", "py", "python2", "python3", "python 3"],
+    },
+    { name: "R", synonym: ["r"] },
+    { name: "Ruby", synonym: ["ruby", "rb", "rails", "ruby-script"] },
+    { name: "Rust", synonym: ["rust"] },
+    { name: "SQL", synonym: ["sql"] },
+    { name: "Swift", synonym: ["swift"] },
+    { name: "TypeScript", synonym: ["typescript", "ts"] },
+    {
+        name: "Visual Basic .NET",
+        synonym: ["vb", "visual basic", "vb.net", "visual basic .net"],
+    },
+    { name: "Zig", synonym: ["zig"] },
+    { name: "Html", synonym: ["html", "html5", "html css"] },
+    { name: "Haskell", synonym: ["haskell"] },
+    { name: "Visual Basic", synonym: ["vb6", "vba"] },
+    { name: "Nim", synonym: ["nim", "nim lang"] },
+];
+function getProgramingLanguageDisplay(value) {
+    for (const language of programingLanguages) {
+        if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
+            return language.name;
+    }
+    return "";
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/isFreeAndOpenSource.ts
+function check(value) {
+    return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
+}
+function isFreeAndOpenSource(value) {
+    if (!value) {
+        return false;
+    }
+    if (typeof value === "string") {
+        return check(value);
+    }
+    return value.some((v) => check(v));
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/github.ts
+
+
+
+
+
+
+
+const ignoredTopics = [
+    // OpenStreetMap
+    "openstreetmap",
+    "osm",
+    "openstreetmaps",
+    "open-street-map",
+    "openstreetmap-data",
+    "osm-data",
+    // General map
+    "map",
+    "maps",
+    "mapping",
+    "geo",
+    "cartography",
+    // General
+    "gui",
+    "gui-application",
+    "application",
+    "app",
+    "static-website",
+    // Hosting/Dev platform
+    "github-page",
+    "azure",
+    "jekyll",
+    "firebase",
+    "firebase-auth",
+    "firebase-firestore",
+    "firebase-realtime-database",
+    "github",
+    "github",
+    "github-actions",
+    "git",
+    "svn",
+    "kubernetes",
+    "k8s",
+    "dataviz",
+    // Not specific enough
+    "520",
+    "705",
+    "955",
+    "1050",
+    // Used feature/standard
+    "mqtt",
+    // Offtopic
+    "multilanguage",
+    "released",
+    "help-wanted",
+    "psram-needed",
+    // License
+    "agplv3",
+    "gplv3",
+    "foss",
+    "open-source",
+    // Tools
+    "cmake",
+    "tkinter",
+    // Events
+    "hacktoberfest",
+    "hactoberfest",
+    "hakctoberfest",
+    "hactoberfest2019",
+    "hacktoberfest2020",
+    "hacktoberfest2021",
+    "hacktoberfest2022",
+    "hacktoberfest2023",
+    "30daymapchallenge",
+    "eccv2020",
+    // Companies
+    "interline-io",
+];
+function transformGitHubResult(eld, result) {
+    let language;
+    if (result.description &&
+        ((0,lodash.words)(result.description).length >= 6 || result.description.length > 42)) {
+        const detected = eld.detect(result.description);
+        if (detected.isReliable()) {
+            language = detected.language;
+        }
+    }
+    const topics = result.repositoryTopics.nodes.map((n) => n.topic.name);
+    const mul = topics.includes("multilanguage");
     return {
-        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
-        details: results,
+        name: (result.name || "")
+            .replaceAll("-", " ")
+            .replaceAll("_", " ")
+            .split(" ")
+            .map((w) => (0,lodash.upperFirst)(w))
+            .join(" "),
+        unmaintained: result.isArchived,
+        lastRelease: result.latestRelease?.publishedAt.substring(0, 10),
+        description: result.descriptionHTML || "",
+        images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
+        logos: [],
+        website: result.homepageUrl
+            ? newUrl(!result.homepageUrl.toUpperCase().startsWith("HTTP")
+                ? "https://" + result.homepageUrl
+                : result.homepageUrl).toString()
+            : "",
+        documentation: result.hasWikiEnabled
+            ? result.url + "/wiki/"
+            : result.url || "",
+        author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
+        libre: isFreeAndOpenSource(result.licenseInfo?.spdxId),
+        license: result.licenseInfo?.spdxId !== "NOASSERTION"
+            ? result.licenseInfo?.spdxId
+                ? [result.licenseInfo.spdxId]
+                : []
+            : [],
+        sourceCode: result.url || "",
+        languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
+        languagesUrl: "",
+        genre: [],
+        topics: (0,lodash.chain)(topics)
+            .filter((t) => !equalsIgnoreCase(t, result.name))
+            .filter((t) => !ignoredTopics.includes(t))
+            .map((t) => t.replaceAll("-", " "))
+            .map(lodash.upperFirst)
+            .filter((t) => !getPlatformDisplay(t))
+            .filter((t) => !getFrameworkDisplay(t))
+            .filter((t) => !getProgramingLanguageDisplay(t))
+            .uniq()
+            .value(),
+        platform: (0,lodash.chain)(topics)
+            .map((t) => t.replaceAll("-", " "))
+            .map(lodash.upperFirst)
+            .map((t) => getPlatformDisplay(t))
+            .filter((t) => !!t)
+            .uniq()
+            .value(),
+        coverage: [],
+        install: {},
+        community: {
+            githubDiscussions: result.hasDiscussionsEnabled
+                ? result.nameWithOwner
+                : "",
+            issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
+        },
+        source: [
+            {
+                name: "GitHub",
+                wiki: "",
+                url: result.url,
+                lastChange: result.updatedAt,
+            },
+        ],
     };
 }
-
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/addApp.ts
-
-
-
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        const chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
+async function requestGitHub(githubToken) {
+    const results = [];
+    let hasNextPage = true;
+    let cursor = null;
+    const newerThen5Year = new Date();
+    newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
+    const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
+    while (hasNextPage && results.length < 1000) {
+        const json = await request(pushedAfter, cursor, githubToken, "desc");
+        const edgeNodes = json.data.search.edges.map((e) => e.node);
+        results.push(...edgeNodes);
+        hasNextPage = json.data.search.pageInfo.hasNextPage;
+        cursor = json.data.search.pageInfo.endCursor;
     }
-    return Math.abs(hash);
+    hasNextPage = true;
+    cursor = null;
+    while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
+        const json = await request(pushedAfter, cursor, githubToken, "asc");
+        const edgeNodes = json.data.search.edges.map((e) => e.node);
+        results.push(...edgeNodes);
+        hasNextPage = json.data.search.pageInfo.hasNextPage;
+        cursor = json.data.search.pageInfo.endCursor;
+    }
+    return results;
 }
-function calcId(obj) {
-    if (obj.website) {
-        const url = newUrl(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname + url.search);
+async function request(pushedAfter, cursor, githubToken, sort) {
+    const query = `
+      query {
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          edges {
+            node {
+              ... on Repository {
+                name
+                nameWithOwner
+                description
+                descriptionHTML
+                url
+                homepageUrl
+                openGraphImageUrl
+                usesCustomOpenGraphImage
+                stargazerCount
+                isArchived
+                hasDiscussionsEnabled
+                hasIssuesEnabled
+                hasWikiEnabled
+                updatedAt
+                licenseInfo {
+                  spdxId
+                }
+                owner {
+                  login
+                  url
+                }
+                repositoryTopics(first: 100) {
+                  nodes {
+                    topic {
+                      name
+                    }
+                  }
+                }
+                latestRelease {
+                  publishedAt 
+                }        
+              }
+            }
+          }
+        }
+      }
+    `;
+    const response = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${githubToken}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`GitHub API error: ${response.status} ${errorText}`);
     }
-    return hashCode(obj.name.toUpperCase());
+    const json = await response.json();
+    return json;
 }
-function addApp(apps, obj, options) {
-    const duplicates = apps.filter((app) => 
-    // if name are equals but websites not we ignore this condition
-    equalsName(app.name, obj.name) ||
-        equalsWebsite(app.website, obj.website) ||
-        (options.includeRepositoryForUniqueCheck &&
-            equalsWebsite(app.sourceCode, obj.sourceCode)) ||
-        (options.checkWebsiteWithRepo &&
-            equalsWebsite(app.sourceCode, obj.website)) ||
-        equalsString(app.install.appleStoreID, obj.install.appleStoreID) ||
-        equalsString(app.install.asin, obj.install.asin) ||
-        equalsString(app.install.fDroidID, obj.install.fDroidID) ||
-        equalsString(app.install.googlePlayID, obj.install.googlePlayID) ||
-        equalsWebsite(app.install.obtainiumLink, obj.install.obtainiumLink) ||
-        equalsString(app.install.huaweiAppGalleryID, obj.install.huaweiAppGalleryID) ||
-        equalsString(app.install.macAppStoreID, obj.install.macAppStoreID) ||
-        equalsString(app.install.microsoftAppID, obj.install.microsoftAppID));
-    if (duplicates.length === 0) {
-        // only add if external sources exists
-        if (obj.name !== "" &&
-            (obj.website ||
-                obj.documentation ||
-                obj.install.appleStoreID ||
-                obj.install.asin ||
-                obj.install.fDroidID ||
-                obj.install.googlePlayID ||
-                obj.install.obtainiumLink ||
-                obj.install.huaweiAppGalleryID ||
-                obj.install.macAppStoreID ||
-                obj.install.microsoftAppID ||
-                obj.sourceCode)) {
-            obj.id = calcId(obj);
-            obj.score = calculateScore(obj).total;
-            apps.push(obj);
+function hasDuplicates(a) {
+    return (0,lodash.uniqBy)(a, (a) => a.nameWithOwner).length !== a.length;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/gitHub.ts
+
+
+
+async function loadAppsFromGitHub(githubToken) {
+    let objs = await requestGitHub(githubToken);
+    objs = (0,lodash.uniqBy)(objs, (o) => o.nameWithOwner);
+    const groupedObjs = (0,lodash.groupBy)(objs, (o) => o.name);
+    Object.entries(groupedObjs)
+        .filter((o) => o[1].length > 1)
+        .flatMap((o) => o[1])
+        .forEach((o) => {
+        o.name = `${o.name} by ${o.owner.login}`;
+    });
+    await dynamic.load("large");
+    return objs.map((source) => transformGitHubResult(dynamic, source));
+}
+
+;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
+const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
+
+;// CONCATENATED MODULE: ./shared/utilities/jsonRequest.ts
+
+
+async function getJson(url, params = {}, headers = {}, isRetry = false) {
+    if (isDevelopment) {
+        const response = await fetch("https://corsproxy.io/?" +
+            encodeURIComponent(`${url}?${utilQsString(params)}`) +
+            "%26asdf");
+        return await response.json();
+    }
+    console.info(`Load: ${url}?${utilQsString(params)}`);
+    try {
+        const response = await fetch(`${url}?${utilQsString(params)}`, {
+            headers: {
+                ...headers,
+                ...{
+                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+            },
+        });
+        return await response.json();
+    }
+    catch (e) {
+        console.error(`Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`);
+        if (!isRetry) {
+            // retry one time after a delay of 3 seconds
+            await delay(3000);
+            return getJson(url, params, headers, true);
+        }
+        throw e;
+    }
+}
+function delay(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/requestTemplates.ts
+
+
+async function requestTemplates(template, languageMode) {
+    const objects = [];
+    let con;
+    do {
+        const params = {
+            list: "embeddedin",
+            eititle: "Template:" + template,
+            eilimit: "500",
+        };
+        if (con)
+            params.eicontinue = con;
+        const response = await osmMediaApiQuery(params);
+        objects.push(...(await processPagesByTemplateResult(response, template, languageMode)));
+        con = response.continue?.eicontinue;
+    } while (con);
+    return objects;
+}
+async function osmMediaApiQuery(params) {
+    const base = "https://wiki.openstreetmap.org/w/api.php";
+    params["origin"] = "*";
+    params["action"] = "query";
+    params["formatversion"] = "2";
+    params["format"] = "json";
+    return await getJson(base, params);
+}
+const languages = "af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue";
+async function processPagesByTemplateResult(response, template, languageMode) {
+    const pages = response.query.embeddedin;
+    const objects = [];
+    let ids = [];
+    for (const p in pages) {
+        if (languageMode === "en") {
+            if (!new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
+                ids.push(pages[p].pageid);
+            }
+        }
+        else if (new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
+            ids.push(pages[p].pageid);
+        }
+        if (ids.length >= 50) {
+            objects.push(...(await loadPages(ids, template)));
+            ids = [];
         }
     }
-    else {
-        const app = duplicates[0];
-        if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
-            app.lastRelease = obj.lastRelease;
-        else
-            app.lastRelease = app.lastRelease || obj.lastRelease;
-        app.unmaintained = app.unmaintained || obj.unmaintained;
-        app.description = app.description || obj.description;
-        app.images.push(...obj.images);
-        app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
-        app.logos.push(...obj.logos);
-        app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
-        app.imageWiki = app.imageWiki || obj.imageWiki;
-        app.commons = app.commons || [];
-        app.commons.push(...(obj.commons || []));
-        app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
-        app.videos = app.videos || [];
-        app.videos.push(...(obj.videos || []));
-        app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
-        app.website = app.website || obj.website;
-        if (!app.documentation) {
-            app.documentation = obj.documentation;
+    if (ids.length > 0) {
+        objects.push(...(await loadPages(ids, template)));
+    }
+    return objects;
+}
+async function loadPages(ids, template) {
+    const params = {
+        prop: "revisions",
+        rvprop: "content|timestamp",
+        pageids: ids.join("|"),
+        rvslots: "*",
+    };
+    const response = await osmMediaApiQuery(params);
+    const pages = response.query.pages;
+    const objects = [];
+    for (const p in pages) {
+        const content = pages[p].revisions[0].slots.main.content;
+        const pageObjects = parsePage(content, template);
+        for (const o of pageObjects) {
+            o.language = pages[p].title.includes(":")
+                ? pages[p].title.split(":")[0]
+                : "en";
+            o.sourceWiki = pages[p].title;
+            o.timestamp = pages[p].revisions[0].timestamp;
         }
-        else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
-            app.documentation = obj.documentation || app.documentation;
+        objects.push(...pageObjects);
+    }
+    return objects;
+}
+function parsePage(content, template) {
+    const objects = [];
+    let communicationChannels;
+    if ("Communication channels" !== template) {
+        communicationChannels = parsePage(content, "Communication channels")[0];
+    }
+    content = content.replace(/(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)/g, "");
+    const regexTemplate = new RegExp("{{" + template.replace(" ", "[_ ]"), "gi");
+    let start = content.search(regexTemplate);
+    while (start !== -1) {
+        let templateContent = content.substring(start);
+        const closing = findClosingBracketIndex(templateContent, 0);
+        content = templateContent.substring(closing + 1);
+        templateContent = templateContent.substring(0, closing + 1);
+        templateContent = templateContent
+            .substring(templateContent.indexOf("|"), templateContent.length - 2)
+            .trim();
+        const object = parseTemplateToObject(templateContent);
+        object.communicationChannels = communicationChannels || {};
+        objects.push(object);
+        start = content.search(regexTemplate);
+    }
+    return objects;
+}
+function parseTemplateToObject(content) {
+    const obj = {};
+    const props = content.split(/\|(?![^{]*})(?![^[]*\])/g);
+    props.shift();
+    for (const p in props) {
+        const pair = props[p].trim();
+        const start = pair.indexOf("=");
+        const name = pair.substring(0, start).trim();
+        const value = pair.substring(start + 1).trim();
+        if (value)
+            obj[name] = value;
+    }
+    return obj;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/utilities.ts
+
+function containsOfflineLink(value = "") {
+    return /<((s(trike)?)|(del))>/gi.test(value);
+}
+function extractLanguageCodeFromTemplate(value) {
+    const match = /{{#language:([\w-]+)/.exec(value);
+    if (match)
+        return match[1];
+    return value;
+}
+function extractNameWebsiteWiki(value, pageName) {
+    value = (value || "").replace(/{{PAGENAME}}/gi, pageName || "");
+    const obj = { name: value };
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            obj.website = newUrl(match[2]).toString();
+            value = value.replace(regex, "").trim();
+            if (value)
+                obj.name = value;
         }
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
-        if (
-        // only add if not same source
-        !app.source.some((s) => s.lastChange === obj.source[0].lastChange &&
-            s.name === obj.source[0].name)) {
-            // make the first source the newest
-            if (app.source[0].lastChange.toUpperCase() >
-                obj.source[0].lastChange.toUpperCase()) {
-                app.source = [...app.source, ...obj.source];
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            obj.name = match[5];
+            obj.website = newUrl(match[2]).toString();
+            value = value.replace(regex, "");
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            if (match[3])
+                obj.name = match[3];
+            else
+                obj.name = match[1];
+            obj.wiki = toWikiUrl(match[1]);
+            value = value.replace(regex, "");
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*)\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            obj.name = match[1];
+            obj.wiki = toWikiUrl(match[1]);
+            value = value.replace(regex, "");
+        }
+    }
+    obj.name = processWikiText(obj.name);
+    return obj;
+}
+function extractWebsite(value = "") {
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[2];
+        }
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[2];
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/g;
+        const match = regex.exec(value);
+        if (match) {
+            return toWikiUrl(match[1]);
+        }
+    }
+    {
+        const regex = /{{URL\|((https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[1];
+        }
+    }
+    {
+        const regex = /{{[Gg]it[Hh]ub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return `https://github.com/${match[1]}`;
+        }
+    }
+    {
+        const regex = /{{[Gg]it[Ll]ab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return `https://gitlab.com/${match[1]}`;
+        }
+    }
+    {
+        const regex = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))/gi;
+        const match = regex.exec(value);
+        if (match) {
+            return match[1];
+        }
+    }
+    return undefined;
+}
+function processWikiText(text = "") {
+    // clean up <ref>
+    {
+        const regex = /<ref>([^<]*)<\/ref>/g;
+        text = text.replace(regex, ``);
+    }
+    // Wikipedia
+    {
+        const regex = /\[\[:wikipedia:([^\]]*(?![^|]))(\|([^\]]*))?\]\]/gi;
+        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$3</a>`);
+    }
+    {
+        const regex = /\[\[:wikipedia:([^\]]*)\]\]/gi;
+        text = text.replace(regex, `<a href="https://en.wikipedia.org/wiki/$1" target="_blank" rel="noreferrer">$1</a>`);
+    }
+    // Url
+    {
+        const regex = /\[\[([^\]]*(?![^|]))(\|([^\]]*))?\]\]/;
+        let match = regex.exec(text);
+        while (match) {
+            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[3]}</a>`);
+            match = regex.exec(text);
+        }
+    }
+    {
+        const regex = /\[\[([^\]]*)\]\]/;
+        let match = regex.exec(text);
+        while (match) {
+            text = text.replace(regex, `<a href="${toWikiUrl(match[1])}" target="_blank" rel="noreferrer">${match[1]}</a>`);
+            match = regex.exec(text);
+        }
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))\])/gi;
+        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$2</a>`);
+    }
+    {
+        const regex = /(\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]+\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)) ([^\]]*)\])/gi;
+        text = text.replace(regex, `<a href="$2" target="_blank" rel="noreferrer">$5</a>`);
+    }
+    {
+        const regex = /{{(Key|Tag|TagKey)\|([^}|]*)(\|([^}|]*))?}}/gi;
+        let match = regex.exec(text);
+        while (match) {
+            if (!match[4]) {
+                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=*`);
             }
             else {
-                app.source = [...obj.source, ...app.source];
+                text = text.replace(regex, `<a href="https://wiki.openstreetmap.org/wiki/Key:$2" target="_blank" rel="noreferrer">$2</a>=<a href="https://wiki.openstreetmap.org/wiki/Tag:$2=$4" target="_blank" rel="noreferrer">$4</a>`);
             }
+            match = regex.exec(text);
         }
-        app.author = app.author || obj.author;
-        app.gratis = app.gratis || obj.gratis;
-        app.libre = app.libre || obj.libre;
-        app.price = app.price || obj.price;
-        app.license = app.license || [];
-        app.license.push(...(obj.license || []));
-        app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
-        app.sourceCode = app.sourceCode || obj.sourceCode;
-        if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
-            app.languages.push(...obj.languages);
-        }
-        app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
-        app.languagesUrl = app.languagesUrl || obj.languagesUrl;
-        app.genre.push(...obj.genre);
-        app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
-        app.topics.push(...obj.topics);
-        app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
-        app.platform.push(...obj.platform);
-        app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
-        app.coverage.push(...obj.coverage);
-        app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
-        app.install.asin = app.install.asin || obj.install.asin;
-        app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-        app.install.obtainiumLink =
-            app.install.obtainiumLink || obj.install.obtainiumLink;
-        app.install.googlePlayID =
-            app.install.googlePlayID || obj.install.googlePlayID;
-        app.install.huaweiAppGalleryID =
-            app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
-        app.install.appleStoreID =
-            app.install.appleStoreID || obj.install.appleStoreID;
-        app.install.macAppStoreID =
-            app.install.macAppStoreID || obj.install.macAppStoreID;
-        app.install.microsoftAppID =
-            app.install.microsoftAppID || obj.install.microsoftAppID;
-        app.map = merge(app.map, obj.map);
-        app.routing = merge(app.routing, obj.routing);
-        app.navigating = merge(app.navigating, obj.navigating);
-        app.tracking = merge(app.tracking, obj.tracking);
-        app.monitoring = merge(app.monitoring, obj.monitoring);
-        app.editing = merge(app.editing, obj.editing);
-        app.rendering = merge(app.rendering, obj.rendering);
-        app.accessibility = merge(app.accessibility, obj.accessibility);
-        app.hasGoal = {
-            crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
-                obj.hasGoal?.crowdsourcingStreetLevelImagery,
-        };
-        app.community.forum = app.community.forum || obj.community.forum;
-        app.community.forumTag = app.community.forumTag || obj.community.forumTag;
-        app.community.irc = app.community.irc || obj.community.irc;
-        app.community.matrix = app.community.matrix || obj.community.matrix;
-        app.community.mastodon = app.community.mastodon || obj.community.mastodon;
-        app.community.lemmy = app.community.lemmy || obj.community.lemmy;
-        app.community.bluesky = app.community.bluesky || obj.community.bluesky;
-        app.community.issueTracker =
-            app.community.issueTracker || obj.community.issueTracker;
-        app.community.githubDiscussions =
-            app.community.githubDiscussions || obj.community.githubDiscussions;
-        app.community.telegram = app.community.telegram || obj.community.telegram;
-        app.community.slack = app.community.slack || obj.community.slack;
-        app.community.reddit = app.community.reddit || obj.community.reddit;
-        app.score = calculateScore(app).total;
     }
-}
-// Todo: replace mit lodash?
-function merge(o1, o2) {
-    if (!o1 && !o2) {
-        return undefined;
+    // Format
+    {
+        const strongRegex = /'''([^(''')]*)'''/g;
+        text = text.replace(strongRegex, `<strong>$1</strong>`);
+        const emRegex = /''([^('')]*)''/g;
+        text = text.replace(emRegex, `<em>$1</em>`);
     }
-    if (o1 && !o2) {
-        return o1;
+    // GitHub
+    {
+        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
+        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$1</a>`);
     }
-    if (!o1 && o2) {
-        return o2;
+    {
+        const regex = /{{GitHub[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        text = text.replace(regex, `<a href="https://github.com/$1" target="_blank" rel="noreferrer">$5</a>`);
     }
-    if (o1 && o2) {
-        const keys = Object.keys(o1);
-        keys.push(...Object.keys(o2));
-        keys.forEach((k) => {
-            if (o1[k] && !o2[k]) {
-                return;
+    // GitLab
+    {
+        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)}}/gi;
+        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$1</a>`);
+    }
+    {
+        const regex = /{{GitLab[_ ]link\|(((?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)(\|([^(}})]+))?}}/gi;
+        text = text.replace(regex, `<a href="https://gitlab.com/$1" target="_blank" rel="noreferrer">$5</a>`);
+    }
+    // User
+    {
+        const regex = /{{User(\|([^(}})]+))}}/gi;
+        text = text.replace(regex, (substring) => {
+            const parts = substring.substring(2, substring.length - 2).split("|");
+            const displayName = parts[1];
+            let wiki = displayName;
+            let osm = displayName;
+            let link;
+            const params = Object.fromEntries(parts.slice(2).map((s) => s.split("=")));
+            if (typeof params["wiki"] === "string") {
+                wiki = params["wiki"];
             }
-            if (!o1[k] && o2[k]) {
-                o1[k] = o2[k];
-                return;
+            if (typeof params["osm"] === "string") {
+                osm = params["osm"];
             }
-            o1[k].push(...o2[k]);
-            o1[k] = (0,lodash.uniq)(o1[k]);
+            if (wiki) {
+                link = `https://wiki.openstreetmap.org/wiki/User:${wiki}`;
+            }
+            else if (osm) {
+                link = `https://www.openstreetmap.org/user/${osm}`;
+            }
+            return `<a href="${link}" target="_blank" rel="noreferrer">${displayName}</a>`;
         });
-        return o1;
     }
-    throw new Error("Not expected...");
+    {
+        const regex = /{{Osm( )?User(\|([^(}})]+))}}/gi;
+        text = text.replace(regex, (substring) => {
+            const parts = substring.substring(2, substring.length - 2).split("|");
+            const name = parts[1];
+            return `<a href="https://www.openstreetmap.org/user/${name}" target="_blank" rel="noreferrer">${name}</a>`;
+        });
+    }
+    text = text.replaceAll(/!&#33;/g, "!!");
+    return text;
 }
 
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/loadApps.ts
-
-
-
-
-
-
-
-
-
-
-
-
-
-async function loadAppsFromOsmWikiServiceItems(language) {
-    return (await requestTemplates("Service item", language))
-        .filter((s) => !containsOfflineLink(s["name"]))
-        .map((source) => serviceItem_transform(source));
+;// CONCATENATED MODULE: ./shared/utilities/array.ts
+function includes(arr, target) {
+    return target.every((v) => arr.includes(v));
 }
-async function loadAppsFromOsmWikiLayers(language) {
-    return (await requestTemplates("Layer", language))
-        .filter((s) => !containsOfflineLink(s["name"]) &&
-        !containsOfflineLink(s["slippy_web"]) &&
-        !equalsYes(s["discontinued"]) &&
-        s["name"] !== "layer template")
-        .map((source) => layer_transform(source));
+function some(arr, target) {
+    return target.some((v) => arr.includes(v));
 }
-async function loadAppsFromOsmWikiSoftwares(language) {
-    return (await requestTemplates("Software", language))
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
+var sanitize_html = __nccwpck_require__(3595);
+var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
+;// CONCATENATED MODULE: ./shared/utilities/plainText.ts
+
+function plainText(html) {
+    return sanitize_html_default()(html, {
+        allowedTags: [],
+        allowedAttributes: {},
+    }).replaceAll("&amp;", "&");
+}
+
+// EXTERNAL MODULE: ./node_modules/md5/md5.js
+var md5 = __nccwpck_require__(2296);
+var md5_default = /*#__PURE__*/__nccwpck_require__.n(md5);
+;// CONCATENATED MODULE: ./actions/lib/utilities/image.ts
+
+
+
+function toWikimediaUrl(source, size) {
+    if (!source)
+        return [];
+    if (httpRegex.test(source)) {
+        return [source];
+    }
+    else if (startsWithIgnoreCase(source, "File:")) {
+        const fileName = source.substring(5, source.length);
+        return [
+            ...generateOsmWikimediaUrls(fileName, size),
+            ...generateCommonsWikimediaUrls(fileName, size),
+        ];
+    }
+    else if (startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:"))
+        return generateOsmWikimediaUrls(source.substring(41, source.length), size);
+    else if (startsWithIgnoreCase(source, "http://wiki.openstreetmap.org/wiki/File:"))
+        return generateOsmWikimediaUrls(source.substring(40, source.length), size);
+    else if (startsWithIgnoreCase(source, "https://commons.wikimedia.org/wiki/File:"))
+        return generateCommonsWikimediaUrls(source.substring(40, source.length), size);
+    else if (startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:"))
+        return generateCommonsWikimediaUrls(source.substring(39, source.length), size);
+    else
+        return [
+            ...generateOsmWikimediaUrls(source, size),
+            ...generateCommonsWikimediaUrls(source, size),
+        ];
+}
+function generateOsmWikimediaUrls(fileName, size) {
+    return generateWikimediaUrls("https://wiki.openstreetmap.org/w/images", fileName, size);
+}
+function generateCommonsWikimediaUrls(fileName, size) {
+    return generateWikimediaUrls("https://upload.wikimedia.org/wikipedia/commons", fileName, size);
+}
+function generateWikimediaUrls(base, fileName, size) {
+    fileName = decodeURI(fileName).replace(/ /g, "_");
+    const hash = md5_default()(fileName);
+    return [
+        `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}/${size}px-${fileName}${fileName.toUpperCase().endsWith(".SVG") ? ".png" : ""}`,
+        `${base}/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}`,
+    ];
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/languageFilter.ts
+function languageFilter(value) {
+    if (!value) {
+        return false;
+    }
+    const valueUp = value.toUpperCase();
+    switch (valueUp) {
+        case "C":
+        case "C++":
+        case "PYTHON":
+        case "SQL":
+        case "WEBSITE":
+            return false;
+    }
+    return true;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/languageValueFormat.ts
+function languageValueFormat(value) {
+    if (!Number.isNaN(Number.parseInt(value, 10))) {
+        value = "mul";
+    }
+    else {
+        value = value.replaceAll("_", "-").toLowerCase();
+    }
+    return value;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/platformFilter.ts
+function platformFilter(value) {
+    if (!value) {
+        return false;
+    }
+    const valueUp = value.toUpperCase();
+    switch (valueUp) {
+        case "ARM ARCHITECTURE":
+        case "GTK":
+        case "X86":
+        case "X86-64":
+            return false;
+    }
+    return true;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/software.ts
+
+
+
+
+
+
+
+
+
+
+
+
+function transform(source) {
+    const obj = {
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
+        lastRelease: toDate(source["date"]) || "",
+        description: appendFullStop(processWikiText(source["description"] || "")),
+        images: toWikimediaUrl(source["screenshot"], 250),
+        logos: toWikimediaUrl(source["logo"], 250),
+        imageWiki: source["screenshot"] || source["logo"],
+        website: toUrl(extractWebsite(source["web"])),
+        documentation: toWikiUrl(source["wiki"] || source.sourceWiki) || "",
+        source: [
+            {
+                name: "Software",
+                language: source["language"].toLowerCase(),
+                id: source.sourceWiki,
+                url: toWikiUrl(source.sourceWiki) || "",
+                lastChange: source["timestamp"] || "",
+            },
+        ],
+        author: processWikiText(source["author"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .join(", "),
+        sourceCode: toUrl(extractWebsite(source["repo"] || source["git"] || source["svn"])),
+        gratis: some([source["price"]?.toUpperCase(), source["license"]?.toUpperCase()], ["GRATIS", "FREE", "0"]),
+        libre: isFreeAndOpenSource(source["license"]),
+        price: source["price"],
+        license: processWikiText(source["license"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v),
+        languages: (source["languages"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter(languageFilter)
+            .map(languageValueFormat),
+        languagesUrl: toUrl(source["languagesurl"]),
+        genre: toValues(source["genre"]),
+        topics: toValues(source["genre"]),
+        platform: [
+            ...(source["platform"] || "")
+                .replace(/\[\[/g, "")
+                .replace(/\]\]/g, "")
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim),
+            source["asin"] ||
+                source["fDroidID"] ||
+                source["obtainiumLink"] ||
+                source["googlePlayID"] ||
+                source["huaweiAppGalleryID"]
+                ? "Android"
+                : "",
+            source["appleStoreID"] ? "iOS" : "",
+            source["macAppStoreID"] ? "Mac OS" : "",
+            source["microsoftAppID"] ? "Windows" : "",
+        ]
+            .filter(platformFilter)
+            .map((p) => getPlatformDisplay(p) || p),
+        coverage: [],
+        install: {
+            asin: source["asin"],
+            fDroidID: source["fDroidID"],
+            obtainiumLink: source["obtainiumLink"],
+            googlePlayID: source["googlePlayID"],
+            huaweiAppGalleryID: (source["huaweiAppGalleryID"] || "").match(/\d+$/)?.[0] || "",
+            appleStoreID: (source["appleStoreID"] || "").match(/\d+$/)?.[0] || "",
+            macAppStoreID: (source["macAppStoreID"] || "").match(/\d+$/)?.[0] || "",
+            microsoftAppID: source["microsoftAppID"],
+        },
+        map: {
+            map: toValues(source["map"]),
+            mapData: toValues(source["mapData"]),
+            datasource: toValues(source["datasource"]),
+            rotateMap: toValues(source["rotateMap"]),
+            "3D": toValues(source["3D"]),
+            showWebsite: toValues(source["showWebsite"]),
+            showPhoneNumber: toValues(source["showPhoneNumber"]),
+            showOpeningHours: toValues(source["showOpeningHours"]),
+        },
+        routing: {
+            routing: toValues(source["routing"]),
+            createRouteManually: toValues(source["createRouteManually"]),
+            calculateRoute: toValues(source["calculateRoute"]),
+            createRouteViaWaypoints: toValues(source["createRouteViaWaypoints"]),
+            profiles: toValues(source["profiles"]),
+            turnRestrictions: toValues(source["turnRestrictions"]),
+            calculateRouteOffline: toValues(source["calculateRouteOffline"]),
+            routingProviders: toValues(source["routingProviders"]),
+            avoidTraffic: toValues(source["avoidTraffic"]),
+            trafficProvider: toValues(source["trafficProvider"]),
+        },
+        navigating: {
+            navigating: toValues(source["navigating"]),
+            findLocation: toValues(source["findLocation"]),
+            findNearbyPOI: toValues(source["findNearbyPOI"]),
+            navToPoint: toValues(source["navToPoint"]),
+            voice: toValues(source["voice"]),
+            keepOnRoad: toValues(source["keepOnRoad"]),
+            turnLanes: toValues(source["turnLanes"]),
+            withoutGPS: toValues(source["withoutGPS"]),
+            predefinedRoute: toValues(source["predefinedRoute"]),
+        },
+        tracking: {
+            tracking: toValues(source["tracking"]),
+            customInterval: toValues(source["customInterval"]),
+            trackFormats: toValues(source["trackFormats"] || source["formats"]),
+            geotagging: toValues(source["geotagging"]),
+            fastWayPointAdding: toValues(source["fastWayPointAdding"]),
+            uploadGPX: toValues(source["uploadGPX"]),
+        },
+        monitoring: {
+            monitoring: toValues(source["monitoring"]),
+            showTrack: toValues(source["showTrack"]),
+            showExistingTrack: toValues(source["showExistingTrack"]),
+            showAltitudeDiagram: toValues(source["showAltitudeDiagram"]),
+            showDOP: toValues(source["showDOP"]),
+            showSatellites: toValues(source["showSatellites"]),
+            showNMEAlive: toValues(source["showNMEAlive"]),
+            showSpeed: toValues(source["showSpeed"]),
+            sendPosition: toValues(source["sendPosition"]),
+        },
+        editing: {
+            addPOI: toValues(source["addPOI"]),
+            editPOI: toValues(source["editPOI"]),
+            addWay: toValues(source["addWay"]),
+            editGeom: toValues(source["editGeom"]),
+            editTags: toValues(source["editTags"]),
+            editRelations: toValues(source["editRelations"]),
+            viewNotes: toValues(source["viewNotes"]),
+            createNotes: toValues(source["createNotes"]),
+            editNotes: toValues(source["editNotes"]),
+            editSource: toValues(source["editSource"]),
+            offsetDBsupport: toValues(source["offsetDBsupport"]),
+            uploadOSMData: toValues(source["uploadOSMData"]),
+        },
+        rendering: {
+            rendererOutputFormats: toValues(source["rendererOutputFormats"]),
+        },
+        accessibility: {
+            accessibility: toValues(source["accessibility"]),
+            textOnlyUI: toValues(source["textOnlyUI"]),
+            brailleUI: toValues(source["brailleUI"]),
+            explorerMode: toValues(source["explorerMode"]),
+            publicTransportMode: toValues(source["publicTransportMode"]),
+            dangerWarnings: toValues(source["dangerWarnings"]),
+            screenReader: toValues(source["screenReader"]),
+            screenReaderLang: (source["screenReaderLang"] || "")
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim)
+                .filter(languageFilter)
+                .map(languageValueFormat),
+        },
+        community: {
+            forum: source.communicationChannels["forum"],
+            forumTag: source.communicationChannels["forum tag"],
+            irc: source.communicationChannels["irc channel"]
+                ? {
+                    server: source.communicationChannels["irc server"],
+                    channel: source.communicationChannels["irc channel"],
+                }
+                : undefined,
+            matrix: source.communicationChannels["matrix room"],
+            bluesky: source.communicationChannels["bluesky handle"],
+            mastodon: source.communicationChannels["mastodon address"],
+            issueTracker: toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
+            githubDiscussions: source.communicationChannels["github discussions"],
+            telegram: source.communicationChannels["telegram"],
+            slack: toUrl(source.communicationChannels["slack url"]),
+        },
+    };
+    if (source["coverage"]) {
+        const coverage = source["coverage"]
+            .split(splitBySemicolonButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst);
+        obj.coverage.push(...coverage);
+    }
+    obj.platform = (0,lodash.uniq)(obj.platform).sort();
+    obj.languages = (0,lodash.uniq)(obj.languages).sort();
+    obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
+    if (hasValue(source["datasource"]))
+        obj.topics.push(...(source["datasource"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+    if (equalsYes(source["3D"]))
+        obj.topics.push("3D");
+    if (equalsYes(source["showWebsite"], source["showPhoneNumber"], source["showOpeningHours"], source["findNearbyPOI"]))
+        obj.topics.push("POI");
+    if (equalsYes(source["routing"], source["createRouteManually"], source["calculateRoute"], source["calculateRouteOffline"]))
+        obj.topics.push("Routing");
+    if (hasValue(source["profiles"]))
+        obj.topics.push(...(source["profiles"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+    if (equalsYes(source["navigating"], source["navToPoint"]))
+        obj.topics.push("Navi");
+    if (equalsYes(source["findLocation"]))
+        obj.topics.push("Search");
+    if (equalsYes(source["tracking"]))
+        obj.topics.push("Track logging");
+    if (hasValue(source["geotagging"]))
+        obj.topics.push(...(source["geotagging"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+    if (equalsYes(source["monitoring"]))
+        obj.topics.push("Track monitoring");
+    if (source["rendererOutputFormats"])
+        obj.topics.push("Rendering");
+    if (equalsYes(source["addPOI"], source["editPOI"], source["addWay"], source["editGeom"], source["editTags"], source["editRelations"]))
+        obj.topics.push("Editor");
+    if (equalsYes(source["viewNotes"], source["createNotes"], source["editNotes"]))
+        obj.topics.push("Notes");
+    if (hasValue(source["editSource"]))
+        obj.topics.push(...(source["editSource"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+    if (hasValue(source["accessibility"])) {
+        obj.topics.push(...(source["accessibility"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+        obj.topics.push("Accessibility");
+    }
+    if (equalsYes(source["accessibility"]))
+        obj.topics.push("Accessibility");
+    if (equalsYes(source["textOnlyUI"], source["brailleUI"], source["explorerMode"], source["screenReader"]))
+        obj.topics.push("Blind");
+    obj.topics = (0,lodash.uniq)(obj.topics).sort();
+    {
+        const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
+        obj.name = plainText(name.name || obj.name);
+        obj.website = obj.website || name.website;
+        obj.documentation = obj.documentation || name.wiki || "";
+    }
+    {
+        const name = extractNameWebsiteWiki(source["web"], source.sourceWiki);
+        obj.name = plainText(obj.name || name.name);
+        obj.website = name.website || obj.website;
+        obj.documentation = obj.documentation || name.wiki || "";
+    }
+    {
+        const name = extractNameWebsiteWiki(source["wiki"], source.sourceWiki);
+        obj.name = plainText(obj.name || name.name);
+        obj.website = obj.website || name.website;
+        obj.documentation = name.wiki || obj.documentation;
+    }
+    return obj;
+}
+function hasValue(value = "") {
+    value = value.toUpperCase();
+    return (value &&
+        value !== "YES" &&
+        value !== "NO" &&
+        value !== "NONE" &&
+        value !== "?");
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/serviceItem.ts
+
+
+
+
+
+
+
+
+function serviceItem_transform(source) {
+    const obj = {
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        description: appendFullStop(processWikiText(source["descr"] || "")),
+        images: toWikimediaUrl(source["image"], 250),
+        logos: [],
+        imageWiki: source["image"],
+        source: [
+            {
+                name: "ServiceItem",
+                language: source["language"].toLowerCase(),
+                id: source.sourceWiki,
+                url: toWikiUrl(source.sourceWiki) || "",
+                lastChange: source["timestamp"] || "",
+            },
+        ],
+        sourceCode: toUrl(extractWebsite(source["material"])),
+        libre: startsWithIgnoreCase(source["material"], "{{yes"),
+        languages: (source["lang"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(extractLanguageCodeFromTemplate)
+            .map(trim)
+            .filter(languageFilter)
+            .map(languageValueFormat),
+        languagesUrl: toUrl(extractWebsite(source["lang"])),
+        genre: (source["genre"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst)
+            .sort(),
+        topics: (source["genre"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst)
+            .sort(),
+        platform: [],
+        coverage: [],
+        install: {},
+        community: {},
+    };
+    if (source["region"]) {
+        obj.coverage.push(...source["region"]
+            .split(splitBySemicolonButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .map(lodash.upperFirst));
+    }
+    obj.languages = (0,lodash.uniq)(obj.languages).sort();
+    obj.coverage = (0,lodash.uniq)(obj.coverage).sort();
+    obj.topics = (0,lodash.uniq)(obj.topics).sort();
+    const name = extractNameWebsiteWiki(source["name"], source.sourceWiki);
+    obj.name = plainText(name.name || obj.name);
+    obj.website = name.website;
+    obj.documentation = name.wiki || obj.documentation;
+    return obj;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/layer.ts
+
+
+
+
+
+
+
+
+
+function layer_transform(source) {
+    const obj = {
+        name: plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
+        lastRelease: toDate(source["date"]) || "",
+        description: appendFullStop(processWikiText(source["description"] || "")),
+        images: toWikimediaUrl(source["screenshot"], 250),
+        logos: toWikimediaUrl(source["logo"], 250),
+        imageWiki: source["screenshot"] || source["logo"],
+        website: toUrl(extractWebsite(source["slippy_web"])),
+        documentation: toWikiUrl(source.sourceWiki) || "",
+        source: [
+            {
+                name: "Layer",
+                language: source["language"].toLowerCase(),
+                id: source.sourceWiki,
+                url: toWikiUrl(source.sourceWiki) || "",
+                lastChange: source["timestamp"] || "",
+            },
+        ],
+        sourceCode: toUrl(extractWebsite(source["style_web"]) || extractWebsite(source["repo"])),
+        author: processWikiText(source["author"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter((v) => v)
+            .join(", "),
+        languages: (source["tiles_languages"] || "")
+            .split(splitByCommaButNotInsideBraceRegex)
+            .map(trim)
+            .filter(languageFilter)
+            .map(languageValueFormat),
+        languagesUrl: toUrl(source["tiles_languagesurl"]),
+        genre: [],
+        topics: [],
+        platform: ["Web"],
+        coverage: [],
+        install: {},
+        license: (0,lodash.uniq)([
+            ...processWikiText(source["tiles_license"] || "")
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim)
+                .filter((v) => v),
+            ...processWikiText(source["style_license"] || "")
+                .split(splitByCommaButNotInsideBraceRegex)
+                .map(trim)
+                .filter((v) => v),
+        ]),
+        libre: isFreeAndOpenSource([
+            source["tiles_license"],
+            source["style_license"],
+        ]),
+        community: {
+            issueTracker: toUrl(source["bugtracker_web"]),
+        },
+    };
+    if (!equalsYes(source["notlayer"])) {
+        obj.topics.push("Tile layer");
+        obj.genre.push("Tile layer");
+    }
+    if (source["slippy_web"]) {
+        obj.topics.push("Slippy map");
+        obj.genre.push("Slippy map");
+    }
+    obj.languages = (0,lodash.uniq)(obj.languages).sort();
+    return obj;
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/osmWiki.ts
+
+
+
+
+
+
+
+async function loadAppsFromOsmWikiSoftwares(languageMode) {
+    return (await requestTemplates("Software", languageMode))
         .filter((s) => !containsOfflineLink(s["name"]) &&
         !containsOfflineLink(s["web"]) &&
         !equalsIgnoreCase(s["status"], "unfinished") &&
@@ -78126,40 +77660,23 @@ async function loadAppsFromOsmWikiSoftwares(language) {
         .map((source) => transform(source))
         .filter((app) => !app.genre.includes("Library"));
 }
-async function loadAppsFromWikidata(language) {
-    const wikidataResults = await Promise.all(requestWikidata(language));
-    const objs = new Map();
-    for (const wikidataResult of wikidataResults) {
-        for (const source of wikidataResult.results.bindings) {
-            const obj = transformWikidataResult(source);
-            const dup = objs.get(obj.name);
-            if (!dup) {
-                objs.set(obj.name, obj);
-            }
-            else {
-                objs.set(obj.name, (0,lodash.mergeWith)(obj, dup, (o, s) => {
-                    if (typeof o === "string") {
-                        return o || s;
-                    }
-                }));
-            }
-        }
-    }
-    return Array.from(objs.values());
+async function loadAppsFromOsmWikiLayers(languageMode) {
+    return (await requestTemplates("Layer", languageMode))
+        .filter((s) => !containsOfflineLink(s["name"]) &&
+        !containsOfflineLink(s["slippy_web"]) &&
+        !equalsYes(s["discontinued"]) &&
+        s["name"] !== "layer template")
+        .map((source) => layer_transform(source));
 }
-async function loadAppsFromGitHub(githubToken) {
-    let objs = await requestGitHub(githubToken);
-    objs = (0,lodash.uniqBy)(objs, (o) => o.nameWithOwner);
-    const groupedObjs = (0,lodash.groupBy)(objs, (o) => o.name);
-    Object.entries(groupedObjs)
-        .filter((o) => o[1].length > 1)
-        .flatMap((o) => o[1])
-        .forEach((o) => {
-        o.name = `${o.name} by ${o.owner.login}`;
-    });
-    await dynamic.load("large");
-    return objs.map((source) => transformGitHubResult(dynamic, source));
+async function loadAppsFromOsmWikiServiceItems(languageMode) {
+    return (await requestTemplates("Service item", languageMode))
+        .filter((s) => !containsOfflineLink(s["name"]))
+        .map((source) => serviceItem_transform(source));
 }
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/tagInfo.ts
+
+
 async function loadAppsFromTagInfoProjects() {
     const projectObjects = (await getJson("https://taginfo.openstreetmap.org/api/4/projects/all"));
     const source = "https://taginfo.openstreetmap.org/projects/";
@@ -78186,6 +77703,513 @@ async function loadAppsFromTagInfoProjects() {
         community: {},
     }));
 }
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/wikidata.ts
+
+
+
+
+
+
+
+
+function extractGenre(result) {
+    const genre = [];
+    if (result.viewing?.value === "y") {
+        genre.push("Viewing tool");
+    }
+    if (result.routing?.value === "y") {
+        genre.push("Routing tool");
+    }
+    if (result.editor?.value === "y") {
+        genre.push("Editor tool");
+    }
+    if (result.comparing?.value === "y") {
+        genre.push("Comparing tool");
+    }
+    if (result.hashtagTool?.value === "y") {
+        genre.push("Hashtag tool");
+    }
+    if (result.monitoring?.value === "y") {
+        genre.push("Monitoring tool");
+    }
+    if (result.changsetReview?.value === "y") {
+        genre.push("Changeset review tool");
+    }
+    if (result.welcomingTool?.value === "y") {
+        genre.push("Welcoming tool");
+    }
+    if (result.streetImgSv?.value === "y" || result.streetImg?.value === "y") {
+        genre.push("Street-level imagery");
+    }
+    return genre;
+}
+function extractIrc(value) {
+    if (!value)
+        return undefined;
+    const url = newUrl(value);
+    return {
+        server: url.hostname,
+        channel: url.pathname.substring(1) || url.hash,
+    };
+}
+function transformWikidataResult(result) {
+    return {
+        name: result.itemLabel.value || "",
+        lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
+        description: result.description?.value || "",
+        images: (result.imgs?.value || "").split(";").filter((v) => v),
+        logos: (result.logos?.value || "").split(";").filter((v) => v),
+        commons: (result.commons?.value || "").split(";").filter((v) => v),
+        videos: (result.videos?.value || "").split(";").filter((v) => v),
+        website: result.web?.value || result.webDef?.value
+            ? newUrl(result.web?.value || result.webDef?.value).toString()
+            : "",
+        documentation: result.doc?.value || result.docDef?.value || "",
+        author: result.authors?.value || "",
+        libre: isFreeAndOpenSource(result.license?.value),
+        license: (result.license?.value || "").split(";").filter((v) => v),
+        sourceCode: result.sourceCode?.value || "",
+        languages: (result.lgs?.value || "")
+            .split(";")
+            .filter(languageFilter)
+            .map(languageValueFormat),
+        languagesUrl: result.lgsUrl?.value || "",
+        genre: extractGenre(result),
+        topics: [...extractGenre(result), ...toValues(result.topics?.value)],
+        platform: [
+            ...new Set([
+                ...(result.platforms?.value || "").split(";"),
+                ...(result.os?.value || "").split(";"),
+                result.asin?.value ||
+                    result.googlePlay?.value ||
+                    result.huaweiGallery?.value ||
+                    result.fDroid?.value
+                    ? "Android"
+                    : undefined,
+                result.appleStore?.value ? "iOS" : undefined,
+                result.microsoftStore?.value ? "Windows" : undefined,
+            ]
+                .filter(platformFilter)
+                .map((p) => getPlatformDisplay(p) || p)),
+        ],
+        coverage: [],
+        install: {
+            asin: result.asin?.value,
+            googlePlayID: result.googlePlay?.value,
+            huaweiAppGalleryID: result.huaweiGallery?.value,
+            fDroidID: result.fDroid?.value,
+            appleStoreID: result.appleStore?.value,
+            microsoftAppID: result.microsoftStore?.value,
+        },
+        hasGoal: {
+            crowdsourcingStreetLevelImagery: result.streetImg,
+        },
+        community: {
+            forum: result.forum?.value || result.forumDef?.value,
+            irc: extractIrc(result.irc?.value),
+            bluesky: result.bluesky?.value,
+            matrix: result.matrix?.value,
+            mastodon: result.mastodon?.value,
+            lemmy: result.lemmy?.value,
+            issueTracker: result.issues?.value,
+            telegram: result.teleg?.value || result.telegDef?.value,
+            reddit: result.subreddit?.value,
+        },
+        source: [
+            {
+                name: "Wikidata",
+                wiki: "",
+                url: result.item.value,
+                lastChange: result.modified.value,
+            },
+        ],
+    };
+}
+async function wikidata_request(query) {
+    const base = "https://query.wikidata.org/sparql";
+    const params = {};
+    params["query"] = query;
+    params["format"] = "json";
+    return await getJson(base, params);
+}
+function requestWikidata(lg) {
+    const base = wikidata_request(`
+SELECT DISTINCT 
+  ?item ?itemLabel 
+  ?description 
+  (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
+  (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
+  (GROUP_CONCAT(DISTINCT ?common; SEPARATOR = ";") AS ?commons) 
+  (GROUP_CONCAT(DISTINCT ?video; SEPARATOR = ";") AS ?videos) 
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
+  (SAMPLE(?docDef) AS ?docDef)
+  (SAMPLE(?doc) AS ?doc)
+  (SAMPLE(?forumDef) AS ?forumDef)
+  (SAMPLE(?forum) AS ?forum)
+  (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
+  (SAMPLE(?sourceCode) AS ?sourceCode)
+  (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
+  (SAMPLE(?lgsUrl) AS ?lgsUrl) 
+  (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
+  (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
+  (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
+  (SAMPLE(?asin) AS ?asin) 
+  (SAMPLE(?googlePlay) AS ?googlePlay) 
+  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
+  (SAMPLE(?fDroid) AS ?fDroid) 
+  (SAMPLE(?appleStore) AS ?appleStore) 
+  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
+  (SAMPLE(?matrix) AS ?matrix) 
+  (SAMPLE(?bluesky) AS ?bluesky) 
+  (SAMPLE(?mastodon) AS ?mastodon) 
+  (SAMPLE(?lemmy) AS ?lemmy) 
+  (SAMPLE(?issues) AS ?issues) 
+  (SAMPLE(?telegDef) AS ?telegDef)
+  (SAMPLE(?teleg) AS ?teleg)
+  (SAMPLE(?subreddit) AS ?subreddit) 
+  (SAMPLE(?irc) AS ?irc) 
+  ?modified 
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+  
+  OPTIONAL {
+    ?item schema:description ?description.
+    FILTER((LANG(?description)) = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P154 ?logo. }
+  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { ?item wdt:P373 ?common. }
+  OPTIONAL { ?item wdt:P10 ?video. }
+  OPTIONAL { ?item wdt:P856 ?webDef. }
+  OPTIONAL { 
+    ?item p:P856 ?webStat. 
+    ?webStat ps:P856 ?web.
+    ?webStat pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode 
+    FILTER(?webLgCode = "${lg}")
+  }
+  OPTIONAL { 
+    ?item p:P1343 ?docDefStat. 
+    ?docDefStat pq:P2699 ?docDef.
+    }
+  OPTIONAL { 
+    ?item p:P973 ?docStat. 
+    ?docStat ps:P973 ?doc.
+    ?docStat pq:P407 ?docLg.
+    ?docLg wdt:P218 ?docLgCode 
+    FILTER(?docLgCode = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P10027 ?forumDef. }
+  OPTIONAL { 
+    ?item p:P10027 ?forumStat. 
+    ?forumStat ps:P10027 ?forum.
+    ?forumStat pq:P407 ?forumLg.
+    ?forumLg wdt:P218 ?forumLgCode 
+    FILTER(?forumLgCode = "${lg}")
+  }
+  OPTIONAL { 
+    ?item wdt:P178/rdfs:label ?authorLabel.
+    FILTER(LANG(?authorLabel) = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P1324 ?sourceCode. }
+  OPTIONAL { 
+    ?item wdt:P407 ?lg.
+    ?lg wdt:P218 ?lgCode.
+  }
+  OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
+  OPTIONAL { 
+    ?item wdt:P366/rdfs:label ?topicLabel.
+    FILTER(LANG(?topicLabel) = "${lg}")
+  }
+  OPTIONAL { 
+    ?item wdt:P306/rdfs:label ?osLabel.
+    FILTER(LANG(?osLabel) = "${lg}")
+  }
+  OPTIONAL { 
+    ?item wdt:P400/rdfs:label ?platformLabel.
+    FILTER(LANG(?platformLabel) = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P5749 ?asin. }
+  OPTIONAL { ?item wdt:P3597 ?fDroid. }
+  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
+  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
+  OPTIONAL { ?item wdt:P3861 ?appleStore. }
+  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
+  OPTIONAL { ?item wdt:P11478 ?matrix. }
+  OPTIONAL { ?item wdt:P4033 ?mastodon. }
+  OPTIONAL { ?item wdt:P11947 ?lemmy. }
+  OPTIONAL { ?item wdt:P12361 ?bluesky. }
+  OPTIONAL { ?item wdt:P1401 ?issues. }
+  OPTIONAL { 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?telegDef; 
+     pq:P3831 wd:Q87410646.
+  }
+  OPTIONAL { 
+    ?item p:P3789 ?telegStat. 
+    ?telegStat ps:P3789 ?teleg; 
+     pq:P3831 wd:Q87410646.
+    ?telegStat pq:P407 ?telegLg.
+    ?telegLg wdt:P218 ?telegLgCode 
+    FILTER(?telegLgCode = "${lg}")
+  }
+  OPTIONAL { ?item wdt:P3984 ?subreddit. }
+  OPTIONAL { ?item wdt:P1613 ?irc. }
+  ?item schema:dateModified ?modified
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+}
+GROUP BY ?item 
+         ?itemLabel 
+         ?description
+         ?modified
+`.replace(/( |\n)+/g, " "));
+    const genre = wikidata_request(`
+SELECT DISTINCT 
+  ?item ?itemLabel 
+  ?viewing
+  ?routing
+  ?editor
+  ?comparing
+  ?hashtagTool
+  ?monitoring
+  ?changsetReview
+  ?welcomingTool
+  ?streetImg
+  ?modified 
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q122264265.
+    BIND("y" AS ?viewing)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q122264957.
+    BIND("y" AS ?routing)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q130404096.
+    BIND("y" AS ?routing)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q98163019.
+    BIND("y" AS ?editor)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q122264344.
+    BIND("y" AS ?comparing)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q122270779.
+    BIND("y" AS ?hashtagTool)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q122270784.
+    BIND("y" AS ?monitoring)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q125191237.
+    BIND("y" AS ?changsetReview)
+  }
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q125191788.
+    BIND("y" AS ?welcomingTool)
+  }  
+  OPTIONAL { 
+    ?item wdt:P31 wd:Q86715518.
+    BIND("y" AS ?streetImgSv)
+  }  
+  OPTIONAL { 
+    ?item p:P3712 ?goalStat. 
+    ?goalStat ps:P3712 ?goal. 
+    FILTER(?goal = wd:Q275969)
+    ?goalStat pq:P12913 wd:Q96470821. 
+    BIND("y" AS ?streetImg)
+  }
+  ?item schema:dateModified ?modified
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+}
+GROUP BY ?item 
+         ?itemLabel 
+         ?viewing 
+         ?routing 
+         ?editor 
+         ?comparing 
+         ?hashtagTool 
+         ?monitoring 
+         ?changsetReview 
+         ?welcomingTool
+         ?streetImgSv
+         ?streetImg
+         ?modified
+`.replace(/( |\n)+/g, " "));
+    const lastRelease = wikidata_request(`
+SELECT DISTINCT 
+  ?item ?itemLabel
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
+  (MAX(?date) AS ?lastRelease)
+  ?modified 
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+
+  OPTIONAL { ?item wdt:P856 ?webDef. }
+  OPTIONAL { 
+    ?item p:P856 ?webStat. 
+    ?webStat ps:P856 ?web.
+    ?webStat pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode 
+    FILTER(?webLgCode = "${lg}")
+  }
+      
+  ?item p:P348/pq:P577 ?date.
+
+  ?item schema:dateModified ?modified
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+}
+GROUP BY ?item
+         ?itemLabel
+         ?modified
+`.replaceAll("  ", " "));
+    const license = wikidata_request(`
+SELECT DISTINCT 
+  ?item ?itemLabel
+  (SAMPLE(?webDef) AS ?webDef)
+  (SAMPLE(?web) AS ?web)
+  (GROUP_CONCAT(?licenseShortName; SEPARATOR = ";") AS ?license)
+  ?modified 
+WHERE
+{
+  {
+    SELECT DISTINCT 
+      ?item ?itemLabel
+      (SAMPLE(?licenseShortName) AS ?licenseShortName)
+      ?modified 
+    WHERE {
+      ?item (wdt:P31/(wdt:P279*)) ?type.
+      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+      { ?item wdt:P144 wd:Q936. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+      UNION { ?item wdt:P2283 wd:Q936. }
+      UNION { ?item wdt:P144 wd:Q125124940. }
+      UNION { ?item wdt:P2283 wd:Q125124940. }
+      UNION { ?item wdt:P144 wd:Q116859711. }
+      UNION { ?item wdt:P2283 wd:Q116859711. }
+      UNION { ?item wdt:P144 wd:Q25822543. }
+      UNION { ?item wdt:P2283 wd:Q25822543. }
+      UNION { ?item wdt:P2283 wd:Q121746037. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+
+      OPTIONAL { ?item wdt:P856 ?webDef. }
+      OPTIONAL { 
+        ?item p:P856 ?webStat. 
+        ?webStat ps:P856 ?web.
+        ?webStat pq:P407 ?webLg.
+        ?webLg wdt:P218 ?webLgCode 
+        FILTER(?webLgCode = "${lg}")
+      }
+          
+      ?item wdt:P275 ?license.
+      ?license wdt:P1813 ?licenseShortName.
+      
+      ?item schema:dateModified ?modified
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
+    }
+    GROUP BY ?item 
+             ?itemLabel
+             ?license
+             ?modified
+  }
+  
+  OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
+}
+GROUP BY ?item 
+         ?itemLabel
+         ?modified
+`.replaceAll("  ", " "));
+    return [base, genre, lastRelease, license];
+}
+
+;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/wikidata.ts
+
+
+async function loadAppsFromWikidata(language) {
+    const wikidataResults = await Promise.all(requestWikidata(language));
+    const objs = new Map();
+    for (const wikidataResult of wikidataResults) {
+        for (const source of wikidataResult.results.bindings) {
+            const obj = transformWikidataResult(source);
+            const dup = objs.get(obj.name);
+            if (!dup) {
+                objs.set(obj.name, obj);
+            }
+            else {
+                objs.set(obj.name, (0,lodash.mergeWith)(obj, dup, (o, s) => {
+                    if (typeof o === "string") {
+                        return o || s;
+                    }
+                }));
+            }
+        }
+    }
+    return Array.from(objs.values());
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/loadApps.ts
+
+
+
+
+
 async function loadApps(githubToken) {
     const apps = [];
     const language = "en";
@@ -78212,49 +78236,74 @@ async function loadApps(githubToken) {
 var github = __nccwpck_require__(3228);
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/uploadToRepo.ts
 
-async function uploadToRepo(filePath, content, commitMessage, ghToken) {
+async function uploadToRepo(files, commitMessage, ghToken) {
     if (!ghToken) {
         throw new Error("GitHub token is required to upload files.");
+    }
+    if (!files.length) {
+        return;
     }
     const octokit = (0,github.getOctokit)(ghToken);
     const owner = github.context.repo.owner;
     const repo = github.context.repo.repo;
-    // Branch aus context.ref extrahieren (z.B. "refs/heads/my-feature-branch" => "my-feature-branch")
+    // Extract branch from context.ref (e.g. "refs/heads/main" → "main")
     const ref = github.context.ref;
     const branch = ref.replace("refs/heads/", "");
-    const base64Content = Buffer.from(content).toString("base64");
-    // Prüfen, ob die Datei existiert
-    let sha;
-    try {
-        const { data } = await octokit.rest.repos.getContent({
-            owner,
-            repo,
-            path: filePath,
-            ref: branch,
-        });
-        if ("sha" in data) {
-            sha = data.sha; // SHA der vorhandenen Datei speichern
-        }
-    }
-    catch (error) {
-        if (error?.status !== 404) {
-            throw error; // Fehler weitergeben, falls es kein 404 ist
-        }
-    }
-    // Datei erstellen oder aktualisieren
-    await octokit.rest.repos.createOrUpdateFileContents({
+    // 1. Get current branch reference
+    const { data: branchRef } = await octokit.rest.git.getRef({
         owner,
         repo,
-        path: filePath,
-        message: commitMessage,
-        content: base64Content,
-        sha,
-        branch,
+        ref: `heads/${branch}`,
     });
-    console.log(`File "${filePath}" has been uploaded to branch "${branch}".`);
+    const latestCommitSha = branchRef.object.sha;
+    // 2. Get latest commit to obtain base tree
+    const { data: latestCommit } = await octokit.rest.git.getCommit({
+        owner,
+        repo,
+        commit_sha: latestCommitSha,
+    });
+    const baseTreeSha = latestCommit.tree.sha;
+    // 3. Create blobs for each file
+    const treeItems = await Promise.all(files.map(async ({ filePath, content }) => {
+        const { data: blob } = await octokit.rest.git.createBlob({
+            owner,
+            repo,
+            content,
+            encoding: "utf-8",
+        });
+        return {
+            path: filePath,
+            mode: "100644",
+            type: "blob",
+            sha: blob.sha,
+        };
+    }));
+    // 4. Create a new tree including all files
+    const { data: newTree } = await octokit.rest.git.createTree({
+        owner,
+        repo,
+        base_tree: baseTreeSha,
+        tree: treeItems,
+    });
+    // 5. Create a single commit
+    const { data: newCommit } = await octokit.rest.git.createCommit({
+        owner,
+        repo,
+        message: commitMessage,
+        tree: newTree.sha,
+        parents: [latestCommitSha],
+    });
+    // 6. Update branch reference to point to new commit
+    await octokit.rest.git.updateRef({
+        owner,
+        repo,
+        ref: `heads/${branch}`,
+        sha: newCommit.sha,
+    });
+    console.log(`Uploaded ${files.length} file(s) to branch "${branch}" in one commit:\n${files.map((f) => f.filePath).join("\n")}`);
 }
 
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/utilities/getLastMod.ts
+;// CONCATENATED MODULE: ./actions/lib/utilities/getLastMod.ts
 function getLastMod(source) {
     if (source.name === "taginfo" || source.name === "ServiceItem") {
         return source.firstCrawled;
@@ -78377,7 +78426,20 @@ async function generateSitemap(apps) {
     return data.toString();
 }
 
+;// CONCATENATED MODULE: ./actions/lib/utilities/getKnownApps.ts
+async function getKnownApps() {
+    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
+    try {
+        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
+    }
+    catch (e) {
+        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
+        throw e;
+    }
+}
+
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/main.ts
+
 
 
 
@@ -78408,24 +78470,16 @@ async function run() {
         apps.forEach((app) => {
             delete app.score.details;
         });
-        await uploadToRepo("docs/api/apps/all.json", JSON.stringify(apps), "Update app catalog", core.getInput("ghToken"));
-        await uploadToRepo("docs/sitemap.xml", await generateSitemap(apps), "Update sitemap", core.getInput("ghToken"));
+        await uploadToRepo([
+            { filePath: "docs/api/apps/all.json", content: JSON.stringify(apps) },
+            { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
+        ], "chore: update app catalog data and sitemap", core.getInput("ghToken"));
     }
     catch (error) {
         // Fail the workflow run if an error occurs
         if (error instanceof Error) {
             core.setFailed(error.message);
         }
-    }
-}
-async function getKnownApps() {
-    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
-    try {
-        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
-    }
-    catch (e) {
-        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
-        throw e;
     }
 }
 
