@@ -31,7 +31,7 @@ export async function run(): Promise<void> {
 
     await uploadToRepo(
       apps,
-      "chore: update apps translations",
+      "chore: auto update apps translations",
       core.getInput("ghToken"),
     );
   } catch (error) {
