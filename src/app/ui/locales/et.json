@@ -125,5 +125,7 @@
     "app.community.lemmy": "Lemmy",
     "app.getIt": "Laadi siit",
     "filter.resetFilters": "Eemalda eelseadistatud filtrid",
-    "survey": "Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>"
+    "survey": "Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>",
+    "app.source.lastChange": "Viimane muutmine: {{date}}",
+    "app.source.firstCrawled": "Esimene kord veebist vaadatud: {{added}}"
 }
