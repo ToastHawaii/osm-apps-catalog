@@ -72373,6 +72373,7 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+
   SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en". }
 
   OPTIONAL {
@@ -72646,28 +72647,25 @@ WHERE
 GROUP BY ?item`,
 ]));
 function buildTranslationQuery(propId, fieldName) {
-    return `SELECT DISTINCT ?item ?lg ?${fieldName} WHERE {
-
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-
-  {
-    ?item wdt:P144 wd:Q936.
-  }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942 }
-  UNION { ?item wdt:P2283 wd:Q936 }
-  UNION { ?item wdt:P144 wd:Q125124940 }
-  UNION { ?item wdt:P2283 wd:Q125124940 }
-  UNION { ?item wdt:P144 wd:Q116859711 }
-  UNION { ?item wdt:P2283 wd:Q116859711 }
-  UNION { ?item wdt:P144 wd:Q25822543 }
-  UNION { ?item wdt:P2283 wd:Q25822543 }
-  UNION { ?item wdt:P2283 wd:Q121746037 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037 }
-
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued }
+    return `
+SELECT DISTINCT ?item ?lg ?${fieldName} 
+ WHERE {
+      ?item (wdt:P31/(wdt:P279*)) ?type.
+      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+      { ?item wdt:P144 wd:Q936. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+      UNION { ?item wdt:P2283 wd:Q936. }
+      UNION { ?item wdt:P144 wd:Q125124940. }
+      UNION { ?item wdt:P2283 wd:Q125124940. }
+      UNION { ?item wdt:P144 wd:Q116859711. }
+      UNION { ?item wdt:P2283 wd:Q116859711. }
+      UNION { ?item wdt:P144 wd:Q25822543. }
+      UNION { ?item wdt:P2283 wd:Q25822543. }
+      UNION { ?item wdt:P2283 wd:Q121746037. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
   ?item p:${propId} ?stat.
   ?stat ps:${propId} ?${fieldName}.
@@ -72684,28 +72682,27 @@ ORDER BY ?item ?lg`;
 }
 const AppTranslationQueries = [
     `
-SELECT DISTINCT ?item ?lg ?itemLabel ?description WHERE {
-
-  ?item (wdt:P31/(wdt:P279*)) ?type .
+SELECT DISTINCT 
+  ?item ?lg ?itemLabel 
+  ?description 
+  ?modified
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
   FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
-
-  {
-    ?item wdt:P144 wd:Q936 .
-  }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942 }
-  UNION { ?item wdt:P2283 wd:Q936 }
-  UNION { ?item wdt:P144 wd:Q125124940 }
-  UNION { ?item wdt:P2283 wd:Q125124940 }
-  UNION { ?item wdt:P144 wd:Q116859711 }
-  UNION { ?item wdt:P2283 wd:Q116859711 }
-  UNION { ?item wdt:P144 wd:Q25822543 }
-  UNION { ?item wdt:P2283 wd:Q25822543 }
-  UNION { ?item wdt:P2283 wd:Q121746037 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154 }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037 }
-
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued }
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
 
   {
     ?item rdfs:label ?itemLabel .
@@ -72726,11 +72723,15 @@ SELECT DISTINCT ?item ?lg ?itemLabel ?description WHERE {
     ?item schema:description ?description .
     FILTER(LANG(?description) = ?lg)
   }
+
+  ?item schema:dateModified ?modified
   
   # Exclude English, Multilanguage and empty language codes
   FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 }
-ORDER BY ?item ?lg
+ORDER BY ?item 
+         ?lg
+         ?modified
 `,
     buildTranslationQuery("P973", "doc"),
     buildTranslationQuery("P10027", "forum"),
