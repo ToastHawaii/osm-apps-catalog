@@ -123,5 +123,7 @@
     "filter.showAll": "Összes megjelenítése",
     "app.getIt": "Beszerezhető itt:",
     "app.community.lemmy": "Lemmy",
-    "filter.preset": "Az előre beállított szűrő:"
+    "filter.preset": "Az előre beállított szűrő:",
+    "app.source.lastChange": "Legutóbbi módosítás: {{date}}",
+    "app.source.firstCrawled": "Első automatikus észlelés (crawl): {{added}}"
 }
