@@ -127,5 +127,7 @@
     "filter": {
         "resetFilters": "Odebrat přednastavené filtry"
     },
-    "survey": "Zajímá mě váš názor. Pomozte nám přepracovat katalog aplikací OSM. <u>Zúčastněte se průzkumu. Klikněte zde.</u>"
+    "survey": "Zajímá mě váš názor. Pomozte nám přepracovat katalog aplikací OSM. <u>Zúčastněte se průzkumu. Klikněte zde.</u>",
+    "app.source.lastChange": "Poslední změna: {{date}}",
+    "app.source.firstCrawled": "První načteno: {{added}}"
 }
