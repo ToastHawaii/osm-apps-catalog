@@ -4,7 +4,6 @@ import "../../src/app/ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { uploadToRepo } from "@actions/collect-osm-apps/uploadToRepo";
-//import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 import { chain } from "lodash";
 
 /**
@@ -17,14 +16,18 @@ export async function run(): Promise<void> {
       .map((apps, lang) => ({
         filePath: `docs/api/apps/all.${lang}.json`,
         content: JSON.stringify(
-          apps.map((app) => ({
-            id: app.id,
-            name: app.name,
-            description: app.description,
-            documentation: app.documentation,
-            community: app.community,
-            source: app.source,
-          })),
+          chain(apps)
+            .map((app) => ({
+              id: app.id,
+              name: app.name,
+              description: app.description,
+              documentation: app.documentation,
+              community: app.community,
+              source: app.source,
+            }))
+            // sort apps in translation files by id to have a constant order
+            .orderBy((a) => a.id)
+            .value(),
         ),
       }))
       .value();

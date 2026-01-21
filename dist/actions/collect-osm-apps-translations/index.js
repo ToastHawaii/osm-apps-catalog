@@ -72884,7 +72884,6 @@ async function uploadToRepo(files, commitMessage, ghToken) {
 
 
 
-//import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 
 /**
  * The main function for the action.
@@ -72895,14 +72894,17 @@ async function run() {
         const apps = (0,lodash.chain)(await loadApps( /* core.getInput("ghToken") */))
             .map((apps, lang) => ({
             filePath: `docs/api/apps/all.${lang}.json`,
-            content: JSON.stringify(apps.map((app) => ({
+            content: JSON.stringify((0,lodash.chain)(apps)
+                .map((app) => ({
                 id: app.id,
                 name: app.name,
                 description: app.description,
                 documentation: app.documentation,
                 community: app.community,
                 source: app.source,
-            }))),
+            }))
+                .orderBy((a) => a.id)
+                .value()),
         }))
             .value();
         await uploadToRepo(apps, "chore: auto update apps translations", core.getInput("ghToken"));
