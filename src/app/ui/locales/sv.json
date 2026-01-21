@@ -91,7 +91,6 @@
     "app.license": "Licens",
     "app.sourceCode": "Källkod",
     "app.source": "Källa",
-    "app.source.date": "Sista förändringen: {{date}}\nFörsta crawled: {{added}}",
     "app.source.description": "Källa där dessa data kommer ifrån.",
     "compare.share": "Dela i wiki.openstreetmap.org",
     "compare.unknown": "okänd",
@@ -128,5 +127,7 @@
     },
     "app.community.mastodon": "Mastodont",
     "app.community.lemmy": "Lemmy",
-    "survey": "Jag är intresserad av din åsikt. Hjälp till att omforma OSM-appkatalogen. <u>Delta i undersökningen. Klicka här.</u>"
+    "survey": "Jag är intresserad av din åsikt. Hjälp till att omforma OSM-appkatalogen. <u>Delta i undersökningen. Klicka här.</u>",
+    "app.source.lastChange": "Sista förändringen: {{date}}",
+    "app.source.firstCrawled": "Första crawled: {{added}}"
 }

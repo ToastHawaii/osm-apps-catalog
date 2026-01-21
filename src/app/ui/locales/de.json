@@ -85,7 +85,6 @@
     "score.criteria.communityChannelExists": "ein Kommunikationskanal für die Community existiert (z.B. Forum, Mastodon)",
     "score.criteria.documentationLink": "ein Dokumentationslink ist verfügbar",
     "score.criteria.documentedMultiplePlatforms": "die App ist auf mehreren Plattformen dokumentiert (z.B. OSM-Wiki, taginfo, Wikidata)",
-    "app.source.date": "Letzte Änderung: {{date}}\nErstmals gecrawlt: {{added}}",
     "score.result": "- {{description}} ({{points}} Punkte)",
     "score.criteria.displaysMaps": "die App zeigt Karten oder OSM-Daten an",
     "score.criteria.openSource": "die App ist Open Source",
@@ -128,5 +127,7 @@
     "filter": {
         "resetFilters": "Voreingestellte Filter entfernen"
     },
-    "survey": "Deine Meinung interessiert mich. Hilf mit, den OSM App-Katalog neu zu gestalten. <u>Mach bei der Umfrage mit. Klicke hier.</u>"
+    "survey": "Deine Meinung interessiert mich. Hilf mit, den OSM App-Katalog neu zu gestalten. <u>Mach bei der Umfrage mit. Klicke hier.</u>",
+    "app.source.lastChange": "Letzte Änderung: {{date}}",
+    "app.source.firstCrawled": "Erstmals gecrawlt: {{added}}"
 }

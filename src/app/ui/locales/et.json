@@ -92,7 +92,6 @@
     "app.community.githubDiscussions": "GitHub Discussions",
     "app.community.slack": "Slack",
     "app.community.reddit": "Reddit",
-    "app.source.date": "Viimati muudetud: {{date}}\nEsmane töötlus: {{added}}",
     "wiki.none": "puudub",
     "score.criteria.documentationLink": "olemas on viide dokumentatsioonile",
     "score.criteria.openSourceChannel": "suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)",
@@ -126,5 +125,7 @@
     "app.community.lemmy": "Lemmy",
     "app.getIt": "Laadi siit",
     "filter.resetFilters": "Eemalda eelseadistatud filtrid",
-    "survey": "Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>"
+    "survey": "Sinu arvamus huvitab mind. Aita OSM-i rakenduste kataloogile luua uut kujundust.<u>Osalemiseks meie küsitluses klõpsa siia.</u>",
+    "app.source.lastChange": "Viimane muutmine: {{date}}",
+    "app.source.firstCrawled": "Esimene kord veebist vaadatud: {{added}}"
 }

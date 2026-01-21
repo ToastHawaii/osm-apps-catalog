@@ -97,7 +97,6 @@
     "app.community.reddit": "Reddit",
     "app.price": "Ціна",
     "app.source": "Джерело",
-    "app.source.date": "Остання зміна: {{date}}\nПерше сканування: {{added}}",
     "app.source.description": "Джерело, звідки беруться ці дані.",
     "compare.share": "Поділитися wiki.openstreetmap.org",
     "compare.unknown": "невідомий",
@@ -128,5 +127,7 @@
     "score.criteria.openSourceChannel": "канал розміщено на платформах з відкритим кодом (наприклад, Matrix)",
     "score.criteria.documentationLink": "посилання на документацію доступне",
     "score.criteria.documentedMultiplePlatforms": "додаток задокументовано на кількох платформах (наприклад, OSM-Wiki, taginfo, Wikidata)",
-    "survey": "Мені цікава ваша думка. Допоможіть переробити каталог додатків OSM. <u>Візьміть участь в опитуванні. Натисніть тут.</u>"
+    "survey": "Мені цікава ваша думка. Допоможіть переробити каталог додатків OSM. <u>Візьміть участь в опитуванні. Натисніть тут.</u>",
+    "app.source.lastChange": "Остання зміна: {{date}}",
+    "app.source.firstCrawled": "Перше сканування: {{added}}"
 }
