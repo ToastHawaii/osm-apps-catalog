@@ -9,7 +9,8 @@ import { chain } from "lodash";
 import { addOrMergeApp } from "./addOrMergeApp";
 import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
 // import { loadAppsFromTagInfoProjects } from "@actions/lib/utilities/loadAppsFromSource/tagInfo";
-//  import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
+import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
+import { AppTranslationQueries } from "@actions/lib/utilities/crawler/wikidata";
 
 export async function loadApps(/*githubToken: string*/) {
   const knownApps = await getKnownApps();
@@ -22,7 +23,7 @@ export async function loadApps(/*githubToken: string*/) {
       loadAppsFromOsmWikiServiceItems(languageMode),
       loadAppsFromOsmWikiLayers(languageMode),
       loadAppsFromOsmWikiSoftwares(languageMode),
-      //  loadAppsFromWikidata(languageMode),
+      loadAppsFromWikidata(AppTranslationQueries),
       // loadAppsFromGitHub(githubToken),
       // loadAppsFromTagInfoProjects(),
     ]),
@@ -35,6 +36,7 @@ export async function loadApps(/*githubToken: string*/) {
         addOrMergeApp(appsByLang[lang], knownApps, app, {
           includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
           checkWebsiteWithRepo: app.source[0].name === "taginfo",
+          includeSourceForUniqueCheck: app.source[0].name === "Wikidata",
           // The language of github is only recognised automatically based on the description, so if
           // there is another source, use language from there
           onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",

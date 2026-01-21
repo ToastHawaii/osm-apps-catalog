@@ -1,24 +1,24 @@
-import {
-  requestWikidata,
-  transformWikidataResult,
-} from "@actions/lib/utilities/crawler/wikidata";
+import { request, transform } from "@actions/lib/utilities/crawler/wikidata";
 import { App } from "@shared/data/App";
 import { mergeWith } from "lodash";
 
-export async function loadAppsFromWikidata() {
-  const wikidataResults = await Promise.all(requestWikidata());
+export async function loadAppsFromWikidata(queries: string[]) {
+  const wikidataResults = await Promise.all(
+    queries.map((query) => request(query)),
+  );
 
   // Merge multiple queries results into single apps based on Wikidata ID
   const objs = new Map<string, App>();
   for (const wikidataResult of wikidataResults) {
     for (const source of wikidataResult.results.bindings) {
-      const obj = transformWikidataResult(source);
-      const dup = objs.get(obj.source[0].id);
+      const obj = transform(source);
+      const lgId = `${obj.source[0].language}:${obj.source[0].id}`;
+      const dup = objs.get(lgId);
       if (!dup) {
-        objs.set(obj.source[0].id, obj);
+        objs.set(lgId, obj);
       } else {
         objs.set(
-          obj.source[0].id,
+          lgId,
           mergeWith(obj, dup, (o, s) => {
             if (typeof o === "string") {
               return o || s;

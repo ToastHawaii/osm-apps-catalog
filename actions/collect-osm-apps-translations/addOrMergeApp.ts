@@ -9,6 +9,7 @@ export function addOrMergeApp(
   options: {
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
+    includeSourceForUniqueCheck: boolean;
     onlyAddLanguageIfEmpty: boolean;
   },
 ) {

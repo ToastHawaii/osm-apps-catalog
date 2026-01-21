@@ -61,7 +61,7 @@ function extractIrc(value: any) {
   };
 }
 
-export function transformWikidataResult(result: any) {
+export function transform(result: any) {
   return {
     name: result.itemLabel?.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
@@ -131,28 +131,29 @@ export function transformWikidataResult(result: any) {
       {
         name: "Wikidata",
         // get wikidatas item Q-ID from full URL
-        id: result.item.value.split("/").pop,
+        id: result.item.value.split("/").pop(),
+        language: result.lg?.value,
         url: result.item.value,
-        lastChange: result.modified.value,
+        lastChange: result.modified?.value,
       },
     ],
   } as any as App;
 }
 
-async function request(query: string) {
+export async function request(query: string) {
   const base = "https://query.wikidata.org/sparql";
 
   const params: any = {};
 
-  params["query"] = query;
+  params["query"] = query.replace(/^.*#.*$/gm, "").replace(/( |\n)+/g, " ");
   params["format"] = "json";
 
   return await getJson(base, params);
 }
 
-export function requestWikidata() {
-  const base = request(
-    `
+export const AppQueries = [
+  // Base
+  `
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
@@ -297,13 +298,9 @@ GROUP BY ?item
          ?itemLabel 
          ?description
          ?modified
-`
-      .replace(/^\s*#.*$/gm, "")
-      .replace(/( |\n)+/g, " "),
-  );
-
-  const genre = request(
-    `
+`,
+  // Genre
+  `
 SELECT DISTINCT 
   ?item
   ?viewing
@@ -315,7 +312,6 @@ SELECT DISTINCT
   ?changsetReview
   ?welcomingTool
   ?streetImg
-  ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
   FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
@@ -381,7 +377,6 @@ WHERE {
     ?goalStat pq:P12913 wd:Q96470821. 
     BIND("y" AS ?streetImg)
   }
-  ?item schema:dateModified ?modified
 }
 GROUP BY ?item 
          ?viewing 
@@ -394,20 +389,14 @@ GROUP BY ?item
          ?welcomingTool
          ?streetImgSv
          ?streetImg
-         ?modified
-`
-      .replace(/^\s*#.*$/gm, "")
-      .replace(/( |\n)+/g, " "),
-  );
-
-  const lastRelease = request(
-    `
+`,
+  // Last release
+  `
 SELECT DISTINCT 
   ?item
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (MAX(?date) AS ?lastRelease)
-  ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
   FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
@@ -436,31 +425,22 @@ WHERE {
   }
       
   ?item p:P348/pq:P577 ?date.
-
-  ?item schema:dateModified ?modified
 }
 GROUP BY ?item
-         ?modified
-`
-      .replace(/^\s*#.*$/gm, "")
-      .replace(/( |\n)+/g, " "),
-  );
-
-  const license = request(
-    `
+`,
+  // License
+  `
 SELECT DISTINCT 
   ?item
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (GROUP_CONCAT(?licenseShortName; SEPARATOR = ";") AS ?license)
-  ?modified 
 WHERE
 {
   {
     SELECT DISTINCT 
       ?item
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
-      ?modified 
     WHERE {
       ?item (wdt:P31/(wdt:P279*)) ?type.
       FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
@@ -490,22 +470,112 @@ WHERE
           
       ?item wdt:P275 ?license.
       ?license wdt:P1813 ?licenseShortName.
-      
-      ?item schema:dateModified ?modified
     }
     GROUP BY ?item 
              ?license
-             ?modified
   }
   
   OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
 }
-GROUP BY ?item 
-         ?modified
-`
-      .replace(/^\s*#.*$/gm, "")
-      .replace(/( |\n)+/g, " "),
-  );
+GROUP BY ?item`,
+];
 
-  return [base, genre, lastRelease, license];
+function buildTranslationQuery(propId: string, fieldName: string) {
+  return `SELECT DISTINCT ?item ?lg ?${fieldName} WHERE {
+
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+
+  {
+    ?item wdt:P144 wd:Q936.
+  }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942 }
+  UNION { ?item wdt:P2283 wd:Q936 }
+  UNION { ?item wdt:P144 wd:Q125124940 }
+  UNION { ?item wdt:P2283 wd:Q125124940 }
+  UNION { ?item wdt:P144 wd:Q116859711 }
+  UNION { ?item wdt:P2283 wd:Q116859711 }
+  UNION { ?item wdt:P144 wd:Q25822543 }
+  UNION { ?item wdt:P2283 wd:Q25822543 }
+  UNION { ?item wdt:P2283 wd:Q121746037 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037 }
+
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued }
+
+  ?item p:${propId} ?stat.
+  ?stat ps:${propId} ?${fieldName}.
+  OPTIONAL {
+    ?stat pq:P407 ?lgEntity.
+    ?lgEntity wdt:P218 ?lg. # ISO 639-1 code
+  }
+
+  # Exclude English, Multilanguage and empty language codes
+  FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
+
 }
+ORDER BY ?item ?lg`;
+}
+
+export const AppTranslationQueries = [
+  `
+SELECT DISTINCT ?item ?lg ?itemLabel ?description WHERE {
+
+  ?item (wdt:P31/(wdt:P279*)) ?type .
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+
+  {
+    ?item wdt:P144 wd:Q936 .
+  }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942 }
+  UNION { ?item wdt:P2283 wd:Q936 }
+  UNION { ?item wdt:P144 wd:Q125124940 }
+  UNION { ?item wdt:P2283 wd:Q125124940 }
+  UNION { ?item wdt:P144 wd:Q116859711 }
+  UNION { ?item wdt:P2283 wd:Q116859711 }
+  UNION { ?item wdt:P144 wd:Q25822543 }
+  UNION { ?item wdt:P2283 wd:Q25822543 }
+  UNION { ?item wdt:P2283 wd:Q121746037 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154 }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037 }
+
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued }
+
+  {
+    ?item rdfs:label ?itemLabel .
+    BIND(LANG(?itemLabel) AS ?language)
+  }
+  UNION
+  {
+    ?item schema:description ?description .
+    BIND(LANG(?description) AS ?language)
+  }
+
+  OPTIONAL {
+    ?item rdfs:label ?itemLabel .
+    FILTER(LANG(?itemLabel) = ?language)
+  }
+
+  OPTIONAL {
+    ?item schema:description ?description .
+    FILTER(LANG(?description) = ?language)
+  }
+  
+  # Exclude English, Multilanguage and empty language codes
+  FILTER(?language != "en" && ?language != "mul" && BOUND(?language))
+
+}
+ORDER BY ?item ?language
+`,
+  buildTranslationQuery("P973", "doc"),
+  buildTranslationQuery("P10027", "forum"),
+  buildTranslationQuery("P11478", "matrix"),
+  buildTranslationQuery("P4033", "mastodon"),
+  buildTranslationQuery("P11947", "lemmy"),
+  buildTranslationQuery("P12361", "bluesky"),
+  buildTranslationQuery("P3789", "teleg"),
+  buildTranslationQuery("P3984", "subreddit"),
+  buildTranslationQuery("P1613", "irc"),
+];

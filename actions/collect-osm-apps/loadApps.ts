@@ -8,6 +8,7 @@ import {
 } from "@actions/lib/utilities/loadAppsFromSource/osmWiki";
 import { loadAppsFromTagInfoProjects } from "@actions/lib/utilities/loadAppsFromSource/tagInfo";
 import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
+import { AppQueries } from "@actions/lib/utilities/crawler/wikidata";
 
 export async function loadApps(githubToken: string) {
   const apps: App[] = [];
@@ -18,7 +19,7 @@ export async function loadApps(githubToken: string) {
       loadAppsFromOsmWikiServiceItems(languageMode),
       loadAppsFromOsmWikiLayers(languageMode),
       loadAppsFromOsmWikiSoftwares(languageMode),
-      loadAppsFromWikidata(languageMode),
+      loadAppsFromWikidata(AppQueries),
       loadAppsFromGitHub(githubToken),
       loadAppsFromTagInfoProjects(),
     ])
@@ -28,6 +29,7 @@ export async function loadApps(githubToken: string) {
       addOrMergeApp(apps, app, {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
+        includeSourceForUniqueCheck: false,
         // The language of github is only recognised automatically based on the description, so if
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",

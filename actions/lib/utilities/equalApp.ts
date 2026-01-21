@@ -11,6 +11,7 @@ export function equals(
   options: {
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
+    includeSourceForUniqueCheck: boolean;
   },
 ) {
   // if name are equals but websites not we ignore this condition
@@ -31,6 +32,10 @@ export function equals(
       app2.install.huaweiAppGalleryID,
     ) ||
     equalsString(app1.install.macAppStoreID, app2.install.macAppStoreID) ||
-    equalsString(app1.install.microsoftAppID, app2.install.microsoftAppID)
+    equalsString(app1.install.microsoftAppID, app2.install.microsoftAppID) ||
+    (options.includeSourceForUniqueCheck &&
+      app1.source.find((s1) =>
+        app2.source.find((s2) => s1.name === s2.name && s1.id === s2.id),
+      ))
   );
 }
