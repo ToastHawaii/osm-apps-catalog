@@ -123,5 +123,7 @@
     "app.contribute.toData.qa": "தர உத்தரவாதத்தை செய்யுங்கள்",
     "app.contribute.toCommunity": "சமூகத்திற்கு",
     "app.contribute.toCommunity.welcome": "புதிய பயனர்களை வரவேற்கிறோம்",
-    "app.community.lemmy": "லெம்மி"
+    "app.community.lemmy": "லெம்மி",
+    "app.source.lastChange": "கடைசி மாற்றம்: {{date}}",
+    "app.source.firstCrawled": "முதலில் ஊர்ந்து சென்றது: {{added}}"
 }
