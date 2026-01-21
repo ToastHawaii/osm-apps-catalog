@@ -18,7 +18,7 @@ export function addOrMergeApp(
   if (duplicates.length === 0) {
     const existingApp = knownApps.filter((app) => equals(app, obj, options));
 
-    // only add if en app is  already known
+    // only add if en app is already known
     if (existingApp.length > 0) {
       obj.id = existingApp[0].id;
       apps.push(obj);

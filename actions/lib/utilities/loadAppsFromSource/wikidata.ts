@@ -7,7 +7,7 @@ export async function loadAppsFromWikidata(queries: string[]) {
     queries.map((query) => request(query)),
   );
 
-  // Merge multiple queries results into single apps based on Wikidata ID
+  // Merge multiple queries results into single apps based on language and Wikidata ID
   const objs = new Map<string, App>();
   for (const wikidataResult of wikidataResults) {
     for (const source of wikidataResult.results.bindings) {

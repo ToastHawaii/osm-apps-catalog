@@ -14,7 +14,6 @@ export function equals(
     includeSourceForUniqueCheck: boolean;
   },
 ) {
-  // if name are equals but websites not we ignore this condition
   return (
     equalsName(app1.name, app2.name) ||
     equalsWebsite(app1.website, app2.website) ||
