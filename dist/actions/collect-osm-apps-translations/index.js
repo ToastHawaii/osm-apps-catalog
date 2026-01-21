@@ -72017,15 +72017,13 @@ function equals(app1, app2, options) {
 ;// CONCATENATED MODULE: ./shared/utilities/mergeAppSources.ts
 
 function mergeAppSources(source1, source2) {
-    if (source1.some((s) => s.lastChange === source2[0].lastChange && s.name === source2[0].name)) {
-        return source1;
-    }
-    // only add if not same source
-    // make the first source the newest
-    return (0,lodash.chain)([...source1, ...source2])
+    return ((0,lodash.chain)([...source1, ...source2])
+        // only add if not same source
+        .uniqBy((s) => `${s.lastChange}:${s.name}`)
+        // make the first source the newest
         .sortBy((s) => s.lastChange)
         .reverse()
-        .value();
+        .value());
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/utilities/mergeApps.ts
@@ -72903,6 +72901,7 @@ async function run() {
                 community: app.community,
                 source: app.source,
             }))
+                // sort apps in translation files by id to have a constant order
                 .orderBy((a) => a.id)
                 .value()),
         }))
