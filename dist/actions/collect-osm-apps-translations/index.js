@@ -72709,29 +72709,28 @@ SELECT DISTINCT ?item ?lg ?itemLabel ?description WHERE {
 
   {
     ?item rdfs:label ?itemLabel .
-    BIND(LANG(?itemLabel) AS ?language)
+    BIND(LANG(?itemLabel) AS ?lg)
   }
   UNION
   {
     ?item schema:description ?description .
-    BIND(LANG(?description) AS ?language)
+    BIND(LANG(?description) AS ?lg)
   }
 
   OPTIONAL {
     ?item rdfs:label ?itemLabel .
-    FILTER(LANG(?itemLabel) = ?language)
+    FILTER(LANG(?itemLabel) = ?lg)
   }
 
   OPTIONAL {
     ?item schema:description ?description .
-    FILTER(LANG(?description) = ?language)
+    FILTER(LANG(?description) = ?lg)
   }
   
   # Exclude English, Multilanguage and empty language codes
-  FILTER(?language != "en" && ?language != "mul" && BOUND(?language))
-
+  FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 }
-ORDER BY ?item ?language
+ORDER BY ?item ?lg
 `,
     buildTranslationQuery("P973", "doc"),
     buildTranslationQuery("P10027", "forum"),
