@@ -127,5 +127,7 @@
     "filter": {
         "resetFilters": "移除預置篩選"
     },
-    "survey": "我們重視你的回饋意見，幫忙重新設計 OSM App Catalog。<u>點這裡填寫問券。</u>"
+    "survey": "我們重視你的回饋意見，幫忙重新設計 OSM App Catalog。<u>點這裡填寫問券。</u>",
+    "app.source.lastChange": "最後更改：{{date}}",
+    "app.source.firstCrawled": "第一次爬取：{{added}}"
 }
