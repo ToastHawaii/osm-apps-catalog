@@ -64,7 +64,7 @@
     "app:start": "cp docs/api/apps/all.json shared/data && vite",
     "app:build": "vite build",
     "actions:build": "npm run actions:collect-osm-apps:build && npm run actions:collect-osm-apps-translations:build",
-    "actions:collect-osm-apps:start": "npx local-action . actions/collect-osm-apps/main.ts .env",
+    "actions:collect-osm-apps:start": "npx local-action actions/collect-osm-apps main.ts .env",
     "actions:collect-osm-apps:build": "npx ncc build actions/collect-osm-apps/index.ts -o dist/actions/collect-osm-apps",
     "actions:collect-osm-apps-translations:start": "npx local-action actions/collect-osm-apps-translations main.ts .env",
     "actions:collect-osm-apps-translations:build": "npx ncc build actions/collect-osm-apps-translations/index.ts -o dist/actions/collect-osm-apps-translations",

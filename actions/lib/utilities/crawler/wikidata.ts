@@ -63,7 +63,7 @@ function extractIrc(value: any) {
 
 export function transformWikidataResult(result: any) {
   return {
-    name: result.itemLabel.value || "",
+    name: result.itemLabel?.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     description: result.description?.value || "",
     images: (result.imgs?.value || "").split(";").filter((v: any) => v),
@@ -130,7 +130,8 @@ export function transformWikidataResult(result: any) {
     source: [
       {
         name: "Wikidata",
-        wiki: "",
+        // get wikidatas item Q-ID from full URL
+        id: result.item.value.split("/").pop,
         url: result.item.value,
         lastChange: result.modified.value,
       },
@@ -149,7 +150,7 @@ async function request(query: string) {
   return await getJson(base, params);
 }
 
-export function requestWikidata(lg: string) {
+export function requestWikidata() {
   const base = request(
     `
 SELECT DISTINCT 
@@ -165,13 +166,13 @@ SELECT DISTINCT
   (SAMPLE(?doc) AS ?doc)
   (SAMPLE(?forumDef) AS ?forumDef)
   (SAMPLE(?forum) AS ?forum)
-  (GROUP_CONCAT(DISTINCT ?authorLabel; SEPARATOR = ", ") AS ?authors)
+  (GROUP_CONCAT(DISTINCT ?author; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
-  (GROUP_CONCAT(DISTINCT ?topicLabel; SEPARATOR = ";") AS ?topics)
+  (GROUP_CONCAT(DISTINCT ?topic; SEPARATOR = ";") AS ?topics)
   (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
-  (GROUP_CONCAT(DISTINCT ?platformLabel; SEPARATOR = ";") AS ?platforms)
+  (GROUP_CONCAT(DISTINCT ?platform; SEPARATOR = ";") AS ?platforms)
   (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?googlePlay) AS ?googlePlay) 
   (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
@@ -205,10 +206,11 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en". }
+
   OPTIONAL {
     ?item schema:description ?description.
-    FILTER((LANG(?description)) = "${lg}")
+    FILTER(LANG(?description) = "mul" || LANG(?description) = "en")
   }
   OPTIONAL { ?item wdt:P154 ?logo. }
   OPTIONAL { ?item wdt:P18 ?img. }
@@ -220,7 +222,7 @@ WHERE {
     ?webStat ps:P856 ?web.
     ?webStat pq:P407 ?webLg.
     ?webLg wdt:P218 ?webLgCode 
-    FILTER(?webLgCode = "${lg}")
+    FILTER(?webLgCode = "en")
   }
   OPTIONAL { 
     ?item p:P1343 ?docDefStat. 
@@ -231,7 +233,7 @@ WHERE {
     ?docStat ps:P973 ?doc.
     ?docStat pq:P407 ?docLg.
     ?docLg wdt:P218 ?docLgCode 
-    FILTER(?docLgCode = "${lg}")
+    FILTER(?docLgCode = "en")
   }
   OPTIONAL { ?item wdt:P10027 ?forumDef. }
   OPTIONAL { 
@@ -239,11 +241,11 @@ WHERE {
     ?forumStat ps:P10027 ?forum.
     ?forumStat pq:P407 ?forumLg.
     ?forumLg wdt:P218 ?forumLgCode 
-    FILTER(?forumLgCode = "${lg}")
+    FILTER(?forumLgCode = "en")
   }
   OPTIONAL { 
-    ?item wdt:P178/rdfs:label ?authorLabel.
-    FILTER(LANG(?authorLabel) = "${lg}")
+    ?item wdt:P178/rdfs:label ?author.
+    FILTER(LANG(?author) = "en")
   }
   OPTIONAL { ?item wdt:P1324 ?sourceCode. }
   OPTIONAL { 
@@ -252,16 +254,16 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
   OPTIONAL { 
-    ?item wdt:P366/rdfs:label ?topicLabel.
-    FILTER(LANG(?topicLabel) = "${lg}")
+    ?item wdt:P366/rdfs:label ?topic.
+    FILTER(LANG(?topic) = "en")
   }
   OPTIONAL { 
     ?item wdt:P306/rdfs:label ?osLabel.
-    FILTER(LANG(?osLabel) = "${lg}")
+    FILTER(LANG(?osLabel) = "en")
   }
   OPTIONAL { 
-    ?item wdt:P400/rdfs:label ?platformLabel.
-    FILTER(LANG(?platformLabel) = "${lg}")
+    ?item wdt:P400/rdfs:label ?platform.
+    FILTER(LANG(?platform) = "en")
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroid. }
@@ -285,24 +287,25 @@ WHERE {
      pq:P3831 wd:Q87410646.
     ?telegStat pq:P407 ?telegLg.
     ?telegLg wdt:P218 ?telegLgCode 
-    FILTER(?telegLgCode = "${lg}")
+    FILTER(?telegLgCode = "en")
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item 
          ?itemLabel 
          ?description
          ?modified
-`.replace(/( |\n)+/g, " "),
+`
+      .replace(/^\s*#.*$/gm, "")
+      .replace(/( |\n)+/g, " "),
   );
 
   const genre = request(
     `
 SELECT DISTINCT 
-  ?item ?itemLabel 
+  ?item
   ?viewing
   ?routing
   ?editor
@@ -330,6 +333,7 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
     BIND("y" AS ?viewing)
@@ -378,10 +382,8 @@ WHERE {
     BIND("y" AS ?streetImg)
   }
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item 
-         ?itemLabel 
          ?viewing 
          ?routing 
          ?editor 
@@ -393,13 +395,15 @@ GROUP BY ?item
          ?streetImgSv
          ?streetImg
          ?modified
-`.replace(/( |\n)+/g, " "),
+`
+      .replace(/^\s*#.*$/gm, "")
+      .replace(/( |\n)+/g, " "),
   );
 
   const lastRelease = request(
     `
 SELECT DISTINCT 
-  ?item ?itemLabel
+  ?item
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (MAX(?date) AS ?lastRelease)
@@ -428,24 +432,24 @@ WHERE {
     ?webStat ps:P856 ?web.
     ?webStat pq:P407 ?webLg.
     ?webLg wdt:P218 ?webLgCode 
-    FILTER(?webLgCode = "${lg}")
+    FILTER(?webLgCode = "en")
   }
       
   ?item p:P348/pq:P577 ?date.
 
   ?item schema:dateModified ?modified
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
 }
 GROUP BY ?item
-         ?itemLabel
          ?modified
-`.replaceAll("  ", " "),
+`
+      .replace(/^\s*#.*$/gm, "")
+      .replace(/( |\n)+/g, " "),
   );
 
   const license = request(
     `
 SELECT DISTINCT 
-  ?item ?itemLabel
+  ?item
   (SAMPLE(?webDef) AS ?webDef)
   (SAMPLE(?web) AS ?web)
   (GROUP_CONCAT(?licenseShortName; SEPARATOR = ";") AS ?license)
@@ -454,7 +458,7 @@ WHERE
 {
   {
     SELECT DISTINCT 
-      ?item ?itemLabel
+      ?item
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
       ?modified 
     WHERE {
@@ -481,17 +485,15 @@ WHERE
         ?webStat ps:P856 ?web.
         ?webStat pq:P407 ?webLg.
         ?webLg wdt:P218 ?webLgCode 
-        FILTER(?webLgCode = "${lg}")
+        FILTER(?webLgCode = "en")
       }
           
       ?item wdt:P275 ?license.
       ?license wdt:P1813 ?licenseShortName.
       
       ?item schema:dateModified ?modified
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "${lg},mul,en". }
     }
     GROUP BY ?item 
-             ?itemLabel
              ?license
              ?modified
   }
@@ -499,9 +501,10 @@ WHERE
   OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
 }
 GROUP BY ?item 
-         ?itemLabel
          ?modified
-`.replaceAll("  ", " "),
+`
+      .replace(/^\s*#.*$/gm, "")
+      .replace(/( |\n)+/g, " "),
   );
 
   return [base, genre, lastRelease, license];
