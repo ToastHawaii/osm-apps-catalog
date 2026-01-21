@@ -75144,7 +75144,6 @@ function calcId(obj) {
 ;// CONCATENATED MODULE: ./actions/lib/utilities/equalApp.ts
 
 function equals(app1, app2, options) {
-    // if name are equals but websites not we ignore this condition
     return (equalsName(app1.name, app2.name) ||
         equalsWebsite(app1.website, app2.website) ||
         (options.includeRepositoryForUniqueCheck &&
@@ -77851,7 +77850,7 @@ function wikidata_transform(result) {
 async function wikidata_request(query) {
     const base = "https://query.wikidata.org/sparql";
     const params = {};
-    params["query"] = query.replace(/^.*#.*$/gm, "").replace(/( |\n)+/g, " ");
+    params["query"] = query.replace(/\s*#.*$/gm, "").replace(/( |\n)+/g, " ");
     params["format"] = "json";
     return await getJson(base, params);
 }
@@ -78287,7 +78286,7 @@ ORDER BY ?item
 
 async function loadAppsFromWikidata(queries) {
     const wikidataResults = await Promise.all(queries.map((query) => wikidata_request(query)));
-    // Merge multiple queries results into single apps based on Wikidata ID
+    // Merge multiple queries results into single apps based on language and Wikidata ID
     const objs = new Map();
     for (const wikidataResult of wikidataResults) {
         for (const source of wikidataResult.results.bindings) {

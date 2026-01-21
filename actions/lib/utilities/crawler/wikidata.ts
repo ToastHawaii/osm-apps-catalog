@@ -145,7 +145,7 @@ export async function request(query: string) {
 
   const params: any = {};
 
-  params["query"] = query.replace(/^.*#.*$/gm, "").replace(/( |\n)+/g, " ");
+  params["query"] = query.replace(/\s*#.*$/gm, "").replace(/( |\n)+/g, " ");
   params["format"] = "json";
 
   return await getJson(base, params);

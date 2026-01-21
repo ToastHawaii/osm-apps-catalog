@@ -71996,7 +71996,6 @@ async function loadAppsFromOsmWikiServiceItems(languageMode) {
 ;// CONCATENATED MODULE: ./actions/lib/utilities/equalApp.ts
 
 function equals(app1, app2, options) {
-    // if name are equals but websites not we ignore this condition
     return (equalsName(app1.name, app2.name) ||
         equalsWebsite(app1.website, app2.website) ||
         (options.includeRepositoryForUniqueCheck &&
@@ -72159,7 +72158,7 @@ function addOrMergeApp(apps, knownApps, obj, options) {
     const duplicates = apps.filter((app) => equals(app, obj, options));
     if (duplicates.length === 0) {
         const existingApp = knownApps.filter((app) => equals(app, obj, options));
-        // only add if en app is  already known
+        // only add if en app is already known
         if (existingApp.length > 0) {
             obj.id = existingApp[0].id;
             apps.push(obj);
@@ -72313,7 +72312,7 @@ function wikidata_transform(result) {
 async function request(query) {
     const base = "https://query.wikidata.org/sparql";
     const params = {};
-    params["query"] = query.replace(/^.*#.*$/gm, "").replace(/( |\n)+/g, " ");
+    params["query"] = query.replace(/\s*#.*$/gm, "").replace(/( |\n)+/g, " ");
     params["format"] = "json";
     return await getJson(base, params);
 }
@@ -72749,7 +72748,7 @@ ORDER BY ?item
 
 async function loadAppsFromWikidata(queries) {
     const wikidataResults = await Promise.all(queries.map((query) => request(query)));
-    // Merge multiple queries results into single apps based on Wikidata ID
+    // Merge multiple queries results into single apps based on language and Wikidata ID
     const objs = new Map();
     for (const wikidataResult of wikidataResults) {
         for (const source of wikidataResult.results.bindings) {
