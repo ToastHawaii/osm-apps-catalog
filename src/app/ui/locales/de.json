@@ -127,5 +127,7 @@
     "filter": {
         "resetFilters": "Voreingestellte Filter entfernen"
     },
-    "survey": "Deine Meinung interessiert mich. Hilf mit, den OSM App-Katalog neu zu gestalten. <u>Mach bei der Umfrage mit. Klicke hier.</u>"
+    "survey": "Deine Meinung interessiert mich. Hilf mit, den OSM App-Katalog neu zu gestalten. <u>Mach bei der Umfrage mit. Klicke hier.</u>",
+    "app.source.lastChange": "Letzte Änderung: {{date}}",
+    "app.source.firstCrawled": "Erstmals gecrawlt: {{added}}"
 }
