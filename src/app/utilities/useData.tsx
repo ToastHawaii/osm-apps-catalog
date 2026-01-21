@@ -42,8 +42,11 @@ export function useData(lang: string) {
 
   useEffect(() => {
     (async () => {
-      const apps = (await loadData()) as App[];
-      const translations = (await loadTranslations(lang)) as AppTranslation[];
+      const appsQuery = loadData();
+      const translationsQuery = loadTranslations(lang);
+
+      const apps = (await appsQuery) as App[];
+      const translations = (await translationsQuery) as AppTranslation[];
 
       apps.forEach((app) => {
         const translation = translations.find((t) => t.id === app.id);
