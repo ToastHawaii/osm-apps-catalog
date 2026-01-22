@@ -24,6 +24,10 @@ async function loadData() {
 }
 
 async function loadTranslations(lang: string) {
+  if (lang === "en") {
+    return [];
+  }
+
   try {
     return await getJson(
       isDevelopment
@@ -46,18 +50,6 @@ export function useData(lang: string) {
       const translationsQuery = loadTranslations(lang);
 
       const apps = (await appsQuery) as App[];
-      const translations = (await translationsQuery) as AppTranslation[];
-
-      apps.forEach((app) => {
-        const translation = translations.find((t) => t.id === app.id);
-        if (translation) {
-          app.name = translation.name || app.name;
-          app.description = translation.description || app.description;
-          app.documentation = translation.documentation || app.documentation;
-          app.community = { ...app.community, ...translation.community };
-          app.source = mergeAppSources(app.source, translation.source);
-        }
-      });
 
       prepareLanguage(apps);
 
@@ -70,12 +62,27 @@ export function useData(lang: string) {
         };
       }
 
+      const translations = (await translationsQuery) as AppTranslation[];
+
+      if (translations.length > 0) {
+        apps.forEach((app) => {
+          const translation = translations.find((t) => t.id === app.id);
+          if (translation) {
+            app.name = translation.name || app.name;
+            app.description = translation.description || app.description;
+            app.documentation = translation.documentation || app.documentation;
+            app.community = { ...app.community, ...translation.community };
+            app.source = mergeAppSources(app.source, translation.source);
+          }
+        });
+      }
+
       setApps(apps);
       if (isDevelopment) {
         printCalcScore(apps);
       }
     })();
-  }, []);
+  }, [lang]);
 
   return apps;
 }
