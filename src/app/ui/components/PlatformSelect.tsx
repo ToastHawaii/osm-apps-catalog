@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "@shared/data/App";
-import { prepareArrayForSelect } from "../../utilities/prepareArrayForSelect";
+import { prepareArrayForSelect } from "../../../lib/utils/prepareArrayForSelect";
 import { isEqual } from "lodash";
 
 export function PlatformSelect({

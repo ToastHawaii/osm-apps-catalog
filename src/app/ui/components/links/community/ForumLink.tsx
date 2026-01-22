@@ -1,7 +1,7 @@
 import React from "react";
 import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
-import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
 
 export function ForumLink({ app }: { app: App }) {
   const { t } = useTranslation();

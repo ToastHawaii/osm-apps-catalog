@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { getMatrix } from "../../../utilities/getMatrix";
 import { App } from "@shared/data/App";
-import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
 
 export function MatrixLink({ app }: { app: App }) {
   const { t } = useTranslation();

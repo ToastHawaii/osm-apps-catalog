@@ -27,7 +27,7 @@ import { MastodonLink } from "../components/links/community/MastodonLink";
 import { MatrixLink } from "../components/links/community/MatrixLink";
 import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
-import { useGoatCounterEvents } from "../../utilities/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../lib/utils/useGoatCounterEvents";
 import { plainText } from "@shared/utilities/plainText";
 
 export function List({

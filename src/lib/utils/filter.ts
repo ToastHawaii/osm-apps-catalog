@@ -3,7 +3,7 @@ import { App } from "@shared/data/App";
 import { includes, some } from "@shared/utilities/array";
 import { edit, mobile, navigation } from "@shared/utilities/filters";
 import { equalsYes } from "@shared/utilities/string";
-import { State } from "../ui/State";
+import { State } from "../../app/ui/State";
 
 export function filter({
   apps,

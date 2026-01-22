@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { getMastodon } from "../../../utilities/getMastodon";
 import { App } from "@shared/data/App";
-import { useGoatCounterEvents } from "../../../../utilities/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
 
 export function MastodonLink({ app }: { app: App }) {
   const { t } = useTranslation();
