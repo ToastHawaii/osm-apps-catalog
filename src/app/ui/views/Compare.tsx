@@ -31,7 +31,7 @@ import { SlackLink } from "../components/links/community/SlackLink";
 import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
-import { useGoatCounterEvents } from "../../../lib/utils/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utilities/plainText";
 
 export function Compare({

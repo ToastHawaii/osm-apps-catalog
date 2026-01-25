@@ -1,6 +1,6 @@
 import { sum } from "lodash";
 import { App } from "@shared/data/App";
-import { prepareArrayForSelect } from "./prepareArrayForSelect";
+import { prepareArrayForSelect } from "../../app/ui/utilities/prepareArrayForSelect";
 
 export function printCalcScore(apps: App[]) {
   const average = sum(apps.map((a) => a.score)) / apps.length;

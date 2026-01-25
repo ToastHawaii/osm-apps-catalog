@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getJson } from "@shared/utilities/jsonRequest";
 import { App } from "@shared/data/App";
 import { isDevelopment } from "@shared/utilities/isDevelopment";
-import { printCalcScore } from "./printCalcScore";
+import { printCalcScore } from "../lib/utils/printCalcScore";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";

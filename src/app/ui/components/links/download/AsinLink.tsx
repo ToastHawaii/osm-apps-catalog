@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
-import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { edit } from "@shared/utilities/filters";
 
 export function AsinLink({ app }: { app: App }) {

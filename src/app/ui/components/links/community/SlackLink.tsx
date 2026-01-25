@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
-import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 
 export function SlackLink({ app }: { app: App }) {
   const { t } = useTranslation();

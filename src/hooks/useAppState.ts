@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router";
-import { State } from "../../app/ui/State";
+import { State } from "../app/ui/State";
 import { useReducer } from "react";
-import { languageValueToDisplay } from "../../app/ui/utilities/language";
-import { getUserRegion } from "./getUserRegion";
-import { getUserOS } from "./getUserOS";
+import { languageValueToDisplay } from "../app/ui/utilities/language";
+import { getUserRegion } from "../lib/utils/getUserRegion";
+import { getUserOS } from "../lib/utils/getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
 function usersBrowserSearchParams() {

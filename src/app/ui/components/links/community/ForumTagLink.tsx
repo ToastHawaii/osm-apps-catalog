@@ -1,7 +1,7 @@
 import React from "react";
 import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
-import { useGoatCounterEvents } from "../../../../../lib/utils/useGoatCounterEvents";
+import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 
 export function ForumTagLink({ app }: { app: App }) {
   const { t } = useTranslation();
