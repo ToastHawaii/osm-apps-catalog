@@ -7,6 +7,12 @@ import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";
 
+function consoleLog(text: string) {
+  if (window.location.search.includes("debug")) {
+    alert(text);
+  }
+}
+
 async function loadData() {
   // for testing
   // return (await import("../../action/loadApps")).loadApps();
@@ -50,7 +56,7 @@ export function useData(lang: string) {
       const translationsQuery = loadTranslations(lang);
 
       const apps = (await appsQuery) as App[];
-
+      consoleLog("lang used in useData: " + lang);
       prepareLanguage(apps);
 
       for (const app of apps as App[]) {
@@ -63,6 +69,7 @@ export function useData(lang: string) {
       }
 
       const translations = (await translationsQuery) as AppTranslation[];
+      consoleLog(translations.length + " translations loaded for lang " + lang);
 
       if (translations.length > 0) {
         apps.forEach((app) => {
