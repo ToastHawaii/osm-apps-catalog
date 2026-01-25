@@ -73733,123 +73733,77 @@ function mergeAppSources(source1, source2) {
 
 
 function mergeApps(app, obj, options) {
-    if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease)
+    if (app.lastRelease && obj.lastRelease && app.lastRelease < obj.lastRelease) {
         app.lastRelease = obj.lastRelease;
-    else
+    }
+    else {
         app.lastRelease = app.lastRelease || obj.lastRelease;
-    app.unmaintained = app.unmaintained || obj.unmaintained;
+    }
+    app.unmaintained = mergeBoolean(app.unmaintained, obj.unmaintained);
     app.description = app.description || obj.description;
-    app.images.push(...obj.images);
-    app.images = (0,lodash.uniqBy)(app.images, (v) => v.toUpperCase());
-    app.logos.push(...obj.logos);
-    app.logos = (0,lodash.uniqBy)(app.logos, (v) => v.toUpperCase());
+    app.images = mergeValues(app.images, obj.images);
+    app.logos = mergeValues(app.logos, obj.logos);
     app.imageWiki = app.imageWiki || obj.imageWiki;
-    app.commons = app.commons || [];
-    app.commons.push(...(obj.commons || []));
-    app.commons = (0,lodash.uniqBy)(app.commons, (v) => v.toUpperCase());
-    app.videos = app.videos || [];
-    app.videos.push(...(obj.videos || []));
-    app.videos = (0,lodash.uniqBy)(app.videos, (v) => v.toUpperCase());
+    app.commons = mergeValues(app.commons, obj.commons);
+    app.videos = mergeValues(app.videos, obj.videos);
     app.website = app.website || obj.website;
-    if (!app.documentation) {
-        app.documentation = obj.documentation;
-    }
-    else if (/List.of.OSM.based.services/gi.test(app.documentation)) {
-        app.documentation = obj.documentation || app.documentation;
-    }
-    app.coverage.push(...obj.coverage);
-    app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase());
+    app.documentation = app.documentation || obj.documentation;
+    app.coverage = mergeValues(app.coverage, obj.coverage);
     app.source = mergeAppSources(app.source, obj.source);
     app.author = app.author || obj.author;
-    app.gratis = app.gratis || obj.gratis;
-    app.libre = app.libre || obj.libre;
+    app.gratis = mergeBoolean(app.gratis, obj.gratis);
+    app.libre = mergeBoolean(app.libre, obj.libre);
     app.price = app.price || obj.price;
-    app.license = app.license || [];
-    app.license.push(...(obj.license || []));
-    app.license = (0,lodash.uniqBy)(app.license, (v) => v.toUpperCase());
+    app.license = mergeValues(app.license, obj.license);
     app.sourceCode = app.sourceCode || obj.sourceCode;
     if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
-        app.languages.push(...obj.languages);
+        app.languages = mergeValues(app.languages, obj.languages);
     }
-    app.languages = (0,lodash.uniqBy)(app.languages, (v) => v.toUpperCase()).sort();
     app.languagesUrl = app.languagesUrl || obj.languagesUrl;
-    app.genre.push(...obj.genre);
-    app.genre = (0,lodash.uniqBy)(app.genre, (v) => v.toUpperCase());
-    app.topics.push(...obj.topics);
-    app.topics = (0,lodash.uniqBy)(app.topics, (v) => v.toUpperCase()).sort();
-    app.platform.push(...obj.platform);
-    app.platform = (0,lodash.uniqBy)(app.platform, (v) => v.toUpperCase()).sort();
-    app.coverage.push(...obj.coverage);
-    app.coverage = (0,lodash.uniqBy)(app.coverage, (v) => v.toUpperCase()).sort();
-    app.install.asin = app.install.asin || obj.install.asin;
-    app.install.fDroidID = app.install.fDroidID || obj.install.fDroidID;
-    app.install.obtainiumLink =
-        app.install.obtainiumLink || obj.install.obtainiumLink;
-    app.install.googlePlayID =
-        app.install.googlePlayID || obj.install.googlePlayID;
-    app.install.huaweiAppGalleryID =
-        app.install.huaweiAppGalleryID || obj.install.huaweiAppGalleryID;
-    app.install.appleStoreID =
-        app.install.appleStoreID || obj.install.appleStoreID;
-    app.install.macAppStoreID =
-        app.install.macAppStoreID || obj.install.macAppStoreID;
-    app.install.microsoftAppID =
-        app.install.microsoftAppID || obj.install.microsoftAppID;
-    app.map = merge(app.map, obj.map);
-    app.routing = merge(app.routing, obj.routing);
-    app.navigating = merge(app.navigating, obj.navigating);
-    app.tracking = merge(app.tracking, obj.tracking);
-    app.monitoring = merge(app.monitoring, obj.monitoring);
-    app.editing = merge(app.editing, obj.editing);
-    app.rendering = merge(app.rendering, obj.rendering);
-    app.accessibility = merge(app.accessibility, obj.accessibility);
+    app.genre = mergeValues(app.genre, obj.genre);
+    app.topics = mergeValues(app.topics, obj.topics);
+    app.platform = mergeValues(app.platform, obj.platform);
+    app.coverage = mergeValues(app.coverage, obj.coverage);
+    app.install = (0,lodash.merge)(app.install, obj.install);
+    app.map = mergeFeatures(app.map, obj.map);
+    app.routing = mergeFeatures(app.routing, obj.routing);
+    app.navigating = mergeFeatures(app.navigating, obj.navigating);
+    app.tracking = mergeFeatures(app.tracking, obj.tracking);
+    app.monitoring = mergeFeatures(app.monitoring, obj.monitoring);
+    app.editing = mergeFeatures(app.editing, obj.editing);
+    app.rendering = mergeFeatures(app.rendering, obj.rendering);
+    app.accessibility = mergeFeatures(app.accessibility, obj.accessibility);
     app.hasGoal = {
-        crowdsourcingStreetLevelImagery: app.hasGoal?.crowdsourcingStreetLevelImagery ||
-            obj.hasGoal?.crowdsourcingStreetLevelImagery,
+        crowdsourcingStreetLevelImagery: mergeBoolean(app.hasGoal?.crowdsourcingStreetLevelImagery, obj.hasGoal?.crowdsourcingStreetLevelImagery),
     };
-    app.community.forum = app.community.forum || obj.community.forum;
-    app.community.forumTag = app.community.forumTag || obj.community.forumTag;
-    app.community.irc = app.community.irc || obj.community.irc;
-    app.community.matrix = app.community.matrix || obj.community.matrix;
-    app.community.mastodon = app.community.mastodon || obj.community.mastodon;
-    app.community.lemmy = app.community.lemmy || obj.community.lemmy;
-    app.community.bluesky = app.community.bluesky || obj.community.bluesky;
-    app.community.issueTracker =
-        app.community.issueTracker || obj.community.issueTracker;
-    app.community.githubDiscussions =
-        app.community.githubDiscussions || obj.community.githubDiscussions;
-    app.community.telegram = app.community.telegram || obj.community.telegram;
-    app.community.slack = app.community.slack || obj.community.slack;
-    app.community.reddit = app.community.reddit || obj.community.reddit;
+    app.community = (0,lodash.merge)(app.community, obj.community);
 }
-// Todo: replace mit lodash?
-function merge(o1, o2) {
-    if (!o1 && !o2) {
+function mergeBoolean(b1, b2) {
+    if (typeof b1 === "boolean")
+        return b1;
+    return b2;
+}
+function mergeValues(v1, v2) {
+    return (0,lodash.uniqBy)([...(v1 || []), ...(v2 || [])], (v) => v.toUpperCase()).sort();
+}
+/**
+ * Merges two objects with string array values, removing duplicates.
+ */
+function mergeFeatures(o1, o2) {
+    if (!o1 && !o2)
         return undefined;
-    }
-    if (o1 && !o2) {
-        return o1;
-    }
-    if (!o1 && o2) {
+    if (!o1)
         return o2;
-    }
-    if (o1 && o2) {
-        const keys = Object.keys(o1);
-        keys.push(...Object.keys(o2));
-        keys.forEach((k) => {
-            if (o1[k] && !o2[k]) {
-                return;
-            }
-            if (!o1[k] && o2[k]) {
-                o1[k] = o2[k];
-                return;
-            }
-            o1[k].push(...o2[k]);
-            o1[k] = (0,lodash.uniq)(o1[k]);
-        });
+    if (!o2)
         return o1;
-    }
-    throw new Error("Not expected...");
+    return (0,lodash.mergeWith)({}, o1, o2, (objValue, srcValue) => {
+        if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+            // Concatenate and remove duplicates
+            return mergeValues(objValue, srcValue);
+        }
+        // Default merging otherwise
+        return undefined;
+    });
 }
 
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/addOrMergeApp.ts
@@ -76872,10 +76826,10 @@ async function loadApps(githubToken) {
     const apps = [];
     const languageMode = "en";
     (await Promise.all([
-        loadAppsFromOsmWikiServiceItems(languageMode),
-        loadAppsFromOsmWikiLayers(languageMode),
         loadAppsFromOsmWikiSoftwares(languageMode),
+        loadAppsFromOsmWikiLayers(languageMode),
         loadAppsFromWikidata(AppQueries),
+        loadAppsFromOsmWikiServiceItems(languageMode),
         loadAppsFromGitHub(githubToken),
         loadAppsFromTagInfoProjects(),
     ]))

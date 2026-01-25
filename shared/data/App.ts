@@ -37,14 +37,14 @@ export interface App {
   platform: string[];
   coverage: string[];
   install: {
-    asin?: string;
-    fDroidID?: string;
-    obtainiumLink?: string;
-    googlePlayID?: string;
-    huaweiAppGalleryID?: string;
-    appleStoreID?: string;
-    macAppStoreID?: string;
-    microsoftAppID?: string;
+    asin?: string | undefined;
+    fDroidID?: string | undefined;
+    obtainiumLink?: string | undefined;
+    googlePlayID?: string | undefined;
+    huaweiAppGalleryID?: string | undefined;
+    appleStoreID?: string | undefined;
+    macAppStoreID?: string | undefined;
+    microsoftAppID?: string | undefined;
   };
   map?: {
     map: string[];

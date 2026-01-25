@@ -16,10 +16,10 @@ export async function loadApps(githubToken: string) {
 
   (
     await Promise.all([
-      loadAppsFromOsmWikiServiceItems(languageMode),
-      loadAppsFromOsmWikiLayers(languageMode),
       loadAppsFromOsmWikiSoftwares(languageMode),
+      loadAppsFromOsmWikiLayers(languageMode),
       loadAppsFromWikidata(AppQueries),
+      loadAppsFromOsmWikiServiceItems(languageMode),
       loadAppsFromGitHub(githubToken),
       loadAppsFromTagInfoProjects(),
     ])
