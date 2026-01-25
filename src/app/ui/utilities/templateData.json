@@ -187,7 +187,8 @@
         "sv": "Nuvarande status för projektet.",
         "ta": "திட்டத்தின் தற்போதைய நிலை.",
         "uk": "Поточний стан проекту.",
-        "zh-hant": "目前專案的狀態。"
+        "zh-hant": "目前專案的狀態。",
+        "zh-hans": "软件开发状态"
       },
       "label": {
         "en": "Status",
@@ -202,7 +203,8 @@
         "sv": "Status",
         "ta": "நிலை",
         "uk": "Статус",
-        "zh-hant": "狀態"
+        "zh-hant": "狀態",
+        "zh-hans": "状态"
       },
       "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
       "type": "line",
@@ -222,7 +224,8 @@
         "sv": "Vilken fri licens eller proprietär?",
         "ta": "என்ன இலவச உரிமம் அல்லது தனியுரிம?",
         "uk": "Яка безкоштовна ліцензія чи власницька?",
-        "zh-hant": "何種自由或是專屬授權條款？"
+        "zh-hant": "何種自由或是專屬授權條款？",
+        "zh-hans": "软件使用的许可条款"
       },
       "example": "GPL",
       "label": {
@@ -238,7 +241,8 @@
         "sv": "Licens",
         "ta": "உரிமம்",
         "uk": "Ліцензія",
-        "zh-hant": "授權條款"
+        "zh-hant": "授權條款",
+        "zh-hans": "许可证"
       },
       "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"],
       "type": "line"
@@ -257,7 +261,8 @@
         "sv": "Kostnader om proprietär. Om priset är tomt är ansökan gratis.",
         "ta": "உரிமையாளரின் செலவு. விலை காலியாக இருந்தால், விண்ணப்பம் இலவசமாக இருக்கும்.",
         "uk": "Вартість, якщо власна. Якщо ціна порожня, додаток безкоштовний.",
-        "zh-hant": "如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"
+        "zh-hant": "如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。",
+        "zh-hans": "软件收费价格"
       },
       "example": "free;20$;35€;in-app purchases",
       "label": {
@@ -273,7 +278,8 @@
         "sv": "Pris",
         "ta": "விலை",
         "uk": "Ціна",
-        "zh-hant": "價格"
+        "zh-hant": "價格",
+        "zh-hans": "价格"
       },
       "type": "line",
       "suggestedvalues": ["free", "in-app purchases", "ads"]
@@ -351,7 +357,11 @@
         "zh-hant": "圖示"
       },
       "example": "xyz.png",
-      "type": "wiki-file-name"
+      "type": "wiki-file-name",
+      "description": {
+        "en": "Software icon or logo",
+        "zh-hans": "软件使用的图标或logo"
+      }
     },
     "screenshot": {
       "label": {
@@ -459,7 +469,8 @@
         "sv": "Lista över plattformar den kan köras på.",
         "ta": "அது இயங்கும் தளங்களின் பட்டியல்.",
         "uk": "Список платформ, на яких він працює.",
-        "zh-hant": "運作的平台清單。"
+        "zh-hant": "運作的平台清單。",
+        "zh-hans": "软件运行的平台或操作系统"
       },
       "suggested": true,
       "type": "line",
@@ -528,7 +539,8 @@
         "sv": "Plattformar som stöds",
         "ta": "ஆதரிக்கப்பட்ட தளங்கள்",
         "uk": "Підтримувані платформи",
-        "zh-hant": "支援的平台"
+        "zh-hant": "支援的平台",
+        "zh-hans": "平台"
       }
     },
     "genre": {
@@ -561,7 +573,8 @@
         "sv": "Genre",
         "ta": "வகை",
         "uk": "Жанр",
-        "zh-hant": "類型"
+        "zh-hant": "類型",
+        "zh-hans": "类别"
       },
       "suggestedvalues": [
         "display",
@@ -589,7 +602,8 @@
         "sv": "Stödda språk (lista över giltiga språkkoder separerade av semikoloner) eller antal språk som stöds",
         "ta": "ஆதரிக்கப்படும் மொழிகள் (அரைக்காற்புள்ளிகளால் பிரிக்கப்பட்ட செல்லுபடியாகும் மொழிக் குறியீடுகளின் பட்டியல்) அல்லது ஆதரிக்கப்படும் மொழிகளின் எண்ணிக்கை",
         "uk": "Підтримувані мови (список дійсних кодів мов, розділених крапкою з комою) або кількість підтримуваних мов",
-        "zh-hant": "支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"
+        "zh-hant": "支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量",
+        "zh-hans": "软件支持的语言，用半角分号“;”分隔"
       },
       "example": "DE;EN;MUL",
       "type": "line",
@@ -879,7 +893,8 @@
         "sv": "Språk",
         "ta": "மொழிகள்",
         "uk": "Мови",
-        "zh-hant": "語言"
+        "zh-hant": "語言",
+        "zh-hans": "语言"
       }
     },
     "languagesurl": {

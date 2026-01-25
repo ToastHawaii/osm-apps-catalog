@@ -1,94 +1,57 @@
 {
-  "lang": { "label": "模板语言" },
-  "name": { "label": "名称" },
-  "status": {},
-  "license": {},
-  "price": {},
+  "lang": {
+    "label": "模板语言"
+  },
+  "name": {
+    "label": "名称"
+  },
+  "status": {
+    "label": "状态",
+    "description": "软件开发状态"
+  },
+  "license": {
+    "label": "许可证",
+    "description": "软件使用的许可条款"
+  },
+  "price": {
+    "label": "价格",
+    "description": "软件收费价格"
+  },
   "web": {},
-  "repo": { "label": "源代码" },
-  "logo": {},
-  "screenshot": { "label": "截图" },
-  "description": { "label": "描述" },
-  "author": { "label": "作者" },
-  "platform": {},
-  "genre": {},
-  "languages": {},
-  "coverage": {},
+  "repo": {
+    "label": "源代码"
+  },
+  "logo": {
+    "description": "软件使用的图标或logo"
+  },
+  "screenshot": {
+    "label": "截图"
+  },
+  "description": {
+    "label": "描述"
+  },
+  "author": {
+    "label": "作者"
+  },
+  "platform": {
+    "label": "平台",
+    "description": "软件运行的平台或操作系统"
+  },
+  "genre": {
+    "label": "类别"
+  },
+  "languages": {
+    "label": "语言",
+    "description": "软件支持的语言，用半角分号“;”分隔"
+  },
   "languagesurl": {},
+  "coverage": {},
   "code": {},
   "framework": {},
-  "version": { "label": "版本" },
-  "date": { "label": "日期" },
-  "asin": {},
-  "bbWorldID": {},
-  "fDroidID": {},
-  "firefoxMarketplaceID": {},
-  "googlePlayID": {},
-  "huaweiAppGalleryID": {},
-  "appleStoreID": {},
-  "macAppStoreID": {},
-  "microsoftAppID": {},
-  "map": {},
-  "mapData": {},
-  "datasource": {},
-  "rotateMap": {},
-  "3D": {},
-  "showWebsite": {},
-  "showPhoneNumber": {},
-  "showOpeningHours": {},
-  "routing": {},
-  "createRouteManually": {},
-  "calculateRoute": {},
-  "createRouteViaWaypoints": {},
-  "profiles": {},
-  "turnRestrictions": {},
-  "calculateRouteOffline": {},
-  "routingProviders": {},
-  "avoidTraffic": {},
-  "trafficProvider": {},
-  "navigating": {},
-  "findLocation": {},
-  "findNearbyPOI": {},
-  "navToPoint": {},
-  "voice": {},
-  "keepOnRoad": {},
-  "turnLanes": {},
-  "withoutGPS": {},
-  "predefinedRoute": {},
-  "tracking": {},
-  "customInterval": {},
-  "trackFormats": {},
-  "geotagging": {},
-  "fastWayPointAdding": {},
-  "uploadGPX": {},
-  "monitoring": {},
-  "showTrack": {},
-  "showExistingTrack": {},
-  "showAltitudeDiagram": {},
-  "showDOP": {},
-  "showSatellites": {},
-  "showNMEAlive": {},
-  "showSpeed": {},
-  "sendPosition": {},
-  "addPOI": {},
-  "editPOI": {},
-  "addWay": {},
-  "editGeom": {},
-  "editTags": {},
-  "editRelations": {},
-  "viewNotes": {},
-  "createNotes": {},
-  "editNotes": {},
-  "editSource": {},
-  "offsetDBsupport": {},
-  "uploadOSMData": {},
-  "rendererOutputFormats": {},
-  "accessibility": {},
-  "textOnlyUI": {},
-  "brailleUI": {},
-  "explorerMode": {},
-  "publicTransportMode": {},
-  "dangerWarnings": {},
-  "screenReader": {},
-  "screenReaderLang": {}
+  "version": {
+    "label": "版本"
+  },
+  "date": {
+    "label": "日期"
+  }
 }

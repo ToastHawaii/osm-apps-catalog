@@ -24,7 +24,7 @@
     "label": "Source code",
     "description": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"
   },
-  "logo": { "label": "Logo" },
+  "logo": { "label": "Logo", "description": "Software icon or logo" },
   "screenshot": { "label": "Screenshot" },
   "description": {
     "label": "Description",
