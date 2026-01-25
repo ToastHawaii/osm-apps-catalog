@@ -204,12 +204,7 @@
         "uk": "Статус",
         "zh-hant": "狀態"
       },
-      "suggestedvalues": [
-        "active",
-        "unmaintained",
-        "broken",
-        "unfinished"
-      ],
+      "suggestedvalues": ["active", "unmaintained", "broken", "unfinished"],
       "type": "line",
       "default": "active",
       "suggested": true
@@ -245,14 +240,7 @@
         "uk": "Ліцензія",
         "zh-hant": "授權條款"
       },
-      "suggestedvalues": [
-        "GPL",
-        "BSD",
-        "MIT",
-        "free",
-        "proprietary",
-        "AGPL"
-      ],
+      "suggestedvalues": ["GPL", "BSD", "MIT", "free", "proprietary", "AGPL"],
       "type": "line"
     },
     "price": {
@@ -288,11 +276,7 @@
         "zh-hant": "價格"
       },
       "type": "line",
-      "suggestedvalues": [
-        "free",
-        "in-app purchases",
-        "ads"
-      ]
+      "suggestedvalues": ["free", "in-app purchases", "ads"]
     },
     "web": {
       "label": {
@@ -331,10 +315,7 @@
         "zh-hans": "源代码",
         "zh-hant": "原始碼"
       },
-      "aliases": [
-        "git",
-        "svn"
-      ],
+      "aliases": ["git", "svn"],
       "description": {
         "en": "URL to view or download the source code (for example, a Git, Subversion, or CVS repository)",
         "cs": "URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)",
@@ -1041,12 +1022,7 @@
         "zh-hant": "使用的架構清單。"
       },
       "example": "GTK+;mono;J2ME;OpenGL",
-      "suggestedvalues": [
-        "GTK+",
-        "mono",
-        "J2ME",
-        "OpenGL"
-      ],
+      "suggestedvalues": ["GTK+", "mono", "J2ME", "OpenGL"],
       "label": {
         "en": "Framework",
         "cs": "Framework",
@@ -1495,10 +1471,7 @@
         "zh-hant": "顯示地圖"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "mapData": {
       "description": {
@@ -1529,10 +1502,7 @@
         "zh-hant": "地圖資料"
       },
       "type": "line",
-      "suggestedvalues": [
-        "raster",
-        "vector"
-      ]
+      "suggestedvalues": ["raster", "vector"]
     },
     "datasource": {
       "description": {
@@ -1565,11 +1535,7 @@
       },
       "example": "online;cache",
       "type": "line",
-      "suggestedvalues": [
-        "online",
-        "cache",
-        "offline"
-      ]
+      "suggestedvalues": ["online", "cache", "offline"]
     },
     "rotateMap": {
       "description": {
@@ -1601,10 +1567,7 @@
         "zh-hant": "旋轉地圖"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "3D": {
       "description": {
@@ -1622,10 +1585,7 @@
         "zh-hant": "[地圖顯示] 是否有 3D 或是 2.5D 檢視？"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ],
+      "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "3D view",
         "cs": "3D pohled",
@@ -1672,10 +1632,7 @@
         "zh-hant": "顯示網站"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showPhoneNumber": {
       "description": {
@@ -1705,10 +1662,7 @@
         "zh-hant": "顯示電話號碼"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showOpeningHours": {
       "description": {
@@ -1738,10 +1692,7 @@
         "zh-hant": "顯示營運時間"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "routing": {
       "description": {
@@ -1771,10 +1722,7 @@
         "zh-hant": "導航"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "createRouteManually": {
       "description": {
@@ -1804,10 +1752,7 @@
         "zh-hant": "手動創建導航"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "calculateRoute": {
       "description": {
@@ -1837,10 +1782,7 @@
         "zh-hant": "計算導航路線"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "createRouteViaWaypoints": {
       "description": {
@@ -1867,10 +1809,7 @@
         "zh-hant": "透過路徑點創建導航"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "profiles": {
       "description": {
@@ -1933,10 +1872,7 @@
         "uk": "Обмеження поворотів"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "calculateRouteOffline": {
       "description": {
@@ -1964,10 +1900,7 @@
         "uk": "Розрахувати маршрут без Інтернету (офлайн-маршрутизація)"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "routingProviders": {
       "description": {
@@ -2032,10 +1965,7 @@
         "uk": "Уникайте заторів"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "trafficProvider": {
       "description": {
@@ -2091,10 +2021,7 @@
         "uk": "Навігації"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "findLocation": {
       "description": {
@@ -2122,10 +2049,7 @@
         "uk": "Знайти місцезнаходження"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "findNearbyPOI": {
       "description": {
@@ -2153,10 +2077,7 @@
         "uk": "Знайти поблизу об'єктів загального призначення"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "navToPoint": {
       "description": {
@@ -2184,10 +2105,7 @@
         "uk": "Перейти до точки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "voice": {
       "description": {
@@ -2215,10 +2133,7 @@
         "uk": "Навігація з голосом / Голосові підказки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "keepOnRoad": {
       "description": {
@@ -2246,10 +2161,7 @@
         "uk": "Тримайтеся дороги"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "turnLanes": {
       "description": {
@@ -2277,10 +2189,7 @@
         "uk": "Керування смугою руху"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "withoutGPS": {
       "description": {
@@ -2308,10 +2217,7 @@
         "uk": "Працює без GPS"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "predefinedRoute": {
       "description": {
@@ -2339,10 +2245,7 @@
         "uk": "Навігація за заздалегідь визначеним маршрутом"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "tracking": {
       "description": {
@@ -2358,10 +2261,7 @@
         "uk": "[Реєстрація треку] Чи може він записувати GPS-трек?"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ],
+      "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Make track",
         "cs": "Vytvoření trasy",
@@ -2401,10 +2301,7 @@
         "uk": "Налаштовуваний інтервал журналу"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "trackFormats": {
       "description": {
@@ -2420,9 +2317,7 @@
         "uk": "[Реєстрація треку] У яких форматах можна зберігати ваш GPS-трек?"
       },
       "example": "gpx;csv",
-      "aliases": [
-        "formats"
-      ],
+      "aliases": ["formats"],
       "label": {
         "en": "Track formats",
         "cs": "Formáty tras",
@@ -2436,13 +2331,7 @@
         "uk": "Формати треків"
       },
       "type": "line",
-      "suggestedvalues": [
-        "gpx",
-        "kml",
-        "nmea",
-        "csv",
-        "trk"
-      ]
+      "suggestedvalues": ["gpx", "kml", "nmea", "csv", "trk"]
     },
     "geotagging": {
       "description": {
@@ -2470,11 +2359,7 @@
       },
       "example": "note;photo",
       "type": "line",
-      "suggestedvalues": [
-        "note",
-        "photo",
-        "audio"
-      ]
+      "suggestedvalues": ["note", "photo", "audio"]
     },
     "fastWayPointAdding": {
       "description": {
@@ -2501,10 +2386,7 @@
         "uk": "Кнопки швидкого доступу до точок інтересу (POI)"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "uploadGPX": {
       "description": {
@@ -2520,10 +2402,7 @@
         "uk": "[Реєстрація треків] Чи може воно надсилати треки безпосередньо до OSM?"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ],
+      "suggestedvalues": ["yes", "no"],
       "label": {
         "en": "Upload GPX to OSM",
         "cs": "Nahrání GPX do OSM",
@@ -2563,10 +2442,7 @@
         "uk": "Моніторинг"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showTrack": {
       "description": {
@@ -2594,10 +2470,7 @@
         "uk": "Показати поточний трек"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showExistingTrack": {
       "description": {
@@ -2625,10 +2498,7 @@
         "uk": "Відкрити існуючу доріжку"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showAltitudeDiagram": {
       "description": {
@@ -2656,10 +2526,7 @@
         "uk": "Діаграма висоти"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showDOP": {
       "description": {
@@ -2687,10 +2554,7 @@
         "uk": "Показати значення POD"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showSatellites": {
       "description": {
@@ -2718,10 +2582,7 @@
         "uk": "Вигляд із супутника"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showNMEAlive": {
       "description": {
@@ -2749,10 +2610,7 @@
         "uk": "Показати дані NMEA в реальному часі"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "showSpeed": {
       "description": {
@@ -2780,10 +2638,7 @@
         "uk": "Показати швидкість"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "sendPosition": {
       "description": {
@@ -2812,13 +2667,7 @@
         "uk": "Надіслати поточну позицію"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no",
-        "sms",
-        "mail",
-        "www"
-      ]
+      "suggestedvalues": ["yes", "no", "sms", "mail", "www"]
     },
     "addPOI": {
       "description": {
@@ -2846,10 +2695,7 @@
         "uk": "Додати цікаві місця (POI)"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editPOI": {
       "description": {
@@ -2877,10 +2723,7 @@
         "uk": "Редагувати / Видалити об'єкти пікселів"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "addWay": {
       "description": {
@@ -2908,10 +2751,7 @@
         "uk": "Додати шлях"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editGeom": {
       "description": {
@@ -2939,10 +2779,7 @@
         "uk": "Редагувати геометрію"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editTags": {
       "description": {
@@ -2970,10 +2807,7 @@
         "uk": "Редагування довільних тегів існуючих об'єктів OSM"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editRelations": {
       "description": {
@@ -3001,10 +2835,7 @@
         "uk": "Редагувати зв'язки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "viewNotes": {
       "description": {
@@ -3032,10 +2863,7 @@
         "uk": "Переглянути нотатки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "createNotes": {
       "description": {
@@ -3063,10 +2891,7 @@
         "uk": "Створювати нотатки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editNotes": {
       "description": {
@@ -3094,10 +2919,7 @@
         "uk": "Редагувати нотатки"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "editSource": {
       "description": {
@@ -3126,11 +2948,7 @@
       },
       "example": "online;cache",
       "type": "line",
-      "suggestedvalues": [
-        "online",
-        "cache",
-        "offline"
-      ]
+      "suggestedvalues": ["online", "cache", "offline"]
     },
     "offsetDBsupport": {
       "description": {
@@ -3156,10 +2974,7 @@
         "uk": "Підтримка зміщення зображень у базі даних"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "uploadOSMData": {
       "description": {
@@ -3187,10 +3002,7 @@
         "uk": "Завантажити в OSM"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "rendererOutputFormats": {
       "description": {
@@ -3247,10 +3059,7 @@
         "uk": "Підтримка доступності"
       },
       "type": "line",
-      "suggestedvalues": [
-        "blind",
-        "wheelchair"
-      ]
+      "suggestedvalues": ["blind", "wheelchair"]
     },
     "textOnlyUI": {
       "description": {
@@ -3278,10 +3087,7 @@
         "uk": "Повний вивід неграфічного тексту"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "brailleUI": {
       "description": {
@@ -3309,10 +3115,7 @@
         "uk": "Інтерфейс Брайля"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "explorerMode": {
       "description": {
@@ -3340,10 +3143,7 @@
         "uk": "Режим дослідження"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "publicTransportMode": {
       "description": {
@@ -3371,10 +3171,7 @@
         "uk": "Громадський транспорт"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "dangerWarnings": {
       "description": {
@@ -3403,10 +3200,7 @@
         "uk": "Попередження про небезпеку"
       },
       "type": "line",
-      "suggestedvalues": [
-        "yes",
-        "no"
-      ]
+      "suggestedvalues": ["yes", "no"]
     },
     "screenReader": {
       "description": {
