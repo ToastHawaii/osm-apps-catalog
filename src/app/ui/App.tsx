@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { ViewSelect } from "./components/ViewSelect";
 import { About } from "./components/about";
 import { Menu } from "./components/Menu";
-import { Search } from "./components/search";
+import { SearchComponent } from "./components/search";
 import { TopicSelect } from "./components/TopicSelect";
 import { PlatformSelect } from "./components/PlatformSelect";
 import { LanguageSelect } from "./components/LanguageSelect";
 import { CoverageSelect } from "./components/CoverageSelect";
 import { ContributeSelect, mapping } from "./components/ContributeSelect";
-import { useData } from "../../hooks/useData";
+import { useData } from "../../lib/utils/useData";
 import { Filters } from "./components/filters";
 import { chain, debounce } from "lodash";
 import { useAppState } from "../../hooks/useAppState";
@@ -23,6 +23,7 @@ import { LazyInitMore } from "./components/LazyInitMore";
 import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
+import { App } from "@shared/data/App";
 
 import "../../index.scss";
 import "../../index.css";
@@ -34,11 +35,10 @@ function appendMeta(property: string, content: string) {
   document.head.appendChild(meta);
 }
 
-export function App() {
+export function Search({ apps }: { apps: App[] }) {
   const { t, i18n } = useTranslation();
 
   const [state, setAppState, resetAppState, isInitState] = useAppState();
-  const apps = useData(i18n.language);
   const [moreFilters, setMoreFilters] = useState(false);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
@@ -201,7 +201,7 @@ export function App() {
         </p>
         {!state.app && state.category !== "focus" && (
           <>
-            <Search
+            <SearchComponent
               apps={apps}
               value={state.search}
               onChange={debounce((value) => {

@@ -144,3 +144,40 @@ export function Image({ app }: { app: App }) {
     );
   }
 }
+
+export function Logo({ app }: { app: App }) {
+  const { t } = useTranslation();
+
+  const defaultLogo =
+    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+
+  const logos = [...app.logos, ...app.images.filter((i) => isLogo(i))];
+
+  if (logos.length > 0) {
+    return (
+      <img
+        className="object-cover"
+        src={defaultLogo}
+        data-dynamic-src={`${logos.join(" ")} ${defaultLogo}`}
+        alt={t("app.imageAlt", {
+          name: app.name,
+        })}
+      />
+    );
+  } else {
+    if (!app.cache.filter) {
+      app.cache.filter = calculateFilter(app);
+    }
+
+    return (
+      <img
+        className="object-cover"
+        style={{ filter: app.cache.filter }}
+        src={defaultLogo}
+        alt={t("app.imageAlt", {
+          name: app.name,
+        })}
+      />
+    );
+  }
+}

@@ -24,7 +24,7 @@ function Suggestions({ apps }: { apps: App[] }) {
   );
 }
 
-export function Search({
+export function SearchComponent({
   apps,
   value,
   onChange,
