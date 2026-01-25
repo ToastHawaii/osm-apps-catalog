@@ -24,8 +24,8 @@ import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 
-import "../../styles/globals.scss";
-import "../../styles/globals.css";
+import "../../index.scss";
+import "../../index.css";
 
 function appendMeta(property: string, content: string) {
   const meta = document.createElement("meta");

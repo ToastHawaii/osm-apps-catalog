@@ -15,7 +15,8 @@
       "@components/*": ["src/components/*"],// frontend components
       "@shared/*": ["shared/*"],            // shared code between frontend/backend
       "@actions/*": ["actions/*"],          // GitHub actions (backend)
-      "@lib/*": ["src/lib/*"]               // utils/helpers
+      "@lib/*": ["src/lib/*"],              // utils/helpers
+      "@hooks/*": ["src/hooks/*"]           // react hooks
     },
 
     /* Bundler mode */
