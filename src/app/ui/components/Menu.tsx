@@ -52,24 +52,24 @@ export function Menu({
         value: "mobile",
         html:
           "<i class='fas fa-mobile-alt' style='position: absolute;right: 31px;'></i> " +
-          t("filter.category.mobile"),
-        text: t("filter.category.mobile"),
+          t("category.mobile"),
+        text: t("category.mobile"),
         selected: false,
       },
       {
         value: "navigation",
         html:
           "<i class='far fa-compass' style='position: absolute;right: 28px;'></i> " +
-          t("filter.category.navigation"),
-        text: t("filter.category.navigation"),
+          t("category.navigation"),
+        text: t("category.navigation"),
         selected: false,
       },
       {
         value: "edit",
         html:
           "<i class='fas fa-edit' style='position: absolute;right: 26px;'></i> " +
-          t("filter.category.edit"),
-        text: t("filter.category.edit"),
+          t("category.edit"),
+        text: t("category.edit"),
         selected: false,
       },
     ].map((c) => {

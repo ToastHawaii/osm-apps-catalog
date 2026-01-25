@@ -18,8 +18,9 @@ import { Separator } from "@components/ui/separator";
 import { LazyLoadImages } from "@app/ui/components/LazyLoadImages";
 import { Logo } from "@app/ui/components/Image";
 import { useTranslation } from "react-i18next";
-import { range } from "lodash";
+import { chain, range } from "lodash";
 import { plainText } from "@shared/utilities/plainText";
+import { display, edit, mobile, navigation } from "@shared/utilities/filters";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -28,16 +29,36 @@ export function Home({ apps }: { apps: App[] }) {
 
   const categoryDefs = [
     {
-      name: () => t("gratis", "Gratis"),
-      filter: (app: App) => app.gratis,
+      name: () => t("category.universalMapApps", "Universal map apps"),
+      nextIndex: () => apps.findIndex((app) => display(app)),
     },
     {
-      name: () => t("display", "display"),
-      filter: (app: App) => app.genre.includes("Display"),
+      name: () => t("category.latestUpdates", "Latest updates"),
+      nextIndex: function () {
+        const latest = chain(apps)
+          .sortBy((a) => a.source[0].lastChange || "")
+          .sortBy((a) => a.lastRelease || "")
+          .reverse()
+          .take(1)
+          .value();
+        return apps.findIndex((app) => app.id === latest[0].id);
+      },
     },
     {
-      name: () => t("editor", "editor"),
-      filter: (app: App) => app.genre.includes("Editor"),
+      name: () => t("category.mobile", "To go"),
+      nextIndex: () => apps.findIndex((app) => mobile(app)),
+    },
+    {
+      name: () => t("category.navigation", "Find your way"),
+      nextIndex: () => apps.findIndex((app) => navigation(app)),
+    },
+    {
+      name: () => t("category.edit", "Improve the map"),
+      nextIndex: () => apps.findIndex((app) => edit(app)),
+    },
+    {
+      name: () => t("category.foss", "Free and opensource"),
+      nextIndex: () => apps.findIndex((app) => app.libre),
     },
   ];
 
@@ -45,7 +66,7 @@ export function Home({ apps }: { apps: App[] }) {
 
   range(10).forEach(() => {
     categories.forEach((category) => {
-      const index = apps.findIndex(category.filter);
+      const index = category.nextIndex();
       if (index === -1) {
         return;
       }

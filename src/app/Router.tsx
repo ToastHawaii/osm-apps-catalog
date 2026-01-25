@@ -3,8 +3,8 @@ import { useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { Search } from "@app/ui/App";
-import { useData } from "@lib/utils/useData";
 import { Home } from "@app/home";
+import { useData } from "@hooks/useData";
 
 export function Router() {
   const { i18n } = useTranslation();

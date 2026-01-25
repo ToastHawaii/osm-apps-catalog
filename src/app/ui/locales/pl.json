@@ -10,7 +10,7 @@
     "category.navigation.description": "Pokaż {{numberOfApps}} aplikacji, które wspierają wyznaczanie trasy i nawigację.",
     "filter.category.navigation": "Znajdź swoją drogę",
     "compare.group.header.general": "Ogólne",
-    "filter.category.edit": "Pomóż w rozwoju projektu",
+    "category.edit": "Pomóż w rozwoju projektu",
     "compare.group.header.map": "Wyświetlanie mapy",
     "filter.platform": "Platforma",
     "relatedApps": "{{numberOfApps}} powiązanych aplikacji",
