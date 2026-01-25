@@ -8103,7 +8103,7 @@ exports.isPlainObject = isPlainObject;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.21';
+  var VERSION = '4.17.23';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -11857,7 +11857,7 @@ exports.isPlainObject = isPlainObject;
           if (isArray(iteratee)) {
             return function(value) {
               return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
-            }
+            };
           }
           return iteratee;
         });
@@ -12461,8 +12461,47 @@ exports.isPlainObject = isPlainObject;
      */
     function baseUnset(object, path) {
       path = castPath(path, object);
-      object = parent(object, path);
-      return object == null || delete object[toKey(last(path))];
+
+      // Prevent prototype pollution, see: https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
+      var index = -1,
+          length = path.length;
+
+      if (!length) {
+        return true;
+      }
+
+      var isRootPrimitive = object == null || (typeof object !== 'object' && typeof object !== 'function');
+
+      while (++index < length) {
+        var key = path[index];
+
+        // skip non-string keys (e.g., Symbols, numbers)
+        if (typeof key !== 'string') {
+          continue;
+        }
+
+        // Always block "__proto__" anywhere in the path if it's not expected
+        if (key === '__proto__' && !hasOwnProperty.call(object, '__proto__')) {
+          return false;
+        }
+
+        // Block "constructor.prototype" chains
+        if (key === 'constructor' &&
+            (index + 1) < length &&
+            typeof path[index + 1] === 'string' &&
+            path[index + 1] === 'prototype') {
+
+          // Allow ONLY when the path starts at a primitive root, e.g., _.unset(0, 'constructor.prototype.a')
+          if (isRootPrimitive && index === 0) {
+            continue;
+          }
+
+          return false;
+        }
+      }
+
+      var obj = parent(object, path);
+      return obj == null || delete obj[toKey(last(path))];
     }
 
     /**
@@ -33321,7 +33360,6 @@ if (
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
-var __webpack_unused_export__;
 /**
  * @license React
  * react.production.min.js
@@ -33341,13 +33379,13 @@ function R(a,b,e,d,c){var k=typeof a;if("undefined"===k||"boolean"===k)a=null;va
 a[g];var f=d+Q(k,g);h+=R(k,b,e,f,c)}else if(f=A(a),"function"===typeof f)for(a=f.call(a),g=0;!(k=a.next()).done;)k=k.value,f=d+Q(k,g++),h+=R(k,b,e,f,c);else if("object"===k)throw b=String(a),Error("Objects are not valid as a React child (found: "+("[object Object]"===b?"object with keys {"+Object.keys(a).join(", ")+"}":b)+"). If you meant to render a collection of children, use an array instead.");return h}
 function S(a,b,e){if(null==a)return a;var d=[],c=0;R(a,d,"","",function(a){return b.call(e,a,c++)});return d}function T(a){if(-1===a._status){var b=a._result;b=b();b.then(function(b){if(0===a._status||-1===a._status)a._status=1,a._result=b},function(b){if(0===a._status||-1===a._status)a._status=2,a._result=b});-1===a._status&&(a._status=0,a._result=b)}if(1===a._status)return a._result.default;throw a._result;}
 var U={current:null},V={transition:null},W={ReactCurrentDispatcher:U,ReactCurrentBatchConfig:V,ReactCurrentOwner:K};function X(){throw Error("act(...) is not supported in production builds of React.");}
-__webpack_unused_export__={map:S,forEach:function(a,b,e){S(a,function(){b.apply(this,arguments)},e)},count:function(a){var b=0;S(a,function(){b++});return b},toArray:function(a){return S(a,function(a){return a})||[]},only:function(a){if(!O(a))throw Error("React.Children.only expected to receive a single React element child.");return a}};__webpack_unused_export__=E;__webpack_unused_export__=p;__webpack_unused_export__=r;__webpack_unused_export__=G;__webpack_unused_export__=q;__webpack_unused_export__=w;
-__webpack_unused_export__=W;__webpack_unused_export__=X;
-__webpack_unused_export__=function(a,b,e){if(null===a||void 0===a)throw Error("React.cloneElement(...): The argument must be a React element, but you passed "+a+".");var d=C({},a.props),c=a.key,k=a.ref,h=a._owner;if(null!=b){void 0!==b.ref&&(k=b.ref,h=K.current);void 0!==b.key&&(c=""+b.key);if(a.type&&a.type.defaultProps)var g=a.type.defaultProps;for(f in b)J.call(b,f)&&!L.hasOwnProperty(f)&&(d[f]=void 0===b[f]&&void 0!==g?g[f]:b[f])}var f=arguments.length-2;if(1===f)d.children=e;else if(1<f){g=Array(f);
-for(var m=0;m<f;m++)g[m]=arguments[m+2];d.children=g}return{$$typeof:l,type:a.type,key:c,ref:k,props:d,_owner:h}};exports.createContext=function(a){a={$$typeof:u,_currentValue:a,_currentValue2:a,_threadCount:0,Provider:null,Consumer:null,_defaultValue:null,_globalName:null};a.Provider={$$typeof:t,_context:a};return a.Consumer=a};__webpack_unused_export__=M;__webpack_unused_export__=function(a){var b=M.bind(null,a);b.type=a;return b};__webpack_unused_export__=function(){return{current:null}};
-__webpack_unused_export__=function(a){return{$$typeof:v,render:a}};__webpack_unused_export__=O;__webpack_unused_export__=function(a){return{$$typeof:y,_payload:{_status:-1,_result:a},_init:T}};__webpack_unused_export__=function(a,b){return{$$typeof:x,type:a,compare:void 0===b?null:b}};__webpack_unused_export__=function(a){var b=V.transition;V.transition={};try{a()}finally{V.transition=b}};__webpack_unused_export__=X;__webpack_unused_export__=function(a,b){return U.current.useCallback(a,b)};__webpack_unused_export__=function(a){return U.current.useContext(a)};
-__webpack_unused_export__=function(){};__webpack_unused_export__=function(a){return U.current.useDeferredValue(a)};__webpack_unused_export__=function(a,b){return U.current.useEffect(a,b)};__webpack_unused_export__=function(){return U.current.useId()};__webpack_unused_export__=function(a,b,e){return U.current.useImperativeHandle(a,b,e)};__webpack_unused_export__=function(a,b){return U.current.useInsertionEffect(a,b)};__webpack_unused_export__=function(a,b){return U.current.useLayoutEffect(a,b)};
-__webpack_unused_export__=function(a,b){return U.current.useMemo(a,b)};__webpack_unused_export__=function(a,b,e){return U.current.useReducer(a,b,e)};__webpack_unused_export__=function(a){return U.current.useRef(a)};__webpack_unused_export__=function(a){return U.current.useState(a)};__webpack_unused_export__=function(a,b,e){return U.current.useSyncExternalStore(a,b,e)};__webpack_unused_export__=function(){return U.current.useTransition()};__webpack_unused_export__="18.3.1";
+exports.Children={map:S,forEach:function(a,b,e){S(a,function(){b.apply(this,arguments)},e)},count:function(a){var b=0;S(a,function(){b++});return b},toArray:function(a){return S(a,function(a){return a})||[]},only:function(a){if(!O(a))throw Error("React.Children.only expected to receive a single React element child.");return a}};exports.Component=E;exports.Fragment=p;exports.Profiler=r;exports.PureComponent=G;exports.StrictMode=q;exports.Suspense=w;
+exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=W;exports.act=X;
+exports.cloneElement=function(a,b,e){if(null===a||void 0===a)throw Error("React.cloneElement(...): The argument must be a React element, but you passed "+a+".");var d=C({},a.props),c=a.key,k=a.ref,h=a._owner;if(null!=b){void 0!==b.ref&&(k=b.ref,h=K.current);void 0!==b.key&&(c=""+b.key);if(a.type&&a.type.defaultProps)var g=a.type.defaultProps;for(f in b)J.call(b,f)&&!L.hasOwnProperty(f)&&(d[f]=void 0===b[f]&&void 0!==g?g[f]:b[f])}var f=arguments.length-2;if(1===f)d.children=e;else if(1<f){g=Array(f);
+for(var m=0;m<f;m++)g[m]=arguments[m+2];d.children=g}return{$$typeof:l,type:a.type,key:c,ref:k,props:d,_owner:h}};exports.createContext=function(a){a={$$typeof:u,_currentValue:a,_currentValue2:a,_threadCount:0,Provider:null,Consumer:null,_defaultValue:null,_globalName:null};a.Provider={$$typeof:t,_context:a};return a.Consumer=a};exports.createElement=M;exports.createFactory=function(a){var b=M.bind(null,a);b.type=a;return b};exports.createRef=function(){return{current:null}};
+exports.forwardRef=function(a){return{$$typeof:v,render:a}};exports.isValidElement=O;exports.lazy=function(a){return{$$typeof:y,_payload:{_status:-1,_result:a},_init:T}};exports.memo=function(a,b){return{$$typeof:x,type:a,compare:void 0===b?null:b}};exports.startTransition=function(a){var b=V.transition;V.transition={};try{a()}finally{V.transition=b}};exports.unstable_act=X;exports.useCallback=function(a,b){return U.current.useCallback(a,b)};exports.useContext=function(a){return U.current.useContext(a)};
+exports.useDebugValue=function(){};exports.useDeferredValue=function(a){return U.current.useDeferredValue(a)};exports.useEffect=function(a,b){return U.current.useEffect(a,b)};exports.useId=function(){return U.current.useId()};exports.useImperativeHandle=function(a,b,e){return U.current.useImperativeHandle(a,b,e)};exports.useInsertionEffect=function(a,b){return U.current.useInsertionEffect(a,b)};exports.useLayoutEffect=function(a,b){return U.current.useLayoutEffect(a,b)};
+exports.useMemo=function(a,b){return U.current.useMemo(a,b)};exports.useReducer=function(a,b,e){return U.current.useReducer(a,b,e)};exports.useRef=function(a){return U.current.useRef(a)};exports.useState=function(a){return U.current.useState(a)};exports.useSyncExternalStore=function(a,b,e){return U.current.useSyncExternalStore(a,b,e)};exports.useTransition=function(){return U.current.useTransition()};exports.version="18.3.1";
 
 
 /***/ }),
@@ -33469,6 +33507,7 @@ function sanitizeHtml(html, options, _recursing) {
     this.attribs = attribs || {};
     this.tagPosition = result.length;
     this.text = ''; // Node inner text
+    this.openingTagLength = 0;
     this.mediaChildren = [];
 
     this.updateParentNodeText = function() {
@@ -33591,6 +33630,10 @@ function sanitizeHtml(html, options, _recursing) {
 
   const parser = new htmlparser.Parser({
     onopentag: function(name, attribs) {
+      if (options.onOpenTag) {
+        options.onOpenTag(name, attribs);
+      }
+
       // If `enforceHtmlBoundary` is `true` and this has found the opening
       // `html` tag, reset the state.
       if (options.enforceHtmlBoundary && name === 'html') {
@@ -33640,7 +33683,6 @@ function sanitizeHtml(html, options, _recursing) {
             skipTextDepth = 1;
           }
         }
-        skipMap[depth] = true;
       }
       depth++;
       if (skip) {
@@ -33651,7 +33693,7 @@ function sanitizeHtml(html, options, _recursing) {
             if (options.textFilter) {
               result += options.textFilter(escaped, name);
             } else {
-              result += escapeHtml(frame.innerText);
+              result += escaped;
             }
             addedText = true;
           }
@@ -33668,7 +33710,14 @@ function sanitizeHtml(html, options, _recursing) {
         }
       }
 
-      if (!allowedAttributesMap || has(allowedAttributesMap, name) || allowedAttributesMap['*']) {
+      const isBeingEscaped = skip && (options.disallowedTagsMode === 'escape' || options.disallowedTagsMode === 'recursiveEscape');
+      const shouldPreserveEscapedAttributes = isBeingEscaped && options.preserveEscapedAttributes;
+
+      if (shouldPreserveEscapedAttributes) {
+        each(attribs, function(value, a) {
+          result += ' ' + a + '="' + escapeHtml((value || ''), true) + '"';
+        });
+      } else if (!allowedAttributesMap || has(allowedAttributesMap, name) || allowedAttributesMap['*']) {
         each(attribs, function(value, a) {
           if (!VALID_HTML_ATTRIBUTE_NAME.test(a)) {
             // This prevents part of an attribute name in the output from being
@@ -33879,6 +33928,7 @@ function sanitizeHtml(html, options, _recursing) {
         result = tempResult + escapeHtml(result);
         tempResult = '';
       }
+      frame.openingTagLength = result.length - frame.tagPosition;
     },
     ontext: function(text) {
       if (skipText) {
@@ -33901,11 +33951,11 @@ function sanitizeHtml(html, options, _recursing) {
         // your concern, don't allow them. The same is essentially true for style tags
         // which have their own collection of XSS vectors.
         result += text;
-      } else {
+      } else if (!addedText) {
         const escaped = escapeHtml(text, false);
-        if (options.textFilter && !addedText) {
+        if (options.textFilter) {
           result += options.textFilter(escaped, tag);
-        } else if (!addedText) {
+        } else {
           result += escaped;
         }
       }
@@ -33915,6 +33965,9 @@ function sanitizeHtml(html, options, _recursing) {
       }
     },
     onclosetag: function(name, isImplied) {
+      if (options.onCloseTag) {
+        options.onCloseTag(name, isImplied);
+      }
 
       if (skipText) {
         skipTextDepth--;
@@ -33956,9 +34009,21 @@ function sanitizeHtml(html, options, _recursing) {
         delete transformMap[depth];
       }
 
-      if (options.exclusiveFilter && options.exclusiveFilter(frame)) {
-        result = result.substr(0, frame.tagPosition);
-        return;
+      if (options.exclusiveFilter) {
+        const filterResult = options.exclusiveFilter(frame);
+        if (filterResult === 'excludeTag') {
+          if (skip) {
+            // no longer escaping the tag since it's not added at all
+            result = tempResult;
+            tempResult = '';
+          }
+          // remove the opening tag from the result
+          result = result.substring(0, frame.tagPosition) + result.substring(frame.tagPosition + frame.openingTagLength);
+          return;
+        } else if (filterResult) {
+          result = result.substring(0, frame.tagPosition);
+          return;
+        }
       }
 
       frame.updateParentNodeMediaChildren();
@@ -34204,7 +34269,7 @@ sanitizeHtml.defaults = {
     'main', 'nav', 'section',
     // Text content
     'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure',
-    'hr', 'li', 'main', 'ol', 'p', 'pre', 'ul',
+    'hr', 'li', 'menu', 'ol', 'p', 'pre', 'ul',
     // Inline text semantics
     'a', 'abbr', 'b', 'bdi', 'bdo', 'br', 'cite', 'code', 'data', 'dfn',
     'em', 'i', 'kbd', 'mark', 'q',
@@ -34275,7 +34340,8 @@ sanitizeHtml.defaults = {
   allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
   allowProtocolRelative: true,
   enforceHtmlBoundary: false,
-  parseStyleAttributes: true
+  parseStyleAttributes: true,
+  preserveEscapedAttributes: false
 };
 
 sanitizeHtml.simpleTransform = function(newTagName, newAttribs, merge) {
@@ -64856,6 +64922,200 @@ exports.getUserAgent = getUserAgent;
 
 /***/ }),
 
+/***/ 252:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+var __webpack_unused_export__;
+/**
+ * @license React
+ * use-sync-external-store-shim.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+"production" !== process.env.NODE_ENV &&
+  (function () {
+    function is(x, y) {
+      return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
+    }
+    function useSyncExternalStore$2(subscribe, getSnapshot) {
+      didWarnOld18Alpha ||
+        void 0 === React.startTransition ||
+        ((didWarnOld18Alpha = !0),
+        console.error(
+          "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
+        ));
+      var value = getSnapshot();
+      if (!didWarnUncachedGetSnapshot) {
+        var cachedValue = getSnapshot();
+        objectIs(value, cachedValue) ||
+          (console.error(
+            "The result of getSnapshot should be cached to avoid an infinite loop"
+          ),
+          (didWarnUncachedGetSnapshot = !0));
+      }
+      cachedValue = useState({
+        inst: { value: value, getSnapshot: getSnapshot }
+      });
+      var inst = cachedValue[0].inst,
+        forceUpdate = cachedValue[1];
+      useLayoutEffect(
+        function () {
+          inst.value = value;
+          inst.getSnapshot = getSnapshot;
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+        },
+        [subscribe, value, getSnapshot]
+      );
+      useEffect(
+        function () {
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+          return subscribe(function () {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+          });
+        },
+        [subscribe]
+      );
+      useDebugValue(value);
+      return value;
+    }
+    function checkIfSnapshotChanged(inst) {
+      var latestGetSnapshot = inst.getSnapshot;
+      inst = inst.value;
+      try {
+        var nextValue = latestGetSnapshot();
+        return !objectIs(inst, nextValue);
+      } catch (error) {
+        return !0;
+      }
+    }
+    function useSyncExternalStore$1(subscribe, getSnapshot) {
+      return getSnapshot();
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __nccwpck_require__(7919),
+      objectIs = "function" === typeof Object.is ? Object.is : is,
+      useState = React.useState,
+      useEffect = React.useEffect,
+      useLayoutEffect = React.useLayoutEffect,
+      useDebugValue = React.useDebugValue,
+      didWarnOld18Alpha = !1,
+      didWarnUncachedGetSnapshot = !1,
+      shim =
+        "undefined" === typeof window ||
+        "undefined" === typeof window.document ||
+        "undefined" === typeof window.document.createElement
+          ? useSyncExternalStore$1
+          : useSyncExternalStore$2;
+    __webpack_unused_export__ =
+      void 0 !== React.useSyncExternalStore ? React.useSyncExternalStore : shim;
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+  })();
+
+
+/***/ }),
+
+/***/ 7342:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+var __webpack_unused_export__;
+/**
+ * @license React
+ * use-sync-external-store-shim.production.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+var React = __nccwpck_require__(7919);
+function is(x, y) {
+  return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
+}
+var objectIs = "function" === typeof Object.is ? Object.is : is,
+  useState = React.useState,
+  useEffect = React.useEffect,
+  useLayoutEffect = React.useLayoutEffect,
+  useDebugValue = React.useDebugValue;
+function useSyncExternalStore$2(subscribe, getSnapshot) {
+  var value = getSnapshot(),
+    _useState = useState({ inst: { value: value, getSnapshot: getSnapshot } }),
+    inst = _useState[0].inst,
+    forceUpdate = _useState[1];
+  useLayoutEffect(
+    function () {
+      inst.value = value;
+      inst.getSnapshot = getSnapshot;
+      checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+    },
+    [subscribe, value, getSnapshot]
+  );
+  useEffect(
+    function () {
+      checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+      return subscribe(function () {
+        checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+      });
+    },
+    [subscribe]
+  );
+  useDebugValue(value);
+  return value;
+}
+function checkIfSnapshotChanged(inst) {
+  var latestGetSnapshot = inst.getSnapshot;
+  inst = inst.value;
+  try {
+    var nextValue = latestGetSnapshot();
+    return !objectIs(inst, nextValue);
+  } catch (error) {
+    return !0;
+  }
+}
+function useSyncExternalStore$1(subscribe, getSnapshot) {
+  return getSnapshot();
+}
+var shim =
+  "undefined" === typeof window ||
+  "undefined" === typeof window.document ||
+  "undefined" === typeof window.document.createElement
+    ? useSyncExternalStore$1
+    : useSyncExternalStore$2;
+__webpack_unused_export__ =
+  void 0 !== React.useSyncExternalStore ? React.useSyncExternalStore : shim;
+
+
+/***/ }),
+
+/***/ 3609:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+"use strict";
+
+
+if (process.env.NODE_ENV === 'production') {
+  /* unused reexport */ __nccwpck_require__(7342);
+} else {
+  /* unused reexport */ __nccwpck_require__(252);
+}
+
+
+/***/ }),
+
 /***/ 7512:
 /***/ ((module) => {
 
@@ -66925,123 +67185,7 @@ var __webpack_exports__ = {};
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(7484);
 ;// CONCATENATED MODULE: ./node_modules/i18next/dist/esm/i18next.js
-const consoleLogger = {
-  type: 'logger',
-  log(args) {
-    this.output('log', args);
-  },
-  warn(args) {
-    this.output('warn', args);
-  },
-  error(args) {
-    this.output('error', args);
-  },
-  output(type, args) {
-    if (console && console[type]) console[type].apply(console, args);
-  }
-};
-class Logger {
-  constructor(concreteLogger) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    this.init(concreteLogger, options);
-  }
-  init(concreteLogger) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    this.prefix = options.prefix || 'i18next:';
-    this.logger = concreteLogger || consoleLogger;
-    this.options = options;
-    this.debug = options.debug;
-  }
-  log() {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-    return this.forward(args, 'log', '', true);
-  }
-  warn() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    return this.forward(args, 'warn', '', true);
-  }
-  error() {
-    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      args[_key3] = arguments[_key3];
-    }
-    return this.forward(args, 'error', '');
-  }
-  deprecate() {
-    for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-      args[_key4] = arguments[_key4];
-    }
-    return this.forward(args, 'warn', 'WARNING DEPRECATED: ', true);
-  }
-  forward(args, lvl, prefix, debugOnly) {
-    if (debugOnly && !this.debug) return null;
-    if (typeof args[0] === 'string') args[0] = `${prefix}${this.prefix} ${args[0]}`;
-    return this.logger[lvl](args);
-  }
-  create(moduleName) {
-    return new Logger(this.logger, {
-      ...{
-        prefix: `${this.prefix}:${moduleName}:`
-      },
-      ...this.options
-    });
-  }
-  clone(options) {
-    options = options || this.options;
-    options.prefix = options.prefix || this.prefix;
-    return new Logger(this.logger, options);
-  }
-}
-var baseLogger = new Logger();
-
-class EventEmitter {
-  constructor() {
-    this.observers = {};
-  }
-  on(events, listener) {
-    events.split(' ').forEach(event => {
-      if (!this.observers[event]) this.observers[event] = new Map();
-      const numListeners = this.observers[event].get(listener) || 0;
-      this.observers[event].set(listener, numListeners + 1);
-    });
-    return this;
-  }
-  off(event, listener) {
-    if (!this.observers[event]) return;
-    if (!listener) {
-      delete this.observers[event];
-      return;
-    }
-    this.observers[event].delete(listener);
-  }
-  emit(event) {
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-    if (this.observers[event]) {
-      const cloned = Array.from(this.observers[event].entries());
-      cloned.forEach(_ref => {
-        let [observer, numTimesAdded] = _ref;
-        for (let i = 0; i < numTimesAdded; i++) {
-          observer(...args);
-        }
-      });
-    }
-    if (this.observers['*']) {
-      const cloned = Array.from(this.observers['*'].entries());
-      cloned.forEach(_ref2 => {
-        let [observer, numTimesAdded] = _ref2;
-        for (let i = 0; i < numTimesAdded; i++) {
-          observer.apply(observer, [event, ...args]);
-        }
-      });
-    }
-  }
-}
-
+const i18next_isString = obj => typeof obj === 'string';
 const defer = () => {
   let res;
   let rej;
@@ -67064,9 +67208,9 @@ const copy = (a, s, t) => {
 };
 const lastOfPathSeparatorRegExp = /###/g;
 const cleanKey = key => key && key.indexOf('###') > -1 ? key.replace(lastOfPathSeparatorRegExp, '.') : key;
-const canNotTraverseDeeper = object => !object || typeof object === 'string';
+const canNotTraverseDeeper = object => !object || i18next_isString(object);
 const getLastOfPath = (object, path, Empty) => {
-  const stack = typeof path !== 'string' ? path : path.split('.');
+  const stack = !i18next_isString(path) ? path : path.split('.');
   let stackIndex = 0;
   while (stackIndex < stack.length - 1) {
     if (canNotTraverseDeeper(object)) return {};
@@ -67101,7 +67245,7 @@ const setPath = (object, path, newValue) => {
     e = `${p[p.length - 1]}.${e}`;
     p = p.slice(0, p.length - 1);
     last = getLastOfPath(object, p, Object);
-    if (last && last.obj && typeof last.obj[`${last.k}.${e}`] !== 'undefined') {
+    if (last?.obj && typeof last.obj[`${last.k}.${e}`] !== 'undefined') {
       last.obj = undefined;
     }
   }
@@ -67121,6 +67265,7 @@ const getPath = (object, path) => {
     k
   } = getLastOfPath(object, path);
   if (!obj) return undefined;
+  if (!Object.prototype.hasOwnProperty.call(obj, k)) return undefined;
   return obj[k];
 };
 const getPathWithDefaults = (data, defaultData, key) => {
@@ -67134,7 +67279,7 @@ const deepExtend = (target, source, overwrite) => {
   for (const prop in source) {
     if (prop !== '__proto__' && prop !== 'constructor') {
       if (prop in target) {
-        if (typeof target[prop] === 'string' || target[prop] instanceof String || typeof source[prop] === 'string' || source[prop] instanceof String) {
+        if (i18next_isString(target[prop]) || target[prop] instanceof String || i18next_isString(source[prop]) || source[prop] instanceof String) {
           if (overwrite) target[prop] = source[prop];
         } else {
           deepExtend(target[prop], source[prop], overwrite);
@@ -67156,7 +67301,7 @@ var _entityMap = {
   '/': '&#x2F;'
 };
 const i18next_escape = data => {
-  if (typeof data === 'string') {
+  if (i18next_isString(data)) {
     return data.replace(/[&<>"'\/]/g, s => _entityMap[s]);
   }
   return data;
@@ -67198,10 +67343,12 @@ const looksLikeObjectPath = (key, nsSeparator, keySeparator) => {
   }
   return matched;
 };
-const deepFind = function (obj, path) {
-  let keySeparator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '.';
+const deepFind = (obj, path, keySeparator = '.') => {
   if (!obj) return undefined;
-  if (obj[path]) return obj[path];
+  if (obj[path]) {
+    if (!Object.prototype.hasOwnProperty.call(obj, path)) return undefined;
+    return obj[path];
+  }
   const tokens = path.split(keySeparator);
   let current = obj;
   for (let i = 0; i < tokens.length;) {
@@ -67228,17 +67375,111 @@ const deepFind = function (obj, path) {
   }
   return current;
 };
-const getCleanedCode = code => {
-  if (code && code.indexOf('_') > 0) return code.replace('_', '-');
-  return code;
+const getCleanedCode = code => code?.replace('_', '-');
+
+const consoleLogger = {
+  type: 'logger',
+  log(args) {
+    this.output('log', args);
+  },
+  warn(args) {
+    this.output('warn', args);
+  },
+  error(args) {
+    this.output('error', args);
+  },
+  output(type, args) {
+    console?.[type]?.apply?.(console, args);
+  }
 };
+class Logger {
+  constructor(concreteLogger, options = {}) {
+    this.init(concreteLogger, options);
+  }
+  init(concreteLogger, options = {}) {
+    this.prefix = options.prefix || 'i18next:';
+    this.logger = concreteLogger || consoleLogger;
+    this.options = options;
+    this.debug = options.debug;
+  }
+  log(...args) {
+    return this.forward(args, 'log', '', true);
+  }
+  warn(...args) {
+    return this.forward(args, 'warn', '', true);
+  }
+  error(...args) {
+    return this.forward(args, 'error', '');
+  }
+  deprecate(...args) {
+    return this.forward(args, 'warn', 'WARNING DEPRECATED: ', true);
+  }
+  forward(args, lvl, prefix, debugOnly) {
+    if (debugOnly && !this.debug) return null;
+    if (i18next_isString(args[0])) args[0] = `${prefix}${this.prefix} ${args[0]}`;
+    return this.logger[lvl](args);
+  }
+  create(moduleName) {
+    return new Logger(this.logger, {
+      ...{
+        prefix: `${this.prefix}:${moduleName}:`
+      },
+      ...this.options
+    });
+  }
+  clone(options) {
+    options = options || this.options;
+    options.prefix = options.prefix || this.prefix;
+    return new Logger(this.logger, options);
+  }
+}
+var baseLogger = new Logger();
+
+class EventEmitter {
+  constructor() {
+    this.observers = {};
+  }
+  on(events, listener) {
+    events.split(' ').forEach(event => {
+      if (!this.observers[event]) this.observers[event] = new Map();
+      const numListeners = this.observers[event].get(listener) || 0;
+      this.observers[event].set(listener, numListeners + 1);
+    });
+    return this;
+  }
+  off(event, listener) {
+    if (!this.observers[event]) return;
+    if (!listener) {
+      delete this.observers[event];
+      return;
+    }
+    this.observers[event].delete(listener);
+  }
+  emit(event, ...args) {
+    if (this.observers[event]) {
+      const cloned = Array.from(this.observers[event].entries());
+      cloned.forEach(([observer, numTimesAdded]) => {
+        for (let i = 0; i < numTimesAdded; i++) {
+          observer(...args);
+        }
+      });
+    }
+    if (this.observers['*']) {
+      const cloned = Array.from(this.observers['*'].entries());
+      cloned.forEach(([observer, numTimesAdded]) => {
+        for (let i = 0; i < numTimesAdded; i++) {
+          observer.apply(observer, [event, ...args]);
+        }
+      });
+    }
+  }
+}
 
 class ResourceStore extends EventEmitter {
-  constructor(data) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      ns: ['translation'],
-      defaultNS: 'translation'
-    };
+  constructor(data, options = {
+    ns: ['translation'],
+    defaultNS: 'translation'
+  }) {
     super();
     this.data = data || {};
     this.options = options;
@@ -67260,8 +67501,7 @@ class ResourceStore extends EventEmitter {
       this.options.ns.splice(index, 1);
     }
   }
-  getResource(lng, ns, key) {
-    let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  getResource(lng, ns, key, options = {}) {
     const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
     const ignoreJSONStructure = options.ignoreJSONStructure !== undefined ? options.ignoreJSONStructure : this.options.ignoreJSONStructure;
     let path;
@@ -67272,7 +67512,7 @@ class ResourceStore extends EventEmitter {
       if (key) {
         if (Array.isArray(key)) {
           path.push(...key);
-        } else if (typeof key === 'string' && keySeparator) {
+        } else if (i18next_isString(key) && keySeparator) {
           path.push(...key.split(keySeparator));
         } else {
           path.push(key);
@@ -67285,13 +67525,12 @@ class ResourceStore extends EventEmitter {
       ns = path[1];
       key = path.slice(2).join('.');
     }
-    if (result || !ignoreJSONStructure || typeof key !== 'string') return result;
-    return deepFind(this.data && this.data[lng] && this.data[lng][ns], key, keySeparator);
+    if (result || !ignoreJSONStructure || !i18next_isString(key)) return result;
+    return deepFind(this.data?.[lng]?.[ns], key, keySeparator);
   }
-  addResource(lng, ns, key, value) {
-    let options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
-      silent: false
-    };
+  addResource(lng, ns, key, value, options = {
+    silent: false
+  }) {
     const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
     let path = [lng, ns];
     if (key) path = path.concat(keySeparator ? key.split(keySeparator) : key);
@@ -67304,22 +67543,20 @@ class ResourceStore extends EventEmitter {
     setPath(this.data, path, value);
     if (!options.silent) this.emit('added', lng, ns, key, value);
   }
-  addResources(lng, ns, resources) {
-    let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
-      silent: false
-    };
+  addResources(lng, ns, resources, options = {
+    silent: false
+  }) {
     for (const m in resources) {
-      if (typeof resources[m] === 'string' || Array.isArray(resources[m])) this.addResource(lng, ns, m, resources[m], {
+      if (i18next_isString(resources[m]) || Array.isArray(resources[m])) this.addResource(lng, ns, m, resources[m], {
         silent: true
       });
     }
     if (!options.silent) this.emit('added', lng, ns, resources);
   }
-  addResourceBundle(lng, ns, resources, deep, overwrite) {
-    let options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {
-      silent: false,
-      skipCopy: false
-    };
+  addResourceBundle(lng, ns, resources, deep, overwrite, options = {
+    silent: false,
+    skipCopy: false
+  }) {
     let path = [lng, ns];
     if (lng.indexOf('.') > -1) {
       path = lng.split('.');
@@ -67353,10 +67590,6 @@ class ResourceStore extends EventEmitter {
   }
   getResourceBundle(lng, ns) {
     if (!ns) ns = this.options.defaultNS;
-    if (this.options.compatibilityAPI === 'v1') return {
-      ...{},
-      ...this.getResource(lng, ns)
-    };
     return this.getResource(lng, ns);
   }
   getDataByLanguage(lng) {
@@ -67379,16 +67612,37 @@ var postProcessor = {
   },
   handle(processors, value, key, options, translator) {
     processors.forEach(processor => {
-      if (this.processors[processor]) value = this.processors[processor].process(value, key, options, translator);
+      value = this.processors[processor]?.process(value, key, options, translator) ?? value;
     });
     return value;
   }
 };
 
+const PATH_KEY = Symbol('i18next/PATH_KEY');
+function createProxy() {
+  const state = [];
+  const handler = Object.create(null);
+  let proxy;
+  handler.get = (target, key) => {
+    proxy?.revoke?.();
+    if (key === PATH_KEY) return state;
+    state.push(key);
+    proxy = Proxy.revocable(target, handler);
+    return proxy.proxy;
+  };
+  return Proxy.revocable(Object.create(null), handler).proxy;
+}
+function keysFromSelector(selector, opts) {
+  const {
+    [PATH_KEY]: path
+  } = selector(createProxy());
+  return path.join(opts?.keySeparator ?? '.');
+}
+
 const checkedLoadedFor = {};
+const shouldHandleAsObject = res => !i18next_isString(res) && typeof res !== 'boolean' && typeof res !== 'number';
 class Translator extends EventEmitter {
-  constructor(services) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  constructor(services, options = {}) {
     super();
     copy(['resourceStore', 'languageUtils', 'pluralResolver', 'interpolator', 'backendConnector', 'i18nFormat', 'utils'], services, this);
     this.options = options;
@@ -67400,63 +67654,75 @@ class Translator extends EventEmitter {
   changeLanguage(lng) {
     if (lng) this.language = lng;
   }
-  exists(key) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      interpolation: {}
+  exists(key, o = {
+    interpolation: {}
+  }) {
+    const opt = {
+      ...o
     };
-    if (key === undefined || key === null) {
+    if (key == null) return false;
+    const resolved = this.resolve(key, opt);
+    if (resolved?.res === undefined) return false;
+    const isObject = shouldHandleAsObject(resolved.res);
+    if (opt.returnObjects === false && isObject) {
       return false;
     }
-    const resolved = this.resolve(key, options);
-    return resolved && resolved.res !== undefined;
+    return true;
   }
-  extractFromKey(key, options) {
-    let nsSeparator = options.nsSeparator !== undefined ? options.nsSeparator : this.options.nsSeparator;
+  extractFromKey(key, opt) {
+    let nsSeparator = opt.nsSeparator !== undefined ? opt.nsSeparator : this.options.nsSeparator;
     if (nsSeparator === undefined) nsSeparator = ':';
-    const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
-    let namespaces = options.ns || this.options.defaultNS || [];
+    const keySeparator = opt.keySeparator !== undefined ? opt.keySeparator : this.options.keySeparator;
+    let namespaces = opt.ns || this.options.defaultNS || [];
     const wouldCheckForNsInKey = nsSeparator && key.indexOf(nsSeparator) > -1;
-    const seemsNaturalLanguage = !this.options.userDefinedKeySeparator && !options.keySeparator && !this.options.userDefinedNsSeparator && !options.nsSeparator && !looksLikeObjectPath(key, nsSeparator, keySeparator);
+    const seemsNaturalLanguage = !this.options.userDefinedKeySeparator && !opt.keySeparator && !this.options.userDefinedNsSeparator && !opt.nsSeparator && !looksLikeObjectPath(key, nsSeparator, keySeparator);
     if (wouldCheckForNsInKey && !seemsNaturalLanguage) {
       const m = key.match(this.interpolator.nestingRegexp);
       if (m && m.length > 0) {
         return {
           key,
-          namespaces
+          namespaces: i18next_isString(namespaces) ? [namespaces] : namespaces
         };
       }
       const parts = key.split(nsSeparator);
       if (nsSeparator !== keySeparator || nsSeparator === keySeparator && this.options.ns.indexOf(parts[0]) > -1) namespaces = parts.shift();
       key = parts.join(keySeparator);
     }
-    if (typeof namespaces === 'string') namespaces = [namespaces];
     return {
       key,
-      namespaces
+      namespaces: i18next_isString(namespaces) ? [namespaces] : namespaces
     };
   }
-  translate(keys, options, lastKey) {
-    if (typeof options !== 'object' && this.options.overloadTranslationOptionHandler) {
-      options = this.options.overloadTranslationOptionHandler(arguments);
+  translate(keys, o, lastKey) {
+    let opt = typeof o === 'object' ? {
+      ...o
+    } : o;
+    if (typeof opt !== 'object' && this.options.overloadTranslationOptionHandler) {
+      opt = this.options.overloadTranslationOptionHandler(arguments);
     }
-    if (typeof options === 'object') options = {
-      ...options
+    if (typeof opt === 'object') opt = {
+      ...opt
     };
-    if (!options) options = {};
-    if (keys === undefined || keys === null) return '';
+    if (!opt) opt = {};
+    if (keys == null) return '';
+    if (typeof keys === 'function') keys = keysFromSelector(keys, {
+      ...this.options,
+      ...opt
+    });
     if (!Array.isArray(keys)) keys = [String(keys)];
-    const returnDetails = options.returnDetails !== undefined ? options.returnDetails : this.options.returnDetails;
-    const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
+    const returnDetails = opt.returnDetails !== undefined ? opt.returnDetails : this.options.returnDetails;
+    const keySeparator = opt.keySeparator !== undefined ? opt.keySeparator : this.options.keySeparator;
     const {
       key,
       namespaces
-    } = this.extractFromKey(keys[keys.length - 1], options);
+    } = this.extractFromKey(keys[keys.length - 1], opt);
     const namespace = namespaces[namespaces.length - 1];
-    const lng = options.lng || this.language;
-    const appendNamespaceToCIMode = options.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
-    if (lng && lng.toLowerCase() === 'cimode') {
+    let nsSeparator = opt.nsSeparator !== undefined ? opt.nsSeparator : this.options.nsSeparator;
+    if (nsSeparator === undefined) nsSeparator = ':';
+    const lng = opt.lng || this.language;
+    const appendNamespaceToCIMode = opt.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
+    if (lng?.toLowerCase() === 'cimode') {
       if (appendNamespaceToCIMode) {
-        const nsSeparator = options.nsSeparator || this.options.nsSeparator;
         if (returnDetails) {
           return {
             res: `${namespace}${nsSeparator}${key}`,
@@ -67464,7 +67730,7 @@ class Translator extends EventEmitter {
             exactUsedKey: key,
             usedLng: lng,
             usedNS: namespace,
-            usedParams: this.getUsedParamsDetails(options)
+            usedParams: this.getUsedParamsDetails(opt)
           };
         }
         return `${namespace}${nsSeparator}${key}`;
@@ -67476,69 +67742,84 @@ class Translator extends EventEmitter {
           exactUsedKey: key,
           usedLng: lng,
           usedNS: namespace,
-          usedParams: this.getUsedParamsDetails(options)
+          usedParams: this.getUsedParamsDetails(opt)
         };
       }
       return key;
     }
-    const resolved = this.resolve(keys, options);
-    let res = resolved && resolved.res;
-    const resUsedKey = resolved && resolved.usedKey || key;
-    const resExactUsedKey = resolved && resolved.exactUsedKey || key;
-    const resType = Object.prototype.toString.apply(res);
+    const resolved = this.resolve(keys, opt);
+    let res = resolved?.res;
+    const resUsedKey = resolved?.usedKey || key;
+    const resExactUsedKey = resolved?.exactUsedKey || key;
     const noObject = ['[object Number]', '[object Function]', '[object RegExp]'];
-    const joinArrays = options.joinArrays !== undefined ? options.joinArrays : this.options.joinArrays;
+    const joinArrays = opt.joinArrays !== undefined ? opt.joinArrays : this.options.joinArrays;
     const handleAsObjectInI18nFormat = !this.i18nFormat || this.i18nFormat.handleAsObject;
-    const handleAsObject = typeof res !== 'string' && typeof res !== 'boolean' && typeof res !== 'number';
-    if (handleAsObjectInI18nFormat && res && handleAsObject && noObject.indexOf(resType) < 0 && !(typeof joinArrays === 'string' && Array.isArray(res))) {
-      if (!options.returnObjects && !this.options.returnObjects) {
+    const needsPluralHandling = opt.count !== undefined && !i18next_isString(opt.count);
+    const hasDefaultValue = Translator.hasDefaultValue(opt);
+    const defaultValueSuffix = needsPluralHandling ? this.pluralResolver.getSuffix(lng, opt.count, opt) : '';
+    const defaultValueSuffixOrdinalFallback = opt.ordinal && needsPluralHandling ? this.pluralResolver.getSuffix(lng, opt.count, {
+      ordinal: false
+    }) : '';
+    const needsZeroSuffixLookup = needsPluralHandling && !opt.ordinal && opt.count === 0;
+    const defaultValue = needsZeroSuffixLookup && opt[`defaultValue${this.options.pluralSeparator}zero`] || opt[`defaultValue${defaultValueSuffix}`] || opt[`defaultValue${defaultValueSuffixOrdinalFallback}`] || opt.defaultValue;
+    let resForObjHndl = res;
+    if (handleAsObjectInI18nFormat && !res && hasDefaultValue) {
+      resForObjHndl = defaultValue;
+    }
+    const handleAsObject = shouldHandleAsObject(resForObjHndl);
+    const resType = Object.prototype.toString.apply(resForObjHndl);
+    if (handleAsObjectInI18nFormat && resForObjHndl && handleAsObject && noObject.indexOf(resType) < 0 && !(i18next_isString(joinArrays) && Array.isArray(resForObjHndl))) {
+      if (!opt.returnObjects && !this.options.returnObjects) {
         if (!this.options.returnedObjectHandler) {
           this.logger.warn('accessing an object - but returnObjects options is not enabled!');
         }
-        const r = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(resUsedKey, res, {
-          ...options,
+        const r = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(resUsedKey, resForObjHndl, {
+          ...opt,
           ns: namespaces
         }) : `key '${key} (${this.language})' returned an object instead of string.`;
         if (returnDetails) {
           resolved.res = r;
-          resolved.usedParams = this.getUsedParamsDetails(options);
+          resolved.usedParams = this.getUsedParamsDetails(opt);
           return resolved;
         }
         return r;
       }
       if (keySeparator) {
-        const resTypeIsArray = Array.isArray(res);
+        const resTypeIsArray = Array.isArray(resForObjHndl);
         const copy = resTypeIsArray ? [] : {};
         const newKeyToUse = resTypeIsArray ? resExactUsedKey : resUsedKey;
-        for (const m in res) {
-          if (Object.prototype.hasOwnProperty.call(res, m)) {
+        for (const m in resForObjHndl) {
+          if (Object.prototype.hasOwnProperty.call(resForObjHndl, m)) {
             const deepKey = `${newKeyToUse}${keySeparator}${m}`;
-            copy[m] = this.translate(deepKey, {
-              ...options,
-              ...{
-                joinArrays: false,
-                ns: namespaces
-              }
-            });
-            if (copy[m] === deepKey) copy[m] = res[m];
+            if (hasDefaultValue && !res) {
+              copy[m] = this.translate(deepKey, {
+                ...opt,
+                defaultValue: shouldHandleAsObject(defaultValue) ? defaultValue[m] : undefined,
+                ...{
+                  joinArrays: false,
+                  ns: namespaces
+                }
+              });
+            } else {
+              copy[m] = this.translate(deepKey, {
+                ...opt,
+                ...{
+                  joinArrays: false,
+                  ns: namespaces
+                }
+              });
+            }
+            if (copy[m] === deepKey) copy[m] = resForObjHndl[m];
           }
         }
         res = copy;
       }
-    } else if (handleAsObjectInI18nFormat && typeof joinArrays === 'string' && Array.isArray(res)) {
+    } else if (handleAsObjectInI18nFormat && i18next_isString(joinArrays) && Array.isArray(res)) {
       res = res.join(joinArrays);
-      if (res) res = this.extendTranslation(res, keys, options, lastKey);
+      if (res) res = this.extendTranslation(res, keys, opt, lastKey);
     } else {
       let usedDefault = false;
       let usedKey = false;
-      const needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
-      const hasDefaultValue = Translator.hasDefaultValue(options);
-      const defaultValueSuffix = needsPluralHandling ? this.pluralResolver.getSuffix(lng, options.count, options) : '';
-      const defaultValueSuffixOrdinalFallback = options.ordinal && needsPluralHandling ? this.pluralResolver.getSuffix(lng, options.count, {
-        ordinal: false
-      }) : '';
-      const needsZeroSuffixLookup = needsPluralHandling && !options.ordinal && options.count === 0 && this.pluralResolver.shouldUseIntlApi();
-      const defaultValue = needsZeroSuffixLookup && options[`defaultValue${this.options.pluralSeparator}zero`] || options[`defaultValue${defaultValueSuffix}`] || options[`defaultValue${defaultValueSuffixOrdinalFallback}`] || options.defaultValue;
       if (!this.isValidLookup(res) && hasDefaultValue) {
         usedDefault = true;
         res = defaultValue;
@@ -67547,47 +67828,47 @@ class Translator extends EventEmitter {
         usedKey = true;
         res = key;
       }
-      const missingKeyNoValueFallbackToKey = options.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey;
+      const missingKeyNoValueFallbackToKey = opt.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey;
       const resForMissing = missingKeyNoValueFallbackToKey && usedKey ? undefined : res;
       const updateMissing = hasDefaultValue && defaultValue !== res && this.options.updateMissing;
       if (usedKey || usedDefault || updateMissing) {
         this.logger.log(updateMissing ? 'updateKey' : 'missingKey', lng, namespace, key, updateMissing ? defaultValue : res);
         if (keySeparator) {
           const fk = this.resolve(key, {
-            ...options,
+            ...opt,
             keySeparator: false
           });
           if (fk && fk.res) this.logger.warn('Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.');
         }
         let lngs = [];
-        const fallbackLngs = this.languageUtils.getFallbackCodes(this.options.fallbackLng, options.lng || this.language);
+        const fallbackLngs = this.languageUtils.getFallbackCodes(this.options.fallbackLng, opt.lng || this.language);
         if (this.options.saveMissingTo === 'fallback' && fallbackLngs && fallbackLngs[0]) {
           for (let i = 0; i < fallbackLngs.length; i++) {
             lngs.push(fallbackLngs[i]);
           }
         } else if (this.options.saveMissingTo === 'all') {
-          lngs = this.languageUtils.toResolveHierarchy(options.lng || this.language);
+          lngs = this.languageUtils.toResolveHierarchy(opt.lng || this.language);
         } else {
-          lngs.push(options.lng || this.language);
+          lngs.push(opt.lng || this.language);
         }
         const send = (l, k, specificDefaultValue) => {
           const defaultForMissing = hasDefaultValue && specificDefaultValue !== res ? specificDefaultValue : resForMissing;
           if (this.options.missingKeyHandler) {
-            this.options.missingKeyHandler(l, namespace, k, defaultForMissing, updateMissing, options);
-          } else if (this.backendConnector && this.backendConnector.saveMissing) {
-            this.backendConnector.saveMissing(l, namespace, k, defaultForMissing, updateMissing, options);
+            this.options.missingKeyHandler(l, namespace, k, defaultForMissing, updateMissing, opt);
+          } else if (this.backendConnector?.saveMissing) {
+            this.backendConnector.saveMissing(l, namespace, k, defaultForMissing, updateMissing, opt);
           }
           this.emit('missingKey', l, namespace, k, res);
         };
         if (this.options.saveMissing) {
           if (this.options.saveMissingPlurals && needsPluralHandling) {
             lngs.forEach(language => {
-              const suffixes = this.pluralResolver.getSuffixes(language, options);
-              if (needsZeroSuffixLookup && options[`defaultValue${this.options.pluralSeparator}zero`] && suffixes.indexOf(`${this.options.pluralSeparator}zero`) < 0) {
+              const suffixes = this.pluralResolver.getSuffixes(language, opt);
+              if (needsZeroSuffixLookup && opt[`defaultValue${this.options.pluralSeparator}zero`] && suffixes.indexOf(`${this.options.pluralSeparator}zero`) < 0) {
                 suffixes.push(`${this.options.pluralSeparator}zero`);
               }
               suffixes.forEach(suffix => {
-                send([language], key + suffix, options[`defaultValue${suffix}`] || defaultValue);
+                send([language], key + suffix, opt[`defaultValue${suffix}`] || defaultValue);
               });
             });
           } else {
@@ -67595,108 +67876,101 @@ class Translator extends EventEmitter {
           }
         }
       }
-      res = this.extendTranslation(res, keys, options, resolved, lastKey);
-      if (usedKey && res === key && this.options.appendNamespaceToMissingKey) res = `${namespace}:${key}`;
+      res = this.extendTranslation(res, keys, opt, resolved, lastKey);
+      if (usedKey && res === key && this.options.appendNamespaceToMissingKey) {
+        res = `${namespace}${nsSeparator}${key}`;
+      }
       if ((usedKey || usedDefault) && this.options.parseMissingKeyHandler) {
-        if (this.options.compatibilityAPI !== 'v1') {
-          res = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${namespace}:${key}` : key, usedDefault ? res : undefined);
-        } else {
-          res = this.options.parseMissingKeyHandler(res);
-        }
+        res = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${namespace}${nsSeparator}${key}` : key, usedDefault ? res : undefined, opt);
       }
     }
     if (returnDetails) {
       resolved.res = res;
-      resolved.usedParams = this.getUsedParamsDetails(options);
+      resolved.usedParams = this.getUsedParamsDetails(opt);
       return resolved;
     }
     return res;
   }
-  extendTranslation(res, key, options, resolved, lastKey) {
-    var _this = this;
-    if (this.i18nFormat && this.i18nFormat.parse) {
+  extendTranslation(res, key, opt, resolved, lastKey) {
+    if (this.i18nFormat?.parse) {
       res = this.i18nFormat.parse(res, {
         ...this.options.interpolation.defaultVariables,
-        ...options
-      }, options.lng || this.language || resolved.usedLng, resolved.usedNS, resolved.usedKey, {
+        ...opt
+      }, opt.lng || this.language || resolved.usedLng, resolved.usedNS, resolved.usedKey, {
         resolved
       });
-    } else if (!options.skipInterpolation) {
-      if (options.interpolation) this.interpolator.init({
-        ...options,
+    } else if (!opt.skipInterpolation) {
+      if (opt.interpolation) this.interpolator.init({
+        ...opt,
         ...{
           interpolation: {
             ...this.options.interpolation,
-            ...options.interpolation
+            ...opt.interpolation
           }
         }
       });
-      const skipOnVariables = typeof res === 'string' && (options && options.interpolation && options.interpolation.skipOnVariables !== undefined ? options.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
+      const skipOnVariables = i18next_isString(res) && (opt?.interpolation?.skipOnVariables !== undefined ? opt.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables);
       let nestBef;
       if (skipOnVariables) {
         const nb = res.match(this.interpolator.nestingRegexp);
         nestBef = nb && nb.length;
       }
-      let data = options.replace && typeof options.replace !== 'string' ? options.replace : options;
+      let data = opt.replace && !i18next_isString(opt.replace) ? opt.replace : opt;
       if (this.options.interpolation.defaultVariables) data = {
         ...this.options.interpolation.defaultVariables,
         ...data
       };
-      res = this.interpolator.interpolate(res, data, options.lng || this.language || resolved.usedLng, options);
+      res = this.interpolator.interpolate(res, data, opt.lng || this.language || resolved.usedLng, opt);
       if (skipOnVariables) {
         const na = res.match(this.interpolator.nestingRegexp);
         const nestAft = na && na.length;
-        if (nestBef < nestAft) options.nest = false;
+        if (nestBef < nestAft) opt.nest = false;
       }
-      if (!options.lng && this.options.compatibilityAPI !== 'v1' && resolved && resolved.res) options.lng = this.language || resolved.usedLng;
-      if (options.nest !== false) res = this.interpolator.nest(res, function () {
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-        if (lastKey && lastKey[0] === args[0] && !options.context) {
-          _this.logger.warn(`It seems you are nesting recursively key: ${args[0]} in key: ${key[0]}`);
+      if (!opt.lng && resolved && resolved.res) opt.lng = this.language || resolved.usedLng;
+      if (opt.nest !== false) res = this.interpolator.nest(res, (...args) => {
+        if (lastKey?.[0] === args[0] && !opt.context) {
+          this.logger.warn(`It seems you are nesting recursively key: ${args[0]} in key: ${key[0]}`);
           return null;
         }
-        return _this.translate(...args, key);
-      }, options);
-      if (options.interpolation) this.interpolator.reset();
+        return this.translate(...args, key);
+      }, opt);
+      if (opt.interpolation) this.interpolator.reset();
     }
-    const postProcess = options.postProcess || this.options.postProcess;
-    const postProcessorNames = typeof postProcess === 'string' ? [postProcess] : postProcess;
-    if (res !== undefined && res !== null && postProcessorNames && postProcessorNames.length && options.applyPostProcessor !== false) {
+    const postProcess = opt.postProcess || this.options.postProcess;
+    const postProcessorNames = i18next_isString(postProcess) ? [postProcess] : postProcess;
+    if (res != null && postProcessorNames?.length && opt.applyPostProcessor !== false) {
       res = postProcessor.handle(postProcessorNames, res, key, this.options && this.options.postProcessPassResolved ? {
         i18nResolved: {
           ...resolved,
-          usedParams: this.getUsedParamsDetails(options)
+          usedParams: this.getUsedParamsDetails(opt)
         },
-        ...options
-      } : options, this);
+        ...opt
+      } : opt, this);
     }
     return res;
   }
-  resolve(keys) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  resolve(keys, opt = {}) {
     let found;
     let usedKey;
     let exactUsedKey;
     let usedLng;
     let usedNS;
-    if (typeof keys === 'string') keys = [keys];
+    if (i18next_isString(keys)) keys = [keys];
     keys.forEach(k => {
       if (this.isValidLookup(found)) return;
-      const extracted = this.extractFromKey(k, options);
+      const extracted = this.extractFromKey(k, opt);
       const key = extracted.key;
       usedKey = key;
       let namespaces = extracted.namespaces;
       if (this.options.fallbackNS) namespaces = namespaces.concat(this.options.fallbackNS);
-      const needsPluralHandling = options.count !== undefined && typeof options.count !== 'string';
-      const needsZeroSuffixLookup = needsPluralHandling && !options.ordinal && options.count === 0 && this.pluralResolver.shouldUseIntlApi();
-      const needsContextHandling = options.context !== undefined && (typeof options.context === 'string' || typeof options.context === 'number') && options.context !== '';
-      const codes = options.lngs ? options.lngs : this.languageUtils.toResolveHierarchy(options.lng || this.language, options.fallbackLng);
+      const needsPluralHandling = opt.count !== undefined && !i18next_isString(opt.count);
+      const needsZeroSuffixLookup = needsPluralHandling && !opt.ordinal && opt.count === 0;
+      const needsContextHandling = opt.context !== undefined && (i18next_isString(opt.context) || typeof opt.context === 'number') && opt.context !== '';
+      const codes = opt.lngs ? opt.lngs : this.languageUtils.toResolveHierarchy(opt.lng || this.language, opt.fallbackLng);
       namespaces.forEach(ns => {
         if (this.isValidLookup(found)) return;
         usedNS = ns;
-        if (!checkedLoadedFor[`${codes[0]}-${ns}`] && this.utils && this.utils.hasLoadedNamespace && !this.utils.hasLoadedNamespace(usedNS)) {
+        if (!checkedLoadedFor[`${codes[0]}-${ns}`] && this.utils?.hasLoadedNamespace && !this.utils?.hasLoadedNamespace(usedNS)) {
           checkedLoadedFor[`${codes[0]}-${ns}`] = true;
           this.logger.warn(`key "${usedKey}" for languages "${codes.join(', ')}" won't get resolved as namespace "${usedNS}" was not yet loaded`, 'This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!');
         }
@@ -67704,30 +67978,30 @@ class Translator extends EventEmitter {
           if (this.isValidLookup(found)) return;
           usedLng = code;
           const finalKeys = [key];
-          if (this.i18nFormat && this.i18nFormat.addLookupKeys) {
-            this.i18nFormat.addLookupKeys(finalKeys, key, code, ns, options);
+          if (this.i18nFormat?.addLookupKeys) {
+            this.i18nFormat.addLookupKeys(finalKeys, key, code, ns, opt);
           } else {
             let pluralSuffix;
-            if (needsPluralHandling) pluralSuffix = this.pluralResolver.getSuffix(code, options.count, options);
+            if (needsPluralHandling) pluralSuffix = this.pluralResolver.getSuffix(code, opt.count, opt);
             const zeroSuffix = `${this.options.pluralSeparator}zero`;
             const ordinalPrefix = `${this.options.pluralSeparator}ordinal${this.options.pluralSeparator}`;
             if (needsPluralHandling) {
-              finalKeys.push(key + pluralSuffix);
-              if (options.ordinal && pluralSuffix.indexOf(ordinalPrefix) === 0) {
+              if (opt.ordinal && pluralSuffix.indexOf(ordinalPrefix) === 0) {
                 finalKeys.push(key + pluralSuffix.replace(ordinalPrefix, this.options.pluralSeparator));
               }
+              finalKeys.push(key + pluralSuffix);
               if (needsZeroSuffixLookup) {
                 finalKeys.push(key + zeroSuffix);
               }
             }
             if (needsContextHandling) {
-              const contextKey = `${key}${this.options.contextSeparator}${options.context}`;
+              const contextKey = `${key}${this.options.contextSeparator || '_'}${opt.context}`;
               finalKeys.push(contextKey);
               if (needsPluralHandling) {
-                finalKeys.push(contextKey + pluralSuffix);
-                if (options.ordinal && pluralSuffix.indexOf(ordinalPrefix) === 0) {
+                if (opt.ordinal && pluralSuffix.indexOf(ordinalPrefix) === 0) {
                   finalKeys.push(contextKey + pluralSuffix.replace(ordinalPrefix, this.options.pluralSeparator));
                 }
+                finalKeys.push(contextKey + pluralSuffix);
                 if (needsZeroSuffixLookup) {
                   finalKeys.push(contextKey + zeroSuffix);
                 }
@@ -67738,7 +68012,7 @@ class Translator extends EventEmitter {
           while (possibleKey = finalKeys.pop()) {
             if (!this.isValidLookup(found)) {
               exactUsedKey = possibleKey;
-              found = this.getResource(code, ns, possibleKey, options);
+              found = this.getResource(code, ns, possibleKey, opt);
             }
           }
         });
@@ -67755,15 +68029,13 @@ class Translator extends EventEmitter {
   isValidLookup(res) {
     return res !== undefined && !(!this.options.returnNull && res === null) && !(!this.options.returnEmptyString && res === '');
   }
-  getResource(code, ns, key) {
-    let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-    if (this.i18nFormat && this.i18nFormat.getResource) return this.i18nFormat.getResource(code, ns, key, options);
+  getResource(code, ns, key, options = {}) {
+    if (this.i18nFormat?.getResource) return this.i18nFormat.getResource(code, ns, key, options);
     return this.resourceStore.getResource(code, ns, key, options);
   }
-  getUsedParamsDetails() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  getUsedParamsDetails(options = {}) {
     const optionsKeys = ['defaultValue', 'ordinal', 'context', 'replace', 'lng', 'lngs', 'fallbackLng', 'ns', 'keySeparator', 'nsSeparator', 'returnObjects', 'returnDetails', 'joinArrays', 'postProcess', 'interpolation'];
-    const useOptionsReplaceForData = options.replace && typeof options.replace !== 'string';
+    const useOptionsReplaceForData = options.replace && !i18next_isString(options.replace);
     let data = useOptionsReplaceForData ? options.replace : options;
     if (useOptionsReplaceForData && typeof options.count !== 'undefined') {
       data.count = options.count;
@@ -67795,7 +68067,6 @@ class Translator extends EventEmitter {
   }
 }
 
-const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 class LanguageUtil {
   constructor(options) {
     this.options = options;
@@ -67818,23 +68089,19 @@ class LanguageUtil {
     return this.formatLanguageCode(p[0]);
   }
   formatLanguageCode(code) {
-    if (typeof code === 'string' && code.indexOf('-') > -1) {
-      const specialCases = ['hans', 'hant', 'latn', 'cyrl', 'cans', 'mong', 'arab'];
-      let p = code.split('-');
-      if (this.options.lowerCaseLng) {
-        p = p.map(part => part.toLowerCase());
-      } else if (p.length === 2) {
-        p[0] = p[0].toLowerCase();
-        p[1] = p[1].toUpperCase();
-        if (specialCases.indexOf(p[1].toLowerCase()) > -1) p[1] = capitalize(p[1].toLowerCase());
-      } else if (p.length === 3) {
-        p[0] = p[0].toLowerCase();
-        if (p[1].length === 2) p[1] = p[1].toUpperCase();
-        if (p[0] !== 'sgn' && p[2].length === 2) p[2] = p[2].toUpperCase();
-        if (specialCases.indexOf(p[1].toLowerCase()) > -1) p[1] = capitalize(p[1].toLowerCase());
-        if (specialCases.indexOf(p[2].toLowerCase()) > -1) p[2] = capitalize(p[2].toLowerCase());
+    if (i18next_isString(code) && code.indexOf('-') > -1) {
+      let formattedCode;
+      try {
+        formattedCode = Intl.getCanonicalLocales(code)[0];
+      } catch (e) {}
+      if (formattedCode && this.options.lowerCaseLng) {
+        formattedCode = formattedCode.toLowerCase();
       }
-      return p.join('-');
+      if (formattedCode) return formattedCode;
+      if (this.options.lowerCaseLng) {
+        return code.toLowerCase();
+      }
+      return code;
     }
     return this.options.cleanCode || this.options.lowerCaseLng ? code.toLowerCase() : code;
   }
@@ -67855,6 +68122,8 @@ class LanguageUtil {
     if (!found && this.options.supportedLngs) {
       codes.forEach(code => {
         if (found) return;
+        const lngScOnly = this.getScriptPartFromCode(code);
+        if (this.isSupportedCode(lngScOnly)) return found = lngScOnly;
         const lngOnly = this.getLanguagePartFromCode(code);
         if (this.isSupportedCode(lngOnly)) return found = lngOnly;
         found = this.options.supportedLngs.find(supportedLng => {
@@ -67871,7 +68140,7 @@ class LanguageUtil {
   getFallbackCodes(fallbacks, code) {
     if (!fallbacks) return [];
     if (typeof fallbacks === 'function') fallbacks = fallbacks(code);
-    if (typeof fallbacks === 'string') fallbacks = [fallbacks];
+    if (i18next_isString(fallbacks)) fallbacks = [fallbacks];
     if (Array.isArray(fallbacks)) return fallbacks;
     if (!code) return fallbacks.default || [];
     let found = fallbacks[code];
@@ -67882,7 +68151,7 @@ class LanguageUtil {
     return found || [];
   }
   toResolveHierarchy(code, fallbackCode) {
-    const fallbackCodes = this.getFallbackCodes(fallbackCode || this.options.fallbackLng || [], code);
+    const fallbackCodes = this.getFallbackCodes((fallbackCode === false ? [] : fallbackCode) || this.options.fallbackLng || [], code);
     const codes = [];
     const addCode = c => {
       if (!c) return;
@@ -67892,11 +68161,11 @@ class LanguageUtil {
         this.logger.warn(`rejecting language code not found in supportedLngs: ${c}`);
       }
     };
-    if (typeof code === 'string' && (code.indexOf('-') > -1 || code.indexOf('_') > -1)) {
+    if (i18next_isString(code) && (code.indexOf('-') > -1 || code.indexOf('_') > -1)) {
       if (this.options.load !== 'languageOnly') addCode(this.formatLanguageCode(code));
       if (this.options.load !== 'languageOnly' && this.options.load !== 'currentOnly') addCode(this.getScriptPartFromCode(code));
       if (this.options.load !== 'currentOnly') addCode(this.getLanguagePartFromCode(code));
-    } else if (typeof code === 'string') {
+    } else if (i18next_isString(code)) {
       addCode(this.formatLanguageCode(code));
     }
     fallbackCodes.forEach(fc => {
@@ -67906,125 +68175,6 @@ class LanguageUtil {
   }
 }
 
-let sets = [{
-  lngs: ['ach', 'ak', 'am', 'arn', 'br', 'fil', 'gun', 'ln', 'mfe', 'mg', 'mi', 'oc', 'pt', 'pt-BR', 'tg', 'tl', 'ti', 'tr', 'uz', 'wa'],
-  nr: [1, 2],
-  fc: 1
-}, {
-  lngs: ['af', 'an', 'ast', 'az', 'bg', 'bn', 'ca', 'da', 'de', 'dev', 'el', 'en', 'eo', 'es', 'et', 'eu', 'fi', 'fo', 'fur', 'fy', 'gl', 'gu', 'ha', 'hi', 'hu', 'hy', 'ia', 'it', 'kk', 'kn', 'ku', 'lb', 'mai', 'ml', 'mn', 'mr', 'nah', 'nap', 'nb', 'ne', 'nl', 'nn', 'no', 'nso', 'pa', 'pap', 'pms', 'ps', 'pt-PT', 'rm', 'sco', 'se', 'si', 'so', 'son', 'sq', 'sv', 'sw', 'ta', 'te', 'tk', 'ur', 'yo'],
-  nr: [1, 2],
-  fc: 2
-}, {
-  lngs: ['ay', 'bo', 'cgg', 'fa', 'ht', 'id', 'ja', 'jbo', 'ka', 'km', 'ko', 'ky', 'lo', 'ms', 'sah', 'su', 'th', 'tt', 'ug', 'vi', 'wo', 'zh'],
-  nr: [1],
-  fc: 3
-}, {
-  lngs: ['be', 'bs', 'cnr', 'dz', 'hr', 'ru', 'sr', 'uk'],
-  nr: [1, 2, 5],
-  fc: 4
-}, {
-  lngs: ['ar'],
-  nr: [0, 1, 2, 3, 11, 100],
-  fc: 5
-}, {
-  lngs: ['cs', 'sk'],
-  nr: [1, 2, 5],
-  fc: 6
-}, {
-  lngs: ['csb', 'pl'],
-  nr: [1, 2, 5],
-  fc: 7
-}, {
-  lngs: ['cy'],
-  nr: [1, 2, 3, 8],
-  fc: 8
-}, {
-  lngs: ['fr'],
-  nr: [1, 2],
-  fc: 9
-}, {
-  lngs: ['ga'],
-  nr: [1, 2, 3, 7, 11],
-  fc: 10
-}, {
-  lngs: ['gd'],
-  nr: [1, 2, 3, 20],
-  fc: 11
-}, {
-  lngs: ['is'],
-  nr: [1, 2],
-  fc: 12
-}, {
-  lngs: ['jv'],
-  nr: [0, 1],
-  fc: 13
-}, {
-  lngs: ['kw'],
-  nr: [1, 2, 3, 4],
-  fc: 14
-}, {
-  lngs: ['lt'],
-  nr: [1, 2, 10],
-  fc: 15
-}, {
-  lngs: ['lv'],
-  nr: [1, 2, 0],
-  fc: 16
-}, {
-  lngs: ['mk'],
-  nr: [1, 2],
-  fc: 17
-}, {
-  lngs: ['mnk'],
-  nr: [0, 1, 2],
-  fc: 18
-}, {
-  lngs: ['mt'],
-  nr: [1, 2, 11, 20],
-  fc: 19
-}, {
-  lngs: ['or'],
-  nr: [2, 1],
-  fc: 2
-}, {
-  lngs: ['ro'],
-  nr: [1, 2, 20],
-  fc: 20
-}, {
-  lngs: ['sl'],
-  nr: [5, 1, 2, 3],
-  fc: 21
-}, {
-  lngs: ['he', 'iw'],
-  nr: [1, 2, 20, 21],
-  fc: 22
-}];
-let _rulesPluralsTypes = {
-  1: n => Number(n > 1),
-  2: n => Number(n != 1),
-  3: n => 0,
-  4: n => Number(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
-  5: n => Number(n == 0 ? 0 : n == 1 ? 1 : n == 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5),
-  6: n => Number(n == 1 ? 0 : n >= 2 && n <= 4 ? 1 : 2),
-  7: n => Number(n == 1 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
-  8: n => Number(n == 1 ? 0 : n == 2 ? 1 : n != 8 && n != 11 ? 2 : 3),
-  9: n => Number(n >= 2),
-  10: n => Number(n == 1 ? 0 : n == 2 ? 1 : n < 7 ? 2 : n < 11 ? 3 : 4),
-  11: n => Number(n == 1 || n == 11 ? 0 : n == 2 || n == 12 ? 1 : n > 2 && n < 20 ? 2 : 3),
-  12: n => Number(n % 10 != 1 || n % 100 == 11),
-  13: n => Number(n !== 0),
-  14: n => Number(n == 1 ? 0 : n == 2 ? 1 : n == 3 ? 2 : 3),
-  15: n => Number(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2),
-  16: n => Number(n % 10 == 1 && n % 100 != 11 ? 0 : n !== 0 ? 1 : 2),
-  17: n => Number(n == 1 || n % 10 == 1 && n % 100 != 11 ? 0 : 1),
-  18: n => Number(n == 0 ? 0 : n == 1 ? 1 : 2),
-  19: n => Number(n == 1 ? 0 : n == 0 || n % 100 > 1 && n % 100 < 11 ? 1 : n % 100 > 10 && n % 100 < 20 ? 2 : 3),
-  20: n => Number(n == 1 ? 0 : n == 0 || n % 100 > 0 && n % 100 < 20 ? 1 : 2),
-  21: n => Number(n % 100 == 1 ? 1 : n % 100 == 2 ? 2 : n % 100 == 3 || n % 100 == 4 ? 3 : 0),
-  22: n => Number(n == 1 ? 0 : n == 2 ? 1 : (n < 0 || n > 10) && n % 10 == 0 ? 2 : 3)
-};
-const nonIntlVersions = ['v1', 'v2', 'v3'];
-const intlVersions = ['v4'];
 const suffixesOrder = {
   zero: 0,
   one: 1,
@@ -68033,128 +68183,76 @@ const suffixesOrder = {
   many: 4,
   other: 5
 };
-const createRules = () => {
-  const rules = {};
-  sets.forEach(set => {
-    set.lngs.forEach(l => {
-      rules[l] = {
-        numbers: set.nr,
-        plurals: _rulesPluralsTypes[set.fc]
-      };
-    });
-  });
-  return rules;
+const dummyRule = {
+  select: count => count === 1 ? 'one' : 'other',
+  resolvedOptions: () => ({
+    pluralCategories: ['one', 'other']
+  })
 };
 class PluralResolver {
-  constructor(languageUtils) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  constructor(languageUtils, options = {}) {
     this.languageUtils = languageUtils;
     this.options = options;
     this.logger = baseLogger.create('pluralResolver');
-    if ((!this.options.compatibilityJSON || intlVersions.includes(this.options.compatibilityJSON)) && (typeof Intl === 'undefined' || !Intl.PluralRules)) {
-      this.options.compatibilityJSON = 'v3';
-      this.logger.error('Your environment seems not to be Intl API compatible, use an Intl.PluralRules polyfill. Will fallback to the compatibilityJSON v3 format handling.');
-    }
-    this.rules = createRules();
     this.pluralRulesCache = {};
-  }
-  addRule(lng, obj) {
-    this.rules[lng] = obj;
   }
   clearCache() {
     this.pluralRulesCache = {};
   }
-  getRule(code) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    if (this.shouldUseIntlApi()) {
-      try {
-        const cleanedCode = getCleanedCode(code === 'dev' ? 'en' : code);
-        const type = options.ordinal ? 'ordinal' : 'cardinal';
-        const cacheKey = JSON.stringify({
-          cleanedCode,
-          type
-        });
-        if (cacheKey in this.pluralRulesCache) {
-          return this.pluralRulesCache[cacheKey];
-        }
-        const rule = new Intl.PluralRules(cleanedCode, {
-          type
-        });
-        this.pluralRulesCache[cacheKey] = rule;
-        return rule;
-      } catch (err) {
-        return;
+  getRule(code, options = {}) {
+    const cleanedCode = getCleanedCode(code === 'dev' ? 'en' : code);
+    const type = options.ordinal ? 'ordinal' : 'cardinal';
+    const cacheKey = JSON.stringify({
+      cleanedCode,
+      type
+    });
+    if (cacheKey in this.pluralRulesCache) {
+      return this.pluralRulesCache[cacheKey];
+    }
+    let rule;
+    try {
+      rule = new Intl.PluralRules(cleanedCode, {
+        type
+      });
+    } catch (err) {
+      if (!Intl) {
+        this.logger.error('No Intl support, please use an Intl polyfill!');
+        return dummyRule;
       }
+      if (!code.match(/-|_/)) return dummyRule;
+      const lngPart = this.languageUtils.getLanguagePartFromCode(code);
+      rule = this.getRule(lngPart, options);
     }
-    return this.rules[code] || this.rules[this.languageUtils.getLanguagePartFromCode(code)];
+    this.pluralRulesCache[cacheKey] = rule;
+    return rule;
   }
-  needsPlural(code) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    const rule = this.getRule(code, options);
-    if (this.shouldUseIntlApi()) {
-      return rule && rule.resolvedOptions().pluralCategories.length > 1;
-    }
-    return rule && rule.numbers.length > 1;
+  needsPlural(code, options = {}) {
+    let rule = this.getRule(code, options);
+    if (!rule) rule = this.getRule('dev', options);
+    return rule?.resolvedOptions().pluralCategories.length > 1;
   }
-  getPluralFormsOfKey(code, key) {
-    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  getPluralFormsOfKey(code, key, options = {}) {
     return this.getSuffixes(code, options).map(suffix => `${key}${suffix}`);
   }
-  getSuffixes(code) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    const rule = this.getRule(code, options);
-    if (!rule) {
-      return [];
-    }
-    if (this.shouldUseIntlApi()) {
-      return rule.resolvedOptions().pluralCategories.sort((pluralCategory1, pluralCategory2) => suffixesOrder[pluralCategory1] - suffixesOrder[pluralCategory2]).map(pluralCategory => `${this.options.prepend}${options.ordinal ? `ordinal${this.options.prepend}` : ''}${pluralCategory}`);
-    }
-    return rule.numbers.map(number => this.getSuffix(code, number, options));
+  getSuffixes(code, options = {}) {
+    let rule = this.getRule(code, options);
+    if (!rule) rule = this.getRule('dev', options);
+    if (!rule) return [];
+    return rule.resolvedOptions().pluralCategories.sort((pluralCategory1, pluralCategory2) => suffixesOrder[pluralCategory1] - suffixesOrder[pluralCategory2]).map(pluralCategory => `${this.options.prepend}${options.ordinal ? `ordinal${this.options.prepend}` : ''}${pluralCategory}`);
   }
-  getSuffix(code, count) {
-    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  getSuffix(code, count, options = {}) {
     const rule = this.getRule(code, options);
     if (rule) {
-      if (this.shouldUseIntlApi()) {
-        return `${this.options.prepend}${options.ordinal ? `ordinal${this.options.prepend}` : ''}${rule.select(count)}`;
-      }
-      return this.getSuffixRetroCompatible(rule, count);
+      return `${this.options.prepend}${options.ordinal ? `ordinal${this.options.prepend}` : ''}${rule.select(count)}`;
     }
     this.logger.warn(`no plural rule found for: ${code}`);
-    return '';
-  }
-  getSuffixRetroCompatible(rule, count) {
-    const idx = rule.noAbs ? rule.plurals(count) : rule.plurals(Math.abs(count));
-    let suffix = rule.numbers[idx];
-    if (this.options.simplifyPluralSuffix && rule.numbers.length === 2 && rule.numbers[0] === 1) {
-      if (suffix === 2) {
-        suffix = 'plural';
-      } else if (suffix === 1) {
-        suffix = '';
-      }
-    }
-    const returnSuffix = () => this.options.prepend && suffix.toString() ? this.options.prepend + suffix.toString() : suffix.toString();
-    if (this.options.compatibilityJSON === 'v1') {
-      if (suffix === 1) return '';
-      if (typeof suffix === 'number') return `_plural_${suffix.toString()}`;
-      return returnSuffix();
-    } else if (this.options.compatibilityJSON === 'v2') {
-      return returnSuffix();
-    } else if (this.options.simplifyPluralSuffix && rule.numbers.length === 2 && rule.numbers[0] === 1) {
-      return returnSuffix();
-    }
-    return this.options.prepend && idx.toString() ? this.options.prepend + idx.toString() : idx.toString();
-  }
-  shouldUseIntlApi() {
-    return !nonIntlVersions.includes(this.options.compatibilityJSON);
+    return this.getSuffix('dev', count, options);
   }
 }
 
-const deepFindWithDefaults = function (data, defaultData, key) {
-  let keySeparator = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '.';
-  let ignoreJSONStructure = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+const deepFindWithDefaults = (data, defaultData, key, keySeparator = '.', ignoreJSONStructure = true) => {
   let path = getPathWithDefaults(data, defaultData, key);
-  if (!path && ignoreJSONStructure && typeof key === 'string') {
+  if (!path && ignoreJSONStructure && i18next_isString(key)) {
     path = deepFind(data, key, keySeparator);
     if (path === undefined) path = deepFind(defaultData, key, keySeparator);
   }
@@ -68162,15 +68260,13 @@ const deepFindWithDefaults = function (data, defaultData, key) {
 };
 const regexSafe = val => val.replace(/\$/g, '$$$$');
 class Interpolator {
-  constructor() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  constructor(options = {}) {
     this.logger = baseLogger.create('interpolator');
     this.options = options;
-    this.format = options.interpolation && options.interpolation.format || (value => value);
+    this.format = options?.interpolation?.format || (value => value);
     this.init(options);
   }
-  init() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  init(options = {}) {
     if (!options.interpolation) options.interpolation = {
       escapeValue: true
     };
@@ -68213,7 +68309,7 @@ class Interpolator {
   }
   resetRegExp() {
     const getOrResetRegExp = (existingRegExp, pattern) => {
-      if (existingRegExp && existingRegExp.source === pattern) {
+      if (existingRegExp?.source === pattern) {
         existingRegExp.lastIndex = 0;
         return existingRegExp;
       }
@@ -68221,7 +68317,7 @@ class Interpolator {
     };
     this.regexp = getOrResetRegExp(this.regexp, `${this.prefix}(.+?)${this.suffix}`);
     this.regexpUnescape = getOrResetRegExp(this.regexpUnescape, `${this.prefix}${this.unescapePrefix}(.+?)${this.unescapeSuffix}${this.suffix}`);
-    this.nestingRegexp = getOrResetRegExp(this.nestingRegexp, `${this.nestingPrefix}(.+?)${this.nestingSuffix}`);
+    this.nestingRegexp = getOrResetRegExp(this.nestingRegexp, `${this.nestingPrefix}((?:[^()"']+|"[^"]*"|'[^']*'|\\((?:[^()]|"[^"]*"|'[^']*')*\\))*?)${this.nestingSuffix}`);
   }
   interpolate(str, data, lng, options) {
     let match;
@@ -68247,8 +68343,8 @@ class Interpolator {
       });
     };
     this.resetRegExp();
-    const missingInterpolationHandler = options && options.missingInterpolationHandler || this.options.missingInterpolationHandler;
-    const skipOnVariables = options && options.interpolation && options.interpolation.skipOnVariables !== undefined ? options.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
+    const missingInterpolationHandler = options?.missingInterpolationHandler || this.options.missingInterpolationHandler;
+    const skipOnVariables = options?.interpolation?.skipOnVariables !== undefined ? options.interpolation.skipOnVariables : this.options.interpolation.skipOnVariables;
     const todos = [{
       regex: this.regexpUnescape,
       safeValue: val => regexSafe(val)
@@ -68264,7 +68360,7 @@ class Interpolator {
         if (value === undefined) {
           if (typeof missingInterpolationHandler === 'function') {
             const temp = missingInterpolationHandler(str, match, options);
-            value = typeof temp === 'string' ? temp : '';
+            value = i18next_isString(temp) ? temp : '';
           } else if (options && Object.prototype.hasOwnProperty.call(options, matchedVar)) {
             value = '';
           } else if (skipOnVariables) {
@@ -68274,7 +68370,7 @@ class Interpolator {
             this.logger.warn(`missed to pass in variable ${matchedVar} for interpolating ${str}`);
             value = '';
           }
-        } else if (typeof value !== 'string' && !this.useRawValueToEscape) {
+        } else if (!i18next_isString(value) && !this.useRawValueToEscape) {
           value = makeString(value);
         }
         const safeValue = todo.safeValue(value);
@@ -68293,8 +68389,7 @@ class Interpolator {
     });
     return str;
   }
-  nest(str, fc) {
-    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  nest(str, fc, options = {}) {
     let match;
     let value;
     let clonedOptions;
@@ -68307,7 +68402,7 @@ class Interpolator {
       optionsString = this.interpolate(optionsString, clonedOptions);
       const matchedSingleQuotes = optionsString.match(/'/g);
       const matchedDoubleQuotes = optionsString.match(/"/g);
-      if (matchedSingleQuotes && matchedSingleQuotes.length % 2 === 0 && !matchedDoubleQuotes || matchedDoubleQuotes.length % 2 !== 0) {
+      if ((matchedSingleQuotes?.length ?? 0) % 2 === 0 && !matchedDoubleQuotes || matchedDoubleQuotes.length % 2 !== 0) {
         optionsString = optionsString.replace(/'/g, '"');
       }
       try {
@@ -68328,24 +68423,22 @@ class Interpolator {
       clonedOptions = {
         ...options
       };
-      clonedOptions = clonedOptions.replace && typeof clonedOptions.replace !== 'string' ? clonedOptions.replace : clonedOptions;
+      clonedOptions = clonedOptions.replace && !i18next_isString(clonedOptions.replace) ? clonedOptions.replace : clonedOptions;
       clonedOptions.applyPostProcessor = false;
       delete clonedOptions.defaultValue;
-      let doReduce = false;
-      if (match[0].indexOf(this.formatSeparator) !== -1 && !/{.*}/.test(match[1])) {
-        const r = match[1].split(this.formatSeparator).map(elem => elem.trim());
-        match[1] = r.shift();
-        formatters = r;
-        doReduce = true;
+      const keyEndIndex = /{.*}/.test(match[1]) ? match[1].lastIndexOf('}') + 1 : match[1].indexOf(this.formatSeparator);
+      if (keyEndIndex !== -1) {
+        formatters = match[1].slice(keyEndIndex).split(this.formatSeparator).map(elem => elem.trim()).filter(Boolean);
+        match[1] = match[1].slice(0, keyEndIndex);
       }
       value = fc(handleHasOptions.call(this, match[1].trim(), clonedOptions), clonedOptions);
-      if (value && match[0] === str && typeof value !== 'string') return value;
-      if (typeof value !== 'string') value = makeString(value);
+      if (value && match[0] === str && !i18next_isString(value)) return value;
+      if (!i18next_isString(value)) value = makeString(value);
       if (!value) {
         this.logger.warn(`missed to resolve ${match[1]} for nesting ${str}`);
         value = '';
       }
-      if (doReduce) {
+      if (formatters.length) {
         value = formatters.reduce((v, f) => this.format(v, f, options.lng, {
           ...options,
           interpolationkey: match[1].trim()
@@ -68391,69 +68484,68 @@ const parseFormatStr = formatStr => {
 };
 const createCachedFormatter = fn => {
   const cache = {};
-  return (val, lng, options) => {
-    let optForCache = options;
-    if (options && options.interpolationkey && options.formatParams && options.formatParams[options.interpolationkey] && options[options.interpolationkey]) {
+  return (v, l, o) => {
+    let optForCache = o;
+    if (o && o.interpolationkey && o.formatParams && o.formatParams[o.interpolationkey] && o[o.interpolationkey]) {
       optForCache = {
         ...optForCache,
-        [options.interpolationkey]: undefined
+        [o.interpolationkey]: undefined
       };
     }
-    const key = lng + JSON.stringify(optForCache);
-    let formatter = cache[key];
-    if (!formatter) {
-      formatter = fn(getCleanedCode(lng), options);
-      cache[key] = formatter;
+    const key = l + JSON.stringify(optForCache);
+    let frm = cache[key];
+    if (!frm) {
+      frm = fn(getCleanedCode(l), o);
+      cache[key] = frm;
     }
-    return formatter(val);
+    return frm(v);
   };
 };
+const createNonCachedFormatter = fn => (v, l, o) => fn(getCleanedCode(l), o)(v);
 class Formatter {
-  constructor() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  constructor(options = {}) {
     this.logger = baseLogger.create('formatter');
     this.options = options;
+    this.init(options);
+  }
+  init(services, options = {
+    interpolation: {}
+  }) {
+    this.formatSeparator = options.interpolation.formatSeparator || ',';
+    const cf = options.cacheInBuiltFormats ? createCachedFormatter : createNonCachedFormatter;
     this.formats = {
-      number: createCachedFormatter((lng, opt) => {
+      number: cf((lng, opt) => {
         const formatter = new Intl.NumberFormat(lng, {
           ...opt
         });
         return val => formatter.format(val);
       }),
-      currency: createCachedFormatter((lng, opt) => {
+      currency: cf((lng, opt) => {
         const formatter = new Intl.NumberFormat(lng, {
           ...opt,
           style: 'currency'
         });
         return val => formatter.format(val);
       }),
-      datetime: createCachedFormatter((lng, opt) => {
+      datetime: cf((lng, opt) => {
         const formatter = new Intl.DateTimeFormat(lng, {
           ...opt
         });
         return val => formatter.format(val);
       }),
-      relativetime: createCachedFormatter((lng, opt) => {
+      relativetime: cf((lng, opt) => {
         const formatter = new Intl.RelativeTimeFormat(lng, {
           ...opt
         });
         return val => formatter.format(val, opt.range || 'day');
       }),
-      list: createCachedFormatter((lng, opt) => {
+      list: cf((lng, opt) => {
         const formatter = new Intl.ListFormat(lng, {
           ...opt
         });
         return val => formatter.format(val);
       })
     };
-    this.init(options);
-  }
-  init(services) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      interpolation: {}
-    };
-    const iOpts = options.interpolation;
-    this.formatSeparator = iOpts.formatSeparator ? iOpts.formatSeparator : iOpts.formatSeparator || ',';
   }
   add(name, fc) {
     this.formats[name.toLowerCase().trim()] = fc;
@@ -68461,8 +68553,7 @@ class Formatter {
   addCached(name, fc) {
     this.formats[name.toLowerCase().trim()] = createCachedFormatter(fc);
   }
-  format(value, format, lng) {
-    let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  format(value, format, lng, options = {}) {
     const formats = format.split(this.formatSeparator);
     if (formats.length > 1 && formats[0].indexOf('(') > 1 && formats[0].indexOf(')') < 0 && formats.find(f => f.indexOf(')') > -1)) {
       const lastIndex = formats.findIndex(f => f.indexOf(')') > -1);
@@ -68476,7 +68567,7 @@ class Formatter {
       if (this.formats[formatName]) {
         let formatted = mem;
         try {
-          const valOptions = options && options.formatParams && options.formatParams[options.interpolationkey] || {};
+          const valOptions = options?.formatParams?.[options.interpolationkey] || {};
           const l = valOptions.locale || valOptions.lng || options.locale || options.lng || lng;
           formatted = this.formats[formatName](mem, l, {
             ...formatOptions,
@@ -68503,8 +68594,7 @@ const removePending = (q, name) => {
   }
 };
 class Connector extends EventEmitter {
-  constructor(backend, store, services) {
-    let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  constructor(backend, store, services, options = {}) {
     super();
     this.backend = backend;
     this.store = store;
@@ -68519,9 +68609,7 @@ class Connector extends EventEmitter {
     this.retryTimeout = options.retryTimeout >= 1 ? options.retryTimeout : 350;
     this.state = {};
     this.queue = [];
-    if (this.backend && this.backend.init) {
-      this.backend.init(services, options.backend, options);
-    }
+    this.backend?.init?.(services, options.backend, options);
   }
   queueLoad(languages, namespaces, options, callback) {
     const toLoad = {};
@@ -68600,10 +68688,7 @@ class Connector extends EventEmitter {
     this.emit('loaded', loaded);
     this.queue = this.queue.filter(q => !q.done);
   }
-  read(lng, ns, fcName) {
-    let tried = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-    let wait = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : this.retryTimeout;
-    let callback = arguments.length > 5 ? arguments[5] : undefined;
+  read(lng, ns, fcName, tried = 0, wait = this.retryTimeout, callback) {
     if (!lng.length) return callback(null, {});
     if (this.readingCalls >= this.maxParallelReads) {
       this.waitingReads.push({
@@ -68647,15 +68732,13 @@ class Connector extends EventEmitter {
     }
     return fc(lng, ns, resolver);
   }
-  prepareLoading(languages, namespaces) {
-    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    let callback = arguments.length > 3 ? arguments[3] : undefined;
+  prepareLoading(languages, namespaces, options = {}, callback) {
     if (!this.backend) {
       this.logger.warn('No backend was added via i18next.use. Will not load resources.');
       return callback && callback();
     }
-    if (typeof languages === 'string') languages = this.languageUtils.toResolveHierarchy(languages);
-    if (typeof namespaces === 'string') namespaces = [namespaces];
+    if (i18next_isString(languages)) languages = this.languageUtils.toResolveHierarchy(languages);
+    if (i18next_isString(namespaces)) namespaces = [namespaces];
     const toLoad = this.queueLoad(languages, namespaces, options, callback);
     if (!toLoad.toLoad.length) {
       if (!toLoad.pending.length) callback();
@@ -68673,8 +68756,7 @@ class Connector extends EventEmitter {
       reload: true
     }, callback);
   }
-  loadOne(name) {
-    let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  loadOne(name, prefix = '') {
     const s = name.split('|');
     const lng = s[0];
     const ns = s[1];
@@ -68684,15 +68766,13 @@ class Connector extends EventEmitter {
       this.loaded(name, err, data);
     });
   }
-  saveMissing(languages, namespace, key, fallbackValue, isUpdate) {
-    let options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
-    let clb = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : () => {};
-    if (this.services.utils && this.services.utils.hasLoadedNamespace && !this.services.utils.hasLoadedNamespace(namespace)) {
+  saveMissing(languages, namespace, key, fallbackValue, isUpdate, options = {}, clb = () => {}) {
+    if (this.services?.utils?.hasLoadedNamespace && !this.services?.utils?.hasLoadedNamespace(namespace)) {
       this.logger.warn(`did not save key "${key}" as the namespace "${namespace}" was not yet loaded`, 'This means something IS WRONG in your setup. You access the t function before i18next.init / i18next.loadNamespace / i18next.changeLanguage was done. Wait for the callback or Promise to resolve before accessing it!!!');
       return;
     }
     if (key === undefined || key === null || key === '') return;
-    if (this.backend && this.backend.create) {
+    if (this.backend?.create) {
       const opts = {
         ...options,
         isUpdate
@@ -68725,7 +68805,7 @@ class Connector extends EventEmitter {
 
 const get = () => ({
   debug: false,
-  initImmediate: true,
+  initAsync: true,
   ns: ['translation'],
   defaultNS: ['translation'],
   fallbackLng: ['dev'],
@@ -68759,8 +68839,8 @@ const get = () => ({
   overloadTranslationOptionHandler: args => {
     let ret = {};
     if (typeof args[1] === 'object') ret = args[1];
-    if (typeof args[1] === 'string') ret.defaultValue = args[1];
-    if (typeof args[2] === 'string') ret.tDescription = args[2];
+    if (i18next_isString(args[1])) ret.defaultValue = args[1];
+    if (i18next_isString(args[2])) ret.tDescription = args[2];
     if (typeof args[2] === 'object' || typeof args[3] === 'object') {
       const options = args[3] || args[2];
       Object.keys(options).forEach(key => {
@@ -68781,15 +68861,17 @@ const get = () => ({
     nestingOptionsSeparator: ',',
     maxReplaces: 1000,
     skipOnVariables: true
-  }
+  },
+  cacheInBuiltFormats: true
 });
 const transformOptions = options => {
-  if (typeof options.ns === 'string') options.ns = [options.ns];
-  if (typeof options.fallbackLng === 'string') options.fallbackLng = [options.fallbackLng];
-  if (typeof options.fallbackNS === 'string') options.fallbackNS = [options.fallbackNS];
-  if (options.supportedLngs && options.supportedLngs.indexOf('cimode') < 0) {
+  if (i18next_isString(options.ns)) options.ns = [options.ns];
+  if (i18next_isString(options.fallbackLng)) options.fallbackLng = [options.fallbackLng];
+  if (i18next_isString(options.fallbackNS)) options.fallbackNS = [options.fallbackNS];
+  if (options.supportedLngs?.indexOf?.('cimode') < 0) {
     options.supportedLngs = options.supportedLngs.concat(['cimode']);
   }
+  if (typeof options.initImmediate === 'boolean') options.initAsync = options.initImmediate;
   return options;
 };
 
@@ -68803,9 +68885,7 @@ const bindMemberFunctions = inst => {
   });
 };
 class I18n extends EventEmitter {
-  constructor() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let callback = arguments.length > 1 ? arguments[1] : undefined;
+  constructor(options = {}, callback) {
     super();
     this.options = transformOptions(options);
     this.services = {};
@@ -68815,7 +68895,7 @@ class I18n extends EventEmitter {
     };
     bindMemberFunctions(this);
     if (callback && !this.isInitialized && !options.isClone) {
-      if (!this.options.initImmediate) {
+      if (!this.options.initAsync) {
         this.init(options, callback);
         return this;
       }
@@ -68824,17 +68904,14 @@ class I18n extends EventEmitter {
       }, 0);
     }
   }
-  init() {
-    var _this = this;
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let callback = arguments.length > 1 ? arguments[1] : undefined;
+  init(options = {}, callback) {
     this.isInitializing = true;
     if (typeof options === 'function') {
       callback = options;
       options = {};
     }
-    if (!options.defaultNS && options.defaultNS !== false && options.ns) {
-      if (typeof options.ns === 'string') {
+    if (options.defaultNS == null && options.ns) {
+      if (i18next_isString(options.ns)) {
         options.defaultNS = options.ns;
       } else if (options.ns.indexOf('translation') < 0) {
         options.defaultNS = options.ns[0];
@@ -68846,17 +68923,21 @@ class I18n extends EventEmitter {
       ...this.options,
       ...transformOptions(options)
     };
-    if (this.options.compatibilityAPI !== 'v1') {
-      this.options.interpolation = {
-        ...defOpts.interpolation,
-        ...this.options.interpolation
-      };
-    }
+    this.options.interpolation = {
+      ...defOpts.interpolation,
+      ...this.options.interpolation
+    };
     if (options.keySeparator !== undefined) {
       this.options.userDefinedKeySeparator = options.keySeparator;
     }
     if (options.nsSeparator !== undefined) {
       this.options.userDefinedNsSeparator = options.nsSeparator;
+    }
+    if (typeof this.options.overloadTranslationOptionHandler !== 'function') {
+      this.options.overloadTranslationOptionHandler = defOpts.overloadTranslationOptionHandler;
+    }
+    if (this.options.debug === true) {
+      if (typeof console !== 'undefined') console.warn('i18next is maintained with support from locize.com — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com');
     }
     const createClassOnDemand = ClassOrObject => {
       if (!ClassOrObject) return null;
@@ -68872,7 +68953,7 @@ class I18n extends EventEmitter {
       let formatter;
       if (this.modules.formatter) {
         formatter = this.modules.formatter;
-      } else if (typeof Intl !== 'undefined') {
+      } else {
         formatter = Formatter;
       }
       const lu = new LanguageUtil(this.options);
@@ -68883,12 +68964,15 @@ class I18n extends EventEmitter {
       s.languageUtils = lu;
       s.pluralResolver = new PluralResolver(lu, {
         prepend: this.options.pluralSeparator,
-        compatibilityJSON: this.options.compatibilityJSON,
         simplifyPluralSuffix: this.options.simplifyPluralSuffix
       });
+      const usingLegacyFormatFunction = this.options.interpolation.format && this.options.interpolation.format !== defOpts.interpolation.format;
+      if (usingLegacyFormatFunction) {
+        this.logger.deprecate(`init: you are still using the legacy format function, please use the new approach: https://www.i18next.com/translation-function/formatting`);
+      }
       if (formatter && (!this.options.interpolation.format || this.options.interpolation.format === defOpts.interpolation.format)) {
         s.formatter = createClassOnDemand(formatter);
-        s.formatter.init(s, this.options);
+        if (s.formatter.init) s.formatter.init(s, this.options);
         this.options.interpolation.format = s.formatter.format.bind(s.formatter);
       }
       s.interpolator = new Interpolator(this.options);
@@ -68896,11 +68980,8 @@ class I18n extends EventEmitter {
         hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
       };
       s.backendConnector = new Connector(createClassOnDemand(this.modules.backend), s.resourceStore, s, this.options);
-      s.backendConnector.on('*', function (event) {
-        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-          args[_key - 1] = arguments[_key];
-        }
-        _this.emit(event, ...args);
+      s.backendConnector.on('*', (event, ...args) => {
+        this.emit(event, ...args);
       });
       if (this.modules.languageDetector) {
         s.languageDetector = createClassOnDemand(this.modules.languageDetector);
@@ -68911,11 +68992,8 @@ class I18n extends EventEmitter {
         if (s.i18nFormat.init) s.i18nFormat.init(this);
       }
       this.translator = new Translator(this.services, this.options);
-      this.translator.on('*', function (event) {
-        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-          args[_key2 - 1] = arguments[_key2];
-        }
-        _this.emit(event, ...args);
+      this.translator.on('*', (event, ...args) => {
+        this.emit(event, ...args);
       });
       this.modules.external.forEach(m => {
         if (m.init) m.init(this);
@@ -68932,15 +69010,13 @@ class I18n extends EventEmitter {
     }
     const storeApi = ['getResource', 'hasResourceBundle', 'getResourceBundle', 'getDataByLanguage'];
     storeApi.forEach(fcName => {
-      this[fcName] = function () {
-        return _this.store[fcName](...arguments);
-      };
+      this[fcName] = (...args) => this.store[fcName](...args);
     });
     const storeApiChained = ['addResource', 'addResources', 'addResourceBundle', 'removeResourceBundle'];
     storeApiChained.forEach(fcName => {
-      this[fcName] = function () {
-        _this.store[fcName](...arguments);
-        return _this;
+      this[fcName] = (...args) => {
+        this.store[fcName](...args);
+        return this;
       };
     });
     const deferred = defer();
@@ -68954,23 +69030,22 @@ class I18n extends EventEmitter {
         deferred.resolve(t);
         callback(err, t);
       };
-      if (this.languages && this.options.compatibilityAPI !== 'v1' && !this.isInitialized) return finish(null, this.t.bind(this));
+      if (this.languages && !this.isInitialized) return finish(null, this.t.bind(this));
       this.changeLanguage(this.options.lng, finish);
     };
-    if (this.options.resources || !this.options.initImmediate) {
+    if (this.options.resources || !this.options.initAsync) {
       load();
     } else {
       setTimeout(load, 0);
     }
     return deferred;
   }
-  loadResources(language) {
-    let callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+  loadResources(language, callback = noop) {
     let usedCallback = callback;
-    const usedLng = typeof language === 'string' ? language : this.language;
+    const usedLng = i18next_isString(language) ? language : this.language;
     if (typeof language === 'function') usedCallback = language;
     if (!this.options.resources || this.options.partialBundledLanguages) {
-      if (usedLng && usedLng.toLowerCase() === 'cimode' && (!this.options.preload || this.options.preload.length === 0)) return usedCallback();
+      if (usedLng?.toLowerCase() === 'cimode' && (!this.options.preload || this.options.preload.length === 0)) return usedCallback();
       const toLoad = [];
       const append = lng => {
         if (!lng) return;
@@ -68987,9 +69062,7 @@ class I18n extends EventEmitter {
       } else {
         append(usedLng);
       }
-      if (this.options.preload) {
-        this.options.preload.forEach(l => append(l));
-      }
+      this.options.preload?.forEach?.(l => append(l));
       this.services.backendConnector.load(toLoad, this.options.ns, e => {
         if (!e && !this.resolvedLanguage && this.language) this.setResolvedLanguage(this.language);
         usedCallback(e);
@@ -69054,9 +69127,12 @@ class I18n extends EventEmitter {
         break;
       }
     }
+    if (!this.resolvedLanguage && this.languages.indexOf(l) < 0 && this.store.hasLanguageSomeTranslations(l)) {
+      this.resolvedLanguage = l;
+      this.languages.unshift(l);
+    }
   }
   changeLanguage(lng, callback) {
-    var _this2 = this;
     this.isLanguageChangingTo = lng;
     const deferred = defer();
     this.emit('languageChanging', lng);
@@ -69068,30 +69144,29 @@ class I18n extends EventEmitter {
     };
     const done = (err, l) => {
       if (l) {
-        setLngProps(l);
-        this.translator.changeLanguage(l);
-        this.isLanguageChangingTo = undefined;
-        this.emit('languageChanged', l);
-        this.logger.log('languageChanged', l);
+        if (this.isLanguageChangingTo === lng) {
+          setLngProps(l);
+          this.translator.changeLanguage(l);
+          this.isLanguageChangingTo = undefined;
+          this.emit('languageChanged', l);
+          this.logger.log('languageChanged', l);
+        }
       } else {
         this.isLanguageChangingTo = undefined;
       }
-      deferred.resolve(function () {
-        return _this2.t(...arguments);
-      });
-      if (callback) callback(err, function () {
-        return _this2.t(...arguments);
-      });
+      deferred.resolve((...args) => this.t(...args));
+      if (callback) callback(err, (...args) => this.t(...args));
     };
     const setLng = lngs => {
       if (!lng && !lngs && this.services.languageDetector) lngs = [];
-      const l = typeof lngs === 'string' ? lngs : this.services.languageUtils.getBestMatchFromCodes(lngs);
+      const fl = i18next_isString(lngs) ? lngs : lngs && lngs[0];
+      const l = this.store.hasLanguageSomeTranslations(fl) ? fl : this.services.languageUtils.getBestMatchFromCodes(i18next_isString(lngs) ? [lngs] : lngs);
       if (l) {
         if (!this.language) {
           setLngProps(l);
         }
         if (!this.translator.language) this.translator.changeLanguage(l);
-        if (this.services.languageDetector && this.services.languageDetector.cacheUserLanguage) this.services.languageDetector.cacheUserLanguage(l);
+        this.services.languageDetector?.cacheUserLanguage?.(l);
       }
       this.loadResources(l, err => {
         done(err, l);
@@ -69111,33 +69186,39 @@ class I18n extends EventEmitter {
     return deferred;
   }
   getFixedT(lng, ns, keyPrefix) {
-    var _this3 = this;
-    const fixedT = function (key, opts) {
-      let options;
+    const fixedT = (key, opts, ...rest) => {
+      let o;
       if (typeof opts !== 'object') {
-        for (var _len3 = arguments.length, rest = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
-          rest[_key3 - 2] = arguments[_key3];
-        }
-        options = _this3.options.overloadTranslationOptionHandler([key, opts].concat(rest));
+        o = this.options.overloadTranslationOptionHandler([key, opts].concat(rest));
       } else {
-        options = {
+        o = {
           ...opts
         };
       }
-      options.lng = options.lng || fixedT.lng;
-      options.lngs = options.lngs || fixedT.lngs;
-      options.ns = options.ns || fixedT.ns;
-      if (options.keyPrefix !== '') options.keyPrefix = options.keyPrefix || keyPrefix || fixedT.keyPrefix;
-      const keySeparator = _this3.options.keySeparator || '.';
+      o.lng = o.lng || fixedT.lng;
+      o.lngs = o.lngs || fixedT.lngs;
+      o.ns = o.ns || fixedT.ns;
+      if (o.keyPrefix !== '') o.keyPrefix = o.keyPrefix || keyPrefix || fixedT.keyPrefix;
+      const keySeparator = this.options.keySeparator || '.';
       let resultKey;
-      if (options.keyPrefix && Array.isArray(key)) {
-        resultKey = key.map(k => `${options.keyPrefix}${keySeparator}${k}`);
+      if (o.keyPrefix && Array.isArray(key)) {
+        resultKey = key.map(k => {
+          if (typeof k === 'function') k = keysFromSelector(k, {
+            ...this.options,
+            ...opts
+          });
+          return `${o.keyPrefix}${keySeparator}${k}`;
+        });
       } else {
-        resultKey = options.keyPrefix ? `${options.keyPrefix}${keySeparator}${key}` : key;
+        if (typeof key === 'function') key = keysFromSelector(key, {
+          ...this.options,
+          ...opts
+        });
+        resultKey = o.keyPrefix ? `${o.keyPrefix}${keySeparator}${key}` : key;
       }
-      return _this3.t(resultKey, options);
+      return this.t(resultKey, o);
     };
-    if (typeof lng === 'string') {
+    if (i18next_isString(lng)) {
       fixedT.lng = lng;
     } else {
       fixedT.lngs = lng;
@@ -69146,17 +69227,16 @@ class I18n extends EventEmitter {
     fixedT.keyPrefix = keyPrefix;
     return fixedT;
   }
-  t() {
-    return this.translator && this.translator.translate(...arguments);
+  t(...args) {
+    return this.translator?.translate(...args);
   }
-  exists() {
-    return this.translator && this.translator.exists(...arguments);
+  exists(...args) {
+    return this.translator?.exists(...args);
   }
   setDefaultNamespace(ns) {
     this.options.defaultNS = ns;
   }
-  hasLoadedNamespace(ns) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  hasLoadedNamespace(ns, options = {}) {
     if (!this.isInitialized) {
       this.logger.warn('hasLoadedNamespace: i18next was not initialized', this.languages);
       return false;
@@ -69188,7 +69268,7 @@ class I18n extends EventEmitter {
       if (callback) callback();
       return Promise.resolve();
     }
-    if (typeof ns === 'string') ns = [ns];
+    if (i18next_isString(ns)) ns = [ns];
     ns.forEach(n => {
       if (this.options.ns.indexOf(n) < 0) this.options.ns.push(n);
     });
@@ -69200,7 +69280,7 @@ class I18n extends EventEmitter {
   }
   loadLanguages(lngs, callback) {
     const deferred = defer();
-    if (typeof lngs === 'string') lngs = [lngs];
+    if (i18next_isString(lngs)) lngs = [lngs];
     const preloaded = this.options.preload || [];
     const newLngs = lngs.filter(lng => preloaded.indexOf(lng) < 0 && this.services.languageUtils.isSupportedCode(lng));
     if (!newLngs.length) {
@@ -69215,20 +69295,26 @@ class I18n extends EventEmitter {
     return deferred;
   }
   dir(lng) {
-    if (!lng) lng = this.resolvedLanguage || (this.languages && this.languages.length > 0 ? this.languages[0] : this.language);
+    if (!lng) lng = this.resolvedLanguage || (this.languages?.length > 0 ? this.languages[0] : this.language);
     if (!lng) return 'rtl';
+    try {
+      const l = new Intl.Locale(lng);
+      if (l && l.getTextInfo) {
+        const ti = l.getTextInfo();
+        if (ti && ti.direction) return ti.direction;
+      }
+    } catch (e) {}
     const rtlLngs = ['ar', 'shu', 'sqr', 'ssh', 'xaa', 'yhd', 'yud', 'aao', 'abh', 'abv', 'acm', 'acq', 'acw', 'acx', 'acy', 'adf', 'ads', 'aeb', 'aec', 'afb', 'ajp', 'apc', 'apd', 'arb', 'arq', 'ars', 'ary', 'arz', 'auz', 'avl', 'ayh', 'ayl', 'ayn', 'ayp', 'bbz', 'pga', 'he', 'iw', 'ps', 'pbt', 'pbu', 'pst', 'prp', 'prd', 'ug', 'ur', 'ydd', 'yds', 'yih', 'ji', 'yi', 'hbo', 'men', 'xmn', 'fa', 'jpr', 'peo', 'pes', 'prs', 'dv', 'sam', 'ckb'];
-    const languageUtils = this.services && this.services.languageUtils || new LanguageUtil(get());
+    const languageUtils = this.services?.languageUtils || new LanguageUtil(get());
+    if (lng.toLowerCase().indexOf('-latn') > 1) return 'ltr';
     return rtlLngs.indexOf(languageUtils.getLanguagePartFromCode(lng)) > -1 || lng.toLowerCase().indexOf('-arab') > 1 ? 'rtl' : 'ltr';
   }
-  static createInstance() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let callback = arguments.length > 1 ? arguments[1] : undefined;
-    return new I18n(options, callback);
+  static createInstance(options = {}, callback) {
+    const instance = new I18n(options, callback);
+    instance.createInstance = I18n.createInstance;
+    return instance;
   }
-  cloneInstance() {
-    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
+  cloneInstance(options = {}, callback = noop) {
     const forkResourceStore = options.forkResourceStore;
     if (forkResourceStore) delete options.forkResourceStore;
     const mergedOptions = {
@@ -69253,14 +69339,36 @@ class I18n extends EventEmitter {
       hasLoadedNamespace: clone.hasLoadedNamespace.bind(clone)
     };
     if (forkResourceStore) {
-      clone.store = new ResourceStore(this.store.data, mergedOptions);
+      const clonedData = Object.keys(this.store.data).reduce((prev, l) => {
+        prev[l] = {
+          ...this.store.data[l]
+        };
+        prev[l] = Object.keys(prev[l]).reduce((acc, n) => {
+          acc[n] = {
+            ...prev[l][n]
+          };
+          return acc;
+        }, prev[l]);
+        return prev;
+      }, {});
+      clone.store = new ResourceStore(clonedData, mergedOptions);
       clone.services.resourceStore = clone.store;
     }
+    if (options.interpolation) {
+      const defOpts = get();
+      const mergedInterpolation = {
+        ...defOpts.interpolation,
+        ...this.options.interpolation,
+        ...options.interpolation
+      };
+      const mergedForInterpolator = {
+        ...mergedOptions,
+        interpolation: mergedInterpolation
+      };
+      clone.services.interpolator = new Interpolator(mergedForInterpolator);
+    }
     clone.translator = new Translator(clone.services, mergedOptions);
-    clone.translator.on('*', function (event) {
-      for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-        args[_key4 - 1] = arguments[_key4];
-      }
+    clone.translator.on('*', (event, ...args) => {
       clone.emit(event, ...args);
     });
     clone.init(mergedOptions, callback);
@@ -69281,7 +69389,6 @@ class I18n extends EventEmitter {
   }
 }
 const instance = I18n.createInstance();
-instance.createInstance = I18n.createInstance;
 
 const createInstance = instance.createInstance;
 const dir = instance.dir;
@@ -69305,17 +69412,26 @@ var react = __nccwpck_require__(7919);
 // EXTERNAL MODULE: ./node_modules/html-parse-stringify/dist/html-parse-stringify.js
 var html_parse_stringify = __nccwpck_require__(3641);
 ;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/utils.js
-const utils_warn = (...args) => {
-  if (console?.warn) {
-    if (utils_isString(args[0])) args[0] = `react-i18next:: ${args[0]}`;
+const utils_warn = (i18n, code, msg, rest) => {
+  const args = [msg, {
+    code,
+    ...(rest || {})
+  }];
+  if (i18n?.services?.logger?.forward) {
+    return i18n.services.logger.forward(args, 'warn', 'react-i18next::', true);
+  }
+  if (utils_isString(args[0])) args[0] = `react-i18next:: ${args[0]}`;
+  if (i18n?.services?.logger?.warn) {
+    i18n.services.logger.warn(...args);
+  } else if (console?.warn) {
     console.warn(...args);
   }
 };
 const alreadyWarned = {};
-const utils_warnOnce = (...args) => {
-  if (utils_isString(args[0]) && alreadyWarned[args[0]]) return;
-  if (utils_isString(args[0])) alreadyWarned[args[0]] = new Date();
-  utils_warn(...args);
+const utils_warnOnce = (i18n, code, msg, rest) => {
+  if (utils_isString(msg) && alreadyWarned[msg]) return;
+  if (utils_isString(msg)) alreadyWarned[msg] = new Date();
+  utils_warn(i18n, code, msg, rest);
 };
 const loadedClb = (i18n, cb) => () => {
   if (i18n.isInitialized) {
@@ -69335,6 +69451,7 @@ const utils_loadNamespaces = (i18n, ns, cb) => {
 };
 const utils_loadLanguages = (i18n, lng, ns, cb) => {
   if (utils_isString(ns)) ns = [ns];
+  if (i18n.options.preload && i18n.options.preload.indexOf(lng) > -1) return utils_loadNamespaces(i18n, ns, cb);
   ns.forEach(n => {
     if (i18n.options.ns.indexOf(n) < 0) i18n.options.ns.push(n);
   });
@@ -69342,13 +69459,15 @@ const utils_loadLanguages = (i18n, lng, ns, cb) => {
 };
 const utils_hasLoadedNamespace = (ns, i18n, options = {}) => {
   if (!i18n.languages || !i18n.languages.length) {
-    utils_warnOnce('i18n.languages were undefined or empty', i18n.languages);
+    utils_warnOnce(i18n, 'NO_LANGUAGES', 'i18n.languages were undefined or empty', {
+      languages: i18n.languages
+    });
     return true;
   }
   return i18n.hasLoadedNamespace(ns, {
     lng: options.lng,
     precheck: (i18nInstance, loadNotPending) => {
-      if (options.bindI18n?.indexOf('languageChanging') > -1 && i18nInstance.services.backendConnector.backend && i18nInstance.isLanguageChangingTo && !loadNotPending(i18nInstance.isLanguageChangingTo, ns)) return false;
+      if (options.bindI18n && options.bindI18n.indexOf('languageChanging') > -1 && i18nInstance.services.backendConnector.backend && i18nInstance.isLanguageChangingTo && !loadNotPending(i18nInstance.isLanguageChangingTo, ns)) return false;
     }
   });
 };
@@ -69391,7 +69510,8 @@ let defaultOptions = {
   transWrapTextNodes: '',
   transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'p'],
   useSuspense: true,
-  unescape: unescape_unescape
+  unescape: unescape_unescape,
+  transDefaultProps: undefined
 };
 const setDefaults = (options = {}) => {
   defaultOptions = {
@@ -69401,6 +69521,8 @@ const setDefaults = (options = {}) => {
 };
 const defaults_getDefaults = () => defaultOptions;
 ;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/TransWithoutContext.js
+
+
 
 
 
@@ -69426,7 +69548,20 @@ const mergeProps = (source, target) => {
   newTarget.props = Object.assign(source.props, target.props);
   return newTarget;
 };
-const nodesToString = (children, i18nOptions) => {
+const getValuesFromChildren = children => {
+  const values = {};
+  if (!children) return values;
+  const getData = childs => {
+    const childrenArray = getAsArray(childs);
+    childrenArray.forEach(child => {
+      if (isString(child)) return;
+      if (hasChildren(child)) getData(getChildren(child));else if (isObject(child) && !isValidElement(child)) Object.assign(values, child);
+    });
+  };
+  getData(children);
+  return values;
+};
+const nodesToString = (children, i18nOptions, i18n, i18nKey) => {
   if (!children) return '';
   let stringNode = '';
   const childrenArray = getAsArray(children);
@@ -69434,7 +69569,9 @@ const nodesToString = (children, i18nOptions) => {
   childrenArray.forEach((child, childIndex) => {
     if (isString(child)) {
       stringNode += `${child}`;
-    } else if (isValidElement(child)) {
+      return;
+    }
+    if (isValidElement(child)) {
       const {
         props,
         type
@@ -69444,17 +69581,27 @@ const nodesToString = (children, i18nOptions) => {
       const childChildren = props.children;
       if (!childChildren && shouldKeepChild && !childPropsCount) {
         stringNode += `<${type}/>`;
-      } else if (!childChildren && (!shouldKeepChild || childPropsCount) || props.i18nIsDynamicList) {
-        stringNode += `<${childIndex}></${childIndex}>`;
-      } else if (shouldKeepChild && childPropsCount === 1 && isString(childChildren)) {
-        stringNode += `<${type}>${childChildren}</${type}>`;
-      } else {
-        const content = nodesToString(childChildren, i18nOptions);
-        stringNode += `<${childIndex}>${content}</${childIndex}>`;
+        return;
       }
-    } else if (child === null) {
-      warn(`Trans: the passed in value is invalid - seems you passed in a null child.`);
-    } else if (isObject(child)) {
+      if (!childChildren && (!shouldKeepChild || childPropsCount) || props.i18nIsDynamicList) {
+        stringNode += `<${childIndex}></${childIndex}>`;
+        return;
+      }
+      if (shouldKeepChild && childPropsCount === 1 && isString(childChildren)) {
+        stringNode += `<${type}>${childChildren}</${type}>`;
+        return;
+      }
+      const content = nodesToString(childChildren, i18nOptions, i18n, i18nKey);
+      stringNode += `<${childIndex}>${content}</${childIndex}>`;
+      return;
+    }
+    if (child === null) {
+      warn(i18n, 'TRANS_NULL_VALUE', `Passed in a null value as child`, {
+        i18nKey
+      });
+      return;
+    }
+    if (isObject(child)) {
       const {
         format,
         ...clone
@@ -69463,21 +69610,67 @@ const nodesToString = (children, i18nOptions) => {
       if (keys.length === 1) {
         const value = format ? `${keys[0]}, ${format}` : keys[0];
         stringNode += `{{${value}}}`;
-      } else {
-        warn(`react-i18next: the passed in object contained more than one variable - the object should look like {{ value, format }} where format is optional.`, child);
+        return;
       }
-    } else {
-      warn(`Trans: the passed in value is invalid - seems you passed in a variable like {number} - please pass in variables for interpolation as full objects like {{number}}.`, child);
+      warn(i18n, 'TRANS_INVALID_OBJ', `Invalid child - Object should only have keys {{ value, format }} (format is optional).`, {
+        i18nKey,
+        child
+      });
+      return;
     }
+    warn(i18n, 'TRANS_INVALID_VAR', `Passed in a variable like {number} - pass variables for interpolation as full objects like {{number}}.`, {
+      i18nKey,
+      child
+    });
   });
   return stringNode;
 };
-const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, shouldUnescape) => {
+const escapeLiteralLessThan = (str, keepArray = [], knownComponentsMap = {}) => {
+  if (!str) return str;
+  const knownNames = Object.keys(knownComponentsMap);
+  const allValidNames = [...keepArray, ...knownNames];
+  let result = '';
+  let i = 0;
+  while (i < str.length) {
+    if (str[i] === '<') {
+      let isValidTag = false;
+      const closingMatch = str.slice(i).match(/^<\/(\d+|[a-zA-Z][a-zA-Z0-9_-]*)>/);
+      if (closingMatch) {
+        const tagName = closingMatch[1];
+        if (/^\d+$/.test(tagName) || allValidNames.includes(tagName)) {
+          isValidTag = true;
+          result += closingMatch[0];
+          i += closingMatch[0].length;
+        }
+      }
+      if (!isValidTag) {
+        const openingMatch = str.slice(i).match(/^<(\d+|[a-zA-Z][a-zA-Z0-9_-]*)(\s+[\w-]+(?:=(?:"[^"]*"|'[^']*'|[^\s>]+))?)*\s*(\/)?>/);
+        if (openingMatch) {
+          const tagName = openingMatch[1];
+          if (/^\d+$/.test(tagName) || allValidNames.includes(tagName)) {
+            isValidTag = true;
+            result += openingMatch[0];
+            i += openingMatch[0].length;
+          }
+        }
+      }
+      if (!isValidTag) {
+        result += '&lt;';
+        i += 1;
+      }
+    } else {
+      result += str[i];
+      i += 1;
+    }
+  }
+  return result;
+};
+const renderNodes = (children, knownComponentsMap, targetString, i18n, i18nOptions, combinedTOpts, shouldUnescape) => {
   if (targetString === '') return [];
   const keepArray = i18nOptions.transKeepBasicHtmlNodesFor || [];
   const emptyChildrenButNeedsHandling = targetString && new RegExp(keepArray.map(keep => `<${keep}`).join('|')).test(targetString);
-  if (!children && !emptyChildrenButNeedsHandling && !shouldUnescape) return [targetString];
-  const data = {};
+  if (!children && !knownComponentsMap && !emptyChildrenButNeedsHandling && !shouldUnescape) return [targetString];
+  const data = knownComponentsMap ?? {};
   const getData = childs => {
     const childrenArray = getAsArray(childs);
     childrenArray.forEach(child => {
@@ -69486,7 +69679,8 @@ const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, s
     });
   };
   getData(children);
-  const ast = HTML.parse(`<0>${targetString}</0>`);
+  const escapedString = escapeLiteralLessThan(targetString, keepArray, data);
+  const ast = HTML.parse(`<0>${escapedString}</0>`);
   const opts = {
     ...data,
     ...combinedTOpts
@@ -69504,15 +69698,18 @@ const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, s
       }, isVoid ? undefined : inner));
     } else {
       mem.push(...Children.map([child], c => {
-        const props = {
-          ...c.props
-        };
-        delete props.i18nIsDynamicList;
-        return createElement(c.type, {
-          ...props,
+        const INTERNAL_DYNAMIC_MARKER = 'data-i18n-is-dynamic-list';
+        const override = {
           key: i,
-          ref: c.ref
-        }, isVoid ? null : inner);
+          [INTERNAL_DYNAMIC_MARKER]: undefined
+        };
+        if (c && c.props) {
+          Object.keys(c.props).forEach(k => {
+            if (k === 'ref' || k === 'children' || k === 'i18nIsDynamicList' || k === INTERNAL_DYNAMIC_MARKER) return;
+            override[k] = c.props[k];
+          });
+        }
+        return cloneElement(c, override, isVoid ? null : inner);
       }));
     }
   };
@@ -69523,15 +69720,27 @@ const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, s
       const translationContent = node.children?.[0]?.content && i18n.services.interpolator.interpolate(node.children[0].content, opts, i18n.language);
       if (node.type === 'tag') {
         let tmp = reactNodes[parseInt(node.name, 10)];
+        if (!tmp && knownComponentsMap) tmp = knownComponentsMap[node.name];
         if (rootReactNode.length === 1 && !tmp) tmp = rootReactNode[0][node.name];
         if (!tmp) tmp = {};
-        const child = Object.keys(node.attrs).length !== 0 ? mergeProps({
-          props: node.attrs
+        const props = {
+          ...node.attrs
+        };
+        if (shouldUnescape) {
+          Object.keys(props).forEach(p => {
+            const val = props[p];
+            if (isString(val)) {
+              props[p] = unescape(val);
+            }
+          });
+        }
+        const child = Object.keys(props).length !== 0 ? mergeProps({
+          props
         }, tmp) : tmp;
         const isElement = isValidElement(child);
         const isValidTranslationWithChildren = isElement && hasChildren(node, true) && !node.voidElement;
         const isEmptyTransWithHTML = emptyChildrenButNeedsHandling && isObject(child) && child.dummy && !isElement;
-        const isKnownComponent = isObject(children) && Object.hasOwnProperty.call(children, node.name);
+        const isKnownComponent = isObject(knownComponentsMap) && Object.hasOwnProperty.call(knownComponentsMap, node.name);
         if (isString(child)) {
           const value = i18n.services.interpolator.interpolate(child, opts, i18n.language);
           mem.push(value);
@@ -69570,7 +69779,8 @@ const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, s
         }
       } else if (node.type === 'text') {
         const wrapTextNodes = i18nOptions.transWrapTextNodes;
-        const content = shouldUnescape ? i18nOptions.unescape(i18n.services.interpolator.interpolate(node.content, opts, i18n.language)) : i18n.services.interpolator.interpolate(node.content, opts, i18n.language);
+        const unescapeFn = typeof i18nOptions.unescape === 'function' ? i18nOptions.unescape : getDefaults().unescape;
+        const content = shouldUnescape ? unescapeFn(i18n.services.interpolator.interpolate(node.content, opts, i18n.language)) : i18n.services.interpolator.interpolate(node.content, opts, i18n.language);
         if (wrapTextNodes) {
           mem.push(createElement(wrapTextNodes, {
             key: `${node.name}-${i}`
@@ -69587,6 +69797,49 @@ const renderNodes = (children, targetString, i18n, i18nOptions, combinedTOpts, s
     children: children || []
   }], ast, getAsArray(children || []));
   return getChildren(result[0]);
+};
+const fixComponentProps = (component, index, translation) => {
+  const componentKey = component.key || index;
+  const comp = cloneElement(component, {
+    key: componentKey
+  });
+  if (!comp.props || !comp.props.children || translation.indexOf(`${index}/>`) < 0 && translation.indexOf(`${index} />`) < 0) {
+    return comp;
+  }
+  function Componentized() {
+    return createElement(Fragment, null, comp);
+  }
+  return createElement(Componentized, {
+    key: componentKey
+  });
+};
+const generateArrayComponents = (components, translation) => components.map((c, index) => fixComponentProps(c, index, translation));
+const generateObjectComponents = (components, translation) => {
+  const componentMap = {};
+  Object.keys(components).forEach(c => {
+    Object.assign(componentMap, {
+      [c]: fixComponentProps(components[c], c, translation)
+    });
+  });
+  return componentMap;
+};
+const generateComponents = (components, translation, i18n, i18nKey) => {
+  if (!components) return null;
+  if (Array.isArray(components)) {
+    return generateArrayComponents(components, translation);
+  }
+  if (isObject(components)) {
+    return generateObjectComponents(components, translation);
+  }
+  warnOnce(i18n, 'TRANS_INVALID_COMPONENTS', `<Trans /> "components" prop expects an object or array`, {
+    i18nKey
+  });
+  return null;
+};
+const isComponentsMap = object => {
+  if (!isObject(object)) return false;
+  if (Array.isArray(object)) return false;
+  return Object.keys(object).reduce((acc, key) => acc && Number.isNaN(Number.parseFloat(key)), true);
 };
 function Trans({
   children,
@@ -69606,7 +69859,9 @@ function Trans({
 }) {
   const i18n = i18nFromProps || getI18n();
   if (!i18n) {
-    warnOnce('You will need to pass in an i18next instance by using i18nextReactModule');
+    warnOnce(i18n, 'NO_I18NEXT_INSTANCE', `Trans: You need to pass in an i18next instance using i18nextReactModule`, {
+      i18nKey
+    });
     return children;
   }
   const t = tFromProps || i18n.t.bind(i18n) || (k => k);
@@ -69616,48 +69871,68 @@ function Trans({
   };
   let namespaces = ns || t.ns || i18n.options?.defaultNS;
   namespaces = isString(namespaces) ? [namespaces] : namespaces || ['translation'];
-  const nodeAsString = nodesToString(children, reactI18nextOptions);
-  const defaultValue = defaults || nodeAsString || reactI18nextOptions.transEmptyNodeValue || i18nKey;
+  const {
+    transDefaultProps
+  } = reactI18nextOptions;
+  const mergedTOptions = transDefaultProps?.tOptions ? {
+    ...transDefaultProps.tOptions,
+    ...tOptions
+  } : tOptions;
+  const mergedShouldUnescape = shouldUnescape ?? transDefaultProps?.shouldUnescape;
+  const mergedValues = transDefaultProps?.values ? {
+    ...transDefaultProps.values,
+    ...values
+  } : values;
+  const mergedComponents = transDefaultProps?.components ? {
+    ...transDefaultProps.components,
+    ...components
+  } : components;
+  const nodeAsString = nodesToString(children, reactI18nextOptions, i18n, i18nKey);
+  const defaultValue = defaults || mergedTOptions?.defaultValue || nodeAsString || reactI18nextOptions.transEmptyNodeValue || (typeof i18nKey === 'function' ? keyFromSelector(i18nKey) : i18nKey);
   const {
     hashTransKey
   } = reactI18nextOptions;
   const key = i18nKey || (hashTransKey ? hashTransKey(nodeAsString || defaultValue) : nodeAsString || defaultValue);
   if (i18n.options?.interpolation?.defaultVariables) {
-    values = values && Object.keys(values).length > 0 ? {
-      ...values,
+    values = mergedValues && Object.keys(mergedValues).length > 0 ? {
+      ...mergedValues,
       ...i18n.options.interpolation.defaultVariables
     } : {
       ...i18n.options.interpolation.defaultVariables
     };
+  } else {
+    values = mergedValues;
   }
-  const interpolationOverride = values || count !== undefined && !i18n.options?.interpolation?.alwaysFormat || !children ? tOptions.interpolation : {
+  const valuesFromChildren = getValuesFromChildren(children);
+  if (valuesFromChildren && typeof valuesFromChildren.count === 'number' && count === undefined) {
+    count = valuesFromChildren.count;
+  }
+  const interpolationOverride = values || count !== undefined && !i18n.options?.interpolation?.alwaysFormat || !children ? mergedTOptions.interpolation : {
     interpolation: {
-      ...tOptions.interpolation,
+      ...mergedTOptions.interpolation,
       prefix: '#$?',
       suffix: '?$#'
     }
   };
   const combinedTOpts = {
-    ...tOptions,
-    context: context || tOptions.context,
+    ...mergedTOptions,
+    context: context || mergedTOptions.context,
     count,
     ...values,
     ...interpolationOverride,
     defaultValue,
     ns: namespaces
   };
-  const translation = key ? t(key, combinedTOpts) : defaultValue;
-  if (components) {
-    Object.keys(components).forEach(c => {
-      const comp = components[c];
-      if (typeof comp.type === 'function' || !comp.props || !comp.props.children || translation.indexOf(`${c}/>`) < 0 && translation.indexOf(`${c} />`) < 0) return;
-      function Componentized() {
-        return createElement(Fragment, null, comp);
-      }
-      components[c] = createElement(Componentized);
-    });
+  let translation = key ? t(key, combinedTOpts) : defaultValue;
+  if (translation === key && defaultValue) translation = defaultValue;
+  const generatedComponents = generateComponents(mergedComponents, translation, i18n, i18nKey);
+  let indexedChildren = generatedComponents || children;
+  let componentsMap = null;
+  if (isComponentsMap(generatedComponents)) {
+    componentsMap = generatedComponents;
+    indexedChildren = children;
   }
-  const content = renderNodes(components || children, translation, i18n, reactI18nextOptions, combinedTOpts, shouldUnescape);
+  const content = renderNodes(indexedChildren, componentsMap, translation, i18n, reactI18nextOptions, combinedTOpts, mergedShouldUnescape);
   const useAsParent = parent ?? reactI18nextOptions.defaultTransParent;
   return useAsParent ? createElement(useAsParent, additionalProps, content) : content;
 }
@@ -69690,7 +69965,7 @@ class context_ReportNamespaces {
   }
   addUsedNamespaces(namespaces) {
     namespaces.forEach(ns => {
-      this.usedNamespaces[ns] ??= true;
+      if (!this.usedNamespaces[ns]) this.usedNamespaces[ns] = true;
     });
   }
   getUsedNamespaces() {
@@ -69764,19 +70039,491 @@ function Trans_Trans({
     ...additionalProps
   });
 }
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransUtils/TranslationParserError.js
+class TranslationParserError extends Error {
+  constructor(message, position, translationString) {
+    super(message);
+    this.name = 'TranslationParserError';
+    this.position = position;
+    this.translationString = translationString;
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, TranslationParserError);
+    }
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransUtils/htmlEntityDecoder.js
+const commonEntities = {
+  '&nbsp;': '\u00A0',
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&apos;': "'",
+  '&copy;': '©',
+  '&reg;': '®',
+  '&trade;': '™',
+  '&hellip;': '…',
+  '&ndash;': '–',
+  '&mdash;': '—',
+  '&lsquo;': '\u2018',
+  '&rsquo;': '\u2019',
+  '&sbquo;': '\u201A',
+  '&ldquo;': '\u201C',
+  '&rdquo;': '\u201D',
+  '&bdquo;': '\u201E',
+  '&dagger;': '†',
+  '&Dagger;': '‡',
+  '&bull;': '•',
+  '&prime;': '′',
+  '&Prime;': '″',
+  '&lsaquo;': '‹',
+  '&rsaquo;': '›',
+  '&sect;': '§',
+  '&para;': '¶',
+  '&middot;': '·',
+  '&ensp;': '\u2002',
+  '&emsp;': '\u2003',
+  '&thinsp;': '\u2009',
+  '&euro;': '€',
+  '&pound;': '£',
+  '&yen;': '¥',
+  '&cent;': '¢',
+  '&curren;': '¤',
+  '&times;': '×',
+  '&divide;': '÷',
+  '&minus;': '−',
+  '&plusmn;': '±',
+  '&ne;': '≠',
+  '&le;': '≤',
+  '&ge;': '≥',
+  '&asymp;': '≈',
+  '&equiv;': '≡',
+  '&infin;': '∞',
+  '&int;': '∫',
+  '&sum;': '∑',
+  '&prod;': '∏',
+  '&radic;': '√',
+  '&part;': '∂',
+  '&permil;': '‰',
+  '&deg;': '°',
+  '&micro;': 'µ',
+  '&larr;': '←',
+  '&uarr;': '↑',
+  '&rarr;': '→',
+  '&darr;': '↓',
+  '&harr;': '↔',
+  '&crarr;': '↵',
+  '&lArr;': '⇐',
+  '&uArr;': '⇑',
+  '&rArr;': '⇒',
+  '&dArr;': '⇓',
+  '&hArr;': '⇔',
+  '&alpha;': 'α',
+  '&beta;': 'β',
+  '&gamma;': 'γ',
+  '&delta;': 'δ',
+  '&epsilon;': 'ε',
+  '&zeta;': 'ζ',
+  '&eta;': 'η',
+  '&theta;': 'θ',
+  '&iota;': 'ι',
+  '&kappa;': 'κ',
+  '&lambda;': 'λ',
+  '&mu;': 'μ',
+  '&nu;': 'ν',
+  '&xi;': 'ξ',
+  '&omicron;': 'ο',
+  '&pi;': 'π',
+  '&rho;': 'ρ',
+  '&sigma;': 'σ',
+  '&tau;': 'τ',
+  '&upsilon;': 'υ',
+  '&phi;': 'φ',
+  '&chi;': 'χ',
+  '&psi;': 'ψ',
+  '&omega;': 'ω',
+  '&Alpha;': 'Α',
+  '&Beta;': 'Β',
+  '&Gamma;': 'Γ',
+  '&Delta;': 'Δ',
+  '&Epsilon;': 'Ε',
+  '&Zeta;': 'Ζ',
+  '&Eta;': 'Η',
+  '&Theta;': 'Θ',
+  '&Iota;': 'Ι',
+  '&Kappa;': 'Κ',
+  '&Lambda;': 'Λ',
+  '&Mu;': 'Μ',
+  '&Nu;': 'Ν',
+  '&Xi;': 'Ξ',
+  '&Omicron;': 'Ο',
+  '&Pi;': 'Π',
+  '&Rho;': 'Ρ',
+  '&Sigma;': 'Σ',
+  '&Tau;': 'Τ',
+  '&Upsilon;': 'Υ',
+  '&Phi;': 'Φ',
+  '&Chi;': 'Χ',
+  '&Psi;': 'Ψ',
+  '&Omega;': 'Ω',
+  '&Agrave;': 'À',
+  '&Aacute;': 'Á',
+  '&Acirc;': 'Â',
+  '&Atilde;': 'Ã',
+  '&Auml;': 'Ä',
+  '&Aring;': 'Å',
+  '&AElig;': 'Æ',
+  '&Ccedil;': 'Ç',
+  '&Egrave;': 'È',
+  '&Eacute;': 'É',
+  '&Ecirc;': 'Ê',
+  '&Euml;': 'Ë',
+  '&Igrave;': 'Ì',
+  '&Iacute;': 'Í',
+  '&Icirc;': 'Î',
+  '&Iuml;': 'Ï',
+  '&ETH;': 'Ð',
+  '&Ntilde;': 'Ñ',
+  '&Ograve;': 'Ò',
+  '&Oacute;': 'Ó',
+  '&Ocirc;': 'Ô',
+  '&Otilde;': 'Õ',
+  '&Ouml;': 'Ö',
+  '&Oslash;': 'Ø',
+  '&Ugrave;': 'Ù',
+  '&Uacute;': 'Ú',
+  '&Ucirc;': 'Û',
+  '&Uuml;': 'Ü',
+  '&Yacute;': 'Ý',
+  '&THORN;': 'Þ',
+  '&szlig;': 'ß',
+  '&agrave;': 'à',
+  '&aacute;': 'á',
+  '&acirc;': 'â',
+  '&atilde;': 'ã',
+  '&auml;': 'ä',
+  '&aring;': 'å',
+  '&aelig;': 'æ',
+  '&ccedil;': 'ç',
+  '&egrave;': 'è',
+  '&eacute;': 'é',
+  '&ecirc;': 'ê',
+  '&euml;': 'ë',
+  '&igrave;': 'ì',
+  '&iacute;': 'í',
+  '&icirc;': 'î',
+  '&iuml;': 'ï',
+  '&eth;': 'ð',
+  '&ntilde;': 'ñ',
+  '&ograve;': 'ò',
+  '&oacute;': 'ó',
+  '&ocirc;': 'ô',
+  '&otilde;': 'õ',
+  '&ouml;': 'ö',
+  '&oslash;': 'ø',
+  '&ugrave;': 'ù',
+  '&uacute;': 'ú',
+  '&ucirc;': 'û',
+  '&uuml;': 'ü',
+  '&yacute;': 'ý',
+  '&thorn;': 'þ',
+  '&yuml;': 'ÿ',
+  '&iexcl;': '¡',
+  '&iquest;': '¿',
+  '&fnof;': 'ƒ',
+  '&circ;': 'ˆ',
+  '&tilde;': '˜',
+  '&OElig;': 'Œ',
+  '&oelig;': 'œ',
+  '&Scaron;': 'Š',
+  '&scaron;': 'š',
+  '&Yuml;': 'Ÿ',
+  '&ordf;': 'ª',
+  '&ordm;': 'º',
+  '&macr;': '¯',
+  '&acute;': '´',
+  '&cedil;': '¸',
+  '&sup1;': '¹',
+  '&sup2;': '²',
+  '&sup3;': '³',
+  '&frac14;': '¼',
+  '&frac12;': '½',
+  '&frac34;': '¾',
+  '&spades;': '♠',
+  '&clubs;': '♣',
+  '&hearts;': '♥',
+  '&diams;': '♦',
+  '&loz;': '◊',
+  '&oline;': '‾',
+  '&frasl;': '⁄',
+  '&weierp;': '℘',
+  '&image;': 'ℑ',
+  '&real;': 'ℜ',
+  '&alefsym;': 'ℵ'
+};
+const entityPattern = new RegExp(Object.keys(commonEntities).map(entity => entity.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+const decodeHtmlEntities = text => text.replace(entityPattern, match => commonEntities[match]).replace(/&#(\d+);/g, (_, num) => String.fromCharCode(parseInt(num, 10))).replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransUtils/tokenizer.js
+const tokenize = translation => {
+  const tokens = [];
+  let position = 0;
+  let currentText = '';
+  const flushText = () => {
+    if (currentText) {
+      tokens.push({
+        type: 'Text',
+        value: currentText,
+        position: position - currentText.length
+      });
+      currentText = '';
+    }
+  };
+  while (position < translation.length) {
+    const char = translation[position];
+    if (char === '<') {
+      const tagMatch = translation.slice(position).match(/^<(\d+)>/);
+      if (tagMatch) {
+        flushText();
+        tokens.push({
+          type: 'TagOpen',
+          value: tagMatch[0],
+          position,
+          tagNumber: parseInt(tagMatch[1], 10)
+        });
+        position += tagMatch[0].length;
+      } else {
+        const closeTagMatch = translation.slice(position).match(/^<\/(\d+)>/);
+        if (closeTagMatch) {
+          flushText();
+          tokens.push({
+            type: 'TagClose',
+            value: closeTagMatch[0],
+            position,
+            tagNumber: parseInt(closeTagMatch[1], 10)
+          });
+          position += closeTagMatch[0].length;
+        } else {
+          currentText += char;
+          position += 1;
+        }
+      }
+    } else {
+      currentText += char;
+      position += 1;
+    }
+  }
+  flushText();
+  return tokens;
+};
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransUtils/renderTranslation.js
+
+
+
+
+const renderDeclarationNode = (declaration, children, childDeclarations) => {
+  const {
+    type,
+    props = {}
+  } = declaration;
+  if (props.children && Array.isArray(props.children) && childDeclarations) {
+    const {
+      children: _childrenToRemove,
+      ...propsWithoutChildren
+    } = props;
+    return react.createElement(type, propsWithoutChildren, ...children);
+  }
+  if (children.length === 0) {
+    return react.createElement(type, props);
+  }
+  if (children.length === 1) {
+    return react.createElement(type, props, children[0]);
+  }
+  return react.createElement(type, props, ...children);
+};
+const renderTranslation = (translation, declarations = []) => {
+  if (!translation) {
+    return [];
+  }
+  const tokens = tokenize(translation);
+  const result = [];
+  const stack = [];
+  const literalTagNumbers = new Set();
+  const getCurrentDeclarations = () => {
+    if (stack.length === 0) {
+      return declarations;
+    }
+    const parentFrame = stack[stack.length - 1];
+    if (parentFrame.declaration.props?.children && Array.isArray(parentFrame.declaration.props.children)) {
+      return parentFrame.declaration.props.children;
+    }
+    return parentFrame.declarations;
+  };
+  tokens.forEach(token => {
+    switch (token.type) {
+      case 'Text':
+        {
+          const decoded = decodeHtmlEntities(token.value);
+          const targetArray = stack.length > 0 ? stack[stack.length - 1].children : result;
+          targetArray.push(decoded);
+        }
+        break;
+      case 'TagOpen':
+        {
+          const {
+            tagNumber
+          } = token;
+          const currentDeclarations = getCurrentDeclarations();
+          const declaration = currentDeclarations[tagNumber];
+          if (!declaration) {
+            literalTagNumbers.add(tagNumber);
+            const literalText = `<${tagNumber}>`;
+            const targetArray = stack.length > 0 ? stack[stack.length - 1].children : result;
+            targetArray.push(literalText);
+            break;
+          }
+          stack.push({
+            tagNumber,
+            children: [],
+            position: token.position,
+            declaration,
+            declarations: currentDeclarations
+          });
+        }
+        break;
+      case 'TagClose':
+        {
+          const {
+            tagNumber
+          } = token;
+          if (literalTagNumbers.has(tagNumber)) {
+            const literalText = `</${tagNumber}>`;
+            const literalTargetArray = stack.length > 0 ? stack[stack.length - 1].children : result;
+            literalTargetArray.push(literalText);
+            literalTagNumbers.delete(tagNumber);
+            break;
+          }
+          if (stack.length === 0) {
+            throw new TranslationParserError(`Unexpected closing tag </${tagNumber}> at position ${token.position}`, token.position, translation);
+          }
+          const frame = stack.pop();
+          if (frame.tagNumber !== tagNumber) {
+            throw new TranslationParserError(`Mismatched tags: expected </${frame.tagNumber}> but got </${tagNumber}> at position ${token.position}`, token.position, translation);
+          }
+          const element = renderDeclarationNode(frame.declaration, frame.children, frame.declarations);
+          const elementTargetArray = stack.length > 0 ? stack[stack.length - 1].children : result;
+          elementTargetArray.push(element);
+        }
+        break;
+    }
+  });
+  if (stack.length > 0) {
+    const unclosed = stack[stack.length - 1];
+    throw new TranslationParserError(`Unclosed tag <${unclosed.tagNumber}> at position ${unclosed.position}`, unclosed.position, translation);
+  }
+  return result;
+};
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransUtils/index.js
+
+
+
+
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTransWithoutContext.js
+
+
+
+
+function IcuTransWithoutContext({
+  i18nKey,
+  defaultTranslation,
+  content,
+  ns,
+  values = {},
+  i18n: i18nFromProps,
+  t: tFromProps
+}) {
+  const i18n = i18nFromProps || i18nInstance_getI18n();
+  if (!i18n) {
+    utils_warnOnce(i18n, 'NO_I18NEXT_INSTANCE', `IcuTrans: You need to pass in an i18next instance using i18nextReactModule`, {
+      i18nKey
+    });
+    return react.createElement(react.Fragment, {}, defaultTranslation);
+  }
+  const t = tFromProps || i18n.t?.bind(i18n) || (k => k);
+  let namespaces = ns || t.ns || i18n.options?.defaultNS;
+  namespaces = utils_isString(namespaces) ? [namespaces] : namespaces || ['translation'];
+  let mergedValues = values;
+  if (i18n.options?.interpolation?.defaultVariables) {
+    mergedValues = values && Object.keys(values).length > 0 ? {
+      ...values,
+      ...i18n.options.interpolation.defaultVariables
+    } : {
+      ...i18n.options.interpolation.defaultVariables
+    };
+  }
+  const translation = t(i18nKey, {
+    defaultValue: defaultTranslation,
+    ...mergedValues,
+    ns: namespaces
+  });
+  try {
+    const rendered = renderTranslation(translation, content);
+    return react.createElement(react.Fragment, {}, ...rendered);
+  } catch (error) {
+    utils_warn(i18n, 'ICU_TRANS_RENDER_ERROR', `IcuTrans component error for key "${i18nKey}": ${error.message}`, {
+      i18nKey,
+      error
+    });
+    return react.createElement(react.Fragment, {}, translation);
+  }
+}
+IcuTransWithoutContext.displayName = 'IcuTransWithoutContext';
+;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/IcuTrans.js
+
+
+
+function IcuTrans({
+  i18nKey,
+  defaultTranslation,
+  content,
+  ns,
+  values = {},
+  i18n: i18nFromProps,
+  t: tFromProps
+}) {
+  const {
+    i18n: i18nFromContext,
+    defaultNS: defaultNSFromContext
+  } = (0,react.useContext)(context_I18nContext) || {};
+  const i18n = i18nFromProps || i18nFromContext || i18nInstance_getI18n();
+  const t = tFromProps || i18n?.t.bind(i18n);
+  return IcuTransWithoutContext({
+    i18nKey,
+    defaultTranslation,
+    content,
+    ns: ns || t?.ns || defaultNSFromContext || i18n?.options?.defaultNS,
+    values,
+    i18n,
+    t: tFromProps
+  });
+}
+IcuTrans.displayName = 'IcuTrans';
+// EXTERNAL MODULE: ./node_modules/use-sync-external-store/shim/index.js
+var shim = __nccwpck_require__(3609);
 ;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/useTranslation.js
 
 
 
-const usePrevious = (value, ignore) => {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = ignore ? ref.current : value;
-  }, [value, ignore]);
-  return ref.current;
+
+const notReadyT = (k, optsOrDefaultValue) => {
+  if (utils_isString(optsOrDefaultValue)) return optsOrDefaultValue;
+  if (utils_isObject(optsOrDefaultValue) && utils_isString(optsOrDefaultValue.defaultValue)) return optsOrDefaultValue.defaultValue;
+  return Array.isArray(k) ? k[k.length - 1] : k;
 };
-const alwaysNewT = (i18n, language, namespace, keyPrefix) => i18n.getFixedT(language, namespace, keyPrefix);
-const useMemoizedT = (i18n, language, namespace, keyPrefix) => useCallback(alwaysNewT(i18n, language, namespace, keyPrefix), [i18n, language, namespace, keyPrefix]);
+const notReadySnapshot = {
+  t: notReadyT,
+  ready: false
+};
+const dummySubscribe = () => () => {};
 const useTranslation_useTranslation = (ns, props = {}) => {
   const {
     i18n: i18nFromProps
@@ -69788,89 +70535,132 @@ const useTranslation_useTranslation = (ns, props = {}) => {
   const i18n = i18nFromProps || i18nFromContext || getI18n();
   if (i18n && !i18n.reportNamespaces) i18n.reportNamespaces = new ReportNamespaces();
   if (!i18n) {
-    warnOnce('You will need to pass in an i18next instance by using initReactI18next');
-    const notReadyT = (k, optsOrDefaultValue) => {
-      if (isString(optsOrDefaultValue)) return optsOrDefaultValue;
-      if (isObject(optsOrDefaultValue) && isString(optsOrDefaultValue.defaultValue)) return optsOrDefaultValue.defaultValue;
-      return Array.isArray(k) ? k[k.length - 1] : k;
-    };
-    const retNotReady = [notReadyT, {}, false];
-    retNotReady.t = notReadyT;
-    retNotReady.i18n = {};
-    retNotReady.ready = false;
-    return retNotReady;
+    warnOnce(i18n, 'NO_I18NEXT_INSTANCE', 'useTranslation: You will need to pass in an i18next instance by using initReactI18next');
   }
-  if (i18n.options.react?.wait) warnOnce('It seems you are still using the old wait option, you may migrate to the new useSuspense behaviour.');
-  const i18nOptions = {
+  const i18nOptions = useMemo(() => ({
     ...getDefaults(),
-    ...i18n.options.react,
+    ...i18n?.options?.react,
     ...props
-  };
+  }), [i18n, props]);
   const {
     useSuspense,
     keyPrefix
   } = i18nOptions;
-  let namespaces = ns || defaultNSFromContext || i18n.options?.defaultNS;
-  namespaces = isString(namespaces) ? [namespaces] : namespaces || ['translation'];
-  i18n.reportNamespaces.addUsedNamespaces?.(namespaces);
-  const ready = (i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(n => hasLoadedNamespace(n, i18n, i18nOptions));
-  const memoGetT = useMemoizedT(i18n, props.lng || null, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0], keyPrefix);
-  const getT = () => memoGetT;
-  const getNewT = () => alwaysNewT(i18n, props.lng || null, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0], keyPrefix);
-  const [t, setT] = useState(getT);
-  let joinedNS = namespaces.join();
-  if (props.lng) joinedNS = `${props.lng}${joinedNS}`;
-  const previousJoinedNS = usePrevious(joinedNS);
-  const isMounted = useRef(true);
-  useEffect(() => {
+  const nsOrContext = ns || defaultNSFromContext || i18n?.options?.defaultNS;
+  const unstableNamespaces = isString(nsOrContext) ? [nsOrContext] : nsOrContext || ['translation'];
+  const namespaces = useMemo(() => unstableNamespaces, unstableNamespaces);
+  i18n?.reportNamespaces?.addUsedNamespaces?.(namespaces);
+  const revisionRef = useRef(0);
+  const subscribe = useCallback(callback => {
+    if (!i18n) return dummySubscribe;
     const {
       bindI18n,
       bindI18nStore
     } = i18nOptions;
-    isMounted.current = true;
-    if (!ready && !useSuspense) {
+    const wrappedCallback = () => {
+      revisionRef.current += 1;
+      callback();
+    };
+    if (bindI18n) i18n.on(bindI18n, wrappedCallback);
+    if (bindI18nStore) i18n.store.on(bindI18nStore, wrappedCallback);
+    return () => {
+      if (bindI18n) bindI18n.split(' ').forEach(e => i18n.off(e, wrappedCallback));
+      if (bindI18nStore) bindI18nStore.split(' ').forEach(e => i18n.store.off(e, wrappedCallback));
+    };
+  }, [i18n, i18nOptions]);
+  const snapshotRef = useRef();
+  const getSnapshot = useCallback(() => {
+    if (!i18n) {
+      return notReadySnapshot;
+    }
+    const calculatedReady = !!(i18n.isInitialized || i18n.initializedStoreOnce) && namespaces.every(n => hasLoadedNamespace(n, i18n, i18nOptions));
+    const currentLng = props.lng || i18n.language;
+    const currentRevision = revisionRef.current;
+    const lastSnapshot = snapshotRef.current;
+    if (lastSnapshot && lastSnapshot.ready === calculatedReady && lastSnapshot.lng === currentLng && lastSnapshot.keyPrefix === keyPrefix && lastSnapshot.revision === currentRevision) {
+      return lastSnapshot;
+    }
+    const calculatedT = i18n.getFixedT(currentLng, i18nOptions.nsMode === 'fallback' ? namespaces : namespaces[0], keyPrefix);
+    const newSnapshot = {
+      t: calculatedT,
+      ready: calculatedReady,
+      lng: currentLng,
+      keyPrefix,
+      revision: currentRevision
+    };
+    snapshotRef.current = newSnapshot;
+    return newSnapshot;
+  }, [i18n, namespaces, keyPrefix, i18nOptions, props.lng]);
+  const [loadCount, setLoadCount] = useState(0);
+  const {
+    t,
+    ready
+  } = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  useEffect(() => {
+    if (i18n && !ready && !useSuspense) {
+      const onLoaded = () => setLoadCount(c => c + 1);
       if (props.lng) {
-        loadLanguages(i18n, props.lng, namespaces, () => {
-          if (isMounted.current) setT(getNewT);
-        });
+        loadLanguages(i18n, props.lng, namespaces, onLoaded);
       } else {
-        loadNamespaces(i18n, namespaces, () => {
-          if (isMounted.current) setT(getNewT);
-        });
+        loadNamespaces(i18n, namespaces, onLoaded);
       }
     }
-    if (ready && previousJoinedNS && previousJoinedNS !== joinedNS && isMounted.current) {
-      setT(getNewT);
+  }, [i18n, props.lng, namespaces, ready, useSuspense, loadCount]);
+  const finalI18n = i18n || {};
+  const wrapperRef = useRef(null);
+  const wrapperLangRef = useRef();
+  const createI18nWrapper = original => {
+    const descriptors = Object.getOwnPropertyDescriptors(original);
+    if (descriptors.__original) delete descriptors.__original;
+    const wrapper = Object.create(Object.getPrototypeOf(original), descriptors);
+    if (!Object.prototype.hasOwnProperty.call(wrapper, '__original')) {
+      try {
+        Object.defineProperty(wrapper, '__original', {
+          value: original,
+          writable: false,
+          enumerable: false,
+          configurable: false
+        });
+      } catch (_) {}
     }
-    const boundReset = () => {
-      if (isMounted.current) setT(getNewT);
-    };
-    if (bindI18n) i18n?.on(bindI18n, boundReset);
-    if (bindI18nStore) i18n?.store.on(bindI18nStore, boundReset);
-    return () => {
-      isMounted.current = false;
-      if (i18n) bindI18n?.split(' ').forEach(e => i18n.off(e, boundReset));
-      if (bindI18nStore && i18n) bindI18nStore.split(' ').forEach(e => i18n.store.off(e, boundReset));
-    };
-  }, [i18n, joinedNS]);
-  useEffect(() => {
-    if (isMounted.current && ready) {
-      setT(getT);
+    return wrapper;
+  };
+  const ret = useMemo(() => {
+    const original = finalI18n;
+    const lang = original?.language;
+    let i18nWrapper = original;
+    if (original) {
+      if (wrapperRef.current && wrapperRef.current.__original === original) {
+        if (wrapperLangRef.current !== lang) {
+          i18nWrapper = createI18nWrapper(original);
+          wrapperRef.current = i18nWrapper;
+          wrapperLangRef.current = lang;
+        } else {
+          i18nWrapper = wrapperRef.current;
+        }
+      } else {
+        i18nWrapper = createI18nWrapper(original);
+        wrapperRef.current = i18nWrapper;
+        wrapperLangRef.current = lang;
+      }
     }
-  }, [i18n, keyPrefix, ready]);
-  const ret = [t, i18n, ready];
-  ret.t = t;
-  ret.i18n = i18n;
-  ret.ready = ready;
-  if (ready) return ret;
-  if (!ready && !useSuspense) return ret;
-  throw new Promise(resolve => {
-    if (props.lng) {
-      loadLanguages(i18n, props.lng, namespaces, () => resolve());
-    } else {
-      loadNamespaces(i18n, namespaces, () => resolve());
-    }
-  });
+    const arr = [t, i18nWrapper, ready];
+    arr.t = t;
+    arr.i18n = i18nWrapper;
+    arr.ready = ready;
+    return arr;
+  }, [t, finalI18n, ready, finalI18n.resolvedLanguage, finalI18n.language, finalI18n.languages]);
+  if (i18n && useSuspense && !ready) {
+    throw new Promise(resolve => {
+      const onLoaded = () => resolve();
+      if (props.lng) {
+        loadLanguages(i18n, props.lng, namespaces, onLoaded);
+      } else {
+        loadNamespaces(i18n, namespaces, onLoaded);
+      }
+    });
+  }
+  return ret;
 };
 ;// CONCATENATED MODULE: ./node_modules/react-i18next/dist/es/withTranslation.js
 
@@ -69996,6 +70786,9 @@ const withSSR = () => function Extend(WrappedComponent) {
 
 
 
+
+
+
 const date = () => '';
 const time = () => '';
 const number = () => '';
@@ -70017,12 +70810,21 @@ function defaults(obj) {
   });
   return obj;
 }
+function hasXSS(input) {
+  if (typeof input !== 'string') return false;
+
+  // Common XSS attack patterns
+  const xssPatterns = [/<\s*script.*?>/i, /<\s*\/\s*script\s*>/i, /<\s*img.*?on\w+\s*=/i, /<\s*\w+\s*on\w+\s*=.*?>/i, /javascript\s*:/i, /vbscript\s*:/i, /expression\s*\(/i, /eval\s*\(/i, /alert\s*\(/i, /document\.cookie/i, /document\.write\s*\(/i, /window\.location/i, /innerHTML/i];
+  return xssPatterns.some(pattern => pattern.test(input));
+}
 
 // eslint-disable-next-line no-control-regex
 const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-const serializeCookie = (name, val, options) => {
-  const opt = options || {};
-  opt.path = opt.path || '/';
+const serializeCookie = function (name, val) {
+  let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    path: '/'
+  };
+  const opt = options;
   const value = encodeURIComponent(val);
   let str = `${name}=${value}`;
   if (opt.maxAge > 0) {
@@ -70069,6 +70871,7 @@ const serializeCookie = (name, val, options) => {
         throw new TypeError('option sameSite is invalid');
     }
   }
+  if (opt.partitioned) str += '; Partitioned';
   return str;
 };
 const cookie = {
@@ -70082,7 +70885,7 @@ const cookie = {
       cookieOptions.expires.setTime(cookieOptions.expires.getTime() + minutes * 60 * 1000);
     }
     if (domain) cookieOptions.domain = domain;
-    document.cookie = serializeCookie(name, encodeURIComponent(value), cookieOptions);
+    document.cookie = serializeCookie(name, value, cookieOptions);
   },
   read(name) {
     const nameEQ = `${name}=`;
@@ -70094,8 +70897,8 @@ const cookie = {
     }
     return null;
   },
-  remove(name) {
-    this.create(name, '', -1);
+  remove(name, domain) {
+    this.create(name, '', -1, domain);
   }
 };
 var cookie$1 = {
@@ -70155,11 +70958,54 @@ var querystring = {
   }
 };
 
+var hash = {
+  name: 'hash',
+  // Deconstruct the options object and extract the lookupHash property and the lookupFromHashIndex property
+  lookup(_ref) {
+    let {
+      lookupHash,
+      lookupFromHashIndex
+    } = _ref;
+    let found;
+    if (typeof window !== 'undefined') {
+      const {
+        hash
+      } = window.location;
+      if (hash && hash.length > 2) {
+        const query = hash.substring(1);
+        if (lookupHash) {
+          const params = query.split('&');
+          for (let i = 0; i < params.length; i++) {
+            const pos = params[i].indexOf('=');
+            if (pos > 0) {
+              const key = params[i].substring(0, pos);
+              if (key === lookupHash) {
+                found = params[i].substring(pos + 1);
+              }
+            }
+          }
+        }
+        if (found) return found;
+        if (!found && lookupFromHashIndex > -1) {
+          const language = hash.match(/\/([a-zA-Z-]*)/g);
+          if (!Array.isArray(language)) return undefined;
+          const index = typeof lookupFromHashIndex === 'number' ? lookupFromHashIndex : 0;
+          return language[index]?.replace('/', '');
+        }
+      }
+    }
+    return found;
+  }
+};
+
 let hasLocalStorageSupport = null;
 const localStorageAvailable = () => {
   if (hasLocalStorageSupport !== null) return hasLocalStorageSupport;
   try {
-    hasLocalStorageSupport = window !== 'undefined' && window.localStorage !== null;
+    hasLocalStorageSupport = typeof window !== 'undefined' && window.localStorage !== null;
+    if (!hasLocalStorageSupport) {
+      return false;
+    }
     const testKey = 'i18next.translate.boo';
     window.localStorage.setItem(testKey, 'foo');
     window.localStorage.removeItem(testKey);
@@ -70178,7 +71024,6 @@ var localStorage = {
     if (lookupLocalStorage && localStorageAvailable()) {
       return window.localStorage.getItem(lookupLocalStorage) || undefined; // Undefined ensures type consistency with the previous version of this function
     }
-
     return undefined;
   },
   // Deconstruct the options object and extract the lookupLocalStorage property
@@ -70196,7 +71041,10 @@ let hasSessionStorageSupport = null;
 const sessionStorageAvailable = () => {
   if (hasSessionStorageSupport !== null) return hasSessionStorageSupport;
   try {
-    hasSessionStorageSupport = window !== 'undefined' && window.sessionStorage !== null;
+    hasSessionStorageSupport = typeof window !== 'undefined' && window.sessionStorage !== null;
+    if (!hasSessionStorageSupport) {
+      return false;
+    }
     const testKey = 'i18next.translate.boo';
     window.sessionStorage.setItem(testKey, 'foo');
     window.sessionStorage.removeItem(testKey);
@@ -70304,22 +71152,30 @@ var subdomain = {
   }
 };
 
-function i18nextBrowserLanguageDetector_getDefaults() {
-  return {
-    order: ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
-    lookupQuerystring: 'lng',
-    lookupCookie: 'i18next',
-    lookupLocalStorage: 'i18nextLng',
-    lookupSessionStorage: 'i18nextLng',
-    // cache user language
-    caches: ['localStorage'],
-    excludeCacheFor: ['cimode'],
-    // cookieMinutes: 10,
-    // cookieDomain: 'myDomain'
+// some environments, throws when accessing document.cookie
+let canCookies = false;
+try {
+  // eslint-disable-next-line no-unused-expressions
+  document.cookie;
+  canCookies = true;
+  // eslint-disable-next-line no-empty
+} catch (e) {}
+const order = ['querystring', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'];
+if (!canCookies) order.splice(1, 1);
+const i18nextBrowserLanguageDetector_getDefaults = () => ({
+  order,
+  lookupQuerystring: 'lng',
+  lookupCookie: 'i18next',
+  lookupLocalStorage: 'i18nextLng',
+  lookupSessionStorage: 'i18nextLng',
+  // cache user language
+  caches: ['localStorage'],
+  excludeCacheFor: ['cimode'],
+  // cookieMinutes: 10,
+  // cookieDomain: 'myDomain'
 
-    convertDetectedLanguage: l => l
-  };
-}
+  convertDetectedLanguage: l => l
+});
 class Browser {
   constructor(services) {
     let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -70327,12 +71183,13 @@ class Browser {
     this.detectors = {};
     this.init(services, options);
   }
-  init(services) {
+  init() {
+    let services = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+      languageUtils: {}
+    };
     let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     let i18nOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    this.services = services || {
-      languageUtils: {}
-    }; // this way the language detector can be used without i18next
+    this.services = services;
     this.options = defaults(options, this.options || {}, i18nextBrowserLanguageDetector_getDefaults());
     if (typeof this.options.convertDetectedLanguage === 'string' && this.options.convertDetectedLanguage.indexOf('15897') > -1) {
       this.options.convertDetectedLanguage = l => l.replace('-', '_');
@@ -70349,13 +71206,14 @@ class Browser {
     this.addDetector(htmlTag);
     this.addDetector(path);
     this.addDetector(subdomain);
+    this.addDetector(hash);
   }
   addDetector(detector) {
     this.detectors[detector.name] = detector;
     return this;
   }
-  detect(detectionOrder) {
-    if (!detectionOrder) detectionOrder = this.options.order;
+  detect() {
+    let detectionOrder = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.options.order;
     let detected = [];
     detectionOrder.forEach(detectorName => {
       if (this.detectors[detectorName]) {
@@ -70364,13 +71222,12 @@ class Browser {
         if (lookup) detected = detected.concat(lookup);
       }
     });
-    detected = detected.map(d => this.options.convertDetectedLanguage(d));
-    if (this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
+    detected = detected.filter(d => d !== undefined && d !== null && !hasXSS(d)).map(d => this.options.convertDetectedLanguage(d));
+    if (this.services && this.services.languageUtils && this.services.languageUtils.getBestMatchFromCodes) return detected; // new i18next v19.5.0
     return detected.length > 0 ? detected[0] : null; // a little backward compatibility
   }
-
-  cacheUserLanguage(lng, caches) {
-    if (!caches) caches = this.options.caches;
+  cacheUserLanguage(lng) {
+    let caches = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.options.caches;
     if (!caches) return;
     if (this.options.excludeCacheFor && this.options.excludeCacheFor.indexOf(lng) > -1) return;
     caches.forEach(cacheName => {
@@ -70429,7 +71286,7 @@ const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"網站"
 ;// CONCATENATED MODULE: ./src/app/ui/utilities/templateData.json
 const templateData_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/en.json
-const wiki_software_template_en_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Template language","description":"Language in which the template texts are displayed."},"name":{"label":"Name","description":"Official name, otherwise most common one"},"status":{"label":"Status","description":"Current status of the project."},"license":{"label":"License","description":"What free license or proprietary?"},"price":{"label":"Price","description":"Costs if proprietary. If price is empty, application is for free."},"web":{"label":"Web address"},"repo":{"label":"Source code","description":"URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"},"logo":{"label":"Logo"},"screenshot":{"label":"Screenshot"},"description":{"label":"Description","description":"Brief description. What distinguishes this from other tools? (Write your own description, don\'t just copy it from the website)"},"author":{"label":"Author","description":"Name of the author or a link to their OSM-wiki user page"},"platform":{"label":"Supported platforms","description":"List of platforms it runs on."},"genre":{"label":"Genre","description":"Main category for this tool."},"languages":{"label":"Languages","description":"Supported languages (list of valid language codes separated by semicolons) or number of languages supported"},"languagesurl":{"label":"Languages URL","description":"Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."},"coverage":{"label":"Coverage","description":"Coverage or target region of the app. Formatting: \\"Continent, Country, Region, ...\\". Use \\"Worldwide\\" or leave it empty for global use."},"code":{"label":"Code","description":"List of programming languages used."},"framework":{"label":"Framework","description":"List of frameworks used."},"version":{"label":"Version","description":"Latest version"},"date":{"label":"Release date","description":"Latest release date"},"asin":{"label":"Amazon Identification","description":"Amazon Standard Identification Number for the Amazon Appstore for Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World application ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid application ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace application ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store application ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery application ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store application ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store application ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows application UUID"},"obtainiumLink":{"label":"Obtainium Updater Link","description":"Link to Obtainium updater information"},"map":{"label":"Display map","description":"[Map display] Can it show a map?"},"mapData":{"label":"Map data","description":"[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \\"on the fly\\" (vector)?"},"datasource":{"label":"Source","description":"[Map display] Can you store all map data offline? Download a separate file?"},"rotateMap":{"label":"Rotate map","description":"[Map display] Does it turn the map in driving/walking direction?"},"3D":{"label":"3D view","description":"[Map display] Is there some 3D or 2.5D view?"},"showWebsite":{"label":"Shows website","description":"[POI Information] Shows link to the website from POI"},"showPhoneNumber":{"label":"Shows phone number","description":"[POI Information] Shows phone number from POI"},"showOpeningHours":{"label":"Shows operation hours","description":"[POI Information] Shows hours of operation from POI"},"routing":{"label":"Routing","description":"[Routing] Can you calculate or otherwise plan a route?"},"createRouteManually":{"label":"Create route manually","description":"[Routing]"},"calculateRoute":{"label":"Calculate route","description":"[Routing] Can it calculate a route using routing?"},"createRouteViaWaypoints":{"label":"Create route via Waypoints","description":"[Routing] Able to calculate route via Waypoints"},"profiles":{"label":"Routing profiles","description":"[Routing] What profiles supported if it makes routing?"},"turnRestrictions":{"label":"Turn restrictions","description":"[Routing] Can it deal with turn restrictions?"},"calculateRouteOffline":{"label":"Calculate route without Internet (Offline routing)","description":"[Routing] Does it need internet to calculate a route?"},"routingProviders":{"label":"Routing providers","description":"[Routing] What routing service(s) does it use?"},"avoidTraffic":{"label":"Avoid traffic","description":"[Routing] Does app optimize route to avoid traffic jams?"},"trafficProvider":{"label":"Traffic Provider","description":"[Routing] Traffic data source provider."},"navigating":{"label":"Navigate","description":"[Navigation] Can you navigate in a compass like way?"},"findLocation":{"label":"Find location","description":"[Navigation] Can it search for a street/place?"},"findNearbyPOI":{"label":"Find nearby POIs","description":"[Navigation] Can it discover/display Points of interests?"},"navToPoint":{"label":"Navigate to point","description":"[Navigation] Can it guide you to a point somewhere?"},"voice":{"label":"Navigation with voice / Voice guidance","description":"[Navigation] Can it give you commands with a computer voice?"},"keepOnRoad":{"label":"Keep on road","description":"[Navigation] Can it assist you to keep your vehicle on the calculated route?"},"turnLanes":{"label":"Lane guidance","description":"[Navigation] Does it support lane guidance?"},"withoutGPS":{"label":"Works without GPS","description":"[Navigation] Does it work even without a GPS?"},"predefinedRoute":{"label":"Navigate along predefined route","description":"[Navigation] Can it follow other GPS tracks?"},"tracking":{"label":"Make track","description":"[Track logging] Can it record a GPS track?"},"customInterval":{"label":"Customizable log interval","description":"[Track logging] Can you tune the interval manually?"},"trackFormats":{"label":"Track formats","description":"[Track logging] What formats for storage can you save your GPS track?"},"geotagging":{"label":"Geotagging","description":"[Track logging] Are further mapping techniques supported"},"fastWayPointAdding":{"label":"Fast POI buttons","description":"[Track logging] Easy to add a new Waypoint?"},"uploadGPX":{"label":"Upload GPX to OSM","description":"[Track logging] Can it send tracks directly to OSM?"},"monitoring":{"label":"Monitoring","description":"[Track monitoring] Can you monitor GPS datas?"},"showTrack":{"label":"Show current track","description":"[Track monitoring] Show your current track?"},"showExistingTrack":{"label":"Open existing track","description":"[Track monitoring] Can it load existing tracks so you can follow them?"},"showAltitudeDiagram":{"label":"Altitude diagram","description":"[Track monitoring]"},"showDOP":{"label":"Show POD value","description":"[Track monitoring] Shows signal quality?"},"showSatellites":{"label":"Satellite view","description":"[Track monitoring] Displays satellites?"},"showNMEAlive":{"label":"Show live NMEA data","description":"[Track monitoring] Can you see the raw GPS stream?"},"showSpeed":{"label":"Show speed","description":"[Track monitoring]"},"sendPosition":{"label":"Send current position","description":"[Track monitoring] Can it send position to others?"},"addPOI":{"label":"Add POIs","description":"[Editor] Can you add a node?"},"editPOI":{"label":"Edit / Delete POIs","description":"[Editor] Can you edit a node?"},"addWay":{"label":"Add way","description":"[Editor] Can you add a way?"},"editGeom":{"label":"Edit geometries","description":"[Editor] Can you edit nodes/ways?"},"editTags":{"label":"Edit arbitrary tags of existing OSM objects","description":"[Editor] Can you edit existing tags?"},"editRelations":{"label":"Edit relations","description":"[Editor] Can you edit relations?"},"viewNotes":{"label":"View notes","description":"[Editor] Can you view OSM Notes?"},"createNotes":{"label":"Create notes","description":"[Editor] Can you add OSM Notes?"},"editNotes":{"label":"Edit notes","description":"[Editor] Can you comment/close OSM Notes?"},"editSource":{"label":"Work offline","description":"[Editor] Can you work offline?"},"offsetDBsupport":{"label":"Support imagery offset DB","description":"[Editor] Does it support the imagery offset DB?"},"uploadOSMData":{"label":"Upload to OSM","description":"[Editor] Can you send changes to OSM directly?"},"rendererOutputFormats":{"label":"Renderer output formats","description":"[Renderer] Supported output formats."},"accessibility":{"label":"Accessibility support","description":"[Accessibility] Does it help disabled people in some kind?"},"textOnlyUI":{"label":"Complete non graphics text output","description":"[Accessibility] Text to braille compatible interface?"},"brailleUI":{"label":"Braille interface","description":"[Accessibility] A special braille interface?"},"explorerMode":{"label":"Exploration modus","description":"[Accessibility] Has a exploration modus (tell all objects approaching)?"},"publicTransportMode":{"label":"Public Transport mode","description":"[Accessibility] Supports routing with public transport?"},"dangerWarnings":{"label":"Danger Warnings","description":"[Accessibility]"},"screenReader":{"label":"Screenreader","description":"[Accessibility] List of supported screenreaders"},"screenReaderLang":{"label":"Screenreader languages","description":"[Accessibility] List of supported screenreaders languages"}}');
+const wiki_software_template_en_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Template language","description":"Language in which the template texts are displayed."},"name":{"label":"Name","description":"Official name, otherwise most common one"},"status":{"label":"Status","description":"Current status of the project."},"license":{"label":"License","description":"What free license or proprietary?"},"price":{"label":"Price","description":"Costs if proprietary. If price is empty, application is for free."},"web":{"label":"Web address"},"repo":{"label":"Source code","description":"URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"},"logo":{"label":"Logo","description":"Software icon or logo"},"screenshot":{"label":"Screenshot"},"description":{"label":"Description","description":"Brief description. What distinguishes this from other tools? (Write your own description, don\'t just copy it from the website)"},"author":{"label":"Author","description":"Name of the author or a link to their OSM-wiki user page"},"platform":{"label":"Supported platforms","description":"List of platforms it runs on."},"genre":{"label":"Genre","description":"Main category for this tool."},"languages":{"label":"Languages","description":"Supported languages (list of valid language codes separated by semicolons) or number of languages supported"},"languagesurl":{"label":"Languages URL","description":"Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."},"coverage":{"label":"Coverage","description":"Coverage or target region of the app. Formatting: \\"Continent, Country, Region, ...\\". Use \\"Worldwide\\" or leave it empty for global use."},"code":{"label":"Code","description":"List of programming languages used."},"framework":{"label":"Framework","description":"List of frameworks used."},"version":{"label":"Version","description":"Latest version"},"date":{"label":"Release date","description":"Latest release date"},"asin":{"label":"Amazon Identification","description":"Amazon Standard Identification Number for the Amazon Appstore for Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World application ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid application ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace application ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store application ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery application ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store application ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store application ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows application UUID"},"obtainiumLink":{"label":"Obtainium Updater Link","description":"Link to Obtainium updater information"},"map":{"label":"Display map","description":"[Map display] Can it show a map?"},"mapData":{"label":"Map data","description":"[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \\"on the fly\\" (vector)?"},"datasource":{"label":"Source","description":"[Map display] Can you store all map data offline? Download a separate file?"},"rotateMap":{"label":"Rotate map","description":"[Map display] Does it turn the map in driving/walking direction?"},"3D":{"label":"3D view","description":"[Map display] Is there some 3D or 2.5D view?"},"showWebsite":{"label":"Shows website","description":"[POI Information] Shows link to the website from POI"},"showPhoneNumber":{"label":"Shows phone number","description":"[POI Information] Shows phone number from POI"},"showOpeningHours":{"label":"Shows operation hours","description":"[POI Information] Shows hours of operation from POI"},"routing":{"label":"Routing","description":"[Routing] Can you calculate or otherwise plan a route?"},"createRouteManually":{"label":"Create route manually","description":"[Routing]"},"calculateRoute":{"label":"Calculate route","description":"[Routing] Can it calculate a route using routing?"},"createRouteViaWaypoints":{"label":"Create route via Waypoints","description":"[Routing] Able to calculate route via Waypoints"},"profiles":{"label":"Routing profiles","description":"[Routing] What profiles supported if it makes routing?"},"turnRestrictions":{"label":"Turn restrictions","description":"[Routing] Can it deal with turn restrictions?"},"calculateRouteOffline":{"label":"Calculate route without Internet (Offline routing)","description":"[Routing] Does it need internet to calculate a route?"},"routingProviders":{"label":"Routing providers","description":"[Routing] What routing service(s) does it use?"},"avoidTraffic":{"label":"Avoid traffic","description":"[Routing] Does app optimize route to avoid traffic jams?"},"trafficProvider":{"label":"Traffic Provider","description":"[Routing] Traffic data source provider."},"navigating":{"label":"Navigate","description":"[Navigation] Can you navigate in a compass like way?"},"findLocation":{"label":"Find location","description":"[Navigation] Can it search for a street/place?"},"findNearbyPOI":{"label":"Find nearby POIs","description":"[Navigation] Can it discover/display Points of interests?"},"navToPoint":{"label":"Navigate to point","description":"[Navigation] Can it guide you to a point somewhere?"},"voice":{"label":"Navigation with voice / Voice guidance","description":"[Navigation] Can it give you commands with a computer voice?"},"keepOnRoad":{"label":"Keep on road","description":"[Navigation] Can it assist you to keep your vehicle on the calculated route?"},"turnLanes":{"label":"Lane guidance","description":"[Navigation] Does it support lane guidance?"},"withoutGPS":{"label":"Works without GPS","description":"[Navigation] Does it work even without a GPS?"},"predefinedRoute":{"label":"Navigate along predefined route","description":"[Navigation] Can it follow other GPS tracks?"},"tracking":{"label":"Make track","description":"[Track logging] Can it record a GPS track?"},"customInterval":{"label":"Customizable log interval","description":"[Track logging] Can you tune the interval manually?"},"trackFormats":{"label":"Track formats","description":"[Track logging] What formats for storage can you save your GPS track?"},"geotagging":{"label":"Geotagging","description":"[Track logging] Are further mapping techniques supported"},"fastWayPointAdding":{"label":"Fast POI buttons","description":"[Track logging] Easy to add a new Waypoint?"},"uploadGPX":{"label":"Upload GPX to OSM","description":"[Track logging] Can it send tracks directly to OSM?"},"monitoring":{"label":"Monitoring","description":"[Track monitoring] Can you monitor GPS datas?"},"showTrack":{"label":"Show current track","description":"[Track monitoring] Show your current track?"},"showExistingTrack":{"label":"Open existing track","description":"[Track monitoring] Can it load existing tracks so you can follow them?"},"showAltitudeDiagram":{"label":"Altitude diagram","description":"[Track monitoring]"},"showDOP":{"label":"Show POD value","description":"[Track monitoring] Shows signal quality?"},"showSatellites":{"label":"Satellite view","description":"[Track monitoring] Displays satellites?"},"showNMEAlive":{"label":"Show live NMEA data","description":"[Track monitoring] Can you see the raw GPS stream?"},"showSpeed":{"label":"Show speed","description":"[Track monitoring]"},"sendPosition":{"label":"Send current position","description":"[Track monitoring] Can it send position to others?"},"addPOI":{"label":"Add POIs","description":"[Editor] Can you add a node?"},"editPOI":{"label":"Edit / Delete POIs","description":"[Editor] Can you edit a node?"},"addWay":{"label":"Add way","description":"[Editor] Can you add a way?"},"editGeom":{"label":"Edit geometries","description":"[Editor] Can you edit nodes/ways?"},"editTags":{"label":"Edit arbitrary tags of existing OSM objects","description":"[Editor] Can you edit existing tags?"},"editRelations":{"label":"Edit relations","description":"[Editor] Can you edit relations?"},"viewNotes":{"label":"View notes","description":"[Editor] Can you view OSM Notes?"},"createNotes":{"label":"Create notes","description":"[Editor] Can you add OSM Notes?"},"editNotes":{"label":"Edit notes","description":"[Editor] Can you comment/close OSM Notes?"},"editSource":{"label":"Work offline","description":"[Editor] Can you work offline?"},"offsetDBsupport":{"label":"Support imagery offset DB","description":"[Editor] Does it support the imagery offset DB?"},"uploadOSMData":{"label":"Upload to OSM","description":"[Editor] Can you send changes to OSM directly?"},"rendererOutputFormats":{"label":"Renderer output formats","description":"[Renderer] Supported output formats."},"accessibility":{"label":"Accessibility support","description":"[Accessibility] Does it help disabled people in some kind?"},"textOnlyUI":{"label":"Complete non graphics text output","description":"[Accessibility] Text to braille compatible interface?"},"brailleUI":{"label":"Braille interface","description":"[Accessibility] A special braille interface?"},"explorerMode":{"label":"Exploration modus","description":"[Accessibility] Has a exploration modus (tell all objects approaching)?"},"publicTransportMode":{"label":"Public Transport mode","description":"[Accessibility] Supports routing with public transport?"},"dangerWarnings":{"label":"Danger Warnings","description":"[Accessibility]"},"screenReader":{"label":"Screenreader","description":"[Accessibility] List of supported screenreaders"},"screenReaderLang":{"label":"Screenreader languages","description":"[Accessibility] List of supported screenreaders languages"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/cs.json
 const wiki_software_template_cs_namespaceObject = /*#__PURE__*/JSON.parse('{"status":{"label":"Stav","description":"Aktuální stav projektu."},"lang":{"label":"Jazyk šablony","description":"Jazyk, ve kterém se zobrazují texty šablony."},"name":{"label":"Název","description":"Oficiální název, jinak nejběžnější název"},"license":{"label":"Licence","description":"Je licence svobodná nebo proprietární?"},"price":{"label":"Cena","description":"Náklady, pokud se jedná o proprietární licence. Pokud je cena prázdná, je aplikace zdarma."},"web":{"label":"Webová adresa"},"repo":{"label":"Zdrojový kód","description":"URL pro zobrazení nebo stažení zdrojového kódu (například úložiště Git, Subversion nebo CVS)"},"logo":{"label":"Logo"},"screenshot":{"label":"Otisk obrazovky"},"description":{"label":"Popis","description":"Stručný popis. Čím se liší od ostatních nástrojů? (Napište vlastní popis, nekopírujte ho jen z webových stránek)"},"author":{"label":"Autor","description":"Jméno autora nebo odkaz na jeho uživatelskou stránku OSM-wiki"},"platform":{"label":"Podporované platformy","description":"Seznam platforem, na kterých běží."},"genre":{"label":"Typ","description":"Hlavní kategorie tohoto nástroje."},"languages":{"label":"Jazyky","description":"Podporované jazyky (seznam platných jazykových kódů oddělených středníky) nebo počet podporovaných jazyků"},"coverage":{"label":"Pokrytí","description":"Pokrytí nebo cílová oblast aplikace. Formátování: \\"Kontinent, země, region, ...\\". Pro globální použití použijte \\"Worldwide\\" nebo jej nechte prázdný."},"languagesurl":{"label":"URL pro jazyky","description":"Odkaz na úplný seznam podporovaných jazyků popsaný na jiné stránce (např. na stránce portálu softwaru nebo úložiště)."},"code":{"label":"Kód","description":"Seznam použitých programovacích jazyků."},"framework":{"label":"Framework","description":"Seznam použitých frameworků."},"version":{"label":"Verze","description":"Nejnovější verze"},"date":{"label":"Datum vydání","description":"Nejnovější datum vydání"},"asin":{"label":"Identifikace Amazon","description":"Standardní identifikační číslo Amazonu pro Amazon Appstore pro Android"},"bbWorldID":{"label":"BlackBerry ID","description":"ID aplikace v BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"ID aplikace F-Droid"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"ID aplikace Mozilla Firefox Marketplace"},"googlePlayID":{"label":"Google Play ID","description":"ID aplikace v Obchodě Google Play"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"ID aplikace Huawei AppGallery"},"appleStoreID":{"label":"AppStore ID","description":"ID aplikace iTunes App Store"},"macAppStoreID":{"label":"Mac AppStore ID","description":"ID aplikace Mac App Store"},"microsoftAppID":{"label":"Microsoft ID","description":"UUID aplikace Microsoft Store pro systém Windows"},"map":{"description":"[Zobrazení mapy] Lze zobrazit mapu?","label":"Zobrazení mapy"},"mapData":{"label":"Mapová data","description":"[Zobrazení mapy] Mapy vykreslené pomocí předpočítaných/rasterizovaných obrázků (rastr) nebo \\"za běhu\\" (vektory)?"},"datasource":{"label":"Zdroj","description":"[Zobrazení mapy] Lze uložit všechna mapová data offline? Stáhnout samostatný soubor?"},"rotateMap":{"label":"Rotace mapy","description":"[Zobrazení mapy] Otáčí se mapa ve směru jízdy/chůze?"},"3D":{"label":"3D pohled","description":"[Zobrazení mapy] Existuje nějaké 3D nebo 2,5D zobrazení?"},"showWebsite":{"label":"Zobrazení webové stránky","description":"[Informace o POI] Zobrazí odkaz na webovou stránku z bodu zájmu"},"showPhoneNumber":{"label":"Zobrazí telefonní číslo","description":"[Informace o POI] Zobrazí telefonní číslo z POI"},"showOpeningHours":{"label":"Zobrazuje provozní dobu","description":"[Informace o POI] Zobrazí provozní dobu z POI"},"routing":{"label":"Hledání trasy","description":"[Hledání trasy] Umíte vypočítat nebo jinak naplánovat trasu?"},"createRouteManually":{"label":"Vytvoření trasy ručně","description":"[Hledání trasy]"},"calculateRoute":{"label":"Výpočet trasy","description":"[Hledání trasy] Lze vypočítat trasu pomocí hledání trasy?"},"createRouteViaWaypoints":{"label":"Vytvoření trasy pomocí bodů trasy","description":"[Hledání trasy] Možnost vypočítat trasu pomocí trasových bodů"},"profiles":{"label":"Profily hledání trasy","description":"[Hledání trasy] Jaké profily jsou podporovány, pokud provádí hledání trasy?"},"turnRestrictions":{"description":"[Hledání trasy] Dokáže se vypořádat s omezením otáčení?","label":"Omezení otáčení"},"calculateRouteOffline":{"label":"Výpočet trasy bez internetu (hledání trasy offline)","description":"[Hledání trasy] Potřebuje k výpočtu trasy internet?"},"routingProviders":{"description":"[Hledání trasy] Jaké poskytovatele služby hledání tras(y) používá?","label":"Poskytovatelé hledání tras"},"trafficProvider":{"label":"Poskytovatel informací o provozu","description":"[Hledání trasy] Poskytovatel zdroje dopravních dat."},"navigating":{"label":"Navigace","description":"[Navigace] Umíte se orientovat podle kompasu?"},"findLocation":{"label":"Hledání polohy","description":"[Navigace] Umí vyhledat ulici/místo?"},"findNearbyPOI":{"label":"Hledání blízkých bodů zájmu","description":"[Navigace] Umí najít/zobrazit body zájmu?"},"navToPoint":{"label":"Navigace do bodu","description":"[Navigace] Dokáže vás navigovat někam?"},"voice":{"label":"Navigace s hlasem / Hlasové navádění","description":"[Navigace] Umí vám dávat příkazy počítačovým hlasem?"},"turnLanes":{"label":"Navádění do jízdních pruhů","description":"[Navigace] Podporuje navádění do jízdních pruhů?"},"withoutGPS":{"description":"[Navigace] Bude fungovat i bez GPS?","label":"Fungování bez GPS"},"predefinedRoute":{"description":"[Navigace] Umí sledovat jiné GPS trasy?","label":"Navigace po předem definované trase"},"tracking":{"label":"Vytvoření trasy","description":"[Záznam trasy] Lze zaznamenat trasu GPS?"},"customInterval":{"label":"Přizpůsobitelný interval záznamu","description":"[Záznam trasy] Lze interval nastavit ručně?"},"trackFormats":{"label":"Formáty tras","description":"[Záznam trasy] V jakých formátech lze uložit trasu GPS?"},"fastWayPointAdding":{"label":"Rychlá tlačítka POI","description":"[Záznam trasy] Snadné přidání nového bodu trasy?"},"uploadGPX":{"description":"[Záznam tras] Lze odesílat trasy přímo do OSM?","label":"Nahrání GPX do OSM"},"monitoring":{"label":"Monitorování","description":"[Monitorování trasy] Můžete monitorovat data GPS?"},"showTrack":{"label":"Zobrazení aktuální trasy","description":"[Monitorování trasy] Zobrazuje aktuální trasu?"},"showAltitudeDiagram":{"label":"Výškový diagram","description":"[Monitorování trasy]"},"showDOP":{"description":"[Monitorování trasy] Zobrazuje kvalitu signálu?","label":"Zobrazení hodnoty POD"},"showSatellites":{"description":"[Monitorování trasy] Zobrazuje satelity?","label":"Zobrazení satelitů"},"showSpeed":{"label":"Zobrazení rychlosti","description":"[Monitorování trasy]"},"sendPosition":{"label":"Odeslání aktuální polohy","description":"[Monitorování trasy] Může odesílat polohu ostatním?"},"addPOI":{"label":"Přidání bodů zájmu","description":"[Editor] Můžete přidat uzel?"},"avoidTraffic":{"description":"[Hledání trasy] Optimalizuje aplikace trasu, aby se vyhnula dopravním zácpám?","label":"Vyhýbání se provozu"},"showExistingTrack":{"label":"Otevření existující trasy","description":"[Monitorování trasy] Umí načíst existující trasy, abyste je mohli sledovat?"},"showNMEAlive":{"label":"Zobrazení živých dat NMEA","description":"[Monitorování trasy] Můžete zobrazit nezpracovaný datový tok GPS?"},"keepOnRoad":{"label":"Pokračování v cestě","description":"[Navigace] Pomůže vám udržet vozidlo na vypočítané trase?"},"geotagging":{"label":"Geotagging","description":"[Záznam trasy] Jsou podporovány další techniky mapování"},"editPOI":{"label":"Úprava / odstranění bodů zájmu","description":"[Editor] Je možné upravit uzel?"},"addWay":{"label":"Přidání cesty","description":"[Editor] Můžete přidat cestu?"},"editGeom":{"description":"[Editor] Lze upravovat uzly/cesty?","label":"Úprava geometrie"},"editTags":{"label":"Úprava libovolných značek existujících objektů OSM","description":"[Editor] Lze upravovat existující značky?"},"editRelations":{"label":"Úprava relací","description":"[Editor] Lze upravit relace?"},"viewNotes":{"label":"Zobrazení poznámek","description":"[Editor] Lze zobrazit poznámky OSM?"},"createNotes":{"label":"Tvorba poznámek","description":"[Editor] Lze přidat poznámky OSM?"},"editSource":{"description":"[Editor] Lze pracovat offline?","label":"Fungování v režimu offline"},"offsetDBsupport":{"label":"Podpora posunu snímků DB","description":"[Editor] Podporuje obrazový posun DB?"},"uploadOSMData":{"label":"Nahrání do OSM","description":"[Editor] Lze změny odeslat přímo do OSM?"},"rendererOutputFormats":{"label":"Výstupní formáty rendereru","description":"[Renderer] Podporované výstupní formáty."},"accessibility":{"description":"[Přístupnost] Pomáhá nějakým způsobem osobám se zdravotním postižením?","label":"Podpora přístupnosti"},"textOnlyUI":{"label":"Úplný negrafický textový výstup","description":"[Přístupnost] Rozhraní kompatibilní s textem v Braillově písmu?"},"brailleUI":{"label":"Rozhraní Braillova písma","description":"[Přístupnost] Speciální braillovo rozhraní?"},"publicTransportMode":{"label":"Režim veřejné dopravy","description":"[Dostupnost] Podporuje hledání trasy veřejnou dopravou?"},"dangerWarnings":{"label":"Výstrahy před nebezpečím","description":"[Přístupnost]"},"screenReader":{"label":"Čtení obrazovky","description":"[Přístupnost] Seznam podporovaných čteček obrazovky"},"screenReaderLang":{"label":"Jazyky čtečky obrazovky","description":"[Zpřístupnění] Seznam podporovaných jazyků čteček obrazovky"},"editNotes":{"label":"Úprava poznámek","description":"[Editor] Lze komentovat/zavřít poznámky OSM?"},"explorerMode":{"label":"Modus průzkumu","description":"[Přístupnost] Má průzkumný modus (sděluje všechny blížící se objekty)?"},"obtainiumLink":{"description":"Odkaz na informace o aktualizačním programu Obtainium","label":"Odkaz na aktualizační program Obtainium"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/de.json
@@ -70469,7 +71326,7 @@ const wiki_software_template_tr_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/uk.json
 const wiki_software_template_uk_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Мова шаблону","description":"Мова, якою відображаються тексти шаблонів."},"name":{"label":"Ім\'я","description":"Офіційна назва, інакше найпоширеніша"},"status":{"label":"Статус","description":"Поточний стан проекту."},"license":{"label":"Ліцензія","description":"Яка безкоштовна ліцензія чи власницька?"},"price":{"label":"Ціна","description":"Вартість, якщо власна. Якщо ціна порожня, додаток безкоштовний."},"web":{"label":"Веб-адреса"},"repo":{"label":"Вихідний код","description":"URL-адреса для перегляду або завантаження вихідного коду (наприклад, репозиторій Git, Subversion або CVS)"},"logo":{"label":"Логотип"},"screenshot":{"label":"Знімок екрана"},"description":{"label":"Опис","description":"Короткий опис. Що відрізняє цей інструмент від інших? (Напишіть свій власний опис, не просто копіюйте його з вебсайту)"},"author":{"label":"Автор","description":"Ім\'я автора або посилання на його сторінку користувача OSM-wiki"},"platform":{"label":"Підтримувані платформи","description":"Список платформ, на яких він працює."},"genre":{"label":"Жанр","description":"Основна категорія для цього інструменту."},"languages":{"label":"Мови","description":"Підтримувані мови (список дійсних кодів мов, розділених крапкою з комою) або кількість підтримуваних мов"},"languagesurl":{"label":"URL-адреса мов","description":"Посилання на повний список підтримуваних мов, описаний на іншій сторінці (наприклад, сторінка порталу програмного забезпечення або репозиторій)."},"coverage":{"label":"Покриття","description":"Охоплення або цільовий регіон програми. Форматування: «Континент, Країна, Регіон тощо». Використовуйте «Увесь світ» або залиште поле порожнім для глобального використання."},"code":{"label":"Код","description":"Список використовуваних мов програмування."},"framework":{"label":"Рамка","description":"Список використаних фреймворків."},"version":{"label":"Версія","description":"Найновіша версія"},"date":{"label":"Дата випуску","description":"Дата останнього випуску"},"asin":{"label":"Ідентифікація Amazon","description":"Стандартний ідентифікаційний номер Amazon для магазину додатків Amazon для Android"},"bbWorldID":{"label":"Ідентифікатор BlackBerry","description":"Ідентифікатор програми BlackBerry World"},"fDroidID":{"label":"F-Droid ID","description":"Ідентифікатор програми F-Droid"},"firefoxMarketplaceID":{"label":"Ідентифікатор торговельного майданчика Firefox","description":"Ідентифікатор програми Mozilla Firefox Marketplace"},"googlePlayID":{"label":"Ідентифікатор Google Play","description":"Ідентифікатор програми в Google Play Маркеті"},"huaweiAppGalleryID":{"label":"Ідентифікатор галереї додатків Huawei","description":"Ідентифікатор програми Huawei AppGallery"},"appleStoreID":{"label":"Ідентифікатор AppStore","description":"Ідентифікатор програми iTunes App Store"},"macAppStoreID":{"label":"Ідентифікатор Mac AppStore","description":"Ідентифікатор програми Mac App Store"},"microsoftAppID":{"label":"Ідентифікатор Microsoft","description":"UUID програми Windows від Microsoft Store"},"obtainiumLink":{"label":"Посилання для оновлення Obtainium","description":"Посилання на інформацію про оновлення Obtainium"},"map":{"label":"Показати карту","description":"[Відображення карти] Чи може вона відображати карту?"},"mapData":{"label":"Дані карти","description":"[Відображення карти] Карти, намальовані з використанням попередньо розрахованих/растрованих зображень (растрові) або «на льоту» (векторні)?"},"datasource":{"label":"Джерело","description":"[Відображення карти] Чи можна зберігати всі дані карти офлайн? Завантажити окремий файл?"},"rotateMap":{"label":"Повернути карту","description":"[Відображення карти] Чи повертає карта в напрямку руху/пішохідного руху?"},"3D":{"label":"3D-вигляд","description":"[Відображення карти] Чи є 3D або 2.5D зображення?"},"showWebsite":{"label":"Показує веб-сайт","description":"[Інформація про POI] Показує посилання на вебсайт з POI"},"showPhoneNumber":{"label":"Показує номер телефону","description":"[Інформація про POI] Показує номер телефону з POI"},"showOpeningHours":{"label":"Показує години роботи","description":"[Інформація про POI] Показує години роботи від POI"},"routing":{"label":"Маршрутизація","description":"[Маршрут] Чи можете ви розрахувати або іншим чином спланувати маршрут?"},"createRouteManually":{"label":"Створити маршрут вручну","description":"[Маршрутизація]"},"calculateRoute":{"label":"Розрахувати маршрут","description":"[Маршрутизація] Чи може він розрахувати маршрут за допомогою маршрутизації?"},"createRouteViaWaypoints":{"label":"Створіть маршрут через Waypoints","description":"[Маршрутизація] Можливість розраховувати маршрут через Waypoints"},"profiles":{"label":"Профілі маршрутизації","description":"[Маршрутизація] Які профілі підтримуються, якщо виконується маршрутизація?"},"turnRestrictions":{"label":"Обмеження поворотів","description":"[Маршрут] Чи може він враховувати обмеження повороту?"},"calculateRouteOffline":{"label":"Розрахувати маршрут без Інтернету (офлайн-маршрутизація)","description":"[Маршрутизація] Чи потрібен інтернет для розрахунку маршруту?"},"routingProviders":{"label":"Постачальники маршрутизації","description":"[Маршрутизація] Які служби маршрутизації використовуються?"},"avoidTraffic":{"label":"Уникайте заторів","description":"[Маршрутизація] Чи оптимізує додаток маршрут, щоб уникнути заторів?"},"trafficProvider":{"label":"Постачальник трафіку","description":"[Маршрутизація] Постачальник джерела даних про трафік."},"navigating":{"label":"Навігації","description":"[Навігація] Чи можете ви орієнтуватися за допомогою компаса?"},"findLocation":{"label":"Знайти місцезнаходження","description":"[Навігація] Чи може він шукати вулицю/місце?"},"findNearbyPOI":{"label":"Знайти поблизу об\'єктів загального призначення","description":"[Навігація] Чи може воно знаходити/відображати цікаві місця?"},"navToPoint":{"label":"Перейти до точки","description":"[Навігація] Чи може це направити вас до певної точки?"},"voice":{"label":"Навігація з голосом / Голосові підказки","description":"[Навігація] Чи може він віддавати команди комп\'ютерним голосом?"},"keepOnRoad":{"label":"Тримайтеся дороги","description":"[Навігація] Чи може це допомогти вам утримувати ваш автомобіль на розрахованому маршруті?"},"turnLanes":{"label":"Керування смугою руху","description":"[Навігація] Чи підтримується підказка щодо смуги руху?"},"withoutGPS":{"label":"Працює без GPS","description":"[Навігація] Чи працює це навіть без GPS?"},"predefinedRoute":{"label":"Навігація за заздалегідь визначеним маршрутом","description":"[Навігація] Чи може він слідувати за іншими GPS-треками?"},"tracking":{"label":"Зробити трек","description":"[Реєстрація треку] Чи може він записувати GPS-трек?"},"customInterval":{"label":"Налаштовуваний інтервал журналу","description":"[Реєстрація треку] Чи можна налаштувати інтервал вручну?"},"trackFormats":{"label":"Формати треків","description":"[Реєстрація треку] У яких форматах можна зберігати ваш GPS-трек?"},"geotagging":{"label":"Геотегування","description":"[Реєстрація треків] Чи підтримуються додаткові методи картографування"},"fastWayPointAdding":{"label":"Кнопки швидкого доступу до точок інтересу (POI)","description":"[Реєстрація треку] Легко додати нову точку маршруту?"},"uploadGPX":{"label":"Завантажити GPX до OSM","description":"[Реєстрація треків] Чи може воно надсилати треки безпосередньо до OSM?"},"monitoring":{"label":"Моніторинг","description":"[Моніторинг треку] Чи можете ви відстежувати дані GPS?"},"showTrack":{"label":"Показати поточний трек","description":"[Моніторинг треку] Показати ваш поточний трек?"},"showExistingTrack":{"label":"Відкрити існуючу доріжку","description":"[Моніторинг треків] Чи може він завантажувати існуючі треки, щоб ви могли слідувати ними?"},"showAltitudeDiagram":{"label":"Діаграма висоти","description":"[Моніторинг треків]"},"showDOP":{"label":"Показати значення POD","description":"[Моніторинг треку] Показує якість сигналу?"},"showSatellites":{"label":"Вигляд із супутника","description":"[Моніторинг треку] Відображає супутники?"},"showNMEAlive":{"label":"Показати дані NMEA в реальному часі","description":"[Моніторинг треку] Чи бачите ви необроблений GPS-потік?"},"showSpeed":{"label":"Показати швидкість","description":"[Моніторинг треків]"},"sendPosition":{"label":"Надіслати поточну позицію","description":"[Моніторинг відстеження] Чи може він надсилати місцезнаходження іншим?"},"addPOI":{"label":"Додати цікаві місця (POI)","description":"[Редактор] Чи можете ви додати вузол?"},"editPOI":{"label":"Редагувати / Видалити об\'єкти пікселів","description":"[Редактор] Чи можна редагувати вузол?"},"addWay":{"label":"Додати шлях","description":"[Редактор] Чи можете ви додати спосіб?"},"editGeom":{"label":"Редагувати геометрію","description":"[Редактор] Чи можна редагувати вузли/шляхи?"},"editTags":{"label":"Редагування довільних тегів існуючих об\'єктів OSM","description":"[Редактор] Чи можна редагувати існуючі теги?"},"editRelations":{"label":"Редагувати зв\'язки","description":"[Редактор] Чи можете ви редагувати зв\'язки?"},"viewNotes":{"label":"Переглянути нотатки","description":"[Редактор] Чи можете ви переглянути нотатки OSM?"},"createNotes":{"label":"Створювати нотатки","description":"[Редактор] Чи можете ви додати нотатки OSM?"},"editNotes":{"label":"Редагувати нотатки","description":"[Редактор] Чи можете ви прокоментувати/закрити нотатки OSM?"},"editSource":{"label":"Працюйте офлайн","description":"[Редактор] Чи можете ви працювати офлайн?"},"offsetDBsupport":{"label":"Підтримка зміщення зображень у базі даних","description":"[Редактор] Чи підтримує він базу даних зміщення зображень?"},"uploadOSMData":{"label":"Завантажити в OSM","description":"[Редактор] Чи можете ви надсилати зміни безпосередньо до OSM?"},"rendererOutputFormats":{"label":"Формати виводу рендерера","description":"[Рендерер] Підтримувані формати виводу."},"accessibility":{"label":"Підтримка доступності","description":"[Доступність] Чи допомагає це якимось чином людям з інвалідністю?"},"textOnlyUI":{"label":"Повний вивід неграфічного тексту","description":"[Доступність] Інтерфейс, сумісний з перетворенням тексту на брайля?"},"brailleUI":{"label":"Інтерфейс Брайля","description":"[Доступність] Спеціальний інтерфейс Брайля?"},"explorerMode":{"label":"Режим дослідження","description":"[Доступність] Має режим дослідження (повідомляти про всі об\'єкти, що наближаються)?"},"publicTransportMode":{"label":"Громадський транспорт","description":"[Доступність] Чи підтримується маршрутизація громадським транспортом?"},"dangerWarnings":{"label":"Попередження про небезпеку","description":"[Доступність]"},"screenReader":{"label":"Програма зчитування з екрана","description":"[Доступність] Список підтримуваних програм зчитування з екрана"},"screenReaderLang":{"label":"Мови програми зчитування з екрана","description":"[Доступність] Список підтримуваних мов програм зчитування з екрана"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh_Hans.json
-const wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模板语言"},"name":{"label":"名称"},"status":{},"license":{},"price":{},"web":{},"repo":{"label":"源代码"},"logo":{},"screenshot":{"label":"截图"},"description":{"label":"描述"},"author":{"label":"作者"},"platform":{},"genre":{},"languages":{},"coverage":{},"languagesurl":{},"code":{},"framework":{},"version":{"label":"版本"},"date":{"label":"日期"},"asin":{},"bbWorldID":{},"fDroidID":{},"firefoxMarketplaceID":{},"googlePlayID":{},"huaweiAppGalleryID":{},"appleStoreID":{},"macAppStoreID":{},"microsoftAppID":{},"map":{},"mapData":{},"datasource":{},"rotateMap":{},"3D":{},"showWebsite":{},"showPhoneNumber":{},"showOpeningHours":{},"routing":{},"createRouteManually":{},"calculateRoute":{},"createRouteViaWaypoints":{},"profiles":{},"turnRestrictions":{},"calculateRouteOffline":{},"routingProviders":{},"avoidTraffic":{},"trafficProvider":{},"navigating":{},"findLocation":{},"findNearbyPOI":{},"navToPoint":{},"voice":{},"keepOnRoad":{},"turnLanes":{},"withoutGPS":{},"predefinedRoute":{},"tracking":{},"customInterval":{},"trackFormats":{},"geotagging":{},"fastWayPointAdding":{},"uploadGPX":{},"monitoring":{},"showTrack":{},"showExistingTrack":{},"showAltitudeDiagram":{},"showDOP":{},"showSatellites":{},"showNMEAlive":{},"showSpeed":{},"sendPosition":{},"addPOI":{},"editPOI":{},"addWay":{},"editGeom":{},"editTags":{},"editRelations":{},"viewNotes":{},"createNotes":{},"editNotes":{},"editSource":{},"offsetDBsupport":{},"uploadOSMData":{},"rendererOutputFormats":{},"accessibility":{},"textOnlyUI":{},"brailleUI":{},"explorerMode":{},"publicTransportMode":{},"dangerWarnings":{},"screenReader":{},"screenReaderLang":{}}');
+const wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模板语言"},"name":{"label":"名称"},"status":{"label":"状态","description":"软件开发状态"},"license":{"label":"许可证","description":"软件使用的许可条款"},"price":{"label":"价格","description":"软件收费价格"},"web":{},"repo":{"label":"源代码"},"logo":{"description":"软件使用的图标或logo"},"screenshot":{"label":"截图"},"description":{"label":"描述"},"author":{"label":"作者"},"platform":{"label":"平台","description":"软件运行的平台或操作系统"},"genre":{"label":"类别"},"languages":{"label":"语言","description":"软件支持的语言，用半角分号“;”分隔"},"languagesurl":{},"coverage":{},"code":{},"framework":{},"version":{"label":"版本"},"date":{"label":"日期"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh-Hant.json
 const wiki_software_template_zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模版語言","description":"模版文字所顯示的語言。"},"name":{"label":"名稱","description":"正式名稱，或是最常見的名稱"},"status":{"label":"狀態","description":"目前專案的狀態。"},"license":{"label":"授權條款","description":"何種自由或是專屬授權條款？"},"price":{"label":"價格","description":"如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"},"web":{"label":"網址"},"repo":{"label":"原始碼","description":"檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"},"logo":{"label":"圖示"},"screenshot":{"label":"截圖"},"description":{"label":"描述","description":"簡單敘述，與其他工具的差異在那裡？ (請寫下你自己的描述，不要直接從網站複製)"},"author":{"label":"作者","description":"作者的名字或是作者 OSM-wiki 使用者頁面連結"},"platform":{"label":"支援的平台","description":"運作的平台清單。"},"genre":{"label":"類型","description":"此工具主要的類別。"},"languages":{"label":"語言","description":"支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"},"languagesurl":{"label":"語言連結","description":"完整實際的支援語言清單的連結，描述則在其他頁面 (例如軟體的平台頁面，或是倉儲庫)。"},"coverage":{"label":"範圍","description":"app 的範圍或是目標地區：「大陸、國家、地區等等。」使用「全球」或是留空白則表示能夠全球使用。"},"code":{"label":"程式碼","description":"使用的程式語言清單。"},"framework":{"label":"架構","description":"使用的架構清單。"},"version":{"label":"版本","description":"最新版本"},"date":{"label":"發佈日期","description":"最新發佈日期"},"asin":{"label":"亞馬遜識別碼","description":"Amazon Appstore 的 Android 亞馬遜標準識別碼號碼"},"bbWorldID":{"label":"黑莓編號","description":"黑莓世界應用程式編號"},"fDroidID":{"label":"F-Droid 編號","description":"F-Droid 應用程式編號"},"firefoxMarketplaceID":{"label":"Firefox 商城編號","description":"Mozilla Firefox 商城應用程式編號"},"googlePlayID":{"label":"Google Play 編號","description":"Google Play 商場應用程式編號"},"huaweiAppGalleryID":{"label":"華為應用程式市場編號","description":"華為應用程式市場應用程式編號"},"appleStoreID":{"label":"AppStore 編號","description":"iTunes App Store 應用程式編號"},"macAppStoreID":{"label":"Mac AppStore 編號","description":"Mac App Store 應用程式編號"},"microsoftAppID":{"label":"微軟編號","description":"微軟商城 Windows 應用程式 UUID"},"obtainiumLink":{"label":"Obtainium 更新器連結","description":"Obtainium 更新器資訊的連結"},"map":{"label":"顯示地圖","description":"[地圖顯示] 能夠顯示地圖嗎？"},"mapData":{"label":"地圖資料","description":"[地圖顯示] 使用預先計算／渲染的圖片 (點陣) 來繪製地圖或是「即刻」 (向量)？"},"datasource":{"label":"來源","description":"[地圖顯示] 你是否能將地圖資料離線儲存？下載為獨立的檔案？"},"rotateMap":{"label":"旋轉地圖","description":"[地圖顯示] 開車/行走時地圖是否會隨行進方向轉動？"},"3D":{"label":"3D 檢視","description":"[地圖顯示] 是否有 3D 或是 2.5D 檢視？"},"showWebsite":{"label":"顯示網站","description":"[興趣點資訊] 從興趣點顯示網站的連結"},"showPhoneNumber":{"label":"顯示電話號碼","description":"[興趣點資訊] 從興趣點顯示電話號碼"},"showOpeningHours":{"label":"顯示營運時間","description":"[興趣點資訊] 從興趣點顯示營運時間"},"routing":{"label":"導航","description":"[導航] 你是否能計算或是計畫行進路線？"},"createRouteManually":{"label":"手動創建導航","description":"[導航]"},"calculateRoute":{"label":"計算導航路線","description":"[導航] 是否透過導航計算行進路線？"},"createRouteViaWaypoints":{"label":"透過路徑點創建導航"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/utilities/i18n.ts
