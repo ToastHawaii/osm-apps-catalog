@@ -6,12 +6,7 @@ import { printCalcScore } from "./printCalcScore";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";
-
-function consoleLog(text: string) {
-  if (window.location.search.includes("debug")) {
-    alert(text);
-  }
-}
+import i18next from "i18next";
 
 async function loadData() {
   // for testing
@@ -53,10 +48,18 @@ export function useData(lang: string) {
   useEffect(() => {
     (async () => {
       const appsQuery = loadData();
-      const translationsQuery = loadTranslations(lang);
+
+      // Get fallback languages to load translations too
+      const langs = (
+        i18next.services.languageUtils.toResolveHierarchy(lang) as string[]
+      )
+        .map((l) => l.toLowerCase())
+        .filter((l) => l !== "en")
+        .reverse();
+
+      const translationsQuery = langs.map((l) => loadTranslations(l));
 
       const apps = (await appsQuery) as App[];
-      consoleLog("lang used in useData: " + lang);
       prepareLanguage(apps);
 
       for (const app of apps as App[]) {
@@ -68,21 +71,25 @@ export function useData(lang: string) {
         };
       }
 
-      const translations = (await translationsQuery) as AppTranslation[];
-      consoleLog(translations.length + " translations loaded for lang " + lang);
+      const translationsLists = (await Promise.all(
+        translationsQuery,
+      )) as AppTranslation[][];
 
-      if (translations.length > 0) {
-        apps.forEach((app) => {
-          const translation = translations.find((t) => t.id === app.id);
-          if (translation) {
-            app.name = translation.name || app.name;
-            app.description = translation.description || app.description;
-            app.documentation = translation.documentation || app.documentation;
-            app.community = { ...app.community, ...translation.community };
-            app.source = mergeAppSources(app.source, translation.source);
-          }
+      translationsLists
+        .filter((t) => t.length > 0)
+        .forEach((translations) => {
+          apps.forEach((app) => {
+            const translation = translations.find((t) => t.id === app.id);
+            if (translation) {
+              app.name = translation.name || app.name;
+              app.description = translation.description || app.description;
+              app.documentation =
+                translation.documentation || app.documentation;
+              app.community = { ...app.community, ...translation.community };
+              app.source = mergeAppSources(app.source, translation.source);
+            }
+          });
         });
-      }
 
       setApps(apps);
       if (isDevelopment) {
