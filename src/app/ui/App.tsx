@@ -9,7 +9,6 @@ import { PlatformSelect } from "./components/PlatformSelect";
 import { LanguageSelect } from "./components/LanguageSelect";
 import { CoverageSelect } from "./components/CoverageSelect";
 import { ContributeSelect, mapping } from "./components/ContributeSelect";
-import { useData } from "../../lib/utils/useData";
 import { Filters } from "./components/filters";
 import { chain, debounce } from "lodash";
 import { useAppState } from "../../hooks/useAppState";
