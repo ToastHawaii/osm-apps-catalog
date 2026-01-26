@@ -64,14 +64,32 @@ export function Home({ apps }: { apps: App[] }) {
 
   const categories = categoryDefs.map((c) => ({ ...c, apps: [] as App[] }));
 
-  range(10).forEach(() => {
-    categories.forEach((category) => {
-      const index = category.nextIndex();
-      if (index === -1) {
-        return;
+  // Add apps to categories so that the highest-scored apps are seen first
+  let row = 0;
+  let col = 0;
+  const maxNumberOfAppsPerCategory = 9;
+  range(maxNumberOfAppsPerCategory * categories.length).forEach(() => {
+    const category = categories[row];
+
+    if (row < col) {
+      if (row < categories.length - 1) {
+        row++;
+      } else {
+        row = categories.findIndex(
+          (c) => c.apps.length < maxNumberOfAppsPerCategory,
+        );
+        col++;
       }
-      category.apps.push(...apps.splice(index, 1));
-    });
+    } else {
+      row = categories.findIndex((c) => c.apps.length < maxNumberOfAppsPerCategory);
+      col++;
+    }
+
+    const index = category.nextIndex();
+    if (index === -1) {
+      return;
+    }
+    category.apps.push(...apps.splice(index, 1));
   });
 
   return (
@@ -102,7 +120,7 @@ export function Home({ apps }: { apps: App[] }) {
                       >
                         <div className="p-2">
                           <Item variant="outline" asChild role="listitem">
-                            <a href="#">
+                            <a href={`?view=app&app=${app.id}`}>
                               <ItemMedia variant="icon" className="size-15">
                                 <Logo app={app} />
                               </ItemMedia>
