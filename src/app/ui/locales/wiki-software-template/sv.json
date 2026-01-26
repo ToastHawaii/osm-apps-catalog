@@ -27,7 +27,8 @@
         "description": "URL för att visa eller ladda ner källkoden (till exempel ett Git, Subversion eller CVS-arkiv)"
     },
     "logo": {
-        "label": "Logotyp"
+        "label": "Logotyp",
+        "description": "Programvaruikon eller logotyp"
     },
     "screenshot": {
         "label": "Skärmdump"
