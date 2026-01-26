@@ -37,26 +37,28 @@ async function lazyLoadImages(reset?: boolean) {
 
     const elements = document.querySelectorAll("#list *[data-dynamic-src]");
     for (const element of elements) {
-      const boundingClientRect = element.getBoundingClientRect();
-      if (
-        element.hasAttribute("data-dynamic-src") &&
-        boundingClientRect.top < contentElement?.clientHeight * 3
-      ) {
-        const sources = (element.getAttribute("data-dynamic-src") || "").split(
-          " ",
-        );
+      (async () => {
+        const boundingClientRect = element.getBoundingClientRect();
+        if (
+          element.hasAttribute("data-dynamic-src") &&
+          boundingClientRect.top < contentElement?.clientHeight * 3
+        ) {
+          const sources = (
+            element.getAttribute("data-dynamic-src") || ""
+          ).split(" ");
 
-        for (const src of sources) {
-          if (document.body.contains(element)) {
-            const file = await isImage(src);
-            if (file) {
-              element.setAttribute("src", src);
-              break;
+          for (const src of sources) {
+            if (document.body.contains(element)) {
+              const file = await isImage(src);
+              if (file) {
+                element.setAttribute("src", src);
+                break;
+              }
             }
           }
+          element.removeAttribute("data-dynamic-src");
         }
-        element.removeAttribute("data-dynamic-src");
-      }
+      })();
     }
   }
 
@@ -68,23 +70,25 @@ async function lazyLoadImages(reset?: boolean) {
 
     const elements = document.querySelectorAll("#compare *[data-dynamic-src]");
     for (const element of elements) {
-      const boundingClientRect = element.getBoundingClientRect();
-      if (
-        element.hasAttribute("data-dynamic-src") &&
-        boundingClientRect.left < contentElement?.clientWidth * 2
-      ) {
-        const sources = (element.getAttribute("data-dynamic-src") || "").split(
-          " ",
-        );
+      (async () => {
+        const boundingClientRect = element.getBoundingClientRect();
+        if (
+          element.hasAttribute("data-dynamic-src") &&
+          boundingClientRect.left < contentElement?.clientWidth * 2
+        ) {
+          const sources = (
+            element.getAttribute("data-dynamic-src") || ""
+          ).split(" ");
 
-        for (const src of sources) {
-          if (document.body.contains(element) && (await isImage(src))) {
-            element.setAttribute("src", src);
-            break;
+          for (const src of sources) {
+            if (document.body.contains(element) && (await isImage(src))) {
+              element.setAttribute("src", src);
+              break;
+            }
           }
+          element.removeAttribute("data-dynamic-src");
         }
-        element.removeAttribute("data-dynamic-src");
-      }
+      })();
     }
   }
 }
