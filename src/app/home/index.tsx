@@ -21,11 +21,19 @@ import { useTranslation } from "react-i18next";
 import { chain, range } from "lodash";
 import { plainText } from "@shared/utilities/plainText";
 import { display, edit, mobile, navigation } from "@shared/utilities/filters";
+import { Toggle } from "@components/ui/toggle";
+import { useAppState } from "@hooks/useAppState";
+import { some } from "@shared/utilities/array";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
+  const [state, setAppState] = useAppState();
 
   apps = apps.slice();
+  const platformsUp = state.platforms.map((t) => t.toUpperCase());
+  if (platformsUp.length > 0) {
+    apps = apps.filter((a) => some(a.cache.platform, platformsUp));
+  }
 
   const categoryDefs = [
     {
@@ -81,7 +89,9 @@ export function Home({ apps }: { apps: App[] }) {
         col++;
       }
     } else {
-      row = categories.findIndex((c) => c.apps.length < maxNumberOfAppsPerCategory);
+      row = categories.findIndex(
+        (c) => c.apps.length < maxNumberOfAppsPerCategory,
+      );
       col++;
     }
 
@@ -93,12 +103,43 @@ export function Home({ apps }: { apps: App[] }) {
   });
 
   return (
-    <>
+    <div id="content">
       <div className="px-8 py-6">
         <h2 className="text-left font-semibold">OSM App Catalog</h2>
       </div>
       <Separator />
-      <main className="mx-auto max-w-7xl" id="content">
+      <main className="mx-auto max-w-7xl">
+        <div className="flex flex-wrap items-center gap-2 px-18 pt-3">
+          {Object.entries({
+            WEB: () => "Web",
+            ANDROID: () => "Android",
+            LINUX: () => "Linux",
+            IOS: () => "iOS",
+            MACOS: () => "MacOS",
+            WINDOWS: () => "Windows",
+          }).map((keyValue) => (
+            <Toggle
+              key={keyValue[0]}
+              size="sm"
+              variant="outline"
+              pressed={platformsUp.includes(keyValue[0])}
+              onPressedChange={(pressed) => {
+                if (!pressed)
+                  setAppState(
+                    "platforms",
+                    state.platforms.filter(
+                      (p) => p.toUpperCase() !== keyValue[0],
+                    ),
+                  );
+                else
+                  setAppState("platforms", [...state.platforms, keyValue[0]]);
+              }}
+            >
+              {keyValue[1]()}
+            </Toggle>
+          ))}
+        </div>
+
         <div id="list">
           <LazyLoadImages>
             {categories.map((category, index) => (
@@ -146,6 +187,6 @@ export function Home({ apps }: { apps: App[] }) {
           </LazyLoadImages>
         </div>
       </main>
-    </>
+    </div>
   );
 }

@@ -15,6 +15,7 @@ export function Router() {
 
   switch (searchParams.get("view")) {
     case "search":
+    case "app":
       return <Search apps={apps} />;
     default:
       return <Home apps={apps} />;
