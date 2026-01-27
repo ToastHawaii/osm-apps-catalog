@@ -254,7 +254,8 @@
         "description": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"
     },
     "logo": {
-        "label": "Logo"
+        "label": "Logo",
+        "description": "Software-Icon oder -Logo"
     },
     "fDroidID": {
         "label": "F-Droid ID",
