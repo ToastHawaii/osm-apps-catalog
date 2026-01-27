@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { chain, uniq } from "lodash";
+import i18next from "i18next";
+
 import { getJson } from "@shared/utilities/jsonRequest";
 import { App } from "@shared/data/App";
 import { isDevelopment } from "@shared/utilities/isDevelopment";
@@ -6,7 +9,9 @@ import { printCalcScore } from "../lib/utils/printCalcScore";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";
-import i18next from "i18next";
+import { languageValueToDisplay } from "@app/ui/utilities/language";
+import { getUserRegion } from "@lib/utils/getUserRegion";
+import { some } from "@shared/utilities/array";
 
 async function loadData() {
   // for testing
@@ -45,6 +50,18 @@ async function loadTranslations(lang: string) {
 export function useData(lang: string) {
   const [apps, setApps] = useState<App[]>([]);
 
+  function sortByLang(a: App, languagesUp: string[]) {
+    return some(a.cache.languages, languagesUp);
+  }
+
+  function sortByCoverage(a: App, coverageUp: string[]) {
+    return (
+      a.cache.coverage.some((a) =>
+        coverageUp.some((c) => a.startsWith(c) || c.startsWith(a)),
+      ) || a.coverage.length === 0
+    );
+  }
+
   useEffect(() => {
     (async () => {
       const appsQuery = loadData();
@@ -59,7 +76,7 @@ export function useData(lang: string) {
 
       const translationsQuery = langs.map((l) => loadTranslations(l));
 
-      const apps = (await appsQuery) as App[];
+      let apps = (await appsQuery) as App[];
       prepareLanguage(apps);
 
       for (const app of apps as App[]) {
@@ -90,6 +107,40 @@ export function useData(lang: string) {
             }
           });
         });
+
+      // After sort by score: prefer apps that match the user's context.
+      const userLangs = navigator.languages.map((l) =>
+        languageValueToDisplay(l),
+      );
+      const languages =
+        userLangs.length > 0
+          ? uniq([languageValueToDisplay("mul"), ...userLangs])
+          : [];
+      const languagesUp = uniq(languages).map((t) => t.toUpperCase());
+      if (languagesUp.length > 0) {
+        apps = chain(apps)
+          .sortBy((a) => !sortByLang(a, languagesUp))
+          .value();
+      }
+
+      const userRegion = getUserRegion();
+      const coverage = userRegion ? uniq(["Worldwide", userRegion]) : [];
+      const coverageUp = coverage.map((t) => t.toUpperCase());
+      if (coverageUp.length > 0) {
+        apps = chain(apps)
+          .sortBy((a) => !sortByCoverage(a, coverageUp))
+
+          .value();
+      }
+
+      if (languagesUp.length > 0 && coverageUp.length > 0) {
+        apps = chain(apps)
+          .sortBy(
+            (a) =>
+              !(sortByLang(a, languagesUp) && sortByCoverage(a, coverageUp)),
+          )
+          .value();
+      }
 
       setApps(apps);
       if (isDevelopment) {

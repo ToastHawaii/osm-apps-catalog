@@ -1,4 +1,7 @@
+import { chain, range } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import {
   Item,
   ItemContent,
@@ -17,8 +20,6 @@ import {
 import { Separator } from "@components/ui/separator";
 import { LazyLoadImages } from "@app/ui/components/LazyLoadImages";
 import { Logo } from "@app/ui/components/Image";
-import { useTranslation } from "react-i18next";
-import { chain, range } from "lodash";
 import { plainText } from "@shared/utilities/plainText";
 import { display, edit, mobile, navigation } from "@shared/utilities/filters";
 import { Toggle } from "@components/ui/toggle";
@@ -109,7 +110,7 @@ export function Home({ apps }: { apps: App[] }) {
       </div>
       <Separator />
       <main className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-center gap-2 px-18 pt-3">
+        <div className="flex flex-wrap items-center gap-2 px-18 py-3">
           {Object.entries({
             WEB: () => "Web",
             ANDROID: () => "Android",
