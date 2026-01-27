@@ -1,4 +1,4 @@
-import { chain, range } from "lodash";
+import { range } from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,57 +21,25 @@ import { Separator } from "@components/ui/separator";
 import { LazyLoadImages } from "@app/ui/components/LazyLoadImages";
 import { Logo } from "@app/ui/components/Image";
 import { plainText } from "@shared/utilities/plainText";
-import { display, edit, mobile, navigation } from "@shared/utilities/filters";
-import { Toggle } from "@components/ui/toggle";
 import { useAppState } from "@hooks/useAppState";
 import { some } from "@shared/utilities/array";
+import { Categories } from "@app/Categories";
+import { Filters } from "@app/Filters";
+import { Header } from "@app/Header";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
-  const [state, setAppState] = useAppState();
+  const [state] = useAppState();
 
-  apps = apps.slice();
   const platformsUp = state.platforms.map((t) => t.toUpperCase());
   if (platformsUp.length > 0) {
     apps = apps.filter((a) => some(a.cache.platform, platformsUp));
   }
 
-  const categoryDefs = [
-    {
-      name: () => t("category.universalMapApps", "Universal map apps"),
-      nextIndex: () => apps.findIndex((app) => display(app)),
-    },
-    {
-      name: () => t("category.latestUpdates", "Latest updates"),
-      nextIndex: function () {
-        const latest = chain(apps)
-          .sortBy((a) => a.source[0].lastChange || "")
-          .sortBy((a) => a.lastRelease || "")
-          .reverse()
-          .take(1)
-          .value();
-        return apps.findIndex((app) => app.id === latest[0].id);
-      },
-    },
-    {
-      name: () => t("category.mobile", "To go"),
-      nextIndex: () => apps.findIndex((app) => mobile(app)),
-    },
-    {
-      name: () => t("category.navigation", "Find your way"),
-      nextIndex: () => apps.findIndex((app) => navigation(app)),
-    },
-    {
-      name: () => t("category.edit", "Improve the map"),
-      nextIndex: () => apps.findIndex((app) => edit(app)),
-    },
-    {
-      name: () => t("category.foss", "Free and opensource"),
-      nextIndex: () => apps.findIndex((app) => app.libre),
-    },
-  ];
-
-  const categories = categoryDefs.map((c) => ({ ...c, apps: [] as App[] }));
+  const categories = Categories(t, apps).map((c) => ({
+    ...c,
+    apps: [] as App[],
+  }));
 
   // Add apps to categories so that the highest-scored apps are seen first
   let row = 0;
@@ -105,54 +73,31 @@ export function Home({ apps }: { apps: App[] }) {
 
   return (
     <div id="content">
-      <div className="px-8 py-6">
-        <h2 className="text-left font-semibold">OSM App Catalog</h2>
-      </div>
+      <Header />
       <Separator />
       <main className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-center gap-2 px-18 py-3">
-          {Object.entries({
-            WEB: () => "Web",
-            ANDROID: () => "Android",
-            LINUX: () => "Linux",
-            IOS: () => "iOS",
-            MACOS: () => "MacOS",
-            WINDOWS: () => "Windows",
-          }).map((keyValue) => (
-            <Toggle
-              key={keyValue[0]}
-              size="sm"
-              variant="outline"
-              pressed={platformsUp.includes(keyValue[0])}
-              onPressedChange={(pressed) => {
-                if (!pressed)
-                  setAppState(
-                    "platforms",
-                    state.platforms.filter(
-                      (p) => p.toUpperCase() !== keyValue[0],
-                    ),
-                  );
-                else
-                  setAppState("platforms", [...state.platforms, keyValue[0]]);
-              }}
-            >
-              {keyValue[1]()}
-            </Toggle>
-          ))}
-        </div>
+        <Filters />
 
         <div id="list">
           <LazyLoadImages>
             {categories.map((category, index) => (
               <React.Fragment key={index}>
-                <h2 className="px-18 pt-3 text-left text-2xl font-semibold">
-                  {category.name()}
-                </h2>
+                <div className="grid content-end px-8 pt-3 md:px-18">
+                  <h2 className="text-left text-2xl font-semibold">
+                    {category.name()}
+                  </h2>
+                  <a
+                    className="col-start-2 self-end justify-self-end"
+                    href={`?view=explore&category=${category.id}`}
+                  >
+                    Alle anzeigen
+                  </a>
+                </div>
                 <Carousel
                   opts={{
                     align: "start",
                   }}
-                  className="w-full px-16"
+                  className="w-full px-6 md:px-16"
                 >
                   <CarouselContent role="list">
                     {category.apps.map((app) => (
