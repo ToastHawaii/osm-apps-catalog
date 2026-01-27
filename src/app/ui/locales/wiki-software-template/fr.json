@@ -11,7 +11,8 @@
         "description": "URL pour voir ou télécharger le code source (par exemple, un dépôt Git, Subversion ou CVS)"
     },
     "logo": {
-        "label": "Logo"
+        "label": "Logo",
+        "description": "Icône ou logo du logiciel"
     },
     "description": {
         "description": "Description courte. Qu'est-ce qui le distingue des autres outils ? (Rédigez votre propre description, sans la copier depuis le site web)",
