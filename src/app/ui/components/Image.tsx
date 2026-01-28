@@ -150,34 +150,39 @@ export function Logo({ app }: { app: App }) {
 
   const defaultLogo =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
-
   const logos = [...app.logos, ...app.images.filter((i) => isLogo(i))];
 
-  if (logos.length > 0) {
-    return (
-      <img
-        className="object-cover"
-        src={defaultLogo}
-        data-dynamic-src={`${logos.join(" ")} ${defaultLogo}`}
-        alt={t("app.imageAlt", {
-          name: app.name,
-        })}
-      />
-    );
-  } else {
-    if (!app.cache.filter) {
-      app.cache.filter = calculateFilter(app);
-    }
-
-    return (
-      <img
-        className="object-cover"
-        style={{ filter: app.cache.filter }}
-        src={defaultLogo}
-        alt={t("app.imageAlt", {
-          name: app.name,
-        })}
-      />
-    );
+  // as a fallback we try to use the favicon from the given website as logo
+  if (
+    app.website &&
+    // do not want icons from popular websites
+    !app.website.includes("github.com") &&
+    !app.website.includes("sourceforge.net") &&
+    !app.website.includes("apple.com") &&
+    !app.website.includes("steampowered.com")
+  ) {
+    const base = `https://${new URL(app.website).host}/favicon.`;
+    logos.push(base + "png");
+    logos.push(base + "ico");
+    logos.push(base + "svg");
+    logos.push(base + "gif");
   }
+
+  if (!app.cache.filter) {
+    app.cache.filter = calculateFilter(app);
+  }
+
+  return (
+    <img
+      className="object-cover"
+      style={{ filter: app.cache.filter }}
+      src={defaultLogo}
+      data-dynamic-src={
+        logos.length > 0 ? `${logos.join(" ")} ${defaultLogo}` : undefined
+      }
+      alt={t("app.imageAlt", {
+        name: app.name,
+      })}
+    />
+  );
 }
