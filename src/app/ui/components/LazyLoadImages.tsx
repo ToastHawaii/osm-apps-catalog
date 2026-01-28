@@ -17,6 +17,19 @@ export async function isImage(src: string) {
   });
 }
 
+async function loadImage(element: Element) {
+  const sources = (element.getAttribute("data-dynamic-src") || "").split(" ");
+
+  for (const src of sources) {
+    if (document.body.contains(element) && (await isImage(src))) {
+      element.setAttribute("src", src);
+      element.setAttribute("style", "");
+      break;
+    }
+  }
+  element.removeAttribute("data-dynamic-src");
+}
+
 async function lazyLoadImages(reset?: boolean) {
   if (reset) {
     scrollTop = 0;
@@ -43,20 +56,7 @@ async function lazyLoadImages(reset?: boolean) {
           element.hasAttribute("data-dynamic-src") &&
           boundingClientRect.top < contentElement?.clientHeight * 3
         ) {
-          const sources = (
-            element.getAttribute("data-dynamic-src") || ""
-          ).split(" ");
-
-          for (const src of sources) {
-            if (document.body.contains(element)) {
-              const file = await isImage(src);
-              if (file) {
-                element.setAttribute("src", src);
-                break;
-              }
-            }
-          }
-          element.removeAttribute("data-dynamic-src");
+          await loadImage(element);
         }
       })();
     }
@@ -76,17 +76,7 @@ async function lazyLoadImages(reset?: boolean) {
           element.hasAttribute("data-dynamic-src") &&
           boundingClientRect.left < contentElement?.clientWidth * 2
         ) {
-          const sources = (
-            element.getAttribute("data-dynamic-src") || ""
-          ).split(" ");
-
-          for (const src of sources) {
-            if (document.body.contains(element) && (await isImage(src))) {
-              element.setAttribute("src", src);
-              break;
-            }
-          }
-          element.removeAttribute("data-dynamic-src");
+          loadImage(element);
         }
       })();
     }
