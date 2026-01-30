@@ -12,6 +12,7 @@ import { mergeAppSources } from "@shared/utilities/mergeAppSources";
 import { languageValueToDisplay } from "@app/ui/utilities/language";
 import { getUserRegion } from "@lib/utils/getUserRegion";
 import { some } from "@shared/utilities/array";
+import { useTranslation } from "react-i18next";
 
 async function loadData() {
   // for testing
@@ -47,7 +48,10 @@ async function loadTranslations(lang: string) {
   }
 }
 
-export function useData(lang: string) {
+export function useAppsData() {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+
   const [apps, setApps] = useState<App[]>([]);
 
   function sortByLang(a: App, languagesUp: string[]) {
@@ -149,5 +153,5 @@ export function useData(lang: string) {
     })();
   }, [lang]);
 
-  return apps;
+  return { apps };
 }
