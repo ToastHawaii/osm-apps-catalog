@@ -41,10 +41,11 @@ export function Categories(
     {
       id: "latestUpdates",
       name: () => t("category.latestUpdates", "Latest updates"),
-      sorted:  ()=> chain(apps)
-        .sortBy((a) => a.source[0].lastChange || "")
-        .sortBy((a) => a.lastRelease || "")
-        .reverse(),
+      sorted: () =>
+        chain(apps)
+          .sortBy((a) => a.source[0].lastChange || "")
+          .sortBy((a) => a.lastRelease || "")
+          .reverse(),
       getAll: function () {
         return this.sorted().value();
       },

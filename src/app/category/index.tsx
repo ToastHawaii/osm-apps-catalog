@@ -70,7 +70,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
                           {app.name}
                         </ItemTitle>
                         <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-                          {plainText(app.description)}
+                          {plainText(app.descriptionShort || app.description)}
                         </ItemDescription>
                       </ItemContent>
                     </a>

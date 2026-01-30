@@ -17,12 +17,12 @@ import { LazyLoadImages } from "./components/LazyLoadImages";
 import { Compare } from "./views/Compare";
 import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "./components/NotFoundApps";
-import { strip } from "@shared/utilities/string";
 import { LazyInitMore } from "./components/LazyInitMore";
 import { PagedList } from "./PagedList";
 import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 import { App } from "@shared/data/App";
+import { plainText } from "@shared/utilities/plainText";
 
 import "../../index.scss";
 import "../../index.css";
@@ -50,7 +50,10 @@ export function Search({ apps }: { apps: App[] }) {
       const app = filteredApps[0];
 
       appendMeta("og:title", app.name);
-      appendMeta("og:description", app.description);
+      appendMeta(
+        "og:description",
+        plainText(app.descriptionShort || app.description),
+      );
       if (app.logos[0]) {
         appendMeta("og:image", app.logos[0]);
       }
@@ -63,7 +66,10 @@ export function Search({ apps }: { apps: App[] }) {
       document.title = `${app.name} - OSM Apps Catalog`;
       document
         .querySelector('meta[name="description"]')
-        ?.setAttribute("content", strip(app.description));
+        ?.setAttribute(
+          "content",
+          plainText(app.descriptionShort || app.description),
+        );
     } else {
       document.title = `${t(`filter.category.${state.category}`, {
         numberOfApps: filteredApps.length,

@@ -104,6 +104,10 @@ export function useAppsData() {
             if (translation) {
               app.name = translation.name || app.name;
               app.description = translation.description || app.description;
+              app.descriptionShort =
+                translation.descriptionShort ||
+                translation.description ||
+                app.descriptionShort;
               app.documentation =
                 translation.documentation || app.documentation;
               app.community = { ...app.community, ...translation.community };

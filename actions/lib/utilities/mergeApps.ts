@@ -1,6 +1,7 @@
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";
 import { App } from "@shared/data/App";
 import { merge, mergeWith, uniqBy } from "lodash";
+import {  shorterThenLength } from "@shared/utilities/string";
 
 export function mergeApps(
   app: App,
@@ -18,6 +19,15 @@ export function mergeApps(
   app.unmaintained = mergeBoolean(app.unmaintained, obj.unmaintained);
 
   app.description = app.description || obj.description;
+  // a shorter version from the app description would be useful in the overview and at other places
+  const descriptionShort = shorterThenLength(
+    app.descriptionShort || app.description,
+    obj.description,
+    60,
+  );
+  if (app.description !== descriptionShort) {
+    app.descriptionShort = descriptionShort;
+  }
   app.images = mergeValues(app.images, obj.images, { sort: false });
   app.logos = mergeValues(app.logos, obj.logos, { sort: false });
   app.imageWiki = app.imageWiki || obj.imageWiki;

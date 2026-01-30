@@ -1,5 +1,6 @@
-import { trimEnd, trimStart, upperFirst } from "lodash";
+import { max, min, trimEnd, trimStart, upperFirst } from "lodash";
 import { newUrl } from "./url";
+import { plainText } from "@shared/utilities/plainText";
 
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
@@ -124,7 +125,36 @@ export function toValues(value = "") {
     .map(upperFirst);
 }
 
-export function strip(html: string) {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.body.textContent || "";
+export function minText(s1: string, s2: string) {
+  if (
+    plainText(s1).length > 0 &&
+    plainText(s1).length <= plainText(s2).length
+  ) {
+    return s1;
+  }
+
+  return s2;
+}
+
+export function maxText(s1: string, s2: string) {
+  if (plainText(s1).length >= plainText(s2).length) {
+    return s1;
+  }
+
+  return s2;
+}
+
+/** get text near but not greater to a given length */
+export function shorterThenLength(s1: string, s2: string, length: number) {
+  const s1Plain = plainText(s1);
+  if (s1Plain.length <= length) {
+    return s1;
+  }
+
+  const s2Plain = plainText(s2);
+  if (s2Plain.length <= length) {
+    return s2;
+  }
+
+  return minText(s1, s2);
 }

@@ -7,7 +7,7 @@ import {
   navigation,
   web,
 } from "@shared/utilities/filters";
-import { strip } from "@shared/utilities/string";
+import { plainText } from "@shared/utilities/plainText";
 
 export function toSchemaOrg(app: App) {
   return JSON.stringify({
@@ -18,7 +18,7 @@ export function toSchemaOrg(app: App) {
         ? "WebApplication"
         : "SoftwareApplication",
     name: app.name || undefined,
-    description: strip(app.description) || undefined,
+    description: plainText(app.descriptionShort || app.description) || undefined,
     keywords: app.topics.join(","),
     image: app.logos[0] || undefined,
     screenshot: app.images[0] || undefined,
@@ -48,7 +48,7 @@ export function toSchemaOrg(app: App) {
                     app.install.huaweiAppGalleryID
                   : undefined,
     datePublished: app.lastRelease || undefined,
-    license: app.license?.map((l) => strip(l))?.join(",") || undefined,
+    license: app.license?.map((l) => plainText(l))?.join(",") || undefined,
     applicationCategory: display(app)
       ? "TravelApplication"
       : navigation(app)

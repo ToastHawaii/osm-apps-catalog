@@ -21,6 +21,7 @@ export async function run(): Promise<void> {
               id: app.id,
               name: app.name,
               description: app.description,
+              descriptionShort: app.descriptionShort,
               documentation: app.documentation,
               community: app.community,
               source: app.source,
