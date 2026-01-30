@@ -15,7 +15,7 @@ export function Categories(
       nextIndex: () =>
         apps.findIndex(
           (app) =>
-            /// univerval maps: main goal is display map data
+            /// universal maps: main goal is display map data
             display(app) &&
             equalsYes(...(app.map?.showWebsite || [])) &&
             equalsYes(...(app.map?.showOpeningHours || [])) &&
@@ -41,13 +41,15 @@ export function Categories(
     {
       id: "latestUpdates",
       name: () => t("category.latestUpdates", "Latest updates"),
+      sorted:  ()=> chain(apps)
+        .sortBy((a) => a.source[0].lastChange || "")
+        .sortBy((a) => a.lastRelease || "")
+        .reverse(),
+      getAll: function () {
+        return this.sorted().value();
+      },
       nextIndex: function () {
-        const latest = chain(apps)
-          .sortBy((a) => a.source[0].lastChange || "")
-          .sortBy((a) => a.lastRelease || "")
-          .reverse()
-          .take(1)
-          .value();
+        const latest = this.sorted().take(1).value();
         return apps.findIndex((app) => app.id === latest[0].id);
       },
     },

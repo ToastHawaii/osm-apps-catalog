@@ -28,18 +28,21 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     apps = apps.filter((a) => some(a.cache.platform, platformsUp));
   }
 
-  const category = Categories(t, apps).find((c) => c.id == id);
+  const category = Categories(t, apps).find((c) => c.id === id);
 
   if (!category) {
     throw new Error(`Category not found: ${id}`);
   }
 
   const categoryApps = [];
-  let index = category.nextIndex();
-  while (index !== -1) {
-    const splicesApps = apps.splice(0, index + 1);
-    categoryApps.push(splicesApps[index]);
-    index = category.nextIndex();
+  if ("getAll" in category && category.getAll) {
+    categoryApps.push(...category.getAll());
+  } else {
+    let index = category.nextIndex();
+    while (index !== -1) {
+      categoryApps.push(...apps.splice(index, 1));
+      index = category.nextIndex();
+    }
   }
 
   return (
