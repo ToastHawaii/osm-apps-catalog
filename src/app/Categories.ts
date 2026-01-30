@@ -1,5 +1,6 @@
 import { App } from "@shared/data/App";
 import { display, mobile, navigation, edit } from "@shared/utilities/filters";
+import { equalsYes } from "@shared/utilities/string";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
 
@@ -11,7 +12,31 @@ export function Categories(
     {
       id: "universalMapApps",
       name: () => t("category.universalMapApps", "Universal map apps"),
-      nextIndex: () => apps.findIndex((app) => display(app)),
+      nextIndex: () =>
+        apps.findIndex(
+          (app) =>
+            /// univerval maps: main goal is display map data
+            display(app) &&
+            equalsYes(...(app.map?.showWebsite || [])) &&
+            equalsYes(...(app.map?.showOpeningHours || [])) &&
+            // can calculate a route
+            equalsYes(...(app.routing?.calculateRoute || [])) &&
+            // can find a location
+            equalsYes(...(app.navigating?.findLocation || [])) &&
+            // and support some contributing
+            equalsYes(
+              ...[
+                ...(app.editing?.addPOI || []),
+                ...(app.editing?.addWay || []),
+
+                ...(app.editing?.createNotes || []),
+
+                ...(app.editing?.editPOI || []),
+                ...(app.editing?.editGeom || []),
+                ...(app.editing?.editTags || []),
+              ],
+            ),
+        ),
     },
     {
       id: "latestUpdates",
