@@ -24,6 +24,7 @@
   "category.navigation": "Find your way",
   "category.edit": "Improve the map",
   "category.foss": "Free and opensource",
+  "category.country": "Apps for {{country}}",
   "category.all.description": "{{numberOfApps}} apps that use <o>OpenStreetMap</o>.",
   "category.all.description.filtered": "{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.",
   "category.focus.description": "Ten apps from the most recently updated pages.",

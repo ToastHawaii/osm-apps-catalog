@@ -1,3 +1,4 @@
+import { getUserRegion } from "@lib/utils/getUserRegion";
 import { App } from "@shared/data/App";
 import { display, mobile, navigation, edit } from "@shared/utilities/filters";
 import { equalsYes } from "@shared/utilities/string";
@@ -68,6 +69,34 @@ export function Categories(
       id: "edit",
       name: () => t("category.edit", "Improve the map"),
       nextIndex: () => apps.findIndex((app) => edit(app)),
+    },
+    {
+      id: "country",
+      loadData: () => {
+        const userRegion = getUserRegion();
+        if (!userRegion) {
+          return undefined;
+        }
+        const parts = userRegion?.split(", ");
+        return {
+          label: parts[parts?.length - 1],
+          full: userRegion,
+        };
+      },
+      name: function () {
+        return t("category.country", {
+          country: this.loadData()?.label,
+        });
+      },
+      nextIndex: function () {
+        const country = this.loadData()?.full?.toUpperCase();
+        if (!country) {
+          return -1;
+        }
+        return apps.findIndex((app) =>
+          app.cache.coverage.some((a) => a.startsWith(country)),
+        );
+      },
     },
     {
       id: "foss",
