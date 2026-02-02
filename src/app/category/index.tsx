@@ -9,7 +9,6 @@ import {
   ItemTitle,
 } from "@components/ui/item";
 import { App } from "@shared/data/App";
-import { Separator } from "@components/ui/separator";
 import { LazyLoadImages } from "@app/ui/components/LazyLoadImages";
 import { Logo } from "@app/ui/components/Image";
 import { plainText } from "@shared/utilities/plainText";
@@ -17,7 +16,7 @@ import { useAppState } from "@hooks/useAppState";
 import { some } from "@shared/utilities/array";
 import { Categories } from "@app/Categories";
 import { Filters } from "@app/Filters";
-import { Header } from "@app/Header";
+import { Link } from "react-router";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -46,41 +45,37 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
   }
 
   return (
-    <div id="content">
-      <Header />
-      <Separator />
-      <main className="mx-auto max-w-7xl">
-        <Filters />
+    <main className="mx-auto max-w-7xl">
+      <Filters />
 
-        <div id="list">
-          <LazyLoadImages>
-            <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
-              {category.name()}
-            </h2>
-            <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
-              {categoryApps.map((app) => (
-                <div className="p-2" key={app.id}>
-                  <Item variant="outline" asChild role="listitem">
-                    <a href={`?view=app&app=${app.id}`}>
-                      <ItemMedia variant="icon" className="size-15">
-                        <Logo app={app} />
-                      </ItemMedia>
-                      <ItemContent>
-                        <ItemTitle className="line-clamp-1 wrap-anywhere">
-                          {app.name}
-                        </ItemTitle>
-                        <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-                          {plainText(app.descriptionShort || app.description)}
-                        </ItemDescription>
-                      </ItemContent>
-                    </a>
-                  </Item>
-                </div>
-              ))}
-            </div>
-          </LazyLoadImages>
-        </div>
-      </main>
-    </div>
+      <div id="list">
+        <LazyLoadImages>
+          <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
+            {category.name()}
+          </h2>
+          <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+            {categoryApps.map((app) => (
+              <div className="p-2" key={app.id}>
+                <Item variant="outline" asChild role="listitem">
+                  <Link to={{ search: `?view=app&app=${app.id}` }}>
+                    <ItemMedia variant="icon" className="size-15">
+                      <Logo app={app} />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle className="line-clamp-1 wrap-anywhere">
+                        {app.name}
+                      </ItemTitle>
+                      <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
+                        {plainText(app.descriptionShort || app.description)}
+                      </ItemDescription>
+                    </ItemContent>
+                  </Link>
+                </Item>
+              </div>
+            ))}
+          </div>
+        </LazyLoadImages>
+      </div>
+    </main>
   );
 }
