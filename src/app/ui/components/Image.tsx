@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { calculateFilter } from "@shared/data/calculateFilter";
 import { isImage } from "./LazyLoadImages";
 import { chain } from "lodash";
+import { LazyImage } from "@app/ui/components/LazyImage";
 
 function isLogo(fileName: string) {
   return (
@@ -173,11 +174,11 @@ export function Logo({ app }: { app: App }) {
   }
 
   return (
-    <img
+    <LazyImage
       className="object-cover"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
-      data-dynamic-src={
+      dynamicSrc={
         logos.length > 0 ? `${logos.join(" ")} ${defaultLogo}` : undefined
       }
       alt={t("app.imageAlt", {

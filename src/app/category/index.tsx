@@ -9,7 +9,6 @@ import {
   ItemTitle,
 } from "@components/ui/item";
 import { App } from "@shared/data/App";
-import { LazyLoadImages } from "@app/ui/components/LazyLoadImages";
 import { Logo } from "@app/ui/components/Image";
 import { plainText } from "@shared/utilities/plainText";
 import { useAppState } from "@hooks/useAppState";
@@ -49,32 +48,30 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
       <Filters />
 
       <div id="list">
-        <LazyLoadImages>
-          <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
-            {category.name()}
-          </h2>
-          <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
-            {categoryApps.map((app) => (
-              <div className="p-2" key={app.id}>
-                <Item variant="outline" asChild role="listitem">
-                  <Link to={{ search: `?view=app&app=${app.id}` }}>
-                    <ItemMedia variant="icon" className="size-15">
-                      <Logo app={app} />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle className="line-clamp-1 wrap-anywhere">
-                        {app.name}
-                      </ItemTitle>
-                      <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-                        {plainText(app.descriptionShort || app.description)}
-                      </ItemDescription>
-                    </ItemContent>
-                  </Link>
-                </Item>
-              </div>
-            ))}
-          </div>
-        </LazyLoadImages>
+        <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
+          {category.name()}
+        </h2>
+        <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+          {categoryApps.map((app) => (
+            <div className="p-2" key={app.id}>
+              <Item variant="outline" asChild role="listitem">
+                <Link to={{ search: `?view=app&app=${app.id}` }}>
+                  <ItemMedia variant="icon" className="size-15">
+                    <Logo app={app} />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle className="line-clamp-1 wrap-anywhere">
+                      {app.name}
+                    </ItemTitle>
+                    <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
+                      {plainText(app.descriptionShort || app.description)}
+                    </ItemDescription>
+                  </ItemContent>
+                </Link>
+              </Item>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );
