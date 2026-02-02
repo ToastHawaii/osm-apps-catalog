@@ -85,50 +85,6 @@ export function Search({ apps }: { apps: App[] }) {
 
   return (
     <div id="content">
-      <div
-        style={{
-          padding: "12px 18px",
-          color: "#664d03",
-          background: "#fff3cd",
-          border: "1px solid #ffe69c",
-          position: "relative",
-        }}
-      >
-        <Trans
-          i18nKey={`survey`}
-          components={{
-            u: (
-              <a
-                style={{ fontWeight: "900" }}
-                href={
-                  i18n.language === "de" || state.languages.includes("Deutsch")
-                    ? "https://docs.google.com/forms/d/e/1FAIpQLSf0UZThZrVZQZgu1lIcXjQ3A1h_L2NznjMC9ntM_NREV6d2fQ/viewform?usp=dialog"
-                    : "https://docs.google.com/forms/d/e/1FAIpQLSezDOrvRCoSyXfhsCXHp-w_rBJgi2a8ITANi9xaryylTP9ASQ/viewform?usp=publish-editor"
-                }
-                target="_blank"
-                rel="noreferrer"
-              />
-            ),
-          }}
-        />
-        <button
-          style={{
-            background: "none",
-            border: "none",
-            position: "absolute",
-            padding: "10px",
-            right: "0",
-            top: "0",
-            fontSize: "20px",
-            cursor: "pointer",
-          }}
-          onClick={(e) => {
-            e.currentTarget.parentElement?.remove();
-          }}
-        >
-          <i className="fas fa-times-circle"></i>
-        </button>
-      </div>
       <header className="page-header">
         <Menu
           value={state.category}
