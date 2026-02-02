@@ -1,34 +1,21 @@
 import { useSearchParams } from "react-router";
 import { State } from "../app/ui/State";
 import { useReducer } from "react";
-import { languageValueToDisplay } from "../app/ui/utilities/language";
-import { getUserRegion } from "../lib/utils/getUserRegion";
 import { getUserOS } from "../lib/utils/getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
 function usersBrowserSearchParams() {
-  const userLanguages = navigator.languages.map((l) =>
-    languageValueToDisplay(l),
-  );
-  const userRegion = getUserRegion();
   const userPlatform = getUserOS();
 
   return {
-    languages:
-      userLanguages.length > 0
-        ? uniq([languageValueToDisplay("en"), ...userLanguages]).join("+")
-        : "",
-    coverage: userRegion ? uniq(["Worldwide", userRegion]).join("+") : "",
     platforms: userPlatform ? uniq(["Web", userPlatform]).join("+") : "",
   };
 }
 
 export function useAppState() {
   let initState: {
-    languages: string;
-    coverage: string;
     platforms: string;
-  } = { languages: "", coverage: "", platforms: "" };
+  } = { platforms: "" };
   const [initSearchParams] = useSearchParams();
 
   if (isEmpty(Object.fromEntries(initSearchParams.entries()))) {
