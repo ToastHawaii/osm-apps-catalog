@@ -51,7 +51,7 @@ export function Compare({
 
   return (
     <>
-      <div className="row fixed">
+      <div className="fixed table-row">
         <div className="cell header param-title"></div>
         {apps.map((app) => (
           <div

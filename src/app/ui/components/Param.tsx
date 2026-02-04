@@ -28,7 +28,7 @@ export function Param({
   }
 
   const element = (
-    <div className={`row ${group} ${focus ? "focus" : ""}`}>
+    <div className={`table-row ${group} ${focus ? "focus" : ""}`}>
       <div className="cell header param-title" title={description}>
         {label}
       </div>

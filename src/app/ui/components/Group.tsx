@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Badges } from "./Badges";
 import { toWikiValue, toWikiTable } from "../utilities/toWikiTable";
 import { Param } from "./Param";
 import { notNo } from "@shared/utilities/string";
 import { App } from "@shared/data/App";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
 export function Group({
   id,
@@ -33,6 +35,9 @@ export function Group({
   lang: string;
 }) {
   const { t } = useTranslation();
+
+  const [hidden, setHidden] = useState(false);
+
   const extendedParams = params.map((p) => {
     if (typeof p !== "string") {
       return p;
@@ -83,21 +88,18 @@ export function Group({
   if (elements.length) {
     return (
       <>
-        <div className="row">
+        <div className="table-row">
           <div className="cell header params-title params-group-title">
             <a
               className="group"
               href="#"
-              onClick={() => {
-                document
-                  .querySelectorAll(`.${id}-detail`)
-                  .forEach((e) => e.classList.toggle("hidden"));
-              }}
+              onClick={() => setHidden((value) => !value)}
             >
-              <i className={`fas fa-fw fa-caret-down ${id}-detail`}></i>
-              <i
-                className={`fas fa-fw fa-caret-right ${id}-detail hidden`}
-              ></i>{" "}
+              <HugeiconsIcon
+                className="inline-block align-bottom"
+                icon={!hidden ? ArrowDown01Icon : ArrowRight01Icon}
+                strokeWidth={2}
+              />{" "}
               {display}
             </a>{" "}
             <a
@@ -123,7 +125,7 @@ ${wikiTable}`);
             </a>{" "}
           </div>
         </div>
-        {elements}
+        {!hidden && elements}
       </>
     );
   }

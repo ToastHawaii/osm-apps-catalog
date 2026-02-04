@@ -62,7 +62,7 @@ export function useAppState() {
       } else if (key === "category") {
         formatedValue = value === "all" ? "" : "" + value;
       } else if (key === "view") {
-        formatedValue = value === "list" ? "" : "" + value;
+        formatedValue = value === "home" ? "" : "" + value;
       } else {
         formatedValue = "" + value;
       }

@@ -12,8 +12,10 @@ export function Router() {
   const [searchParams] = useSearchParams();
 
   switch (searchParams.get("view")) {
-    case "search":
     case "app":
+    case "search":
+    case "list":
+    case "compare":
       return <Search apps={apps} />;
     case "explore":
       return <Category apps={apps} id={searchParams.get("category") || ""} />;

@@ -1,17 +1,5 @@
 @import "slim-select/styles";
 
-html {
-  background: white;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  text-align: center;
-  color: #333;
-}
-
 a {
   text-decoration: none;
   color: #007aff;
@@ -55,26 +43,13 @@ a.link-create {
   border: 1px solid #007aff;
 }
 
-.align-middle {
-  vertical-align: middle !important;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
-.table {
-  display: table;
-}
 .cell {
   display: table-cell;
   vertical-align: top;
+}
+.cell:not(.text-center) {
   text-align: start;
 }
-.row {
-  display: table-row;
-}
-
 .page-header {
   left: 0;
   position: sticky;
@@ -101,7 +76,7 @@ a.link-create {
   width: max-content;
 }
 
-.row.fixed {
+.table-row.fixed {
   position: sticky;
   top: 0;
   background-color: white;
@@ -169,7 +144,7 @@ a.link-create {
 #compare .param-text span div {
   display: inline;
 }
-#compare .row.focus {
+#compare .table-row.focus {
   .param-title {
     color: #333;
   }
@@ -338,7 +313,7 @@ a.link-create {
   position: relative;
 }
 .app .header h4,
-.row .header h4 {
+.table-row .header h4 {
   margin: 0;
 }
 .app .header a {
@@ -348,14 +323,14 @@ a.link-create {
 }
 
 .app p,
-.row p {
+.table-row p {
   font-size: smaller;
   margin: 0;
   line-height: 1.5;
 }
 
 .app .img,
-.row .img {
+.table-row .img {
   max-width: 100%;
   max-height: 250px;
   margin: 6px 0;
@@ -542,10 +517,6 @@ a.link-create {
   font-size: 2em;
   text-align: center;
   width: 100vw;
-}
-
-.hidden {
-  display: none !important;
 }
 
 .badge {

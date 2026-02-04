@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import "./styles.scss";
 import i18next from "i18next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { InformationCircleIcon } from "@hugeicons/core-free-icons";
 
 export function About() {
   const { t } = useTranslation();
@@ -16,7 +18,11 @@ export function About() {
       }`}
       title={t("about")}
     >
-      <i className="fas fa-info-circle"></i>
+      <HugeiconsIcon
+        className="inline-block"
+        icon={InformationCircleIcon}
+        strokeWidth={2}
+      />
     </a>
   );
 }
