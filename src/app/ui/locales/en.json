@@ -12,7 +12,6 @@
   "filter.platform": "Platform",
   "filter.language": "Language",
   "filter.coverage": "Coverage",
-  "filter.category": "Menu",
   "filter.category.all": "All",
   "filter.category.focus": "Focus",
   "filter.category.latest": "Latest",

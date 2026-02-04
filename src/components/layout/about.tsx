@@ -1,9 +1,7 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-
-import "./styles.scss";
 import i18next from "i18next";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslation } from "react-i18next";
 import { InformationCircleIcon } from "@hugeicons/core-free-icons";
 
 export function About() {
@@ -11,8 +9,6 @@ export function About() {
 
   return (
     <a
-      id="about"
-      className="info"
       href={`/docs/${
         i18next.resolvedLanguage !== "en" ? `${i18next.resolvedLanguage}/` : ""
       }`}

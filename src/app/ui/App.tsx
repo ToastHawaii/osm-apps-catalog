@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { ViewSelect } from "./components/ViewSelect";
-import { About } from "./components/about";
-import { Menu } from "./components/Menu";
 import { SearchComponent } from "./components/search";
 import { TopicSelect } from "./components/TopicSelect";
 import { PlatformSelect } from "./components/PlatformSelect";
@@ -84,30 +82,8 @@ export function Search({ apps }: { apps: App[] }) {
   });
 
   return (
-    <div id="content">
-      <header className="page-header">
-        <Menu
-          value={state.category}
-          onChange={(value) => {
-            if (value === "focus" || state.app) {
-              setMoreFilters(false);
-              resetAppState(value);
-            } else {
-              setAppState("category", value);
-            }
-          }}
-        />
-        <h1 className="text-3xl font-bold" style={{ clear: "both" }}>
-          {apps.length === 0 && (
-            <>
-              <i id="loading" className="fas fa-spinner fa-pulse"></i>{" "}
-            </>
-          )}
-          <a href="/" style={{ color: "#333" }}>
-            OSM Apps Catalog
-          </a>
-          <About />
-        </h1>
+    <>
+      <div className="sticky left-0 text-center">
         <p className="description" style={{ margin: "5px 10px" }}>
           {(state.category === "all" && filteredApps.length !== apps.length) ||
           !!state.app ? (
@@ -180,7 +156,6 @@ export function Search({ apps }: { apps: App[] }) {
             />
           </>
         )}
-        <hr className="my-2" />
         {!state.app &&
           !moreFilters &&
           (state.topics.length > 0 ||
@@ -280,68 +255,70 @@ export function Search({ apps }: { apps: App[] }) {
             onChange={(newValues) => setAppState("view", newValues)}
           />
         )}
-      </header>
-      {apps.length > 0 && (
-        <main>
-          {state.view !== "compare" ? (
-            <div id="list">
-              {filteredApps.length > 0 ? (
-                <PagedList
-                  apps={filteredApps}
-                  open={!!state.app}
-                  state={state}
-                  isInitState={isInitState}
-                >
-                  <RelatedApps
-                    findSimilarApps={findSimilarApps}
+      </div>
+      <div className="text-center">
+        {apps.length > 0 && (
+          <main>
+            {state.view !== "compare" ? (
+              <div id="list">
+                {filteredApps.length > 0 ? (
+                  <PagedList
+                    apps={filteredApps}
+                    open={!!state.app}
                     state={state}
-                  />
-                </PagedList>
-              ) : (
-                <>
-                  <p className="no-results">
-                    {t("noResults")}{" "}
-                    {(state.topics.length > 0 ||
-                      state.platforms.length > 0 ||
-                      state.languages.length > 0 ||
-                      state.coverage.length > 0 ||
-                      state.contribute.length > 0) && (
-                      <button
-                        className="reset-filters"
-                        onClick={() => {
-                          resetAppState(state.category);
-                        }}
-                      >
-                        {t("filter.resetFilters")}
-                      </button>
-                    )}
-                  </p>
-                </>
-              )}
-              {state.category === "all" && !state.app && (
-                <NotFoundApps apps={apps} />
-              )}
-            </div>
-          ) : (
-            <div id="compare" className="table">
-              {filteredApps.length > 0 ? (
-                <LazyLoadImages>
-                  <LazyInitMore>
-                    <Compare
-                      apps={filteredApps}
-                      lang={i18n.language}
+                    isInitState={isInitState}
+                  >
+                    <RelatedApps
+                      findSimilarApps={findSimilarApps}
                       state={state}
-                      isInitState={isInitState}
                     />
-                  </LazyInitMore>
-                </LazyLoadImages>
-              ) : (
-                <p className="no-results">{t("noResults")}</p>
-              )}
-            </div>
-          )}
-        </main>
-      )}
-    </div>
+                  </PagedList>
+                ) : (
+                  <>
+                    <p className="no-results">
+                      {t("noResults")}{" "}
+                      {(state.topics.length > 0 ||
+                        state.platforms.length > 0 ||
+                        state.languages.length > 0 ||
+                        state.coverage.length > 0 ||
+                        state.contribute.length > 0) && (
+                        <button
+                          className="reset-filters"
+                          onClick={() => {
+                            resetAppState(state.category);
+                          }}
+                        >
+                          {t("filter.resetFilters")}
+                        </button>
+                      )}
+                    </p>
+                  </>
+                )}
+                {state.category === "all" && !state.app && (
+                  <NotFoundApps apps={apps} />
+                )}
+              </div>
+            ) : (
+              <div id="compare" className="table">
+                {filteredApps.length > 0 ? (
+                  <LazyLoadImages>
+                    <LazyInitMore>
+                      <Compare
+                        apps={filteredApps}
+                        lang={i18n.language}
+                        state={state}
+                        isInitState={isInitState}
+                      />
+                    </LazyInitMore>
+                  </LazyLoadImages>
+                ) : (
+                  <p className="no-results">{t("noResults")}</p>
+                )}
+              </div>
+            )}
+          </main>
+        )}
+      </div>
+    </>
   );
 }

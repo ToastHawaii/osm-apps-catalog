@@ -50,11 +50,6 @@ a.link-create {
 .cell:not(.text-center) {
   text-align: start;
 }
-.page-header {
-  left: 0;
-  position: sticky;
-  z-index: 1000;
-}
 
 .warning {
   color: #ffc680;
@@ -78,7 +73,7 @@ a.link-create {
 
 .table-row.fixed {
   position: sticky;
-  top: 0;
+  top: 69px;
   background-color: white;
   z-index: 2;
 }
