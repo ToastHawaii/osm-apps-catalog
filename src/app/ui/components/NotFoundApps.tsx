@@ -18,7 +18,7 @@ export function NotFoundApps({ apps }: { apps: AppData[] }) {
 
   return (
     <>
-      <h2>{t("notFound")}</h2>
+      <h2 className="text-xl font-semibold">{t("notFound")}</h2>
       <p style={{ margin: "5px 10px 10px" }}>{t("notFound.desc")}</p>
       {notFound.map((a) => (
         <List key={a.id} app={a} open={false} />
