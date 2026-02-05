@@ -7,7 +7,7 @@ export function ViewSelect({
   value,
   onChange,
 }: {
-  value: "list" | "compare";
+  value: string;
   onChange: (value: "list" | "compare") => void;
 }) {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ export function ViewSelect({
           id="listView"
           name="view"
           value="List"
-          checked={value === "list"}
+          checked={value === "list" || value === "app"}
           onChange={(e) => {
             onChange(e.currentTarget.checked ? "list" : "compare");
           }}
