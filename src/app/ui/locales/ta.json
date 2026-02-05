@@ -100,7 +100,7 @@
   "share.wiki": "Wiki.openstreetmap.org க்காக வடிவமைக்கப்பட்ட இடைநிலைப்பலகைக்கு {{group}} அட்டவணை நகலெடுக்கப்பட்டது.",
   "wiki.generatedBy": "OSM APPS பட்டியலால் உருவாக்கப்பட்டது",
   "wiki.none": "எதுவுமில்லை",
-  "filter.showAll": "அனைத்தையும் காட்டு",
+  "category.showAll": "அனைத்தையும் காட்டு",
   "filter.preview": "வடிகட்டி இதற்கு அமைக்கப்பட்டுள்ளது:",
   "filter.preset": "வடிகட்டி உங்களுக்காக முன்னமைக்கப்பட்டுள்ளது:",
   "category.all.description.filtered": "{{numberOfApps}} {{totalNumberOfApps}}} பயன்பாடுகள் <o> openstreetmap </o>.",

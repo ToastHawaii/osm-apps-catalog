@@ -118,7 +118,7 @@
   "app.contribute.toData.photos": "Fotos für die Kartierung hochladen",
   "select.search.placeholder": "Suche",
   "select.search.noResults": "Kein Resultat",
-  "filter.showAll": "Alle anzeigen",
+  "category.showAll": "Alle anzeigen",
   "filter.preview": "Apps werden angezeigt für:",
   "category.all.description.filtered": "{{numberOfApps}} von {{totalNumberOfApps}} Apps die <o>OpenStreetMap</o> verwenden.",
   "filter.preset": "Der Filter ist schon für dich eingestellt:",

@@ -22,7 +22,7 @@
   "select.search.placeholder": "Cerca",
   "select.search.noResults": "Nessun risultato",
   "list.moreInfos": "Informazioni",
-  "filter.showAll": "Mostra tutti",
+  "category.showAll": "Mostra tutti",
   "app.imageAlt": "Immagine da {{name}}.",
   "app.install.huaweiAppGallery": "Huawei App Gallery",
   "app.community.bluesky": "Bluesky",

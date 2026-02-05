@@ -137,7 +137,6 @@ export function useAppsData() {
       if (coverageUp.length > 0) {
         apps = chain(apps)
           .sortBy((a) => !sortByCoverage(a, coverageUp))
-
           .value();
       }
 

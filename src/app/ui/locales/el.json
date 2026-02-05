@@ -60,7 +60,7 @@
   "list": "Λίστα",
   "compare": "Σύγκριση",
   "filter.moreFilters": "Φίλτρα",
-  "filter.showAll": "Εμφάνιση όλων",
+  "category.showAll": "Εμφάνιση όλων",
   "filter.preview": "Το φίλτρο είναι ρυθμισμένο σε:",
   "filter.preset": "Το φίλτρο είναι προρυθμισμένο για εσάς:",
   "category.all.description.filtered": "{{numberOfApps}} από {{totalNumberOfApps}} εφαρμογές που χρησιμοποιούν το <o>OpenStreetMap</o>.",

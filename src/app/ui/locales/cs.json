@@ -118,7 +118,7 @@
   "app.contribute.toData.review": "Zkontrolujte úpravy",
   "select.search.placeholder": "Hledat",
   "select.search.noResults": "Žádné výsledky",
-  "filter.showAll": "Zobrazit vše",
+  "category.showAll": "Zobrazit vše",
   "filter.preview": "Filtr je nastaven na:",
   "category.all.description.filtered": "{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.",
   "app.getIt": "Získejte ho",

@@ -82,7 +82,7 @@
   "app.source": "Source",
   "score.criteria.lastUpdateThreeMonths": "la dernière mise à jour a eu lieu dans les 3 derniers mois",
   "select.search.noResults": "Aucun résultat",
-  "filter.showAll": "Afficher tout",
+  "category.showAll": "Afficher tout",
   "filter.preview": "Les filtres définis sont :",
   "category.all.description.filtered": "{{numberOfApps}} sur {{totalNumberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.",
   "compare.group.header.routing": "Guidage",

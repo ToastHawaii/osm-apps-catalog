@@ -131,7 +131,7 @@ export function Search({ apps }: { apps: App[] }) {
                   resetAppState(state.category);
                 }}
               >
-                {t("filter.showAll")}
+                {t("category.showAll")}
               </button>
             </>
           )}
@@ -215,7 +215,7 @@ export function Search({ apps }: { apps: App[] }) {
                       resetAppState(state.category);
                     }}
                   >
-                    {t("filter.showAll")}
+                    {t("category.showAll")}
                   </button>
                 </>
               )}

@@ -88,7 +88,7 @@ export function Home({ apps }: { apps: App[] }) {
                     search: `?view=explore&category=${category.id}&platforms=${platformsUp.map((p) => p.toLowerCase()).join("%2B")}`,
                   }}
                 >
-                  Alle anzeigen
+                  {t("category.showAll")}
                 </Link>
               </div>
               <Carousel

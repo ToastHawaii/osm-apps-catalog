@@ -118,7 +118,7 @@
   "app.contribute.toData.photos": "Laadi üles kaardistamiseks vajalikke fotosid",
   "select.search.placeholder": "Otsi",
   "select.search.noResults": "Tulemusi pole",
-  "filter.showAll": "Näita kõiki",
+  "category.showAll": "Näita kõiki",
   "filter.preview": "Filtritingimused on:",
   "category.all.description.filtered": "{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.",
   "filter.preset": "Eelseadistatud filter sinu jaoks:",
