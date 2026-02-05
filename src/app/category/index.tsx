@@ -60,6 +60,11 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
         <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
           {category.name()}
         </h2>
+        {category.description && (
+          <p className="px-8 text-sm text-muted-foreground md:px-18">
+            {category.description(category.apps.length)}
+          </p>
+        )}
         <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
           {category.apps.map((app) => (
             <div className="p-2" key={app.id}>

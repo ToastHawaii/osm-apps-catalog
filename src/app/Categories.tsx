@@ -4,6 +4,35 @@ import { display, mobile, navigation, edit } from "@shared/utilities/filters";
 import { equalsYes } from "@shared/utilities/string";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
+import React from "react";
+import { Trans } from "react-i18next";
+
+function Description({
+  category,
+  numberOfApps,
+}: {
+  category: string;
+  numberOfApps: number;
+}) {
+  return (
+    <Trans
+      i18nKey={`category.${category}.description`}
+      values={{
+        numberOfApps,
+      }}
+      components={{
+        o: (
+          <a
+            href="https://openstreetmap.org/"
+            target="_blank"
+            rel="noreferrer"
+          />
+        ),
+        s: <a href="/docs/score" />,
+      }}
+    />
+  );
+}
 
 export function Categories(
   t: TFunction<"translation", undefined>,
@@ -12,7 +41,7 @@ export function Categories(
   return [
     {
       id: "universalMapApps",
-      name: () => t("category.universalMapApps", "Universal map apps"),
+      name: () => t("category.universalMapApps"),
       nextIndex: () =>
         apps.findIndex(
           (app) =>
@@ -41,7 +70,7 @@ export function Categories(
     },
     {
       id: "latestUpdates",
-      name: () => t("category.latestUpdates", "Latest updates"),
+      name: () => t("category.latestUpdates"),
       sorted: () =>
         chain(apps)
           .sortBy((a) => a.source[0].lastChange || "")
@@ -57,17 +86,26 @@ export function Categories(
     },
     {
       id: "mobile",
-      name: () => t("category.mobile", "To go"),
+      name: () => t("category.mobile"),
+      description: (numberOfApps: number) => (
+        <Description category="mobile" numberOfApps={numberOfApps} />
+      ),
       nextIndex: () => apps.findIndex((app) => mobile(app)),
     },
     {
       id: "navigation",
-      name: () => t("category.navigation", "Find your way"),
+      name: () => t("category.navigation"),
+      description: (numberOfApps: number) => (
+        <Description category="navigation" numberOfApps={numberOfApps} />
+      ),
       nextIndex: () => apps.findIndex((app) => navigation(app)),
     },
     {
       id: "edit",
-      name: () => t("category.edit", "Improve the map"),
+      name: () => t("category.edit"),
+      description: (numberOfApps: number) => (
+        <Description category="edit" numberOfApps={numberOfApps} />
+      ),
       nextIndex: () => apps.findIndex((app) => edit(app)),
     },
     {
