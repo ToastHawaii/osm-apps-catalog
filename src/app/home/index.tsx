@@ -1,5 +1,5 @@
 import { range } from "lodash";
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -30,44 +30,51 @@ export function Home({ apps }: { apps: App[] }) {
   const [state] = useAppState();
 
   const platformsUp = state.platforms.map((t) => t.toUpperCase());
-  if (platformsUp.length > 0) {
-    apps = apps.filter((a) => some(a.cache.platform, platformsUp));
-  }
+  const categories = useMemo(() => {
+    let filteredApps = apps.slice();
+    if (platformsUp.length > 0) {
+      filteredApps = filteredApps.filter((a) =>
+        some(a.cache.platform, platformsUp),
+      );
+    }
 
-  const categories = Categories(t, apps).map((c) => ({
-    ...c,
-    apps: [] as App[],
-  }));
+    const categories = Categories(t, filteredApps).map((c) => ({
+      ...c,
+      apps: [] as App[],
+    }));
 
-  // Add apps to categories so that the highest-scored apps are seen first
-  let row = 0;
-  let col = 0;
-  const maxNumberOfAppsPerCategory = 9;
-  range(maxNumberOfAppsPerCategory * categories.length).forEach(() => {
-    const category = categories[row];
+    // Add apps to categories so that the highest-scored apps are seen first
+    let row = 0;
+    let col = 0;
+    const maxNumberOfAppsPerCategory = 9;
+    range(maxNumberOfAppsPerCategory * categories.length).forEach(() => {
+      const category = categories[row];
 
-    if (row < col) {
-      if (row < categories.length - 1) {
-        row++;
+      if (row < col) {
+        if (row < categories.length - 1) {
+          row++;
+        } else {
+          row = categories.findIndex(
+            (c) => c.apps.length < maxNumberOfAppsPerCategory,
+          );
+          col++;
+        }
       } else {
         row = categories.findIndex(
           (c) => c.apps.length < maxNumberOfAppsPerCategory,
         );
         col++;
       }
-    } else {
-      row = categories.findIndex(
-        (c) => c.apps.length < maxNumberOfAppsPerCategory,
-      );
-      col++;
-    }
 
-    const index = category.nextIndex();
-    if (index === -1) {
-      return;
-    }
-    category.apps.push(...apps.splice(index, 1));
-  });
+      const index = category.nextIndex();
+      if (index === -1) {
+        return;
+      }
+      category.apps.push(...filteredApps.splice(index, 1));
+    });
+
+    return categories;
+  }, [apps.length, JSON.stringify(state.platforms)]);
 
   return (
     <main className="mx-auto max-w-7xl">

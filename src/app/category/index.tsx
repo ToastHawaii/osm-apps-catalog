@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -21,27 +21,36 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
   const [state] = useAppState();
 
-  const platformsUp = state.platforms.map((t) => t.toUpperCase());
-  if (platformsUp.length > 0) {
-    apps = apps.filter((a) => some(a.cache.platform, platformsUp));
-  }
-
-  const category = Categories(t, apps).find((c) => c.id === id);
-
-  if (!category) {
-    throw new Error(`Category not found: ${id}`);
-  }
-
-  const categoryApps = [];
-  if ("getAll" in category && category.getAll) {
-    categoryApps.push(...category.getAll());
-  } else {
-    let index = category.nextIndex();
-    while (index !== -1) {
-      categoryApps.push(...apps.splice(index, 1));
-      index = category.nextIndex();
+  const category = useMemo(() => {
+    const platformsUp = state.platforms.map((t) => t.toUpperCase());
+    let filteredApps = apps.slice();
+    if (platformsUp.length > 0) {
+      filteredApps = filteredApps.filter((a) =>
+        some(a.cache.platform, platformsUp),
+      );
     }
-  }
+
+    const category = Categories(t, filteredApps).find((c) => c.id === id);
+
+    if (!category) {
+      throw new Error(`Category not found: ${id}`);
+    }
+
+    const categoryApps = [];
+    if ("getAll" in category && category.getAll) {
+      categoryApps.push(...category.getAll());
+    } else {
+      let index = category.nextIndex();
+      while (index !== -1) {
+        categoryApps.push(...filteredApps.splice(index, 1));
+        index = category.nextIndex();
+      }
+    }
+    return {
+      ...category,
+      apps: categoryApps,
+    };
+  }, [apps.length, JSON.stringify(state.platforms)]);
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -52,7 +61,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
           {category.name()}
         </h2>
         <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
-          {categoryApps.map((app) => (
+          {category.apps.map((app) => (
             <div className="p-2" key={app.id}>
               <Item variant="outline" asChild role="listitem">
                 <Link to={{ search: `?view=app&app=${app.id}` }}>
