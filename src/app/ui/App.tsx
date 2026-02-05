@@ -275,7 +275,7 @@ export function Search({ apps }: { apps: App[] }) {
                   </PagedList>
                 ) : (
                   <>
-                    <p className="no-results">
+                    <p className="no-results my-4">
                       {t("noResults")}{" "}
                       {(state.topics.length > 0 ||
                         state.platforms.length > 0 ||
