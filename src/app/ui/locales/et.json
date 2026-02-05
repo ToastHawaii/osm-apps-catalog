@@ -5,7 +5,7 @@
   "filter.coverage": "Piirkond",
   "filter.category": "Menüü",
   "filter.category.all": "Kõik",
-  "about": "Veebirakenduse teave",
+  "nav.about": "Veebirakenduse teave",
   "filter.search": "Otsi",
   "app.install.obtainium": "Obtainium",
   "app.community.forum": "Foorum",

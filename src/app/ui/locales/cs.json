@@ -9,7 +9,7 @@
   "app.platforms": "Platformy",
   "filter.coverage": "Pokrytí",
   "category.all.description": "{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.",
-  "about": "O aplikaci",
+  "nav.about": "O aplikaci",
   "filter.search": "Hledat",
   "filter.topic": "Téma",
   "filter.category": "Nabídka",

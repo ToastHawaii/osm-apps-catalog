@@ -1,5 +1,6 @@
 {
-  "about": "About",
+  "nav.about": "About",
+  "nav.search": "Search",
   "list": "List",
   "compare": "Compare",
   "filter.search": "Search",

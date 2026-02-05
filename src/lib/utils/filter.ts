@@ -48,7 +48,7 @@ export function filter({
       (a) =>
         a.name.toUpperCase().includes(search) ||
         a.description.toUpperCase().includes(search) ||
-        a.descriptionShort.toUpperCase().includes(search) ||
+        a.descriptionShort?.toUpperCase().includes(search) ||
         a.cache.topics.some((t) => t.includes(search)) ||
         a.cache.platform.some((t) => t.includes(search)) ||
         a.cache.coverage.some((t) => t.includes(search)),
@@ -172,7 +172,7 @@ export function filter({
           (t) =>
             a.name.toUpperCase().includes(t) ||
             a.description.toUpperCase().includes(t) ||
-            a.descriptionShort.toUpperCase().includes(t),
+            a.descriptionShort?.toUpperCase().includes(t),
         ),
       );
 
@@ -181,7 +181,7 @@ export function filter({
           (a) =>
             a.name.toUpperCase().includes(search) ||
             a.description.toUpperCase().includes(search) ||
-            a.descriptionShort.toUpperCase().includes(search) ||
+            a.descriptionShort?.toUpperCase().includes(search) ||
             a.cache.topics.filter((t) => t.includes(search)).length > 0 ||
             a.cache.platform.filter((t) => t.includes(search)).length > 0 ||
             a.cache.coverage.filter((t) => t.includes(search)).length > 0,

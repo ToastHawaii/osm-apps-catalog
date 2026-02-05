@@ -37,7 +37,7 @@
   "relatedApps": "{{numberOfApps}} ähnliche Apps",
   "filter.search": "Suche",
   "compare.group.header.map": "Kartenanzeige",
-  "about": "Über",
+  "nav.about": "Über",
   "compare.group.header.routing": "Routenplanung",
   "compare.group.header.navigating": "Navigieren",
   "compare.group.header.editing": "Bearbeiten",

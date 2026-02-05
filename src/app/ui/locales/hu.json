@@ -46,7 +46,7 @@
   "wiki.generatedBy": "Létrehozta: OSM Apps Catalog",
   "wiki.none": "nincs",
   "wiki.generatedByOsmAppsCatalog": "Ezt a táblázatot az [{{link}} OSM Apps Catalog] hozta létre ({{date}}).",
-  "about": "Névjegy",
+  "nav.about": "Névjegy",
   "filter.search": "Keresés",
   "filter.topic": "Téma",
   "filter.platform": "Platform",

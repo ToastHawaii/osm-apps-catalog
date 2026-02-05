@@ -107,7 +107,7 @@
   "app.install.macAppStore": "Mac App Store",
   "app.install.microsoftApp": "Microsoft Store",
   "app.lastRelease": "Dernière version",
-  "about": "À propos",
+  "nav.about": "À propos",
   "filter.moreFilters": "Filtres",
   "filter.topic": "Sujet",
   "notFound": "Vous n'avez pas trouvé ce que vous cherchiez ?",

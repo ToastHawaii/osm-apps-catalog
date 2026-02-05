@@ -56,7 +56,7 @@
   "compare.group.header.navigating": "Navegando",
   "compare.group.header.tracking": "Rastreo",
   "compare.group.header.accessibility": "Accesibilidad",
-  "about": "Acerca de",
+  "nav.about": "Acerca de",
   "notFound.desc": "Con los siguientes servicios puedes crear tus propios mapas temáticos sin conocimientos de programación. Puede que alguien ya haya creado el mapa que buscas, o puedes crear tu propio mapa temático.",
   "notFound": "¿No encuentras lo que buscas?",
   "app.source.description": "La fuente de donde provienen estos datos.",

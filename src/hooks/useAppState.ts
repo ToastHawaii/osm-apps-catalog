@@ -44,7 +44,7 @@ export function useAppState() {
       coverage: searchParams.get("coverage")?.split("+") || [],
       contribute: searchParams.get("contribute")?.split("+") || [],
       category: !app ? searchParams.get("category") || "all" : "",
-      view: searchParams.get("view") === "compare" ? "compare" : "list",
+      view: searchParams.get("view") || "home",
     } as State,
     function (
       key: string,
@@ -89,20 +89,20 @@ export function useAppState() {
         setTimeout(() => {
           const search = searchParams.get("search");
           if (search) {
-            setSearchParams(() => ({ search }));
+            setSearchParams(() => ({ view: "search", search }));
           } else {
-            setSearchParams(() => ({}));
+            setSearchParams(() => ({ view: "search" }));
           }
         }, 10);
         return;
       }
       const search = searchParams.get("search");
       if (search && category !== "focus") {
-        setSearchParams(() => ({ search, category }));
+        setSearchParams(() => ({ view: "search", search, category }));
       } else if (category) {
-        setSearchParams(() => ({ category }));
+        setSearchParams(() => ({ view: "search", category }));
       } else {
-        setSearchParams(() => ({}));
+        setSearchParams(() => ({ view: "search" }));
       }
     },
     (key?: string) => {
