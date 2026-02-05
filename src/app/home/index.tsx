@@ -94,6 +94,7 @@ export function Home({ apps }: { apps: App[] }) {
               <Carousel
                 opts={{
                   align: "start",
+                  slidesToScroll: "auto",
                 }}
                 className="w-full px-6 md:px-16"
               >
