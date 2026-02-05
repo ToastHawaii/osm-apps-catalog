@@ -22,33 +22,9 @@ export async function generateSitemap(apps: App[]) {
     priority: 0.9,
     lastmod: lastUpdate,
   });
-  links.push({
-    url: "https://osm-apps.org/?category=focus",
-    priority: 0.8,
-    lastmod: lastUpdate,
-  });
-  links.push({
-    url: "https://osm-apps.org/?category=latest",
-    priority: 0.8,
-    lastmod: lastUpdate,
-  });
-  links.push({
-    url: "https://osm-apps.org/?category=mobile",
-    priority: 0.8,
-    lastmod: lastUpdate,
-  });
-  links.push({
-    url: "https://osm-apps.org/?category=navigation",
-    priority: 0.8,
-    lastmod: lastUpdate,
-  });
-  links.push({
-    url: "https://osm-apps.org/?category=edit",
-    priority: 0.8,
-  });
   links.push(
     ...apps.map((app) => ({
-      url: `https://osm-apps.org/?app=${app.id}`,
+      url: `https://osm-apps.org/?view=app&app=${app.id}`,
       priority: (app.score / 10) * 0.5 + 0.1,
       lastmod:
         lastUpdate > new Date(getLastMod(app.source[0]))
