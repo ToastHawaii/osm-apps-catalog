@@ -69,7 +69,7 @@ export function Categories(
         ),
     },
     {
-      id: "latestUpdates",
+      id: "latest",
       name: () => t("category.latestUpdates"),
       sorted: () =>
         chain(apps)

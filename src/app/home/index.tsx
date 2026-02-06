@@ -91,6 +91,9 @@ export function Home({ apps }: { apps: App[] }) {
                 </h2>
                 <Link
                   className="col-start-2 self-end justify-self-end"
+                  data-goatcounter-click={`/?category=${category.id}`}
+                  data-goatcounter-title="Has switched the category."
+                  data-goatcounter-referrer="https://osm-apps.org/"
                   to={{
                     search: `?view=explore&category=${category.id}&platforms=${platformsUp.map((p) => p.toLowerCase()).join("%2B")}`,
                   }}
