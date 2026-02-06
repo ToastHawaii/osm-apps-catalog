@@ -96,9 +96,10 @@ export function Group({
               onClick={() => setHidden((value) => !value)}
             >
               <HugeiconsIcon
-                className="inline-block align-bottom"
+                className="inline-block"
                 icon={!hidden ? ArrowDown01Icon : ArrowRight01Icon}
                 strokeWidth={2}
+                size={16}
               />{" "}
               {display}
             </a>{" "}
