@@ -451,14 +451,10 @@ a.link-create {
   margin-bottom: -10px;
 }
 
-.app .more-info-title {
+.app .more-info:not(a) .more-info-title {
   color: gray;
 }
 
-.app a .more-info-title {
-  text-decoration: none;
-  color: #007aff;
-}
 .app .more-info-text {
   float: right;
 }
