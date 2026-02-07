@@ -21,6 +21,7 @@ import { RelatedApps } from "./RelatedApps";
 import { toSchemaOrg } from "./utilities/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utilities/plainText";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 import "../../index.scss";
 import "../../index.css";
@@ -94,13 +95,7 @@ export function Search({ apps }: { apps: App[] }) {
                 totalNumberOfApps: apps.length,
               }}
               components={{
-                o: (
-                  <a
-                    href="https://openstreetmap.org/"
-                    target="_blank"
-                    rel="noreferrer"
-                  />
-                ),
+                o: <ExternalLink href="https://openstreetmap.org/" />,
               }}
             />
           ) : (
@@ -110,13 +105,7 @@ export function Search({ apps }: { apps: App[] }) {
                 numberOfApps: filteredApps.length,
               }}
               components={{
-                o: (
-                  <a
-                    href="https://openstreetmap.org/"
-                    target="_blank"
-                    rel="noreferrer"
-                  />
-                ),
+                o: <ExternalLink href="https://openstreetmap.org/" />,
                 s: <a href="/docs/score" />,
               }}
             />

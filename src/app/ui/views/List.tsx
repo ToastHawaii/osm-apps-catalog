@@ -29,6 +29,7 @@ import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
 import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utilities/plainText";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function List({
   app,
@@ -56,9 +57,7 @@ export function List({
           <Score app={app} />
           <h4 className="font-bold">
             {app.website ? (
-              <a href={app.website} target="_blank" rel="noreferrer">
-                {app.name}
-              </a>
+              <ExternalLink href={app.website}>{app.name}</ExternalLink>
             ) : (
               app.name
             )}
@@ -92,9 +91,9 @@ export function List({
                 ? " "
                 : " – "
               : ""}
-            <a href={app.documentation} target="_blank" rel="noreferrer">
+            <ExternalLink href={app.documentation}>
               {t("list.documentation")}
-            </a>
+            </ExternalLink>
           </>
         )}
       </p>
@@ -185,7 +184,7 @@ export function List({
         (!!state?.languages.length && !isInitState?.("languages")) ||
         state?.contribute.includes("translate")) &&
       app.languagesUrl ? (
-        <a
+        <ExternalLink
           className={`more-info ${
             (!!state?.languages.length && !isInitState?.("languages")) ||
             state?.contribute.includes("translate")
@@ -193,8 +192,6 @@ export function List({
               : ""
           }`}
           href={app.languagesUrl}
-          target="_blank"
-          rel="noreferrer"
           data-goatcounter-click="/app/translation-contribution"
           data-goatcounter-title="Goes to the translation contribution page of an app."
           data-goatcounter-referrer="https://osm-apps.org/"
@@ -207,7 +204,7 @@ export function List({
               <i className="fas fa-language"></i>
             )}
           </span>
-        </a>
+        </ExternalLink>
       ) : (
         (isOpen ||
           (!!state?.languages.length && !isInitState?.("languages"))) &&
@@ -295,13 +292,11 @@ export function List({
       )}
 
       {(isOpen || state?.contribute.includes("develop")) && app.sourceCode && (
-        <a
+        <ExternalLink
           className={`more-info ${
             state?.contribute.includes("develop") ? "focus" : ""
           }`}
           href={app.sourceCode}
-          target="_blank"
-          rel="noreferrer"
           data-goatcounter-click="/app/source-code"
           data-goatcounter-title="Goes to source code of an app."
           data-goatcounter-referrer="https://osm-apps.org/"
@@ -310,7 +305,7 @@ export function List({
           <span className="more-info-text">
             <i className="fas fa-code"></i>
           </span>
-        </a>
+        </ExternalLink>
       )}
 
       {(isOpen || state?.contribute.includes("document")) && (

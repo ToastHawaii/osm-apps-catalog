@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { edit } from "@shared/utilities/filters";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function SourceCodeLink({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -10,11 +11,9 @@ export function SourceCodeLink({ app }: { app: App }) {
   useGoatCounterEvents();
 
   return (
-    <a
+    <ExternalLink
       className="download"
       href={app.sourceCode}
-      target="_blank"
-      rel="noreferrer"
       title={t("app.sourceCode")}
       data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
@@ -23,6 +22,6 @@ export function SourceCodeLink({ app }: { app: App }) {
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fas fa-code fa-fw"></i>
-    </a>
+    </ExternalLink>
   );
 }

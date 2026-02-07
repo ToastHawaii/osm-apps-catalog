@@ -1,3 +1,4 @@
+import { ExternalLink } from "@components/common/ExternalLink";
 import { getUserRegion } from "@lib/utils/getUserRegion";
 import { App } from "@shared/data/App";
 import { display, mobile, navigation, edit } from "@shared/utilities/filters";
@@ -21,13 +22,7 @@ function Description({
         numberOfApps,
       }}
       components={{
-        o: (
-          <a
-            href="https://openstreetmap.org/"
-            target="_blank"
-            rel="noreferrer"
-          />
-        ),
+        o: <ExternalLink href="https://openstreetmap.org/" />,
         s: <a href="/docs/score" />,
       }}
     />

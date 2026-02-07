@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { SourceDisplayText } from "../components/SourceDisplayText";
 import { App } from "@shared/data/App";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function SourceDisplay({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -9,11 +10,9 @@ export function SourceDisplay({ app }: { app: App }) {
     <>
       {app.source
         .map((s) => (
-          <a
+          <ExternalLink
             key={s.url}
             href={s.url}
-            target="_blank"
-            rel="noreferrer"
             title={
               t("app.source.lastChange", {
                 date: s.lastChange,
@@ -25,7 +24,7 @@ export function SourceDisplay({ app }: { app: App }) {
             style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={s.name} />
-          </a>
+          </ExternalLink>
         ))
         .reduce((prev, curr) => (
           <>
@@ -35,36 +34,32 @@ export function SourceDisplay({ app }: { app: App }) {
       {!app.source.find((s) => s.name === "Software" || s.name === "Layer") && (
         <>
           {", "}
-          <a
+          <ExternalLink
             className="link-create"
             href={
               "https://wiki.openstreetmap.org/w/index.php?title=" +
               encodeURIComponent(app.name) +
               "&veaction=edit&preload=Osm_Apps_Catalog%2Fnew"
             }
-            target="_blank"
-            rel="noreferrer"
             style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Software"} create />
-          </a>
+          </ExternalLink>
         </>
       )}
       {!app.source.find((s) => s.name === "Wikidata") && (
         <>
           {", "}
-          <a
+          <ExternalLink
             className="link-create"
             href={
               "https://www.wikidata.org/w/index.php?title=Special:Search&search=" +
               encodeURIComponent(app.name)
             }
-            target="_blank"
-            rel="noreferrer"
             style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Wikidata"} create />
-          </a>
+          </ExternalLink>
         </>
       )}
     </>

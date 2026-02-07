@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { edit } from "@shared/utilities/filters";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function MacAppStoreLink({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -14,11 +15,9 @@ export function MacAppStoreLink({ app }: { app: App }) {
   }
 
   return (
-    <a
+    <ExternalLink
       className="download"
       href={`https://apps.apple.com/app/id${app.install.macAppStoreID}`}
-      target="_blank"
-      rel="noreferrer"
       title={t("app.install.macAppStore")}
       data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
@@ -27,6 +26,6 @@ export function MacAppStoreLink({ app }: { app: App }) {
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-app-store fa-fw"></i>
-    </a>
+    </ExternalLink>
   );
 }

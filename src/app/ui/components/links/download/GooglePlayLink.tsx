@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { edit } from "@shared/utilities/filters";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function GooglePlayLink({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -14,11 +15,9 @@ export function GooglePlayLink({ app }: { app: App }) {
   }
 
   return (
-    <a
+    <ExternalLink
       className="download"
       href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
-      target="_blank"
-      rel="noreferrer"
       title={t("app.install.googlePlay")}
       data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
@@ -27,6 +26,6 @@ export function GooglePlayLink({ app }: { app: App }) {
       data-goatcounter-referrer="https://osm-apps.org/"
     >
       <i className="fab fa-google-play fa-fw"></i>
-    </a>
+    </ExternalLink>
   );
 }

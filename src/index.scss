@@ -1,10 +1,5 @@
 @import "slim-select/styles";
 
-a {
-  text-decoration: none;
-  color: #007aff;
-}
-
 a.link-create {
   color: #999;
 }
@@ -322,6 +317,16 @@ a.link-create {
   font-size: smaller;
   margin: 0;
   line-height: 1.5;
+
+  a {
+    color: var(--primary);
+    text-underline-offset: 4px;
+    &:hover {
+      @media (hover: hover) {
+        text-decoration-line: underline;
+      }
+    }
+  }
 }
 
 .app .img,
@@ -414,6 +419,16 @@ a.link-create {
   padding: 10px 2px;
   font-size: small;
   display: block;
+
+  a {
+    color: var(--primary);
+    text-underline-offset: 4px;
+    &:hover {
+      @media (hover: hover) {
+        text-decoration-line: underline;
+      }
+    }
+  }
 }
 
 .app .more-info.focus {

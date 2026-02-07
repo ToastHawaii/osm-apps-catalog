@@ -33,6 +33,7 @@ import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscu
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
 import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utilities/plainText";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function Compare({
   apps,
@@ -61,9 +62,7 @@ export function Compare({
             <Score app={app} />
             <h4 className="font-bold">
               {app.website ? (
-                <a href={app.website} target="_blank" rel="noreferrer">
-                  {app.name}
-                </a>
+                <ExternalLink href={app.website}>{app.name}</ExternalLink>
               ) : (
                 app.name
               )}
@@ -198,13 +197,10 @@ export function Compare({
                         ? " "
                         : " – "
                       : ""}
-                    <a
-                      href={app.documentation}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <ExternalLink href="https://openstreetmap.org/">
                       {t("list.documentation")}
-                    </a>
+                    </ExternalLink>
+                    ,
                   </>
                 )}
               </>
@@ -279,11 +275,9 @@ export function Compare({
             renderToHtml: (app) => (
               <>
                 {app.languagesUrl ? (
-                  <a
+                  <ExternalLink
                     className="language-url"
                     href={app.languagesUrl}
-                    target="_blank"
-                    rel="noreferrer"
                     data-goatcounter-click="/app/translation-contribution"
                     data-goatcounter-title="Goes to the translation contribution page of an app."
                     data-goatcounter-referrer="https://osm-apps.org/"
@@ -294,7 +288,7 @@ export function Compare({
                       <i className="fas fa-language"></i>
                     )}
                     <i className="fas fa-external-link-alt"></i>
-                  </a>
+                  </ExternalLink>
                 ) : (
                   <Badges values={app.languages} />
                 )}
@@ -458,16 +452,14 @@ export function Compare({
             hasValue: (app) => !!app.sourceCode,
             renderToHtml: (app) =>
               app.sourceCode ? (
-                <a
+                <ExternalLink
                   href={app.sourceCode}
-                  target="_blank"
-                  rel="noreferrer"
                   data-goatcounter-click="/app/source-code"
                   data-goatcounter-title="Goes to source code of an app."
                   data-goatcounter-referrer="https://osm-apps.org/"
                 >
                   <i className="fas fa-code"></i>
-                </a>
+                </ExternalLink>
               ) : null,
             renderToWiki: (app) =>
               toWikiValue(

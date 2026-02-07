@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { edit } from "@shared/utilities/filters";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function ObtainiumLink({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -14,11 +15,9 @@ export function ObtainiumLink({ app }: { app: App }) {
   }
 
   return (
-    <a
+    <ExternalLink
       className="download"
       href={app.install.obtainiumLink}
-      target="_blank"
-      rel="noreferrer"
       title={t("app.install.obtainium")}
       data-goatcounter-click={`/app/download${
         edit(app) ? "?category=edit" : ""
@@ -30,6 +29,6 @@ export function ObtainiumLink({ app }: { app: App }) {
         className="fas fa-gem fa-fw"
         style={{ transform: "rotate(315deg)" }}
       ></i>
-    </a>
+    </ExternalLink>
   );
 }
