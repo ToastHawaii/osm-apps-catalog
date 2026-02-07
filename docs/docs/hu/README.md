@@ -74,7 +74,7 @@ Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
 ---
 
 - Légy részese az [OSM
-  közösségnek](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
+  közösségnek](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816):
   [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
   [találkozz velünk](https://osmcal.org/) & [chatelj
   velünk](https://community.osm.be/)

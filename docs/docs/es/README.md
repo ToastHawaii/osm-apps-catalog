@@ -72,9 +72,9 @@ the [OpenStreetMap Foundation](https://osmfoundation.org/).
 ---
 
 - Conviértete en parte de la [comunidad
-  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Únete a un grupo local](https://usergroups.openstreetmap.de/),
-  [conoce](https://osmcal.org/) y [chatea](https://community.osm.be/)
+  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Únete a un grupo
+  local](https://usergroups.openstreetmap.de/), [conoce](https://osmcal.org/) y
+  [chatea](https://community.osm.be/)
 - [Colaborar con
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Sobre mí](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

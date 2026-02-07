@@ -72,8 +72,8 @@ the [OpenStreetMap Foundation](https://osmfoundation.org/).
 ---
 
 - Diventa parte della [comunità di
-  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Unisciti a un gruppo locale](https://usergroups.openstreetmap.de/),
+  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Unisciti a un
+  gruppo locale](https://usergroups.openstreetmap.de/),
   [incontra](https://osmcal.org/) & [chatta](https://community.osm.be/)
 - [Contribuire a
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)

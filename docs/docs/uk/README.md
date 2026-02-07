@@ -73,8 +73,8 @@ OpenStreetMap та OSM є торговою маркою OpenStreetMap Foundation
 ---
 
 - Станьте частиною [спільноти
-  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Приєднайтеся до локальної групи](https://usergroups.openstreetmap.de/),
+  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Приєднайтеся до
+  локальної групи](https://usergroups.openstreetmap.de/),
   [познайомтеся](https://osmcal.org/) та [поспілкуйтеся в
   чаті](https://community.osm.be/)
 - [Зробіть свій внесок у

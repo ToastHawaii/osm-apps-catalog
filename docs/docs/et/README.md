@@ -74,8 +74,8 @@ seotud.
 ---
 
 - Osale [OSMi kogukonna
-  tegemistes](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [liitu kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
+  tegemistes](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [liitu
+  kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
   [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
 - [Täienda OpenStreetMapi
   andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)
