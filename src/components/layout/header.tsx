@@ -49,6 +49,17 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
+                active={state.view === "focus"}
+              >
+                <Link to={{ search: `?view=focus` }}>
+                  {t("category.focus")}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
               >
                 <Link
                   to={`/docs/${

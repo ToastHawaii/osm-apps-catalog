@@ -1,7 +1,7 @@
 {
   "compare.group.header.general": "Allgemein",
   "wiki.generatedByOsmAppsCatalog": "Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert.",
-  "filter.category.focus": "Fokus",
+  "category.focus": "Fokus",
   "filter.category.latest": "Aktuellste",
   "filter.language": "Sprache",
   "filter.category": "Menü",

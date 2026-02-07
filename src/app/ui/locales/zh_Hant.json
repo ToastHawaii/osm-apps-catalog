@@ -38,7 +38,7 @@
   "app.install.microsoftApp": "Microsoft Store",
   "app.lastRelease": "上次發佈",
   "filter.coverage": "覆蓋範圍",
-  "filter.category.focus": "焦點",
+  "category.focus": "焦點",
   "category.focus.description": "顯示最近更新頁面的十個應用程式。",
   "category.navigation.description": "顯示支援路由或導航的 {{numberOfApps}} 個應用程式。",
   "compare.group.header.general": "一般",

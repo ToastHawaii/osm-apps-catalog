@@ -38,7 +38,7 @@
   "compare": "Compara",
   "filter.preview": "Il filtro è impostato per:",
   "filter.category.all": "Tutti",
-  "filter.category.focus": "Fissa",
+  "category.focus": "Fissa",
   "filter.category.latest": "Più recenti",
   "category.all.description": "{{numberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.",
   "category.all.description.filtered": "{{numberOfApps}} di {{totalNumberOfApps}} applicazioni che usano <o>OpenStreetMap</o>.",

@@ -8,5 +8,5 @@ export interface State {
   languages: string[];
   coverage: string[];
   contribute: string[];
-  view: "home" | "category" | "app" | "list" | "compare" | "search";
+  view: "home" | "category" | "app" | "list" | "compare" | "search" | "focus";
 }

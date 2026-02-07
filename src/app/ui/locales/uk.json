@@ -19,7 +19,7 @@
   "filter.coverage": "Покриття",
   "filter.category": "Меню",
   "filter.category.all": "Усі",
-  "filter.category.focus": "Фокус",
+  "category.focus": "Фокус",
   "filter.category.latest": "Найновіші",
   "category.mobile": "Йти",
   "category.navigation": "Знайди свій шлях",

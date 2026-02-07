@@ -13,7 +13,7 @@
   "filter.coverage": "Täckning",
   "filter.category": "Meny",
   "filter.category.all": "Allt",
-  "filter.category.focus": "Fokus",
+  "category.focus": "Fokus",
   "filter.category.latest": "Senaste",
   "category.mobile": "Att gå",
   "category.navigation": "Hitta din väg",

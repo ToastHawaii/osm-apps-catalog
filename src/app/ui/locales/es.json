@@ -1,6 +1,6 @@
 {
   "category.latest.description": "Muestra {{numberOfApps}} aplicaciones ordenadas por la última fecha de lanzamiento.",
-  "filter.category.focus": "Enfoque",
+  "category.focus": "Enfoque",
   "filter.category.latest": "Última",
   "wiki.none": "ninguno",
   "category.all.description": "Muestra {{numberOfApps}} aplicaciones del wiki de OpenStreetMap, Wikidata y taginfo, ordenadas por puntuación de colaboración de la comunidad.",

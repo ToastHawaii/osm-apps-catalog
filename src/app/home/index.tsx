@@ -2,13 +2,6 @@ import { range } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@components/ui/item";
 import { App } from "@shared/data/App";
 import {
   Carousel,
@@ -17,13 +10,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@components/ui/carousel";
-import { Logo } from "@app/ui/components/Image";
-import { plainText } from "@shared/utilities/plainText";
 import { useAppState } from "@hooks/useAppState";
 import { some } from "@shared/utilities/array";
 import { Categories } from "@app/Categories";
 import { Filters } from "@app/Filters";
 import { Link } from "react-router";
+import { AppCompact } from "@components/common/AppCompact";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -114,25 +106,7 @@ export function Home({ apps }: { apps: App[] }) {
                       key={app.id}
                       className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"
                     >
-                      <div className="p-2">
-                        <Item variant="outline" asChild role="listitem">
-                          <Link to={{ search: `?view=app&app=${app.id}` }}>
-                            <ItemMedia variant="icon" className="size-15">
-                              <Logo app={app} />
-                            </ItemMedia>
-                            <ItemContent>
-                              <ItemTitle className="line-clamp-1 wrap-anywhere">
-                                {app.name}
-                              </ItemTitle>
-                              <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-                                {plainText(
-                                  app.descriptionShort || app.description,
-                                )}
-                              </ItemDescription>
-                            </ItemContent>
-                          </Link>
-                        </Item>
-                      </div>
+                      <AppCompact app={app} />
                     </CarouselItem>
                   ))}
                 </CarouselContent>

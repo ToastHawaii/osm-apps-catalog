@@ -39,7 +39,7 @@
   "score.criteria.sourceCodeReference": "lähtekoodi viited on dokumenteeritud",
   "score.criteria.issueTracker": "olemas on rakenduse veahaldus",
   "filter.category.latest": "Viimatimuudetud",
-  "filter.category.focus": "Fookuses",
+  "category.focus": "Fookuses",
   "category.edit": "Täienda kaarti",
   "notFound": "Kas sa ei leidnud, mida otsisid?",
   "category.navigation.description": "{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.",

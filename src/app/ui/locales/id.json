@@ -4,7 +4,7 @@
   "app.license": "Lisensi",
   "filter.language": "Bahasa",
   "app.languages": "Bahasa",
-  "filter.category.focus": "Fokus",
+  "category.focus": "Fokus",
   "filter.search": "Cari",
   "nav.about": "Tentang",
   "filter.platform": "Platform",

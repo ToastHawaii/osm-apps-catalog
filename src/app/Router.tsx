@@ -5,6 +5,7 @@ import { Search } from "@app/ui/App";
 import { Home } from "@app/home";
 import { useAppsData } from "@hooks/useAppsData";
 import { Category } from "@app/category";
+import { Focus } from "@app/focus";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
@@ -19,6 +20,8 @@ export function Router() {
       return <Search apps={apps} />;
     case "explore":
       return <Category apps={apps} id={searchParams.get("category") || ""} />;
+    case "focus":
+      return <Focus apps={apps} />;
     default:
       return <Home apps={apps} />;
   }

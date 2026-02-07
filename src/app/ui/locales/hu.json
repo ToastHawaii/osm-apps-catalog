@@ -54,7 +54,7 @@
   "filter.coverage": "Terület",
   "filter.category": "Menü",
   "filter.category.all": "Összes",
-  "filter.category.focus": "Fókusz",
+  "category.focus": "Fókusz",
   "filter.category.latest": "Legfrissebb",
   "category.mobile": "Mobil",
   "noResults": "Nincs találat",

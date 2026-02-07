@@ -1,6 +1,6 @@
 {
   "category.latest.description": "Affiche les {{numberOfApps}} applications classées par date de sortie.",
-  "filter.category.focus": "En vedette",
+  "category.focus": "En vedette",
   "filter.category.latest": "Les plus récents",
   "wiki.none": "aucun",
   "category.all.description": "Affichage de {{numberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.",

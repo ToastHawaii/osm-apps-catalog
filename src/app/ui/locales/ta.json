@@ -17,7 +17,7 @@
   "filter.coverage": "பாதுகாப்பு",
   "filter.category": "பட்டியல்",
   "filter.category.all": "அனைத்தும்",
-  "filter.category.focus": "குவி",
+  "category.focus": "குவி",
   "filter.category.latest": "அண்மைக் கால",
   "category.mobile": "செல்ல",
   "category.navigation": "உங்கள் வழியைக் கண்டறியவும்",
