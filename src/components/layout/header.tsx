@@ -58,15 +58,15 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link
-                  to={`/docs/${
+                <a
+                  href={`/docs/${
                     i18next.resolvedLanguage !== "en"
                       ? `${i18next.resolvedLanguage}/`
                       : ""
                   }`}
                 >
                   {t("nav.about")}
-                </Link>
+                </a>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
