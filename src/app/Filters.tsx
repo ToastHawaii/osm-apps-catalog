@@ -1,20 +1,25 @@
 import React, { useMemo, useState } from "react";
 
 import { Toggle } from "@components/ui/toggle";
-import { useAppState } from "@hooks/useAppState";
 import { useAppsData } from "@hooks/useAppsData";
 import { chain } from "lodash";
 import { useTranslation } from "react-i18next";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { useNavigate, useSearchParams } from "react-router";
+import { useCurrentRoute } from "@hooks/useCurrentRoute";
 
 export function Filters() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const currentRoute = useCurrentRoute();
+  const [searchParams] = useSearchParams();
 
-  const [state, setAppState] = useAppState();
   const { apps } = useAppsData();
 
   const [showMorePlatforms, setShowMorePlatforms] = useState(false);
 
-  const currentPlatforms = state.platforms.map((t) => t.toLowerCase());
+  const platforms = usePlatformUrlParam();
+  const currentPlatforms = platforms.map((t) => t.toLowerCase());
 
   const mainPlatforms: [string, () => string][] = [
     ["web", () => "Web"],
@@ -57,12 +62,21 @@ export function Filters() {
           variant="outline"
           pressed={currentPlatforms.includes(platform[0])}
           onPressedChange={(pressed) => {
-            if (!pressed)
-              setAppState(
-                "platforms",
-                currentPlatforms.filter((p) => p !== platform[0]),
+            if (!pressed) {
+              navigate(
+                currentRoute({
+                  category: searchParams.get("category") || (undefined as any),
+                  platforms: currentPlatforms.filter((p) => p !== platform[0]),
+                }),
               );
-            else setAppState("platforms", [...currentPlatforms, platform[0]]);
+            } else {
+              navigate(
+                currentRoute({
+                  category: searchParams.get("category") || (undefined as any),
+                  platforms: [...currentPlatforms, platform[0]],
+                }),
+              );
+            }
           }}
         >
           {platform[1]()}

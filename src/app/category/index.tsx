@@ -2,22 +2,22 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { useAppState } from "@hooks/useAppState";
 import { some } from "@shared/utilities/array";
 import { Categories } from "@app/Categories";
 import { Filters } from "@app/Filters";
 import { AppCompact } from "@components/common/AppCompact";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
-  const [state] = useAppState();
+
+  const platforms = usePlatformUrlParam();
 
   const category = useMemo(() => {
-    const platformsUp = state.platforms.map((t) => t.toUpperCase());
     let filteredApps = apps.slice();
-    if (platformsUp.length > 0) {
+    if (platforms.length > 0) {
       filteredApps = filteredApps.filter((a) =>
-        some(a.cache.platform, platformsUp),
+        some(a.cache.platform, platforms),
       );
     }
 
@@ -41,16 +41,16 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
       ...category,
       apps: categoryApps,
     };
-  }, [apps.length, JSON.stringify(state.platforms)]);
+  }, [apps.length, platforms]);
 
   return (
     <>
-      <title>{`${t(`category.${state.category}`, {
+      <title>{`${t(`category.${id}`, {
         numberOfApps: apps.length,
       })} - OSM Apps Catalog`}</title>
       <meta
         name="description"
-        content={t(`category.${state.category}.description`, {
+        content={t(`category.${id}.description`, {
           numberOfApps: apps.length,
         })}
       />

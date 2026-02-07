@@ -4,7 +4,7 @@ import { useReducer } from "react";
 import { getUserOS } from "../lib/utils/getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
-function usersBrowserSearchParams() {
+function getBrowserContext() {
   const userPlatform = getUserOS();
 
   return {
@@ -19,7 +19,7 @@ export function useAppState() {
   const [initSearchParams] = useSearchParams();
 
   if (isEmpty(Object.fromEntries(initSearchParams.entries()))) {
-    initState = usersBrowserSearchParams();
+    initState = getBrowserContext();
   }
 
   const [searchParams, setSearchParams] = useSearchParams(
@@ -108,15 +108,13 @@ export function useAppState() {
     (key?: string) => {
       if (key) {
         return isEqual(
-          [...Object.entries(usersBrowserSearchParams())].filter(
-            (e) => e[0] === key,
-          ),
+          [...Object.entries(getBrowserContext())].filter((e) => e[0] === key),
           [...searchParams].filter((e) => e[0] === key),
         );
       }
 
       return isEqual(
-        [...Object.entries(usersBrowserSearchParams())],
+        [...Object.entries(getBrowserContext())],
         [...searchParams].filter((e) => e[0] !== "search"),
       );
     },

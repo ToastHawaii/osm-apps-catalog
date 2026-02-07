@@ -2,14 +2,12 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { useAppState } from "@hooks/useAppState";
 
 import { AppCompact } from "@components/common/AppCompact";
 import { chain } from "lodash";
 
 export function Focus({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
-  const [state] = useAppState();
 
   const category = useMemo(() => {
     const categoryApps = chain(apps)
@@ -23,7 +21,7 @@ export function Focus({ apps }: { apps: App[] }) {
       description: () => t(`category.focus.description`),
       apps: categoryApps,
     };
-  }, [apps.length, JSON.stringify(state.platforms)]);
+  }, [apps.length]);
 
   return (
     <>

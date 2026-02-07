@@ -12,21 +12,26 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu";
-import { useAppState } from "@hooks/useAppState";
+import { useRoutes } from "@hooks/useRoutes";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
 
 export function Header() {
   const { t } = useTranslation();
 
-  const [state] = useAppState();
+  const routes = useRoutes();
+  const currentRoute = useCurrentRouteName();
 
-  const platforms = state.platforms.map((t) => t.toLowerCase());
+  const platforms = usePlatformUrlParam().map((t) => t.toLowerCase());
+
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
       <div className="flex px-8 py-4">
         <Button asChild variant="ghost" className="font-semibold">
-          <Link to="/">OSM App Catalog</Link>
+          <Link to={routes.home({ platforms })}>OSM App Catalog</Link>
         </Button>
-        <div className="grow"></div>
+
+        <div className="grow" />
 
         <NavigationMenu>
           <NavigationMenuList>
@@ -34,26 +39,18 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={state.view === "search"}
+                active={currentRoute === "search"}
               >
-                <Link
-                  to={{
-                    search: `?view=search&platforms=${platforms.join("%2B")}`,
-                  }}
-                >
-                  {t("nav.search")}
-                </Link>
+                <Link to={routes.search({ platforms })}>{t("nav.search")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={state.view === "focus"}
+                active={currentRoute === "focus"}
               >
-                <Link to={{ search: `?view=focus` }}>
-                  {t("category.focus")}
-                </Link>
+                <Link to={routes.focus()}>{t("category.focus")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

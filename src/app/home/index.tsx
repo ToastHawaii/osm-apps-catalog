@@ -10,23 +10,25 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@components/ui/carousel";
-import { useAppState } from "@hooks/useAppState";
 import { some } from "@shared/utilities/array";
 import { Categories } from "@app/Categories";
 import { Filters } from "@app/Filters";
 import { Link } from "react-router";
 import { AppCompact } from "@components/common/AppCompact";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { useRoutes } from "@hooks/useRoutes";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
-  const [state] = useAppState();
 
-  const platformsUp = state.platforms.map((t) => t.toUpperCase());
+  const routes = useRoutes();
+
+  const platforms = usePlatformUrlParam();
   const categories = useMemo(() => {
     let filteredApps = apps.slice();
-    if (platformsUp.length > 0) {
+    if (platforms.length > 0) {
       filteredApps = filteredApps.filter((a) =>
-        some(a.cache.platform, platformsUp),
+        some(a.cache.platform, platforms),
       );
     }
 
@@ -66,7 +68,7 @@ export function Home({ apps }: { apps: App[] }) {
     });
 
     return categories;
-  }, [apps.length, JSON.stringify(state.platforms)]);
+  }, [apps.length, platforms]);
 
   return (
     <>
@@ -92,9 +94,10 @@ export function Home({ apps }: { apps: App[] }) {
                     data-goatcounter-click={`/?category=${category.id}`}
                     data-goatcounter-title="Has switched the category."
                     data-goatcounter-referrer="https://osm-apps.org/"
-                    to={{
-                      search: `?view=explore&category=${category.id}&platforms=${platformsUp.map((p) => p.toLowerCase()).join("%2B")}`,
-                    }}
+                    to={routes.explore({
+                      category: category.id,
+                      platforms: platforms.map((p) => p.toLowerCase()),
+                    })}
                   >
                     {t("category.showAll")}
                   </Link>

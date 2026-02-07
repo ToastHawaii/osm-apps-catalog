@@ -13,16 +13,15 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@components/ui/item";
+import { useRoutes } from "@hooks/useRoutes";
 
 export function AppCompact({ app }: { app: App }) {
+  const routes = useRoutes();
+
   return (
     <div className="p-2">
       <Item variant="outline" asChild role="listitem">
-        <Link
-          to={{
-            search: `?view=app&app=${app.id}`,
-          }}
-        >
+        <Link to={routes.app({ app: app.id })}>
           <ItemMedia variant="icon" className="size-15">
             <Logo app={app} />
           </ItemMedia>
