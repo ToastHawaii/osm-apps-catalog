@@ -69,53 +69,60 @@ export function Home({ apps }: { apps: App[] }) {
   }, [apps.length, JSON.stringify(state.platforms)]);
 
   return (
-    <main className="mx-auto max-w-7xl">
-      <Filters />
+    <>
+      <title>{`OSM Apps Catalog`}</title>
+      <meta
+        name="description"
+        content="There isn't just one, there are thousands."
+      />
+      <main className="mx-auto max-w-7xl">
+        <Filters />
 
-      <div id="list">
-        {categories
-          .filter((category) => category.apps.length > 0)
-          .map((category) => (
-            <React.Fragment key={category.id}>
-              <div className="grid content-end px-8 pt-3 md:px-18">
-                <h2 className="text-left text-2xl font-semibold">
-                  {category.name()}
-                </h2>
-                <Link
-                  className="col-start-2 self-end justify-self-end"
-                  data-goatcounter-click={`/?category=${category.id}`}
-                  data-goatcounter-title="Has switched the category."
-                  data-goatcounter-referrer="https://osm-apps.org/"
-                  to={{
-                    search: `?view=explore&category=${category.id}&platforms=${platformsUp.map((p) => p.toLowerCase()).join("%2B")}`,
+        <div id="list">
+          {categories
+            .filter((category) => category.apps.length > 0)
+            .map((category) => (
+              <React.Fragment key={category.id}>
+                <div className="grid content-end px-8 pt-3 md:px-18">
+                  <h2 className="text-left text-2xl font-semibold">
+                    {category.name()}
+                  </h2>
+                  <Link
+                    className="col-start-2 self-end justify-self-end"
+                    data-goatcounter-click={`/?category=${category.id}`}
+                    data-goatcounter-title="Has switched the category."
+                    data-goatcounter-referrer="https://osm-apps.org/"
+                    to={{
+                      search: `?view=explore&category=${category.id}&platforms=${platformsUp.map((p) => p.toLowerCase()).join("%2B")}`,
+                    }}
+                  >
+                    {t("category.showAll")}
+                  </Link>
+                </div>
+                <Carousel
+                  opts={{
+                    align: "start",
+                    slidesToScroll: "auto",
                   }}
+                  className="w-full px-6 md:px-16"
                 >
-                  {t("category.showAll")}
-                </Link>
-              </div>
-              <Carousel
-                opts={{
-                  align: "start",
-                  slidesToScroll: "auto",
-                }}
-                className="w-full px-6 md:px-16"
-              >
-                <CarouselContent role="list">
-                  {category.apps.map((app) => (
-                    <CarouselItem
-                      key={app.id}
-                      className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"
-                    >
-                      <AppCompact app={app} />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-8" />
-                <CarouselNext className="right-8" />
-              </Carousel>
-            </React.Fragment>
-          ))}
-      </div>
-    </main>
+                  <CarouselContent role="list">
+                    {category.apps.map((app) => (
+                      <CarouselItem
+                        key={app.id}
+                        className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"
+                      >
+                        <AppCompact app={app} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-8" />
+                  <CarouselNext className="right-8" />
+                </Carousel>
+              </React.Fragment>
+            ))}
+        </div>
+      </main>
+    </>
   );
 }

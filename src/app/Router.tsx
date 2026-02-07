@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router";
 
-import { Search } from "@app/ui/App";
+import { Search } from "@app/search";
 import { Home } from "@app/home";
 import { useAppsData } from "@hooks/useAppsData";
 import { Category } from "@app/category";

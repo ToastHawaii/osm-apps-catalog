@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { ViewSelect } from "./components/ViewSelect";
-import { SearchComponent } from "./components/search";
-import { TopicSelect } from "./components/TopicSelect";
-import { PlatformSelect } from "./components/PlatformSelect";
-import { LanguageSelect } from "./components/LanguageSelect";
-import { CoverageSelect } from "./components/CoverageSelect";
-import { ContributeSelect, mapping } from "./components/ContributeSelect";
-import { Filters } from "./components/filters";
+import { ViewSelect } from "../ui/components/ViewSelect";
+import { SearchComponent } from "../ui/components/search";
+import { TopicSelect } from "../ui/components/TopicSelect";
+import { PlatformSelect } from "../ui/components/PlatformSelect";
+import { LanguageSelect } from "../ui/components/LanguageSelect";
+import { CoverageSelect } from "../ui/components/CoverageSelect";
+import { ContributeSelect, mapping } from "../ui/components/ContributeSelect";
+import { Filters } from "../ui/components/filters";
 import { chain, debounce } from "lodash";
 import { useAppState } from "../../hooks/useAppState";
 import { filter } from "../../lib/utils/filter";
-import { LazyLoadImages } from "./components/LazyLoadImages";
-import { Compare } from "./views/Compare";
+import { LazyLoadImages } from "../ui/components/LazyLoadImages";
+import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
-import { NotFoundApps } from "./components/NotFoundApps";
-import { LazyInitMore } from "./components/LazyInitMore";
-import { PagedList } from "./PagedList";
-import { RelatedApps } from "./RelatedApps";
-import { toSchemaOrg } from "./utilities/toSchemaOrg";
+import { NotFoundApps } from "../ui/components/NotFoundApps";
+import { LazyInitMore } from "../ui/components/LazyInitMore";
+import { PagedList } from "../ui/PagedList";
+import { RelatedApps } from "../ui/RelatedApps";
+import { toSchemaOrg } from "../ui/utilities/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utilities/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -26,11 +26,47 @@ import { ExternalLink } from "@components/common/ExternalLink";
 import "../../index.scss";
 import "../../index.css";
 
-function appendMeta(property: string, content: string) {
-  const meta = document.createElement("meta");
-  meta.setAttribute("property", property);
-  meta.setAttribute("content", content);
-  document.head.appendChild(meta);
+function PageMeta({ apps }: { apps: App[] }) {
+  const { t } = useTranslation();
+  const [state] = useAppState();
+  if (!!state.app && apps[0]) {
+    const app = apps[0];
+
+    return (
+      <>
+        <title>{`${app.name} - OSM Apps Catalog`}</title>
+        <meta
+          name="description"
+          content={plainText(app.descriptionShort || app.description)}
+        />
+
+        <meta name="og:title" content={app.name} />
+        <meta
+          name="og:description"
+          content={plainText(app.descriptionShort || app.description)}
+        />
+        {!!app.logos[0] && <meta name="og:image" content={app.logos[0]} />}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toSchemaOrg(app) }}
+        ></script>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <title>{`${t(`filter.category.${state.category}`, {
+          numberOfApps: apps.length,
+        })} - OSM Apps Catalog`}</title>
+        <meta
+          name="description"
+          content={t(`category.${state.category}.description`, {
+            numberOfApps: apps.length,
+          })}
+        />
+      </>
+    );
+  }
 }
 
 export function Search({ apps }: { apps: App[] }) {
@@ -44,46 +80,9 @@ export function Search({ apps }: { apps: App[] }) {
     setAppState("view", "list");
   }
 
-  useEffect(() => {
-    if (!!state.app && filteredApps[0]) {
-      const app = filteredApps[0];
-
-      appendMeta("og:title", app.name);
-      appendMeta(
-        "og:description",
-        plainText(app.descriptionShort || app.description),
-      );
-      if (app.logos[0]) {
-        appendMeta("og:image", app.logos[0]);
-      }
-
-      const script = document.createElement("script");
-      script.setAttribute("type", "application/ld+json");
-      script.textContent = toSchemaOrg(app);
-      document.head.appendChild(script);
-
-      document.title = `${app.name} - OSM Apps Catalog`;
-      document
-        .querySelector('meta[name="description"]')
-        ?.setAttribute(
-          "content",
-          plainText(app.descriptionShort || app.description),
-        );
-    } else {
-      document.title = `${t(`filter.category.${state.category}`, {
-        numberOfApps: filteredApps.length,
-      })} - OSM Apps Catalog`;
-      document.querySelector('meta[name="description"]')?.setAttribute(
-        "content",
-        t(`category.${state.category}.description`, {
-          numberOfApps: filteredApps.length,
-        }),
-      );
-    }
-  });
-
   return (
     <>
+      <PageMeta apps={filteredApps} />
       <div className="sticky left-0 text-center">
         <p className="description" style={{ margin: "5px 10px" }}>
           {(state.category === "all" && filteredApps.length !== apps.length) ||
@@ -294,7 +293,7 @@ export function Search({ apps }: { apps: App[] }) {
                     <LazyInitMore>
                       <Compare
                         apps={filteredApps}
-                        lang={i18n.language}
+                        lang={i18n.resolvedLanguage || "en"}
                         state={state}
                         isInitState={isInitState}
                       />
