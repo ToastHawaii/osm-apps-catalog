@@ -73,9 +73,9 @@ Foundation] (https://osmfoundation.org/) ani s ní není spojen.
 ---
 
 - Staňte se součástí [komunity
-  OSM](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Připojte se k místní skupině](https://usergroups.openstreetmap.de/),
-  [setkávejte se](https://osmcal.org/) a [chatujte](https://community.osm.be/)
+  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Připojte se k
+  místní skupině](https://usergroups.openstreetmap.de/), [setkávejte
+  se](https://osmcal.org/) a [chatujte](https://community.osm.be/)
 - [Přispějte do
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

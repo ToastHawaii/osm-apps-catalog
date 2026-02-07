@@ -72,8 +72,8 @@ med deras tillstånd. Detta projekt stöds inte av eller ansluts till
 ---
 
 - Bli en del av
-  [OSM-gemenskapen](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT):
-  [Gå med i en lokal grupp](https://usergroups.openstreetmap.de/),
+  [OSM-gemenskapen](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Gå
+  med i en lokal grupp](https://usergroups.openstreetmap.de/),
   [möte](https://osmcal.org/) & [chatt](https://community.osm.be/)
 - [Bidra till
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
