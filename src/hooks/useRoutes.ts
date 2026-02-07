@@ -1,6 +1,6 @@
-type Params = Record<string, string | number | string[] | undefined>;
+export type Params = Record<string, string | number | string[] | undefined>;
 
-type Result =
+export type Result =
   | {
       pathname: string;
       search: string;
