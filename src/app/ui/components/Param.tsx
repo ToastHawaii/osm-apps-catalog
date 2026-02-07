@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 import { App } from "@shared/data/App";
 import { Unknown } from "./Unknown";
 

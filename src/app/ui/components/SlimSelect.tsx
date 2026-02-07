@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, JSX, useImperativeHandle, useRef } from "react";
 import { useEffect } from "react";
 import { isEqual } from "lodash";
 
@@ -43,8 +43,8 @@ const SlimSelectComponent = (
   const { t } = useTranslation();
 
   const slimHTMLElement = useRef(null);
-  const slimSelect = useRef<SlimSelect>();
-  const value = useRef<any>();
+  const slimSelect = useRef<SlimSelect>(null);
+  const value = useRef<any>(null);
 
   const defaultSettings = {
     searchPlaceholder: t("select.search.placeholder"),

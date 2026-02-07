@@ -1,4 +1,4 @@
-import { max, min, trimEnd, trimStart, upperFirst } from "lodash";
+import { trimEnd, trimStart, upperFirst } from "lodash";
 import { newUrl } from "./url";
 import { plainText } from "@shared/utilities/plainText";
 
