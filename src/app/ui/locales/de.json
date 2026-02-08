@@ -67,7 +67,7 @@
     "app.community.slack": "Slack",
     "app.community.mastodon": "Mastodon",
     "app.community.reddit": "Reddit",
-    "app.community": "Community",
+    "app.community": "Gemeinschaft",
     "app.community.forumTag": "Forum tag",
     "score.criteria.copyleftLicense": "die Lizenz ist eine Copyleft-Lizenz (z.B. GPL, ODbL, MPL, CC)",
     "score.criteria.issueTracker": "ein Issue-Tracker existiert",
@@ -127,5 +127,11 @@
         "resetFilters": "Voreingestellte Filter entfernen"
     },
     "app.source.lastChange": "Letzte Änderung: {{date}}",
-    "app.source.firstCrawled": "Erstmals gecrawlt: {{added}}"
+    "app.source.firstCrawled": "Erstmals gecrawlt: {{added}}",
+    "category.foss": "Frei und quelloffen",
+    "category.country": "Apps für {{country}}",
+    "nav.search": "Suchen",
+    "filters.morePlatforms": "Weitere Plattformen",
+    "category.universalMapApps": "Universelle Karten-Apps",
+    "category.latestUpdates": "Neueste Aktualisierungen"
 }
