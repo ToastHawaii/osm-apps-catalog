@@ -31,9 +31,11 @@ function build<T extends Params>(view: string) {
 export function useRoutes() {
   return {
     home: build<{ platforms?: string[] }>(""),
-    explore: build<{ category: string; platforms?: string[] }>("explore"),
-    search: build<{ platforms?: string[] }>("search"),
-    focus: build("focus"),
     app: build<{ app: number }>("app"),
+    search: build<{ platforms?: string[] }>("search"),
+    list: build<{ platforms?: string[] }>("list"),
+    compare: build<{ platforms?: string[] }>("compare"),
+    explore: build<{ category: string; platforms?: string[] }>("explore"),
+    focus: build("focus"),
   };
 }
