@@ -5,7 +5,6 @@ import i18next from "i18next";
 import { getJson } from "@shared/utilities/jsonRequest";
 import { App } from "@shared/data/App";
 import { isDevelopment } from "@shared/utilities/isDevelopment";
-import { printCalcScore } from "../lib/utils/printCalcScore";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
 import { mergeAppSources } from "@shared/utilities/mergeAppSources";
@@ -151,7 +150,7 @@ export function useAppsData() {
 
       setApps(apps);
       if (isDevelopment) {
-        printCalcScore(apps);
+        // printCalcScore(apps);
       }
     })();
   }, [lang]);
