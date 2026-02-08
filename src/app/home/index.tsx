@@ -87,10 +87,20 @@ export function Home({ apps }: { apps: App[] }) {
               <React.Fragment key={category.id}>
                 <div className="grid content-end px-8 pt-3 md:px-18">
                   <h2 className="text-left text-2xl font-semibold">
-                    {category.name()}
+                    <Link
+                      data-goatcounter-click={`/?category=${category.id}`}
+                      data-goatcounter-title="Has switched the category."
+                      data-goatcounter-referrer="https://osm-apps.org/"
+                      to={routes.explore({
+                        category: category.id,
+                        platforms: platforms.map((p) => p.toLowerCase()),
+                      })}
+                    >
+                      {category.name()}
+                    </Link>
                   </h2>
                   <Link
-                    className="col-start-2 self-end justify-self-end"
+                    className="col-start-2 self-end justify-self-end text-sm"
                     data-goatcounter-click={`/?category=${category.id}`}
                     data-goatcounter-title="Has switched the category."
                     data-goatcounter-referrer="https://osm-apps.org/"
