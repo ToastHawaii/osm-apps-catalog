@@ -125,5 +125,11 @@
     "app.getIt": "Laadi siit",
     "filter.resetFilters": "Eemalda eelseadistatud filtrid",
     "app.source.lastChange": "Viimane muutmine: {{date}}",
-    "app.source.firstCrawled": "Esimene kord veebist vaadatud: {{added}}"
+    "app.source.firstCrawled": "Esimene kord veebist vaadatud: {{added}}",
+    "nav.search": "Otsi",
+    "filters.morePlatforms": "Täiendavad platvormid",
+    "category.universalMapApps": "Universaalsed kaardirakendused",
+    "category.latestUpdates": "Viimased uuendused",
+    "category.foss": "Avatud lähtekoodiga ja tasuta tarkvara",
+    "category.country": "Rakendused riigi jaoks: {{country}}"
 }

@@ -125,5 +125,11 @@
     "score.criteria.translationContributions": "il est possible de contribuer aux traductions",
     "filter.resetFilters": "Supprimer les filtres prédéfinis",
     "app.source.lastChange": "Dernière modification : {{date}}",
-    "app.source.firstCrawled": "Première exploration : {{added}}"
+    "app.source.firstCrawled": "Première exploration : {{added}}",
+    "filters.morePlatforms": "Plus de plateformes",
+    "category.latestUpdates": "Dernières mises à jour",
+    "category.foss": "Gratuit et open source",
+    "category.country": "Applications pour {{country}}",
+    "nav.search": "Rechercher",
+    "category.universalMapApps": "Applications de cartographie universelles"
 }
