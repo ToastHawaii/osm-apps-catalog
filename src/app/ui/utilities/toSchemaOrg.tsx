@@ -19,7 +19,9 @@ export function toSchemaOrg(app: App) {
         : "SoftwareApplication",
     name: app.name || undefined,
     description:
-      plainText(app.descriptionShort || app.description) || undefined,
+      plainText(
+        app.subtitle || app.descriptionShort || app.description,
+      ) || undefined,
     keywords: app.topics.join(","),
     image: app.logos[0] || undefined,
     screenshot: app.images[0] || undefined,

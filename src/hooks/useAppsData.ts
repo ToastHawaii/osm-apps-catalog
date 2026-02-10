@@ -102,6 +102,13 @@ export function useAppsData() {
             const translation = translations.find((t) => t.id === app.id);
             if (translation) {
               app.name = translation.name || app.name;
+              // It is better to have a translated text then a shorter text, so 
+              // we mix subtitle and description
+              app.subtitle =
+                translation.subtitle ||
+                translation.descriptionShort ||
+                translation.description ||
+                app.subtitle;
               app.description = translation.description || app.description;
               app.descriptionShort =
                 translation.descriptionShort ||

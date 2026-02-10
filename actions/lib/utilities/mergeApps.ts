@@ -18,6 +18,8 @@ export function mergeApps(
 
   app.unmaintained = mergeBoolean(app.unmaintained, obj.unmaintained);
 
+  app.subtitle = app.subtitle || obj.subtitle;
+
   app.description = app.description || obj.description;
   // a shorter version from the app description would be useful in the overview and at other places
   const descriptionShort = shorterThenLength(

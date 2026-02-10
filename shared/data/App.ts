@@ -13,8 +13,9 @@ export interface App {
   name: string;
   unmaintained?: boolean;
   lastRelease?: string;
+  subtitle?: string;
   description: string;
-  descriptionShort: string;
+  descriptionShort?: string;
   images: string[];
   logos: string[];
   commons: string[] | undefined;

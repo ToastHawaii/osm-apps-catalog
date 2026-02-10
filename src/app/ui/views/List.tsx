@@ -83,11 +83,15 @@ export function List({
       </div>
 
       <p>
-        <span dangerouslySetInnerHTML={{ __html: app.description }}></span>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: app.description || app.subtitle || "",
+          }}
+        ></span>
         {app.documentation && (
           <>
-            {plainText(app.description)
-              ? plainText(app.description).endsWith(".")
+            {plainText(app.description || app.subtitle || "")
+              ? plainText(app.description || app.subtitle || "").endsWith(".")
                 ? " "
                 : " – "
               : ""}

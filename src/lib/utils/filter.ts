@@ -47,6 +47,7 @@ export function filter({
     filteredApps = filteredApps.filter(
       (a) =>
         a.name.toUpperCase().includes(search) ||
+        a.subtitle?.toUpperCase().includes(search) ||
         a.description.toUpperCase().includes(search) ||
         a.descriptionShort?.toUpperCase().includes(search) ||
         a.cache.topics.some((t) => t.includes(search)) ||
@@ -171,6 +172,7 @@ export function filter({
         topicsUp.every(
           (t) =>
             a.name.toUpperCase().includes(t) ||
+            a.subtitle?.toUpperCase().includes(t) ||
             a.description.toUpperCase().includes(t) ||
             a.descriptionShort?.toUpperCase().includes(t),
         ),
@@ -180,6 +182,7 @@ export function filter({
         similarApps = similarApps.filter(
           (a) =>
             a.name.toUpperCase().includes(search) ||
+            a.subtitle?.toUpperCase().includes(search) ||
             a.description.toUpperCase().includes(search) ||
             a.descriptionShort?.toUpperCase().includes(search) ||
             a.cache.topics.filter((t) => t.includes(search)).length > 0 ||

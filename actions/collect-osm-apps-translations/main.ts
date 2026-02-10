@@ -20,6 +20,7 @@ export async function run(): Promise<void> {
             .map((app) => ({
               id: app.id,
               name: app.name,
+              subtitle: app.subtitle,
               description: app.description,
               descriptionShort: app.descriptionShort,
               documentation: app.documentation,

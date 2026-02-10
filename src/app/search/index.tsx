@@ -37,13 +37,17 @@ function PageMeta({ apps }: { apps: App[] }) {
         <title>{`${app.name} - OSM Apps Catalog`}</title>
         <meta
           name="description"
-          content={plainText(app.descriptionShort || app.description)}
+          content={plainText(
+            app.subtitle || app.descriptionShort || app.description,
+          )}
         />
 
         <meta name="og:title" content={app.name} />
         <meta
           name="og:description"
-          content={plainText(app.descriptionShort || app.description)}
+          content={plainText(
+            app.subtitle || app.descriptionShort || app.description,
+          )}
         />
         {!!app.logos[0] && <meta name="og:image" content={app.logos[0]} />}
         <script

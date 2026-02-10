@@ -65,6 +65,7 @@ export function transform(result: any) {
   return {
     name: result.itemLabel?.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
+    subtitle: result.motto?.value || result.subtitle?.value || "",
     description: result.description?.value || "",
     images: (result.imgs?.value || "").split(";").filter((v: any) => v),
     logos: (result.logos?.value || "").split(";").filter((v: any) => v),
@@ -157,6 +158,8 @@ export const AppQueries = [
 SELECT DISTINCT 
   ?item ?itemLabel 
   ?description 
+  (SAMPLE(?motto) AS ?motto)
+  (SAMPLE(?subtitle) AS ?subtitle)
   (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
   (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
   (GROUP_CONCAT(DISTINCT ?common; SEPARATOR = ";") AS ?commons) 
@@ -171,10 +174,7 @@ SELECT DISTINCT
   (SAMPLE(?sourceCode) AS ?sourceCode)
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
-  (GROUP_CONCAT(DISTINCT ?topic; SEPARATOR = ";") AS ?topics)
-  (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
-  (GROUP_CONCAT(DISTINCT ?platform; SEPARATOR = ";") AS ?platforms)
-  (SAMPLE(?asin) AS ?asin) 
+   (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?googlePlay) AS ?googlePlay) 
   (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
   (SAMPLE(?fDroid) AS ?fDroid) 
@@ -215,6 +215,17 @@ WHERE {
     ?item schema:description ?description.
     FILTER(LANG(?description) = "mul" || LANG(?description) = "en")
   }
+
+  OPTIONAL {
+    ?item wdt:P1451 ?motto.
+    FILTER(LANG(?motto) = "mul" || LANG(?motto) = "en")
+  }
+    
+  OPTIONAL { 
+    ?item wdt:P1680 ?subtitle. 
+    FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
+  }
+
   OPTIONAL { ?item wdt:P154 ?logo. }
   OPTIONAL { ?item wdt:P18 ?img. }
   OPTIONAL { ?item wdt:P373 ?common. }
@@ -256,18 +267,6 @@ WHERE {
     ?lg wdt:P218 ?lgCode.
   }
   OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
-  OPTIONAL { 
-    ?item wdt:P366/rdfs:label ?topic.
-    FILTER(LANG(?topic) = "en")
-  }
-  OPTIONAL { 
-    ?item wdt:P306/rdfs:label ?osLabel.
-    FILTER(LANG(?osLabel) = "en")
-  }
-  OPTIONAL { 
-    ?item wdt:P400/rdfs:label ?platform.
-    FILTER(LANG(?platform) = "en")
-  }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroid. }
   OPTIONAL { ?item wdt:P3418 ?googlePlay. }
@@ -305,6 +304,7 @@ GROUP BY ?item
   `
 SELECT DISTINCT 
   ?item
+  (GROUP_CONCAT(DISTINCT ?topic; SEPARATOR = ";") AS ?topics)
   ?viewing
   ?routing
   ?editor
@@ -332,6 +332,11 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+
+  OPTIONAL { 
+    ?item wdt:P366/rdfs:label ?topic.
+    FILTER(LANG(?topic) = "en")
+  }
 
   OPTIONAL { 
     ?item wdt:P31 wd:Q122264265.
@@ -392,6 +397,54 @@ GROUP BY ?item
          ?welcomingTool
          ?streetImgSv
          ?streetImg
+`,
+  // Platform
+  `
+SELECT DISTINCT 
+  ?item 
+  (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
+  (GROUP_CONCAT(DISTINCT ?platform; SEPARATOR = ";") AS ?platforms)
+  (SAMPLE(?asin) AS ?asin) 
+  (SAMPLE(?googlePlay) AS ?googlePlay) 
+  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
+  (SAMPLE(?fDroid) AS ?fDroid) 
+  (SAMPLE(?appleStore) AS ?appleStore) 
+  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
+WHERE {
+  ?item (wdt:P31/(wdt:P279*)) ?type.
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  { ?item wdt:P144 wd:Q936. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
+  UNION { ?item wdt:P2283 wd:Q936. }
+  UNION { ?item wdt:P144 wd:Q125124940. }
+  UNION { ?item wdt:P2283 wd:Q125124940. }
+  UNION { ?item wdt:P144 wd:Q116859711. }
+  UNION { ?item wdt:P2283 wd:Q116859711. }
+  UNION { ?item wdt:P144 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q25822543. }
+  UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
+  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+
+  OPTIONAL { 
+    ?item wdt:P306/rdfs:label ?osLabel.
+    FILTER(LANG(?osLabel) = "en")
+  }
+  OPTIONAL { 
+    ?item wdt:P400/rdfs:label ?platform.
+    FILTER(LANG(?platform) = "en")
+  }
+  OPTIONAL { ?item wdt:P5749 ?asin. }
+  OPTIONAL { ?item wdt:P3597 ?fDroid. }
+  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
+  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
+  OPTIONAL { ?item wdt:P3861 ?appleStore. }
+  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
+}
+GROUP BY ?item 
 `,
   // Last release
   `
@@ -555,15 +608,35 @@ WHERE {
     ?item schema:description ?description .
     BIND(LANG(?description) AS ?lg)
   }
+  UNION
+  {
+    ?item wdt:P1451 ?motto.
+    BIND(LANG(?motto) AS ?lg)
+  }
+  UNION
+  {
+    ?item wdt:P1680 ?subtitle. 
+    BIND(LANG(?subtitle) AS ?lg)
+  }
 
   OPTIONAL {
-    ?item rdfs:label ?itemLabel .
+    ?item rdfs:label ?itemLabel.
     FILTER(LANG(?itemLabel) = ?lg)
   }
 
   OPTIONAL {
-    ?item schema:description ?description .
+    ?item schema:description ?description.
     FILTER(LANG(?description) = ?lg)
+  }
+
+  OPTIONAL {
+    ?item wdt:P1451 ?motto.
+    FILTER(LANG(?motto) = ?lg)
+  }
+
+  OPTIONAL {
+    ?item wdt:P1680 ?subtitle. 
+    FILTER(LANG(?subtitle) = ?lg)
   }
 
   ?item schema:dateModified ?modified

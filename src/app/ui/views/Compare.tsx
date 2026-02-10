@@ -184,16 +184,20 @@ export function Compare({
               t("app.props.description.description", {
                 lng: lang,
               }),
-            hasValue: (app) => !!app.description,
+            hasValue: (app) => !!(app.description || app.subtitle),
             renderToHtml: (app) => (
               <>
                 <span
-                  dangerouslySetInnerHTML={{ __html: app.description }}
+                  dangerouslySetInnerHTML={{
+                    __html: app.description || app.subtitle || "",
+                  }}
                 ></span>
                 {app.documentation && (
                   <>
-                    {plainText(app.description)
-                      ? plainText(app.description).endsWith(".")
+                    {plainText(app.description || app.subtitle || "")
+                      ? plainText(
+                          app.description || app.subtitle || "",
+                        ).endsWith(".")
                         ? " "
                         : " – "
                       : ""}
@@ -206,7 +210,10 @@ export function Compare({
               </>
             ),
             renderToWiki: (app) =>
-              toWikiValue(app.descriptionShort || app.description, lang),
+              toWikiValue(
+                app.subtitle || app.descriptionShort || app.description ,
+                lang,
+              ),
             more: true,
           },
           {
