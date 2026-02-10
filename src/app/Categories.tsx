@@ -64,22 +64,6 @@ export function Categories(
         ),
     },
     {
-      id: "latest",
-      name: () => t("category.latestUpdates"),
-      sorted: () =>
-        chain(apps)
-          .sortBy((a) => a.source[0].lastChange || "")
-          .sortBy((a) => a.lastRelease || "")
-          .reverse(),
-      getAll: function () {
-        return this.sorted().value();
-      },
-      nextIndex: function () {
-        const latest = this.sorted().take(1).value();
-        return apps.findIndex((app) => app.id === latest[0].id);
-      },
-    },
-    {
       id: "mobile",
       name: () => t("category.mobile"),
       description: (numberOfApps: number) => (
@@ -129,6 +113,22 @@ export function Categories(
         return apps.findIndex((app) =>
           app.cache.coverage.some((a) => a.startsWith(country)),
         );
+      },
+    },
+    {
+      id: "latest",
+      name: () => t("category.latestUpdates"),
+      sorted: () =>
+        chain(apps)
+          .sortBy((a) => a.source[0].lastChange || "")
+          .sortBy((a) => a.lastRelease || "")
+          .reverse(),
+      getAll: function () {
+        return this.sorted().value();
+      },
+      nextIndex: function () {
+        const latest = this.sorted().take(1).value();
+        return apps.findIndex((app) => app.id === latest[0].id);
       },
     },
     {
