@@ -143,6 +143,7 @@ export interface App {
     reddit?: string;
   };
   lastFocus: string;
+  lastSpotlight: string;
   score: number;
   cache: {
     score?: {

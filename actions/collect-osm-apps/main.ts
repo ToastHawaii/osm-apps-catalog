@@ -9,6 +9,7 @@ import { enrichFocus } from "@actions/collect-osm-apps/enrichFocus";
 import { enrichFirstCrawled } from "@actions/collect-osm-apps/enrichFirstCrawled";
 import { generateSitemap } from "@actions/collect-osm-apps/generateSitemap";
 import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
+import { enrichSpotlight } from "@actions/collect-osm-apps/enrichSpotlight";
 
 export const lastUpdate = new Date("2025-05-03");
 
@@ -25,11 +26,6 @@ export async function run(): Promise<void> {
   try {
     let apps = await loadApps(core.getInput("ghToken"));
 
-    const knownApps = await getKnownApps();
-
-    await enrichFirstCrawled(apps, knownApps);
-    await enrichFocus(apps, knownApps);
-
     // Shuffle before sorting to get a random order for apps with the same score
     shuffle(apps);
     apps = apps.sort((a, b) => b.score - a.score);
@@ -38,6 +34,12 @@ export async function run(): Promise<void> {
     apps.forEach((app: any) => {
       delete app.score.details;
     });
+
+    const knownApps = await getKnownApps();
+
+    await enrichFirstCrawled(apps, knownApps);
+    await enrichFocus(apps, knownApps);
+    await enrichSpotlight(apps, knownApps);
 
     await uploadToRepo(
       [
