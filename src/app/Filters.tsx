@@ -59,7 +59,7 @@ export function Filters() {
           className="flex-none"
           key={platform[0]}
           size="sm"
-          variant="outline"
+          variant="primary"
           pressed={currentPlatforms.includes(platform[0])}
           onPressedChange={(pressed) => {
             if (!pressed) {
@@ -87,7 +87,7 @@ export function Filters() {
         <Toggle
           className="flex-none"
           size="sm"
-          variant="outline"
+          variant="primary"
           onPressedChange={() => setShowMorePlatforms(true)}
         >
           {t("filters.morePlatforms")}
