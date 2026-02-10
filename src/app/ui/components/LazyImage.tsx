@@ -1,4 +1,5 @@
 import { isImage } from "@app/ui/components/LazyLoadImages";
+import { omit } from "lodash";
 import React, { useState, useRef, useEffect } from "react";
 
 export function LazyImage(
@@ -7,11 +8,14 @@ export function LazyImage(
     "src" | "style" | "className" | "alt"
   >,
 ) {
-  const [imgProps, setImgProps] = useState(props);
+  const [imgProps, setImgProps] = useState({
+    ...omit(props, "dynamicSrc"),
+    "data-dynamic-src": props.dynamicSrc,
+  });
   const elementRef = useRef<HTMLImageElement>(null);
 
   async function loadImage(element: Element) {
-    const sources = (imgProps["dynamicSrc"] || "").split(" ");
+    const sources = (imgProps["data-dynamic-src"] || "").split(" ");
 
     for (const src of sources) {
       if (document.body.contains(element) && (await isImage(src))) {
@@ -19,7 +23,7 @@ export function LazyImage(
         break;
       }
     }
-    setImgProps((p: any) => ({ ...p, dynamicSrc: undefined }));
+    setImgProps((p: any) => ({ ...p, "data-dynamic-src": undefined }));
   }
 
   let scrollTop = 0;
@@ -86,7 +90,7 @@ export function LazyImage(
   }
 
   useEffect(() => {
-    if (!imgProps["dynamicSrc"] || !elementRef.current) {
+    if (!imgProps["data-dynamic-src"] || !elementRef.current) {
       return;
     }
     const element = getScrollParent(elementRef.current);
@@ -108,5 +112,7 @@ export function LazyImage(
     };
   });
 
-  return <img ref={elementRef} {...{ ...imgProps, dynamicSrc: undefined }} />;
+  return (
+    <img ref={elementRef} {...{ ...imgProps, "data-dynamic-src": undefined }} />
+  );
 }
