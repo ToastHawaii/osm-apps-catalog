@@ -1,9 +1,5 @@
 @import "slim-select/styles";
 
-a.link-create {
-  color: #999;
-}
-
 .radio-btn input {
   display: none;
 }
@@ -420,7 +416,7 @@ a.link-create {
   font-size: small;
   display: block;
 
-  a {
+  a:not([data-variant="muted"]) {
     color: var(--primary);
     text-underline-offset: 4px;
     &:hover {

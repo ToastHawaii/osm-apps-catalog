@@ -12,6 +12,7 @@ export function SourceDisplay({ app }: { app: App }) {
         .map((s) => (
           <ExternalLink
             key={s.url}
+            className="whitespace-nowrap"
             href={s.url}
             title={
               t("app.source.lastChange", {
@@ -21,7 +22,6 @@ export function SourceDisplay({ app }: { app: App }) {
                 ? "\n" + t("app.source.firstCrawled", { added: s.firstCrawled })
                 : "")
             }
-            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={s.name} />
           </ExternalLink>
@@ -35,13 +35,13 @@ export function SourceDisplay({ app }: { app: App }) {
         <>
           {", "}
           <ExternalLink
-            className="link-create"
+            className="whitespace-nowrap"
+            variant="muted"
             href={
               "https://wiki.openstreetmap.org/w/index.php?title=" +
               encodeURIComponent(app.name) +
               "&veaction=edit&preload=Osm_Apps_Catalog%2Fnew"
             }
-            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Software"} create />
           </ExternalLink>
@@ -51,12 +51,12 @@ export function SourceDisplay({ app }: { app: App }) {
         <>
           {", "}
           <ExternalLink
-            className="link-create"
+            className="whitespace-nowrap"
+            variant="muted"
             href={
               "https://www.wikidata.org/w/index.php?title=Special:Search&search=" +
               encodeURIComponent(app.name)
             }
-            style={{ whiteSpace: "nowrap" }}
           >
             <SourceDisplayText name={"Wikidata"} create />
           </ExternalLink>

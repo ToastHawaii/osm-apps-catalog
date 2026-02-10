@@ -1,16 +1,34 @@
 import { cn } from "@lib/utils";
-import React, { AnchorHTMLAttributes } from "react";
+import { cva, VariantProps } from "class-variance-authority";
+import React from "react";
 
-export function ExternalLink(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
+const externalLinkVariants = cva("underline-offset-4 hover:underline", {
+  variants: {
+    variant: {
+      default: "text-primary",
+      muted: "text-muted-foreground",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+export function ExternalLink({
+  className,
+  variant = "default",
+  ...props
+}: React.ComponentProps<"a"> &
+  VariantProps<typeof externalLinkVariants> & {
+    asChild?: boolean;
+  }) {
   return (
     <a
-      {...props}
-      className={cn(
-        props.className,
-        "text-primary underline-offset-4 hover:underline",
-      )}
+      data-variant={variant}
+      className={cn(externalLinkVariants({ variant, className }))}
       target="_blank"
       rel="noreferrer"
+      {...props}
     />
   );
 }
