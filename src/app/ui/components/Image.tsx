@@ -175,7 +175,7 @@ export function Logo({ app }: { app: App }) {
 
   return (
     <LazyImage
-      className="object-cover"
+      className="rounded-lg [[src$='.svg']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
       dynamicSrc={
