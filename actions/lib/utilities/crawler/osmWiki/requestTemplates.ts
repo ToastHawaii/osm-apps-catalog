@@ -111,7 +111,10 @@ function parsePage(content: string, template: string) {
     communicationChannels = parsePage(content, "Communication channels")[0];
   }
 
-  content = content.replace(/(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)|\{\{Historic artifact start.*?\{\{Historic artifact end\}\}/g, "");
+  content = content.replace(
+    /(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)|{{Historic artifact start(.|\n)*?{{Historic artifact end}}/g,
+    "",
+  );
 
   const regexTemplate = new RegExp("{{" + template.replace(" ", "[_ ]"), "gi");
   let start = content.search(regexTemplate);
