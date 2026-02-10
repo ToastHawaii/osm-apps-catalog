@@ -22,7 +22,7 @@ export function AppCompact({ app }: { app: App }) {
     <div className="p-2">
       <Item variant="outline" asChild role="listitem">
         <Link to={routes.app({ app: app.id })}>
-          <ItemMedia className="size-15 ">
+          <ItemMedia className="size-15">
             <Logo app={app} />
           </ItemMedia>
           <ItemContent>
