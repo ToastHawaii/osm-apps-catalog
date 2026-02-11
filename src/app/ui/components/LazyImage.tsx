@@ -3,7 +3,10 @@ import { omit } from "lodash";
 import React, { useState, useRef, useEffect } from "react";
 
 export function LazyImage(
-  props: { dynamicSrc: string | undefined } & Pick<
+  props: {
+    dynamicSrc: string | undefined;
+    loadOnInit?: boolean | undefined;
+  } & Pick<
     React.ImgHTMLAttributes<HTMLImageElement>,
     "src" | "style" | "className" | "alt"
   >,
@@ -93,9 +96,13 @@ export function LazyImage(
     if (!imgProps["data-dynamic-src"] || !elementRef.current) {
       return;
     }
+    if (props.loadOnInit) {
+      loadImage(elementRef.current);
+    }
+
     const element = getScrollParent(elementRef.current);
 
-    lazyLoadImages(true);
+    lazyLoadImages(false);
 
     function handleEvent() {
       lazyLoadImages();

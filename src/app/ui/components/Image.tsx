@@ -145,6 +145,24 @@ export function Image({ app }: { app: App }) {
     );
   }
 }
+export function Image2({ app }: { app: App }) {
+  const { t } = useTranslation();
+
+  const defaultImage =
+    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+
+  return (
+    <LazyImage
+      className="img inline-block rounded-md"
+      src={defaultImage}
+      dynamicSrc={`${app.images.filter((i) => !i.includes("250px")).join(" ")} ${defaultImage}`}
+      alt={t("app.imageAlt", {
+        name: app.name,
+      })}
+      loadOnInit
+    />
+  );
+}
 
 export function Logo({ app }: { app: App }) {
   const { t } = useTranslation();

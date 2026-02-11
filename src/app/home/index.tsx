@@ -1,8 +1,18 @@
-import { range } from "lodash";
+import { chain, range } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import Autoplay from "embla-carousel-autoplay";
+import { Link } from "react-router";
 
 import { App } from "@shared/data/App";
+import { some } from "@shared/utilities/array";
+import { Categories } from "@app/Categories";
+import { Filters } from "@app/Filters";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { useRoutes } from "@hooks/useRoutes";
+import { plainText } from "@shared/utilities/plainText";
+import { textToColor } from "@shared/utilities/string";
+
 import {
   Carousel,
   CarouselContent,
@@ -10,13 +20,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@components/ui/carousel";
-import { some } from "@shared/utilities/array";
-import { Categories } from "@app/Categories";
-import { Filters } from "@app/Filters";
-import { Link } from "react-router";
+import { Item, ItemContent } from "@components/ui/item";
+import { Logo, Image2 } from "@app/ui/components/Image";
 import { AppCompact } from "@components/common/AppCompact";
-import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
-import { useRoutes } from "@hooks/useRoutes";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -24,13 +30,26 @@ export function Home({ apps }: { apps: App[] }) {
   const routes = useRoutes();
 
   const platforms = usePlatformUrlParam();
-  const categories = useMemo(() => {
+  const { categories, spotlight } = useMemo(() => {
     let filteredApps = apps.slice();
     if (platforms.length > 0) {
       filteredApps = filteredApps.filter((a) =>
         some(a.cache.platform, platforms),
       );
     }
+
+    const spotlight = chain(filteredApps)
+      .sortBy((a) => a.lastSpotlight)
+      .reverse()
+      .take(5)
+      .sortBy((a) => a.score)
+      .reverse()
+      .value();
+
+    spotlight.forEach((f) => {
+      const index = filteredApps.findIndex((app) => app.id === f.id);
+      filteredApps.splice(index, 1);
+    });
 
     const categories = Categories(t, filteredApps).map((c) => ({
       ...c,
@@ -67,7 +86,7 @@ export function Home({ apps }: { apps: App[] }) {
       category.apps.push(...filteredApps.splice(index, 1));
     });
 
-    return categories;
+    return { categories, spotlight };
   }, [apps.length, platforms]);
 
   return (
@@ -81,6 +100,64 @@ export function Home({ apps }: { apps: App[] }) {
         <Filters />
 
         <div id="list">
+          <Carousel
+            className="w-full px-6 md:px-16"
+            opts={{ loop: true, duration: 35 }}
+            plugins={[
+              Autoplay({
+                delay: 8000,
+                stopOnMouseEnter: true,
+                stopOnInteraction: false,
+              }),
+            ]}
+          >
+            <CarouselContent role="list">
+              {spotlight.map((app) => {
+                const defaultColor = textToColor(app.name);
+
+                return (
+                  <CarouselItem key={app.id} className="basis-1/1">
+                    <div className="p-2">
+                      <Item
+                        className="overflow-hidden px-12 py-10"
+                        variant="outline"
+                        asChild
+                        role="listitem"
+                        style={{
+                          backgroundColor: `rgb(${defaultColor.r} ${defaultColor.g} ${defaultColor.b} / 40%)`,
+                        }}
+                      >
+                        <a href={`?view=app&app=${app.id}`}>
+                          <ItemContent className="grid p-0 md:grid-cols-2">
+                            <div className="justify-items-center">
+                              <div className="grid size-25 place-items-center">
+                                <Logo app={app} />
+                              </div>
+                              <div className="line-clamp-1 text-2xl wrap-anywhere">
+                                {app.name}
+                              </div>
+                              <div className="line-clamp-2 h-10 max-w-100 wrap-anywhere">
+                                {plainText(
+                                  app.subtitle ||
+                                    app.descriptionShort ||
+                                    app.description,
+                                )}
+                              </div>
+                            </div>
+                            <div className="hidden max-h-3 px-10 pt-10 text-center md:block">
+                              <Image2 app={app} />
+                            </div>
+                          </ItemContent>
+                        </a>
+                      </Item>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 md:left-8" />
+            <CarouselNext className="right-4 md:right-8" />
+          </Carousel>
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (
@@ -130,8 +207,8 @@ export function Home({ apps }: { apps: App[] }) {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="left-8" />
-                  <CarouselNext className="right-8" />
+                  <CarouselPrevious className="left-4 md:left-8" />
+                  <CarouselNext className="right-4 md:right-8" />
                 </Carousel>
               </React.Fragment>
             ))}
