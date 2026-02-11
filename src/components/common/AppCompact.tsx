@@ -5,7 +5,7 @@ import { plainText } from "@shared/utilities/plainText";
 
 import { App } from "@shared/data/App";
 
-import { Logo } from "@app/ui/components/Image";
+import { AppLogo } from "./AppLogo";
 import {
   Item,
   ItemContent,
@@ -20,10 +20,10 @@ export function AppCompact({ app }: { app: App }) {
 
   return (
     <div className="p-2">
-      <Item variant="outline" asChild role="listitem">
+      <Item variant="outline" asChild role="listitem" className="shadow-md">
         <Link to={routes.app({ app: app.id })}>
           <ItemMedia className="size-15">
-            <Logo app={app} />
+            <AppLogo app={app} />
           </ItemMedia>
           <ItemContent>
             <ItemTitle className="line-clamp-1 wrap-anywhere">

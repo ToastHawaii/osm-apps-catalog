@@ -2,7 +2,7 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Badges } from "../components/Badges";
-import { Image } from "../components/Image";
+import { AppImage } from "@components/common/AppImage";
 import { toWikiValue } from "../utilities/toWikiTable";
 import { languageValueToDisplay } from "../utilities/language";
 import { getMatrix } from "../utilities/getMatrix";
@@ -31,7 +31,7 @@ import { SlackLink } from "../components/links/community/SlackLink";
 import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
-import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
+import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utilities/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 
@@ -80,7 +80,7 @@ export function Compare({
             label: () => "",
             description: () => "",
             hasValue: (app) => app.images.length > 0,
-            renderToHtml: (app) => <Image app={app} />,
+            renderToHtml: (app) => <AppImage app={app} />,
             renderToWiki: (app) =>
               app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
             centered: true,

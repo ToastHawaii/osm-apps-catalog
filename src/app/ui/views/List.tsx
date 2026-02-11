@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Badges } from "../components/Badges";
-import { Carousel, Image } from "../components/Image";
+import { AppImage } from "@components/common/AppImage";
+import { AppImagesCarousel } from "@components/common/AppImagesCarousel";
 import { Score } from "../components/Score";
 import { App } from "@shared/data/App";
 import { Trans, useTranslation } from "react-i18next";
@@ -69,10 +70,10 @@ export function List({
             setCarouselShown(true);
           }}
         >
-          <Image app={app} />
+          <AppImage app={app} />
         </div>
         {carouselShown && (
-          <Carousel
+          <AppImagesCarousel
             app={app}
             onClose={(e) => {
               e.preventDefault();
