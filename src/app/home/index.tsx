@@ -24,6 +24,8 @@ export function Home({ apps }: { apps: App[] }) {
     }
 
     const spotlight = chain(filteredApps)
+      // show only apps that have ever been chosen for Spotlight
+      .filter((a) => a.lastSpotlight !== "0000-00-00T00:00:00Z")
       .sortBy((a) => a.lastSpotlight)
       .reverse()
       .take(5)
