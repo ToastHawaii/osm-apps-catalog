@@ -1,4 +1,4 @@
-import { chain, range } from "lodash";
+import { chain } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Autoplay from "embla-carousel-autoplay";
@@ -30,7 +30,7 @@ export function Home({ apps }: { apps: App[] }) {
   const routes = useRoutes();
 
   const platforms = usePlatformUrlParam();
-  const { categories, spotlight } = useMemo(() => {
+  const { spotlight, categories } = useMemo(() => {
     let filteredApps = apps.slice();
     if (platforms.length > 0) {
       filteredApps = filteredApps.filter((a) =>
@@ -59,35 +59,39 @@ export function Home({ apps }: { apps: App[] }) {
     // Add apps to categories so that the highest-scored apps are seen first
     let row = 0;
     let col = 0;
-    const maxNumberOfAppsPerCategory = 9;
-    range(maxNumberOfAppsPerCategory * categories.length).forEach(() => {
+    const maxNumberOfAppsPerCategory = 6;
+    while (col < maxNumberOfAppsPerCategory + categories.length - 1) {
+      if (row >= categories.length) {
+        row = 0;
+        col++;
+        continue;
+      }
+
       const category = categories[row];
 
-      if (row < col) {
-        if (row < categories.length - 1) {
-          row++;
-        } else {
-          row = categories.findIndex(
-            (c) => c.apps.length < maxNumberOfAppsPerCategory,
-          );
-          col++;
-        }
-      } else {
-        row = categories.findIndex(
-          (c) => c.apps.length < maxNumberOfAppsPerCategory,
-        );
-        col++;
+      if (category.apps.length >= maxNumberOfAppsPerCategory) {
+        row++;
+        continue;
       }
 
       const index = category.nextIndex();
       if (index === -1) {
-        return;
+        row++;
+        continue;
       }
-      category.apps.push(...filteredApps.splice(index, 1));
-    });
 
-    return { categories, spotlight };
-  }, [apps.length, platforms]);
+      category.apps.push(...filteredApps.splice(index, 1));
+
+      if (row >= col) {
+        row = 0;
+        col++;
+      } else {
+        row++;
+      }
+    }
+
+    return { spotlight, categories };
+  }, [apps, platforms]);
 
   return (
     <>
