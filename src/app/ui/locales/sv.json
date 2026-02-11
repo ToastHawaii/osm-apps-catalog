@@ -127,5 +127,11 @@
     "app.community.mastodon": "Mastodont",
     "app.community.lemmy": "Lemmy",
     "app.source.lastChange": "Sista förändringen: {{date}}",
-    "app.source.firstCrawled": "Första crawled: {{added}}"
+    "app.source.firstCrawled": "Första crawled: {{added}}",
+    "nav.search": "Sök",
+    "filters.morePlatforms": "Fler plattformar",
+    "category.universalMapApps": "Universella kartappar",
+    "category.latestUpdates": "Senaste uppdateringarna",
+    "category.foss": "Fri och öppen källkod",
+    "category.country": "Appar för {{country}}"
 }
