@@ -50,6 +50,7 @@ export function List({
   useGoatCounterEvents();
 
   const link = new URLSearchParams();
+  link.set("view", "app");
   link.set("app", "" + app.id);
   return (
     <div className={"app" + (open ? " app-page" : "")}>
