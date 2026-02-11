@@ -30,7 +30,9 @@ export function AppCompact({ app }: { app: App }) {
               {app.name}
             </ItemTitle>
             <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-              {plainText(app.subtitle || app.descriptionShort || app.description)}
+              {plainText(
+                app.subtitle || app.descriptionShort || app.description,
+              )}
             </ItemDescription>
           </ItemContent>
         </Link>

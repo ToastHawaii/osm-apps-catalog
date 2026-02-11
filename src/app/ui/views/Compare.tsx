@@ -211,7 +211,7 @@ export function Compare({
             ),
             renderToWiki: (app) =>
               toWikiValue(
-                app.subtitle || app.descriptionShort || app.description ,
+                app.subtitle || app.descriptionShort || app.description,
                 lang,
               ),
             more: true,
