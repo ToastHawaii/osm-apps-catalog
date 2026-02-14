@@ -297,7 +297,7 @@ export function processWikiText(text = "") {
 
   // User
   {
-    const regex = /{{User(\|([^(}})]+))}}/gi;
+    const regex = /{{U(ser)?(\|([^(}})]+))}}/gi;
 
     text = text.replace(regex, (substring) => {
       const parts = substring.substring(2, substring.length - 2).split("|");
