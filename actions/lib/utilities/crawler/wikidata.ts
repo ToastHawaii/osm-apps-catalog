@@ -203,9 +203,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -327,9 +329,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -423,9 +427,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -466,9 +472,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -511,9 +519,11 @@ WHERE
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q121746037. }
+      UNION { ?item wdt:P2283 wd:Q121563476. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
       FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
       FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -554,9 +564,11 @@ SELECT DISTINCT ?item ?lg ?${fieldName}
     UNION { ?item wdt:P144 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q121746037. }
+    UNION { ?item wdt:P2283 wd:Q121563476. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
     FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
     FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -593,9 +605,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
