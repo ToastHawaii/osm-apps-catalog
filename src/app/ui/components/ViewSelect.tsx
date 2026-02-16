@@ -25,7 +25,7 @@ export function ViewSelect({
           id="listView"
           name="view"
           value="List"
-          checked={value === "list" || value === "app"}
+          checked={value === "list" || value === "app" || value === "search"}
           onChange={(e) => {
             onChange(e.currentTarget.checked ? "list" : "compare");
           }}
