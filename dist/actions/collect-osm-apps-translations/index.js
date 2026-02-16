@@ -93781,6 +93781,8 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(7484);
+// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
+var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./node_modules/i18next/dist/esm/i18next.js
 const i18next_isString = obj => typeof obj === 'string';
 const defer = () => {
@@ -98120,8 +98122,6 @@ function convertJsonToTemplateData() {
 // convertTemplateDataToJson();
 // convertJsonToTemplateData();
 
-// EXTERNAL MODULE: ./node_modules/lodash/lodash.js
-var lodash = __nccwpck_require__(2356);
 ;// CONCATENATED MODULE: ./shared/utilities/url.ts
 function newUrl(url) {
     try {
@@ -99809,9 +99809,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -99933,9 +99935,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100029,9 +100033,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100072,9 +100078,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100117,9 +100125,11 @@ WHERE
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q121746037. }
+      UNION { ?item wdt:P2283 wd:Q121563476. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
       FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
       FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100159,9 +100169,11 @@ SELECT DISTINCT ?item ?lg ?${fieldName}
     UNION { ?item wdt:P144 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q121746037. }
+    UNION { ?item wdt:P2283 wd:Q121563476. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
     FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
     FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100197,9 +100209,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -100330,7 +100344,7 @@ async function loadApps( /*githubToken: string*/) {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/uploadToRepo.ts
+;// CONCATENATED MODULE: ./actions/lib/utilities/uploadToRepo.ts
 
 async function uploadToRepo(files, commitMessage, ghToken) {
     if (!ghToken) {

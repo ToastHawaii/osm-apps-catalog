@@ -99952,77 +99952,6 @@ function convertJsonToTemplateData() {
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
-;// CONCATENATED MODULE: ./shared/utilities/filters.ts
-function display(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
-}
-const mobilePlatforms = (/* unused pure expression or super */ null && ([
-    "ANDROID",
-    "GARMIN",
-    "KINDLE",
-    "MAEMO",
-    "MEEGO",
-    "PALM OS",
-    "SYMBIAN",
-    "UBUNTU PHONE",
-    "UBUNTU TOUCH",
-    "WEBOS",
-    "WINDOWS MOBILE",
-    "WINDOWS PHONE",
-    "IOS",
-    "ZAURUS",
-]));
-function web(a) {
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return platform.some((p) => p === "WEB");
-}
-function mobile(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
-    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
-        platform.some((t) => mobilePlatforms.includes(t)) ||
-        a.install.asin ||
-        a.install.fDroidID ||
-        a.install.obtainiumLink ||
-        a.install.googlePlayID ||
-        a.install.huaweiAppGalleryID ||
-        a.install.appleStoreID);
-}
-function navigation(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
-}
-function edit(a) {
-    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
-        topics.some((t) => [
-            "ADD POIS",
-            "EDIT",
-            "EDITING",
-            "EDITOR",
-            "EDITOR SOFTWARE",
-            "ANALYSE",
-            "ANALYSER",
-            "ANALYSIS",
-            "TRACK RECORDING",
-            "TRACKER",
-            "TRACKING",
-            "TRACK LOGGING",
-            "VALIDATOR",
-            "OSM TOOL",
-            "QA",
-            "QUALITY CONTROL",
-            "NOTES",
-            "EDITOR TOOL",
-            "COMPARING TOOL",
-            "HASHTAG TOOL",
-            "MONITORING TOOL",
-            "CHANGESET REVIEW TOOL",
-            "WELCOMING TOOL",
-        ].includes(t)));
-}
-
 ;// CONCATENATED MODULE: ./shared/utilities/url.ts
 function newUrl(url) {
     try {
@@ -100218,225 +100147,6 @@ function shorterThenLength(s1, s2, length) {
     return minText(s1, s2);
 }
 
-;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
-
-
-
-
-const multilingual = [
-    "MUL",
-    instance.t("multilingual", { lng: "en" }).toUpperCase(),
-    instance.t("multilingual").toUpperCase(),
-];
-const Criterias = [
-    // OSM Participation
-    {
-        translationKey: "supportsContributions",
-        check: (app) => edit(app),
-        points: 2,
-    },
-    {
-        translationKey: "addingAndEditingPossible",
-        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
-            equalsYes(...[
-                ...(app.editing?.editPOI || []),
-                ...(app.editing?.editGeom || []),
-                ...(app.editing?.editRelations || []),
-                ...(app.editing?.editTags || []),
-            ]),
-        points: 1,
-    },
-    {
-        translationKey: "displaysMaps",
-        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
-        points: 1,
-    },
-    // Development Participation
-    {
-        translationKey: "openSource",
-        check: (app) => !!app.libre,
-        points: 1.0,
-    },
-    {
-        translationKey: "copyleftLicense",
-        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
-        points: 0.5,
-    },
-    {
-        translationKey: "sourceCodeReference",
-        check: (app) => !!app.sourceCode,
-        points: 0.25,
-    },
-    {
-        translationKey: "issueTracker",
-        check: (app) => !!app.community.issueTracker,
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateThreeMonths",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const threeMonthsAgo = new Date();
-            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-            return lastRelease > threeMonthsAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "lastUpdateYear",
-        check: (app) => {
-            if (!app.lastRelease) {
-                return false;
-            }
-            const lastRelease = new Date(app.lastRelease);
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-            return lastRelease > oneYearAgo;
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "translationContributions",
-        check: (app) => !!app.languagesUrl,
-        points: 0.5,
-    },
-    // Availability/Accessibility
-    {
-        translationKey: "multipleLanguages",
-        check: (app) => app.languages.length >= 3 ||
-            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
-        points: 0.125,
-    },
-    {
-        translationKey: "tenLanguages",
-        check: (app) => app.languages.length >= 10,
-        points: 0.125,
-    },
-    {
-        translationKey: "freeOfCharge",
-        check: (app) => !!app.gratis,
-        points: 0.25,
-    },
-    {
-        translationKey: "multiplePlatforms",
-        check: (app) => {
-            const i = app.install;
-            return ([
-                i.appleStoreID || i.macAppStoreID,
-                i.asin,
-                i.fDroidID ||
-                    i.googlePlayID ||
-                    i.huaweiAppGalleryID ||
-                    i.obtainiumLink,
-                i.microsoftAppID,
-            ].filter((i) => i).length > 1 ||
-                app.platform.length > 1 ||
-                web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "openSourceStores",
-        check: (app) => {
-            const i = app.install;
-            return !!(i.fDroidID || i.obtainiumLink || web(app));
-        },
-        points: 0.25,
-    },
-    {
-        translationKey: "worldwideData",
-        check: (app) => app.coverage.includes("Worldwide"),
-        points: 0.5,
-    },
-    {
-        translationKey: "accessibilitySupported",
-        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
-            0 ||
-            app.routing?.profiles
-                .map((p) => p.toUpperCase())
-                .includes("WHEELCHAIR") ||
-            false,
-        points: 0.5,
-    },
-    // Community channels & Documentation
-    {
-        translationKey: "communityChannelExists",
-        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
-        points: 0.5,
-    },
-    {
-        translationKey: "openSourceChannel",
-        check: (app) => !!(app.community.irc?.channel ||
-            app.community.matrix ||
-            app.community.mastodon ||
-            app.community.lemmy ||
-            app.community.bluesky),
-        points: 0.25,
-    },
-    {
-        translationKey: "documentationLink",
-        check: (app) => !!app.documentation,
-        points: 0.125,
-    },
-    {
-        translationKey: "documentedMultiplePlatforms",
-        check: (app) => [
-            app.source.some((s) => s.name === "taginfo"),
-            app.source.some((s) => s.name === "GitHub"),
-            app.source.some((s) => s.name === "Wikidata"),
-            app.source.some((s) => s.name === "Layer" ||
-                s.name === "ServiceItem" ||
-                s.name === "Software"),
-        ].filter((s) => s).length >= 2,
-        points: 0.125,
-    },
-];
-function calculateScore(app) {
-    // Community Contribution Score (A - E)
-    // A >= 8
-    // B >= 6
-    // C >= 4
-    // D >= 2
-    // E < 2
-    const results = Criterias.map((c) => ({
-        translationKey: c.translationKey,
-        points: c.points,
-        fulfilled: c.check(app),
-    }));
-    return {
-        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
-        details: results,
-    };
-}
-
-;// CONCATENATED MODULE: ./actions/lib/utilities/calcId.ts
-
-/**
- * Returns a hash code from a string
- * @param str The string to hash.
- * @return A 32bit integer
- * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
- */
-function hashCode(str) {
-    let hash = 0;
-    for (let i = 0, len = str.length; i < len; i++) {
-        const chr = str.charCodeAt(i);
-        hash = (hash << 5) - hash + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return Math.abs(hash);
-}
-function calcId(obj) {
-    if (obj.website) {
-        const url = newUrl(obj.website.toLowerCase());
-        return hashCode(url.hostname + url.pathname + url.search);
-    }
-    return hashCode(obj.name.toUpperCase());
-}
-
 ;// CONCATENATED MODULE: ./actions/lib/utilities/equalApp.ts
 
 function equals(app1, app2, options) {
@@ -100560,8 +100270,6 @@ function mergeFeatures(o1, o2) {
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/addOrMergeApp.ts
 
 
-
-
 function addOrMergeApp(apps, obj, options) {
     const duplicates = apps.filter((app) => equals(app, obj, options));
     if (duplicates.length === 0) {
@@ -100578,15 +100286,12 @@ function addOrMergeApp(apps, obj, options) {
                 obj.install.macAppStoreID ||
                 obj.install.microsoftAppID ||
                 obj.sourceCode)) {
-            obj.id = calcId(obj);
-            obj.score = calculateScore(obj).total;
             apps.push(obj);
         }
     }
     else {
         const app = duplicates[0];
         mergeApps(app, obj, options);
-        app.score = calculateScore(app).total;
     }
 }
 
@@ -103152,9 +102857,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103276,9 +102983,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103372,9 +103081,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103415,9 +103126,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103460,9 +103173,11 @@ WHERE
       UNION { ?item wdt:P144 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q25822543. }
       UNION { ?item wdt:P2283 wd:Q121746037. }
+      UNION { ?item wdt:P2283 wd:Q121563476. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
       FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
       FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103502,9 +103217,11 @@ SELECT DISTINCT ?item ?lg ?${fieldName}
     UNION { ?item wdt:P144 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q25822543. }
     UNION { ?item wdt:P2283 wd:Q121746037. }
+    UNION { ?item wdt:P2283 wd:Q121563476. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
     FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
     FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103540,9 +103257,11 @@ WHERE {
   UNION { ?item wdt:P144 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q25822543. }
   UNION { ?item wdt:P2283 wd:Q121746037. }
+  UNION { ?item wdt:P2283 wd:Q121563476. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
+  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
@@ -103665,7 +103384,7 @@ async function loadApps(githubToken) {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
-;// CONCATENATED MODULE: ./actions/collect-osm-apps/uploadToRepo.ts
+;// CONCATENATED MODULE: ./actions/lib/utilities/uploadToRepo.ts
 
 async function uploadToRepo(files, commitMessage, ghToken) {
     if (!ghToken) {
@@ -103745,7 +103464,7 @@ function getLastMod(source) {
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichFocus.ts
 
 
-async function enrichFocus(apps, knownApps) {
+function enrichFocus(apps, knownApps) {
     const now = new Date().toISOString();
     const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
     for (const app of apps) {
@@ -103772,7 +103491,7 @@ async function enrichFocus(apps, knownApps) {
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichFirstCrawled.ts
 
 
-async function enrichFirstCrawled(apps, knownApps) {
+function enrichFirstCrawled(apps, knownApps) {
     const now = new Date().toISOString();
     for (const app of apps) {
         const knownApp = knownApps.find((k) => k.id === app.id);
@@ -107051,7 +106770,7 @@ async function getKnownApps() {
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichSpotlight.ts
 
 
-async function enrichSpotlight(apps, knownApps) {
+function enrichSpotlight(apps, knownApps) {
     const now = new Date().toISOString();
     const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString();
     for (const app of apps) {
@@ -107091,7 +106810,312 @@ async function enrichSpotlight(apps, knownApps) {
     }
 }
 
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichId.ts
+
+/**
+ * Returns a hash code from a string
+ * @param str The string to hash.
+ * @return A 32bit integer
+ * @see http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+}
+function calcId(obj) {
+    if (obj.website) {
+        const url = newUrl(obj.website.toLowerCase());
+        return hashCode(url.hostname + url.pathname + url.search);
+    }
+    return hashCode(obj.name.toUpperCase());
+}
+function enrichId(apps) {
+    apps.forEach((a) => {
+        a.id = calcId(a);
+    });
+}
+
+;// CONCATENATED MODULE: ./shared/utilities/filters.ts
+function display(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t));
+}
+const mobilePlatforms = (/* unused pure expression or super */ null && ([
+    "ANDROID",
+    "GARMIN",
+    "KINDLE",
+    "MAEMO",
+    "MEEGO",
+    "PALM OS",
+    "SYMBIAN",
+    "UBUNTU PHONE",
+    "UBUNTU TOUCH",
+    "WEBOS",
+    "WINDOWS MOBILE",
+    "WINDOWS PHONE",
+    "IOS",
+    "ZAURUS",
+]));
+function web(a) {
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return platform.some((p) => p === "WEB");
+}
+function mobile(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
+    return (topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
+        platform.some((t) => mobilePlatforms.includes(t)) ||
+        a.install.asin ||
+        a.install.fDroidID ||
+        a.install.obtainiumLink ||
+        a.install.googlePlayID ||
+        a.install.huaweiAppGalleryID ||
+        a.install.appleStoreID);
+}
+function navigation(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return topics.some((t) => ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t));
+}
+function edit(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    return (a.hasGoal?.crowdsourcingStreetLevelImagery ||
+        topics.some((t) => [
+            "ADD POIS",
+            "EDIT",
+            "EDITING",
+            "EDITOR",
+            "EDITOR SOFTWARE",
+            "ANALYSE",
+            "ANALYSER",
+            "ANALYSIS",
+            "TRACK RECORDING",
+            "TRACKER",
+            "TRACKING",
+            "TRACK LOGGING",
+            "VALIDATOR",
+            "OSM TOOL",
+            "QA",
+            "QUALITY CONTROL",
+            "NOTES",
+            "EDITOR TOOL",
+            "COMPARING TOOL",
+            "HASHTAG TOOL",
+            "MONITORING TOOL",
+            "CHANGESET REVIEW TOOL",
+            "WELCOMING TOOL",
+        ].includes(t)));
+}
+
+;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
+
+
+
+
+const multilingual = [
+    "MUL",
+    instance.t("multilingual", { lng: "en" }).toUpperCase(),
+    instance.t("multilingual").toUpperCase(),
+];
+const Criterias = [
+    // OSM Participation
+    {
+        translationKey: "supportsContributions",
+        check: (app) => edit(app),
+        points: 2,
+    },
+    {
+        translationKey: "addingAndEditingPossible",
+        check: (app) => equalsYes(...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])]) &&
+            equalsYes(...[
+                ...(app.editing?.editPOI || []),
+                ...(app.editing?.editGeom || []),
+                ...(app.editing?.editRelations || []),
+                ...(app.editing?.editTags || []),
+            ]),
+        points: 1,
+    },
+    {
+        translationKey: "displaysMaps",
+        check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+        points: 1,
+    },
+    // Development Participation
+    {
+        translationKey: "openSource",
+        check: (app) => !!app.libre,
+        points: 1.0,
+    },
+    {
+        translationKey: "copyleftLicense",
+        check: (app) => !!app.license?.find((l) => l?.match("(?:.*GPL.*|ODbL.*|MPL.*|CC.*)")),
+        points: 0.5,
+    },
+    {
+        translationKey: "sourceCodeReference",
+        check: (app) => !!app.sourceCode,
+        points: 0.25,
+    },
+    {
+        translationKey: "issueTracker",
+        check: (app) => !!app.community.issueTracker,
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateThreeMonths",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+            return lastRelease > threeMonthsAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "lastUpdateYear",
+        check: (app) => {
+            if (!app.lastRelease) {
+                return false;
+            }
+            const lastRelease = new Date(app.lastRelease);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            return lastRelease > oneYearAgo;
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "translationContributions",
+        check: (app) => !!app.languagesUrl,
+        points: 0.5,
+    },
+    // Availability/Accessibility
+    {
+        translationKey: "multipleLanguages",
+        check: (app) => app.languages.length >= 3 ||
+            app.languages.some((l) => multilingual.includes(l?.toUpperCase())),
+        points: 0.125,
+    },
+    {
+        translationKey: "tenLanguages",
+        check: (app) => app.languages.length >= 10,
+        points: 0.125,
+    },
+    {
+        translationKey: "freeOfCharge",
+        check: (app) => !!app.gratis,
+        points: 0.25,
+    },
+    {
+        translationKey: "multiplePlatforms",
+        check: (app) => {
+            const i = app.install;
+            return ([
+                i.appleStoreID || i.macAppStoreID,
+                i.asin,
+                i.fDroidID ||
+                    i.googlePlayID ||
+                    i.huaweiAppGalleryID ||
+                    i.obtainiumLink,
+                i.microsoftAppID,
+            ].filter((i) => i).length > 1 ||
+                app.platform.length > 1 ||
+                web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "openSourceStores",
+        check: (app) => {
+            const i = app.install;
+            return !!(i.fDroidID || i.obtainiumLink || web(app));
+        },
+        points: 0.25,
+    },
+    {
+        translationKey: "worldwideData",
+        check: (app) => app.coverage.includes("Worldwide"),
+        points: 0.5,
+    },
+    {
+        translationKey: "accessibilitySupported",
+        check: (app) => Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
+            0 ||
+            app.routing?.profiles
+                .map((p) => p.toUpperCase())
+                .includes("WHEELCHAIR") ||
+            false,
+        points: 0.5,
+    },
+    // Community channels & Documentation
+    {
+        translationKey: "communityChannelExists",
+        check: (app) => Object.entries(app.community).filter((e) => e[1] && e[0] !== "issueTracker").length > 0,
+        points: 0.5,
+    },
+    {
+        translationKey: "openSourceChannel",
+        check: (app) => !!(app.community.irc?.channel ||
+            app.community.matrix ||
+            app.community.mastodon ||
+            app.community.lemmy ||
+            app.community.bluesky),
+        points: 0.25,
+    },
+    {
+        translationKey: "documentationLink",
+        check: (app) => !!app.documentation,
+        points: 0.125,
+    },
+    {
+        translationKey: "documentedMultiplePlatforms",
+        check: (app) => [
+            app.source.some((s) => s.name === "taginfo"),
+            app.source.some((s) => s.name === "GitHub"),
+            app.source.some((s) => s.name === "Wikidata"),
+            app.source.some((s) => s.name === "Layer" ||
+                s.name === "ServiceItem" ||
+                s.name === "Software"),
+        ].filter((s) => s).length >= 2,
+        points: 0.125,
+    },
+];
+function calculateScore(app) {
+    // Community Contribution Score (A - E)
+    // A >= 8
+    // B >= 6
+    // C >= 4
+    // D >= 2
+    // E < 2
+    const results = Criterias.map((c) => ({
+        translationKey: c.translationKey,
+        points: c.points,
+        fulfilled: c.check(app),
+    }));
+    return {
+        total: (0,lodash.sum)(results.filter((r) => r.fulfilled).map((r) => r.points)),
+        details: results,
+    };
+}
+
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichScoreTotal.ts
+
+function enrichScoreTotal(apps) {
+    apps.forEach((a) => {
+        a.score = calculateScore(a).total;
+    });
+}
+
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/main.ts
+
+
 
 
 
@@ -107114,17 +107138,15 @@ const lastUpdate = new Date("2025-05-03");
 async function run() {
     try {
         let apps = await loadApps(core.getInput("ghToken"));
+        enrichId(apps);
+        enrichScoreTotal(apps);
+        const knownApps = await getKnownApps();
+        enrichFirstCrawled(apps, knownApps);
+        enrichFocus(apps, knownApps);
+        enrichSpotlight(apps, knownApps);
         // Shuffle before sorting to get a random order for apps with the same score
         shuffle(apps);
         apps = apps.sort((a, b) => b.score - a.score);
-        // remove details from score to reduce file size, can be re-calculated on client side
-        apps.forEach((app) => {
-            delete app.score.details;
-        });
-        const knownApps = await getKnownApps();
-        await enrichFirstCrawled(apps, knownApps);
-        await enrichFocus(apps, knownApps);
-        await enrichSpotlight(apps, knownApps);
         await uploadToRepo([
             { filePath: "docs/api/apps/all.json", content: JSON.stringify(apps) },
             { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
