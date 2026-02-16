@@ -7,7 +7,9 @@ export async function requestTemplates(
   template: string,
   languageMode: "en" | "notEn",
 ) {
-  const objects: Template[] = [];
+  const objects: (Template & {
+    communicationChannels: Template;
+  })[] = [];
   let con;
 
   do {
@@ -51,7 +53,9 @@ async function processPagesByTemplateResult(
 ) {
   const pages = response.query.embeddedin;
 
-  const objects: Template[] = [];
+  const objects: (Template & {
+    communicationChannels: Template;
+  })[] = [];
   let ids = [];
   for (const p in pages) {
     if (languageMode === "en") {
@@ -87,7 +91,9 @@ async function loadPages(ids: string[], template: string) {
 
   const pages = response.query.pages;
 
-  const objects: Template[] = [];
+  const objects: (Template & {
+    communicationChannels: Template;
+  })[] = [];
   for (const p in pages) {
     const content = pages[p].revisions[0].slots.main.content;
     const pageObjects = parsePage(content, template);

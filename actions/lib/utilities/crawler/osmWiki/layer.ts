@@ -74,7 +74,23 @@ export function transform(source: Record<string, string>) {
       source["style_license"],
     ]),
     community: {
-      issueTracker: toUrl(source["bugtracker_web"]),
+      forum: source.communicationChannels["forum"],
+      forumTag: source.communicationChannels["forum tag"],
+      irc: source.communicationChannels["irc channel"]
+        ? {
+            server: source.communicationChannels["irc server"],
+            channel: source.communicationChannels["irc channel"],
+          }
+        : undefined,
+      matrix: source.communicationChannels["matrix room"],
+      bluesky: source.communicationChannels["bluesky handle"],
+      mastodon: source.communicationChannels["mastodon address"],
+      issueTracker:
+        toUrl(source["bugtracker_web"]) ||
+        toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
+      githubDiscussions: source.communicationChannels["github discussions"],
+      telegram: source.communicationChannels["telegram"],
+      slack: toUrl(source.communicationChannels["slack url"]),
     },
   } as any;
 
