@@ -23,7 +23,7 @@ const platforms: {
   },
   {
     name: "Arduino",
-    synonym: ["arduino", "arduino library"],
+    synonym: ["arduino"],
     version: [
       {
         name: "Arduino® Nano ESP32",

@@ -215,7 +215,7 @@ async function request(
 ) {
   const query = `
       query {
-        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension", type: REPOSITORY, first: 50 ${
           cursor ? `, after: "${cursor}"` : ""
         }) {
           pageInfo {

@@ -27,8 +27,7 @@ export async function loadAppsFromOsmWikiSoftwares(languageMode: "en" | "notEn")
         !equalsIgnoreCase(s["status"], "broken") &&
         s["name"] !== "software template",
     )
-    .map((source) => transformSoftware(source as any))
-    .filter((app) => !app.genre.includes("Library"));
+    .map((source) => transformSoftware(source as any));
 }
 export async function loadAppsFromOsmWikiLayers(languageMode: "en" | "notEn") {
   return (await requestTemplates("Layer", languageMode))
