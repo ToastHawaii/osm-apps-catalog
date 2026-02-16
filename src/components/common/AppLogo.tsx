@@ -40,7 +40,7 @@ export function AppLogo({
 
   return (
     <LazyImage
-      className="rounded-lg [[src$='.svg']]:size-full"
+      className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
       dynamicSrc={

@@ -46,8 +46,10 @@ export function Spotlight({ apps }: { apps: App[] }) {
                   <a href={`?view=app&app=${app.id}`}>
                     <ItemContent className="grid p-0 md:grid-cols-2">
                       <div className="justify-items-center">
-                        <div className="grid size-25 place-items-center">
-                          <AppLogo app={app} loadOnInit />
+                        <div className="grid">
+                          <div className="size-25 place-items-center content-center">
+                            <AppLogo app={app} loadOnInit />
+                          </div>
                         </div>
                         <div className="line-clamp-1 text-2xl wrap-anywhere">
                           {app.name}
