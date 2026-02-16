@@ -4,12 +4,14 @@ import "../../src/app/ui/utilities/i18n";
 
 import { loadApps } from "./loadApps";
 import { shuffle } from "@shared/utilities/array";
-import { uploadToRepo } from "@actions/collect-osm-apps/uploadToRepo";
-import { enrichFocus } from "@actions/collect-osm-apps/enrichFocus";
-import { enrichFirstCrawled } from "@actions/collect-osm-apps/enrichFirstCrawled";
-import { generateSitemap } from "@actions/collect-osm-apps/generateSitemap";
+import { uploadToRepo } from "../lib/utilities/uploadToRepo";
+import { enrichFocus } from "./enrichFocus";
+import { enrichFirstCrawled } from "./enrichFirstCrawled";
+import { generateSitemap } from "./generateSitemap";
 import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
-import { enrichSpotlight } from "@actions/collect-osm-apps/enrichSpotlight";
+import { enrichSpotlight } from "./enrichSpotlight";
+import { enrichId } from "./enrichId";
+import { enrichScoreTotal } from "./enrichScoreTotal";
 
 export const lastUpdate = new Date("2025-05-03");
 
@@ -26,20 +28,17 @@ export async function run(): Promise<void> {
   try {
     let apps = await loadApps(core.getInput("ghToken"));
 
+    enrichId(apps);
+    enrichScoreTotal(apps);
+
+    const knownApps = await getKnownApps();
+    enrichFirstCrawled(apps, knownApps);
+    enrichFocus(apps, knownApps);
+    enrichSpotlight(apps, knownApps);
+
     // Shuffle before sorting to get a random order for apps with the same score
     shuffle(apps);
     apps = apps.sort((a, b) => b.score - a.score);
-
-    // remove details from score to reduce file size, can be re-calculated on client side
-    apps.forEach((app: any) => {
-      delete app.score.details;
-    });
-
-    const knownApps = await getKnownApps();
-
-    await enrichFirstCrawled(apps, knownApps);
-    await enrichFocus(apps, knownApps);
-    await enrichSpotlight(apps, knownApps);
 
     await uploadToRepo(
       [

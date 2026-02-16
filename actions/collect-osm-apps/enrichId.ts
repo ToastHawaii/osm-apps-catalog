@@ -18,11 +18,17 @@ function hashCode(str: string) {
   return Math.abs(hash);
 }
 
-export function calcId(obj: App): number {
+function calcId(obj: App): number {
   if (obj.website) {
     const url = newUrl(obj.website.toLowerCase());
     return hashCode(url.hostname + url.pathname + url.search);
   }
 
   return hashCode(obj.name.toUpperCase());
+}
+
+export function enrichId(apps: App[]) {
+  apps.forEach((a) => {
+    a.id = calcId(a);
+  });
 }

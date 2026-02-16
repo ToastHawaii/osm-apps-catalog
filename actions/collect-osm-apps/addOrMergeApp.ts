@@ -1,6 +1,4 @@
 import { App } from "@shared/data/App";
-import { calculateScore } from "@shared/data/calculateScore";
-import { calcId } from "@actions/lib/utilities/calcId";
 import { equals } from "@actions/lib/utilities/equalApp";
 import { mergeApps } from "@actions/lib/utilities/mergeApps";
 
@@ -32,15 +30,11 @@ export function addOrMergeApp(
         obj.install.microsoftAppID ||
         obj.sourceCode)
     ) {
-      obj.id = calcId(obj);
-      obj.score = calculateScore(obj).total;
       apps.push(obj);
     }
   } else {
     const app = duplicates[0];
 
     mergeApps(app, obj, options);
-
-    app.score = calculateScore(app).total;
   }
 }

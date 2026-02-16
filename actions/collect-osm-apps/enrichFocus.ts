@@ -2,7 +2,7 @@ import { getLastMod } from "@actions/lib/utilities/getLastMod";
 import { App } from "@shared/data/App";
 import { chain } from "lodash";
 
-export async function enrichFocus(apps: App[], knownApps: App[]) {
+export  function enrichFocus(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
   const yesterday = new Date(
     new Date().valueOf() - 1000 * 60 * 60 * 24,

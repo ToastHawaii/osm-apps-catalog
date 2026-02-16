@@ -2,7 +2,7 @@ import { getLastMod } from "@actions/lib/utilities/getLastMod";
 import { App } from "@shared/data/App";
 import { sortBy } from "lodash";
 
-export async function enrichFirstCrawled(apps: App[], knownApps: App[]) {
+export function enrichFirstCrawled(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
 
   for (const app of apps) {
