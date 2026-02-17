@@ -19,7 +19,9 @@ import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource"
 import { languageFilter } from "@actions/lib/utilities/languageFilter";
 import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
 
-export function transform(source: Record<string, string>) {
+export function transform(source: Record<string, string> & {
+    communicationChannels: Record<string, string>;
+}) {
   const obj: App = {
     name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
