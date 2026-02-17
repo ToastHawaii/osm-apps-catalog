@@ -41,7 +41,9 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     } else {
       let index = category.nextIndex();
       while (index !== -1) {
-        categoryApps.push(...(!techView ?filteredApps : appsCopy).splice(index, 1));
+        categoryApps.push(
+          ...(!techView ? filteredApps : appsCopy).splice(index, 1),
+        );
         index = category.nextIndex();
       }
     }
@@ -66,7 +68,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
         })}
       />
       <main className="mx-auto max-w-7xl">
-      {!techView && <Filters />}
+        {!techView && <Filters />}
 
         <div id="list">
           <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
