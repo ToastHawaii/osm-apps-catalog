@@ -101142,7 +101142,7 @@ const platforms = [
     },
     {
         name: "Arduino",
-        synonym: ["arduino", "arduino library"],
+        synonym: ["arduino"],
         version: [
             {
                 name: "Arduino® Nano ESP32",
@@ -101606,7 +101606,7 @@ async function requestGitHub(githubToken) {
 async function request(pushedAfter, cursor, githubToken, sort) {
     const query = `
       query {
-        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:library,java-library,android-library,php-library,matlab-library,gecoder-library,composer-library,python3-library,julia-library,golang-library,elixir-library,platformio-library,cpp-library,r-package,npm-package,api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
+        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension", type: REPOSITORY, first: 50 ${cursor ? `, after: "${cursor}"` : ""}) {
           pageInfo {
             hasNextPage
             endCursor
@@ -102586,7 +102586,22 @@ function layer_transform(source) {
             source["style_license"],
         ]),
         community: {
-            issueTracker: toUrl(source["bugtracker_web"]),
+            forum: source.communicationChannels["forum"],
+            forumTag: source.communicationChannels["forum tag"],
+            irc: source.communicationChannels["irc channel"]
+                ? {
+                    server: source.communicationChannels["irc server"],
+                    channel: source.communicationChannels["irc channel"],
+                }
+                : undefined,
+            matrix: source.communicationChannels["matrix room"],
+            bluesky: source.communicationChannels["bluesky handle"],
+            mastodon: source.communicationChannels["mastodon address"],
+            issueTracker: toUrl(source["bugtracker_web"]) ||
+                toUrl(extractWebsite(source.communicationChannels["issue tracker"])),
+            githubDiscussions: source.communicationChannels["github discussions"],
+            telegram: source.communicationChannels["telegram"],
+            slack: toUrl(source.communicationChannels["slack url"]),
         },
     };
     if (!equalsYes(source["notlayer"])) {
@@ -102627,8 +102642,7 @@ async function loadAppsFromOsmWikiSoftwares(languageMode) {
             s["microsoftAppID"]) &&
         !equalsIgnoreCase(s["status"], "broken") &&
         s["name"] !== "software template")
-        .map((source) => transform(source))
-        .filter((app) => !app.genre.includes("Library"));
+        .map((source) => transform(source));
 }
 async function loadAppsFromOsmWikiLayers(languageMode) {
     return (await requestTemplates("Layer", languageMode))
@@ -102730,7 +102744,10 @@ function wikidata_transform(result) {
         subtitle: result.motto?.value || result.subtitle?.value || "",
         description: result.description?.value || "",
         images: (result.imgs?.value || "").split(";").filter((v) => v),
-        logos: (result.logos?.value || "").split(";").filter((v) => v),
+        logos: [
+            ...(result.icons?.value || "").split(";").filter((v) => v),
+            ...(result.logos?.value || "").split(";").filter((v) => v),
+        ],
         commons: (result.commons?.value || "").split(";").filter((v) => v),
         videos: (result.videos?.value || "").split(";").filter((v) => v),
         website: result.web?.value || result.webDef?.value
@@ -102747,7 +102764,14 @@ function wikidata_transform(result) {
             .map(languageValueFormat),
         languagesUrl: result.lgsUrl?.value || "",
         genre: extractGenre(result),
-        topics: [...extractGenre(result), ...toValues(result.topics?.value)],
+        topics: [
+            ...extractGenre(result),
+            ...toValues(result.topics?.value),
+            ...toValues(result.genres?.value),
+            ...toValues(result.subjects?.value),
+            ...toValues(result.fows?.value),
+            ...toValues(result.depicts?.value),
+        ],
         platform: [
             ...new Set([
                 ...(result.platforms?.value || "").split(";"),
@@ -102814,6 +102838,7 @@ SELECT DISTINCT
   ?description 
   (SAMPLE(?motto) AS ?motto)
   (SAMPLE(?subtitle) AS ?subtitle)
+  (GROUP_CONCAT(DISTINCT ?icon; SEPARATOR = ";") AS ?icons) 
   (GROUP_CONCAT(DISTINCT ?logo; SEPARATOR = ";") AS ?logos) 
   (GROUP_CONCAT(DISTINCT ?img; SEPARATOR = ";") AS ?imgs) 
   (GROUP_CONCAT(DISTINCT ?common; SEPARATOR = ";") AS ?commons) 
@@ -102882,6 +102907,7 @@ WHERE {
     FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
   }
 
+  OPTIONAL { ?item wdt:P8972 ?icon. }
   OPTIONAL { ?item wdt:P154 ?logo. }
   OPTIONAL { ?item wdt:P18 ?img. }
   OPTIONAL { ?item wdt:P373 ?common. }
@@ -102915,7 +102941,7 @@ WHERE {
   }
   OPTIONAL { 
     ?item wdt:P178/rdfs:label ?author.
-    FILTER(LANG(?author) = "en")
+    FILTER((LANG(?author) = "mul" || LANG(?author) = "en"))
   }
   OPTIONAL { ?item wdt:P1324 ?sourceCode. }
   OPTIONAL { 
@@ -102961,6 +102987,10 @@ GROUP BY ?item
 SELECT DISTINCT 
   ?item
   (GROUP_CONCAT(DISTINCT ?topic; SEPARATOR = ";") AS ?topics)
+  (GROUP_CONCAT(DISTINCT ?genre; SEPARATOR = ";") AS ?genres)
+  (GROUP_CONCAT(DISTINCT ?subject; SEPARATOR = ";") AS ?subjects)
+  (GROUP_CONCAT(DISTINCT ?fow; SEPARATOR = ";") AS ?fows)
+  (GROUP_CONCAT(DISTINCT ?depict; SEPARATOR = ";") AS ?depicts)
   ?viewing
   ?routing
   ?editor
@@ -102993,7 +103023,27 @@ WHERE {
 
   OPTIONAL { 
     ?item wdt:P366/rdfs:label ?topic.
-    FILTER(LANG(?topic) = "en")
+    FILTER((LANG(?topic) = "mul" || LANG(?topic) = "en"))
+  }
+
+  OPTIONAL { 
+    ?item wdt:P136/rdfs:label ?genre.
+    FILTER((LANG(?genre) = "mul" || LANG(?genre) = "en"))
+  }
+
+  OPTIONAL { 
+    ?item wdt:P921/rdfs:label ?subject.
+    FILTER((LANG(?subject) = "mul" || LANG(?subject) = "en"))
+  }
+
+  OPTIONAL { 
+    ?item wdt:P101/rdfs:label ?fow.
+    FILTER((LANG(?fow) = "mul" || LANG(?fow) = "en"))
+  }
+
+  OPTIONAL { 
+    ?item wdt:P180/rdfs:label ?depict.
+    FILTER((LANG(?depict) = "mul" || LANG(?depict) = "en"))
   }
 
   OPTIONAL { 
@@ -103091,11 +103141,11 @@ WHERE {
 
   OPTIONAL { 
     ?item wdt:P306/rdfs:label ?osLabel.
-    FILTER(LANG(?osLabel) = "en")
+    FILTER((LANG(?osLabel) = "mul" || LANG(?osLabel) = "en"))
   }
   OPTIONAL { 
     ?item wdt:P400/rdfs:label ?platform.
-    FILTER(LANG(?platform) = "en")
+    FILTER((LANG(?platform) = "mul" || LANG(?platform) = "en"))
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroid. }
@@ -103197,7 +103247,7 @@ WHERE
              ?license
   }
   
-  OPTIONAL { FILTER(((LANG(?licenseShortName)) = "en") || ((LANG(?licenseShortName)) = "mul")) }
+  OPTIONAL { FILTER(LANG(?licenseShortName) = "mul" || LANG(?licenseShortName) = "en")) }
 }
 GROUP BY ?item`,
 ];
