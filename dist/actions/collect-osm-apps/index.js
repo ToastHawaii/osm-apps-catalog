@@ -103247,7 +103247,7 @@ WHERE
              ?license
   }
   
-  OPTIONAL { FILTER(LANG(?licenseShortName) = "mul" || LANG(?licenseShortName) = "en")) }
+  OPTIONAL { FILTER(LANG(?licenseShortName) = "mul" || LANG(?licenseShortName) = "en") }
 }
 GROUP BY ?item`,
 ];

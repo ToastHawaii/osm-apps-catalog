@@ -1,5 +1,7 @@
 name: Collect osm apps
 
+description: test
+
 on:
   workflow_dispatch:
 
