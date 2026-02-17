@@ -24,7 +24,17 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     }
 
     let techView = false;
-    let category = HomeCategories(t, filteredApps).find((c) => c.id === id);
+    let category:
+      | {
+          id: string;
+          name: () => string;
+          description?:
+            | ((numberOfApps: number) => React.JSX.Element)
+            | undefined;
+          getAll?: (() => App[]) | undefined;
+          nextIndex: () => number;
+        }
+      | undefined = HomeCategories(t, filteredApps).find((c) => c.id === id);
 
     if (!category) {
       category = TechCategories(t, appsCopy).find((c) => c.id === id);
