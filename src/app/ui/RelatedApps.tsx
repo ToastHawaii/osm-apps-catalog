@@ -17,7 +17,7 @@ export function RelatedApps({
     <>
       {similarApps.length > 0 && (
         <>
-          <h2>
+          <h2 className="text-2xl font-semibold">
             {t("relatedApps", {
               numberOfApps: similarApps.length,
             })}
