@@ -127,5 +127,11 @@
         "resetFilters": "移除預置篩選"
     },
     "app.source.lastChange": "最後更改：{{date}}",
-    "app.source.firstCrawled": "第一次爬取：{{added}}"
+    "app.source.firstCrawled": "第一次爬取：{{added}}",
+    "nav.search": "搜尋",
+    "filters.morePlatforms": "更多平台",
+    "category.universalMapApps": "通用地圖 app",
+    "category.latestUpdates": "最新更新",
+    "category.foss": "自由與開放原始碼",
+    "category.country": "{{country}} 的 app"
 }
