@@ -27,7 +27,8 @@
         "description": "檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"
     },
     "logo": {
-        "label": "圖示"
+        "label": "圖示",
+        "description": "軟體圖示或是logo"
     },
     "screenshot": {
         "label": "截圖"
@@ -161,6 +162,10 @@
         "description": "[導航] 是否透過導航計算行進路線？"
     },
     "createRouteViaWaypoints": {
-        "label": "透過路徑點創建導航"
+        "label": "透過路徑點創建導航",
+        "description": "[導航] 透過航點來計算路徑"
+    },
+    "profiles": {
+        "label": "導航檔案"
     }
 }
