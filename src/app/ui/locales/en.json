@@ -20,7 +20,8 @@
   "category.universalMapApps": "Universal map apps",
   "category.latestUpdates": "Latest updates",
   "category.mobile": "To go",
-  "category.navigation": "Find your way",
+  "category.navigation": "Navi",
+  "category.calcRoute": "Plan a route",
   "category.edit": "Improve the map",
   "category.foss": "Free and opensource",
   "category.country": "Apps for {{country}}",
@@ -29,8 +30,8 @@
   "category.focus.description": "Ten apps from the most recently updated pages.",
   "category.latest.description": "{{numberOfApps}} apps sorted by last release date.",
   "category.mobile.description": "{{numberOfApps}} apps developed for mobile devices or that support offline use.",
-  "category.navigation.description": "{{numberOfApps}} apps that support routing or navigation.",
-  "category.edit.description": "{{numberOfApps}} apps that support adding, editing or analysing OpenStreetMap data or recording geotracks.",
+  "category.navigation.description": "{{numberOfApps}} apps that support navigation.",
+  "category.edit.description": "{{numberOfApps}} apps that support adding or editing OpenStreetMap data.",
   "relatedApps": "{{numberOfApps}} related apps",
   "notFound": "Not found what you're looking for?",
   "notFound.desc": "With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.",
@@ -131,5 +132,10 @@
   "score.criteria.communityChannelExists": "a communication channel for the community exists (e.g. forum, Mastodon)",
   "score.criteria.openSourceChannel": "a channel is hosted on open-source platforms (e.g. Matrix)",
   "score.criteria.documentationLink": "a documentation link is available",
-  "score.criteria.documentedMultiplePlatforms": "the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)"
+  "score.criteria.documentedMultiplePlatforms": "the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)",
+  "category": {
+    "trackRec": "Track recording",
+    "qa": "OpenStreetMap quality assurance",
+    "changeset": "Monitoring & Community-Management"
+  }
 }

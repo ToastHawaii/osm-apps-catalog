@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
-import { edit } from "@shared/utilities/filters";
+import { contribute } from "@shared/utilities/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
 
 export function HuaweiAppGalleryLink({ app }: { app: App }) {
@@ -20,7 +20,7 @@ export function HuaweiAppGalleryLink({ app }: { app: App }) {
       href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
       title={t("app.install.huaweiAppGallery")}
       data-goatcounter-click={`/app/download${
-        edit(app) ? "?category=edit" : ""
+        contribute(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"

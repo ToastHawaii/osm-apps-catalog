@@ -48,9 +48,9 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={currentRoute === "focus"}
+                active={currentRoute === "tech"}
               >
-                <Link to={routes.focus()}>{t("category.focus")}</Link>
+                <Link to={routes.tech()}>{t("category.tech")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

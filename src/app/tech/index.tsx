@@ -1,44 +1,18 @@
-import { chain } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { some } from "@shared/utilities/array";
-import { Categories } from "@app/home/Categories";
-import { Filters } from "@app/Filters";
-import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { Categories } from "./Categories";
 
-import { Spotlight } from "./components/Spotlight";
 import { Category } from "./components/Category";
 
-export function Home({ apps }: { apps: App[] }) {
+export function Tech({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
 
-  const platforms = usePlatformUrlParam();
-  const { spotlight, categories } = useMemo(() => {
-    let filteredApps = apps.slice();
-    if (platforms.length > 0) {
-      filteredApps = filteredApps.filter((a) =>
-        some(a.cache.platform, platforms),
-      );
-    }
+  const { categories } = useMemo(() => {
+    apps = apps.slice();
 
-    const spotlight = chain(filteredApps)
-      // show only apps that have ever been chosen for Spotlight
-      .filter((a) => a.lastSpotlight !== "0000-00-00T00:00:00Z")
-      .sortBy((a) => a.lastSpotlight)
-      .reverse()
-      .take(5)
-      .sortBy((a) => a.score)
-      .reverse()
-      .value();
-
-    spotlight.forEach((f) => {
-      const index = filteredApps.findIndex((app) => app.id === f.id);
-      filteredApps.splice(index, 1);
-    });
-
-    const categories = Categories(t, filteredApps).map((c) => ({
+    const categories = Categories(t, apps).map((c) => ({
       ...c,
       apps: [] as App[],
     }));
@@ -67,7 +41,7 @@ export function Home({ apps }: { apps: App[] }) {
         continue;
       }
 
-      category.apps.push(...filteredApps.splice(index, 1));
+      category.apps.push(...apps.splice(index, 1));
 
       if (row >= col) {
         row = 0;
@@ -77,8 +51,8 @@ export function Home({ apps }: { apps: App[] }) {
       }
     }
 
-    return { spotlight, categories };
-  }, [apps, platforms]);
+    return { categories };
+  }, [apps]);
 
   return (
     <>
@@ -88,10 +62,7 @@ export function Home({ apps }: { apps: App[] }) {
         content="There isn't just one, there are thousands."
       />
       <main className="mx-auto max-w-7xl">
-        <Filters />
-
         <div id="list">
-          <Spotlight apps={spotlight} />
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (

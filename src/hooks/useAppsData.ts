@@ -13,29 +13,26 @@ import { getUserRegion } from "@lib/utils/getUserRegion";
 import { some } from "@shared/utilities/array";
 import { useTranslation } from "react-i18next";
 
-const libraryTopics = [
-  "Library",
-  "Java library",
-  "Android library",
-  "Arduino library",
-  "Php library",
-  "Matlab library",
-  "Gecoder library",
-  "Composer library",
-  "Python3 library",
-  "Julia library",
-  "Golang library",
-  "Elixir library",
-  "Platformio library",
-  "Cpp library",
-  "R package",
-  "Npm package",
-];
+// const libraryTopics = [
+//   "Library",
+//   "Java library",
+//   "Android library",
+//   "Arduino library",
+//   "Php library",
+//   "Matlab library",
+//   "Gecoder library",
+//   "Composer library",
+//   "Python3 library",
+//   "Julia library",
+//   "Golang library",
+//   "Elixir library",
+//   "Platformio library",
+//   "Cpp library",
+//   "R package",
+//   "Npm package",
+// ];
 
 async function loadData() {
-  // for testing
-  // return (await import("../../action/loadApps")).loadApps();
-
   if (!isDevelopment) {
     try {
       return await getJson("/api/apps/all.json", {});
@@ -100,11 +97,11 @@ export function useAppsData() {
 
       let apps = (await appsQuery) as App[];
 
-      apps = apps.filter(
-        (a) =>
-          !a.genre.includes("Library") &&
-          !libraryTopics.some((t) => a.topics.includes(t)),
-      );
+      // apps = apps.filter(
+      //   (a) =>
+      //     !a.genre.includes("Library") &&
+      //     !libraryTopics.some((t) => a.topics.includes(t)),
+      // );
 
       prepareLanguage(apps);
 

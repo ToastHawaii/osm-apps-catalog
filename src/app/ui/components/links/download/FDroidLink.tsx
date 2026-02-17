@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
-import { edit } from "@shared/utilities/filters";
+import { contribute } from "@shared/utilities/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
 
 export function FDroidLink({ app }: { app: App }) {
@@ -20,7 +20,7 @@ export function FDroidLink({ app }: { app: App }) {
       href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
       title={t("app.install.fDroid")}
       data-goatcounter-click={`/app/download${
-        edit(app) ? "?category=edit" : ""
+        contribute(app) ? "?category=edit" : ""
       }`}
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"

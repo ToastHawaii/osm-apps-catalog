@@ -1,8 +1,8 @@
 import { round } from "lodash";
 import { App } from "@shared/data/App";
 import {
+  contribute,
   display,
-  edit,
   mobile,
   navigation,
   web,
@@ -55,7 +55,7 @@ export function toSchemaOrg(app: App) {
       ? "TravelApplication"
       : navigation(app)
         ? "DriverApplication"
-        : edit(app)
+        : contribute(app)
           ? "UtilitiesApplication"
           : "TravelApplication",
     applicationSubCategory: app.genre,

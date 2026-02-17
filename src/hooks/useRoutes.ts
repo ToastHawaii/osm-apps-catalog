@@ -36,6 +36,6 @@ export function useRoutes() {
     list: build<{ platforms?: string[] }>("list"),
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),
-    focus: build("focus"),
+    tech: build("tech"),
   };
 }

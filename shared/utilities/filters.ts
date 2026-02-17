@@ -1,3 +1,4 @@
+import { equalsYes } from "@shared/utilities/string";
 import { App } from "../data/App";
 
 export function display(a: App) {
@@ -44,17 +45,43 @@ export function mobile(a: App) {
   );
 }
 
+export function calcRoute(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    ["ROUTING", "ROUTER", "ROUTING TOOL", "ROUTE PLANNING SOFTWARE"].includes(
+      t,
+    ),
+  );
+}
+
 export function navigation(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
-    ["NAVI", "ROUTING", "ROUTER", "ROUTING", "ROUTING TOOL"].includes(t),
+    [
+      "NAVI",
+      "GLOBAL NAVIGATION SATELLITE SYSTEM",
+      "AUTOMOTIVE NAVIGATION SYSTEM",
+      "MARINE NAVIGATION",
+    ].includes(t),
   );
+}
+
+export function contribute(a: App) {
+  return edit(a) || trackRec(a) || qa(a) || changeset(a) || contributePhoto(a) ||resolveNotes(a);
+}
+
+export function contributePhoto(a: App) {
+  return a.hasGoal?.crowdsourcingStreetLevelImagery;
+}
+
+export function resolveNotes(a: App) {
+  return equalsYes(...(a.editing?.editNotes || []));
 }
 
 export function edit(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return (
-    a.hasGoal?.crowdsourcingStreetLevelImagery ||
+    equalsYes(...(a.editing?.createNotes || [])) ||
     topics.some((t) =>
       [
         "ADD POIS",
@@ -62,25 +89,43 @@ export function edit(a: App) {
         "EDITING",
         "EDITOR",
         "EDITOR SOFTWARE",
-        "ANALYSE",
-        "ANALYSER",
-        "ANALYSIS",
-        "TRACK RECORDING",
-        "TRACKER",
-        "TRACKING",
-        "TRACK LOGGING",
-        "VALIDATOR",
-        "OSM TOOL",
-        "QA",
-        "QUALITY CONTROL",
-        "NOTES",
         "EDITOR TOOL",
-        "COMPARING TOOL",
-        "HASHTAG TOOL",
-        "MONITORING TOOL",
-        "CHANGESET REVIEW TOOL",
-        "WELCOMING TOOL",
       ].includes(t),
     )
+  );
+}
+
+export function trackRec(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    ["TRACK RECORDING", "TRACKER", "TRACKING", "TRACK LOGGING"].includes(t),
+  );
+}
+
+export function qa(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "ANALYSE",
+      "ANALYSER",
+      "ANALYSIS",
+      "COMPARING TOOL",
+      "VALIDATOR",
+      "QA",
+      "QUALITY CONTROL",
+      "CHANGESET REVIEW TOOL",
+    ].includes(t),
+  );
+}
+
+export function changeset(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "HASHTAG TOOL",
+      "MONITORING TOOL",
+      "CHANGESET REVIEW TOOL",
+      "WELCOMING TOOL",
+    ].includes(t),
   );
 }

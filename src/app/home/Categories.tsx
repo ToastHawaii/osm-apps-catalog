@@ -1,10 +1,16 @@
 import { ExternalLink } from "@components/common/ExternalLink";
 import { getUserRegion } from "@lib/utils/getUserRegion";
 import { App } from "@shared/data/App";
-import { display, mobile, navigation, edit } from "@shared/utilities/filters";
+import {
+  display,
+  mobile,
+  navigation,
+  calcRoute,
+  edit,
+  trackRec,
+} from "@shared/utilities/filters";
 import { equalsYes } from "@shared/utilities/string";
 import { TFunction } from "i18next";
-import { chain } from "lodash";
 import React from "react";
 import { Trans } from "react-i18next";
 
@@ -80,6 +86,14 @@ export function Categories(
       nextIndex: () => apps.findIndex((app) => navigation(app)),
     },
     {
+      id: "calcRoute",
+      name: () => t("category.calcRoute"),
+      description: (numberOfApps: number) => (
+        <Description category="calcRoute" numberOfApps={numberOfApps} />
+      ),
+      nextIndex: () => apps.findIndex((app) => calcRoute(app)),
+    },
+    {
       id: "edit",
       name: () => t("category.edit"),
       description: (numberOfApps: number) => (
@@ -116,25 +130,12 @@ export function Categories(
       },
     },
     {
-      id: "latest",
-      name: () => t("category.latestUpdates"),
-      sorted: () =>
-        chain(apps)
-          .sortBy((a) => a.source[0].lastChange || "")
-          .sortBy((a) => a.lastRelease || "")
-          .reverse(),
-      getAll: function () {
-        return this.sorted().value();
-      },
-      nextIndex: function () {
-        const latest = this.sorted().take(1).value();
-        return apps.findIndex((app) => app.id === latest[0].id);
-      },
-    },
-    {
-      id: "foss",
-      name: () => t("category.foss", "Free and opensource"),
-      nextIndex: () => apps.findIndex((app) => app.libre),
+      id: "trackRec",
+      name: () => t("category.trackRec"),
+      description: (numberOfApps: number) => (
+        <Description category="trackRec" numberOfApps={numberOfApps} />
+      ),
+      nextIndex: () => apps.findIndex((app) => trackRec(app)),
     },
   ];
 }

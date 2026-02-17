@@ -1,7 +1,13 @@
 import { chain } from "lodash";
 import { App } from "@shared/data/App";
 import { includes, some } from "@shared/utilities/array";
-import { edit, mobile, navigation } from "@shared/utilities/filters";
+import {
+  contribute as contributeFilter,
+  edit,
+  mobile,
+  navigation,
+  qa,
+} from "@shared/utilities/filters";
 import { equalsYes } from "@shared/utilities/string";
 import { State } from "../../app/ui/State";
 
@@ -39,7 +45,7 @@ export function filter({
   } else if (category === "navigation") {
     filteredApps = filteredApps.filter(navigation);
   } else if (category === "edit") {
-    filteredApps = filteredApps.filter(edit);
+    filteredApps = filteredApps.filter(contributeFilter);
   }
 
   search = search.toUpperCase();
@@ -108,20 +114,7 @@ export function filter({
     );
   }
   if (contribute.includes("edit")) {
-    filteredApps = filteredApps.filter(
-      (app) =>
-        equalsYes(...(app.editing?.createNotes || [])) ||
-        app.cache.topics.some((topic) =>
-          [
-            "ADD POIS",
-            "EDIT",
-            "EDITING",
-            "EDITOR",
-            "EDITOR SOFTWARE",
-            "EDITOR TOOL",
-          ].includes(topic),
-        ),
-    );
+    filteredApps = filteredApps.filter((app) => edit(app));
   }
   if (contribute.includes("resolve")) {
     filteredApps = filteredApps.filter((app) =>
@@ -146,13 +139,7 @@ export function filter({
     );
   }
   if (contribute.includes("qa")) {
-    filteredApps = filteredApps.filter((app) =>
-      app.cache.topics.some((topic) =>
-        ["ANALYSE", "ANALYSER", "ANALYSIS", "QA", "QUALITY CONTROL"].includes(
-          topic,
-        ),
-      ),
-    );
+    filteredApps = filteredApps.filter((app) => qa(app));
   }
   if (contribute.includes("welcome")) {
     filteredApps = filteredApps.filter((app) =>
