@@ -166,6 +166,110 @@
         "description": "[導航] 透過航點來計算路徑"
     },
     "profiles": {
-        "label": "導航檔案"
+        "label": "導航情境",
+        "description": "[導航] 支援何種導航情境？"
+    },
+    "turnRestrictions": {
+        "label": "轉彎限制",
+        "description": "[導航] 能夠處理轉彎限制嗎？"
+    },
+    "calculateRouteOffline": {
+        "label": "沒有網路下計算路徑 (離線導航)",
+        "description": "[導航] 需不需要網路來計算路徑？"
+    },
+    "routingProviders": {
+        "label": "導航服務商",
+        "description": "[導航] 使用那個導航服務？"
+    },
+    "avoidTraffic": {
+        "label": "避開交通阻塞",
+        "description": "[導航] App 會最佳化導航路徑來避免交通阻塞嗎？"
+    },
+    "trafficProvider": {
+        "label": "路況資訊服務商",
+        "description": "[導航] 交通路徑資料來源服務商。"
+    },
+    "navigating": {
+        "label": "瀏覽",
+        "description": "[導航] 您能像羅盤一樣導航嗎？"
+    },
+    "findLocation": {
+        "label": "尋找位置",
+        "description": "[導航] 能夠搜尋道路/地方嗎？"
+    },
+    "findNearbyPOI": {
+        "label": "尋找附近興趣點",
+        "description": "[導航] 是否能發現/顯示興趣點？"
+    },
+    "turnLanes": {
+        "description": "[導航] 能夠支援車道導引嗎？",
+        "label": "車道導引"
+    },
+    "withoutGPS": {
+        "label": "沒有 GPS 仍然能運作",
+        "description": "[導航] 沒有 GPS 是否仍能運作？"
+    },
+    "predefinedRoute": {
+        "label": "導航沿著預先定義的路線",
+        "description": "[導航] 是否能沿著其他的 GPS 軌跡？"
+    },
+    "navToPoint": {
+        "label": "導航到點",
+        "description": "[導航] 是否能導航到某處的某點？"
+    },
+    "voice": {
+        "label": "導航時有語音/語音指引",
+        "description": "[導航] 是否能以電腦語音給予指示？"
+    },
+    "keepOnRoad": {
+        "label": "維持車道",
+        "description": "[導航] 是否能保持車輛在計算過的路徑上？"
+    },
+    "tracking": {
+        "label": "製作軌跡",
+        "description": "[軌跡記錄] 是否能記錄 GPS 軌跡？"
+    },
+    "customInterval": {
+        "label": "自訂記錄間隔",
+        "description": "[軌跡記錄] 您能夠手動設定記錄間隔嗎？"
+    },
+    "trackFormats": {
+        "label": "軌跡記錄格式",
+        "description": "[軌跡記錄] 您儲存的 GPS 軌跡是什麼格式？"
+    },
+    "geotagging": {
+        "label": "地理標記",
+        "description": "[軌跡記錄] 是否支援其他進階畫地圖技術"
+    },
+    "fastWayPointAdding": {
+        "label": "快速興趣點按鈕",
+        "description": "[軌跡記錄] 是否輕易新增新航點？"
+    },
+    "uploadGPX": {
+        "label": "上傳 GPX 到開放街圖",
+        "description": "[軌跡記錄] 是否能直接傳送軌跡到開放街圖？"
+    },
+    "monitoring": {
+        "label": "監控中",
+        "description": "[軌跡監控] 是否能監控 GPS 資料？"
+    },
+    "showTrack": {
+        "label": "顯示目前軌跡",
+        "description": "[軌跡監控] 是否能顯示目前軌跡？"
+    },
+    "showExistingTrack": {
+        "label": "開啟既有軌跡",
+        "description": "[軌跡監控] 是否能載入既有軌跡並且跟隨其路徑？"
+    },
+    "showAltitudeDiagram": {
+        "label": "海拔圖譜",
+        "description": "[軌跡監控]"
+    },
+    "showDOP": {
+        "label": "顯示 POD 數值",
+        "description": "[軌跡監控] 是否顯示訊號品質？"
+    },
+    "showSatellites": {
+        "label": "衛星檢視"
     }
 }
