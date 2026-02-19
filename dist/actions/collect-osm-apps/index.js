@@ -103541,6 +103541,35 @@ function enrichFirstCrawled(apps, knownApps) {
     }
 }
 
+;// CONCATENATED MODULE: ./src/lib/routeFactory.ts
+
+function routeFactory() {
+    function build(view) {
+        return (params) => {
+            const search = (0,lodash.chain)(view ? { view, ...params } : params)
+                .omitBy(lodash.isUndefined) // Remove undefined values
+                .mapValues((v) => (Array.isArray(v) ? v.join("+") : "" + v))
+                .toPairs()
+                .thru((entries) => new URLSearchParams(entries))
+                .value()
+                .toString();
+            return search ? `/?${search}` : "/";
+        };
+    }
+    return {
+        home: build(),
+        app: build("app"),
+        search: build("search"),
+        list: build("list"),
+        compare: build("compare"),
+        explore: build("explore"),
+        tech: build("tech"),
+        doc: (query) => query?.lang && query?.lang.toUpperCase() !== "EN"
+            ? `/doc/${query.lang}/`
+            : "/doc/",
+    };
+}
+
 ;// CONCATENATED MODULE: ./shared/lib/SupportedLanguages.ts
 const SupportedLanguages_SupportedLanguages = (/* unused pure expression or super */ null && ([
     "en",
@@ -106796,39 +106825,48 @@ sourceData, destinationDir, limit = 50000, gzip = true, publicBasePath = './', x
 
 
 
+// Used to inform search engines about the last update of the
+// website, so they know when to crawl again.
+const lastUpdate = new Date("2026-02-19");
 async function generateSitemap(apps) {
     // An array with your links
     const links = [];
+    const routes = routeFactory();
     links.push({
-        url: "https://osm-apps.org",
+        url: routes.home({}),
         priority: 1.0,
         lastmod: lastUpdate,
+        links: SitemapLanguages.map((lang) => ({
+            lang,
+            url: routes.home({ lang }),
+        })),
     });
     links.push({
-        url: "https://osm-apps.org/docs/",
+        url: routes.doc(),
         priority: 0.9,
         lastmod: lastUpdate,
+        links: SitemapLanguages.map((lang) => ({
+            lang,
+            url: routes.doc({ lang }),
+        })),
     });
     links.push(...apps.map((app) => ({
-        url: `https://osm-apps.org/?view=app&app=${app.id}`,
+        url: routes.app({ app: app.id }),
         priority: (app.score / 10) * 0.5 + 0.1,
         lastmod: lastUpdate > new Date(getLastMod(app.source[0]))
             ? lastUpdate
             : new Date(getLastMod(app.source[0])),
-    })));
-    const linksWithTranslation = links.map((link) => ({
-        ...link,
         links: SitemapLanguages.map((lang) => ({
             lang,
-            url: `${link.url}&lang=${lang}`,
+            url: routes.app({ app: app.id, lang }),
         })),
-    }));
+    })));
     // Create a stream to write to
     const stream = new sitemap_stream_SitemapStream({
         hostname: "https://osm-apps.org",
     });
     // Return a promise that resolves with your XML string
-    const data = await streamToPromise(external_node_stream_.Readable.from(linksWithTranslation).pipe(stream));
+    const data = await streamToPromise(external_node_stream_.Readable.from(links).pipe(stream));
     return data.toString();
 }
 
@@ -107258,9 +107296,6 @@ function enrichScoreTotal(apps) {
 
 
 
-// Used in the sitemap to inform search engines about the last update of the 
-// website, so they know when to crawl again. 
-const lastUpdate = new Date("2026-02-19");
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden
 // jmergen
