@@ -1,7 +1,7 @@
 import { lastUpdate } from "@actions/collect-osm-apps/main";
 import { getLastMod } from "@actions/lib/utilities/getLastMod";
 import { App } from "@shared/data/App";
-import { SupportedLanguages } from "@shared/lib/SupportedLanguages";
+import { SitemapLanguages } from "@shared/lib/SupportedLanguages";
 import { Readable } from "node:stream";
 import { SitemapStream, streamToPromise } from "sitemap";
 
@@ -36,7 +36,7 @@ export async function generateSitemap(apps: App[]) {
 
   const linksWithTranslation = links.map((link) => ({
     ...link,
-    links: SupportedLanguages.map((lang) => ({
+    links: SitemapLanguages.map((lang) => ({
       lang,
       url: `${link.url}&lang=${lang}`,
     })),
