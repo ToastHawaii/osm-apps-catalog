@@ -142,14 +142,14 @@ defaults:
   - scope:
       path: "docs/zh_Hant/README.md"
     values:
-      lang: "zh"
+      lang: "zh-hant"
       title: "About - OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
-      base: "/zh/"
+      base: "/zh-hant/"
   - scope:
-      path: "docs/zh-Hans/README.md"
+      path: "docs/zh_Hans/README.md"
     values:
-      lang: "zh-Hans"
+      lang: "zh-hans"
       title: "關於 - OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
       base: "/zh-hans/"

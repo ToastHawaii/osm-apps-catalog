@@ -56,8 +56,29 @@ i18next
   .init({
     detection: {
       lookupQuerystring: "lang",
+      convertDetectedLanguage: (lng) => {
+        const l = lng.toLowerCase();
+
+        // Handle some special cases for Chinese, from the browser we get zh-cn
+        // or zh-tw, but we need to convert them to zh-hans and zh-hant for our
+        // translations from weblate. zh fallback to zh-hant, as most Chinese
+        // translations are in traditional Chinese.
+        if (["zh-tw", "zh"].includes(l)) {
+          return "zh-hant";
+        }
+        if (["zh-cn"].includes(l)) {
+          return "zh-hans";
+        }
+
+        return l;
+      },
     },
-    fallbackLng: "en",
+    lowerCaseLng: true,
+    fallbackLng: {
+      "zh-hant": ["zh-hans", "en"],
+      "zh-hans": ["zh-hant", "en"],
+      default: ["en"],
+    },
     resources: {
       en: { translation: { ...en, "app.props": templateEn } },
       cs: { translation: { ...cs, "app.props": templateCs } },
@@ -79,8 +100,8 @@ i18next
       ta: { translation: { ...ta, "app.props": templateTa } },
       tr: { translation: { ...tr, "app.props": templateTr } },
       uk: { translation: { ...uk, "app.props": templateUk } },
-      "zh-hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
       "zh-hant": { translation: { ...zh_Hant, "app.props": templateZh_Hant } },
+      "zh-hans": { translation: { ...zh_Hans, "app.props": templateZh_Hans } },
     },
   });
 
