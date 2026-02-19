@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu";
-import { routeFactory } from "@hooks/useRoutes";
+import { routeFactory } from "@lib/routeFactory";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
 

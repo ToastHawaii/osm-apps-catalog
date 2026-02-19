@@ -13,7 +13,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@components/ui/item";
-import { routeFactory } from "@hooks/useRoutes";
+import { routeFactory } from "@lib/routeFactory";
 
 export function AppCompact({ app }: { app: App }) {
   const routes = routeFactory();

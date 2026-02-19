@@ -7,7 +7,7 @@ import {
   CarouselNext,
 } from "@components/ui/carousel";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
-import { routeFactory } from "@hooks/useRoutes";
+import { routeFactory } from "@lib/routeFactory";
 import { App } from "@shared/data/App";
 import { t } from "i18next";
 import React from "react";

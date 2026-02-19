@@ -1,4 +1,4 @@
-import { routeFactory } from "@hooks/useRoutes";
+import { routeFactory } from "@lib/routeFactory";
 import { useSearchParams } from "react-router";
 
 export function useCurrentRouteName() {
