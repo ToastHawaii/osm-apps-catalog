@@ -97986,8 +97986,27 @@ instance.use(initReactI18next)
     .init({
     detection: {
         lookupQuerystring: "lang",
+        convertDetectedLanguage: (lng) => {
+            const l = lng.toLowerCase();
+            // Handle some special cases for Chinese, from the browser we get zh-cn
+            // or zh-tw, but we need to convert them to zh-hans and zh-hant for our
+            // translations from weblate. zh fallback to zh-hant, as most Chinese
+            // translations are in traditional Chinese.
+            if (["zh-tw", "zh"].includes(l)) {
+                return "zh-hant";
+            }
+            if (["zh-cn"].includes(l)) {
+                return "zh-hans";
+            }
+            return l;
+        },
     },
-    fallbackLng: "en",
+    lowerCaseLng: true,
+    fallbackLng: {
+        "zh-hant": ["zh-hans", "en"],
+        "zh-hans": ["zh-hant", "en"],
+        default: ["en"],
+    },
     resources: {
         en: { translation: { ...en_namespaceObject, "app.props": wiki_software_template_en_namespaceObject } },
         cs: { translation: { ...cs_namespaceObject, "app.props": wiki_software_template_cs_namespaceObject } },
@@ -98009,8 +98028,8 @@ instance.use(initReactI18next)
         ta: { translation: { ...ta_namespaceObject, "app.props": wiki_software_template_ta_namespaceObject } },
         tr: { translation: { ...tr_namespaceObject, "app.props": wiki_software_template_tr_namespaceObject } },
         uk: { translation: { ...uk_namespaceObject, "app.props": wiki_software_template_uk_namespaceObject } },
-        "zh-hans": { translation: { ...zh_Hans_namespaceObject, "app.props": wiki_software_template_zh_Hans_namespaceObject } },
         "zh-hant": { translation: { ...zh_Hant_namespaceObject, "app.props": wiki_software_template_zh_Hant_namespaceObject } },
+        "zh-hans": { translation: { ...zh_Hans_namespaceObject, "app.props": wiki_software_template_zh_Hans_namespaceObject } },
     },
 });
 function convertTemplateDataToJson() {
