@@ -58,7 +58,7 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <a href={routes.doc({ lang: i18next.resolvedLanguage })}>
+                <a href={routes.docs({ lang: i18next.resolvedLanguage })}>
                   {t("nav.about")}
                 </a>
               </NavigationMenuLink>

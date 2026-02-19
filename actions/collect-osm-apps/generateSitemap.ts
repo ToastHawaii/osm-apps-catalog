@@ -30,12 +30,12 @@ export async function generateSitemap(apps: App[]) {
     })),
   });
   links.push({
-    url: routes.doc(),
+    url: routes.docs(),
     priority: 0.9,
     lastmod: lastUpdate,
     links: SitemapLanguages.map((lang) => ({
       lang,
-      url: routes.doc({ lang }),
+      url: routes.docs({ lang }),
     })),
   });
   links.push(

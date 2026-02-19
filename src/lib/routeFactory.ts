@@ -33,9 +33,9 @@ export function routeFactory() {
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),
     tech: build("tech"),
-    doc: (query?: { lang?: string }) =>
+    docs: (query?: { lang?: string }) =>
       query?.lang && query?.lang.toUpperCase() !== "EN"
-        ? `/doc/${query.lang}/`
-        : "/doc/",
+        ? `/docs/${query.lang}/`
+        : "/docs/",
   };
 }
