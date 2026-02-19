@@ -2,14 +2,12 @@
 
 ** 這不只一款，而是有上千個**
 
-This catalog shows applications and services that use OpenStreetMap data. It is
-updated every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+這份目錄會顯示使用開放街圖資料的程式與服務，每日會更新。這些程式會以[社群貢獻分數](/docs/score)來評分與排序。
 
-[Go to the catalog](https://osm-apps.org)
+[到目錄](https://osm-apps.org)
 
-[Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[新增你知道的 OSM app
+或是用其他方式貢獻。](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## 其他語言
 
