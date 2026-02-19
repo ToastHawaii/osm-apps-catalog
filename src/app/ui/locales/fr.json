@@ -139,5 +139,7 @@
     "category.qa.description": "{{numberOfApps}} outils pour examiner les données OSM afin de trouver des erreurs, des incohérences ou des changements problématiques.",
     "category.tech": "Pour les passionnés de technologie",
     "category.trackRec": "Enregistrement de l'itinéraire",
-    "category.trackRec.description": "{{numberOfApps}} outils pour enregistrer les traces GPS, les données de mouvement et les notes de terrain pour, par exemple, une cartographie ultérieure."
+    "category.trackRec.description": "{{numberOfApps}} outils pour enregistrer les traces GPS, les données de mouvement et les notes de terrain pour, par exemple, une cartographie ultérieure.",
+    "category.library": "Paquets et bibliothèques",
+    "category.library.description": "{{numberOfApps}} paquets et bibliothèques pour travailler avec les données et les API OpenStreetMap."
 }
