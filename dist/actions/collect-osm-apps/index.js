@@ -99670,7 +99670,7 @@ Browser.type = 'languageDetector';
 
 
 ;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
-const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.photos":"Upload photos for mapping","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.resolve":"Resolve map notes","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.getIt":"Get it on","app.imageAlt":"Image from {{name}}.","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"Languages","app.lastRelease":"Last release","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Source code","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.changeset":"Monitoring & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.country":"Apps for {{country}}","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Focus","category.focus.description":"Ten apps from the most recently updated pages.","category.foss":"Free and opensource","category.latest.description":"{{numberOfApps}} apps sorted by last release date.","category.latestUpdates":"Latest updates","category.mobile":"To go","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.showAll":"Show all","category.tech":"For tech enthusiasts","category.trackRec":"Track recording","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, and field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.topic":"Topic","filters.morePlatforms":"More platforms","list":"List","list.documentation":"Documentation","list.more":"More","list.moreInfos":"Informations","multilingual":"Multilingual","nav.about":"About","nav.search":"Search","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.result":"- {{description}} ({{points}} points)","score.results":"Community Contribution Score\\nTotal: {{total}} points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nFulfilled:\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
+const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.photos":"Upload photos for mapping","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.resolve":"Resolve map notes","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.getIt":"Get it on","app.imageAlt":"Image from {{name}}.","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"Languages","app.lastRelease":"Last release","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Source code","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.changeset":"Monitoring & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.country":"Apps for {{country}}","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Focus","category.focus.description":"Ten apps from the most recently updated pages.","category.foss":"Free and opensource","category.latest.description":"{{numberOfApps}} apps sorted by last release date.","category.latestUpdates":"Latest updates","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} packages and libraries for working with OpenStreetMap data and APIs.","category.mobile":"To go","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.showAll":"Show all","category.tech":"For tech enthusiasts","category.trackRec":"Track recording","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, and field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.topic":"Topic","filters.morePlatforms":"More platforms","list":"List","list.documentation":"Documentation","list.more":"More","list.moreInfos":"Informations","multilingual":"Multilingual","nav.about":"About","nav.search":"Search","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.result":"- {{description}} ({{points}} points)","score.results":"Community Contribution Score\\nTotal: {{total}} points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nFulfilled:\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
 const cs_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Vyvinul","app.website":"Webová stránka","app.sourceCode":"zdrojový kód","app.license":"Licence","filter.platform":"Platforma","filter.language":"Jazyk","app.languages":"Jazyky","app.platforms":"Platformy","filter.coverage":"Pokrytí","category.all.description":"{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","nav.about":"O aplikaci","filter.search":"Hledat","filter.topic":"Téma","filter.category.all":"Vše","category.focus":"Zaměření","filter.category.latest":"Nejnovější","category.mobile":"Přejít","category.navigation":"Najděte svou cestu","category.edit":"Vylepšete mapu","category.focus.description":"Deset aplikací z naposledy aktualizovaných stránek.","category.latest.description":"{{numberOfApps}} aplikace řazené podle data posledního vydání.","category.mobile.description":"{{numberOfApps}} aplikací vyvinutých pro mobilní zařízení nebo podporující offline použití.","app.install.huaweiAppGallery":"Huawei App Gallery","wiki.generatedByOsmAppsCatalog":"Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.","compare.group.header.map":"Zobrazení mapy","compare.share":"Sdílet na wiki.openstreetmap.org","category.navigation.description":"{{numberOfApps}} aplikací, které podporují navigaci.","category.edit.description":"{{numberOfApps}} aplikací, které podporují přidávání, úpravy nebo analýzu dat OpenStreetMap, nebo záznam geotras.","relatedApps":"{{numberOfApps}} souvisejících aplikací","noResults":"Žádné výsledky","compare.group.header.general":"Obecné","notFound":"Nenašli jste, co hledáte?","notFound.desc":"Pomocí následujících služeb si můžete vytvořit vlastní tematické mapy bez znalosti programování. Možná již někdo vytvořil mapu, kterou hledáte, nebo si můžete vytvořit vlastní tematickou mapu.","compare.group.header.navigating":"Navigace","compare.group.header.tracking":"Sledování","compare.group.header.monitoring":"Monitorování","compare.group.header.editing":"Úpravy","compare.group.header.rendering":"Vykreslování","compare.group.header.accessibility":"Přístupnost","multilingual":"Vícejazyčný","list.documentation":"Dokumentace","list.moreInfos":"Informace","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.appleStore":"Apple App Store","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"Poslední verze","app.unmaintained":"(<icon/> Neudržovaný)","app.unmaintained.wiki":"({{icon}} Neudržovaný)","app.coverage":"Pokrytí","app.price":"Cena","app.source":"Zdroj","compare.group.header.routing":"Hledání trasy","compare.unknown":"neznámý","share.wiki":"Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.","wiki.generatedBy":"Vytvořeno pomocí OSM Apps Catalog","wiki.none":"žádný","app.source.description":"Zdroj odkud pochází data.","compare":"Porovnat","list":"Seznam","app.community":"Komunita","app.community.forumTag":"Štítek fóra","app.community.matrix":"Matrixová místnost","app.community.issueTracker":"Problémy","app.community.githubDiscussions":"Diskuse na GitHubu","app.community.telegram":"Skupina na Telegram","app.community.slack":"Slack","app.community.mastodon":"Mastodon","app.community.reddit":"Reddit","app.community.forum":"Fórum","app.install.obtainium":"Obtainium","app.community.bluesky":"Bluesky","score.result":"- {{description}} ({{points}} bodů)","filter.moreFilters":"Filtry","app.imageAlt":"Obrázek z {{name}}.","score.criteria.supportsContributions":"aplikace podporuje příspěvky (editace, analýzy atd.) do OpenStreetMap","score.criteria.addingAndEditingPossible":"je možné přidávat a upravovat body zájmu, cesty atd","score.criteria.openSource":"aplikace má otevřený zdrojový kód","score.criteria.displaysMaps":"aplikace zobrazuje mapy nebo data OSM","score.criteria.sourceCodeReference":"odkaz na zdrojový kód je zdokumentován","score.criteria.lastUpdateThreeMonths":"poslední aktualizace proběhla během posledních 3 měsíců","score.criteria.translationContributions":"je možné přispět k překladům","score.criteria.tenLanguages":"aplikace je k dispozici nejméně v 10 jazycích","score.criteria.openSourceStores":"aplikace je dostupná prostřednictvím obchodů s otevřeným zdrojovým kódem (např. F-Droid)","score.criteria.worldwideData":"aplikace pokrývá mapové podklady celého světa","score.criteria.communityChannelExists":"existuje komunikační kanál pro komunitu (např. fórum, Mastodon)","score.criteria.openSourceChannel":"kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)","score.criteria.documentedMultiplePlatforms":"aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)","score.results":"Hodnocení příspěvku komunity\\nCelkem: {{total}} bodů\\n\\nČinnosti potřebné pro získání vyššího počtu bodů:\\n{{notFulfilled}}\\n\\nSplněno:\\n{{fulfilled}}","score.criteria.multiplePlatforms":"aplikace je dostupná na více platformách (např. web, Android, iOS)","score.criteria.documentationLink":"je k dispozici odkaz na dokumentaci","score.criteria.copyleftLicense":"licence je copyleftová (např. GPL, ODbL, MPL, CC)","score.criteria.multipleLanguages":"aplikace podporuje více jazyků (min. 3 jazyky)","score.criteria.freeOfCharge":"aplikace je zdarma","score.criteria.issueTracker":"existuje nástroj pro sledování problémů","score.criteria.lastUpdateYear":"poslední aktualizace proběhla během posledního roku","score.criteria.accessibilitySupported":"je podporována přístupnost (např. kompatibilita se čtečkou obrazovky nebo výpočet trasy pro vozíčkáře)","list.more":"Více","app.contribute.toSoftware":"Na software","app.contribute.toSoftware.discuss":"Diskutujte a sdílejte nápady","app.contribute.toSoftware.test":"Testujte a poskytněte zpětnou vazbu","app.contribute.toSoftware.develop":"Vyvíjejte kód","app.contribute.toSoftware.document":"Zlepšete dokumentaci","app.contribute.toData":"K datům OSM","app.contribute.toData.edit":"Upravujte mapová data","app.contribute.toData.photos":"Nahrajte fotografie pro mapování","app.contribute.toData.tracks":"Nahrávejte a sdílejte trasy","app.contribute.toData.qa":"Zajistěte kvalitu","app.contribute.toCommunity":"Pro komunitu","app.contribute.toCommunity.welcome":"Přivítejte nové uživatele","app.contribute":"Přispějte","app.contribute.toSoftware.translate":"Pomozte přeložit","app.contribute.toData.resolve":"Vyřešte poznámky k mapě","app.contribute.toData.review":"Zkontrolujte úpravy","select.search.placeholder":"Hledat","select.search.noResults":"Žádné výsledky","category.showAll":"Zobrazit vše","filter.preview":"Filtr je nastaven na:","category.all.description.filtered":"{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","app.getIt":"Získejte ho","app.community.lemmy":"Lemmy","filter.preset":"Filtr je pro vás přednastavený:","filter":{"resetFilters":"Odebrat přednastavené filtry"},"app.source.lastChange":"Poslední změna: {{date}}","app.source.firstCrawled":"První načteno: {{added}}"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/de.json
@@ -99808,6 +99808,7 @@ const wiki_software_template_zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('
 
 
 
+
 instance.use(initReactI18next)
     .use(Browser)
     .init({
@@ -99840,30 +99841,6 @@ instance.use(initReactI18next)
         "zh-hant": { translation: { ...zh_Hant_namespaceObject, "app.props": wiki_software_template_zh_Hant_namespaceObject } },
     },
 });
-const templateLangs = (/* unused pure expression or super */ null && ([
-    "en",
-    "cs",
-    "de",
-    "el",
-    "es",
-    "et",
-    "fr",
-    "hu",
-    "id",
-    "it",
-    "ja",
-    "ko",
-    "no",
-    "pl",
-    "pt",
-    "ru",
-    "sv",
-    "ta",
-    "tr",
-    "uk",
-    "zh-hans",
-    "zh-hant",
-]));
 function convertTemplateDataToJson() {
     const files = {};
     {
@@ -99889,7 +99866,7 @@ function convertTemplateDataToJson() {
             }
         });
     }
-    templateLangs.forEach((lang) => {
+    SupportedLanguages.forEach((lang) => {
         Object.entries(templateData.params).forEach((e) => {
             if (!files[lang]) {
                 files[lang] = {};
@@ -99934,12 +99911,12 @@ function convertJsonToTemplateData() {
     };
     Object.entries(templateData.params).forEach((e) => {
         const label = {};
-        templateLangs.forEach((lang) => {
+        SupportedLanguages.forEach((lang) => {
             label[lang] = files[lang][e[0]]?.label;
         });
         templateData.params[e[0]].label = label;
         const description = {};
-        templateLangs.forEach((lang) => {
+        SupportedLanguages.forEach((lang) => {
             description[lang] = files[lang][e[0]]?.description;
         });
         templateData.params[e[0]].description = description;
@@ -99967,7 +99944,7 @@ function toUrl(url) {
     if (!url)
         return undefined;
     if (!httpRegex.test(url))
-        return newUrl(`http://${url}`).toString();
+        return newUrl(`https://${url}`).toString();
     return newUrl(url).toString();
 }
 function toWikiUrl(wiki) {
@@ -103564,6 +103541,32 @@ function enrichFirstCrawled(apps, knownApps) {
     }
 }
 
+;// CONCATENATED MODULE: ./shared/lib/SupportedLanguages.ts
+const SupportedLanguages_SupportedLanguages = [
+    "en",
+    "cs",
+    "de",
+    "el",
+    "es",
+    "et",
+    "fr",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "no",
+    "pl",
+    "pt",
+    "ru",
+    "sv",
+    "ta",
+    "tr",
+    "uk",
+    "zh-hans",
+    "zh-hant",
+];
+
 // EXTERNAL MODULE: external "node:stream"
 var external_node_stream_ = __nccwpck_require__(7075);
 ;// CONCATENATED MODULE: ./node_modules/sitemap/dist/esm/lib/errors.js
@@ -106776,6 +106779,7 @@ sourceData, destinationDir, limit = 50000, gzip = true, publicBasePath = './', x
 
 
 
+
 async function generateSitemap(apps) {
     // An array with your links
     const links = [];
@@ -106796,12 +106800,19 @@ async function generateSitemap(apps) {
             ? lastUpdate
             : new Date(getLastMod(app.source[0])),
     })));
+    const linksWithTranslation = links.map((link) => ({
+        ...link,
+        links: SupportedLanguages_SupportedLanguages.map((lang) => ({
+            lang,
+            url: `${link.url}&lang=${lang}`,
+        })),
+    }));
     // Create a stream to write to
     const stream = new sitemap_stream_SitemapStream({
         hostname: "https://osm-apps.org",
     });
     // Return a promise that resolves with your XML string
-    const data = await streamToPromise(external_node_stream_.Readable.from(links).pipe(stream));
+    const data = await streamToPromise(external_node_stream_.Readable.from(linksWithTranslation).pipe(stream));
     return data.toString();
 }
 
@@ -106942,7 +106953,12 @@ function navigation(a) {
     ].includes(t));
 }
 function contribute(a) {
-    return edit(a) || trackRec(a) || qa(a) || changeset(a) || contributePhoto(a) || resolveNotes(a);
+    return (edit(a) ||
+        trackRec(a) ||
+        qa(a) ||
+        changeset(a) ||
+        contributePhoto(a) ||
+        resolveNotes(a));
 }
 function contributePhoto(a) {
     return a.hasGoal?.crowdsourcingStreetLevelImagery;
@@ -106987,6 +107003,28 @@ function changeset(a) {
         "CHANGESET REVIEW TOOL",
         "WELCOMING TOOL",
     ].includes(t));
+}
+function library(a) {
+    const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+    const libraryTopics = [
+        "LIBRARY",
+        "JAVA LIBRARY",
+        "ANDROID LIBRARY",
+        "ARDUINO LIBRARY",
+        "PHP LIBRARY",
+        "MATLAB LIBRARY",
+        "GECODER LIBRARY",
+        "COMPOSER LIBRARY",
+        "PYTHON3 LIBRARY",
+        "JULIA LIBRARY",
+        "GOLANG LIBRARY",
+        "ELIXIR LIBRARY",
+        "PLATFORMIO LIBRARY",
+        "CPP LIBRARY",
+        "R PACKAGE",
+        "NPM PACKAGE",
+    ];
+    return topics.some((t) => libraryTopics.includes(t));
 }
 
 ;// CONCATENATED MODULE: ./shared/data/calculateScore.ts
@@ -107204,7 +107242,9 @@ function enrichScoreTotal(apps) {
 
 
 
-const lastUpdate = new Date("2025-05-03");
+// Used in the sitemap to inform search engines about the last update of the 
+// website, so they know when to crawl again. 
+const lastUpdate = new Date("2026-02-19");
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden
 // jmergen
