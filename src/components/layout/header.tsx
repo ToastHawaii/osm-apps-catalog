@@ -39,7 +39,7 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={currentRoute === "search"}
+                data-active={currentRoute === "search"}
               >
                 <Link to={routes.search({ platforms })}>{t("nav.search")}</Link>
               </NavigationMenuLink>
@@ -48,7 +48,7 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                active={currentRoute === "tech"}
+                data-active={currentRoute === "tech"}
               >
                 <Link to={routes.tech()}>{t("category.tech")}</Link>
               </NavigationMenuLink>
