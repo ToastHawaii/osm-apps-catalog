@@ -12,7 +12,7 @@ export function LazyImage(
   >,
 ) {
   const [imgProps, setImgProps] = useState({
-    ...omit(props, "dynamicSrc"),
+    ...omit(props, "dynamicSrc", "loadOnInit"),
     "data-dynamic-src": props.dynamicSrc,
   });
   const elementRef = useRef<HTMLImageElement>(null);
@@ -119,7 +119,5 @@ export function LazyImage(
     };
   });
 
-  return (
-    <img ref={elementRef} {...{ ...imgProps, "data-dynamic-src": undefined }} />
-  );
+  return <img ref={elementRef} {...omit(imgProps, "data-dynamic-src")} />;
 }
