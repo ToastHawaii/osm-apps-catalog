@@ -48,6 +48,7 @@ import templateTr from "../locales/wiki-software-template/tr.json";
 import templateUk from "../locales/wiki-software-template/uk.json";
 import templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
 import templateZh_Hant from "../locales/wiki-software-template/zh-Hant.json";
+import { SupportedLanguages } from "@shared/lib/SupportedLanguages";
 
 i18next
   .use(initReactI18next)
@@ -83,31 +84,6 @@ i18next
     },
   });
 
-const templateLangs = [
-  "en",
-  "cs",
-  "de",
-  "el",
-  "es",
-  "et",
-  "fr",
-  "hu",
-  "id",
-  "it",
-  "ja",
-  "ko",
-  "no",
-  "pl",
-  "pt",
-  "ru",
-  "sv",
-  "ta",
-  "tr",
-  "uk",
-  "zh-hans",
-  "zh-hant",
-];
-
 export function convertTemplateDataToJson() {
   const files = {} as Record<
     string,
@@ -136,7 +112,7 @@ export function convertTemplateDataToJson() {
       }
     });
   }
-  templateLangs.forEach((lang) => {
+  SupportedLanguages.forEach((lang) => {
     Object.entries(templateData.params).forEach((e) => {
       if (!files[lang]) {
         files[lang] = {};
@@ -186,12 +162,12 @@ export function convertJsonToTemplateData() {
 
   Object.entries(templateData.params).forEach((e) => {
     const label = {} as any;
-    templateLangs.forEach((lang) => {
+    SupportedLanguages.forEach((lang) => {
       label[lang] = files[lang][e[0]]?.label;
     });
     templateData.params[e[0]].label = label;
     const description = {} as any;
-    templateLangs.forEach((lang) => {
+    SupportedLanguages.forEach((lang) => {
       description[lang] = files[lang][e[0]]?.description;
     });
     templateData.params[e[0]].description = description;

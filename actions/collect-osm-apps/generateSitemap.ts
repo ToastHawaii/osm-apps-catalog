@@ -1,6 +1,7 @@
 import { lastUpdate } from "@actions/collect-osm-apps/main";
 import { getLastMod } from "@actions/lib/utilities/getLastMod";
 import { App } from "@shared/data/App";
+import { SupportedLanguages } from "@shared/lib/SupportedLanguages";
 import { Readable } from "node:stream";
 import { SitemapStream, streamToPromise } from "sitemap";
 
@@ -33,12 +34,22 @@ export async function generateSitemap(apps: App[]) {
     })),
   );
 
+  const linksWithTranslation = links.map((link) => ({
+    ...link,
+    links: SupportedLanguages.map((lang) => ({
+      lang,
+      url: `${link.url}&lang=${lang}`,
+    })),
+  }));
+
   // Create a stream to write to
   const stream = new SitemapStream({
     hostname: "https://osm-apps.org",
   });
 
   // Return a promise that resolves with your XML string
-  const data = await streamToPromise(Readable.from(links).pipe(stream));
+  const data = await streamToPromise(
+    Readable.from(linksWithTranslation).pipe(stream),
+  );
   return data.toString();
 }
