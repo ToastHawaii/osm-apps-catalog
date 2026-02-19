@@ -103564,9 +103564,9 @@ function routeFactory() {
         compare: build("compare"),
         explore: build("explore"),
         tech: build("tech"),
-        doc: (query) => query?.lang && query?.lang.toUpperCase() !== "EN"
-            ? `/doc/${query.lang}/`
-            : "/doc/",
+        docs: (query) => query?.lang && query?.lang.toUpperCase() !== "EN"
+            ? `/docs/${query.lang}/`
+            : "/docs/",
     };
 }
 
@@ -106842,12 +106842,12 @@ async function generateSitemap(apps) {
         })),
     });
     links.push({
-        url: routes.doc(),
+        url: routes.docs(),
         priority: 0.9,
         lastmod: lastUpdate,
         links: SitemapLanguages.map((lang) => ({
             lang,
-            url: routes.doc({ lang }),
+            url: routes.docs({ lang }),
         })),
     });
     links.push(...apps.map((app) => ({
