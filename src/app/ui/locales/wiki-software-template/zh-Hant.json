@@ -270,6 +270,103 @@
         "description": "[軌跡監控] 是否顯示訊號品質？"
     },
     "showSatellites": {
-        "label": "衛星檢視"
+        "label": "衛星檢視",
+        "description": "[軌跡監控] 是否顯示衛星？"
+    },
+    "showNMEAlive": {
+        "label": "顯示即時 NMEA 資料",
+        "description": "[軌跡監控] 您是否能檢視原始 GPS 資料流？"
+    },
+    "showSpeed": {
+        "label": "顯示速度",
+        "description": "[軌跡監控]"
+    },
+    "sendPosition": {
+        "label": "傳送即時位置",
+        "description": "[軌跡監控] 是否能傳送位置給其他人？"
+    },
+    "addPOI": {
+        "label": "新增興趣點",
+        "description": "[編輯器] 您是否能新增節點？"
+    },
+    "editPOI": {
+        "label": "編輯/刪除興趣點",
+        "description": "[編輯器] 您是否能編輯節點？"
+    },
+    "addWay": {
+        "label": "新增路徑",
+        "description": "[編輯器] 您是否能新增路徑？"
+    },
+    "editGeom": {
+        "label": "編輯形狀",
+        "description": "[編輯器] 您是否能編輯節點/路徑？"
+    },
+    "editTags": {
+        "label": "編輯既有 OSM 物件的屬性標籤",
+        "description": "[編輯器] 您是否能編輯既有的標籤？"
+    },
+    "editRelations": {
+        "label": "編輯關係",
+        "description": "[編輯器] 您是否能編輯關係？"
+    },
+    "viewNotes": {
+        "label": "檢視節點",
+        "description": "[編輯器] 您是否能檢視 OSM 註解？"
+    },
+    "createNotes": {
+        "label": "新增註解",
+        "description": "[編輯器] 您是否能新增 OSM 註解？"
+    },
+    "editNotes": {
+        "label": "編輯註解",
+        "description": "[編輯器] 您是否能回覆/關閉 OSM 註解？"
+    },
+    "editSource": {
+        "label": "離線運作",
+        "description": "[編輯器] 您是否能離線使用？"
+    },
+    "offsetDBsupport": {
+        "label": "支援影像偏移資料庫",
+        "description": "[編輯器] 是否支援影像偏移資料庫？"
+    },
+    "uploadOSMData": {
+        "label": "上傳至 OSM",
+        "description": "[編輯器] 您是否能直接傳送變更到 OSM 呢？"
+    },
+    "rendererOutputFormats": {
+        "label": "渲染輸出格式",
+        "description": "[渲染] 支援輸出格式。"
+    },
+    "accessibility": {
+        "label": "無障礙支援",
+        "description": "[無障礙] 是否提供某種支援身心障礙朋友的功能？"
+    },
+    "textOnlyUI": {
+        "label": "完全非圖像文字輸出",
+        "description": "[無障礙] 是否有文字轉換點字的介面？"
+    },
+    "brailleUI": {
+        "label": "點字介面",
+        "description": "[無障礙] 是否有特殊點字介面？"
+    },
+    "explorerMode": {
+        "label": "探索模式",
+        "description": "[無障礙] 是否有探索模式 (預告有物件接近)？"
+    },
+    "publicTransportMode": {
+        "label": "大眾運輸模式",
+        "description": "[無障礙] 是否支援大眾運輸導航？"
+    },
+    "dangerWarnings": {
+        "label": "危險警告",
+        "description": "[無障礙]"
+    },
+    "screenReader": {
+        "label": "螢幕閱讀器",
+        "description": "[無障礙] 支援的螢幕閱讀器清單"
+    },
+    "screenReaderLang": {
+        "label": "螢幕閱讀器語言",
+        "description": "[無障礙] 支援的螢幕閱讀器語言"
     }
 }
