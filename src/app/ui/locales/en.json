@@ -65,6 +65,8 @@
   "category.foss": "Free and opensource",
   "category.latest.description": "{{numberOfApps}} apps sorted by last release date.",
   "category.latestUpdates": "Latest updates",
+  "category.library": "Packages & libraries",
+  "category.library.description": "{{numberOfApps}} packages and libraries for working with OpenStreetMap data and APIs.",
   "category.mobile": "To go",
   "category.mobile.description": "{{numberOfApps}} apps developed for mobile devices or that support offline use.",
   "category.navigation": "Navi",

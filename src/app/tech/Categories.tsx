@@ -1,6 +1,6 @@
 import { ExternalLink } from "@components/common/ExternalLink";
 import { App } from "@shared/data/App";
-import { qa, changeset } from "@shared/utilities/filters";
+import { qa, changeset, library } from "@shared/utilities/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
 import React from "react";
@@ -32,6 +32,14 @@ export function Categories(
   apps: App[],
 ) {
   return [
+    {
+      id: "library",
+      name: () => t("category.library"),
+      description: (numberOfApps: number) => (
+        <Description category="library" numberOfApps={numberOfApps} />
+      ),
+      nextIndex: () => apps.findIndex((app) => library(app)),
+    },
     {
       id: "changeset",
       name: () => t("category.changeset"),

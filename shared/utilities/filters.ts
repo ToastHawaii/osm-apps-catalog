@@ -67,7 +67,14 @@ export function navigation(a: App) {
 }
 
 export function contribute(a: App) {
-  return edit(a) || trackRec(a) || qa(a) || changeset(a) || contributePhoto(a) ||resolveNotes(a);
+  return (
+    edit(a) ||
+    trackRec(a) ||
+    qa(a) ||
+    changeset(a) ||
+    contributePhoto(a) ||
+    resolveNotes(a)
+  );
 }
 
 export function contributePhoto(a: App) {
@@ -128,4 +135,29 @@ export function changeset(a: App) {
       "WELCOMING TOOL",
     ].includes(t),
   );
+}
+
+export function library(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+
+  const libraryTopics = [
+    "LIBRARY",
+    "JAVA LIBRARY",
+    "ANDROID LIBRARY",
+    "ARDUINO LIBRARY",
+    "PHP LIBRARY",
+    "MATLAB LIBRARY",
+    "GECODER LIBRARY",
+    "COMPOSER LIBRARY",
+    "PYTHON3 LIBRARY",
+    "JULIA LIBRARY",
+    "GOLANG LIBRARY",
+    "ELIXIR LIBRARY",
+    "PLATFORMIO LIBRARY",
+    "CPP LIBRARY",
+    "R PACKAGE",
+    "NPM PACKAGE",
+  ];
+
+  return topics.some((t) => libraryTopics.includes(t));
 }
