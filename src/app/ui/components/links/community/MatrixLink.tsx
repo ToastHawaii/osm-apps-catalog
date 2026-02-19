@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getMatrix } from "../../../utilities/getMatrix";
+import { getMatrix } from "../../../lib/getMatrix";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";

@@ -8,8 +8,8 @@ import {
   calcRoute,
   edit,
   trackRec,
-} from "@shared/utilities/filters";
-import { equalsYes } from "@shared/utilities/string";
+} from "@shared/utils/filters";
+import { equalsYes } from "@shared/utils/string";
 import { TFunction } from "i18next";
 import React from "react";
 import { Trans } from "react-i18next";

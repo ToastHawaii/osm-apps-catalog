@@ -6,8 +6,8 @@ import {
   mobile,
   navigation,
   web,
-} from "@shared/utilities/filters";
-import { plainText } from "@shared/utilities/plainText";
+} from "@shared/utils/filters";
+import { plainText } from "@shared/utils/plainText";
 
 export function toSchemaOrg(app: App) {
   return JSON.stringify({

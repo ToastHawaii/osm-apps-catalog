@@ -1,12 +1,12 @@
-import { toValues } from "@shared/utilities/string";
+import { toValues } from "@shared/utils/string";
 import { App } from "@shared/data/App";
-import { newUrl } from "@shared/utilities/url";
-import { getJson } from "@shared/utilities/jsonRequest";
-import { getPlatformDisplay } from "@actions/lib/utilities/getPlatformDisplay";
-import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource";
-import { languageFilter } from "@actions/lib/utilities/languageFilter";
-import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
-import { platformFilter } from "@actions/lib/utilities/platformFilter";
+import { newUrl } from "@shared/utils/url";
+import { getJson } from "@shared/utils/jsonRequest";
+import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
+import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { languageFilter } from "@actions/lib/languageFilter";
+import { languageValueFormat } from "@actions/lib/languageValueFormat";
+import { platformFilter } from "@actions/lib/platformFilter";
 
 function extractGenre(result: any) {
   const genre = [];

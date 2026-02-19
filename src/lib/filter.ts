@@ -1,15 +1,15 @@
 import { chain } from "lodash";
 import { App } from "@shared/data/App";
-import { includes, some } from "@shared/utilities/array";
+import { includes, some } from "@shared/utils/array";
 import {
   contribute as contributeFilter,
   edit,
   mobile,
   navigation,
   qa,
-} from "@shared/utilities/filters";
-import { equalsYes } from "@shared/utilities/string";
-import { State } from "../../app/ui/State";
+} from "@shared/utils/filters";
+import { equalsYes } from "@shared/utils/string";
+import { State } from "../app/ui/State";
 
 export function filter({
   apps,

@@ -1,4 +1,4 @@
-import { toWikiUrl, toUrl } from "@shared/utilities/url";
+import { toWikiUrl, toUrl } from "@shared/utils/url";
 import { uniq } from "lodash";
 import {
   appendFullStop,
@@ -6,22 +6,24 @@ import {
   splitByCommaButNotInsideBraceRegex,
   toDate,
   trim,
-} from "@shared/utilities/string";
+} from "@shared/utils/string";
 import {
   processWikiText,
   extractWebsite,
   extractNameWebsiteWiki,
-} from "./utilities";
+} from "./utils";
 import { App } from "@shared/data/App";
-import { plainText } from "@shared/utilities/plainText";
-import { toWikimediaUrl } from "@actions/lib/utilities/image";
-import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource";
-import { languageFilter } from "@actions/lib/utilities/languageFilter";
-import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
+import { plainText } from "@shared/utils/plainText";
+import { toWikimediaUrl } from "@actions/lib/image";
+import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { languageFilter } from "@actions/lib/languageFilter";
+import { languageValueFormat } from "@actions/lib/languageValueFormat";
 
-export function transform(source: Record<string, string> & {
+export function transform(
+  source: Record<string, string> & {
     communicationChannels: Record<string, string>;
-}) {
+  },
+) {
   const obj: App = {
     name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 
-import { plainText } from "@shared/utilities/plainText";
+import { plainText } from "@shared/utils/plainText";
 
 import { App } from "@shared/data/App";
 

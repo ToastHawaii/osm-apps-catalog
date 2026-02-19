@@ -1,5 +1,5 @@
-import { toWikiUrl, toUrl } from "@shared/utilities/url";
-import { some } from "@shared/utilities/array";
+import { toWikiUrl, toUrl } from "@shared/utils/url";
+import { some } from "@shared/utils/array";
 import {
   appendFullStop,
   trim,
@@ -9,21 +9,21 @@ import {
   toValues,
   splitByCommaButNotInsideBraceRegex,
   splitBySemicolonButNotInsideBraceRegex,
-} from "@shared/utilities/string";
+} from "@shared/utils/string";
 import {
   processWikiText,
   extractNameWebsiteWiki,
   extractWebsite,
-} from "./utilities";
+} from "./utils";
 import { App } from "@shared/data/App";
 import { uniq, upperFirst } from "lodash";
-import { plainText } from "@shared/utilities/plainText";
-import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource";
-import { getPlatformDisplay } from "@actions/lib/utilities/getPlatformDisplay";
-import { toWikimediaUrl } from "@actions/lib/utilities/image";
-import { languageFilter } from "@actions/lib/utilities/languageFilter";
-import { languageValueFormat } from "@actions/lib/utilities/languageValueFormat";
-import { platformFilter } from "@actions/lib/utilities/platformFilter";
+import { plainText } from "@shared/utils/plainText";
+import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
+import { toWikimediaUrl } from "@actions/lib/image";
+import { languageFilter } from "@actions/lib/languageFilter";
+import { languageValueFormat } from "@actions/lib/languageValueFormat";
+import { platformFilter } from "@actions/lib/platformFilter";
 
 export function transform(
   source: Record<string, string> & {

@@ -3,9 +3,9 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { Badges } from "../components/Badges";
 import { AppImage } from "@components/common/AppImage";
-import { toWikiValue } from "../utilities/toWikiTable";
-import { languageValueToDisplay } from "../utilities/language";
-import { getMatrix } from "../utilities/getMatrix";
+import { toWikiValue } from "../lib/toWikiTable";
+import { languageValueToDisplay } from "../lib/language";
+import { getMatrix } from "../lib/getMatrix";
 import { App } from "@shared/data/App";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
@@ -32,7 +32,7 @@ import { TelegramLink } from "../components/links/community/TelegramLink";
 import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
 import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
 import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
-import { plainText } from "@shared/utilities/plainText";
+import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 
 export function Compare({

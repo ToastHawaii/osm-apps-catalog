@@ -1,5 +1,5 @@
 import { App } from "./App";
-import { textToColor } from "../utilities/string";
+import { textToColor } from "../utils/string";
 import { Color } from "./coloriz/Color";
 import { Solver } from "./coloriz/Solver";
 

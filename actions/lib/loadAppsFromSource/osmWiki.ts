@@ -1,10 +1,7 @@
-import { equalsIgnoreCase, equalsYes } from "@shared/utilities/string";
+import { equalsIgnoreCase, equalsYes } from "@shared/utils/string";
 import { requestTemplates } from "../crawler/osmWiki/requestTemplates";
-import {
-  containsOfflineLink,
-  extractWebsite,
-} from "../crawler/osmWiki/utilities";
-import { toUrl } from "@shared/utilities/url";
+import { containsOfflineLink, extractWebsite } from "../crawler/osmWiki/utils";
+import { toUrl } from "@shared/utils/url";
 import { transform as transformSoftware } from "../crawler/osmWiki/software";
 import { transform as transformServiceItem } from "../crawler/osmWiki/serviceItem";
 import { transform as transformLayer } from "../crawler/osmWiki/layer";

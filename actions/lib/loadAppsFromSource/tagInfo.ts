@@ -1,5 +1,5 @@
-import { getJson } from "@shared/utilities/jsonRequest";
-import { newUrl } from "@shared/utilities/url";
+import { getJson } from "@shared/utils/jsonRequest";
+import { newUrl } from "@shared/utils/url";
 
 export async function loadAppsFromTagInfoProjects() {
   const projectObjects = (await getJson(

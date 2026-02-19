@@ -1,9 +1,5 @@
 import { App } from "@shared/data/App";
-import {
-  equalsName,
-  equalsWebsite,
-  equalsString,
-} from "@shared/utilities/string";
+import { equalsName, equalsWebsite, equalsString } from "@shared/utils/string";
 
 export function equals(
   app1: App,

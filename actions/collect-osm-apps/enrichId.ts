@@ -1,5 +1,5 @@
 import { App } from "@shared/data/App";
-import { newUrl } from "@shared/utilities/url";
+import { newUrl } from "@shared/utils/url";
 
 /**
  * Returns a hash code from a string

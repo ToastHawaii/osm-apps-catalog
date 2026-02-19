@@ -1,6 +1,6 @@
 import { ExternalLink } from "@components/common/ExternalLink";
 import { App } from "@shared/data/App";
-import { qa, changeset, library } from "@shared/utilities/filters";
+import { qa, changeset, library } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
 import React from "react";

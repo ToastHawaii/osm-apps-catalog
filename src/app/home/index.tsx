@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { some } from "@shared/utilities/array";
+import { some } from "@shared/utils/array";
 import { Categories } from "@app/home/Categories";
 import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";

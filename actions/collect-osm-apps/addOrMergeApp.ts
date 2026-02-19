@@ -1,6 +1,6 @@
 import { App } from "@shared/data/App";
-import { equals } from "@actions/lib/utilities/equalApp";
-import { mergeApps } from "@actions/lib/utilities/mergeApps";
+import { equals } from "@actions/lib/equalApp";
+import { mergeApps } from "@actions/lib/mergeApps";
 
 export function addOrMergeApp(
   apps: App[],

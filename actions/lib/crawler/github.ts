@@ -1,10 +1,10 @@
 import { chain, uniqBy, upperFirst, words } from "lodash";
-import { newUrl } from "@shared/utilities/url";
-import { equalsIgnoreCase } from "@shared/utilities/string";
-import { getFrameworkDisplay } from "@actions/lib/utilities/getFrameworkDisplay";
-import { getPlatformDisplay } from "@actions/lib/utilities/getPlatformDisplay";
-import { getProgramingLanguageDisplay } from "@actions/lib/utilities/getProgramingLanguageDisplay";
-import { isFreeAndOpenSource } from "@actions/lib/utilities/isFreeAndOpenSource";
+import { newUrl } from "@shared/utils/url";
+import { equalsIgnoreCase } from "@shared/utils/string";
+import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
+import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
+import { getProgramingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
+import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 
 const ignoredTopics = [
   // OpenStreetMap

@@ -1,4 +1,4 @@
-import { request, transform } from "@actions/lib/utilities/crawler/wikidata";
+import { request, transform } from "@actions/lib/crawler/wikidata";
 import { App } from "@shared/data/App";
 import { mergeWith } from "lodash";
 

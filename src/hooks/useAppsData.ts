@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { chain, uniq } from "lodash";
 import i18next from "i18next";
 
-import { getJson } from "@shared/utilities/jsonRequest";
+import { getJson } from "@shared/utils/jsonRequest";
 import { App } from "@shared/data/App";
-import { isDevelopment } from "@shared/utilities/isDevelopment";
+import { isDevelopment } from "@shared/utils/isDevelopment";
 import { prepareLanguage } from "@shared/data/prepareLanguage";
 import { AppTranslation } from "@shared/data/AppTranslation";
-import { mergeAppSources } from "@shared/utilities/mergeAppSources";
-import { languageValueToDisplay } from "@app/ui/utilities/language";
+import { mergeAppSources } from "@shared/lib/mergeAppSources";
+import { languageValueToDisplay } from "@app/ui/lib/language";
 import { getUserRegion } from "@lib/utils/getUserRegion";
-import { some } from "@shared/utilities/array";
+import { some } from "@shared/utils/array";
 import { useTranslation } from "react-i18next";
 
 async function loadData() {

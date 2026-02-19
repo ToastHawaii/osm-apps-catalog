@@ -1,4 +1,4 @@
-import { getLastMod } from "@actions/lib/utilities/getLastMod";
+import { getLastMod } from "@actions/lib/getLastMod";
 import { routeFactory } from "@lib/routeFactory";
 import { App } from "@shared/data/App";
 import { SitemapLanguages } from "@shared/lib/SupportedLanguages";

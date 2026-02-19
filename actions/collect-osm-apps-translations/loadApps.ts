@@ -4,13 +4,13 @@ import {
   loadAppsFromOsmWikiServiceItems,
   loadAppsFromOsmWikiLayers,
   loadAppsFromOsmWikiSoftwares,
-} from "@actions/lib/utilities/loadAppsFromSource/osmWiki";
+} from "@actions/lib/loadAppsFromSource/osmWiki";
 import { chain } from "lodash";
 import { addOrMergeApp } from "./addOrMergeApp";
-import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
+import { getKnownApps } from "@actions/lib/getKnownApps";
 // import { loadAppsFromTagInfoProjects } from "@actions/lib/utilities/loadAppsFromSource/tagInfo";
-import { loadAppsFromWikidata } from "@actions/lib/utilities/loadAppsFromSource/wikidata";
-import { AppTranslationQueries } from "@actions/lib/utilities/crawler/wikidata";
+import { loadAppsFromWikidata } from "@actions/lib/loadAppsFromSource/wikidata";
+import { AppTranslationQueries } from "@actions/lib/crawler/wikidata";
 
 export async function loadApps(/*githubToken: string*/) {
   const knownApps = await getKnownApps();

@@ -1,10 +1,10 @@
 import * as core from "@actions/core";
 import { chain } from "lodash";
 
-import "../../src/app/ui/utilities/i18n";
+import "../../src/app/ui/lib/i18n";
 
 import { loadApps } from "./loadApps";
-import { uploadToRepo } from "@actions/lib/utilities/uploadToRepo";
+import { uploadToRepo } from "@actions/lib/uploadToRepo";
 
 /**
  * The main function for the action.

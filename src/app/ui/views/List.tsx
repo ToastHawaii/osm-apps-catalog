@@ -29,7 +29,7 @@ import { MatrixLink } from "../components/links/community/MatrixLink";
 import { ForumTagLink } from "../components/links/community/ForumTagLink";
 import { ForumLink } from "../components/links/community/ForumLink";
 import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
-import { plainText } from "@shared/utilities/plainText";
+import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 
 export function List({

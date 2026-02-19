@@ -1,7 +1,7 @@
 import { sum } from "lodash";
 import { App } from "./App";
-import { display, edit, web } from "../utilities/filters";
-import { equalsYes, notNo } from "../utilities/string";
+import { display, edit, web } from "../utils/filters";
+import { equalsYes, notNo } from "../utils/string";
 import i18next from "i18next";
 
 const multilingual = [

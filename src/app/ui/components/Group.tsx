@@ -1,9 +1,9 @@
 import React, { JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Badges } from "./Badges";
-import { toWikiValue, toWikiTable } from "../utilities/toWikiTable";
+import { toWikiValue, toWikiTable } from "../lib/toWikiTable";
 import { Param } from "./Param";
-import { notNo } from "@shared/utilities/string";
+import { notNo } from "@shared/utils/string";
 import { App } from "@shared/data/App";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";

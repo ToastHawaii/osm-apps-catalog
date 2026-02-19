@@ -9,8 +9,8 @@ import {
 } from "@components/ui/carousel";
 import { Item, ItemContent } from "@components/ui/item";
 import { App } from "@shared/data/App";
-import { plainText } from "@shared/utilities/plainText";
-import { textToColor } from "@shared/utilities/string";
+import { plainText } from "@shared/utils/plainText";
+import { textToColor } from "@shared/utils/string";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 

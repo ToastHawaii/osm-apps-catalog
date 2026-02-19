@@ -1,6 +1,6 @@
 import { uniq } from "lodash";
 import { App as AppData } from "./App";
-import { languageValueToDisplay } from "@app/ui/utilities/language";
+import { languageValueToDisplay } from "@app/ui/lib/language";
 
 export function prepareLanguage(apps: AppData[]) {
   apps.forEach((app) => {

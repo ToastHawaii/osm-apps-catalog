@@ -1,7 +1,7 @@
-import { mergeAppSources } from "@shared/utilities/mergeAppSources";
+import { mergeAppSources } from "@shared/lib/mergeAppSources";
 import { App } from "@shared/data/App";
 import { merge, mergeWith, uniqBy } from "lodash";
-import {  shorterThenLength } from "@shared/utilities/string";
+import { shorterThenLength } from "@shared/utils/string";
 
 export function mergeApps(
   app: App,

@@ -1,18 +1,17 @@
 import * as core from "@actions/core";
 
-import "../../src/app/ui/utilities/i18n";
+import "../../src/app/ui/lib/i18n";
 
 import { loadApps } from "./loadApps";
-import { shuffle } from "@shared/utilities/array";
-import { uploadToRepo } from "../lib/utilities/uploadToRepo";
+import { shuffle } from "@shared/utils/array";
+import { uploadToRepo } from "../lib/uploadToRepo";
 import { enrichFocus } from "./enrichFocus";
 import { enrichFirstCrawled } from "./enrichFirstCrawled";
 import { generateSitemap } from "./generateSitemap";
-import { getKnownApps } from "@actions/lib/utilities/getKnownApps";
+import { getKnownApps } from "@actions/lib/getKnownApps";
 import { enrichSpotlight } from "./enrichSpotlight";
 import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
-
 
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden

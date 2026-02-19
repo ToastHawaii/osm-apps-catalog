@@ -1,4 +1,4 @@
-import { equalsYes } from "@shared/utilities/string";
+import { equalsYes } from "@shared/utils/string";
 import { App } from "../data/App";
 
 export function display(a: App) {

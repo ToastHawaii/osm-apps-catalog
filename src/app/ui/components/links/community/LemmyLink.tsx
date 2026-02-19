@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getLemmy } from "../../../utilities/getLemmy";
+import { getLemmy } from "../../../lib/getLemmy";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";

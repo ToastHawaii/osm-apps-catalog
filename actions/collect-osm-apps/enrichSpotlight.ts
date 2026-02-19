@@ -1,8 +1,8 @@
-import { getLastMod } from "@actions/lib/utilities/getLastMod";
+import { getLastMod } from "@actions/lib/getLastMod";
 import { App } from "@shared/data/App";
 import { chain } from "lodash";
 
-export  function enrichSpotlight(apps: App[], knownApps: App[]) {
+export function enrichSpotlight(apps: App[], knownApps: App[]) {
   const now = new Date().toISOString();
   const yesterday = new Date(
     new Date().valueOf() - 1000 * 60 * 60 * 24,

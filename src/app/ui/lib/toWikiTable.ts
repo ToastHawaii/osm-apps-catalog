@@ -1,6 +1,6 @@
 import { templateData } from "./templateData";
 import { getLocalizedValue } from "./getLocalizedValue";
-import { equalsIgnoreCase, equalsYes } from "@shared/utilities/string";
+import { equalsIgnoreCase, equalsYes } from "@shared/utils/string";
 import i18next from "i18next";
 import { App } from "@shared/data/App";
 
