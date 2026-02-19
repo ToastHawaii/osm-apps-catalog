@@ -13,9 +13,6 @@ import { enrichSpotlight } from "./enrichSpotlight";
 import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
 
-// Used in the sitemap to inform search engines about the last update of the 
-// website, so they know when to crawl again. 
-export const lastUpdate = new Date("2026-02-19");
 
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden

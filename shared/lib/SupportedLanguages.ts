@@ -21,7 +21,7 @@ export const SupportedLanguages = [
   "uk",
   "zh-hans",
   "zh-hant",
-];
+] as const;
 
 // Languages with enough translations to be included in the sitemap, so search
 // engines know about them and can index them.
@@ -38,4 +38,4 @@ export const SitemapLanguages = [
   "ta",
   "uk",
   "zh-hant",
-];
+] as const;

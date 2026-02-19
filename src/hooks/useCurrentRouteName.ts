@@ -1,8 +1,8 @@
-import { useRoutes } from "@hooks/useRoutes";
+import { routeFactory } from "@hooks/useRoutes";
 import { useSearchParams } from "react-router";
 
 export function useCurrentRouteName() {
-  const routes = useRoutes();
+  const routes = routeFactory();
 
   const [searchParams] = useSearchParams();
   const currentRouteName = searchParams.get("view") || "home";

@@ -7,14 +7,14 @@ import {
   CarouselNext,
 } from "@components/ui/carousel";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
-import { useRoutes } from "@hooks/useRoutes";
+import { routeFactory } from "@hooks/useRoutes";
 import { App } from "@shared/data/App";
 import { t } from "i18next";
 import React from "react";
 import { Link } from "react-router";
 
 export function Category(props: { id: string; name: string; apps: App[] }) {
-  const routes = useRoutes();
+  const routes = routeFactory();
   const platforms = usePlatformUrlParam();
 
   return (

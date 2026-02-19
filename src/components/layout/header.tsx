@@ -12,14 +12,14 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu";
-import { useRoutes } from "@hooks/useRoutes";
+import { routeFactory } from "@hooks/useRoutes";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
 
 export function Header() {
   const { t } = useTranslation();
 
-  const routes = useRoutes();
+  const routes = routeFactory();
   const currentRoute = useCurrentRouteName();
 
   const platforms = usePlatformUrlParam().map((t) => t.toLowerCase());
@@ -58,13 +58,7 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <a
-                  href={`/docs/${
-                    i18next.resolvedLanguage !== "en"
-                      ? `${i18next.resolvedLanguage}/`
-                      : ""
-                  }`}
-                >
+                <a href={routes.doc({ lang: i18next.resolvedLanguage })}>
                   {t("nav.about")}
                 </a>
               </NavigationMenuLink>

@@ -1,41 +1,41 @@
+import { chain, isUndefined } from "lodash";
+
 export type Params = Record<string, string | number | string[] | undefined>;
 
-export type Result =
-  | {
-      pathname: string;
-      search: string;
-    }
-  | {
-      pathname: string;
-      search?: undefined;
-    };
-
-function build(view: string): () => Result;
-function build<T extends Params>(view: string): (params: T) => Result;
-function build<T extends Params>(view: string) {
-  return (params: T) => {
-    const search = new URLSearchParams(
-      (
-        Object.entries(view ? { view, ...params } : params).filter(
-          ([, v]) => v !== undefined,
-        ) as [string, string | number | string[]][]
-      )
-        // convert to string
-        .map(([k, v]) => [k, Array.isArray(v) ? v.join("+") : "" + v]),
-    ).toString();
-
-    return search ? { pathname: "/", search: `?${search}` } : { pathname: "/" };
-  };
+export interface Query {
+  lang?: string;
 }
 
-export function useRoutes() {
+export function routeFactory() {
+  function build(view?: string): (params?: Query) => string;
+  function build<T extends Params>(
+    view?: string,
+  ): (params: T & Query) => string;
+  function build<T extends Params | undefined>(view?: string) {
+    return (params: T & Query) => {
+      const search = chain(view ? { view, ...params } : params)
+        .omitBy(isUndefined) // Remove undefined values
+        .mapValues((v) => (Array.isArray(v) ? v.join("+") : "" + v))
+        .toPairs()
+        .thru((entries) => new URLSearchParams(entries as [string, string][]))
+        .value()
+        .toString();
+
+      return search ? `/?${search}` : "/";
+    };
+  }
+
   return {
-    home: build<{ platforms?: string[] }>(""),
+    home: build<{ platforms?: string[] }>(),
     app: build<{ app: number }>("app"),
     search: build<{ platforms?: string[] }>("search"),
     list: build<{ platforms?: string[] }>("list"),
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),
     tech: build("tech"),
+    doc: (query?: { lang?: string }) =>
+      query?.lang && query?.lang.toUpperCase() !== "EN"
+        ? `/doc/${query.lang}/`
+        : "/doc/",
   };
 }
