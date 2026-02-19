@@ -6,6 +6,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@components/ui/carousel";
+import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { routeFactory } from "@lib/routeFactory";
 import { App } from "@shared/data/App";
 import { t } from "i18next";
@@ -13,6 +14,8 @@ import React from "react";
 import { Link } from "react-router";
 
 export function Category(props: { id: string; name: string; apps: App[] }) {
+  useGoatCounterEvents();
+
   const routes = routeFactory();
 
   return (
