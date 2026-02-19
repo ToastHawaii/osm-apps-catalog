@@ -103542,7 +103542,7 @@ function enrichFirstCrawled(apps, knownApps) {
 }
 
 ;// CONCATENATED MODULE: ./shared/lib/SupportedLanguages.ts
-const SupportedLanguages_SupportedLanguages = [
+const SupportedLanguages_SupportedLanguages = (/* unused pure expression or super */ null && ([
     "en",
     "cs",
     "de",
@@ -103564,6 +103564,22 @@ const SupportedLanguages_SupportedLanguages = [
     "tr",
     "uk",
     "zh-hans",
+    "zh-hant",
+]));
+// Languages with enough translations to be included in the sitemap, so search
+// engines know about them and can index them.
+const SitemapLanguages = [
+    "en",
+    "cs",
+    "de",
+    "el",
+    "es",
+    "et",
+    "fr",
+    "hu",
+    "sv",
+    "ta",
+    "uk",
     "zh-hant",
 ];
 
@@ -106802,7 +106818,7 @@ async function generateSitemap(apps) {
     })));
     const linksWithTranslation = links.map((link) => ({
         ...link,
-        links: SupportedLanguages_SupportedLanguages.map((lang) => ({
+        links: SitemapLanguages.map((lang) => ({
             lang,
             url: `${link.url}&lang=${lang}`,
         })),
