@@ -72809,7 +72809,7 @@ const { Response, cloneResponse } = __nccwpck_require__(8676)
 const { Request } = __nccwpck_require__(5194)
 const { kState, kHeaders, kGuard, kRealm } = __nccwpck_require__(9710)
 const { fetching } = __nccwpck_require__(2315)
-const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(5523)
+const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(7904)
 const assert = __nccwpck_require__(2613)
 const { getGlobalDispatcher } = __nccwpck_require__(2581)
 
@@ -73813,7 +73813,7 @@ module.exports = {
 
 const assert = __nccwpck_require__(2613)
 const { URLSerializer } = __nccwpck_require__(4322)
-const { isValidHeaderName } = __nccwpck_require__(5523)
+const { isValidHeaderName } = __nccwpck_require__(7904)
 
 /**
  * @see https://url.spec.whatwg.org/#concept-url-equals
@@ -78937,7 +78937,7 @@ const {
   readableStreamClose,
   createDeferredPromise,
   fullyReadBody
-} = __nccwpck_require__(5523)
+} = __nccwpck_require__(7904)
 const { FormData } = __nccwpck_require__(3073)
 const { kState } = __nccwpck_require__(9710)
 const { webidl } = __nccwpck_require__(4222)
@@ -79707,7 +79707,7 @@ module.exports = {
 
 const assert = __nccwpck_require__(2613)
 const { atob } = __nccwpck_require__(181)
-const { isomorphicDecode } = __nccwpck_require__(5523)
+const { isomorphicDecode } = __nccwpck_require__(7904)
 
 const encoder = new TextEncoder()
 
@@ -80345,7 +80345,7 @@ module.exports = {
 const { Blob, File: NativeFile } = __nccwpck_require__(181)
 const { types } = __nccwpck_require__(9023)
 const { kState } = __nccwpck_require__(9710)
-const { isBlobLike } = __nccwpck_require__(5523)
+const { isBlobLike } = __nccwpck_require__(7904)
 const { webidl } = __nccwpck_require__(4222)
 const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(4322)
 const { kEnumerableProperty } = __nccwpck_require__(3440)
@@ -80694,7 +80694,7 @@ module.exports = { File, FileLike, isFileLike }
 "use strict";
 
 
-const { isBlobLike, toUSVString, makeIterator } = __nccwpck_require__(5523)
+const { isBlobLike, toUSVString, makeIterator } = __nccwpck_require__(7904)
 const { kState } = __nccwpck_require__(9710)
 const { File: UndiciFile, FileLike, isFileLike } = __nccwpck_require__(3041)
 const { webidl } = __nccwpck_require__(4222)
@@ -81024,7 +81024,7 @@ const {
   makeIterator,
   isValidHeaderName,
   isValidHeaderValue
-} = __nccwpck_require__(5523)
+} = __nccwpck_require__(7904)
 const util = __nccwpck_require__(9023)
 const { webidl } = __nccwpck_require__(4222)
 const assert = __nccwpck_require__(2613)
@@ -81657,7 +81657,7 @@ const {
   urlIsLocal,
   urlIsHttpHttpsScheme,
   urlHasHttpsScheme
-} = __nccwpck_require__(5523)
+} = __nccwpck_require__(7904)
 const { kState, kHeaders, kGuard, kRealm } = __nccwpck_require__(9710)
 const assert = __nccwpck_require__(2613)
 const { safelyExtractBody } = __nccwpck_require__(8923)
@@ -83784,7 +83784,7 @@ const {
   normalizeMethod,
   makePolicyContainer,
   normalizeMethodRecord
-} = __nccwpck_require__(5523)
+} = __nccwpck_require__(7904)
 const {
   forbiddenMethodsSet,
   corsSafeListedMethodsSet,
@@ -84738,7 +84738,7 @@ const {
   serializeJavascriptValueToJSONString,
   isErrorLike,
   isomorphicEncode
-} = __nccwpck_require__(5523)
+} = __nccwpck_require__(7904)
 const {
   redirectStatusSet,
   nullBodyStatus,
@@ -85317,7 +85317,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 5523:
+/***/ 7904:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -86476,7 +86476,7 @@ module.exports = {
 
 
 const { types } = __nccwpck_require__(9023)
-const { hasOwn, toUSVString } = __nccwpck_require__(5523)
+const { hasOwn, toUSVString } = __nccwpck_require__(7904)
 
 /** @type {import('../../types/webidl').Webidl} */
 const webidl = {}
@@ -99713,7 +99713,7 @@ const uk_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","
 const zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.website":"网站","app.sourceCode":"源代码","app.license":"执照","filter.platform":"平台","filter.language":"语言","app.platforms":"平台","app.languages":"语言"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hant.json
 const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.website":"網站","app.author":"作者","app.sourceCode":"原始碼","app.license":"許可證","filter.platform":"平臺","filter.language":"語言","app.languages":"語言","app.platforms":"平臺","nav.about":"關於","category.edit":"貢獻","filter.category.all":"全部","filter.category.latest":"最新","category.all.description":"{{numberOfApps}} 使用<o>開放街圖</o>的 app。","category.latest.description":"顯示按上次發佈日期排序的 {{numberOfApps}} 個應用程式。","category.mobile.description":"顯示為行動裝置開發或支援離線使用的 {{numberOfApps}} 個應用程式。","compare.group.header.monitoring":"監測","compare.group.header.navigating":"導航","compare.group.header.tracking":"追蹤","compare.group.header.editing":"編輯","compare.group.header.accessibility":"無障礙","list.moreInfos":"資訊","multilingual":"多種語言","app.coverage":"覆蓋範圍","app.install.macAppStore":"Mac App Store","filter.topic":"主題","category.edit.description":"顯示支援新增、編輯或分析 OpenStreetMap 資料或記錄地理軌跡的 {{numberOfApps}} 個應用程式。","relatedApps":"{{numberOfApps}} 個相關應用程式","noResults":"沒有結果","app.unmaintained":"（<icon/> 未維護）","app.unmaintained.wiki":"（{{icon}} 未維護）","app.price":"價格","app.source":"來源","compare.share":"在 wiki.openstreetmap.org 中分享","filter.search":"搜尋","compare.group.header.routing":"路由","app.install.microsoftApp":"Microsoft Store","app.lastRelease":"上次發佈","filter.coverage":"覆蓋範圍","category.focus":"焦點","category.focus.description":"顯示最近更新頁面的十個應用程式。","category.navigation.description":"顯示支援路由或導航的 {{numberOfApps}} 個應用程式。","compare.group.header.general":"一般","compare.group.header.map":"地圖顯示","list.documentation":"文件","app.install.asin":"亞馬遜應用商店","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"華為應用市場","app.install.appleStore":"Apple App Store","compare.unknown":"未知","share.wiki":"已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。","wiki.generatedBy":"由 OSM Apps Catalog 產生","wiki.none":"無","wiki.generatedByOsmAppsCatalog":"此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。","list":"清單","compare":"比較","filter.moreFilters":"篩選","category.showAll":"顯示全部","filter.preview":"篩選已經設定：","filter.preset":"這篩選已經是你的預置：","category.mobile":"要走了","category.navigation":"尋找你的方向","category.all.description.filtered":"{{totalNumberOfApps}}當中有{{numberOfApps}} 個 app 使用<o>開放街圖</o>。","notFound":"沒找到你想找的嗎？","notFound.desc":"使用以下服務可以不用任何程式語言知識，就能創建自己的主題地圖。也許有人已經創建你想建的主題地圖，或是你可以自行建立你心目中的主題地圖。","select.search.placeholder":"搜尋","select.search.noResults":"沒有結果","compare.group.header.rendering":"渲染中","list.more":"更多","app.imageAlt":"影像來自{{name}}。","app.getIt":"從…取得","app.install.obtainium":"Obtainium","app.contribute":"貢獻","app.contribute.toSoftware":"到軟體","app.contribute.toSoftware.discuss":"討論與分享想法","app.contribute.toSoftware.test":"測試與提供回饋意見","app.contribute.toSoftware.translate":"幫忙翻譯","app.contribute.toSoftware.develop":"開發程式碼","app.contribute.toSoftware.document":"改進說明文件","app.contribute.toData":"到OSM資料","app.contribute.toData.edit":"編輯地圖資料","app.contribute.toData.resolve":"解決地圖註記","app.contribute.toData.review":"審核編輯","app.contribute.toData.photos":"上傳照片以供畫地圖","app.contribute.toData.tracks":"記錄與分享軌跡","app.contribute.toData.qa":"進行品質管控","app.contribute.toCommunity":"到社群","app.contribute.toCommunity.welcome":"歡迎新使用者","app.community":"社群","app.community.forum":"論壇","app.community.forumTag":"論壇標籤","app.community.matrix":"Matrix 房間","app.community.bluesky":"藍天","app.community.mastodon":"乳齒象","app.community.lemmy":"Lemmy","app.community.issueTracker":"議題","app.community.githubDiscussions":"GitHub 討論","app.community.telegram":"Telegram 群組","app.community.slack":"Slack","app.community.reddit":"Reddit","app.source.description":"資料的來源。","score.results":"社群貢獻分數\\n總計：{{total}}分數\\n\\n更高分數所需行動：\\n{{notFulfilled}}\\n\\n完成：\\n{{fulfilled}}","score.result":"- {{description}} ({{points}} 分數)","score.criteria.supportsContributions":"支援貢獻 (編輯、分析等) 開放街圖的 app","score.criteria.addingAndEditingPossible":"如果可能，新增與編輯興趣點、路徑等","score.criteria.displaysMaps":"顯示地圖或是 OSM 資料的 app","score.criteria.openSource":"開放原始碼的 app","score.criteria.copyleftLicense":"授權條款為著佐權 (例如 GPL、ODbL、MPL、CC)","score.criteria.sourceCodeReference":"原始碼的參考資訊已經被記錄了","score.criteria.issueTracker":"有議題追蹤","score.criteria.lastUpdateYear":"最新更新日期是最近一年","score.criteria.lastUpdateThreeMonths":"最新更新日期是三個月內","score.criteria.translationContributions":"有可能貢獻翻譯","score.criteria.multipleLanguages":"支援多語言的 app (至少三種語言)","score.criteria.tenLanguages":"支援至少 10 種語言的 app","score.criteria.freeOfCharge":"app 為免費的","score.criteria.multiplePlatforms":"支搜多個平台 (例如網頁、Android、iOS) 的 app","score.criteria.openSourceStores":"在開放原始碼的市集 (例如 F-Droid) 的 app","score.criteria.worldwideData":"涵蓋全球地圖資料的 app","score.criteria.accessibilitySupported":"支援無障礙 (例如螢幕閱讀器相容或是輢椅使用者導航)","score.criteria.communityChannelExists":"有為社群存在的溝通頻道 (例如論壇、乳齒象)","score.criteria.openSourceChannel":"基於開放原始碼平台的頻道 (例如 Matrix)","score.criteria.documentationLink":"有連結到說明文件","score.criteria.documentedMultiplePlatforms":"在多個平台有說明文件的 app (例如 OSM-Wiki、taginfo、維基數據)","filter":{"resetFilters":"移除預置篩選"},"app.source.lastChange":"最後更改：{{date}}","app.source.firstCrawled":"第一次爬取：{{added}}"}');
-;// CONCATENATED MODULE: ./src/app/ui/utilities/templateData.json
+;// CONCATENATED MODULE: ./src/app/ui/lib/templateData.json
 const templateData_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/en.json
 const wiki_software_template_en_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"Template language","description":"Language in which the template texts are displayed."},"name":{"label":"Name","description":"Official name, otherwise most common one"},"status":{"label":"Status","description":"Current status of the project."},"license":{"label":"License","description":"What free license or proprietary?"},"price":{"label":"Price","description":"Costs if proprietary. If price is empty, application is for free."},"web":{"label":"Web address"},"repo":{"label":"Source code","description":"URL to view or download the source code (for example, a Git, Subversion, or CVS repository)"},"logo":{"label":"Logo","description":"Software icon or logo"},"screenshot":{"label":"Screenshot"},"description":{"label":"Description","description":"Brief description. What distinguishes this from other tools? (Write your own description, don\'t just copy it from the website)"},"author":{"label":"Author","description":"Name of the author or a link to their OSM-wiki user page"},"platform":{"label":"Supported platforms","description":"List of platforms it runs on."},"genre":{"label":"Genre","description":"Main category for this tool."},"languages":{"label":"Languages","description":"Supported languages (list of valid language codes separated by semicolons) or number of languages supported"},"languagesurl":{"label":"Languages URL","description":"Link to the actual full list of languages supported, described on another page (e.g. a portal page for the software, or a repository)."},"coverage":{"label":"Coverage","description":"Coverage or target region of the app. Formatting: \\"Continent, Country, Region, ...\\". Use \\"Worldwide\\" or leave it empty for global use."},"code":{"label":"Code","description":"List of programming languages used."},"framework":{"label":"Framework","description":"List of frameworks used."},"version":{"label":"Version","description":"Latest version"},"date":{"label":"Release date","description":"Latest release date"},"asin":{"label":"Amazon Identification","description":"Amazon Standard Identification Number for the Amazon Appstore for Android"},"bbWorldID":{"label":"BlackBerry ID","description":"BlackBerry World application ID"},"fDroidID":{"label":"F-Droid ID","description":"F-Droid application ID"},"firefoxMarketplaceID":{"label":"Firefox Marketplace ID","description":"Mozilla Firefox Marketplace application ID"},"googlePlayID":{"label":"Google Play ID","description":"Google Play Store application ID"},"huaweiAppGalleryID":{"label":"Huawei AppGallery ID","description":"Huawei AppGallery application ID"},"appleStoreID":{"label":"AppStore ID","description":"iTunes App Store application ID"},"macAppStoreID":{"label":"Mac AppStore ID","description":"Mac App Store application ID"},"microsoftAppID":{"label":"Microsoft ID","description":"Microsoft Store Windows application UUID"},"obtainiumLink":{"label":"Obtainium Updater Link","description":"Link to Obtainium updater information"},"map":{"label":"Display map","description":"[Map display] Can it show a map?"},"mapData":{"label":"Map data","description":"[Map display] Maps drawn using pre-calculated/rasterized images (raster) or \\"on the fly\\" (vector)?"},"datasource":{"label":"Source","description":"[Map display] Can you store all map data offline? Download a separate file?"},"rotateMap":{"label":"Rotate map","description":"[Map display] Does it turn the map in driving/walking direction?"},"3D":{"label":"3D view","description":"[Map display] Is there some 3D or 2.5D view?"},"showWebsite":{"label":"Shows website","description":"[POI Information] Shows link to the website from POI"},"showPhoneNumber":{"label":"Shows phone number","description":"[POI Information] Shows phone number from POI"},"showOpeningHours":{"label":"Shows operation hours","description":"[POI Information] Shows hours of operation from POI"},"routing":{"label":"Routing","description":"[Routing] Can you calculate or otherwise plan a route?"},"createRouteManually":{"label":"Create route manually","description":"[Routing]"},"calculateRoute":{"label":"Calculate route","description":"[Routing] Can it calculate a route using routing?"},"createRouteViaWaypoints":{"label":"Create route via Waypoints","description":"[Routing] Able to calculate route via Waypoints"},"profiles":{"label":"Routing profiles","description":"[Routing] What profiles supported if it makes routing?"},"turnRestrictions":{"label":"Turn restrictions","description":"[Routing] Can it deal with turn restrictions?"},"calculateRouteOffline":{"label":"Calculate route without Internet (Offline routing)","description":"[Routing] Does it need internet to calculate a route?"},"routingProviders":{"label":"Routing providers","description":"[Routing] What routing service(s) does it use?"},"avoidTraffic":{"label":"Avoid traffic","description":"[Routing] Does app optimize route to avoid traffic jams?"},"trafficProvider":{"label":"Traffic Provider","description":"[Routing] Traffic data source provider."},"navigating":{"label":"Navigate","description":"[Navigation] Can you navigate in a compass like way?"},"findLocation":{"label":"Find location","description":"[Navigation] Can it search for a street/place?"},"findNearbyPOI":{"label":"Find nearby POIs","description":"[Navigation] Can it discover/display Points of interests?"},"navToPoint":{"label":"Navigate to point","description":"[Navigation] Can it guide you to a point somewhere?"},"voice":{"label":"Navigation with voice / Voice guidance","description":"[Navigation] Can it give you commands with a computer voice?"},"keepOnRoad":{"label":"Keep on road","description":"[Navigation] Can it assist you to keep your vehicle on the calculated route?"},"turnLanes":{"label":"Lane guidance","description":"[Navigation] Does it support lane guidance?"},"withoutGPS":{"label":"Works without GPS","description":"[Navigation] Does it work even without a GPS?"},"predefinedRoute":{"label":"Navigate along predefined route","description":"[Navigation] Can it follow other GPS tracks?"},"tracking":{"label":"Make track","description":"[Track logging] Can it record a GPS track?"},"customInterval":{"label":"Customizable log interval","description":"[Track logging] Can you tune the interval manually?"},"trackFormats":{"label":"Track formats","description":"[Track logging] What formats for storage can you save your GPS track?"},"geotagging":{"label":"Geotagging","description":"[Track logging] Are further mapping techniques supported"},"fastWayPointAdding":{"label":"Fast POI buttons","description":"[Track logging] Easy to add a new Waypoint?"},"uploadGPX":{"label":"Upload GPX to OSM","description":"[Track logging] Can it send tracks directly to OSM?"},"monitoring":{"label":"Monitoring","description":"[Track monitoring] Can you monitor GPS datas?"},"showTrack":{"label":"Show current track","description":"[Track monitoring] Show your current track?"},"showExistingTrack":{"label":"Open existing track","description":"[Track monitoring] Can it load existing tracks so you can follow them?"},"showAltitudeDiagram":{"label":"Altitude diagram","description":"[Track monitoring]"},"showDOP":{"label":"Show POD value","description":"[Track monitoring] Shows signal quality?"},"showSatellites":{"label":"Satellite view","description":"[Track monitoring] Displays satellites?"},"showNMEAlive":{"label":"Show live NMEA data","description":"[Track monitoring] Can you see the raw GPS stream?"},"showSpeed":{"label":"Show speed","description":"[Track monitoring]"},"sendPosition":{"label":"Send current position","description":"[Track monitoring] Can it send position to others?"},"addPOI":{"label":"Add POIs","description":"[Editor] Can you add a node?"},"editPOI":{"label":"Edit / Delete POIs","description":"[Editor] Can you edit a node?"},"addWay":{"label":"Add way","description":"[Editor] Can you add a way?"},"editGeom":{"label":"Edit geometries","description":"[Editor] Can you edit nodes/ways?"},"editTags":{"label":"Edit arbitrary tags of existing OSM objects","description":"[Editor] Can you edit existing tags?"},"editRelations":{"label":"Edit relations","description":"[Editor] Can you edit relations?"},"viewNotes":{"label":"View notes","description":"[Editor] Can you view OSM Notes?"},"createNotes":{"label":"Create notes","description":"[Editor] Can you add OSM Notes?"},"editNotes":{"label":"Edit notes","description":"[Editor] Can you comment/close OSM Notes?"},"editSource":{"label":"Work offline","description":"[Editor] Can you work offline?"},"offsetDBsupport":{"label":"Support imagery offset DB","description":"[Editor] Does it support the imagery offset DB?"},"uploadOSMData":{"label":"Upload to OSM","description":"[Editor] Can you send changes to OSM directly?"},"rendererOutputFormats":{"label":"Renderer output formats","description":"[Renderer] Supported output formats."},"accessibility":{"label":"Accessibility support","description":"[Accessibility] Does it help disabled people in some kind?"},"textOnlyUI":{"label":"Complete non graphics text output","description":"[Accessibility] Text to braille compatible interface?"},"brailleUI":{"label":"Braille interface","description":"[Accessibility] A special braille interface?"},"explorerMode":{"label":"Exploration modus","description":"[Accessibility] Has a exploration modus (tell all objects approaching)?"},"publicTransportMode":{"label":"Public Transport mode","description":"[Accessibility] Supports routing with public transport?"},"dangerWarnings":{"label":"Danger Warnings","description":"[Accessibility]"},"screenReader":{"label":"Screenreader","description":"[Accessibility] List of supported screenreaders"},"screenReaderLang":{"label":"Screenreader languages","description":"[Accessibility] List of supported screenreaders languages"}}');
@@ -99759,7 +99759,7 @@ const wiki_software_template_uk_namespaceObject = /*#__PURE__*/JSON.parse('{"lan
 const wiki_software_template_zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模板语言"},"name":{"label":"名称"},"status":{"label":"状态","description":"软件开发状态"},"license":{"label":"许可证","description":"软件使用的许可条款"},"price":{"label":"价格","description":"软件收费价格"},"web":{},"repo":{"label":"源代码"},"logo":{"description":"软件使用的图标或logo"},"screenshot":{"label":"截图"},"description":{"label":"描述"},"author":{"label":"作者"},"platform":{"label":"平台","description":"软件运行的平台或操作系统"},"genre":{"label":"类别"},"languages":{"label":"语言","description":"软件支持的语言，用半角分号“;”分隔"},"languagesurl":{},"coverage":{},"code":{},"framework":{},"version":{"label":"版本"},"date":{"label":"日期"}}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/zh-Hant.json
 const wiki_software_template_zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"lang":{"label":"模版語言","description":"模版文字所顯示的語言。"},"name":{"label":"名稱","description":"正式名稱，或是最常見的名稱"},"status":{"label":"狀態","description":"目前專案的狀態。"},"license":{"label":"授權條款","description":"何種自由或是專屬授權條款？"},"price":{"label":"價格","description":"如果是專屬條款則價格多少。如果價格為零，則應用程式為免費。"},"web":{"label":"網址"},"repo":{"label":"原始碼","description":"檢視或是下載原始碼的連結 (例如 Git、Subversion 或是 CVS 倉儲)"},"logo":{"label":"圖示"},"screenshot":{"label":"截圖"},"description":{"label":"描述","description":"簡單敘述，與其他工具的差異在那裡？ (請寫下你自己的描述，不要直接從網站複製)"},"author":{"label":"作者","description":"作者的名字或是作者 OSM-wiki 使用者頁面連結"},"platform":{"label":"支援的平台","description":"運作的平台清單。"},"genre":{"label":"類型","description":"此工具主要的類別。"},"languages":{"label":"語言","description":"支援語言 (由分號區隔的有效語言代碼清單) 或是支援語言數量"},"languagesurl":{"label":"語言連結","description":"完整實際的支援語言清單的連結，描述則在其他頁面 (例如軟體的平台頁面，或是倉儲庫)。"},"coverage":{"label":"範圍","description":"app 的範圍或是目標地區：「大陸、國家、地區等等。」使用「全球」或是留空白則表示能夠全球使用。"},"code":{"label":"程式碼","description":"使用的程式語言清單。"},"framework":{"label":"架構","description":"使用的架構清單。"},"version":{"label":"版本","description":"最新版本"},"date":{"label":"發佈日期","description":"最新發佈日期"},"asin":{"label":"亞馬遜識別碼","description":"Amazon Appstore 的 Android 亞馬遜標準識別碼號碼"},"bbWorldID":{"label":"黑莓編號","description":"黑莓世界應用程式編號"},"fDroidID":{"label":"F-Droid 編號","description":"F-Droid 應用程式編號"},"firefoxMarketplaceID":{"label":"Firefox 商城編號","description":"Mozilla Firefox 商城應用程式編號"},"googlePlayID":{"label":"Google Play 編號","description":"Google Play 商場應用程式編號"},"huaweiAppGalleryID":{"label":"華為應用程式市場編號","description":"華為應用程式市場應用程式編號"},"appleStoreID":{"label":"AppStore 編號","description":"iTunes App Store 應用程式編號"},"macAppStoreID":{"label":"Mac AppStore 編號","description":"Mac App Store 應用程式編號"},"microsoftAppID":{"label":"微軟編號","description":"微軟商城 Windows 應用程式 UUID"},"obtainiumLink":{"label":"Obtainium 更新器連結","description":"Obtainium 更新器資訊的連結"},"map":{"label":"顯示地圖","description":"[地圖顯示] 能夠顯示地圖嗎？"},"mapData":{"label":"地圖資料","description":"[地圖顯示] 使用預先計算／渲染的圖片 (點陣) 來繪製地圖或是「即刻」 (向量)？"},"datasource":{"label":"來源","description":"[地圖顯示] 你是否能將地圖資料離線儲存？下載為獨立的檔案？"},"rotateMap":{"label":"旋轉地圖","description":"[地圖顯示] 開車/行走時地圖是否會隨行進方向轉動？"},"3D":{"label":"3D 檢視","description":"[地圖顯示] 是否有 3D 或是 2.5D 檢視？"},"showWebsite":{"label":"顯示網站","description":"[興趣點資訊] 從興趣點顯示網站的連結"},"showPhoneNumber":{"label":"顯示電話號碼","description":"[興趣點資訊] 從興趣點顯示電話號碼"},"showOpeningHours":{"label":"顯示營運時間","description":"[興趣點資訊] 從興趣點顯示營運時間"},"routing":{"label":"導航","description":"[導航] 你是否能計算或是計畫行進路線？"},"createRouteManually":{"label":"手動創建導航","description":"[導航]"},"calculateRoute":{"label":"計算導航路線","description":"[導航] 是否透過導航計算行進路線？"},"createRouteViaWaypoints":{"label":"透過路徑點創建導航"}}');
-;// CONCATENATED MODULE: ./src/app/ui/utilities/i18n.ts
+;// CONCATENATED MODULE: ./src/app/ui/lib/i18n.ts
 
 
 
@@ -99948,7 +99948,7 @@ function convertJsonToTemplateData() {
 
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __nccwpck_require__(2356);
-;// CONCATENATED MODULE: ./shared/utilities/url.ts
+;// CONCATENATED MODULE: ./shared/utils/url.ts
 function newUrl(url) {
     try {
         return new URL(url);
@@ -99984,24 +99984,11 @@ function utilQsString(obj, noencode) {
         .map((key) => `${encodeURIComponent(key)}=${noencode ? softEncode(obj[key]) : encodeURIComponent(obj[key])}`)
         .join("&");
 }
-function findGetParameter(parameterName) {
-    let result;
-    let tmp = [];
-    window.location.search
-        .substring(1)
-        .split("&")
-        .forEach(function (item) {
-        tmp = item.split("=");
-        if (tmp[0] === parameterName)
-            result = decodeURIComponent(tmp[1]);
-    });
-    return result;
-}
 
 // EXTERNAL MODULE: ./node_modules/sanitize-html/index.js
 var sanitize_html = __nccwpck_require__(3595);
 var sanitize_html_default = /*#__PURE__*/__nccwpck_require__.n(sanitize_html);
-;// CONCATENATED MODULE: ./shared/utilities/plainText.ts
+;// CONCATENATED MODULE: ./shared/utils/plainText.ts
 
 function plainText_plainText(html) {
     return sanitize_html_default()(html, {
@@ -100010,7 +99997,7 @@ function plainText_plainText(html) {
     }).replaceAll("&amp;", "&");
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/string.ts
+;// CONCATENATED MODULE: ./shared/utils/string.ts
 
 
 
@@ -100143,7 +100130,7 @@ function shorterThenLength(s1, s2, length) {
     return minText(s1, s2);
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/equalApp.ts
+;// CONCATENATED MODULE: ./actions/lib/equalApp.ts
 
 function equals(app1, app2, options) {
     return (equalsName(app1.name, app2.name) ||
@@ -100164,7 +100151,7 @@ function equals(app1, app2, options) {
             app1.source.find((s1) => app2.source.find((s2) => s1.name === s2.name && s1.id === s2.id))));
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/mergeAppSources.ts
+;// CONCATENATED MODULE: ./shared/lib/mergeAppSources.ts
 
 function mergeAppSources(source1, source2) {
     return ((0,lodash.chain)([...source1, ...source2])
@@ -100176,7 +100163,7 @@ function mergeAppSources(source1, source2) {
         .value());
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/mergeApps.ts
+;// CONCATENATED MODULE: ./actions/lib/mergeApps.ts
 
 
 
@@ -101022,7 +101009,7 @@ const withLoader = {...eld, load, loadNgrams: load};
 
 
 /* harmony default export */ const dynamic = (withLoader);
-;// CONCATENATED MODULE: ./actions/lib/utilities/getFrameworkDisplay.ts
+;// CONCATENATED MODULE: ./actions/lib/getFrameworkDisplay.ts
 
 const frameworks = [
     { name: "Meteor", synonym: ["meteor", "meteor application"] },
@@ -101117,7 +101104,7 @@ function getFrameworkDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/getPlatformDisplay.ts
+;// CONCATENATED MODULE: ./actions/lib/getPlatformDisplay.ts
 
 const platforms = [
     {
@@ -101302,7 +101289,7 @@ function getPlatformDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/getProgramingLanguageDisplay.ts
+;// CONCATENATED MODULE: ./actions/lib/getProgramingLanguageDisplay.ts
 
 const programingLanguages = [
     { name: "ActionScript", synonym: ["actionscript", "flash"] },
@@ -101405,7 +101392,7 @@ function getProgramingLanguageDisplay(value) {
     return "";
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/isFreeAndOpenSource.ts
+;// CONCATENATED MODULE: ./actions/lib/isFreeAndOpenSource.ts
 function check(value) {
     return !!value?.match("(?:.*GPL.*|Apache.*|.*BSD.*|PD|WTFPL|ISC.*|MIT.*|Unlicense|ODbL.*|MPL.*|CC.*|Ms-PL.*)");
 }
@@ -101419,7 +101406,7 @@ function isFreeAndOpenSource(value) {
     return value.some((v) => check(v));
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/github.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/github.ts
 
 
 
@@ -101666,7 +101653,7 @@ function hasDuplicates(a) {
     return (0,lodash.uniqBy)(a, (a) => a.nameWithOwner).length !== a.length;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/gitHub.ts
+;// CONCATENATED MODULE: ./actions/lib/loadAppsFromSource/gitHub.ts
 
 
 
@@ -101684,10 +101671,10 @@ async function loadAppsFromGitHub(githubToken) {
     return objs.map((source) => transformGitHubResult(dynamic, source));
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/isDevelopment.ts
+;// CONCATENATED MODULE: ./shared/utils/isDevelopment.ts
 const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
 
-;// CONCATENATED MODULE: ./shared/utilities/jsonRequest.ts
+;// CONCATENATED MODULE: ./shared/utils/jsonRequest.ts
 
 
 async function getJson(url, params = {}, headers = {}, isRetry = false) {
@@ -101725,7 +101712,7 @@ function delay(ms) {
     return new Promise((r) => setTimeout(r, ms));
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/requestTemplates.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/requestTemplates.ts
 
 
 async function requestTemplates(template, languageMode) {
@@ -101840,7 +101827,7 @@ function parseTemplateToObject(content) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/utilities.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/utils.ts
 
 function containsOfflineLink(value = "") {
     return /<((s(trike)?)|(del))>/gi.test(value);
@@ -102064,7 +102051,7 @@ function processWikiText(text = "") {
     return text;
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/array.ts
+;// CONCATENATED MODULE: ./shared/utils/array.ts
 function includes(arr, target) {
     return target.every((v) => arr.includes(v));
 }
@@ -102081,7 +102068,7 @@ function shuffle(array) {
 // EXTERNAL MODULE: ./node_modules/md5/md5.js
 var md5 = __nccwpck_require__(9915);
 var md5_default = /*#__PURE__*/__nccwpck_require__.n(md5);
-;// CONCATENATED MODULE: ./actions/lib/utilities/image.ts
+;// CONCATENATED MODULE: ./actions/lib/image.ts
 
 
 
@@ -102127,7 +102114,7 @@ function generateWikimediaUrls(base, fileName, size) {
     ];
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/languageFilter.ts
+;// CONCATENATED MODULE: ./actions/lib/languageFilter.ts
 function languageFilter(value) {
     if (!value) {
         return false;
@@ -102144,7 +102131,7 @@ function languageFilter(value) {
     return true;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/languageValueFormat.ts
+;// CONCATENATED MODULE: ./actions/lib/languageValueFormat.ts
 function languageValueFormat(value) {
     if (!Number.isNaN(Number.parseInt(value, 10))) {
         value = "mul";
@@ -102155,7 +102142,7 @@ function languageValueFormat(value) {
     return value;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/platformFilter.ts
+;// CONCATENATED MODULE: ./actions/lib/platformFilter.ts
 function platformFilter(value) {
     if (!value) {
         return false;
@@ -102171,7 +102158,7 @@ function platformFilter(value) {
     return true;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/software.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/software.ts
 
 
 
@@ -102453,7 +102440,7 @@ function hasValue(value = "") {
         value !== "?");
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/serviceItem.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/serviceItem.ts
 
 
 
@@ -102521,7 +102508,7 @@ function serviceItem_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/osmWiki/layer.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/layer.ts
 
 
 
@@ -102612,7 +102599,7 @@ function layer_transform(source) {
     return obj;
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/osmWiki.ts
+;// CONCATENATED MODULE: ./actions/lib/loadAppsFromSource/osmWiki.ts
 
 
 
@@ -102654,7 +102641,7 @@ async function loadAppsFromOsmWikiServiceItems(languageMode) {
         .map((source) => serviceItem_transform(source));
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/tagInfo.ts
+;// CONCATENATED MODULE: ./actions/lib/loadAppsFromSource/tagInfo.ts
 
 
 async function loadAppsFromTagInfoProjects() {
@@ -102684,7 +102671,7 @@ async function loadAppsFromTagInfoProjects() {
     }));
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/crawler/wikidata.ts
+;// CONCATENATED MODULE: ./actions/lib/crawler/wikidata.ts
 
 
 
@@ -103371,7 +103358,7 @@ ORDER BY ?item
     buildTranslationQuery("P1613", "irc"),
 ];
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/loadAppsFromSource/wikidata.ts
+;// CONCATENATED MODULE: ./actions/lib/loadAppsFromSource/wikidata.ts
 
 
 async function loadAppsFromWikidata(queries) {
@@ -103430,7 +103417,7 @@ async function loadApps(githubToken) {
 
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(3228);
-;// CONCATENATED MODULE: ./actions/lib/utilities/uploadToRepo.ts
+;// CONCATENATED MODULE: ./actions/lib/uploadToRepo.ts
 
 async function uploadToRepo(files, commitMessage, ghToken) {
     if (!ghToken) {
@@ -103499,7 +103486,7 @@ async function uploadToRepo(files, commitMessage, ghToken) {
     console.log(`Uploaded ${files.length} file(s) to branch "${branch}" in one commit:\n${files.map((f) => f.filePath).join("\n")}`);
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/getLastMod.ts
+;// CONCATENATED MODULE: ./actions/lib/getLastMod.ts
 function getLastMod(source) {
     if (source.name === "taginfo" || source.name === "ServiceItem") {
         return source.firstCrawled;
@@ -106889,7 +106876,7 @@ async function generateSitemap(apps) {
     return data.toString();
 }
 
-;// CONCATENATED MODULE: ./actions/lib/utilities/getKnownApps.ts
+;// CONCATENATED MODULE: ./actions/lib/getKnownApps.ts
 async function getKnownApps() {
     console.info(`Load: https://osm-apps.org/api/apps/all.json`);
     try {
@@ -106974,7 +106961,7 @@ function enrichId(apps) {
     });
 }
 
-;// CONCATENATED MODULE: ./shared/utilities/filters.ts
+;// CONCATENATED MODULE: ./shared/utils/filters.ts
 
 function display(a) {
     const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
