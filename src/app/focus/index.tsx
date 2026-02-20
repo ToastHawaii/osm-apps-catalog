@@ -27,7 +27,7 @@ export function Focus({ apps }: { apps: App[] }) {
     <>
       <title>{`${t(`category.focus`, {
         numberOfApps: apps.length,
-      })} - OSM Apps Catalog`}</title>
+      })} – OSM Apps Catalog`}</title>
       <meta
         name="description"
         content={t(`category.focus.description`, {

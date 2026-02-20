@@ -1,3 +1,4 @@
+import { toReadmeLanguage } from "@shared/lib/SupportedLanguages";
 import { chain, isUndefined } from "lodash";
 
 export type Params = Record<string, string | number | string[] | undefined>;
@@ -34,8 +35,8 @@ export function routeFactory() {
     explore: build<{ category: string; platforms?: string[] }>("explore"),
     tech: build("tech"),
     docs: (query?: { lang?: string }) =>
-      query?.lang && query?.lang.toUpperCase() !== "EN"
-        ? `/docs/${query.lang}/`
+      query?.lang && query?.lang.toLowerCase() !== "en"
+        ? `/docs/${toReadmeLanguage(query.lang)}/`
         : "/docs/",
   };
 }

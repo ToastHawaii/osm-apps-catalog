@@ -34,7 +34,7 @@ function PageMeta({ apps }: { apps: App[] }) {
 
     return (
       <>
-        <title>{`${app.name} - OSM Apps Catalog`}</title>
+        <title>{`${app.name} – OSM Apps Catalog`}</title>
         <meta
           name="description"
           content={plainText(
@@ -61,7 +61,7 @@ function PageMeta({ apps }: { apps: App[] }) {
       <>
         <title>{`${t(`filter.category.${state.category}`, {
           numberOfApps: apps.length,
-        })} - OSM Apps Catalog`}</title>
+        })} – OSM Apps Catalog`}</title>
         <meta
           name="description"
           content={t(`category.${state.category}.description`, {

@@ -70,7 +70,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     <>
       <title>{`${t(`category.${id}`, {
         numberOfApps: apps.length,
-      })} - OSM Apps Catalog`}</title>
+      })} – OSM Apps Catalog`}</title>
       <meta
         name="description"
         content={t(`category.${id}.description`, {
