@@ -86,7 +86,7 @@ defaults:
   - scope:
       path: "docs/nb_NO/README.md"
     values:
-      permalink: "docs/no/"
+      permalink: "/docs/no/"
       lang: "no"
       title: "About - OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
@@ -144,14 +144,14 @@ defaults:
       path: "docs/zh_Hant/README.md"
     values:
       lang: "zh-hant"
-      permalink: "docs/zh-hant/"
+      permalink: "/docs/zh-hant/"
       title: "About - OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/zh_Hans/README.md"
     values:
-      permalink: "docs/zh-hans/"
+      permalink: "/docs/zh-hans/"
       lang: "zh-hans"
       title: "關於 - OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
