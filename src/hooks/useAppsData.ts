@@ -12,17 +12,21 @@ import { languageValueToDisplay } from "@app/ui/lib/language";
 import { getUserRegion } from "@lib/utils/getUserRegion";
 import { some } from "@shared/utils/array";
 import { useTranslation } from "react-i18next";
+import { get, set } from "@lib/utils/storage";
 
 async function loadData() {
-  if (!isDevelopment) {
-    try {
-      return await getJson("/api/apps/all.json", {});
-    } catch {
-      console.error("Data could not be loaded, the local cache is used.");
-      return (await import("@shared/data/all.json")).default;
+  try {
+    let data;
+    if (!isDevelopment) {
+      data = await getJson("/api/apps/all.json", {});
+    } else {
+      data = await getJson("https://osm-apps.org/api/apps/all.json", {});
     }
-  } else {
-    return (await import("@shared/data/all.json")).default;
+    set("appsData", data);
+    return data;
+  } catch (error) {
+    console.error("Data could not be loaded, try to use local cache.", error);
+    return get("appsData") || [];
   }
 }
 
@@ -32,12 +36,14 @@ async function loadTranslations(lang: string) {
   }
 
   try {
-    return await getJson(
-      isDevelopment
-        ? `https://osm-apps.org/api/apps/all.${lang}.json`
-        : `/api/apps/all.${lang}.json`,
-      {},
-    );
+    if (!isDevelopment) {
+      return await getJson(`/api/apps/all.${lang}.json`, {});
+    } else {
+      return await getJson(
+        `https://osm-apps.org/api/apps/all.${lang}.json`,
+        {},
+      );
+    }
   } catch {
     console.error(`Translations for ${lang} could not be loaded.`);
     return [];
