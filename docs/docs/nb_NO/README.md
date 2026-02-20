@@ -1,4 +1,4 @@
-# About OSM Apps Catalog
+# Om OSM Apps-katalogen
 
 **There isn't just one, there are thousands.**
 

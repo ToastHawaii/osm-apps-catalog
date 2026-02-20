@@ -3,156 +3,152 @@ defaults:
       path: "docs/README.md"
     values:
       lang: "en"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/cs/README.md"
     values:
       lang: "cs"
-      title: "O aplikaci - OSM Apps Catalog"
-      description: "Poznávejte svět kreativním, produktivním a nečekaným způsobem."
+      title: "O aplikaci – OSM Apps Catalog"
+      description: "Není jen jeden, jsou jich tisíce."
 
   - scope:
       path: "docs/de/README.md"
     values:
       lang: "de"
-      title: "Über - OSM Apps Katalog"
-      description: "Erleben Sie die Welt auf kreative, produktive und unerwartete Weise."
+      title: "Über – OSM Apps Catalog"
+      description: "Es gibt nicht nur eine, sondern Tausende."
 
   - scope:
       path: "docs/el/README.md"
     values:
       lang: "el"
-      title: "About - OSM Apps Catalog"
-      description: "Ζήστε τον κόσμο με δημιουργικό, παραγωγικό και απρόσμενο τρόπο."
+      title: "Σχετικά – OSM Apps Catalog"
+      description: "Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες."
 
   - scope:
       path: "docs/es/README.md"
     values:
       lang: "es"
-      title: "Acerca de - OSM Apps Catalog"
-      description: "Experimente el mundo de maneras creativas, productivas e inesperadas."
+      title: "Acerca de – OSM Apps Catalog"
+      description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/et/README.md"
     values:
       lang: "et"
-      title: "Veebirakenduse teave - OSM Apps Catalog"
-      description: "Koge maailma loomingulisel, tulemusrikkal ja ootamatul viisil."
+      title: "Veebirakenduse teave – OSM Apps Catalog"
+      description: "Pole ainult ühte, neid on tuhandeid."
 
   - scope:
       path: "docs/fr/README.md"
     values:
       lang: "fr"
-      title: "À propos - OSM Apps Catalog"
-      description: "Découvrez le monde d’une manière créative, productive et inattendue."
+      title: "À propos – OSM Apps Catalog"
+      description: "Il n'y en a pas qu'un, il y en a des milliers."
 
   - scope:
       path: "docs/hu/README.md"
     values:
       lang: "hu"
-      title: "Névjegy - OSM Apps Catalog"
-      description: "Tapasztald meg a világot kreatív, produktív és váratlan módokon."
+      title: "Névjegy – OSM Apps Catalog"
+      description: "Nem csak egy van, hanem több ezer"
 
   - scope:
       path: "docs/id/README.md"
     values:
       lang: "id"
-      title: "Tentang - OSM Apps Catalog"
+      title: "Tentang – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/it/README.md"
     values:
       lang: "it"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/ja/README.md"
     values:
       lang: "ja"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/ko/README.md"
     values:
       lang: "ko"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/nb_NO/README.md"
     values:
-      permalink: "/docs/no/"
       lang: "no"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/pl/README.md"
     values:
       lang: "pl"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/pt/README.md"
     values:
       lang: "pt"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/ru/README.md"
     values:
       lang: "ru"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/sv/README.md"
     values:
       lang: "sv"
-      title: "Om - OSM Apps Catalog"
-      description: "There isn't just one, there are thousands."
+      title: "Om – OSM Apps Catalog"
+      description: "Det finns inte bara en, det finns tusentals."
 
   - scope:
       path: "docs/ta/README.md"
     values:
       lang: "ta"
-      title: "பற்றி - OSM Apps Catalog"
+      title: "பற்றி – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/tr/README.md"
     values:
       lang: "tr"
-      title: "About - OSM Apps Catalog"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/uk/README.md"
     values:
       lang: "uk"
-      title: "About - OSM Apps Catalog"
+      title: "Про нас – OSM Apps Catalog"
+      description: "Їх не один, їх тисячі."
+
+  - scope:
+      path: "docs/zh_Hans/README.md"
+    values:
+      lang: "zh-hans"
+      title: "About – OSM Apps Catalog"
       description: "There isn't just one, there are thousands."
 
   - scope:
       path: "docs/zh_Hant/README.md"
     values:
       lang: "zh-hant"
-      permalink: "/docs/zh-hant/"
-      title: "About - OSM Apps Catalog"
-      description: "There isn't just one, there are thousands."
-
-  - scope:
-      path: "docs/zh_Hans/README.md"
-    values:
-      permalink: "/docs/zh-hans/"
-      lang: "zh-hans"
-      title: "關於 - OSM Apps Catalog"
-      description: "There isn't just one, there are thousands."
-
+      title: "關於 – OSM Apps Catalog"
+      description: " 這不只一款，而是有上千個"
