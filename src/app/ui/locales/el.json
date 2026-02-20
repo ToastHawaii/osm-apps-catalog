@@ -6,13 +6,13 @@
   "filter.language": "Γλώσσα",
   "filter.coverage": "Κάλυψη",
   "filter.category.all": "Όλα",
-  "category.focus": "Εστίαση",
+  "category.focus": "Εγχειρήματα σε εξέλιξη",
   "filter.category.latest": "Τελευταίες",
   "category.mobile": "Φορητή",
   "category.navigation": "Πλοήγηση",
   "category.edit": "Βελτίωσε τον χάρτη",
   "category.all.description": "{{numberOfApps}} εφαρμογές που χρησιμοποιούν το <o>OpenStreetMap</o>.",
-  "category.focus.description": "Δέκα εφαρμογές από τις πιο πρόσφατα ανανεωμένες σελίδες.",
+  "category.focus.description": "Ανακαλύψτε δέκα εγχειρήματα σε εξέλιξη κάθε μέρα.",
   "category.latest.description": "{{numberOfApps}} εφαρμογές ταξινομημένες κατά ημερομηνία τελευταίας κυκλοφορίας.",
   "category.navigation.description": "{{numberOfApps}} εφαρμογές που υποστηρίζουν πλοήγηση.",
   "relatedApps": "{{numberOfApps}} σχετικές εφαρμογές",
@@ -141,5 +141,7 @@
   "category.trackRec": "Καταγραφή ίχνους",
   "category.trackRec.description": "{{numberOfApps}} εργαλεία για καταγραφή ιχνών GPS, δεδομένα κίνησης και σημειώσεις πεδίου για π.χ. χαρτογράφηση αργότερα.",
   "category.library": "Πακέτα & βιβλιοθήκες",
-  "category.library.description": "{{numberOfApps}} πακέτα και βιβλιοθήκες που δουλεύουν με δεδομένα και API του OpenStreetMap."
+  "category.library.description": "{{numberOfApps}} πηγές για να δουλέψετε με σχετικά δεδομένα του OpenStreetMap.",
+  "category.convert": "Μετατροπή & Απεικόνιση",
+  "category.convert.description": "{{numberOfApps}} πηγές για μετατροπή και απεικόνιση σχετικών δεδομένων του OpenStreetMap."
 }
