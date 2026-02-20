@@ -1,10 +1,10 @@
 # OSM Apps Catalog – névjegy
 
-**There isn't just one, there are thousands.**
+**Nem csak egy van, hanem több ezer**
 
-Ez a katalógus bemutat egy sor alkalmazást, amely az OpenStreetMap adatait
-használja. Naponta frissül. The apps are rated and sorted by the [Community
-Contribution Score](/docs/score).
+Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
+használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási
+pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
 
 [Nézd meg a katalógust](https://osm-apps.org)
 

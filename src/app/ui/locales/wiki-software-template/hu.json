@@ -339,7 +339,8 @@
         "description": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"
     },
     "logo": {
-        "label": "Logó"
+        "label": "Logó",
+        "description": "Szoftver ikonja vagy logója"
     },
     "screenshot": {
         "label": "Képernyőkép"

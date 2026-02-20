@@ -42,7 +42,7 @@
     "category.edit": "Täienda kaarti",
     "notFound": "Kas sa ei leidnud, mida otsisid?",
     "category.navigation.description": "{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.",
-    "category.edit.description": "{{numberOfApps}} rakendust, mis võimaldavad lisada, muuta või analüüsida OpenStreetMapi andmeid või salvestada teekondi.",
+    "category.edit.description": "{{numberOfApps}} rakendust, mis võimaldavad lisada või muuta OpenStreetMapi andmeid.",
     "relatedApps": "{{numberOfApps}} seotud rakendust",
     "compare.group.header.general": "Üldist",
     "noResults": "Tulemusi pole",
@@ -131,5 +131,13 @@
     "category.universalMapApps": "Universaalsed kaardirakendused",
     "category.latestUpdates": "Viimased uuendused",
     "category.foss": "Avatud lähtekoodiga ja tasuta tarkvara",
-    "category.country": "Rakendused riigi jaoks: {{country}}"
+    "category.country": "Rakendused riigi jaoks: {{country}}",
+    "category.calcRoute": "Kavanda oma teekonda",
+    "category.changeset": "Monitooring ja kogukonna haldus",
+    "category.changeset.description": "{{numberOfApps}} tarvikut, mis võimaldavad jälgida muudatusi OSM-i andmekogus, pidada arvet kampaaniate üle (nt. teemaviidete alusel) või tervitada uusi kasutajaid.",
+    "category.qa": "OpenStreetMapi kvaliteeditagamine",
+    "category.qa.description": "{{numberOfApps}} tarvikut võimaldavad vigade ja vastuolude leidmiseks ning problemaatiliste muudatuste tuvastamiseks uurida OSM-i andmeid.",
+    "category.tech": "Tehnoloogiaentusiastidele",
+    "category.trackRec": "Radade salvestamine",
+    "category.trackRec.description": "{{numberOfApps}} tarvikut võimaldavad salvestada GPS-i radu, liikumisandmeid ja välitööde märkmeid näiteks jagamiseks või hilisemaks töötlemiseks."
 }

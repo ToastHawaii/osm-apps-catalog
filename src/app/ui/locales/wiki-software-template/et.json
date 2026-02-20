@@ -50,7 +50,8 @@
         "description": "Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"
     },
     "logo": {
-        "label": "Logo"
+        "label": "Logo",
+        "description": "Tarkvara ikoon või logo"
     },
     "languagesurl": {
         "label": "Keelte võrguaadress",
@@ -66,7 +67,7 @@
     },
     "coverage": {
         "label": "Katvus",
-        "description": "Rakenduse kasutatvuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."
+        "description": "Rakenduse kasutatavuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."
     },
     "code": {
         "label": "Lähtekood",
@@ -137,6 +138,26 @@
         "description": "[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"
     },
     "showWebsite": {
-        "label": "Näitab veebisaiti"
+        "label": "Näitab veebisaiti",
+        "description": "[Huvipunkti teave] Näitab huvipunkti juures veebisaidi linki"
+    },
+    "showPhoneNumber": {
+        "label": "Näitab telefoninumbrit",
+        "description": "[Huvipunkti teave] Näitab huvipunkti juures telefoninumbrit"
+    },
+    "showOpeningHours": {
+        "label": "Näitab tööaegu",
+        "description": "[Huvipunkti teave] Näitab huvipunkti juures töö- või lahtiolekuaegu"
+    },
+    "routing": {
+        "label": "Teekonnad",
+        "description": "[Teekond] Kas sa võid arvutada või muul viisil kavandada teekonda?"
+    },
+    "createRouteManually": {
+        "description": "[Teekond]",
+        "label": "Teekonna koostamine käsitsi"
+    },
+    "calculateRoute": {
+        "label": "Teekonna koostamine"
     }
 }
