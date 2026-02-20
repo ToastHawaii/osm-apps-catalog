@@ -1,6 +1,6 @@
 import { ExternalLink } from "@components/common/ExternalLink";
 import { App } from "@shared/data/App";
-import { qa, changeset, library } from "@shared/utils/filters";
+import { qa, changeset, library, convert } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
 import React from "react";
@@ -95,6 +95,14 @@ export function Categories(
       id: "foss",
       name: () => t("category.foss", "Free and opensource"),
       nextIndex: () => apps.findIndex((app) => app.libre),
+    },
+    {
+      id: "convert",
+      name: () => t("category.convert"),
+      description: (numberOfApps: number) => (
+        <Description category="convert" numberOfApps={numberOfApps} />
+      ),
+      nextIndex: () => apps.findIndex((app) => convert(app)),
     },
   ];
 }

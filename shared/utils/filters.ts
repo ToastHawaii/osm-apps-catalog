@@ -121,6 +121,7 @@ export function qa(a: App) {
       "QA",
       "QUALITY CONTROL",
       "CHANGESET REVIEW TOOL",
+      "STATISTICS",
     ].includes(t),
   );
 }
@@ -133,6 +134,23 @@ export function changeset(a: App) {
       "MONITORING TOOL",
       "CHANGESET REVIEW TOOL",
       "WELCOMING TOOL",
+    ].includes(t),
+  );
+}
+
+export function convert(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "EXPORT",
+      "EXPORTER",
+      "CONVERTER",
+      "CONVERSION",
+      "DATA CONVERSION",
+      "RENDER",
+      "RENDERER",
+      "MAP RENDERER",
+      "OPENSTREETMAP RENDERER",
     ].includes(t),
   );
 }
