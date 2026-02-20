@@ -1,11 +1,11 @@
 {
   "category.latest.description": "Affiche les {{numberOfApps}} applications classées par date de sortie.",
-  "category.focus": "En vedette",
+  "category.focus": "Projets en cours",
   "filter.category.latest": "Les plus récents",
   "wiki.none": "aucun",
   "category.all.description": "Affichage de {{numberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.",
   "filter.language": "Langue",
-  "category.focus.description": "Affiche dix applications parmi les pages les plus récemment mises à jour.",
+  "category.focus.description": "Découvrez chaque jour dix projets en cours.",
   "wiki.generatedByOsmAppsCatalog": "Ce tableau a été généré par le [{{link}} Catalogue des applications OSM] le {{date}}.",
   "category.mobile.description": "Affiche les {{numberOfApps}} applications développées pour les appareils mobiles ou qui permettent une utilisation hors ligne.",
   "filter.category.all": "Tout",
@@ -141,5 +141,7 @@
   "category.trackRec": "Enregistrement de l'itinéraire",
   "category.trackRec.description": "{{numberOfApps}} outils pour enregistrer les traces GPS, les données de mouvement et les notes de terrain pour, par exemple, une cartographie ultérieure.",
   "category.library": "Paquets et bibliothèques",
-  "category.library.description": "{{numberOfApps}} paquets et bibliothèques pour travailler avec les données et les API OpenStreetMap."
+  "category.library.description": "{{numberOfApps}} ressources pour travailler avec des données liées à OpenStreetMap.",
+  "category.convert": "Convertir & Rendu",
+  "category.convert.description": "{{numberOfApps}} ressources pour la conversion et le rendu des données liées à OpenStreetMap."
 }
