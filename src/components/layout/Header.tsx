@@ -70,7 +70,7 @@ export function Header() {
                 data-active={isTech}
               >
                 {isTech ? (
-                  <Link to={routes.home({ domain: "" })}>
+                  <Link to={routes.home({ domain: undefined })}>
                     {t("nav.leaveTech")}
                   </Link>
                 ) : (
