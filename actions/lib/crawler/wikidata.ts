@@ -7,6 +7,7 @@ import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 import { platformFilter } from "@actions/lib/platformFilter";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
 
 function extractGenre(result: any) {
   const genre = [];
@@ -94,7 +95,8 @@ export function transform(result: any) {
     sourceCode: result.sourceCode?.value || "",
     programmingLanguages: (result.progLgs?.value || "")
       .split(";")
-      .filter((v: any) => v),
+      .filter((v: any) => v)
+      .map((v: any) => getProgrammingLanguageDisplay(v) || v),
     languages: (result.lgs?.value || "")
       .split(";")
       .filter(languageFilter)

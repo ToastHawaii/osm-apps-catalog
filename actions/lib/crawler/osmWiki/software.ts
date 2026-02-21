@@ -24,6 +24,7 @@ import { toWikimediaUrl } from "@actions/lib/image";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 import { platformFilter } from "@actions/lib/platformFilter";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
 
 export function transform(
   source: Record<string, string> & {
@@ -62,7 +63,8 @@ export function transform(
     programmingLanguages: (source["code"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(trim)
-      .filter((v) => v),
+      .filter((v) => v)
+      .map((v) => getProgrammingLanguageDisplay(v) || v),
     gratis: some(
       [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
       ["GRATIS", "FREE", "0"],

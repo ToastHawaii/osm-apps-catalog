@@ -3,7 +3,7 @@ import { newUrl } from "@shared/utils/url";
 import { equalsIgnoreCase } from "@shared/utils/string";
 import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
-import { getProgramingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 
 const ignoredTopics = [
@@ -139,7 +139,7 @@ export function transformGitHubResult(eld: any, result: any) {
     programmingLanguages: chain(result.languages.edges)
       .sortBy((e) => e.size)
       .reverse()
-      .map((e) => e.node.name)
+      .map((e) => getProgrammingLanguageDisplay(e.node.name) || e.node.name)
       .take(6),
     languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
     languagesUrl: "",
@@ -151,7 +151,7 @@ export function transformGitHubResult(eld: any, result: any) {
       .map(upperFirst)
       .filter((t) => !getPlatformDisplay(t))
       .filter((t) => !getFrameworkDisplay(t))
-      .filter((t) => !getProgramingLanguageDisplay(t))
+      .filter((t) => !getProgrammingLanguageDisplay(t))
       .uniq()
       .value(),
     platform: chain(topics)

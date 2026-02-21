@@ -1,6 +1,6 @@
 import { equalsIgnoreCase } from "@shared/utils/string";
 
-const programingLanguages: {
+const programmingLanguages: {
   name: string;
   synonym: string[];
 }[] = [
@@ -97,9 +97,9 @@ const programingLanguages: {
   { name: "Nim", synonym: ["nim", "nim lang"] },
 ];
 
-export function getProgramingLanguageDisplay(value: string) {
-  for (const language of programingLanguages) {
-    if (language.synonym.find((s) => equalsIgnoreCase(s, value)))
+export function getProgrammingLanguageDisplay(value: string) {
+  for (const language of programmingLanguages) {
+    if (language.synonym.some((s) => equalsIgnoreCase(s, value)))
       return language.name;
   }
   return "";
