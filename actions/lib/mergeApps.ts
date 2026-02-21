@@ -53,6 +53,11 @@ export function mergeApps(
   app.license = mergeValues(app.license, obj.license, { sort: true });
 
   app.sourceCode = app.sourceCode || obj.sourceCode;
+  app.programmingLanguages = mergeValues(
+    app.programmingLanguages,
+    obj.programmingLanguages,
+    { sort: true },
+  );
 
   if (!options.onlyAddLanguageIfEmpty || app.languages.length === 0) {
     app.languages = mergeValues(app.languages, obj.languages, { sort: true });

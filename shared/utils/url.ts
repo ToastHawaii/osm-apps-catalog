@@ -44,3 +44,7 @@ export function utilQsString(obj: any, noencode?: boolean) {
     )
     .join("&");
 }
+
+export function convertToHttps(value: string | undefined) {
+  return value?.replace(/^http:/, "https:");
+}

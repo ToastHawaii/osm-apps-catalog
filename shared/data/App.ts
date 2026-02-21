@@ -32,6 +32,7 @@ export interface App {
   price?: string;
   license?: string[];
   sourceCode?: string | undefined;
+  programmingLanguages?: string[] | undefined;
   languages: string[];
   languagesUrl?: string | undefined;
   genre: string[];

@@ -296,6 +296,21 @@ export function List({
           ></span>
         </div>
       )}
+      {isOpen &&
+        app.programmingLanguages &&
+        app.programmingLanguages.length > 0 && (
+          <div className="more-info">
+            <span className="more-info-title">
+              {t("app.programmingLanguages")}
+            </span>
+            <span
+              className="more-info-text"
+              dangerouslySetInnerHTML={{
+                __html: app.programmingLanguages.join(", "),
+              }}
+            ></span>
+          </div>
+        )}
 
       {(isOpen || state?.contribute.includes("develop")) && app.sourceCode && (
         <ExternalLink

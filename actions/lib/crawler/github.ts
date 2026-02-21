@@ -136,6 +136,11 @@ export function transformGitHubResult(eld: any, result: any) {
           : []
         : [],
     sourceCode: result.url || "",
+    programmingLanguages: chain(result.languages.edges)
+      .sortBy((e) => e.size)
+      .reverse()
+      .map((e) => e.node.name)
+      .take(6),
     languages: [...(language ? [language] : []), ...(mul ? ["mul"] : [])],
     languagesUrl: "",
     genre: [],
@@ -215,9 +220,11 @@ async function request(
 ) {
   const query = `
       query {
-        search(query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension", type: REPOSITORY, first: 50 ${
-          cursor ? `, after: "${cursor}"` : ""
-        }) {
+        search(
+          query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension"
+          type: REPOSITORY
+          first: 50 ${cursor ? `, after: "${cursor}"` : ""}
+        ) {
           pageInfo {
             hasNextPage
             endCursor
@@ -255,7 +262,15 @@ async function request(
                 }
                 latestRelease {
                   publishedAt 
-                }        
+                }    
+                languages(first: 100) {
+                  edges {
+                    node {
+                      name
+                    }
+                    size
+                  }
+                }
               }
             }
           }

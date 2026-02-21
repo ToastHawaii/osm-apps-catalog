@@ -59,6 +59,10 @@ export function transform(
     sourceCode: toUrl(
       extractWebsite(source["repo"] || source["git"] || source["svn"]),
     ),
+    programmingLanguages: (source["code"] || "")
+      .split(splitByCommaButNotInsideBraceRegex)
+      .map(trim)
+      .filter((v) => v),
     gratis: some(
       [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
       ["GRATIS", "FREE", "0"],

@@ -44,6 +44,7 @@
   "app.license": "License",
   "app.platforms": "Platforms",
   "app.price": "Price",
+  "app.programmingLanguages": "Programmed in",
   "app.source": "Source",
   "app.source.description": "Source where this data comes from.",
   "app.source.firstCrawled": "First crawled: {{added}}",

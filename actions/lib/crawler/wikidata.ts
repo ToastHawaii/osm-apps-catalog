@@ -1,6 +1,6 @@
 import { toValues } from "@shared/utils/string";
 import { App } from "@shared/data/App";
-import { newUrl } from "@shared/utils/url";
+import { convertToHttps, newUrl } from "@shared/utils/url";
 import { getJson } from "@shared/utils/jsonRequest";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
@@ -67,13 +67,22 @@ export function transform(result: any) {
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     subtitle: result.motto?.value || result.subtitle?.value || "",
     description: result.description?.value || "",
-    images: (result.imgs?.value || "").split(";").filter((v: any) => v),
+    images: (result.imgs?.value || "")
+      .split(";")
+      .filter((v: any) => v)
+      // Convert http to https, https://query.wikidata.org/ gives back http://commons.wikimedia.org/wiki/File: instead of https://commons.wikimedia.org/wiki/File:
+      .map(convertToHttps),
     logos: [
-      ...(result.icons?.value || "").split(";").filter((v: any) => v),
-      ...(result.logos?.value || "").split(";").filter((v: any) => v),
-    ],
+      ...(result.icons?.value || "").split(";"),
+      ...(result.logos?.value || "").split(";"),
+    ]
+      .filter((v: any) => v)
+      .map(convertToHttps),
     commons: (result.commons?.value || "").split(";").filter((v: any) => v),
-    videos: (result.videos?.value || "").split(";").filter((v: any) => v),
+    videos: (result.videos?.value || "")
+      .split(";")
+      .filter((v: any) => v)
+      .map(convertToHttps),
     website:
       result.web?.value || result.webDef?.value
         ? newUrl(result.web?.value || result.webDef?.value).toString()
@@ -83,6 +92,9 @@ export function transform(result: any) {
     libre: isFreeAndOpenSource(result.license?.value),
     license: (result.license?.value || "").split(";").filter((v: any) => v),
     sourceCode: result.sourceCode?.value || "",
+    programmingLanguages: (result.progLgs?.value || "")
+      .split(";")
+      .filter((v: any) => v),
     languages: (result.lgs?.value || "")
       .split(";")
       .filter(languageFilter)
@@ -183,6 +195,7 @@ SELECT DISTINCT
   (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?author; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
+  (GROUP_CONCAT(DISTINCT ?progLg; SEPARATOR = ";") AS ?progLgs)
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
    (SAMPLE(?asin) AS ?asin) 
@@ -239,24 +252,11 @@ WHERE {
     FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
   }
 
-  OPTIONAL { 
-    ?item wdt:P8972 ?i. 
-    # Convert http to https, https://query.wikidata.org/ gives back http://commons.wikimedia.org/wiki/File: instead of https://commons.wikimedia.org/wiki/File:
-    BIND(REPLACE(STR(?i), "^http:", "https:") AS ?icon)
-  }
-  OPTIONAL { 
-    ?item wdt:P154 ?l. 
-    BIND(REPLACE(STR(?l), "^http:", "https:") AS ?logo)
-  }
-  OPTIONAL { 
-    ?item wdt:P18 ?i. 
-    BIND(REPLACE(STR(?i), "^http:", "https:") AS ?img)
-  }
+  OPTIONAL { ?item wdt:P8972 ?icon. }
+  OPTIONAL { ?item wdt:P154 ?logo. }
+  OPTIONAL { ?item wdt:P18 ?img. }
   OPTIONAL { ?item wdt:P373 ?common. }
-  OPTIONAL { 
-    ?item wdt:P10 ?v.
-    BIND(REPLACE(STR(?v), "^http:", "https:") AS ?video) 
-  }
+  OPTIONAL { ?item wdt:P10 ?video. }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
@@ -284,11 +284,37 @@ WHERE {
     ?forumLg wdt:P218 ?forumLgCode 
     FILTER(?forumLgCode = "en")
   }
-  OPTIONAL { 
-    ?item wdt:P178/rdfs:label ?author.
-    FILTER((LANG(?author) = "mul" || LANG(?author) = "en"))
+  OPTIONAL {
+    ?item wdt:P178 ?aItem.
+
+    OPTIONAL {
+      ?aItem rdfs:label ?aEn.
+      FILTER(LANG(?aEn) = "en")
+    }
+
+    OPTIONAL {
+      ?aItem rdfs:label ?aMul.
+      FILTER(LANG(?aMul) = "mul")
+    }
+
+    BIND(COALESCE(?aEn, ?aMul) AS ?author)
   }
   OPTIONAL { ?item wdt:P1324 ?sourceCode. }
+  OPTIONAL {
+    ?item wdt:P277 ?plItem.
+
+    OPTIONAL {
+      ?plItem rdfs:label ?plEn.
+      FILTER(LANG(?plEn) = "en")
+    }
+
+    OPTIONAL {
+      ?plItem rdfs:label ?plMul.
+      FILTER(LANG(?plMul) = "mul")
+    }
+
+    BIND(COALESCE(?plEn, ?plMul) AS ?progLg)
+  }
   OPTIONAL { 
     ?item wdt:P407 ?lg.
     ?lg wdt:P218 ?lgCode.
