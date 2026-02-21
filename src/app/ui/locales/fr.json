@@ -149,5 +149,6 @@
   "toggleTheme.dark": "Sombre",
   "toggleTheme.light": "Clair",
   "toggleTheme.sreenReader": "Basculer le thème",
-  "toggleTheme.system": "Système"
+  "toggleTheme.system": "Système",
+  "app.programmingLanguages": "Programmé en"
 }
