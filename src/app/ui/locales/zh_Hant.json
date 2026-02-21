@@ -37,8 +37,8 @@
   "app.install.microsoftApp": "Microsoft Store",
   "app.lastRelease": "上次發佈",
   "filter.coverage": "覆蓋範圍",
-  "category.focus": "焦點",
-  "category.focus.description": "顯示最近更新頁面的十個 app。",
+  "category.focus": "進行中專案",
+  "category.focus.description": "每天顯示進行中的專案。",
   "category.navigation.description": "顯示支援導航的 {{numberOfApps}} 個 app。",
   "compare.group.header.general": "一般",
   "compare.group.header.map": "地圖顯示",
@@ -141,5 +141,8 @@
   "category.qa.description": "檢核 OSM 資料來找出錯誤、不一致或是問題編輯的 {{numberOfApps}} 個 app。",
   "category.tech": "為了科技愛好者",
   "category.trackRec.description": "記錄 GPS 軌跡、移動資料以及為了之後畫地圖做田野筆記的 {{numberOfApps}} 個 app。",
-  "category.changeset.description": "監控 OSM 資料活動、追蹤活動 (例如主題標籤)、歡迎新手圖客的 {{numberOfApps}} 個 app。"
+  "category.changeset.description": "監控 OSM 資料活動、追蹤活動 (例如主題標籤)、歡迎新手圖客的 {{numberOfApps}} 個 app。",
+  "category.convert": "轉換與渲染",
+  "category.convert.description": "{{numberOfApps}} 項資源能夠轉換與渲染開放街圖相關資料。",
+  "category.library": "軟體包與函式庫"
 }
