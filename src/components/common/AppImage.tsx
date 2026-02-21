@@ -14,12 +14,8 @@ export function AppImage({ app }: { app: App }) {
       <img
         className="img inline-block"
         src={defaultImage}
-        data-dynamic-src={`${[...app.images, ...app.logos].join(
-          " ",
-        )} ${defaultImage}`}
-        alt={t("app.imageAlt", {
-          name: app.name,
-        })}
+        data-dynamic-src={`${[...app.images, ...app.logos].join(" ")}`}
+        alt={t("app.imageAlt", { name: app.name })}
       />
     );
   } else {
@@ -32,9 +28,7 @@ export function AppImage({ app }: { app: App }) {
         className="img inline-block"
         style={{ filter: app.cache.filter }}
         src={defaultImage}
-        alt={t("app.imageAlt", {
-          name: app.name,
-        })}
+        alt={t("app.imageAlt", { name: app.name })}
       />
     );
   }

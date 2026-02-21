@@ -16,6 +16,7 @@ export function AppLogo({
 
   const defaultLogo =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+
   const logos = [...app.logos, ...app.images.filter((i) => isLikelyLogo(i))];
 
   // as a fallback we try to use the favicon from the given website as logo
@@ -43,12 +44,8 @@ export function AppLogo({
       className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
-      dynamicSrc={
-        logos.length > 0 ? `${logos.join(" ")} ${defaultLogo}` : undefined
-      }
-      alt={t("app.imageAlt", {
-        name: app.name,
-      })}
+      dynamicSrc={logos.length > 0 ? `${logos.join(" ")}` : undefined}
+      alt={t("app.imageAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />
   );
