@@ -239,11 +239,24 @@ WHERE {
     FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
   }
 
-  OPTIONAL { ?item wdt:P8972 ?icon. }
-  OPTIONAL { ?item wdt:P154 ?logo. }
-  OPTIONAL { ?item wdt:P18 ?img. }
+  OPTIONAL { 
+    ?item wdt:P8972 ?i. 
+    # Convert http to https, https://query.wikidata.org/ gives back http://commons.wikimedia.org/wiki/File: instead of https://commons.wikimedia.org/wiki/File:
+    BIND(REPLACE(STR(?i), "^http:", "https:") AS ?icon)
+  }
+  OPTIONAL { 
+    ?item wdt:P154 ?l. 
+    BIND(REPLACE(STR(?l), "^http:", "https:") AS ?logo)
+  }
+  OPTIONAL { 
+    ?item wdt:P18 ?i. 
+    BIND(REPLACE(STR(?i), "^http:", "https:") AS ?img)
+  }
   OPTIONAL { ?item wdt:P373 ?common. }
-  OPTIONAL { ?item wdt:P10 ?video. }
+  OPTIONAL { 
+    ?item wdt:P10 ?v.
+    BIND(REPLACE(STR(?v), "^http:", "https:") AS ?video) 
+  }
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
     ?item p:P856 ?webStat. 
