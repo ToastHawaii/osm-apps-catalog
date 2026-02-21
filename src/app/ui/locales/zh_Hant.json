@@ -144,5 +144,12 @@
   "share.wiki": "已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。",
   "wiki.generatedBy": "由 OSM Apps Catalog 產生",
   "wiki.generatedByOsmAppsCatalog": "此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。",
-  "wiki.none": "無"
+  "wiki.none": "無",
+  "toggleTheme.sreenReader": "啟用主題",
+  "toggleTheme.system": "系統",
+  "category.isochrone": "等時線地圖",
+  "category.library.description": "{{numberOfApps}} 項資源能夠處理開放街圖相關資料。",
+  "nav.leaveTech": "離開技術檢視",
+  "toggleTheme.dark": "夜晚",
+  "toggleTheme.light": "白天"
 }
