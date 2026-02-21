@@ -116,6 +116,7 @@ export function qa(a: App) {
       "ANALYSE",
       "ANALYSER",
       "ANALYSIS",
+      "DATA ANALYSIS",
       "COMPARING TOOL",
       "VALIDATOR",
       "QA",
@@ -154,6 +155,17 @@ export function convert(a: App) {
     ].includes(t),
   );
 }
+
+export function isochrone(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "ISOCHRONES",
+    ].includes(t),
+  );
+}
+
+
 
 export function library(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());

@@ -1,6 +1,12 @@
 import { ExternalLink } from "@components/common/ExternalLink";
 import { App } from "@shared/data/App";
-import { qa, changeset, library, convert } from "@shared/utils/filters";
+import {
+  qa,
+  changeset,
+  library,
+  convert,
+  isochrone,
+} from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
 import React from "react";
@@ -103,6 +109,11 @@ export function Categories(
         <Description category="convert" numberOfApps={numberOfApps} />
       ),
       nextIndex: () => apps.findIndex((app) => convert(app)),
+    },
+    {
+      id: "isochrone",
+      name: () => t("category.isochrone"),
+      nextIndex: () => apps.findIndex((app) => isochrone(app)),
     },
   ];
 }

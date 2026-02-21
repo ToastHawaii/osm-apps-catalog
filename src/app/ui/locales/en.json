@@ -65,6 +65,7 @@
   "category.focus": "Ongoing projects",
   "category.focus.description": "Discover ten ongoing projects every day.",
   "category.foss": "Free and opensource",
+  "category.isochrone": "Isochrone maps",
   "category.latest.description": "{{numberOfApps}} apps sorted by last release date.",
   "category.latestUpdates": "Latest updates",
   "category.library": "Packages & libraries",
