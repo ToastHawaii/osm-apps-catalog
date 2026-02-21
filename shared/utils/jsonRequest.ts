@@ -11,7 +11,8 @@ export async function getJson(
     const response = await fetch(
       "https://corsproxy.io/?" +
         encodeURIComponent(`${url}?${utilQsString(params)}`) +
-        "%26asdf",
+        // change to avoid caching during testing
+        "%262026-02-21",
     );
 
     return await response.json();
