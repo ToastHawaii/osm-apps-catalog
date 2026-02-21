@@ -31,6 +31,7 @@ import { ForumLink } from "../components/links/community/ForumLink";
 import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
 
 export function List({
   app,
@@ -46,6 +47,7 @@ export function List({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
   const [carouselShown, setCarouselShown] = useState(false);
+  const isTechView = useIsTechDomain();
 
   useGoatCounterEvents();
 
@@ -296,7 +298,8 @@ export function List({
           ></span>
         </div>
       )}
-      {isOpen &&
+      {isTechView &&
+        isOpen &&
         app.programmingLanguages &&
         app.programmingLanguages.length > 0 && (
           <div className="more-info">
