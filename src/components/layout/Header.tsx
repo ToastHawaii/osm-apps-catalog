@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useMemo } from "react";
+import { Link, useSearchParams } from "react-router";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +15,7 @@ import {
 import { routeFactory } from "@lib/routeFactory";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
+import { ThemeModeToggle } from "@components/layout/ThemeModeToggle";
 
 export function Header() {
   const { t } = useTranslation();
@@ -62,6 +63,9 @@ export function Header() {
                   {t("nav.about")}
                 </a>
               </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <ThemeModeToggle />
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

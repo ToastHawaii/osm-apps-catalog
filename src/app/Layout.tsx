@@ -1,4 +1,5 @@
-import { Header } from "@components/layout/header";
+import { Header } from "@components/layout/Header";
+import { ThemeProvider } from "@components/ThemeProvider";
 import React, { useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -67,12 +68,12 @@ export default function Layout() {
   document.documentElement.lang = i18n.resolvedLanguage || "en";
 
   return (
-    <>
+    <ThemeProvider>
       <ScrollRestoration />
       <div id="content">
         <Header />
         <Outlet />
       </div>
-    </>
+    </ThemeProvider>
   );
 }
