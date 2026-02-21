@@ -143,5 +143,6 @@
   "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.",
   "wiki.generatedBy": "Erstellt vom OSM Apps Katalog",
   "wiki.generatedByOsmAppsCatalog": "Diese Tabelle wurde vom [{{link}} OSM Apps Catalog] am {{date}} generiert.",
-  "wiki.none": "Keine"
+  "wiki.none": "Keine",
+  "app.programmingLanguages": "Programmiert in"
 }
