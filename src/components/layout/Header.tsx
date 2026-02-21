@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Link, useSearchParams } from "react-router";
+import React from "react";
+import { Link } from "react-router";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
@@ -12,24 +12,42 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu";
-import { routeFactory } from "@lib/routeFactory";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
+import { Badge } from "@components/ui/badge";
 import { ThemeModeToggle } from "@components/layout/ThemeModeToggle";
+import { useRoute } from "@hooks/useRoute";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
 
 export function Header() {
   const { t } = useTranslation();
 
-  const routes = routeFactory();
+  const routes = useRoute();
   const currentRoute = useCurrentRouteName();
 
   const platforms = usePlatformUrlParam().map((t) => t.toLowerCase());
+  const isTech = useIsTechDomain();
 
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
       <div className="flex px-8 py-4">
         <Button asChild variant="ghost" className="font-semibold">
-          <Link to={routes.home({ platforms })}>OSM App Catalog</Link>
+          <Link
+            to={
+              currentRoute === "home"
+                ? routes.home({ domain: undefined, platforms })
+                : routes.home({ platforms })
+            }
+          >
+            {isTech ? (
+              <Badge className="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                Tech
+              </Badge>
+            ) : (
+              ""
+            )}{" "}
+            OSM App Catalog
+          </Link>
         </Button>
 
         <div className="grow" />
@@ -49,9 +67,17 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                data-active={currentRoute === "tech"}
+                data-active={isTech}
               >
-                <Link to={routes.tech()}>{t("category.tech")}</Link>
+                {isTech ? (
+                  <Link to={routes.home({ domain: "" })}>
+                    {t("nav.leaveTech")}
+                  </Link>
+                ) : (
+                  <Link to={routes.home({ domain: "tech" })}>
+                    {t("nav.tech")}
+                  </Link>
+                )}
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>

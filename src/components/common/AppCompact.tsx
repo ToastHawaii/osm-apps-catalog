@@ -13,10 +13,10 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@components/ui/item";
-import { routeFactory } from "@lib/routeFactory";
+import { useRoute } from "@hooks/useRoute";
 
 export function AppCompact({ app }: { app: App }) {
-  const routes = routeFactory();
+  const routes = useRoute();
 
   return (
     <div className="p-2">

@@ -20,9 +20,11 @@ export function Router() {
       return <Search apps={apps} />;
     case "explore":
       return <Category apps={apps} id={searchParams.get("category") || ""} />;
-    case "tech":
-      return <Tech apps={apps} />;
     default:
-      return <Home apps={apps} />;
+      return searchParams.get("domain") === "tech" ? (
+        <Tech apps={apps} />
+      ) : (
+        <Home apps={apps} />
+      );
   }
 }
