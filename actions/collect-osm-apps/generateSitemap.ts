@@ -1,5 +1,5 @@
 import { getLastMod } from "@actions/lib/getLastMod";
-import { useRoute } from "@hooks/useRoute";
+import { routeFactory } from "@lib/routeFactory";
 import { App } from "@shared/data/App";
 import { SitemapLanguages } from "@shared/lib/SupportedLanguages";
 import { Readable } from "node:stream";
@@ -18,7 +18,7 @@ export async function generateSitemap(apps: App[]) {
     links: { lang: string; url: string }[];
   }[] = [];
 
-  const routes = useRoute();
+  const routes = routeFactory();
 
   links.push({
     url: routes.home({}),
