@@ -39,10 +39,9 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_This catalog currently only contains apps from the English version of
-[OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and
-[taginfo project list](https://taginfo.openstreetmap.org/projects)._
+_這份目錄目前只收錄英文版本的[OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/)、[Wikidata](https://www.wikidata.org/)、[GitHub](https://github.com/)
+以及 [taginfo project list](https://taginfo.openstreetmap.org/projects)。_
 
 協助翻譯：
 
@@ -50,27 +49,24 @@ _This catalog currently only contains apps from the English version of
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a> 上的 OSM App 目錄
-- from the apps documented in [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+- [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的
+  app 說明文件
 
 ## 授權條款
 
-The app is licensed under the [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
-[code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
-and modification if you publish under the same license.
+這 app 的授權條款為 [GNU Affero General Public License
+v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code](https://github.com/ToastHawaii/osm-apps-catalog)
+能夠自由使用，複製與變動則以相同授權條款釋出。
 
 ## 聲明
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/).
+開放街圖與 OSM
+皆為開放街圖基金會的註冊商標，都取得其允許。這個專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是其相關專案。
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Join a
-  local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816)
+  的一部分：[加入地方組織](https://usergroups.openstreetmap.de/)、[聚會](https://osmcal.org/)
+  與 [交流](https://community.osm.be/)
 - [貢獻至開放街圖](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [關於我們](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
