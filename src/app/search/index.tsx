@@ -25,6 +25,8 @@ import { ExternalLink } from "@components/common/ExternalLink";
 
 import "../../index.scss";
 import "../../index.css";
+import { useRoute } from "@hooks/useRoute";
+import { useNavigate } from "react-router";
 
 function PageMeta({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -76,6 +78,8 @@ function PageMeta({ apps }: { apps: App[] }) {
 export function Search({ apps }: { apps: App[] }) {
   const { t, i18n } = useTranslation();
 
+  const routes = useRoute();
+  const navigate = useNavigate();
   const [state, setAppState, resetAppState, isInitState] = useAppState();
   const [moreFilters, setMoreFilters] = useState(false);
 
@@ -119,9 +123,7 @@ export function Search({ apps }: { apps: App[] }) {
               {" "}
               <button
                 className="show-all"
-                onClick={() => {
-                  resetAppState(state.category);
-                }}
+                onClick={() => navigate(routes.search({}))}
               >
                 {t("category.showAll")}
               </button>
@@ -203,9 +205,7 @@ export function Search({ apps }: { apps: App[] }) {
                   {" "}
                   <button
                     className="show-all"
-                    onClick={() => {
-                      resetAppState(state.category);
-                    }}
+                    onClick={() => navigate(routes.search({}))}
                   >
                     {t("category.showAll")}
                   </button>
