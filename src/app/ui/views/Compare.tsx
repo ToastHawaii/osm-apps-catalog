@@ -453,6 +453,18 @@ export function Compare({
                 : toWikiValue(app.license, lang),
           },
           {
+            label: (lang) => t("app.props.code.label", { lng: lang }),
+            description: (lang) =>
+              t("app.props.code.description", {
+                lng: lang,
+              }),
+            hasValue: (app) => !!app.programmingLanguages?.length,
+            renderToHtml: (app) => <Badges values={app.programmingLanguages} />,
+            renderToWiki: (app) =>
+              toWikiValue(app.programmingLanguages?.join(", "), lang),
+            focus: !!state?.programmingLanguages.length,
+          },
+          {
             label: (lang) => t("app.props.repo.label", { lng: lang }),
             description: (lang) =>
               t("app.props.repo.description", { lng: lang }),

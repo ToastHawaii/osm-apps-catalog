@@ -27,8 +27,8 @@ export function Header() {
   const routes = useRoute();
   const currentRoute = useCurrentRouteName();
 
-  const platforms = usePlatformUrlParam().map((t) => t.toLowerCase());
-  const isTech = useIsTechDomain();
+  const platforms = usePlatformUrlParam();
+  const isTechView = useIsTechDomain();
 
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
@@ -47,7 +47,7 @@ export function Header() {
               className="mr-1 h-6 w-6"
             />{" "}
             <span className="hidden md:inline">OSM App Catalog</span>
-            {isTech ? (
+            {isTechView ? (
               <Badge className="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
                 Tech
               </Badge>
@@ -67,7 +67,13 @@ export function Header() {
                 className={navigationMenuTriggerStyle()}
                 data-active={currentRoute === "search"}
               >
-                <Link to={routes.search({ platforms })}>
+                <Link
+                  to={
+                    !isTechView
+                      ? routes.search({ platforms })
+                      : routes.search({})
+                  }
+                >
                   <HugeiconsIcon
                     className="md:hidden"
                     size={16}
@@ -83,9 +89,9 @@ export function Header() {
               <NavigationMenuLink
                 asChild
                 className={navigationMenuTriggerStyle()}
-                data-active={isTech}
+                data-active={isTechView}
               >
-                {isTech ? (
+                {isTechView ? (
                   <Link to={routes.home({ domain: undefined })}>
                     {t("nav.leaveTech")}
                   </Link>

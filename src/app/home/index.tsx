@@ -14,7 +14,7 @@ import { Category } from "./components/Category";
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
 
-  const platforms = usePlatformUrlParam();
+  const platforms = usePlatformUrlParam().map((p) => p.toUpperCase());
   const { spotlight, categories } = useMemo(() => {
     let filteredApps = apps.slice();
     if (platforms.length > 0) {

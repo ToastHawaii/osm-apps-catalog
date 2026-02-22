@@ -19,15 +19,15 @@ export function Filters() {
   const [showMorePlatforms, setShowMorePlatforms] = useState(false);
 
   const platforms = usePlatformUrlParam();
-  const currentPlatforms = platforms.map((t) => t.toLowerCase());
+  const platformsUp = platforms.map((p) => p.toUpperCase());
 
   const mainPlatforms: [string, () => string][] = [
-    ["web", () => "Web"],
-    ["android", () => "Android"],
-    ["ios", () => "iOS"],
-    ["linux", () => "Linux"],
-    ["macos", () => "MacOS"],
-    ["windows", () => "Windows"],
+    ["WEB", () => "Web"],
+    ["ANDROID", () => "Android"],
+    ["IOS", () => "iOS"],
+    ["LINUX", () => "Linux"],
+    ["MACOS", () => "MacOS"],
+    ["WINDOWS", () => "Windows"],
   ];
 
   // based on app meta data, collect all possible values and exclude the main platforms
@@ -38,7 +38,7 @@ export function Filters() {
       .sortBy((p) => p)
       .sortBy((p) => p.length)
       .reverse()
-      .map((p) => [p[0].toLowerCase(), () => p[0]] as const)
+      .map((p) => [p[0].toUpperCase(), () => p[0]] as const)
       .filter((p) => !mainPlatforms.find((mp) => mp[0] === p[0]))
       .value();
   }, [apps]);
@@ -46,9 +46,7 @@ export function Filters() {
   const shownPlatforms = !showMorePlatforms
     ? [
         ...mainPlatforms,
-        ...secondPlatforms.filter((p) =>
-          currentPlatforms.find((cp) => cp === p[0]),
-        ),
+        ...secondPlatforms.filter((p) => platformsUp.find((cp) => cp === p[0])),
       ]
     : [...mainPlatforms, ...secondPlatforms];
 
@@ -60,20 +58,22 @@ export function Filters() {
           key={platform[0]}
           size="sm"
           variant="primary"
-          pressed={currentPlatforms.includes(platform[0])}
+          pressed={platformsUp.includes(platform[0])}
           onPressedChange={(pressed) => {
             if (!pressed) {
               navigate(
                 currentRoute({
                   category: searchParams.get("category") || (undefined as any),
-                  platforms: currentPlatforms.filter((p) => p !== platform[0]),
+                  platforms: platforms.filter(
+                    (p) => p.toUpperCase() !== platform[0],
+                  ),
                 }),
               );
             } else {
               navigate(
                 currentRoute({
                   category: searchParams.get("category") || (undefined as any),
-                  platforms: [...currentPlatforms, platform[0]],
+                  platforms: [...platforms, platform[1]()],
                 }),
               );
             }

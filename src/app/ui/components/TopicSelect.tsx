@@ -18,7 +18,7 @@ export function TopicSelect({
 
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.topics.map((v) => v)));
+  data.push(...apps.flatMap((app) => app.topics));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (

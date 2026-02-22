@@ -39,7 +39,7 @@ export function printCalcScore(apps: App[]) {
 
   console.info("Topics");
   const preparedData = prepareArrayForSelect(
-    apps.flatMap((app) => app.topics.map((v) => v)),
+    apps.flatMap((app) => app.topics),
     [],
   );
   console.info(preparedData.map((d) => d.value).join("\n"));

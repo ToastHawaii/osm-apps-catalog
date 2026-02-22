@@ -101,6 +101,7 @@
   "filter.platform": "Platform",
   "filter.preset": "The filter is preset for you:",
   "filter.preview": "The filter is set to:",
+  "filter.programmingLanguage": "Programmed in",
   "filter.resetFilters": "Remove preset filters",
   "filter.search": "Search",
   "filter.topic": "Topic",

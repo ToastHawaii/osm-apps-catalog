@@ -17,8 +17,9 @@ export function filter({
   category,
   search,
   topics,
-  platforms,
   languages,
+  platforms,
+  programmingLanguages,
   coverage,
   contribute,
 }: { apps: App[] } & State) {
@@ -68,16 +69,24 @@ export function filter({
       includes(a.cache.topics, topicsUp),
     );
 
+  const languagesUp = languages.map((t) => t.toUpperCase());
+  if (languagesUp.length > 0)
+    filteredApps = filteredApps.filter((a) =>
+      some(a.cache.languages, languagesUp),
+    );
+
   const platformsUp = platforms.map((t) => t.toUpperCase());
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(a.cache.platform, platformsUp),
     );
 
-  const languagesUp = languages.map((t) => t.toUpperCase());
-  if (languagesUp.length > 0)
+  const programmingLanguagesUp = programmingLanguages.map((t) =>
+    t.toUpperCase(),
+  );
+  if (programmingLanguagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
-      some(a.cache.languages, languagesUp),
+      some(a.cache.programmingLanguages, programmingLanguagesUp),
     );
 
   const coverageUp = coverage.map((t) => t.toUpperCase());
@@ -177,14 +186,19 @@ export function filter({
             a.cache.coverage.filter((t) => t.includes(search)).length > 0,
         );
 
+      if (languagesUp.length > 0)
+        similarApps = similarApps.filter((a) =>
+          some(a.cache.languages, languagesUp),
+        );
+
       if (platformsUp.length > 0)
         similarApps = similarApps.filter((a) =>
           includes(a.cache.platform, platformsUp),
         );
 
-      if (languagesUp.length > 0)
+      if (programmingLanguagesUp.length > 0)
         similarApps = similarApps.filter((a) =>
-          some(a.cache.languages, languagesUp),
+          some(a.cache.programmingLanguages, programmingLanguagesUp),
         );
 
       if (coverageUp.length > 0)

@@ -18,7 +18,7 @@ export function CoverageSelect({
 
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.coverage.map((v) => v)));
+  data.push(...apps.flatMap((app) => app.coverage));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (

@@ -15,6 +15,7 @@ export function Filters({
     <Toggle
       data-state={active ? "on" : "off"}
       variant={active ? "default" : "outline"}
+      size="sm"
       className="text-lg text-gray-500 data-[state=on]:border data-[state=on]:border-primary data-[state=on]:bg-white data-[state=on]:text-primary"
       onPressedChange={(pressed) => onChange(pressed)}
     >

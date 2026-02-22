@@ -157,8 +157,9 @@ export interface App {
     };
     filter?: string;
     topics: string[];
-    platform: string[];
     languages: string[];
+    platform: string[];
+    programmingLanguages: string[];
     coverage: string[];
   };
 }

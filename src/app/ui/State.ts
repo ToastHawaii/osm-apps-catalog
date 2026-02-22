@@ -4,8 +4,9 @@ export interface State {
   app?: number | undefined;
   search: string;
   topics: string[];
-  platforms: string[];
   languages: string[];
+  platforms: string[];
+  programmingLanguages: string[];
   coverage: string[];
   contribute: string[];
   view: "home" | "category" | "app" | "list" | "compare" | "search" | "focus";

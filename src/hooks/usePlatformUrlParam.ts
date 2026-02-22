@@ -18,10 +18,9 @@ export function usePlatformUrlParam() {
     } else {
       // else try detect users platform
       const userPlatform = getUserOS();
-      platforms = userPlatform ? ["web", userPlatform] : [];
+      platforms = userPlatform ? ["Web", userPlatform] : [];
     }
 
-    platforms = platforms.map((t) => t.toUpperCase());
     return platforms;
   }, [searchParams]);
 }

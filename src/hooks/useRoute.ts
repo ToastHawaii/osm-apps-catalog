@@ -2,7 +2,7 @@ import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { routeFactory } from "@lib/routeFactory";
 
 export function useRoute() {
-  const isTech = useIsTechDomain();
+  const isTechView = useIsTechDomain();
 
-  return routeFactory(isTech ? "tech" : undefined);
+  return routeFactory(isTechView ? "tech" : undefined);
 }

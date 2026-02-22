@@ -31,7 +31,7 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
             data-goatcounter-referrer="https://osm-apps.org/"
             to={routes.explore({
               category: props.id,
-              platforms: platforms.map((p) => p.toLowerCase()),
+              platforms,
             })}
           >
             {props.name}
@@ -44,7 +44,7 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
           data-goatcounter-referrer="https://osm-apps.org/"
           to={routes.explore({
             category: props.id,
-            platforms: platforms.map((p) => p.toLowerCase()),
+            platforms,
           })}
         >
           {t("category.showAll")}

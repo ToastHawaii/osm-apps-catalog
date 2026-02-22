@@ -17,7 +17,7 @@ export function LanguageSelect({
   const { t } = useTranslation();
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.languages.map((v) => v)));
+  data.push(...apps.flatMap((app) => app.languages));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (

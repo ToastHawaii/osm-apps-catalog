@@ -12,7 +12,7 @@ import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
 
-  const platforms = usePlatformUrlParam();
+  const platforms = usePlatformUrlParam().map((p) => p.toUpperCase());
 
   const { category, techView } = useMemo(() => {
     let filteredApps = apps.slice();

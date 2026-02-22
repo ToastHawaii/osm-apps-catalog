@@ -27,7 +27,7 @@ export function ThemeProvider({
   storageKey = "theme-mode",
   ...props
 }: ThemeProviderProps) {
-  const isTech = useIsTechDomain();
+  const isTechView = useIsTechDomain();
 
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
@@ -42,7 +42,7 @@ export function ThemeProvider({
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
         ? "dark"
-        : !isTech
+        : !isTechView
           ? "light"
           : "dark";
 
@@ -51,7 +51,7 @@ export function ThemeProvider({
     }
 
     root.classList.add(`theme-mode-${theme}`);
-  }, [theme, isTech]);
+  }, [theme, isTechView]);
 
   const value = {
     theme,

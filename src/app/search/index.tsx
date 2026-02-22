@@ -22,11 +22,13 @@ import { toSchemaOrg } from "../ui/lib/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { useRoute } from "@hooks/useRoute";
+import { useNavigate } from "react-router";
+import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
 
 import "../../index.scss";
 import "../../index.css";
-import { useRoute } from "@hooks/useRoute";
-import { useNavigate } from "react-router";
 
 function PageMeta({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -78,10 +80,11 @@ function PageMeta({ apps }: { apps: App[] }) {
 export function Search({ apps }: { apps: App[] }) {
   const { t, i18n } = useTranslation();
 
+  const isTechView = useIsTechDomain();
   const routes = useRoute();
   const navigate = useNavigate();
   const [state, setAppState, resetAppState, isInitState] = useAppState();
-  const [moreFilters, setMoreFilters] = useState(false);
+  const [moreFilters, setMoreFilters] = useState(isTechView);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
   if (filteredApps.length > 300 && state.view !== "list") {
@@ -153,16 +156,18 @@ export function Search({ apps }: { apps: App[] }) {
         {!state.app &&
           !moreFilters &&
           (state.topics.length > 0 ||
-            state.platforms.length > 0 ||
             state.languages.length > 0 ||
+            state.platforms.length > 0 ||
+            state.programmingLanguages.length > 0 ||
             state.coverage.length > 0 ||
             state.contribute.length > 0) && (
             <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
               {!isInitState() ? t("filter.preview") : t("filter.preset")}{" "}
               {chain([
                 ...state.topics,
-                ...state.platforms,
                 ...state.languages,
+                ...state.platforms,
+                ...state.programmingLanguages,
                 ...state.coverage,
               ])
                 .filter((v) => !!v)
@@ -197,8 +202,9 @@ export function Search({ apps }: { apps: App[] }) {
                 ))
                 .value()}
               {(state.topics.length > 0 ||
-                state.platforms.length > 0 ||
                 state.languages.length > 0 ||
+                state.platforms.length > 0 ||
+                state.programmingLanguages.length > 0 ||
                 state.coverage.length > 0 ||
                 state.contribute.length > 0) && (
                 <>
@@ -230,6 +236,15 @@ export function Search({ apps }: { apps: App[] }) {
               selected={state.platforms}
               onChange={(newValues) => setAppState("platforms", newValues)}
             />
+            {isTechView && (
+              <ProgrammingLanguageSelect
+                apps={filteredApps}
+                selected={state.programmingLanguages}
+                onChange={(newValues) =>
+                  setAppState("programmingLanguages", newValues)
+                }
+              />
+            )}
             <CoverageSelect
               apps={filteredApps}
               selected={state.coverage}
@@ -270,8 +285,9 @@ export function Search({ apps }: { apps: App[] }) {
                     <p className="no-results my-4">
                       {t("noResults")}{" "}
                       {(state.topics.length > 0 ||
-                        state.platforms.length > 0 ||
                         state.languages.length > 0 ||
+                        state.platforms.length > 0 ||
+                        state.programmingLanguages.length > 0 ||
                         state.coverage.length > 0 ||
                         state.contribute.length > 0) && (
                         <button

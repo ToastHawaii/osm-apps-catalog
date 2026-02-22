@@ -95,8 +95,10 @@ export function useAppsData() {
       for (const app of apps as App[]) {
         app.cache = {
           topics: app.topics.map((t) => t.toUpperCase()),
-          platform: app.platform.map((p) => p.toUpperCase()),
           languages: app.languages.map((l) => l.toUpperCase()),
+          platform: app.platform.map((p) => p.toUpperCase()),
+          programmingLanguages:
+            app.programmingLanguages?.map((p) => p.toUpperCase()) || [],
           coverage: app.coverage.map((c) => c.toUpperCase()),
         };
       }

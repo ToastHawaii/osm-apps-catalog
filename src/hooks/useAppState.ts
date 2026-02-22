@@ -39,8 +39,10 @@ export function useAppState() {
         : undefined,
       search: searchParams.get("search") || "",
       topics: searchParams.get("topics")?.split("+") || [],
-      platforms: searchParams.get("platforms")?.split("+") || [],
       languages: searchParams.get("languages")?.split("+") || [],
+      platforms: searchParams.get("platforms")?.split("+") || [],
+      programmingLanguages:
+        searchParams.get("programmingLanguages")?.split("+") || [],
       coverage: searchParams.get("coverage")?.split("+") || [],
       contribute: searchParams.get("contribute")?.split("+") || [],
       category: !app ? searchParams.get("category") || "all" : "",
