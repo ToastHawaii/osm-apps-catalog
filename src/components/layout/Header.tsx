@@ -18,6 +18,8 @@ import { Badge } from "@components/ui/badge";
 import { ThemeModeToggle } from "@components/layout/ThemeModeToggle";
 import { useRoute } from "@hooks/useRoute";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { HelpCircleIcon, Search01Icon } from "@hugeicons/core-free-icons";
 
 export function Header() {
   const { t } = useTranslation();
@@ -30,7 +32,7 @@ export function Header() {
 
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
-      <div className="flex px-8 py-4">
+      <div className="flex px-1 py-2 md:px-8 md:py-4">
         <Button asChild variant="ghost" className="font-semibold">
           <Link
             to={
@@ -39,14 +41,19 @@ export function Header() {
                 : routes.home({ platforms })
             }
           >
+            <img
+              src="/icons/favicon-32x32.png"
+              alt="OSM App Catalog"
+              className="mr-1 h-6 w-6"
+            />{" "}
+            <span className="hidden md:inline">OSM App Catalog</span>
             {isTech ? (
               <Badge className="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
                 Tech
               </Badge>
             ) : (
               ""
-            )}{" "}
-            OSM App Catalog
+            )}
           </Link>
         </Button>
 
@@ -60,7 +67,16 @@ export function Header() {
                 className={navigationMenuTriggerStyle()}
                 data-active={currentRoute === "search"}
               >
-                <Link to={routes.search({ platforms })}>{t("nav.search")}</Link>
+                <Link to={routes.search({ platforms })}>
+                  <HugeiconsIcon
+                    className="md:hidden"
+                    size={16}
+                    icon={Search01Icon}
+                    strokeWidth={2}
+                    aria-label={t("nav.search")}
+                  />{" "}
+                  <span className="hidden md:inline">{t("nav.search")}</span>
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -86,7 +102,13 @@ export function Header() {
                 className={navigationMenuTriggerStyle()}
               >
                 <a href={routes.docs({ lang: i18next.resolvedLanguage })}>
-                  {t("nav.about")}
+                  <HugeiconsIcon
+                    className="md:hidden"
+                    size={16}
+                    icon={HelpCircleIcon}
+                    aria-label={t("nav.about")}
+                  />{" "}
+                  <span className="hidden md:inline">{t("nav.about")}</span>
                 </a>
               </NavigationMenuLink>
             </NavigationMenuItem>
