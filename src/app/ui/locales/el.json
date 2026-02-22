@@ -150,5 +150,6 @@
   "toggleTheme.light": "Φωτεινό",
   "toggleTheme.sreenReader": "Εναλλαγή θέματος",
   "toggleTheme.system": "Σύστημα",
-  "app.programmingLanguages": "Προγραμματισμένη σε"
+  "app.programmingLanguages": "Προγραμματισμένη σε",
+  "filter.programmingLanguage": "Προγραμματισμένες σε"
 }
