@@ -149,5 +149,6 @@
   "toggleTheme.dark": "Σκοτεινό",
   "toggleTheme.light": "Φωτεινό",
   "toggleTheme.sreenReader": "Εναλλαγή θέματος",
-  "toggleTheme.system": "Σύστημα"
+  "toggleTheme.system": "Σύστημα",
+  "app.programmingLanguages": "Προγραμματισμένη σε"
 }
