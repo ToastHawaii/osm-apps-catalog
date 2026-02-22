@@ -81,8 +81,8 @@ export function ContributeSelect({
             return;
           }
           const onlyNewValues = difference(newValues, selected);
-          if ((window as any).goatcounter && onlyNewValues.length > 0) {
-            (window as any).goatcounter.count({
+          if (window.goatcounter && onlyNewValues.length > 0) {
+            window.goatcounter.count({
               path: `/?contribute=${onlyNewValues.join()}`,
               title: "Has selected a contribute filter.",
               referrer: "https://osm-apps.org/",
