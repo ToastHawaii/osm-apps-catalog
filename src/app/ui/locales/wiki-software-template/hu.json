@@ -1,372 +1,372 @@
 {
-    "map": {
-        "label": "Térkép megjelenítése",
-        "description": "[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"
-    },
-    "microsoftAppID": {
-        "description": "Microsoft Store Windows alkalmazás UUID",
-        "label": "Microsoft ID"
-    },
-    "mapData": {
-        "label": "Térképadatok",
-        "description": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"
-    },
-    "datasource": {
-        "label": "Forrás",
-        "description": "[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"
-    },
-    "rotateMap": {
-        "label": "Térkép elforgatása",
-        "description": "[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"
-    },
-    "3D": {
-        "label": "3D nézet",
-        "description": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"
-    },
-    "showWebsite": {
-        "label": "Megjelenít-e weboldalt?",
-        "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalára mutató linket?"
-    },
-    "showPhoneNumber": {
-        "label": "Megjelenít-e telefonszámot?",
-        "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"
-    },
-    "showOpeningHours": {
-        "label": "Megjelenít-e nyitva tartást?",
-        "description": "[POI információ] Megjeleníti-e a POI nyitvatartási idejét?"
-    },
-    "routing": {
-        "label": "Útvonaltervezés",
-        "description": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"
-    },
-    "createRouteManually": {
-        "label": "Útvonal létrehozása manuálisan",
-        "description": "[Útvonaltervezés]"
-    },
-    "calculateRoute": {
-        "label": "Útvonal kiszámítása",
-        "description": "[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"
-    },
-    "createRouteViaWaypoints": {
-        "label": "Útvonal létrehozása útpontokkal",
-        "description": "[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"
-    },
-    "profiles": {
-        "label": "Útvonaltervezési profilok",
-        "description": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"
-    },
-    "turnRestrictions": {
-        "label": "Bekanyarodási korlátozások",
-        "description": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"
-    },
-    "calculateRouteOffline": {
-        "label": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)",
-        "description": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"
-    },
-    "routingProviders": {
-        "label": "Útvonaltervezési szolgáltatók",
-        "description": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
-    },
-    "avoidTraffic": {
-        "label": "Forgalom elkerülése",
-        "description": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"
-    },
-    "trafficProvider": {
-        "label": "Forgalmi szolgáltató",
-        "description": "[Útvonaltervezés] Forgalmi adatok forrása"
-    },
-    "navigating": {
-        "label": "Navigáció",
-        "description": "[Navigáció] Tud-e iránytűszerűen navigálni?"
-    },
-    "findLocation": {
-        "label": "Hely keresése",
-        "description": "[Navigáció] Lehet-e utcát/helyet keresni?"
-    },
-    "findNearbyPOI": {
-        "label": "Közeli POI-k keresése",
-        "description": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"
-    },
-    "navToPoint": {
-        "label": "Navigáció ponthoz",
-        "description": "[Navigáció] El tud-e vezetni valahová?"
-    },
-    "voice": {
-        "label": "Hangos navigáció / Hangvezérlés",
-        "description": "[Navigáció] Tud-e számítógéphanggal utasítást adni?"
-    },
-    "keepOnRoad": {
-        "label": "Úton tartás",
-        "description": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"
-    },
-    "turnLanes": {
-        "label": "Sávvezetés",
-        "description": "[Navigáció] Támogatja-e a sávok közötti vezetést?"
-    },
-    "withoutGPS": {
-        "label": "Működés GPS nélkül",
-        "description": "[Navigáció] Működik-e akár GPS nélkül is?"
-    },
-    "predefinedRoute": {
-        "label": "Navigálás előre meghatározott útvonalon",
-        "description": "[Navigáció] Tud-e más GPS-nyomvonalat követni?"
-    },
-    "tracking": {
-        "label": "Nyomvonalkészítés",
-        "description": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"
-    },
-    "customInterval": {
-        "label": "Testreszabható naplózási intervallum",
-        "description": "[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"
-    },
-    "trackFormats": {
-        "label": "Nyomvonalformátumok",
-        "description": "[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"
-    },
-    "geotagging": {
-        "label": "Geotagging",
-        "description": "[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"
-    },
-    "fastWayPointAdding": {
-        "label": "Gyors POI-gombok",
-        "description": "[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"
-    },
-    "uploadGPX": {
-        "label": "GPX feltöltése az OSM-re",
-        "description": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
-    },
-    "monitoring": {
-        "label": "Követés",
-        "description": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
-    },
-    "showTrack": {
-        "label": "Jelenlegi nyomvonal megjelenítése",
-        "description": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"
-    },
-    "showExistingTrack": {
-        "label": "Meglévő nyomvonal megnyitása",
-        "description": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"
-    },
-    "showAltitudeDiagram": {
-        "label": "Magassági diagram",
-        "description": "[Nyomvonalkövetés]"
-    },
-    "showSpeed": {
-        "description": "[Nyomvonalkövetés]",
-        "label": "Sebesség megjelenítése"
-    },
-    "showDOP": {
-        "label": "DOP-érték megjelenítése",
-        "description": "[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"
-    },
-    "showSatellites": {
-        "label": "Műholdak nézet",
-        "description": "[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"
-    },
-    "editTags": {
-        "description": "[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?",
-        "label": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"
-    },
-    "showNMEAlive": {
-        "label": "Élő NMEA-adatok megjelenítése",
-        "description": "[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"
-    },
-    "editRelations": {
-        "label": "Kapcsolat szerkesztése",
-        "description": "[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"
-    },
-    "viewNotes": {
-        "label": "Jegyzetek megtekintése",
-        "description": "[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"
-    },
-    "createNotes": {
-        "label": "Jegyzet létrehozása",
-        "description": "[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"
-    },
-    "editNotes": {
-        "label": "Jegyzet szerkesztése",
-        "description": "[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"
-    },
-    "editSource": {
-        "label": "Offline munka",
-        "description": "[Szerkesztő] Lehet-e vele offline dolgozni?"
-    },
-    "offsetDBsupport": {
-        "label": "Légifelvétel-eltolási adatbázis támogatása",
-        "description": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"
-    },
-    "uploadOSMData": {
-        "label": "Feltöltés az OSM-re",
-        "description": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"
-    },
-    "rendererOutputFormats": {
-        "label": "Megjelenítő kimeneti formátumai",
-        "description": "[Megjelenítő] Támogatott kimeneti formátumok"
-    },
-    "accessibility": {
-        "label": "Kisegítő lehetőségek támogatása",
-        "description": "[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"
-    },
-    "textOnlyUI": {
-        "label": "Teljes nem grafikus szöveges kimenet",
-        "description": "[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"
-    },
-    "brailleUI": {
-        "label": "Braille-írás interfész",
-        "description": "[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"
-    },
-    "explorerMode": {
-        "label": "Feltáró mód",
-        "description": "[Akadálymentesség] Van-e benne felfedezési mód? (Megemlít minden közeledő objektumot.)"
-    },
-    "publicTransportMode": {
-        "label": "Tömegközlekedési mód",
-        "description": "[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"
-    },
-    "dangerWarnings": {
-        "label": "Figyelmeztetés veszélyre",
-        "description": "[Akadálymentesség]"
-    },
-    "screenReader": {
-        "label": "Képernyő-felolvasó",
-        "description": "[Akadálymentesség] Támogatott képernyő-felolvasók listája"
-    },
-    "screenReaderLang": {
-        "label": "Képernyő-felolvasó nyelvei",
-        "description": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"
-    },
-    "genre": {
-        "label": "Típus",
-        "description": "Az eszköz fő kategóriája"
-    },
-    "googlePlayID": {
-        "description": "Google Play Store alkalmazásazonosító",
-        "label": "Google Play ID"
-    },
-    "huaweiAppGalleryID": {
-        "label": "Huawei AppGallery ID",
-        "description": "Huawei AppGallery alkalmazásazonosító"
-    },
-    "appleStoreID": {
-        "label": "AppStore ID",
-        "description": "iTunes App Store alkalmazásazonosító"
-    },
-    "macAppStoreID": {
-        "label": "Mac AppStore ID",
-        "description": "Mac App Store alkalmazásazonosító"
-    },
-    "lang": {
-        "label": "Sablon nyelve",
-        "description": "A sablonszövegek megjelenítésének nyelve"
-    },
-    "name": {
-        "label": "Név",
-        "description": "Hivatalos név, annak híján a legelterjedtebb"
-    },
-    "languagesurl": {
-        "description": "Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban).",
-        "label": "Nyelvek URL-je"
-    },
-    "code": {
-        "label": "Kód",
-        "description": "A felhasznált programozási nyelvek listája"
-    },
-    "framework": {
-        "label": "Keretrendszer",
-        "description": "A felhasznált keretrendszerek listája"
-    },
-    "version": {
-        "label": "Verzió",
-        "description": "Legújabb verzió"
-    },
-    "date": {
-        "label": "Kiadás dátuma",
-        "description": "A legutóbbi megjelenés dátuma"
-    },
-    "asin": {
-        "label": "Amazon azonosító",
-        "description": "Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"
-    },
-    "bbWorldID": {
-        "label": "BlackBerry ID",
-        "description": "BlackBerry World alkalmazásazonosító"
-    },
-    "fDroidID": {
-        "label": "F-Droid ID",
-        "description": "F-Droid alkalmazásazonosító"
-    },
-    "firefoxMarketplaceID": {
-        "label": "Firefox Marketplace ID",
-        "description": "Mozilla Firefox Marketplace alkalmazásazonosító"
-    },
-    "sendPosition": {
-        "label": "Jelenlegi pozíció elküldése",
-        "description": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"
-    },
-    "addPOI": {
-        "label": "Érdekes pont (POI-k) felvétele",
-        "description": "[Szerkesztő] Fel lehet-e venni egy pontot?"
-    },
-    "editPOI": {
-        "label": "Érdekes pont szerkesztésetörlése",
-        "description": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?"
-    },
-    "addWay": {
-        "label": "Vonal felvétele",
-        "description": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?"
-    },
-    "editGeom": {
-        "label": "Alakzat szerkesztése",
-        "description": "[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"
-    },
-    "status": {
-        "label": "Állapot",
-        "description": "A projekt jelenlegi állapota"
-    },
-    "license": {
-        "label": "Licenc",
-        "description": "Milyen szabad vagy tulajdonosi licenc alá tartozik?"
-    },
-    "price": {
-        "label": "Ár",
-        "description": "Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."
-    },
-    "web": {
-        "label": "Webcím"
-    },
-    "repo": {
-        "label": "Forráskód",
-        "description": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"
-    },
-    "logo": {
-        "label": "Logó",
-        "description": "Szoftver ikonja vagy logója"
-    },
-    "screenshot": {
-        "label": "Képernyőkép"
-    },
-    "description": {
-        "label": "Leírás",
-        "description": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"
-    },
-    "author": {
-        "label": "Szerző",
-        "description": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje"
-    },
-    "platform": {
-        "label": "Támogatott platformok",
-        "description": "Azon platformok listája, amelyeken fut"
-    },
-    "languages": {
-        "label": "Nyelvek",
-        "description": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"
-    },
-    "coverage": {
-        "label": "Lefedés",
-        "description": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."
-    },
-    "obtainiumLink": {
-        "label": "Obtainium frissítési link",
-        "description": "Link az Obtainium frissítési információkhoz"
-    }
+  "map": {
+    "label": "Térkép megjelenítése",
+    "description": "[Térkép-megjelenítés] Meg tud-e jeleníteni térképet?"
+  },
+  "microsoftAppID": {
+    "description": "Microsoft Store Windows alkalmazás UUID",
+    "label": "Microsoft ID"
+  },
+  "mapData": {
+    "label": "Térképadatok",
+    "description": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"
+  },
+  "datasource": {
+    "label": "Forrás",
+    "description": "[Térkép-megjelenítés] El tud-e tárolni minden térképadatot offline módon? Le kell-e ehhez tölteni külön fájlt?"
+  },
+  "rotateMap": {
+    "label": "Térkép elforgatása",
+    "description": "[Térkép-megjelenítés] Elfordítja-e a térképet a vezetés/gyaloglás irányába?"
+  },
+  "3D": {
+    "label": "3D nézet",
+    "description": "[Térkép-megjelenítés] Van-e valamilyen 3D vagy 2,5D nézet?"
+  },
+  "showWebsite": {
+    "label": "Weboldal megjelenítése",
+    "description": "[POI információ] Megjeleníti az érdekes pont (POI) weboldalára mutató linket"
+  },
+  "showPhoneNumber": {
+    "label": "Telefonszám megjelenítése",
+    "description": "[POI információ] Megjeleníti az érdekes pont (POI) telefonszámát"
+  },
+  "showOpeningHours": {
+    "label": "Nyitva tartás megjelenítése",
+    "description": "[POI információ] Megjeleníti az érdekes pont (POI) nyitvatartási idejét"
+  },
+  "routing": {
+    "label": "Útvonaltervezés",
+    "description": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"
+  },
+  "createRouteManually": {
+    "label": "Útvonal létrehozása manuálisan",
+    "description": "[Útvonaltervezés]"
+  },
+  "calculateRoute": {
+    "label": "Útvonal kiszámítása",
+    "description": "[Útvonaltervezés] Tud-e útvonaltervezéssel útvonalat kiszámítani?"
+  },
+  "createRouteViaWaypoints": {
+    "label": "Útvonal létrehozása útpontokkal",
+    "description": "[Útvonaltervezés] Képes útpontok érintésével útvonalat kiszámítani"
+  },
+  "profiles": {
+    "label": "Útvonaltervezési profilok",
+    "description": "[Útvonaltervezés] Milyen profilokat támogat útvonaltervezéskor?"
+  },
+  "turnRestrictions": {
+    "label": "Bekanyarodási korlátozások",
+    "description": "[Útvonaltervezés] Meg tud-e birkózni bekanyarodási korlátozásokkal?"
+  },
+  "calculateRouteOffline": {
+    "label": "Útvonal kiszámítása internet nélkül (offline útvonaltervezés)",
+    "description": "[Útvonaltervezés] Van-e szüksége internetkapcsolatra az útvonal kiszámításához?"
+  },
+  "routingProviders": {
+    "label": "Útvonaltervezési szolgáltatók",
+    "description": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
+  },
+  "avoidTraffic": {
+    "label": "Forgalom elkerülése",
+    "description": "[Útvonaltervezés] Optimalizálja-e az alkalmazás az útvonalat a forgalmi dugók elkerülése érdekében?"
+  },
+  "trafficProvider": {
+    "label": "Forgalmi szolgáltató",
+    "description": "[Útvonaltervezés] Forgalmi adatok forrása."
+  },
+  "navigating": {
+    "label": "Navigáció",
+    "description": "[Navigáció] Tud-e iránytűszerűen navigálni?"
+  },
+  "findLocation": {
+    "label": "Hely keresése",
+    "description": "[Navigáció] Lehet-e utcát/helyet keresni?"
+  },
+  "findNearbyPOI": {
+    "label": "Közeli POI-k keresése",
+    "description": "[Navigáció] Felismer-e/megjelenít-e érdekes pontokat (POI-kat)?"
+  },
+  "navToPoint": {
+    "label": "Navigáció ponthoz",
+    "description": "[Navigáció] El tud-e vezetni egy adott ponthoz?"
+  },
+  "voice": {
+    "label": "Hangos navigáció / Hangvezérlés",
+    "description": "[Navigáció] Tud-e számítógéphanggal utasítást adni?"
+  },
+  "keepOnRoad": {
+    "label": "Úton tartás",
+    "description": "[Navigáció] Tud-e abban segíteni, hogy járművet a kiszámított útvonalon tartsa?"
+  },
+  "turnLanes": {
+    "label": "Sávvezetés",
+    "description": "[Navigáció] Támogatja-e a sávok közötti vezetést?"
+  },
+  "withoutGPS": {
+    "label": "Működés GPS nélkül",
+    "description": "[Navigáció] Működik-e akár GPS nélkül is?"
+  },
+  "predefinedRoute": {
+    "label": "Navigálás előre meghatározott útvonalon",
+    "description": "[Navigáció] Tud-e más GPS-nyomvonalat követni?"
+  },
+  "tracking": {
+    "label": "Nyomvonalkészítés",
+    "description": "[Nyomvonalnaplózás] Tud-e GPS nyomvonalat rögzíteni?"
+  },
+  "customInterval": {
+    "label": "Testreszabható naplózási intervallum",
+    "description": "[Nyomvonalnaplózás] Be lehet-e állítani az intervallumot manuálisan?"
+  },
+  "trackFormats": {
+    "label": "Nyomvonalformátumok",
+    "description": "[Nyomvonalnaplózás] Milyen tárolási formátumban tudja elmenteni a GPS nyomvonalat?"
+  },
+  "geotagging": {
+    "label": "Geotagging",
+    "description": "[Nyomvonalnaplózás] Támogat-e további térképezési technikát?"
+  },
+  "fastWayPointAdding": {
+    "label": "Gyors POI-gombok",
+    "description": "[Nyomvonalnaplózás] Könnyű-e új útpontot felvenni?"
+  },
+  "uploadGPX": {
+    "label": "GPX feltöltése az OSM-re",
+    "description": "[Nyomvonalnaplózás] Tud-e nyomvonalat küldeni közvetlenül az OSM-re?"
+  },
+  "monitoring": {
+    "label": "Követés",
+    "description": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
+  },
+  "showTrack": {
+    "label": "Jelenlegi nyomvonal megjelenítése",
+    "description": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"
+  },
+  "showExistingTrack": {
+    "label": "Meglévő nyomvonal megnyitása",
+    "description": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"
+  },
+  "showAltitudeDiagram": {
+    "label": "Magassági diagram",
+    "description": "[Nyomvonalkövetés]"
+  },
+  "showSpeed": {
+    "description": "[Nyomvonalkövetés]",
+    "label": "Sebesség megjelenítése"
+  },
+  "showDOP": {
+    "label": "DOP-érték megjelenítése",
+    "description": "[Nyomvonalkövetés] Megjeleníti-e a jel minőségét?"
+  },
+  "showSatellites": {
+    "label": "Műholdak nézet",
+    "description": "[Nyomvonalkövetés] Megjeleníti-e a műholdakat?"
+  },
+  "editTags": {
+    "description": "[Szerkesztő] Lehet-e vele meglévő címkéket szerkeszteni?",
+    "label": "Meglévő OSM-objektum tetszőleges címkéjének szerkesztése"
+  },
+  "showNMEAlive": {
+    "label": "Élő NMEA-adatok megjelenítése",
+    "description": "[Nyomvonalkövetés] Mutatja-e a nyers GPS-adatfolyamot?"
+  },
+  "editRelations": {
+    "label": "Kapcsolat szerkesztése",
+    "description": "[Szerkesztő] Lehet-e vele kapcsolatot szerkeszteni?"
+  },
+  "viewNotes": {
+    "label": "Jegyzetek megtekintése",
+    "description": "[Szerkesztő] Meg lehet-e nézni vele OSM-jegyzeteket?"
+  },
+  "createNotes": {
+    "label": "Jegyzet létrehozása",
+    "description": "[Szerkesztő] Lehet-e vele OSM-jegyzetet felvenni?"
+  },
+  "editNotes": {
+    "label": "Jegyzet szerkesztése",
+    "description": "[Szerkesztő] Lehet-e vele OSM-jegyzethez hozzászólni vagy azt lezárni?"
+  },
+  "editSource": {
+    "label": "Offline munka",
+    "description": "[Szerkesztő] Lehet-e vele offline dolgozni?"
+  },
+  "offsetDBsupport": {
+    "label": "Légifelvétel-eltolási adatbázis támogatása",
+    "description": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"
+  },
+  "uploadOSMData": {
+    "label": "Feltöltés az OSM-re",
+    "description": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"
+  },
+  "rendererOutputFormats": {
+    "label": "Megjelenítő kimeneti formátumai",
+    "description": "[Megjelenítő] Támogatott kimeneti formátumok"
+  },
+  "accessibility": {
+    "label": "Kisegítő lehetőségek támogatása",
+    "description": "[Akadálymentesség] Segít-e valahogyan a fogyatékkal élőknek?"
+  },
+  "textOnlyUI": {
+    "label": "Teljes nem grafikus szöveges kimenet",
+    "description": "[Akadálymentesség] Van-e benne szöveget Braille-írássá alakítóval kompatibilis felület?"
+  },
+  "brailleUI": {
+    "label": "Braille-írás interfész",
+    "description": "[Akadálymentesség] Van-e benne speciális Braille-írásos felület?"
+  },
+  "explorerMode": {
+    "label": "Feltáró mód",
+    "description": "[Akadálymentesség] Van benne felfedező mód. (Megemlít minden közeledő objektumot.)"
+  },
+  "publicTransportMode": {
+    "label": "Tömegközlekedési mód",
+    "description": "[Akadálymentesség] Támogatja-e a tömegközlekedéssel történő útvonaltervezést?"
+  },
+  "dangerWarnings": {
+    "label": "Figyelmeztetés veszélyre",
+    "description": "[Akadálymentesség]"
+  },
+  "screenReader": {
+    "label": "Képernyő-felolvasó",
+    "description": "[Akadálymentesség] Támogatott képernyő-felolvasók listája"
+  },
+  "screenReaderLang": {
+    "label": "Képernyő-felolvasó nyelvei",
+    "description": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"
+  },
+  "genre": {
+    "label": "Típus",
+    "description": "Az eszköz fő kategóriája."
+  },
+  "googlePlayID": {
+    "description": "Google Play Store alkalmazásazonosító",
+    "label": "Google Play ID"
+  },
+  "huaweiAppGalleryID": {
+    "label": "Huawei AppGallery ID",
+    "description": "Huawei AppGallery alkalmazásazonosító"
+  },
+  "appleStoreID": {
+    "label": "AppStore ID",
+    "description": "iTunes App Store alkalmazásazonosító"
+  },
+  "macAppStoreID": {
+    "label": "Mac AppStore ID",
+    "description": "Mac App Store alkalmazásazonosító"
+  },
+  "lang": {
+    "label": "Sablon nyelve",
+    "description": "A sablonszövegek megjelenítésének nyelve."
+  },
+  "name": {
+    "label": "Név",
+    "description": "Hivatalos név, annak híján a legelterjedtebb"
+  },
+  "languagesurl": {
+    "description": "Link a támogatott nyelvek tényleges teljes listájához, amely egy másik oldalon szerepel (pl. a szoftver portáloldalán vagy egy adattárban).",
+    "label": "Nyelvek URL-je"
+  },
+  "code": {
+    "label": "Kód",
+    "description": "A felhasznált programozási nyelvek listája."
+  },
+  "framework": {
+    "label": "Keretrendszer",
+    "description": "A felhasznált keretrendszerek listája."
+  },
+  "version": {
+    "label": "Verzió",
+    "description": "Legújabb verzió"
+  },
+  "date": {
+    "label": "Kiadás dátuma",
+    "description": "A legutóbbi megjelenés dátuma"
+  },
+  "asin": {
+    "label": "Amazon azonosító",
+    "description": "Az Amazon szabványos azonosítószáma az Amazon Appstore for Androidhoz"
+  },
+  "bbWorldID": {
+    "label": "BlackBerry ID",
+    "description": "BlackBerry World alkalmazásazonosító"
+  },
+  "fDroidID": {
+    "label": "F-Droid ID",
+    "description": "F-Droid alkalmazásazonosító"
+  },
+  "firefoxMarketplaceID": {
+    "label": "Firefox Marketplace ID",
+    "description": "Mozilla Firefox Marketplace alkalmazásazonosító"
+  },
+  "sendPosition": {
+    "label": "Jelenlegi pozíció elküldése",
+    "description": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"
+  },
+  "addPOI": {
+    "label": "Érdekes pont (POI-k) felvétele",
+    "description": "[Szerkesztő] Fel lehet-e venni egy pontot?"
+  },
+  "editPOI": {
+    "label": "Érdekes pont szerkesztésetörlése",
+    "description": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?"
+  },
+  "addWay": {
+    "label": "Vonal felvétele",
+    "description": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?"
+  },
+  "editGeom": {
+    "label": "Alakzat szerkesztése",
+    "description": "[Szerkesztő] Lehet-e vele pontot/vonalat szerkeszteni?"
+  },
+  "status": {
+    "label": "Állapot",
+    "description": "A projekt jelenlegi állapota."
+  },
+  "license": {
+    "label": "Licenc",
+    "description": "Milyen szabad vagy tulajdonosi licenc alá tartozik?"
+  },
+  "price": {
+    "label": "Ár",
+    "description": "Költségek, ha tulajdonosi. Ha az ár üres, akkor az alkalmazás ingyenes."
+  },
+  "web": {
+    "label": "Webcím"
+  },
+  "repo": {
+    "label": "Forráskód",
+    "description": "URL a forráskód megtekintéséhez vagy letöltéséhez (például egy Git, Subversion vagy CVS tároló)"
+  },
+  "logo": {
+    "label": "Logó",
+    "description": "Szoftver ikonja vagy logója"
+  },
+  "screenshot": {
+    "label": "Képernyőkép"
+  },
+  "description": {
+    "label": "Leírás",
+    "description": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"
+  },
+  "author": {
+    "label": "Szerző",
+    "description": "A szerző neve vagy OSM-wiki felhasználói oldalának linkje"
+  },
+  "platform": {
+    "label": "Támogatott platformok",
+    "description": "Azon platformok listája, amelyeken fut."
+  },
+  "languages": {
+    "label": "Nyelvek",
+    "description": "Támogatott nyelvek (érvényes nyelvkódok pontosvesszővel elválasztott listája) vagy a támogatott nyelvek száma"
+  },
+  "coverage": {
+    "label": "Lefedés",
+    "description": "Az alkalmazás lefedettsége vagy célrégiója. Formázás: „földrész, ország, régió, …”. Globális használat esetén „Worldwide” vagy hagyd üresen."
+  },
+  "obtainiumLink": {
+    "label": "Obtainium frissítési link",
+    "description": "Link az Obtainium frissítési információkhoz"
+  }
 }

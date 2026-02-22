@@ -143,5 +143,11 @@
   "share.wiki": "Αντιγράφηκε ο πίνακας {{group}} στο πρόχειρο σε μορφή για το wiki.openstreetmap.org.",
   "wiki.generatedBy": "Παρήχθη από τον Κατάλογο Εφαρμογών OSM",
   "wiki.generatedByOsmAppsCatalog": "Αυτός ο πίνακας παρήχθη από τον [{{link}} Κατάλογο Εφαρμογών OSM] στις {{date}}.",
-  "wiki.none": "κανένα"
+  "wiki.none": "κανένα",
+  "category.isochrone": "Ισοχρωματικοί χάρτες",
+  "nav.leaveTech": "Έξοδος από προβολή τεχνολογίας",
+  "toggleTheme.dark": "Σκοτεινό",
+  "toggleTheme.light": "Φωτεινό",
+  "toggleTheme.sreenReader": "Εναλλαγή θέματος",
+  "toggleTheme.system": "Σύστημα"
 }

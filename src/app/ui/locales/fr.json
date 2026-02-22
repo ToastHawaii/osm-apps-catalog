@@ -143,5 +143,12 @@
   "share.wiki": "Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.",
   "wiki.generatedBy": "Généré par le Catalogue des applications OSM",
   "wiki.generatedByOsmAppsCatalog": "Ce tableau a été généré par le [{{link}} Catalogue des applications OSM] le {{date}}.",
-  "wiki.none": "aucun"
+  "wiki.none": "aucun",
+  "category.isochrone": "Cartes isochrones",
+  "nav.leaveTech": "Quitter la vue technique",
+  "toggleTheme.dark": "Sombre",
+  "toggleTheme.light": "Clair",
+  "toggleTheme.sreenReader": "Basculer le thème",
+  "toggleTheme.system": "Système",
+  "app.programmingLanguages": "Programmé en"
 }
