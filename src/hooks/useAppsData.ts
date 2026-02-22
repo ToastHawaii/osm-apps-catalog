@@ -22,7 +22,13 @@ async function loadData() {
     } else {
       data = await getJson("https://osm-apps.org/api/apps/all.json", {});
     }
-    set("appsData", data);
+
+    try {
+      set("appsData", data);
+    } catch (error) {
+      console.error("Data could not be cached.", error);
+    }
+
     return data;
   } catch (error) {
     console.error("Data could not be loaded, try to use local cache.", error);
