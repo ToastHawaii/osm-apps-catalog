@@ -1,4 +1,3 @@
-import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";
@@ -27,8 +26,6 @@ export function ThemeProvider({
   storageKey = "theme-mode",
   ...props
 }: ThemeProviderProps) {
-  const isTechView = useIsTechDomain();
-
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
@@ -42,16 +39,14 @@ export function ThemeProvider({
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
         ? "dark"
-        : !isTechView
-          ? "light"
-          : "dark";
+        : "light";
 
       root.classList.add(`theme-mode-${systemTheme}`);
       return;
     }
 
     root.classList.add(`theme-mode-${theme}`);
-  }, [theme, isTechView]);
+  }, [theme]);
 
   const value = {
     theme,

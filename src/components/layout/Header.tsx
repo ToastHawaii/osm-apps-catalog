@@ -20,6 +20,7 @@ import { useRoute } from "@hooks/useRoute";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { HelpCircleIcon, Search01Icon } from "@hugeicons/core-free-icons";
+import { featureFlags } from "../../featureFlags";
 
 export function Header() {
   const { t } = useTranslation();
@@ -127,9 +128,11 @@ export function Header() {
                 </a>
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <ThemeModeToggle />
-            </NavigationMenuItem>
+            {featureFlags.showThemeModeToggle && (
+              <NavigationMenuItem>
+                <ThemeModeToggle />
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
