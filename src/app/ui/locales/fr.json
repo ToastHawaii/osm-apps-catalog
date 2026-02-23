@@ -150,5 +150,6 @@
   "toggleTheme.light": "Clair",
   "toggleTheme.sreenReader": "Basculer le thème",
   "toggleTheme.system": "Système",
-  "app.programmingLanguages": "Programmé en"
+  "app.programmingLanguages": "Programmé en",
+  "filter.programmingLanguage": "Programmé en"
 }
