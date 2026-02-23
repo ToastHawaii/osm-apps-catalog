@@ -151,5 +151,8 @@
   "toggleTheme.sreenReader": "Εναλλαγή θέματος",
   "toggleTheme.system": "Σύστημα",
   "app.programmingLanguages": "Προγραμματισμένη σε",
-  "filter.programmingLanguage": "Προγραμματισμένες σε"
+  "filter.programmingLanguage": "Προγραμματισμένες σε",
+  "techViewPanel.action": "Εναλλαγή στην προβολή τεχνολογίας!",
+  "techViewPanel.description": "Δείτε βιβλιοθήκες και τεχνικές εφαρμογές του OpenStreetMap στην προβολή τεχνολογίας.",
+  "techViewPanel.title": "Είστε γνώστης της τεχνολογίας;"
 }
