@@ -10,9 +10,14 @@ import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 
 import { Spotlight } from "./components/Spotlight";
 import { Category } from "./components/Category";
+import { Item, ItemActions, ItemContent } from "@components/ui/item";
+import { Link } from "react-router";
+import { useRoute } from "@hooks/useRoute";
+import { Button } from "@components/ui/button";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
+  const routes = useRoute();
 
   const platforms = usePlatformUrlParam().map((p) => p.toUpperCase());
   const { spotlight, categories } = useMemo(() => {
@@ -102,6 +107,36 @@ export function Home({ apps }: { apps: App[] }) {
                 apps={category.apps}
               />
             ))}
+          <div className="my-10 w-full px-6 md:px-16">
+            <div role="list" className="">
+              <div className="p-2">
+                <Item
+                  className="flex flex-col gap-6 overflow-hidden bg-purple-50 px-10 py-8 sm:flex-row"
+                  variant="outline"
+                  role="listitem"
+                >
+                  <ItemContent className="p-0">
+                    <div className="text-2xl">{t("techViewPanel.title")}</div>
+                    <div className="text-base">
+                      {t("techViewPanel.description")}
+                    </div>
+                  </ItemContent>
+
+                  <ItemActions className="w-full justify-end sm:w-auto">
+                    <Button
+                      variant="emphasized"
+                      asChild
+                      className="w-full sm:w-auto"
+                    >
+                      <Link to={routes.home({ domain: "tech" })}>
+                        {t("techViewPanel.action")}
+                      </Link>
+                    </Button>
+                  </ItemActions>
+                </Item>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>

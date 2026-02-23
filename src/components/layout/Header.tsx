@@ -46,13 +46,15 @@ export function Header() {
               alt="OSM App Catalog"
               className="mr-1 h-6 w-6"
             />{" "}
-            <span className="hidden md:inline">OSM App Catalog</span>
-            {isTechView ? (
-              <Badge className="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
-                Tech
-              </Badge>
+            {!isTechView ? (
+              "OSM App Catalog"
             ) : (
-              ""
+              <>
+                <span className="hidden md:inline">OSM App Catalog</span>
+                <Badge className="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                  Tech
+                </Badge>
+              </>
             )}
           </Link>
         </Button>
@@ -85,23 +87,30 @@ export function Header() {
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                asChild
-                className={navigationMenuTriggerStyle()}
-                data-active={isTechView}
-              >
-                {isTechView ? (
-                  <Link to={routes.home({ domain: undefined })}>
-                    {t("nav.leaveTech")}
-                  </Link>
-                ) : (
+            {!isTechView ? (
+              <NavigationMenuItem className="hidden md:inline">
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                >
                   <Link to={routes.home({ domain: "tech" })}>
                     {t("nav.tech")}
                   </Link>
-                )}
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ) : (
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                  data-active={true}
+                >
+                  <Link to={routes.home({ domain: undefined })}>
+                    {t("nav.leaveTech")}
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
