@@ -26,7 +26,7 @@ export function ScrollRestoration() {
       left: location.state?.left || 0,
       behavior: "instant",
     });
-  }, [searchParams.get("view")]);
+  }, [searchParams.get("domain"), searchParams.get("view")]);
 
   useLayoutEffect(() => {
     const scrollContainer = document.getElementById("content");
