@@ -39,7 +39,7 @@ export function Spotlight({ apps }: { apps: App[] }) {
             <CarouselItem key={app.id} className="basis-1/1">
               <div className="p-2">
                 <Item
-                  className="overflow-hidden px-12 py-10"
+                  className="overflow-hidden border-none px-12 py-10"
                   variant="outline"
                   asChild
                   role="listitem"

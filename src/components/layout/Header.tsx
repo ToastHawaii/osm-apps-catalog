@@ -92,7 +92,10 @@ export function Header() {
               <NavigationMenuItem className="hidden md:inline">
                 <NavigationMenuLink
                   asChild
-                  className={navigationMenuTriggerStyle()}
+                  className={
+                    navigationMenuTriggerStyle() +
+                    " hover:bg-purple-500/10! hover:text-purple-500"
+                  }
                 >
                   <Link to={routes.home({ domain: "tech" })}>
                     {t("nav.tech")}
@@ -103,7 +106,10 @@ export function Header() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={navigationMenuTriggerStyle()}
+                  className={
+                    navigationMenuTriggerStyle() +
+                    " bg-purple-500/10! text-purple-500 hover:bg-purple-500/20!"
+                  }
                   data-active={true}
                 >
                   <Link to={routes.home({ domain: undefined })}>

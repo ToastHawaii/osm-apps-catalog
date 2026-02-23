@@ -111,7 +111,7 @@ export function Home({ apps }: { apps: App[] }) {
             <div role="list" className="">
               <div className="p-2">
                 <Item
-                  className="flex flex-col gap-6 overflow-hidden bg-purple-50 px-10 py-8 sm:flex-row"
+                  className="flex flex-col gap-6 overflow-hidden border-none bg-purple-50 px-10 py-8 sm:flex-row"
                   variant="outline"
                   role="listitem"
                 >
@@ -124,9 +124,8 @@ export function Home({ apps }: { apps: App[] }) {
 
                   <ItemActions className="w-full justify-end sm:w-auto">
                     <Button
-                      variant="emphasized"
+                      className="w-full border-purple-500/0 bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 sm:w-auto"
                       asChild
-                      className="w-full sm:w-auto"
                     >
                       <Link to={routes.home({ domain: "tech" })}>
                         {t("techViewPanel.action")}
