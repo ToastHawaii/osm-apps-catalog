@@ -151,5 +151,8 @@
   "toggleTheme.sreenReader": "Basculer le thème",
   "toggleTheme.system": "Système",
   "app.programmingLanguages": "Programmé en",
-  "filter.programmingLanguage": "Programmé en"
+  "filter.programmingLanguage": "Programmé en",
+  "techViewPanel.action": "Passez à la vue technique !",
+  "techViewPanel.description": "Consultez les bibliothèques OpenStreetMap et les applications techniques dans la vue technique.",
+  "techViewPanel.title": "Êtes-vous féru de technologie ?"
 }
