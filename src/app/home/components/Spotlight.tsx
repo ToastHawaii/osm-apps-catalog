@@ -8,13 +8,17 @@ import {
   CarouselNext,
 } from "@components/ui/carousel";
 import { Item, ItemContent } from "@components/ui/item";
+import { useRoute } from "@hooks/useRoute";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { textToColor } from "@shared/utils/string";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
+import { Link } from "react-router";
 
 export function Spotlight({ apps }: { apps: App[] }) {
+  const routes = useRoute();
+
   return (
     <Carousel
       className="w-full px-6 md:px-16"
@@ -43,7 +47,7 @@ export function Spotlight({ apps }: { apps: App[] }) {
                     backgroundColor: `rgb(${defaultColor.r} ${defaultColor.g} ${defaultColor.b} / 40%)`,
                   }}
                 >
-                  <a href={`?view=app&app=${app.id}`}>
+                  <Link to={routes.app({ app: app.id })}>
                     <ItemContent className="grid p-0 md:grid-cols-2">
                       <div className="justify-items-center">
                         <div className="grid">
@@ -66,7 +70,7 @@ export function Spotlight({ apps }: { apps: App[] }) {
                         <AppScreenshot app={app} loadOnInit />
                       </div>
                     </ItemContent>
-                  </a>
+                  </Link>
                 </Item>
               </div>
             </CarouselItem>
