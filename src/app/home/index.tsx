@@ -107,35 +107,37 @@ export function Home({ apps }: { apps: App[] }) {
                 apps={category.apps}
               />
             ))}
-          <div className="my-10 w-full px-6 md:px-16">
-            <div role="list" className="">
-              <div className="p-2">
-                <Item
-                  className="flex flex-col gap-6 overflow-hidden border-none bg-purple-50 px-10 py-8 sm:flex-row"
-                  variant="outline"
-                  role="listitem"
-                >
-                  <ItemContent className="p-0">
-                    <div className="text-2xl">{t("techViewPanel.title")}</div>
-                    <div className="text-base">
-                      {t("techViewPanel.description")}
-                    </div>
-                  </ItemContent>
+          {apps.length > 0 && (
+            <div className="my-10 w-full px-6 md:px-16">
+              <div role="list" className="">
+                <div className="p-2">
+                  <Item
+                    className="flex flex-col gap-6 overflow-hidden border-none bg-purple-50 px-10 py-8 sm:flex-row"
+                    variant="outline"
+                    role="listitem"
+                  >
+                    <ItemContent className="p-0">
+                      <div className="text-2xl">{t("techViewPanel.title")}</div>
+                      <div className="text-base">
+                        {t("techViewPanel.description")}
+                      </div>
+                    </ItemContent>
 
-                  <ItemActions className="w-full justify-end sm:w-auto">
-                    <Button
-                      className="w-full border-purple-500/0 bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 sm:w-auto"
-                      asChild
-                    >
-                      <Link to={routes.home({ domain: "tech" })}>
-                        {t("techViewPanel.action")}
-                      </Link>
-                    </Button>
-                  </ItemActions>
-                </Item>
+                    <ItemActions className="w-full justify-end sm:w-auto">
+                      <Button
+                        className="w-full border-purple-500/0 bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 sm:w-auto"
+                        asChild
+                      >
+                        <Link to={routes.home({ domain: "tech" })}>
+                          {t("techViewPanel.action")}
+                        </Link>
+                      </Button>
+                    </ItemActions>
+                  </Item>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </>
