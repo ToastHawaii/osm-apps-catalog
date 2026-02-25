@@ -41,7 +41,7 @@
   "app.install.obtainium": "Obtainium",
   "app.languages": "語言",
   "app.lastRelease": "上次發佈",
-  "app.license": "許可證",
+  "app.license": "授權條款",
   "app.platforms": "平臺",
   "app.price": "價格",
   "app.source": "來源",
@@ -151,5 +151,6 @@
   "category.library.description": "{{numberOfApps}} 項資源能夠處理開放街圖相關資料。",
   "nav.leaveTech": "離開技術檢視",
   "toggleTheme.dark": "夜晚",
-  "toggleTheme.light": "白天"
+  "toggleTheme.light": "白天",
+  "app.programmingLanguages": "用什麼程式語言撰寫"
 }
