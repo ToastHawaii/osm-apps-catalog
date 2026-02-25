@@ -26,6 +26,7 @@ import { useRoute } from "@hooks/useRoute";
 import { useNavigate } from "react-router";
 import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
+import { List } from "@app/ui/views/List";
 
 import "../../index.scss";
 import "../../index.css";
@@ -270,10 +271,14 @@ export function Search({ apps }: { apps: App[] }) {
               <div id="list">
                 {filteredApps.length > 0 ? (
                   <PagedList
-                    apps={filteredApps}
-                    open={!!state.app}
-                    state={state}
-                    isInitState={isInitState}
+                    Template={List}
+                    items={filteredApps.map((app) => ({
+                      key: app.id,
+                      app,
+                      open: !!state.app,
+                      state,
+                      isInitState,
+                    }))}
                   >
                     <RelatedApps
                       findSimilarApps={findSimilarApps}

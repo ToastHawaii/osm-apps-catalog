@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { App as AppData } from "@shared/data/App";
-import { List } from "./views/List";
-import { LazyLoadImages } from "./components/LazyLoadImages";
-import { State } from "./State";
+import React, { useState, useEffect, ReactNode } from "react";
 
 let scrollTop = 0;
 
@@ -32,23 +28,19 @@ function init(onNextPage: () => void, reset?: boolean) {
   }
 }
 
-export function PagedList({
-  apps,
-  open,
+export function PagedList<T extends { key: React.Key }>({
+  Template,
+  items,
   children,
-  state,
-  isInitState,
 }: {
-  apps: AppData[];
-  open: boolean;
-  children: any;
-  state: State;
-  isInitState: (key?: string | undefined) => boolean;
+  Template: React.FC<T>;
+  items: T[];
+  children?: ReactNode;
 }) {
   const [showNext, setShowNext] = useState(false);
 
-  const current = apps.slice(0, 30);
-  const rest = apps.slice(30);
+  const current = items.slice(0, 30);
+  const rest = items.slice(30);
 
   const element = document.getElementById("content");
   useEffect(() => {
@@ -81,25 +73,13 @@ export function PagedList({
 
   return (
     <>
-      <LazyLoadImages>
-        {current.map((a) => (
-          <List
-            key={a.id}
-            app={a}
-            open={open}
-            state={state}
-            isInitState={isInitState}
-          />
-        ))}
-      </LazyLoadImages>
+      {current.map((a) => (
+        // eslint-disable-next-line react/jsx-key -- wrong positive, the key is part of the item
+        <Template {...a} />
+      ))}
       {rest.length > 0 ? (
         showNext ? (
-          <PagedList
-            apps={rest}
-            open={open}
-            state={state}
-            isInitState={isInitState}
-          >
+          <PagedList items={rest} Template={Template}>
             {children}
           </PagedList>
         ) : (

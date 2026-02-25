@@ -8,6 +8,7 @@ import { Categories as TechCategories } from "@app/tech/Categories";
 import { Filters } from "@app/Filters";
 import { AppCompact } from "@components/common/AppCompact";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
+import { PagedList } from "@app/ui/PagedList";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -90,9 +91,10 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
             </p>
           )}
           <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
-            {category.apps.map((app) => (
-              <AppCompact app={app} key={app.id} />
-            ))}
+            <PagedList
+              items={category.apps.map((app) => ({ key: app.id, app }))}
+              Template={AppCompact}
+            />
           </div>
         </div>
       </main>

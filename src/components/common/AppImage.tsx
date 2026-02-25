@@ -1,35 +1,41 @@
-import React from "react";
+import { LazyImage } from "@app/ui/components/LazyImage";
+import { isLikelyLogo } from "@lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";
-import { useTranslation } from "react-i18next";
 import { calculateFilter } from "@shared/data/calculateFilter";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
-export function AppImage({ app }: { app: App }) {
+export function AppImage({
+  app,
+  loadOnInit,
+}: {
+  app: App;
+  loadOnInit?: boolean | undefined;
+}) {
   const { t } = useTranslation();
 
   const defaultImage =
     "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
 
-  if (app.images.length > 0 || app.logos.length > 0) {
-    return (
-      <img
-        className="img inline-block"
-        src={defaultImage}
-        data-dynamic-src={`${[...app.images, ...app.logos].join(" ")}`}
-        alt={t("app.imageAlt", { name: app.name })}
-      />
-    );
-  } else {
-    if (!app.cache.filter) {
-      app.cache.filter = calculateFilter(app);
-    }
+  const images = [
+    ...app.images.filter((i) => !isLikelyLogo(i) && i.includes("/250px-")),
+    ...app.images.filter((i) => !isLikelyLogo(i) && !i.includes("/250px-")),
+    ...app.images.filter((i) => isLikelyLogo(i)),
+    ...app.logos,
+  ];
 
-    return (
-      <img
-        className="img inline-block"
-        style={{ filter: app.cache.filter }}
-        src={defaultImage}
-        alt={t("app.imageAlt", { name: app.name })}
-      />
-    );
+  if (!app.cache.filter) {
+    app.cache.filter = calculateFilter(app);
   }
+
+  return (
+    <LazyImage
+      className="img inline-block rounded-sm"
+      style={{ filter: app.cache.filter }}
+      src={defaultImage}
+      dynamicSrc={images.join(" ")}
+      alt={t("app.imageAlt", { name: app.name })}
+      loadOnInit={loadOnInit}
+    />
+  );
 }
