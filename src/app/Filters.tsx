@@ -63,7 +63,7 @@ export function Filters() {
             if (!pressed) {
               navigate(
                 currentRoute({
-                  category: searchParams.get("category") || (undefined as any),
+                  category: searchParams.get("category") || undefined,
                   platforms: platforms.filter(
                     (p) => p.toUpperCase() !== platform[0],
                   ),
@@ -72,7 +72,7 @@ export function Filters() {
             } else {
               navigate(
                 currentRoute({
-                  category: searchParams.get("category") || (undefined as any),
+                  category: searchParams.get("category") || undefined,
                   platforms: [...platforms, platform[1]()],
                 }),
               );

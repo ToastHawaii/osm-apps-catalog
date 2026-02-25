@@ -21,7 +21,7 @@ export function ThemeModeToggle() {
         <Button variant="outline" size="icon">
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all [html.theme-mode-dark_&]:scale-0 [html.theme-mode-dark_&]:-rotate-90" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all [html.theme-mode-dark_&]:scale-100 [html.theme-mode-dark_&]:rotate-0" />
-          <span className="sr-only">{t("toggleTheme.sreenReader")}</span>
+          <span className="sr-only">{t("toggleTheme.screenReader")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

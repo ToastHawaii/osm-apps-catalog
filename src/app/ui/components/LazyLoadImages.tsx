@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 let scrollTop = 0;
 let scrollLeft = 0;
@@ -83,7 +83,7 @@ async function lazyLoadImages(reset?: boolean) {
   }
 }
 
-export function LazyLoadImages({ children }: { children: any }) {
+export function LazyLoadImages({ children }: { children: ReactNode }) {
   const element = document.getElementById("content");
 
   useEffect(() => {

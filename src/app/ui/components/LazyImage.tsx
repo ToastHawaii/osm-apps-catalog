@@ -22,11 +22,11 @@ export function LazyImage(
 
     for (const src of sources) {
       if (document.body.contains(element) && (await isImage(src))) {
-        setImgProps((p: any) => ({ ...p, src, style: undefined }));
+        setImgProps((p) => ({ ...p, src, style: undefined }));
         break;
       }
     }
-    setImgProps((p: any) => ({ ...p, "data-dynamic-src": undefined }));
+    setImgProps((p) => ({ ...p, "data-dynamic-src": undefined }));
   }
 
   let scrollTop = 0;

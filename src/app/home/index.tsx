@@ -99,7 +99,9 @@ export function Home({ apps }: { apps: App[] }) {
           <Spotlight
             firstPanel={{
               title: t("introductionPanel.title"),
-              description: t("introductionPanel.description"),
+              description: t("introductionPanel.description", {
+                numberOfApps: apps.length,
+              }),
               color: "rgb(145 238 145 / 40%)",
             }}
             apps={spotlight}
