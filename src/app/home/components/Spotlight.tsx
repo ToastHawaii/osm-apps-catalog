@@ -16,7 +16,17 @@ import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 import { Link } from "react-router";
 
-export function Spotlight({ apps }: { apps: App[] }) {
+export function Spotlight({
+  firstPanel,
+  apps,
+}: {
+  firstPanel: {
+    title: string;
+    description: string;
+    color: string;
+  };
+  apps: App[];
+}) {
   const routes = useRoute();
 
   return (
@@ -32,6 +42,23 @@ export function Spotlight({ apps }: { apps: App[] }) {
       ]}
     >
       <CarouselContent role="list">
+        <CarouselItem className="basis-1/1">
+          <div className="p-2">
+            <Item
+              className="overflow-hidden border-none px-12 py-10"
+              variant="outline"
+              role="listitem"
+              style={{
+                backgroundColor: firstPanel.color,
+              }}
+            >
+              <ItemContent className="h-43 justify-center">
+                <div className="text-3xl">{firstPanel.title}</div>
+                <div className="text-xl">{firstPanel.description}</div>
+              </ItemContent>
+            </Item>
+          </div>
+        </CarouselItem>
         {apps.map((app) => {
           const defaultColor = textToColor(app.name);
 

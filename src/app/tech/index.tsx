@@ -5,6 +5,7 @@ import { App } from "@shared/data/App";
 import { Categories } from "./Categories";
 
 import { Category } from "./components/Category";
+import { Spotlight } from "@app/home/components/Spotlight";
 
 export function Tech({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
@@ -56,13 +57,21 @@ export function Tech({ apps }: { apps: App[] }) {
 
   return (
     <>
-      <title>{`OSM Apps Catalog`}</title>
+      <title>{`OSM Apps Catalog - tech`}</title>
       <meta
         name="description"
         content="There isn't just one, there are thousands."
       />
       <main className="mx-auto max-w-7xl">
         <div id="list">
+          <Spotlight
+            firstPanel={{
+              title: t("techView.introductionPanel.title"),
+              description: t("techView.introductionPanel.description"),
+              color: "oklch(0.98 0.01 308.49)",
+            }}
+            apps={[]}
+          />
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (

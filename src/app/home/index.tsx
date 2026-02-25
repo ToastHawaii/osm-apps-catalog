@@ -96,7 +96,14 @@ export function Home({ apps }: { apps: App[] }) {
         <Filters />
 
         <div id="list">
-          <Spotlight apps={spotlight} />
+          <Spotlight
+            firstPanel={{
+              title: t("introductionPanel.title"),
+              description: t("introductionPanel.description"),
+              color: "rgb(145 238 145 / 40%)",
+            }}
+            apps={spotlight}
+          />
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (
