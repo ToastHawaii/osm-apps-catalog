@@ -4,7 +4,7 @@ import { includes, some } from "@shared/utils/array";
 import {
   contribute as contributeFilter,
   edit,
-  mobile,
+  offlineUse,
   navigation,
   qa,
 } from "@shared/utils/filters";
@@ -42,7 +42,7 @@ export function filter({
       .take(10)
       .value();
   } else if (category === "mobile") {
-    filteredApps = filteredApps.filter(mobile);
+    filteredApps = filteredApps.filter(offlineUse);
   } else if (category === "navigation") {
     filteredApps = filteredApps.filter(navigation);
   } else if (category === "edit") {

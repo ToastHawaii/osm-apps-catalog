@@ -31,10 +31,8 @@ export function web(a: App) {
 }
 
 export function mobile(a: App) {
-  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
   return (
-    topics.some((t) => ["OFFLINE", "CACHE"].includes(t)) ||
     platform.some((t) => mobilePlatforms.includes(t)) ||
     a.install.asin ||
     a.install.fDroidID ||
@@ -43,6 +41,11 @@ export function mobile(a: App) {
     a.install.huaweiAppGalleryID ||
     a.install.appleStoreID
   );
+}
+
+export function offlineUse(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["OFFLINE", "CACHE"].includes(t));
 }
 
 export function calcRoute(a: App) {

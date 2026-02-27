@@ -3,7 +3,7 @@ import { getUserRegion } from "@lib/utils/getUserRegion";
 import { App } from "@shared/data/App";
 import {
   display,
-  mobile,
+  offlineUse,
   navigation,
   calcRoute,
   edit,
@@ -71,12 +71,12 @@ export function Categories(
         ),
     },
     {
-      id: "mobile",
+      id: "offlineUse",
       name: () => t("category.mobile"),
       description: (numberOfApps: number) => (
         <Description category="mobile" values={{ numberOfApps }} />
       ),
-      nextIndex: () => apps.findIndex((app) => mobile(app)),
+      nextIndex: () => apps.findIndex((app) => offlineUse(app)),
     },
     {
       id: "navigation",

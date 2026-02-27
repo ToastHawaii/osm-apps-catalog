@@ -79,7 +79,7 @@
   "category.latestUpdates.description": "{{numberOfApps}} apps sorted by last release date.",
   "category.library": "Packages & libraries",
   "category.library.description": "{{numberOfApps}} resources for working with OpenStreetMap related data.",
-  "category.mobile": "To go",
+  "category.mobile": "Offline use",
   "category.mobile.description": "{{numberOfApps}} apps developed for mobile devices or that support offline use.",
   "category.navigation": "Navi",
   "category.navigation.description": "{{numberOfApps}} apps that support navigation.",
