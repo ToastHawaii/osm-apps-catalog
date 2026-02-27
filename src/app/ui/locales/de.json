@@ -108,6 +108,8 @@
   "filter.search": "Suche",
   "filter.topic": "Themen",
   "filters.morePlatforms": "Weitere Plattformen",
+  "introductionPanel.description": "Hier findest du {{numberOfApps}} Kartenapps für jede Gelegenheit: offline Wandern, Veloroute planen, kinderfreundliche Orte erkunden, die nächste Toilette finden...\nEntdecke OpenStreetMap – die gemeinsam gestaltete Karte der Welt.",
+  "introductionPanel.description.whileLoading": "Hier findest du Kartenapps für jede Gelegenheit: offline Wandern, Veloroute planen, kinderfreundliche Orte erkunden, die nächste Toilette finden...\nEntdecke OpenStreetMap – die gemeinsam gestaltete Karte der Welt.",
   "list": "Liste",
   "list.documentation": "Dokumentation",
   "list.more": "Mehr",
