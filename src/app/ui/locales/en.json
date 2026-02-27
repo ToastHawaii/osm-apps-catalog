@@ -53,6 +53,8 @@
   "app.unmaintained": "(<icon/> Unmaintained)",
   "app.unmaintained.wiki": "({{icon}} Unmaintained)",
   "app.website": "Website",
+  "category.3d": "Viewing the world in 3D",
+  "category.3d.description": "{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.",
   "category.all.description": "{{numberOfApps}} apps that use <o>OpenStreetMap</o>.",
   "category.all.description.filtered": "{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.",
   "category.calcRoute": "Plan a route",

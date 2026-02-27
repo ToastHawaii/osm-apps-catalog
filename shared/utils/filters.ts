@@ -156,6 +156,11 @@ export function convert(a: App) {
   );
 }
 
+export function maps3D(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["3D"].includes(t));
+}
+
 export function isochrone(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) => ["ISOCHRONES"].includes(t));

@@ -7,6 +7,7 @@ import {
   convert,
   isochrone,
   indoor,
+  maps3D,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
@@ -114,6 +115,14 @@ export function Categories(
         <Description category="convert" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => convert(app)),
+    },
+    {
+      id: "3d",
+      name: () => t("category.3d"),
+      description: (numberOfApps: number) => (
+        <Description category="3d" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => maps3D(app)),
     },
     {
       id: "indoor",
