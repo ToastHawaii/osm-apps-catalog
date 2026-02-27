@@ -16,17 +16,15 @@ import { Trans } from "react-i18next";
 
 function Description({
   category,
-  numberOfApps,
+  values,
 }: {
   category: string;
-  numberOfApps: number;
+  values: Record<string, string | number | undefined>;
 }) {
   return (
     <Trans
       i18nKey={`category.${category}.description`}
-      values={{
-        numberOfApps,
-      }}
+      values={values}
       components={{
         o: <ExternalLink href="https://openstreetmap.org/" />,
         s: <a href="/docs/score" />,
@@ -43,6 +41,9 @@ export function Categories(
     {
       id: "universalMapApps",
       name: () => t("category.universalMapApps"),
+      description: (numberOfApps: number) => (
+        <Description category="universalMapApps" values={{ numberOfApps }} />
+      ),
       nextIndex: () =>
         apps.findIndex(
           (app) =>
@@ -73,7 +74,7 @@ export function Categories(
       id: "mobile",
       name: () => t("category.mobile"),
       description: (numberOfApps: number) => (
-        <Description category="mobile" numberOfApps={numberOfApps} />
+        <Description category="mobile" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => mobile(app)),
     },
@@ -81,7 +82,7 @@ export function Categories(
       id: "navigation",
       name: () => t("category.navigation"),
       description: (numberOfApps: number) => (
-        <Description category="navigation" numberOfApps={numberOfApps} />
+        <Description category="navigation" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => navigation(app)),
     },
@@ -89,7 +90,7 @@ export function Categories(
       id: "calcRoute",
       name: () => t("category.calcRoute"),
       description: (numberOfApps: number) => (
-        <Description category="calcRoute" numberOfApps={numberOfApps} />
+        <Description category="calcRoute" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => calcRoute(app)),
     },
@@ -97,7 +98,7 @@ export function Categories(
       id: "edit",
       name: () => t("category.edit"),
       description: (numberOfApps: number) => (
-        <Description category="edit" numberOfApps={numberOfApps} />
+        <Description category="edit" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => edit(app)),
     },
@@ -119,6 +120,14 @@ export function Categories(
           country: this.loadData()?.label,
         });
       },
+      description: function (numberOfApps: number) {
+        return (
+          <Description
+            category="country"
+            values={{ numberOfApps, country: this.loadData()?.label }}
+          />
+        );
+      },
       nextIndex: function () {
         const country = this.loadData()?.full?.toUpperCase();
         if (!country) {
@@ -133,7 +142,7 @@ export function Categories(
       id: "trackRec",
       name: () => t("category.trackRec"),
       description: (numberOfApps: number) => (
-        <Description category="trackRec" numberOfApps={numberOfApps} />
+        <Description category="trackRec" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => trackRec(app)),
     },

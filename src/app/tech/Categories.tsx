@@ -6,6 +6,7 @@ import {
   library,
   convert,
   isochrone,
+  indoor,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain } from "lodash";
@@ -14,17 +15,15 @@ import { Trans } from "react-i18next";
 
 function Description({
   category,
-  numberOfApps,
+  values,
 }: {
   category: string;
-  numberOfApps: number;
+  values: Record<string, string | number>;
 }) {
   return (
     <Trans
       i18nKey={`category.${category}.description`}
-      values={{
-        numberOfApps,
-      }}
+      values={values}
       components={{
         o: <ExternalLink href="https://openstreetmap.org/" />,
         s: <a href="/docs/score" />,
@@ -42,7 +41,7 @@ export function Categories(
       id: "library",
       name: () => t("category.library"),
       description: (numberOfApps: number) => (
-        <Description category="library" numberOfApps={numberOfApps} />
+        <Description category="library" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => library(app)),
     },
@@ -50,7 +49,7 @@ export function Categories(
       id: "changeset",
       name: () => t("category.changeset"),
       description: (numberOfApps: number) => (
-        <Description category="changeset" numberOfApps={numberOfApps} />
+        <Description category="changeset" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => changeset(app)),
     },
@@ -58,7 +57,7 @@ export function Categories(
       id: "qa",
       name: () => t("category.qa"),
       description: (numberOfApps: number) => (
-        <Description category="qa" numberOfApps={numberOfApps} />
+        <Description category="qa" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => qa(app)),
     },
@@ -66,7 +65,7 @@ export function Categories(
       id: "focus",
       name: () => t("category.focus"),
       description: (numberOfApps: number) => (
-        <Description category="focus" numberOfApps={numberOfApps} />
+        <Description category="focus" values={{ numberOfApps }} />
       ),
       sorted: () =>
         chain(apps)
@@ -84,6 +83,9 @@ export function Categories(
     {
       id: "latest",
       name: () => t("category.latestUpdates"),
+      description: (numberOfApps: number) => (
+        <Description category="latestUpdates" values={{ numberOfApps }} />
+      ),
       sorted: () =>
         chain(apps)
           .sortBy((a) => a.source[0].lastChange || "")
@@ -100,19 +102,33 @@ export function Categories(
     {
       id: "foss",
       name: () => t("category.foss", "Free and opensource"),
+      description: (numberOfApps: number) => (
+        <Description category="foss" values={{ numberOfApps }} />
+      ),
       nextIndex: () => apps.findIndex((app) => app.libre),
     },
     {
       id: "convert",
       name: () => t("category.convert"),
       description: (numberOfApps: number) => (
-        <Description category="convert" numberOfApps={numberOfApps} />
+        <Description category="convert" values={{ numberOfApps }} />
       ),
       nextIndex: () => apps.findIndex((app) => convert(app)),
     },
     {
+      id: "indoor",
+      name: () => t("category.indoor"),
+      description: (numberOfApps: number) => (
+        <Description category="indoor" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => indoor(app)),
+    },
+    {
       id: "isochrone",
       name: () => t("category.isochrone"),
+      description: (numberOfApps: number) => (
+        <Description category="isochrone" values={{ numberOfApps }} />
+      ),
       nextIndex: () => apps.findIndex((app) => isochrone(app)),
     },
   ];

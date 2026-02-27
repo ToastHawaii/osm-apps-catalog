@@ -158,36 +158,47 @@ export function convert(a: App) {
 
 export function isochrone(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["ISOCHRONES"].includes(t));
+}
+
+export function library(a: App) {
+  const genre = a.genre.map((p) => p.toUpperCase());
+  if (genre.some((p) => p === "API")) {
+    return true;
+  }
+
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
     [
-      "ISOCHRONES",
+      "LIBRARY",
+      "JAVA LIBRARY",
+      "ANDROID LIBRARY",
+      "ARDUINO LIBRARY",
+      "PHP LIBRARY",
+      "MATLAB LIBRARY",
+      "GECODER LIBRARY",
+      "COMPOSER LIBRARY",
+      "COMPOSER PACKAGE",
+      "PYTHON3 LIBRARY",
+      "JULIA LIBRARY",
+      "GOLANG LIBRARY",
+      "ELIXIR LIBRARY",
+      "PLATFORMIO LIBRARY",
+      "CPP LIBRARY",
+      "R PACKAGE",
+      "NPM PACKAGE",
+      "OPENSTREETMAP API",
+      "OVERPASS API",
+      "NOMINATIM API",
+      "OSRM API",
     ].includes(t),
   );
 }
 
-
-
-export function library(a: App) {
+export function indoor(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
 
-  const libraryTopics = [
-    "LIBRARY",
-    "JAVA LIBRARY",
-    "ANDROID LIBRARY",
-    "ARDUINO LIBRARY",
-    "PHP LIBRARY",
-    "MATLAB LIBRARY",
-    "GECODER LIBRARY",
-    "COMPOSER LIBRARY",
-    "PYTHON3 LIBRARY",
-    "JULIA LIBRARY",
-    "GOLANG LIBRARY",
-    "ELIXIR LIBRARY",
-    "PLATFORMIO LIBRARY",
-    "CPP LIBRARY",
-    "R PACKAGE",
-    "NPM PACKAGE",
-  ];
-
-  return topics.some((t) => libraryTopics.includes(t));
+  return topics.some((t) =>
+    ["INDOOR", "INDOORS", "INDOORMAP", "INDOOR MAP", "INDOOR MAPS"].includes(t),
+  );
 }
