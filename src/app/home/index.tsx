@@ -98,11 +98,21 @@ export function Home({ apps }: { apps: App[] }) {
         <div id="list">
           <Spotlight
             firstPanel={{
-              title: t("introductionPanel.title"),
-              description: t("introductionPanel.description", {
-                numberOfApps: apps.length,
-              }),
               color: "rgb(145 238 145 / 40%)",
+              title: t("introductionPanel.title"),
+              description:
+                apps.length === 0
+                  ? t("introductionPanel.description.whileLoading")
+                  : t("introductionPanel.description", {
+                      numberOfApps: apps.length,
+                    }),
+              img: (
+                <img
+                  src="/assets/osm-apps-logo-big.png"
+                  alt="OSM Apps Catalog logo"
+                  className="w-45 lg:w-70"
+                />
+              ),
             }}
             apps={spotlight}
           />

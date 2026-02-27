@@ -43,7 +43,7 @@ export function Header() {
             }
           >
             <img
-              src="/icons/favicon-32x32.png"
+              src="/assets/osm-apps-logo-small.png"
               alt="OSM App Catalog"
               className="mr-1 h-6 w-6"
             />{" "}

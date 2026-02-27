@@ -13,7 +13,7 @@ import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { textToColor } from "@shared/utils/string";
 import Autoplay from "embla-carousel-autoplay";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router";
 
 export function Spotlight({
@@ -21,40 +21,69 @@ export function Spotlight({
   apps,
 }: {
   firstPanel: {
+    color: string;
     title: string;
     description: string;
-    color: string;
+    img: ReactNode;
   };
   apps: App[];
 }) {
   const routes = useRoute();
 
+  const plugin = React.useRef(
+    Autoplay({
+      delay: 8000,
+      playOnInit: false, // prevent immediate start
+      stopOnMouseEnter: true,
+      stopOnFocusIn: true,
+      stopOnInteraction: true,
+    }),
+  );
+
+  React.useEffect(() => {
+    if (!plugin.current) return;
+
+    // Wait 8 seconds before starting autoplay + 8 seconds before the first
+    // slide change, so that users have time to read the first panel
+    const timer = setTimeout(() => {
+      plugin.current.play();
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, [plugin.current]);
+
   return (
     <Carousel
       className="w-full px-6 md:px-16"
       opts={{ loop: true, duration: 35 }}
-      plugins={[
-        Autoplay({
-          delay: 8000,
-          stopOnMouseEnter: true,
-          stopOnInteraction: false,
-        }),
-      ]}
+      plugins={[plugin.current]}
+      onMouseLeave={() => plugin.current.play()}
     >
       <CarouselContent role="list">
         <CarouselItem className="basis-1/1">
           <div className="p-2">
             <Item
-              className="overflow-hidden border-none px-12 py-10"
+              className="overflow-hidden border-none p-6 py-10 md:px-12"
               variant="outline"
               role="listitem"
               style={{
                 backgroundColor: firstPanel.color,
               }}
             >
-              <ItemContent className="h-43 justify-center">
-                <div className="text-3xl">{firstPanel.title}</div>
-                <div className="text-xl">{firstPanel.description}</div>
+              <ItemContent className="flex h-43 flex-row justify-center gap-4!">
+                <div className="grow">
+                  <div className="text-base sm:text-2xl md:text-3xl">
+                    {firstPanel.title}
+                  </div>
+                  <div className="whitespace-pre-line sm:text-base md:text-xl">
+                    {firstPanel.description}
+                  </div>
+                </div>
+                {firstPanel.img && (
+                  <div className="hidden! flex-none md:block!">
+                    {firstPanel.img}
+                  </div>
+                )}
               </ItemContent>
             </Item>
           </div>

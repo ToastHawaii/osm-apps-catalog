@@ -57,7 +57,7 @@ export function Tech({ apps }: { apps: App[] }) {
 
   return (
     <>
-      <title>{`OSM Apps Catalog - tech`}</title>
+      <title>{`OSM Apps Catalog - Tech`}</title>
       <meta
         name="description"
         content="There isn't just one, there are thousands."
@@ -66,9 +66,16 @@ export function Tech({ apps }: { apps: App[] }) {
         <div id="list">
           <Spotlight
             firstPanel={{
+              color: "oklch(0.98 0.01 308.49)",
               title: t("techView.introductionPanel.title"),
               description: t("techView.introductionPanel.description"),
-              color: "oklch(0.98 0.01 308.49)",
+              img: (
+                <img
+                  src="/assets/osm-apps-logo-big.png"
+                  alt="OSM Apps Catalog logo"
+                  className="w-45 lg:w-70"
+                />
+              ),
             }}
             apps={[]}
           />
