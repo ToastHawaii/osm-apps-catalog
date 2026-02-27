@@ -110,7 +110,7 @@ export function Home({ apps }: { apps: App[] }) {
                 <img
                   src="/assets/osm-apps-logo-big.png"
                   alt="OSM Apps Catalog logo"
-                  className="w-45 lg:w-70"
+                  className="w-45 lg:-my-6 lg:w-54"
                 />
               ),
             }}

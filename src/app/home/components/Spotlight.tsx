@@ -63,19 +63,19 @@ export function Spotlight({
         <CarouselItem className="basis-1/1">
           <div className="p-2">
             <Item
-              className="overflow-hidden border-none p-6 py-10 md:px-12"
+              className="overflow-hidden border-none px-6 py-10 md:pr-8 md:pl-12"
               variant="outline"
               role="listitem"
               style={{
                 backgroundColor: firstPanel.color,
               }}
             >
-              <ItemContent className="flex h-43 flex-row justify-center gap-4!">
+              <ItemContent className="flex h-43 flex-row justify-center">
                 <div className="grow">
-                  <div className="text-base sm:text-2xl md:text-3xl">
+                  <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
                     {firstPanel.title}
                   </div>
-                  <div className="whitespace-pre-line sm:text-base md:text-xl">
+                  <div className="whitespace-pre-line sm:text-base md:text-lg lg:text-xl">
                     {firstPanel.description}
                   </div>
                 </div>
