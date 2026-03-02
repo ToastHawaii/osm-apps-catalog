@@ -48,6 +48,40 @@ export function offlineUse(a: App) {
   return topics.some((t) => ["OFFLINE", "CACHE"].includes(t));
 }
 
+export function publicTransport(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "PUBLIC TRANSPORT",
+      "PUBLIC TRANSPORTATION",
+      "BUS",
+      "TRAIN",
+      "RAILWAY",
+    ].includes(t),
+  );
+}
+
+export function hiking(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "HIKING",
+      "HIKE",
+      "HIKERS",
+      "GUIDEPOSTS",
+      "TREKKING",
+      "HIKING TRAILS",
+    ].includes(t),
+  );
+}
+
+export function cycling(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    ["CYCLING", "CYCLISTS", "BIKE", "BIKING", "BICYCLE", "MTB"].includes(t),
+  );
+}
+
 export function calcRoute(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>

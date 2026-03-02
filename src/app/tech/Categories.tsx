@@ -10,7 +10,7 @@ import {
   maps3D,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
-import { chain } from "lodash";
+import { chain, sortBy } from "lodash";
 import React from "react";
 import { Trans } from "react-i18next";
 
@@ -39,30 +39,6 @@ export function Categories(
 ) {
   return [
     {
-      id: "library",
-      name: () => t("category.library"),
-      description: (numberOfApps: number) => (
-        <Description category="library" values={{ numberOfApps }} />
-      ),
-      nextIndex: () => apps.findIndex((app) => library(app)),
-    },
-    {
-      id: "changeset",
-      name: () => t("category.changeset"),
-      description: (numberOfApps: number) => (
-        <Description category="changeset" values={{ numberOfApps }} />
-      ),
-      nextIndex: () => apps.findIndex((app) => changeset(app)),
-    },
-    {
-      id: "qa",
-      name: () => t("category.qa"),
-      description: (numberOfApps: number) => (
-        <Description category="qa" values={{ numberOfApps }} />
-      ),
-      nextIndex: () => apps.findIndex((app) => qa(app)),
-    },
-    {
       id: "focus",
       name: () => t("category.focus"),
       description: (numberOfApps: number) => (
@@ -73,6 +49,26 @@ export function Categories(
           .sortBy((a) => a.lastFocus)
           .reverse()
           .take(10),
+      getAll: function () {
+        return this.sorted().value();
+      },
+      nextIndex: function () {
+        const latest = this.sorted().take(1).value();
+        return apps.findIndex((app) => app.id === latest[0].id);
+      },
+    },
+    {
+      id: "newAdditions",
+      name: () => t("category.newAdditions"),
+      description: (numberOfApps: number) => (
+        <Description category="newAdditions" values={{ numberOfApps }} />
+      ),
+      sorted: () =>
+        chain(apps)
+          .sortBy((a) => {
+            return sortBy(a.source, (s) => s.firstCrawled)[0].firstCrawled;
+          })
+          .reverse(),
       getAll: function () {
         return this.sorted().value();
       },
@@ -99,6 +95,30 @@ export function Categories(
         const latest = this.sorted().take(1).value();
         return apps.findIndex((app) => app.id === latest[0].id);
       },
+    },
+    {
+      id: "library",
+      name: () => t("category.library"),
+      description: (numberOfApps: number) => (
+        <Description category="library" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => library(app)),
+    },
+    {
+      id: "changeset",
+      name: () => t("category.changeset"),
+      description: (numberOfApps: number) => (
+        <Description category="changeset" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => changeset(app)),
+    },
+    {
+      id: "qa",
+      name: () => t("category.qa"),
+      description: (numberOfApps: number) => (
+        <Description category="qa" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => qa(app)),
     },
     {
       id: "foss",

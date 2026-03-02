@@ -8,6 +8,9 @@ import {
   calcRoute,
   edit,
   trackRec,
+  hiking,
+  cycling,
+  publicTransport,
 } from "@shared/utils/filters";
 import { equalsYes } from "@shared/utils/string";
 import { TFunction } from "i18next";
@@ -71,36 +74,28 @@ export function Categories(
         ),
     },
     {
-      id: "offlineUse",
-      name: () => t("category.mobile"),
+      id: "hiking",
+      name: () => t("category.hiking"),
       description: (numberOfApps: number) => (
-        <Description category="mobile" values={{ numberOfApps }} />
+        <Description category="hiking" values={{ numberOfApps }} />
       ),
-      nextIndex: () => apps.findIndex((app) => offlineUse(app)),
+      nextIndex: () => apps.findIndex((app) => hiking(app)),
     },
     {
-      id: "navigation",
-      name: () => t("category.navigation"),
+      id: "publicTransport",
+      name: () => t("category.publicTransport"),
       description: (numberOfApps: number) => (
-        <Description category="navigation" values={{ numberOfApps }} />
+        <Description category="publicTransport" values={{ numberOfApps }} />
       ),
-      nextIndex: () => apps.findIndex((app) => navigation(app)),
+      nextIndex: () => apps.findIndex((app) => publicTransport(app)),
     },
     {
-      id: "calcRoute",
-      name: () => t("category.calcRoute"),
+      id: "cycling",
+      name: () => t("category.cycling"),
       description: (numberOfApps: number) => (
-        <Description category="calcRoute" values={{ numberOfApps }} />
+        <Description category="cycling" values={{ numberOfApps }} />
       ),
-      nextIndex: () => apps.findIndex((app) => calcRoute(app)),
-    },
-    {
-      id: "edit",
-      name: () => t("category.edit"),
-      description: (numberOfApps: number) => (
-        <Description category="edit" values={{ numberOfApps }} />
-      ),
-      nextIndex: () => apps.findIndex((app) => edit(app)),
+      nextIndex: () => apps.findIndex((app) => cycling(app)),
     },
     {
       id: "country",
@@ -137,6 +132,38 @@ export function Categories(
           app.cache.coverage.some((a) => a.startsWith(country)),
         );
       },
+    },
+    {
+      id: "offlineUse",
+      name: () => t("category.mobile"),
+      description: (numberOfApps: number) => (
+        <Description category="mobile" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => offlineUse(app)),
+    },
+    {
+      id: "navigation",
+      name: () => t("category.navigation"),
+      description: (numberOfApps: number) => (
+        <Description category="navigation" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => navigation(app)),
+    },
+    {
+      id: "calcRoute",
+      name: () => t("category.calcRoute"),
+      description: (numberOfApps: number) => (
+        <Description category="calcRoute" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => calcRoute(app)),
+    },
+    {
+      id: "edit",
+      name: () => t("category.edit"),
+      description: (numberOfApps: number) => (
+        <Description category="edit" values={{ numberOfApps }} />
+      ),
+      nextIndex: () => apps.findIndex((app) => edit(app)),
     },
     {
       id: "trackRec",
