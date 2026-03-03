@@ -34,6 +34,8 @@ import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink
 import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { some } from "lodash";
+import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
 
 export function Compare({
   apps,
@@ -89,28 +91,24 @@ export function Compare({
             label: () => "",
             description: () => "",
             hasValue: (app) =>
-              !!(
-                app.website ||
-                app.install.asin ||
-                app.install.fDroidID ||
-                app.install.obtainiumLink ||
-                app.install.googlePlayID ||
-                app.install.huaweiAppGalleryID ||
-                app.install.appleStoreID ||
-                app.install.macAppStoreID ||
-                app.install.microsoftAppID
-              ),
+              !!app.website || some(app.install) || !!app.sourceCode,
             renderToHtml: (app) => (
               <>
-                <WebsiteLink app={app} />
-                <FDroidLink app={app} />
-                <ObtainiumLink app={app} />
-                <GooglePlayLink app={app} />
-                <AsinLink app={app} />
-                <HuaweiAppGalleryLink app={app} />
-                <AppleStoreLink app={app} />
-                <MacAppStoreLink app={app} />
-                <MicrosoftAppLink app={app} />
+                {!!app.website || some(app.install) ? (
+                  <>
+                    <WebsiteLink app={app} />
+                    <FDroidLink app={app} />
+                    <ObtainiumLink app={app} />
+                    <GooglePlayLink app={app} />
+                    <AsinLink app={app} />
+                    <HuaweiAppGalleryLink app={app} />
+                    <AppleStoreLink app={app} />
+                    <MacAppStoreLink app={app} />
+                    <MicrosoftAppLink app={app} />
+                  </>
+                ) : app.sourceCode ? (
+                  <SourceCodeLink app={app} />
+                ) : null}
               </>
             ),
             renderToWiki: (app, lang) =>
@@ -124,12 +122,7 @@ export function Compare({
                     } ${t("app.install.fDroid", { lng: lang })}]`
                   : "",
                 app.install.obtainiumLink
-                  ? `[${app.install.obtainiumLink} ${t(
-                      "app.install.obtainium",
-                      {
-                        lng: lang,
-                      },
-                    )}]`
+                  ? `[${app.install.obtainiumLink} ${t("app.install.obtainium", { lng: lang })}]`
                   : "",
                 app.install.googlePlayID
                   ? `[https://play.google.com/store/apps/details?id=${
@@ -165,6 +158,9 @@ export function Compare({
                   ? `[https://apps.microsoft.com/detail/${
                       app.install.microsoftAppID
                     } ${t("app.install.macAppStore", { lng: lang })}]`
+                  : "",
+                !app.website && !some(app.install) && !!app.sourceCode
+                  ? `[${app.sourceCode} ${t("app.sourceCode", { lng: lang })}]`
                   : "",
               ]
                 .filter((o) => o)

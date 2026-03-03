@@ -32,6 +32,7 @@ import { useGoatCounterEvents } from "../../../hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
+import { some } from "lodash";
 
 export function List({
   app,
@@ -105,16 +106,7 @@ export function List({
           </>
         )}
       </p>
-      {(!!app.website ||
-        !!app.install.fDroidID ||
-        !!app.install.obtainiumLink ||
-        !!app.install.googlePlayID ||
-        !!app.install.asin ||
-        !!app.install.huaweiAppGalleryID ||
-        !!app.install.appleStoreID ||
-        !!app.install.macAppStoreID ||
-        !!app.install.microsoftAppID ||
-        !!app.sourceCode) && (
+      {(!!app.website || some(app.install) || !!app.sourceCode) && (
         <span className="downloads">{t("app.getIt")}</span>
       )}
       <WebsiteLink app={app} />
@@ -136,16 +128,9 @@ export function List({
         state?.platforms.includes("MacOS")) && <MacAppStoreLink app={app} />}
       {(state?.platforms.length === 0 ||
         state?.platforms.includes("Windows")) && <MicrosoftAppLink app={app} />}
-      {!app.website &&
-        !app.install.asin &&
-        !app.install.fDroidID &&
-        !app.install.obtainiumLink &&
-        !app.install.googlePlayID &&
-        !app.install.huaweiAppGalleryID &&
-        !app.install.appleStoreID &&
-        !app.install.macAppStoreID &&
-        !app.install.microsoftAppID &&
-        !!app.sourceCode && <SourceCodeLink app={app} />}
+      {!app.website && !some(app.install) && !!app.sourceCode && (
+        <SourceCodeLink app={app} />
+      )}
 
       <div className="badges">
         <Badges values={app.topics} />
