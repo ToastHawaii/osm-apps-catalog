@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
 import { some } from "@shared/utils/array";
-import { Categories as HomeCategories } from "@app/home/Categories";
-import { Categories as TechCategories } from "@app/tech/Categories";
+import { categories as homeCategories } from "@app/home/categories";
+import { categories as techCategories } from "@app/tech/categories";
 import { Filters } from "@app/Filters";
 import { AppCompact } from "@components/common/AppCompact";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
@@ -33,10 +33,10 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
           getAll?: (() => App[]) | undefined;
           nextIndex: () => number;
         }
-      | undefined = HomeCategories(t, filteredApps).find((c) => c.id === id);
+      | undefined = homeCategories(t, filteredApps).find((c) => c.id === id);
 
     if (!category) {
-      category = TechCategories(t, appsCopy).find((c) => c.id === id);
+      category = techCategories(t, appsCopy).find((c) => c.id === id);
       techView = true;
     }
 

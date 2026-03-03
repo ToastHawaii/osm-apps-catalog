@@ -14,7 +14,7 @@ import {
 import { equalsYes } from "@shared/utils/string";
 import { TFunction } from "i18next";
 
-export function Categories(
+export function categories(
   t: TFunction<"translation", undefined>,
   apps: App[],
 ) {

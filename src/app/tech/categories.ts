@@ -11,7 +11,7 @@ import {
 import { TFunction } from "i18next";
 import { chain, sortBy } from "lodash";
 
-export function Categories(
+export function categories(
   t: TFunction<"translation", undefined>,
   apps: App[],
 ) {
@@ -94,7 +94,7 @@ export function Categories(
     },
     {
       id: "foss",
-      name: () => t("category.foss", "Free and opensource"),
+      name: () => t("category.foss"),
       description: (numberOfApps: number) =>
         t("category.foss.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => app.libre),

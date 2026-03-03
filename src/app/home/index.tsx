@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
 import { some } from "@shared/utils/array";
-import { Categories } from "@app/home/Categories";
+import { categories as categoryList } from "@app/home/categories";
 import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 
@@ -43,7 +43,7 @@ export function Home({ apps }: { apps: App[] }) {
       filteredApps.splice(index, 1);
     });
 
-    const categories = Categories(t, filteredApps).map((c) => ({
+    const categories = categoryList(t, filteredApps).map((c) => ({
       ...c,
       apps: [] as App[],
     }));

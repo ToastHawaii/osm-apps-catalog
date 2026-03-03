@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { Categories } from "./Categories";
+import { categories as categoryList } from "./categories";
 
 import { Category } from "./components/Category";
 import { Spotlight } from "@app/home/components/Spotlight";
@@ -13,7 +13,7 @@ export function Tech({ apps }: { apps: App[] }) {
   const { categories } = useMemo(() => {
     apps = apps.slice();
 
-    const categories = Categories(t, apps).map((c) => ({
+    const categories = categoryList(t, apps).map((c) => ({
       ...c,
       apps: [] as App[],
     }));
