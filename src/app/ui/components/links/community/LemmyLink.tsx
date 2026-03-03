@@ -23,7 +23,7 @@ export function LemmyLink({ app }: { app: App }) {
       data-goatcounter-title="Follows a community link of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <img src="/icons/lemmy.svg" alt="Lemmy" style={{ height: "18px" }} />
+      <img src="/assets/lemmy.svg" alt="Lemmy" style={{ height: "18px" }} />
     </ExternalLink>
   );
 }

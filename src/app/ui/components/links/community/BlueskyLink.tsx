@@ -22,7 +22,7 @@ export function BlueskyLink({ app }: { app: App }) {
       data-goatcounter-title="Follows a community link of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <img src="/icons/bluesky.svg" style={{ height: "18px" }} alt="Bluesky" />
+      <img src="/assets/bluesky.svg" style={{ height: "18px" }} alt="Bluesky" />
     </ExternalLink>
   );
 }
