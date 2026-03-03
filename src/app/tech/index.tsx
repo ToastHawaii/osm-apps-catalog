@@ -5,7 +5,7 @@ import { App } from "@shared/data/App";
 import { categories as categoryList } from "./categories";
 
 import { Category } from "./components/Category";
-import { Spotlight } from "@app/home/components/Spotlight";
+import { Spotlight } from "@components/common/Spotlight";
 
 export function Tech({ apps }: { apps: App[] }) {
   const { t } = useTranslation();

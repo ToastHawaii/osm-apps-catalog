@@ -8,7 +8,7 @@ import { categories as categoryList } from "@app/home/categories";
 import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 
-import { Spotlight } from "./components/Spotlight";
+import { Spotlight } from "@components/common/Spotlight";
 import { Category } from "./components/Category";
 import { Item, ItemActions, ItemContent } from "@components/ui/item";
 import { Link } from "react-router";
