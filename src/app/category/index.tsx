@@ -29,9 +29,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
       | {
           id: string;
           name: () => string;
-          description?:
-            | ((numberOfApps: number) => React.JSX.Element)
-            | undefined;
+          description?: ((numberOfApps: number) => string) | undefined;
           getAll?: (() => App[]) | undefined;
           nextIndex: () => number;
         }
@@ -69,15 +67,13 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
 
   return (
     <>
-      <title>{`${t(`category.${id}`, {
-        numberOfApps: apps.length,
-      })} – OSM Apps Catalog`}</title>
-      <meta
-        name="description"
-        content={t(`category.${id}.description`, {
-          numberOfApps: apps.length,
-        })}
-      />
+      <title>{`${category.name()} – OSM Apps Catalog`}</title>
+      {category.description && (
+        <meta
+          name="description"
+          content={category.description(category.apps.length)}
+        />
+      )}
       <main className="mx-auto max-w-7xl">
         {!techView && <Filters />}
 
