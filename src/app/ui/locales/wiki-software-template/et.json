@@ -1,163 +1,171 @@
 {
-    "lang": {
-        "label": "Malli keel",
-        "description": "Keel, milles malli tekstid on kuvatud."
-    },
-    "name": {
-        "label": "Nimi",
-        "description": "Ametlik nimi või selle puudumisel üldlevinud nimi"
-    },
-    "status": {
-        "label": "Olek",
-        "description": "Projekti praegune olek."
-    },
-    "license": {
-        "label": "Litsents",
-        "description": "Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?"
-    },
-    "price": {
-        "label": "Hind",
-        "description": "Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta."
-    },
-    "web": {
-        "label": "Veebiaadress"
-    },
-    "repo": {
-        "description": "Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)",
-        "label": "Lähtekood"
-    },
-    "screenshot": {
-        "label": "Ekraanitõmmis"
-    },
-    "description": {
-        "label": "Kirjeldus",
-        "description": "Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)"
-    },
-    "author": {
-        "label": "Autor",
-        "description": "Autori nimi ja/või link vastavale OSM-viki kasutajalehele"
-    },
-    "platform": {
-        "label": "Toetatud platvormid",
-        "description": "Platvormide loend, kus see rakendus töötab."
-    },
-    "genre": {
-        "label": "Žanr",
-        "description": "Selle tarviku põhikategooria."
-    },
-    "languages": {
-        "label": "Keeled",
-        "description": "Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"
-    },
-    "logo": {
-        "label": "Logo",
-        "description": "Tarkvara ikoon või logo"
-    },
-    "languagesurl": {
-        "label": "Keelte võrguaadress",
-        "description": "Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel)."
-    },
-    "version": {
-        "description": "Viimane versioon",
-        "label": "Versioon"
-    },
-    "asin": {
-        "description": "Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)",
-        "label": "Amazoni kasutajatunnus"
-    },
-    "coverage": {
-        "label": "Katvus",
-        "description": "Rakenduse kasutatavuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."
-    },
-    "code": {
-        "label": "Lähtekood",
-        "description": "Kasutatud programmeerimiskeelte loend."
-    },
-    "framework": {
-        "label": "Arendusraamistik",
-        "description": "Koodi kirjutamisel kasutatud arendusraamistik."
-    },
-    "date": {
-        "label": "Väljalaske kuupäev",
-        "description": "Viimase versiooni avaldamise kuupäev"
-    },
-    "mapData": {
-        "description": "[Kaardi kuvamine] Kas kaart kuvatakse varemloodud piltide ja paanidena (rasterkaart) või „lennult“ (vektorkaart)?",
-        "label": "Kaardiandmed"
-    },
-    "obtainiumLink": {
-        "description": "Link lehele, mis kirjeldab uuendamist Obtainiumi jaoks",
-        "label": "Uuendamise link Obtainiumis"
-    },
-    "map": {
-        "description": "[Kaardi kuvamine] Kas rakenduses on kaardivaade?",
-        "label": "Kaardi kuvamine"
-    },
-    "bbWorldID": {
-        "label": "BlackBerry ID",
-        "description": "Rakenduse tunnus BlackBerry Worldis"
-    },
-    "fDroidID": {
-        "label": "F-Droid ID",
-        "description": "Rakenduse tunnus F-Droidis"
-    },
-    "firefoxMarketplaceID": {
-        "label": "Firefox Marketplace ID",
-        "description": "Rakenduse tunnus Mozilla Firefox Marketplace'is"
-    },
-    "googlePlayID": {
-        "label": "Google Play ID",
-        "description": "Rakenduse tunnus Google Play Store'is"
-    },
-    "huaweiAppGalleryID": {
-        "label": "Huawei AppGallery ID",
-        "description": "Rakenduse tunnus Huawei AppGallery's"
-    },
-    "appleStoreID": {
-        "label": "AppStore ID",
-        "description": "Rakenduse tunnus iTunes App Store'is"
-    },
-    "macAppStoreID": {
-        "label": "Mac AppStore ID",
-        "description": "Rakenduse tunnus Mac App Store'is"
-    },
-    "microsoftAppID": {
-        "label": "Microsoft ID",
-        "description": "Windowsi rakenduse UUID-tunnus Microsoft Store'is"
-    },
-    "datasource": {
-        "label": "Kaardiallikas",
-        "description": "[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?"
-    },
-    "rotateMap": {
-        "label": "Kaardi pööramine",
-        "description": "[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?"
-    },
-    "3D": {
-        "label": "3D-vaade",
-        "description": "[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"
-    },
-    "showWebsite": {
-        "label": "Näitab veebisaiti",
-        "description": "[Huvipunkti teave] Näitab huvipunkti juures veebisaidi linki"
-    },
-    "showPhoneNumber": {
-        "label": "Näitab telefoninumbrit",
-        "description": "[Huvipunkti teave] Näitab huvipunkti juures telefoninumbrit"
-    },
-    "showOpeningHours": {
-        "label": "Näitab tööaegu",
-        "description": "[Huvipunkti teave] Näitab huvipunkti juures töö- või lahtiolekuaegu"
-    },
-    "routing": {
-        "label": "Teekonnad",
-        "description": "[Teekond] Kas sa võid arvutada või muul viisil kavandada teekonda?"
-    },
-    "createRouteManually": {
-        "description": "[Teekond]",
-        "label": "Teekonna koostamine käsitsi"
-    },
-    "calculateRoute": {
-        "label": "Teekonna koostamine"
-    }
+  "lang": {
+    "label": "Malli keel",
+    "description": "Keel, milles malli tekstid on kuvatud."
+  },
+  "name": {
+    "label": "Nimi",
+    "description": "Ametlik nimi või selle puudumisel üldlevinud nimi"
+  },
+  "status": {
+    "label": "Olek",
+    "description": "Projekti praegune olek."
+  },
+  "license": {
+    "label": "Litsents",
+    "description": "Missuguse vaba litsentsi alusel on tarkvara välja antud või hoopis on suletud tarkvaraga tegemist?"
+  },
+  "price": {
+    "label": "Hind",
+    "description": "Kui on suletud tarkvaraga tegemist, siis hind. Kui hind on puudu, siis on tasuta."
+  },
+  "web": {
+    "label": "Veebiaadress"
+  },
+  "repo": {
+    "description": "Võrguaadress lähtekoodi vaatamiseks ja/või allalaadimiseks (näiteks Giti, Subversioni või CVSi koodihoidla)",
+    "label": "Lähtekood"
+  },
+  "screenshot": {
+    "label": "Ekraanitõmmis"
+  },
+  "description": {
+    "label": "Kirjeldus",
+    "description": "Lühkirjeldus. Mis eristab teda muudest sarnastest tarvikutest? (Koosta oma tekst, ära kopeeri valmis sisu veebilehelt)"
+  },
+  "author": {
+    "label": "Autor",
+    "description": "Autori nimi ja/või link vastavale OSM-viki kasutajalehele"
+  },
+  "platform": {
+    "label": "Toetatud platvormid",
+    "description": "Platvormide loend, kus see rakendus töötab."
+  },
+  "genre": {
+    "label": "Žanr",
+    "description": "Selle tarviku põhikategooria."
+  },
+  "languages": {
+    "label": "Keeled",
+    "description": "Toetatud keelte loend (semikoolonitega eraldatud keelekoodide loend) või arv"
+  },
+  "logo": {
+    "label": "Logo",
+    "description": "Tarkvara ikoon või logo"
+  },
+  "languagesurl": {
+    "label": "Keelte võrguaadress",
+    "description": "Link tegelikult toetatud keelte loendile mõnes muus veebisaidis (näiteks tarkvaraportaalis või lähtekoodihoidla lehel)."
+  },
+  "version": {
+    "description": "Viimane versioon",
+    "label": "Versioon"
+  },
+  "asin": {
+    "description": "Kasutajatunnus Amazoni Androidi rakendustepoes (Amazon Standard Identification Number)",
+    "label": "Amazoni kasutajatunnus"
+  },
+  "coverage": {
+    "label": "Katvus",
+    "description": "Rakenduse kasutatavuspiirkonnad maailmas. Vorming: „Maailmajagu, riik, piirkond,...“. Üleilmse kasutuse jaoks sisesta „Worldwide“ või jäta tühjaks."
+  },
+  "code": {
+    "label": "Lähtekood",
+    "description": "Kasutatud programmeerimiskeelte loend."
+  },
+  "framework": {
+    "label": "Arendusraamistik",
+    "description": "Koodi kirjutamisel kasutatud arendusraamistik."
+  },
+  "date": {
+    "label": "Väljalaske kuupäev",
+    "description": "Viimase versiooni avaldamise kuupäev"
+  },
+  "mapData": {
+    "description": "[Kaardi kuvamine] Kas kaart kuvatakse varemloodud piltide ja paanidena (rasterkaart) või „lennult“ (vektorkaart)?",
+    "label": "Kaardiandmed"
+  },
+  "obtainiumLink": {
+    "description": "Link lehele, mis kirjeldab uuendamist Obtainiumi jaoks",
+    "label": "Uuendamise link Obtainiumis"
+  },
+  "map": {
+    "description": "[Kaardi kuvamine] Kas rakenduses on kaardivaade?",
+    "label": "Kaardi kuvamine"
+  },
+  "bbWorldID": {
+    "label": "BlackBerry ID",
+    "description": "Rakenduse tunnus BlackBerry Worldis"
+  },
+  "fDroidID": {
+    "label": "F-Droid ID",
+    "description": "Rakenduse tunnus F-Droidis"
+  },
+  "firefoxMarketplaceID": {
+    "label": "Firefox Marketplace ID",
+    "description": "Rakenduse tunnus Mozilla Firefox Marketplace'is"
+  },
+  "googlePlayID": {
+    "label": "Google Play ID",
+    "description": "Rakenduse tunnus Google Play Store'is"
+  },
+  "huaweiAppGalleryID": {
+    "label": "Huawei AppGallery ID",
+    "description": "Rakenduse tunnus Huawei AppGallery's"
+  },
+  "appleStoreID": {
+    "label": "AppStore ID",
+    "description": "Rakenduse tunnus iTunes App Store'is"
+  },
+  "macAppStoreID": {
+    "label": "Mac AppStore ID",
+    "description": "Rakenduse tunnus Mac App Store'is"
+  },
+  "microsoftAppID": {
+    "label": "Microsoft ID",
+    "description": "Windowsi rakenduse UUID-tunnus Microsoft Store'is"
+  },
+  "datasource": {
+    "label": "Kaardiallikas",
+    "description": "[Kaardi kuvamine] Kas kõik kaardiandmed on saadaval vallasrežiimis? Näiteks neid eelnevalt allalaadides?"
+  },
+  "rotateMap": {
+    "label": "Kaardi pööramine",
+    "description": "[Kaardi kuvamine] Kas kaart pöörleb vastavalt liikumise suunale?"
+  },
+  "3D": {
+    "label": "3D-vaade",
+    "description": "[Kaardi kuvamine] Kas kasutusel on mõni 3D või 2.5D kaardivaade?"
+  },
+  "showWebsite": {
+    "label": "Näitab veebisaiti",
+    "description": "[Huvipunkti teave] Näitab huvipunkti juures veebisaidi linki"
+  },
+  "showPhoneNumber": {
+    "label": "Näitab telefoninumbrit",
+    "description": "[Huvipunkti teave] Näitab huvipunkti juures telefoninumbrit"
+  },
+  "showOpeningHours": {
+    "label": "Näitab tööaegu",
+    "description": "[Huvipunkti teave] Näitab huvipunkti juures töö- või lahtiolekuaegu"
+  },
+  "routing": {
+    "label": "Teekonnad",
+    "description": "[Teekond] Kas sa võid arvutada või muul viisil kavandada teekonda?"
+  },
+  "createRouteManually": {
+    "description": "[Teekond]",
+    "label": "Teekonna koostamine käsitsi"
+  },
+  "calculateRoute": {
+    "label": "Teekonna koostamine"
+  },
+  "withoutGPS": {
+    "label": "Toimib ilma GPS-ita",
+    "description": "[Tee juhatamine] Kas ta toimib isegi ilma GPS-ita?"
+  },
+  "predefinedRoute": {
+    "label": "Tee juhatamine määratud marsruudil",
+    "description": "[Tee juhatamine] Kas ta oskab liikuda mööda teisi GPS-radu?"
+  }
 }
