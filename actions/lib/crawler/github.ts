@@ -234,7 +234,7 @@ export async function searchByRepos(
     const query = batch.map((r) => `repo:${r.owner}/${r.repo}`).join(" ");
 
     const batchResult = await search(query, githubToken);
-    results.push(batchResult);
+    results.push(...batchResult.data.search.nodes);
   }
 
   return results;
@@ -259,6 +259,7 @@ async function search(
   cursor?: string | undefined,
 ) {
   const fullQuery = `
+    query {
       search(
         query: "${query}"
         type: REPOSITORY
@@ -312,8 +313,11 @@ async function search(
           }
         }
       }
+    }
     `;
-
+  console.info(
+    `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery })}`,
+  );
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {

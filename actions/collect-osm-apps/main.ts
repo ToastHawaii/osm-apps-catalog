@@ -14,22 +14,15 @@ import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
 import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
 
-// todo: statistik erstellen, neuer ablauf,
-// apps loaden
-// jmergen
-// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
-
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
  */
 export async function run(): Promise<void> {
   try {
-    const gitHubToken = core.getInput("ghToken");
+    let apps = await loadApps(core.getInput("ghToken"));
 
-    let apps = await loadApps(gitHubToken);
-
-    enrichWithGitHub(apps, gitHubToken);
+    await enrichWithGitHub(apps, core.getInput("ghToken"));
 
     enrichId(apps);
     enrichScoreTotal(apps);

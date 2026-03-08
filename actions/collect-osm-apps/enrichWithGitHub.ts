@@ -67,18 +67,15 @@ export async function enrichWithGitHub(apps: App[], gitHubToken: string) {
       gitHub: { repo: source.name, owner: source.owner.login },
     }))
     .forEach((obj) => {
-      const app = appsWithGitHub.find(
-        (a) =>
-          a.gitHub.owner.toLowerCase() === obj.gitHub.owner.toLowerCase() &&
-          a.gitHub.repo.toLowerCase() === obj.gitHub.repo.toLowerCase(),
-      )?.app;
-
-      if (!app) {
-        console.info("Not found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
-        return;
-      }
-      console.info("found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
-
-      mergeApps(app, obj.app, { onlyAddLanguageIfEmpty: true });
+      appsWithGitHub
+        .filter(
+          (a) =>
+            a.gitHub.owner.toLowerCase() === obj.gitHub.owner.toLowerCase() &&
+            a.gitHub.repo.toLowerCase() === obj.gitHub.repo.toLowerCase(),
+        )
+        .map((a) => a.app)
+        .forEach((app) =>
+          mergeApps(app, obj.app, { onlyAddLanguageIfEmpty: true }),
+        );
     });
 }
