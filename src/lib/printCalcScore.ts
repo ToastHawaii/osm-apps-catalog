@@ -29,11 +29,13 @@ export function printCalcScore(apps: App[]) {
   console.info("08.10.2025: 2.156 (1954 Apps)");
   console.info("25.10.2025: 2.158 (1960 Apps)");
   console.info("17.01.2026: 2.110 (2035 Apps)");
-  console.info("08.03.2026: 1.904 (2053 Apps)");
   console.info(
     "Score calculation adjusted: Include GitHub on 'documented on multiple platform'",
   );
   console.info("17.01.2026: 2.117 (2035 Apps)");
+  console.info("08.03.2026: 1.904 (2053 Apps)");
+  console.info("Enhanced enrichment with information from GitHub");
+  console.info("08.03.2026: 1.980 (2052 Apps)");
   console.info("Today: " + average);
 
   console.info("---");
