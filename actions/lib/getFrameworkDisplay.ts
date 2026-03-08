@@ -87,6 +87,8 @@ const frameworks: {
   { name: "Maui", synonym: ["maui"] },
   { name: "Uno platform", synonym: ["uno platform"] },
   { name: "libosmscout", synonym: ["libosmscout"] },
+  { name: "Folium", synonym: ["folium"] },
+  { name: "Matplotlib", synonym: ["matplotlib"] },
 ];
 
 export function getFrameworkDisplay(value: string) {
