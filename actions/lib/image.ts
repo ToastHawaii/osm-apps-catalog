@@ -2,6 +2,11 @@ import md5 from "md5";
 import { httpRegex } from "@shared/utils/url";
 import { startsWithIgnoreCase } from "@shared/utils/string";
 
+function extractFromWikiText(input: string) {
+  const match = input.match(/\[\[(?:File|Image):([^|\]]+)/i);
+  return match?.[1].trim();
+}
+
 export function toWikimediaUrl(source: string, size: number) {
   if (!source) return [] as string[];
 
@@ -9,6 +14,13 @@ export function toWikimediaUrl(source: string, size: number) {
     return [source];
   } else if (startsWithIgnoreCase(source, "File:")) {
     const fileName = source.substring(5, source.length);
+
+    return [
+      ...generateOsmWikimediaUrls(fileName, size),
+      ...generateCommonsWikimediaUrls(fileName, size),
+    ];
+  } else if (extractFromWikiText(source)) {
+    const fileName = extractFromWikiText(source) as string;
 
     return [
       ...generateOsmWikimediaUrls(fileName, size),
