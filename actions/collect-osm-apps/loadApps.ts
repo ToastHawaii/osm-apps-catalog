@@ -10,17 +10,6 @@ import { loadAppsFromTagInfoProjects } from "@actions/lib/loadAppsFromSource/tag
 import { loadAppsFromWikidata } from "@actions/lib/loadAppsFromSource/wikidata";
 import { AppQueries } from "@actions/lib/crawler/wikidata";
 
-export function isGitForgeUrl(value: string): boolean {
-  try {
-    const url = new URL(value);
-    const host = url.hostname.toLowerCase();
-
-    return host === "github.com";
-  } catch {
-    return false;
-  }
-}
-
 export async function loadApps(githubToken: string) {
   const apps: App[] = [];
   const languageMode = "en";
@@ -46,39 +35,6 @@ export async function loadApps(githubToken: string) {
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
       }),
     );
-
-  console.info(
-    "source code is on github: " +
-      apps.filter(
-        (a) =>
-          isGitForgeUrl(a.sourceCode || "") &&
-          !a.source.some((s) => s.name === "GitHub"),
-      ).length,
-  );
-
-  console.info(
-    "has hint for github: " +
-      apps.filter(
-        (a) =>
-          (isGitForgeUrl(a.sourceCode || "") ||
-            isGitForgeUrl(a.website || "") ||
-            isGitForgeUrl(a.documentation || "")) &&
-          !a.source.some((s) => s.name === "GitHub"),
-      ).length,
-  );
-
-  console.info(
-    "ex: has hint for github: " +
-      apps.filter(
-        (a) =>
-          (isGitForgeUrl(a.sourceCode || "") ||
-            isGitForgeUrl(a.website || "") ||
-            isGitForgeUrl(a.documentation || "") ||
-            isGitForgeUrl(a.community.issueTracker || "") ||
-            isGitForgeUrl(a.community.githubDiscussions || "")) &&
-          !a.source.some((s) => s.name === "GitHub"),
-      ).length,
-  );
 
   return apps;
 }

@@ -12,6 +12,7 @@ import { getKnownApps } from "@actions/lib/getKnownApps";
 import { enrichSpotlight } from "./enrichSpotlight";
 import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
+import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
 
 // todo: statistik erstellen, neuer ablauf,
 // apps loaden
@@ -24,7 +25,11 @@ import { enrichScoreTotal } from "./enrichScoreTotal";
  */
 export async function run(): Promise<void> {
   try {
-    let apps = await loadApps(core.getInput("ghToken"));
+    const gitHubToken = core.getInput("ghToken");
+
+    let apps = await loadApps(gitHubToken);
+
+    enrichWithGitHub(apps, gitHubToken);
 
     enrichId(apps);
     enrichScoreTotal(apps);

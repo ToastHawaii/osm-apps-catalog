@@ -183,28 +183,36 @@ export function transformGitHubResult(eld: any, result: any) {
 export async function requestGitHub(githubToken: string) {
   const results: any[] = [];
   let hasNextPage = true;
-  let cursor: string | null = null;
+  let cursor: string | undefined = undefined;
 
   const newerThen5Year = new Date();
   newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
   const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
   while (hasNextPage && results.length < 1000) {
-    const json: any = await request(pushedAfter, cursor, githubToken, "desc");
+    const json: any = await searchByTopic(
+      pushedAfter,
+      "desc",
+      githubToken,
+      cursor,
+    );
 
-    const edgeNodes = json.data.search.edges.map((e: any) => e.node);
-    results.push(...edgeNodes);
+    results.push(...json.data.search.nodes);
 
     hasNextPage = json.data.search.pageInfo.hasNextPage;
     cursor = json.data.search.pageInfo.endCursor;
   }
 
   hasNextPage = true;
-  cursor = null;
+  cursor = undefined;
   while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
-    const json: any = await request(pushedAfter, cursor, githubToken, "asc");
+    const json: any = await searchByTopic(
+      pushedAfter,
+      "asc",
+      githubToken,
+      cursor,
+    );
 
-    const edgeNodes = json.data.search.edges.map((e: any) => e.node);
-    results.push(...edgeNodes);
+    results.push(...json.data.search.nodes);
 
     hasNextPage = json.data.search.pageInfo.hasNextPage;
     cursor = json.data.search.pageInfo.endCursor;
@@ -212,65 +220,93 @@ export async function requestGitHub(githubToken: string) {
 
   return results;
 }
-async function request(
-  pushedAfter: string,
-  cursor: string | null,
+
+export async function searchByRepos(
+  repos: { owner: string; repo: string }[],
   githubToken: string,
-  sort: string,
 ) {
-  const query = `
-      query {
-        search(
-          query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension"
-          type: REPOSITORY
-          first: 50 ${cursor ? `, after: "${cursor}"` : ""}
-        ) {
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-          edges {
-            node {
-              ... on Repository {
-                name
-                nameWithOwner
-                description
-                descriptionHTML
-                url
-                homepageUrl
-                openGraphImageUrl
-                usesCustomOpenGraphImage
-                stargazerCount
-                isArchived
-                hasDiscussionsEnabled
-                hasIssuesEnabled
-                hasWikiEnabled
-                updatedAt
-                licenseInfo {
-                  spdxId
+  const batchSize = 50;
+  const results: any[] = [];
+
+  for (let i = 0; i < repos.length; i += batchSize) {
+    const batch = repos.slice(i, i + batchSize);
+
+    const query = batch.map((r) => `repo:${r.owner}/${r.repo}`).join(" ");
+
+    const batchResult = await search(query, githubToken);
+    results.push(batchResult);
+  }
+
+  return results;
+}
+
+async function searchByTopic(
+  pushedAfter: string,
+  sort: string,
+  githubToken: string,
+  cursor?: string | undefined,
+) {
+  return search(
+    `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension`,
+    githubToken,
+    cursor,
+  );
+}
+
+async function search(
+  query: string,
+  githubToken: string,
+  cursor?: string | undefined,
+) {
+  const fullQuery = `
+      search(
+        query: "${query}"
+        type: REPOSITORY
+        first: 50 ${cursor ? `, after: "${cursor}"` : ""}
+      ) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          ... on Repository {
+            name
+            nameWithOwner
+            description
+            descriptionHTML
+            url
+            homepageUrl
+            openGraphImageUrl
+            usesCustomOpenGraphImage
+            stargazerCount
+            isArchived
+            hasDiscussionsEnabled
+            hasIssuesEnabled
+            hasWikiEnabled
+            updatedAt
+            licenseInfo {
+              spdxId
+            }
+            owner {
+              login
+              url
+            }
+            repositoryTopics(first: 100) {
+              nodes {
+                topic {
+                  name
                 }
-                owner {
-                  login
-                  url
+              }
+            }
+            latestRelease {
+              publishedAt 
+            }    
+            languages(first: 100) {
+              edges {
+                node {
+                  name
                 }
-                repositoryTopics(first: 100) {
-                  nodes {
-                    topic {
-                      name
-                    }
-                  }
-                }
-                latestRelease {
-                  publishedAt 
-                }    
-                languages(first: 100) {
-                  edges {
-                    node {
-                      name
-                    }
-                    size
-                  }
-                }
+                size
               }
             }
           }
@@ -284,7 +320,7 @@ async function request(
       Authorization: `Bearer ${githubToken}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query: fullQuery }),
   });
 
   if (!response.ok) {
