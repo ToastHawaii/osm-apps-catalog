@@ -48,21 +48,36 @@ export async function loadApps(githubToken: string) {
     );
 
   console.info(
-    JSON.stringify(
+    "source code is on github: " +
       apps.filter(
         (a) =>
           isGitForgeUrl(a.sourceCode || "") &&
           !a.source.some((s) => s.name === "GitHub"),
-      ),
-    ),
+      ).length,
   );
 
   console.info(
-    apps.filter(
-      (a) =>
-        isGitForgeUrl(a.sourceCode || "") &&
-        !a.source.some((s) => s.name === "GitHub"),
-    ).length,
+    "has hint for github: " +
+      apps.filter(
+        (a) =>
+          (isGitForgeUrl(a.sourceCode || "") ||
+            isGitForgeUrl(a.website || "") ||
+            isGitForgeUrl(a.documentation || "")) &&
+          !a.source.some((s) => s.name === "GitHub"),
+      ).length,
+  );
+
+  console.info(
+    "ex: has hint for github: " +
+      apps.filter(
+        (a) =>
+          (isGitForgeUrl(a.sourceCode || "") ||
+            isGitForgeUrl(a.website || "") ||
+            isGitForgeUrl(a.documentation || "") ||
+            isGitForgeUrl(a.community.issueTracker || "") ||
+            isGitForgeUrl(a.community.githubDiscussions || "")) &&
+          !a.source.some((s) => s.name === "GitHub"),
+      ).length,
   );
 
   return apps;

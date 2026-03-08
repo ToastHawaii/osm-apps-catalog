@@ -103493,10 +103493,21 @@ async function loadApps(githubToken) {
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
     }));
-    console.info(JSON.stringify(apps.filter((a) => isGitForgeUrl(a.sourceCode || "") &&
-        !a.source.some((s) => s.name === "GitHub"))));
-    console.info(apps.filter((a) => isGitForgeUrl(a.sourceCode || "") &&
-        !a.source.some((s) => s.name === "GitHub")).length);
+    console.info("source code is on github: " +
+        apps.filter((a) => isGitForgeUrl(a.sourceCode || "") &&
+            !a.source.some((s) => s.name === "GitHub")).length);
+    console.info("has hint for github: " +
+        apps.filter((a) => (isGitForgeUrl(a.sourceCode || "") ||
+            isGitForgeUrl(a.website || "") ||
+            isGitForgeUrl(a.documentation || "")) &&
+            !a.source.some((s) => s.name === "GitHub")).length);
+    console.info("ex: has hint for github: " +
+        apps.filter((a) => (isGitForgeUrl(a.sourceCode || "") ||
+            isGitForgeUrl(a.website || "") ||
+            isGitForgeUrl(a.documentation || "") ||
+            isGitForgeUrl(a.community.issueTracker || "") ||
+            isGitForgeUrl(a.community.githubDiscussions || "")) &&
+            !a.source.some((s) => s.name === "GitHub")).length);
     return apps;
 }
 
