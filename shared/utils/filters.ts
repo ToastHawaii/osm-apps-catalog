@@ -71,6 +71,7 @@ export function hiking(a: App) {
       "GUIDEPOSTS",
       "TREKKING",
       "HIKING TRAILS",
+      "TOPOGRAPHY",
     ].includes(t),
   );
 }
