@@ -1,25 +1,41 @@
 import { getJson } from "@shared/utils/jsonRequest";
 import { newUrl } from "@shared/utils/url";
 
+interface ApiResult {
+  /** URL of the request. */
+  url: string;
+  /** All changes in the source until this date are reflected in this taginfo result. */
+  data_until: string;
+  /** Array with results. */
+  data: {
+    /** Project id */
+    id: string;
+    /** Project name */
+    name: string;
+    /** Project URL */
+    project_url: string;
+    /** Icon URL */
+    icon_url: string;
+    /** Documentation URL */
+    doc_url: string;
+    /** Project description */
+    description: string;
+    /** Key entries for this project */
+    key_entries: number;
+    /** Tag entries for this project */
+    tag_entries: number;
+    /** Unique keys known to this project */
+
+    unique_keys: number;
+    /** Unique tags known to this project */
+    unique_tags: number;
+  }[];
+}
+
 export async function loadAppsFromTagInfoProjects() {
   const projectObjects = (await getJson(
     "https://taginfo.openstreetmap.org/api/4/projects/all",
-  )) as {
-    url: string;
-    data_until: string;
-    data: {
-      id: string;
-      name: string;
-      project_url: string;
-      icon_url: string;
-      doc_url: string;
-      description: string;
-      key_entries: number;
-      tag_entries: number;
-      unique_keys: number;
-      unique_tags: number;
-    }[];
-  };
+  )) as ApiResult;
   const source = "https://taginfo.openstreetmap.org/projects/";
   return projectObjects.data.map(
     (obj) =>
