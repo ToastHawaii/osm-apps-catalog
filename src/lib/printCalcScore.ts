@@ -42,5 +42,5 @@ export function printCalcScore(apps: App[]) {
     apps.flatMap((app) => app.topics),
     [],
   );
-  console.info(preparedData.map((d) => d.value).join("\n"));
+  console.info(preparedData.map((d) => d.value + ";" + d.count).join("\n"));
 }

@@ -13,6 +13,7 @@ export function prepareArrayForSelect(names: string[], selected: string[]) {
         return {
           value: t.name,
           text: t.name,
+          count: t.count,
           html: `<span class="select-option">(${t.count})</span>${t.name}`,
         };
       }
