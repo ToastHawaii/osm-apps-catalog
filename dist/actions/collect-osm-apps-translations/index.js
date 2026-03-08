@@ -98904,6 +98904,10 @@ var md5_default = /*#__PURE__*/__nccwpck_require__.n(md5);
 
 
 
+function extractFromWikiText(input) {
+    const match = input.match(/\[\[(?:File|Image):([^|\]]+)/i);
+    return match?.[1].trim();
+}
 function toWikimediaUrl(source, size) {
     if (!source)
         return [];
@@ -98912,6 +98916,13 @@ function toWikimediaUrl(source, size) {
     }
     else if (startsWithIgnoreCase(source, "File:")) {
         const fileName = source.substring(5, source.length);
+        return [
+            ...generateOsmWikimediaUrls(fileName, size),
+            ...generateCommonsWikimediaUrls(fileName, size),
+        ];
+    }
+    else if (extractFromWikiText(source)) {
+        const fileName = extractFromWikiText(source);
         return [
             ...generateOsmWikimediaUrls(fileName, size),
             ...generateCommonsWikimediaUrls(fileName, size),

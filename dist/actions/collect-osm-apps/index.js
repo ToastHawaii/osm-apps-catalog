@@ -72809,7 +72809,7 @@ const { Response, cloneResponse } = __nccwpck_require__(8676)
 const { Request } = __nccwpck_require__(5194)
 const { kState, kHeaders, kGuard, kRealm } = __nccwpck_require__(9710)
 const { fetching } = __nccwpck_require__(2315)
-const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(7904)
+const { urlIsHttpHttpsScheme, createDeferredPromise, readAllBytes } = __nccwpck_require__(5523)
 const assert = __nccwpck_require__(2613)
 const { getGlobalDispatcher } = __nccwpck_require__(2581)
 
@@ -73813,7 +73813,7 @@ module.exports = {
 
 const assert = __nccwpck_require__(2613)
 const { URLSerializer } = __nccwpck_require__(4322)
-const { isValidHeaderName } = __nccwpck_require__(7904)
+const { isValidHeaderName } = __nccwpck_require__(5523)
 
 /**
  * @see https://url.spec.whatwg.org/#concept-url-equals
@@ -78937,7 +78937,7 @@ const {
   readableStreamClose,
   createDeferredPromise,
   fullyReadBody
-} = __nccwpck_require__(7904)
+} = __nccwpck_require__(5523)
 const { FormData } = __nccwpck_require__(3073)
 const { kState } = __nccwpck_require__(9710)
 const { webidl } = __nccwpck_require__(4222)
@@ -79707,7 +79707,7 @@ module.exports = {
 
 const assert = __nccwpck_require__(2613)
 const { atob } = __nccwpck_require__(181)
-const { isomorphicDecode } = __nccwpck_require__(7904)
+const { isomorphicDecode } = __nccwpck_require__(5523)
 
 const encoder = new TextEncoder()
 
@@ -80345,7 +80345,7 @@ module.exports = {
 const { Blob, File: NativeFile } = __nccwpck_require__(181)
 const { types } = __nccwpck_require__(9023)
 const { kState } = __nccwpck_require__(9710)
-const { isBlobLike } = __nccwpck_require__(7904)
+const { isBlobLike } = __nccwpck_require__(5523)
 const { webidl } = __nccwpck_require__(4222)
 const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(4322)
 const { kEnumerableProperty } = __nccwpck_require__(3440)
@@ -80694,7 +80694,7 @@ module.exports = { File, FileLike, isFileLike }
 "use strict";
 
 
-const { isBlobLike, toUSVString, makeIterator } = __nccwpck_require__(7904)
+const { isBlobLike, toUSVString, makeIterator } = __nccwpck_require__(5523)
 const { kState } = __nccwpck_require__(9710)
 const { File: UndiciFile, FileLike, isFileLike } = __nccwpck_require__(3041)
 const { webidl } = __nccwpck_require__(4222)
@@ -81024,7 +81024,7 @@ const {
   makeIterator,
   isValidHeaderName,
   isValidHeaderValue
-} = __nccwpck_require__(7904)
+} = __nccwpck_require__(5523)
 const util = __nccwpck_require__(9023)
 const { webidl } = __nccwpck_require__(4222)
 const assert = __nccwpck_require__(2613)
@@ -81657,7 +81657,7 @@ const {
   urlIsLocal,
   urlIsHttpHttpsScheme,
   urlHasHttpsScheme
-} = __nccwpck_require__(7904)
+} = __nccwpck_require__(5523)
 const { kState, kHeaders, kGuard, kRealm } = __nccwpck_require__(9710)
 const assert = __nccwpck_require__(2613)
 const { safelyExtractBody } = __nccwpck_require__(8923)
@@ -83784,7 +83784,7 @@ const {
   normalizeMethod,
   makePolicyContainer,
   normalizeMethodRecord
-} = __nccwpck_require__(7904)
+} = __nccwpck_require__(5523)
 const {
   forbiddenMethodsSet,
   corsSafeListedMethodsSet,
@@ -84738,7 +84738,7 @@ const {
   serializeJavascriptValueToJSONString,
   isErrorLike,
   isomorphicEncode
-} = __nccwpck_require__(7904)
+} = __nccwpck_require__(5523)
 const {
   redirectStatusSet,
   nullBodyStatus,
@@ -85317,7 +85317,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7904:
+/***/ 5523:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -86476,7 +86476,7 @@ module.exports = {
 
 
 const { types } = __nccwpck_require__(9023)
-const { hasOwn, toUSVString } = __nccwpck_require__(7904)
+const { hasOwn, toUSVString } = __nccwpck_require__(5523)
 
 /** @type {import('../../types/webidl').Webidl} */
 const webidl = {}
@@ -101575,82 +101575,90 @@ function transformGitHubResult(eld, result) {
 async function requestGitHub(githubToken) {
     const results = [];
     let hasNextPage = true;
-    let cursor = null;
+    let cursor = undefined;
     const newerThen5Year = new Date();
     newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
     const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
     while (hasNextPage && results.length < 1000) {
-        const json = await request(pushedAfter, cursor, githubToken, "desc");
-        const edgeNodes = json.data.search.edges.map((e) => e.node);
-        results.push(...edgeNodes);
+        const json = await searchByTopic(pushedAfter, "desc", githubToken, cursor);
+        results.push(...json.data.search.nodes);
         hasNextPage = json.data.search.pageInfo.hasNextPage;
         cursor = json.data.search.pageInfo.endCursor;
     }
     hasNextPage = true;
-    cursor = null;
+    cursor = undefined;
     while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
-        const json = await request(pushedAfter, cursor, githubToken, "asc");
-        const edgeNodes = json.data.search.edges.map((e) => e.node);
-        results.push(...edgeNodes);
+        const json = await searchByTopic(pushedAfter, "asc", githubToken, cursor);
+        results.push(...json.data.search.nodes);
         hasNextPage = json.data.search.pageInfo.hasNextPage;
         cursor = json.data.search.pageInfo.endCursor;
     }
     return results;
 }
-async function request(pushedAfter, cursor, githubToken, sort) {
-    const query = `
-      query {
-        search(
-          query: "topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension"
-          type: REPOSITORY
-          first: 50 ${cursor ? `, after: "${cursor}"` : ""}
-        ) {
-          pageInfo {
-            hasNextPage
-            endCursor
-          }
-          edges {
-            node {
-              ... on Repository {
-                name
-                nameWithOwner
-                description
-                descriptionHTML
-                url
-                homepageUrl
-                openGraphImageUrl
-                usesCustomOpenGraphImage
-                stargazerCount
-                isArchived
-                hasDiscussionsEnabled
-                hasIssuesEnabled
-                hasWikiEnabled
-                updatedAt
-                licenseInfo {
-                  spdxId
+async function searchByRepos(repos, githubToken) {
+    const batchSize = 50;
+    const results = [];
+    for (let i = 0; i < repos.length; i += batchSize) {
+        const batch = repos.slice(i, i + batchSize);
+        const query = batch.map((r) => `repo:${r.owner}/${r.repo}`).join(" ");
+        const batchResult = await search(query, githubToken);
+        results.push(batchResult);
+    }
+    return results;
+}
+async function searchByTopic(pushedAfter, sort, githubToken, cursor) {
+    return search(`topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension`, githubToken, cursor);
+}
+async function search(query, githubToken, cursor) {
+    const fullQuery = `
+      search(
+        query: "${query}"
+        type: REPOSITORY
+        first: 50 ${cursor ? `, after: "${cursor}"` : ""}
+      ) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          ... on Repository {
+            name
+            nameWithOwner
+            description
+            descriptionHTML
+            url
+            homepageUrl
+            openGraphImageUrl
+            usesCustomOpenGraphImage
+            stargazerCount
+            isArchived
+            hasDiscussionsEnabled
+            hasIssuesEnabled
+            hasWikiEnabled
+            updatedAt
+            licenseInfo {
+              spdxId
+            }
+            owner {
+              login
+              url
+            }
+            repositoryTopics(first: 100) {
+              nodes {
+                topic {
+                  name
                 }
-                owner {
-                  login
-                  url
+              }
+            }
+            latestRelease {
+              publishedAt 
+            }    
+            languages(first: 100) {
+              edges {
+                node {
+                  name
                 }
-                repositoryTopics(first: 100) {
-                  nodes {
-                    topic {
-                      name
-                    }
-                  }
-                }
-                latestRelease {
-                  publishedAt 
-                }    
-                languages(first: 100) {
-                  edges {
-                    node {
-                      name
-                    }
-                    size
-                  }
-                }
+                size
               }
             }
           }
@@ -101663,7 +101671,7 @@ async function request(pushedAfter, cursor, githubToken, sort) {
             Authorization: `Bearer ${githubToken}`,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query }),
+        body: JSON.stringify({ query: fullQuery }),
     });
     if (!response.ok) {
         const errorText = await response.text();
@@ -102096,6 +102104,10 @@ var md5_default = /*#__PURE__*/__nccwpck_require__.n(md5);
 
 
 
+function extractFromWikiText(input) {
+    const match = input.match(/\[\[(?:File|Image):([^|\]]+)/i);
+    return match?.[1].trim();
+}
 function toWikimediaUrl(source, size) {
     if (!source)
         return [];
@@ -102104,6 +102116,13 @@ function toWikimediaUrl(source, size) {
     }
     else if (startsWithIgnoreCase(source, "File:")) {
         const fileName = source.substring(5, source.length);
+        return [
+            ...generateOsmWikimediaUrls(fileName, size),
+            ...generateCommonsWikimediaUrls(fileName, size),
+        ];
+    }
+    else if (extractFromWikiText(source)) {
+        const fileName = extractFromWikiText(source);
         return [
             ...generateOsmWikimediaUrls(fileName, size),
             ...generateCommonsWikimediaUrls(fileName, size),
@@ -102850,7 +102869,7 @@ function wikidata_transform(result) {
         ],
     };
 }
-async function wikidata_request(query) {
+async function request(query) {
     const base = "https://query.wikidata.org/sparql";
     const params = {};
     params["query"] = query.replace(/\s*#.*$/gm, "").replace(/( |\n)+/g, " ");
@@ -103433,7 +103452,7 @@ ORDER BY ?item
 
 
 async function loadAppsFromWikidata(queries) {
-    const wikidataResults = await Promise.all(queries.map((query) => wikidata_request(query)));
+    const wikidataResults = await Promise.all(queries.map((query) => request(query)));
     // Merge multiple queries results into single apps based on language and Wikidata ID
     const objs = new Map();
     for (const wikidataResult of wikidataResults) {
@@ -103463,16 +103482,6 @@ async function loadAppsFromWikidata(queries) {
 
 
 
-function isGitForgeUrl(value) {
-    try {
-        const url = new URL(value);
-        const host = url.hostname.toLowerCase();
-        return host === "github.com";
-    }
-    catch {
-        return false;
-    }
-}
 async function loadApps(githubToken) {
     const apps = [];
     const languageMode = "en";
@@ -103493,21 +103502,6 @@ async function loadApps(githubToken) {
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
     }));
-    console.info("source code is on github: " +
-        apps.filter((a) => isGitForgeUrl(a.sourceCode || "") &&
-            !a.source.some((s) => s.name === "GitHub")).length);
-    console.info("has hint for github: " +
-        apps.filter((a) => (isGitForgeUrl(a.sourceCode || "") ||
-            isGitForgeUrl(a.website || "") ||
-            isGitForgeUrl(a.documentation || "")) &&
-            !a.source.some((s) => s.name === "GitHub")).length);
-    console.info("ex: has hint for github: " +
-        apps.filter((a) => (isGitForgeUrl(a.sourceCode || "") ||
-            isGitForgeUrl(a.website || "") ||
-            isGitForgeUrl(a.documentation || "") ||
-            isGitForgeUrl(a.community.issueTracker || "") ||
-            isGitForgeUrl(a.community.githubDiscussions || "")) &&
-            !a.source.some((s) => s.name === "GitHub")).length);
     return apps;
 }
 
@@ -107462,7 +107456,63 @@ function enrichScoreTotal(apps) {
     });
 }
 
+;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichWithGitHub.ts
+
+
+
+function getGithubOwnerRepo(urlString) {
+    if (!urlString) {
+        return undefined;
+    }
+    try {
+        const url = new URL(urlString);
+        if (!["github.com", "www.github.com"].includes(url.hostname.toLowerCase())) {
+            return undefined;
+        }
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (parts.length < 2) {
+            return undefined;
+        }
+        const owner = parts[0];
+        const repo = parts[1].replace(/\.git$/, "");
+        return { owner, repo };
+    }
+    catch {
+        return undefined;
+    }
+}
+/** enrich app with infos from github, if not already done */
+async function enrichWithGitHub(apps, gitHubToken) {
+    const appsWithGitHub = apps
+        .filter((app) => !app.source.some((s) => s.name === "GitHub"))
+        .map((app) => ({
+        app,
+        gitHub: getGithubOwnerRepo(app.sourceCode) ||
+            getGithubOwnerRepo(app.website) ||
+            getGithubOwnerRepo(app.documentation),
+    }))
+        .filter((g) => g.gitHub);
+    const results = await searchByRepos(appsWithGitHub.map((app) => app.gitHub), gitHubToken);
+    await dynamic.load("large");
+    results
+        .map((source) => ({
+        app: transformGitHubResult(dynamic, source),
+        gitHub: { repo: source.name, owner: source.owner.login },
+    }))
+        .forEach((obj) => {
+        const app = appsWithGitHub.find((a) => a.gitHub.owner.toLowerCase() === obj.gitHub.owner.toLowerCase() &&
+            a.gitHub.repo.toLowerCase() === obj.gitHub.repo.toLowerCase())?.app;
+        if (!app) {
+            console.info("Not found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
+            return;
+        }
+        console.info("found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
+        mergeApps(app, obj.app, { onlyAddLanguageIfEmpty: true });
+    });
+}
+
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/main.ts
+
 
 
 
@@ -107485,7 +107535,9 @@ function enrichScoreTotal(apps) {
  */
 async function run() {
     try {
-        let apps = await loadApps(core.getInput("ghToken"));
+        const gitHubToken = core.getInput("ghToken");
+        let apps = await loadApps(gitHubToken);
+        enrichWithGitHub(apps, gitHubToken);
         enrichId(apps);
         enrichScoreTotal(apps);
         const knownApps = await getKnownApps();
