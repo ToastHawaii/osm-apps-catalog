@@ -10,6 +10,17 @@ import { loadAppsFromTagInfoProjects } from "@actions/lib/loadAppsFromSource/tag
 import { loadAppsFromWikidata } from "@actions/lib/loadAppsFromSource/wikidata";
 import { AppQueries } from "@actions/lib/crawler/wikidata";
 
+export function isGitForgeUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+
+    return host === "github.com";
+  } catch {
+    return false;
+  }
+}
+
 export async function loadApps(githubToken: string) {
   const apps: App[] = [];
   const languageMode = "en";
@@ -30,11 +41,29 @@ export async function loadApps(githubToken: string) {
         includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
         checkWebsiteWithRepo: app.source[0].name === "taginfo",
         includeSourceForUniqueCheck: false,
-        // The language of github is only recognised automatically based on the description, so if
+        // The language of github is only recognized automatically based on the description, so if
         // there is another source, use language from there
         onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
       }),
     );
+
+  console.info(
+    JSON.stringify(
+      apps.filter(
+        (a) =>
+          isGitForgeUrl(a.sourceCode || "") &&
+          !a.source.some((s) => s.name === "GitHub"),
+      ),
+    ),
+  );
+
+  console.info(
+    apps.filter(
+      (a) =>
+        isGitForgeUrl(a.sourceCode || "") &&
+        !a.source.some((s) => s.name === "GitHub"),
+    ).length,
+  );
 
   return apps;
 }
