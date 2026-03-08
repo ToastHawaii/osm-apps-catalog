@@ -101602,7 +101602,7 @@ async function searchByRepos(repos, githubToken) {
         const batch = repos.slice(i, i + batchSize);
         const query = batch.map((r) => `repo:${r.owner}/${r.repo}`).join(" ");
         const batchResult = await search(query, githubToken);
-        results.push(batchResult);
+        results.push(...batchResult.data.search.nodes);
     }
     return results;
 }
@@ -101611,6 +101611,7 @@ async function searchByTopic(pushedAfter, sort, githubToken, cursor) {
 }
 async function search(query, githubToken, cursor) {
     const fullQuery = `
+    query {
       search(
         query: "${query}"
         type: REPOSITORY
@@ -101664,7 +101665,9 @@ async function search(query, githubToken, cursor) {
           }
         }
       }
+    }
     `;
+    console.info(`Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery })}`);
     const response = await fetch("https://api.github.com/graphql", {
         method: "POST",
         headers: {
@@ -107500,14 +107503,11 @@ async function enrichWithGitHub(apps, gitHubToken) {
         gitHub: { repo: source.name, owner: source.owner.login },
     }))
         .forEach((obj) => {
-        const app = appsWithGitHub.find((a) => a.gitHub.owner.toLowerCase() === obj.gitHub.owner.toLowerCase() &&
-            a.gitHub.repo.toLowerCase() === obj.gitHub.repo.toLowerCase())?.app;
-        if (!app) {
-            console.info("Not found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
-            return;
-        }
-        console.info("found: " + obj.gitHub.owner + "/" + obj.gitHub.repo);
-        mergeApps(app, obj.app, { onlyAddLanguageIfEmpty: true });
+        appsWithGitHub
+            .filter((a) => a.gitHub.owner.toLowerCase() === obj.gitHub.owner.toLowerCase() &&
+            a.gitHub.repo.toLowerCase() === obj.gitHub.repo.toLowerCase())
+            .map((a) => a.app)
+            .forEach((app) => mergeApps(app, obj.app, { onlyAddLanguageIfEmpty: true }));
     });
 }
 
@@ -107525,19 +107525,14 @@ async function enrichWithGitHub(apps, gitHubToken) {
 
 
 
-// todo: statistik erstellen, neuer ablauf,
-// apps loaden
-// jmergen
-// ignorierte Apps mit wiedersprüchen ausgeben & ignorieren
 /**
  * The main function for the action.
  * @returns Resolves when the action is complete.
  */
 async function run() {
     try {
-        const gitHubToken = core.getInput("ghToken");
-        let apps = await loadApps(gitHubToken);
-        enrichWithGitHub(apps, gitHubToken);
+        let apps = await loadApps(core.getInput("ghToken"));
+        await enrichWithGitHub(apps, core.getInput("ghToken"));
         enrichId(apps);
         enrichScoreTotal(apps);
         const knownApps = await getKnownApps();
