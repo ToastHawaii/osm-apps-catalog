@@ -19,9 +19,6 @@
   <meta name="apple-mobile-web-app-title" content="OSM Apps" />
   <link rel="manifest" href="/icons/site.webmanifest" />
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-        media="print" onload="this.media='all'; this.onload=null;" />
   <link rel="stylesheet" href="{{
         '/assets/css/style.css?v='
           | append: site.github.build_revision
@@ -50,6 +47,15 @@
 </head>
 
 <body>
+  <div class="bg-white" style="position: sticky; top: 0;">
+    <a href="/" class="d-flex flex-items-center text-bold"
+       style="padding: 22px 45px; color: black;">
+      <img alt="OSM App Catalog" src="/assets/osm-apps-logo-small.png"
+           style="width: 24px;margin-right: 10px;">
+      OSM App Catalog
+    </a>
+    <hr class="m-0">
+  </div>
   <div class="container-lg px-3 my-5 markdown-body">{{ content }}</div>
 
   <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
