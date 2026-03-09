@@ -71,9 +71,11 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) இர�
 
 ---
 
-- [OSM சமூகத்தின்] (https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [ஒரு
-  உள்ளக குழுவில் சேரவும்] (https://usergroups.openstreetmap.de/), [சந்திக்கவும்]
-  (https://osmcal.org/) & [அரட்டை] (https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [OpenStreetMap க்கு பங்களிப்பு]
   (https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [என்னைப் பற்றி] (https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

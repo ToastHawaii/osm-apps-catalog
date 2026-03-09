@@ -71,10 +71,11 @@ med deras tillstånd. Detta projekt stöds inte av eller ansluts till
 
 ---
 
-- Bli en del av
-  [OSM-gemenskapen](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Gå
-  med i en lokal grupp](https://usergroups.openstreetmap.de/),
-  [möte](https://osmcal.org/) & [chatt](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [Bidra till
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Om mig] (https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

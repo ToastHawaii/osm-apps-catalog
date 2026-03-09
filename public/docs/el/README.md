@@ -71,10 +71,11 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 
 ---
 
-- Γίνεται μέλος της [κοινότητας του
-  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Μπείτε σε μια
-  τοπική ομάδα](https://usergroups.openstreetmap.de/),
-  [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [Συνεισφέρετε στο
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Σχετικά με εμένα](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

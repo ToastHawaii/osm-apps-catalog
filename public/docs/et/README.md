@@ -73,10 +73,11 @@ seotud.
 
 ---
 
-- Osale [OSMi kogukonna
-  tegemistes](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [liitu
-  kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
-  [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [Täienda OpenStreetMapi
   andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Teave minu kohta](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
