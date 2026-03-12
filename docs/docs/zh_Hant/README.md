@@ -65,8 +65,10 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code
 
 ---
 
-- 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816)
-  的一部分：[加入地方組織](https://usergroups.openstreetmap.de/)、[聚會](https://osmcal.org/)
-  與 [交流](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [貢獻至開放街圖](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [關於我們](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

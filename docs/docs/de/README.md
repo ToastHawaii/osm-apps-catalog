@@ -73,10 +73,11 @@ verbunden.
 
 ---
 
-- Werde Teil der
-  [OSM-Community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816): [Tritt
-  einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff dich
-  mit anderen](https://osmcal.org/) und [chatte](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette)): [Join a local
+  group](https://usergroups.openstreetmap.de/), [meet](https://osmcal.org/) &
+  [chat](https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
