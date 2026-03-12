@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Moon, Sun } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -10,6 +9,8 @@ import {
 import React from "react";
 import { useTheme } from "@components/ThemeProvider";
 import { Button } from "@components/ui/button";
+import { Moon02Icon, Sun03Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export function ThemeModeToggle() {
   const { t } = useTranslation();
@@ -19,8 +20,14 @@ export function ThemeModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all [html.theme-mode-dark_&]:scale-0 [html.theme-mode-dark_&]:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all [html.theme-mode-dark_&]:scale-100 [html.theme-mode-dark_&]:rotate-0" />
+          <HugeiconsIcon
+            icon={Sun03Icon}
+            className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all [html.theme-mode-dark_&]:scale-0 [html.theme-mode-dark_&]:-rotate-90"
+          />
+          <HugeiconsIcon
+            icon={Moon02Icon}
+            className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all [html.theme-mode-dark_&]:scale-100 [html.theme-mode-dark_&]:rotate-0"
+          />
           <span className="sr-only">{t("toggleTheme.screenReader")}</span>
         </Button>
       </DropdownMenuTrigger>
