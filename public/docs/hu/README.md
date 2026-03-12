@@ -74,10 +74,11 @@ Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
 ---
 
 - Légy részese az [OSM
-  közösségnek](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816):
+  közösségének](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tanuld
+  meg a viselkedési normákat](https://wiki.openstreetmap.org/wiki/Etiquette)):
   [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
-  [találkozz velünk](https://osmcal.org/) & [chatelj
-  velünk](https://community.osm.be/)
+  [találkozz a többiekkel](https://osmcal.org/) vagy [csetelj
+  velük](https://community.osm.be/)
 - Az [OpenStreetMap
   szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
