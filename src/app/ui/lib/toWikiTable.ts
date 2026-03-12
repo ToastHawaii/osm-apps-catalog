@@ -80,7 +80,7 @@ export function toWikiTable(
   url.searchParams.set("lang", lang);
 
   const rows = params.map((p) => {
-    return `! title="${p.description(lang)}" |${p.label(lang)}
+    return `! style="left:0" title="${p.description(lang)}" |${p.label(lang)}
 ${appWithFields
   .map((app) => {
     const value = p.renderToWiki(app, lang) || "";
@@ -99,7 +99,7 @@ ${appWithFields
   const wikiTable = `<div style="overflow-x:auto;max-width:100%">
 {| class="wikitable sticky" style="font-size: 85%; text-align: center; margin-bottom: 0;"
 |+
-! title="${getLocalizedValue(
+! style="left:0" title="${getLocalizedValue(
     templateData.params["name"].description,
     lang,
   )}" |${getLocalizedValue(templateData.params["name"].label, lang)}
