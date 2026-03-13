@@ -10,6 +10,9 @@ import {
   hiking,
   cycling,
   publicTransport,
+  winterSport,
+  wheelchair,
+  print,
 } from "@shared/utils/filters";
 import { equalsYes } from "@shared/utils/string";
 import { TFunction } from "i18next";
@@ -72,6 +75,27 @@ export function categories(
       nextIndex: () => apps.findIndex((app) => cycling(app)),
     },
     {
+      id: "offlineUse",
+      name: () => t("category.mobile"),
+      description: (numberOfApps: number) =>
+        t("category.mobile.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => offlineUse(app)),
+    },
+    {
+      id: "navigation",
+      name: () => t("category.navigation"),
+      description: (numberOfApps: number) =>
+        t("category.navigation.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => navigation(app)),
+    },
+    {
+      id: "calcRoute",
+      name: () => t("category.calcRoute"),
+      description: (numberOfApps: number) =>
+        t("category.calcRoute.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => calcRoute(app)),
+    },
+    {
       id: "country",
       loadData: () => {
         const userRegion = getUserRegion();
@@ -106,25 +130,18 @@ export function categories(
       },
     },
     {
-      id: "offlineUse",
-      name: () => t("category.mobile"),
+      id: "winterSport",
+      name: () => t("category.winterSport"),
       description: (numberOfApps: number) =>
-        t("category.mobile.description", { numberOfApps }),
-      nextIndex: () => apps.findIndex((app) => offlineUse(app)),
+        t("category.winterSport.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => winterSport(app)),
     },
     {
-      id: "navigation",
-      name: () => t("category.navigation"),
+      id: "wheelchair",
+      name: () => t("category.wheelchair"),
       description: (numberOfApps: number) =>
-        t("category.navigation.description", { numberOfApps }),
-      nextIndex: () => apps.findIndex((app) => navigation(app)),
-    },
-    {
-      id: "calcRoute",
-      name: () => t("category.calcRoute"),
-      description: (numberOfApps: number) =>
-        t("category.calcRoute.description", { numberOfApps }),
-      nextIndex: () => apps.findIndex((app) => calcRoute(app)),
+        t("category.wheelchair.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => wheelchair(app)),
     },
     {
       id: "edit",
@@ -139,6 +156,13 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.trackRec.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => trackRec(app)),
+    },
+    {
+      id: "print",
+      name: () => t("category.print"),
+      description: (numberOfApps: number) =>
+        t("category.print.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => print(app)),
     },
   ];
 }

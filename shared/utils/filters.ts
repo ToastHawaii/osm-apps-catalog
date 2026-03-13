@@ -61,6 +61,16 @@ export function publicTransport(a: App) {
   );
 }
 
+export function winterSport(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["SKIING", "SKI", "WINTER SPORTS"].includes(t));
+}
+
+export function wheelchair(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["WHEELCHAIR"].includes(t));
+}
+
 export function hiking(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
@@ -192,6 +202,18 @@ export function convert(a: App) {
       "OPENSTREETMAP RENDERER",
     ].includes(t),
   );
+}
+
+export function print(a: App) {
+  const outputFormats = ["SVG", "PDF", "PNG"];
+  if (
+    a.rendering?.rendererOutputFormats.some((o) => outputFormats.includes(o))
+  ) {
+    return true;
+  }
+
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) => ["PRINT", "POSTER", "FIELDPAPERS"].includes(t));
 }
 
 export function maps3D(a: App) {
