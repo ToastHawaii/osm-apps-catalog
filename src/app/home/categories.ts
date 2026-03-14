@@ -1,7 +1,6 @@
 import { getUserRegion } from "@lib/utils/getUserRegion";
 import { App } from "@shared/data/App";
 import {
-  display,
   offlineUse,
   navigation,
   calcRoute,
@@ -13,8 +12,9 @@ import {
   winterSport,
   wheelchair,
   print,
+  universalMapApps,
+  tourism,
 } from "@shared/utils/filters";
-import { equalsYes } from "@shared/utils/string";
 import { TFunction } from "i18next";
 
 export function categories(
@@ -27,31 +27,7 @@ export function categories(
       name: () => t("category.universalMapApps"),
       description: (numberOfApps: number) =>
         t("category.universalMapApps.description", { numberOfApps }),
-      nextIndex: () =>
-        apps.findIndex(
-          (app) =>
-            /// universal maps: main goal is display map data
-            display(app) &&
-            equalsYes(...(app.map?.showWebsite || [])) &&
-            equalsYes(...(app.map?.showOpeningHours || [])) &&
-            // can calculate a route
-            equalsYes(...(app.routing?.calculateRoute || [])) &&
-            // can find a location
-            equalsYes(...(app.navigating?.findLocation || [])) &&
-            // and support some contributing
-            equalsYes(
-              ...[
-                ...(app.editing?.addPOI || []),
-                ...(app.editing?.addWay || []),
-
-                ...(app.editing?.createNotes || []),
-
-                ...(app.editing?.editPOI || []),
-                ...(app.editing?.editGeom || []),
-                ...(app.editing?.editTags || []),
-              ],
-            ),
-        ),
+      nextIndex: () => apps.findIndex((app) => universalMapApps(app)),
     },
     {
       id: "hiking",
@@ -66,6 +42,13 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.publicTransport.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => publicTransport(app)),
+    },
+    {
+      id: "tourism",
+      name: () => t("category.tourism"),
+      description: (numberOfApps: number) =>
+        t("category.tourism.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => tourism(app)),
     },
     {
       id: "cycling",

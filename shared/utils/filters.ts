@@ -71,6 +71,60 @@ export function wheelchair(a: App) {
   return topics.some((t) => ["WHEELCHAIR"].includes(t));
 }
 
+export function universalMapApps(app: App) {
+  /// universal maps: main goal is display map data
+  return (
+    display(app) &&
+    equalsYes(...(app.map?.showWebsite || [])) &&
+    equalsYes(...(app.map?.showOpeningHours || [])) &&
+    // can calculate a route
+    equalsYes(...(app.routing?.calculateRoute || [])) &&
+    // can find a location
+    equalsYes(...(app.navigating?.findLocation || [])) &&
+    // and support some contributing
+    equalsYes(
+      ...[
+        ...(app.editing?.addPOI || []),
+        ...(app.editing?.addWay || []),
+
+        ...(app.editing?.createNotes || []),
+
+        ...(app.editing?.editPOI || []),
+        ...(app.editing?.editGeom || []),
+        ...(app.editing?.editTags || []),
+      ],
+    )
+  );
+}
+
+export function tourism(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  if (
+    topics.some((t) =>
+      [
+        "TRAVEL",
+        "TOURISM",
+        "TOURISTS",
+        "BENCHES",
+        "CAMPING",
+        "HOTELS",
+        "CAMPERSITE",
+        "WIKIVOYAGE",
+      ].includes(t),
+    )
+  ) {
+    return true;
+  }
+
+  // also show apps that support search, showing POIs and route planning for pedestrians
+  return (
+    topics.includes("SEARCH") &&
+    topics.includes("POI") &&
+    topics.includes("ROUTING") &&
+    topics.includes("FOOT")
+  );
+}
+
 export function hiking(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>

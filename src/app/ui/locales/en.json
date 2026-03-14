@@ -104,6 +104,8 @@
   "category.print.description": "{{numberOfApps}} tools for creating a file for a printout.",
   "category.universalMapApps": "Universal map apps",
   "category.universalMapApps.description": "{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.",
+  "category.tourism": "Travel & tourism",
+  "category.tourism.description": "{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.",
   "compare": "Compare",
   "compare.group.header.accessibility": "Accessibility",
   "compare.group.header.editing": "Editing",
