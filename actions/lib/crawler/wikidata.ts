@@ -317,9 +317,11 @@ WHERE {
 
     BIND(COALESCE(?plEn, ?plMul) AS ?progLg)
   }
-  OPTIONAL { 
+  OPTIONAL {
     ?item wdt:P407 ?lg.
-    ?lg wdt:P218 ?lgCode.
+    OPTIONAL { ?lg wdt:P218 ?lgCode. }
+    OPTIONAL { ?lg wdt:P219 ?lgCode. }
+    BIND(IF(?lg = wd:Q20923490, "mul", ?lgCode) AS ?languageCode)
   }
   OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
   OPTIONAL { ?item wdt:P5749 ?asin. }
