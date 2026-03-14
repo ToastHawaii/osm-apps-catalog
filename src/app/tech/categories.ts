@@ -7,6 +7,7 @@ import {
   isochrone,
   indoor,
   maps3D,
+  resolveNotes,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { chain, sortBy } from "lodash";
@@ -84,6 +85,13 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.changeset.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => changeset(app)),
+    },
+    {
+      id: "resolveNotes",
+      name: () => t("category.resolveNotes"),
+      description: (numberOfApps: number) =>
+        t("category.resolveNotes.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => resolveNotes(app)),
     },
     {
       id: "qa",

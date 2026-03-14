@@ -16,6 +16,7 @@ import {
   tourism,
   food,
   divers,
+  contributePhoto,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
 import { featureFlags } from "../../featureFlags";
@@ -151,6 +152,13 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.edit.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => edit(app)),
+    },
+    {
+      id: "contributePhoto",
+      name: () => t("category.contributePhoto"),
+      description: (numberOfApps: number) =>
+        t("category.contributePhoto.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => contributePhoto(app)),
     },
     {
       id: "trackRec",

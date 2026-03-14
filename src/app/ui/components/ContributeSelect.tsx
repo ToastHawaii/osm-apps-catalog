@@ -11,9 +11,9 @@ export const mapping: Record<string, string> = {
   document: "app.contribute.toSoftware.document",
 
   edit: "app.contribute.toData.edit",
-  resolve: "app.contribute.toData.resolve",
+  resolve: "category.resolveNotes",
   review: "app.contribute.toData.review",
-  photos: "app.contribute.toData.photos",
+  photos: "category.contributePhoto",
   tracks: "app.contribute.toData.tracks",
   qa: "app.contribute.toData.qa",
 
