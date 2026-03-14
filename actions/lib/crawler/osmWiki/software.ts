@@ -65,10 +65,9 @@ export function transform(
       .map(trim)
       .filter((v) => v)
       .map((v) => getProgrammingLanguageDisplay(v) || v),
-    gratis: some(
-      [source["price"]?.toUpperCase(), source["license"]?.toUpperCase()],
-      ["GRATIS", "FREE", "0"],
-    ),
+    gratis: source["price"]
+      ? some([source["price"].toUpperCase()], ["GRATIS", "FREE", "0"])
+      : undefined,
     libre: isFreeAndOpenSource(source["license"]),
     price: source["price"],
     license: processWikiText(source["license"] || "")

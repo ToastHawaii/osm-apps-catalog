@@ -5,7 +5,7 @@ function check(value: string) {
 }
 export function isFreeAndOpenSource(value: string | string[] | undefined) {
   if (!value) {
-    return false;
+    return undefined;
   }
 
   if (typeof value === "string") {

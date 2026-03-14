@@ -316,7 +316,7 @@ async function search(
     }
     `;
   console.info(
-    `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery })}`,
+    `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery.replace(/\s+/g, " ") })}`,
   );
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
