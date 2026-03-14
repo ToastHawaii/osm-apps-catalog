@@ -17,6 +17,7 @@
   "app.contribute.toCommunity.welcome": "Ласкаво просимо нових користувачів",
   "app.contribute.toData": "До даних OSM",
   "app.contribute.toData.edit": "Редагувати дані карти",
+  "app.contribute.toData.qa": "Виконайте контроль якості",
   "category.contributePhoto": "Завантажте фотографії для картографування",
   "app.contribute.toData.qa": "Виконайте контроль якості",
   "category.resolveNotes": "Вирішення приміток до карти",

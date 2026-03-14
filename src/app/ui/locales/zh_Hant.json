@@ -17,6 +17,7 @@
   "app.contribute.toCommunity.welcome": "歡迎新使用者",
   "app.contribute.toData": "到OSM資料",
   "app.contribute.toData.edit": "編輯地圖資料",
+  "app.contribute.toData.qa": "進行品質管控",
   "category.contributePhoto": "上傳照片以供畫地圖",
   "app.contribute.toData.qa": "進行品質管控",
   "category.resolveNotes": "解決地圖註記",

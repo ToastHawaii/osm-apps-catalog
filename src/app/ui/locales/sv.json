@@ -17,6 +17,7 @@
   "app.contribute.toCommunity.welcome": "Välkomna nya användare",
   "app.contribute.toData": "För OSM-data",
   "app.contribute.toData.edit": "Redigera kartdata",
+  "app.contribute.toData.qa": "Utför kvalitetssäkring",
   "category.contributePhoto": "Ladda upp bilder för kartläggning",
   "app.contribute.toData.qa": "Utför kvalitetssäkring",
   "category.resolveNotes": "Lös kartnoteringar",
