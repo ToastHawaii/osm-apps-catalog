@@ -14,8 +14,11 @@ import {
   print,
   universalMapApps,
   tourism,
+  food,
+  divers,
 } from "@shared/utils/filters";
 import { TFunction } from "i18next";
+import { featureFlags } from "../../featureFlags";
 
 export function categories(
   t: TFunction<"translation", undefined>,
@@ -49,6 +52,16 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.tourism.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => tourism(app)),
+    },
+    {
+      id: "food",
+      name: () => t("category.food"),
+      description: (numberOfApps: number) =>
+        t("category.food.description", { numberOfApps }),
+
+      nextIndex: featureFlags.showFoodCategory
+        ? () => apps.findIndex((app) => food(app))
+        : () => -1,
     },
     {
       id: "cycling",
@@ -125,6 +138,13 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.wheelchair.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => wheelchair(app)),
+    },
+    {
+      id: "divers",
+      name: () => t("category.divers"),
+      description: (numberOfApps: number) =>
+        t("category.divers.description", { numberOfApps }),
+      nextIndex: () => apps.findIndex((app) => divers(app)),
     },
     {
       id: "edit",

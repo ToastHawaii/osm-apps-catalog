@@ -136,6 +136,31 @@ export function hiking(a: App) {
       "TREKKING",
       "HIKING TRAILS",
       "TOPOGRAPHY",
+      "DRINKING WATER",
+    ].includes(t),
+  );
+}
+
+export function food(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    ["FOOD", "RESTAURANT", "RESTAURANTS", "VEGAN", "BREWERY"].includes(t),
+  );
+}
+
+export function divers(a: App) {
+  const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
+  return topics.some((t) =>
+    [
+      "QUEER",
+      "GENDER EQUALITY",
+      "SOCIAL INCLUSION",
+      "INFANT",
+      "SOLIDARITY",
+      "TOILET",
+      "PUBLIC TOILET",
+      "BLIND",
+      "BENCHES",
     ].includes(t),
   );
 }
@@ -143,7 +168,15 @@ export function hiking(a: App) {
 export function cycling(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
-    ["CYCLING", "CYCLISTS", "BIKE", "BIKING", "BICYCLE", "MTB"].includes(t),
+    [
+      "CYCLING",
+      "CYCLISTS",
+      "BIKE",
+      "BIKING",
+      "BICYCLE",
+      "MTB",
+      "BICYCLE INFRASTRUCTURE",
+    ].includes(t),
   );
 }
 
@@ -267,7 +300,9 @@ export function print(a: App) {
   }
 
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["PRINT", "POSTER", "FIELDPAPERS"].includes(t));
+  return topics.some((t) =>
+    ["PRINT", "POSTER", "FIELDPAPERS", "3D PRINTING"].includes(t),
+  );
 }
 
 export function maps3D(a: App) {

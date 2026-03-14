@@ -56,6 +56,7 @@ export function printCalcScore(apps: App[]) {
   console.info("08.03.2026: 1.904 (2053 Apps)");
   console.info("Enhanced enrichment with information from GitHub");
   console.info("08.03.2026: 1.980 (2052 Apps)");
+  console.info("14.03.2026: 2.013 (1981 Apps)");
   console.info("Today: " + average);
 
   console.info("---");
