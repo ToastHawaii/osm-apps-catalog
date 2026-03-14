@@ -58,7 +58,6 @@ export function categories(
       name: () => t("category.food"),
       description: (numberOfApps: number) =>
         t("category.food.description", { numberOfApps }),
-
       nextIndex: featureFlags.showFoodCategory
         ? () => apps.findIndex((app) => food(app))
         : () => -1,
