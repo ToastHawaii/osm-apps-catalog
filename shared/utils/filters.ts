@@ -183,9 +183,13 @@ export function cycling(a: App) {
 export function calcRoute(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return topics.some((t) =>
-    ["ROUTING", "ROUTER", "ROUTING TOOL", "ROUTE PLANNING SOFTWARE"].includes(
-      t,
-    ),
+    [
+      "ROUTING",
+      "ROUTER",
+      "ROUTING TOOL",
+      "ROUTE PLANNING SOFTWARE",
+      "ROUTE PLANNING",
+    ].includes(t),
   );
 }
 
