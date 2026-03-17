@@ -21,6 +21,8 @@ Help with the translation:
   </a>
 - from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) or [Wikidata](https://www.wikidata.org/).
 
+AI docs here: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
+
 ## 📈 Statistic
 
 Take a look at [the usage statistics of the OSM Apps Catalog](https://osm-apps.goatcounter.com/?group=day)
