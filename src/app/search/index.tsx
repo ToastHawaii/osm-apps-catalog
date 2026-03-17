@@ -69,9 +69,11 @@ function PageMeta({ apps }: { apps: App[] }) {
         })} – OSM Apps Catalog`}</title>
         <meta
           name="description"
-          content={t(`category.${state.category}.description`, {
-            numberOfApps: apps.length,
-          })}
+          content={plainText(
+            t(`category.${state.category}.description`, {
+              numberOfApps: apps.length,
+            }),
+          )}
         />
       </>
     );
