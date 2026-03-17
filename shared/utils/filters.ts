@@ -110,6 +110,7 @@ export function tourism(a: App) {
         "HOTELS",
         "CAMPERSITE",
         "WIKIVOYAGE",
+        "WEBCAM",
       ].includes(t),
     )
   ) {
