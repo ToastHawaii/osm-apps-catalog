@@ -4,7 +4,7 @@
 
 ## Relationship to OpenStreetMap
 
-This project is closely connected to the OpenStreetMap community. Contributors are encouraged to follow the principles described in the [OpenStreetMap Etiquette](https://wiki.openstreetmap.org/wiki/Etiquette) in addition to this Code of Conduct.
+This project is closely connected to the OpenStreetMap community. Contributors are encouraged to follow the principles described in the [OpenStreetMap Etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines) in addition to this Code of Conduct.
 
 ## Our Pledge
 
