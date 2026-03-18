@@ -162,6 +162,8 @@ export function divers(a: App) {
       "PUBLIC TOILET",
       "BLIND",
       "BENCHES",
+      "STREET_LIGHTING",
+      "LAMPS",
     ].includes(t),
   );
 }
