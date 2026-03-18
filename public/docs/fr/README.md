@@ -73,9 +73,11 @@ la Fondation OpenStreetMap(https://osmfoundation.org/).
 
 - Rejoignez la [communauté
   OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Apprenez les
-  règles de conduite](https://wiki.openstreetmap.org/wiki/Etiquette)) :
-  [Rejoignez un groupe local](https://usergroups.openstreetmap.de/), [Rencontrez
-  des gens](https://osmcal.org/) et [discutez](https://community.osm.be/)
+  règles de
+  conduite](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))
+  : [Rejoignez un groupe local](https://usergroups.openstreetmap.de/),
+  [Rencontrez des gens](https://osmcal.org/) et
+  [discutez](https://community.osm.be/)
 - [Contribuer à
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [À propos de moi](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

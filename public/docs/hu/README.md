@@ -75,7 +75,8 @@ Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
 
 - Légy részese az [OSM
   közösségének](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tanuld
-  meg a viselkedési normákat](https://wiki.openstreetmap.org/wiki/Etiquette)):
+  meg a viselkedési
+  normákat](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
   [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
   [találkozz a többiekkel](https://osmcal.org/) vagy [csetelj
   velük](https://community.osm.be/)
