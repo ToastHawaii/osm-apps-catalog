@@ -44,7 +44,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 _Αυτός ο κατάλογος περιλαμβάνει αυτή την στιγμή μόνο εφαρμογές από την Αγγλική
 έκδοση του [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
 [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) και [λίστα
-έργων του taginfo](https://taginfo.openstreetmap.org/projects)._
+εγχειρημάτων του taginfo](https://taginfo.openstreetmap.org/projects)._
 
 Βοηθήστε με τη μετάφραση:
 
@@ -63,18 +63,20 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
-## Privacy Policy
-The OSM Apps Catalog does not store personal user data.
+## Πολιτική Απορρήτου
+Το OSM Apps Catalog δεν αποθηκεύει προσωπικά δεδομένα χρηστών.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Για στατιστικά ανώνυμης χρήσης, το εγχείρημα χρησιμοποιεί το
+[GoatCounter](https://www.goatcounter.com/), μια υπηρεσία
+φιλικής-προς-το-απόρρητο ανάλυσης. Κανένα δεδομένο προσωπικού χαρακτήρα δεν
+συλλέγεται. ([Δείτε τα συλλεγμένα δεδομένα
+χρήσης](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Μερικές πληροφορίες που παρέχονται από το πρόγραμμα περίηγησης του χρήστη (όπως
+η γλώσσα ή η πλατφόρμα) ίσως να χρησιμοποιούνται τοπικά για βελτίωση της
+εμπειρίας του χρήστη. Αυτά τα δεδομένα γίνονται επεξεργασία εντός του περιηγητή
+και δεν αποθηκεύονται ή μεταδίδονται σε εξωτερικούς διακομιστές (με εξαίρεση για
+ανώνυμη ανάλυση όπως περιγράφεται παραπάνω).
 
 ## Αποποίηση
 
