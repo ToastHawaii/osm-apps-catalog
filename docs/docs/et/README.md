@@ -75,8 +75,8 @@ seotud.
 
 - Osale [OSM-i kogukonna
   tegemistes](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tutvu
-  etiketiga](https://wiki.openstreetmap.org/wiki/Etiquette)): [Liitu kohaliku
-  huvigrupiga](https://usergroups.openstreetmap.de/),
+  etiketiga](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Liitu kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
   [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
 - [Täienda OpenStreetMapi
   andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)

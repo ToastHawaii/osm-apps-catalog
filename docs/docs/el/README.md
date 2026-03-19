@@ -73,8 +73,9 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 
 - Γίνετε μέλος της [κοινότητας
   OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Μάθετε τις
-  οδηγίες εθιμοτυπίας](https://wiki.openstreetmap.org/wiki/Etiquette)): [Μπείτε
-  σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/),
+  οδηγίες
+  εθιμοτυπίας](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Μπείτε σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/),
   [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
 - [Συνεισφέρετε στο
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)

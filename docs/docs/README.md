@@ -101,6 +101,13 @@ Help with the translation:
 
 The app is licensed under the [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying and modification if you publish under the same license.
 
+## Privacy Policy 
+The OSM Apps Catalog does not store personal user data.
+
+For anonymized usage statistics, the project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics service. No personally identifiable information is collected. ([Check collected usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+
+Some information provided by the user's browser (such as language or platform) may be used locally to improve the user experience. This data is processed within the browser and is not stored or transmitted to external servers (except for anonymized analytics as described above).
+
 ## Disclaimer
 
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project are not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/).
