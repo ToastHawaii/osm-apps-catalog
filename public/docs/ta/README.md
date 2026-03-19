@@ -62,6 +62,19 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) இர�
 [குறியீடு](https://github.com/ToastHawaii/osm-apps-catalog) பயன்பாடு,
 நகலெடுத்தல் மற்றும் மாற்றத்திற்கு இலவசம்.
 
+## Privacy Policy
+The OSM Apps Catalog does not store personal user data.
+
+For anonymized usage statistics, the project uses
+[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
+service. No personally identifiable information is collected. ([Check collected
+usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+
+Some information provided by the user's browser (such as language or platform)
+may be used locally to improve the user experience. This data is processed
+within the browser and is not stored or transmitted to external servers (except
+for anonymized analytics as described above).
+
 ## மறுப்பு
 
 திறதெருவரைபட மற்றும் ஓஎச்எம் என்பது திறதெருவரைபட அறக்கட்டளையின் வர்த்தக
