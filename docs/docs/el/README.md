@@ -63,6 +63,19 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
+## Privacy Policy
+The OSM Apps Catalog does not store personal user data.
+
+For anonymized usage statistics, the project uses
+[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
+service. No personally identifiable information is collected. ([Check collected
+usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+
+Some information provided by the user's browser (such as language or platform)
+may be used locally to improve the user experience. This data is processed
+within the browser and is not stored or transmitted to external servers (except
+for anonymized analytics as described above).
+
 ## Αποποίηση
 
 Τα OpenStreetMap και OSM είναι σήματα κατατεθέντα του Ιδρύματος OpenStreetMap,

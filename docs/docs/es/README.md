@@ -63,6 +63,19 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). El
 [código](https://github.com/ToastHawaii/osm-apps-catalog) se puede usar, copiar
 y modificar de forma gratuita si se publica bajo la misma licencia.
 
+## Privacy Policy
+The OSM Apps Catalog does not store personal user data.
+
+For anonymized usage statistics, the project uses
+[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
+service. No personally identifiable information is collected. ([Check collected
+usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+
+Some information provided by the user's browser (such as language or platform)
+may be used locally to improve the user experience. This data is processed
+within the browser and is not stored or transmitted to external servers (except
+for anonymized analytics as described above).
+
 ## Exención de responsabilidad
 
 OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
