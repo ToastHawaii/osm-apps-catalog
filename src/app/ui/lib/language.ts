@@ -287,7 +287,7 @@ const languages: {
   { code: "zu", display: "isiZulu" },
 ];
 
-export function languageValueToDisplay(value: string) {
+export function languageCodeToDisplay(value: string) {
   for (const language of languages) {
     if (language.code === value) {
       if (typeof language.display === "function") {

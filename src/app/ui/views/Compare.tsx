@@ -4,7 +4,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { Badges } from "../components/Badges";
 import { AppImage } from "@components/common/AppImage";
 import { toWikiValue } from "../lib/toWikiTable";
-import { languageValueToDisplay } from "../lib/language";
+import { languageCodeToDisplay } from "../lib/language";
 import { getMatrix } from "../lib/getMatrix";
 import { App } from "@shared/data/App";
 import { Score } from "../components/Score";
@@ -303,7 +303,7 @@ export function Compare({
                   ? `[${app.languagesUrl}${
                       app.languages.length > 0
                         ? app.languages.join(", ")
-                        : languageValueToDisplay("mul")
+                        : languageCodeToDisplay("mul")
                     }]`
                   : app.languages.join(", "),
                 lang,
