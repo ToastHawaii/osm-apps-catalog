@@ -1,5 +1,6 @@
 import { Header } from "@components/layout/Header";
 import { ThemeProvider } from "@components/ThemeProvider";
+import { AppStateProvider } from "@hooks/useAppsData";
 import React, { useLayoutEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -69,11 +70,13 @@ export default function Layout() {
 
   return (
     <ThemeProvider>
-      <ScrollRestoration />
-      <div id="content">
-        <Header />
-        <Outlet />
-      </div>
+      <AppStateProvider>
+        <ScrollRestoration />
+        <div id="content">
+          <Header />
+          <Outlet />
+        </div>
+      </AppStateProvider>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,12 @@
-import { useState, useEffect } from "react";
-import { chain, uniq } from "lodash";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  createContext,
+  PropsWithChildren,
+  useContext,
+} from "react";
+import { toUpper, uniq } from "lodash";
 import i18next from "i18next";
 
 import { getJson } from "@shared/utils/jsonRequest";
@@ -13,6 +20,17 @@ import { getUserRegion } from "@lib/utils/getUserRegion";
 import { some } from "@shared/utils/array";
 import { useTranslation } from "react-i18next";
 import { get, set } from "@lib/utils/storage";
+
+function useUserContext() {
+  const userRegion = getUserRegion();
+
+  const userLangs = navigator.languages.map((l) => languageValueToDisplay(l));
+
+  return {
+    region: userRegion,
+    languages: userLangs,
+  };
+}
 
 async function loadData() {
   try {
@@ -56,25 +74,41 @@ async function loadTranslations(lang: string) {
   }
 }
 
-export function useAppsData() {
+function useAppsData2() {
   const { i18n } = useTranslation();
   const lang = i18n.language;
 
+  const userContext = useUserContext();
+
   const [apps, setApps] = useState<App[]>([]);
 
-  function sortByLang(a: App, languagesUp: string[]) {
-    return some(a.cache.languages, languagesUp);
+  function matchesLanguage(app: App, languagesUp: string[]) {
+    return some(app.cache.languages, languagesUp);
   }
 
-  function sortByCoverage(a: App, coverageUp: string[]) {
+  function matchesCoverage(app: App, coverageUp: string[]) {
     return (
-      a.cache.coverage.some((a) =>
+      app.cache.coverage.some((a) =>
         coverageUp.some((c) => a.startsWith(c) || c.startsWith(a)),
-      ) || a.coverage.length === 0
+      ) || app.coverage.length === 0
     );
   }
 
+  function scoreAppForUser(app: App, languagesUp: string[], coverageUp: string[]) {
+    let score = 0;
+
+    const langMatch = matchesLanguage(app, languagesUp);
+    const coverageMatch = matchesCoverage(app, coverageUp);
+
+    if (langMatch) score += 1;
+    if (coverageMatch) score += 2;
+
+    return score;
+  }
+
   useEffect(() => {
+    let cancelled = false;
+
     (async () => {
       const appsQuery = loadData();
 
@@ -88,91 +122,121 @@ export function useAppsData() {
 
       const translationsQuery = langs.map((l) => loadTranslations(l));
 
-      let apps = (await appsQuery) as App[];
+      const rawApps = (await appsQuery) as App[];
 
-      prepareLanguage(apps);
+      if (cancelled) return;
 
-      for (const app of apps as App[]) {
-        app.cache = {
-          topics: app.topics.map((t) => t.toUpperCase()),
-          languages: app.languages.map((l) => l.toUpperCase()),
-          platform: app.platform.map((p) => p.toUpperCase()),
-          programmingLanguages:
-            app.programmingLanguages?.map((p) => p.toUpperCase()) || [],
-          coverage: app.coverage.map((c) => c.toUpperCase()),
-        };
-      }
+      prepareLanguage(rawApps);
+
+      let processedApps = rawApps.map((app) => ({
+        ...app,
+        cache: {
+          topics: app.topics.map(toUpper),
+          languages: app.languages.map(toUpper),
+          platform: app.platform.map(toUpper),
+          programmingLanguages: app.programmingLanguages?.map(toUpper) ?? [],
+          coverage: app.coverage.map(toUpper),
+        },
+      }));
 
       const translationsLists = (await Promise.all(
         translationsQuery,
       )) as AppTranslation[][];
 
+      if (cancelled) return;
+
       translationsLists
         .filter((t) => t.length > 0)
         .forEach((translations) => {
-          apps.forEach((app) => {
-            const translation = translations.find((t) => t.id === app.id);
-            if (translation) {
-              app.name = translation.name || app.name;
+          const translationsMap = new Map(translations.map((t) => [t.id, t]));
+          processedApps = processedApps.map((app) => {
+            const translation = translationsMap.get(app.id);
+            if (!translation) return app;
+
+            return {
+              ...app,
+              name: translation.name || app.name,
               // It is better to have a translated text then a shorter text, so
               // we mix subtitle and description
-              app.subtitle =
+              subtitle:
                 translation.subtitle ||
                 translation.descriptionShort ||
                 translation.description ||
-                app.subtitle;
-              app.description = translation.description || app.description;
-              app.descriptionShort =
+                app.subtitle,
+              description: translation.description || app.description,
+              descriptionShort:
                 translation.descriptionShort ||
                 translation.description ||
-                app.descriptionShort;
-              app.documentation =
-                translation.documentation || app.documentation;
-              app.community = { ...app.community, ...translation.community };
-              app.source = mergeAppSources(app.source, translation.source);
-            }
+                app.descriptionShort,
+              documentation: translation.documentation || app.documentation,
+              community: { ...app.community, ...translation.community },
+              source: mergeAppSources(app.source, translation.source),
+            };
           });
         });
 
       // After sort by score: prefer apps that match the user's context.
-      const userLangs = navigator.languages.map((l) =>
+      const userLangs = userContext.languages.map((l) =>
         languageValueToDisplay(l),
       );
       const languages =
         userLangs.length > 0
           ? uniq([languageValueToDisplay("mul"), ...userLangs])
           : [];
-      const languagesUp = uniq(languages).map((t) => t.toUpperCase());
-      if (languagesUp.length > 0) {
-        apps = chain(apps)
-          .sortBy((a) => !sortByLang(a, languagesUp))
-          .value();
-      }
+      const languagesUp = uniq(languages).map(toUpper);
 
-      const userRegion = getUserRegion();
+      const userRegion = userContext.region;
       const coverage = userRegion ? uniq(["Worldwide", userRegion]) : [];
-      const coverageUp = coverage.map((t) => t.toUpperCase());
-      if (coverageUp.length > 0) {
-        apps = chain(apps)
-          .sortBy((a) => !sortByCoverage(a, coverageUp))
-          .value();
+      const coverageUp = coverage.map(toUpper);
+
+      if (languagesUp.length > 0 || coverageUp.length > 0) {
+        processedApps = [...processedApps].sort(
+          (a, b) =>
+            // desc
+            scoreAppForUser(b, languagesUp, coverageUp) -
+            scoreAppForUser(a, languagesUp, coverageUp),
+        );
       }
 
-      if (languagesUp.length > 0 && coverageUp.length > 0) {
-        apps = chain(apps)
-          .sortBy(
-            (a) =>
-              !(sortByLang(a, languagesUp) && sortByCoverage(a, coverageUp)),
-          )
-          .value();
+      if (!cancelled) {
+        setApps(processedApps);
       }
 
-      setApps(apps);
       if (isDevelopment) {
         // printCalcScore(apps);
       }
     })();
-  }, [lang]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [lang, JSON.stringify(userContext)]);
 
   return { apps };
+}
+
+const AppStateContext = createContext<{
+  apps: App[];
+} | null>(null);
+
+export function AppStateProvider({ children }: PropsWithChildren) {
+  const { apps } = useAppsData2();
+
+  const appState = useMemo(() => {
+    return {
+      apps,
+    };
+  }, [apps]);
+
+  return (
+    <AppStateContext.Provider value={appState}>
+      {children}
+    </AppStateContext.Provider>
+  );
+}
+
+export function useAppsData() {
+  const ctx = useContext(AppStateContext);
+  if (!ctx) throw new Error("useAppState outside provider");
+  return ctx;
 }
