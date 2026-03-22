@@ -63,18 +63,21 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Le
 [code](https://github.com/ToastHawaii/osm-apps-catalog) est libre d'utilisation,
 de copie et de modification si vous le publiez sous cette même licence.
 
-## Privacy Policy
-The OSM Apps Catalog does not store personal user data.
+## Politique de confidentialité
+Le catalogue d'applications OSM ne stocke pas les données personnelles des
+utilisateurs.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Pour les statistiques d'utilisation anonymisées, le projet utilise
+[GoatCounter](https://www.goatcounter.com/), un service d'analyse respectueux de
+la vie privée. Aucune information permettant d'identifier personnellement les
+utilisateurs n'est collectée. ([Consultez les données d'utilisation
+collectées](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Certaines informations fournies par le navigateur de l'utilisateur (telles que
+la langue ou la plateforme) peuvent être utilisées localement afin d'améliorer
+l'expérience utilisateur. Ces données sont traitées au sein du navigateur et ne
+sont ni stockées ni transmises à des serveurs externes (à l'exception des
+analyses anonymisées décrites ci-dessus).
 
 ## Clause de non-responsabilité
 
