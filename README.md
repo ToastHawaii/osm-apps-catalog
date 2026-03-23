@@ -8,7 +8,7 @@ The meta data from the apps are coming from the [OpenStreetMap Wiki](https://wik
 
 This website is created and maintained by [Markus Peloso](https://zottelig.ch). It is a hobby project. If you have questions about OSM Apps Catalog or would like to request a feature, [feel free to ask](https://github.com/ToastHawaii/osm-apps-catalog/issues). I'm interested in hearing from users about how they use this catalog, so please get in touch!
 
-[Go to the catalog](https://osm-apps.org). It is updated every day.
+[Go to the catalog](https://osm-apps.org). It is updated every day. [![Collect osm apps](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml)
 
 ## 🏗️ Contribution
 
@@ -19,7 +19,7 @@ Help with the translation:
 - from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) or [Wikidata](https://www.wikidata.org/).
+- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) or [Wikidata](https://www.wikidata.org/). [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
 
 AI docs here: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
 
