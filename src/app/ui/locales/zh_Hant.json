@@ -60,6 +60,7 @@
   "category.changeset": "變更集監控與社群管理",
   "category.changeset.description": "監控 OSM 資料活動、追蹤活動 (例如主題標籤)、歡迎新手圖客的 {{numberOfApps}} 個 app。",
   "category.contributePhoto": "上傳照片以供畫地圖",
+  "category.contributePhoto.description": "{{numberOfApps}} 款為了畫地圖與其他目的收集與貢獻街景影像的 app。",
   "category.convert": "轉換與渲染",
   "category.convert.description": "{{numberOfApps}} 項資源能夠轉換與渲染開放街圖相關資料。",
   "category.country": "{{country}} 的 app",
