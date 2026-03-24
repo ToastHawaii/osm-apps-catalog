@@ -1,3 +1,4 @@
+import { omit } from "lodash";
 import React, { useState, useEffect, ReactNode } from "react";
 
 let scrollTop = 0;
@@ -75,7 +76,7 @@ export function PagedList<T extends { key: React.Key }>({
     <>
       {current.map((a) => (
         // eslint-disable-next-line react/jsx-key -- wrong positive, the key is part of the item
-        <Template {...a} />
+        <Template key={a.key} {...(omit(a, "key") as any)} />
       ))}
       {rest.length > 0 ? (
         showNext ? (
