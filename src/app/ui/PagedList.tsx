@@ -75,7 +75,6 @@ export function PagedList<T extends { key: React.Key }>({
   return (
     <>
       {current.map((a) => (
-        // eslint-disable-next-line react/jsx-key -- wrong positive, the key is part of the item
         <Template key={a.key} {...(omit(a, "key") as any)} />
       ))}
       {rest.length > 0 ? (
