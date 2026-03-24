@@ -6,9 +6,19 @@ import { some } from "@shared/utils/array";
 import { categories as homeCategories } from "@app/home/categories";
 import { categories as techCategories } from "@app/tech/categories";
 import { Filters } from "@app/Filters";
-import { AppCompact } from "@components/common/AppCompact";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
+import { AppCompact } from "@components/common/AppCompact";
+import { Score } from "@app/ui/components/Score";
+
+function AppComponent({ app }: { app: App }) {
+  return (
+    <div className="relative p-2">
+      <Score app={app} position="right" />
+      <AppCompact app={app} />
+    </div>
+  );
+}
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -89,7 +99,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
           <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
             <PagedList
               items={category.apps.map((app) => ({ key: app.id, app }))}
-              Template={AppCompact}
+              Template={AppComponent}
             />
           </div>
         </div>

@@ -59,7 +59,9 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
               key={app.id}
               className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"
             >
-              <AppCompact app={app} />
+              <div className="p-2">
+                <AppCompact app={app} />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
