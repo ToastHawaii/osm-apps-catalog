@@ -141,9 +141,9 @@ export function categories(
     },
     {
       id: "divers",
-      name: () => t("category.divers"),
+      name: () => t("category.diversity"),
       description: (numberOfApps: number) =>
-        t("category.divers.description", { numberOfApps }),
+        t("category.diversity.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => divers(app)),
     },
     {
