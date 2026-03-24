@@ -3,7 +3,13 @@ import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
 import { calculateScore } from "@shared/data/calculateScore";
 
-export function Score({ app }: { app: App }) {
+export function Score({
+  app,
+  position = "left",
+}: {
+  app: App;
+  position?: "left" | "right";
+}) {
   const { t } = useTranslation();
 
   if (!app.cache.score) {
@@ -12,29 +18,22 @@ export function Score({ app }: { app: App }) {
   const score = app.cache.score;
 
   let label;
-  if (score.total >= 8) {
-    label = "A";
-  } else if (score.total >= 6) {
-    label = "B";
-  } else if (score.total >= 4) {
-    label = "C";
-  } else if (score.total >= 2) {
-    label = "D";
-  } else {
-    label = "E";
-  }
-
   let color;
   if (score.total >= 8) {
-    color = "bg-dark-green";
+    label = "A";
+    color = "rgb(30 143 78)";
   } else if (score.total >= 6) {
-    color = "bg-green";
+    label = "B";
+    color = "rgb(96 172 48)";
   } else if (score.total >= 4) {
-    color = "bg-yellow";
+    label = "C";
+    color = "rgb(238 174 14)";
   } else if (score.total >= 2) {
-    color = "bg-orange";
+    label = "D";
+    color = "rgb(255 111 30)";
   } else {
-    color = "bg-red";
+    label = "E";
+    color = "rgb(222 32 31)";
   }
 
   const resultDisplay = t("score.results", {
@@ -59,9 +58,23 @@ export function Score({ app }: { app: App }) {
       .join("\n"),
   });
 
+  let className = "";
+  if (position === "left") {
+    className = "corner-badge-left";
+  } else if (position === "right") {
+    className =
+      "absolute top-2 right-2 rounded-tr-lg rounded-bl-sm px-1 py-0.5";
+  }
+
   return (
-    <div className={`corner-badge-left ${color}`} title={resultDisplay}>
-      <a href="/docs/score">{label}</a>
+    <div
+      className={className}
+      style={{ backgroundColor: color }}
+      title={resultDisplay}
+    >
+      <a href="/docs/score" className="font-bold text-white!">
+        {label}
+      </a>
     </div>
   );
 }
