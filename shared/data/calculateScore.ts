@@ -39,7 +39,7 @@ export const Criterias: {
   },
   {
     translationKey: "displaysMaps",
-    check: (app) => !!(display(app) || equalsYes(...(app.map?.map || []))),
+    check: (app) => !!(display(app) || equalsYes(app.map?.map)),
     points: 1,
   },
 

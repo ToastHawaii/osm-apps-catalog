@@ -127,7 +127,7 @@ export function filter({
   }
   if (contribute.includes("resolve")) {
     filteredApps = filteredApps.filter((app) =>
-      equalsYes(...(app.editing?.editNotes || [])),
+      equalsYes(app.editing?.editNotes),
     );
   }
   if (contribute.includes("review")) {
@@ -144,7 +144,7 @@ export function filter({
   }
   if (contribute.includes("tracks")) {
     filteredApps = filteredApps.filter((app) =>
-      equalsYes(...(app.tracking?.uploadGPX || [])),
+      equalsYes(app.tracking?.uploadGPX),
     );
   }
   if (contribute.includes("qa")) {

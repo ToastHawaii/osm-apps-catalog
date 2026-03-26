@@ -34,8 +34,12 @@ export function equalsWebsite(a: string | undefined, b: string | undefined) {
   );
 }
 
-export function equalsYes(...values: (string | undefined)[]) {
-  for (const value of values) if (value?.toUpperCase() === "YES") return true;
+export function equalsYes(...values: (string | undefined | string[])[]) {
+  for (const value of values.flat()) {
+    if (value?.toUpperCase() === "YES") {
+      return true;
+    }
+  }
 
   return false;
 }

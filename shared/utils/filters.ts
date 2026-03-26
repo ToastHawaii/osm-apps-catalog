@@ -1,11 +1,10 @@
 import { equalsYes } from "@shared/utils/string";
 import { App } from "../data/App";
+import { some } from "@shared/utils/array";
 
 export function display(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"].includes(t),
-  );
+  return some(topics, ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"]);
 }
 
 const mobilePlatforms = [
@@ -33,7 +32,7 @@ export function web(a: App) {
 export function mobile(a: App) {
   const platform = a.cache?.platform || a.platform.map((p) => p.toUpperCase());
   return (
-    platform.some((t) => mobilePlatforms.includes(t)) ||
+    some(platform, mobilePlatforms) ||
     a.install.asin ||
     a.install.fDroidID ||
     a.install.obtainiumLink ||
@@ -45,53 +44,51 @@ export function mobile(a: App) {
 
 export function offlineUse(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["OFFLINE", "CACHE"].includes(t));
+  return some(topics, ["OFFLINE", "CACHE"]);
 }
 
 export function publicTransport(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "PUBLIC TRANSPORT",
-      "PUBLIC TRANSPORTATION",
-      "BUS",
-      "TRAIN",
-      "RAILWAY",
-    ].includes(t),
-  );
+  return some(topics, [
+    "PUBLIC TRANSPORT",
+    "PUBLIC TRANSPORTATION",
+    "BUS",
+    "TRAIN",
+    "RAILWAY",
+  ]);
 }
 
 export function winterSport(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["SKIING", "SKI", "WINTER SPORTS"].includes(t));
+  return some(topics, ["SKIING", "SKI", "WINTER SPORTS"]);
 }
 
 export function wheelchair(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["WHEELCHAIR"].includes(t));
+  return some(topics, ["WHEELCHAIR"]);
 }
 
 export function universalMapApps(app: App) {
   /// universal maps: main goal is display map data
   return (
     display(app) &&
-    equalsYes(...(app.map?.showWebsite || [])) &&
-    equalsYes(...(app.map?.showOpeningHours || [])) &&
+    equalsYes(app.map?.showWebsite) &&
+    equalsYes(app.map?.showOpeningHours) &&
     // can calculate a route
-    equalsYes(...(app.routing?.calculateRoute || [])) &&
+    equalsYes(app.routing?.calculateRoute) &&
     // can find a location
-    equalsYes(...(app.navigating?.findLocation || [])) &&
+    equalsYes(app.navigating?.findLocation) &&
     // and support some contributing
     equalsYes(
       ...[
-        ...(app.editing?.addPOI || []),
-        ...(app.editing?.addWay || []),
+        app.editing?.addPOI,
+        app.editing?.addWay,
 
-        ...(app.editing?.createNotes || []),
+        app.editing?.createNotes,
 
-        ...(app.editing?.editPOI || []),
-        ...(app.editing?.editGeom || []),
-        ...(app.editing?.editTags || []),
+        app.editing?.editPOI,
+        app.editing?.editGeom,
+        app.editing?.editTags,
       ],
     )
   );
@@ -100,19 +97,17 @@ export function universalMapApps(app: App) {
 export function tourism(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   if (
-    topics.some((t) =>
-      [
-        "TRAVEL",
-        "TOURISM",
-        "TOURISTS",
-        "BENCHES",
-        "CAMPING",
-        "HOTELS",
-        "CAMPERSITE",
-        "WIKIVOYAGE",
-        "WEBCAM",
-      ].includes(t),
-    )
+    some(topics, [
+      "TRAVEL",
+      "TOURISM",
+      "TOURISTS",
+      "BENCHES",
+      "CAMPING",
+      "HOTELS",
+      "CAMPERSITE",
+      "WIKIVOYAGE",
+      "WEBCAM",
+    ])
   ) {
     return true;
   }
@@ -128,83 +123,77 @@ export function tourism(a: App) {
 
 export function hiking(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "HIKING",
-      "HIKE",
-      "HIKERS",
-      "GUIDEPOSTS",
-      "TREKKING",
-      "HIKING TRAILS",
-      "TOPOGRAPHY",
-    ].includes(t),
-  );
+  return some(topics, [
+    "HIKING",
+    "HIKE",
+    "HIKERS",
+    "GUIDEPOSTS",
+    "TREKKING",
+    "HIKING TRAILS",
+    "TOPOGRAPHY",
+  ]);
 }
 
 export function food(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    ["FOOD", "RESTAURANT", "RESTAURANTS", "VEGAN", "BREWERY"].includes(t),
-  );
+  return some(topics, [
+    "FOOD",
+    "RESTAURANT",
+    "RESTAURANTS",
+    "VEGAN",
+    "BREWERY",
+  ]);
 }
 
 export function divers(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "QUEER",
-      "GENDER EQUALITY",
-      "SOCIAL INCLUSION",
-      "INFANT",
-      "SOLIDARITY",
-      "TOILET",
-      "PUBLIC TOILET",
-      "BLIND",
-      "BENCHES",
-      "STREET_LIGHTING",
-      "LAMPS",
-    ].includes(t),
-  );
+  return some(topics, [
+    "QUEER",
+    "GENDER EQUALITY",
+    "SOCIAL INCLUSION",
+    "INFANT",
+    "SOLIDARITY",
+    "TOILET",
+    "PUBLIC TOILET",
+    "BLIND",
+    "BENCHES",
+    "STREET_LIGHTING",
+    "LAMPS",
+  ]);
 }
 
 export function cycling(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "CYCLING",
-      "CYCLISTS",
-      "BIKE",
-      "BIKING",
-      "BICYCLE",
-      "MTB",
-      "BICYCLE INFRASTRUCTURE",
-    ].includes(t),
-  );
+  return some(topics, [
+    "CYCLING",
+    "CYCLISTS",
+    "BIKE",
+    "BIKING",
+    "BICYCLE",
+    "MTB",
+    "BICYCLE INFRASTRUCTURE",
+  ]);
 }
 
 export function calcRoute(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "ROUTING",
-      "ROUTER",
-      "ROUTING TOOL",
-      "ROUTE PLANNING SOFTWARE",
-      "ROUTE PLANNING",
-    ].includes(t),
-  );
+  return some(topics, [
+    "ROUTING",
+    "ROUTER",
+    "ROUTING TOOL",
+    "ROUTE PLANNING SOFTWARE",
+    "ROUTE PLANNING",
+  ]);
 }
 
 export function navigation(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "NAVI",
-      "GLOBAL NAVIGATION SATELLITE SYSTEM",
-      "AUTOMOTIVE NAVIGATION SYSTEM",
-      "MARINE NAVIGATION",
-    ].includes(t),
-  );
+  return some(topics, [
+    "NAVI",
+    "GLOBAL NAVIGATION SATELLITE SYSTEM",
+    "AUTOMOTIVE NAVIGATION SYSTEM",
+    "MARINE NAVIGATION",
+  ]);
 }
 
 export function contribute(a: App) {
@@ -223,142 +212,136 @@ export function contributePhoto(a: App) {
 }
 
 export function resolveNotes(a: App) {
-  return equalsYes(...(a.editing?.editNotes || []));
+  return equalsYes(a.editing?.editNotes);
 }
 
 export function edit(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
   return (
-    equalsYes(...(a.editing?.createNotes || [])) ||
-    topics.some((t) =>
-      [
-        "ADD POIS",
-        "EDIT",
-        "EDITING",
-        "EDITOR",
-        "EDITOR SOFTWARE",
-        "EDITOR TOOL",
-      ].includes(t),
-    )
+    equalsYes(a.editing?.createNotes) ||
+    some(topics, [
+      "ADD POIS",
+      "EDIT",
+      "EDITING",
+      "EDITOR",
+      "EDITOR SOFTWARE",
+      "EDITOR TOOL",
+    ])
   );
 }
 
 export function trackRec(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    ["TRACK RECORDING", "TRACKER", "TRACKING", "TRACK LOGGING"].includes(t),
-  );
+  return some(topics, [
+    "TRACK RECORDING",
+    "TRACKER",
+    "TRACKING",
+    "TRACK LOGGING",
+  ]);
 }
 
 export function qa(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "ANALYSE",
-      "ANALYSER",
-      "ANALYSIS",
-      "DATA ANALYSIS",
-      "COMPARING TOOL",
-      "VALIDATOR",
-      "QA",
-      "QUALITY CONTROL",
-      "CHANGESET REVIEW TOOL",
-      "STATISTICS",
-    ].includes(t),
-  );
+  return some(topics, [
+    "ANALYSE",
+    "ANALYSER",
+    "ANALYSIS",
+    "DATA ANALYSIS",
+    "COMPARING TOOL",
+    "VALIDATOR",
+    "QA",
+    "QUALITY CONTROL",
+    "CHANGESET REVIEW TOOL",
+    "STATISTICS",
+  ]);
 }
 
 export function changeset(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "HASHTAG TOOL",
-      "MONITORING TOOL",
-      "CHANGESET REVIEW TOOL",
-      "WELCOMING TOOL",
-    ].includes(t),
-  );
+  return some(topics, [
+    "HASHTAG TOOL",
+    "MONITORING TOOL",
+    "CHANGESET REVIEW TOOL",
+    "WELCOMING TOOL",
+  ]);
 }
 
 export function convert(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "EXPORT",
-      "EXPORTER",
-      "CONVERTER",
-      "CONVERSION",
-      "DATA CONVERSION",
-      "RENDER",
-      "RENDERER",
-      "MAP RENDERER",
-      "OPENSTREETMAP RENDERER",
-    ].includes(t),
-  );
+  return some(topics, [
+    "EXPORT",
+    "EXPORTER",
+    "CONVERTER",
+    "CONVERSION",
+    "DATA CONVERSION",
+    "RENDER",
+    "RENDERER",
+    "MAP RENDERER",
+    "OPENSTREETMAP RENDERER",
+  ]);
 }
 
 export function print(a: App) {
-  const outputFormats = ["SVG", "PDF", "PNG"];
-  if (
-    a.rendering?.rendererOutputFormats.some((o) => outputFormats.includes(o))
-  ) {
+  const outputFormats =
+    a.rendering?.rendererOutputFormats.map((t) => t.toUpperCase()) || [];
+  if (some(outputFormats, ["SVG", "PDF", "PNG"])) {
     return true;
   }
 
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    ["PRINT", "POSTER", "FIELDPAPERS", "3D PRINTING"].includes(t),
-  );
+  return some(topics, ["PRINT", "POSTER", "FIELDPAPERS", "3D PRINTING"]);
 }
 
 export function maps3D(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["3D"].includes(t));
+  return some(topics, ["3D"]);
 }
 
 export function isochrone(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) => ["ISOCHRONES"].includes(t));
+  return some(topics, ["ISOCHRONES"]);
 }
 
 export function library(a: App) {
   const genre = a.genre.map((p) => p.toUpperCase());
-  if (genre.some((p) => p === "API")) {
+  if (some(genre, ["API"])) {
     return true;
   }
 
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
-  return topics.some((t) =>
-    [
-      "LIBRARY",
-      "JAVA LIBRARY",
-      "ANDROID LIBRARY",
-      "ARDUINO LIBRARY",
-      "PHP LIBRARY",
-      "MATLAB LIBRARY",
-      "GECODER LIBRARY",
-      "COMPOSER LIBRARY",
-      "COMPOSER PACKAGE",
-      "PYTHON3 LIBRARY",
-      "JULIA LIBRARY",
-      "GOLANG LIBRARY",
-      "ELIXIR LIBRARY",
-      "PLATFORMIO LIBRARY",
-      "CPP LIBRARY",
-      "R PACKAGE",
-      "NPM PACKAGE",
-      "OPENSTREETMAP API",
-      "OVERPASS API",
-      "NOMINATIM API",
-      "OSRM API",
-    ].includes(t),
-  );
+  return some(topics, [
+    "LIBRARY",
+    "JAVA LIBRARY",
+    "ANDROID LIBRARY",
+    "ARDUINO LIBRARY",
+    "PHP LIBRARY",
+    "MATLAB LIBRARY",
+    "GECODER LIBRARY",
+    "COMPOSER LIBRARY",
+    "COMPOSER PACKAGE",
+    "PYTHON3 LIBRARY",
+    "JULIA LIBRARY",
+    "GOLANG LIBRARY",
+    "ELIXIR LIBRARY",
+    "PLATFORMIO LIBRARY",
+    "CPP LIBRARY",
+    "R PACKAGE",
+    "NPM PACKAGE",
+    "OPENSTREETMAP API",
+    "OVERPASS API",
+    "NOMINATIM API",
+    "OSRM API",
+  ]);
 }
 
 export function indoor(a: App) {
   const topics = a.cache?.topics || a.topics.map((t) => t.toUpperCase());
 
-  return topics.some((t) =>
-    ["INDOOR", "INDOORS", "INDOORMAP", "INDOOR MAP", "INDOOR MAPS"].includes(t),
-  );
+  return some(topics, [
+    "INDOOR",
+    "INDOORS",
+    "INDOORMAP",
+    "INDOOR MAP",
+    "INDOOR MAPS",
+  ]);
 }
