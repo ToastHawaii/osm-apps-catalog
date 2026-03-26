@@ -137,7 +137,6 @@ export function hiking(a: App) {
       "TREKKING",
       "HIKING TRAILS",
       "TOPOGRAPHY",
-      "DRINKING WATER",
     ].includes(t),
   );
 }
