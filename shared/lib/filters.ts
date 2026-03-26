@@ -80,16 +80,14 @@ export function universalMapApps(app: App) {
     equalsYes(app.navigating?.findLocation) &&
     // and support some contributing
     equalsYes(
-      ...[
-        app.editing?.addPOI,
-        app.editing?.addWay,
+      app.editing?.addPOI,
+      app.editing?.addWay,
 
-        app.editing?.createNotes,
+      app.editing?.createNotes,
 
-        app.editing?.editPOI,
-        app.editing?.editGeom,
-        app.editing?.editTags,
-      ],
+      app.editing?.editPOI,
+      app.editing?.editGeom,
+      app.editing?.editTags,
     )
   );
 }

@@ -24,22 +24,18 @@ export const Criterias: {
   {
     translationKey: "addingAndEditingPossible",
     check: (app) =>
+      equalsYes(app.editing?.addPOI, app.editing?.addWay) &&
       equalsYes(
-        ...[...(app.editing?.addPOI || []), ...(app.editing?.addWay || [])],
-      ) &&
-      equalsYes(
-        ...[
-          ...(app.editing?.editPOI || []),
-          ...(app.editing?.editGeom || []),
-          ...(app.editing?.editRelations || []),
-          ...(app.editing?.editTags || []),
-        ],
+        app.editing?.editPOI,
+        app.editing?.editGeom,
+        app.editing?.editRelations,
+        app.editing?.editTags,
       ),
     points: 1,
   },
   {
     translationKey: "displaysMaps",
-    check: (app) => !!(display(app) || equalsYes(app.map?.map)),
+    check: (app) => display(app) || equalsYes(app.map?.map),
     points: 1,
   },
 
