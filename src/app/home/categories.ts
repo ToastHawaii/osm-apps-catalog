@@ -17,7 +17,7 @@ import {
   food,
   divers,
   contributePhoto,
-} from "@shared/utils/filters";
+} from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { featureFlags } from "../../featureFlags";
 

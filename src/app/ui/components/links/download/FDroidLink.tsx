@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
-import { contribute } from "@shared/utils/filters";
+import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
 
 export function FDroidLink({ app }: { app: App }) {

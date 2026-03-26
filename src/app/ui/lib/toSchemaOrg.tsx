@@ -6,7 +6,7 @@ import {
   mobile,
   navigation,
   web,
-} from "@shared/utils/filters";
+} from "@shared/lib/filters";
 import { plainText } from "@shared/utils/plainText";
 
 export function toSchemaOrg(app: App) {

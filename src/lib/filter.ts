@@ -7,7 +7,7 @@ import {
   offlineUse,
   navigation,
   qa,
-} from "@shared/utils/filters";
+} from "@shared/lib/filters";
 import { equalsYes } from "@shared/utils/string";
 import { State } from "../app/ui/State";
 

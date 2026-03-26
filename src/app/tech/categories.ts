@@ -8,7 +8,7 @@ import {
   indoor,
   maps3D,
   resolveNotes,
-} from "@shared/utils/filters";
+} from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { chain, sortBy } from "lodash";
 
