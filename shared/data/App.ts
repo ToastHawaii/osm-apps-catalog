@@ -162,4 +162,5 @@ export interface App {
     programmingLanguages: string[];
     coverage: string[];
   };
+  tags: string[];
 }
