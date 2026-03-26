@@ -1,7 +1,7 @@
-import { sum, upperCase } from "lodash";
+import { sum } from "lodash";
 import { App } from "./App";
 import { display, edit, web } from "../lib/filters";
-import { equalsYes, notNo } from "../utils/string";
+import { equalsYes, notNo, upperCase } from "../utils/string";
 import i18next from "i18next";
 
 const multilingual = [
@@ -149,9 +149,7 @@ export const Criterias: {
     check: (app) =>
       Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
         0 ||
-      app.routing?.profiles
-        .map(upperCase)
-        .includes("WHEELCHAIR") ||
+      upperCase(app.routing?.profiles).includes("WHEELCHAIR") ||
       false,
     points: 0.5,
   },

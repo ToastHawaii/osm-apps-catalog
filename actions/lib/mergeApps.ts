@@ -1,6 +1,6 @@
 import { mergeAppSources } from "@shared/lib/mergeAppSources";
 import { App } from "@shared/data/App";
-import { merge, mergeWith, uniqBy, upperCase } from "lodash";
+import { merge, mergeWith, uniqBy } from "lodash";
 import { shorterThenLength } from "@shared/utils/string";
 
 export function mergeApps(
@@ -101,7 +101,7 @@ function mergeValues(
   v2: string[] | undefined,
   options: { sort: boolean },
 ): string[] {
-  const merged = uniqBy([...(v1 || []), ...(v2 || [])], upperCase);
+  const merged = uniqBy([...(v1 || []), ...(v2 || [])], (v) => v.toUpperCase());
   if (!options?.sort) {
     return merged;
   }

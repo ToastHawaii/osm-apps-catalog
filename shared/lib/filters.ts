@@ -1,10 +1,9 @@
-import { equalsYes } from "@shared/utils/string";
+import { equalsYes, upperCase } from "@shared/utils/string";
 import { App } from "../data/App";
 import { some } from "@shared/utils/array";
-import { upperCase } from "lodash";
 
 export function display(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"]);
 }
 
@@ -26,12 +25,12 @@ const mobilePlatforms = [
 ];
 
 export function web(a: App) {
-  const platform = a.cache?.platform || a.platform.map(upperCase);
+  const platform = a.cache?.platform || upperCase(a.platform);
   return platform.some((p) => p === "WEB");
 }
 
 export function mobile(a: App) {
-  const platform = a.cache?.platform || a.platform.map(upperCase);
+  const platform = a.cache?.platform || upperCase(a.platform);
   return (
     some(platform, mobilePlatforms) ||
     a.install.asin ||
@@ -44,12 +43,12 @@ export function mobile(a: App) {
 }
 
 export function offlineUse(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["OFFLINE", "CACHE"]);
 }
 
 export function publicTransport(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "PUBLIC TRANSPORT",
     "PUBLIC TRANSPORTATION",
@@ -60,12 +59,12 @@ export function publicTransport(a: App) {
 }
 
 export function winterSport(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["SKIING", "SKI", "WINTER SPORTS"]);
 }
 
 export function wheelchair(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["WHEELCHAIR"]);
 }
 
@@ -94,7 +93,7 @@ export function universalMapApps(app: App) {
 }
 
 export function tourism(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   if (
     some(topics, [
       "TRAVEL",
@@ -121,7 +120,7 @@ export function tourism(a: App) {
 }
 
 export function hiking(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "HIKING",
     "HIKE",
@@ -134,7 +133,7 @@ export function hiking(a: App) {
 }
 
 export function food(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "FOOD",
     "RESTAURANT",
@@ -145,7 +144,7 @@ export function food(a: App) {
 }
 
 export function divers(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "QUEER",
     "GENDER EQUALITY",
@@ -162,7 +161,7 @@ export function divers(a: App) {
 }
 
 export function cycling(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "CYCLING",
     "CYCLISTS",
@@ -175,7 +174,7 @@ export function cycling(a: App) {
 }
 
 export function calcRoute(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "ROUTING",
     "ROUTER",
@@ -186,7 +185,7 @@ export function calcRoute(a: App) {
 }
 
 export function navigation(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "NAVI",
     "GLOBAL NAVIGATION SATELLITE SYSTEM",
@@ -215,7 +214,7 @@ export function resolveNotes(a: App) {
 }
 
 export function edit(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return (
     equalsYes(a.editing?.createNotes) ||
     some(topics, [
@@ -230,7 +229,7 @@ export function edit(a: App) {
 }
 
 export function trackRec(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "TRACK RECORDING",
     "TRACKER",
@@ -240,7 +239,7 @@ export function trackRec(a: App) {
 }
 
 export function qa(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "ANALYSE",
     "ANALYSER",
@@ -256,7 +255,7 @@ export function qa(a: App) {
 }
 
 export function changeset(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "HASHTAG TOOL",
     "MONITORING TOOL",
@@ -266,7 +265,7 @@ export function changeset(a: App) {
 }
 
 export function convert(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "EXPORT",
     "EXPORTER",
@@ -281,32 +280,32 @@ export function convert(a: App) {
 }
 
 export function print(a: App) {
-  const outputFormats = a.rendering?.rendererOutputFormats.map(upperCase) || [];
+  const outputFormats = upperCase(a.rendering?.rendererOutputFormats);
   if (some(outputFormats, ["SVG", "PDF", "PNG"])) {
     return true;
   }
 
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["PRINT", "POSTER", "FIELDPAPERS", "3D PRINTING"]);
 }
 
 export function maps3D(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["3D"]);
 }
 
 export function isochrone(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, ["ISOCHRONES"]);
 }
 
 export function library(a: App) {
-  const genre = a.genre.map(upperCase);
+  const genre = upperCase(a.genre);
   if (some(genre, ["API"])) {
     return true;
   }
 
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "LIBRARY",
     "JAVA LIBRARY",
@@ -333,7 +332,7 @@ export function library(a: App) {
 }
 
 export function indoor(a: App) {
-  const topics = a.cache?.topics || a.topics.map(upperCase);
+  const topics = a.cache?.topics || upperCase(a.topics);
 
   return some(topics, [
     "INDOOR",

@@ -1,4 +1,4 @@
-import { chain, upperCase } from "lodash";
+import { chain } from "lodash";
 import { App } from "@shared/data/App";
 import { includes, some } from "@shared/utils/array";
 import {
@@ -8,7 +8,7 @@ import {
   navigation,
   qa,
 } from "@shared/lib/filters";
-import { equalsYes } from "@shared/utils/string";
+import { equalsYes, upperCase } from "@shared/utils/string";
 import { State } from "../app/ui/State";
 
 export function filter({
@@ -63,19 +63,19 @@ export function filter({
     );
   }
 
-  const topicsUp = topics.map(upperCase);
+  const topicsUp = upperCase(topics);
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       includes(a.cache.topics, topicsUp),
     );
 
-  const languagesUp = languages.map(upperCase);
+  const languagesUp = upperCase(languages);
   if (languagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(a.cache.languages, languagesUp),
     );
 
-  const platformsUp = platforms.map(upperCase);
+  const platformsUp = upperCase(platforms);
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(a.cache.platform, platformsUp),
@@ -89,7 +89,7 @@ export function filter({
       some(a.cache.programmingLanguages, programmingLanguagesUp),
     );
 
-  const coverageUp = coverage.map(upperCase);
+  const coverageUp = upperCase(coverage);
   const containsWorldWide = coverageUp.includes("WORLDWIDE");
   if (coverageUp.length > 0) {
     filteredApps = filteredApps.filter(

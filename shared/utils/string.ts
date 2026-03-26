@@ -2,6 +2,10 @@ import { trimEnd, trimStart, upperFirst } from "lodash";
 import { newUrl } from "./url";
 import { plainText } from "@shared/utils/plainText";
 
+export function upperCase(values: string[] | undefined) {
+  return values?.map((s) => s.toUpperCase()) || [];
+}
+
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
   return typeof a === "string" && typeof b === "string"
     ? a.toUpperCase() === b.toUpperCase()

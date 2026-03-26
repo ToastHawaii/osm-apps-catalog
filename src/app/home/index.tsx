@@ -1,4 +1,4 @@
-import { chain, upperCase } from "lodash";
+import { chain } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,12 +14,13 @@ import { Item, ItemActions, ItemContent } from "@components/ui/item";
 import { Link } from "react-router";
 import { useRoute } from "@hooks/useRoute";
 import { Button } from "@components/ui/button";
+import { upperCase } from "@shared/utils/string";
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const routes = useRoute();
 
-  const platforms = usePlatformUrlParam().map(upperCase);
+  const platforms = upperCase(usePlatformUrlParam());
   const { spotlight, categories } = useMemo(() => {
     let filteredApps = apps.slice();
     if (platforms.length > 0) {
