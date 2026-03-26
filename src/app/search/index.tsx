@@ -289,7 +289,6 @@ export function Search({ apps }: { apps: App[] }) {
                   </PagedList>
                 ) : (
                   <>
-                    <meta name="robots" content="noindex" />
                     <p className="no-results my-4">
                       {t("noResults")}{" "}
                       {(state.topics.length > 0 ||
@@ -329,7 +328,6 @@ export function Search({ apps }: { apps: App[] }) {
                   </LazyLoadImages>
                 ) : (
                   <>
-                    <meta name="robots" content="noindex" />
                     <p className="no-results">{t("noResults")}</p>
                   </>
                 )}
