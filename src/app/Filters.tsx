@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 
 import { Toggle } from "@components/ui/toggle";
 import { useAppsData } from "@hooks/useAppsData";
-import { chain } from "lodash";
+import { chain, upperCase } from "lodash";
 import { useTranslation } from "react-i18next";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useNavigate, useSearchParams } from "react-router";
@@ -19,7 +19,7 @@ export function Filters() {
   const [showMorePlatforms, setShowMorePlatforms] = useState(false);
 
   const platforms = usePlatformUrlParam();
-  const platformsUp = platforms.map((p) => p.toUpperCase());
+  const platformsUp = platforms.map(upperCase);
 
   const mainPlatforms: [string, () => string][] = [
     ["WEB", () => "Web"],

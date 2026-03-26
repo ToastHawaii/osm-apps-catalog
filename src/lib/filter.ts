@@ -1,4 +1,4 @@
-import { chain } from "lodash";
+import { chain, upperCase } from "lodash";
 import { App } from "@shared/data/App";
 import { includes, some } from "@shared/utils/array";
 import {
@@ -63,19 +63,19 @@ export function filter({
     );
   }
 
-  const topicsUp = topics.map((t) => t.toUpperCase());
+  const topicsUp = topics.map(upperCase);
   if (topicsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       includes(a.cache.topics, topicsUp),
     );
 
-  const languagesUp = languages.map((t) => t.toUpperCase());
+  const languagesUp = languages.map(upperCase);
   if (languagesUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(a.cache.languages, languagesUp),
     );
 
-  const platformsUp = platforms.map((t) => t.toUpperCase());
+  const platformsUp = platforms.map(upperCase);
   if (platformsUp.length > 0)
     filteredApps = filteredApps.filter((a) =>
       some(a.cache.platform, platformsUp),
@@ -89,7 +89,7 @@ export function filter({
       some(a.cache.programmingLanguages, programmingLanguagesUp),
     );
 
-  const coverageUp = coverage.map((t) => t.toUpperCase());
+  const coverageUp = coverage.map(upperCase);
   const containsWorldWide = coverageUp.includes("WORLDWIDE");
   if (coverageUp.length > 0) {
     filteredApps = filteredApps.filter(
@@ -118,8 +118,8 @@ export function filter({
   if (contribute.includes("document")) {
     filteredApps = filteredApps.filter(
       (app) =>
-        !app.source.find((s) => s.name === "Software" || s.name === "Layer") ||
-        !app.source.find((s) => s.name === "Wikidata"),
+        !app.source.some((s) => s.name === "Software" || s.name === "Layer") ||
+        !app.source.some((s) => s.name === "Wikidata"),
     );
   }
   if (contribute.includes("edit")) {
@@ -132,9 +132,7 @@ export function filter({
   }
   if (contribute.includes("review")) {
     filteredApps = filteredApps.filter((app) =>
-      app.cache.topics.some((topic) =>
-        ["CHANGESET REVIEW TOOL"].includes(topic),
-      ),
+      some(app.cache.topics, ["CHANGESET REVIEW TOOL"]),
     );
   }
   if (contribute.includes("photos")) {
@@ -152,9 +150,7 @@ export function filter({
   }
   if (contribute.includes("welcome")) {
     filteredApps = filteredApps.filter((app) =>
-      app.topics
-        .map((topic) => topic.toUpperCase())
-        .some((topic) => ["WELCOMING TOOL"].includes(topic)),
+      some(app.cache.topics, ["WELCOMING TOOL"]),
     );
   }
 

@@ -1,9 +1,9 @@
-import { chain } from "lodash";
+import { chain, upperCase } from "lodash";
 import { equalsIgnoreCase } from "@shared/utils/string";
 
 export function prepareArrayForSelect(names: string[], selected: string[]) {
   return chain(names)
-    .groupBy((n) => n.toUpperCase())
+    .groupBy(upperCase)
     .map((n) => ({ name: n[0], count: n.length }))
     .sortBy((t) => t.name)
     .map((t) => {

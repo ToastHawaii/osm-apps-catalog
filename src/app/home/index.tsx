@@ -1,4 +1,4 @@
-import { chain } from "lodash";
+import { chain, upperCase } from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -19,7 +19,7 @@ export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const routes = useRoute();
 
-  const platforms = usePlatformUrlParam().map((p) => p.toUpperCase());
+  const platforms = usePlatformUrlParam().map(upperCase);
   const { spotlight, categories } = useMemo(() => {
     let filteredApps = apps.slice();
     if (platforms.length > 0) {

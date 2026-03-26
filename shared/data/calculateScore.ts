@@ -1,4 +1,4 @@
-import { sum } from "lodash";
+import { sum, upperCase } from "lodash";
 import { App } from "./App";
 import { display, edit, web } from "../lib/filters";
 import { equalsYes, notNo } from "../utils/string";
@@ -150,7 +150,7 @@ export const Criterias: {
       Object.values(app.accessibility || {}).filter((e) => notNo(e)).length >
         0 ||
       app.routing?.profiles
-        .map((p) => p.toUpperCase())
+        .map(upperCase)
         .includes("WHEELCHAIR") ||
       false,
     points: 0.5,

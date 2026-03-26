@@ -9,11 +9,12 @@ import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
+import { upperCase } from "lodash";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
 
-  const platforms = usePlatformUrlParam().map((p) => p.toUpperCase());
+  const platforms = usePlatformUrlParam().map(upperCase);
 
   const { category, techView } = useMemo(() => {
     let filteredApps = apps.slice();

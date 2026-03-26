@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { chain } from "lodash";
+import { chain, upperCase } from "lodash";
 
 import "./styles.scss";
 
 function Suggestions({ apps }: { apps: App[] }) {
   const topics = chain(apps)
     .flatMap((a) => a.topics)
-    .groupBy((t) => t.toUpperCase())
+    .groupBy(upperCase)
     .orderBy((t) => t.length)
     .reverse()
     .map((t) => t[0])
