@@ -9,16 +9,6 @@ import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
-import { Score } from "@app/ui/components/Score";
-
-function AppComponent({ app }: { app: App }) {
-  return (
-    <div className="relative p-2">
-      <Score app={app} position="right" />
-      <AppCompact app={app} />
-    </div>
-  );
-}
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -69,11 +59,11 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     return {
       category: {
         ...category,
-        apps: categoryApps,
+        apps: categoryApps.map((app) => ({ key: app.id, app })),
       },
       techView,
     };
-  }, [apps.length, platforms]);
+  }, [apps.length, platforms.join(",")]);
 
   return (
     <>
@@ -96,10 +86,10 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
               {category.description(category.apps.length)}
             </p>
           )}
-          <div className="grid gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+          <div className="grid auto-rows-fr gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
             <PagedList
-              items={category.apps.map((app) => ({ key: app.id, app }))}
-              Template={AppComponent}
+              items={category.apps}
+              Template={({ app }) => <AppCompact app={app} score tags />}
             />
           </div>
         </div>

@@ -19,20 +19,29 @@ export function AppCompact({ app }: { app: App }) {
   const routes = useRoute();
 
   return (
-    <Item variant="outline" asChild role="listitem" className="shadow-md">
-      <Link to={routes.app({ app: app.id })}>
-        <ItemMedia className="size-15">
-          <AppLogo app={app} />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle className="line-clamp-1 wrap-anywhere">
-            {app.name}
-          </ItemTitle>
-          <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
-            {plainText(app.subtitle || app.descriptionShort || app.description)}
-          </ItemDescription>
-        </ItemContent>
-      </Link>
-    </Item>
+    <div className="relative p-2">
+      <Item
+        variant="outline"
+        asChild
+        role="listitem"
+        className="h-full shadow-md"
+      >
+        <Link to={routes.app({ app: app.id })}>
+          <ItemMedia className="size-15">
+            <AppLogo app={app} />
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle className="line-clamp-1 wrap-anywhere">
+              {app.name}
+            </ItemTitle>
+            <ItemDescription className="line-clamp-2 h-10 wrap-anywhere">
+              {plainText(
+                app.subtitle || app.descriptionShort || app.description,
+              )}
+            </ItemDescription>
+          </ItemContent>
+        </Link>
+      </Item>
+    </div>
   );
 }
