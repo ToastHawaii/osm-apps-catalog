@@ -64,18 +64,19 @@ Veebirakenduse [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on
 kõigile vabalt kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on
 jätkuvalt avaldatud sama litsentsi alusel.
 
-## Privacy Policy
-The OSM Apps Catalog does not store personal user data.
+## Andmekaitsepõhimõtted
+OSM-i rakenduste kataloog (OSM Apps Catalog) ei salvesta kasutajate isiklikke
+andmeid.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Anonüümse statistika jaoks on kasutusel
+[GoatCounter](https://www.goatcounter.com/), a privaatsussõbralik
+analüütikateenus. Mitte mingeid isiklikke andmeid ei koguta. ([Vaata kogutavaid
+andmeid](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Osa kasutaja veebibrauserist tuvastatavast teabest (nagu keel ja platvorm) võib
+olla pruugitud kasutuskogemuse parandamisel. Neid andmeid töödeldakse
+veebibrauseris ega edastata välistesse serveritesse ja seega ei salvestata seal
+(välja arvatud eelpoolnimetatud anonüümne statistika).
 
 ## Lahtiütlus vastutusest
 
