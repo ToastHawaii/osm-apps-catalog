@@ -6,11 +6,11 @@ Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
 használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási
 pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
 
-The metadata for the apps is collected from [OpenStreetMap
+Az alkalmazások metaadatainak forrása: [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo
+projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
 [> Nézd meg a katalógust](https://osm-apps.org)
 
@@ -21,7 +21,7 @@ másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Katalógus megjelenítése a nyelveden:
 
-**Choose language**
+**Nyelv kiválasztása**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -135,17 +135,18 @@ platformot). Ezek az adatok a böngészőn belül lesznek feldolgozva; nem
 tárolódnak és nem továbbíttatnak külső szerverekhez (a fent leírt, névtelenített
 elemzéseken kívül).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+A weboldal tárhelye a Github Pages. A [GitHub Pages
+dokumentációja](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+a következőket írja:
 
-> ### Data collection
+> ### Adatgyűjtés
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Amikor valaki felkeres egy GitHub Pages webhelyet, a látogató IP-címét
+> biztonsági okokból rögzítik és tárolják, függetlenül attól, hogy a látogató be
+> van-e jelentkezve a GitHubba vagy sem. A GitHub biztonsági gyakorlatáról
+> további információkat a [GitHub adatvédelmi
+> nyilatkozatában](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
+> találsz.
 
 ## Felelősségi nyilatkozat
 
