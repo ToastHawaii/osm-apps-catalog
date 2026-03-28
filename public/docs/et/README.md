@@ -1,10 +1,10 @@
 # Teave OSM rakenduste kataloogi kohta
 
-_There isn't just one, there are thousands._
+_Pole ainult ühte, neid on tuhandeid._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
+OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
+kogukonda - [Community Contribution Score](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Vaata kataloogi](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Lisa sulle teadaolevaid OSMi rakendusi või osale muul
+viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Muud keeled
 
-Display the catalog in your language:
+Vaata kataloogi omas keeles:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
