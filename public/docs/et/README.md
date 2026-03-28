@@ -19,7 +19,7 @@ viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Muud keeled
 
-Display the catalog in your language:
+Vaata kataloogi omas keeles:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
