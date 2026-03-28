@@ -1,10 +1,10 @@
 # Om OSM Apps-katalogen
 
-_There isn't just one, there are thousands._
+_Det finns inte bara en, det finns tusentals._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data.
+Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
+Contribution Score](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Gå till katalogen](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Lägg till OSM-appar du känner till eller bidrar på andra
+sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Andra språk
 
-Display the catalog in your language:
+Visa katalogen på ditt språk:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
