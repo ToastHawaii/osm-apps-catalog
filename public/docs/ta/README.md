@@ -1,10 +1,10 @@
 # OSM APPS பட்டியல் பற்றி
 
-_There isn't just one, there are thousands._
+_ஒன்று மட்டும் இல்லை, ஆயிரக்கணக்கில் உள்ளன._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+இந்தப் பட்டியல் திறதெருவரைபட தரவைப் பயன்படுத்தும் பயன்பாடுகள் மற்றும் சேவைகளைக்
+காட்டுகிறது. இது ஒவ்வொரு நாளும் புதுப்பிக்கப்படுகிறது. பயன்பாடுகள் [சமூக
+பங்களிப்பு மதிப்பெண்](/docs/score) ஆல் மதிப்பிடப்பட்டு வரிசைப்படுத்தப்படுகின்றன.
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> பட்டியலுக்குச் செல்லுங்கள்] (https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> உங்களுக்குத் தெரிந்த அல்லது பங்களிக்கும் OSM பயன்பாடுகளை வேறு வழிகளில்
+சேர்க்கவும்.] (https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## பிற மொழிகள்
 
-Display the catalog in your language:
+உங்கள் மொழியில் பட்டியலைக் காண்பி:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
