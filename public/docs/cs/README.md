@@ -19,10 +19,10 @@ způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Další jazyky
 
-Display the catalog in your language
+Display the catalog in your language:
 
-Choose language:
-<select id="language-select" onchange="if (this.value) window.location.href=this.value">
+Choose language
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
