@@ -19,7 +19,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 ## Інші мови
 
-Display the catalog in your language:
+Відобразити каталог вашою мовою:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
