@@ -17,7 +17,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 ## 其他語言
 
-Display the catalog in your language:
+顯示目錄為您的語言：
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
