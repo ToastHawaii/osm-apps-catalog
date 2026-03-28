@@ -17,53 +17,22 @@ import {
 import { useRoute } from "@hooks/useRoute";
 import { Score } from "@app/ui/components/Score";
 import TagList from "@components/common/TagList";
-
-function defaultTags(tags: string[]) {
-  const prioritize = ["property.free"].reverse();
-  const hierarchy = [
-    ["feature.voice-guidance", "feature.navigation"],
-
-    ["feature.edit-map", "feature.create-notes"],
-    ["feature.offline-edit", "feature.edit-map"],
-
-    ["feature.routing", "feature.routing-hike"],
-    ["feature.routing", "feature.routing-motorbike"],
-    ["feature.routing", "feature.routing-bike"],
-    ["feature.routing", "feature.routing-car"],
-    ["feature.routing", "feature.routing-foot"],
-    ["feature.offline-routing", "feature.routing"],
-  ];
-  const hide = ["property.foss"];
-
-  // prioritize
-  let newTags = tags.slice();
-  for (const p of prioritize) {
-    const i = newTags.indexOf(p);
-    if (i >= 0) {
-      newTags.splice(i, 1);
-      newTags.unshift(p);
-    }
-  }
-
-  for (const h of hierarchy) {
-    newTags.includes(h[0]);
-    hide.push(h[1]);
-  }
-
-  // hide
-  newTags = newTags.filter((t) => !hide.includes(t));
-
-  return newTags;
-}
+import {
+  DefaultTagsReorganization,
+  TagsReorganizationDefinition,
+  tagsReorganizer,
+} from "@lib/tagsReorganizer";
 
 export function AppCompact({
   app,
   tags,
   score,
+  tagsReorganization = DefaultTagsReorganization,
 }: {
   app: App;
   score?: boolean;
   tags?: boolean;
+  tagsReorganization: TagsReorganizationDefinition;
 }) {
   const routes = useRoute();
 
@@ -91,7 +60,7 @@ export function AppCompact({
           </ItemContent>
           {!!tags && (
             <ItemFooter className="overflow-hidden">
-              <TagList items={defaultTags(app.tags)} />
+              <TagList items={tagsReorganizer(app.tags, tagsReorganization)} />
             </ItemFooter>
           )}
         </Link>

@@ -38,11 +38,6 @@ export const TagDefinitions: {
     filter: (app) => equalsYes(app.routing?.calculateRouteOffline),
   },
   {
-    key: "feature.routing-foot",
-    filter: (app) =>
-      some(upperCase(app.routing?.profiles), ["FOOT", "WALK", "WALKING"]),
-  },
-  {
     key: "feature.routing-publicTransport",
     filter: (app) =>
       some(upperCase(app.routing?.profiles), [
@@ -55,17 +50,18 @@ export const TagDefinitions: {
     filter: (app) => some(upperCase(app.routing?.profiles), ["HIKE", "HIKING"]),
   },
   {
-    key: "feature.routing-car",
+    key: "feature.routing-foot",
     filter: (app) =>
-      some(upperCase(app.routing?.profiles), ["CAR", "MOTORCAR"]),
+      some(upperCase(app.routing?.profiles), ["FOOT", "WALK", "WALKING"]),
   },
   {
     key: "feature.routing-bike",
     filter: (app) => some(upperCase(app.routing?.profiles), ["BIKE"]),
   },
   {
-    key: "feature.routing-wheelchair",
-    filter: (app) => some(upperCase(app.routing?.profiles), ["WHEELCHAIR"]),
+    key: "feature.routing-car",
+    filter: (app) =>
+      some(upperCase(app.routing?.profiles), ["CAR", "MOTORCAR"]),
   },
   {
     key: "feature.routing-motorbike",
@@ -89,13 +85,13 @@ export const TagDefinitions: {
       ),
   },
   {
-    key: "feature.create-notes",
-    filter: (app) => equalsYes(app.editing?.createNotes),
-  },
-  {
     key: "feature.offline-edit",
     filter: (app) =>
       some(upperCase(app.editing?.editSource), ["OFFLINE", "CACHE"]),
+  },
+  {
+    key: "feature.create-notes",
+    filter: (app) => equalsYes(app.editing?.createNotes),
   },
   {
     key: "feature.record-track",
@@ -106,14 +102,18 @@ export const TagDefinitions: {
     filter: (app) => equalsYes(app.tracking?.uploadGPX),
   },
   {
-    key: "feature.accessibility-wheelchair",
-    filter: (app) =>
-      some(upperCase(app.accessibility?.accessibility), ["WHEELCHAIR"]),
-  },
-  {
     key: "feature.accessibility-blind",
     filter: (app) =>
       some(upperCase(app.accessibility?.accessibility), ["BLIND"]),
+  },
+  {
+    key: "feature.routing-wheelchair",
+    filter: (app) => some(upperCase(app.routing?.profiles), ["WHEELCHAIR"]),
+  },
+  {
+    key: "feature.accessibility-wheelchair",
+    filter: (app) =>
+      some(upperCase(app.accessibility?.accessibility), ["WHEELCHAIR"]),
   },
   {
     key: "property.free",
