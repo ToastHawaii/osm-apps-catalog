@@ -22,12 +22,20 @@ export const TagDefinitions: {
       ]),
   },
   {
+    key: "feature.voice-guidance",
+    filter: (app) => equalsYes(app.navigating?.voice),
+  },
+  {
     key: "feature.location-search",
     filter: (app) => equalsYes(app.navigating?.findLocation),
   },
   {
-    key: "feature.voice-guidance",
-    filter: (app) => equalsYes(app.navigating?.voice),
+    key: "feature.routing",
+    filter: (app) => equalsYes(app.routing?.calculateRoute),
+  },
+  {
+    key: "feature.offline-routing",
+    filter: (app) => equalsYes(app.routing?.calculateRouteOffline),
   },
   {
     key: "feature.routing-foot",
@@ -65,8 +73,8 @@ export const TagDefinitions: {
       some(upperCase(app.routing?.profiles), ["MOTORBIKE", "MOTORCYCLE"]),
   },
   {
-    key: "feature.offline-routing",
-    filter: (app) => equalsYes(app.routing?.calculateRouteOffline),
+    key: "feature.routing-manual",
+    filter: (app) => equalsYes(app.routing?.createRouteManually),
   },
   {
     key: "feature.edit-map",
@@ -88,10 +96,6 @@ export const TagDefinitions: {
     key: "feature.offline-edit",
     filter: (app) =>
       some(upperCase(app.editing?.editSource), ["OFFLINE", "CACHE"]),
-  },
-  {
-    key: "feature.record-track",
-    filter: (app) => equalsYes(app.tracking?.tracking),
   },
   {
     key: "feature.record-track",
