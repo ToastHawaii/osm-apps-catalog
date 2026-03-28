@@ -22,9 +22,11 @@ bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 Zeige den Katalog in deiner Sprache an:
 
 <select onchange="if (this.value) window.location.href=this.value">
-  <option value="">
+<option value="">
+
 Choose language
-  </option>
+
+</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
   <option value="/?lang=az">azərbaycanca</option>
