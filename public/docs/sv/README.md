@@ -19,7 +19,7 @@ sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Andra språk
 
-Display the catalog in your language:
+Visa katalogen på ditt språk:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
