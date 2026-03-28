@@ -65,18 +65,20 @@ alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog) szabadon
 felhasználható, másolható és módosítható, ha ugyanezen licenc alatt teszed
 közzé.
 
-## Privacy Policy
-The OSM Apps Catalog does not store personal user data.
+## Adatvédelmi tájékoztató
+Az OSM Apps Catalog nem tárol személyes adatot a felhasználóról.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Névtelen felhasználási statisztikához a projekt a
+[GoatCountert](https://www.goatcounter.com/) használja, amely egy
+adatvédelem-barát elemző szolgáltatás. Személyes azonosításra alkalmas
+információ nem tárolódik. ([Az összegyűjtött felhasználási adatok megtekinthetők
+itt.](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+A felhasználói élmény javításához felhasználhatunk valamennyi, a felhasználó
+internetböngészője által szolgáltatott adatot (pl. a használt nyelvet vagy
+platformot). Ezek az adatok a böngészőn belül lesznek feldolgozva; nem
+tárolódnak és nem továbbíttatnak külső szerverekhez (a fent leírt, névtelenített
+elemzéseken kívül).
 
 ## Felelősségi nyilatkozat
 
