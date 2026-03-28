@@ -6,11 +6,12 @@ See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
 OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
 kogukonda - [Community Contribution Score](/docs/score).
 
-The metadata for the apps is collected from [OpenStreetMap
+Rakenduste metateave on kogutud järgnevatest allikatest [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) ja [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) ning seejärel
+kombineeritud.
 
 [> Vaata kataloogi](https://osm-apps.org)
 
@@ -21,7 +22,7 @@ viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Vaata kataloogi omas keeles:
 
-**Choose language**
+**Vali keel**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -134,17 +135,17 @@ olla pruugitud kasutuskogemuse parandamisel. Neid andmeid töödeldakse
 veebibrauseris ega edastata välistesse serveritesse ja seega ei salvestata seal
 (välja arvatud eelpoolnimetatud anonüümne statistika).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+See veebisait on majutatud teenuses GitHub Pages. [GitHubi teabes GitHub Pages'i
+kohta](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+on kirjas:
 
-> ### Data collection
+> ### Andmete kogumine
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> GitHub Pages'i majutuses oleva veebisaidi külastamisel logitakse ja
+> salvestatakse turvakaalutlustel külastaja IP-aadress sõltumata sellest, kas ta
+> on GitHubi loginud sisse või mitte. Leidmaks täiendavat teavet GitHubi
+> turvapraktika kohta vaata [GitHubi
+> Andmekaitsereeglistikku](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Lahtiütlus vastutusest
 
