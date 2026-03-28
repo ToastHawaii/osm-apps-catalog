@@ -18,7 +18,7 @@ Display the catalog in your language:
   <option value="">
 
 Choose language
-  
+
   </option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
