@@ -188,7 +188,9 @@ export function navigation(a: App) {
   const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "NAVI",
+    "NAVIGATION",
     "GLOBAL NAVIGATION SATELLITE SYSTEM",
+    "GPS NAVIGATION SOFTWARE",
     "AUTOMOTIVE NAVIGATION SYSTEM",
     "MARINE NAVIGATION",
   ]);

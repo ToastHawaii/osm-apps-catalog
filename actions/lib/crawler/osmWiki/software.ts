@@ -271,7 +271,13 @@ export function transform(
         .map(upperFirst),
     );
 
-  if (equalsYes(source["navigating"], source["navToPoint"]))
+  if (
+    equalsYes(
+      source["navigating"],
+      source["navToPoint"],
+      source["predefinedRoute"],
+    )
+  )
     obj.topics.push("Navi");
 
   if (equalsYes(source["findLocation"])) obj.topics.push("Search");
