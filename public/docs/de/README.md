@@ -1,10 +1,10 @@
 # Über den OSM Apps Katalog
 
-_There isn't just one, there are thousands._
+_Es gibt nicht nur eine, sondern Tausende._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
+wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution
+Score](/docs/score) bewertet und sortiert.
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Gehe zum Katalog](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Füge OSM-Apps hinzu, die du kennst oder trage auf andere Weise
+bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Weitere Sprachen
 
-Display the catalog in your language:
+Zeige den Katalog in deiner Sprache an:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
