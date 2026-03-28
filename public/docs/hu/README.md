@@ -19,7 +19,7 @@ másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## További nyelvek
 
-Display the catalog in your language:
+Katalógus megjelenítése a nyelveden:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
