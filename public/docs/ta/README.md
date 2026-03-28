@@ -19,7 +19,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 ## பிற மொழிகள்
 
-Display the catalog in your language:
+உங்கள் மொழியில் பட்டியலைக் காண்பி:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
