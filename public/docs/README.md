@@ -13,7 +13,9 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 ## Other languages
 
 <details>
-  <summary>Display the catalog in your language</summary>
+  <summary>
+  Display the catalog in your language
+  </summary>
 
 [Afrikaans](/?lang=af),
 [asturianu](/?lang=ast),
