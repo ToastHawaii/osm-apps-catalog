@@ -23,9 +23,7 @@ Zobrazte katalog ve svém jazyce:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
-
 Choose language
-
   </option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
