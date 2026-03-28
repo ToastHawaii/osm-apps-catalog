@@ -32,7 +32,7 @@ export function AppCompact({
   app: App;
   score?: boolean;
   tags?: boolean;
-  tagsReorganization: TagsReorganizationDefinition;
+  tagsReorganization?: TagsReorganizationDefinition | undefined;
 }) {
   const routes = useRoute();
 

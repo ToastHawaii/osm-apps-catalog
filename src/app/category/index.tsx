@@ -10,6 +10,7 @@ import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
 import { upperCase } from "@shared/utils/string";
+import { Category as CategoryType } from "@lib/Category";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -26,15 +27,10 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     }
 
     let techView = false;
-    let category:
-      | {
-          id: string;
-          name: () => string;
-          description?: ((numberOfApps: number) => string) | undefined;
-          getAll?: (() => App[]) | undefined;
-          nextIndex: () => number;
-        }
-      | undefined = homeCategories(t, filteredApps).find((c) => c.id === id);
+    let category: CategoryType | undefined = homeCategories(
+      t,
+      filteredApps,
+    ).find((c) => c.id === id);
 
     if (!category) {
       category = techCategories(t, appsCopy).find((c) => c.id === id);
@@ -90,7 +86,14 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
           <div className="grid auto-rows-fr gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
             <PagedList
               items={category.apps}
-              Template={({ app }) => <AppCompact app={app} score tags />}
+              Template={({ app }) => (
+                <AppCompact
+                  app={app}
+                  score
+                  tags
+                  tagsReorganization={category.tagsReorganization}
+                />
+              )}
             />
           </div>
         </div>

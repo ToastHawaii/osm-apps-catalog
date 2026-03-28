@@ -27,8 +27,9 @@ export function tagsReorganizer(
   tags: string[],
   { prioritize = [], hierarchy = [], hide = [] }: TagsReorganizationDefinition,
 ) {
+  prioritize = prioritize.slice().reverse();
   let newTags = tags.slice();
-  for (const p of prioritize.reverse()) {
+  for (const p of prioritize) {
     const i = newTags.indexOf(p);
     if (i >= 0) {
       newTags.splice(i, 1);

@@ -20,11 +20,12 @@ import {
 } from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { featureFlags } from "../../featureFlags";
+import { Category } from "@lib/Category";
 
 export function categories(
   t: TFunction<"translation", undefined>,
   apps: App[],
-) {
+): Category[] {
   return [
     {
       id: "universalMapApps",
@@ -39,6 +40,30 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.hiking.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => hiking(app)),
+      tagsReorganization: {
+        prioritize: [
+          "property.free",
+          "feature.routing-hike",
+          "feature.offline-routing",
+          "feature.routing-manual",
+          "feature.location-search",
+        ],
+        hierarchy: [
+          ["feature.voice-guidance", "feature.navigation"],
+
+          ["feature.edit-map", "feature.create-notes"],
+          ["feature.offline-edit", "feature.edit-map"],
+
+          ["feature.offline-routing", "feature.routing"],
+        ],
+        hide: [
+          "property.foss",
+          "feature.routing",
+          "feature.routing-bike",
+          "feature.routing-car",
+          "feature.routing-motorbike",
+        ],
+      },
     },
     {
       id: "publicTransport",
@@ -106,17 +131,17 @@ export function categories(
       },
       name: function () {
         return t("category.country", {
-          country: this.loadData()?.label,
+          country: this.loadData?.()?.label,
         });
       },
       description: function (numberOfApps: number) {
         return t("category.country.description", {
           numberOfApps,
-          country: this.loadData()?.label,
+          country: this.loadData?.()?.label,
         });
       },
       nextIndex: function () {
-        const country = this.loadData()?.full?.toUpperCase();
+        const country = this.loadData?.()?.full?.toUpperCase();
         if (!country) {
           return -1;
         }
