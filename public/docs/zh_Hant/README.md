@@ -1,6 +1,6 @@
 # 關於 OSM Apps 目錄
 
-*There isn't just one, there are thousands.*
+_There isn't just one, there are thousands._
 
 This catalog shows apps and services that use OpenStreetMap data. It is updated
 every day. The apps are rated and sorted by the [Community Contribution
@@ -20,41 +20,97 @@ ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 ## 其他語言
 
 <details>
-<summary>
+  <summary>
 
-Display the catalog in your language
+Display the catalog in your language. Click here to show all languages.
 
-</summary>
-
-[Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
-[Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
-[bosanski](/?lang=bs), [brezhoneg](/?lang=br), [català](/?lang=ca),
-[čeština](/?lang=cs), [dansk](/?lang=da), [Deutsch](/?lang=de),
-[eesti](/?lang=et), [English](/?lang=en), [español](/?lang=es),
-[Esperanto](/?lang=eo), [euskara](/?lang=eu), [français](/?lang=fr),
-[Frysk](/?lang=fy), [galego](/?lang=gl), [hrvatski](/?lang=hr),
-[interlingua](/?lang=ia), [íslenska](/?lang=is), [italiano](/?lang=it), [Kreyòl
-ayisyen](/?lang=ht), [kréyòl gwadloupéyen](/?lang=gcf), [kurdî](/?lang=ku),
-[latviešu](/?lang=lv), [Lëtzebuergesch](/?lang=lb), [lietuvių](/?lang=lt),
-[magyar](/?lang=hu), [Nederlands](/?lang=nl), [norsk](/?lang=no), [norsk
-nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
-[پنجابی](/?lang=pnb), [português](/?lang=pt), [română](/?lang=ro),
-[shqip](/?lang=sq), [slovenčina](/?lang=sk), [slovenščina](/?lang=sl), [srpski
-(latinica)](/?lang=sr-latn), [suomi](/?lang=fi), [svenska](/?lang=sv),
-[Tagalog](/?lang=tl), [Tiếng Việt](/?lang=vi), [Türkçe](/?lang=tr),
-[Zazaki](/?lang=diq), [Ελληνικά](/?lang=el), [беларуская](/?lang=be),
-[български](/?lang=bg), [македонски](/?lang=mk), [монгол](/?lang=mn),
-[русский](/?lang=ru), [српски / srpski](/?lang=sr), [українська](/?lang=uk),
-[հայերեն](/?lang=hy), [עברית](/?lang=he), [العربية](/?lang=ar),
-[فارسی](/?lang=fa), [پښتو](/?lang=ps), [नेपाली](/?lang=ne), [বাংলা](/?lang=bn),
-[தமிழ்](/?lang=ta), [മലയാളം](/?lang=ml), [සිංහල](/?lang=si), [ไทย](/?lang=th),
-[မြန်မာဘာသာ](/?lang=my), [ქართული](/?lang=ka), [한국어](/?lang=ko),
-[ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
-[日本語](/?lang=ja), [粵語](/?lang=yue)
-
+  </summary>
+  <ul>
+    <li><a href="/?lang=af">Afrikaans</a></li>
+    <li><a href="/?lang=ast">asturianu</a></li>
+    <li><a href="/?lang=az">azərbaycanca</a></li>
+    <li><a href="/?lang=id">Bahasa Indonesia</a></li>
+    <li><a href="/?lang=ms">Bahasa Melayu</a></li>
+    <li><a href="/?lang=bs">bosanski</a></li>
+    <li><a href="/?lang=br">brezhoneg</a></li>
+    <li><a href="/?lang=ca">català</a></li>
+    <li><a href="/?lang=cs">čeština</a></li>
+    <li><a href="/?lang=da">dansk</a></li>
+    <li><a href="/?lang=de">Deutsch</a></li>
+    <li><a href="/?lang=et">eesti</a></li>
+    <li><a href="/?lang=en">English</a></li>
+    <li><a href="/?lang=es">español</a></li>
+    <li><a href="/?lang=eo">Esperanto</a></li>
+    <li><a href="/?lang=eu">euskara</a></li>
+    <li><a href="/?lang=fr">français</a></li>
+    <li><a href="/?lang=fy">Frysk</a></li>
+    <li><a href="/?lang=gl">galego</a></li>
+    <li><a href="/?lang=hr">hrvatski</a></li>
+    <li><a href="/?lang=ia">interlingua</a></li>
+    <li><a href="/?lang=is">íslenska</a></li>
+    <li><a href="/?lang=it">italiano</a></li>
+    <li><a href="/?lang=ht">Kreyòl ayisyen</a></li>
+    <li><a href="/?lang=gcf">kréyòl gwadloupéyen</a></li>
+    <li><a href="/?lang=ku">kurdî</a></li>
+    <li><a href="/?lang=lv">latviešu</a></li>
+    <li><a href="/?lang=lb">Lëtzebuergesch</a></li>
+    <li><a href="/?lang=lt">lietuvių</a></li>
+    <li><a href="/?lang=hu">magyar</a></li>
+    <li><a href="/?lang=nl">Nederlands</a></li>
+    <li><a href="/?lang=no">norsk</a></li>
+    <li><a href="/?lang=nn">norsk nynorsk</a></li>
+    <li><a href="/?lang=oc">occitan</a></li>
+    <li><a href="/?lang=pl">polski</a></li>
+    <li><a href="/?lang=pnb">پنجابی</a></li>
+    <li><a href="/?lang=pt">português</a></li>
+    <li><a href="/?lang=ro">română</a></li>
+    <li><a href="/?lang=sq">shqip</a></li>
+    <li><a href="/?lang=sk">slovenčina</a></li>
+    <li><a href="/?lang=sl">slovenščina</a></li>
+    <li><a href="/?lang=sr-latn">srpski (latinica)</a></li>
+    <li><a href="/?lang=fi">suomi</a></li>
+    <li><a href="/?lang=sv">svenska</a></li>
+    <li><a href="/?lang=tl">Tagalog</a></li>
+    <li><a href="/?lang=vi">Tiếng Việt</a></li>
+    <li><a href="/?lang=tr">Türkçe</a></li>
+    <li><a href="/?lang=diq">Zazaki</a></li>
+    <li><a href="/?lang=el">Ελληνικά</a></li>
+    <li><a href="/?lang=be">беларуская</a></li>
+    <li><a href="/?lang=bg">български</a></li>
+    <li><a href="/?lang=mk">македонски</a></li>
+    <li><a href="/?lang=mn">монгол</a></li>
+    <li><a href="/?lang=ru">русский</a></li>
+    <li><a href="/?lang=sr">српски / srpski</a></li>
+    <li><a href="/?lang=uk">українська</a></li>
+    <li><a href="/?lang=hy">հայերեն</a></li>
+    <li><a href="/?lang=he">עברית</a></li>
+    <li><a href="/?lang=ar">العربية</a></li>
+    <li><a href="/?lang=fa">فارسی</a></li>
+    <li><a href="/?lang=ps">پښتو</a></li>
+    <li><a href="/?lang=ne">नेपाली</a></li>
+    <li><a href="/?lang=bn">বাংলা</a></li>
+    <li><a href="/?lang=ta">தமிழ்</a></li>
+    <li><a href="/?lang=ml">മലയാളം</a></li>
+    <li><a href="/?lang=si">සිංහල</a></li>
+    <li><a href="/?lang=th">ไทย</a></li>
+    <li><a href="/?lang=my">မြန်မာဘာသာ</a></li>
+    <li><a href="/?lang=ka">ქართული</a></li>
+    <li><a href="/?lang=ko">한국어</a></li>
+    <li><a href="/?lang=tzm">ⵜⴰⵎⴰⵣⵉⵖⵜ</a></li>
+    <li><a href="/?lang=zh-hans">中文（简体）</a></li>
+    <li><a href="/?lang=zh-hant">中文（繁體）</a></li>
+    <li><a href="/?lang=ja">日本語</a></li>
+    <li><a href="/?lang=yue">粵語</a></li>
+  </ul>
 </details>
 
-協助翻譯：
+<select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Pick one:</option>
+    <option value="/foo">Foo</option>
+    <option value="/bar">Bar</option>
+</select>
+
+### 協助翻譯：
 
 - 到 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
   <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">

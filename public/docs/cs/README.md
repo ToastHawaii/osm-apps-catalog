@@ -1,6 +1,6 @@
 # O katalogu aplikací OSM
 
-*There isn't just one, there are thousands.*
+_There isn't just one, there are thousands._
 
 This catalog shows apps and services that use OpenStreetMap data. It is updated
 every day. The apps are rated and sorted by the [Community Contribution
@@ -20,42 +20,97 @@ ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 ## Další jazyky
 
 <details>
-<summary>
+  <summary>
 
-Display the catalog in your language
+Display the catalog in your language. Click here to show all languages.
 
-</summary>
-
-[afrikánština](/?lang=af), [asturština](/?lang=ast),
-[ázerbájdžánština](/?lang=az), [indonéština](/?lang=id),
-[malajština](/?lang=ms), [bosenština](/?lang=bs), [bretaňština](/?lang=br),
-[katalánština] (/?lang=ca), [čeština] (/?lang=cs), [dánština] (/?lang=da),
-[němčina] (/?lang=de), [estonština] (/?lang=et), [angličtina] (/?lang=en),
-[španělština] (/?lang=es), [esperanto] (/?lang=eo), [baskičtina] (/?lang=eu),
-[francouzština] (/?lang=fr), [frisština](/?lang=fy), [galština](/?lang=gl),
-[chorvatština](/?lang=hr), [interlingua](/?lang=ia), [islandština](/?lang=is),
-[italština](/?lang=it), [Kreyòl ayisyen](/?lang=ht), [kréyòl
-gwadloupéyen](/?lang=gcf), [kurdština](/?lang=ku), [lotyština](/?lang=lv),
-[lucemburština](/?lang=lb), [litevština](/?lang=lt), [maďarština](/?lang=hu),
-[nizozemština](/?lang=nl), [norština](/?lang=no), [norština nynorsk](/?lang=nn),
-[okcitánština](/?lang=oc), [polština](/?lang=pl), [pandžábština](/?lang=pnb),
-[portugalština](/?lang=pt), [română](/?lang=ro), [shqip](/?lang=sq),
-[slovinština](/?lang=sk), [slovenština](/?lang=sl), [srbština
-(latinka)](/?lang=sr-latn), [suomi](/?lang=fi), [švédština](/?lang=sv),
-[tagalog](/?lang=tl), [vietnamština](/?lang=vi), [turečtina](/?lang=tr),
-[zazaki](/?lang=diq), [řečtina](/?lang=el), [běloruština](/?lang=be),
-[bulharština](/?lang=bg), [makedonština](/?lang=mk), [mongolština](/?lang=mn),
-[ruština](/?lang=ru), [srbština](/?lang=sr), [ukrajinština](/?lang=uk),
-[հայերեն](/?lang=hy), [עברית](/?lang=he), [العربية](/?lang=ar),
-[فارسی](/?lang=fa), [پښتو](/?lang=ps), [नेपाली](/?lang=ne), [বাংলা](/?lang=bn),
-[தமிழ்](/?lang=ta), [മലയാളം](/?lang=ml), [සිංහල](/?lang=si), [ไทย](/?lang=th),
-[မြန်မာဘာသာ](/?lang=my), [ქართული](/?lang=ka), [한국어](/?lang=ko),
-[ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
-[日本語](/?lang=ja), [粵語](/?lang=yue)
-
+  </summary>
+  <ul>
+    <li><a href="/?lang=af">Afrikaans</a></li>
+    <li><a href="/?lang=ast">asturianu</a></li>
+    <li><a href="/?lang=az">azərbaycanca</a></li>
+    <li><a href="/?lang=id">Bahasa Indonesia</a></li>
+    <li><a href="/?lang=ms">Bahasa Melayu</a></li>
+    <li><a href="/?lang=bs">bosanski</a></li>
+    <li><a href="/?lang=br">brezhoneg</a></li>
+    <li><a href="/?lang=ca">català</a></li>
+    <li><a href="/?lang=cs">čeština</a></li>
+    <li><a href="/?lang=da">dansk</a></li>
+    <li><a href="/?lang=de">Deutsch</a></li>
+    <li><a href="/?lang=et">eesti</a></li>
+    <li><a href="/?lang=en">English</a></li>
+    <li><a href="/?lang=es">español</a></li>
+    <li><a href="/?lang=eo">Esperanto</a></li>
+    <li><a href="/?lang=eu">euskara</a></li>
+    <li><a href="/?lang=fr">français</a></li>
+    <li><a href="/?lang=fy">Frysk</a></li>
+    <li><a href="/?lang=gl">galego</a></li>
+    <li><a href="/?lang=hr">hrvatski</a></li>
+    <li><a href="/?lang=ia">interlingua</a></li>
+    <li><a href="/?lang=is">íslenska</a></li>
+    <li><a href="/?lang=it">italiano</a></li>
+    <li><a href="/?lang=ht">Kreyòl ayisyen</a></li>
+    <li><a href="/?lang=gcf">kréyòl gwadloupéyen</a></li>
+    <li><a href="/?lang=ku">kurdî</a></li>
+    <li><a href="/?lang=lv">latviešu</a></li>
+    <li><a href="/?lang=lb">Lëtzebuergesch</a></li>
+    <li><a href="/?lang=lt">lietuvių</a></li>
+    <li><a href="/?lang=hu">magyar</a></li>
+    <li><a href="/?lang=nl">Nederlands</a></li>
+    <li><a href="/?lang=no">norsk</a></li>
+    <li><a href="/?lang=nn">norsk nynorsk</a></li>
+    <li><a href="/?lang=oc">occitan</a></li>
+    <li><a href="/?lang=pl">polski</a></li>
+    <li><a href="/?lang=pnb">پنجابی</a></li>
+    <li><a href="/?lang=pt">português</a></li>
+    <li><a href="/?lang=ro">română</a></li>
+    <li><a href="/?lang=sq">shqip</a></li>
+    <li><a href="/?lang=sk">slovenčina</a></li>
+    <li><a href="/?lang=sl">slovenščina</a></li>
+    <li><a href="/?lang=sr-latn">srpski (latinica)</a></li>
+    <li><a href="/?lang=fi">suomi</a></li>
+    <li><a href="/?lang=sv">svenska</a></li>
+    <li><a href="/?lang=tl">Tagalog</a></li>
+    <li><a href="/?lang=vi">Tiếng Việt</a></li>
+    <li><a href="/?lang=tr">Türkçe</a></li>
+    <li><a href="/?lang=diq">Zazaki</a></li>
+    <li><a href="/?lang=el">Ελληνικά</a></li>
+    <li><a href="/?lang=be">беларуская</a></li>
+    <li><a href="/?lang=bg">български</a></li>
+    <li><a href="/?lang=mk">македонски</a></li>
+    <li><a href="/?lang=mn">монгол</a></li>
+    <li><a href="/?lang=ru">русский</a></li>
+    <li><a href="/?lang=sr">српски / srpski</a></li>
+    <li><a href="/?lang=uk">українська</a></li>
+    <li><a href="/?lang=hy">հայերեն</a></li>
+    <li><a href="/?lang=he">עברית</a></li>
+    <li><a href="/?lang=ar">العربية</a></li>
+    <li><a href="/?lang=fa">فارسی</a></li>
+    <li><a href="/?lang=ps">پښتو</a></li>
+    <li><a href="/?lang=ne">नेपाली</a></li>
+    <li><a href="/?lang=bn">বাংলা</a></li>
+    <li><a href="/?lang=ta">தமிழ்</a></li>
+    <li><a href="/?lang=ml">മലയാളം</a></li>
+    <li><a href="/?lang=si">සිංහල</a></li>
+    <li><a href="/?lang=th">ไทย</a></li>
+    <li><a href="/?lang=my">မြန်မာဘာသာ</a></li>
+    <li><a href="/?lang=ka">ქართული</a></li>
+    <li><a href="/?lang=ko">한국어</a></li>
+    <li><a href="/?lang=tzm">ⵜⴰⵎⴰⵣⵉⵖⵜ</a></li>
+    <li><a href="/?lang=zh-hans">中文（简体）</a></li>
+    <li><a href="/?lang=zh-hant">中文（繁體）</a></li>
+    <li><a href="/?lang=ja">日本語</a></li>
+    <li><a href="/?lang=yue">粵語</a></li>
+  </ul>
 </details>
 
-Pomozte s překladem:
+<select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Pick one:</option>
+    <option value="/foo">Foo</option>
+    <option value="/bar">Bar</option>
+</select>
+
+### Pomozte s překladem:
 
 - z katalogu aplikací OSM na
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
