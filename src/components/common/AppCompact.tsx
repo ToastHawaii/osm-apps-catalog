@@ -16,9 +16,7 @@ import {
 } from "@components/ui/item";
 import { useRoute } from "@hooks/useRoute";
 import { Score } from "@app/ui/components/Score";
-import { Badge } from "@components/ui/badge";
-import { useTranslation } from "react-i18next";
-import { take } from "lodash";
+import TagList from "@components/common/TagList";
 
 export function AppCompact({
   app,
@@ -29,7 +27,6 @@ export function AppCompact({
   score?: boolean;
   tags?: boolean;
 }) {
-  const { t } = useTranslation();
   const routes = useRoute();
 
   return (
@@ -56,14 +53,7 @@ export function AppCompact({
           </ItemContent>
           {!!tags && (
             <ItemFooter className="overflow-hidden">
-              <div className="flex gap-2">
-                {take(app.tags, 3).map((tag) => (
-                  <Badge key={tag} variant="outline">
-                    {t(`app.tag.${tag}`)}
-                  </Badge>
-                ))}
-                {app.tags.length > 3 && <Badge variant="outline">...</Badge>}
-              </div>
+              <TagList items={app.tags} />
             </ItemFooter>
           )}
         </Link>

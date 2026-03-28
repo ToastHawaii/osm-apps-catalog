@@ -1,4 +1,5 @@
 import { languageCodeToDisplay } from "@app/ui/lib/language";
+import { TagDefinitions } from "@shared/lib/TagDefinitions";
 import { App } from "@shared/data/App";
 import { toUpper, uniq } from "lodash";
 
@@ -34,8 +35,20 @@ function enrichCache(apps: App[]) {
   }));
 }
 
+function enrichTags(apps: App[]) {
+  return apps.map((app) => {
+    const tags = TagDefinitions.filter((d) => d.filter(app)).map((d) => d.key);
+
+    return {
+      ...app,
+      tags,
+    };
+  });
+}
+
 export function processApps(apps: App[]) {
   let processedApps = processLanguageCodes(apps);
   processedApps = enrichCache(processedApps);
+  processedApps = enrichTags(processedApps);
   return processedApps;
 }
