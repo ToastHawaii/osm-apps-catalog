@@ -19,98 +19,92 @@ ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Άλλες γλώσσες
 
-<details>
-  <summary>
-
-Display the catalog in your language. Click here to show all languages.
-
-  </summary>
-  <ul>
-    <li><a href="/?lang=af">Afrikaans</a></li>
-    <li><a href="/?lang=ast">asturianu</a></li>
-    <li><a href="/?lang=az">azərbaycanca</a></li>
-    <li><a href="/?lang=id">Bahasa Indonesia</a></li>
-    <li><a href="/?lang=ms">Bahasa Melayu</a></li>
-    <li><a href="/?lang=bs">bosanski</a></li>
-    <li><a href="/?lang=br">brezhoneg</a></li>
-    <li><a href="/?lang=ca">català</a></li>
-    <li><a href="/?lang=cs">čeština</a></li>
-    <li><a href="/?lang=da">dansk</a></li>
-    <li><a href="/?lang=de">Deutsch</a></li>
-    <li><a href="/?lang=et">eesti</a></li>
-    <li><a href="/?lang=en">English</a></li>
-    <li><a href="/?lang=es">español</a></li>
-    <li><a href="/?lang=eo">Esperanto</a></li>
-    <li><a href="/?lang=eu">euskara</a></li>
-    <li><a href="/?lang=fr">français</a></li>
-    <li><a href="/?lang=fy">Frysk</a></li>
-    <li><a href="/?lang=gl">galego</a></li>
-    <li><a href="/?lang=hr">hrvatski</a></li>
-    <li><a href="/?lang=ia">interlingua</a></li>
-    <li><a href="/?lang=is">íslenska</a></li>
-    <li><a href="/?lang=it">italiano</a></li>
-    <li><a href="/?lang=ht">Kreyòl ayisyen</a></li>
-    <li><a href="/?lang=gcf">kréyòl gwadloupéyen</a></li>
-    <li><a href="/?lang=ku">kurdî</a></li>
-    <li><a href="/?lang=lv">latviešu</a></li>
-    <li><a href="/?lang=lb">Lëtzebuergesch</a></li>
-    <li><a href="/?lang=lt">lietuvių</a></li>
-    <li><a href="/?lang=hu">magyar</a></li>
-    <li><a href="/?lang=nl">Nederlands</a></li>
-    <li><a href="/?lang=no">norsk</a></li>
-    <li><a href="/?lang=nn">norsk nynorsk</a></li>
-    <li><a href="/?lang=oc">occitan</a></li>
-    <li><a href="/?lang=pl">polski</a></li>
-    <li><a href="/?lang=pnb">پنجابی</a></li>
-    <li><a href="/?lang=pt">português</a></li>
-    <li><a href="/?lang=ro">română</a></li>
-    <li><a href="/?lang=sq">shqip</a></li>
-    <li><a href="/?lang=sk">slovenčina</a></li>
-    <li><a href="/?lang=sl">slovenščina</a></li>
-    <li><a href="/?lang=sr-latn">srpski (latinica)</a></li>
-    <li><a href="/?lang=fi">suomi</a></li>
-    <li><a href="/?lang=sv">svenska</a></li>
-    <li><a href="/?lang=tl">Tagalog</a></li>
-    <li><a href="/?lang=vi">Tiếng Việt</a></li>
-    <li><a href="/?lang=tr">Türkçe</a></li>
-    <li><a href="/?lang=diq">Zazaki</a></li>
-    <li><a href="/?lang=el">Ελληνικά</a></li>
-    <li><a href="/?lang=be">беларуская</a></li>
-    <li><a href="/?lang=bg">български</a></li>
-    <li><a href="/?lang=mk">македонски</a></li>
-    <li><a href="/?lang=mn">монгол</a></li>
-    <li><a href="/?lang=ru">русский</a></li>
-    <li><a href="/?lang=sr">српски / srpski</a></li>
-    <li><a href="/?lang=uk">українська</a></li>
-    <li><a href="/?lang=hy">հայերեն</a></li>
-    <li><a href="/?lang=he">עברית</a></li>
-    <li><a href="/?lang=ar">العربية</a></li>
-    <li><a href="/?lang=fa">فارسی</a></li>
-    <li><a href="/?lang=ps">پښتو</a></li>
-    <li><a href="/?lang=ne">नेपाली</a></li>
-    <li><a href="/?lang=bn">বাংলা</a></li>
-    <li><a href="/?lang=ta">தமிழ்</a></li>
-    <li><a href="/?lang=ml">മലയാളം</a></li>
-    <li><a href="/?lang=si">සිංහල</a></li>
-    <li><a href="/?lang=th">ไทย</a></li>
-    <li><a href="/?lang=my">မြန်မာဘာသာ</a></li>
-    <li><a href="/?lang=ka">ქართული</a></li>
-    <li><a href="/?lang=ko">한국어</a></li>
-    <li><a href="/?lang=tzm">ⵜⴰⵎⴰⵣⵉⵖⵜ</a></li>
-    <li><a href="/?lang=zh-hans">中文（简体）</a></li>
-    <li><a href="/?lang=zh-hant">中文（繁體）</a></li>
-    <li><a href="/?lang=ja">日本語</a></li>
-    <li><a href="/?lang=yue">粵語</a></li>
-  </ul>
-</details>
+Display the catalog in your language:
 
 <select onchange="if (this.value) window.location.href=this.value">
-    <option value="">Pick one:</option>
-    <option value="/foo">Foo</option>
-    <option value="/bar">Bar</option>
+    <option value="">
+
+Choose language
+
+    </option>
+    <option value="/?lang=af">Afrikaans</option>
+    <option value="/?lang=ast">asturianu</option>
+    <option value="/?lang=az">azərbaycanca</option>
+    <option value="/?lang=id">Bahasa Indonesia</option>
+    <option value="/?lang=ms">Bahasa Melayu</option>
+    <option value="/?lang=bs">bosanski</option>
+    <option value="/?lang=br">brezhoneg</option>
+    <option value="/?lang=ca">català</option>
+    <option value="/?lang=cs">čeština</option>
+    <option value="/?lang=da">dansk</option>
+    <option value="/?lang=de">Deutsch</option>
+    <option value="/?lang=et">eesti</option>
+    <option value="/?lang=en">English</option>
+    <option value="/?lang=es">español</option>
+    <option value="/?lang=eo">Esperanto</option>
+    <option value="/?lang=eu">euskara</option>
+    <option value="/?lang=fr">français</option>
+    <option value="/?lang=fy">Frysk</option>
+    <option value="/?lang=gl">galego</option>
+    <option value="/?lang=hr">hrvatski</option>
+    <option value="/?lang=ia">interlingua</option>
+    <option value="/?lang=is">íslenska</option>
+    <option value="/?lang=it">italiano</option>
+    <option value="/?lang=ht">Kreyòl ayisyen</option>
+    <option value="/?lang=gcf">kréyòl gwadloupéyen</option>
+    <option value="/?lang=ku">kurdî</option>
+    <option value="/?lang=lv">latviešu</option>
+    <option value="/?lang=lb">Lëtzebuergesch</option>
+    <option value="/?lang=lt">lietuvių</option>
+    <option value="/?lang=hu">magyar</option>
+    <option value="/?lang=nl">Nederlands</option>
+    <option value="/?lang=no">norsk</option>
+    <option value="/?lang=nn">norsk nynorsk</option>
+    <option value="/?lang=oc">occitan</option>
+    <option value="/?lang=pl">polski</option>
+    <option value="/?lang=pnb">پنجابی</option>
+    <option value="/?lang=pt">português</option>
+    <option value="/?lang=ro">română</option>
+    <option value="/?lang=sq">shqip</option>
+    <option value="/?lang=sk">slovenčina</option>
+    <option value="/?lang=sl">slovenščina</option>
+    <option value="/?lang=sr-latn">srpski (latinica)</option>
+    <option value="/?lang=fi">suomi</option>
+    <option value="/?lang=sv">svenska</option>
+    <option value="/?lang=tl">Tagalog</option>
+    <option value="/?lang=vi">Tiếng Việt</option>
+    <option value="/?lang=tr">Türkçe</option>
+    <option value="/?lang=diq">Zazaki</option>
+    <option value="/?lang=el">Ελληνικά</option>
+    <option value="/?lang=be">беларуская</option>
+    <option value="/?lang=bg">български</option>
+    <option value="/?lang=mk">македонски</option>
+    <option value="/?lang=mn">монгол</option>
+    <option value="/?lang=ru">русский</option>
+    <option value="/?lang=sr">српски / srpski</option>
+    <option value="/?lang=uk">українська</option>
+    <option value="/?lang=hy">հայերեն</option>
+    <option value="/?lang=he">עברית</option>
+    <option value="/?lang=ar">العربية</option>
+    <option value="/?lang=fa">فارسی</option>
+    <option value="/?lang=ps">پښتو</option>
+    <option value="/?lang=ne">नेपाली</option>
+    <option value="/?lang=bn">বাংলা</option>
+    <option value="/?lang=ta">தமிழ்</option>
+    <option value="/?lang=ml">മലയാളം</option>
+    <option value="/?lang=si">සිංහල</option>
+    <option value="/?lang=th">ไทย</option>
+    <option value="/?lang=my">မြန်မာဘာသာ</option>
+    <option value="/?lang=ka">ქართული</option>
+    <option value="/?lang=ko">한국어</option>
+    <option value="/?lang=tzm">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+    <option value="/?lang=zh-hans">中文（简体）</option>
+    <option value="/?lang=zh-hant">中文（繁體）</option>
+    <option value="/?lang=ja">日本語</option>
+    <option value="/?lang=yue">粵語</option>
 </select>
 
-### Βοηθήστε με τη μετάφραση:
+Βοηθήστε με τη μετάφραση:
 
 - από το OSM Apps Catalog στο
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
