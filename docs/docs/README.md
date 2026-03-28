@@ -15,9 +15,11 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 Display the catalog in your language: 
 
 <select onchange="if (this.value) window.location.href=this.value">
-  <option value="">
+<option value="">
+
 Choose language
-  </option>
+
+</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
   <option value="/?lang=az">azərbaycanca</option>
