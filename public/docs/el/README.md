@@ -1,10 +1,10 @@
 # Σχετικά με το OSM Apps Catalog
 
-_There isn't just one, there are thousands._
+_Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα
+OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
+ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Πηγαίνετε στον κατάλογο](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους
+τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Άλλες γλώσσες
 
-Display the catalog in your language:
+Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
