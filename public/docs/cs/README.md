@@ -20,9 +20,11 @@ ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 ## Další jazyky
 
 <details>
-  <summary>
-  Display the catalog in your language
-  </summary>
+<summary>
+
+Display the catalog in your language
+
+</summary>
 
 [afrikánština](/?lang=af), [asturština](/?lang=ast),
 [ázerbájdžánština](/?lang=az), [indonéština](/?lang=id),
