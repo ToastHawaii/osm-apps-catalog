@@ -21,12 +21,9 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
-<select onchange="if (this.value) window.location.href=this.value">
-  <option value="">
-
-Choose language
-
-  </option>
+**Choose language**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+  <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
   <option value="/?lang=az">azərbaycanca</option>
