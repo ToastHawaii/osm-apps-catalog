@@ -12,10 +12,10 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Ir al catálogo](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Añada las aplicaciones OSM que conozca o contribuya de otras
+maneras.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Otros idiomas
 
