@@ -19,10 +19,12 @@ manière.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Autres langues
 
-Afficher le catalogue dans votre langue :
+Display the catalog in your language
 
 <label for="language-select">
-  Choose language:
+
+Choose language:
+
 </label>
 <select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
