@@ -19,7 +19,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 ## Άλλες γλώσσες
 
-Display the catalog in your language:
+Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
