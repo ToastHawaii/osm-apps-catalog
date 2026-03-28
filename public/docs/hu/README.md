@@ -1,10 +1,10 @@
 # OSM Apps Catalog – névjegy
 
-_There isn't just one, there are thousands._
+_Nem csak egy van, hanem több ezer_
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
+használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási
+pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Nézd meg a katalógust](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
+másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## További nyelvek
 
-Display the catalog in your language:
+Katalógus megjelenítése a nyelveden:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
