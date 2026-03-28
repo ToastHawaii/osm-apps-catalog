@@ -1,10 +1,10 @@
 # Про каталог програм OSM
 
-_There isn't just one, there are thousands._
+_Їх не один, їх тисячі._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated
-every day. The apps are rated and sorted by the [Community Contribution
-Score](/docs/score).
+У цьому каталозі представлені програми та сервіси, що використовують дані
+OpenStreetMap. Він оновлюється щодня. Програми оцінюються та сортуються за
+[оцінкою внеску спільноти](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
@@ -12,14 +12,14 @@ Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
 list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Go to the catalog](https://osm-apps.org)
+[> Перейти до каталогу](https://osm-apps.org)
 
-[> Add OSM apps you know or contribute in other
-ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Додайте знайомі вам програми OSM або зробіть свій внесок іншими
+способами.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Інші мови
 
-Display the catalog in your language:
+Відобразити каталог вашою мовою:
 
 <select onchange="if (this.value) window.location.href=this.value">
   <option value="">
