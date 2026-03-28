@@ -1,19 +1,26 @@
 # Teave OSM rakenduste kataloogi kohta
 
-**Pole ainult ühte, neid on tuhandeid.**
+*There isn't just one, there are thousands.*
 
-See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad
-OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel
-kogukonda - [Community Contribution Score](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated
+every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
-[Vaata kataloogi](https://osm-apps.org)
+The metadata for the apps is collected from [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
+[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[Lisa sulle teadaolevaid OSMi rakendusi või osale muul
-viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Go to the catalog](https://osm-apps.org)
+
+[> Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Muud keeled
 
-Vaata kataloogi omas keeles:
+<details>
+  <summary>Display the catalog in your language</summary>
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,10 +48,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_Siin kataloogis leidub hetkel tarkvara järgnevate teenuste vaid ingliskeelsest
-versioonist: [OpenStreetMapi viki](https://wiki.openstreetmap.org/),
-[Vikiandmed](https://www.wikidata.org/), [GitHub](https://github.com/) ja
-[siltide projekt](https://taginfo.openstreetmap.org/projects)._
+</details>
 
 Aita tõlkimisel:
 
@@ -65,6 +69,7 @@ kõigile vabalt kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on
 jätkuvalt avaldatud sama litsentsi alusel.
 
 ## Andmekaitsepõhimõtted
+
 OSM-i rakenduste kataloog (OSM Apps Catalog) ei salvesta kasutajate isiklikke
 andmeid.
 
@@ -77,6 +82,18 @@ Osa kasutaja veebibrauserist tuvastatavast teabest (nagu keel ja platvorm) võib
 olla pruugitud kasutuskogemuse parandamisel. Neid andmeid töödeldakse
 veebibrauseris ega edastata välistesse serveritesse ja seega ei salvestata seal
 (välja arvatud eelpoolnimetatud anonüümne statistika).
+
+The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+says:
+
+> ### Data collection
+> 
+> When a GitHub Pages site is visited, the visitor's IP address is logged and
+> stored for security purposes, regardless of whether the visitor has signed
+> into GitHub or not. For more information about GitHub's security practices,
+> see [GitHub Privacy
+> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Lahtiütlus vastutusest
 

@@ -1,19 +1,26 @@
 # Σχετικά με το OSM Apps Catalog
 
-**Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες.**
+*There isn't just one, there are thousands.*
 
-Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα
-OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
-ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated
+every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
-[Πηγαίνετε στον κατάλογο](https://osm-apps.org)
+The metadata for the apps is collected from [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
+[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους
-τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Go to the catalog](https://osm-apps.org)
+
+[> Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Άλλες γλώσσες
 
-Προβάλλετε τον κατάλογο στη γλώσσα σας:
+<details>
+  <summary>Display the catalog in your language</summary>
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,10 +48,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_Αυτός ο κατάλογος περιλαμβάνει αυτή την στιγμή μόνο εφαρμογές από την Αγγλική
-έκδοση του [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) και [λίστα
-εγχειρημάτων του taginfo](https://taginfo.openstreetmap.org/projects)._
+</details>
 
 Βοηθήστε με τη μετάφραση:
 
@@ -64,6 +68,7 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
 ## Πολιτική Απορρήτου
+
 Το OSM Apps Catalog δεν αποθηκεύει προσωπικά δεδομένα χρηστών.
 
 Για στατιστικά ανώνυμης χρήσης, το εγχείρημα χρησιμοποιεί το
@@ -77,6 +82,18 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 εμπειρίας του χρήστη. Αυτά τα δεδομένα γίνονται επεξεργασία εντός του περιηγητή
 και δεν αποθηκεύονται ή μεταδίδονται σε εξωτερικούς διακομιστές (με εξαίρεση για
 ανώνυμη ανάλυση όπως περιγράφεται παραπάνω).
+
+The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+says:
+
+> ### Data collection
+> 
+> When a GitHub Pages site is visited, the visitor's IP address is logged and
+> stored for security purposes, regardless of whether the visitor has signed
+> into GitHub or not. For more information about GitHub's security practices,
+> see [GitHub Privacy
+> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Αποποίηση
 

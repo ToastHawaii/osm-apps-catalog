@@ -1,19 +1,26 @@
 # OSM Apps Catalog – névjegy
 
-**Nem csak egy van, hanem több ezer**
+*There isn't just one, there are thousands.*
 
-Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
-használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási
-pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
+This catalog shows apps and services that use OpenStreetMap data. It is updated
+every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
-[Nézd meg a katalógust](https://osm-apps.org)
+The metadata for the apps is collected from [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
+[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
-másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Go to the catalog](https://osm-apps.org)
+
+[> Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## További nyelvek
 
-Katalógus megjelenítése a nyelveden:
+<details>
+  <summary>Display the catalog in your language</summary>
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,11 +48,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_A katalógus jelenleg csak az [OpenStreetMap
-wiki](https://wiki.openstreetmap.org/), a [Wikidata](https://www.wikidata.org/),
-[GitHub](https://github.com/) és a [taginfo
-projektlistájának](https://taginfo.openstreetmap.org/projects) angol
-változatairól tartalmaz alkalmazásokat._
+</details>
 
 Segítség a fordításban:
 
@@ -66,6 +69,7 @@ felhasználható, másolható és módosítható, ha ugyanezen licenc alatt tesz
 közzé.
 
 ## Adatvédelmi tájékoztató
+
 Az OSM Apps Catalog nem tárol személyes adatot a felhasználóról.
 
 Névtelen felhasználási statisztikához a projekt a
@@ -79,6 +83,18 @@ internetböngészője által szolgáltatott adatot (pl. a használt nyelvet vagy
 platformot). Ezek az adatok a böngészőn belül lesznek feldolgozva; nem
 tárolódnak és nem továbbíttatnak külső szerverekhez (a fent leírt, névtelenített
 elemzéseken kívül).
+
+The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+says:
+
+> ### Data collection
+> 
+> When a GitHub Pages site is visited, the visitor's IP address is logged and
+> stored for security purposes, regardless of whether the visitor has signed
+> into GitHub or not. For more information about GitHub's security practices,
+> see [GitHub Privacy
+> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Felelősségi nyilatkozat
 

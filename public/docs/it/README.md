@@ -1,19 +1,26 @@
 # Su OSM Apps Catalog
 
-**There isn't just one, there are thousands.**
+*There isn't just one, there are thousands.*
 
-Questo catalogo mostra applicazioni e servizi che usano i dati di OpenStreetMap.
-Viene aggiornato quotidianamente. Le app sono valutate e ordinate secondo il
-[Community Contribution Score](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated
+every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
-[Vai al catalogo](https://osm-apps.org)
+The metadata for the apps is collected from [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
+[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[Aggiungi app OSM che conosci o contribuisci in altri
-modi.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Go to the catalog](https://osm-apps.org)
+
+[> Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Altre lingue
 
-Mostra il catalogo nella tua lingua:
+<details>
+  <summary>Display the catalog in your language</summary>
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -41,10 +48,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_Questo catalogo attualmente contiene solo app provenienti dalla versione
-inglese di [OpenStreetMap Wiki](https://wiki.openstreetmap.org/),
-[Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) e [taginfo
-project list](https://taginfo.openstreetmap.org/projects)._
+</details>
 
 Aiuta a tradurre:
 
@@ -64,6 +68,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Il
 copia e la modifica a patto che pubblichi sotto la stessa licenza.
 
 ## Privacy Policy
+
 The OSM Apps Catalog does not store personal user data.
 
 For anonymized usage statistics, the project uses
@@ -75,6 +80,18 @@ Some information provided by the user's browser (such as language or platform)
 may be used locally to improve the user experience. This data is processed
 within the browser and is not stored or transmitted to external servers (except
 for anonymized analytics as described above).
+
+The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+says:
+
+> ### Data collection
+> 
+> When a GitHub Pages site is visited, the visitor's IP address is logged and
+> stored for security purposes, regardless of whether the visitor has signed
+> into GitHub or not. For more information about GitHub's security practices,
+> see [GitHub Privacy
+> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Disclaimer
 

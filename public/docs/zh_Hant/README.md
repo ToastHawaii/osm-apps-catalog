@@ -1,17 +1,26 @@
 # 關於 OSM Apps 目錄
 
-** 這不只一款，而是有上千個**
+*There isn't just one, there are thousands.*
 
-這份目錄會顯示使用開放街圖資料的程式與服務，每日會更新。這些程式會以[社群貢獻分數](/docs/score)來評分與排序。
+This catalog shows apps and services that use OpenStreetMap data. It is updated
+every day. The apps are rated and sorted by the [Community Contribution
+Score](/docs/score).
 
-[到目錄](https://osm-apps.org)
+The metadata for the apps is collected from [OpenStreetMap
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
+[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[新增你知道的 OSM app
-或是用其他方式貢獻。](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Go to the catalog](https://osm-apps.org)
+
+[> Add OSM apps you know or contribute in other
+ways.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## 其他語言
 
-顯示目錄為您的語言：
+<details>
+  <summary>Display the catalog in your language</summary>
 
 [Afrikaans](/?lang=af), [asturianu](/?lang=ast), [azərbaycanca](/?lang=az),
 [Bahasa Indonesia](/?lang=id), [Bahasa Melayu](/?lang=ms),
@@ -39,9 +48,7 @@ nynorsk](/?lang=nn), [occitan](/?lang=oc), [polski](/?lang=pl),
 [ⵜⴰⵎⴰⵣⵉⵖⵜ](/?lang=tzm), [中文（简体）](/?lang=zh-hans), [中文（繁體）](/?lang=zh-hant),
 [日本語](/?lang=ja), [粵語](/?lang=yue)
 
-_這份目錄目前只收錄英文版本的[OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/)、[Wikidata](https://www.wikidata.org/)、[GitHub](https://github.com/)
-以及 [taginfo project list](https://taginfo.openstreetmap.org/projects)。_
+</details>
 
 協助翻譯：
 
@@ -59,6 +66,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code
 能夠自由使用，複製與變動則以相同授權條款釋出。
 
 ## Privacy Policy
+
 The OSM Apps Catalog does not store personal user data.
 
 For anonymized usage statistics, the project uses
@@ -70,6 +78,18 @@ Some information provided by the user's browser (such as language or platform)
 may be used locally to improve the user experience. This data is processed
 within the browser and is not stored or transmitted to external servers (except
 for anonymized analytics as described above).
+
+The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+says:
+
+> ### Data collection
+> 
+> When a GitHub Pages site is visited, the visitor's IP address is logged and
+> stored for security purposes, regardless of whether the visitor has signed
+> into GitHub or not. For more information about GitHub's security practices,
+> see [GitHub Privacy
+> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## 聲明
 
