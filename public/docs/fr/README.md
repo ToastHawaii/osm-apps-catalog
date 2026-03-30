@@ -6,11 +6,11 @@ Ce catalogue présente les applications et services utilisant les données
 OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées
 et triées selon le score de contribution communautaire (/docs/score).
 
-The metadata for the apps is collected from [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+Les métadonnées relatives aux applications sont collectées à partir de
+[OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) et [la liste du projet
+Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects), puis regroupées.
 
 [> Accéder au catalogue](https://osm-apps.org)
 
@@ -21,7 +21,7 @@ manière.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Afficher le catalogue dans votre langue :
 
-**Choose language**
+**Choisissez une langue**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -135,17 +135,18 @@ l'expérience utilisateur. Ces données sont traitées au sein du navigateur et 
 sont ni stockées ni transmises à des serveurs externes (à l'exception des
 analyses anonymisées décrites ci-dessus).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Le site web est hébergé sur GitHub Pages. La [documentation GitHub concernant
+GitHub
 Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+indique :
 
-> ### Data collection
+> ### Collecte de données
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Lorsqu'un site GitHub Pages est consulté, l'adresse IP du visiteur est
+> enregistrée et conservée à des fins de sécurité, que le visiteur soit connecté
+> à GitHub ou non. Pour plus d'informations sur les pratiques de GitHub en
+> matière de sécurité, consultez la [Déclaration de confidentialité de
+> GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Clause de non-responsabilité
 
