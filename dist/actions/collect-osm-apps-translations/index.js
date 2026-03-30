@@ -99675,7 +99675,7 @@ function mergeApps(app, obj, options) {
     app.genre = mergeValues(app.genre, obj.genre, { sort: true });
     app.topics = mergeValues(app.topics, obj.topics, { sort: true });
     app.platform = mergeValues(app.platform, obj.platform, { sort: true });
-    app.install = (0,lodash.merge)(app.install, obj.install);
+    app.install = mergeRecords(app.install, obj.install);
     app.map = mergeFeatures(app.map, obj.map);
     app.routing = mergeFeatures(app.routing, obj.routing);
     app.navigating = mergeFeatures(app.navigating, obj.navigating);
@@ -99687,7 +99687,7 @@ function mergeApps(app, obj, options) {
     app.hasGoal = {
         crowdsourcingStreetLevelImagery: mergeBoolean(app.hasGoal?.crowdsourcingStreetLevelImagery, obj.hasGoal?.crowdsourcingStreetLevelImagery),
     };
-    app.community = (0,lodash.merge)(app.community, obj.community);
+    app.community = mergeRecords(app.community, obj.community);
 }
 function mergeBoolean(b1, b2) {
     if (typeof b1 === "boolean")
@@ -99700,6 +99700,19 @@ function mergeValues(v1, v2, options) {
         return merged;
     }
     return merged.sort();
+}
+function mergeRecords(r1, r2) {
+    return (0,lodash.mergeWith)(r1, r2, (objValue, srcValue) => {
+        // Ignore empty string or undefined
+        if (srcValue === "" || srcValue === undefined) {
+            return objValue;
+        }
+        // Let lodash handle deep merge for objects
+        if ((0,lodash.isPlainObject)(srcValue)) {
+            return (0,lodash.merge)(objValue, srcValue); // fallback to default merge
+        }
+        return srcValue;
+    });
 }
 /**
  * Merges two objects with string array values, removing duplicates.
