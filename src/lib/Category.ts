@@ -13,5 +13,5 @@ export interface Category {
         full: string;
       }
     | undefined;
-  tagsReorganization?: TagsReorganizationDefinition;
+  tagsReorganization: TagsReorganizationDefinition;
 }

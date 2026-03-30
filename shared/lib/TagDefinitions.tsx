@@ -7,6 +7,14 @@ export const TagDefinitions: {
   filter: (app: App) => boolean;
 }[] = [
   {
+    key: "property.free",
+    filter: (app) => !!app.gratis,
+  },
+  {
+    key: "property.foss",
+    filter: (app) => !!app.libre,
+  },
+  {
     key: "feature.offline-maps",
     filter: (app) => some(upperCase(app.map?.datasource), ["OFFLINE", "CACHE"]),
   },
@@ -114,13 +122,5 @@ export const TagDefinitions: {
     key: "feature.accessibility-wheelchair",
     filter: (app) =>
       some(upperCase(app.accessibility?.accessibility), ["WHEELCHAIR"]),
-  },
-  {
-    key: "property.free",
-    filter: (app) => !!app.gratis,
-  },
-  {
-    key: "property.foss",
-    filter: (app) => !!app.libre,
   },
 ];

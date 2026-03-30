@@ -18,7 +18,6 @@ import { useRoute } from "@hooks/useRoute";
 import { Score } from "@app/ui/components/Score";
 import TagList from "@components/common/TagList";
 import {
-  DefaultTagsReorganization,
   TagsReorganizationDefinition,
   tagsReorganizer,
 } from "@lib/tagsReorganizer";
@@ -27,7 +26,7 @@ export function AppCompact({
   app,
   tags,
   score,
-  tagsReorganization = DefaultTagsReorganization,
+  tagsReorganization,
 }: {
   app: App;
   score?: boolean;
@@ -58,7 +57,7 @@ export function AppCompact({
               )}
             </ItemDescription>
           </ItemContent>
-          {!!tags && (
+          {!!tags && !!tagsReorganization && (
             <ItemFooter className="overflow-hidden">
               <TagList items={tagsReorganizer(app.tags, tagsReorganization)} />
             </ItemFooter>

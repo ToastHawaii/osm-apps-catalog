@@ -15,12 +15,20 @@ import {
   universalMapApps,
   tourism,
   food,
-  divers,
+  diversity,
   contributePhoto,
 } from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { featureFlags } from "../../featureFlags";
 import { Category } from "@lib/Category";
+import {
+  DefaultHide,
+  DefaultHierarchyForEdit,
+  DefaultHierarchyForNavigation,
+  DefaultHierarchyForRouting,
+  DefaultPrioritize,
+  DefaultTagsReorganization,
+} from "@lib/tagsReorganizer";
 
 export function categories(
   t: TFunction<"translation", undefined>,
@@ -33,6 +41,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.universalMapApps.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => universalMapApps(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "hiking",
@@ -42,22 +51,24 @@ export function categories(
       nextIndex: () => apps.findIndex((app) => hiking(app)),
       tagsReorganization: {
         prioritize: [
-          "property.free",
+          ...DefaultPrioritize,
           "feature.routing-hike",
+          "feature.routing-foot",
           "feature.offline-routing",
           "feature.routing-manual",
           "feature.location-search",
         ],
         hierarchy: [
-          ["feature.voice-guidance", "feature.navigation"],
+          ...DefaultHierarchyForNavigation,
 
-          ["feature.edit-map", "feature.create-notes"],
-          ["feature.offline-edit", "feature.edit-map"],
+          ...DefaultHierarchyForEdit,
+
+          ["feature.routing-hike", "feature.routing-foot"],
 
           ["feature.offline-routing", "feature.routing"],
         ],
         hide: [
-          "property.foss",
+          ...DefaultHide,
           "feature.routing",
           "feature.routing-bike",
           "feature.routing-car",
@@ -71,6 +82,19 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.publicTransport.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => publicTransport(app)),
+      tagsReorganization: {
+        prioritize: [...DefaultPrioritize, "feature.routing-publicTransport"],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: DefaultHide,
+      },
     },
     {
       id: "tourism",
@@ -78,6 +102,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.tourism.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => tourism(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "food",
@@ -86,7 +111,9 @@ export function categories(
         t("category.food.description", { numberOfApps }),
       nextIndex: featureFlags.showFoodCategory
         ? () => apps.findIndex((app) => food(app))
-        : () => -1,
+        : // currently ignored
+          () => -1,
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "cycling",
@@ -94,6 +121,28 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.cycling.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => cycling(app)),
+      tagsReorganization: {
+        prioritize: [...DefaultPrioritize, "feature.routing-bike"],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ["feature.offline-routing", "feature.routing"],
+        ],
+
+        hide: [
+          ...DefaultHide,
+          "feature.routing",
+          "feature.routing-publicTransport",
+          "feature.routing-hike",
+          "feature.routing-foot",
+          "feature.routing-car",
+          "feature.routing-motorbike",
+          "feature.routing-wheelchair",
+        ],
+      },
     },
     {
       id: "offlineUse",
@@ -101,6 +150,22 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.mobile.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => offlineUse(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+          "feature.offline-maps",
+          "feature.offline-routing",
+          "feature.offline-edit",
+        ],
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+        hide: DefaultHide,
+      },
     },
     {
       id: "navigation",
@@ -108,6 +173,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.navigation.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => navigation(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "calcRoute",
@@ -115,6 +181,29 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.calcRoute.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => calcRoute(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+
+          "feature.offline-routing",
+          "feature.routing-manual",
+          "feature.routing-publicTransport",
+          "feature.routing-hike",
+          "feature.routing-foot",
+          "feature.routing-bike",
+          "feature.routing-car",
+          "feature.routing-motorbike",
+          "feature.routing-wheelchair",
+        ],
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ["feature.offline-routing", "feature.routing"],
+        ],
+        hide: [...DefaultHide, "feature.routing"],
+      },
     },
     {
       id: "country",
@@ -149,6 +238,7 @@ export function categories(
           app.cache.coverage.some((a) => a.startsWith(country)),
         );
       },
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "winterSport",
@@ -156,6 +246,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.winterSport.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => winterSport(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "wheelchair",
@@ -163,13 +254,46 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.wheelchair.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => wheelchair(app)),
+      tagsReorganization: {
+        prioritize: [...DefaultPrioritize, "feature.routing-wheelchair"],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: [...DefaultHide, "feature.accessibility-wheelchair"],
+      },
     },
     {
       id: "divers",
       name: () => t("category.diversity"),
       description: (numberOfApps: number) =>
         t("category.diversity.description", { numberOfApps }),
-      nextIndex: () => apps.findIndex((app) => divers(app)),
+      nextIndex: () => apps.findIndex((app) => diversity(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+          "feature.accessibility-blind",
+          "feature.routing-wheelchair",
+          "feature.accessibility-wheelchair",
+        ],
+
+        hierarchy: [
+          ["feature.routing-wheelchair", "feature.accessibility-wheelchair"],
+
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: DefaultHide,
+      },
     },
     {
       id: "edit",
@@ -177,6 +301,27 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.edit.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => edit(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+          "feature.edit-map",
+          "feature.offline-edit",
+          "feature.create-notes",
+
+          "feature.record-track",
+          "feature.upload-track",
+        ],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: DefaultHide,
+      },
     },
     {
       id: "contributePhoto",
@@ -184,6 +329,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.contributePhoto.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => contributePhoto(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "trackRec",
@@ -191,6 +337,27 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.trackRec.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => trackRec(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+
+          "feature.upload-track",
+
+          "feature.edit-map",
+          "feature.offline-edit",
+          "feature.create-notes",
+        ],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: [...DefaultHide, "feature.record-track"],
+      },
     },
     {
       id: "print",
@@ -198,6 +365,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.print.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => print(app)),
+      tagsReorganization: DefaultTagsReorganization,
     },
   ];
 }

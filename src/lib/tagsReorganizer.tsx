@@ -4,23 +4,39 @@ export interface TagsReorganizationDefinition {
   hide?: string[];
 }
 
+export const DefaultPrioritize = ["property.free", "property.foss"];
+
+export const DefaultHierarchyForNavigation = [
+  ["feature.voice-guidance", "feature.navigation"],
+] as [string, string][];
+
+export const DefaultHierarchyForEdit = [
+  ["feature.edit-map", "feature.create-notes"],
+  ["feature.offline-edit", "feature.edit-map"],
+] as [string, string][];
+
+export const DefaultHierarchyForRouting = [
+  ["feature.routing", "feature.routing-hike"],
+  ["feature.routing", "feature.routing-foot"],
+  ["feature.routing", "feature.routing-bike"],
+  ["feature.routing", "feature.routing-car"],
+  ["feature.routing", "feature.routing-motorbike"],
+
+  ["feature.offline-routing", "feature.routing"],
+] as [string, string][];
+
+export const DefaultHide = ["property.foss"];
+
 export const DefaultTagsReorganization: TagsReorganizationDefinition = {
-  prioritize: ["property.free"],
+  prioritize: DefaultPrioritize,
   hierarchy: [
-    ["feature.voice-guidance", "feature.navigation"],
+    ...DefaultHierarchyForNavigation,
 
-    ["feature.edit-map", "feature.create-notes"],
-    ["feature.offline-edit", "feature.edit-map"],
+    ...DefaultHierarchyForEdit,
 
-    ["feature.routing", "feature.routing-hike"],
-    ["feature.routing", "feature.routing-foot"],
-    ["feature.routing", "feature.routing-bike"],
-    ["feature.routing", "feature.routing-car"],
-    ["feature.routing", "feature.routing-motorbike"],
-
-    ["feature.offline-routing", "feature.routing"],
+    ...DefaultHierarchyForRouting,
   ],
-  hide: ["property.foss"],
+  hide: DefaultHide,
 };
 
 export function tagsReorganizer(

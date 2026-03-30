@@ -143,7 +143,7 @@ export function food(a: App) {
   ]);
 }
 
-export function divers(a: App) {
+export function diversity(a: App) {
   const topics = a.cache?.topics || upperCase(a.topics);
   return some(topics, [
     "QUEER",

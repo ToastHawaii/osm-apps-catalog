@@ -1,3 +1,10 @@
+import {
+  DefaultHierarchyForEdit,
+  DefaultHierarchyForNavigation,
+  DefaultHierarchyForRouting,
+  DefaultPrioritize,
+  DefaultTagsReorganization,
+} from "@lib/tagsReorganizer";
 import { App } from "@shared/data/App";
 import {
   qa,
@@ -11,6 +18,11 @@ import {
 } from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { chain, sortBy } from "lodash";
+
+const TechDefaultTagsReorganization = {
+  ...DefaultTagsReorganization,
+  hide: [],
+};
 
 export function categories(
   t: TFunction<"translation", undefined>,
@@ -34,6 +46,7 @@ export function categories(
         const latest = this.sorted().take(1).value();
         return apps.findIndex((app) => app.id === latest[0].id);
       },
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "newAdditions",
@@ -53,6 +66,7 @@ export function categories(
         const latest = this.sorted().take(1).value();
         return apps.findIndex((app) => app.id === latest[0].id);
       },
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "latest",
@@ -71,6 +85,7 @@ export function categories(
         const latest = this.sorted().take(1).value();
         return apps.findIndex((app) => app.id === latest[0].id);
       },
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "library",
@@ -78,6 +93,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.library.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => library(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "changeset",
@@ -85,6 +101,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.changeset.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => changeset(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "resolveNotes",
@@ -92,6 +109,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.resolveNotes.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => resolveNotes(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "qa",
@@ -99,6 +117,27 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.qa.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => qa(app)),
+      tagsReorganization: {
+        prioritize: [
+          ...DefaultPrioritize,
+          "feature.edit-map",
+          "feature.offline-edit",
+          "feature.create-notes",
+
+          "feature.record-track",
+          "feature.upload-track",
+        ],
+
+        hierarchy: [
+          ...DefaultHierarchyForNavigation,
+
+          ...DefaultHierarchyForEdit,
+
+          ...DefaultHierarchyForRouting,
+        ],
+
+        hide: [],
+      },
     },
     {
       id: "foss",
@@ -106,6 +145,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.foss.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => app.libre),
+      tagsReorganization: DefaultTagsReorganization,
     },
     {
       id: "convert",
@@ -113,6 +153,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.convert.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => convert(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "3d",
@@ -120,6 +161,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.3d.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => maps3D(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "indoor",
@@ -127,6 +169,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.indoor.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => indoor(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
     {
       id: "isochrone",
@@ -134,6 +177,7 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.isochrone.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => isochrone(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
     },
   ];
 }
