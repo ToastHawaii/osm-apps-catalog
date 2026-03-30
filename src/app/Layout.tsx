@@ -18,15 +18,34 @@ export function ScrollRestoration() {
     const saved = sessionStorage.getItem(`scroll:${location.key}`);
     const { left = 0, top = 0 } = saved ? JSON.parse(saved) : {};
 
+    let lastChangeTime = performance.now();
+    let lastTop = scrollContainer.scrollTop;
+    let lastLeft = scrollContainer.scrollLeft;
+
     // sometimes it need multiple tries because of lazy loading
     const tryScroll = () => {
       scrollContainer.scrollTo({ left, top, behavior: "instant" });
 
-      const scrolled =
-        scrollContainer.scrollTop === top &&
-        scrollContainer.scrollLeft === left;
+      const currentTop = scrollContainer.scrollTop;
+      const currentLeft = scrollContainer.scrollLeft;
 
-      if (!scrolled) {
+      const scrolled = currentTop === top && currentLeft === left;
+
+      const positionChanged = currentTop > lastTop || currentLeft > lastLeft;
+
+      if (positionChanged) {
+        lastChangeTime = performance.now();
+        lastTop = currentTop;
+        lastLeft = currentLeft;
+      }
+
+      const timeSinceLastChange = performance.now() - lastChangeTime;
+
+      if (
+        !scrolled &&
+        /* if no position change after 1 sec, maybe something is wrong... better stop trying */
+        timeSinceLastChange < 1000
+      ) {
         requestAnimationFrame(tryScroll);
       }
     };
