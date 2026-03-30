@@ -51,7 +51,7 @@ function useAppsDataInternal() {
       }
 
       if (isDevelopment) {
-        // printCalcScore(apps);
+        // printCalcScore(processedApps);
       }
     })();
 

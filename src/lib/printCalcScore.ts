@@ -1,6 +1,6 @@
 import { sum } from "lodash";
 import { App } from "@shared/data/App";
-import { prepareArrayForSelect } from "../app/ui/lib/prepareArrayForSelect";
+// import { prepareArrayForSelect } from "../app/ui/lib/prepareArrayForSelect";
 // import allOld from "./all.old.json";
 // import allNew from "./all.new.json";
 
@@ -57,14 +57,15 @@ export function printCalcScore(apps: App[]) {
   console.info("Enhanced enrichment with information from GitHub");
   console.info("08.03.2026: 1.980 (2052 Apps)");
   console.info("14.03.2026: 2.013 (1981 Apps)");
+  console.info("30.03.2026: 2.042 (1982 Apps)");
   console.info("Today: " + average);
 
-  console.info("---");
+  // console.info("---");
 
-  console.info("Topics");
-  const preparedData = prepareArrayForSelect(
-    apps.flatMap((app) => app.topics),
-    [],
-  );
-  console.info(preparedData.map((d) => d.value + ";" + d.count).join("\n"));
+  // console.info("Topics");
+  // const preparedData = prepareArrayForSelect(
+  //   apps.flatMap((app) => app.topics),
+  //   [],
+  // );
+  // console.info(preparedData.map((d) => d.value + ";" + d.count).join("\n"));
 }
