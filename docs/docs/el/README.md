@@ -6,11 +6,11 @@ _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλ
 OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
 ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
 
-The metadata for the apps is collected from [OpenStreetMap
+Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του
+Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
 
 [> Πηγαίνετε στον κατάλογο](https://osm-apps.org)
 
@@ -21,7 +21,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
-**Choose language**
+**Επιλέξτε γλώσσα**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -134,17 +134,18 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 και δεν αποθηκεύονται ή μεταδίδονται σε εξωτερικούς διακομιστές (με εξαίρεση για
 ανώνυμη ανάλυση όπως περιγράφεται παραπάνω).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+Ο ιστότοπος φιλοξενείται στις Σελίδες Github. Η [τεκμηρίωση του GitHub για τις
+Σελίδες
+GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+λέει:
 
-> ### Data collection
+> ### Συλλογή δεδομένων
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Όταν γίνεται επίσκεψη σε έναν ιστότοπο των Σελίδων GitHub, καταγράφεται η IP
+> διεύθυνση του επισκέπτη και αποθηκεύεται για λόγους ασφαλείας, ανεξαρτήτως εάν
+> ο επισκέπτης έχει συνδεθεί στο GitHub ή όχι. Για περισσότερες πληροφορίες
+> σχετικά με τις πρακτικές ασφαλείας του GitHub, δείτε την [Δήλωση Απορρήτου
+> GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Αποποίηση
 
