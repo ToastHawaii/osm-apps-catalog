@@ -1,6 +1,6 @@
 import { mergeAppSources } from "@shared/lib/mergeAppSources";
 import { App } from "@shared/data/App";
-import { merge, mergeWith, uniqBy } from "lodash";
+import { isPlainObject, merge, mergeWith, uniqBy } from "lodash";
 import { shorterThenLength } from "@shared/utils/string";
 
 export function mergeApps(
@@ -70,7 +70,7 @@ export function mergeApps(
 
   app.platform = mergeValues(app.platform, obj.platform, { sort: true });
 
-  app.install = merge(app.install, obj.install);
+  app.install = mergeRecords(app.install, obj.install);
 
   app.map = mergeFeatures(app.map, obj.map);
   app.routing = mergeFeatures(app.routing, obj.routing);
@@ -88,7 +88,7 @@ export function mergeApps(
     ),
   };
 
-  app.community = merge(app.community, obj.community);
+  app.community = mergeRecords(app.community, obj.community);
 }
 
 function mergeBoolean(b1: boolean | undefined, b2: boolean | undefined) {
@@ -106,6 +106,25 @@ function mergeValues(
     return merged;
   }
   return merged.sort();
+}
+
+function mergeRecords(
+  r1: Record<string, string | undefined | object>,
+  r2: Record<string, string | undefined | object>,
+) {
+  return mergeWith(r1, r2, (objValue, srcValue) => {
+    // Ignore empty string or undefined
+    if (srcValue === "" || srcValue === undefined) {
+      return objValue;
+    }
+
+    // Let lodash handle deep merge for objects
+    if (isPlainObject(srcValue)) {
+      return merge(objValue, srcValue); // fallback to default merge
+    }
+
+    return srcValue;
+  });
 }
 
 /**
