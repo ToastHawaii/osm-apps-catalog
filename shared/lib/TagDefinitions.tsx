@@ -7,11 +7,11 @@ export const TagDefinitions: {
   filter: (app: App) => boolean;
 }[] = [
   {
-    key: "property.free",
+    key: "attribute.free",
     filter: (app) => !!app.gratis,
   },
   {
-    key: "property.foss",
+    key: "attribute.foss",
     filter: (app) => !!app.libre,
   },
   {

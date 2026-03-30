@@ -4,7 +4,7 @@ export interface TagsReorganizationDefinition {
   hide?: string[];
 }
 
-export const DefaultPrioritize = ["property.free", "property.foss"];
+export const DefaultPrioritize = ["attribute.free", "attribute.foss"];
 
 export const DefaultHierarchyForNavigation = [
   ["feature.voice-guidance", "feature.navigation"],
@@ -25,7 +25,7 @@ export const DefaultHierarchyForRouting = [
   ["feature.offline-routing", "feature.routing"],
 ] as [string, string][];
 
-export const DefaultHide = ["property.foss"];
+export const DefaultHide = ["attribute.foss"];
 
 export const DefaultTagsReorganization: TagsReorganizationDefinition = {
   prioritize: DefaultPrioritize,
