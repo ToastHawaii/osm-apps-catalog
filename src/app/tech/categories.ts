@@ -55,9 +55,9 @@ export function categories(
         t("category.newAdditions.description", { numberOfApps }),
       sorted: () =>
         chain(apps)
-          .sortBy((a) => {
-            return sortBy(a.source, (s) => s.firstCrawled)[0].firstCrawled;
-          })
+          .sortBy(
+            (a) => sortBy(a.source, (s) => s.firstCrawled)[0].firstCrawled,
+          )
           .reverse(),
       getAll: function () {
         return this.sorted().value();

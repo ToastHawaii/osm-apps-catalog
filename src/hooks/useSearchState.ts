@@ -57,7 +57,7 @@ export function useSearchState() {
       } else if (key === "category") {
         formatedValue = value === "all" ? "" : "" + value;
       } else if (key === "view") {
-        formatedValue = value === "home" ? "" : "" + value;
+        formatedValue = value === "list" ? "" : "" + value;
       } else {
         formatedValue = "" + value;
       }
@@ -84,20 +84,20 @@ export function useSearchState() {
         setTimeout(() => {
           const search = searchParams.get("search");
           if (search) {
-            setSearchParams(() => ({ view: "search", search }));
+            setSearchParams(() => ({ page: "search", search }));
           } else {
-            setSearchParams(() => ({ view: "search" }));
+            setSearchParams(() => ({ page: "search" }));
           }
         }, 10);
         return;
       }
       const search = searchParams.get("search");
       if (search && category !== "focus") {
-        setSearchParams(() => ({ view: "search", search, category }));
+        setSearchParams(() => ({ page: "search", search, category }));
       } else if (category) {
-        setSearchParams(() => ({ view: "search", category }));
+        setSearchParams(() => ({ page: "search", category }));
       } else {
-        setSearchParams(() => ({ view: "search" }));
+        setSearchParams(() => ({ page: "search" }));
       }
     },
     (key?: string) => {

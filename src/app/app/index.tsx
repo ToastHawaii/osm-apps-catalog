@@ -2,11 +2,8 @@ import React from "react";
 
 import { ViewSelect } from "../ui/components/ViewSelect";
 import { useSearchState } from "../../hooks/useSearchState";
-import { LazyLoadImages } from "../ui/components/LazyLoadImages";
 import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
-import { LazyInitMore } from "../ui/components/LazyInitMore";
-import { PagedList } from "../ui/PagedList";
 import { toSchemaOrg } from "../ui/lib/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
@@ -14,10 +11,10 @@ import { ExternalLink } from "@components/common/ExternalLink";
 import { useRoute } from "@hooks/useRoute";
 import { useNavigate } from "react-router";
 import { List } from "@app/ui/views/List";
-
-import "../../index.scss";
-import "../../index.css";
 import { useAppsData } from "@hooks/useAppsData";
+
+import "../../index.css";
+import "../../index.scss";
 
 function PageMeta({ app }: { app: App }) {
   return (
@@ -89,31 +86,16 @@ export function AppPage({ app }: { app: App }) {
         <main>
           {state.view !== "compare" ? (
             <div id="list">
-              <PagedList
-                Template={List}
-                items={[
-                  {
-                    key: app.id,
-                    app,
-                    open: true,
-                    state,
-                    isInitState,
-                  },
-                ]}
-              ></PagedList>
+              <List app={app} open state={state} isInitState={isInitState} />
             </div>
           ) : (
             <div id="compare" className="table">
-              <LazyLoadImages>
-                <LazyInitMore>
-                  <Compare
-                    apps={[app]}
-                    lang={i18n.resolvedLanguage || "en"}
-                    state={state}
-                    isInitState={isInitState}
-                  />
-                </LazyInitMore>
-              </LazyLoadImages>
+              <Compare
+                apps={[app]}
+                lang={i18n.resolvedLanguage || "en"}
+                state={state}
+                isInitState={isInitState}
+              />
             </div>
           )}
         </main>

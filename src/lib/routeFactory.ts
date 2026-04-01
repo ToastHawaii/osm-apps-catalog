@@ -11,11 +11,11 @@ export interface Query {
 export function routeFactory(domain?: string) {
   function build(view?: string): (params?: Query) => string;
   function build<T extends Params>(
-    view?: string,
+    page?: string,
   ): (params: T & Query) => string;
-  function build<T extends Params | undefined>(view?: string) {
+  function build<T extends Params | undefined>(page?: string) {
     return (params: T & Query) => {
-      const search = chain({ domain, view, ...params })
+      const search = chain({ domain, page, ...params })
         .omitBy(isUndefined) // Remove undefined values
         .mapValues((v) => (Array.isArray(v) ? v.join("+") : "" + v))
         .toPairs()

@@ -41,9 +41,9 @@ export function List({
   isInitState,
 }: {
   app: App;
-  open: boolean;
-  state?: State;
-  isInitState?: (key?: string | undefined) => boolean;
+  open?: boolean | undefined;
+  state?: State | undefined;
+  isInitState?: ((key?: string | undefined) => boolean) | undefined;
 }) {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(open);
@@ -53,7 +53,7 @@ export function List({
   useGoatCounterEvents();
 
   const link = new URLSearchParams();
-  link.set("view", "app");
+  link.set("page", "app");
   link.set("app", "" + app.id);
   return (
     <div className={"app" + (open ? " app-page" : "")}>

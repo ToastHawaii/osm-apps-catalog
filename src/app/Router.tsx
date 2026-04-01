@@ -14,7 +14,7 @@ export function Router() {
 
   const [searchParams] = useSearchParams();
 
-  switch (searchParams.get("view")) {
+  switch (searchParams.get("page")) {
     case "app": {
       const id = parseInt(searchParams.get("app") || "", 10);
 
@@ -28,8 +28,6 @@ export function Router() {
     }
 
     case "search":
-    case "list":
-    case "compare":
       return <Search apps={apps} />;
     case "explore":
       return <Category apps={apps} id={searchParams.get("category") || ""} />;

@@ -5,7 +5,7 @@ export function useCurrentRouteName() {
   const routes = useRoute();
 
   const [searchParams] = useSearchParams();
-  const currentRouteName = searchParams.get("view") || "home";
+  const currentRouteName = searchParams.get("page") || "home";
 
   if (!currentRouteName || !(currentRouteName in routes)) {
     return undefined;
