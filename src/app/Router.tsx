@@ -7,6 +7,7 @@ import { useAppsData } from "@hooks/useAppsData";
 import { Category } from "@app/category";
 import { Tech } from "@app/tech";
 import { AppPage } from "@app/app";
+import { NotFound } from "@app/notFound";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
@@ -20,11 +21,7 @@ export function Router() {
       const app = apps.find((a) => a.id === id);
 
       if (!app) {
-        return searchParams.get("domain") === "tech" ? (
-          <Tech apps={apps} />
-        ) : (
-          <Home apps={apps} />
-        );
+        return <NotFound />;
       }
 
       return <AppPage app={app} />;
@@ -39,11 +36,12 @@ export function Router() {
     case "":
     case undefined:
     case null:
-    default:
       return searchParams.get("domain") === "tech" ? (
         <Tech apps={apps} />
       ) : (
         <Home apps={apps} />
       );
+    default:
+      return <NotFound />;
   }
 }

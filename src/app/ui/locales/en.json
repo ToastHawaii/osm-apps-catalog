@@ -176,6 +176,7 @@
   "noResults": "No results",
   "notFound": "Not found what you're looking for?",
   "notFound.desc": "With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.",
+  "pageNotFound": "Page not found",
   "relatedApps": "{{numberOfApps}} related apps",
   "score.criteria.accessibilitySupported": "accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)",
   "score.criteria.addingAndEditingPossible": "adding and editing POIs, ways, etc., is possible",

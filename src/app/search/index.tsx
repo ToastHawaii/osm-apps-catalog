@@ -250,6 +250,7 @@ export function Search({ apps }: { apps: App[] }) {
                 ) : (
                   <>
                     <p className="no-results my-4">
+                      <meta name="robots" content="noindex" />
                       {t("noResults")}{" "}
                       {(state.topics.length > 0 ||
                         state.languages.length > 0 ||
@@ -286,6 +287,7 @@ export function Search({ apps }: { apps: App[] }) {
                   </LazyLoadImages>
                 ) : (
                   <>
+                    <meta name="robots" content="noindex" />
                     <p className="no-results">{t("noResults")}</p>
                   </>
                 )}
