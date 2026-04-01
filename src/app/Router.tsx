@@ -6,6 +6,7 @@ import { Home } from "@app/home";
 import { useAppsData } from "@hooks/useAppsData";
 import { Category } from "@app/category";
 import { Tech } from "@app/tech";
+import { AppPage } from "@app/app";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
@@ -13,13 +14,31 @@ export function Router() {
   const [searchParams] = useSearchParams();
 
   switch (searchParams.get("view")) {
-    case "app":
+    case "app": {
+      const id = parseInt(searchParams.get("app") || "", 10);
+
+      const app = apps.find((a) => a.id === id);
+
+      if (!app) {
+        return searchParams.get("domain") === "tech" ? (
+          <Tech apps={apps} />
+        ) : (
+          <Home apps={apps} />
+        );
+      }
+
+      return <AppPage app={app} />;
+    }
+
     case "search":
     case "list":
     case "compare":
       return <Search apps={apps} />;
     case "explore":
       return <Category apps={apps} id={searchParams.get("category") || ""} />;
+    case "":
+    case undefined:
+    case null:
     default:
       return searchParams.get("domain") === "tech" ? (
         <Tech apps={apps} />

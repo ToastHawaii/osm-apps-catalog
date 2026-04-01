@@ -13,7 +13,6 @@ import { State } from "../app/ui/State";
 
 export function filter({
   apps,
-  app,
   category,
   search,
   topics,
@@ -23,10 +22,6 @@ export function filter({
   coverage,
   contribute,
 }: { apps: App[] } & State) {
-  if (app) {
-    return [apps.filter((a) => a.id === app), () => [] as App[]] as const;
-  }
-
   let filteredApps: App[] = apps.slice();
 
   if (category === "latest") {

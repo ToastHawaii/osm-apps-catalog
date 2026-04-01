@@ -34,9 +34,6 @@ export function useAppState() {
   return [
     {
       lang: searchParams.get("lang") || "",
-      app: searchParams.get("app")
-        ? parseInt(searchParams.get("app") || "", 10)
-        : undefined,
       search: searchParams.get("search") || "",
       topics: searchParams.get("topics")?.split("+") || [],
       languages: searchParams.get("languages")?.split("+") || [],
@@ -46,7 +43,7 @@ export function useAppState() {
       coverage: searchParams.get("coverage")?.split("+") || [],
       contribute: searchParams.get("contribute")?.split("+") || [],
       category: !app ? searchParams.get("category") || "all" : "",
-      view: searchParams.get("view") || "home",
+      view: searchParams.get("view") || "list",
     } as State,
     function (
       key: string,

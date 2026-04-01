@@ -1,7 +1,6 @@
 export interface State {
   lang: string;
   category: "" | "all" | "focus" | "latest" | "mobile" | "navigation" | "edit";
-  app?: number | undefined;
   search: string;
   topics: string[];
   languages: string[];

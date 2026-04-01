@@ -18,7 +18,6 @@ import { NotFoundApps } from "../ui/components/NotFoundApps";
 import { LazyInitMore } from "../ui/components/LazyInitMore";
 import { PagedList } from "../ui/PagedList";
 import { RelatedApps } from "../ui/RelatedApps";
-import { toSchemaOrg } from "../ui/lib/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -34,50 +33,22 @@ import "../../index.css";
 function PageMeta({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const [state] = useAppState();
-  if (!!state.app && apps[0]) {
-    const app = apps[0];
 
-    return (
-      <>
-        <title>{`${app.name} – OSM Apps Catalog`}</title>
-        <meta
-          name="description"
-          content={plainText(
-            app.subtitle || app.descriptionShort || app.description,
-          )}
-        />
-
-        <meta name="og:title" content={app.name} />
-        <meta
-          name="og:description"
-          content={plainText(
-            app.subtitle || app.descriptionShort || app.description,
-          )}
-        />
-        {!!app.logos[0] && <meta name="og:image" content={app.logos[0]} />}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: toSchemaOrg(app) }}
-        ></script>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <title>{`${t(`filter.category.${state.category}`, {
-          numberOfApps: apps.length,
-        })} – OSM Apps Catalog`}</title>
-        <meta
-          name="description"
-          content={plainText(
-            t(`category.${state.category}.description`, {
-              numberOfApps: apps.length,
-            }),
-          )}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <title>{`${t(`filter.category.${state.category}`, {
+        numberOfApps: apps.length,
+      })} – OSM Apps Catalog`}</title>
+      <meta
+        name="description"
+        content={plainText(
+          t(`category.${state.category}.description`, {
+            numberOfApps: apps.length,
+          }),
+        )}
+      />
+    </>
+  );
 }
 
 export function Search({ apps }: { apps: App[] }) {
@@ -99,8 +70,7 @@ export function Search({ apps }: { apps: App[] }) {
       <PageMeta apps={filteredApps} />
       <div className="sticky left-0 text-center">
         <p className="description" style={{ margin: "5px 10px" }}>
-          {(state.category === "all" && filteredApps.length !== apps.length) ||
-          !!state.app ? (
+          {state.category === "all" && filteredApps.length !== apps.length ? (
             <Trans
               i18nKey={`category.all.description.filtered`}
               values={{
@@ -123,41 +93,24 @@ export function Search({ apps }: { apps: App[] }) {
               }}
             />
           )}
-
-          {!!state.app && (
-            <>
-              {" "}
-              <button
-                className="show-all"
-                onClick={() => navigate(routes.search({}))}
-              >
-                {t("category.showAll")}
-              </button>
-            </>
-          )}
         </p>
-        {!state.app && state.category !== "focus" && (
-          <>
-            <SearchComponent
-              apps={apps}
-              value={state.search}
-              onChange={debounce((value) => {
-                setAppState("search", value, { skipUrlUpdate: true });
-              }, 500)}
-              onBlur={(value) => {
-                setAppState("search", value, { forceUpdate: true });
-              }}
-            />{" "}
-            <Filters
-              active={moreFilters}
-              onChange={(value) => {
-                setMoreFilters(value);
-              }}
-            />
-          </>
-        )}
-        {!state.app &&
-          !moreFilters &&
+        <SearchComponent
+          apps={apps}
+          value={state.search}
+          onChange={debounce((value) => {
+            setAppState("search", value, { skipUrlUpdate: true });
+          }, 500)}
+          onBlur={(value) => {
+            setAppState("search", value, { forceUpdate: true });
+          }}
+        />{" "}
+        <Filters
+          active={moreFilters}
+          onChange={(value) => {
+            setMoreFilters(value);
+          }}
+        />
+        {!moreFilters &&
           (state.topics.length > 0 ||
             state.languages.length > 0 ||
             state.platforms.length > 0 ||
@@ -214,7 +167,14 @@ export function Search({ apps }: { apps: App[] }) {
                   {" "}
                   <button
                     className="show-all"
-                    onClick={() => navigate(routes.search({}))}
+                    onClick={() =>
+                      navigate(
+                        routes.search({
+                          search: state.search || undefined,
+                          view: state.view as "list" | "compare",
+                        }),
+                      )
+                    }
                   >
                     {t("category.showAll")}
                   </button>
@@ -222,7 +182,7 @@ export function Search({ apps }: { apps: App[] }) {
               )}
             </p>
           )}
-        {!state.app && moreFilters && (
+        {moreFilters && (
           <span className="advanced-filter">
             <TopicSelect
               apps={filteredApps}
@@ -277,7 +237,7 @@ export function Search({ apps }: { apps: App[] }) {
                     items={filteredApps.map((app) => ({
                       key: app.id,
                       app,
-                      open: !!state.app,
+                      open: false,
                       state,
                       isInitState,
                     }))}
@@ -309,9 +269,7 @@ export function Search({ apps }: { apps: App[] }) {
                     </p>
                   </>
                 )}
-                {state.category === "all" && !state.app && (
-                  <NotFoundApps apps={apps} />
-                )}
+                {state.category === "all" && <NotFoundApps apps={apps} />}
               </div>
             ) : (
               <div id="compare" className="table">

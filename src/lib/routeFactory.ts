@@ -30,7 +30,11 @@ export function routeFactory(domain?: string) {
   return {
     home: build<{ platforms?: string[] }>(),
     app: build<{ app: number }>("app"),
-    search: build<{ platforms?: string[] }>("search"),
+    search: build<{
+      platforms?: string[];
+      search?: string;
+      view?: "list" | "compare";
+    }>("search"),
     list: build<{ platforms?: string[] }>("list"),
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),

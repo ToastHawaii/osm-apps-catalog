@@ -8,7 +8,7 @@ export function useCurrentRouteName() {
   const currentRouteName = searchParams.get("view") || "home";
 
   if (!currentRouteName || !(currentRouteName in routes)) {
-    throw new Error("unknown route");
+    return undefined;
   }
 
   return currentRouteName as keyof typeof routes;
