@@ -55,6 +55,7 @@ export function SearchComponent({
         className="filter"
         placeholder={t("filter.search")}
         autoComplete="on"
+        autoFocus
         list="search-suggestions"
         value={innerValue}
         onChange={(e) => {
