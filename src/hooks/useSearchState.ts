@@ -12,7 +12,7 @@ function getBrowserContext() {
   };
 }
 
-export function useAppState() {
+export function useSearchState() {
   let initState: {
     platforms: string;
   } = { platforms: "" };
@@ -27,10 +27,6 @@ export function useAppState() {
   );
   const [, forceRerender] = useReducer((x) => x + 1, 0);
 
-  const app = searchParams.get("app")
-    ? parseInt(searchParams.get("app") || "", 10)
-    : undefined;
-
   return [
     {
       lang: searchParams.get("lang") || "",
@@ -42,7 +38,7 @@ export function useAppState() {
         searchParams.get("programmingLanguages")?.split("+") || [],
       coverage: searchParams.get("coverage")?.split("+") || [],
       contribute: searchParams.get("contribute")?.split("+") || [],
-      category: !app ? searchParams.get("category") || "all" : "",
+      category: searchParams.get("category") || "all",
       view: searchParams.get("view") || "list",
     } as State,
     function (

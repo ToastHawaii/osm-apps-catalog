@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ViewSelect } from "../ui/components/ViewSelect";
-import { useAppState } from "../../hooks/useAppState";
+import { useSearchState } from "../../hooks/useSearchState";
 import { LazyLoadImages } from "../ui/components/LazyLoadImages";
 import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
@@ -50,7 +50,7 @@ export function AppPage({ app }: { app: App }) {
   const { t, i18n } = useTranslation();
   const routes = useRoute();
   const navigate = useNavigate();
-  const [state, setAppState, , isInitState] = useAppState();
+  const [state, setState, , isInitState] = useSearchState();
   const { apps } = useAppsData();
 
   return (
@@ -82,7 +82,7 @@ export function AppPage({ app }: { app: App }) {
 
         <ViewSelect
           value={state.view}
-          onChange={(newValues) => setAppState("view", newValues)}
+          onChange={(newValues) => setState("view", newValues)}
         />
       </div>
       <div className="text-center">

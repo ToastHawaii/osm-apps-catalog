@@ -9,7 +9,7 @@ import { CoverageSelect } from "../ui/components/CoverageSelect";
 import { ContributeSelect, mapping } from "../ui/components/ContributeSelect";
 import { Filters } from "../ui/components/filters";
 import { chain, debounce } from "lodash";
-import { useAppState } from "../../hooks/useAppState";
+import { useSearchState } from "../../hooks/useSearchState";
 import { filter } from "../../lib/filter";
 import { LazyLoadImages } from "../ui/components/LazyLoadImages";
 import { Compare } from "../ui/views/Compare";
@@ -32,7 +32,7 @@ import "../../index.css";
 
 function PageMeta({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
-  const [state] = useAppState();
+  const [state] = useSearchState();
 
   return (
     <>
@@ -57,12 +57,12 @@ export function Search({ apps }: { apps: App[] }) {
   const isTechView = useIsTechDomain();
   const routes = useRoute();
   const navigate = useNavigate();
-  const [state, setAppState, resetAppState, isInitState] = useAppState();
+  const [state, setState, resetState, isInitState] = useSearchState();
   const [moreFilters, setMoreFilters] = useState(isTechView);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
   if (filteredApps.length > 300 && state.view !== "list") {
-    setAppState("view", "list");
+    setState("view", "list");
   }
 
   return (
@@ -98,10 +98,10 @@ export function Search({ apps }: { apps: App[] }) {
           apps={apps}
           value={state.search}
           onChange={debounce((value) => {
-            setAppState("search", value, { skipUrlUpdate: true });
+            setState("search", value, { skipUrlUpdate: true });
           }, 500)}
           onBlur={(value) => {
-            setAppState("search", value, { forceUpdate: true });
+            setState("search", value, { forceUpdate: true });
           }}
         />{" "}
         <Filters
@@ -187,42 +187,42 @@ export function Search({ apps }: { apps: App[] }) {
             <TopicSelect
               apps={filteredApps}
               selected={state.topics}
-              onChange={(newValues) => setAppState("topics", newValues)}
+              onChange={(newValues) => setState("topics", newValues)}
             />
             <LanguageSelect
               apps={filteredApps}
               selected={state.languages}
-              onChange={(newValues) => setAppState("languages", newValues)}
+              onChange={(newValues) => setState("languages", newValues)}
             />
             <PlatformSelect
               apps={filteredApps}
               selected={state.platforms}
-              onChange={(newValues) => setAppState("platforms", newValues)}
+              onChange={(newValues) => setState("platforms", newValues)}
             />
             {isTechView && (
               <ProgrammingLanguageSelect
                 apps={filteredApps}
                 selected={state.programmingLanguages}
                 onChange={(newValues) =>
-                  setAppState("programmingLanguages", newValues)
+                  setState("programmingLanguages", newValues)
                 }
               />
             )}
             <CoverageSelect
               apps={filteredApps}
               selected={state.coverage}
-              onChange={(newValues) => setAppState("coverage", newValues)}
+              onChange={(newValues) => setState("coverage", newValues)}
             />
             <ContributeSelect
               selected={state.contribute}
-              onChange={(newValues) => setAppState("contribute", newValues)}
+              onChange={(newValues) => setState("contribute", newValues)}
             />
           </span>
         )}
         {filteredApps.length <= 300 && filteredApps.length > 0 && (
           <ViewSelect
             value={state.view}
-            onChange={(newValues) => setAppState("view", newValues)}
+            onChange={(newValues) => setState("view", newValues)}
           />
         )}
       </div>
@@ -260,9 +260,7 @@ export function Search({ apps }: { apps: App[] }) {
                         state.contribute.length > 0) && (
                         <button
                           className="reset-filters"
-                          onClick={() => {
-                            resetAppState(state.category);
-                          }}
+                          onClick={() => resetState(state.category)}
                         >
                           {t("filter.resetFilters")}
                         </button>
