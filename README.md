@@ -4,7 +4,7 @@
 
 This catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate.
 
-The meta data from the apps are coming from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/), [Wikidata](https://www.wikidata.org/), [GitHub](https://github.com/) and [taginfo project list](https://taginfo.openstreetmap.org/projects).
+The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
 This website is created and maintained by [Markus Peloso](https://zottelig.ch). It is a hobby project. If you have questions about OSM Apps Catalog or would like to request a feature, [feel free to ask](https://github.com/ToastHawaii/osm-apps-catalog/issues). I'm interested in hearing from users about how they use this catalog, so please get in touch!
 
