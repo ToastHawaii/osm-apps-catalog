@@ -4,11 +4,10 @@ _ 這不只一款，而是有上千個_
 
 這份目錄會顯示使用開放街圖資料的程式與服務，每日會更新。這些程式會以[社群貢獻分數](/docs/score)來評分與排序。
 
-The metadata for the apps is collected from [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+從[開放街圖
+Wiki](https://wiki.openstreetmap.org/wiki/Wiki)、[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),、[GitHub](https://en.wikipedia.org/wiki/GitHub)
+以及 [Taginfo project
+list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 [> 到目錄](https://osm-apps.org)
 
@@ -19,7 +18,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 顯示目錄為您的語言：
 
-**Choose language**
+**選擇語言**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -114,31 +113,24 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code](https://github.com/ToastHawaii/osm-apps-catalog)
 能夠自由使用，複製與變動則以相同授權條款釋出。
 
-## Privacy Policy
+## 隱私政策
 
-The OSM Apps Catalog does not store personal user data.
+OSM Apps 目錄並不會儲存個人資料。
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+專案使用尊重隱私的 [GoatCounter](https://www.goatcounter.com/) 分析服務來收集暱名使用者數據，不會收集個人識別資料。
+([檢視收集的資料清單](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+有些由使用者瀏覽器收集的資料 (例如語言或是作業系統平台) 也許會本地使用來改進使用者體驗。這些資料會在瀏覽器中先行處理，並不會在傳輸到外部伺服器或是儲存
+(除了先前提及的暱名分析資料)。
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+網站是在 GitHub Pages 上架設的，[GitHub documentation on GitHub Pages 上的 GitHub
+說明文件](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+是這麼敘述的：
 
-> ### Data collection
+> ### 資料收集
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> 當瀏覽 GitHub Pages 時，瀏覽者的 IP 地址會被記錄，並且不論有沒有登入 GitHub，都會因資安理由而儲存下來。請參見 [GitHub
+> 隱私聲明](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)來取得更多資訊。
 
 ## 聲明
 
@@ -147,10 +139,9 @@ says:
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) 的一份子
+  ([學習禮儀Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))；[加入在地社群](https://usergroups.openstreetmap.de/)，[聚會](https://osmcal.org/)
+  以及 [聊天](https://community.osm.be/)
 - [貢獻至開放街圖](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [關於我們](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
