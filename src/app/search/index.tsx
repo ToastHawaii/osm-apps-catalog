@@ -11,7 +11,6 @@ import { Filters } from "../ui/components/filters";
 import { chain, debounce } from "lodash";
 import { useSearchState } from "../../hooks/useSearchState";
 import { filter } from "../../lib/filter";
-import { LazyLoadImages } from "../ui/components/LazyLoadImages";
 import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "../ui/components/NotFoundApps";
@@ -25,7 +24,8 @@ import { useRoute } from "@hooks/useRoute";
 import { useNavigate } from "react-router";
 import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
-import { List } from "@app/ui/views/List";
+import { AppCompact } from "@components/common/AppCompact";
+import { DefaultTagsReorganization } from "@lib/tagsReorganizer";
 
 import "../../index.scss";
 import "../../index.css";
@@ -226,27 +226,33 @@ export function Search({ apps }: { apps: App[] }) {
           />
         )}
       </div>
-      <div className="text-center">
-        {apps.length > 0 && (
-          <main>
-            {state.view !== "compare" ? (
+      <>
+        {apps.length > 0 &&
+          (state.view !== "compare" ? (
+            <main className="mx-auto max-w-7xl">
               <div id="list">
                 {filteredApps.length > 0 ? (
-                  <PagedList
-                    Template={List}
-                    items={filteredApps.map((app) => ({
-                      key: app.id,
-                      app,
-                      open: false,
-                      state,
-                      isInitState,
-                    }))}
-                  >
-                    <RelatedApps
-                      findSimilarApps={findSimilarApps}
-                      state={state}
-                    />
-                  </PagedList>
+                  <>
+                    <div className="grid auto-rows-auto gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+                      <PagedList
+                        items={filteredApps.map((app) => ({
+                          key: app.id,
+                          app,
+                        }))}
+                        Template={({ app }) => (
+                          <AppCompact
+                            app={app}
+                            score
+                            tags
+                            tagsReorganization={DefaultTagsReorganization}
+                          />
+                        )}
+                      >
+                        <RelatedApps findSimilarApps={findSimilarApps} />
+                        <NotFoundApps apps={apps} />
+                      </PagedList>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <p className="no-results my-4">
@@ -266,23 +272,23 @@ export function Search({ apps }: { apps: App[] }) {
                         </button>
                       )}
                     </p>
+                    <NotFoundApps apps={apps} />
                   </>
                 )}
-                {state.category === "all" && <NotFoundApps apps={apps} />}
               </div>
-            ) : (
+            </main>
+          ) : (
+            <main>
               <div id="compare" className="table">
                 {filteredApps.length > 0 ? (
-                  <LazyLoadImages>
-                    <LazyInitMore>
-                      <Compare
-                        apps={filteredApps}
-                        lang={i18n.resolvedLanguage || "en"}
-                        state={state}
-                        isInitState={isInitState}
-                      />
-                    </LazyInitMore>
-                  </LazyLoadImages>
+                  <LazyInitMore>
+                    <Compare
+                      apps={filteredApps}
+                      lang={i18n.resolvedLanguage || "en"}
+                      state={state}
+                      isInitState={isInitState}
+                    />
+                  </LazyInitMore>
                 ) : (
                   <>
                     <meta name="robots" content="noindex" />
@@ -290,10 +296,9 @@ export function Search({ apps }: { apps: App[] }) {
                   </>
                 )}
               </div>
-            )}
-          </main>
-        )}
-      </div>
+            </main>
+          ))}
+      </>
     </>
   );
 }

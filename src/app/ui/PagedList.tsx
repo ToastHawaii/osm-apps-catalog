@@ -1,31 +1,20 @@
 import { omit } from "lodash";
 import React, { useState, useEffect, ReactNode } from "react";
 
-let scrollTop = 0;
-
-function init(onNextPage: () => void, reset?: boolean) {
-  if (reset) {
-    scrollTop = 0;
-  }
-
-  const contentElement = document.getElementById("content") as HTMLDivElement;
-
+function init(onNextPage: () => void) {
+  const contentElement = document.getElementById("content");
   if (!contentElement) {
     return;
   }
-  if (
-    !scrollTop ||
-    contentElement.scrollTop > scrollTop + contentElement.clientHeight
-  ) {
-    scrollTop = contentElement.scrollTop + contentElement.clientHeight;
 
-    const elements = document.querySelectorAll(".next-page");
-    for (const element of elements) {
-      const boundingClientRect = element.getBoundingClientRect();
-      if (boundingClientRect.top < contentElement?.clientHeight * 3) {
-        onNextPage();
-      }
-    }
+  const element = document.getElementById("next-page");
+  if (!element) {
+    return;
+  }
+
+  const boundingClientRect = element.getBoundingClientRect();
+  if (boundingClientRect.top < contentElement?.clientHeight * 3) {
+    onNextPage();
   }
 }
 
@@ -60,7 +49,7 @@ export function PagedList<T extends { key: React.Key }>({
       init(next);
     }
 
-    init(next, true);
+    init(next);
     element?.addEventListener("scroll", handleEvent);
     element?.addEventListener("load", handleEvent);
     element?.addEventListener("resize", handleEvent);
@@ -83,7 +72,7 @@ export function PagedList<T extends { key: React.Key }>({
             {children}
           </PagedList>
         ) : (
-          <div className="next-page"></div>
+          <div id="next-page"></div>
         )
       ) : (
         children

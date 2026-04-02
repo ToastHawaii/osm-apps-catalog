@@ -22,7 +22,7 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
 
   return (
     <>
-      <div className="grid content-end px-8 pt-3 md:px-18">
+      <div className="grid content-end px-8 pt-4 md:px-18">
         <h2 className="text-left text-2xl font-semibold">
           <Link
             className="underline-offset-4 hover:underline"

@@ -1,4 +1,4 @@
-import { isImage } from "@app/ui/components/LazyLoadImages";
+import { isImage } from "@app/ui/components/LazyImage";
 import { isLikelyLogo } from "../../lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";
 import { chain } from "lodash";
