@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 import { ViewSelect } from "../ui/components/ViewSelect";
 import { SearchComponent } from "../ui/components/search";
@@ -21,11 +22,11 @@ import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { useRoute } from "@hooks/useRoute";
-import { useNavigate } from "react-router";
 import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { AppCompact } from "@components/common/AppCompact";
 import { DefaultTagsReorganization } from "@lib/tagsReorganizer";
+import { NoResults } from "@app/search/NoResults";
 
 import "../../index.scss";
 import "../../index.css";
@@ -57,7 +58,7 @@ export function Search({ apps }: { apps: App[] }) {
   const isTechView = useIsTechDomain();
   const routes = useRoute();
   const navigate = useNavigate();
-  const [state, setState, resetState, isInitState] = useSearchState();
+  const [state, setState, , isInitState] = useSearchState();
   const [moreFilters, setMoreFilters] = useState(isTechView);
 
   const [filteredApps, findSimilarApps] = filter({ apps, ...state });
@@ -231,9 +232,9 @@ export function Search({ apps }: { apps: App[] }) {
           (state.view !== "compare" ? (
             <main className="mx-auto max-w-7xl">
               <div id="list">
-                {filteredApps.length > 0 ? (
-                  <>
-                    <div className="grid auto-rows-auto gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+                <>
+                  <div className="grid auto-rows-auto gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
+                    {filteredApps.length > 0 ? (
                       <PagedList
                         items={filteredApps.map((app) => ({
                           key: app.id,
@@ -251,36 +252,20 @@ export function Search({ apps }: { apps: App[] }) {
                         <RelatedApps findSimilarApps={findSimilarApps} />
                         <NotFoundApps apps={apps} />
                       </PagedList>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="no-results my-4">
-                      <meta name="robots" content="noindex" />
-                      {t("noResults")}{" "}
-                      {(state.topics.length > 0 ||
-                        state.languages.length > 0 ||
-                        state.platforms.length > 0 ||
-                        state.programmingLanguages.length > 0 ||
-                        state.coverage.length > 0 ||
-                        state.contribute.length > 0) && (
-                        <button
-                          className="reset-filters"
-                          onClick={() => resetState(state.category)}
-                        >
-                          {t("filter.resetFilters")}
-                        </button>
-                      )}
-                    </p>
-                    <NotFoundApps apps={apps} />
-                  </>
-                )}
+                    ) : (
+                      <>
+                        <NoResults />
+                        <NotFoundApps apps={apps} />
+                      </>
+                    )}
+                  </div>
+                </>
               </div>
             </main>
           ) : (
             <main>
-              <div id="compare" className="table">
-                {filteredApps.length > 0 ? (
+              {filteredApps.length > 0 ? (
+                <div id="compare" className="table">
                   <LazyInitMore>
                     <Compare
                       apps={filteredApps}
@@ -289,13 +274,10 @@ export function Search({ apps }: { apps: App[] }) {
                       isInitState={isInitState}
                     />
                   </LazyInitMore>
-                ) : (
-                  <>
-                    <meta name="robots" content="noindex" />
-                    <p className="no-results">{t("noResults")}</p>
-                  </>
-                )}
-              </div>
+                </div>
+              ) : (
+                <NoResults />
+              )}
             </main>
           ))}
       </>

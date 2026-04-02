@@ -3,5 +3,5 @@ import { useTranslation } from "react-i18next";
 
 export function Unknown() {
   const { t } = useTranslation();
-  return <span className="unknown">{t("compare.unknown")}</span>;
+  return <span className="text-muted-foreground">{t("compare.unknown")}</span>;
 }
