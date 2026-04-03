@@ -119,9 +119,7 @@ export function Search({ apps }: { apps: App[] }) {
         <SearchField apps={apps} />{" "}
         <Filters
           active={moreFilters}
-          onChange={(value) => {
-            setMoreFilters(value);
-          }}
+          onChange={(value) => setMoreFilters(value)}
         />
         {!moreFilters &&
           (state.topics.length > 0 ||
@@ -196,7 +194,7 @@ export function Search({ apps }: { apps: App[] }) {
             </p>
           )}
         {moreFilters && (
-          <span className="advanced-filter">
+          <span className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-0.5">
             <TopicSelect
               apps={filteredApps}
               selected={state.topics}
