@@ -31,17 +31,28 @@ export function Filters() {
     ["WINDOWS", () => "Windows"],
   ];
 
-  // based on app meta data, collect all possible values and exclude the main platforms
   const secondPlatforms = useMemo(() => {
-    return chain(apps)
-      .flatMap((app) => app.platform)
-      .groupBy((p) => p)
-      .sortBy((p) => p)
-      .sortBy((p) => p.length)
-      .reverse()
-      .map((p) => [p[0].toUpperCase(), () => p[0]] as const)
-      .filter((p) => !mainPlatforms.find((mp) => mp[0] === p[0]))
-      .value();
+    return (
+      chain(apps)
+        // based on app meta data
+        .flatMap((app) => app.platform)
+        
+        // show them with most apps
+        .groupBy((p) => p)
+        .sortBy((p) => p.length)
+        .reverse()
+
+        // show max 20 platforms (main + second = 20)
+        .take(20)
+
+        // exclude the main platforms
+        .map((p) => [p[0].toUpperCase(), () => p[0]] as const)
+        .filter((p) => !mainPlatforms.find((mp) => mp[0] === p[0]))
+
+        // sort by alphabet
+        .sortBy((p) => p)
+        .value()
+    );
   }, [apps]);
 
   const shownPlatforms = !showMorePlatforms
