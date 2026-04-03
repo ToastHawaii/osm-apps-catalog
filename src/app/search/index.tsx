@@ -31,6 +31,27 @@ import { NoResults } from "@app/search/NoResults";
 import "../../index.scss";
 import "../../index.css";
 
+/** a small wrapper around search component that makes searching even smoother */
+function SearchField({ apps }: { apps: App[] }) {
+  const [state, setState] = useSearchState();
+
+  const [isUserTyping, setIsUserTyping] = useState(false);
+
+  return (
+    <SearchComponent
+      apps={apps}
+      value={state.search}
+      onChange={debounce((value) => {
+        setState("search", value, { replace: isUserTyping });
+        setIsUserTyping(true);
+      }, 500)}
+      onBlur={() => {
+        setIsUserTyping(false);
+      }}
+    />
+  );
+}
+
 function PageMeta({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const [state] = useSearchState();
@@ -95,16 +116,7 @@ export function Search({ apps }: { apps: App[] }) {
             />
           )}
         </p>
-        <SearchComponent
-          apps={apps}
-          value={state.search}
-          onChange={debounce((value) => {
-            setState("search", value, { skipUrlUpdate: true });
-          }, 500)}
-          onBlur={(value) => {
-            setState("search", value, { forceUpdate: true });
-          }}
-        />{" "}
+        <SearchField apps={apps} />{" "}
         <Filters
           active={moreFilters}
           onChange={(value) => {

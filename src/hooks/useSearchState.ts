@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router";
 import { State } from "../app/ui/State";
-import { useReducer } from "react";
 import { getUserOS } from "../lib/utils/getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 
@@ -25,7 +24,6 @@ export function useSearchState() {
   const [searchParams, setSearchParams] = useSearchParams(
     pickBy(initState, (v) => v),
   );
-  const [, forceRerender] = useReducer((x) => x + 1, 0);
 
   return [
     {
@@ -45,8 +43,7 @@ export function useSearchState() {
       key: string,
       value: number | string | string[],
       option?: {
-        forceUpdate?: boolean | undefined;
-        skipUrlUpdate?: boolean | undefined;
+        replace?: boolean | undefined;
       },
     ) {
       let formatedValue;
@@ -62,21 +59,12 @@ export function useSearchState() {
         formatedValue = "" + value;
       }
       if (formatedValue) {
-        if (searchParams.get(key) === formatedValue && !option?.forceUpdate) {
-          return;
-        }
         searchParams.set(key, formatedValue);
       } else {
-        if (!searchParams.has(key) && !option?.forceUpdate) {
-          return;
-        }
         searchParams.delete(key);
       }
-      if (!option?.skipUrlUpdate) {
-        setSearchParams(searchParams);
-      } else {
-        forceRerender();
-      }
+
+      setSearchParams(searchParams, { replace: option?.replace });
     },
     function (category: string) {
       if (category === "all") {
