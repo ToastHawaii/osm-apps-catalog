@@ -36,7 +36,7 @@ export function Filters() {
       chain(apps)
         // based on app meta data
         .flatMap((app) => app.platform)
-        
+
         // show them with most apps
         .groupBy((p) => p)
         .sortBy((p) => p.length)
