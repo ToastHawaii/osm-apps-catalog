@@ -1,5 +1,11 @@
 import { Badge } from "@components/ui/badge";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 export default function TagList({ items }: { items: string[] }) {
@@ -61,15 +67,13 @@ export default function TagList({ items }: { items: string[] }) {
   return (
     <div className="relative flex flex-wrap gap-2" ref={containerRef}>
       {visibleItems.map((tag, index) => (
-        <>
-          <Badge key={tag} variant="outline">
-            {t(`app.tag.${tag}`)}
-          </Badge>
+        <Fragment key={tag}>
+          <Badge variant="outline">{t(`app.tag.${tag}`)}</Badge>
           {/* Add a placeholder for "..." to make it part of the height calculation */}
           {index === 3 && !heightIsCalculated && (
             <Badge variant="outline">...</Badge>
           )}
-        </>
+        </Fragment>
       ))}
 
       {heightIsCalculated && hiddenCount > 0 && (
