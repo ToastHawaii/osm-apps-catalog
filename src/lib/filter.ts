@@ -1,4 +1,8 @@
 import { chain } from "lodash";
+import { useFuzzySearchList } from "@nozbe/microfuzz/react";
+import createFuzzySearch from "@nozbe/microfuzz";
+
+import { normalizeSearchText } from "@lib/utils/normalizeSearchText";
 import { App } from "@shared/data/App";
 import { includes, some } from "@shared/utils/array";
 import {
@@ -11,7 +15,7 @@ import {
 import { equalsYes, upperCase } from "@shared/utils/string";
 import { State } from "../app/ui/State";
 
-export function filter({
+export function useFilter({
   apps,
   category,
   search,
@@ -44,19 +48,15 @@ export function filter({
     filteredApps = filteredApps.filter(contributeFilter);
   }
 
-  search = search.toUpperCase();
-  if (search) {
-    filteredApps = filteredApps.filter(
-      (a) =>
-        a.name.toUpperCase().includes(search) ||
-        a.subtitle?.toUpperCase().includes(search) ||
-        a.description.toUpperCase().includes(search) ||
-        a.descriptionShort?.toUpperCase().includes(search) ||
-        a.cache.topics.some((t) => t.includes(search)) ||
-        a.cache.platform.some((t) => t.includes(search)) ||
-        a.cache.coverage.some((t) => t.includes(search)),
-    );
-  }
+  search = normalizeSearchText(search);
+
+  filteredApps = useFuzzySearchList({
+    list: filteredApps,
+    queryText: search,
+    getText: (app) => [app.cache.search],
+    strategy: "off",
+    mapResultItem: ({ item }) => item,
+  });
 
   const topicsUp = upperCase(topics);
   if (topicsUp.length > 0)
@@ -165,17 +165,13 @@ export function filter({
         ),
       );
 
-      if (search)
-        similarApps = similarApps.filter(
-          (a) =>
-            a.name.toUpperCase().includes(search) ||
-            a.subtitle?.toUpperCase().includes(search) ||
-            a.description.toUpperCase().includes(search) ||
-            a.descriptionShort?.toUpperCase().includes(search) ||
-            a.cache.topics.filter((t) => t.includes(search)).length > 0 ||
-            a.cache.platform.filter((t) => t.includes(search)).length > 0 ||
-            a.cache.coverage.filter((t) => t.includes(search)).length > 0,
-        );
+      if (search) {
+        const fuzzySearch = createFuzzySearch(similarApps, {
+          getText: (app) => [app.cache.search],
+          strategy: "off",
+        });
+        similarApps = fuzzySearch(search).map(({ item }) => item);
+      }
 
       if (languagesUp.length > 0)
         similarApps = similarApps.filter((a) =>

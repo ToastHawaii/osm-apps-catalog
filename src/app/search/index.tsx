@@ -11,7 +11,7 @@ import { ContributeSelect, mapping } from "../ui/components/ContributeSelect";
 import { Filters } from "../ui/components/filters";
 import { chain, debounce } from "lodash";
 import { useSearchState } from "../../hooks/useSearchState";
-import { filter } from "../../lib/filter";
+import { useFilter } from "../../lib/filter";
 import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "../ui/components/NotFoundApps";
@@ -82,7 +82,7 @@ export function Search({ apps }: { apps: App[] }) {
   const [state, setState, , isInitState] = useSearchState();
   const [moreFilters, setMoreFilters] = useState(isTechView);
 
-  const [filteredApps, findSimilarApps] = filter({ apps, ...state });
+  const [filteredApps, findSimilarApps] = useFilter({ apps, ...state });
   if (filteredApps.length > 300 && state.view !== "list") {
     setState("view", "list");
   }

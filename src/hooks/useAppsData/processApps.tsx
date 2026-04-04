@@ -31,6 +31,7 @@ function enrichCache(apps: App[]) {
       platform: app.platform.map(toUpper),
       programmingLanguages: app.programmingLanguages?.map(toUpper) ?? [],
       coverage: app.coverage.map(toUpper),
+      search: "",
     },
   }));
 }

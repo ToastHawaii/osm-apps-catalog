@@ -16,9 +16,10 @@ import { fetchTranslations } from "@hooks/useAppsData/fetchTranslations";
 import { processApps } from "@hooks/useAppsData/processApps";
 import { applyTranslations } from "@hooks/useAppsData/applyTranslations";
 import { sortApps } from "@hooks/useAppsData/sortApps";
+import { createSearchIndex } from "@hooks/useAppsData/createSearchIndex";
 
 function useAppsDataInternal() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
   const userContext = useUserContext();
@@ -43,6 +44,8 @@ function useAppsDataInternal() {
       if (cancelled) return;
 
       processedApps = applyTranslations(processedApps, translationsLists);
+
+      processedApps = createSearchIndex(processedApps, t);
 
       processedApps = sortApps(processedApps, userContext);
 

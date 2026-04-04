@@ -161,6 +161,7 @@ export interface App {
     platform: string[];
     programmingLanguages: string[];
     coverage: string[];
+    search: string;
   };
   tags: string[];
 }
