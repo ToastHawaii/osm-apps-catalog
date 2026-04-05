@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "@shared/data/App";
 import { chain, difference, isEqual } from "lodash";
+import { TagDefinitions } from "@shared/lib/TagDefinitions";
 
 export function TagSelect({
   apps,
@@ -22,7 +23,7 @@ export function TagSelect({
   const preparedData = chain(tags)
     .groupBy((tag) => tag)
     .map((g) => ({ key: g[0], count: g.length }))
-    .sortBy((g) => g.key)
+    .sortBy((g) => TagDefinitions.findIndex((t) => t.key === g.key))
     .map((g) => {
       if (selected.filter((s) => g.key === s).length > 0) {
         return {

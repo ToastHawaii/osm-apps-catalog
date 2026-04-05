@@ -8,11 +8,13 @@ import { Category } from "@app/category";
 import { Tech } from "@app/tech";
 import { AppPage } from "@app/app";
 import { NotFound } from "@app/notFound";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
 
   const [searchParams] = useSearchParams();
+  const isTechDomain = useIsTechDomain()
 
   switch (searchParams.get("page")) {
     case "app": {
@@ -34,7 +36,7 @@ export function Router() {
     case "":
     case undefined:
     case null:
-      return searchParams.get("domain") === "tech" ? (
+      return isTechDomain ? (
         <Tech apps={apps} />
       ) : (
         <Home apps={apps} />

@@ -5,6 +5,9 @@ export interface TagsReorganizationDefinition {
 }
 
 export const DefaultPrioritize = ["attribute.free", "attribute.foss"];
+export const DefaultHierarchyForFree = [
+  ["attribute.foss", "attribute.free"],
+] as [string, string][];
 
 export const DefaultHierarchyForNavigation = [
   ["feature.voice-guidance", "feature.navigation"],
@@ -37,6 +40,15 @@ export const DefaultTagsReorganization: TagsReorganizationDefinition = {
     ...DefaultHierarchyForRouting,
   ],
   hide: DefaultHide,
+};
+
+export const TechDefaultTagsReorganization = {
+  prioritize: DefaultPrioritize,
+  hierarchy: [
+    ...(DefaultTagsReorganization.hierarchy || []),
+    ...DefaultHierarchyForFree,
+  ],
+  hide: [],
 };
 
 export function tagsReorganizer(

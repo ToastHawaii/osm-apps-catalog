@@ -25,7 +25,10 @@ import { useRoute } from "@hooks/useRoute";
 import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { AppCompact } from "@components/common/AppCompact";
-import { DefaultTagsReorganization } from "@lib/tagsReorganizer";
+import {
+  DefaultTagsReorganization,
+  TechDefaultTagsReorganization,
+} from "@lib/tagsReorganizer";
 import { NoResults } from "@app/search/NoResults";
 import { TagSelect } from "@app/ui/components/TagSelect";
 import { featureFlags } from "../../../src/featureFlags";
@@ -92,7 +95,7 @@ export function Search({ apps }: { apps: App[] }) {
   return (
     <>
       <PageMeta apps={filteredApps} />
-      <div className="sticky left-0 text-center">
+      <div className="sticky left-0 pb-4 text-center">
         <p className="description" style={{ margin: "5px 10px" }}>
           {state.category === "all" && filteredApps.length !== apps.length ? (
             <Trans
@@ -267,7 +270,11 @@ export function Search({ apps }: { apps: App[] }) {
                             app={app}
                             score
                             tags
-                            tagsReorganization={DefaultTagsReorganization}
+                            tagsReorganization={
+                              !isTechView
+                                ? DefaultTagsReorganization
+                                : TechDefaultTagsReorganization
+                            }
                           />
                         )}
                       >

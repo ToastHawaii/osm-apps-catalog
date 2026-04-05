@@ -1,9 +1,7 @@
 import {
-  DefaultHierarchyForEdit,
-  DefaultHierarchyForNavigation,
-  DefaultHierarchyForRouting,
   DefaultPrioritize,
   DefaultTagsReorganization,
+  TechDefaultTagsReorganization,
 } from "@lib/tagsReorganizer";
 import { App } from "@shared/data/App";
 import {
@@ -18,11 +16,6 @@ import {
 } from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { chain, sortBy } from "lodash";
-
-const TechDefaultTagsReorganization = {
-  ...DefaultTagsReorganization,
-  hide: [],
-};
 
 export function categories(
   t: TFunction<"translation", undefined>,
@@ -128,13 +121,7 @@ export function categories(
           "feature.upload-track",
         ],
 
-        hierarchy: [
-          ...DefaultHierarchyForNavigation,
-
-          ...DefaultHierarchyForEdit,
-
-          ...DefaultHierarchyForRouting,
-        ],
+        hierarchy: TechDefaultTagsReorganization.hierarchy || [],
 
         hide: [],
       },
