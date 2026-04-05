@@ -6,11 +6,12 @@ Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
 wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution
 Score](/docs/score) bewertet und sortiert.
 
-The metadata for the apps is collected from [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
+Die Metadaten für die Apps werden aus dem
+[OpenStreetMap-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) und der
+[Taginfo-Projektliste](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)
+zusammengetragen und kombiniert.
 
 [> Gehe zum Katalog](https://osm-apps.org)
 
@@ -21,7 +22,7 @@ bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Zeige den Katalog in deiner Sprache an:
 
-**Choose language**
+**Sprache auswählen**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -119,31 +120,34 @@ lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
 für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
 veröffentlichen wird.
 
-## Privacy Policy
+## Datenschutzerklärung
 
-The OSM Apps Catalog does not store personal user data.
+Der OSM-App-Katalog speichert keine personenbezogenen Nutzerdaten.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Für anonymisierte Nutzungsstatistiken nutzt das Projekt
+[GoatCounter](https://www.goatcounter.com/), einen datenschutzfreundlichen
+Analysedienst. Es werden keine personenbezogenen Daten erfasst. ([Erfasste
+Nutzungsdaten
+einsehen](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Bestimmte Informationen, die vom Browser des Nutzers bereitgestellt werden (wie
+beispielsweise Sprache oder Plattform), können lokal verwendet werden, um das
+Nutzungserlebnis zu verbessern. Diese Daten werden innerhalb des Browsers
+verarbeitet und weder gespeichert noch an externe Server übermittelt (mit
+Ausnahme der oben beschriebenen anonymisierten Analysen).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Die Website wird auf GitHub Pages gehostet. In den [Nutzungsinformationen zu
+GitHub
 Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+heißt es:
 
-> ### Data collection
+> ### Datenerhebung
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Wenn eine GitHub Pages-Website aufgerufen wird, wird die IP-Adresse des
+> Besuchers aus Sicherheitsgründen protokolliert und gespeichert, unabhängig
+> davon, ob der Besucher bei GitHub angemeldet ist oder nicht. Weitere
+> Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der
+> [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Haftungsausschluss
 
@@ -154,11 +158,12 @@ verbunden.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- Werde Teil der
+  [OSM-Community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Lerne
+  die Verhaltensregeln
+  kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
+  dich](https://osmcal.org/) & [chatte](https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
