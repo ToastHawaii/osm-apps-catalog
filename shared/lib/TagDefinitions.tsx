@@ -2,6 +2,9 @@ import { App } from "@shared/data/App";
 import { some } from "@shared/utils/array";
 import { upperCase, equalsYes } from "@shared/utils/string";
 
+/**
+ * the order defines the order in the select filter
+ */
 export const TagDefinitions: {
   key: string;
   filter: (app: App) => boolean;

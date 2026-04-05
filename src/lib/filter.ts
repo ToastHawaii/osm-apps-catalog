@@ -19,6 +19,7 @@ export function useFilter({
   apps,
   category,
   search,
+  tags,
   topics,
   languages,
   platforms,
@@ -57,6 +58,9 @@ export function useFilter({
     strategy: "off",
     mapResultItem: ({ item }) => item,
   });
+
+  if (tags.length > 0)
+    filteredApps = filteredApps.filter((a) => includes(a.tags, tags));
 
   const topicsUp = upperCase(topics);
   if (topicsUp.length > 0)
@@ -172,6 +176,9 @@ export function useFilter({
         });
         similarApps = fuzzySearch(search).map(({ item }) => item);
       }
+
+      if (tags.length > 0)
+        similarApps = similarApps.filter((a) => some(a.tags, tags));
 
       if (languagesUp.length > 0)
         similarApps = similarApps.filter((a) =>

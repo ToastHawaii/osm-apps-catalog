@@ -15,7 +15,8 @@ export function NoResults() {
       <p className="col-span-full my-4 pt-4 text-center text-4xl text-muted-foreground">
         {t("noResults")}
         <br />
-        {(state.topics.length > 0 ||
+        {(state.tags.length > 0 ||
+          state.topics.length > 0 ||
           state.languages.length > 0 ||
           state.platforms.length > 0 ||
           state.programmingLanguages.length > 0 ||

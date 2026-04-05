@@ -158,6 +158,7 @@
   "filter.programmingLanguage": "Programmed in",
   "filter.resetFilters": "Remove preset filters",
   "filter.search": "Search",
+  "filter.tag": "Feature",
   "filter.topic": "Topic",
   "filters.morePlatforms": "More platforms",
   "introductionPanel.description": "Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\nDiscover OpenStreetMap – a collaboratively created map of the world.",

@@ -29,6 +29,7 @@ export function useSearchState() {
     {
       lang: searchParams.get("lang") || "",
       search: searchParams.get("search") || "",
+      tags: searchParams.get("tags")?.split("+") || [],
       topics: searchParams.get("topics")?.split("+") || [],
       languages: searchParams.get("languages")?.split("+") || [],
       platforms: searchParams.get("platforms")?.split("+") || [],

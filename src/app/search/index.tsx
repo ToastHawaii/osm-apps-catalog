@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { chain, debounce } from "lodash";
 
 import { ViewSelect } from "../ui/components/ViewSelect";
 import { SearchComponent } from "../ui/components/search";
@@ -9,7 +10,6 @@ import { LanguageSelect } from "../ui/components/LanguageSelect";
 import { CoverageSelect } from "../ui/components/CoverageSelect";
 import { ContributeSelect, mapping } from "../ui/components/ContributeSelect";
 import { Filters } from "../ui/components/filters";
-import { chain, debounce } from "lodash";
 import { useSearchState } from "../../hooks/useSearchState";
 import { useFilter } from "../../lib/filter";
 import { Compare } from "../ui/views/Compare";
@@ -27,6 +27,8 @@ import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { AppCompact } from "@components/common/AppCompact";
 import { DefaultTagsReorganization } from "@lib/tagsReorganizer";
 import { NoResults } from "@app/search/NoResults";
+import { TagSelect } from "@app/ui/components/TagSelect";
+import { featureFlags } from "../../../src/featureFlags";
 
 import "../../index.scss";
 import "../../index.css";
@@ -122,7 +124,8 @@ export function Search({ apps }: { apps: App[] }) {
           onChange={(value) => setMoreFilters(value)}
         />
         {!moreFilters &&
-          (state.topics.length > 0 ||
+          (state.tags.length > 0 ||
+            state.topics.length > 0 ||
             state.languages.length > 0 ||
             state.platforms.length > 0 ||
             state.programmingLanguages.length > 0 ||
@@ -131,6 +134,7 @@ export function Search({ apps }: { apps: App[] }) {
             <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
               {!isInitState() ? t("filter.preview") : t("filter.preset")}{" "}
               {chain([
+                ...state.tags,
                 ...state.topics,
                 ...state.languages,
                 ...state.platforms,
@@ -168,7 +172,8 @@ export function Search({ apps }: { apps: App[] }) {
                   </>
                 ))
                 .value()}
-              {(state.topics.length > 0 ||
+              {(state.tags.length > 0 ||
+                state.topics.length > 0 ||
                 state.languages.length > 0 ||
                 state.platforms.length > 0 ||
                 state.programmingLanguages.length > 0 ||
@@ -195,11 +200,18 @@ export function Search({ apps }: { apps: App[] }) {
           )}
         {moreFilters && (
           <span className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-0.5">
-            <TopicSelect
+            <TagSelect
               apps={filteredApps}
-              selected={state.topics}
-              onChange={(newValues) => setState("topics", newValues)}
+              selected={state.tags}
+              onChange={(newValues) => setState("tags", newValues)}
             />
+            {featureFlags.showTopicSelect && (
+              <TopicSelect
+                apps={filteredApps}
+                selected={state.topics}
+                onChange={(newValues) => setState("topics", newValues)}
+              />
+            )}
             <LanguageSelect
               apps={filteredApps}
               selected={state.languages}
