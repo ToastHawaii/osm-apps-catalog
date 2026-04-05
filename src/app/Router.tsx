@@ -14,7 +14,7 @@ export function Router() {
   const apps = useAppsData().apps.slice();
 
   const [searchParams] = useSearchParams();
-  const isTechDomain = useIsTechDomain()
+  const isTechDomain = useIsTechDomain();
 
   switch (searchParams.get("page")) {
     case "app": {
@@ -36,11 +36,7 @@ export function Router() {
     case "":
     case undefined:
     case null:
-      return isTechDomain ? (
-        <Tech apps={apps} />
-      ) : (
-        <Home apps={apps} />
-      );
+      return isTechDomain ? <Tech apps={apps} /> : <Home apps={apps} />;
     default:
       return <NotFound />;
   }

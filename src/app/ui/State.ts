@@ -9,5 +9,5 @@ export interface State {
   programmingLanguages: string[];
   coverage: string[];
   contribute: string[];
-  view: "home" | "category" | "app" | "list" | "compare" | "search" | "focus";
+  view: "list" | "compare";
 }
