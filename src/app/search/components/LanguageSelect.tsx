@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
+import { isEqual } from "lodash";
+import { prepareArrayForSelect } from "../../ui/lib/prepareArrayForSelect";
 import { App } from "@shared/data/App";
-import { prepareArrayForSelect } from "../lib/prepareArrayForSelect";
-import { difference, isEqual } from "lodash";
 
-export function TopicSelect({
+export function LanguageSelect({
   apps,
   selected = [],
   onChange,
@@ -15,19 +15,18 @@ export function TopicSelect({
   onChange: (newValues: string[]) => void;
 }) {
   const { t } = useTranslation();
-
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.topics));
+  data.push(...apps.flatMap((app) => app.languages));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (
     <SlimSelect
-      className="ss-and"
+      className="ss-or"
       data={preparedData}
       multiple
       settings={{
-        placeholderText: t("filter.topic"),
+        placeholderText: t("filter.language"),
         allowDeselect: true,
         showSearch: preparedData.length > 9,
       }}
@@ -36,15 +35,6 @@ export function TopicSelect({
           const newValues = newOptions.map((o) => o.value);
           if (isEqual(newValues, selected)) {
             return;
-          }
-          const onlyNewValues = difference(newValues, selected);
-          if (window.goatcounter && onlyNewValues.length > 0) {
-            window.goatcounter.count({
-              path: `/?topics=${onlyNewValues.join()}`,
-              title: "Has selected a topic.",
-              referrer: "https://osm-apps.org/",
-              event: true,
-            });
           }
           onChange(newValues);
         },

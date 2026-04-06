@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { chain, debounce } from "lodash";
 
 import { ViewSelect } from "../ui/components/ViewSelect";
-import { SearchComponent } from "../ui/components/search";
-import { TopicSelect } from "../ui/components/TopicSelect";
-import { PlatformSelect } from "../ui/components/PlatformSelect";
-import { LanguageSelect } from "../ui/components/LanguageSelect";
-import { CoverageSelect } from "../ui/components/CoverageSelect";
-import { ContributeSelect, mapping } from "../ui/components/ContributeSelect";
+import { SearchComponent } from "./components/search";
+import { TopicSelect } from "./components/TopicSelect";
+import { PlatformSelect } from "./components/PlatformSelect";
+import { LanguageSelect } from "./components/LanguageSelect";
+import { CoverageSelect } from "./components/CoverageSelect";
+import { ContributeSelect, mapping } from "./components/ContributeSelect";
 import { Filters } from "../ui/components/filters";
 import { useSearchState } from "../../hooks/useSearchState";
 import { useFilter } from "../../lib/filter";
@@ -17,12 +17,12 @@ import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "../ui/components/NotFoundApps";
 import { LazyInitMore } from "../ui/components/LazyInitMore";
 import { PagedList } from "../ui/PagedList";
-import { RelatedApps } from "../ui/RelatedApps";
+import { RelatedApps } from "./components/RelatedApps";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { useRoute } from "@hooks/useRoute";
-import { ProgrammingLanguageSelect } from "@app/ui/components/ProgrammingLanguageSelect";
+import { ProgrammingLanguageSelect } from "@app/search/components/ProgrammingLanguageSelect";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { AppCompact } from "@components/common/AppCompact";
 import {
@@ -30,7 +30,7 @@ import {
   TechDefaultTagsReorganization,
 } from "@lib/tagsReorganizer";
 import { NoResults } from "@app/search/NoResults";
-import { TagSelect } from "@app/ui/components/TagSelect";
+import { TagSelect } from "@app/search/components/TagSelect";
 import { featureFlags } from "../../../src/featureFlags";
 
 import "../../index.scss";

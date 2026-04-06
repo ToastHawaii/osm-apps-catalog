@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router";
-import { State } from "../app/ui/State";
+import { State } from "../app/ui/lib/State";
 import { getUserOS } from "../lib/utils/getUserOS";
 import { isEmpty, isEqual, pickBy, uniq } from "lodash";
 

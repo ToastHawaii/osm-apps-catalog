@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { isEqual } from "lodash";
-import { prepareArrayForSelect } from "../lib/prepareArrayForSelect";
+import { prepareArrayForSelect } from "../../ui/lib/prepareArrayForSelect";
 import { App } from "@shared/data/App";
 
-export function LanguageSelect({
+export function ProgrammingLanguageSelect({
   apps,
   selected = [],
   onChange,
@@ -17,7 +17,7 @@ export function LanguageSelect({
   const { t } = useTranslation();
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.languages));
+  data.push(...apps.flatMap((app) => app.programmingLanguages || []));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (
@@ -26,7 +26,7 @@ export function LanguageSelect({
       data={preparedData}
       multiple
       settings={{
-        placeholderText: t("filter.language"),
+        placeholderText: t("filter.programmingLanguage"),
         allowDeselect: true,
         showSearch: preparedData.length > 9,
       }}

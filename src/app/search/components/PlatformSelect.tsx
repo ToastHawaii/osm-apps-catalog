@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
-import { isEqual } from "lodash";
-import { prepareArrayForSelect } from "../lib/prepareArrayForSelect";
 import { App } from "@shared/data/App";
+import { prepareArrayForSelect } from "../../ui/lib/prepareArrayForSelect";
+import { isEqual } from "lodash";
 
-export function ProgrammingLanguageSelect({
+export function PlatformSelect({
   apps,
   selected = [],
   onChange,
@@ -15,9 +15,10 @@ export function ProgrammingLanguageSelect({
   onChange: (newValues: string[]) => void;
 }) {
   const { t } = useTranslation();
+
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.programmingLanguages || []));
+  data.push(...apps.flatMap((app) => app.platform));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (
@@ -26,7 +27,7 @@ export function ProgrammingLanguageSelect({
       data={preparedData}
       multiple
       settings={{
-        placeholderText: t("filter.programmingLanguage"),
+        placeholderText: t("filter.platform"),
         allowDeselect: true,
         showSearch: preparedData.length > 9,
       }}

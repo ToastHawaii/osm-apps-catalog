@@ -6,7 +6,7 @@ import { Score } from "../components/Score";
 import { App } from "@shared/data/App";
 import { Trans, useTranslation } from "react-i18next";
 import { SourceDisplay } from "../components/SourceDisplay";
-import { State } from "../State";
+import { State } from "../lib/State";
 import { WebsiteLink } from "../components/links/download/WebsiteLink";
 import { AsinLink } from "../components/links/download/AsinLink";
 import { FDroidLink } from "../components/links/download/FDroidLink";

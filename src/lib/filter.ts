@@ -13,7 +13,7 @@ import {
   qa,
 } from "@shared/lib/filters";
 import { equalsYes, upperCase } from "@shared/utils/string";
-import { State } from "../app/ui/State";
+import { State } from "../app/ui/lib/State";
 
 export function useFilter({
   apps,

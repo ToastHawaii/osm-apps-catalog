@@ -10,7 +10,7 @@ import { App } from "@shared/data/App";
 import { Score } from "../components/Score";
 import { Group } from "../components/Group";
 import { SourceDisplay } from "../components/SourceDisplay";
-import { State } from "../State";
+import { State } from "../lib/State";
 import { AsinLink } from "../components/links/download/AsinLink";
 import { FDroidLink } from "../components/links/download/FDroidLink";
 import { ObtainiumLink } from "../components/links/download/ObtainiumLink";

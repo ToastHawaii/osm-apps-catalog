@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SlimSelect from "./SlimSelect";
 import { App } from "@shared/data/App";
-import { prepareArrayForSelect } from "../lib/prepareArrayForSelect";
-import { isEqual } from "lodash";
+import { prepareArrayForSelect } from "../../ui/lib/prepareArrayForSelect";
+import { difference, isEqual } from "lodash";
 
-export function CoverageSelect({
+export function TopicSelect({
   apps,
   selected = [],
   onChange,
@@ -18,16 +18,16 @@ export function CoverageSelect({
 
   const data = selected.slice();
 
-  data.push(...apps.flatMap((app) => app.coverage));
+  data.push(...apps.flatMap((app) => app.topics));
   const preparedData = prepareArrayForSelect(data, selected);
 
   return (
     <SlimSelect
-      className="ss-or"
+      className="ss-and"
       data={preparedData}
       multiple
       settings={{
-        placeholderText: t("filter.coverage"),
+        placeholderText: t("filter.topic"),
         allowDeselect: true,
         showSearch: preparedData.length > 9,
       }}
@@ -36,6 +36,15 @@ export function CoverageSelect({
           const newValues = newOptions.map((o) => o.value);
           if (isEqual(newValues, selected)) {
             return;
+          }
+          const onlyNewValues = difference(newValues, selected);
+          if (window.goatcounter && onlyNewValues.length > 0) {
+            window.goatcounter.count({
+              path: `/?topics=${onlyNewValues.join()}`,
+              title: "Has selected a topic.",
+              referrer: "https://osm-apps.org/",
+              event: true,
+            });
           }
           onChange(newValues);
         },
