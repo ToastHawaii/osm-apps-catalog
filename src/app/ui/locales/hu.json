@@ -1,5 +1,5 @@
 {
-  "app.author": "Fejlesztő",
+  "app.author": "Fejlesztő:",
   "app.community": "Közösség",
   "app.community.bluesky": "Bluesky",
   "app.community.forum": "Fórum",
@@ -49,7 +49,7 @@
   "app.source.lastChange": "Legutóbbi módosítás: {{date}}",
   "app.sourceCode": "Forráskód",
   "app.tag.attribute.foss": "Szabad és nyílt forráskódú",
-  "app.tag.attribute.free": "ingyenes",
+  "app.tag.attribute.free": "Ingyenes",
   "app.tag.feature.accessibility-blind": "Akadálymentesség látássérületknek",
   "app.tag.feature.accessibility-wheelchair": "Akadálymentesség kerekesszékkel",
   "app.tag.feature.create-notes": "OSM-jegyzetek létrehozáaa",
@@ -158,6 +158,7 @@
   "filter.programmingLanguage": "Programozási nyelv:",
   "filter.resetFilters": "Előre beállított szűrő eltávolítása",
   "filter.search": "Keresés",
+  "filter.tag": "Funkció",
   "filter.topic": "Téma",
   "filters.morePlatforms": "További platformok",
   "introductionPanel.description": "Itt {{numberOfApps}} térképalkalmazást találsz minden elképzelhető helyzetre: offline túrázás, kerékpárútvonalak tervezése, gyermekbarát helyek felfedezése, a legközelebbi WC megtalálása…\nFedezd fel az OpenStreetMapet – a közösen létrehozott világtérképet.",
