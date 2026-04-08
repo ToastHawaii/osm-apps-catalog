@@ -201,7 +201,7 @@
   "score.criteria.translationContributions": "contributions to translations are possible",
   "score.criteria.worldwideData": "the app covers worldwide map data",
   "score.result": "- {{description}} ({{points}} points)",
-  "score.results": "Community Contribution Score\nTotal: {{total}} out of 10 points\n\nActions required for a higher score:\n{{notFulfilled}}\n\nFulfilled:\n{{fulfilled}}",
+  "score.results": "Community Contribution Score\nTotal: {{total}} out of 10 points\n\nActions required for a higher score:\n{{notFulfilled}}\n\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on a source.\n\nFulfilled:\n{{fulfilled}}",
   "select.search.noResults": "No results",
   "select.search.placeholder": "Search",
   "share.wiki": "Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.",
