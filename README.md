@@ -1,4 +1,4 @@
-# OSM Apps Catalog
+# [OSM Apps Catalog](https://osm-apps.org)
 
 **There isn't just one, there are thousands.**
 
