@@ -23,7 +23,6 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
-
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
