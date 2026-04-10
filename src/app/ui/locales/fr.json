@@ -201,7 +201,7 @@
   "score.criteria.translationContributions": "il est possible de contribuer aux traductions",
   "score.criteria.worldwideData": "l'application couvre des données cartographiques à l'échelle mondiale",
   "score.result": "- {{description}} ({{points}} points)",
-  "score.results": "Score de contribution de la communauté\nTotal : {{total}} sur 10 points\n\nActions requises pour un meilleure score :\n{{notFulfilled}}\n\nDéjà effectué :\n{{fulfilled}}",
+  "score.results": "Score de contribution communautaire\nTotal : {{total}} sur 10 points\n\nActions requises pour un meilleur score :\n{{notFulfilled}}\n\nUn élément est-il incorrect ou manquant ? Vous pouvez contribuer à l’amélioration de la documentation. Accédez à la page de détails de l’application et cliquez sur une source.\n\nRéalisé :\n{{fulfilled}}",
   "select.search.noResults": "Aucun résultat",
   "select.search.placeholder": "Rechercher",
   "share.wiki": "Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.",
