@@ -203,7 +203,7 @@
   "score.criteria.translationContributions": "zur Übersetzung kann beigetragen werden",
   "score.criteria.worldwideData": "die App deckt weltweite Kartendaten ab",
   "score.result": "- {{description}} ({{points}} Punkte)",
-  "score.results": "Community Contribution Score\nInsgesamt: {{total}} von 10 Punkten\n\nErforderliche Massnahmen für eine höhere Punktzahl:\n{{notFulfilled}}\n\nErfüllt:\n{{fulfilled}}",
+  "score.results": "Community Contribution Score\nInsgesamt: {{total}} von 10 Punkten\n\nErforderliche Massnahmen für eine höhere Punktzahl:\n{{notFulfilled}}\n\nStimmt etwas nicht oder fehlt etwas? Du kannst dabei helfen, die Dokumentation zu verbessern. Geh auf die Detailseite der App und klicke auf eine Quelle.\n\nErfüllt:\n{{fulfilled}}",
   "select.search.noResults": "Kein Resultat",
   "select.search.placeholder": "Suche",
   "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.",
