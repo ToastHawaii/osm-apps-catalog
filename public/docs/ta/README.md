@@ -23,6 +23,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,10 +104,10 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 மொழிபெயர்ப்புக்கு உதவுங்கள்:
 
-- [வெப்லேட்] (https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a> இல் உள்ள ஓஎச்எம் பயன்பாடுகள் பட்டியலிலிருந்து
+- from the OSM Apps Catalog on
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - [OpenStreetMap wiki] (https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   இல் ஆவணப்படுத்தப்பட்ட பயன்பாடுகளிலிருந்து
 
@@ -117,6 +118,9 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) இர�
 இன் கீழ் உரிமம் பெற்றது. அதே உரிமத்தின் கீழ் நீங்கள் வெளியிட்டால்
 [குறியீடு](https://github.com/ToastHawaii/osm-apps-catalog) பயன்பாடு,
 நகலெடுத்தல் மற்றும் மாற்றத்திற்கு இலவசம்.
+
+[![GitHub
+Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 

@@ -23,6 +23,7 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 **Choose language**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,11 +104,10 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 Допоможіть з перекладом:
 
-- з каталогу програм OSM на
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a>
+- from the OSM Apps Catalog on
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - з програм, описаних у [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
@@ -118,6 +118,9 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
 [Код](https://github.com/ToastHawaii/osm-apps-catalog) можна використовувати,
 копіювати та модифікувати безкоштовно, якщо ви публікуєте його за тією ж
 ліцензією.
+
+[![GitHub
+Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 

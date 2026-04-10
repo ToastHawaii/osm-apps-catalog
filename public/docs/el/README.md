@@ -23,6 +23,7 @@ Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυ
 
 **Επιλέξτε γλώσσα**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,11 +104,10 @@ Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυ
 
 Βοηθήστε με τη μετάφραση:
 
-- από το OSM Apps Catalog στο
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a>
+- from the OSM Apps Catalog on
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - από τις εφαρμογές που καταγράφονται στο [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
@@ -117,6 +117,9 @@ Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυ
 GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
+
+[![GitHub
+Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Πολιτική Απορρήτου
 
