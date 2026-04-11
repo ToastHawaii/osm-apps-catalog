@@ -137,7 +137,7 @@ export function Search({ apps }: { apps: App[] }) {
             <p style={{ margin: "5px 10px", lineHeight: 1.5 }}>
               {!isInitState() ? t("filter.preview") : t("filter.preset")}{" "}
               {chain([
-                ...state.tags,
+                ...state.tags.map((tag) => t(`app.tag.${tag}`)),
                 ...state.topics,
                 ...state.languages,
                 ...state.platforms,
