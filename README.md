@@ -19,7 +19,7 @@ Help with the translation:
 - from the OSM Apps Catalog on [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) <a href="https://hosted.weblate.org/engage/osm-apps-catalog/">
   <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
   </a>
-- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) or [Wikidata](https://www.wikidata.org/). [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
+- from the apps documented in [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) or [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction). [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
 
 AI docs here: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
 
