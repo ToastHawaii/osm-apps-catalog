@@ -104,9 +104,9 @@ Zeige den Katalog in deiner Sprache an:
 
 Hilf bei der Übersetzung:
 
-- from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- des OSM Apps Katalogs auf
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stand der
+  Übersetzung](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - von den Apps dokumentiert im [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
