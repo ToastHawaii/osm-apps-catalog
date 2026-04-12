@@ -32,6 +32,7 @@ export function routeFactory(domain?: string) {
     app: build<{ app: number }>("app"),
     search: build<{
       platforms?: string[];
+      tags?: string[];
       search?: string;
       view?: "list" | "compare";
     }>("search"),
