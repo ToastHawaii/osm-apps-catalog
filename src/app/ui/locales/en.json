@@ -136,6 +136,7 @@
   "category.wheelchair.description": "{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.",
   "category.winterSport": "Winter sport",
   "category.winterSport.description": "{{numberOfApps}} apps for skiing and other winter sports.",
+  "close": "Close",
   "compare": "Compare",
   "compare.group.header.accessibility": "Accessibility",
   "compare.group.header.editing": "Editing",

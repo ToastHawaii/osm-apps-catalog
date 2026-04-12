@@ -1,5 +1,16 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@components/ui/carousel";
-import { Sheet, SheetTrigger, SheetContent, SheetTitle } from "@components/ui/sheet";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@components/ui/carousel";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+} from "@components/ui/sheet";
 import React, { useState } from "react";
 
 export function Gallery({ images }: { images: string[] }) {
@@ -20,7 +31,7 @@ export function Gallery({ images }: { images: string[] }) {
                 <img
                   key={i}
                   src={i}
-                  className="h-60 rounded-md"
+                  className="h-60 cursor-pointer rounded-md"
                   onClick={() => {
                     setCurrent(index);
                   }}

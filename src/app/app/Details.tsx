@@ -17,12 +17,14 @@ import { Badge } from "@components/ui/badge";
 import { Card, CardContent, CardHeader } from "@components/ui/card";
 
 import { useAppImages } from "@app/app/useAppImages";
-import { Gallery } from "@app/app/Gallery";
+import { Gallery } from "@components/common/Gallery";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { newUrl } from "@shared/utils/url";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Share05Icon } from "@hugeicons/core-free-icons";
+import { DrawerDialog } from "@components/common/DrawerDialog";
+import { Button } from "@components/ui/button";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -39,7 +41,7 @@ export function Details({ app }: { app: App }) {
   return (
     <div className="relative mx-auto max-w-3xl p-2 text-left">
       <Card className="shadow-md">
-        <CardHeader className="flex flex-wrap items-center gap-4">
+        <CardHeader className="flex flex-wrap items-center gap-6">
           <div className="size-25 place-items-center content-center">
             <AppLogo app={app} />
           </div>
@@ -86,7 +88,6 @@ export function Details({ app }: { app: App }) {
               </>
             )}
           </p>
-          
         </CardContent>
       </Card>
       <Score app={app} position="right" />
