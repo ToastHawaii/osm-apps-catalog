@@ -4,7 +4,9 @@ export function isLikelyLogo(fileName: string) {
     // ignore coincidental matches
     fileName.includes("ICON") ||
     fileName.includes("icon") ||
+    fileName.includes("Icon") ||
     fileName.includes("LOGO") ||
-    fileName.includes("logo")
+    fileName.includes("logo") ||
+    fileName.includes("Logo")
   );
 }
