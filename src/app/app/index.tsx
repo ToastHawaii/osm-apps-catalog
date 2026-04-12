@@ -1,17 +1,18 @@
 import React from "react";
-
-import { ViewSelect } from "../ui/components/ViewSelect";
-import { useSearchState } from "../../hooks/useSearchState";
-import { Compare } from "../ui/views/Compare";
 import { Trans, useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+
+import { useSearchState } from "../../hooks/useSearchState";
 import { toSchemaOrg } from "../ui/lib/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
-import { ExternalLink } from "@components/common/ExternalLink";
 import { useRoute } from "@hooks/useRoute";
-import { useNavigate } from "react-router";
-import { List } from "@app/ui/views/List";
 import { useAppsData } from "@hooks/useAppsData";
+
+import { Compare } from "../ui/views/Compare";
+import { ViewSelect } from "../ui/components/ViewSelect";
+import { ExternalLink } from "@components/common/ExternalLink";
+import { Details } from "@app/app/Details";
 
 import "../../index.css";
 import "../../index.scss";
@@ -42,52 +43,58 @@ function PageMeta({ app }: { app: App }) {
     </>
   );
 }
-
-export function AppPage({ app }: { app: App }) {
-  const { t, i18n } = useTranslation();
+function PageHeader() {
+  const { t } = useTranslation();
   const routes = useRoute();
   const navigate = useNavigate();
-  const [state, setState, , isInitState] = useSearchState();
+  const [state, setState] = useSearchState();
   const { apps } = useAppsData();
+
+  return (
+    <div className="sticky left-0 text-center">
+      <p className="description" style={{ margin: "5px 10px" }}>
+        <Trans
+          i18nKey={`category.all.description.filtered`}
+          values={{
+            numberOfApps: 1,
+            totalNumberOfApps: apps.length,
+          }}
+          components={{
+            o: <ExternalLink href="https://openstreetmap.org/" />,
+          }}
+        />
+
+        <>
+          {" "}
+          <button
+            className="show-all"
+            onClick={() => navigate(routes.search({}))}
+          >
+            {t("category.showAll")}
+          </button>
+        </>
+      </p>
+
+      <ViewSelect
+        value={state.view}
+        onChange={(newValues) => setState("view", newValues)}
+      />
+    </div>
+  );
+}
+
+export function AppPage({ app }: { app: App }) {
+  const { i18n } = useTranslation();
+  const [state, , , isInitState] = useSearchState();
 
   return (
     <>
       <PageMeta app={app} />
-      <div className="sticky left-0 text-center">
-        <p className="description" style={{ margin: "5px 10px" }}>
-          <Trans
-            i18nKey={`category.all.description.filtered`}
-            values={{
-              numberOfApps: 1,
-              totalNumberOfApps: apps.length,
-            }}
-            components={{
-              o: <ExternalLink href="https://openstreetmap.org/" />,
-            }}
-          />
-
-          <>
-            {" "}
-            <button
-              className="show-all"
-              onClick={() => navigate(routes.search({}))}
-            >
-              {t("category.showAll")}
-            </button>
-          </>
-        </p>
-
-        <ViewSelect
-          value={state.view}
-          onChange={(newValues) => setState("view", newValues)}
-        />
-      </div>
+      <PageHeader />
       <div className="text-center">
         <main>
           {state.view !== "compare" ? (
-            <div id="list">
-              <List app={app} open state={state} isInitState={isInitState} />
-            </div>
+            <Details app={app} />
           ) : (
             <div id="compare" className="table">
               <Compare
