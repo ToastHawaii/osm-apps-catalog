@@ -33,6 +33,7 @@ export function routeFactory(domain?: string) {
     search: build<{
       platforms?: string[];
       tags?: string[];
+      topics?: string[];
       search?: string;
       view?: "list" | "compare";
     }>("search"),
