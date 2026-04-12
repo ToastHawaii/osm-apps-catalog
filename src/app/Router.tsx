@@ -18,6 +18,10 @@ export function Router() {
 
   switch (searchParams.get("page")) {
     case "app": {
+      if (apps.length === 0) {
+        return null;
+      }
+
       const id = parseInt(searchParams.get("app") || "", 10);
 
       const app = apps.find((a) => a.id === id);
