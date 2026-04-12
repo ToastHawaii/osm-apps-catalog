@@ -39,6 +39,7 @@
   "app.install.obtainium": "Obtainium",
   "app.languages": "Languages",
   "app.lastRelease": "Last release",
+  "app.learnMore": "Learn more at {{website}}",
   "app.license": "License",
   "app.platforms": "Platforms",
   "app.price": "Price",

@@ -18,6 +18,11 @@ import { Card, CardContent, CardHeader } from "@components/ui/card";
 
 import { useAppImages } from "@app/app/useAppImages";
 import { Gallery } from "@app/app/Gallery";
+import { plainText } from "@shared/utils/plainText";
+import { ExternalLink } from "@components/common/ExternalLink";
+import { newUrl } from "@shared/utils/url";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Share05Icon } from "@hugeicons/core-free-icons";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -32,7 +37,7 @@ export function Details({ app }: { app: App }) {
   );
 
   return (
-    <div className="relative mx-auto max-w-7xl p-2 text-left">
+    <div className="relative mx-auto max-w-3xl p-2 text-left">
       <Card className="shadow-md">
         <CardHeader className="flex flex-wrap items-center gap-4">
           <div className="size-25 place-items-center content-center">
@@ -52,11 +57,36 @@ export function Details({ app }: { app: App }) {
           </div>
           {images.length > 0 && <Gallery images={images} />}
 
-          <div
-            dangerouslySetInnerHTML={{
-              __html: app.description || app.subtitle || "",
-            }}
-          />
+          <p>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: app.description || app.subtitle || "",
+              }}
+            ></span>
+            {app.documentation && (
+              <>
+                {plainText(app.description || app.subtitle || "")
+                  ? plainText(app.description || app.subtitle || "").endsWith(
+                      ".",
+                    )
+                    ? " "
+                    : " – "
+                  : ""}
+                <ExternalLink href={app.documentation}>
+                  {t("app.learnMore", {
+                    website: newUrl(app.documentation).hostname,
+                  })}{" "}
+                  <HugeiconsIcon
+                    className="inline-block"
+                    icon={Share05Icon}
+                    strokeWidth={2}
+                    size={16}
+                  />
+                </ExternalLink>
+              </>
+            )}
+          </p>
+          
         </CardContent>
       </Card>
       <Score app={app} position="right" />
