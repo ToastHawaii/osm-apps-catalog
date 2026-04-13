@@ -31,7 +31,7 @@ export function Gallery({ images }: { images: string[] }) {
                 <img
                   key={i}
                   src={i}
-                  className="h-60 cursor-pointer rounded-md"
+                  className="max-h-100 cursor-pointer rounded-md"
                   onClick={() => {
                     setCurrent(index);
                   }}
