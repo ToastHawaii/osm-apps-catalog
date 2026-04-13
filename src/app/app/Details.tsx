@@ -22,7 +22,7 @@ import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { newUrl } from "@shared/utils/url";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert02Icon, Share05Icon } from "@hugeicons/core-free-icons";
+import { Alert02Icon } from "@hugeicons/core-free-icons";
 
 import { some } from "lodash";
 import { AppleStoreLink } from "@app/ui/components/links/download/AppleStoreLink";
@@ -50,6 +50,7 @@ import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { Separator } from "@components/ui/separator";
 import { ReactJoin } from "@lib/utils/ReactJoin";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
+import { Formatted } from "@components/common/Formatted";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -126,20 +127,14 @@ export function Details({ app }: { app: App }) {
   if (app.author) {
     metaData.push({
       title: t("app.author"),
-      value: <span dangerouslySetInnerHTML={{ __html: app.author }} />,
+      value: <Formatted htmlText={app.author} />,
     });
   }
 
   if (app.license && app.license?.length > 0) {
     metaData.push({
       title: t("app.license"),
-      value: (
-        <span
-          dangerouslySetInnerHTML={{
-            __html: app.license.join(", "),
-          }}
-        />
-      ),
+      value: <Formatted htmlText={app.license.join(", ")} />,
     });
   }
 
@@ -150,13 +145,7 @@ export function Details({ app }: { app: App }) {
   ) {
     metaData.push({
       title: t("app.programmingLanguages"),
-      value: (
-        <span
-          dangerouslySetInnerHTML={{
-            __html: app.programmingLanguages.join(", "),
-          }}
-        />
-      ),
+      value: <Formatted htmlText={app.programmingLanguages.join(", ")} />,
     });
   }
 
@@ -211,6 +200,21 @@ export function Details({ app }: { app: App }) {
     value: <SourceDisplay app={app} />,
   });
 
+  if (app.topics.length > 0) {
+    metaData.push({
+      title: t("app.keywords"),
+      value: (
+        <div className="flex flex-wrap gap-1">
+          {app.topics.map((topic) => (
+            <Badge key={topic} variant="secondary" asChild>
+              <Link to={routes.search({ topics: [topic] })}>{topic}</Link>
+            </Badge>
+          ))}
+        </div>
+      ),
+    });
+  }
+
   return (
     <div className="relative mx-auto max-w-3xl p-2 text-left">
       <Card className="shadow-md">
@@ -247,12 +251,8 @@ export function Details({ app }: { app: App }) {
           </div>
           {images.length > 0 && <Gallery images={images} />}
 
-          <p>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: app.description || app.subtitle || "",
-              }}
-            ></span>
+          <div>
+            <Formatted htmlText={app.description || app.subtitle || ""} />
             {app.documentation && (
               <>
                 {plainText(app.description || app.subtitle || "")
@@ -262,40 +262,28 @@ export function Details({ app }: { app: App }) {
                     ? " "
                     : " – "
                   : ""}
-                <ExternalLink href={app.documentation}>
+                <ExternalLink href={app.documentation} icon>
                   {t("app.learnMore", {
                     website: newUrl(app.documentation).hostname,
-                  })}{" "}
-                  <HugeiconsIcon
-                    icon={Share05Icon}
-                    className="inline-block"
-                    strokeWidth={2}
-                    size={16}
-                  />
+                  })}
                 </ExternalLink>
               </>
             )}
-          </p>
+          </div>
           <h2 className="text-xl font-semibold">{t("list.moreInfos")}</h2>
           <div className="flex w-full flex-col gap-2 text-sm">
             {ReactJoin(
               metaData.map((d, i) => (
-                <dl key={i} className="flex items-center justify-between gap-6">
+                <dl
+                  key={i}
+                  className="inline-flex items-center justify-between gap-6"
+                >
                   <dt className="text-muted-foreground">{d.title}</dt>
-                  <dd className="flex items-center gap-1 text-right">
-                    {d.value}
-                  </dd>
+                  <dd className="text-right">{d.value}</dd>
                 </dl>
               )),
               <Separator />,
             )}
-          </div>
-          <div className="flex flex-wrap gap-1">
-            {app.topics.map((topic) => (
-              <Badge key={topic} variant="secondary" asChild>
-                <Link to={routes.search({ topics: [topic] })}>{topic}</Link>
-              </Badge>
-            ))}
           </div>
         </CardContent>
       </Card>

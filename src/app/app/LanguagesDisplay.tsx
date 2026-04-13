@@ -1,10 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Share05Icon,
-  HelpCircleIcon,
-  ArrowDown01Icon,
-} from "@hugeicons/core-free-icons";
+import { HelpCircleIcon, ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { languageCodeToDisplay } from "@app/ui/lib/language";
@@ -31,23 +27,18 @@ function TranslationContribute({
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center gap-1">
+    <span className="inline-flex items-center gap-1">
       <ExternalLink
         href={app.languagesUrl}
         data-goatcounter-click="/app/translation-contribution"
         data-goatcounter-title="Goes to the translation contribution page of an app."
         data-goatcounter-referrer="https://osm-apps.org/"
+        icon
       >
         {" "}
         {t("app.helpTranslateTo", {
           language: userLanguage,
-        })}{" "}
-        <HugeiconsIcon
-          icon={Share05Icon}
-          className="inline-block"
-          strokeWidth={2}
-          size={16}
-        />
+        })}
       </ExternalLink>{" "}
       <Popover>
         <PopoverTrigger asChild>
@@ -68,7 +59,7 @@ function TranslationContribute({
           {t("app.helpTranslate.hint.text")}
         </PopoverContent>
       </Popover>
-    </div>
+    </span>
   );
 }
 
@@ -98,7 +89,10 @@ export function LanguageDisplay({ app }: { app: App }) {
           : appLanguages.join(", ")}
 
         {!!app.languagesUrl && (
-          <TranslationContribute app={app} userLanguage={userLanguages[0]} />
+          <>
+            {" "}
+            <TranslationContribute app={app} userLanguage={userLanguages[0]} />
+          </>
         )}
       </>
     );

@@ -41,6 +41,7 @@
   "app.install.macAppStore": "Mac App Store",
   "app.install.microsoftApp": "Microsoft Store",
   "app.install.obtainium": "Obtainium",
+  "app.keywords": "Keywords",
   "app.languages": "Languages",
   "app.lastRelease": "Last release",
   "app.learnMore": "Learn more at {{website}}",
