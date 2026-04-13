@@ -36,6 +36,8 @@ import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { some } from "lodash";
 import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Alert02Icon, LanguageSkillIcon } from "@hugeicons/core-free-icons";
 
 export function Compare({
   apps,
@@ -236,11 +238,18 @@ export function Compare({
                 {app.unmaintained ? (
                   <>
                     {" "}
-                    <span className="warning">
+                    <span className="text-orange-400">
                       <Trans
                         i18nKey={"app.unmaintained"}
                         components={{
-                          icon: <i className="fas fa-exclamation-triangle"></i>,
+                          icon: (
+                            <HugeiconsIcon
+                              icon={Alert02Icon}
+                              className="inline-block"
+                              strokeWidth={2}
+                              size={16}
+                            />
+                          ),
                         }}
                       />
                     </span>
@@ -288,7 +297,12 @@ export function Compare({
                     {app.languages.length > 0 ? (
                       <Badges values={app.languages} />
                     ) : (
-                      <i className="fas fa-language"></i>
+                      <HugeiconsIcon
+                        icon={LanguageSkillIcon}
+                        className="inline-block"
+                        strokeWidth={2}
+                        size={16}
+                      />
                     )}
                     <i className="fas fa-external-link-alt"></i>
                   </ExternalLink>

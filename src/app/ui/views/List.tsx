@@ -33,6 +33,8 @@ import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { some } from "lodash";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Alert02Icon,  TranslationIcon } from "@hugeicons/core-free-icons";
 
 export function List({
   app,
@@ -159,11 +161,18 @@ export function List({
             {app.unmaintained && (
               <>
                 {" "}
-                <span className="warning">
+                <span className="text-orange-400">
                   <Trans
                     i18nKey={"app.unmaintained"}
                     components={{
-                      icon: <i className="fas fa-exclamation-triangle"></i>,
+                      icon: (
+                        <HugeiconsIcon
+                          icon={Alert02Icon}
+                          className="inline-block"
+                          strokeWidth={2}
+                          size={16}
+                        />
+                      ),
                     }}
                   />
                 </span>
@@ -194,7 +203,12 @@ export function List({
             {app.languages.length > 0 ? (
               app.languages.join(", ")
             ) : (
-              <i className="fas fa-language"></i>
+              <HugeiconsIcon
+                icon={TranslationIcon}
+                className="inline-block"
+                strokeWidth={2}
+                size={16}
+              />
             )}
           </span>
         </ExternalLink>
