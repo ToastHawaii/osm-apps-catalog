@@ -317,7 +317,7 @@ export function Details({ app }: { app: App }) {
               metaData.map((d, i) => (
                 <dl key={i} className="flex items-center justify-between gap-6">
                   <dt className="text-muted-foreground">{d.title}</dt>
-                  <dd>{d.value}</dd>
+                  <dd className="text-right">{d.value}</dd>
                 </dl>
               )),
               <Separator />,
