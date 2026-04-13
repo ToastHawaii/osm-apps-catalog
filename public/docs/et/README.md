@@ -104,9 +104,9 @@ Vaata kataloogi omas keeles:
 
 Aita tõlkimisel:
 
-- from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- OSM-i rakenduste kataloogi lehel
+  [Weblate'is](https://hosted.weblate.org/projects/osm-apps-catalog) [![Tõlke
+  olek](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - [OpenStreetMapi Vikis](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumenteeritud rakenduste lehel
@@ -119,8 +119,8 @@ Veebirakenduse [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on
 kõigile vabalt kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on
 jätkuvalt avaldatud sama litsentsi alusel.
 
-[![GitHub
-Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Lähtekoodi hoidla
+GitHubis](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Andmekaitsepõhimõtted
 
