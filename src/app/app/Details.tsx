@@ -67,44 +67,6 @@ export function Details({ app }: { app: App }) {
   );
   const metaData: { title: ReactNode; value: ReactNode }[] = [];
 
-  if (app.platform.length > 0) {
-    metaData.push({
-      title: t("app.platforms"),
-      value: app.platform.join(", "),
-    });
-  }
-
-  if (app.lastRelease || app.unmaintained) {
-    metaData.push({
-      title: t("app.lastRelease"),
-      value: (
-        <>
-          {app.lastRelease || "????-??-??"}
-          {app.unmaintained && (
-            <>
-              {" "}
-              <span className="text-orange-400">
-                <Trans
-                  i18nKey="app.unmaintained"
-                  components={{
-                    icon: (
-                      <HugeiconsIcon
-                        icon={Alert02Icon}
-                        className="inline-block"
-                        strokeWidth={2}
-                        size={16}
-                      />
-                    ),
-                  }}
-                />
-              </span>
-            </>
-          )}
-        </>
-      ),
-    });
-  }
-
   if (app.languagesUrl) {
     metaData.push({
       title: (
@@ -151,22 +113,46 @@ export function Details({ app }: { app: App }) {
     });
   }
 
-  if (Object.values(app.community).some(Boolean)) {
+  if (app.price) {
     metaData.push({
-      title: t("app.community"),
+      title: t("app.price"),
+      value: app.price,
+    });
+  }
+
+  if (app.platform.length > 0) {
+    metaData.push({
+      title: t("app.platforms"),
+      value: app.platform.join(", "),
+    });
+  }
+
+  if (app.lastRelease || app.unmaintained) {
+    metaData.push({
+      title: t("app.lastRelease"),
       value: (
         <>
-          <ForumLink app={app} />
-          <ForumTagLink app={app} />
-          <MatrixLink app={app} />
-          <MastodonLink app={app} />
-          <LemmyLink app={app} />
-          <BlueskyLink app={app} />
-          <RedditLink app={app} />
-          <SlackLink app={app} />
-          <TelegramLink app={app} />
-          <GitHubDiscussionsLink app={app} />
-          <IssueTrackerLink app={app} />
+          {app.lastRelease || "????-??-??"}
+          {app.unmaintained && (
+            <>
+              {" "}
+              <span className="text-orange-400">
+                <Trans
+                  i18nKey="app.unmaintained"
+                  components={{
+                    icon: (
+                      <HugeiconsIcon
+                        icon={Alert02Icon}
+                        className="inline-block"
+                        strokeWidth={2}
+                        size={16}
+                      />
+                    ),
+                  }}
+                />
+              </span>
+            </>
+          )}
         </>
       ),
     });
@@ -176,13 +162,6 @@ export function Details({ app }: { app: App }) {
     metaData.push({
       title: t("app.author"),
       value: <span dangerouslySetInnerHTML={{ __html: app.author }} />,
-    });
-  }
-
-  if (app.price) {
-    metaData.push({
-      title: t("app.price"),
-      value: app.price,
     });
   }
 
@@ -237,6 +216,27 @@ export function Details({ app }: { app: App }) {
         >
           <i className="fas fa-code" />
         </ExternalLink>
+      ),
+    });
+  }
+
+  if (Object.values(app.community).some(Boolean)) {
+    metaData.push({
+      title: t("app.community"),
+      value: (
+        <>
+          <ForumLink app={app} />
+          <ForumTagLink app={app} />
+          <MatrixLink app={app} />
+          <MastodonLink app={app} />
+          <LemmyLink app={app} />
+          <BlueskyLink app={app} />
+          <RedditLink app={app} />
+          <SlackLink app={app} />
+          <TelegramLink app={app} />
+          <GitHubDiscussionsLink app={app} />
+          <IssueTrackerLink app={app} />
+        </>
       ),
     });
   }
