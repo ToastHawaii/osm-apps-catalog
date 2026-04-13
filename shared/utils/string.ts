@@ -1,9 +1,15 @@
-import { trimEnd, trimStart, upperFirst } from "lodash";
+import { toUpper, trimEnd, trimStart, upperFirst } from "lodash";
 import { newUrl } from "./url";
 import { plainText } from "@shared/utils/plainText";
 
 export function upperCase(values: string[] | undefined) {
-  return values?.map((s) => s.toUpperCase()) || [];
+  return values?.map(toUpper) || [];
+}
+
+export function findIgnoreCase(arr: string[], target: string[]) {
+  target = target.map(toUpper);
+
+  return arr.find((v) => target.includes(v.toUpperCase()));
 }
 
 export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {

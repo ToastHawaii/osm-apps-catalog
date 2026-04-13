@@ -22,11 +22,7 @@ import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { newUrl } from "@shared/utils/url";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Alert02Icon,
-  LanguageSkillIcon,
-  Share05Icon,
-} from "@hugeicons/core-free-icons";
+import { Alert02Icon, Share05Icon } from "@hugeicons/core-free-icons";
 
 import { some } from "lodash";
 import { AppleStoreLink } from "@app/ui/components/links/download/AppleStoreLink";
@@ -53,6 +49,7 @@ import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { Separator } from "@components/ui/separator";
 import { ReactJoin } from "@lib/utils/ReactJoin";
+import { LanguageDisplay } from "@app/app/LanguagesDisplay";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -67,42 +64,10 @@ export function Details({ app }: { app: App }) {
   );
   const metaData: { title: ReactNode; value: ReactNode }[] = [];
 
-  if (app.languagesUrl) {
-    metaData.push({
-      title: (
-        <ExternalLink
-          href={app.languagesUrl}
-          data-goatcounter-click="/app/translation-contribution"
-          data-goatcounter-title="Goes to the translation contribution page of an app."
-          data-goatcounter-referrer="https://osm-apps.org/"
-        >
-          {t("app.languages")}
-        </ExternalLink>
-      ),
-      value: (
-        <ExternalLink
-          href={app.languagesUrl}
-          data-goatcounter-click="/app/translation-contribution"
-          data-goatcounter-title="Goes to the translation contribution page of an app."
-          data-goatcounter-referrer="https://osm-apps.org/"
-        >
-          {app.languages.length > 0 ? (
-            app.languages.join(", ")
-          ) : (
-            <HugeiconsIcon
-              icon={LanguageSkillIcon}
-              className="inline-block"
-              strokeWidth={2}
-              size={16}
-            />
-          )}
-        </ExternalLink>
-      ),
-    });
-  } else if (app.languages.length > 0) {
+  if (app.languages.length > 0 || !!app.languagesUrl) {
     metaData.push({
       title: t("app.languages"),
-      value: app.languages.join(", "),
+      value: <LanguageDisplay app={app} />,
     });
   }
 
@@ -317,7 +282,9 @@ export function Details({ app }: { app: App }) {
               metaData.map((d, i) => (
                 <dl key={i} className="flex items-center justify-between gap-6">
                   <dt className="text-muted-foreground">{d.title}</dt>
-                  <dd className="text-right">{d.value}</dd>
+                  <dd className="flex items-center gap-1 text-right">
+                    {d.value}
+                  </dd>
                 </dl>
               )),
               <Separator />,
