@@ -1,36 +1,36 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { Badges } from "../components/Badges";
+import { Badges } from "../../ui/components/Badges";
 import { AppImage } from "@components/common/AppImage";
-import { toWikiValue } from "../lib/toWikiTable";
-import { languageCodeToDisplay } from "../lib/language";
-import { getMatrix } from "../lib/getMatrix";
+import { toWikiValue } from "../../ui/lib/toWikiTable";
+import { languageCodeToDisplay } from "../../ui/lib/language";
+import { getMatrix } from "../../ui/lib/getMatrix";
 import { App } from "@shared/data/App";
-import { Score } from "../components/Score";
-import { Group } from "../components/Group";
-import { SourceDisplay } from "../components/SourceDisplay";
-import { State } from "../lib/State";
-import { AsinLink } from "../components/links/download/AsinLink";
-import { FDroidLink } from "../components/links/download/FDroidLink";
-import { ObtainiumLink } from "../components/links/download/ObtainiumLink";
-import { GooglePlayLink } from "../components/links/download/GooglePlayLink";
-import { HuaweiAppGalleryLink } from "../components/links/download/HuaweiAppGalleryLink";
-import { AppleStoreLink } from "../components/links/download/AppleStoreLink";
-import { MacAppStoreLink } from "../components/links/download/MacAppStoreLink";
-import { MicrosoftAppLink } from "../components/links/download/MicrosoftAppLink";
-import { WebsiteLink } from "../components/links/download/WebsiteLink";
-import { ForumLink } from "../components/links/community/ForumLink";
-import { ForumTagLink } from "../components/links/community/ForumTagLink";
-import { MatrixLink } from "../components/links/community/MatrixLink";
-import { MastodonLink } from "../components/links/community/MastodonLink";
-import { LemmyLink } from "../components/links/community/LemmyLink";
-import { BlueskyLink } from "../components/links/community/BlueskyLink";
-import { RedditLink } from "../components/links/community/RedditLink";
-import { SlackLink } from "../components/links/community/SlackLink";
-import { TelegramLink } from "../components/links/community/TelegramLink";
-import { GitHubDiscussionsLink } from "../components/links/community/GitHubDiscussionsLink";
-import { IssueTrackerLink } from "../components/links/community/IssueTrackerLink";
+import { Score } from "../../ui/components/Score";
+import { Group } from "../../ui/components/Group";
+import { SourceDisplay } from "../../ui/components/SourceDisplay";
+import { State } from "../../ui/lib/State";
+import { AsinLink } from "../../ui/components/links/download/AsinLink";
+import { FDroidLink } from "../../ui/components/links/download/FDroidLink";
+import { ObtainiumLink } from "../../ui/components/links/download/ObtainiumLink";
+import { GooglePlayLink } from "../../ui/components/links/download/GooglePlayLink";
+import { HuaweiAppGalleryLink } from "../../ui/components/links/download/HuaweiAppGalleryLink";
+import { AppleStoreLink } from "../../ui/components/links/download/AppleStoreLink";
+import { MacAppStoreLink } from "../../ui/components/links/download/MacAppStoreLink";
+import { MicrosoftAppLink } from "../../ui/components/links/download/MicrosoftAppLink";
+import { WebsiteLink } from "../../ui/components/links/download/WebsiteLink";
+import { ForumLink } from "../../ui/components/links/community/ForumLink";
+import { ForumTagLink } from "../../ui/components/links/community/ForumTagLink";
+import { MatrixLink } from "../../ui/components/links/community/MatrixLink";
+import { MastodonLink } from "../../ui/components/links/community/MastodonLink";
+import { LemmyLink } from "../../ui/components/links/community/LemmyLink";
+import { BlueskyLink } from "../../ui/components/links/community/BlueskyLink";
+import { RedditLink } from "../../ui/components/links/community/RedditLink";
+import { SlackLink } from "../../ui/components/links/community/SlackLink";
+import { TelegramLink } from "../../ui/components/links/community/TelegramLink";
+import { GitHubDiscussionsLink } from "../../ui/components/links/community/GitHubDiscussionsLink";
+import { IssueTrackerLink } from "../../ui/components/links/community/IssueTrackerLink";
 import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -288,7 +288,6 @@ export function Compare({
               <>
                 {app.languagesUrl ? (
                   <ExternalLink
-                    className="language-url"
                     href={app.languagesUrl}
                     data-goatcounter-click="/app/translation-contribution"
                     data-goatcounter-title="Goes to the translation contribution page of an app."

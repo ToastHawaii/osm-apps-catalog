@@ -12,7 +12,7 @@ import { ContributeSelect, mapping } from "./components/ContributeSelect";
 import { Filters } from "../ui/components/filters";
 import { useSearchState } from "../../hooks/useSearchState";
 import { useFilter } from "../../lib/filter";
-import { Compare } from "../ui/views/Compare";
+import { Compare } from "./components/Compare";
 import { Trans, useTranslation } from "react-i18next";
 import { NotFoundApps } from "../ui/components/NotFoundApps";
 import { LazyInitMore } from "../ui/components/LazyInitMore";

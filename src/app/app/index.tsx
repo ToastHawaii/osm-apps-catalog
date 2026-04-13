@@ -9,13 +9,9 @@ import { plainText } from "@shared/utils/plainText";
 import { useRoute } from "@hooks/useRoute";
 import { useAppsData } from "@hooks/useAppsData";
 
-import { Compare } from "../ui/views/Compare";
 import { ViewSelect } from "../ui/components/ViewSelect";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Details } from "@app/app/Details";
-
-import "../../index.css";
-import "../../index.scss";
 
 function PageMeta({ app }: { app: App }) {
   return (
@@ -74,37 +70,18 @@ function PageHeader() {
           </button>
         </>
       </p>
-
-      <ViewSelect
-        value={state.view}
-        onChange={(newValues) => setState("view", newValues)}
-      />
     </div>
   );
 }
 
 export function AppPage({ app }: { app: App }) {
-  const { i18n } = useTranslation();
-  const [state, , , isInitState] = useSearchState();
-
   return (
     <>
       <PageMeta app={app} />
       <PageHeader />
       <div className="text-center">
         <main>
-          {state.view !== "compare" ? (
-            <Details app={app} />
-          ) : (
-            <div id="compare" className="table">
-              <Compare
-                apps={[app]}
-                lang={i18n.resolvedLanguage || "en"}
-                state={state}
-                isInitState={isInitState}
-              />
-            </div>
-          )}
+          <Details app={app} />
         </main>
       </div>
     </>
