@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
 import { useRoute } from "@hooks/useRoute";
@@ -22,9 +22,39 @@ import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { newUrl } from "@shared/utils/url";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Share05Icon } from "@hugeicons/core-free-icons";
-import { DrawerDialog } from "@components/common/DrawerDialog";
-import { Button } from "@components/ui/button";
+import {
+  Alert02Icon,
+  LanguageSkillIcon,
+  Share05Icon,
+} from "@hugeicons/core-free-icons";
+
+
+
+import { some } from "lodash";
+import { AppleStoreLink } from "@app/ui/components/links/download/AppleStoreLink";
+import { AsinLink } from "@app/ui/components/links/download/AsinLink";
+import { FDroidLink } from "@app/ui/components/links/download/FDroidLink";
+import { GooglePlayLink } from "@app/ui/components/links/download/GooglePlayLink";
+import { HuaweiAppGalleryLink } from "@app/ui/components/links/download/HuaweiAppGalleryLink";
+import { MacAppStoreLink } from "@app/ui/components/links/download/MacAppStoreLink";
+import { MicrosoftAppLink } from "@app/ui/components/links/download/MicrosoftAppLink";
+import { ObtainiumLink } from "@app/ui/components/links/download/ObtainiumLink";
+import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
+import { WebsiteLink } from "@app/ui/components/links/download/WebsiteLink";
+import { BlueskyLink } from "@app/ui/components/links/community/BlueskyLink";
+import { ForumLink } from "@app/ui/components/links/community/ForumLink";
+import { ForumTagLink } from "@app/ui/components/links/community/ForumTagLink";
+import { GitHubDiscussionsLink } from "@app/ui/components/links/community/GitHubDiscussionsLink";
+import { IssueTrackerLink } from "@app/ui/components/links/community/IssueTrackerLink";
+import { LemmyLink } from "@app/ui/components/links/community/LemmyLink";
+import { MastodonLink } from "@app/ui/components/links/community/MastodonLink";
+import { MatrixLink } from "@app/ui/components/links/community/MatrixLink";
+import { RedditLink } from "@app/ui/components/links/community/RedditLink";
+import { SlackLink } from "@app/ui/components/links/community/SlackLink";
+import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
+import { SourceDisplay } from "@app/ui/components/SourceDisplay";
+import { Separator } from "@components/ui/separator";
+import { ReactJoin } from "@lib/utils/ReactJoin";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -37,6 +67,186 @@ export function Details({ app }: { app: App }) {
     app.tags,
     !isTechView ? DefaultTagsReorganization : TechDefaultTagsReorganization,
   );
+  const metaData: { title: ReactNode; value: ReactNode }[] = [];
+
+  if (app.platform.length > 0) {
+    metaData.push({
+      title: t("app.platforms"),
+      value: app.platform.join(", "),
+    });
+  }
+
+  if (app.lastRelease || app.unmaintained) {
+    metaData.push({
+      title: t("app.lastRelease"),
+      value: (
+        <>
+          {app.lastRelease || "????-??-??"}
+          {app.unmaintained && (
+            <>
+              {" "}
+              <span className="text-orange-400">
+                <Trans
+                  i18nKey="app.unmaintained"
+                  components={{
+                    icon: (
+                      <HugeiconsIcon
+                        icon={Alert02Icon}
+                        className="inline-block"
+                        strokeWidth={2}
+                        size={16}
+                      />
+                    ),
+                  }}
+                />
+              </span>
+            </>
+          )}
+        </>
+      ),
+    });
+  }
+
+  if (app.languagesUrl) {
+    metaData.push({
+      title: (
+        <ExternalLink
+          href={app.languagesUrl}
+          data-goatcounter-click="/app/translation-contribution"
+          data-goatcounter-title="Goes to the translation contribution page of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
+          {t("app.languages")}
+        </ExternalLink>
+      ),
+      value: (
+        <ExternalLink
+          href={app.languagesUrl}
+          data-goatcounter-click="/app/translation-contribution"
+          data-goatcounter-title="Goes to the translation contribution page of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
+          {app.languages.length > 0 ? (
+            app.languages.join(", ")
+          ) : (
+            <HugeiconsIcon
+              icon={LanguageSkillIcon}
+              className="inline-block"
+              strokeWidth={2}
+              size={16}
+            />
+          )}
+        </ExternalLink>
+      ),
+    });
+  } else if (app.languages.length > 0) {
+    metaData.push({
+      title: t("app.languages"),
+      value: app.languages.join(", "),
+    });
+  }
+
+  if (app.coverage.length > 0) {
+    metaData.push({
+      title: t("app.coverage"),
+      value: app.coverage[app.coverage.length - 1],
+    });
+  }
+
+  if (Object.values(app.community).some(Boolean)) {
+    metaData.push({
+      title: t("app.community"),
+      value: (
+        <>
+          <ForumLink app={app} />
+          <ForumTagLink app={app} />
+          <MatrixLink app={app} />
+          <MastodonLink app={app} />
+          <LemmyLink app={app} />
+          <BlueskyLink app={app} />
+          <RedditLink app={app} />
+          <SlackLink app={app} />
+          <TelegramLink app={app} />
+          <GitHubDiscussionsLink app={app} />
+          <IssueTrackerLink app={app} />
+        </>
+      ),
+    });
+  }
+
+  if (app.author) {
+    metaData.push({
+      title: t("app.author"),
+      value: <span dangerouslySetInnerHTML={{ __html: app.author }} />,
+    });
+  }
+
+  if (app.price) {
+    metaData.push({
+      title: t("app.price"),
+      value: app.price,
+    });
+  }
+
+  if (app.license && app.license?.length > 0) {
+    metaData.push({
+      title: t("app.license"),
+      value: (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: app.license.join(", "),
+          }}
+        />
+      ),
+    });
+  }
+
+  if (
+    isTechView &&
+    app.programmingLanguages &&
+    app.programmingLanguages?.length > 0
+  ) {
+    metaData.push({
+      title: t("app.programmingLanguages"),
+      value: (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: app.programmingLanguages.join(", "),
+          }}
+        />
+      ),
+    });
+  }
+
+  if (app.sourceCode) {
+    metaData.push({
+      title: (
+        <ExternalLink
+          href={app.sourceCode}
+          data-goatcounter-click="/app/source-code"
+          data-goatcounter-title="Goes to source code of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
+          {t("app.sourceCode")}
+        </ExternalLink>
+      ),
+      value: (
+        <ExternalLink
+          href={app.sourceCode}
+          data-goatcounter-click="/app/source-code"
+          data-goatcounter-title="Goes to source code of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
+          <i className="fas fa-code" />
+        </ExternalLink>
+      ),
+    });
+  }
+
+  metaData.push({
+    title: t("app.source"),
+    value: <SourceDisplay app={app} />,
+  });
 
   return (
     <div className="relative mx-auto max-w-3xl p-2 text-left">
@@ -46,6 +256,21 @@ export function Details({ app }: { app: App }) {
             <AppLogo app={app} />
           </div>
           <h1 className="text-2xl font-semibold">{app.name}</h1>
+          <WebsiteLink app={app} />
+          <>
+            <FDroidLink app={app} />
+            <ObtainiumLink app={app} />
+            <GooglePlayLink app={app} />
+            <AsinLink app={app} />
+            <HuaweiAppGalleryLink app={app} />
+          </>
+          {<AppleStoreLink app={app} />}
+
+          {<MacAppStoreLink app={app} />}
+          {<MicrosoftAppLink app={app} />}
+          {!app.website && !some(app.install) && !!app.sourceCode && (
+            <SourceCodeLink app={app} />
+          )}
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="flex flex-wrap gap-2">
@@ -79,8 +304,8 @@ export function Details({ app }: { app: App }) {
                     website: newUrl(app.documentation).hostname,
                   })}{" "}
                   <HugeiconsIcon
-                    className="inline-block"
                     icon={Share05Icon}
+                    className="inline-block"
                     strokeWidth={2}
                     size={16}
                   />
@@ -88,6 +313,25 @@ export function Details({ app }: { app: App }) {
               </>
             )}
           </p>
+          <h2 className="text-xl font-semibold">{t("list.moreInfos")}</h2>
+          <div className="flex w-full flex-col gap-2 text-sm">
+            {ReactJoin(
+              metaData.map((d, i) => (
+                <dl key={i} className="flex items-center justify-between gap-6">
+                  <dt className="text-muted-foreground">{d.title}</dt>
+                  <dd>{d.value}</dd>
+                </dl>
+              )),
+              <Separator />,
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {app.topics.map((topic) => (
+              <Badge key={topic} variant="secondary" asChild>
+                <Link to={routes.search({ topics: [topic] })}>{topic}</Link>
+              </Badge>
+            ))}
+          </div>
         </CardContent>
       </Card>
       <Score app={app} position="right" />
