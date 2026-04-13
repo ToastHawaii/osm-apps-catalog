@@ -158,7 +158,8 @@
     "label": "Teekonna koostamine käsitsi"
   },
   "calculateRoute": {
-    "label": "Teekonna koostamine"
+    "label": "Teekonna koostamine",
+    "description": "[Teekond] Kas sa võid teekonda koosta ruutingu abil?"
   },
   "withoutGPS": {
     "label": "Toimib ilma GPS-ita",
@@ -167,5 +168,104 @@
   "predefinedRoute": {
     "label": "Tee juhatamine määratud marsruudil",
     "description": "[Tee juhatamine] Kas ta oskab liikuda mööda teisi GPS-radu?"
+  },
+  "findLocation": {
+    "label": "Asukoha leidmine",
+    "description": "[Tee juhatamine] Kas saab otsida tänavat või asukohta?"
+  },
+  "findNearbyPOI": {
+    "label": "Huvipunktid naabruses",
+    "description": "[Tee juhatamine] Kas saab leida ja kuvada huvipunkte?"
+  },
+  "createRouteViaWaypoints": {
+    "label": "Teekond teekonnapunktide kaudu",
+    "description": "[Teekond] Kas sa võid kavandada teekonda soovitud teekonnapunktide kaudu"
+  },
+  "profiles": {
+    "label": "Teekonnaprofiilid",
+    "description": "[Teekond] Mis profiile saad kasutada teekonda kavandamisel?"
+  },
+  "turnRestrictions": {
+    "label": "Pööramispiirangud",
+    "description": "[Teekond] Kas ruutingimootor oskab kasutada pööramispiiranguid?"
+  },
+  "calculateRouteOffline": {
+    "label": "Teekonna koostamine võrguühenduseta",
+    "description": "[Teekond] Kas teekonna koostamiseks on vaja internetiühendust?"
+  },
+  "turnLanes": {
+    "label": "Sõidurea järgimine",
+    "description": "[Tee juhatamine] Kas rakendus toetab sõidurea järgimist?"
+  },
+  "tracking": {
+    "label": "Raja salvestamine",
+    "description": "[GPS-rajad] Kas rakendus oskab GPS-i andmed rajana salvestada?"
+  },
+  "customInterval": {
+    "label": "Kohendatav logimisvälp",
+    "description": "[GPS-rajad] Kas sa saad logimisintervalli käsitsi kohendada?"
+  },
+  "trackFormats": {
+    "label": "Rajavormingud",
+    "description": "[GPS-rajad] Mis vormingus saad GPS-rada salvestada?"
+  },
+  "addPOI": {
+    "label": "Huvipunkti lisamine",
+    "description": "[Muutmisvaade] Kas sa saad uut kaardipunkti/sõlme lisada?"
+  },
+  "editPOI": {
+    "label": "Huvipunkti muutmine/kustutamine",
+    "description": "[Muutmisvaade] Kas sa saad kaardipunkti/sõlme muuta või kustutada?"
+  },
+  "addWay": {
+    "label": "Tee/joone lisamine",
+    "description": "[Muutmisvaade] Kas sa saad uut teed või joont lisada?"
+  },
+  "editGeom": {
+    "label": "Geomeetria muutmine",
+    "description": "[Muutmisvaade] Kas sa saad punkte/sõlmi ja teid/jooni muuta?"
+  },
+  "viewNotes": {
+    "label": "Märkmete vaatamine",
+    "description": "[Muutmisvaade] Kas sa saad märkmeid vaadata?"
+  },
+  "createNotes": {
+    "description": "[Muutmisvaade] Kas sa saad märkmeid lisada?",
+    "label": "Märkmete lisamine"
+  },
+  "editNotes": {
+    "label": "Märkmete muutmine",
+    "description": "[Muutmisvaade] Kas sa saad märkmeid kommentaarida ja sulgeda?"
+  },
+  "editSource": {
+    "label": "Töö vallasrežiimis",
+    "description": "[Muutmisvaade] Kas sa saad kaarti vallasrežiimis (internetiühenduseta) muuta?"
+  },
+  "screenReaderLang": {
+    "label": "Ekraanilugejate keeled",
+    "description": "[Hõlbustus] Ekraanilugeja(te) toetatud keeled"
+  },
+  "screenReader": {
+    "description": "[Hõlbustus] Toetatud ekraanilugejad",
+    "label": "Ekraanilugejate"
+  },
+  "dangerWarnings": {
+    "description": "[Hõlbustus]"
+  },
+  "publicTransportMode": {
+    "label": "Ühistransport",
+    "description": "[Hõlbustus] Kas teekonna koostamine ühistranspordiga on toetatud?"
+  },
+  "brailleUI": {
+    "label": "Braille'i liides",
+    "description": "[Hõlbustus] Kas liides on kohendatud Braille'i jaoks?"
+  },
+  "textOnlyUI": {
+    "label": "Täielik mittegraafiline tekstiväljund",
+    "description": "[Hõlbustus] Kas olemas on ühilduv liides tekstist Braille'i kirja tegemise jaoks?"
+  },
+  "accessibility": {
+    "label": "Hõlbustuse tugi",
+    "description": "[Hõlbustus] Kas rakendus teeb lihtsamaks kaardikasutuse puuetega inimeste jaoks?"
   }
 }
