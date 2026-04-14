@@ -118,7 +118,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
 and modification if you publish under the same license.
 
 [![GitHub
-Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 
