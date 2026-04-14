@@ -100,8 +100,8 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 協助翻譯：
 
-- from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+- 到 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的 OSM App
+  目錄 [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的
