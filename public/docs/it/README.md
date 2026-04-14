@@ -103,7 +103,7 @@ Mostra il catalogo nella tua lingua:
 
 Aiuta a tradurre:
 
-- from the OSM Apps Catalog on
+- da OSM Apps Catalog su
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
