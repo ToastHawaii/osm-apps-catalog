@@ -103,7 +103,7 @@ Katalógus megjelenítése a nyelveden:
 
 Segítség a fordításban:
 
-- from the OSM Apps Catalog on
+- az OSM Apps Catalog a
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
