@@ -103,7 +103,7 @@ Zobrazte katalog ve svém jazyce:
 
 Pomozte s překladem:
 
-- from the OSM Apps Catalog on
+- z katalogu aplikací OSM na
   [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
