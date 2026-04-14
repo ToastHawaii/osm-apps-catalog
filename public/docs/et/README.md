@@ -119,8 +119,8 @@ Veebirakenduse [lähtekood](https://github.com/ToastHawaii/osm-apps-catalog) on
 kõigile vabalt kasutamiseks, kopeerimiseks ja muutmiseks eeldusel, et kõik on
 jätkuvalt avaldatud sama litsentsi alusel.
 
-[![GitHub
-Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Lähtekoodi hoidla
+GitHubis](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Andmekaitsepõhimõtted
 
