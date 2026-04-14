@@ -105,10 +105,9 @@ Zeige den Katalog in deiner Sprache an:
 Hilf bei der Übersetzung:
 
 - des OSM Apps Katalogs auf
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a>
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stand der
+  Übersetzung](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - von den Apps dokumentiert im [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
@@ -119,6 +118,9 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
 lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
 für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
 veröffentlichen wird.
+
+[![GitHub
+Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Datenschutzerklärung
 

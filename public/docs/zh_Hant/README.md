@@ -100,10 +100,10 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 協助翻譯：
 
-- 到 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a> 上的 OSM App 目錄
+- 到 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的 OSM App
+  目錄 [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的
   app 說明文件
 
@@ -112,6 +112,9 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 這 app 的授權條款為 [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code](https://github.com/ToastHawaii/osm-apps-catalog)
 能夠自由使用，複製與變動則以相同授權條款釋出。
+
+[![GitHub
+Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## 隱私政策
 
