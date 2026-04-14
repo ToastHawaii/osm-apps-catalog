@@ -117,8 +117,8 @@ GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
 [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
 χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
-[![GitHub
-Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Αποθετήριο
+GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Πολιτική Απορρήτου
 
