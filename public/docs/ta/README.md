@@ -103,8 +103,8 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 மொழிபெயர்ப்புக்கு உதவுங்கள்:
 
-- from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+- [வெப்லேட்](https://hosted.weblate.org/projects/osm-apps-catalog) இல் உள்ள
+  ஓஎச்எம் பயன்பாடுகள் பட்டியலிலிருந்து [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - [OpenStreetMap wiki] (https://wiki.openstreetmap.org/wiki/Wiki_Translation)
