@@ -12,7 +12,7 @@ export async function getJson(
       "https://corsproxy.io/?" +
         encodeURIComponent(`${url}?${utilQsString(params)}`) +
         // change to avoid caching during testing
-        "%262026-02-21",
+        "%262026-04-15",
     );
 
     return await response.json();
