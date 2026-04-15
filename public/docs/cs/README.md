@@ -6,11 +6,12 @@ Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetM
 Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre
 přínosu pro komunitu](/docs/score).
 
-The metadata for the apps is collected from [OpenStreetMap
+Metadata pro aplikace jsou shromažďována z [OpenStreetMap
 Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
 [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+[GitHub](https://en.wikipedia.org/wiki/GitHub) a [seznamu projektu
+Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) a následně
+zkombinována.
 
 [> Přejít do katalogu](https://osm-apps.org)
 
@@ -21,7 +22,7 @@ způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 Zobrazte katalog ve svém jazyce:
 
-**Choose language**
+**Vyberte jazyk**
 <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
@@ -104,8 +105,8 @@ Zobrazte katalog ve svém jazyce:
 Pomozte s překladem:
 
 - z katalogu aplikací OSM na
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stav
+  překladu](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - z aplikací zdokumentovaných v [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
@@ -117,34 +118,35 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
 [Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití,
 kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
-[![GitHub
-Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Repozitář
+GitHubu](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
-## Privacy Policy
+## Zásady ochrany osobních údajů
 
-The OSM Apps Catalog does not store personal user data.
+Katalog aplikací OSM neukládá osobní údaje uživatelů.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Pro anonymní statistiky užívání projekt využívá
+[GoatCounter](https://www.goatcounter.com/), analytickou službu šetrnou k
+ochraně soukromí. Nejsou shromažďovány žádné osobní údaje. ([Zkontrolujte
+shromážděná data o
+užívání](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Některé informace poskytované prohlížečem uživatele (například jazyk nebo
+platforma) mohou být použity lokálně ke zlepšení uživatelského prostředí. Tato
+data jsou zpracovávána v prohlížeči a nejsou ukládána ani přenášena na externí
+servery (s výjimkou anonymizované analýzy, jak je popsáno výše).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
+Webové stránky jsou hostovány na Github Pages. [Dokumentace GitHubu o GitHub
 Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+uvádí:
 
-> ### Data collection
+> ### Sběr dat
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Při návštěvě webu GitHub Pages se z bezpečnostních důvodů zaznamená a uloží IP
+> adresa návštěvníka, bez ohledu na to, zda se návštěvník přihlásil do GitHubu
+> či nikoli. Další informace o bezpečnostních postupech GitHubu naleznete v
+> dokumentu [Prohlášení o ochraně osobních údajů
+> GitHubu](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Odmítnutí odpovědnosti
 
@@ -154,11 +156,12 @@ Foundation] (https://osmfoundation.org/) ani s ní není spojen.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a local group](https://usergroups.openstreetmap.de/),
-  [meet](https://osmcal.org/) & [chat](https://community.osm.be/)
+- Staňte se součástí [komunity
+  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Naučte se
+  etiketu](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Připojte se k místní skupině](https://usergroups.openstreetmap.de/),
+  [seznamte se](https://osmcal.org/) a [popovídejte
+  si](https://community.osm.be/)
 - [Přispějte do
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

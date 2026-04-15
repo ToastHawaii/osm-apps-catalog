@@ -104,8 +104,8 @@ Katalógus megjelenítése a nyelveden:
 Segítség a fordításban:
 
 - az OSM Apps Catalog a
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+  [Weblate-en](https://hosted.weblate.org/projects/osm-apps-catalog) [![Eddig
+  lefordítva](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
   dokumentált alkalmazások
@@ -119,7 +119,7 @@ felhasználható, másolható és módosítható, ha ugyanezen licenc alatt tesz
 közzé.
 
 [![GitHub
-Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+tárhely](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Adatvédelmi tájékoztató
 
