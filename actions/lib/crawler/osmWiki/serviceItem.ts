@@ -21,6 +21,11 @@ import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 
 export function transform(source: Record<string, string>) {
+  if (source["name"].includes("Parkulator")) {
+    console.info(source["material"]);
+    console.info(equalsIgnoreCase(source["material"], "{{gray cell|{{?}}}}"));
+    console.info(startsWithIgnoreCase(source["material"], "{{yes"));
+  }
   const obj: App = {
     name: plainText(
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
@@ -41,7 +46,7 @@ export function transform(source: Record<string, string>) {
     sourceCode: toUrl(extractWebsite(source["material"])),
     libre:
       source["material"] &&
-      !equalsIgnoreCase(source["material"], "{{gray cell|{{?}}}}")
+      !startsWithIgnoreCase(source["material"], "{{gray cell")
         ? startsWithIgnoreCase(source["material"], "{{yes")
         : undefined,
     languages: (source["lang"] || "")
