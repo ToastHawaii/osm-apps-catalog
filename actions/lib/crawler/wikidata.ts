@@ -7,7 +7,7 @@ import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 import { platformFilter } from "@actions/lib/platformFilter";
-import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 
 function extractGenre(result: any) {
   const genre = [];

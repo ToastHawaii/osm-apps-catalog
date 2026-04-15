@@ -24,7 +24,7 @@ import { toWikimediaUrl } from "@actions/lib/image";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 import { platformFilter } from "@actions/lib/platformFilter";
-import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 
 export function transform(
   source: Record<string, string> & {

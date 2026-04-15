@@ -3,7 +3,7 @@ import { newUrl } from "@shared/utils/url";
 import { equalsIgnoreCase } from "@shared/utils/string";
 import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
-import { getProgrammingLanguageDisplay } from "@actions/lib/getProgramingLanguageDisplay";
+import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 
 const ignoredTopics = [
