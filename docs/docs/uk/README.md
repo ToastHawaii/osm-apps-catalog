@@ -104,10 +104,9 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 Допоможіть з перекладом:
 
 - з каталогу програм OSM на
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
-  <a href="https://hosted.weblate.org/engage/osm-apps-catalog/" target="_blank" rel="noreferrer">
-  <img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" />
-  </a>
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - з програм, описаних у [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
@@ -118,6 +117,9 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
 [Код](https://github.com/ToastHawaii/osm-apps-catalog) можна використовувати,
 копіювати та модифікувати безкоштовно, якщо ви публікуєте його за тією ж
 ліцензією.
+
+[![GitHub
+Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 

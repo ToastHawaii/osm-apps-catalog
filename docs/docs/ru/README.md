@@ -104,7 +104,9 @@ Display the catalog in your language:
 Help with the translation:
 
 - from the OSM Apps Catalog on
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog)
+  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
+  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+
 - from the apps documented in [OpenStreetMap
   Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
@@ -114,6 +116,9 @@ The app is licensed under the [GNU Affero General Public License
 v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). The
 [code](https://github.com/ToastHawaii/osm-apps-catalog) is free for use, copying
 and modification if you publish under the same license.
+
+[![GitHub
+Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 
