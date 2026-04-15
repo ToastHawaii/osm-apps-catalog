@@ -103334,6 +103334,11 @@ function hasValue(value = "") {
 
 
 function serviceItem_transform(source) {
+    if (source["name"].includes("Parkulator")) {
+        console.info(source["material"]);
+        console.info(equalsIgnoreCase(source["material"], "{{gray cell|{{?}}}}"));
+        console.info(startsWithIgnoreCase(source["material"], "{{yes"));
+    }
     const obj = {
         name: plainText_plainText(extractNameWebsiteWiki(source["name"], source.sourceWiki).name),
         description: appendFullStop(processWikiText(source["descr"] || "")),
@@ -103351,7 +103356,7 @@ function serviceItem_transform(source) {
         ],
         sourceCode: toUrl(extractWebsite(source["material"])),
         libre: source["material"] &&
-            !equalsIgnoreCase(source["material"], "{{gray cell|{{?}}}}")
+            !startsWithIgnoreCase(source["material"], "{{gray cell")
             ? startsWithIgnoreCase(source["material"], "{{yes")
             : undefined,
         languages: (source["lang"] || "")
