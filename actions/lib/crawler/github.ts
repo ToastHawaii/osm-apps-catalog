@@ -130,10 +130,8 @@ export function transformGitHubResult(eld: any, result: any) {
     author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
     libre: isFreeAndOpenSource(result.licenseInfo?.spdxId),
     license:
-      result.licenseInfo?.spdxId !== "NOASSERTION"
-        ? result.licenseInfo?.spdxId
-          ? [result.licenseInfo.spdxId]
-          : []
+      result.licenseInfo?.spdxId !== "NOASSERTION" && result.licenseInfo?.spdxId
+        ? [result.licenseInfo.spdxId]
         : [],
     sourceCode: result.url || "",
     programmingLanguages: chain(result.languages.edges)
@@ -316,7 +314,7 @@ async function search(
     }
     `;
   console.info(
-    `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery.replace(/\s+/g, " ").replaceAll("\\\"", "\"") })}`,
+    `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery.replace(/\s+/g, " ").replaceAll('\\"', '"') })}`,
   );
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",

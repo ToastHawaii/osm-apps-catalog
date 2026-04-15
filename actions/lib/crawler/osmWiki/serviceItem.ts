@@ -6,6 +6,7 @@ import {
   startsWithIgnoreCase,
   splitByCommaButNotInsideBraceRegex,
   splitBySemicolonButNotInsideBraceRegex,
+  equalsIgnoreCase,
 } from "@shared/utils/string";
 import {
   processWikiText,
@@ -38,7 +39,11 @@ export function transform(source: Record<string, string>) {
       },
     ],
     sourceCode: toUrl(extractWebsite(source["material"])),
-    libre: startsWithIgnoreCase(source["material"], "{{yes"),
+    libre:
+      source["material"] &&
+      !equalsIgnoreCase(source["material"], "{{gray cell|{{?}}}}")
+        ? startsWithIgnoreCase(source["material"], "{{yes")
+        : undefined,
     languages: (source["lang"] || "")
       .split(splitByCommaButNotInsideBraceRegex)
       .map(extractLanguageCodeFromTemplate)

@@ -73,10 +73,13 @@ export function transform(
         .map(trim)
         .filter((v) => v),
     ]),
-    libre: isFreeAndOpenSource([
-      source["tiles_license"],
-      source["style_license"],
-    ]),
+    libre:
+      source["tiles_license"] || source["style_license"]
+        ? isFreeAndOpenSource([
+            source["tiles_license"],
+            source["style_license"],
+          ])
+        : undefined,
     community: {
       forum: source.communicationChannels["forum"],
       forumTag: source.communicationChannels["forum tag"],
