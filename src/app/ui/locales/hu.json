@@ -201,7 +201,7 @@
   "score.criteria.translationContributions": "közre lehet működni a fordításban",
   "score.criteria.worldwideData": "az alkalmazás az egész világ térképadataira kiterjed",
   "score.result": "- {{description}} ({{points}} pont)",
-  "score.results": "Közösségi hozzájárulási eredmény\nÖsszesen: {{total}}/10 pont\n\nMagasabb pontszámhoz szükséges intézkedések:\n{{notFulfilled}}\n\nTeljesült:\n{{fulfilled}}",
+  "score.results": "Közösségi hozzájárulási eredmény\nÖsszesen: {{total}}/10 pont\n\nMagasabb pontszámhoz szükséges intézkedések:\n{{notFulfilled}}\n\nHibát vagy hiányt találtál? Segíthetsz a dokumentáció javításában. Lépj az alkalmazás részletes oldalára, és kattints az adott forrásra.\n\nTeljesült:\n{{fulfilled}}",
   "select.search.noResults": "Nincs találat",
   "select.search.placeholder": "Keresés",
   "share.wiki": "{{group}} táblázat kimásolva a vágólapra, a wiki.openstreetmap.org számára formázva.",
