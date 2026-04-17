@@ -1,6 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { HelpCircleIcon, ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import {
+  ArrowDown01Icon,
+  InformationCircleIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { languageCodeToDisplay } from "@app/ui/lib/language";
@@ -50,7 +53,7 @@ function TranslationContribute({
           >
             <HugeiconsIcon
               className="size-4"
-              icon={HelpCircleIcon}
+              icon={InformationCircleIcon}
               aria-label={t("app.helpTranslate.hint.label")}
             />
           </Button>
