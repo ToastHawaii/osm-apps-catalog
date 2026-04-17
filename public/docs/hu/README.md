@@ -119,7 +119,7 @@ felhasználható, másolható és módosítható, ha ugyanezen licenc alatt tesz
 közzé.
 
 [![GitHub
-tárhely](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/ToastHawaii/osm-apps-catalog)
+tárhely](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Adatvédelmi tájékoztató
 
