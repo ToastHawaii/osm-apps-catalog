@@ -9,7 +9,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { languageCodeToDisplay } from "@app/ui/lib/language";
 import { useUserContext } from "@hooks/useUserContext";
 import { App } from "@shared/data/App";
-import { findIgnoreCase } from "@shared/utils/string";
+import { equalsIgnoreCase, findIgnoreCase } from "@shared/utils/string";
 
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Button } from "@components/ui/button";
@@ -39,9 +39,11 @@ function TranslationContribute({
         icon
       >
         {" "}
-        {t("app.helpTranslateTo", {
-          language: userLanguage,
-        })}
+        {!userLanguage && equalsIgnoreCase(userLanguage, "en")
+          ? t("app.helpTranslate")
+          : t("app.helpTranslateTo", {
+              language: userLanguage,
+            })}
       </ExternalLink>{" "}
       <Popover>
         <PopoverTrigger asChild>
@@ -58,7 +60,7 @@ function TranslationContribute({
             />
           </Button>
         </PopoverTrigger>
-        <PopoverContent align="center" className="w-60">
+        <PopoverContent align="center" className="w-60 whitespace-pre-line">
           {t("app.helpTranslate.hint.text")}
         </PopoverContent>
       </Popover>
