@@ -215,6 +215,11 @@ export function Details({ app }: { app: App }) {
     });
   }
 
+  function getDelimiter() {
+    const desc = plainText(app.description || app.subtitle || "");
+    return desc ? (desc.endsWith(".") ? " " : " – ") : "";
+  }
+
   return (
     <div className="relative mx-auto max-w-3xl p-2 text-left">
       <Card className="shadow-md">
@@ -255,13 +260,7 @@ export function Details({ app }: { app: App }) {
             <Formatted htmlText={app.description || app.subtitle || ""} />
             {app.documentation && (
               <>
-                {plainText(app.description || app.subtitle || "")
-                  ? plainText(app.description || app.subtitle || "").endsWith(
-                      ".",
-                    )
-                    ? " "
-                    : " – "
-                  : ""}
+                {getDelimiter()}
                 <ExternalLink href={app.documentation} icon>
                   {t("app.learnMore", {
                     website: newUrl(app.documentation).hostname,
