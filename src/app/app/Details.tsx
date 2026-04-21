@@ -24,17 +24,6 @@ import { newUrl } from "@shared/utils/url";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Alert02Icon } from "@hugeicons/core-free-icons";
 
-import { some } from "lodash";
-import { AppleStoreLink } from "@app/ui/components/links/download/AppleStoreLink";
-import { AsinLink } from "@app/ui/components/links/download/AsinLink";
-import { FDroidLink } from "@app/ui/components/links/download/FDroidLink";
-import { GooglePlayLink } from "@app/ui/components/links/download/GooglePlayLink";
-import { HuaweiAppGalleryLink } from "@app/ui/components/links/download/HuaweiAppGalleryLink";
-import { MacAppStoreLink } from "@app/ui/components/links/download/MacAppStoreLink";
-import { MicrosoftAppLink } from "@app/ui/components/links/download/MicrosoftAppLink";
-import { ObtainiumLink } from "@app/ui/components/links/download/ObtainiumLink";
-import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
-import { WebsiteLink } from "@app/ui/components/links/download/WebsiteLink";
 import { BlueskyLink } from "@app/ui/components/links/community/BlueskyLink";
 import { ForumLink } from "@app/ui/components/links/community/ForumLink";
 import { ForumTagLink } from "@app/ui/components/links/community/ForumTagLink";
@@ -50,6 +39,7 @@ import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { Separator } from "@components/ui/separator";
 import { ReactJoin } from "@lib/utils/ReactJoin";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
+import { Download } from "@app/app/Download";
 import { Formatted } from "@components/common/Formatted";
 
 export function Details({ app }: { app: App }) {
@@ -228,21 +218,8 @@ export function Details({ app }: { app: App }) {
             <AppLogo app={app} />
           </div>
           <h1 className="text-2xl font-semibold">{app.name}</h1>
-          <WebsiteLink app={app} />
-          <>
-            <FDroidLink app={app} />
-            <ObtainiumLink app={app} />
-            <GooglePlayLink app={app} />
-            <AsinLink app={app} />
-            <HuaweiAppGalleryLink app={app} />
-          </>
-          {<AppleStoreLink app={app} />}
 
-          {<MacAppStoreLink app={app} />}
-          {<MicrosoftAppLink app={app} />}
-          {!app.website && !some(app.install) && !!app.sourceCode && (
-            <SourceCodeLink app={app} />
-          )}
+          <Download app={app} />
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="flex flex-wrap gap-2">
