@@ -100,8 +100,8 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 協助翻譯：
 
-- 到 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的 OSM App
-  目錄 [![Translation
+- OSM App 目錄在 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的
+  [![Translation
   status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
 - [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的
@@ -114,7 +114,7 @@ v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code
 能夠自由使用，複製與變動則以相同授權條款釋出。
 
 [![GitHub
-Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+倉櫥](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## 隱私政策
 
