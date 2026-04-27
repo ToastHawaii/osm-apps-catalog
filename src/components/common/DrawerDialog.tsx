@@ -32,8 +32,8 @@ export function DrawerDialog({
   actions,
   size,
 }: PropsWithChildren<{
-  title: string;
-  description: string;
+  title?: string | undefined;
+  description?: string | undefined;
   trigger: JSX.Element;
   actions?: JSX.Element | undefined;
   size?: "lg" | undefined;
