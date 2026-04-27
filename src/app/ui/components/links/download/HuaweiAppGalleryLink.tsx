@@ -17,7 +17,7 @@ export function HuaweiAppGalleryLink({ app }: { app: App }) {
   return (
     <ExternalLink
       className="download"
-      href={`https://appgallery.huawei.com/#/app/${app.install.huaweiAppGalleryID}`}
+      href={`https://appgallery.huawei.com/#/app/C${app.install.huaweiAppGalleryID}`}
       title={t("app.install.huaweiAppGallery")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""
