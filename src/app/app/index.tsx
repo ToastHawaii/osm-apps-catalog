@@ -2,14 +2,12 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
-import { useSearchState } from "../../hooks/useSearchState";
 import { toSchemaOrg } from "../ui/lib/toSchemaOrg";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { useRoute } from "@hooks/useRoute";
 import { useAppsData } from "@hooks/useAppsData";
 
-import { ViewSelect } from "../ui/components/ViewSelect";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Details } from "@app/app/Details";
 
@@ -43,7 +41,6 @@ function PageHeader() {
   const { t } = useTranslation();
   const routes = useRoute();
   const navigate = useNavigate();
-  const [state, setState] = useSearchState();
   const { apps } = useAppsData();
 
   return (
