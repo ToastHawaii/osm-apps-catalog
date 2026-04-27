@@ -1,23 +1,27 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
 
 export function HuaweiAppGalleryLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.install.huaweiAppGalleryID) {
+  const link = getHuaweiAppGallery(app.install.huaweiAppGalleryID);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="download"
-      href={`https://appgallery.huawei.com/#/app/C${app.install.huaweiAppGalleryID}`}
+      href={link}
       title={t("app.install.huaweiAppGallery")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""

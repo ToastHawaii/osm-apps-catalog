@@ -1,4 +1,5 @@
 import { round } from "lodash";
+
 import { App } from "@shared/data/App";
 import {
   contribute,
@@ -8,15 +9,20 @@ import {
   web,
 } from "@shared/lib/filters";
 import { plainText } from "@shared/utils/plainText";
+import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
+import { getMicrosoftStore } from "@shared/utils/links/getMicrosoftStore";
+import { getAsin } from "@shared/utils/links/getAsin";
+import { getFDroid } from "@shared/utils/links/getFDroid";
+import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
+import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
 
 export function toSchemaOrg(app: App) {
   return JSON.stringify({
     "@context": "http://schema.org",
-    "@type": mobile(app)
-      ? "MobileApplication"
-      : web(app)
-        ? "WebApplication"
-        : "SoftwareApplication",
+    "@type":
+      (mobile(app) ? "MobileApplication" : undefined) ||
+      (web(app) ? "WebApplication" : undefined) ||
+      "SoftwareApplication",
     name: app.name || undefined,
     description:
       plainText(app.subtitle || app.descriptionShort || app.description) ||
@@ -25,39 +31,20 @@ export function toSchemaOrg(app: App) {
     image: app.logos[0] || undefined,
     screenshot: app.images[0] || undefined,
     url: app.website || undefined,
-    installUrl: app.install.fDroidID
-      ? "https://f-droid.org/repository/browse/?fdid=" + app.install.fDroidID
-      : app.install.googlePlayID
-        ? "https://play.google.com/store/apps/details?id=" +
-          app.install.googlePlayID
-        : app.install.asin
-          ? "https://www.amazon.com/dp/" + app.install.asin
-          : app.install.appleStoreID
-            ? "https://apps.apple.com/app/" +
-              app.install.appleStoreID?.toUpperCase().startsWith("ID")
-              ? app.install.appleStoreID
-              : `id${app.install.appleStoreID}`
-            : app.install.macAppStoreID
-              ? "https://apps.apple.com/app/" +
-                app.install.macAppStoreID?.toUpperCase().startsWith("ID")
-                ? app.install.macAppStoreID
-                : `id${app.install.macAppStoreID}`
-              : app.install.microsoftAppID
-                ? "https://apps.microsoft.com/detail/" +
-                  app.install.microsoftAppID
-                : app.install.huaweiAppGalleryID
-                  ? "https://appgallery.huawei.com/#/app/" +
-                    app.install.huaweiAppGalleryID
-                  : undefined,
+    installUrl:
+      getFDroid(app.install.fDroidID) ||
+      getGooglePlay(app.install.googlePlayID) ||
+      getAppleAppStore(app.install.appleStoreID || app.install.macAppStoreID) ||
+      getMicrosoftStore(app.install.microsoftAppID) ||
+      getHuaweiAppGallery(app.install.huaweiAppGalleryID) ||
+      getAsin(app.install.asin),
     datePublished: app.lastRelease || undefined,
     license: app.license?.map((l) => plainText(l))?.join(",") || undefined,
-    applicationCategory: display(app)
-      ? "TravelApplication"
-      : navigation(app)
-        ? "DriverApplication"
-        : contribute(app)
-          ? "UtilitiesApplication"
-          : "TravelApplication",
+    applicationCategory:
+      (display(app) ? "TravelApplication" : undefined) ||
+      (navigation(app) ? "DriverApplication" : undefined) ||
+      (contribute(app) ? "UtilitiesApplication" : undefined) ||
+      "TravelApplication",
     applicationSubCategory: app.genre,
     operatingSystem: app.platform.join(", ") || undefined,
     offers: app.gratis

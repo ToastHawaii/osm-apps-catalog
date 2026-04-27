@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getMatrix } from "../../../lib/getMatrix";
+import { getMatrix } from "@shared/utils/links/getMatrix";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -19,7 +19,7 @@ export function MatrixLink({ app }: { app: App }) {
   return (
     <ExternalLink
       className="community"
-      href={`https://matrix.to/#/${link}`}
+      href={link}
       title={t("app.community.matrix")}
       data-goatcounter-click="/app/community"
       data-goatcounter-title="Follows a community link of an app."

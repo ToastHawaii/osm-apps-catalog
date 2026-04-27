@@ -10,6 +10,10 @@ export function SourceCodeLink({ app }: { app: App }) {
 
   useGoatCounterEvents();
 
+  if (!app.sourceCode) {
+    return null;
+  }
+
   return (
     <ExternalLink
       className="download"

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getLemmy } from "../../../lib/getLemmy";
+import { getLemmy } from "@shared/utils/links/getLemmy";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -10,14 +10,16 @@ export function LemmyLink({ app }: { app: App }) {
 
   useGoatCounterEvents();
 
-  if (!app.community.lemmy) {
+  const link = getLemmy(app.community.lemmy);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="community"
-      href={getLemmy(app.community.lemmy)}
+      href={link}
       title={t("app.community.lemmy")}
       data-goatcounter-click="/app/community"
       data-goatcounter-title="Follows a community link of an app."

@@ -4,20 +4,25 @@ import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
 
 export function AppleStoreLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.install.appleStoreID) {
+  const link = getAppleAppStore(
+    app.install.appleStoreID || app.install.macAppStoreID,
+  );
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="download"
-      href={`https://apps.apple.com/app/id${app.install.appleStoreID}`}
+      href={link}
       title={t("app.install.appleStore")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""

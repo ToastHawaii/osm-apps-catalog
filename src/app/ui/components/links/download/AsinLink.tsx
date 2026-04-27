@@ -4,20 +4,23 @@ import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getAsin } from "@shared/utils/links/getAsin";
 
 export function AsinLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.install.asin) {
+  const link = getAsin(app.install.asin);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="download"
-      href={`https://www.amazon.com/dp/${app.install.asin}`}
+      href={link}
       title={t("app.install.asin")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""

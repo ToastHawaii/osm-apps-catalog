@@ -4,20 +4,23 @@ import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getFDroid } from "@shared/utils/links/getFDroid";
 
 export function FDroidLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.install.fDroidID) {
+  const link = getFDroid(app.install.fDroidID);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="download"
-      href={`https://f-droid.org/repository/browse/?fdid=${app.install.fDroidID}`}
+      href={link}
       title={t("app.install.fDroid")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""

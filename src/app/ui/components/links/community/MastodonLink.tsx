@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getMastodon } from "../../../lib/getMastodon";
+import { getMastodon } from "@shared/utils/links/getMastodon";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -10,14 +10,16 @@ export function MastodonLink({ app }: { app: App }) {
 
   useGoatCounterEvents();
 
-  if (!app.community.mastodon) {
+  const link = getMastodon(app.community.mastodon);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="community"
-      href={getMastodon(app.community.mastodon)}
+      href={link}
       title={t("app.community.mastodon")}
       data-goatcounter-click="/app/community"
       data-goatcounter-title="Follows a community link of an app."

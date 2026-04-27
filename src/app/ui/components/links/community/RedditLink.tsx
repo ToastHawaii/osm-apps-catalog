@@ -3,20 +3,23 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getReddit } from "@shared/utils/links/getReddit";
 
 export function RedditLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.community.reddit) {
+  const link = getReddit(app.community.reddit);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="community"
-      href={`https://www.reddit.com/r/${app.community.reddit}`}
+      href={link}
       title={t("app.community.reddit")}
       data-goatcounter-click="/app/community"
       data-goatcounter-title="Follows a community link of an app."

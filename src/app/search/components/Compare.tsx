@@ -1,11 +1,14 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { some } from "lodash";
+import { Alert02Icon, LanguageSkillIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Badges } from "../../ui/components/Badges";
 import { AppImage } from "@components/common/AppImage";
 import { toWikiValue } from "../../ui/lib/toWikiTable";
 import { languageCodeToDisplay } from "../../ui/lib/language";
-import { getMatrix } from "../../ui/lib/getMatrix";
+import { getMatrix } from "@shared/utils/links/getMatrix";
 import { App } from "@shared/data/App";
 import { Score } from "../../ui/components/Score";
 import { Group } from "../../ui/components/Group";
@@ -17,7 +20,6 @@ import { ObtainiumLink } from "../../ui/components/links/download/ObtainiumLink"
 import { GooglePlayLink } from "../../ui/components/links/download/GooglePlayLink";
 import { HuaweiAppGalleryLink } from "../../ui/components/links/download/HuaweiAppGalleryLink";
 import { AppleStoreLink } from "../../ui/components/links/download/AppleStoreLink";
-import { MacAppStoreLink } from "../../ui/components/links/download/MacAppStoreLink";
 import { MicrosoftAppLink } from "../../ui/components/links/download/MicrosoftAppLink";
 import { WebsiteLink } from "../../ui/components/links/download/WebsiteLink";
 import { ForumLink } from "../../ui/components/links/community/ForumLink";
@@ -34,10 +36,20 @@ import { IssueTrackerLink } from "../../ui/components/links/community/IssueTrack
 import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { plainText } from "@shared/utils/plainText";
 import { ExternalLink } from "@components/common/ExternalLink";
-import { some } from "lodash";
 import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Alert02Icon, LanguageSkillIcon } from "@hugeicons/core-free-icons";
+import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
+import { getMicrosoftStore } from "@shared/utils/links/getMicrosoftStore";
+import { getAsin } from "@shared/utils/links/getAsin";
+import { getFDroid } from "@shared/utils/links/getFDroid";
+import { getTelegram } from "@shared/utils/links/getTelegram";
+import { getGitHubDiscussions } from "@shared/utils/links/getGitHubDiscussions";
+import { getReddit } from "@shared/utils/links/getReddit";
+import { getForumTag } from "@shared/utils/links/getForumTag";
+import { getBluesky } from "@shared/utils/links/getBluesky";
+import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
+import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
+import { getMastodon } from "@shared/utils/links/getMastodon";
+import { getLemmy } from "@shared/utils/links/getLemmy";
 
 export function Compare({
   apps,
@@ -56,7 +68,7 @@ export function Compare({
 
   return (
     <>
-      <div className="bg-white sticky top-13.25 z-2 table-row md:top-17.25">
+      <div className="sticky top-13.25 z-2 table-row bg-white md:top-17.25">
         <div className="cell header param-title"></div>
         {apps.map((app) => (
           <div
@@ -105,12 +117,11 @@ export function Compare({
                     <AsinLink app={app} />
                     <HuaweiAppGalleryLink app={app} />
                     <AppleStoreLink app={app} />
-                    <MacAppStoreLink app={app} />
                     <MicrosoftAppLink app={app} />
                   </>
-                ) : app.sourceCode ? (
+                ) : (
                   <SourceCodeLink app={app} />
-                ) : null}
+                )}
               </>
             ),
             renderToWiki: (app, lang) =>
@@ -118,48 +129,30 @@ export function Compare({
                 app.website
                   ? `[${app.website} ${t("app.website", { lng: lang })}]`
                   : "",
-                app.install.fDroidID
-                  ? `[https://f-droid.org/repository/browse/?fdid=${
-                      app.install.fDroidID
-                    } ${t("app.install.fDroid", { lng: lang })}]`
+                getFDroid(app.install.fDroidID)
+                  ? `[${getFDroid(app.install.fDroidID)} ${t("app.install.fDroid", { lng: lang })}]`
                   : "",
                 app.install.obtainiumLink
                   ? `[${app.install.obtainiumLink} ${t("app.install.obtainium", { lng: lang })}]`
                   : "",
-                app.install.googlePlayID
-                  ? `[https://play.google.com/store/apps/details?id=${
-                      app.install.googlePlayID
-                    } ${t("app.install.googlePlay", { lng: lang })}]`
+                getGooglePlay(app.install.googlePlayID)
+                  ? `[${getGooglePlay(app.install.googlePlayID)} ${t("app.install.googlePlay", { lng: lang })}]`
                   : "",
-                app.install.asin
-                  ? `[https://www.amazon.com/dp/${app.install.asin} ${t(
-                      "app.install.asin",
-                      { lng: lang },
-                    )}]`
+                getAsin(app.install.asin)
+                  ? `[${getAsin(app.install.asin)} ${t("app.install.asin", {
+                      lng: lang,
+                    })}]`
                   : "",
-                app.install.huaweiAppGalleryID
-                  ? `[https://appgallery.huawei.com/#/app/${
-                      app.install.huaweiAppGalleryID
-                    } ${t("app.install.huaweiAppGallery", { lng: lang })}]`
+                getHuaweiAppGallery(app.install.huaweiAppGalleryID)
+                  ? `[${getHuaweiAppGallery(app.install.huaweiAppGalleryID)} ${t("app.install.huaweiAppGallery", { lng: lang })}]`
                   : "",
-                app.install.appleStoreID
-                  ? `[https://apps.apple.com/app/${
-                      app.install.appleStoreID.toUpperCase().startsWith("ID")
-                        ? app.install.appleStoreID
-                        : `id${app.install.appleStoreID}`
-                    } iTunes App Store]`
+                getAppleAppStore(
+                  app.install.appleStoreID || app.install.macAppStoreID,
+                )
+                  ? `[${getAppleAppStore(app.install.appleStoreID || app.install.macAppStoreID)} ${t("app.install.appleStore", { lng: lang })}]`
                   : "",
-                app.install.macAppStoreID
-                  ? `[https://apps.apple.com/app/${
-                      app.install.macAppStoreID.toUpperCase().startsWith("ID")
-                        ? app.install.macAppStoreID
-                        : `id${app.install.macAppStoreID}`
-                    } ${t("app.install.appleStore", { lng: lang })}]`
-                  : "",
-                app.install.microsoftAppID
-                  ? `[https://apps.microsoft.com/detail/${
-                      app.install.microsoftAppID
-                    } ${t("app.install.macAppStore", { lng: lang })}]`
+                getMicrosoftStore(app.install.microsoftAppID)
+                  ? `[${getMicrosoftStore(app.install.microsoftAppID)} ${t("app.install.microsoftApp", { lng: lang })}]`
                   : "",
                 !app.website && !some(app.install) && !!app.sourceCode
                   ? `[${app.sourceCode} ${t("app.sourceCode", { lng: lang })}]`
@@ -363,30 +356,35 @@ export function Compare({
                       lng: lang,
                     })}]`
                   : "",
-                app.community.forumTag
-                  ? `[https://community.openstreetmap.org/tag/${
-                      app.community.forumTag
-                    } ${t("app.community.forumTag", { lng: lang })}]`
+                getForumTag(app.community.forumTag)
+                  ? `[${getForumTag(app.community.forumTag)} ${t("app.community.forumTag", { lng: lang })}]`
                   : "",
                 getMatrix(app.community.matrix, app.community.irc)
-                  ? `[https://matrix.to/#/${getMatrix(
+                  ? `[${getMatrix(
                       app.community.matrix,
                       app.community.irc,
                     )} ${t("app.community.matrix", { lng: lang })}]`
                   : "",
-                app.community.mastodon
-                  ? `[https://fedirect.toolforge.org/?id=${
-                      app.community.mastodon
-                    } ${t("app.community.mastodon", { lng: lang })}]`
+                getMastodon(app.community.mastodon)
+                  ? `[${getMastodon(app.community.mastodon)} ${t(
+                      "app.community.mastodon",
+                      { lng: lang },
+                    )}]`
                   : "",
-                app.community.bluesky
-                  ? `[https://bsky.app/profile/${app.community.bluesky} ${t(
+                getLemmy(app.community.lemmy)
+                  ? `[${getLemmy(app.community.lemmy)} ${t(
+                      "app.community.lemmy",
+                      { lng: lang },
+                    )}]`
+                  : "",
+                getBluesky(app.community.bluesky)
+                  ? `[${getBluesky(app.community.bluesky)} ${t(
                       "app.community.bluesky",
                       { lng: lang },
                     )}]`
                   : "",
-                app.community.reddit
-                  ? `[https://www.reddit.com/r/${app.community.reddit} ${t(
+                getReddit(app.community.reddit)
+                  ? `[${getReddit(app.community.reddit)} ${t(
                       "app.community.reddit",
                       { lng: lang },
                     )}]`
@@ -396,18 +394,19 @@ export function Compare({
                       lng: lang,
                     })}]`
                   : "",
-                app.community.telegram
-                  ? `[https://telegram.me/${app.community.telegram} ${t(
+                getTelegram(app.community.telegram)
+                  ? `[${getTelegram(app.community.telegram)} ${t(
                       "app.community.telegram",
                       { lng: lang },
                     )}]`
                   : "",
-                app.community.githubDiscussions
-                  ? `[https://github.com/${
-                      app.community.githubDiscussions
-                    }/discussions ${t("app.community.githubDiscussions", {
-                      lng: lang,
-                    })}]`
+                getGitHubDiscussions(app.community.githubDiscussions)
+                  ? `[${getGitHubDiscussions(app.community.githubDiscussions)} ${t(
+                      "app.community.githubDiscussions",
+                      {
+                        lng: lang,
+                      },
+                    )}]`
                   : "",
                 app.community.issueTracker
                   ? `[${app.community.issueTracker} ${t(

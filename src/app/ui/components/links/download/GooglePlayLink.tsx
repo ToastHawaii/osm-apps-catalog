@@ -4,20 +4,23 @@ import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
 
 export function GooglePlayLink({ app }: { app: App }) {
   const { t } = useTranslation();
 
   useGoatCounterEvents();
 
-  if (!app.install.googlePlayID) {
+  const link = getGooglePlay(app.install.googlePlayID);
+
+  if (!link) {
     return null;
   }
 
   return (
     <ExternalLink
       className="download"
-      href={`https://play.google.com/store/apps/details?id=${app.install.googlePlayID}`}
+      href={link}
       title={t("app.install.googlePlay")}
       data-goatcounter-click={`/app/download${
         contribute(app) ? "?category=edit" : ""

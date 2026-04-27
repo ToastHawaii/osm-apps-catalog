@@ -5,7 +5,6 @@ import { AsinLink } from "@app/ui/components/links/download/AsinLink";
 import { FDroidLink } from "@app/ui/components/links/download/FDroidLink";
 import { GooglePlayLink } from "@app/ui/components/links/download/GooglePlayLink";
 import { HuaweiAppGalleryLink } from "@app/ui/components/links/download/HuaweiAppGalleryLink";
-import { MacAppStoreLink } from "@app/ui/components/links/download/MacAppStoreLink";
 import { MicrosoftAppLink } from "@app/ui/components/links/download/MicrosoftAppLink";
 import { ObtainiumLink } from "@app/ui/components/links/download/ObtainiumLink";
 import { SourceCodeLink } from "@app/ui/components/links/download/SourceCodeLink";
@@ -76,13 +75,12 @@ export function Download({ app }: { app: App }) {
             <HuaweiAppGalleryLink app={app} />
           </>
         )}
-        {(!userOS || userOS === "iOS") && <AppleStoreLink app={app} />}
-
-        {(!userOS || userOS === "MacOS") && <MacAppStoreLink app={app} />}
-        {(!userOS || userOS === "Windows") && <MicrosoftAppLink app={app} />}
-        {!app.website && !some(app.install) && !!app.sourceCode && (
-          <SourceCodeLink app={app} />
+        {(!userOS || userOS === "iOS" || userOS === "MacOS") && (
+          <AppleStoreLink app={app} />
         )}
+
+        {(!userOS || userOS === "Windows") && <MicrosoftAppLink app={app} />}
+        {!app.website && !some(app.install) && <SourceCodeLink app={app} />}
       </div>
     </DrawerDialog>
   );

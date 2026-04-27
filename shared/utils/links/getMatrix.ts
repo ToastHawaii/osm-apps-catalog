@@ -1,4 +1,4 @@
-export function getMatrix(
+function getMatrixRoom(
   matrixRoom: string | undefined,
   irc?:
     | { server?: string | undefined; channel?: string | undefined }
@@ -15,9 +15,11 @@ export function getMatrix(
 
     // See https://matrix-org.github.io/matrix-appservice-irc/latest/bridged_networks.html
     const matrix_irc_bridges: Record<string, string | undefined> = {
-      "irc.freenode.net": `#freenode_${channel}:matrix.org`,
+      // The freenode IRC bridge offically was shut down on 2021-12-20.
+      // "irc.freenode.net": `#freenode_${channel}:matrix.org`,
       "irc.oftc.net": `#_oftc_${channel}:matrix.org`,
-      "irc.libera.chat": `${channel}:libera.chat`,
+      // The Libera Chat IRC bridge was shut down on 2023-11-28.
+      // "irc.libera.chat": `${channel}:libera.chat`,
     };
 
     // From https://wiki.openstreetmap.org/wiki/Module:Communication_channels
@@ -27,4 +29,19 @@ export function getMatrix(
   }
 
   return undefined;
+}
+
+export function getMatrix(
+  matrixRoom: string | undefined,
+  irc?:
+    | { server?: string | undefined; channel?: string | undefined }
+    | undefined,
+) {
+  const link = getMatrixRoom(matrixRoom, irc);
+
+  if (!link) {
+    return undefined;
+  }
+
+  return `https://matrix.to/#/${link}`;
 }
