@@ -37,8 +37,10 @@ import { SlackLink } from "@app/ui/components/links/community/SlackLink";
 import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
+import { Contribute } from "@app/app/Contribute";
 import { Download } from "@app/app/Download";
 import { Formatted } from "@components/common/Formatted";
+import { featureFlags } from "../../../src/featureFlags";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -244,6 +246,19 @@ export function Details({ app }: { app: App }) {
               </>
             )}
           </div>
+          {featureFlags.showContributeOptions && (
+            <>
+              <h2 className="mt-12 text-xl font-semibold">
+                Möglichkeiten zu {app.name} beizutragen
+              </h2>
+              <Card>
+                <CardContent>
+                  <Contribute app={app} />
+                </CardContent>
+              </Card>
+            </>
+          )}
+
           <h2 className="mt-12 text-xl font-semibold">{t("list.moreInfos")}</h2>
           <div className="w-full text-sm sm:columns-2 sm:gap-6">
             {metaData.map((d, i) => (
