@@ -36,8 +36,6 @@ import { RedditLink } from "@app/ui/components/links/community/RedditLink";
 import { SlackLink } from "@app/ui/components/links/community/SlackLink";
 import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
-import { Separator } from "@components/ui/separator";
-import { ReactJoin } from "@lib/utils/ReactJoin";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
 import { Download } from "@app/app/Download";
 import { Formatted } from "@components/common/Formatted";
@@ -194,7 +192,7 @@ export function Details({ app }: { app: App }) {
     metaData.push({
       title: t("app.keywords"),
       value: (
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap justify-end gap-1 sm:justify-start">
           {app.topics.map((topic) => (
             <Badge key={topic} variant="secondary" asChild>
               <Link to={routes.search({ topics: [topic] })}>{topic}</Link>
@@ -246,20 +244,17 @@ export function Details({ app }: { app: App }) {
               </>
             )}
           </div>
-          <h2 className="text-xl font-semibold">{t("list.moreInfos")}</h2>
-          <div className="flex w-full flex-col gap-2 text-sm">
-            {ReactJoin(
-              metaData.map((d, i) => (
-                <dl
-                  key={i}
-                  className="inline-flex items-center justify-between gap-6"
-                >
-                  <dt className="text-muted-foreground">{d.title}</dt>
-                  <dd className="text-right">{d.value}</dd>
-                </dl>
-              )),
-              <Separator />,
-            )}
+          <h2 className="mt-12 text-xl font-semibold">{t("list.moreInfos")}</h2>
+          <div className="w-full text-sm sm:columns-2 sm:gap-6">
+            {metaData.map((d, i) => (
+              <dl
+                key={i}
+                className="mb-4 flex break-inside-avoid items-center justify-between gap-4 border-b py-2 last:border-b-0 sm:block sm:border-0 sm:py-0"
+              >
+                <dt className="text-muted-foreground">{d.title}</dt>
+                <dd className="text-right sm:text-left">{d.value}</dd>
+              </dl>
+            ))}
           </div>
         </CardContent>
       </Card>
