@@ -1,8 +1,10 @@
 import { JSX, PropsWithChildren } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -27,10 +29,14 @@ export function DrawerDialog({
   description,
   trigger,
   children,
+  actions,
+  size,
 }: PropsWithChildren<{
   title: string;
   description: string;
   trigger: JSX.Element;
+  actions?: JSX.Element | undefined;
+  size?: "lg" | undefined;
 }>) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -41,7 +47,9 @@ export function DrawerDialog({
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>{trigger}</DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent
+          className={size === "lg" ? "max-w-[752px]! min-w-auto" : "max-w-110"}
+        >
           {(!!title || !!description) && (
             <DialogHeader>
               {!!title && <DialogTitle>{title}</DialogTitle>}
@@ -50,7 +58,15 @@ export function DrawerDialog({
               )}
             </DialogHeader>
           )}
-          {children}
+          <div className="-mx-4 max-h-[calc(90vh-176px)] overflow-y-auto px-4">
+            {children}
+          </div>
+          <DialogFooter>
+            {actions}
+            <DialogClose asChild>
+              <Button variant="outline">{t("close")}</Button>
+            </DialogClose>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     );
@@ -68,8 +84,9 @@ export function DrawerDialog({
             )}
           </DrawerHeader>
         )}
-        <div className="px-4">{children}</div>
-        <DrawerFooter className="pt-2">
+        <div className="no-scrollbar overflow-y-auto px-4">{children}</div>
+        <DrawerFooter >
+          {actions}
           <DrawerClose asChild>
             <Button variant="outline">{t("close")}</Button>
           </DrawerClose>
