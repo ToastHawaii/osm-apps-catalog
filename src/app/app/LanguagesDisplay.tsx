@@ -41,9 +41,7 @@ function TranslationContribute({
         {" "}
         {!userLanguage && equalsIgnoreCase(userLanguage, "en")
           ? t("app.helpTranslate")
-          : t("app.helpTranslateTo", {
-              language: userLanguage,
-            })}
+          : t("app.helpTranslateTo")}
       </ExternalLink>{" "}
       <Popover>
         <PopoverTrigger asChild>

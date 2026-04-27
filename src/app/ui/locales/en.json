@@ -36,7 +36,7 @@
   "app.helpTranslate": "Help improve the translation",
   "app.helpTranslate.hint.label": "Why help with translation?",
   "app.helpTranslate.hint.text": "Even small improvements can help make the app easier to understand and more accessible for everyone.\nIn most cases, this can be done without much technical knowledge.",
-  "app.helpTranslateTo": "Help improve the {{language}} translation",
+  "app.helpTranslateTo": "Help improve the English translation",
   "app.imageAlt": "Image from {{name}}.",
   "app.inUserLanguage": "{{language}} and {{numberOfLanguages}} more",
   "app.install.appleStore": "Apple App Store",
