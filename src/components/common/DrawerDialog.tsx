@@ -85,7 +85,7 @@ export function DrawerDialog({
           </DrawerHeader>
         )}
         <div className="no-scrollbar overflow-y-auto px-4">{children}</div>
-        <DrawerFooter >
+        <DrawerFooter>
           {actions}
           <DrawerClose asChild>
             <Button variant="outline">{t("close")}</Button>
