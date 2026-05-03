@@ -9,7 +9,7 @@ assignees: ''
 
 <!---
 Hi! Thank you for contributing.
-Before opening a new issue, please search for keywords in the issues filtered by the "defect not urgent" or "defect" label to make sure the issue you're about to submit isn't a duplicate.
+Before opening a new issue, please search for keywords in the issues filtered by the "bug" label to make sure the issue you're about to submit isn't a duplicate.
 --->
 
 ### Summary
@@ -32,11 +32,10 @@ Before opening a new issue, please search for keywords in the issues filtered by
 
 <!-- Paste any relevant logs
 - please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.
-If applicable, we are happy to see screenshots or screenrcordings
-- If you want a border around your image, use <kbd><img src="uploads/foo/bar.png"></kbd>
-- If you want to resize your image, use: ![image](/uploads/foo/bar.png){width=40%} or {height=250px}
+If applicable, we are happy to see screenshots or screenrcordings.
 -->
 
 ### Possible fixes
 
 <!-- If you can, link to the line of code that might be responsible for the problem -->
+<kbd><img src="uploads/foo/bar.png"></kbd>
