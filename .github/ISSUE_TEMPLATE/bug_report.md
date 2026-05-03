@@ -2,7 +2,7 @@
 name: Bug report
 about: Report something you expected differently.
 title: ''
-labels: bug
+labels: bug, enhancement
 assignees: ''
 
 ---
@@ -18,7 +18,7 @@ Before opening a new issue, please search for keywords in the issues filtered by
 
 ### Steps to reproduce
 
-<!-- How one can reproduce the issue - this is very important -->
+<!-- How one can reproduce the bug - this is very important -->
 
 ### What is the current _bug_ behavior?
 
@@ -30,12 +30,12 @@ Before opening a new issue, please search for keywords in the issues filtered by
 
 ### Relevant logs and/or screenshots
 
-<!-- Paste any relevant logs
-- please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.
-If applicable, we are happy to see screenshots or screenrcordings.
+<!-- 
+Paste any relevant logs
+Please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.
+If applicable, we are happy to see screenshots or screenrecordings.
 -->
 
 ### Possible fixes
 
 <!-- If you can, link to the line of code that might be responsible for the problem -->
-<kbd><img src="uploads/foo/bar.png"></kbd>
