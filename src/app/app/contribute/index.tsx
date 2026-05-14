@@ -86,7 +86,7 @@ function Activity(
   if (!disabled) {
     const item = (
       <>
-        <ItemMedia variant="image" className="">
+        <ItemMedia variant="image">
           <HugeiconsIcon icon={icon} strokeWidth={2} />
         </ItemMedia>
         <ItemContent>
@@ -94,19 +94,11 @@ function Activity(
           <ItemDescription className="h-10">{description}</ItemDescription>
         </ItemContent>
         <ItemActions>
-          {"links" in props ? (
-            <HugeiconsIcon
-              icon={ArrowDown01Icon}
-              className="inline-block"
-              strokeWidth={2}
-            />
-          ) : (
-            <HugeiconsIcon
-              icon={Share05Icon}
-              className="inline-block"
-              strokeWidth={2}
-            />
-          )}
+          <HugeiconsIcon
+            icon={"links" in props ? ArrowDown01Icon : Share05Icon}
+            className="inline-block"
+            strokeWidth={2}
+          />
         </ItemActions>
       </>
     );
@@ -129,17 +121,17 @@ function Activity(
           </Item>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-auto">
-          {props.links.map((l, i) => {
-            const a = (
+          {props.links.map((l, i) => (
+            <DropdownMenuItem key={i} asChild>
               <Item size="sm" className="w-full">
                 <ItemMedia variant="icon">
-                  {
-                    <HugeiconsIcon
-                      icon={l.icon}
-                      className="inline-block"
-                      strokeWidth={2}
-                    />
-                  }
+                  <HugeiconsIcon
+                    icon={l.icon}
+                    className="inline-block"
+                    strokeWidth={2}
+                    size={19.25}
+                    style={{ width: 19.25, height: 19.25 }}
+                  />
                 </ItemMedia>
                 <ItemContent className="gap-0">
                   <ItemTitle>{l.title}</ItemTitle>
@@ -150,24 +142,8 @@ function Activity(
                   )}
                 </ItemContent>
               </Item>
-            );
-
-            return (
-              <DropdownMenuItem key={i} asChild>
-                {a}
-
-                {/* {"href" in l ? (
-                  <a href={l.href} target="_blank" rel="noreferrer">
-                    {l.label}
-                  </a>
-                ) : (
-                  <Button variant="link" onClick={l.onClick}>
-                    {l.label}
-                  </Button>
-                )} */}
-              </DropdownMenuItem>
-            );
-          })}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
     );

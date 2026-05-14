@@ -37,8 +37,8 @@ import { SlackLink } from "@app/ui/components/links/community/SlackLink";
 import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
-import { Contribute } from "@app/app/Contribute";
-import { Download } from "@app/app/Download";
+import { Contribute } from "@app/app/contribute";
+import { Download } from "@app/app/download";
 import { Formatted } from "@components/common/Formatted";
 import { featureFlags } from "../../../src/featureFlags";
 

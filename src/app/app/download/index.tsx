@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import { DrawerDialog } from "@components/common/DrawerDialog";
 import { Button } from "@components/ui/button";
 import { App } from "@shared/data/App";
-import { Contribute } from "@app/app/Contribute";
+import { Contribute } from "@app/app/contribute";
 import { featureFlags } from "../../../featureFlags";
-import { DownloadSlide } from "@app/app/Download/DownloadSlide";
-import { NeedsHelpSlide } from "@app/app/Download/NeedsHelpSlide";
+import { DownloadSlide } from "@app/app/download/DownloadSlide";
+import { NeedsHelpSlide } from "@app/app/download/NeedsHelpSlide";
 
 export function Download({ app }: { app: App }) {
   const { t } = useTranslation();

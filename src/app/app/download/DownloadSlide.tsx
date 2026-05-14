@@ -1,4 +1,4 @@
-import { DownloadButton } from "@app/app/Download/DownloadButton";
+import { DownloadButton } from "@app/app/download/DownloadButton";
 import {
   CopyleftIcon,
   Diamond02Icon,

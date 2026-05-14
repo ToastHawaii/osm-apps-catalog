@@ -28,11 +28,13 @@ export function NeedsHelpSlide({
         </CardFooter>
       </Card>
 
-      {/* <Button size="xs" asChild>
-                <ExternalLink href="" icon>
-                  Donate money
-                </ExternalLink>
-              </Button> */}
+      {/* 
+        <Button size="xs" asChild>
+          <ExternalLink href="" icon>
+            Donate money
+          </ExternalLink>
+        </Button> 
+      */}
     </>
   ) : (
     <Card className="bg-linear-110 from-amber-400 to-green-500" size="sm">
