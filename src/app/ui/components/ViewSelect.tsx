@@ -50,6 +50,9 @@ export function ViewSelect({
           onChange={(e) => {
             onChange(e.currentTarget.checked ? "compare" : "list");
           }}
+          data-goatcounter-click="/search/compare"
+          data-goatcounter-title="Switches to the compare view."
+          data-goatcounter-referrer="https://osm-apps.org/"
         />
         <span className="whitespace-nowrap">
           <HugeiconsIcon
