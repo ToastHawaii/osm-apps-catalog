@@ -250,7 +250,7 @@ export function Contribute({ app }: { app: App }) {
     <div className="-mx-4 grid sm:grid-cols-2">
       <ItemGroup>
         <span className="px-4 font-medium text-muted-foreground">
-          Community actions
+          Community
         </span>
         {
           <Activity
@@ -422,7 +422,7 @@ export function Contribute({ app }: { app: App }) {
       </ItemGroup>
       <ItemGroup>
         <span className="px-4 font-medium text-muted-foreground">
-          App development actions
+          App development
         </span>
         <Activity
           title="Report bugs"

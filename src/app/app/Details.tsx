@@ -248,9 +248,7 @@ export function Details({ app }: { app: App }) {
           </div>
           {featureFlags.showContributeOptions && (
             <>
-              <h2 className="mt-12 text-xl font-semibold">
-                Möglichkeiten zu {app.name} beizutragen
-              </h2>
+              <h2 className="mt-12 text-xl font-semibold">Get involved</h2>
               <Card>
                 <CardContent>
                   <Contribute app={app} />

@@ -22,34 +22,51 @@ export function Download({ app }: { app: App }) {
       size="lg"
       trigger={<Button>{t("app.download.button")}</Button>}
       title={app.name}
-      description={t("app.download.downloadSlide.description")}
+      description={
+        slide === 0
+          ? t("app.download.needsHelpSlide.description")
+          : slide === 1
+            ? t("app.download.contributeSlide.description")
+            : t("app.download.downloadSlide.description")
+      }
+      actions={
+        <>
+          {slide !== 2 && (
+            <Button onClick={() => setSlide(2)}>
+              Continue to Download/Visit
+            </Button>
+          )}
+        </>
+      }
+      onOpenChange={(open) => {
+        if (open) {
+          setSlide(featureFlags.showContributeOptions ? 0 : 2);
+        }
+      }}
     >
       {slide === 0 &&
         (app.libre ? (
-          <Card className="bg-linear-110 from-yellow-300 to-pink-500" size="sm">
-            <CardContent className="whitespace-pre-line">
-              {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
-            </CardContent>
-            <CardFooter className="gap-3">
-              <Button size="xs" asChild>
-                <ExternalLink
-                  href=""
-                  icon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSlide(1);
-                  }}
-                >
-                  Spend your talent
-                </ExternalLink>
-              </Button>
-              <Button size="xs" asChild>
+          <>
+            <Card
+              className="bg-linear-110 from-yellow-300 to-pink-500"
+              size="sm"
+            >
+              <CardContent className="whitespace-pre-line">
+                {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
+              </CardContent>
+              <CardFooter className="gap-3">
+                <Button size="xs" onClick={() => setSlide(1)}>
+                  Support {app.name}
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* <Button size="xs" asChild>
                 <ExternalLink href="" icon>
                   Donate money
                 </ExternalLink>
-              </Button>
-            </CardFooter>
-          </Card>
+              </Button> */}
+          </>
         ) : (
           <Card className="bg-linear-110 from-amber-400 to-green-500" size="sm">
             <CardContent className="whitespace-pre-line">
