@@ -126,15 +126,27 @@ export function DownloadSlide({ app }: { app: App }) {
       {app.website && (
         <>
           <div className="mt-6 mb-2">
-            <Trans
-              i18nKey="app.download.visitWebsite"
-              values={{
-                app: app.name,
-              }}
-              components={{
-                platforms: <>{getUsersPlatformFirst(app.platform, userOS)}</>,
-              }}
-            />
+            {app.platform.length === 1 && app.platform[0] === "Web" ? (
+              <Trans
+                i18nKey="app.download.visitWebApp"
+                values={{
+                  app: app.name,
+                }}
+                components={{
+                  platforms: <strong>Web app</strong>,
+                }}
+              />
+            ) : (
+              <Trans
+                i18nKey="app.download.visitWebsite"
+                values={{
+                  app: app.name,
+                }}
+                components={{
+                  platforms: <>{getUsersPlatformFirst(app.platform, userOS)}</>,
+                }}
+              />
+            )}
           </div>
           <div className="flex flex-wrap gap-2">
             <DownloadButton

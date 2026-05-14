@@ -39,6 +39,7 @@
   "app.download.libreSoftwareNeedsSupport": "{{app}} is free and open-source software.\nHowever, this does not mean that its development has been free of cost – even free software needs your support to remain useful and free of charge.\n\nPlease consider supporting {{app}} now, or keep it in mind if you enjoy using it.",
   "app.download.macos": "For MacOS",
   "app.download.osmNeedsSupport": "Did you know that the map data behind {{app}} comes from OpenStreetMap and is contributed by people like you? {{app}} can use it for free.\nHowever, this does not mean that the data was created without effort – even free map data needs your support to maintain high quality and continue to grow.\n\nPlease consider supporting OpenStreetMap now, contribute map data, or keep it in mind if you enjoy using it.",
+  "app.download.visitWebApp": "Visit the official website for more information about {{app}} and to get to the <platforms/>.",
   "app.download.visitWebsite": "Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.",
   "app.download.windows": "For Windows",
   "app.helpTranslate": "Help improve the translation",
