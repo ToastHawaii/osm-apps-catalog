@@ -21,6 +21,8 @@ import {
   Copy01Icon,
   CustomerService01Icon,
   Edit04Icon,
+  Github01Icon,
+  GitlabIcon,
   InformationCircleIcon,
   Location05Icon,
   MapsSearchIcon,
@@ -28,6 +30,7 @@ import {
   MatrixIcon,
   MessageMultiple02Icon,
   MicrosoftIcon,
+  MountainIcon,
   NeuralNetworkIcon,
   PlayStoreIcon,
   RedditIcon,
@@ -282,6 +285,21 @@ export function Contribute({ app }: { app: App }) {
               {
                 icon: MicrosoftIcon,
                 title: "Rate on Microsoft Store",
+                href: "",
+              },
+              {
+                icon: MountainIcon,
+                title: "Give a star on Codeberg",
+                href: "",
+              },
+              {
+                icon: GitlabIcon,
+                title: "Give a star on GitLab",
+                href: "",
+              },
+              {
+                icon: Github01Icon,
+                title: "Give a star on GitHub",
                 href: "",
               },
             ]}
