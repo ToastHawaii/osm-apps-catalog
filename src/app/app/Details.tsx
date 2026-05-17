@@ -229,7 +229,7 @@ export function Details({ app }: { app: App }) {
           </div>
           {images.length > 0 && <Gallery images={images} />}
 
-          <div>
+          <div className="text-base">
             <Formatted htmlText={app.description || app.subtitle || ""} />
             {app.documentation && (
               <>

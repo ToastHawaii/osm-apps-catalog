@@ -10,7 +10,10 @@ import { AppCompact } from "@components/common/AppCompact";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { useRoute } from "@hooks/useRoute";
-import { DefaultTagsReorganization, TechDefaultTagsReorganization } from "@lib/tagsReorganizer";
+import {
+  DefaultTagsReorganization,
+  TechDefaultTagsReorganization,
+} from "@lib/tagsReorganizer";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 
