@@ -57545,7 +57545,15 @@ class Input {
       )
     }
 
-    result.input = { column, endColumn, endLine, endOffset, line, offset, source: this.css }
+    result.input = {
+      column,
+      endColumn,
+      endLine,
+      endOffset,
+      line,
+      offset,
+      source: this.css
+    }
     if (this.file) {
       if (pathToFileURL) {
         result.input.url = pathToFileURL(this.file).toString()
@@ -58054,6 +58062,16 @@ class LazyResult {
     if (opts.stringifier) str = opts.stringifier
     if (str.stringify) str = str.stringify
 
+    let rootSource = this.result.root.source
+    if (opts.map === undefined && !(rootSource && rootSource.input && rootSource.input.map)) {
+      let result = ''
+      str(this.result.root, i => {
+        result += i
+      })
+      this.result.css = result
+      return this.result
+    }
+
     let map = new MapGenerator(str, this.result.root, this.result.opts)
     let data = map.generate()
     this.result.css = data[0]
@@ -58375,7 +58393,15 @@ class MapGenerator {
         }
       }
     } else if (this.css) {
-      this.css = this.css.replace(/\n*\/\*#[\S\s]*?\*\/$/gm, '')
+      let startIndex
+      while ((startIndex = this.css.lastIndexOf('/*#')) !== -1) {
+        let endIndex = this.css.indexOf('*/', startIndex + 3)
+        if (endIndex === -1) break
+        while (startIndex > 0 && this.css[startIndex - 1] === '\n') {
+          startIndex--
+        }
+        this.css = this.css.slice(0, startIndex) + this.css.slice(endIndex + 2)
+      }
     }
   }
 
@@ -58678,7 +58704,7 @@ module.exports = MapGenerator
 
 let MapGenerator = __nccwpck_require__(5795)
 let parse = __nccwpck_require__(8994)
-const Result = __nccwpck_require__(1052)
+let Result = __nccwpck_require__(1052)
 let stringify = __nccwpck_require__(7452)
 let warnOnce = __nccwpck_require__(2991)
 
@@ -58741,10 +58767,9 @@ class NoWorkResult {
     this._css = css
     this._opts = opts
     this._map = undefined
-    let root
 
     let str = stringify
-    this.result = new Result(this._processor, root, this._opts)
+    this.result = new Result(this._processor, undefined, this._opts)
     this.result.css = css
 
     let self = this
@@ -58754,7 +58779,7 @@ class NoWorkResult {
       }
     })
 
-    let map = new MapGenerator(str, root, this._opts, css)
+    let map = new MapGenerator(str, undefined, this._opts, css)
     if (map.isMap()) {
       let [generatedCSS, generatedMap] = map.generate()
       if (generatedCSS) {
@@ -59505,7 +59530,7 @@ class Parser {
     node.source.end.offset++
 
     let text = token[1].slice(2, -2)
-    if (/^\s*$/.test(text)) {
+    if (!text.trim()) {
       node.text = ''
       node.raws.left = text
       node.raws.right = ''
@@ -60073,6 +60098,7 @@ function fromBase64(str) {
 class PreviousMap {
   constructor(css, opts) {
     if (opts.map === false) return
+    if (opts.unsafeMap) this.unsafeMap = true
     this.loadAnnotation(css)
     this.inline = this.startWith(this.annotation, 'data:')
 
@@ -60087,7 +60113,7 @@ class PreviousMap {
 
   consumer() {
     if (!this.consumerCache) {
-      this.consumerCache = new SourceMapConsumer(this.text)
+      this.consumerCache = new SourceMapConsumer(this.json || this.text)
     }
     return this.consumerCache
   }
@@ -60108,7 +60134,8 @@ class PreviousMap {
       return fromBase64(text.substr(baseUriMatch[0].length))
     }
 
-    let encoding = text.match(/data:application\/json;([^,]+),/)[1]
+    let encoding = text.slice('data:application/json;'.length)
+    encoding = encoding.slice(0, encoding.indexOf(','))
     throw new Error('Unsupported source map encoding ' + encoding)
   }
 
@@ -60139,7 +60166,13 @@ class PreviousMap {
     }
   }
 
-  loadFile(path) {
+  loadFile(path, cssFile, trusted) {
+    /* c8 ignore next 5 */
+    if (!trusted && !this.unsafeMap) {
+      if (!/\.map$/i.test(path)) {
+        return undefined
+      }
+    }
     this.root = dirname(path)
     if (existsSync(path)) {
       this.mapFile = path
@@ -60156,7 +60189,7 @@ class PreviousMap {
       } else if (typeof prev === 'function') {
         let prevPath = prev(file)
         if (prevPath) {
-          let map = this.loadFile(prevPath)
+          let map = this.loadFile(prevPath, file, true)
           if (!map) {
             throw new Error(
               'Unable to load previous source map: ' + prevPath.toString()
@@ -60180,7 +60213,16 @@ class PreviousMap {
     } else if (this.annotation) {
       let map = this.annotation
       if (file) map = join(dirname(file), map)
-      return this.loadFile(map)
+      let unknown = this.loadFile(map, file, false)
+      if (unknown) {
+        try {
+          /* c8 ignore next 4 */
+          this.json = JSON.parse(unknown.replace(/^\)]}'[^\n]*\n/, ''))
+        } catch {
+          return undefined
+        }
+      }
+      return unknown
     }
   }
 
@@ -60216,7 +60258,7 @@ let Root = __nccwpck_require__(973)
 
 class Processor {
   constructor(plugins = []) {
-    this.version = '8.5.6'
+    this.version = '8.5.12'
     this.plugins = this.normalize(plugins)
   }
 
@@ -60438,6 +60480,18 @@ Container.registerRule(Rule)
 "use strict";
 
 
+// Escapes sequences that could break out of an HTML <style> context.
+// Uses CSS unicode escaping (\3c = '<') which is valid CSS and parsed
+// correctly by all compliant CSS consumers.
+const STYLE_TAG = /(<)(\/?style\b)/gi
+const COMMENT_OPEN = /(<)(!--)/g
+
+function escapeHTMLInCSS(str) {
+  if (typeof str !== 'string') return str
+  if (!str.includes('<')) return str
+  return str.replace(STYLE_TAG, '\\3c $2').replace(COMMENT_OPEN, '\\3c $2')
+}
+
 const DEFAULT_RAW = {
   after: '\n',
   beforeClose: '\n',
@@ -60463,11 +60517,12 @@ class Stringifier {
   }
 
   atrule(node, semicolon) {
+    let raws = node.raws
     let name = '@' + node.name
     let params = node.params ? this.rawValue(node, 'params') : ''
 
-    if (typeof node.raws.afterName !== 'undefined') {
-      name += node.raws.afterName
+    if (typeof raws.afterName !== 'undefined') {
+      name += raws.afterName
     } else if (params) {
       name += ' '
     }
@@ -60475,8 +60530,8 @@ class Stringifier {
     if (node.nodes) {
       this.block(node, name + params)
     } else {
-      let end = (node.raws.between || '') + (semicolon ? ';' : '')
-      this.builder(name + params + end, node)
+      let end = (raws.between || '') + (semicolon ? ';' : '')
+      this.builder(escapeHTMLInCSS(name + params + end), node)
     }
   }
 
@@ -60510,53 +60565,77 @@ class Stringifier {
   }
 
   block(node, start) {
-    let between = this.raw(node, 'between', 'beforeOpen')
-    this.builder(start + between + '{', node, 'start')
+    let raws = node.raws
+    let between = typeof raws.between !== 'undefined'
+      ? raws.between
+      : this.raw(node, 'between', 'beforeOpen')
+    this.builder(escapeHTMLInCSS(start + between) + '{', node, 'start')
 
     let after
     if (node.nodes && node.nodes.length) {
       this.body(node)
-      after = this.raw(node, 'after')
+      after = typeof raws.after !== 'undefined'
+        ? raws.after
+        : this.raw(node, 'after')
     } else {
-      after = this.raw(node, 'after', 'emptyBody')
+      after = typeof raws.after !== 'undefined'
+        ? raws.after
+        : this.raw(node, 'after', 'emptyBody')
     }
 
-    if (after) this.builder(after)
+    if (after) this.builder(escapeHTMLInCSS(after))
     this.builder('}', node, 'end')
   }
 
   body(node) {
-    let last = node.nodes.length - 1
+    let nodes = node.nodes
+    let last = nodes.length - 1
     while (last > 0) {
-      if (node.nodes[last].type !== 'comment') break
+      if (nodes[last].type !== 'comment') break
       last -= 1
     }
 
     let semicolon = this.raw(node, 'semicolon')
-    for (let i = 0; i < node.nodes.length; i++) {
-      let child = node.nodes[i]
-      let before = this.raw(child, 'before')
-      if (before) this.builder(before)
+    let isDocument = node.type === 'document'
+    for (let i = 0; i < nodes.length; i++) {
+      let child = nodes[i]
+      let before = child.raws.before
+      if (typeof before === 'undefined') {
+        before = this.raw(child, 'before')
+      }
+      if (before) this.builder(isDocument ? before : escapeHTMLInCSS(before))
       this.stringify(child, last !== i || semicolon)
     }
   }
 
   comment(node) {
-    let left = this.raw(node, 'left', 'commentLeft')
-    let right = this.raw(node, 'right', 'commentRight')
-    this.builder('/*' + left + node.text + right + '*/', node)
+    let raws = node.raws
+    let left = typeof raws.left !== 'undefined'
+      ? raws.left
+      : this.raw(node, 'left', 'commentLeft')
+    let right = typeof raws.right !== 'undefined'
+      ? raws.right
+      : this.raw(node, 'right', 'commentRight')
+    this.builder(escapeHTMLInCSS('/*' + left + node.text + right + '*/'), node)
   }
 
   decl(node, semicolon) {
-    let between = this.raw(node, 'between', 'colon')
-    let string = node.prop + between + this.rawValue(node, 'value')
+    let raws = node.raws
+    let between = typeof raws.between !== 'undefined'
+      ? raws.between
+      : this.raw(node, 'between', 'colon')
+
+    let rawVal = raws.value
+    let value = rawVal && rawVal.value === node.value ? rawVal.raw : node.value
+
+    let string = node.prop + between + value
 
     if (node.important) {
-      string += node.raws.important || ' !important'
+      string += raws.important || ' !important'
     }
 
     if (semicolon) string += ';'
-    this.builder(string, node)
+    this.builder(escapeHTMLInCSS(string), node)
   }
 
   document(node) {
@@ -60592,9 +60671,9 @@ class Stringifier {
 
     // Detect style by other nodes
     let root = node.root()
-    if (!root.rawCache) root.rawCache = {}
-    if (typeof root.rawCache[detect] !== 'undefined') {
-      return root.rawCache[detect]
+    let cache = root.rawCache || (root.rawCache = {})
+    if (typeof cache[detect] !== 'undefined') {
+      return cache[detect]
     }
 
     if (detect === 'before' || detect === 'after') {
@@ -60613,7 +60692,7 @@ class Stringifier {
 
     if (typeof value === 'undefined') value = DEFAULT_RAW[detect]
 
-    root.rawCache[detect] = value
+    cache[detect] = value
     return value
   }
 
@@ -60762,13 +60841,17 @@ class Stringifier {
 
   root(node) {
     this.body(node)
-    if (node.raws.after) this.builder(node.raws.after)
+    if (node.raws.after) {
+      let after = node.raws.after
+      let isDocument = node.parent && node.parent.type === 'document'
+      this.builder(isDocument ? after : escapeHTMLInCSS(after))
+    }
   }
 
   rule(node) {
     this.block(node, this.rawValue(node, 'selector'))
     if (node.raws.ownSemicolon) {
-      this.builder(node.raws.ownSemicolon, node, 'end')
+      this.builder(escapeHTMLInCSS(node.raws.ownSemicolon), node, 'end')
     }
   }
 
@@ -60945,6 +61028,7 @@ module.exports = function tokenizer(input, options = {}) {
   let pos = 0
   let buffer = []
   let returned = []
+  let lastBadParen = -1
 
   function position() {
     return pos
@@ -61036,11 +61120,14 @@ module.exports = function tokenizer(input, options = {}) {
           currentToken = ['brackets', css.slice(pos, next + 1), pos, next]
 
           pos = next
+        } else if (pos <= lastBadParen) {
+          currentToken = ['(', '(', pos]
         } else {
           next = css.indexOf(')', pos + 1)
           content = css.slice(pos, next + 1)
 
           if (next === -1 || RE_BAD_BRACKET.test(content)) {
+            lastBadParen = next === -1 ? length : next
             currentToken = ['(', '(', pos]
           } else {
             currentToken = ['brackets', content, pos, next]
@@ -98659,7 +98746,7 @@ Browser.type = 'languageDetector';
 
 
 ;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
-const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.getIt":"Get it on","app.imageAlt":"Image from {{name}}.","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"Languages","app.lastRelease":"Last release","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Source code","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","app.tag.attribute.free":"Free of charge","app.tag.attribute.foss":"Free & open-source","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.navigation":"Navigation","app.tag.feature.voice-guidance":"Navigation with voice","app.tag.feature.location-search":"Location search","app.tag.feature.routing":"Route planning","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.record-track":"Record GPS track","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.documentation":"Documentation","list.more":"More","list.moreInfos":"Informations","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.result":"- {{description}} ({{points}} points)","score.results":"Community Contribution Score\\nTotal: {{total}} out of 10 points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on a source.\\n\\nFulfilled:\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
+const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.activity.connect.bluesky":"Join on Bluesky","app.contribute.activity.connect.description":"Get in touch with the {{app}} community, discuss and support other users","app.contribute.activity.connect.forum":"Join on the forum","app.contribute.activity.connect.forumTag":"Check out tag topics in the forum","app.contribute.activity.connect.gitHubDiscussions":"Join GitHub Discussions","app.contribute.activity.connect.hint":"No social communications channel documented","app.contribute.activity.connect.lemmy":"Join on Lemmy","app.contribute.activity.connect.mastodon":"Join on Mastodon","app.contribute.activity.connect.matrix":"Join on Matrix","app.contribute.activity.connect.reddit":"Join on Reddit","app.contribute.activity.connect.slack":"Join on Slack","app.contribute.activity.connect.telegram":"Join on Telegram","app.contribute.activity.connect.title":"Connect & Help other","app.contribute.activity.contributeCode.description":"Develop new features, help fix bugs, and review code","app.contribute.activity.contributeCode.hint":"No link to source code documented.","app.contribute.activity.contributeCode.title":"Get involved into coding","app.contribute.activity.contributeMapData.description":"Add info about points of interest or other map data used by {{app}} to OSM","app.contribute.activity.contributeMapData.title":"Contribute map data","app.contribute.activity.contributeTranslation.description":"Add translations to make {{app}} accessible for more people around the world","app.contribute.activity.contributeTranslation.hint":"No link to contribute translations documented","app.contribute.activity.contributeTranslation.title":"Translate text","app.contribute.activity.editInformation.description":"Edit the details about {{app}} in the source wikis","app.contribute.activity.editInformation.title":"Edit / Update Information","app.contribute.activity.rateAndReview.appleAppStore":"Rate on Apple AppStore","app.contribute.activity.rateAndReview.asin":"Rate on Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Give a star on Codeberg","app.contribute.activity.rateAndReview.description":"Rate and / or review {{app}} in the app stores","app.contribute.activity.rateAndReview.github":"Give a star on GitHub","app.contribute.activity.rateAndReview.gitlab":"Give a star on GitLab","app.contribute.activity.rateAndReview.googlePlay":"Rate on Google Play","app.contribute.activity.rateAndReview.hint":"No AppStore with review or code repository is documented.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Rate in HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Rate and review","app.contribute.activity.reportBugs.description":"Report bugs, discuss ideas, and propose features for {{app}}","app.contribute.activity.reportBugs.hint":"No link to issue tracker documented","app.contribute.activity.reportBugs.title":"Report bugs","app.contribute.activity.share.bluesky":"Share on Bluesky","app.contribute.activity.share.copied":"Copied!","app.contribute.activity.share.copy":"Copy to clipboard","app.contribute.activity.share.description":"Share {{app}} on your social networks","app.contribute.activity.share.fediverse":"Share on Fediverse","app.contribute.activity.share.mastodon":"Toot on Mastodon","app.contribute.activity.share.more":"More options","app.contribute.activity.share.reddit":"Share on Reddit","app.contribute.activity.share.telegram":"Share via Telegram","app.contribute.activity.share.textToShare":"Have you heard of the {{name}} app yet? {{-description}}\\nI think OpenStreetMap is awesome! Check out the app in the OSM Apps Catalog: {{-link}}","app.contribute.activity.share.title":"Spread the word","app.contribute.app.editInformation.wikiOsm.create":"Create a page for {{app}} on the OpenStreetMap Wiki","app.contribute.app.editInformation.wikiOsm.edit":"Edit \\"{{name}}\\" page on the OpenStreetMap Wiki","app.contribute.app.editInformation.wikidata.create":"Create item on Wikidata","app.contribute.app.editInformation.wikidata.edit":"Edit item on Wikidata","app.contribute.app.editInformation.wikidata.search":"Start a search to check that {{app}} doesn\'t already exists","app.contribute.app.spendTime":"Support {{app}}","app.contribute.appDevelopment":"App development","app.contribute.community":"Community","app.contribute.hint":"Why can\'t contributions be made?","app.contribute.osm.spendMoney":"Donate to OpenStreetMap","app.contribute.osm.spendTime":"Contribute to OpenStreetMap","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.download.android":"For Android","app.download.button":"Download / Visit","app.download.contributeSlide.description":"Find your way to contribute","app.download.downloadSlide.description":"Find your way to install or use it","app.download.forYourDevice":"for your device","app.download.fromCodeRepository":"Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.","app.download.ios":"For iOS","app.download.libreSoftwareNeedsSupport":"{{app}} is free and open-source software.\\nIt is built and maintained by contributors, and has ongoing costs.\\n\\nIf you find it useful, you may want to support it in some way.","app.download.macos":"For MacOS","app.download.needsHelpSlide.description":"Before you continue","app.download.osmNeedsSupport":"{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\\nThis data is available to use freely, but it is the result of ongoing work — mapping, coding, and hosting it takes continuous effort, and has ongoing costs to keep it available and up to date.\\n\\nIf you find {{app}} useful, you might consider supporting OpenStreetMap in some way.","app.download.skipButton":"Continue to Download/Visit","app.download.visitWebApp":"Visit the official website for more information about {{app}} and to get to the <webapp/>.","app.download.visitWebsite":"Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.","app.download.windows":"For Windows","app.helpTranslate":"Help improve the translation","app.helpTranslate.hint.label":"Why help with translation?","app.helpTranslate.hint.text":"Even small improvements can help make the app easier to understand and more accessible for everyone.\\nIn most cases, this can be done without much technical knowledge.","app.helpTranslateTo":"Help improve the English translation","app.imageAlt":"Image from {{name}}.","app.inUserLanguage":"{{language}} and {{numberOfLanguages}} more","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visit Official Website","app.keywords":"Keywords","app.languages":"Languages","app.lastRelease":"Last release","app.learnMore":"Learn more at {{website}}","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Code repository","app.tag.attribute.foss":"Free & open-source","app.tag.attribute.free":"Free of charge","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.location-search":"Location search","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.record-track":"Record GPS track","app.tag.feature.routing":"Route planning","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.voice-guidance":"Navigation with voice","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","close":"Close","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.documentation":"Documentation","list.more":"More","list.moreInfos":"More Information","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.result":"- {{description}} ({{points}} points)","score.results":"Community Contribution Score\\nTotal: {{total}} out of 10 points\\n\\nActions required for a higher score:\\n{{notFulfilled}}\\n\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on a source.\\n\\nFulfilled:\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
 const cs_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Vyvinul","app.community":"Komunita","app.community.bluesky":"Bluesky","app.community.forum":"Fórum","app.community.forumTag":"Štítek fóra","app.community.githubDiscussions":"Diskuse na GitHubu","app.community.issueTracker":"Problémy","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrixová místnost","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Skupina na Telegram","app.contribute":"Přispějte","app.contribute.toCommunity":"Pro komunitu","app.contribute.toCommunity.welcome":"Přivítejte nové uživatele","app.contribute.toData":"K datům OSM","app.contribute.toData.edit":"Upravujte mapová data","app.contribute.toData.qa":"Zajistěte kvalitu","app.contribute.toData.review":"Zkontrolujte úpravy","app.contribute.toData.tracks":"Nahrávejte a sdílejte trasy","app.contribute.toSoftware":"Na software","app.contribute.toSoftware.develop":"Vyvíjejte kód","app.contribute.toSoftware.discuss":"Diskutujte a sdílejte nápady","app.contribute.toSoftware.document":"Zlepšete dokumentaci","app.contribute.toSoftware.test":"Testujte a poskytněte zpětnou vazbu","app.contribute.toSoftware.translate":"Pomozte přeložit","app.coverage":"Pokrytí","app.getIt":"Získejte ho","app.imageAlt":"Obrázek z {{name}}.","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"Jazyky","app.lastRelease":"Poslední verze","app.license":"Licence","app.platforms":"Platformy","app.price":"Cena","app.programmingLanguages":"Naprogramováno v","app.source":"Zdroj","app.source.description":"Zdroj odkud pochází data.","app.source.firstCrawled":"První načteno: {{added}}","app.source.lastChange":"Poslední změna: {{date}}","app.sourceCode":"zdrojový kód","app.tag.attribute.foss":"Zdarma a s otevřeným zdrojovým kódem","app.tag.attribute.free":"Zdarma","app.tag.feature.accessibility-blind":"Přístupnost pro nevidomé","app.tag.feature.accessibility-wheelchair":"Bezbariérový přístup pro invalidní vozíky","app.tag.feature.create-notes":"Vytváření poznámky OSM","app.tag.feature.edit-map":"Úpravy OSM dat","app.tag.feature.location-search":"Vyhledávání polohy","app.tag.feature.navigation":"Navigace","app.tag.feature.offline-edit":"Úpravy OSM dat offline","app.tag.feature.offline-maps":"Offline mapy","app.tag.feature.offline-routing":"Vypočítání trasy bez internetu","app.tag.feature.record-track":"Zaznamenání GPS trasy","app.tag.feature.routing":"Plánování trasy","app.tag.feature.routing-bike":"Plánování trasy pro cyklistiku","app.tag.feature.routing-car":"Plánování trasy pro řízení","app.tag.feature.routing-foot":"Plánování trasy pro pěší turistiku","app.tag.feature.routing-hike":"Plánování trasy pro pěší turistiku","app.tag.feature.routing-manual":"Ruční plánování trasy","app.tag.feature.routing-motorbike":"Plánování trasy pro motocyklisty","app.tag.feature.routing-publicTransport":"Plánování tras pro veřejnou dopravu","app.tag.feature.routing-wheelchair":"Plánování trasy pro invalidní vozíky","app.tag.feature.upload-track":"Přispění trasy do OSM","app.tag.feature.voice-guidance":"Navigace s hlasem","app.unmaintained":"(<icon/> Neudržovaný)","app.unmaintained.wiki":"({{icon}} Neudržovaný)","app.website":"Webová stránka","category.3d":"Prohlížení světa ve 3D","category.3d.description":"{{numberOfApps}} aplikací, které podporují 3D mapy nebo jinak zobrazují či upravují 3D data z OpenStreetMap.","category.all.description":"{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","category.calcRoute":"Plánování trasy","category.calcRoute.description":"{{numberOfApps}} aplikací, které podporují výpočet trasy a plánování cesty.","category.changeset":"Kontrola úprav a správa komunity","category.changeset.description":"{{numberOfApps}} nástrojů pro monitorování aktivit v databázi OSM, sledování kampaní (např. hashtagů) a vítání nových mapovačů.","category.contributePhoto":"Nahrajte fotografie pro mapování","category.contributePhoto.description":"{{numberOfApps}} aplikací pro shromažďování a přispívání snímků na úrovni ulic pro mapování a další účely.","category.convert":"Převody a vykreslení","category.convert.description":"{{numberOfApps}} zdrojů pro převod a vykreslování dat souvisejících s OpenStreetMap.","category.country":"Aplikace pro {{country}}","category.country.description":"{{numberOfApps}} aplikací vytvořených pro {{country}}.","category.cycling":"Cyklistika","category.cycling.description":"{{numberOfApps}} aplikací pro cyklistickou jízdu.","category.diversity":"Jeden svět. Mnoho map.","category.diversity.description":"{{numberOfApps}} tematických map pro různé způsoby života, postoje a situace.","category.edit":"Vylepšete mapu","category.edit.description":"{{numberOfApps}} aplikací, které podporují přidávání nebo úpravy dat OpenStreetMap.","category.focus":"Probíhající projekty","category.focus.description":"Objevte každý den deset probíhajících projektů. Mohou být malé a zatím ne příliš známé. Podpořte je a pomozte šířit informace.","category.food":"Najít jídlo","category.food.description":"{{numberOfApps}} aplikací pro vyhledávání restaurací a dalších míst, kde si můžete dát chutné jídlo.","category.foss":"Svobodný a otevřený zdrojový kód","category.foss.description":"{{numberOfApps}} aplikací nebo knihoven, které jsou k dispozici na základě licence, která vám dává právo je používat, sdílet, upravovat a distribuovat.","category.hiking":"Turistika","category.hiking.description":"{{numberOfApps}} aplikací pro horské dobrodružství.","category.indoor":"Mapování uvnitř budov","category.indoor.description":"{{numberOfApps}} aplikací, které zobrazují a/nebo upravují údaje o interiéru.","category.isochrone":"Isochronní mapy","category.isochrone.description":"{{numberOfApps}} aplikací, které podporují výpočet map dosažitelnosti, např. pro chodce a cyklisty.","category.latestUpdates":"Nejnovější aktualizace","category.latestUpdates.description":"{{numberOfApps}} aplikace řazené podle data posledního vydání.","category.library":"Balíčky a knihovny","category.library.description":"{{numberOfApps}} zdrojů pro práci s daty souvisejícími s OpenStreetMap.","category.mobile":"Použití offline","category.mobile.description":"{{numberOfApps}} aplikací vyvinutých pro mobilní zařízení nebo podporující offline použití.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} aplikací, které podporují navigaci.","category.newAdditions":"Nové přírůstky","category.newAdditions.description":"Nejnovější objevy, které byly přidány do katalogu aplikací OSM.","category.print":"Vytiskněte si vlastní mapu","category.print.description":"Nástroje ({{numberOfApps}}) pro vytvoření souboru pro tisk.","category.publicTransport":"Cestování veřejnou dopravou","category.publicTransport.description":"{{numberOfApps}} aplikací, které usnadňují cestování veřejnou dopravou.","category.qa":"Zajištění kvality OpenStreetMap","category.qa.description":"Nástroje {{numberOfApps}} pro zkoumání dat OSM za účelem nalezení chyb, nekonzistencí nebo problematických změn.","category.resolveNotes":"Vyřešte poznámky k mapě","category.resolveNotes.description":"Nástroje {{numberOfApps}} pro kontrolu a řešení poznámek k mapám odeslaných uživateli, které pomáhají udržovat data OSM přesná a aktuální.","category.showAll":"Zobrazit vše","category.tourism":"Cestování a turistika","category.tourism.description":"{{numberOfApps}} aplikací pro objevování města nebo nalezení místa k přenocování.","category.trackRec":"Nahrávání a sdílení prohlídek","category.trackRec.description":"{{numberOfApps}} nástrojů pro záznam GPS tras, dat o pohybu nebo terénních poznámek např. pro pozdější mapování.","category.universalMapApps":"Univerzální mapové aplikace","category.universalMapApps.description":"{{numberOfApps}} mapových aplikací pro objevování zajímavých míst, plánování výletů nebo vylepšování mapy.","category.wheelchair":"Na cestách s invalidním vozíkem nebo kočárkem","category.wheelchair.description":"{{numberOfApps}} aplikací pro vyhledávání bezbariérových míst a plánování tras vhodných pro vozíčkáře. Upozorňujeme, že místa a trasy přístupné pro vozíčkáře jsou obecně vhodné i pro kočárky.","category.winterSport":"Zimní sporty","category.winterSport.description":"{{numberOfApps}} aplikací pro lyžování a další zimní sporty.","compare":"Porovnat","compare.group.header.accessibility":"Přístupnost","compare.group.header.editing":"Úpravy","compare.group.header.general":"Obecné","compare.group.header.map":"Zobrazení mapy","compare.group.header.monitoring":"Monitorování","compare.group.header.navigating":"Navigace","compare.group.header.rendering":"Vykreslování","compare.group.header.routing":"Hledání trasy","compare.group.header.tracking":"Sledování","compare.share":"Sdílet na wiki.openstreetmap.org","compare.unknown":"neznámý","filter":{"resetFilters":"Odebrat přednastavené filtry"},"filter.category.all":"Vše","filter.category.latest":"Nejnovější","filter.coverage":"Pokrytí","filter.language":"Jazyk","filter.moreFilters":"Filtry","filter.platform":"Platforma","filter.preset":"Filtr je pro vás přednastavený:","filter.preview":"Filtr je nastaven na:","filter.programmingLanguage":"Naprogramováno v","filter.search":"Hledat","filter.tag":"Funkce","filter.topic":"Téma","filters.morePlatforms":"Více platforem","introductionPanel.description":"Zde najdete {{numberOfApps}} mapových aplikací pro každou situaci: offline turistiku, plánování cyklotras, objevování míst vhodných pro děti, hledání nejbližší toalety...\\nObjevte OpenStreetMap – mapu světa vytvořenou ve spolupráci uživatelů.","introductionPanel.description.whileLoading":"Zde najdete mapové aplikace pro každou situaci: offline turistiku, plánování cyklotras, objevování míst vhodných pro děti, hledání nejbližší toalety...\\nObjevte OpenStreetMap – mapu světa vytvořenou ve spolupráci uživatelů.","introductionPanel.title":"Vítejte v katalogu aplikací OSM","list":"Seznam","list.documentation":"Dokumentace","list.more":"Více","list.moreInfos":"Informace","multilingual":"Vícejazyčný","nav.about":"O aplikaci","nav.back":"Zpět","nav.leaveTech":"Opustit technický náhled","nav.search":"Hledat","nav.tech":"Pro technické nadšence","noResults":"Žádné výsledky","notFound":"Nenašli jste, co hledáte?","notFound.desc":"Pomocí následujících služeb si můžete vytvořit vlastní tematické mapy bez znalosti programování. Možná již někdo vytvořil mapu, kterou hledáte, nebo si můžete vytvořit vlastní tematickou mapu.","pageNotFound":"Stránka nenalezena","relatedApps":"{{numberOfApps}} souvisejících aplikací","score.criteria.accessibilitySupported":"je podporována přístupnost (např. kompatibilita se čtečkou obrazovky nebo výpočet trasy pro vozíčkáře)","score.criteria.addingAndEditingPossible":"je možné přidávat a upravovat body zájmu, cesty atd","score.criteria.communityChannelExists":"existuje komunikační kanál pro komunitu (např. fórum, Mastodon)","score.criteria.copyleftLicense":"licence je copyleftová (např. GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"aplikace zobrazuje mapy nebo data OSM","score.criteria.documentationLink":"je k dispozici odkaz na dokumentaci","score.criteria.documentedMultiplePlatforms":"aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"aplikace je zdarma","score.criteria.issueTracker":"existuje nástroj pro sledování problémů","score.criteria.lastUpdateThreeMonths":"poslední aktualizace proběhla během posledních 3 měsíců","score.criteria.lastUpdateYear":"poslední aktualizace proběhla během posledního roku","score.criteria.multipleLanguages":"aplikace podporuje více jazyků (min. 3 jazyky)","score.criteria.multiplePlatforms":"aplikace je dostupná na více platformách (např. web, Android, iOS)","score.criteria.openSource":"aplikace má otevřený zdrojový kód","score.criteria.openSourceChannel":"kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)","score.criteria.openSourceStores":"aplikace je dostupná prostřednictvím obchodů s otevřeným zdrojovým kódem (např. F-Droid)","score.criteria.sourceCodeReference":"odkaz na zdrojový kód je zdokumentován","score.criteria.supportsContributions":"aplikace podporuje příspěvky (editace, analýzy atd.) do OpenStreetMap","score.criteria.tenLanguages":"aplikace je k dispozici nejméně v 10 jazycích","score.criteria.translationContributions":"je možné přispět k překladům","score.criteria.worldwideData":"aplikace pokrývá mapové podklady celého světa","score.result":"- {{description}} ({{points}} bodů)","score.results":"Skóre příspěvku komunity\\nCelkem: {{total}} z 10 bodů\\n\\nAkce potřebné pro dosažení vyššího skóre:\\n{{notFulfilled}}\\n\\nJe něco špatně nebo chybí? Můžete pomoci vylepšit dokumentaci. Přejděte na stránku s podrobnostmi o aplikaci a klikněte na zdroj.\\n\\nSplněno:\\n{{fulfilled}}","select.search.noResults":"Žádné výsledky","select.search.placeholder":"Hledat","share.wiki":"Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.","techView.introductionPanel.description":"Zde najdete pokročilé nástroje a programové knihovny pro práci s daty souvisejícími s OpenStreetMap.","techView.introductionPanel.title":"Katalog aplikací OSM pro technicky zdatné","techViewPanel.action":"Přepněte se na technický pohled!","techViewPanel.description":"V technickém zobrazení si prohlédněte knihovny a technické aplikace OpenStreetMap.","techViewPanel.title":"Jste technicky zdatní?","toggleTheme.dark":"Tmavý","toggleTheme.light":"Světlý","toggleTheme.screenReader":"Přepnout motiv","toggleTheme.system":"Systémový","wiki.generatedBy":"Vytvořeno pomocí OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.","wiki.none":"žádný"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/de.json
@@ -98701,7 +98788,7 @@ const uk_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"автор","
 ;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hans.json
 const zh_Hans_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.languages":"语言","app.license":"执照","app.platforms":"平台","app.sourceCode":"源代码","app.website":"网站","filter.language":"语言","filter.platform":"平台"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/zh_Hant.json
-const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.community":"社群","app.community.bluesky":"藍天","app.community.forum":"論壇","app.community.forumTag":"論壇標籤","app.community.githubDiscussions":"GitHub 討論","app.community.issueTracker":"議題","app.community.lemmy":"Lemmy","app.community.mastodon":"乳齒象","app.community.matrix":"Matrix 房間","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram 群組","app.contribute":"貢獻","app.contribute.toCommunity":"到社群","app.contribute.toCommunity.welcome":"歡迎新使用者","app.contribute.toData":"到OSM資料","app.contribute.toData.edit":"編輯地圖資料","app.contribute.toData.qa":"進行品質管控","app.contribute.toData.review":"審核編輯","app.contribute.toData.tracks":"記錄與分享軌跡","app.contribute.toSoftware":"到軟體","app.contribute.toSoftware.develop":"開發程式碼","app.contribute.toSoftware.discuss":"討論與分享想法","app.contribute.toSoftware.document":"改進說明文件","app.contribute.toSoftware.test":"測試與提供回饋意見","app.contribute.toSoftware.translate":"幫忙翻譯","app.coverage":"覆蓋範圍","app.getIt":"從…取得","app.imageAlt":"影像來自{{name}}。","app.install.appleStore":"Apple App Store","app.install.asin":"亞馬遜應用商店","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"華為應用市場","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"語言","app.lastRelease":"上次發佈","app.license":"授權條款","app.platforms":"平臺","app.price":"價格","app.programmingLanguages":"用什麼程式語言撰寫","app.source":"來源","app.source.description":"資料的來源。","app.source.firstCrawled":"第一次爬取：{{added}}","app.source.lastChange":"最後更改：{{date}}","app.sourceCode":"原始碼","app.tag.attribute.foss":"自由或開放原始碼","app.tag.attribute.free":"免費","app.tag.feature.accessibility-blind":"盲人可及性","app.tag.feature.accessibility-wheelchair":"輪椅可及性","app.tag.feature.create-notes":"新增 OSM 註解","app.tag.feature.edit-map":"編輯 OSM 資料","app.tag.feature.location-search":"地點搜尋","app.tag.feature.navigation":"導航","app.tag.feature.offline-edit":"離線編輯 OSM 資料","app.tag.feature.offline-maps":"離線地圖","app.tag.feature.offline-routing":"離線情形計算路徑","app.tag.feature.record-track":"錄製 GPS 軌跡","app.tag.feature.routing":"導航規劃","app.tag.feature.routing-bike":"單車路徑規劃","app.tag.feature.routing-car":"汽車路徑規劃","app.tag.feature.routing-foot":"行人路徑規劃","app.tag.feature.routing-hike":"登山路徑規劃","app.tag.feature.routing-manual":"手動路徑規劃","app.tag.feature.routing-motorbike":"機車路徑規劃","app.tag.feature.routing-publicTransport":"大眾運輸路徑規劃","app.tag.feature.routing-wheelchair":"輪椅路徑規劃","app.tag.feature.upload-track":"貢獻軌跡到 OSM","app.tag.feature.voice-guidance":"語音導航","app.unmaintained":"（<icon/> 未維護）","app.unmaintained.wiki":"（{{icon}} 未維護）","app.website":"網站","category.3d":"在 3D 當中檢視世界","category.3d.description":"{{numberOfApps}} 款支援檢視 3D 地圖或是能夠編輯開放街圖當中的 3D 資料的 app。","category.all.description":"{{numberOfApps}} 款使用<o>開放街圖</o>的 app。","category.all.description.filtered":"{{totalNumberOfApps}}當中有{{numberOfApps}} 款使用<o>開放街圖</o>的 app。","category.calcRoute":"規劃路徑","category.calcRoute.description":"{{numberOfApps}} 款支援導航運算與行程規劃的 app。","category.changeset":"檢核編輯與社群管理","category.changeset.description":"監控 OSM 資料活動、追蹤活動 (例如主題標籤)、歡迎新手圖客的 {{numberOfApps}} 個 app。","category.contributePhoto":"上傳照片以供畫地圖","category.contributePhoto.description":"{{numberOfApps}} 款為了畫地圖與其他目的收集與貢獻街景影像的 app。","category.convert":"轉換與渲染","category.convert.description":"{{numberOfApps}} 項資源能夠轉換與渲染開放街圖相關資料。","category.country":"{{country}} 的 app","category.country.description":"{{numberOfApps}} 款為了{{country}}設計的 app。","category.cycling":"單車","category.cycling.description":"{{numberOfApps}} 款騎單車的 app。","category.diversity":"整個地球，許多種地圖。","category.diversity.description":"{{numberOfApps}} 款呈現不同生活方式的主題地圖。","category.edit":"貢獻","category.edit.description":"顯示支援新增或編輯開放街圖資料的 {{numberOfApps}} 個 app。","category.focus":"進行中專案","category.focus.description":"每天顯示進行中的十件專案。也許這些專案規模仍然小，而且還不為人知，請幫助他們發展以及協助宣傳。","category.food":"尋找食物","category.food.description":"{{numberOfApps}} 款尋找餐廳以及其他提供美味食物的地方的 app。","category.foss":"自由與開放原始碼","category.foss.description":"{{numberOfApps}} 款授與您權利能夠使用、分享、變動以及散佈的 app 或是函式庫。","category.hiking":"登山","category.hiking.description":"{{numberOfApps}} 款規劃登山健行行程的 app。","category.indoor":"室內畫地圖","category.indoor.description":"{{numberOfApps}} 款能夠顯示與/或編輯室內資料的 app。","category.isochrone":"等時線地圖","category.isochrone.description":"{{numberOfApps}} 款支援計算可及性地圖，例如行人與單車騎士的 app。","category.latestUpdates":"最新更新","category.latestUpdates.description":"顯示按上次發佈日期排序的 {{numberOfApps}} 個 app。","category.library":"軟體包與函式庫","category.library.description":"{{numberOfApps}} 項資源能夠處理開放街圖相關資料。","category.mobile":"離線使用","category.mobile.description":"顯示為行動裝置開發或支援離線使用的 {{numberOfApps}} 個 app。","category.navigation":"導航檢視","category.navigation.description":"顯示支援導航的 {{numberOfApps}} 個 app。","category.newAdditions":"新增加","category.newAdditions.description":"最新加入 OSM Apps 目錄的服務或軟體。","category.print":"列印您的自訂地圖","category.print.description":"{{numberOfApps}} 款能夠創建能夠輸出印刷的地圖的工具。","category.publicTransport":"透過大眾運輸旅行","category.publicTransport.description":"{{numberOfApps}} 款能夠讓透過大眾運輸旅行更簡單的 app。","category.qa":"開放街圖品質監控","category.qa.description":"檢核 OSM 資料來找出錯誤、不一致或是問題編輯的 {{numberOfApps}} 個 app。","category.resolveNotes":"解決地圖註記","category.resolveNotes.description":"{{numberOfApps}} 款能夠檢核與解決使用者回報的地圖註解，幫助 OSM 資料保持正確與即時的工具。","category.showAll":"顯示全部","category.tourism":"旅行與觀光","category.tourism.description":"{{numberOfApps}} 款的能夠探索夜間城市風光或是夜間活動的 app。","category.trackRec":"軌跡與分享行程","category.trackRec.description":"記錄 GPS 軌跡、移動資料，或是為了之後畫地圖做田野筆記的 {{numberOfApps}} 款 app。","category.universalMapApps":"通用地圖 app","category.universalMapApps.description":"{{numberOfApps}} 款發現有趣地點，規劃旅行或是改進地圖的地圖 app。","category.wheelchair":"以輪椅或是嬰兒車來行動","category.wheelchair.description":"{{numberOfApps}} 款找尋無障礙地點以及規劃輪椅友善路徑的 app。請注意適合輪椅通行的地點通常也適合推嬰兒車。","category.winterSport":"冬季運動","category.winterSport.description":"{{numberOfApps}} 款適合滑雪以及其他冬季運動的 app。","compare":"比較","compare.group.header.accessibility":"無障礙","compare.group.header.editing":"編輯","compare.group.header.general":"一般","compare.group.header.map":"地圖顯示","compare.group.header.monitoring":"監測","compare.group.header.navigating":"導航","compare.group.header.rendering":"渲染中","compare.group.header.routing":"路由","compare.group.header.tracking":"追蹤","compare.share":"在 wiki.openstreetmap.org 中分享","compare.unknown":"未知","filter":{"resetFilters":"移除預置篩選"},"filter.category.all":"全部","filter.category.latest":"最新","filter.coverage":"覆蓋範圍","filter.language":"語言","filter.moreFilters":"篩選","filter.platform":"平臺","filter.preset":"這篩選已經是你的預置：","filter.preview":"篩選已經設定：","filter.programmingLanguage":"以什麼程式語言撰寫","filter.search":"搜尋","filter.topic":"主題","filters.morePlatforms":"更多平台","introductionPanel.description":"在這邊您能找到 {{numberOfApps}} 款適合每一種情境的地圖 app：離線登山、單車路徑規劃、探索嬰孩友善空間、尋找最近的廁所…\\n探索開放街圖 - 共同編輯創建的全球地圖。","introductionPanel.description.whileLoading":"在這邊您能找到適合每一種情境的地圖 app：離線登山、單車路徑規劃、探索嬰孩友善空間、尋找最近的廁所…\\n探索開放街圖 - 共同編輯創建的全球地圖。","introductionPanel.title":"歡迎來到 OSM Apps 目錄","list":"清單","list.documentation":"文件","list.more":"更多","list.moreInfos":"資訊","multilingual":"多種語言","nav.about":"關於","nav.back":"回去","nav.leaveTech":"離開技術檢視","nav.search":"搜尋","nav.tech":"為了科技愛好者","noResults":"沒有結果","notFound":"沒找到你想找的嗎？","notFound.desc":"使用以下服務可以不用任何程式語言知識，就能創建自己的主題地圖。也許有人已經創建你想建的主題地圖，或是你可以自行建立你心目中的主題地圖。","pageNotFound":"找不到頁面","relatedApps":"{{numberOfApps}} 個相關應用程式","score.criteria.accessibilitySupported":"支援無障礙 (例如螢幕閱讀器相容或是輢椅使用者導航)","score.criteria.addingAndEditingPossible":"如果可能，新增與編輯興趣點、路徑等","score.criteria.communityChannelExists":"有為社群存在的溝通頻道 (例如論壇、乳齒象)","score.criteria.copyleftLicense":"授權條款為著佐權 (例如 GPL、ODbL、MPL、CC)","score.criteria.displaysMaps":"顯示地圖或是 OSM 資料的 app","score.criteria.documentationLink":"有連結到說明文件","score.criteria.documentedMultiplePlatforms":"在多個平台有說明文件的 app (例如 OSM-Wiki、taginfo、維基數據)","score.criteria.freeOfCharge":"app 為免費的","score.criteria.issueTracker":"有議題追蹤","score.criteria.lastUpdateThreeMonths":"最新更新日期是三個月內","score.criteria.lastUpdateYear":"最新更新日期是最近一年","score.criteria.multipleLanguages":"支援多語言的 app (至少三種語言)","score.criteria.multiplePlatforms":"支搜多個平台 (例如網頁、Android、iOS) 的 app","score.criteria.openSource":"開放原始碼的 app","score.criteria.openSourceChannel":"基於開放原始碼平台的頻道 (例如 Matrix)","score.criteria.openSourceStores":"在開放原始碼的市集 (例如 F-Droid) 的 app","score.criteria.sourceCodeReference":"原始碼的參考資訊已經被記錄了","score.criteria.supportsContributions":"支援貢獻 (編輯、分析等) 開放街圖的 app","score.criteria.tenLanguages":"支援至少 10 種語言的 app","score.criteria.translationContributions":"有可能貢獻翻譯","score.criteria.worldwideData":"涵蓋全球地圖資料的 app","score.result":"- {{description}} ({{points}} 分數)","score.results":"社群貢獻分數\\n總計：{{total}}分數/十分\\n\\n更高分數所需行動：\\n{{notFulfilled}}\\n\\n完成：\\n{{fulfilled}}","select.search.noResults":"沒有結果","select.search.placeholder":"搜尋","share.wiki":"已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。","techView.introductionPanel.description":"在這邊您能找到能夠處理開放街圖相關資料的進階工具以及函式庫。","techView.introductionPanel.title":"科技人的 OSM Apps 目錄","techViewPanel.action":"切換為技術檢索！","techViewPanel.description":"在技術檢視觀看開放街圖函式庫以及技術 app。","techViewPanel.title":"您是技術愛好者嗎？","toggleTheme.dark":"夜晚","toggleTheme.light":"白天","toggleTheme.screenReader":"啟用主題","toggleTheme.system":"系統","wiki.generatedBy":"由 OSM Apps Catalog 產生","wiki.generatedByOsmAppsCatalog":"此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。","wiki.none":"無"}');
+const zh_Hant_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"作者","app.community":"社群","app.community.bluesky":"藍天","app.community.forum":"論壇","app.community.forumTag":"論壇標籤","app.community.githubDiscussions":"GitHub 討論","app.community.issueTracker":"議題","app.community.lemmy":"Lemmy","app.community.mastodon":"乳齒象","app.community.matrix":"Matrix 房間","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram 群組","app.contribute":"貢獻","app.contribute.toCommunity":"到社群","app.contribute.toCommunity.welcome":"歡迎新使用者","app.contribute.toData":"到OSM資料","app.contribute.toData.edit":"編輯地圖資料","app.contribute.toData.qa":"進行品質管控","app.contribute.toData.review":"審核編輯","app.contribute.toData.tracks":"記錄與分享軌跡","app.contribute.toSoftware":"到軟體","app.contribute.toSoftware.develop":"開發程式碼","app.contribute.toSoftware.discuss":"討論與分享想法","app.contribute.toSoftware.document":"改進說明文件","app.contribute.toSoftware.test":"測試與提供回饋意見","app.contribute.toSoftware.translate":"幫忙翻譯","app.coverage":"覆蓋範圍","app.getIt":"從…取得","app.imageAlt":"影像來自{{name}}。","app.install.appleStore":"Apple App Store","app.install.asin":"亞馬遜應用商店","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"華為應用市場","app.install.macAppStore":"Mac App Store","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"語言","app.lastRelease":"上次發佈","app.license":"授權條款","app.platforms":"平臺","app.price":"價格","app.programmingLanguages":"用什麼程式語言撰寫","app.source":"來源","app.source.description":"資料的來源。","app.source.firstCrawled":"第一次爬取：{{added}}","app.source.lastChange":"最後更改：{{date}}","app.sourceCode":"原始碼","app.tag.attribute.foss":"自由或開放原始碼","app.tag.attribute.free":"免費","app.tag.feature.accessibility-blind":"盲人可及性","app.tag.feature.accessibility-wheelchair":"輪椅可及性","app.tag.feature.create-notes":"新增 OSM 註解","app.tag.feature.edit-map":"編輯 OSM 資料","app.tag.feature.location-search":"地點搜尋","app.tag.feature.navigation":"導航","app.tag.feature.offline-edit":"離線編輯 OSM 資料","app.tag.feature.offline-maps":"離線地圖","app.tag.feature.offline-routing":"離線情形計算路徑","app.tag.feature.record-track":"錄製 GPS 軌跡","app.tag.feature.routing":"導航規劃","app.tag.feature.routing-bike":"單車路徑規劃","app.tag.feature.routing-car":"汽車路徑規劃","app.tag.feature.routing-foot":"行人路徑規劃","app.tag.feature.routing-hike":"登山路徑規劃","app.tag.feature.routing-manual":"手動路徑規劃","app.tag.feature.routing-motorbike":"機車路徑規劃","app.tag.feature.routing-publicTransport":"大眾運輸路徑規劃","app.tag.feature.routing-wheelchair":"輪椅路徑規劃","app.tag.feature.upload-track":"貢獻軌跡到 OSM","app.tag.feature.voice-guidance":"語音導航","app.unmaintained":"（<icon/> 未維護）","app.unmaintained.wiki":"（{{icon}} 未維護）","app.website":"網站","category.3d":"在 3D 當中檢視世界","category.3d.description":"{{numberOfApps}} 款支援檢視 3D 地圖或是能夠編輯開放街圖當中的 3D 資料的 app。","category.all.description":"{{numberOfApps}} 款使用<o>開放街圖</o>的 app。","category.all.description.filtered":"{{totalNumberOfApps}}當中有{{numberOfApps}} 款使用<o>開放街圖</o>的 app。","category.calcRoute":"規劃路徑","category.calcRoute.description":"{{numberOfApps}} 款支援導航運算與行程規劃的 app。","category.changeset":"檢核編輯與社群管理","category.changeset.description":"監控 OSM 資料活動、追蹤活動 (例如主題標籤)、歡迎新手圖客的 {{numberOfApps}} 個 app。","category.contributePhoto":"上傳照片以供畫地圖","category.contributePhoto.description":"{{numberOfApps}} 款為了畫地圖與其他目的收集與貢獻街景影像的 app。","category.convert":"轉換與渲染","category.convert.description":"{{numberOfApps}} 項資源能夠轉換與渲染開放街圖相關資料。","category.country":"{{country}} 的 app","category.country.description":"{{numberOfApps}} 款為了{{country}}設計的 app。","category.cycling":"單車","category.cycling.description":"{{numberOfApps}} 款騎單車的 app。","category.diversity":"整個地球，許多種地圖。","category.diversity.description":"{{numberOfApps}} 款呈現不同生活方式的主題地圖。","category.edit":"貢獻","category.edit.description":"顯示支援新增或編輯開放街圖資料的 {{numberOfApps}} 個 app。","category.focus":"進行中專案","category.focus.description":"每天顯示進行中的十件專案。也許這些專案規模仍然小，而且還不為人知，請幫助他們發展以及協助宣傳。","category.food":"尋找食物","category.food.description":"{{numberOfApps}} 款尋找餐廳以及其他提供美味食物的地方的 app。","category.foss":"自由與開放原始碼","category.foss.description":"{{numberOfApps}} 款授與您權利能夠使用、分享、變動以及散佈的 app 或是函式庫。","category.hiking":"登山","category.hiking.description":"{{numberOfApps}} 款規劃登山健行行程的 app。","category.indoor":"室內畫地圖","category.indoor.description":"{{numberOfApps}} 款能夠顯示與/或編輯室內資料的 app。","category.isochrone":"等時線地圖","category.isochrone.description":"{{numberOfApps}} 款支援計算可及性地圖，例如行人與單車騎士的 app。","category.latestUpdates":"最新更新","category.latestUpdates.description":"顯示按上次發佈日期排序的 {{numberOfApps}} 個 app。","category.library":"軟體包與函式庫","category.library.description":"{{numberOfApps}} 項資源能夠處理開放街圖相關資料。","category.mobile":"離線使用","category.mobile.description":"顯示為行動裝置開發或支援離線使用的 {{numberOfApps}} 個 app。","category.navigation":"導航檢視","category.navigation.description":"顯示支援導航的 {{numberOfApps}} 個 app。","category.newAdditions":"新增加","category.newAdditions.description":"最新加入 OSM Apps 目錄的服務或軟體。","category.print":"列印您的自訂地圖","category.print.description":"{{numberOfApps}} 款能夠創建能夠輸出印刷的地圖的工具。","category.publicTransport":"透過大眾運輸旅行","category.publicTransport.description":"{{numberOfApps}} 款能夠讓透過大眾運輸旅行更簡單的 app。","category.qa":"開放街圖品質監控","category.qa.description":"檢核 OSM 資料來找出錯誤、不一致或是問題編輯的 {{numberOfApps}} 個 app。","category.resolveNotes":"解決地圖註記","category.resolveNotes.description":"{{numberOfApps}} 款能夠檢核與解決使用者回報的地圖註解，幫助 OSM 資料保持正確與即時的工具。","category.showAll":"顯示全部","category.tourism":"旅行與觀光","category.tourism.description":"{{numberOfApps}} 款的能夠探索夜間城市風光或是夜間活動的 app。","category.trackRec":"軌跡與分享行程","category.trackRec.description":"記錄 GPS 軌跡、移動資料，或是為了之後畫地圖做田野筆記的 {{numberOfApps}} 款 app。","category.universalMapApps":"通用地圖 app","category.universalMapApps.description":"{{numberOfApps}} 款發現有趣地點，規劃旅行或是改進地圖的地圖 app。","category.wheelchair":"以輪椅或是嬰兒車來行動","category.wheelchair.description":"{{numberOfApps}} 款找尋無障礙地點以及規劃輪椅友善路徑的 app。請注意適合輪椅通行的地點通常也適合推嬰兒車。","category.winterSport":"冬季運動","category.winterSport.description":"{{numberOfApps}} 款適合滑雪以及其他冬季運動的 app。","compare":"比較","compare.group.header.accessibility":"無障礙","compare.group.header.editing":"編輯","compare.group.header.general":"一般","compare.group.header.map":"地圖顯示","compare.group.header.monitoring":"監測","compare.group.header.navigating":"導航","compare.group.header.rendering":"渲染中","compare.group.header.routing":"路由","compare.group.header.tracking":"追蹤","compare.share":"在 wiki.openstreetmap.org 中分享","compare.unknown":"未知","filter":{"resetFilters":"移除預置篩選"},"filter.category.all":"全部","filter.category.latest":"最新","filter.coverage":"覆蓋範圍","filter.language":"語言","filter.moreFilters":"篩選","filter.platform":"平臺","filter.preset":"這篩選已經是你的預置：","filter.preview":"篩選已經設定：","filter.programmingLanguage":"以什麼程式語言撰寫","filter.search":"搜尋","filter.tag":"功能","filter.topic":"主題","filters.morePlatforms":"更多平台","introductionPanel.description":"在這邊您能找到 {{numberOfApps}} 款適合每一種情境的地圖 app：離線登山、單車路徑規劃、探索嬰孩友善空間、尋找最近的廁所…\\n探索開放街圖 - 共同編輯創建的全球地圖。","introductionPanel.description.whileLoading":"在這邊您能找到適合每一種情境的地圖 app：離線登山、單車路徑規劃、探索嬰孩友善空間、尋找最近的廁所…\\n探索開放街圖 - 共同編輯創建的全球地圖。","introductionPanel.title":"歡迎來到 OSM Apps 目錄","list":"清單","list.documentation":"文件","list.more":"更多","list.moreInfos":"資訊","multilingual":"多種語言","nav.about":"關於","nav.back":"回去","nav.leaveTech":"離開技術檢視","nav.search":"搜尋","nav.tech":"為了科技愛好者","noResults":"沒有結果","notFound":"沒找到你想找的嗎？","notFound.desc":"使用以下服務可以不用任何程式語言知識，就能創建自己的主題地圖。也許有人已經創建你想建的主題地圖，或是你可以自行建立你心目中的主題地圖。","pageNotFound":"找不到頁面","relatedApps":"{{numberOfApps}} 個相關應用程式","score.criteria.accessibilitySupported":"支援無障礙 (例如螢幕閱讀器相容或是輢椅使用者導航)","score.criteria.addingAndEditingPossible":"如果可能，新增與編輯興趣點、路徑等","score.criteria.communityChannelExists":"有為社群存在的溝通頻道 (例如論壇、乳齒象)","score.criteria.copyleftLicense":"授權條款為著佐權 (例如 GPL、ODbL、MPL、CC)","score.criteria.displaysMaps":"顯示地圖或是 OSM 資料的 app","score.criteria.documentationLink":"有連結到說明文件","score.criteria.documentedMultiplePlatforms":"在多個平台有說明文件的 app (例如 OSM-Wiki、taginfo、維基數據)","score.criteria.freeOfCharge":"app 為免費的","score.criteria.issueTracker":"有議題追蹤","score.criteria.lastUpdateThreeMonths":"最新更新日期是三個月內","score.criteria.lastUpdateYear":"最新更新日期是最近一年","score.criteria.multipleLanguages":"支援多語言的 app (至少三種語言)","score.criteria.multiplePlatforms":"支搜多個平台 (例如網頁、Android、iOS) 的 app","score.criteria.openSource":"開放原始碼的 app","score.criteria.openSourceChannel":"基於開放原始碼平台的頻道 (例如 Matrix)","score.criteria.openSourceStores":"在開放原始碼的市集 (例如 F-Droid) 的 app","score.criteria.sourceCodeReference":"原始碼的參考資訊已經被記錄了","score.criteria.supportsContributions":"支援貢獻 (編輯、分析等) 開放街圖的 app","score.criteria.tenLanguages":"支援至少 10 種語言的 app","score.criteria.translationContributions":"有可能貢獻翻譯","score.criteria.worldwideData":"涵蓋全球地圖資料的 app","score.result":"- {{description}} ({{points}} 分數)","score.results":"社群貢獻分數\\n總計：{{total}}分數/十分\\n\\n更高分數所需行動：\\n{{notFulfilled}}\\n\\n還有什麼錯誤或是缺漏嗎？您可以協助改進說明文件，請到 app 的詳細資訊頁面然後點來源。\\n\\n完成：\\n{{fulfilled}}","select.search.noResults":"沒有結果","select.search.placeholder":"搜尋","share.wiki":"已複製 {{group}} 表格為 wiki.openstreetmap.org 格式至剪貼簿。","techView.introductionPanel.description":"在這邊您能找到能夠處理開放街圖相關資料的進階工具以及函式庫。","techView.introductionPanel.title":"科技人的 OSM Apps 目錄","techViewPanel.action":"切換為技術檢索！","techViewPanel.description":"在技術檢視觀看開放街圖函式庫以及技術 app。","techViewPanel.title":"您是技術愛好者嗎？","toggleTheme.dark":"夜晚","toggleTheme.light":"白天","toggleTheme.screenReader":"啟用主題","toggleTheme.system":"系統","wiki.generatedBy":"由 OSM Apps Catalog 產生","wiki.generatedByOsmAppsCatalog":"此表格由 [{{link}} OSM Apps Catalog] 於 {{date}} 產生。","wiki.none":"無"}');
 ;// CONCATENATED MODULE: ./src/app/ui/lib/templateData.json
 const templateData_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/wiki-software-template/en.json
@@ -98992,7 +99079,11 @@ function plainText_plainText(html) {
 
 
 function upperCase(values) {
-    return values?.map((s) => s.toUpperCase()) || [];
+    return values?.map(toUpper) || [];
+}
+function findIgnoreCase(arr, target) {
+    target = target.map(toUpper);
+    return arr.find((v) => target.includes(v.toUpperCase()));
 }
 function equalsIgnoreCase(a, b) {
     return typeof a === "string" && typeof b === "string"
@@ -99133,10 +99224,12 @@ const isDevelopment = typeof window !== "undefined" && window.location.host.star
 
 async function getJson(url, params = {}, headers = {}, isRetry = false) {
     if (isDevelopment) {
-        const response = await fetch("https://corsproxy.io/?" +
-            encodeURIComponent(`${url}?${utilQsString(params)}`) +
-            // change to avoid caching during testing
-            "%262026-04-15");
+        const response = await fetch(url.startsWith("https://osm-apps.org/")
+            ? url.replace("https://osm-apps.org/", "https://raw.githubusercontent.com/ToastHawaii/osm-apps-catalog/refs/heads/main/docs/")
+            : "https://corsproxy.io/?" +
+                encodeURIComponent(`${url}?${utilQsString(params)}`) +
+                // change to avoid caching during testing
+                "%262026-04-15");
         return await response.json();
     }
     console.info(`Load: ${url}?${utilQsString(params)}`);

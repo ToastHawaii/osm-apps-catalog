@@ -1,12 +1,12 @@
+import { chain } from "lodash";
 import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useSearchParams } from "react-router";
 
 import { Toggle } from "@components/ui/toggle";
 import { useAppsData } from "@hooks/useAppsData";
-import { chain } from "lodash";
-import { useTranslation } from "react-i18next";
-import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
-import { useNavigate, useSearchParams } from "react-router";
 import { useCurrentRoute } from "@hooks/useCurrentRoute";
+import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { upperCase } from "@shared/utils/string";
 
 export function Filters() {
@@ -22,7 +22,7 @@ export function Filters() {
   const platforms = usePlatformUrlParam();
   const platformsUp = upperCase(platforms);
 
-  const mainPlatforms: [string, () => string][] = [
+  const mainPlatforms: [Uppercase<string>, () => string][] = [
     ["WEB", () => "Web"],
     ["ANDROID", () => "Android"],
     ["IOS", () => "iOS"],
@@ -46,7 +46,9 @@ export function Filters() {
         .take(20)
 
         // exclude the main platforms
-        .map((p) => [p[0].toUpperCase(), () => p[0]] as const)
+        .map(
+          (p) => [p[0].toUpperCase() as Uppercase<string>, () => p[0]] as const,
+        )
         .filter((p) => !mainPlatforms.find((mp) => mp[0] === p[0]))
 
         // sort by alphabet
