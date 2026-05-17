@@ -1,29 +1,13 @@
-import React, { ReactNode } from "react";
-import { Link } from "react-router";
-import { Trans, useTranslation } from "react-i18next";
-
-import { App } from "@shared/data/App";
-import { useRoute } from "@hooks/useRoute";
-import { useIsTechDomain } from "@hooks/useIsTechDomain";
-import {
-  DefaultTagsReorganization,
-  tagsReorganizer,
-  TechDefaultTagsReorganization,
-} from "@lib/tagsReorganizer";
-
-import { Score } from "@app/ui/components/Score";
-import { AppLogo } from "@components/common/AppLogo";
-import { Badge } from "@components/ui/badge";
-import { Card, CardContent, CardHeader } from "@components/ui/card";
-
-import { useAppImages } from "@app/app/useAppImages";
-import { Gallery } from "@components/common/Gallery";
-import { plainText } from "@shared/utils/plainText";
-import { ExternalLink } from "@components/common/ExternalLink";
-import { newUrl } from "@shared/utils/url";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Alert02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import React, { ReactNode } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
+import { Contribute } from "@app/app/contribute";
+import { Download } from "@app/app/download";
+import { LanguageDisplay } from "@app/app/LanguagesDisplay";
+import { useAppImages } from "@app/app/useAppImages";
 import { BlueskyLink } from "@app/ui/components/links/community/BlueskyLink";
 import { ForumLink } from "@app/ui/components/links/community/ForumLink";
 import { ForumTagLink } from "@app/ui/components/links/community/ForumTagLink";
@@ -35,12 +19,24 @@ import { MatrixLink } from "@app/ui/components/links/community/MatrixLink";
 import { RedditLink } from "@app/ui/components/links/community/RedditLink";
 import { SlackLink } from "@app/ui/components/links/community/SlackLink";
 import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
+import { Score } from "@app/ui/components/Score";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
-import { LanguageDisplay } from "@app/app/LanguagesDisplay";
-import { Contribute } from "@app/app/contribute";
-import { Download } from "@app/app/download";
+import { AppLogo } from "@components/common/AppLogo";
+import { ExternalLink } from "@components/common/ExternalLink";
 import { Formatted } from "@components/common/Formatted";
-import { featureFlags } from "../../../src/featureFlags";
+import { Gallery } from "@components/common/Gallery";
+import { Badge } from "@components/ui/badge";
+import { Card, CardContent, CardHeader } from "@components/ui/card";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
+import { useRoute } from "@hooks/useRoute";
+import {
+  DefaultTagsReorganization,
+  tagsReorganizer,
+  TechDefaultTagsReorganization,
+} from "@lib/tagsReorganizer";
+import { App } from "@shared/data/App";
+import { plainText } from "@shared/utils/plainText";
+import { newUrl } from "@shared/utils/url";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -246,16 +242,12 @@ export function Details({ app }: { app: App }) {
               </>
             )}
           </div>
-          {featureFlags.showContributeOptions && (
-            <>
-              <h2 className="mt-12 text-xl font-semibold">Get involved</h2>
-              <Card>
-                <CardContent>
-                  <Contribute app={app} />
-                </CardContent>
-              </Card>
-            </>
-          )}
+          <h2 className="mt-12 text-xl font-semibold">Get involved</h2>
+          <Card>
+            <CardContent>
+              <Contribute app={app} />
+            </CardContent>
+          </Card>
 
           <h2 className="mt-12 text-xl font-semibold">{t("list.moreInfos")}</h2>
           <div className="w-full text-sm sm:columns-2 sm:gap-6">

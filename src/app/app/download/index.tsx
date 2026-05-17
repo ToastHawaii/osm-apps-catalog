@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Contribute } from "@app/app/contribute";
+import { DownloadSlide } from "@app/app/download/DownloadSlide";
+import { NeedsHelpSlide } from "@app/app/download/NeedsHelpSlide";
 import { DrawerDialog } from "@components/common/DrawerDialog";
 import { Button } from "@components/ui/button";
 import { App } from "@shared/data/App";
-import { Contribute } from "@app/app/contribute";
-import { featureFlags } from "../../../featureFlags";
-import { DownloadSlide } from "@app/app/download/DownloadSlide";
-import { NeedsHelpSlide } from "@app/app/download/NeedsHelpSlide";
 
 export function Download({ app }: { app: App }) {
   const { t } = useTranslation();
 
-  const [slide, setSlide] = useState(
-    featureFlags.showContributeOptions ? 0 : 2,
-  );
+  const [slide, setSlide] = useState(0);
 
   return (
     <DrawerDialog
@@ -39,7 +36,7 @@ export function Download({ app }: { app: App }) {
       }
       onOpenChange={(open) => {
         if (open) {
-          setSlide(featureFlags.showContributeOptions ? 0 : 2);
+          setSlide(0);
         }
       }}
     >
