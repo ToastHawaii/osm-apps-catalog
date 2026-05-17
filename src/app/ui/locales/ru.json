@@ -1,10 +1,10 @@
 {
-    "app.author": "автор",
-    "app.website": "веб-сайт",
-    "app.sourceCode": "исходный код",
-    "app.license": "лицензия",
-    "filter.language": "язык",
-    "filter.platform": "платформa",
-    "app.platforms": "платформ",
-    "app.languages": "языки"
+  "app.author": "автор",
+  "app.languages": "языки",
+  "app.license": "лицензия",
+  "app.platforms": "платформ",
+  "app.sourceCode": "исходный код",
+  "app.website": "веб-сайт",
+  "filter.language": "язык",
+  "filter.platform": "платформa"
 }
