@@ -3,5 +3,5 @@ export function getGitHubDiscussions(githubDiscussions: string | undefined) {
     return undefined;
   }
 
-  return `https://github.com/${githubDiscussions}`;
+  return `https://github.com/${githubDiscussions}/discussions`;
 }
