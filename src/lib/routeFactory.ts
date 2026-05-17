@@ -9,12 +9,16 @@ export interface Query {
 }
 
 export function routeFactory(domain?: string) {
-  function build(view?: string): (params?: Query) => string;
+  function build(
+    view?: string,
+  ): (params?: Query, options?: { full?: boolean }) => string;
   function build<T extends Params>(
     page?: string,
-  ): (params: T & Query) => string;
+  ): (params: T & Query, options?: { full?: boolean }) => string;
   function build<T extends Params | undefined>(page?: string) {
-    return (params: T & Query) => {
+    return (params: T & Query, options?: { full?: boolean }) => {
+      const base = options?.full ? `${document.location.origin}/` : "/";
+
       const search = chain({ domain, page, ...params })
         .omitBy(isUndefined) // Remove undefined values
         .mapValues((v) => (Array.isArray(v) ? v.join("+") : "" + v))
@@ -23,12 +27,12 @@ export function routeFactory(domain?: string) {
         .value()
         .toString();
 
-      return search ? `/?${search}` : "/";
+      return search ? `${base}?${search}` : base;
     };
   }
 
   return {
-    home: build<{ platforms?: string[] }>(),
+    home: build<{ platforms?: string[]; app?: number }>(),
     app: build<{ app: number }>("app"),
     search: build<{
       platforms?: string[];
