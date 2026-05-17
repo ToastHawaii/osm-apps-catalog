@@ -163,13 +163,13 @@ export function DownloadSlide({ app }: { app: App }) {
         .map((platform) => (
           <>
             <h3 className="mt-6 mb-2 font-semibold">
-              {t(`app.download.${platform}`)}
+              {t(`app.download.${platform}`)}{" "}
               <span className="text-green-500">
                 <HugeiconsIcon
                   icon={StarAward02Icon}
                   className="inline-block"
                   strokeWidth={2}
-                />{" "}
+                />
                 {t("app.download.forYourDevice")}
               </span>
             </h3>
