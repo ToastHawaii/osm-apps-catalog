@@ -1,13 +1,18 @@
-import React, { forwardRef, JSX, useImperativeHandle, useRef } from "react";
-import { useEffect } from "react";
 import { isEqual } from "lodash";
-
-import { DataArrayPartial, Option } from "slim-select/dist/store";
-import { SettingsPartial } from "slim-select/dist/settings";
-import SlimSelect, { Config, Events } from "slim-select";
-
-import "slim-select/styles";
+import React, {
+  forwardRef,
+  JSX,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { useTranslation } from "react-i18next";
+import SlimSelect, { Config, Events } from "slim-select";
+import { SettingsPartial } from "slim-select/dist/settings";
+import { DataArrayPartial, Option } from "slim-select/dist/store";
+
+// @ts-expect-error used to load styles
+import "slim-select/styles";
 
 export interface SlimSelectProps {
   style?: React.CSSProperties;

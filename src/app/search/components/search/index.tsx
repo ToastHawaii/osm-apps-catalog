@@ -1,9 +1,10 @@
+import { chain } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { App } from "@shared/data/App";
-import { chain } from "lodash";
 
+// @ts-expect-error used to load styles
 import "./styles.scss";
 
 function Suggestions({ apps }: { apps: App[] }) {

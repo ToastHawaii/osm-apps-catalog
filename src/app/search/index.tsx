@@ -1,39 +1,39 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
 import { chain, debounce } from "lodash";
-
-import { ViewSelect } from "../ui/components/ViewSelect";
-import { SearchComponent } from "./components/search";
-import { TopicSelect } from "./components/TopicSelect";
-import { PlatformSelect } from "./components/PlatformSelect";
-import { LanguageSelect } from "./components/LanguageSelect";
-import { CoverageSelect } from "./components/CoverageSelect";
-import { ContributeSelect, mapping } from "./components/ContributeSelect";
-import { Filters } from "../ui/components/filters";
-import { useSearchState } from "../../hooks/useSearchState";
-import { useFilter } from "../../lib/filter";
-import { Compare } from "./components/Compare";
+import React, { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { NotFoundApps } from "../ui/components/NotFoundApps";
-import { LazyInitMore } from "../ui/components/LazyInitMore";
-import { PagedList } from "../ui/PagedList";
-import { RelatedApps } from "./components/RelatedApps";
+import { useNavigate } from "react-router";
+
+import { ProgrammingLanguageSelect } from "@app/search/components/ProgrammingLanguageSelect";
+import { TagSelect } from "@app/search/components/TagSelect";
+import { NoResults } from "@app/search/NoResults";
+import { AppCompact } from "@components/common/AppCompact";
+import { ExternalLink } from "@components/common/ExternalLink";
+import { useIsTechDomain } from "@hooks/useIsTechDomain";
+import { useRoute } from "@hooks/useRoute";
+import { DefaultTagsReorganization, TechDefaultTagsReorganization } from "@lib/tagsReorganizer";
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
-import { ExternalLink } from "@components/common/ExternalLink";
-import { useRoute } from "@hooks/useRoute";
-import { ProgrammingLanguageSelect } from "@app/search/components/ProgrammingLanguageSelect";
-import { useIsTechDomain } from "@hooks/useIsTechDomain";
-import { AppCompact } from "@components/common/AppCompact";
-import {
-  DefaultTagsReorganization,
-  TechDefaultTagsReorganization,
-} from "@lib/tagsReorganizer";
-import { NoResults } from "@app/search/NoResults";
-import { TagSelect } from "@app/search/components/TagSelect";
-import { featureFlags } from "../../../src/featureFlags";
 
+import { featureFlags } from "../../../src/featureFlags";
+import { useSearchState } from "../../hooks/useSearchState";
+import { useFilter } from "../../lib/filter";
+import { Filters } from "../ui/components/filters";
+import { LazyInitMore } from "../ui/components/LazyInitMore";
+import { NotFoundApps } from "../ui/components/NotFoundApps";
+import { ViewSelect } from "../ui/components/ViewSelect";
+import { PagedList } from "../ui/PagedList";
+import { Compare } from "./components/Compare";
+import { ContributeSelect, mapping } from "./components/ContributeSelect";
+import { CoverageSelect } from "./components/CoverageSelect";
+import { LanguageSelect } from "./components/LanguageSelect";
+import { PlatformSelect } from "./components/PlatformSelect";
+import { RelatedApps } from "./components/RelatedApps";
+import { SearchComponent } from "./components/search";
+import { TopicSelect } from "./components/TopicSelect";
+
+// @ts-expect-error used to load styles
 import "../../index.scss";
+// @ts-expect-error used to load styles
 import "../../index.css";
 
 /** a small wrapper around search component that makes searching even smoother */
