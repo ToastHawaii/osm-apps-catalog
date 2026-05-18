@@ -105237,7 +105237,7 @@ function routeFactory(domain) {
         docs: (query) => query?.lang && query?.lang.toLowerCase() !== "en"
             ? `/docs/${toReadmeLanguage(query.lang)}/`
             : "/docs/",
-        docsScore: () => "/docs/score/",
+        docsScore: () => "/docs/score",
     };
 }
 
