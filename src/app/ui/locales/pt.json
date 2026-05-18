@@ -1,10 +1,10 @@
 {
-    "app.website": "Site da Internet",
-    "app.author": "Autor",
-    "app.sourceCode": "Código fonte",
-    "app.license": "Licença",
-    "filter.platform": "Plataforma",
-    "filter.language": "Linguagem",
-    "app.languages": "Linguagens",
-    "app.platforms": "Plataformas"
+  "app.author": "Autor",
+  "app.languages": "Linguagens",
+  "app.license": "Licença",
+  "app.platforms": "Plataformas",
+  "app.sourceCode": "Código fonte",
+  "app.website": "Site da Internet",
+  "filter.language": "Linguagem",
+  "filter.platform": "Plataforma"
 }
