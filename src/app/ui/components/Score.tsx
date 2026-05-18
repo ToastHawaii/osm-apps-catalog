@@ -1,7 +1,14 @@
 import React from "react";
 import { App } from "@shared/data/App";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { calculateScore } from "@shared/data/calculateScore";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@components/ui/popover";
+import { useRoute } from "@hooks/useRoute";
+import { Button } from "@components/ui/button";
 
 export function Score({
   app,
@@ -11,6 +18,7 @@ export function Score({
   position?: "left" | "right";
 }) {
   const { t } = useTranslation();
+  const routes = useRoute();
 
   if (!app.cache.score) {
     app.cache.score = calculateScore(app);
@@ -36,28 +44,6 @@ export function Score({
     color = "rgb(222 32 31)";
   }
 
-  const resultDisplay = t("score.results", {
-    total: score.total,
-    fulfilled: score.details
-      .filter((d) => d.fulfilled)
-      .map((e) =>
-        t("score.result", {
-          description: t("score.criteria." + e.translationKey),
-          points: e.points,
-        }),
-      )
-      .join("\n"),
-    notFulfilled: score.details
-      .filter((d) => !d.fulfilled)
-      .map((e) =>
-        t("score.result", {
-          description: t("score.criteria." + e.translationKey),
-          points: e.points,
-        }),
-      )
-      .join("\n"),
-  });
-
   let className = "";
   if (position === "left") {
     className = "corner-badge-left";
@@ -67,14 +53,51 @@ export function Score({
   }
 
   return (
-    <div
-      className={className}
-      style={{ backgroundColor: color }}
-      title={resultDisplay}
-    >
-      <a href="/docs/score" className="font-bold text-white!">
-        {label}
-      </a>
+    <div className={className} style={{ backgroundColor: color }}>
+      <Popover>
+        <PopoverTrigger className="p-0 font-bold text-white!">
+          {label}
+        </PopoverTrigger>
+        <PopoverContent
+          align="end"
+          className="w-150 max-w-[90vw]! whitespace-pre-line"
+        >
+          <Trans
+            i18nKey="score.results"
+            values={{
+              total: score.total,
+              fulfilled: score.details
+                .filter((d) => d.fulfilled)
+                .map((e) =>
+                  t("score.result", {
+                    description: t("score.criteria." + e.translationKey),
+                    points: e.points,
+                  }),
+                )
+                .join("\n"),
+              notFulfilled: score.details
+                .filter((d) => !d.fulfilled)
+                .map((e) =>
+                  t("score.result", {
+                    description: t("score.criteria." + e.translationKey),
+                    points: e.points,
+                  }),
+                )
+                .join("\n"),
+              editInformationTitle: t(
+                "app.contribute.activity.editInformation.title",
+              ),
+            }}
+            components={{
+              LearnMoreButton: (
+                <Button asChild>
+                  <a href={routes.docsScore()}>{t("score.learnMore")}</a>
+                </Button>
+              ),
+            }}
+          />
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

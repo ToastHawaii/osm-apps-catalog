@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
@@ -29,7 +28,7 @@ import {
 } from "@hugeicons/core-free-icons";
 
 export function Header() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const routes = useRoute();
   const currentRoute = useCurrentRouteName();
@@ -144,7 +143,7 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <a href={routes.docs({ lang: i18next.resolvedLanguage })}>
+                <a href={routes.docs({ lang: i18n.resolvedLanguage })}>
                   <HugeiconsIcon
                     className="size-5 md:hidden"
                     icon={HelpCircleIcon}

@@ -133,7 +133,7 @@ export function DownloadSlide({ app }: { app: App }) {
                   app: app.name,
                 }}
                 components={{
-                  webapp: <strong>Web app</strong>,
+                  strong: <strong />,
                 }}
               />
             ) : (
