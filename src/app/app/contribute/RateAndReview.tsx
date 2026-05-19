@@ -106,6 +106,13 @@ export function RateAndReview({ app }: { app: App }) {
     }
   }
 
+  links.forEach((link) => {
+    link.goatcounter = {
+      click: "/app/rate",
+      title: "Follows a rate and review link of an app.",
+    };
+  });
+
   return (
     <Activity
       title={t("app.contribute.activity.rateAndReview.title")}

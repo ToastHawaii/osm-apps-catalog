@@ -16,6 +16,10 @@ export function ContributeMapData({ app }: { app: App }) {
       })}
       icon={Location05Icon}
       link="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+      goatcounter={{
+        click: "/osm/contribute-map-data",
+        title: "Goes to OpenStreetMap contribute map data page.",
+      }}
     />
   );
 }

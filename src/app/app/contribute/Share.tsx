@@ -43,7 +43,63 @@ export function Share({ app }: { app: App }) {
     url: link,
   };
 
-  // Inspired by shareon. Thanks a lot.
+  // Inspired by shareon (https://github.com/kytta/shareon). Thanks a lot.
+  const links = [
+    {
+      icon: MastodonIcon,
+      title: t("app.contribute.activity.share.mastodon"),
+      href: `https://toot.kytta.dev/?text=${textEncoded}`,
+    },
+    {
+      icon: BlueskyIcon,
+      title: t("app.contribute.activity.share.bluesky"),
+      href: `https://bsky.app/intent/compose?text=${textEncoded}`,
+    },
+    {
+      icon: NeuralNetworkIcon,
+      title: t("app.contribute.activity.share.fediverse"),
+      href: `https://s2f.kytta.dev/?text=${textEncoded}`,
+    },
+    {
+      icon: RedditIcon,
+      title: t("app.contribute.activity.share.reddit"),
+      href: `https://www.reddit.com/submit?title=${titleEncoded}&url=${linkEncoded}`,
+    },
+    {
+      icon: TelegramIcon,
+      title: t("app.contribute.activity.share.telegram"),
+      href: `https://telegram.me/share/url?url=${linkEncoded}&text=${textEncoded}`,
+    },
+    {
+      icon: copyFeedback ? Tick01Icon : Copy01Icon,
+      title: copyFeedback
+        ? t("app.contribute.activity.share.copied")
+        : t("app.contribute.activity.share.copy"),
+      onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        event.preventDefault();
+        navigator.clipboard.writeText(text);
+        setCopyFeedback(true);
+        setTimeout(() => {
+          setCopyFeedback(false);
+        }, 1000);
+      },
+    },
+    navigator.canShare && navigator.canShare(shareData)
+      ? {
+          icon: Share03Icon,
+          title: t("app.contribute.activity.share.more"),
+          onClick: () => navigator.share(shareData),
+        }
+      : undefined,
+  ].filter((o) => o) as Links;
+
+  links.forEach((link) => {
+    link.goatcounter = {
+      click: "/app/share",
+      title: "Starts sharing an app",
+    };
+  });
+
   return (
     <Activity
       title={t("app.contribute.activity.share.title")}
@@ -51,56 +107,7 @@ export function Share({ app }: { app: App }) {
         app: app.name,
       })}
       icon={Share05Icon}
-      links={
-        [
-          {
-            icon: MastodonIcon,
-            title: t("app.contribute.activity.share.mastodon"),
-            href: `https://toot.kytta.dev/?text=${textEncoded}`,
-          },
-          {
-            icon: BlueskyIcon,
-            title: t("app.contribute.activity.share.bluesky"),
-            href: `https://bsky.app/intent/compose?text=${textEncoded}`,
-          },
-          {
-            icon: NeuralNetworkIcon,
-            title: t("app.contribute.activity.share.fediverse"),
-            href: `https://s2f.kytta.dev/?text=${textEncoded}`,
-          },
-          {
-            icon: RedditIcon,
-            title: t("app.contribute.activity.share.reddit"),
-            href: `https://www.reddit.com/submit?title=${titleEncoded}&url=${linkEncoded}`,
-          },
-          {
-            icon: TelegramIcon,
-            title: t("app.contribute.activity.share.telegram"),
-            href: `https://telegram.me/share/url?url=${linkEncoded}&text=${textEncoded}`,
-          },
-          {
-            icon: copyFeedback ? Tick01Icon : Copy01Icon,
-            title: copyFeedback
-              ? t("app.contribute.activity.share.copied")
-              : t("app.contribute.activity.share.copy"),
-            onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-              event.preventDefault();
-              navigator.clipboard.writeText(text);
-              setCopyFeedback(true);
-              setTimeout(() => {
-                setCopyFeedback(false);
-              }, 1000);
-            },
-          },
-          navigator.canShare && navigator.canShare(shareData)
-            ? {
-                icon: Share03Icon,
-                title: t("app.contribute.activity.share.more"),
-                onClick: () => navigator.share(shareData),
-              }
-            : undefined,
-        ].filter((o) => o) as Links
-      }
+      links={links}
     />
   );
 }

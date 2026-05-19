@@ -15,6 +15,10 @@ export function ContributeCode({ app }: { app: App }) {
       icon={SourceCodeIcon}
       link={app.sourceCode}
       hint={t("app.contribute.activity.contributeCode.hint")}
+      goatcounter={{
+        click: "/app/source-code",
+        title: "Goes to source code of an app.",
+      }}
     />
   );
 }

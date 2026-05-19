@@ -108,6 +108,10 @@ export function EditInformation({ app }: { app: App }) {
       })}
       icon={Edit04Icon}
       links={links}
+      goatcounter={{
+        click: "/app/edit",
+        title: "Goes to wiki page of an app to start edit.",
+      }}
     />
   );
 }

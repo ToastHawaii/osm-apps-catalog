@@ -16,6 +16,10 @@ export function ReportBugs({ app }: { app: App }) {
       icon={MessageMultiple02Icon}
       link={app.community.issueTracker}
       hint={t("app.contribute.activity.reportBugs.hint")}
+      goatcounter={{
+        click: "/app/report-bug",
+        title: "Starts report a bug of an app.",
+      }}
     />
   );
 }

@@ -4,15 +4,16 @@ import {
   InformationCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { t } from "i18next";
-import React, { isValidElement, ReactElement, ReactNode } from "react";
+import React, { isValidElement, ReactElement } from "react";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 
 import { Button } from "@components/ui/button";
 import {
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenu,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
 } from "@components/ui/dropdown-menu";
 import {
   ItemMedia,
@@ -28,21 +29,12 @@ import {
   Popover,
 } from "@components/ui/popover";
 import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
+import {
+  ActivityDropdownItem,
+  Link,
+} from "@app/app/contribute/ActivityDropdownItem";
 
-export type Links = ({
-  icon: IconSvgElement | ReactElement;
-  title: ReactNode;
-  description?: ReactNode;
-} & (
-  | {
-      href: string;
-      goatcounter?: {
-        click: string;
-        title: string;
-      };
-    }
-  | { onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void }
-))[];
+export type Links = Link[];
 
 export function Activity(
   props: {
@@ -55,9 +47,13 @@ export function Activity(
   } & (
     | {
         link: string | undefined;
+        goatcounter?: {
+          click: string;
+          title: string;
+        };
       }
     | {
-        links: Links;
+        links: Links | [label: string, items: Links][];
       }
   ),
 ) {
@@ -96,7 +92,18 @@ export function Activity(
     if ("link" in props) {
       return (
         <Item size="xs" asChild>
-          <a href={props.link} target="_blank" rel="noreferrer">
+          <a
+            href={props.link}
+            target="_blank"
+            rel="noreferrer"
+            {...(props.goatcounter
+              ? {
+                  "data-goatcounter-click": props.goatcounter.click,
+                  "data-goatcounter-title": props.goatcounter.title,
+                  "data-goatcounter-referrer": "https://osm-apps.org/",
+                }
+              : {})}
+          >
             {item}
           </a>
         </Item>
@@ -115,62 +122,17 @@ export function Activity(
           className="w-auto max-w-[80vw] sm:max-w-80"
         >
           {props.links.map((link, i) => {
-            const item = (
-              <>
-                <ItemMedia variant="icon">
-                  {!isValidElement(link.icon) ? (
-                    <HugeiconsIcon
-                      icon={link.icon}
-                      className="inline-block"
-                      strokeWidth={2}
-                      size={19.25}
-                      style={{ width: 19.25, height: 19.25 }}
-                    />
-                  ) : (
-                    link.icon
-                  )}
-                </ItemMedia>
-                <ItemContent className="gap-0">
-                  <ItemTitle>{link.title}</ItemTitle>
-                  {link.description && (
-                    <ItemDescription className="leading-none">
-                      {link.description}
-                    </ItemDescription>
-                  )}
-                </ItemContent>
-              </>
-            );
-
-            if ("href" in link) {
+            if (Array.isArray(link)) {
               return (
-                <DropdownMenuItem key={i} asChild>
-                  <Item size="sm" asChild>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      {...("goatcounter" in link && link.goatcounter
-                        ? {
-                            "data-goatcounter-click": link.goatcounter.click,
-                            "data-goatcounter-title": link.goatcounter.title,
-                            "data-goatcounter-referrer":
-                              "https://osm-apps.org/",
-                          }
-                        : {})}
-                    >
-                      {item}
-                    </a>
-                  </Item>
-                </DropdownMenuItem>
+                <DropdownMenuGroup key={i}>
+                  <DropdownMenuLabel>{link[0]}</DropdownMenuLabel>
+                  {link[1].map((l, ii) => (
+                    <ActivityDropdownItem key={ii} {...l} />
+                  ))}
+                </DropdownMenuGroup>
               );
             } else {
-              return (
-                <DropdownMenuItem key={i} onClick={link.onClick}>
-                  <Item size="sm" asChild>
-                    {item}
-                  </Item>
-                </DropdownMenuItem>
-              );
+              return <ActivityDropdownItem key={i} {...link} />;
             }
           })}
         </DropdownMenuContent>

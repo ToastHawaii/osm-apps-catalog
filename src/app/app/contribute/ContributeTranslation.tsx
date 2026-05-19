@@ -18,6 +18,10 @@ export function ContributeTranslation({ app }: { app: App }) {
       icon={TranslateIcon}
       link={app.languagesUrl}
       hint={t("app.contribute.activity.contributeTranslation.hint")}
+      goatcounter={{
+        click: "app/translation-contribution",
+        title: "Goes to the translation contribution page of an app.",
+      }}
     />
   );
 }

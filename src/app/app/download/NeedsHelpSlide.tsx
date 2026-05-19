@@ -45,6 +45,9 @@ export function NeedsHelpSlide({
         <Button size="xs" asChild>
           <ExternalLink
             href="https://wiki.openstreetmap.org/wiki/How_to_contribute"
+            data-goatcounter-click="/osm/contribute"
+            data-goatcounter-title="Goes to OpenStreetMap how to contribute page."
+            data-goatcounter-referrer="https://osm-apps.org/"
             icon
           >
             {t("app.contribute.osm.spendTime")}
@@ -53,6 +56,9 @@ export function NeedsHelpSlide({
         <Button size="xs" asChild>
           <ExternalLink
             href="https://supporting.openstreetmap.org/donate/"
+            data-goatcounter-click="/osm/donate"
+            data-goatcounter-title="Goes to OpenStreetMap donate page."
+            data-goatcounter-referrer="https://osm-apps.org/"
             icon
           >
             {t("app.contribute.osm.spendMoney")}

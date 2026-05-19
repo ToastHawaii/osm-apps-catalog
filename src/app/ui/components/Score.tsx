@@ -60,7 +60,7 @@ export function Score({
         </PopoverTrigger>
         <PopoverContent
           align="end"
-          className="max-h-[60vh] overflow-y-auto w-150 max-w-[90vw]! whitespace-pre-line"
+          className="max-h-[60vh] w-150 max-w-[90vw]! overflow-y-auto whitespace-pre-line"
         >
           <Trans
             i18nKey="score.results"
