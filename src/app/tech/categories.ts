@@ -62,25 +62,6 @@ export function categories(
       tagsReorganization: TechDefaultTagsReorganization,
     },
     {
-      id: "latest",
-      name: () => t("category.latestUpdates"),
-      description: (numberOfApps: number) =>
-        t("category.latestUpdates.description", { numberOfApps }),
-      sorted: () =>
-        chain(apps)
-          .sortBy((a) => a.source[0].lastChange || "")
-          .sortBy((a) => a.lastRelease || "")
-          .reverse(),
-      getAll: function () {
-        return this.sorted().value();
-      },
-      nextIndex: function () {
-        const latest = this.sorted().take(1).value();
-        return apps.findIndex((app) => app.id === latest[0].id);
-      },
-      tagsReorganization: TechDefaultTagsReorganization,
-    },
-    {
       id: "library",
       name: () => t("category.library"),
       description: (numberOfApps: number) =>
@@ -164,6 +145,25 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.isochrone.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => isochrone(app)),
+      tagsReorganization: TechDefaultTagsReorganization,
+    },
+    {
+      id: "latest",
+      name: () => t("category.latestUpdates"),
+      description: (numberOfApps: number) =>
+        t("category.latestUpdates.description", { numberOfApps }),
+      sorted: () =>
+        chain(apps)
+          .sortBy((a) => a.source[0].lastChange || "")
+          .sortBy((a) => a.lastRelease || "")
+          .reverse(),
+      getAll: function () {
+        return this.sorted().value();
+      },
+      nextIndex: function () {
+        const latest = this.sorted().take(1).value();
+        return apps.findIndex((app) => app.id === latest[0].id);
+      },
       tagsReorganization: TechDefaultTagsReorganization,
     },
   ];
