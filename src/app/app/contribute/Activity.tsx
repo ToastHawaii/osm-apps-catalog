@@ -125,7 +125,9 @@ export function Activity(
             if (Array.isArray(link)) {
               return (
                 <DropdownMenuGroup key={i}>
-                  <DropdownMenuLabel>{link[0]}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="pb-1">
+                    {link[0]}
+                  </DropdownMenuLabel>
                   {link[1].map((l, ii) => (
                     <ActivityDropdownItem key={ii} {...l} />
                   ))}

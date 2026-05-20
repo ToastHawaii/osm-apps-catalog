@@ -14,7 +14,7 @@ import { App } from "@shared/data/App";
 export function EditInformation({ app }: { app: App }) {
   const { t } = useTranslation();
 
-  const links: {
+  const osmWikiLinks: {
     icon: IconSvgElement;
     href: string;
     title: ReactNode;
@@ -22,7 +22,7 @@ export function EditInformation({ app }: { app: App }) {
   }[] = [];
 
   if (!app.source.find(({ name }) => name === "Software" || name === "Layer")) {
-    links.push({
+    osmWikiLinks.push({
       icon: MapsSearchIcon,
       href:
         "https://wiki.openstreetmap.org/w/index.php?veaction=edit&preload=OSM_Apps_Catalog%2Fnew&editintro=OSM_Apps_Catalog%2Feditintro&summary=Document+an+OSM-related+app+so+that+it+becomes+visible+to+the+OSM+community+and+in+the+OSM+Apps+Catalog.&title=" +
@@ -32,7 +32,7 @@ export function EditInformation({ app }: { app: App }) {
       }),
     });
 
-    links.push(
+    osmWikiLinks.push(
       ...app.source
         .filter(({ name }) => name === "ServiceItem")
         .map(({ id, name, language }) => ({
@@ -51,7 +51,7 @@ export function EditInformation({ app }: { app: App }) {
         })),
     );
   } else {
-    links.push(
+    osmWikiLinks.push(
       ...app.source
         .filter(
           ({ name }) =>
@@ -77,8 +77,15 @@ export function EditInformation({ app }: { app: App }) {
     );
   }
 
+  const wikidataLinks: {
+    icon: IconSvgElement;
+    href: string;
+    title: ReactNode;
+    description?: ReactNode;
+  }[] = [];
+
   if (!app.source.find(({ name }) => name === "Wikidata")) {
-    links.push({
+    wikidataLinks.push({
       icon: BarCode02Icon,
       href:
         "https://www.wikidata.org/w/index.php?title=Special:Search&search=" +
@@ -89,7 +96,7 @@ export function EditInformation({ app }: { app: App }) {
       }),
     });
   } else {
-    links.push(
+    wikidataLinks.push(
       ...app.source
         .filter(({ name }) => name === "Wikidata")
         .map(({ url }) => ({
@@ -107,7 +114,10 @@ export function EditInformation({ app }: { app: App }) {
         app: app.name,
       })}
       icon={Edit04Icon}
-      links={links}
+      links={[
+        [t("app.contribute.activity.editInformation.osmWiki"), osmWikiLinks],
+        [t("app.contribute.activity.editInformation.wikidata"), wikidataLinks],
+      ]}
       goatcounter={{
         click: "/app/edit",
         title: "Goes to wiki page of an app to start edit.",
