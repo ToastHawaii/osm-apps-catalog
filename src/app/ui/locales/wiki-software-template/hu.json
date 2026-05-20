@@ -9,7 +9,7 @@
   },
   "mapData": {
     "label": "Térképadatok",
-    "description": "[Térkép-megjelenítés] A térképet előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki? (Raszteres vs. vektoros megjelenítés.)"
+    "description": "[Térkép-megjelenítés] Előre kiszámított/raszterizált képek használatával vagy „menet közben” rajzolja ki a térképet? (Raszteres vs. vektoros megjelenítés.)"
   },
   "datasource": {
     "label": "Forrás",
@@ -25,19 +25,19 @@
   },
   "showWebsite": {
     "label": "Weboldal megjelenítése",
-    "description": "[POI információ] Megjeleníti az érdekes pont (POI) weboldalára mutató linket"
+    "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) weboldalára mutató linket?"
   },
   "showPhoneNumber": {
     "label": "Telefonszám megjelenítése",
-    "description": "[POI információ] Megjeleníti az érdekes pont (POI) telefonszámát"
+    "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) telefonszámát?"
   },
   "showOpeningHours": {
     "label": "Nyitva tartás megjelenítése",
-    "description": "[POI információ] Megjeleníti az érdekes pont (POI) nyitvatartási idejét"
+    "description": "[POI információ] Megjeleníti-e az érdekes pont (POI) nyitvatartási idejét?"
   },
   "routing": {
     "label": "Útvonaltervezés",
-    "description": "[Útvonaltervezés] Tud-e útvonalat kitszámítani vagy más módon tervezni?"
+    "description": "[Útvonaltervezés] Tud-e útvonalat kiszámítani vagy más módon tervezni?"
   },
   "createRouteManually": {
     "label": "Útvonal létrehozása manuálisan",
@@ -49,7 +49,7 @@
   },
   "createRouteViaWaypoints": {
     "label": "Útvonal létrehozása útpontokkal",
-    "description": "[Útvonaltervezés] Képes útpontok érintésével útvonalat kiszámítani"
+    "description": "[Útvonaltervezés] Tud-e útpontok érintésével útvonalat kiszámítani?"
   },
   "profiles": {
     "label": "Útvonaltervezési profilok",
@@ -65,7 +65,7 @@
   },
   "routingProviders": {
     "label": "Útvonaltervezési szolgáltatók",
-    "description": "[Útvonaltervezés] Milyen útvonaltervezési szolgáltatás(oka)t használ?"
+    "description": "[Útvonaltervezés] Melyik útvonaltervező szolgáltatás(oka)t használja?"
   },
   "avoidTraffic": {
     "label": "Forgalom elkerülése",
@@ -137,15 +137,15 @@
   },
   "monitoring": {
     "label": "Követés",
-    "description": "[Nyomvonalkövetés] Tudja-e nyomon követni a GPS-adatokat?"
+    "description": "[Nyomvonalkövetés] Képes-e nyomon követni a GPS-adatokat?"
   },
   "showTrack": {
-    "label": "Jelenlegi nyomvonal megjelenítése",
+    "label": "Aktuális nyomvonal megjelenítése",
     "description": "[Nyomvonalkövetés] Megjeleníti-e az aktuális nyomvonalat?"
   },
   "showExistingTrack": {
     "label": "Meglévő nyomvonal megnyitása",
-    "description": "[Nyomvonalkövetés] Be tud-e tölteni a már meglévő nyomvonalakat, hogy aztán kövesse őket?"
+    "description": "[Nyomvonalkövetés] Be tud-e tölteni már meglévő nyomvonalat, hogy aztán azt kövesse?"
   },
   "showAltitudeDiagram": {
     "label": "Magassági diagram",
@@ -193,11 +193,11 @@
   },
   "offsetDBsupport": {
     "label": "Légifelvétel-eltolási adatbázis támogatása",
-    "description": "[Szerkesztő] Támogatja-e a légifelvételek eltolódási adatait tartalmaz adatbázis használatát?"
+    "description": "[Szerkesztő] Támogatja-e a légi felvételek eltolódási adatait tartalmaz adatbázis használatát?"
   },
   "uploadOSMData": {
     "label": "Feltöltés az OSM-re",
-    "description": "[Szerkesztő] Fel lehet-e küldeni vele módosításokat közvetlenül az OSM-re?"
+    "description": "[Szerkesztő] Fel lehet-e vele tölteni módosításokat közvetlenül az OSM-re?"
   },
   "rendererOutputFormats": {
     "label": "Megjelenítő kimeneti formátumai",
@@ -229,11 +229,11 @@
   },
   "screenReader": {
     "label": "Képernyő-felolvasó",
-    "description": "[Akadálymentesség] Támogatott képernyő-felolvasók listája"
+    "description": "[Akadálymentesség] Támogatott képernyő-felolvasók"
   },
   "screenReaderLang": {
     "label": "Képernyő-felolvasó nyelvei",
-    "description": "[Akadálymentesség] A támogatott képernyő-felolvasási nyelvek listája"
+    "description": "[Akadálymentesség] Támogatott képernyő-felolvasási nyelvek"
   },
   "genre": {
     "label": "Típus",
@@ -277,7 +277,7 @@
   },
   "version": {
     "label": "Verzió",
-    "description": "Legújabb verzió"
+    "description": "Legutóbbi verzió"
   },
   "date": {
     "label": "Kiadás dátuma",
@@ -300,20 +300,20 @@
     "description": "Mozilla Firefox Marketplace alkalmazásazonosító"
   },
   "sendPosition": {
-    "label": "Jelenlegi pozíció elküldése",
+    "label": "Aktuális pozíció elküldése",
     "description": "[Nyomvonalkövetés] Lehet-e másoknak pozícióadatokat küldeni?"
   },
   "addPOI": {
     "label": "Érdekes pont (POI-k) felvétele",
-    "description": "[Szerkesztő] Fel lehet-e venni egy pontot?"
+    "description": "[Szerkesztő] Fel lehet-e vele rajzolni egy érdekes pontot?"
   },
   "editPOI": {
-    "label": "Érdekes pont szerkesztésetörlése",
+    "label": "Érdekes pont szerkesztése/törlése",
     "description": "[Szerkesztő] Lehet-e vele pontot szerkeszteni?"
   },
   "addWay": {
     "label": "Vonal felvétele",
-    "description": "[Szerkesztő] Lehet-e vele vonalat felrajzolni?"
+    "description": "[Szerkesztő] Fel lehet-e vele rajzolni egy vonalat?"
   },
   "editGeom": {
     "label": "Alakzat szerkesztése",
@@ -347,7 +347,7 @@
   },
   "description": {
     "label": "Leírás",
-    "description": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Írj saját leírást, ne csak a honlapról másolj ide valamit)"
+    "description": "Rövid leírás. Mi különbözteti meg más eszközöktől? (Készíts saját leírást, ne csak a honlapról másolj ide valamit)"
   },
   "author": {
     "label": "Szerző",
