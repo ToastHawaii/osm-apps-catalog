@@ -50,7 +50,7 @@ export function Connect({ app }: { app: App }) {
       links.push({
         icon: Tag01Icon,
         href: link,
-        title: t("app.contribute.activity.connect.forumTag"),
+        title: t("app.contribute.activity.connect.forumTag", { app: app.name }),
       });
     }
   }
