@@ -14,6 +14,8 @@
   "app.community.telegram": "Telegram Gruppe",
   "app.contribute": "Beitragen",
   "app.contribute.activity.connect.bluesky": "Auf Bluesky beitreten",
+  "app.contribute.activity.connect.description": "Komm in Kontakt mit der {{app}} community, diskutiere und unterstütze andere Benutzer",
+  "app.contribute.activity.connect.forum": "Dem Forum beitreten",
   "app.contribute.toCommunity": "Zur Gemeinschaft",
   "app.contribute.toCommunity.welcome": "Neue Nutzer willkommen heißen",
   "app.contribute.toData": "Zu den OSM-Daten",
