@@ -8,17 +8,6 @@ import { Contribute } from "@app/app/contribute";
 import { Download } from "@app/app/download";
 import { LanguageDisplay } from "@app/app/LanguagesDisplay";
 import { useAppImages } from "@app/app/useAppImages";
-import { BlueskyLink } from "@app/ui/components/links/community/BlueskyLink";
-import { ForumLink } from "@app/ui/components/links/community/ForumLink";
-import { ForumTagLink } from "@app/ui/components/links/community/ForumTagLink";
-import { GitHubDiscussionsLink } from "@app/ui/components/links/community/GitHubDiscussionsLink";
-import { IssueTrackerLink } from "@app/ui/components/links/community/IssueTrackerLink";
-import { LemmyLink } from "@app/ui/components/links/community/LemmyLink";
-import { MastodonLink } from "@app/ui/components/links/community/MastodonLink";
-import { MatrixLink } from "@app/ui/components/links/community/MatrixLink";
-import { RedditLink } from "@app/ui/components/links/community/RedditLink";
-import { SlackLink } from "@app/ui/components/links/community/SlackLink";
-import { TelegramLink } from "@app/ui/components/links/community/TelegramLink";
 import { Score } from "@app/ui/components/Score";
 import { SourceDisplay } from "@app/ui/components/SourceDisplay";
 import { AppLogo } from "@components/common/AppLogo";
@@ -132,52 +121,6 @@ export function Details({ app }: { app: App }) {
     metaData.push({
       title: t("app.programmingLanguages"),
       value: <Formatted htmlText={app.programmingLanguages.join(", ")} />,
-    });
-  }
-
-  if (app.sourceCode) {
-    metaData.push({
-      title: (
-        <ExternalLink
-          href={app.sourceCode}
-          data-goatcounter-click="/app/source-code"
-          data-goatcounter-title="Goes to source code of an app."
-          data-goatcounter-referrer="https://osm-apps.org/"
-        >
-          {t("app.sourceCode")}
-        </ExternalLink>
-      ),
-      value: (
-        <ExternalLink
-          href={app.sourceCode}
-          data-goatcounter-click="/app/source-code"
-          data-goatcounter-title="Goes to source code of an app."
-          data-goatcounter-referrer="https://osm-apps.org/"
-        >
-          <i className="fas fa-code" />
-        </ExternalLink>
-      ),
-    });
-  }
-
-  if (Object.values(app.community).some(Boolean)) {
-    metaData.push({
-      title: t("app.community"),
-      value: (
-        <>
-          <ForumLink app={app} />
-          <ForumTagLink app={app} />
-          <MatrixLink app={app} />
-          <MastodonLink app={app} />
-          <LemmyLink app={app} />
-          <BlueskyLink app={app} />
-          <RedditLink app={app} />
-          <SlackLink app={app} />
-          <TelegramLink app={app} />
-          <GitHubDiscussionsLink app={app} />
-          <IssueTrackerLink app={app} />
-        </>
-      ),
     });
   }
 
