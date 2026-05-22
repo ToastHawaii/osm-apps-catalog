@@ -102,6 +102,7 @@
   "app.download.visitWebApp": "További információkért és a <strong>webalkalmazás</strong> megnyitásáért látogass el a(z) {{app}} hivatalos weboldalára.",
   "app.download.visitWebsite": "További információkért és a(z) <platforms/> verziók telepítési utasításaiért látogass el a(z) {{app}} hivatalos weboldalára.",
   "app.download.windows": "Windows",
+  "app.getInvolved": "Kapcsolódj be",
   "app.helpTranslate": "Segíts a fordítás javításában",
   "app.helpTranslate.hint.label": "Miért segíts a fordításban?",
   "app.helpTranslate.hint.text": "Akár egészen kicsi javítások is segíthetnek abban, hogy az alkalmazást mások könnyebben megértsék és használhassák.\nEz általában különösebb technikai szaktudás nélkül is elvégezhető.",
