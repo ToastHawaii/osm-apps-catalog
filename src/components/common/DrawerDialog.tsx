@@ -54,7 +54,7 @@ export function DrawerDialog({
           onOpenChange?.(open);
         }}
       >
-        <DialogTrigger>{trigger}</DialogTrigger>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent
           className={size === "lg" ? "max-w-[752px]! min-w-auto" : "max-w-110"}
         >
