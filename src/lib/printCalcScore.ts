@@ -1,27 +1,7 @@
 import { sum } from "lodash";
 import { App } from "@shared/data/App";
-// import { prepareArrayForSelect } from "../app/ui/lib/prepareArrayForSelect";
-// import allOld from "./all.old.json";
-// import allNew from "./all.new.json";
 
-// export function compare() {
-//   let out = "";
-//   (allOld as App[]).forEach((o) => {
-//     if (!(allNew as App[]).some((n) => n.id === o.id)) {
-//       out +=
-//         o.id +
-//         ";" +
-//         (o.name) +
-//         ";" +
-//         o.website +
-//         ";" +
-//         o.source.map((s) => s.url).join(";") +
-//         "\n";
-//     }
-//   });
-//   console.info(out);
-// }
-
+/** Prints the average calculation score for statistics purposes */
 export function printCalcScore(apps: App[]) {
   const average = sum(apps.map((a) => a.score)) / apps.length;
   console.info("Average");
@@ -62,13 +42,4 @@ export function printCalcScore(apps: App[]) {
   console.info("02.06.2026: 2.056 (2012 Apps)");
 
   console.info("Today: " + average);
-
-  // console.info("---");
-
-  // console.info("Topics");
-  // const preparedData = prepareArrayForSelect(
-  //   apps.flatMap((app) => app.topics),
-  //   [],
-  // );
-  // console.info(preparedData.map((d) => d.value + ";" + d.count).join("\n"));
 }

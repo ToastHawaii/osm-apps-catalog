@@ -1,6 +1,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+
 import en from "../locales/en.json";
 import cs from "../locales/cs.json";
 import de from "../locales/de.json";
@@ -24,8 +25,7 @@ import uk from "../locales/uk.json";
 import zh_Hans from "../locales/zh_Hans.json";
 import zh_Hant from "../locales/zh_Hant.json";
 
-import { templateData } from "./templateData";
-
+// do not forget to update templateData.json
 import templateEn from "../locales/wiki-software-template/en.json";
 import templateCs from "../locales/wiki-software-template/cs.json";
 import templateDe from "../locales/wiki-software-template/de.json";
@@ -48,7 +48,6 @@ import templateTr from "../locales/wiki-software-template/tr.json";
 import templateUk from "../locales/wiki-software-template/uk.json";
 import templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
 import templateZh_Hant from "../locales/wiki-software-template/zh-Hant.json";
-import { SupportedLanguages } from "@shared/lib/SupportedLanguages";
 
 i18next
   .use(initReactI18next)
@@ -105,98 +104,5 @@ i18next
     },
   });
 
-export function convertTemplateDataToJson() {
-  const files = {} as Record<
-    string,
-    Record<string, { label?: string; description?: string }>
-  >;
-  {
-    const lang = "en";
-    Object.entries(templateData.params).forEach((e) => {
-      if (!files[lang]) {
-        files[lang] = {};
-      }
-      if (!files[lang][e[0]]) {
-        files[lang][e[0]] = {};
-      }
-
-      if (typeof e[1].label === "string") {
-        files[lang][e[0]].label = e[1].label;
-      } else if (e[1].label?.[lang]) {
-        files[lang][e[0]].label = e[1].label?.[lang];
-      }
-
-      if (typeof e[1].description === "string") {
-        files[lang][e[0]].description = e[1].description;
-      } else if (e[1].description?.[lang]) {
-        files[lang][e[0]].description = e[1].description?.[lang];
-      }
-    });
-  }
-  SupportedLanguages.forEach((lang) => {
-    Object.entries(templateData.params).forEach((e) => {
-      if (!files[lang]) {
-        files[lang] = {};
-      }
-      if (!files[lang][e[0]]) {
-        files[lang][e[0]] = {};
-      }
-
-      if (typeof e[1].label !== "string" && e[1].label?.[lang]) {
-        files[lang][e[0]].label = e[1].label?.[lang];
-      }
-
-      if (typeof e[1].description !== "string" && e[1].description?.[lang]) {
-        files[lang][e[0]].description = e[1].description?.[lang];
-      }
-    });
-  });
-
-  console.info(JSON.stringify(files));
-}
-
-export function convertJsonToTemplateData() {
-  const files = {
-    en: templateEn,
-    cs: templateCs,
-    de: templateDe,
-    el: templateEl,
-    es: templateEs,
-    et: templateEt,
-    fr: templateFr,
-    hu: templateHu,
-    id: templateId,
-    it: templateIt,
-    ja: templateJa,
-    ko: templateKo,
-    no: templateNb_NO,
-    pl: templatePl,
-    pt: templatePt,
-    ru: templateRu,
-    sv: templateSv,
-    ta: templateTa,
-    tr: templateTr,
-    uk: templateUk,
-    "zh-hans": templateZh_Hans,
-    "zh-hant": templateZh_Hant,
-  } as Record<string, Record<string, { label?: string; description?: string }>>;
-
-  Object.entries(templateData.params).forEach((e) => {
-    const label = {} as any;
-    SupportedLanguages.forEach((lang) => {
-      label[lang] = files[lang][e[0]]?.label;
-    });
-    templateData.params[e[0]].label = label;
-    const description = {} as any;
-    SupportedLanguages.forEach((lang) => {
-      description[lang] = files[lang][e[0]]?.description;
-    });
-    templateData.params[e[0]].description = description;
-  });
-
-  console.info(JSON.stringify(templateData, undefined, "  "));
-}
-
-// do not forget to update templateData.json
-// convertTemplateDataToJson();
-// convertJsonToTemplateData();
+// convertToJson();
+// convertFromJson();
