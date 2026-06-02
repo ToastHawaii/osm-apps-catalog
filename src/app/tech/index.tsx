@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 import { categories as categoryList } from "./categories";
 
-import { Category } from "./components/Category";
+import { Category } from "@components/common/Category";
 import { Spotlight } from "@components/common/Spotlight";
 
 export function Tech({ apps }: { apps: App[] }) {

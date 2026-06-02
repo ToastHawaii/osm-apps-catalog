@@ -72,9 +72,9 @@ export function Spotlight({
             >
               <ItemContent className="flex h-43 flex-row justify-center">
                 <div className="grow">
-                  <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
+                  <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
                     {firstPanel.title}
-                  </div>
+                  </h1>
                   <div className="whitespace-pre-line sm:text-base md:text-lg lg:text-xl">
                     {firstPanel.description}
                   </div>

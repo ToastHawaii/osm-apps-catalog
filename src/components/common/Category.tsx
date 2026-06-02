@@ -13,7 +13,17 @@ import { t } from "i18next";
 import React from "react";
 import { Link } from "react-router";
 
-export function Category(props: { id: string; name: string; apps: App[] }) {
+export function Category({
+  id,
+  name,
+  apps,
+  platforms,
+}: {
+  id: string;
+  name: string;
+  apps: App[];
+  platforms?: string[] | undefined;
+}) {
   useGoatCounterEvents();
 
   const routes = useRoute();
@@ -21,26 +31,28 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
   return (
     <>
       <div className="grid content-end px-8 pt-4 md:px-18">
-        <h2 className="text-left text-2xl font-semibold">
+        <h2 className="text-left text-lg font-semibold sm:text-2xl">
           <Link
             className="underline-offset-4 hover:underline"
-            data-goatcounter-click={`/?category=${props.id}`}
+            data-goatcounter-click={`/?category=${id}`}
             data-goatcounter-title="Has switched the category."
             data-goatcounter-referrer="https://osm-apps.org/"
             to={routes.explore({
-              category: props.id,
+              category: id,
+              platforms,
             })}
           >
-            {props.name}
+            {name}
           </Link>
         </h2>
         <Link
           className="col-start-2 self-end justify-self-end text-sm underline-offset-4 hover:underline"
-          data-goatcounter-click={`/?category=${props.id}`}
+          data-goatcounter-click={`/?category=${id}`}
           data-goatcounter-title="Has switched the category."
           data-goatcounter-referrer="https://osm-apps.org/"
           to={routes.explore({
-            category: props.id,
+            category: id,
+            platforms,
           })}
         >
           {t("category.showAll")}
@@ -54,7 +66,7 @@ export function Category(props: { id: string; name: string; apps: App[] }) {
         className="w-full px-6 md:px-16"
       >
         <CarouselContent role="list">
-          {props.apps.map((app) => (
+          {apps.map((app) => (
             <CarouselItem
               key={app.id}
               className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"

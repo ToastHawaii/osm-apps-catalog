@@ -9,7 +9,7 @@ import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 
 import { Spotlight } from "@components/common/Spotlight";
-import { Category } from "./components/Category";
+import { Category } from "@components/common/Category";
 import { Item, ItemActions, ItemContent } from "@components/ui/item";
 import { Link } from "react-router";
 import { useRoute } from "@hooks/useRoute";
@@ -19,13 +19,14 @@ import { upperCase } from "@shared/utils/string";
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const routes = useRoute();
+  const platforms = usePlatformUrlParam();
 
-  const platforms = upperCase(usePlatformUrlParam());
+  const platformsUpper = upperCase(platforms);
   const { spotlight, categories } = useMemo(() => {
     let filteredApps = apps.slice();
-    if (platforms.length > 0) {
+    if (platformsUpper.length > 0) {
       filteredApps = filteredApps.filter((a) =>
-        some(a.cache.platform, platforms),
+        some(a.cache.platform, platformsUpper),
       );
     }
 
@@ -84,7 +85,7 @@ export function Home({ apps }: { apps: App[] }) {
     }
 
     return { spotlight, categories };
-  }, [apps, platforms]);
+  }, [apps, platformsUpper]);
 
   return (
     <>
@@ -125,6 +126,7 @@ export function Home({ apps }: { apps: App[] }) {
                 id={category.id}
                 name={category.name()}
                 apps={category.apps}
+                platforms={platforms}
               />
             ))}
           {apps.length > 0 && (
