@@ -102,6 +102,7 @@
   "app.download.visitWebApp": "Rendez-vous sur le site officiel pour en savoir plus sur {{app}} et accéder à l'<strong>application Web</strong>.",
   "app.download.visitWebsite": "Rendez-vous sur le site officiel pour obtenir plus d'informations sur {{app}} et les instructions d'installation pour la version <platforms/>.",
   "app.download.windows": "Pour Windows",
+  "app.getInvolved": "Impliquez-vous",
   "app.helpTranslate": "Aidez-nous à améliorer la traduction",
   "app.helpTranslate.hint.label": "Pourquoi proposer une aide à la traduction ?",
   "app.helpTranslate.hint.text": "Même de petites améliorations peuvent contribuer à rendre l'application plus intuitive et plus accessible à tous.\nDans la plupart des cas, cela peut se faire sans nécessiter de grandes connaissances techniques.",
