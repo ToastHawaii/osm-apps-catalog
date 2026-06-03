@@ -1,6 +1,13 @@
-# [OSM Apps Catalog](https://osm-apps.org)
-
-**There isn't just one, there are thousands.**
+<p align="center"> <a href="https://osm-apps.org" rel="nofollow"> <img src="/public/assets/osm-apps-logo-big.png" height="200"></a></p>
+<h1 align="center">
+  <a href="https://osm-apps.org" rel="nofollow">OSM Apps Catalog</a>
+</h1>
+<p align="center"><strong>There isn't just one, there are thousands.</strong></p>
+<p align="center">
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file">Contribute</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file">Code of Conduct</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE">License</a>
+</p>
 
 The OSM Apps Catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate.
 
