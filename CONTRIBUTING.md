@@ -27,7 +27,7 @@ The texts relating to the apps descriptions come from the [OpenStreetMap Wiki](h
 
 You can find the sources by going to the detail view of an app in the OSM Apps Catalog and click on "Edit / Update Information" in the "Get involved" section.
 
-### Issues
+## Issues
 [Report bugs](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md), [discuss ideas](https://github.com/ToastHawaii/osm-apps-catalog/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement) and [propose features](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) for the OSM Apps Catalog.
 
 You can [upvote features](https://github.com/ToastHawaii/osm-apps-catalog/issues) you would like to see.
