@@ -4,8 +4,8 @@
 </h1>
 <p align="center"><strong>There isn't just one, there are thousands.</strong></p>
 <p align="center">
-  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file">Contribute</a> •
-  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file">Code of Conduct</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines">Contribute</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file#contributor-covenant-code-of-conduct">Code of Conduct</a> •
   <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE">License</a>
 </p>
 
