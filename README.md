@@ -13,7 +13,7 @@ The OSM Apps Catalog shows applications and services that use OpenStreetMap data
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
-[Go to the catalog](https://osm-apps.org). It is updated every day. 
+[> Explore the apps in the catalog](https://osm-apps.org)
 
 ## ✉️ Message to devs
 
