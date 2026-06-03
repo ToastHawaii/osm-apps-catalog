@@ -9,7 +9,7 @@ Thank you for your interest in contributing to the OSM Apps Catalog.
 
 - One easy way to support is **give the project a ⭐**.
 - The OSM App Catalog isn't nearly as well-known as it should be. **Help spread the word.** For example, share it on social media, write a blog post, or talk to others about it.
-- **Add OSM apps** you know to the Catalog or improve some from [the list of apps that need to be documented](https://github.com/ToastHawaii/osm-apps-catalog/issues/282). Find out how to document new apps in the [OpenStreetMap Wiki about the OSM Apps Catalog](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog).
+- **Add OSM apps** you know to the Catalog or improve some from [the list of apps that need to be documented](https://github.com/ToastHawaii/osm-apps-catalog/issues/282). Find out how to document new apps in the [OpenStreetMap Wiki about the OSM Apps Catalog](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog). The english meta data about is updated every day and all other languages once per week. 
 
 ## Translations
 
