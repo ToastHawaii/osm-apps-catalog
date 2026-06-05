@@ -1,12 +1,13 @@
+import { delay } from "@shared/utils/delay";
 import { isDevelopment } from "./isDevelopment";
 import { utilQsString } from "@shared/utils/url";
 
 export async function getJson(
   url: string,
-  params: any = {},
-  headers: any = {},
+  params: Record<string, string | number | boolean> = {},
+  headers: Record<string, string> = {},
   isRetry = false,
-): Promise<any> {
+) {
   if (isDevelopment) {
     const response = await fetch(
       url.startsWith("https://osm-apps.org/")
@@ -52,8 +53,4 @@ export async function getJson(
 
     throw e;
   }
-}
-
-function delay(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
 }

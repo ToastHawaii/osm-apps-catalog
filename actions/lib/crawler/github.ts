@@ -1,10 +1,12 @@
 import { chain, uniqBy, upperFirst, words } from "lodash";
+
 import { newUrl } from "@shared/utils/url";
 import { equalsIgnoreCase } from "@shared/utils/string";
 import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { delay } from "@shared/utils/delay";
 
 const ignoredTopics = [
   // OpenStreetMap
@@ -251,6 +253,37 @@ async function searchByTopic(
   );
 }
 
+async function fetchWithRetry(
+  input: string | URL | Request,
+  init?: RequestInit | undefined,
+  retries = 5,
+) {
+  let response;
+
+  for (let i = 0; i < retries; i++) {
+    response = await fetch(input, init);
+
+    if (response.ok) {
+      return response.json();
+    }
+
+    if ([502, 503, 504].includes(response.status)) {
+      const timeout = Math.pow(2, i);
+      console.log(`Retry in ${timeout}s`);
+      await delay(timeout * 1000);
+      continue;
+    }
+
+    throw new Error(
+      `GitHub API Error ${response.status}: ${await response.text()}`,
+    );
+  }
+
+  throw new Error(
+    `Max retries reached ${response ? `, GitHub API Error ${response.status}: ${await response.text()}` : ""}`,
+  );
+}
+
 async function search(
   query: string,
   githubToken: string,
@@ -316,7 +349,7 @@ async function search(
   console.info(
     `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery.replace(/\s+/g, " ").replaceAll('\\"', '"') })}`,
   );
-  const response = await fetch("https://api.github.com/graphql", {
+  return await fetchWithRetry("https://api.github.com/graphql", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${githubToken}`,
@@ -324,14 +357,6 @@ async function search(
     },
     body: JSON.stringify({ query: fullQuery }),
   });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`GitHub API error: ${response.status} ${errorText}`);
-  }
-
-  const json = await response.json();
-  return json;
 }
 
 function hasDuplicates(a: any[]) {

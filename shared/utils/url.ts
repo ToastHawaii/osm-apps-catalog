@@ -25,7 +25,10 @@ export function toWikiUrl(wiki: string) {
   return `https://wiki.openstreetmap.org/wiki/${wiki}`;
 }
 
-export function utilQsString(obj: any, noencode?: boolean) {
+export function utilQsString(
+  obj: Record<string, string | number | boolean>,
+  noEncode?: boolean,
+) {
   // encode everything except special characters used in certain hash parameters:
   // "/" in map states, ":", ",", {" and "}" in background
   function softEncode(s: string | number | boolean) {
@@ -39,7 +42,7 @@ export function utilQsString(obj: any, noencode?: boolean) {
     .map(
       (key) =>
         `${encodeURIComponent(key)}=${
-          noencode ? softEncode(obj[key]) : encodeURIComponent(obj[key])
+          noEncode ? softEncode(obj[key]) : encodeURIComponent(obj[key])
         }`,
     )
     .join("&");
