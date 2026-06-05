@@ -32,6 +32,9 @@ You can [upvote features](https://github.com/ToastHawaii/osm-apps-catalog/issues
 AI docs here: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
 
 ### Run locally [![Dependencies](https://img.shields.io/badge/dependencies-explore-orange?link=https%3A%2F%2Fnpmgraph.js.org%2F%3Fq%3Dhttps%253A%252F%252Fgithub.com%252FToastHawaii%252Fosm-apps-catalog%252Fblob%252Fmain%252Fpackage.json%23color%3Doutdated%26zoom%3Dw%26sizing%3D)](https://npmgraph.js.org/?q=https%3A%2F%2Fgithub.com%2FToastHawaii%2Fosm-apps-catalog%2Fblob%2Fmain%2Fpackage.json#color=outdated&zoom=w&sizing=)
+
+#### Web app
+The web app source code is in the `./src` folder.
 ```bash
 git clone https://github.com/ToastHawaii/osm-apps-catalog.git
 cd osm-apps-catalog
@@ -39,8 +42,8 @@ npm install
 npm run app:start          # starts the local dev server 
 ```
 
-Or test meta data collect actions:
-
+#### Actions that collect meta data [![Collect osm apps](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml) [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
+The actions source code to collect meta data is in the `./actions` folder.
 ```bash
 npm run actions:collect-osm-apps:start              # collect all app meta data  
 npm run actions:collect-osm-apps-translations:start # collect all app meta data translation
@@ -48,10 +51,9 @@ npm run actions:collect-osm-apps-translations:start # collect all app meta data 
 
 > [!NOTE]
 >
-> To debug the action locally you need create a personal access tokens (https://github.com/settings/personal-access-tokens), create a `.env` file in the repo like this https://github.com/github/local-action/blob/main/.env.example and add a line `INPUT_GHTOKEN=github_pat_...`*
-> It is used for the call to the github api. For testing you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
-
-[![Collect osm apps](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml) [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
+> To debug the action locally you need to [create a personal access tokens](https://github.com/settings/personal-access-tokens) and a `.env` file in the repo ([example](https://github.com/github/local-action/blob/main/.env.example)) and add a line `INPUT_GHTOKEN=github_pat_...`
+> 
+> It is needed for the GitHub API calls. If you not need to test this this part you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
 
 ### Code submissions 
 Changes are warmly welcome, please check out our [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file#contributor-covenant-code-of-conduct).
