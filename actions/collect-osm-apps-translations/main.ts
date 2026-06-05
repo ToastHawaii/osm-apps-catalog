@@ -5,6 +5,7 @@ import "../../src/app/ui/lib/i18n";
 
 import { loadApps } from "./loadApps";
 import { uploadToRepo } from "@actions/lib/uploadToRepo";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
 /**
  * The main function for the action.
@@ -12,7 +13,9 @@ import { uploadToRepo } from "@actions/lib/uploadToRepo";
  */
 export async function run(): Promise<void> {
   try {
-    const apps = chain(await loadApps(/* core.getInput("ghToken") */))
+    const octokit = createOctokit(core.getInput("ghToken"));
+
+    const apps = chain(await loadApps(/* octokit */))
       .map((apps, lang) => ({
         filePath: `docs/api/apps/all.${lang}.json`,
         content: JSON.stringify(
@@ -34,11 +37,7 @@ export async function run(): Promise<void> {
       }))
       .value();
 
-    await uploadToRepo(
-      apps,
-      "chore: auto update apps translations",
-      core.getInput("ghToken"),
-    );
+    await uploadToRepo(apps, "chore: auto update apps translations", octokit);
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) {

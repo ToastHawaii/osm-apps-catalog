@@ -6,7 +6,7 @@ import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
-import { delay } from "@shared/utils/delay";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
 const ignoredTopics = [
   // OpenStreetMap
@@ -180,7 +180,7 @@ export function transformGitHubResult(eld: any, result: any) {
   };
 }
 
-export async function requestGitHub(githubToken: string) {
+export async function requestGitHub(octokit: ReturnType<typeof createOctokit>) {
   const results: any[] = [];
   let hasNextPage = true;
   let cursor: string | undefined = undefined;
@@ -189,33 +189,22 @@ export async function requestGitHub(githubToken: string) {
   newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
   const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
   while (hasNextPage && results.length < 1000) {
-    const json: any = await searchByTopic(
-      pushedAfter,
-      "desc",
-      githubToken,
-      cursor,
-    );
+    const json: any = await searchByTopic(pushedAfter, "desc", octokit, cursor);
+    results.push(...json.search.nodes);
 
-    results.push(...json.data.search.nodes);
-
-    hasNextPage = json.data.search.pageInfo.hasNextPage;
-    cursor = json.data.search.pageInfo.endCursor;
+    hasNextPage = json.search.pageInfo.hasNextPage;
+    cursor = json.search.pageInfo.endCursor;
   }
 
   hasNextPage = true;
   cursor = undefined;
   while (hasNextPage && results.length < 2000 && !hasDuplicates(results)) {
-    const json: any = await searchByTopic(
-      pushedAfter,
-      "asc",
-      githubToken,
-      cursor,
-    );
+    const json: any = await searchByTopic(pushedAfter, "asc", octokit, cursor);
 
-    results.push(...json.data.search.nodes);
+    results.push(...json.search.nodes);
 
-    hasNextPage = json.data.search.pageInfo.hasNextPage;
-    cursor = json.data.search.pageInfo.endCursor;
+    hasNextPage = json.search.pageInfo.hasNextPage;
+    cursor = json.search.pageInfo.endCursor;
   }
 
   return results;
@@ -223,9 +212,9 @@ export async function requestGitHub(githubToken: string) {
 
 export async function searchByRepos(
   repos: { owner: string; repo: string }[],
-  githubToken: string,
+  octokit: ReturnType<typeof createOctokit>,
 ) {
-  const batchSize = 50;
+  const batchSize = 25;
   const results: any[] = [];
 
   for (let i = 0; i < repos.length; i += batchSize) {
@@ -233,8 +222,8 @@ export async function searchByRepos(
 
     const query = batch.map((r) => `repo:${r.owner}/${r.repo}`).join(" ");
 
-    const batchResult = await search(query, githubToken);
-    results.push(...batchResult.data.search.nodes);
+    const json: any = await search(query, octokit);
+    results.push(...json.search.nodes);
   }
 
   return results;
@@ -243,50 +232,19 @@ export async function searchByRepos(
 async function searchByTopic(
   pushedAfter: string,
   sort: string,
-  githubToken: string,
+  octokit: ReturnType<typeof createOctokit>,
   cursor?: string | undefined,
 ) {
   return search(
     `topic:openstreetmap,openstreetmap-data,overpass-api pushed:>${pushedAfter} stars:>=3 sort:stars-${sort} -topic:api-client,vscode-extension`,
-    githubToken,
+    octokit,
     cursor,
-  );
-}
-
-async function fetchWithRetry(
-  input: string | URL | Request,
-  init?: RequestInit | undefined,
-  retries = 5,
-) {
-  let response;
-
-  for (let i = 0; i < retries; i++) {
-    response = await fetch(input, init);
-
-    if (response.ok) {
-      return response.json();
-    }
-
-    if ([502, 503, 504].includes(response.status)) {
-      const timeout = Math.pow(2, i);
-      console.log(`Retry in ${timeout}s`);
-      await delay(timeout * 1000);
-      continue;
-    }
-
-    throw new Error(
-      `GitHub API Error ${response.status}: ${await response.text()}`,
-    );
-  }
-
-  throw new Error(
-    `Max retries reached ${response ? `, GitHub API Error ${response.status}: ${await response.text()}` : ""}`,
   );
 }
 
 async function search(
   query: string,
-  githubToken: string,
+  octokit: ReturnType<typeof createOctokit>,
   cursor?: string | undefined,
 ) {
   const fullQuery = `
@@ -294,7 +252,7 @@ async function search(
       search(
         query: "${query}"
         type: REPOSITORY
-        first: 50 ${cursor ? `, after: "${cursor}"` : ""}
+        first: 25 ${cursor ? `, after: "${cursor}"` : ""}
       ) {
         pageInfo {
           hasNextPage
@@ -349,14 +307,8 @@ async function search(
   console.info(
     `Load: https://api.github.com/graphql, body: ${JSON.stringify({ query: fullQuery.replace(/\s+/g, " ").replaceAll('\\"', '"') })}`,
   );
-  return await fetchWithRetry("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${githubToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: fullQuery }),
-  });
+
+  return await octokit.graphql(fullQuery);
 }
 
 function hasDuplicates(a: any[]) {

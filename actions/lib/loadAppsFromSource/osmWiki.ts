@@ -9,7 +9,7 @@ import { transform as transformLayer } from "../crawler/osmWiki/layer";
 export async function loadAppsFromOsmWikiSoftwares(
   languageMode: "en" | "notEn",
 ) {
-  return (await requestTemplates("Software", languageMode))
+  const result = (await requestTemplates("Software", languageMode))
     .filter(
       (s) =>
         !containsOfflineLink(s["name"]) &&
@@ -30,9 +30,12 @@ export async function loadAppsFromOsmWikiSoftwares(
         s["name"] !== "software template",
     )
     .map((source) => transformSoftware(source));
+
+    console.info("Found " + result.length + " software templates in OSM Wiki");
+    return result;
 }
 export async function loadAppsFromOsmWikiLayers(languageMode: "en" | "notEn") {
-  return (await requestTemplates("Layer", languageMode))
+  const result = (await requestTemplates("Layer", languageMode))
     .filter(
       (s) =>
         !containsOfflineLink(s["name"]) &&
@@ -41,12 +44,18 @@ export async function loadAppsFromOsmWikiLayers(languageMode: "en" | "notEn") {
         s["name"] !== "layer template",
     )
     .map((source) => transformLayer(source));
+
+  console.info("Found " + result.length + " layer templates in OSM Wiki");
+  return result;
 }
 
 export async function loadAppsFromOsmWikiServiceItems(
   languageMode: "en" | "notEn",
 ) {
-  return (await requestTemplates("Service item", languageMode))
+  const result = (await requestTemplates("Service item", languageMode))
     .filter((s) => !containsOfflineLink(s["name"]))
     .map((source) => transformServiceItem(source));
+
+  console.info("Found " + result.length + " service item templates in OSM Wiki");
+  return result;
 }

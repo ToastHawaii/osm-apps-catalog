@@ -28,5 +28,7 @@ export async function loadAppsFromWikidata(queries: string[]) {
       }
     }
   }
-  return Array.from(objs.values());
+  const result = Array.from(objs.values());
+  console.info("Found " + result.length + " items in Wikidata");
+  return result;
 }

@@ -42,9 +42,14 @@ npm run app:start          # starts the local dev server
 Or test meta data collect actions:
 
 ```bash
-npm run actions:collect-osm-apps:start              # all app meta data  
-npm run actions:collect-osm-apps-translations:start # all app meta data translation
+npm run actions:collect-osm-apps:start              # collect all app meta data  
+npm run actions:collect-osm-apps-translations:start # collect all app meta data translation
 ```
+
+> [!NOTE]
+>
+> To debug the action locally you need create a personal access tokens (https://github.com/settings/personal-access-tokens), create a `.env` file in the repo like this https://github.com/github/local-action/blob/main/.env.example and add a line `INPUT_GHTOKEN=github_pat_...`*
+> It is used for the call to the github api. For testing you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
 
 [![Collect osm apps](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml) [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
 

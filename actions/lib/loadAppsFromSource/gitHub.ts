@@ -1,10 +1,13 @@
 import { App } from "@shared/data/App";
 import eld from "eld";
 import { uniqBy, groupBy } from "lodash";
-import { requestGitHub, transformGitHubResult } from "../crawler/github";
+import { requestGitHub, transformGitHubResult } from "../crawler/gitHub";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
-export async function loadAppsFromGitHub(githubToken: string) {
-  let objs = await requestGitHub(githubToken);
+export async function loadAppsFromGitHub(
+  octokit: ReturnType<typeof createOctokit>,
+) {
+  let objs = await requestGitHub(octokit);
 
   objs = uniqBy(objs, (o) => o.nameWithOwner);
 
@@ -18,7 +21,9 @@ export async function loadAppsFromGitHub(githubToken: string) {
 
   await (eld as any).load("large");
 
-  return objs.map((source) =>
+  const result = objs.map((source) =>
     transformGitHubResult(eld, source),
   ) as unknown as App[];
+  console.info("Found " + result.length + " projects in GitHub");
+  return result;
 }

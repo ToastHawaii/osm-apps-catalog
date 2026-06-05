@@ -9,8 +9,9 @@ import {
 import { loadAppsFromTagInfoProjects } from "@actions/lib/loadAppsFromSource/tagInfo";
 import { loadAppsFromWikidata } from "@actions/lib/loadAppsFromSource/wikidata";
 import { AppQueries } from "@actions/lib/crawler/wikidata";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
-export async function loadApps(githubToken: string) {
+export async function loadApps(octokit: ReturnType<typeof createOctokit>) {
   const apps: App[] = [];
   const languageMode = "en";
 
@@ -20,7 +21,7 @@ export async function loadApps(githubToken: string) {
       loadAppsFromOsmWikiLayers(languageMode),
       loadAppsFromWikidata(AppQueries),
       loadAppsFromOsmWikiServiceItems(languageMode),
-      loadAppsFromGitHub(githubToken),
+      loadAppsFromGitHub(octokit),
       loadAppsFromTagInfoProjects(),
     ])
   )

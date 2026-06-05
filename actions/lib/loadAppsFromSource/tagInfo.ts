@@ -37,7 +37,7 @@ export async function loadAppsFromTagInfoProjects() {
     "https://taginfo.openstreetmap.org/api/4/projects/all",
   )) as ApiResult;
   const source = "https://taginfo.openstreetmap.org/projects/";
-  return projectObjects.data.map(
+  const result = projectObjects.data.map(
     (obj) =>
       ({
         name: obj.name,
@@ -62,4 +62,6 @@ export async function loadAppsFromTagInfoProjects() {
         community: {},
       }) as any,
   );
+  console.info("Found " + result.length + " projects in TagInfo");
+  return result;
 }

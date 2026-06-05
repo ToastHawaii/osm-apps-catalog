@@ -13,6 +13,7 @@ import { enrichSpotlight } from "./enrichSpotlight";
 import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
 import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
 /**
  * The main function for the action.
@@ -20,9 +21,11 @@ import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
  */
 export async function run(): Promise<void> {
   try {
-    let apps = await loadApps(core.getInput("ghToken"));
+    const octokit = createOctokit(core.getInput("ghToken"));
 
-    await enrichWithGitHub(apps, core.getInput("ghToken"));
+    let apps = await loadApps(octokit);
+
+    await enrichWithGitHub(apps, octokit);
 
     enrichId(apps);
     enrichScoreTotal(apps);
@@ -42,7 +45,7 @@ export async function run(): Promise<void> {
         { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
       ],
       "chore: auto update apps data and sitemap",
-      core.getInput("ghToken"),
+      octokit,
     );
   } catch (error) {
     // Fail the workflow run if an error occurs

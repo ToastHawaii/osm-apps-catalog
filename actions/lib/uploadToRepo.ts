@@ -1,19 +1,17 @@
-import { context, getOctokit } from "@actions/github";
+import { context } from "@actions/github";
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 
 export async function uploadToRepo(
   files: { filePath: string; content: string }[],
   commitMessage: string,
-  ghToken: string,
+  octokit: ReturnType<typeof createOctokit>,
 ): Promise<void> {
-  if (!ghToken) {
-    throw new Error("GitHub token is required to upload files.");
-  }
+ 
 
   if (!files.length) {
     return;
   }
 
-  const octokit = getOctokit(ghToken);
   const owner = context.repo.owner;
   const repo = context.repo.repo;
 

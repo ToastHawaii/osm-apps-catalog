@@ -1,10 +1,12 @@
+import eld from "eld";
+
+import { createOctokit } from "@actions/lib/crawler/createOctokit";
 import {
   searchByRepos,
   transformGitHubResult,
-} from "@actions/lib/crawler/github";
+} from "@actions/lib/crawler/gitHub";
 import { mergeApps } from "@actions/lib/mergeApps";
 import { App } from "@shared/data/App";
-import eld from "eld";
 
 export function getGithubOwnerRepo(urlString: string | undefined) {
   if (!urlString) {
@@ -36,7 +38,10 @@ export function getGithubOwnerRepo(urlString: string | undefined) {
 }
 
 /** enrich app with infos from github, if not already done */
-export async function enrichWithGitHub(apps: App[], gitHubToken: string) {
+export async function enrichWithGitHub(
+  apps: App[],
+  octokit: ReturnType<typeof createOctokit>,
+) {
   const appsWithGitHub = apps
     .filter((app) => !app.source.some((s) => s.name === "GitHub"))
     .map((app) => ({
@@ -56,7 +61,7 @@ export async function enrichWithGitHub(apps: App[], gitHubToken: string) {
 
   const results = await searchByRepos(
     appsWithGitHub.map((app) => app.gitHub),
-    gitHubToken,
+    octokit,
   );
 
   await (eld as any).load("large");
