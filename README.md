@@ -15,7 +15,7 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 
 [> Explore the apps in the catalog](https://osm-apps.org)
 
-## ✉️ Message to devs
+## ✉️ Message to osm devs
 
 This catalog is for you—a tribute to your work and your efforts. I am a software developer myself and work in the open-source community. It is important to me to make you and your work more visible and accessible to a wider audience, thereby helping you gain more support.
 
