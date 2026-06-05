@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
-    "@github/local-action": "6.0.2",
+    "@github/local-action": "7.0.1",
     "@nabla/vite-plugin-eslint": "2.0.6",
     "@types/lodash": "4.17.24",
     "@types/md5": "2.3.6",
