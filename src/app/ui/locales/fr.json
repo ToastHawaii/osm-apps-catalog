@@ -38,7 +38,7 @@
   "app.contribute.activity.editInformation.osmWiki": "Wiki OpenStreetMap",
   "app.contribute.activity.editInformation.title": "Modifier / Mettre à jour les informations",
   "app.contribute.activity.editInformation.wikidata": "Wikidata",
-  "app.contribute.activity.rateAndReview.appleAppStore": "Note sur l'AppStore d'Apple",
+  "app.contribute.activity.rateAndReview.appleAppStore": "Évaluer sur l'App Store d'Apple",
   "app.contribute.activity.rateAndReview.asin": "Note sur l'AppStore d'Amazon",
   "app.contribute.activity.rateAndReview.codeberg": "Donnez une étoile sur Codeberg",
   "app.contribute.activity.rateAndReview.description": "Notez et/ou donnez votre avis sur {{app}} dans les boutiques d'applications",
