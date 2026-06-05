@@ -250,7 +250,8 @@
     "label": "Ekraanilugejate"
   },
   "dangerWarnings": {
-    "description": "[Hõlbustus]"
+    "description": "[Hõlbustus]",
+    "label": "Ohuhoiatused"
   },
   "publicTransportMode": {
     "label": "Ühistransport",
@@ -267,5 +268,105 @@
   "accessibility": {
     "label": "Hõlbustuse tugi",
     "description": "[Hõlbustus] Kas rakendus teeb lihtsamaks kaardikasutuse puuetega inimeste jaoks?"
+  },
+  "routingProviders": {
+    "label": "Teekonna koostamise mootorid",
+    "description": "[Teekond] Mis teekonna koostamise mootor(id) on kasutusel?"
+  },
+  "avoidTraffic": {
+    "label": "Liiklusoludega arvestamine",
+    "description": "[Teekond] Kas rakendus oskab arvestada liikluse tingimustega (nt ummikud) ja teekonda vastavalt optimeerida?"
+  },
+  "trafficProvider": {
+    "label": "Liiklusolude andmed",
+    "description": "[Teekond] Liikluseolude andmete teenusepakkuja."
+  },
+  "navigating": {
+    "label": "Tee juhatamine",
+    "description": "[Tee juhatamine] Kas tee juhatamine toimib kompassilaadselt?"
+  },
+  "navToPoint": {
+    "label": "Sihtkohta liikumine",
+    "description": "[Tee juhatamine] Kas rakendus oskab sind mõnda sihtpunkti juhatada?"
+  },
+  "voice": {
+    "label": "Hääljuhised",
+    "description": "[Tee juhatamine] Kas rakendus oskab sind juhatada hääljuhiste abil?"
+  },
+  "keepOnRoad": {
+    "label": "Teekonna jälgimine",
+    "description": "[Tee juhatamine] Kas rakendus oskab tagada, et püsid õigel marsruudil?"
+  },
+  "geotagging": {
+    "label": "Teekonna märgistus",
+    "description": "[Raja logimine] Kas täiendavad kaardistustehnikad on kasutusel"
+  },
+  "fastWayPointAdding": {
+    "label": "Kiire huvipunktide lisamine",
+    "description": "[Raja logimine] Kas teekonnapunktide ja huvipunktide lisamine on mugav?"
+  },
+  "uploadGPX": {
+    "label": "GPX-faili laadimine OSM-i",
+    "description": "[Raja logimine] Kas rakendus oskab salvestatud raja saata otse OSM-i?"
+  },
+  "monitoring": {
+    "label": "Monitooring",
+    "description": "[Raja monitooring] Kas saad jälgida GPS-andmeid?"
+  },
+  "showTrack": {
+    "label": "Senise raja kuvamine",
+    "description": "[Raja monitooring] Kas sa näed seniläbitud rada?"
+  },
+  "showExistingTrack": {
+    "label": "Olemasoleva raja avamine",
+    "description": "[Raja monitooring] Kas sa saad avada seniläbitud radu ja neid uuesti läbi teha?"
+  },
+  "showAltitudeDiagram": {
+    "label": "Kõrgusgraafik",
+    "description": "[Raja monitooring] Kas rakendus kuvab kõrgusgraafikut"
+  },
+  "showDOP": {
+    "label": "Kvaliteet",
+    "description": "[Raja monitooring] Kas saad jälgida GPS-signaali kvaliteeti?"
+  },
+  "showSatellites": {
+    "label": "Sateliidivaade",
+    "description": "[Raja monitooring] Kas näed kasutatavaid sateliite?"
+  },
+  "showNMEAlive": {
+    "label": "NMEA-andmed reaalajas",
+    "description": "[Raja monitooring] Kas näed GPS-andmeid töötlemata kujul?"
+  },
+  "showSpeed": {
+    "label": "Kiiruse kuvamine",
+    "description": "[Raja monitooring] Kas rakendus kuvab sinu kiirust?"
+  },
+  "sendPosition": {
+    "label": "Asukoha edastamine",
+    "description": "[Raja monitooring] Kas saad oma asukohta teistele edastada?"
+  },
+  "editTags": {
+    "label": "OSM-i objektide siltide muutmine",
+    "description": "[Kaardi muutmisvaade] Kas saad objektiode olemasolevaid silte hallata ja muuta?"
+  },
+  "editRelations": {
+    "label": "Relatsioonide muutmine",
+    "description": "[Kaardi muutmisvaade] Kas saad kaardil olevaid relatsioone muuta?"
+  },
+  "offsetDBsupport": {
+    "label": "Kaardikihtide nihe",
+    "description": "[Kaardi muutmisvaade] Kas saad lisada kaardi ülekattekihtide nihet ja seda kohendada?"
+  },
+  "uploadOSMData": {
+    "label": "OSM-i üleslaadimine",
+    "description": "[Kaardi muutmisvaade] Kas saad muudatused otse OSM-i edastada?"
+  },
+  "rendererOutputFormats": {
+    "label": "Väljundvormingud",
+    "description": "[Kaardi esitluskiht] Mis väljundvormingud on toetatud."
+  },
+  "explorerMode": {
+    "label": "Avastamisrežiim",
+    "description": "[Hõlbustus] Kas rakendusel on avastamisrežiim (saad interaktiivselt teada objektide lähedusest)?"
   }
 }
