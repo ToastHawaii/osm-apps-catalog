@@ -158,11 +158,13 @@ seotud.
 
 ---
 
-- Osale [OSM-i kogukonna
-  tegemistes](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tutvu
-  etiketiga](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Liitu kohaliku huvigrupiga](https://usergroups.openstreetmap.de/),
-  [kohtu](https://osmcal.org/) ja [vestle](https://community.osm.be/)
+- Liitu [OSM-i
+  kogukonnaga](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tutvu
+  reeglite ja
+  kommetega](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Liitu kohaliku grupiga](https://usergroups.openstreetmap.de/), [kohtu mõnel
+  sündmusel](https://osmcal.org/) ja [lihtsalt
+  vestle](https://community.osm.be/)
 - [Täienda OpenStreetMapi
   andmeid](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Teave minu kohta](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
