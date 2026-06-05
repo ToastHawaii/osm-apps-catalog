@@ -1,7 +1,7 @@
 
 # Contributing guidelines · [![GitHub license](https://img.shields.io/badge/license-AGPLv3-%23a32d2a.svg)](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
 
-Thank you for your interest in contributing to the OSM Apps Catalog.
+Thank you for your interest in contributing to the OSM Apps Catalog. There are plenty of ways to get involved, and for most of them, you don't need to know anything about programming.
 
 - One easy way to support is **give the project a ⭐**.
 - The OSM App Catalog isn't nearly as well-known as it should be. **Help spread the word.** For example, share it on social media, write a blog post, or talk to others about it.
@@ -60,6 +60,14 @@ npm run actions:collect-osm-apps-translations:start # collect all app meta data 
 > It is needed for the GitHub API calls. If you not need to test this this part you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
 
 ### Code submissions 
-Changes are warmly welcome, please check out our [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file#contributor-covenant-code-of-conduct).
+Please take a moment to read the the [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines) before proceeding. Everyone should feel comfortable contributing to the OSM Apps Catalog.
 
-The best way to start is with a [good first issue](https://github.com/ToastHawaii/osm-apps-catalog/contribute)
+The best way to start is with a [good first issue](https://github.com/ToastHawaii/osm-apps-catalog/contribute).
+
+#### You have a bug fix?
+Simply [start a ticket using the bug template](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md). Commit your bug fix as a pull request referring to the ticket.
+
+#### You want add a new feature? 
+[Start a ticket using the feature template](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) and describe what you want to do. Usually there is some discussion and refinement of the feature. Once all concerns are settled you can start a pull request.
+
+*Please keep in mind that I am strongly committed to supporting free and open-source software and keeping the UI low barrier. Please don't be too disappointed if I reject a pull request.*
