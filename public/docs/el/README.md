@@ -157,12 +157,11 @@ GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-
 
 ---
 
-- Γίνετε μέλος της [κοινότητας
-  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Μάθετε τις
-  οδηγίες
-  εθιμοτυπίας](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Μπείτε σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/),
-  [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Join a local group](https://usergroups.openstreetmap.de/), [meet at an
+  event](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Συνεισφέρετε στο
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Σχετικά με εμένα](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

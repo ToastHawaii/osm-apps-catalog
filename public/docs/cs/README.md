@@ -156,12 +156,11 @@ Foundation] (https://osmfoundation.org/) ani s ní není spojen.
 
 ---
 
-- Staňte se součástí [komunity
-  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Naučte se
-  etiketu](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Připojte se k místní skupině](https://usergroups.openstreetmap.de/),
-  [seznamte se](https://osmcal.org/) a [popovídejte
-  si](https://community.osm.be/)
+- Become part of the [OSM
+  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Join a local group](https://usergroups.openstreetmap.de/), [meet at an
+  event](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Přispějte do
   OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
