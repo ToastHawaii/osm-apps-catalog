@@ -1,5 +1,5 @@
 
-# Contributing guidelines [![GitHub license](https://img.shields.io/badge/license-AGPLv3-%23a32d2a.svg)](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
+# Contributing guidelines · [![GitHub license](https://img.shields.io/badge/license-AGPLv3-%23a32d2a.svg)](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
 
 Thank you for your interest in contributing to the OSM Apps Catalog.
 
@@ -9,7 +9,7 @@ Thank you for your interest in contributing to the OSM Apps Catalog.
 
 ## Translations
 
-### OSM Apps Catalog user interface <a href="https://hosted.weblate.org/engage/osm-apps-catalog/"><img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" /></a> 
+### OSM Apps Catalog user interface · <a href="https://hosted.weblate.org/engage/osm-apps-catalog/"><img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" valign="text-top" /></a> 
 In [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog), you can translate the texts that appear in the catalog’s interface. 
 
 Feel free to [add new languages](https://hosted.weblate.org/new-lang/osm-apps-catalog/). I'll be happy to integrate them.
@@ -31,9 +31,11 @@ You can find the sources by going to the detail view of an app in the [OSM Apps 
 You can [upvote features](https://github.com/ToastHawaii/osm-apps-catalog/issues) you would like to see.
 
 ## Code
-AI docs here: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
+The OSM Apps Catalog is a single-page application (SPA) with no server-side backend. The data is collected by GitHub Actions, which run once a day (or once a week), gather data from various sources, and generate [JSON files](https://github.com/ToastHawaii/osm-apps-catalog/tree/main/docs/api/apps).
 
-### Run locally [![Dependencies](https://img.shields.io/badge/dependencies-explore-orange?link=https%3A%2F%2Fnpmgraph.js.org%2F%3Fq%3Dhttps%253A%252F%252Fgithub.com%252FToastHawaii%252Fosm-apps-catalog%252Fblob%252Fmain%252Fpackage.json%23color%3Doutdated%26zoom%3Dw%26sizing%3D)](https://npmgraph.js.org/?q=https%3A%2F%2Fgithub.com%2FToastHawaii%2Fosm-apps-catalog%2Fblob%2Fmain%2Fpackage.json#color=outdated&zoom=w&sizing=)
+More infos in the AI docs here: [<img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki" valign="sub"/>](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
+
+### Run locally · [<img src="https://img.shields.io/badge/dependencies-explore-orange?link=https%3A%2F%2Fnpmgraph.js.org%2F%3Fq%3Dhttps%253A%252F%252Fgithub.com%252FToastHawaii%252Fosm-apps-catalog%252Fblob%252Fmain%252Fpackage.json%23color%3Doutdated%26zoom%3Dw%26sizing%3D" alt="Dependencies" valign="text-top"/>](https://npmgraph.js.org/?q=https%3A%2F%2Fgithub.com%2FToastHawaii%2Fosm-apps-catalog%2Fblob%2Fmain%2Fpackage.json#color=outdated&zoom=w&sizing=)
 
 #### Web app
 The web app source code is in the `./src` folder.
@@ -44,7 +46,7 @@ npm install
 npm run app:start          # starts the local dev server 
 ```
 
-#### Actions that collect meta data [![Collect osm apps](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml) [![Collect osm apps translations](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg)](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
+#### Actions that collect meta data · [<img src="https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml/badge.svg" alt="Collect osm apps" valign="sub" />](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps.yml) [<img src="https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml/badge.svg" alt="Collect osm apps translations" valign="sub"/>](https://github.com/ToastHawaii/osm-apps-catalog/actions/workflows/collect-osm-apps-translations.yml)
 The actions source code to collect meta data is in the `./actions` folder.
 ```bash
 npm run actions:collect-osm-apps:start              # collect all app meta data  
