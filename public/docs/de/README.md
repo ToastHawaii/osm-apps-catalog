@@ -160,11 +160,12 @@ verbunden.
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a local group](https://usergroups.openstreetmap.de/), [meet at an
-  event](https://osmcal.org/) & [chat](https://community.osm.be/)
+- Werde Teil der
+  [OSM-Community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Lerne
+  die Verhaltensregeln
+  kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
+  [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
+  dich](https://osmcal.org/) & [chatte](https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
