@@ -14,14 +14,16 @@ In [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog), you can tran
 
 Feel free to [add new languages](https://hosted.weblate.org/new-lang/osm-apps-catalog/). I'll be happy to integrate them.
 
-Enhance an existing translation by rephrasing it or fixing errors. Strings in OSM Apps Catalog Interface are not carved in stone. Even the original English ones are debatable. If you think the phrasing is misleading or just confusing you are welcome to provide a better text directly in weblate.
+Enhance an existing translation by rephrasing it or fixing errors. Strings in OSM Apps Catalog Interface are not carved in stone. Even the original English ones are debatable. If you think the phrasing is misleading or just confusing you are welcome to provide a better text directly in [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog).
+
+You also can [create a issue](https://github.com/ToastHawaii/osm-apps-catalog/issues) or [write to me directly](https://wiki.openstreetmap.org/wiki/User:ToastHawaii) regarding translation issues or poor text layout.
 
 Follow this [link to improve the translations from the user interface](https://hosted.weblate.org/projects/osm-apps-catalog).
 
 ### Meta data / descriptions from the apps
 The texts relating to the apps descriptions come from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction) and other sources. These should be translated directly in the wikis. 
 
-You can find the sources by going to the detail view of an app in the OSM Apps Catalog and click on "Edit / Update Information" in the "Get involved" section.
+You can find the sources by going to the detail view of an app in the [OSM Apps Catalog](https://osm-apps.org/) and click on "Edit / Update Information" in the "Get involved" section.
 
 ## Issues
 [Report bugs](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md), [discuss ideas](https://github.com/ToastHawaii/osm-apps-catalog/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement) and [propose features](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) for the OSM Apps Catalog.
