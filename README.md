@@ -30,9 +30,12 @@ Take a look at [the usage statistics of the OSM Apps Catalog](https://osm-apps.g
 - [weblate](https://weblate.org/) and [all translators of this catalog](https://hosted.weblate.org/user/?q=%20contributes:osm-apps-catalog) for supporting open source projects for free.
 - all who made this catalog possible.
 
+## 🤝 Sponsors
+In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## 🪧 Disclaimer
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project are not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project are not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
 
 ## 💬 Contact
 
