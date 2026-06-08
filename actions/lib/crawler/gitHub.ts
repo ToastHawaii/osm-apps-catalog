@@ -7,6 +7,7 @@ import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
 import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
 import { createOctokit } from "@actions/lib/crawler/createOctokit";
+import { getBlackList } from "@actions/lib/getBlackList";
 
 const ignoredTopics = [
   // OpenStreetMap
@@ -206,6 +207,13 @@ export async function requestGitHub(octokit: ReturnType<typeof createOctokit>) {
     hasNextPage = json.search.pageInfo.hasNextPage;
     cursor = json.search.pageInfo.endCursor;
   }
+
+  // filter out repos from the blacklist
+  const blacklist = await getBlackList();
+  return results.filter(
+    (repo) =>
+      !blacklist.some((item) => item.name.some((n) => repo.name.includes(n))),
+  );
 
   return results;
 }
