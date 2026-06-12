@@ -158,10 +158,10 @@ program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgran
 
 ## Lahtiütlus vastutusest
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the
-one-time funding described above.
+OpenStreetMap ja OSM OpenStreetMap Foundationi kaubamärgid ning nad on kasutusel
+organisatsioonilt saadud loa alusel. See projekt pole [OpenStreetMap
+Foundationi](https://osmfoundation.org/) poolt heaks kiidetud ega nendega
+seotud.
 
 ---
 
