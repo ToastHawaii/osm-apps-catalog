@@ -71,3 +71,10 @@ Simply [start a ticket using the bug template](https://github.com/ToastHawaii/os
 [Start a ticket using the feature template](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) and describe what you want to do. Usually there is some discussion and refinement of the feature. Once all concerns are settled you can start a pull request.
 
 *Please keep in mind that I am strongly committed to supporting free and open-source software and keeping the UI low barrier. Please don't be too disappointed if I reject a pull request.*
+
+### Build for production
+For production, the single-page application and the GitHub Actions must be built.
+
+```bash
+npm run build         # build web application and actions
+```
