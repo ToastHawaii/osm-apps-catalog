@@ -156,10 +156,9 @@ program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgran
 
 ## Застереження
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the
-one-time funding described above.
+OpenStreetMap та OSM є торговою маркою OpenStreetMap Foundation та
+використовуються з їхнього дозволу. Цей проект не схвалений та не пов'язаний з
+[OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
