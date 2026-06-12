@@ -5,6 +5,7 @@ import { AppCompact } from "@components/common/AppCompact";
 
 const notFoundAppsTitle = [
   "MapComplete",
+  "Mapforge",
   "uMap",
   "OpenStreetBrowser",
   "Overpass turbo",
