@@ -149,11 +149,19 @@ GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-
 > σχετικά με τις πρακτικές ασφαλείας του GitHub, δείτε την [Δήλωση Απορρήτου
 > GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsors
+In December 2025, the **OpenStreetMap foundation** funded the development of
+[Redesign of the OSM Apps Catalog to reach a wider
+audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
+frame of the [microgrants
+program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## Αποποίηση
 
-Τα OpenStreetMap και OSM είναι σήματα κατατεθέντα του Ιδρύματος OpenStreetMap,
-και χρησιμοποιούνται με την άδεια του. Αυτό το εγχείρημα δεν στηρίζεται από ούτε
-έχει σχέση με το [Ίδρυμα OpenStreetMap](https://osmfoundation.org/).
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
+used with their permission. This project are not endorsed by or affiliated with
+the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the
+one-time funding described above.
 
 ---
 

@@ -147,12 +147,19 @@ says:
 > see [GitHub Privacy
 > Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsors
+In December 2025, the **OpenStreetMap foundation** funded the development of
+[Redesign of the OSM Apps Catalog to reach a wider
+audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
+frame of the [microgrants
+program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## மறுப்பு
 
-திறதெருவரைபட மற்றும் ஓஎச்எம் என்பது திறதெருவரைபட அறக்கட்டளையின் வர்த்தக
-முத்திரையாகும், மேலும் இது அவர்களின் அனுமதியுடன் பயன்படுத்தப்படுகிறது. இந்தத்
-திட்டம் [திறதெருவரைபட அறக்கட்டளை](https://osmfoundation.org/) உடன்
-அங்கீகரிக்கப்படவில்லை அல்லது இணைக்கப்படவில்லை.
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
+used with their permission. This project are not endorsed by or affiliated with
+the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the
+one-time funding described above.
 
 ---
 
