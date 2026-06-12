@@ -149,6 +149,13 @@ on kirjas:
 > turvapraktika kohta vaata [GitHubi
 > Andmekaitsereeglistikku](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsors
+In December 2025, the **OpenStreetMap foundation** funded the development of
+[Redesign of the OSM Apps Catalog to reach a wider
+audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
+frame of the [microgrants
+program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## Lahtiütlus vastutusest
 
 OpenStreetMap ja OSM OpenStreetMap Foundationi kaubamärgid ning nad on kasutusel

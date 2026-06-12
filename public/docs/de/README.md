@@ -151,12 +151,19 @@ heißt es:
 > Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der
 > [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsoren
+Im Dezember 2025 finanzierte die **OpenStreetMap Foundation** die Entwicklung
+der [Neugestaltung des OSM Apps Catalog, um ein breiteres Publikum zu
+erreichen](https://github.com/osmfoundation/ewg_bidding/issues/31) innerhalb des
+Rahmens des
+[Mikrogrants-Programms](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## Haftungsausschluss
 
 OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden
 mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap
 Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr
-verbunden.
+verbunden, mit Ausnahme der oben genannten einmaligen Finanzierung.
 
 ---
 
@@ -165,7 +172,8 @@ verbunden.
   die Verhaltensregeln
   kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
   [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
-  dich](https://osmcal.org/) & [chatte](https://community.osm.be/)
+  dich mit anderen an einer Veranstaltung](https://osmcal.org/) &
+  [chatte](https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

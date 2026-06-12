@@ -135,6 +135,13 @@ OSM Apps 目錄並不會儲存個人資料。
 > 當瀏覽 GitHub Pages 時，瀏覽者的 IP 地址會被記錄，並且不論有沒有登入 GitHub，都會因資安理由而儲存下來。請參見 [GitHub
 > 隱私聲明](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)來取得更多資訊。
 
+## Sponsors
+In December 2025, the **OpenStreetMap foundation** funded the development of
+[Redesign of the OSM Apps Catalog to reach a wider
+audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
+frame of the [microgrants
+program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## 聲明
 
 開放街圖與 OSM
