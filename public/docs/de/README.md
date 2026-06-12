@@ -160,10 +160,10 @@ Rahmens des
 
 ## Haftungsausschluss
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is
-used with their permission. This project are not endorsed by or affiliated with
-the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the
-one-time funding described above.
+OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden
+mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap
+Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr
+verbunden, mit Ausnahme der oben genannten einmaligen Finanzierung.
 
 ---
 
@@ -172,7 +172,8 @@ one-time funding described above.
   die Verhaltensregeln
   kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
   [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
-  dich](https://osmcal.org/) & [chatte](https://community.osm.be/)
+  dich mit anderen an einer Veranstaltung](https://osmcal.org/) &
+  [chatte](https://community.osm.be/)
 - [Zu OpenStreetMap
   beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
