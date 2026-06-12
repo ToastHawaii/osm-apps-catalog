@@ -177,7 +177,13 @@ export function Details({ app }: { app: App }) {
             {app.documentation && (
               <>
                 {getDelimiter()}
-                <ExternalLink href={app.documentation} icon>
+                <ExternalLink
+                  href={app.documentation}
+                  icon
+                  data-goatcounter-click="/app/more"
+                  data-goatcounter-title="Goes to the learn more page of an app."
+                  data-goatcounter-referrer="https://osm-apps.org/"
+                >
                   {t("app.learnMore", {
                     website: newUrl(app.documentation).hostname,
                   })}
