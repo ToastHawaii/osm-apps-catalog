@@ -151,12 +151,12 @@ heißt es:
 > Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der
 > [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Sponsors
-In December 2025, the **OpenStreetMap foundation** funded the development of
-[Redesign of the OSM Apps Catalog to reach a wider
-audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
-frame of the [microgrants
-program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+## Sponsoren
+Im Dezember 2025 finanzierte die **OpenStreetMap Foundation** die Entwicklung
+der [Neugestaltung des OSM Apps Catalog, um ein breiteres Publikum zu
+erreichen](https://github.com/osmfoundation/ewg_bidding/issues/31) innerhalb des
+Rahmens des
+[Mikrogrants-Programms](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Haftungsausschluss
 
