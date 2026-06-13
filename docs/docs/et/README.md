@@ -149,12 +149,21 @@ on kirjas:
 > turvapraktika kohta vaata [GitHubi
 > Andmekaitsereeglistikku](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsorid
+Detsembris 2025 eraldas **OpenStreetMap Foundation** raha meie projekti
+arenduseks nime all „OSM-i rakenduste kataloogi uus lahendus laiema
+vaatajaskonna hõlmamise nimel“ [Redesign of the OSM Apps Catalog to reach a
+wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31), tehes
+seda oma [mikrotoetuste
+programmi](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)
+raames.
+
 ## Lahtiütlus vastutusest
 
-OpenStreetMap ja OSM OpenStreetMap Foundationi kaubamärgid ning nad on kasutusel
-organisatsioonilt saadud loa alusel. See projekt pole [OpenStreetMap
+OpenStreetMap ja OSM on OpenStreetMap Foundationi kaubamärgid ning nad on
+kasutusel organisatsioonilt saadud loa alusel. See projekt pole [OpenStreetMap
 Foundationi](https://osmfoundation.org/) poolt heaks kiidetud ega nendega
-seotud.
+seotud. Ainsaks erandiks on ülalnimetatud ühekordne toetus.
 
 ---
 

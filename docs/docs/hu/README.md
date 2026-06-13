@@ -150,6 +150,14 @@ a következőket írja:
 > nyilatkozatában](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
 > találsz.
 
+## Támogatók
+2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási
+program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)
+keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb
+közönség elérése
+érdekében](https://github.com/osmfoundation/ewg_bidding/issues/31) című
+fejlesztéshez.
+
 ## Felelősségi nyilatkozat
 
 Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő

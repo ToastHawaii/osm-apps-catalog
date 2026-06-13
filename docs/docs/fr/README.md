@@ -150,11 +150,19 @@ indique :
 > matière de sécurité, consultez la [Déclaration de confidentialité de
 > GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
+## Sponsors
+En décembre 2025, la **Fondation OpenStreetMap** a financé le projet [« Refonte
+du catalogue des applications OSM pour toucher un public plus large
+»](https://github.com/osmfoundation/ewg_bidding/issues/31) dans le cadre du
+[programme de
+micro-subventions](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+
 ## Clause de non-responsabilité
 
-OpenStreetMap et OSM sont des marques déposées de la Fondation OpenStreetMap et
-sont utilisées avec son autorisation. Ce projet n'est ni approuvé, ni affilié à
-la Fondation OpenStreetMap(https://osmfoundation.org/).
+OpenStreetMap et OSM sont des marques déposées de la Fondation OpenStreetMap,
+utilisées avec son autorisation. Ce projet n'est ni soutenu ni affilié à la
+[Fondation OpenStreetMap](https://osmfoundation.org/), à l'exception du
+financement ponctuel décrit ci-dessus.
 
 ---
 
