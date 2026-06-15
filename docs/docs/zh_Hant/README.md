@@ -135,23 +135,21 @@ OSM Apps 目錄並不會儲存個人資料。
 > 當瀏覽 GitHub Pages 時，瀏覽者的 IP 地址會被記錄，並且不論有沒有登入 GitHub，都會因資安理由而儲存下來。請參見 [GitHub
 > 隱私聲明](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)來取得更多資訊。
 
-## Sponsors
-In December 2025, the **OpenStreetMap foundation** funded the development of
-[Redesign of the OSM Apps Catalog to reach a wider
-audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
-frame of the [microgrants
-program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+## 贊助者
+2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)的機制贊助
+[OSM Apps Catalog 重新設計來接觸更廣大群眾]
+(https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
 
 ## 聲明
 
 開放街圖與 OSM
-皆為開放街圖基金會的註冊商標，都取得其允許。這個專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是其相關專案。
+皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會](https://osmfoundation.org/)轄下的相關專案。
 
 ---
 
 - 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) 的一份子
   ([學習禮儀Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))；[加入在地社群](https://usergroups.openstreetmap.de/)，[聚會](https://osmcal.org/)
+  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))；[加入在地社群](https://usergroups.openstreetmap.de/)，[參與聚會](https://osmcal.org/)
   以及 [聊天](https://community.osm.be/)
 - [貢獻至開放街圖](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [關於我們](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
