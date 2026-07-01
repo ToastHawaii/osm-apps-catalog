@@ -2,27 +2,19 @@
 
 _Nem csak egy van, hanem több ezer_
 
-Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
-használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási
-pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
+Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
 
-Az alkalmazások metaadatainak forrása: [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo
-projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
+Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
 [> Nézd meg a katalógust](https://osm-apps.org)
 
-[> Adj hozzá te is OSM-alkalmazásokat, vagy működj közre
-másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Adj hozzá te is OSM-alkalmazásokat, vagy működj közre másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## További nyelvek
 
 Katalógus megjelenítése a nyelveden:
 
-**Nyelv kiválasztása**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Nyelv kiválasztása** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,76 +95,39 @@ Katalógus megjelenítése a nyelveden:
 
 Segítség a fordításban:
 
-- az OSM Apps Catalog a
-  [Weblate-en](https://hosted.weblate.org/projects/osm-apps-catalog) [![Eddig
-  lefordítva](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- az OSM Apps Catalog a [Weblate-en](https://hosted.weblate.org/projects/osm-apps-catalog) [![Eddig lefordítva](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
-  dokumentált alkalmazások
+- az [OpenStreetMap Wikin](https://wiki.openstreetmap.org/wiki/Wiki_Translation) dokumentált alkalmazások
 
 ## Licenc
 
-Az alkalmazás [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) licenc
-alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog) szabadon
-felhasználható, másolható és módosítható, ha ugyanezen licenc alatt teszed
-közzé.
+Az alkalmazás [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) licenc alatt áll. A [kód](https://github.com/ToastHawaii/osm-apps-catalog) szabadon felhasználható, másolható és módosítható, ha ugyanezen licenc alatt teszed közzé.
 
-[![GitHub
-tárhely](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![GitHub tárhely](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Adatvédelmi tájékoztató
 
 Az OSM Apps Catalog nem tárol személyes adatot a felhasználóról.
 
-Névtelen felhasználási statisztikához a projekt a
-[GoatCountert](https://www.goatcounter.com/) használja, amely egy
-adatvédelem-barát elemző szolgáltatás. Személyes azonosításra alkalmas
-információ nem tárolódik. ([Az összegyűjtött felhasználási adatok megtekinthetők
-itt.](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Névtelen felhasználási statisztikához a projekt a [GoatCountert](https://www.goatcounter.com/) használja, amely egy adatvédelem-barát elemző szolgáltatás. Személyes azonosításra alkalmas információ nem tárolódik. ([Az összegyűjtött felhasználási adatok megtekinthetők itt.](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-A felhasználói élmény javításához felhasználhatunk valamennyi, a felhasználó
-internetböngészője által szolgáltatott adatot (pl. a használt nyelvet vagy
-platformot). Ezek az adatok a böngészőn belül lesznek feldolgozva; nem
-tárolódnak és nem továbbíttatnak külső szerverekhez (a fent leírt, névtelenített
-elemzéseken kívül).
+A felhasználói élmény javításához felhasználhatunk valamennyi, a felhasználó internetböngészője által szolgáltatott adatot (pl. a használt nyelvet vagy platformot). Ezek az adatok a böngészőn belül lesznek feldolgozva; nem tárolódnak és nem továbbíttatnak külső szerverekhez (a fent leírt, névtelenített elemzéseken kívül).
 
-A weboldal tárhelye a Github Pages. A [GitHub Pages
-dokumentációja](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-a következőket írja:
+A weboldal tárhelye a Github Pages. A [GitHub Pages dokumentációja](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) a következőket írja:
 
 > ### Adatgyűjtés
 > 
-> Amikor valaki felkeres egy GitHub Pages webhelyet, a látogató IP-címét
-> biztonsági okokból rögzítik és tárolják, függetlenül attól, hogy a látogató be
-> van-e jelentkezve a GitHubba vagy sem. A GitHub biztonsági gyakorlatáról
-> további információkat a [GitHub adatvédelmi
-> nyilatkozatában](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
-> találsz.
+> Amikor valaki felkeres egy GitHub Pages webhelyet, a látogató IP-címét biztonsági okokból rögzítik és tárolják, függetlenül attól, hogy a látogató be van-e jelentkezve a GitHubba vagy sem. A GitHub biztonsági gyakorlatáról további információkat a [GitHub adatvédelmi nyilatkozatában](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) találsz.
 
 ## Támogatók
-2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási
-program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)
-keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb
-közönség elérése
-érdekében](https://github.com/osmfoundation/ewg_bidding/issues/31) című
-fejlesztéshez.
+2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/) keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb közönség elérése érdekében](https://github.com/osmfoundation/ewg_bidding/issues/31) című fejlesztéshez.
 
 ## Felelősségi nyilatkozat
 
-Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő
-engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap
-Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
+Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
 
 ---
 
-- Légy részese az [OSM
-  közösségének](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tanuld
-  meg a viselkedési
-  normákat](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/),
-  [találkozz a többiekkel](https://osmcal.org/) vagy [csetelj
-  velük](https://community.osm.be/)
-- Az [OpenStreetMap
-  szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Légy részese az [OSM közösségének](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Tanuld meg a viselkedési normákat](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [csatlakozz egy helyi csoporthoz](https://usergroups.openstreetmap.de/), [találkozz a többiekkel](https://osmcal.org/) vagy [csetelj velük](https://community.osm.be/)
+- Az [OpenStreetMap szerkesztése](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Rólam](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
