@@ -2,28 +2,19 @@
 
 _Není jen jeden, jsou jich tisíce._
 
-Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap.
-Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre
-přínosu pro komunitu](/docs/score).
+Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap. Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre přínosu pro komunitu](/docs/score).
 
-Metadata pro aplikace jsou shromažďována z [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) a [seznamu projektu
-Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) a následně
-zkombinována.
+Metadata pro aplikace jsou shromažďována z [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) a [seznamu projektu Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) a následně zkombinována.
 
 [> Přejít do katalogu](https://osm-apps.org)
 
-[> Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným
-způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Další jazyky
 
 Zobrazte katalog ve svém jazyce:
 
-**Vyberte jazyk**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Vyberte jazyk** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -104,71 +95,39 @@ Zobrazte katalog ve svém jazyce:
 
 Pomozte s překladem:
 
-- z katalogu aplikací OSM na
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stav
-  překladu](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- z katalogu aplikací OSM na [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stav překladu](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- z aplikací zdokumentovaných v [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+- z aplikací zdokumentovaných v [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## Licence
 
-Aplikace je licencována pod [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
-[Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití,
-kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
+Aplikace je licencována pod [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). [Kód](https://github.com/ToastHawaii/osm-apps-catalog) je volně k použití, kopírování a úpravám, pokud jej zveřejníte pod stejnou licencí.
 
-[![Repozitář
-GitHubu](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Repozitář GitHubu](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Zásady ochrany osobních údajů
 
 Katalog aplikací OSM neukládá osobní údaje uživatelů.
 
-Pro anonymní statistiky užívání projekt využívá
-[GoatCounter](https://www.goatcounter.com/), analytickou službu šetrnou k
-ochraně soukromí. Nejsou shromažďovány žádné osobní údaje. ([Zkontrolujte
-shromážděná data o
-užívání](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Pro anonymní statistiky užívání projekt využívá [GoatCounter](https://www.goatcounter.com/), analytickou službu šetrnou k ochraně soukromí. Nejsou shromažďovány žádné osobní údaje. ([Zkontrolujte shromážděná data o užívání](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Některé informace poskytované prohlížečem uživatele (například jazyk nebo
-platforma) mohou být použity lokálně ke zlepšení uživatelského prostředí. Tato
-data jsou zpracovávána v prohlížeči a nejsou ukládána ani přenášena na externí
-servery (s výjimkou anonymizované analýzy, jak je popsáno výše).
+Některé informace poskytované prohlížečem uživatele (například jazyk nebo platforma) mohou být použity lokálně ke zlepšení uživatelského prostředí. Tato data jsou zpracovávána v prohlížeči a nejsou ukládána ani přenášena na externí servery (s výjimkou anonymizované analýzy, jak je popsáno výše).
 
-Webové stránky jsou hostovány na Github Pages. [Dokumentace GitHubu o GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-uvádí:
+Webové stránky jsou hostovány na Github Pages. [Dokumentace GitHubu o GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) uvádí:
 
 > ### Sběr dat
 > 
-> Při návštěvě webu GitHub Pages se z bezpečnostních důvodů zaznamená a uloží IP
-> adresa návštěvníka, bez ohledu na to, zda se návštěvník přihlásil do GitHubu
-> či nikoli. Další informace o bezpečnostních postupech GitHubu naleznete v
-> dokumentu [Prohlášení o ochraně osobních údajů
-> GitHubu](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Při návštěvě webu GitHub Pages se z bezpečnostních důvodů zaznamená a uloží IP adresa návštěvníka, bez ohledu na to, zda se návštěvník přihlásil do GitHubu či nikoli. Další informace o bezpečnostních postupech GitHubu naleznete v dokumentu [Prohlášení o ochraně osobních údajů GitHubu](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Sponsors
-In December 2025, the **OpenStreetMap foundation** funded the development of
-[Redesign of the OSM Apps Catalog to reach a wider
-audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
-frame of the [microgrants
-program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Odmítnutí odpovědnosti
 
-OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation a je
-použita s jejím svolením. Tento projekt není podporován nadací [OpenStreetMap
-Foundation] (https://osmfoundation.org/) ani s ní není spojen.
+OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation a je použita s jejím svolením. Tento projekt není podporován nadací [OpenStreetMap Foundation] (https://osmfoundation.org/) ani s ní není spojen.
 
 ---
 
-- Staňte se součástí [OSM
-  komunity](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Více
-  informací o vaší
-  etiketě](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a místní skupina](https://usergroups.openstreetmap.de/), [meet na
-  akci](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Přispějte do
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Staňte se součástí [OSM komunity](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Více informací o vaší etiketě](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Join a místní skupina](https://usergroups.openstreetmap.de/), [meet na akci](https://osmcal.org/) & [chat](https://community.osm.be/)
+- [Přispějte do OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

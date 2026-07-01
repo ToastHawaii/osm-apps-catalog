@@ -2,27 +2,19 @@
 
 _Det finns inte bara en, det finns tusentals._
 
-Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data.
-Den uppdateras varje dag. Apparna är rankade och sorterade av [Community
-Contribution Score](/docs/score).
+Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data. Den uppdateras varje dag. Apparna är rankade och sorterade av [Community Contribution Score](/docs/score).
 
-The metadata for the apps is collected from [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
+The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
 [> Gå till katalogen](https://osm-apps.org)
 
-[> Lägg till OSM-appar du känner till eller bidrar på andra
-sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Lägg till OSM-appar du känner till eller bidrar på andra sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Andra språk
 
 Visa katalogen på ditt språk:
 
-**Choose language**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Choose language** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,69 +95,39 @@ Visa katalogen på ditt språk:
 
 Hjälp med översättningen:
 
-- från OSM Apps Catalog på
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- från OSM Apps Catalog på [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Translation status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- från apparna som dokumenterats i [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+- från apparna som dokumenterats i [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## Licens
 
-Appen är licensierad under [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE).
-[koden](https://github.com/ToastHawaii/osm-apps-catalog) är gratis att använda,
-kopiera och ändra om du publicerar under samma licens.
+Appen är licensierad under [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). [koden](https://github.com/ToastHawaii/osm-apps-catalog) är gratis att använda, kopiera och ändra om du publicerar under samma licens.
 
-[![GitHub
-Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![GitHub Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Privacy Policy
 
 The OSM Apps Catalog does not store personal user data.
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+For anonymized usage statistics, the project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics service. No personally identifiable information is collected. ([Check collected usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+Some information provided by the user's browser (such as language or platform) may be used locally to improve the user experience. This data is processed within the browser and is not stored or transmitted to external servers (except for anonymized analytics as described above).
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+The website is hosted on Github Pages. The [GitHub documentation on GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) says:
 
 > ### Data collection
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> When a GitHub Pages site is visited, the visitor's IP address is logged and stored for security purposes, regardless of whether the visitor has signed into GitHub or not. For more information about GitHub's security practices, see [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Sponsors
-In December 2025, the **OpenStreetMap foundation** funded the development of
-[Redesign of the OSM Apps Catalog to reach a wider
-audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the
-frame of the [microgrants
-program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Ansvarsfriskrivning
 
-OpenStreetMap och OSM är ett varumärke för OpenStreetMap Foundation och används
-med deras tillstånd. Detta projekt stöds inte av eller ansluts till
-[OpenStreetMap Foundation](https://osmfoundation.org/).
+OpenStreetMap och OSM är ett varumärke för OpenStreetMap Foundation och används med deras tillstånd. Detta projekt stöds inte av eller ansluts till [OpenStreetMap Foundation](https://osmfoundation.org/).
 
 ---
 
-- Become part of the [OSM
-  community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Join a local group](https://usergroups.openstreetmap.de/), [meet at an
-  event](https://osmcal.org/) & [chat](https://community.osm.be/)
-- [Bidra till
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Become part of the [OSM community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Learn your etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Join a local group](https://usergroups.openstreetmap.de/), [meet at an event](https://osmcal.org/) & [chat](https://community.osm.be/)
+- [Bidra till OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Om mig] (https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

@@ -2,27 +2,19 @@
 
 _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες._
 
-Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα
-OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και
-ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
+Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
 
-Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του
-Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
+Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
 
 [> Πηγαίνετε στον κατάλογο](https://osm-apps.org)
 
-[> Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους
-τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Άλλες γλώσσες
 
 Προβάλλετε τον κατάλογο στη γλώσσα σας:
 
-**Επιλέξτε γλώσσα**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Επιλέξτε γλώσσα** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -103,74 +95,39 @@ Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυ
 
 Βοηθήστε με τη μετάφραση:
 
-- από το OSM Apps Catalog στο
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Κατάσταση
-  μετάφρασης](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- από το OSM Apps Catalog στο [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Κατάσταση μετάφρασης](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- από τις εφαρμογές που καταγράφονται στο [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+- από τις εφαρμογές που καταγράφονται στο [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## Άδεια
 
-Η εφαρμογή διατίθεται με την άδεια χρήσης [Γενική Άδεια Δημόσιας Χρήσης Affero
-GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο
-[κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για
-χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
+Η εφαρμογή διατίθεται με την άδεια χρήσης [Γενική Άδεια Δημόσιας Χρήσης Affero GNU v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE). Ο [κώδικας](https://github.com/ToastHawaii/osm-apps-catalog) είναι ελεύθερος για χρήση, αντιγραφή και τροποποίηση αν δημοσιεύσετε με την ίδια άδεια.
 
-[![Αποθετήριο
-GitHub](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![Αποθετήριο GitHub](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Πολιτική Απορρήτου
 
 Το OSM Apps Catalog δεν αποθηκεύει προσωπικά δεδομένα χρηστών.
 
-Για στατιστικά ανώνυμης χρήσης, το εγχείρημα χρησιμοποιεί το
-[GoatCounter](https://www.goatcounter.com/), μια υπηρεσία
-φιλικής-προς-το-απόρρητο ανάλυσης. Κανένα δεδομένο προσωπικού χαρακτήρα δεν
-συλλέγεται. ([Δείτε τα συλλεγμένα δεδομένα
-χρήσης](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Για στατιστικά ανώνυμης χρήσης, το εγχείρημα χρησιμοποιεί το [GoatCounter](https://www.goatcounter.com/), μια υπηρεσία φιλικής-προς-το-απόρρητο ανάλυσης. Κανένα δεδομένο προσωπικού χαρακτήρα δεν συλλέγεται. ([Δείτε τα συλλεγμένα δεδομένα χρήσης](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Μερικές πληροφορίες που παρέχονται από το πρόγραμμα περίηγησης του χρήστη (όπως
-η γλώσσα ή η πλατφόρμα) ίσως να χρησιμοποιούνται τοπικά για βελτίωση της
-εμπειρίας του χρήστη. Αυτά τα δεδομένα γίνονται επεξεργασία εντός του περιηγητή
-και δεν αποθηκεύονται ή μεταδίδονται σε εξωτερικούς διακομιστές (με εξαίρεση για
-ανώνυμη ανάλυση όπως περιγράφεται παραπάνω).
+Μερικές πληροφορίες που παρέχονται από το πρόγραμμα περίηγησης του χρήστη (όπως η γλώσσα ή η πλατφόρμα) ίσως να χρησιμοποιούνται τοπικά για βελτίωση της εμπειρίας του χρήστη. Αυτά τα δεδομένα γίνονται επεξεργασία εντός του περιηγητή και δεν αποθηκεύονται ή μεταδίδονται σε εξωτερικούς διακομιστές (με εξαίρεση για ανώνυμη ανάλυση όπως περιγράφεται παραπάνω).
 
-Ο ιστότοπος φιλοξενείται στις Σελίδες Github. Η [τεκμηρίωση του GitHub για τις
-Σελίδες
-GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-λέει:
+Ο ιστότοπος φιλοξενείται στις Σελίδες Github. Η [τεκμηρίωση του GitHub για τις Σελίδες GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) λέει:
 
 > ### Συλλογή δεδομένων
 > 
-> Όταν γίνεται επίσκεψη σε έναν ιστότοπο των Σελίδων GitHub, καταγράφεται η IP
-> διεύθυνση του επισκέπτη και αποθηκεύεται για λόγους ασφαλείας, ανεξαρτήτως εάν
-> ο επισκέπτης έχει συνδεθεί στο GitHub ή όχι. Για περισσότερες πληροφορίες
-> σχετικά με τις πρακτικές ασφαλείας του GitHub, δείτε την [Δήλωση Απορρήτου
-> GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Όταν γίνεται επίσκεψη σε έναν ιστότοπο των Σελίδων GitHub, καταγράφεται η IP διεύθυνση του επισκέπτη και αποθηκεύεται για λόγους ασφαλείας, ανεξαρτήτως εάν ο επισκέπτης έχει συνδεθεί στο GitHub ή όχι. Για περισσότερες πληροφορίες σχετικά με τις πρακτικές ασφαλείας του GitHub, δείτε την [Δήλωση Απορρήτου GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Χορηγοί
-Τον Δεκέμβριου του 2025, το **Ίδρυμα OpenStreetMap** χρηματοδότησε την ανάπτυξη
-του [Επανασχεδιασμού του OSM Apps Catalog για την προσέγγιση ενός ευρύτερου
-κοινού](https://github.com/osmfoundation/ewg_bidding/issues/31) εντός του
-πλαισίου του [προγράμματος
-μικροεπιχορηγήσεων](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+Τον Δεκέμβριου του 2025, το **Ίδρυμα OpenStreetMap** χρηματοδότησε την ανάπτυξη του [Επανασχεδιασμού του OSM Apps Catalog για την προσέγγιση ενός ευρύτερου κοινού](https://github.com/osmfoundation/ewg_bidding/issues/31) εντός του πλαισίου του [προγράμματος μικροεπιχορηγήσεων](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Αποποίηση
 
-Τα OpenStreetMap και OSM είναι σήματα κατατεθέντα του Ιδρύματος OpenStreetMap,
-και χρησιμοποιούνται με την άδεια του. Αυτό το εγχείρημα δεν στηρίζεται από ούτε
-έχει σχέση με το [Ίδρυμα OpenStreetMap](https://osmfoundation.org/), εκτός από
-την εφάπαξ χρηματοδότηση που περιγράφεται παραπάνω.
+Τα OpenStreetMap και OSM είναι σήματα κατατεθέντα του Ιδρύματος OpenStreetMap, και χρησιμοποιούνται με την άδεια του. Αυτό το εγχείρημα δεν στηρίζεται από ούτε έχει σχέση με το [Ίδρυμα OpenStreetMap](https://osmfoundation.org/), εκτός από την εφάπαξ χρηματοδότηση που περιγράφεται παραπάνω.
 
 ---
 
-- Γίνετε μέλος της [κοινότητας
-  OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Μάθετε τις
-  οδηγίες
-  εθιμοτυπίας](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Μπείτε σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/),
-  [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
-- [Συνεισφέρετε στο
-  OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Γίνετε μέλος της [κοινότητας OSM](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Μάθετε τις οδηγίες εθιμοτυπίας](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Μπείτε σε μια τοπική ομάδα](https://usergroups.openstreetmap.de/), [συναντηθείτε](https://osmcal.org/) & [συνομιλήστε](https://community.osm.be/)
+- [Συνεισφέρετε στο OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Σχετικά με εμένα](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
