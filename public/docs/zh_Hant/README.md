@@ -4,22 +4,17 @@ _ 這不只一款，而是有上千個_
 
 這份目錄會顯示使用開放街圖資料的程式與服務，每日會更新。這些程式會以[社群貢獻分數](/docs/score)來評分與排序。
 
-從[開放街圖
-Wiki](https://wiki.openstreetmap.org/wiki/Wiki)、[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),、[GitHub](https://en.wikipedia.org/wiki/GitHub)
-以及 [Taginfo project
-list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
+從[開放街圖 Wiki](https://wiki.openstreetmap.org/wiki/Wiki)、[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),、[GitHub](https://en.wikipedia.org/wiki/GitHub) 以及 [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 [> 到目錄](https://osm-apps.org)
 
-[> 新增你知道的 OSM app
-或是用其他方式貢獻。](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> 新增你知道的 OSM app 或是用其他方式貢獻。](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## 其他語言
 
 顯示目錄為您的語言：
 
-**選擇語言**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**選擇語言** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -100,56 +95,39 @@ list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
 協助翻譯：
 
-- OSM App 目錄在 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的
-  [![Translation
-  status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- OSM App 目錄在 [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) 上的 [![Translation status](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的
-  app 說明文件
+- [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation) 上的 app 說明文件
 
 ## 授權條款
 
-這 app 的授權條款為 [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code](https://github.com/ToastHawaii/osm-apps-catalog)
-能夠自由使用，複製與變動則以相同授權條款釋出。
+這 app 的授權條款為 [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)。[code](https://github.com/ToastHawaii/osm-apps-catalog) 能夠自由使用，複製與變動則以相同授權條款釋出。
 
-[![GitHub
-倉櫥](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![GitHub 倉櫥](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## 隱私政策
 
 OSM Apps 目錄並不會儲存個人資料。
 
-專案使用尊重隱私的 [GoatCounter](https://www.goatcounter.com/) 分析服務來收集暱名使用者數據，不會收集個人識別資料。
-([檢視收集的資料清單](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+專案使用尊重隱私的 [GoatCounter](https://www.goatcounter.com/) 分析服務來收集暱名使用者數據，不會收集個人識別資料。 ([檢視收集的資料清單](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-有些由使用者瀏覽器收集的資料 (例如語言或是作業系統平台) 也許會本地使用來改進使用者體驗。這些資料會在瀏覽器中先行處理，並不會在傳輸到外部伺服器或是儲存
-(除了先前提及的暱名分析資料)。
+有些由使用者瀏覽器收集的資料 (例如語言或是作業系統平台) 也許會本地使用來改進使用者體驗。這些資料會在瀏覽器中先行處理，並不會在傳輸到外部伺服器或是儲存 (除了先前提及的暱名分析資料)。
 
-網站是在 GitHub Pages 上架設的，[GitHub documentation on GitHub Pages 上的 GitHub
-說明文件](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-是這麼敘述的：
+網站是在 GitHub Pages 上架設的，[GitHub documentation on GitHub Pages 上的 GitHub 說明文件](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) 是這麼敘述的：
 
 > ### 資料收集
 > 
-> 當瀏覽 GitHub Pages 時，瀏覽者的 IP 地址會被記錄，並且不論有沒有登入 GitHub，都會因資安理由而儲存下來。請參見 [GitHub
-> 隱私聲明](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)來取得更多資訊。
+> 當瀏覽 GitHub Pages 時，瀏覽者的 IP 地址會被記錄，並且不論有沒有登入 GitHub，都會因資安理由而儲存下來。請參見 [GitHub 隱私聲明](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)來取得更多資訊。
 
 ## 贊助者
-2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)的機制贊助
-[OSM Apps Catalog 重新設計來接觸更廣大群眾]
-(https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
+2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)的機制贊助 [OSM Apps Catalog 重新設計來接觸更廣大群眾] (https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
 
 ## 聲明
 
-開放街圖與 OSM
-皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會](https://osmfoundation.org/)轄下的相關專案。
+開放街圖與 OSM 皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會](https://osmfoundation.org/)轄下的相關專案。
 
 ---
 
-- 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) 的一份子
-  ([學習禮儀Learn your
-  etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))；[加入在地社群](https://usergroups.openstreetmap.de/)，[參與聚會](https://osmcal.org/)
-  以及 [聊天](https://community.osm.be/)
+- 成為 [OSM 社群](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) 的一份子 ([學習禮儀Learn your etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines))；[加入在地社群](https://usergroups.openstreetmap.de/)，[參與聚會](https://osmcal.org/) 以及 [聊天](https://community.osm.be/)
 - [貢獻至開放街圖](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [關於我們](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)

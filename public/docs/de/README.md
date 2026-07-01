@@ -2,28 +2,19 @@
 
 _Es gibt nicht nur eine, sondern Tausende._
 
-Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er
-wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution
-Score](/docs/score) bewertet und sortiert.
+Dieser Katalog zeigt Anwendungen und Dienste, die OpenStreetMap-Daten nutzen. Er wird täglich aktualisiert. Die Apps werden nach dem [Community Contribution Score](/docs/score) bewertet und sortiert.
 
-Die Metadaten für die Apps werden aus dem
-[OpenStreetMap-Wiki](https://wiki.openstreetmap.org/wiki/Wiki),
-[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),
-[GitHub](https://en.wikipedia.org/wiki/GitHub) und der
-[Taginfo-Projektliste](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)
-zusammengetragen und kombiniert.
+Die Metadaten für die Apps werden aus dem [OpenStreetMap-Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) und der [Taginfo-Projektliste](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) zusammengetragen und kombiniert.
 
 [> Gehe zum Katalog](https://osm-apps.org)
 
-[> Füge OSM-Apps hinzu, die du kennst oder trage auf andere Weise
-bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[> Füge OSM-Apps hinzu, die du kennst oder trage auf andere Weise bei.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Weitere Sprachen
 
 Zeige den Katalog in deiner Sprache an:
 
-**Sprache auswählen**
-<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Sprache auswählen** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -104,76 +95,39 @@ Zeige den Katalog in deiner Sprache an:
 
 Hilf bei der Übersetzung:
 
-- des OSM Apps Katalogs auf
-  [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stand der
-  Übersetzung](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
+- des OSM Apps Katalogs auf [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog) [![Stand der Übersetzung](https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg)](https://hosted.weblate.org/engage/osm-apps-catalog/)
 
-- von den Apps dokumentiert im [OpenStreetMap
-  Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
+- von den Apps dokumentiert im [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation)
 
 ## Lizenz
 
-Die App ist unter der [GNU Affero General Public License
-v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE)
-lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei
-für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz
-veröffentlichen wird.
+Die App ist unter der [GNU Affero General Public License v3.0](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE) lizenziert. Der [Code](https://github.com/ToastHawaii/osm-apps-catalog) ist frei für die Verwendung, Kopie und Änderung, wenn sie unter der gleichen Lizenz veröffentlichen wird.
 
-[![GitHub
-Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
+[![GitHub Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Datenschutzerklärung
 
 Der OSM-App-Katalog speichert keine personenbezogenen Nutzerdaten.
 
-Für anonymisierte Nutzungsstatistiken nutzt das Projekt
-[GoatCounter](https://www.goatcounter.com/), einen datenschutzfreundlichen
-Analysedienst. Es werden keine personenbezogenen Daten erfasst. ([Erfasste
-Nutzungsdaten
-einsehen](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+Für anonymisierte Nutzungsstatistiken nutzt das Projekt [GoatCounter](https://www.goatcounter.com/), einen datenschutzfreundlichen Analysedienst. Es werden keine personenbezogenen Daten erfasst. ([Erfasste Nutzungsdaten einsehen](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Bestimmte Informationen, die vom Browser des Nutzers bereitgestellt werden (wie
-beispielsweise Sprache oder Plattform), können lokal verwendet werden, um das
-Nutzungserlebnis zu verbessern. Diese Daten werden innerhalb des Browsers
-verarbeitet und weder gespeichert noch an externe Server übermittelt (mit
-Ausnahme der oben beschriebenen anonymisierten Analysen).
+Bestimmte Informationen, die vom Browser des Nutzers bereitgestellt werden (wie beispielsweise Sprache oder Plattform), können lokal verwendet werden, um das Nutzungserlebnis zu verbessern. Diese Daten werden innerhalb des Browsers verarbeitet und weder gespeichert noch an externe Server übermittelt (mit Ausnahme der oben beschriebenen anonymisierten Analysen).
 
-Die Website wird auf GitHub Pages gehostet. In den [Nutzungsinformationen zu
-GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-heißt es:
+Die Website wird auf GitHub Pages gehostet. In den [Nutzungsinformationen zu GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) heißt es:
 
 > ### Datenerhebung
 > 
-> Wenn eine GitHub Pages-Website aufgerufen wird, wird die IP-Adresse des
-> Besuchers aus Sicherheitsgründen protokolliert und gespeichert, unabhängig
-> davon, ob der Besucher bei GitHub angemeldet ist oder nicht. Weitere
-> Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der
-> [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> Wenn eine GitHub Pages-Website aufgerufen wird, wird die IP-Adresse des Besuchers aus Sicherheitsgründen protokolliert und gespeichert, unabhängig davon, ob der Besucher bei GitHub angemeldet ist oder nicht. Weitere Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Sponsoren
-Im Dezember 2025 finanzierte die **OpenStreetMap Foundation** die Entwicklung
-der [Neugestaltung des OSM Apps Catalog, um ein breiteres Publikum zu
-erreichen](https://github.com/osmfoundation/ewg_bidding/issues/31) innerhalb des
-Rahmens des
-[Mikrogrants-Programms](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+Im Dezember 2025 finanzierte die **OpenStreetMap Foundation** die Entwicklung der [Neugestaltung des OSM Apps Catalog, um ein breiteres Publikum zu erreichen](https://github.com/osmfoundation/ewg_bidding/issues/31) innerhalb des Rahmens des [Mikrogrants-Programms](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Haftungsausschluss
 
-OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden
-mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap
-Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr
-verbunden, mit Ausnahme der oben genannten einmaligen Finanzierung.
+OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr verbunden, mit Ausnahme der oben genannten einmaligen Finanzierung.
 
 ---
 
-- Werde Teil der
-  [OSM-Community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Lerne
-  die Verhaltensregeln
-  kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)):
-  [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff
-  dich mit anderen an einer Veranstaltung](https://osmcal.org/) &
-  [chatte](https://community.osm.be/)
-- [Zu OpenStreetMap
-  beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
+- Werde Teil der [OSM-Community](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Lerne die Verhaltensregeln kennen](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Tritt einer lokalen Gruppe bei](https://usergroups.openstreetmap.de/), [triff dich mit anderen an einer Veranstaltung](https://osmcal.org/) & [chatte](https://community.osm.be/)
+- [Zu OpenStreetMap beitragen](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [Über mich](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
