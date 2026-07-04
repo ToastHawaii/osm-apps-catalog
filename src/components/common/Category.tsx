@@ -1,4 +1,5 @@
 import { AppCompact } from "@components/common/AppCompact";
+import { Button } from "@components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -45,7 +46,9 @@ export function Category({
             {name}
           </Link>
         </h2>
-        <Link
+        <Button
+          variant="outline"
+          size="xs"
           className="col-start-2 self-end justify-self-end text-sm underline-offset-4 hover:underline"
           data-goatcounter-click={`/?category=${id}`}
           data-goatcounter-title="Has switched the category."
@@ -56,20 +59,20 @@ export function Category({
           })}
         >
           {t("category.showAll")}
-        </Link>
+        </Button>
       </div>
       <Carousel
         opts={{
           align: "start",
           slidesToScroll: "auto",
         }}
-        className="w-full px-6 md:px-16"
+        className="w-full px-6 md:px-16 md:pe-18"
       >
-        <CarouselContent role="list">
+        <CarouselContent role="list" className="-ml-1">
           {apps.map((app) => (
             <CarouselItem
               key={app.id}
-              className="basis-1/1 sm:basis-1/1 md:basis-1/2 lg:basis-1/3"
+              className="basis-7/8 ps-1! sm:basis-7/8 md:basis-15/32 lg:basis-15/48"
             >
               <AppCompact app={app} />
             </CarouselItem>

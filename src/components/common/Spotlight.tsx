@@ -63,14 +63,14 @@ export function Spotlight({
         <CarouselItem className="basis-1/1">
           <div className="p-2">
             <Item
-              className="overflow-hidden border-none px-6 py-10 md:pr-8 md:pl-12"
+              className="overflow-hidden border-none px-6 py-6 md:py-10 md:pr-8 md:pl-12"
               variant="outline"
               role="listitem"
               style={{
                 backgroundColor: firstPanel.color,
               }}
             >
-              <ItemContent className="flex h-43 flex-row justify-center">
+              <ItemContent className="flex h-47 flex-row justify-center md:h-43">
                 <div className="grow">
                   <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
                     {firstPanel.title}
@@ -95,7 +95,7 @@ export function Spotlight({
             <CarouselItem key={app.id} className="basis-1/1">
               <div className="p-2">
                 <Item
-                  className="overflow-hidden border-none px-12 py-10"
+                  className="overflow-hidden border-none px-12 py-8 md:py-10"
                   variant="outline"
                   asChild
                   role="listitem"
