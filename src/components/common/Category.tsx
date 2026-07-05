@@ -50,15 +50,19 @@ export function Category({
           variant="outline"
           size="xs"
           className="col-start-2 self-end justify-self-end text-sm underline-offset-4 hover:underline"
-          data-goatcounter-click={`/?category=${id}`}
-          data-goatcounter-title="Has switched the category."
-          data-goatcounter-referrer="https://osm-apps.org/"
-          to={routes.explore({
-            category: id,
-            platforms,
-          })}
+          asChild
         >
-          {t("category.showAll")}
+          <Link
+            data-goatcounter-click={`/?category=${id}`}
+            data-goatcounter-title="Has switched the category."
+            data-goatcounter-referrer="https://osm-apps.org/"
+            to={routes.explore({
+              category: id,
+              platforms,
+            })}
+          >
+            {t("category.showAll")}
+          </Link>
         </Button>
       </div>
       <Carousel
@@ -68,7 +72,7 @@ export function Category({
         }}
         className="w-full px-6 md:px-16 md:pe-18"
       >
-        <CarouselContent role="list" className="-ml-1">
+        <CarouselContent role="list" className="-ml-1" fade>
           {apps.map((app) => (
             <CarouselItem
               key={app.id}
