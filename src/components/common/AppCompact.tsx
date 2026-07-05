@@ -36,7 +36,7 @@ export function AppCompact({
   const routes = useRoute();
 
   return (
-    <div className="relative py-2 px-1.5">
+    <div className="relative px-1.5 py-2">
       <Item
         variant="outline"
         asChild

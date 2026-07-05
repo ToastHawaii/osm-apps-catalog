@@ -119,8 +119,8 @@ Webové stránky jsou hostovány na Github Pages. [Dokumentace GitHubu o GitHub 
 > 
 > Při návštěvě webu GitHub Pages se z bezpečnostních důvodů zaznamená a uloží IP adresa návštěvníka, bez ohledu na to, zda se návštěvník přihlásil do GitHubu či nikoli. Další informace o bezpečnostních postupech GitHubu naleznete v dokumentu [Prohlášení o ochraně osobních údajů GitHubu](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Sponsors
-In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
+## Sponzoři
+V prosinci 2025 **Nadace OpenStreetMap** financovala vývoj [Redesignu OSM Apps katalogu, aby se dosáhlo širšího publika](https://github.com/osmfoundation/ewg_bidding/issues/31) v rámci [programu mikrograntů](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Odmítnutí odpovědnosti
 
@@ -128,6 +128,6 @@ OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation a je po
 
 ---
 
-- Staňte se součástí [OSM komunity](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Více informací o vaší etiketě](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Join a místní skupina](https://usergroups.openstreetmap.de/), [meet na akci](https://osmcal.org/) & [chat](https://community.osm.be/)
+- Staňte se součástí [OSM komunity](https://resultmaps.neis-one.org/oooc#5/47.6215/7.5816) ([Více informací o vaší etiketě](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Připojte se k místní skupině](https://usergroups.openstreetmap.de/), [jděte na akci](https://osmcal.org/) & [chatujte](https://community.osm.be/)
 - [Přispějte do OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 - [O mně](https://wiki.openstreetmap.org/wiki/User:ToastHawaii)
