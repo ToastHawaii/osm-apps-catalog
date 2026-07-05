@@ -70,13 +70,13 @@ export function Category({
           align: "start",
           slidesToScroll: "auto",
         }}
-        className="w-full px-6 md:px-16 md:pe-18"
+        className="w-full px-8 md:px-16"
       >
         <CarouselContent role="list" className="-ml-1">
           {apps.map((app) => (
             <CarouselItem
               key={app.id}
-              className="basis-7/8 ps-1! sm:basis-7/8 md:basis-15/32 lg:basis-15/48"
+              className="basis-7/8 pr-0.5 pl-1.5 sm:basis-7/8 md:basis-15/32 lg:basis-15/48"
             >
               <AppCompact app={app} />
             </CarouselItem>
