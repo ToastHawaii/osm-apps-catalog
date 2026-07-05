@@ -13,9 +13,11 @@ import { Button } from "@components/ui/button";
 export function Score({
   app,
   position = "left",
+  className,
 }: {
   app: App;
   position?: "left" | "right";
+  className?: string | undefined;
 }) {
   const { t } = useTranslation();
   const routes = useRoute();
@@ -44,12 +46,11 @@ export function Score({
     color = "rgb(222 32 31)";
   }
 
-  let className = "";
   if (position === "left") {
-    className = "corner-badge-left";
+    className += " corner-badge-left";
   } else if (position === "right") {
-    className =
-      "absolute top-2 right-2 rounded-tr-lg rounded-bl-sm px-1 py-0.5";
+    className +=
+      " absolute top-2 right-0 rounded-tr-lg rounded-bl-sm px-1 py-0.5";
   }
 
   return (

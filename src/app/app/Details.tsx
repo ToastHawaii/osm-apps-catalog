@@ -150,8 +150,8 @@ export function Details({ app }: { app: App }) {
   }
 
   return (
-    <div className="relative mx-auto max-w-3xl p-2 text-left">
-      <Card className="shadow-md">
+    <div className="relative mx-auto max-w-3xl py-2 text-left">
+      <Card className="rounded-none shadow-md md:rounded-2xl">
         <CardHeader className="flex flex-wrap items-center gap-6">
           <div className="size-25 place-items-center content-center">
             <AppLogo app={app} />
@@ -213,8 +213,12 @@ export function Details({ app }: { app: App }) {
             ))}
           </div>
         </CardContent>
-      </Card>
-      <Score app={app} position="right" />
+      </Card>{" "}
+      <Score
+        app={app}
+        position="right"
+        className="rounded-tr-none md:rounded-tr-lg"
+      />
     </div>
   );
 }
