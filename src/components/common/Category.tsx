@@ -70,7 +70,7 @@ export function Category({
           align: "start",
           slidesToScroll: "auto",
         }}
-        className="w-full px-8 md:px-16"
+        className="w-full px-8 md:px-18"
       >
         <CarouselContent role="list" className="-ml-1">
           {apps.map((app) => (
