@@ -24,7 +24,7 @@ export function Gallery({ images }: { images: string[] }) {
           slidesToScroll: "auto",
         }}
       >
-        <CarouselContent role="list">
+        <CarouselContent role="list" fade>
           {images.map((i, index) => (
             <CarouselItem key={i} className="basis-auto">
               <SheetTrigger asChild>
@@ -52,7 +52,7 @@ export function Gallery({ images }: { images: string[] }) {
             dragFree: true,
           }}
         >
-          <CarouselContent role="list" className="px-4 md:px-10">
+          <CarouselContent role="list" className="px-4 md:px-10" fade>
             {images.map((i) => (
               <CarouselItem key={i} className="basis-auto content-center">
                 <img

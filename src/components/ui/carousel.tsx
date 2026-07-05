@@ -131,13 +131,21 @@ function Carousel({
   );
 }
 
-function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
+function CarouselContent({
+  className,
+  fade,
+  ...props
+}: React.ComponentProps<"div"> & { fade?: boolean | undefined }) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden"
+      className={cn(
+        "overflow-hidden",
+        fade &&
+          (orientation === "horizontal" ? "scroll-fade-x" : "scroll-fade"),
+      )}
       data-slot="carousel-content"
     >
       <div

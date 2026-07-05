@@ -65,7 +65,7 @@ export function Filters() {
     : [...mainPlatforms, ...secondPlatforms];
 
   return (
-    <div className="mx-8 flex items-center gap-2 overflow-y-auto py-3 md:mx-18">
+    <div className="mx-8 flex scroll-fade-x items-center gap-2 overflow-y-auto py-3 md:mx-18">
       {shownPlatforms.map((platform) => (
         <Toggle
           className="flex-none"
