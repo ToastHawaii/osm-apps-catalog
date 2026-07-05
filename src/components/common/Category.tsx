@@ -72,7 +72,7 @@ export function Category({
         }}
         className="w-full px-6 md:px-16 md:pe-18"
       >
-        <CarouselContent role="list" className="-ml-1" fade>
+        <CarouselContent role="list" className="-ml-1">
           {apps.map((app) => (
             <CarouselItem
               key={app.id}

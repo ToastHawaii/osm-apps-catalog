@@ -131,21 +131,13 @@ function Carousel({
   );
 }
 
-function CarouselContent({
-  className,
-  fade,
-  ...props
-}: React.ComponentProps<"div"> & { fade?: boolean | undefined }) {
+function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel();
 
   return (
     <div
       ref={carouselRef}
-      className={cn(
-        "overflow-hidden",
-        fade &&
-          (orientation === "horizontal" ? "scroll-fade-x" : "scroll-fade"),
-      )}
+      className="overflow-hidden"
       data-slot="carousel-content"
     >
       <div
@@ -194,7 +186,7 @@ function CarouselPrevious({
       className={cn(
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
+          ? "inset-y-0 -left-12 my-auto"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         !canScrollPrev ? "hidden" : "",
         className,
@@ -225,7 +217,7 @@ function CarouselNext({
       className={cn(
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
+          ? "inset-y-0 -right-12 my-auto"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         !canScrollNext ? "hidden" : "",
         className,
