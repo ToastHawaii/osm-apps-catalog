@@ -4,7 +4,7 @@ function check(value: string) {
   );
 }
 export function isFreeAndOpenSource(value: string | string[] | undefined) {
-  if (!value) {
+  if (!value || value.length === 0) {
     return undefined;
   }
 
