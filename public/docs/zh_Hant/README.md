@@ -6,9 +6,9 @@ _ 這不只一款，而是有上千個_
 
 從[開放街圖 Wiki](https://wiki.openstreetmap.org/wiki/Wiki)、[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),、[GitHub](https://en.wikipedia.org/wiki/GitHub) 以及 [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
-[> 到目錄](https://osm-apps.org)
+[➜ Go to the catalog](https://osm-apps.org)
 
-[> 新增你知道的 OSM app 或是用其他方式貢獻。](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## 其他語言
 

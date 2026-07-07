@@ -6,9 +6,9 @@ See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad O
 
 Rakenduste metateave on kogutud järgnevatest allikatest [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) ja [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) ning seejärel kombineeritud.
 
-[> Vaata kataloogi](https://osm-apps.org)
+[➜ Go to the catalog](https://osm-apps.org)
 
-[> Lisa sulle teadaolevaid OSMi rakendusi või osale muul viisil.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Muud keeled
 

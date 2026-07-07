@@ -6,9 +6,9 @@ Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait
 
 Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
-[> Nézd meg a katalógust](https://osm-apps.org)
+[➜ Go to the catalog](https://osm-apps.org)
 
-[> Adj hozzá te is OSM-alkalmazásokat, vagy működj közre másként.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## További nyelvek
 

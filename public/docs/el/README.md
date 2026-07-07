@@ -6,9 +6,9 @@ _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλ
 
 Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
 
-[> Πηγαίνετε στον κατάλογο](https://osm-apps.org)
+[➜ Go to the catalog](https://osm-apps.org)
 
-[> Προσθέστε εφαρμογές OSM που γνωρίζετε ή που συνεισφέρετε με άλλους τρόπους.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Άλλες γλώσσες
 

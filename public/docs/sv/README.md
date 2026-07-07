@@ -6,9 +6,9 @@ Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> Gå till katalogen](https://osm-apps.org)
+[➜ Go to the catalog](https://osm-apps.org)
 
-[> Lägg till OSM-appar du känner till eller bidrar på andra sätt.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Andra språk
 
