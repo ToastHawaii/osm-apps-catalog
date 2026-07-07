@@ -6,9 +6,9 @@ Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetM
 
 Metadata pro aplikace jsou shromažďována z [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) a [seznamu projektu Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) a následně zkombinována.
 
-[> Přejít do katalogu](https://osm-apps.org)
+[➜ Přejít do katalogu](https://osm-apps.org)
 
-[> Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným způsobem.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Přidejte aplikace OSM, které znáte, nebo k nim přispíváte jiným způsobem](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Další jazyky
 

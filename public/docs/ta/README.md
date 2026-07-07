@@ -6,9 +6,9 @@ _ஒன்று மட்டும் இல்லை, ஆயிரக்கண
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[> பட்டியலுக்குச் செல்லுங்கள்](https://osm-apps.org)
+[➜ பட்டியலுக்குச் செல்லுங்கள்](https://osm-apps.org)
 
-[> உங்களுக்குத் தெரிந்த அல்லது பங்களிக்கும் OSM பயன்பாடுகளை வேறு வழிகளில் சேர்க்கவும்.](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ உங்களுக்குத் தெரிந்த அல்லது பங்களிக்கும் OSM பயன்பாடுகளை வேறு வழிகளில் சேர்க்கவும்](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## பிற மொழிகள்
 
