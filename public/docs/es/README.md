@@ -8,7 +8,7 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 
 [➜ Ir al catálogo](https://osm-apps.org)
 
-[➜ Añada las aplicaciones OSM que conozca o contribuya de otras maneras(https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ Añada las aplicaciones OSM que conozca o contribuya de otras maneras](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Otros idiomas
 
