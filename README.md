@@ -49,8 +49,4 @@ You can find other ways to contact me on [my OpenStreetMap Wiki user page](https
 - Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT) ([Learn your etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Join a local group](https://usergroups.openstreetmap.de/), [meet at an event](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
 
-<p style="max-width:0;" width="0">
-
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ToastHawaii/osm-apps-catalog)
-
-</p>
+<a href="https://deepwiki.com/ToastHawaii/osm-apps-catalog" rel="nofollow"> <img src="https://deepwiki.com/badge.svg" height="0"></a>
