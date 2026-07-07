@@ -21,27 +21,26 @@ export function NeedsHelpSlide({
         <CardContent className="whitespace-pre-line">
           {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
         </CardContent>
-        <CardFooter className="gap-3">
+        <CardFooter className="flex-wrap gap-3">
           <Button size="xs" onClick={onSupportClick}>
             {t("app.contribute.app.spendTime", { app: app.name })}
           </Button>
+          {/* 
+            <Button size="xs" asChild>
+              <ExternalLink href="" icon>
+                Donate money
+              </ExternalLink>
+            </Button> 
+          */}
         </CardFooter>
       </Card>
-
-      {/* 
-        <Button size="xs" asChild>
-          <ExternalLink href="" icon>
-            Donate money
-          </ExternalLink>
-        </Button> 
-      */}
     </>
   ) : (
     <Card className="bg-linear-110 from-amber-400 to-green-500" size="sm">
       <CardContent className="whitespace-pre-line">
         <p>{t("app.download.osmNeedsSupport", { app: app.name })}</p>
       </CardContent>
-      <CardFooter className="gap-3">
+      <CardFooter className="flex-wrap gap-3">
         <Button size="xs" asChild>
           <ExternalLink
             href="https://wiki.openstreetmap.org/wiki/How_to_contribute"
