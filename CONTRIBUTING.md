@@ -9,7 +9,7 @@ Thank you for your interest in contributing to the OSM Apps Catalog. There are p
 
 ## Translations
 
-### OSM Apps Catalog user interface · <a href="https://hosted.weblate.org/engage/osm-apps-catalog/"><img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" valign="text-top" /></a> 
+### User interface from the OSM Apps Catalog · <a href="https://hosted.weblate.org/engage/osm-apps-catalog/"><img src="https://hosted.weblate.org/widget/osm-apps-catalog/svg-badge.svg" alt="Translation status" valign="text-top" /></a> 
 In [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog), you can translate the texts that appear in the catalog’s interface. 
 
 Feel free to [add new languages](https://hosted.weblate.org/new-lang/osm-apps-catalog/). I'll be happy to integrate them.

@@ -4,8 +4,8 @@
 </h1>
 <p align="center"><strong>There isn't just one, there are thousands.</strong></p>
 <p align="center">
-  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines">Contribute</a> •
-  <a href="https://github.com/ToastHawaii/osm-apps-catalog?tab=coc-ov-file#contributor-covenant-code-of-conduct">Code of Conduct</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CONTRIBUTING.md">Contribute</a> •
+  <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a> •
   <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE">License</a>
 </p>
 
@@ -13,7 +13,7 @@ The OSM Apps Catalog shows applications and services that use OpenStreetMap data
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
-[> Explore the apps in the catalog](https://osm-apps.org)
+[➜ Explore the apps in the catalog](https://osm-apps.org)
 
 ## ✉️ Message to osm devs
 
