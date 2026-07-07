@@ -6,9 +6,9 @@ This catalog shows apps and services that use OpenStreetMap data. It is updated 
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
-[➜ Go to the catalog](https://osm-apps.org)
+[➜ 到目錄](https://osm-apps.org)
 
-[➜ Add OSM apps you know or contribute in other ways](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
+[➜ 新增你知道的 OSM app 或是用其他方式貢獻](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog)
 
 ## Other languages
 
