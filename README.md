@@ -7,6 +7,7 @@
   <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CONTRIBUTING.md">Contribute</a> •
   <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a> •
   <a href="https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE">License</a>
+  <a href="https://deepwiki.com/ToastHawaii/osm-apps-catalog" rel="nofollow"><img src="https://deepwiki.com/badge.svg" height="0"></a>
 </p>
 
 The OSM Apps Catalog shows applications and services that use OpenStreetMap data. The main goal is to show users who want to switch to OpenStreetMap a nice overview and ways to participate.
@@ -48,5 +49,3 @@ You can find other ways to contact me on [my OpenStreetMap Wiki user page](https
 
 - Become part of the [OSM community](https://resultmaps.neis-one.org/oooc?layers=B&zoom=5&lat=47.6215&lon=7.5816&contributors=TTTTTT) ([Learn your etiquette](https://wiki.openstreetmap.org/wiki/Etiquette/Etiquette_Guidelines)): [Join a local group](https://usergroups.openstreetmap.de/), [meet at an event](https://osmcal.org/) & [chat](https://community.osm.be/)
 - [Contribute to OpenStreetMap](https://wiki.openstreetmap.org/wiki/How_to_contribute)
-
-<a href="https://deepwiki.com/ToastHawaii/osm-apps-catalog" rel="nofollow"> <img src="https://deepwiki.com/badge.svg" height="0"></a>
