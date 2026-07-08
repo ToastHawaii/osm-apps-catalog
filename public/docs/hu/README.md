@@ -124,7 +124,7 @@ A weboldal tárhelye a Github Pages. A [GitHub Pages dokumentációja](https://d
 
 ## Felelősségi nyilatkozat
 
-Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
+Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap Alapítvánnyal](https://osmfoundation.org/), és – a fent említett egyszeri finanazírozáson kívül – nem kap támogatást tőle.
 
 ---
 
