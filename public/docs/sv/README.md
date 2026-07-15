@@ -14,7 +14,8 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 
 Visa katalogen på ditt språk:
 
-**Choose language** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Choose language**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>

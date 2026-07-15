@@ -14,7 +14,8 @@ Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.opens
 
 Katalógus megjelenítése a nyelveden:
 
-**Nyelv kiválasztása** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Nyelv kiválasztása**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>

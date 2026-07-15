@@ -14,7 +14,8 @@ Les métadonnées relatives aux applications sont collectées à partir de [Open
 
 Afficher le catalogue dans votre langue :
 
-**Choisissez une langue** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Choisissez une langue**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
