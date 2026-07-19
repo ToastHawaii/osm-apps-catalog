@@ -35,7 +35,7 @@
   "app.contribute.activity.contributeTranslation.hint": "There is no link documented in the wikis that shows where you can contribute translations.",
   "app.contribute.activity.contributeTranslation.title": "Translate text",
   "app.contribute.activity.donate.description": "Donate to {{app}} to support this project",
-  "app.contribute.activity.donate.hint": "No founding links are documented in the sources.",
+  "app.contribute.activity.donate.hint": "No founding links are documented in the sources or there are not verified.",
   "app.contribute.activity.donate.title": "Donate money",
   "app.contribute.activity.editInformation.description": "Edit the details about {{app}} in the source wikis",
   "app.contribute.activity.editInformation.osmWiki": "OpenStreetMap Wiki",
