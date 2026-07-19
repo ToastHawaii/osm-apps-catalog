@@ -30,6 +30,8 @@ import { DrawerDialog } from "@components/common/DrawerDialog";
 import { DownloadSlide } from "@app/app/download/DownloadSlide";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useAppsFundingData } from "@hooks/useAppsFundingData";
+import { newUrl } from "@shared/utils/url";
+import { trimStart, trimEnd } from "lodash";
 
 export function Contribute({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -96,11 +98,18 @@ export function Contribute({ app }: { app: App }) {
             app.hasFunding
               ? fundings
                   .find((f) => f.appId === app.id)
-                  ?.links.map((f) => ({
-                    icon: Link02Icon,
-                    href: f.url,
-                    title: f.url,
-                  })) || []
+                  ?.links.map((f) => {
+                    const url = newUrl(f.url);
+                    const urlDisplay =
+                      trimStart(url.hostname, "www.") +
+                      trimEnd(url.pathname, "/") +
+                      url.search;
+                    return {
+                      icon: Link02Icon,
+                      href: f.url,
+                      title: urlDisplay,
+                    };
+                  }) || []
               : []
           }
         />

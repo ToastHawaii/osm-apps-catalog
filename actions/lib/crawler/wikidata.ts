@@ -67,7 +67,7 @@ export function transform(result: any) {
     name: result.itemLabel?.value || "",
     lastRelease: (result.lastRelease?.value || "").split("T")[0] || "",
     subtitle: result.motto?.value || result.subtitle?.value || "",
-    description: result.description?.value || "",
+    description: result.desc?.value || "",
     images: (result.imgs?.value || "")
       .split(";")
       .filter((v: any) => v)
@@ -184,7 +184,7 @@ export const AppQueries = [
   `
 SELECT DISTINCT 
   ?item ?itemLabel 
-  ?description 
+  ?desc 
   (SAMPLE(?motto) AS ?motto)
   (SAMPLE(?subtitle) AS ?subtitle)
   (GROUP_CONCAT(DISTINCT ?icon; SEPARATOR = ";") AS ?icons) 
@@ -244,8 +244,8 @@ WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en". }
 
   OPTIONAL {
-    ?item schema:description ?description.
-    FILTER(LANG(?description) = "mul" || LANG(?description) = "en")
+    ?item schema:description ?desc.
+    FILTER(LANG(?desc) = "mul" || LANG(?desc) = "en")
   }
 
   OPTIONAL {
@@ -359,7 +359,7 @@ WHERE {
 }
 GROUP BY ?item 
          ?itemLabel 
-         ?description
+         ?desc
          ?modified
 `,
   // Genre
@@ -674,7 +674,7 @@ export const AppTranslationQueries = [
   `
 SELECT DISTINCT 
   ?item ?lg ?itemLabel 
-  ?description 
+  ?desc 
   ?modified
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
@@ -698,13 +698,13 @@ WHERE {
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
 
   {
-    ?item rdfs:label ?itemLabel .
+    ?item rdfs:label ?itemLabel.
     BIND(LANG(?itemLabel) AS ?lg)
   }
   UNION
   {
-    ?item schema:description ?description .
-    BIND(LANG(?description) AS ?lg)
+    ?item schema:description ?desc.
+    BIND(LANG(?desc) AS ?lg)
   }
   UNION
   {
@@ -723,8 +723,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?item schema:description ?description.
-    FILTER(LANG(?description) = ?lg)
+    ?item schema:description ?desc.
+    FILTER(LANG(?desc) = ?lg)
   }
 
   OPTIONAL {
