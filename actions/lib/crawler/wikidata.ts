@@ -152,8 +152,8 @@ export function transform(result: any) {
       telegram: result.teleg?.value || result.telegDef?.value,
       reddit: result.subreddit?.value,
     },
-    funding: result.funding?.value
-      ? [{ url: result.funding?.value, source: result.item.value }]
+    funding: result.donation?.value
+      ? [{ url: result.donation?.value, source: result.item.value }]
       : [],
     source: [
       {
@@ -218,6 +218,7 @@ SELECT DISTINCT
   (SAMPLE(?teleg) AS ?teleg)
   (SAMPLE(?subreddit) AS ?subreddit) 
   (SAMPLE(?irc) AS ?irc) 
+  (SAMPLE(?donation) AS ?donation) 
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
@@ -353,7 +354,7 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
-  OPTIONAL { ?item wdt:P13631 ?funding. }
+  OPTIONAL { ?item wdt:P13631 ?donation. }
   ?item schema:dateModified ?modified
 }
 GROUP BY ?item 

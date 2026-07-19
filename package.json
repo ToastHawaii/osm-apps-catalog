@@ -71,7 +71,7 @@
     "vite": "8.0.16"
   },
   "scripts": {
-    "build": "cp docs/sitemap.xml public && cp docs/api/apps/*.json public/api/apps && npm run lint && npm run app:build && npm run actions:build",
+    "build": "cp docs/sitemap.xml public && cp docs/api/apps/*.json public/api/apps && cp docs/api/fundings.json public/api && npm run lint && npm run app:build && npm run actions:build",
     "app:start": "vite",
     "app:build": "vite build",
     "actions:build": "npm run actions:collect-osm-apps:build && npm run actions:collect-osm-apps-translations:build",
