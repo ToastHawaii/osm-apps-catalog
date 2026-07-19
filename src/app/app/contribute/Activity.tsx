@@ -4,7 +4,7 @@ import {
   InformationCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { t } from "i18next";
-import React, { isValidElement, ReactElement } from "react";
+import React, { isValidElement, ReactElement, ReactNode } from "react";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 
 import { Button } from "@components/ui/button";
@@ -38,12 +38,12 @@ export type Links = Link[];
 
 export function Activity(
   props: {
-    title: string;
-    description: string;
+    title: ReactNode;
+    description: ReactNode;
     icon: IconSvgElement | ReactElement;
 
     /** Shown when no link is available */
-    hint?: string | undefined;
+    hint?: ReactNode | undefined;
   } & (
     | {
         link: string | undefined;
@@ -158,7 +158,7 @@ export function Activity(
             </ItemMedia>
             <ItemContent className="opacity-40">
               <ItemTitle>{title}</ItemTitle>
-              <ItemDescription>{description}</ItemDescription>
+              <ItemDescription className="h-10">{description}</ItemDescription>
             </ItemContent>
             <ItemActions>
               <Button

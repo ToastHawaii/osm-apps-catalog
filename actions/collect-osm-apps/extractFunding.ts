@@ -11,7 +11,7 @@ export function extractFunding(apps: App[], validatedFundings: Funding[]) {
         source,
         verified: !!validatedFundings
           .find((v) => a.id === v.appId)
-          ?.links.find((l) => l.url === url)?.verified,
+          ?.links.some((l) => l.url === url && l.verified),
       })),
     }));
 

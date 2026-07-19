@@ -1,6 +1,7 @@
 import { Header } from "@components/layout/Header";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { AppStateProvider } from "@hooks/useAppsData";
+import { AppsFundingStateProvider } from "@hooks/useAppsFundingData";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation, useSearchParams } from "react-router";
@@ -98,11 +99,13 @@ export default function Layout() {
   return (
     <ThemeProvider>
       <AppStateProvider>
+      <AppsFundingStateProvider>
         <ScrollRestoration />
         <div id="content">
           <Header />
           <Outlet />
         </div>
+      </AppsFundingStateProvider>
       </AppStateProvider>
     </ThemeProvider>
   );
