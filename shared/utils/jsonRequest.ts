@@ -8,6 +8,8 @@ export async function getJson(
   headers: Record<string, string> = {},
   isRetry = false,
 ) {
+  const requestUrl = [url, utilQsString(params)].filter((s) => s).join("?");
+
   if (isDevelopment) {
     const response = await fetch(
       url.startsWith("https://osm-apps.org/")
@@ -16,7 +18,7 @@ export async function getJson(
             "https://raw.githubusercontent.com/ToastHawaii/osm-apps-catalog/refs/heads/main/docs/",
           )
         : "https://corsproxy.io/?" +
-            encodeURIComponent(`${url}?${utilQsString(params)}`) +
+            encodeURIComponent(requestUrl) +
             // change to avoid caching during testing
             "%262026-04-15",
     );
@@ -24,10 +26,10 @@ export async function getJson(
     return await response.json();
   }
 
-  console.info(`Load: ${url}?${utilQsString(params)}`);
+  console.info(`Load: ${requestUrl}`);
 
   try {
-    const response = await fetch(`${url}?${utilQsString(params)}`, {
+    const response = await fetch(requestUrl, {
       headers: {
         ...headers,
         ...{
@@ -41,9 +43,7 @@ export async function getJson(
 
     return await response.json();
   } catch (e) {
-    console.error(
-      `Error on loading ${url}?${utilQsString(params)}: ${JSON.stringify(e)}`,
-    );
+    console.error(`Error on loading ${requestUrl}: ${JSON.stringify(e)}`);
 
     if (!isRetry) {
       // retry one time after a delay of 3 seconds
