@@ -30,12 +30,12 @@
       {
         "url": "https://github.com/qgis",
         "source": "https://github.com/qgis/QGIS",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://qgis.org/funding",
         "source": "https://github.com/qgis/QGIS",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -60,7 +60,7 @@
       {
         "url": "https://liberapay.com/OSMTracker",
         "source": "https://github.com/labexp/osmtracker-android",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -80,7 +80,7 @@
       {
         "url": "https://osmand.net/docs/user/purchases/",
         "source": "https://github.com/osmandapp/OsmAnd",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -90,7 +90,7 @@
       {
         "url": "https://github.com/hotosm",
         "source": "https://github.com/hotosm/tasking-manager",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -135,12 +135,12 @@
       {
         "url": "https://github.com/FreemapSlovakia",
         "source": "https://github.com/FreemapSlovakia/freemap-v3-react",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://www.freemap.sk/#show=support-us",
         "source": "https://github.com/FreemapSlovakia/freemap-v3-react",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -200,27 +200,27 @@
       {
         "url": "https://github.com/FacilMap",
         "source": "https://github.com/FacilMap/facilmap",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://ko-fi.com/facilmap",
         "source": "https://github.com/FacilMap/facilmap",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://liberapay.com/facilmap",
         "source": "https://github.com/FacilMap/facilmap",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/facilmap",
         "source": "https://github.com/FacilMap/facilmap",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://www.paypal.com/donate?hosted_button_id=FWR59UXY6HGGS",
         "source": "https://github.com/FacilMap/facilmap",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -250,17 +250,17 @@
       {
         "url": "https://github.com/westnordost",
         "source": "https://github.com/streetcomplete/StreetComplete",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://liberapay.com/westnordost",
         "source": "https://github.com/streetcomplete/StreetComplete",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/westnordost",
         "source": "https://github.com/streetcomplete/StreetComplete",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -775,6 +775,16 @@
     ]
   },
   {
+    "appId": 1738540382,
+    "links": [
+      {
+        "url": "https://github.com/dabreegster",
+        "source": "https://github.com/a-b-street/abstreet",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 1013405773,
     "links": [
       {
@@ -785,6 +795,21 @@
       {
         "url": "https://liberapay.com/OpenTracks",
         "source": "https://github.com/OpenTracksApp/OSMDashboard",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1005696820,
+    "links": [
+      {
+        "url": "https://opencollective.com/mollyim",
+        "source": "http://www.wikidata.org/entity/Q131598097",
+        "verified": false
+      },
+      {
+        "url": "https://opencollective.com/mollyim",
+        "source": "https://github.com/mollyim/mollyim-android",
         "verified": false
       }
     ]
@@ -825,41 +850,6 @@
     ]
   },
   {
-    "appId": 1005696820,
-    "links": [
-      {
-        "url": "https://opencollective.com/mollyim",
-        "source": "http://www.wikidata.org/entity/Q131598097",
-        "verified": false
-      },
-      {
-        "url": "https://opencollective.com/mollyim",
-        "source": "https://github.com/mollyim/mollyim-android",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1924445357,
-    "links": [
-      {
-        "url": "https://github.com/hotosm",
-        "source": "https://github.com/hotosm/openaerialmap",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1596276999,
-    "links": [
-      {
-        "url": "https://opencollective.com/gpxstudio",
-        "source": "https://github.com/gpxstudio/gpx.studio",
-        "verified": false
-      }
-    ]
-  },
-  {
     "appId": 1534217656,
     "links": [
       {
@@ -875,21 +865,11 @@
     ]
   },
   {
-    "appId": 1738540382,
+    "appId": 1924445357,
     "links": [
       {
-        "url": "https://github.com/dabreegster",
-        "source": "https://github.com/a-b-street/abstreet",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 684791653,
-    "links": [
-      {
-        "url": "https://openstreetmap.app.neoncrm.com/forms/support-yesterdays",
-        "source": "https://github.com/MapRVA/yesterdays",
+        "url": "https://github.com/hotosm",
+        "source": "https://github.com/hotosm/openaerialmap",
         "verified": false
       }
     ]
@@ -905,16 +885,6 @@
       {
         "url": "https://mario.nachbaur.dev/tips/?app=Water%20Finder",
         "source": "https://github.com/marionauta/fountains-android",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1777603890,
-    "links": [
-      {
-        "url": "https://onroutemap.de/en/about",
-        "source": "http://www.wikidata.org/entity/Q138413099",
         "verified": false
       }
     ]
@@ -960,6 +930,26 @@
     ]
   },
   {
+    "appId": 1777603890,
+    "links": [
+      {
+        "url": "https://onroutemap.de/en/about",
+        "source": "http://www.wikidata.org/entity/Q138413099",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 684791653,
+    "links": [
+      {
+        "url": "https://openstreetmap.app.neoncrm.com/forms/support-yesterdays",
+        "source": "https://github.com/MapRVA/yesterdays",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 496582976,
     "links": [
       {
@@ -970,6 +960,16 @@
       {
         "url": "https://liberapay.com/wanderer",
         "source": "https://github.com/open-wanderer/wanderer",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1596276999,
+    "links": [
+      {
+        "url": "https://opencollective.com/gpxstudio",
+        "source": "https://github.com/gpxstudio/gpx.studio",
         "verified": false
       }
     ]
