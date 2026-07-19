@@ -34,7 +34,7 @@ import { useAppsFundingData } from "@hooks/useAppsFundingData";
 export function Contribute({ app }: { app: App }) {
   const { t } = useTranslation();
 
-  const {fundings} = useAppsFundingData()
+  const { fundings } = useAppsFundingData();
 
   return (
     <>
@@ -92,12 +92,16 @@ export function Contribute({ app }: { app: App }) {
             />
           }
           hint={t("app.contribute.activity.donate.hint")}
-          links={app.hasFunding?
-            fundings.find(f => f.appId === app.id)?.links.map((f) => ({
-              icon: Link02Icon,
-              href: f.url,
-              title: f.url,
-            })) || []:[]
+          links={
+            app.hasFunding
+              ? fundings
+                  .find((f) => f.appId === app.id)
+                  ?.links.map((f) => ({
+                    icon: Link02Icon,
+                    href: f.url,
+                    title: f.url,
+                  })) || []
+              : []
           }
         />
       </div>

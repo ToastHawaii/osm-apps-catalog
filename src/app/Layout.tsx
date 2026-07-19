@@ -99,13 +99,13 @@ export default function Layout() {
   return (
     <ThemeProvider>
       <AppStateProvider>
-      <AppsFundingStateProvider>
-        <ScrollRestoration />
-        <div id="content">
-          <Header />
-          <Outlet />
-        </div>
-      </AppsFundingStateProvider>
+        <AppsFundingStateProvider>
+          <ScrollRestoration />
+          <div id="content">
+            <Header />
+            <Outlet />
+          </div>
+        </AppsFundingStateProvider>
       </AppStateProvider>
     </ThemeProvider>
   );

@@ -120,12 +120,12 @@
       {
         "url": "https://liberapay.com/uMap",
         "source": "https://github.com/umap-project/umap",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://opencollective.com/uMap",
         "source": "https://github.com/umap-project/umap",
-        "verified": false
+        "verified": true
       }
     ]
   },

@@ -54,7 +54,7 @@ export async function run(): Promise<void> {
           content: JSON.stringify(apps),
         },
         {
-          filePath: "docs/api/fundings.json",
+          filePath: "public/api/fundings.json",
           content: JSON.stringify(fundings),
         },
         {
