@@ -117,13 +117,13 @@ export function transform(result: any) {
           ...(result.platforms?.value || "").split(";"),
           ...(result.os?.value || "").split(";"),
           result.asin?.value ||
-          result.googlePlay?.value ||
-          result.huaweiGallery?.value ||
+          result.google?.value ||
+          result.huawei?.value ||
           result.fDroid?.value
             ? "Android"
             : undefined,
-          result.appleStore?.value ? "iOS" : undefined,
-          result.microsoftStore?.value ? "Windows" : undefined,
+          result.apple?.value ? "iOS" : undefined,
+          result.microsoft?.value ? "Windows" : undefined,
         ]
           .filter(platformFilter)
           .map((p) => getPlatformDisplay(p) || p),
@@ -132,11 +132,11 @@ export function transform(result: any) {
     coverage: [],
     install: {
       asin: result.asin?.value,
-      googlePlayID: result.googlePlay?.value,
-      huaweiAppGalleryID: result.huaweiGallery?.value,
+      googlePlayID: result.google?.value,
+      huaweiAppGalleryID: result.huawei?.value,
       fDroidID: result.fDroid?.value,
-      appleStoreID: result.appleStore?.value,
-      microsoftAppID: result.microsoftStore?.value,
+      appleStoreID: result.apple?.value,
+      microsoftAppID: result.microsoft?.value,
     },
     hasGoal: {
       crowdsourcingStreetLevelImagery: result.streetImg,
@@ -204,11 +204,11 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
    (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlay) AS ?googlePlay) 
-  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
+  (SAMPLE(?google) AS ?google) 
+  (SAMPLE(?huawei) AS ?huawei) 
   (SAMPLE(?fDroid) AS ?fDroid) 
-  (SAMPLE(?appleStore) AS ?appleStore) 
-  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
+  (SAMPLE(?apple) AS ?apple) 
+  (SAMPLE(?microsoft) AS ?microsoft) 
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
@@ -330,10 +330,10 @@ WHERE {
   OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroid. }
-  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
-  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
-  OPTIONAL { ?item wdt:P3861 ?appleStore. }
-  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
+  OPTIONAL { ?item wdt:P3418 ?google. }
+  OPTIONAL { ?item wdt:P8940 ?huawei. }
+  OPTIONAL { ?item wdt:P3861 ?apple. }
+  OPTIONAL { ?item wdt:P5885 ?microsoft. }
   OPTIONAL { ?item wdt:P11478 ?matrix. }
   OPTIONAL { ?item wdt:P4033 ?mastodon. }
   OPTIONAL { ?item wdt:P11947 ?lemmy. }
@@ -493,11 +493,11 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?osLabel; SEPARATOR = ";") AS ?os)
   (GROUP_CONCAT(DISTINCT ?platform; SEPARATOR = ";") AS ?platforms)
   (SAMPLE(?asin) AS ?asin) 
-  (SAMPLE(?googlePlay) AS ?googlePlay) 
-  (SAMPLE(?huaweiGallery) AS ?huaweiGallery) 
+  (SAMPLE(?google) AS ?google) 
+  (SAMPLE(?huawei) AS ?huawei) 
   (SAMPLE(?fDroid) AS ?fDroid) 
-  (SAMPLE(?appleStore) AS ?appleStore) 
-  (SAMPLE(?microsoftStore) AS ?microsoftStore) 
+  (SAMPLE(?apple) AS ?apple) 
+  (SAMPLE(?microsoft) AS ?microsoft) 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
   FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
@@ -529,10 +529,10 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
   OPTIONAL { ?item wdt:P3597 ?fDroid. }
-  OPTIONAL { ?item wdt:P3418 ?googlePlay. }
-  OPTIONAL { ?item wdt:P8940 ?huaweiGallery. }
-  OPTIONAL { ?item wdt:P3861 ?appleStore. }
-  OPTIONAL { ?item wdt:P5885 ?microsoftStore. }
+  OPTIONAL { ?item wdt:P3418 ?google. }
+  OPTIONAL { ?item wdt:P8940 ?huawei. }
+  OPTIONAL { ?item wdt:P3861 ?apple. }
+  OPTIONAL { ?item wdt:P5885 ?microsoft. }
 }
 GROUP BY ?item 
 `,
