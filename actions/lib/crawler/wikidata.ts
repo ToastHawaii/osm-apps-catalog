@@ -152,7 +152,9 @@ export function transform(result: any) {
       telegram: result.teleg?.value || result.telegDef?.value,
       reddit: result.subreddit?.value,
     },
-    funding: result.funding?.value ? [result.funding?.value] : [],
+    funding: result.funding?.value
+      ? [{ url: result.funding?.value, source: result.item.value }]
+      : [],
     source: [
       {
         name: "Wikidata",

@@ -9,11 +9,13 @@ import { enrichFocus } from "./enrichFocus";
 import { enrichFirstCrawled } from "./enrichFirstCrawled";
 import { generateSitemap } from "./generateSitemap";
 import { getKnownApps } from "@actions/lib/getKnownApps";
+import { getValidatedFundings } from "@actions/lib/getValidatedFundings";
 import { enrichSpotlight } from "./enrichSpotlight";
 import { enrichId } from "./enrichId";
 import { enrichScoreTotal } from "./enrichScoreTotal";
 import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
 import { createOctokit } from "@actions/lib/crawler/createOctokit";
+import { extractFunding } from "@actions/collect-osm-apps/extractFunding";
 
 /**
  * The main function for the action.
@@ -35,14 +37,30 @@ export async function run(): Promise<void> {
     enrichFocus(apps, knownApps);
     enrichSpotlight(apps, knownApps);
 
+    const validatedFundings = await getValidatedFundings();
+    const fundingResult = extractFunding(apps, validatedFundings);
+
+    apps = fundingResult.apps;
+    const fundings = fundingResult.fundings;
+
     // Shuffle before sorting to get a random order for apps with the same score
     shuffle(apps);
     apps = apps.sort((a, b) => b.score - a.score);
 
     await uploadToRepo(
       [
-        { filePath: "docs/api/apps/all.json", content: JSON.stringify(apps) },
-        { filePath: "docs/sitemap.xml", content: await generateSitemap(apps) },
+        {
+          filePath: "docs/api/apps/all.json",
+          content: JSON.stringify(apps),
+        },
+        {
+          filePath: "docs/api/fundings.json",
+          content: JSON.stringify(fundings),
+        },
+        {
+          filePath: "docs/sitemap.xml",
+          content: await generateSitemap(apps),
+        },
       ],
       "chore: auto update apps data and sitemap",
       octokit,

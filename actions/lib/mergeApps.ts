@@ -90,7 +90,9 @@ export function mergeApps(
 
   app.community = mergeRecords(app.community, obj.community);
 
-  app.funding = mergeValues(app.funding, obj.funding, { sort: true });
+  app.funding = [...(app.funding || []), ...(obj.funding || [])].filter(
+    (v) => v,
+  );
 }
 
 function mergeBoolean(b1: boolean | undefined, b2: boolean | undefined) {
