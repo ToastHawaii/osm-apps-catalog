@@ -14,7 +14,8 @@ _ 這不只一款，而是有上千個_
 
 顯示目錄為您的語言：
 
-**選擇語言** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**選擇語言**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>

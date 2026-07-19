@@ -14,7 +14,8 @@ Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.opens
 
 Katalógus megjelenítése a nyelveden:
 
-**Nyelv kiválasztása** <br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
+**Nyelv kiválasztása**
+<br/><select id="language-select" onchange="if (this.value) window.location.href=this.value">
   <option value="">—</option>
   <option value="/?lang=af">Afrikaans</option>
   <option value="/?lang=ast">asturianu</option>
@@ -124,7 +125,7 @@ A weboldal tárhelye a Github Pages. A [GitHub Pages dokumentációja](https://d
 
 ## Felelősségi nyilatkozat
 
-Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap Alapítvánnyal](https://osmfoundation.org/), és nem támogatja azt.
+Az OpenStreetMap és az OSM az OpenStreetMap Foundation védjegye, és az ő engedélyükkel használjuk. Ez a projekt nem áll kapcsolatban az [OpenStreetMap Alapítvánnyal](https://osmfoundation.org/), és – a fent említett egyszeri finanazírozáson kívül – nem kap támogatást tőle.
 
 ---
 
