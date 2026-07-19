@@ -152,6 +152,7 @@ export function transform(result: any) {
       telegram: result.teleg?.value || result.telegDef?.value,
       reddit: result.subreddit?.value,
     },
+    funding: [result.donation?.value],
     source: [
       {
         name: "Wikidata",
@@ -350,6 +351,7 @@ WHERE {
   }
   OPTIONAL { ?item wdt:P3984 ?subreddit. }
   OPTIONAL { ?item wdt:P1613 ?irc. }
+  OPTIONAL { ?item wdt:P13631 ?donation. }
   ?item schema:dateModified ?modified
 }
 GROUP BY ?item 

@@ -170,6 +170,7 @@ export function transformGitHubResult(eld: any, result: any) {
         : "",
       issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
     },
+    funding: result.fundingLinks.map((l:any) => l.url),
     source: [
       {
         name: "GitHub",
@@ -306,6 +307,10 @@ async function search(
                 }
                 size
               }
+            }
+            fundingLinks {
+              platform
+              url
             }
           }
         }

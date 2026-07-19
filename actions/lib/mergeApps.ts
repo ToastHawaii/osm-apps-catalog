@@ -89,6 +89,8 @@ export function mergeApps(
   };
 
   app.community = mergeRecords(app.community, obj.community);
+
+  app.funding = mergeValues(app.funding, obj.funding, { sort: true });
 }
 
 function mergeBoolean(b1: boolean | undefined, b2: boolean | undefined) {

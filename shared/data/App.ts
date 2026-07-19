@@ -49,6 +49,7 @@ export interface App {
     macAppStoreID?: string | undefined;
     microsoftAppID?: string | undefined;
   };
+  funding?: string[] | undefined;
   map?: {
     map: string[];
     mapData: string[];
