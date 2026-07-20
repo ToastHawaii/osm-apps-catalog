@@ -1,9 +1,10 @@
 import { Funding } from "@actions/lib/getValidatedFundings";
 import { App } from "@shared/data/App";
+import { chain } from "lodash";
 
 export function extractFunding(apps: App[], validatedFundings: Funding[]) {
-  const newFundings = apps
-    .filter((a) => a.funding?.length)
+  const newFundings = chain(apps)
+    .filter((a) => !!a.funding?.length)
     .map((a) => ({
       appId: a.id,
       links: a.funding?.map(({ url, source }) => ({
@@ -13,7 +14,9 @@ export function extractFunding(apps: App[], validatedFundings: Funding[]) {
           .find((v) => a.id === v.appId)
           ?.links.some((l) => l.url === url && l.verified),
       })),
-    }));
+    }))
+    .sortBy((f) => !!f.links?.some((l) => l.verified))
+    .value();
 
   const newApps = apps.map((a) => ({
     ...a,

@@ -37,15 +37,15 @@ export async function run(): Promise<void> {
     enrichFocus(apps, knownApps);
     enrichSpotlight(apps, knownApps);
 
+    // Shuffle before sorting to get a random order for apps with the same score
+    shuffle(apps);
+    apps = apps.sort((a, b) => b.score - a.score);
+
     const validatedFundings = await getValidatedFundings();
     const fundingResult = extractFunding(apps, validatedFundings);
 
     apps = fundingResult.apps;
     const fundings = fundingResult.fundings;
-
-    // Shuffle before sorting to get a random order for apps with the same score
-    shuffle(apps);
-    apps = apps.sort((a, b) => b.score - a.score);
 
     await uploadToRepo(
       [
