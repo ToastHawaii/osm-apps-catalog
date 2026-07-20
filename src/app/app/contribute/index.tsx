@@ -24,7 +24,11 @@ import {
   ArrowDown01Icon,
   Download01Icon,
   FavouriteCircleIcon,
+  Github01Icon,
+  KoFiIcon,
   Link02Icon,
+  PaypalIcon,
+  PieChart06Icon,
 } from "@hugeicons/core-free-icons";
 import { DrawerDialog } from "@components/common/DrawerDialog";
 import { DownloadSlide } from "@app/app/download/DownloadSlide";
@@ -104,8 +108,41 @@ export function Contribute({ app }: { app: App }) {
                       trimStart(url.hostname, "www.") +
                       trimEnd(url.pathname, "/") +
                       url.search;
+
+                    let icon;
+                    switch (url.hostname.toLowerCase()) {
+                      case "opencollective.com":
+                        icon = (
+                          <HugeiconsIcon
+                            icon={PieChart06Icon}
+                            className="inline-block rotate-225"
+                            strokeWidth={2}
+                            size={19.25}
+                            style={{ width: 19.25, height: 19.25 }}
+                          />
+                        );
+                        break;
+
+                      case "github.com":
+                        icon = Github01Icon;
+                        break;
+
+                      case "paypal.com":
+                      case "paypal.me":
+                        icon = PaypalIcon;
+                        break;
+
+                      case "ko-fi.com":
+                        icon = KoFiIcon;
+                        break;
+
+                      default:
+                        icon = Link02Icon;
+                        break;
+                    }
+
                     return {
-                      icon: Link02Icon,
+                      icon: icon,
                       href: f.url,
                       title: urlDisplay,
                     };
