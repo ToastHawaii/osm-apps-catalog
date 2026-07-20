@@ -70,40 +70,46 @@ export function Score({
           align="end"
           className="max-h-[60vh] w-150 max-w-[90vw]! overflow-y-auto whitespace-pre-line"
         >
-          <Trans
-            i18nKey="score.results"
-            values={{
-              total: score.total,
-              fulfilled: score.details
-                .filter((d) => d.fulfilled)
-                .map((e) =>
-                  t("score.result", {
-                    description: t("score.criteria." + e.translationKey),
-                    points: e.points,
-                  }),
-                )
-                .join("\n"),
-              notFulfilled: score.details
-                .filter((d) => !d.fulfilled)
-                .map((e) =>
-                  t("score.result", {
-                    description: t("score.criteria." + e.translationKey),
-                    points: e.points,
-                  }),
-                )
-                .join("\n"),
-              editInformationTitle: t(
-                "app.contribute.activity.editInformation.title",
-              ),
-            }}
-            components={{
-              LearnMoreButton: (
-                <Button asChild>
-                  <a href={routes.docsScore()}>{t("score.learnMore")}</a>
-                </Button>
-              ),
-            }}
-          />
+          <div>
+            <Trans
+              i18nKey="score.results"
+              values={{
+                total: score.total,
+                fulfilled: score.details
+                  .filter((d) => d.fulfilled)
+                  .map((e) =>
+                    t("score.result", {
+                      description: t("score.criteria." + e.translationKey),
+                      points: e.points,
+                    }),
+                  )
+                  .join("\n"),
+                notFulfilled: score.details
+                  .filter((d) => !d.fulfilled)
+                  .map((e) =>
+                    t("score.result", {
+                      description: t("score.criteria." + e.translationKey),
+                      points: e.points,
+                    }),
+                  )
+                  .join("\n"),
+                editInformationTitle: t(
+                  "app.contribute.activity.editInformation.title",
+                ),
+              }}
+              components={{
+                LearnMoreButton: (
+                  <Button asChild>
+                    <a className="my-3 block" href={routes.docsScore()}>
+                      {t("score.learnMore")}
+                    </a>
+                  </Button>
+                ),
+                h5: <h5 className="text-lg font-semibold" />,
+                h6: <h6 className="font-semibold" />,
+              }}
+            />
+          </div>
         </PopoverContent>
       </Popover>
     </div>
