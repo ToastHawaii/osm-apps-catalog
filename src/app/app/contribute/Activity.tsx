@@ -114,7 +114,7 @@ export function Activity(
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Item size="xs" className="" asChild>
-            <button>{item}</button>
+            <button className="text-start">{item}</button>
           </Item>
         </DropdownMenuTrigger>
         <DropdownMenuContent
