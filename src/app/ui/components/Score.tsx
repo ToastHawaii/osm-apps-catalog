@@ -9,6 +9,7 @@ import {
 } from "@components/ui/popover";
 import { useRoute } from "@hooks/useRoute";
 import { Button } from "@components/ui/button";
+import { cn } from "@lib/utils";
 
 export function Score({
   app,
@@ -50,13 +51,19 @@ export function Score({
     className += " corner-badge-left";
   } else if (position === "right") {
     className +=
-      " absolute top-2 right-0 rounded-tr-lg rounded-bl-sm px-1 py-0.5";
+      " absolute top-2 right-0 rounded-tr-lg rounded-bl-sm px-1 py-0.5 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30";
   }
 
   return (
-    <div className={className} style={{ backgroundColor: color }}>
+    <div>
       <Popover>
-        <PopoverTrigger className="p-0 font-bold text-white!">
+        <PopoverTrigger
+          className={cn(
+            "p-0 font-bold text-white! transition-all hover:brightness-120",
+            className,
+          )}
+          style={{ backgroundColor: color }}
+        >
           {label}
         </PopoverTrigger>
         <PopoverContent

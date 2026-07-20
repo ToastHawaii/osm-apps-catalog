@@ -113,8 +113,8 @@ export function Activity(
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Item size="xs" className="">
-            {item}
+          <Item size="xs" className="" asChild>
+            <button>{item}</button>
           </Item>
         </DropdownMenuTrigger>
         <DropdownMenuContent

@@ -235,12 +235,12 @@
       {
         "url": "https://github.com/OSGeo",
         "source": "https://github.com/MapServer/MapServer",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KRJ2X44N3HA6U&source=url",
         "source": "https://github.com/MapServer/MapServer",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -250,17 +250,17 @@
       {
         "url": "https://github.com/grote",
         "source": "https://github.com/grote/Transportr",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://liberapay.com/Transportr",
         "source": "https://github.com/grote/Transportr",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://transportr.app/donate/",
         "source": "https://github.com/grote/Transportr",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -270,12 +270,12 @@
       {
         "url": "https://liberapay.com/WalkersGuide",
         "source": "https://github.com/scheibler/WalkersGuide-Android",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://www.walkersguide.org/en/donate/",
         "source": "https://github.com/scheibler/WalkersGuide-Android",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -285,12 +285,12 @@
       {
         "url": "https://github.com/kauevestena",
         "source": "https://github.com/kauevestena/osm_sidewalkreator",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/kauevestena",
         "source": "https://github.com/kauevestena/osm_sidewalkreator",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -580,32 +580,32 @@
       {
         "url": "https://github.com/farfromrefug",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://opencollective.com/oss-appscollective",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://liberapay.com/farfromrefuge",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/farfromrefuge",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://buymeacoffee.com/farfromrefug",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       },
       {
         "url": "paypal.me/farfromfefug",
         "source": "https://github.com/ossappscollective/oss-weather",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -625,7 +625,7 @@
       {
         "url": "https://www.opensnowmap.org/iframes/donate.html",
         "source": "http://www.wikidata.org/entity/Q140031303",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -635,7 +635,7 @@
       {
         "url": "https://liberapay.com/pietervdvn",
         "source": "https://github.com/pietervdvn/MapComplete",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -650,7 +650,7 @@
       {
         "url": "https://liberapay.com/OpenTracks",
         "source": "https://github.com/OpenTracksApp/OpenTracks",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://play.google.com/store/apps/details?id=de.dennisguse.opentracks.playstore",
@@ -665,17 +665,17 @@
       {
         "url": "https://github.com/bigbrainlabs",
         "source": "https://github.com/bigbrainlabs/BoatOS",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/logbook_without_posing",
         "source": "https://github.com/bigbrainlabs/BoatOS",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://buymeacoffee.com/bigbrain20u",
         "source": "https://github.com/bigbrainlabs/BoatOS",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -700,7 +700,7 @@
       {
         "url": "https://buymeacoffee.com/devemux86",
         "source": "https://github.com/devemux86/cruiser",
-        "verified": false
+        "verified": true
       }
     ]
   },
