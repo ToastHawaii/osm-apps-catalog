@@ -35,7 +35,7 @@
   "app.contribute.activity.contributeTranslation.hint": "Il n'existe aucun lien documenté dans les wikis indiquant où l'on peut contribuer aux traductions.",
   "app.contribute.activity.contributeTranslation.title": "Traduire le texte",
   "app.contribute.activity.donate.description": "Faites un don à {{app}} pour soutenir ce projet",
-  "app.contribute.activity.donate.hint": "Aucun lien avec la fondation n'est mentionné dans les sources ou ces liens n'ont pas été vérifiés",
+  "app.contribute.activity.donate.hint": "Aucun lien avec la fondation n'est mentionné dans les sources ou ces liens n'ont pas été vérifiés.",
   "app.contribute.activity.donate.title": "Faire un don",
   "app.contribute.activity.editInformation.description": "Modifier les informations concernant {{app}} dans les wikis sources",
   "app.contribute.activity.editInformation.osmWiki": "Wiki OpenStreetMap",
