@@ -51,7 +51,7 @@ export function Score({
     className += " corner-badge-left";
   } else if (position === "right") {
     className +=
-      " absolute top-2 right-0 rounded-tr-lg rounded-bl-sm px-1 py-0.5 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30";
+      " absolute top-2 right-0 md:rounded-tr-lg rounded-bl-sm px-1 py-0.5 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30";
   }
 
   return (
