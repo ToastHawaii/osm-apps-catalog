@@ -290,7 +290,7 @@
   "score.criteria.worldwideData": "l'application couvre des données cartographiques à l'échelle mondiale",
   "score.learnMore": "En savoir plus",
   "score.result": "- {{description}} ({{points}} points)",
-  "score.results": "Score de contribution à la communauté\nTotal : {{total}} sur 10 points\n\nActions requises pour obtenir un meilleur score :\n{{notFulfilled}}\n<LearnMoreButton/>\nY a-t-il une erreur ou un élément manquant ? Vous pouvez contribuer à améliorer la documentation. Rendez-vous sur la page de détails de l'application et cliquez sur « {{-editInformationTitle}} ».\n\nRéalisé :\n{{fulfilled}}",
+  "score.results": "<h5>Score de contribution à la communauté</h5>Total : {{total}} sur 10 points\n\n<h6>Actions requises pour obtenir un meilleur score :</h6>\n{{notFulfilled}}\n<LearnMoreButton/>\nY a-t-il une erreur ou un élément manquant ? Vous pouvez contribuer à améliorer la documentation. Rendez-vous sur la page de détails de l’application et cliquez sur « {{-editInformationTitle}} ».\n\n<h6>Conditions remplies :</h6>\n{{fulfilled}}",
   "select.search.noResults": "Aucun résultat",
   "select.search.placeholder": "Rechercher",
   "share.wiki": "Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.",
