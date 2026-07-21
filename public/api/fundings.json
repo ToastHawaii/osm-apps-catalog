@@ -180,12 +180,12 @@
       {
         "url": "https://buymeacoffee.com/wanderertrails",
         "source": "https://github.com/open-wanderer/wanderer",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://liberapay.com/wanderer",
         "source": "https://github.com/open-wanderer/wanderer",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -195,7 +195,7 @@
       {
         "url": "https://www.paypal.me/strukturart",
         "source": "https://github.com/strukturart/o.map",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -205,7 +205,7 @@
       {
         "url": "https://github.com/hotosm",
         "source": "https://github.com/hotosm/tasking-manager",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -215,12 +215,12 @@
       {
         "url": "https://github.com/maplibre",
         "source": "https://github.com/maplibre/martin",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://opencollective.com/maplibre",
         "source": "https://github.com/maplibre/martin",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -230,7 +230,7 @@
       {
         "url": "https://github.com/onthegomap",
         "source": "https://github.com/onthegomap/planetiler",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -240,27 +240,27 @@
       {
         "url": "btcmap.org/support-us",
         "source": "https://github.com/teambtcmap/btcmap-android",
-        "verified": false
+        "verified": true
       },
       {
         "url": "btcmap.org/support-us",
         "source": "https://github.com/teambtcmap/btcmap.org",
-        "verified": false
+        "verified": true
       },
       {
         "url": "btcmap.org/support-us",
         "source": "https://github.com/teambtcmap/btcmap-data",
-        "verified": false
+        "verified": true
       },
       {
         "url": "btcmap.org/support-us",
         "source": "https://github.com/teambtcmap/btcmap-ios",
-        "verified": false
+        "verified": true
       },
       {
         "url": "btcmap.org/support-us",
         "source": "https://github.com/teambtcmap/btcmap-general",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -270,12 +270,12 @@
       {
         "url": "https://opencollective.com/mollyim",
         "source": "http://www.wikidata.org/entity/Q131598097",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://opencollective.com/mollyim",
         "source": "https://github.com/mollyim/mollyim-android",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -285,7 +285,7 @@
       {
         "url": "https://numfocus.org/donate-to-grass",
         "source": "https://github.com/OSGeo/grass",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -305,7 +305,7 @@
       {
         "url": "https://osm2pgsql.org/sponsors/",
         "source": "https://github.com/osm2pgsql-dev/osm2pgsql",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -315,7 +315,7 @@
       {
         "url": "https://donorbox.org/trufi-association",
         "source": "https://github.com/trufi-association/trufi-core",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -325,22 +325,22 @@
       {
         "url": "https://github.com/GeiserX",
         "source": "https://github.com/GeiserX/Pumperly",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://patreon.com/geiser",
         "source": "https://github.com/GeiserX/Pumperly",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://buymeacoffee.com/geiser",
         "source": "https://github.com/GeiserX/Pumperly",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://thanks.dev/u/gh/geiserx",
         "source": "https://github.com/GeiserX/Pumperly",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -350,17 +350,17 @@
       {
         "url": "https://mapshaper.org/sponsor.html",
         "source": "http://www.wikidata.org/entity/Q122212032",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://github.com/mbloch",
         "source": "https://github.com/mbloch/mapshaper",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://ko-fi.com/mapshaper",
         "source": "https://github.com/mbloch/mapshaper",
-        "verified": false
+        "verified": true
       }
     ]
   },
