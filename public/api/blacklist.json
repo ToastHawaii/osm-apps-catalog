@@ -1,6 +1,6 @@
 [
   {
-    "name": ["IDM-Freezer-And-Activator", "IDM Freezer And Activator"],
+    "name": ["IDM Freezer And Activator"],
     "repository": ["IDM-Freezer-And-Activator"],
     "author": [
       "Fact3683",
@@ -13,5 +13,17 @@
       "jyotidwi"
     ],
     "reason": "This repository may contain a tool that have nothing to do with OpenStreetMap. If you disagree, please open an issue."
+  },
+  {
+    "name": ["Mapping north korea"],
+    "repository": ["MRVDH/mapping-north-korea"],
+    "author": [],
+    "reason": "This repository was archived and the official website is offline."
+  },
+  {
+    "name": ["Plante"],
+    "repository": ["plante-app-team/plante"],
+    "author": [],
+    "reason": "This repository was archived and the official website is offline."
   }
 ]

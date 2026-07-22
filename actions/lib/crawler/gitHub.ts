@@ -216,10 +216,10 @@ export async function requestGitHub(octokit: ReturnType<typeof createOctokit>) {
   const blacklist = await getBlackList();
   return results.filter(
     (repo) =>
-      !blacklist.some((item) => item.name.some((n) => repo.name.includes(n))),
+      !blacklist.some((item) =>
+        item.repository.some((n) => repo.sourceCode.includes(n)),
+      ),
   );
-
-  return results;
 }
 
 export async function searchByRepos(
