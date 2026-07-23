@@ -217,7 +217,7 @@ export async function requestGitHub(octokit: ReturnType<typeof createOctokit>) {
   return results.filter(
     (repo) =>
       !blacklist.some((item) =>
-        item.repository.some((n) => repo.sourceCode?.includes(n)),
+        item.repository.some((n) => repo.nameWithOwner.includes(n)),
       ),
   );
 }

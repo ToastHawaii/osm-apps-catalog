@@ -10,6 +10,7 @@ import { loadAppsFromTagInfoProjects } from "@actions/lib/loadAppsFromSource/tag
 import { loadAppsFromWikidata } from "@actions/lib/loadAppsFromSource/wikidata";
 import { AppQueries } from "@actions/lib/crawler/wikidata";
 import { createOctokit } from "@actions/lib/crawler/createOctokit";
+import { some } from "lodash";
 
 export async function loadApps(octokit: ReturnType<typeof createOctokit>) {
   const apps: App[] = [];
@@ -37,5 +38,8 @@ export async function loadApps(octokit: ReturnType<typeof createOctokit>) {
       }),
     );
 
-  return apps;
+  // Every app should have at least one useful external link.
+  return apps.filter(
+    (app) => app.website || some(app.install) || app.sourceCode,
+  );
 }

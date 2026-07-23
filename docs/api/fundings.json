@@ -10,122 +10,42 @@
     ]
   },
   {
-    "appId": 1087799834,
+    "appId": 1344751381,
     "links": [
       {
-        "url": "https://github.com/osmus",
-        "source": "https://github.com/OSMCha/osmcha-frontend",
-        "verified": true
+        "url": "https://osm2pgsql.org/sponsors/",
+        "source": "https://github.com/osm2pgsql-dev/osm2pgsql",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 955518236,
+    "links": [
+      {
+        "url": "https://ko-fi.com/marionauta",
+        "source": "https://github.com/marionauta/fountains-android",
+        "verified": false
       },
       {
-        "url": "https://github.com/osmus",
-        "source": "https://github.com/OSMCha/osmcha",
-        "verified": true
+        "url": "https://mario.nachbaur.dev/tips/?app=Water%20Finder",
+        "source": "https://github.com/marionauta/fountains-android",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1296254646,
+    "links": [
+      {
+        "url": "https://github.com/sebkur",
+        "source": "https://github.com/topobyte/jeography-gis",
+        "verified": false
       },
       {
-        "url": "https://github.com/osmus",
-        "source": "https://github.com/OSMCha/osmcha-django",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 942353502,
-    "links": [
-      {
-        "url": "https://github.com/docentYT",
-        "source": "https://github.com/docentYT/osm_easy_api",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1013405773,
-    "links": [
-      {
-        "url": "https://github.com/dennisguse",
-        "source": "https://github.com/OpenTracksApp/OSMDashboard",
-        "verified": true
-      },
-      {
-        "url": "https://liberapay.com/OpenTracks",
-        "source": "https://github.com/OpenTracksApp/OSMDashboard",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 377009001,
-    "links": [
-      {
-        "url": "https://github.com/fdittgen-png",
-        "source": "https://github.com/fdittgen-png/tankstellen",
-        "verified": true
-      },
-      {
-        "url": "https://www.paypal.me/FlorianDITTGEN",
-        "source": "https://github.com/fdittgen-png/tankstellen",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1020603280,
-    "links": [
-      {
-        "url": "paypal.me/ChristianPogea",
-        "source": "https://github.com/bassmaster187/TeslaLogger",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 40129325,
-    "links": [
-      {
-        "url": "https://github.com/hyperknot",
-        "source": "https://github.com/hyperknot/openfreemap",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 610503169,
-    "links": [
-      {
-        "url": "https://buymeacoffee.com/louisdev",
-        "source": "https://github.com/louis-e/arnis",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1738540382,
-    "links": [
-      {
-        "url": "https://github.com/dabreegster",
-        "source": "https://github.com/a-b-street/abstreet",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1099317708,
-    "links": [
-      {
-        "url": "https://github.com/StrandedKitty",
-        "source": "https://github.com/StrandedKitty/streets-gl",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 434886589,
-    "links": [
-      {
-        "url": "https://github.com/osmus",
-        "source": "https://github.com/osmus/OpenTrailMap",
-        "verified": true
+        "url": "https://patreon.com/sebkur",
+        "source": "https://github.com/topobyte/jeography-gis",
+        "verified": false
       }
     ]
   },
@@ -145,82 +65,27 @@
     ]
   },
   {
-    "appId": 811355234,
+    "appId": 814673300,
     "links": [
       {
-        "url": "https://github.com/sebkur",
-        "source": "https://github.com/topobyte/jeography-gis",
-        "verified": true
+        "url": "https://liberapay.com/SimonBrazell",
+        "source": "https://github.com/SimonBrazell/privacy-redirect",
+        "verified": false
       },
       {
-        "url": "https://patreon.com/sebkur",
-        "source": "https://github.com/topobyte/jeography-gis",
-        "verified": true
+        "url": "https://www.buymeacoffee.com/SimonBrazell",
+        "source": "https://github.com/SimonBrazell/privacy-redirect",
+        "verified": false
       }
     ]
   },
   {
-    "appId": 1839811463,
+    "appId": 938732587,
     "links": [
       {
-        "url": "https://patreon.com/EmGi3D",
-        "source": "https://github.com/EmGi96/TrailPrint3D",
-        "verified": true
-      },
-      {
-        "url": "https://buymeacoffee.com/emgi",
-        "source": "https://github.com/EmGi96/TrailPrint3D",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1924445357,
-    "links": [
-      {
-        "url": "https://github.com/hotosm",
-        "source": "https://github.com/hotosm/openaerialmap",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1122113191,
-    "links": [
-      {
-        "url": "https://ko-fi.com/jakobsteiner",
-        "source": "https://github.com/steinerjakob/FireYak",
-        "verified": true
-      },
-      {
-        "url": "https://buymeacoffee.com/steinerjakob",
-        "source": "https://github.com/steinerjakob/FireYak",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1617463153,
-    "links": [
-      {
-        "url": "https://github.com/pauldendulk",
-        "source": "https://github.com/Mapsui/Mapsui",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 947937705,
-    "links": [
-      {
-        "url": "https://github.com/joomla",
-        "source": "https://github.com/joomla-framework/openstreetmap-api",
-        "verified": true
-      },
-      {
-        "url": "https://community.joomla.org/sponsorship-campaigns.html",
-        "source": "https://github.com/joomla-framework/openstreetmap-api",
-        "verified": true
+        "url": "https://patreon.com/plante",
+        "source": "https://github.com/plante-app-team/plante",
+        "verified": false
       }
     ]
   },
@@ -240,17 +105,12 @@
     ]
   },
   {
-    "appId": 141112900,
+    "appId": 1676799093,
     "links": [
       {
-        "url": "https://room-tba.uplbtools.me/donate",
-        "source": "https://github.com/uplbtools/room-tba",
-        "verified": true
-      },
-      {
-        "url": "https://room-tba.uplbtools.me/sponsors",
-        "source": "https://github.com/uplbtools/room-tba",
-        "verified": true
+        "url": "https://github.com/seanpm2001",
+        "source": "https://github.com/seanpm2001/SDE_MobileServer_Plugins_OpenStreetMap",
+        "verified": false
       }
     ]
   },
@@ -260,81 +120,6 @@
       {
         "url": "https://github.com/MRVDH",
         "source": "https://github.com/MRVDH/mapping-north-korea",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 636322889,
-    "links": [
-      {
-        "url": "https://github.com/travishathaway",
-        "source": "https://github.com/travishathaway/osmprj",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 938732587,
-    "links": [
-      {
-        "url": "https://patreon.com/plante",
-        "source": "https://github.com/plante-app-team/plante",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 653554437,
-    "links": [
-      {
-        "url": "https://github.com/jperelli",
-        "source": "https://github.com/jperelli/osm-static-maps",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1405189850,
-    "links": [
-      {
-        "url": "https://liberapay.com/zoff/donate",
-        "source": "https://github.com/zoff99/toloshare_material",
-        "verified": true
-      },
-      {
-        "url": "https://blockstream.info/address/1TRifA7eNLHZEcCTj43eYVWHBbLqTuXkS",
-        "source": "https://github.com/zoff99/toloshare_material",
-        "verified": true
-      },
-      {
-        "url": "https://buy.stripe.com/6oE00FbLieDMc7ecMN",
-        "source": "https://github.com/zoff99/toloshare_material",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 814673300,
-    "links": [
-      {
-        "url": "https://liberapay.com/SimonBrazell",
-        "source": "https://github.com/SimonBrazell/privacy-redirect",
-        "verified": false
-      },
-      {
-        "url": "https://www.buymeacoffee.com/SimonBrazell",
-        "source": "https://github.com/SimonBrazell/privacy-redirect",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 29012314,
-    "links": [
-      {
-        "url": "https://ko-fi.com/marceloprates_",
-        "source": "https://github.com/marceloprates/prettymaps",
         "verified": false
       }
     ]
@@ -350,6 +135,16 @@
     ]
   },
   {
+    "appId": 1146307422,
+    "links": [
+      {
+        "url": "https://github.com/ek33450505",
+        "source": "https://github.com/ek33450505/compute-atlas",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 470544550,
     "links": [
       {
@@ -360,21 +155,11 @@
     ]
   },
   {
-    "appId": 1724949204,
+    "appId": 653554437,
     "links": [
       {
-        "url": "https://github.com/kiwix",
-        "source": "https://github.com/openzim/maps",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1676799093,
-    "links": [
-      {
-        "url": "https://github.com/seanpm2001",
-        "source": "https://github.com/seanpm2001/SDE_MobileServer_Plugins_OpenStreetMap",
+        "url": "https://github.com/jperelli",
+        "source": "https://github.com/jperelli/osm-static-maps",
         "verified": false
       }
     ]
@@ -385,6 +170,16 @@
       {
         "url": "https://journeysync-app.vercel.app/",
         "source": "https://github.com/pranavv1210/JourneySync-App",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 29012314,
+    "links": [
+      {
+        "url": "https://ko-fi.com/marceloprates_",
+        "source": "https://github.com/marceloprates/prettymaps",
         "verified": false
       }
     ]
@@ -410,51 +205,6 @@
     ]
   },
   {
-    "appId": 724087467,
-    "links": [
-      {
-        "url": "https://github.com/OpenGIS",
-        "source": "https://github.com/OpenGIS/waymark-js",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1820627045,
-    "links": [
-      {
-        "url": "https://osmcode.org/sponsors.html",
-        "source": "https://github.com/osmcode/osmium-tool",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 880338358,
-    "links": [
-      {
-        "url": "https://github.com/liskin",
-        "source": "https://github.com/liskin/strava-map-switcher",
-        "verified": true
-      },
-      {
-        "url": "https://www.paypal.me/lisknisi/10EUR",
-        "source": "https://github.com/liskin/strava-map-switcher",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1576619376,
-    "links": [
-      {
-        "url": "https://github.com/AsPJT",
-        "source": "https://github.com/AsPJT/PAX_SAPIENTICA",
-        "verified": false
-      }
-    ]
-  },
-  {
     "appId": 205069916,
     "links": [
       {
@@ -470,31 +220,11 @@
     ]
   },
   {
-    "appId": 898393672,
+    "appId": 1576619376,
     "links": [
       {
-        "url": "https://ko-fi.com/marionauta",
-        "source": "https://github.com/marionauta/fountains-ios",
-        "verified": false
-      },
-      {
-        "url": "https://mario.nachbaur.dev/tips/?app=Water%20Finder",
-        "source": "https://github.com/marionauta/fountains-ios",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 957807644,
-    "links": [
-      {
-        "url": "https://www.buymeacoffee.com/barbeau",
-        "source": "https://github.com/barbeau/gpstest",
-        "verified": false
-      },
-      {
-        "url": "https://paypal.me/sjbarbeau/5usd",
-        "source": "https://github.com/barbeau/gpstest",
+        "url": "https://github.com/AsPJT",
+        "source": "https://github.com/AsPJT/PAX_SAPIENTICA",
         "verified": false
       }
     ]
@@ -505,16 +235,6 @@
       {
         "url": "https://github.com/go-spatial",
         "source": "https://github.com/go-spatial/tegola",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 684791653,
-    "links": [
-      {
-        "url": "https://openstreetmap.app.neoncrm.com/forms/support-yesterdays",
-        "source": "https://github.com/MapRVA/yesterdays",
         "verified": false
       }
     ]
@@ -540,151 +260,26 @@
     ]
   },
   {
-    "appId": 887109850,
+    "appId": 684791653,
     "links": [
       {
-        "url": "https://github.com/Cyclenerd",
-        "source": "https://github.com/Cyclenerd/offline-map-tile-downloader",
+        "url": "https://openstreetmap.app.neoncrm.com/forms/support-yesterdays",
+        "source": "https://github.com/MapRVA/yesterdays",
         "verified": false
       }
     ]
   },
   {
-    "appId": 2089489954,
+    "appId": 957807644,
     "links": [
       {
-        "url": "https://github.com/simplexspatial",
-        "source": "https://github.com/simplexspatial/osm4scala",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 661094708,
-    "links": [
-      {
-        "url": "https://github.com/evansiroky",
-        "source": "https://github.com/evansiroky/timezone-boundary-builder",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1470379046,
-    "links": [
-      {
-        "url": "https://ko-fi.com/marionauta",
-        "source": "https://github.com/marionauta/fountains-android",
+        "url": "https://www.buymeacoffee.com/barbeau",
+        "source": "https://github.com/barbeau/gpstest",
         "verified": false
       },
       {
-        "url": "https://mario.nachbaur.dev/tips/?app=Water%20Finder",
-        "source": "https://github.com/marionauta/fountains-android",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 2006466714,
-    "links": [
-      {
-        "url": "https://github.com/Joxit",
-        "source": "https://github.com/Joxit/tile-server-ui",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1872386590,
-    "links": [
-      {
-        "url": "https://www.paypal.me/mastercruelty",
-        "source": "https://github.com/MasterCruelty/robbot",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 624776471,
-    "links": [
-      {
-        "url": "https://buymeacoffee.com/ianho7",
-        "source": "https://github.com/ianho7/maptoposter-online",
-        "verified": false
-      },
-      {
-        "url": "https://afdian.com/a/ianho7",
-        "source": "https://github.com/ianho7/maptoposter-online",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 99832094,
-    "links": [
-      {
-        "url": "https://github.com/jbelien",
-        "source": "https://github.com/jbelien/oci-viewer",
-        "verified": false
-      },
-      {
-        "url": "https://liberapay.com/jbelien",
-        "source": "https://github.com/jbelien/oci-viewer",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 775695082,
-    "links": [
-      {
-        "url": "https://github.com/StefanOltmann",
-        "source": "https://github.com/StefanOltmann/nominatim-proxy",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1567858602,
-    "links": [
-      {
-        "url": "https://github.com/biolab",
-        "source": "https://github.com/biolab/orange3-geo",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 833351447,
-    "links": [
-      {
-        "url": "https://github.com/kartoza",
-        "source": "https://github.com/kartoza/docker-osm",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1836794589,
-    "links": [
-      {
-        "url": "https://github.com/podusowski",
-        "source": "https://github.com/podusowski/walkers",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1887741254,
-    "links": [
-      {
-        "url": "https://github.com/yousifamanuel",
-        "source": "https://github.com/yousifamanuel/terraink",
-        "verified": false
-      },
-      {
-        "url": "https://ko-fi.com/yousifamanuel",
-        "source": "https://github.com/yousifamanuel/terraink",
+        "url": "https://paypal.me/sjbarbeau/5usd",
+        "source": "https://github.com/barbeau/gpstest",
         "verified": false
       }
     ]
@@ -715,6 +310,36 @@
     ]
   },
   {
+    "appId": 754379990,
+    "links": [
+      {
+        "url": "https://github.com/melizeche",
+        "source": "https://github.com/melizeche/ayudapy",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 627860901,
+    "links": [
+      {
+        "url": "https://www.paypal.com/donate/?business=TJAXC3T4WD66L&no_recurring=0&currency_code=EUR",
+        "source": "https://github.com/jsleroy/thirsty",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 62615554,
+    "links": [
+      {
+        "url": "paypal.me/tsuiyc",
+        "source": "https://github.com/akazukin5151/atupp",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 179568850,
     "links": [
       {
@@ -740,11 +365,81 @@
     ]
   },
   {
-    "appId": 754379990,
+    "appId": 280672876,
     "links": [
       {
-        "url": "https://github.com/melizeche",
-        "source": "https://github.com/melizeche/ayudapy",
+        "url": "https://monicz.dev/#support-my-work",
+        "source": "https://github.com/Zaczero/osm-budynki-orto-import",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 2094895288,
+    "links": [
+      {
+        "url": "https://github.com/ebelinski",
+        "source": "https://github.com/ebelinski/bikefix",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/eugeneb",
+        "source": "https://github.com/ebelinski/bikefix",
+        "verified": false
+      },
+      {
+        "url": "https://paypal.me/ebelinski",
+        "source": "https://github.com/ebelinski/bikefix",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 624776471,
+    "links": [
+      {
+        "url": "https://buymeacoffee.com/ianho7",
+        "source": "https://github.com/ianho7/maptoposter-online",
+        "verified": false
+      },
+      {
+        "url": "https://afdian.com/a/ianho7",
+        "source": "https://github.com/ianho7/maptoposter-online",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1887741254,
+    "links": [
+      {
+        "url": "https://github.com/yousifamanuel",
+        "source": "https://github.com/yousifamanuel/terraink",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/yousifamanuel",
+        "source": "https://github.com/yousifamanuel/terraink",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 833351447,
+    "links": [
+      {
+        "url": "https://github.com/kartoza",
+        "source": "https://github.com/kartoza/docker-osm",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 160715088,
+    "links": [
+      {
+        "url": "https://github.com/hishizuka",
+        "source": "https://github.com/hishizuka/pizero_bikecomputer",
         "verified": false
       }
     ]
@@ -780,6 +475,26 @@
     ]
   },
   {
+    "appId": 887109850,
+    "links": [
+      {
+        "url": "https://github.com/Cyclenerd",
+        "source": "https://github.com/Cyclenerd/offline-map-tile-downloader",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 775695082,
+    "links": [
+      {
+        "url": "https://github.com/StefanOltmann",
+        "source": "https://github.com/StefanOltmann/nominatim-proxy",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 1025953087,
     "links": [
       {
@@ -790,41 +505,51 @@
     ]
   },
   {
-    "appId": 160715088,
+    "appId": 2006466714,
     "links": [
       {
-        "url": "https://github.com/hishizuka",
-        "source": "https://github.com/hishizuka/pizero_bikecomputer",
+        "url": "https://github.com/Joxit",
+        "source": "https://github.com/Joxit/tile-server-ui",
         "verified": false
       }
     ]
   },
   {
-    "appId": 627860901,
+    "appId": 1836794589,
     "links": [
       {
-        "url": "https://www.paypal.com/donate/?business=TJAXC3T4WD66L&no_recurring=0&currency_code=EUR",
-        "source": "https://github.com/jsleroy/thirsty",
+        "url": "https://github.com/podusowski",
+        "source": "https://github.com/podusowski/walkers",
         "verified": false
       }
     ]
   },
   {
-    "appId": 2094895288,
+    "appId": 661094708,
     "links": [
       {
-        "url": "https://github.com/ebelinski",
-        "source": "https://github.com/ebelinski/bikefix",
+        "url": "https://github.com/evansiroky",
+        "source": "https://github.com/evansiroky/timezone-boundary-builder",
         "verified": false
-      },
+      }
+    ]
+  },
+  {
+    "appId": 2089489954,
+    "links": [
       {
-        "url": "https://ko-fi.com/eugeneb",
-        "source": "https://github.com/ebelinski/bikefix",
+        "url": "https://github.com/simplexspatial",
+        "source": "https://github.com/simplexspatial/osm4scala",
         "verified": false
-      },
+      }
+    ]
+  },
+  {
+    "appId": 1567858602,
+    "links": [
       {
-        "url": "https://paypal.me/ebelinski",
-        "source": "https://github.com/ebelinski/bikefix",
+        "url": "https://github.com/biolab",
+        "source": "https://github.com/biolab/orange3-geo",
         "verified": false
       }
     ]
@@ -840,21 +565,26 @@
     ]
   },
   {
-    "appId": 280672876,
+    "appId": 99832094,
     "links": [
       {
-        "url": "https://monicz.dev/#support-my-work",
-        "source": "https://github.com/Zaczero/osm-budynki-orto-import",
+        "url": "https://github.com/jbelien",
+        "source": "https://github.com/jbelien/oci-viewer",
+        "verified": false
+      },
+      {
+        "url": "https://liberapay.com/jbelien",
+        "source": "https://github.com/jbelien/oci-viewer",
         "verified": false
       }
     ]
   },
   {
-    "appId": 62615554,
+    "appId": 1872386590,
     "links": [
       {
-        "url": "paypal.me/tsuiyc",
-        "source": "https://github.com/akazukin5151/atupp",
+        "url": "https://www.paypal.me/mastercruelty",
+        "source": "https://github.com/MasterCruelty/robbot",
         "verified": false
       }
     ]
@@ -870,31 +600,21 @@
     ]
   },
   {
-    "appId": 1497254092,
-    "links": [
-      {
-        "url": "https://opencollective.com/central-park-walk",
-        "source": "https://github.com/Central-Park-Walk/central-park-walk",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 9726362,
-    "links": [
-      {
-        "url": "https://github.com/centic9",
-        "source": "https://github.com/centic9/cover-the-world",
-        "verified": false
-      }
-    ]
-  },
-  {
     "appId": 1805565921,
     "links": [
       {
         "url": "https://github.com/mrusme#support",
         "source": "https://github.com/mrusme/mercator",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1497254092,
+    "links": [
+      {
+        "url": "https://opencollective.com/central-park-walk",
+        "source": "https://github.com/Central-Park-Walk/central-park-walk",
         "verified": false
       }
     ]
@@ -910,6 +630,26 @@
       {
         "url": "https://github.com/brawer",
         "source": "https://github.com/astro/rust-osm-pbf-iter",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 9726362,
+    "links": [
+      {
+        "url": "https://github.com/centic9",
+        "source": "https://github.com/centic9/cover-the-world",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1754138565,
+    "links": [
+      {
+        "url": "https://github.com/chnuessli",
+        "source": "https://github.com/OpenBracketsCH/defikarte.ch",
         "verified": false
       }
     ]
@@ -935,16 +675,6 @@
     ]
   },
   {
-    "appId": 1754138565,
-    "links": [
-      {
-        "url": "https://github.com/chnuessli",
-        "source": "https://github.com/OpenBracketsCH/defikarte.ch",
-        "verified": false
-      }
-    ]
-  },
-  {
     "appId": 529731817,
     "links": [
       {
@@ -960,6 +690,66 @@
       {
         "url": "https://github.com/chnuessli",
         "source": "https://github.com/OpenBracketsCH/defi_data",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1109224833,
+    "links": [
+      {
+        "url": "https://patreon.com/joeakeem",
+        "source": "https://github.com/joe-akeem/contour-tiles",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 664424130,
+    "links": [
+      {
+        "url": "https://github.com/maplibre",
+        "source": "https://github.com/maplibre/maplibre-navigation-android-legacy",
+        "verified": false
+      },
+      {
+        "url": "https://opencollective.com/maplibre",
+        "source": "https://github.com/maplibre/maplibre-navigation-android-legacy",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 507005267,
+    "links": [
+      {
+        "url": "https://liberapay.com/juancarlospaco/donate",
+        "source": "https://github.com/juancarlospaco/nim-overpass",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1218299863,
+    "links": [
+      {
+        "url": "https://github.com/DantSu",
+        "source": "https://github.com/DantSu/php-french-cadastral-map-static-api",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1076435661,
+    "links": [
+      {
+        "url": "https://github.com/jbelien",
+        "source": "https://github.com/jbelien/openstreetmap-calendar-widget",
+        "verified": false
+      },
+      {
+        "url": "https://liberapay.com/jbelien",
+        "source": "https://github.com/jbelien/openstreetmap-calendar-widget",
         "verified": false
       }
     ]
@@ -985,36 +775,16 @@
     ]
   },
   {
-    "appId": 1109224833,
+    "appId": 395997774,
     "links": [
       {
-        "url": "https://patreon.com/joeakeem",
-        "source": "https://github.com/joe-akeem/contour-tiles",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1218299863,
-    "links": [
-      {
-        "url": "https://github.com/DantSu",
-        "source": "https://github.com/DantSu/php-french-cadastral-map-static-api",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 847253909,
-    "links": [
-      {
-        "url": "https://github.com/quincylvania",
-        "source": "https://github.com/waysidemapping/beefsteak-map-tiles",
+        "url": "https://github.com/sboulema",
+        "source": "https://github.com/sboulema/MapViewer",
         "verified": false
       },
       {
-        "url": "https://ko-fi.com/waysidemapping",
-        "source": "https://github.com/waysidemapping/beefsteak-map-tiles",
+        "url": "https://www.paypal.me/sboulema",
+        "source": "https://github.com/sboulema/MapViewer",
         "verified": false
       }
     ]
@@ -1030,11 +800,146 @@
     ]
   },
   {
+    "appId": 57628666,
+    "links": [
+      {
+        "url": "https://github.com/derhuerst",
+        "source": "https://github.com/derhuerst/query-overpass",
+        "verified": false
+      },
+      {
+        "url": "https://liberapay.com/derhuerst",
+        "source": "https://github.com/derhuerst/query-overpass",
+        "verified": false
+      },
+      {
+        "url": "https://patreon.com/derhuerst",
+        "source": "https://github.com/derhuerst/query-overpass",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 242727084,
+    "links": [
+      {
+        "url": "https://buymeacoffee.com/prot10",
+        "source": "https://github.com/Prot10/MyTripPlanner",
+        "verified": false
+      },
+      {
+        "url": "https://paypal.me/andreaprotani99",
+        "source": "https://github.com/Prot10/MyTripPlanner",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1514339043,
+    "links": [
+      {
+        "url": "https://www.buymeacoffee.com/ttntm",
+        "source": "https://github.com/ttntm/hugo-leaflet-store-locator",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 509704537,
+    "links": [
+      {
+        "url": "https://github.com/DantSu",
+        "source": "https://github.com/DantSu/php-osm-static-api",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 2118574072,
+    "links": [
+      {
+        "url": "https://github.com/simonw",
+        "source": "https://github.com/simonw/download-tiles",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 415893982,
+    "links": [
+      {
+        "url": "https://github.com/coderdojo-japan",
+        "source": "https://github.com/coderdojo-japan/map.coderdojo.jp",
+        "verified": false
+      }
+    ]
+  },
+  {
     "appId": 719216792,
     "links": [
       {
         "url": "https://github.com/osmus",
         "source": "https://github.com/fieldpapers/fp-tasks",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 581421966,
+    "links": [
+      {
+        "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KF943RX59TYDE&currency_code=EUR&source=url",
+        "source": "https://github.com/alexboia/WP-Trip-Summary",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/alexandruboia",
+        "source": "https://github.com/alexboia/WP-Trip-Summary",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1856450399,
+    "links": [
+      {
+        "url": "https://buymeacoffee.com/offlined",
+        "source": "https://github.com/Aruvaro-Chulvi/OFFLINED",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 704849934,
+    "links": [
+      {
+        "url": "https://github.com/Luzifer",
+        "source": "https://github.com/Luzifer/staticmap",
+        "verified": false
+      },
+      {
+        "url": "https://www.paypal.me/luzifer",
+        "source": "https://github.com/Luzifer/staticmap",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/luziferus",
+        "source": "https://github.com/Luzifer/staticmap",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 847253909,
+    "links": [
+      {
+        "url": "https://github.com/quincylvania",
+        "source": "https://github.com/waysidemapping/beefsteak-map-tiles",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/waysidemapping",
+        "source": "https://github.com/waysidemapping/beefsteak-map-tiles",
         "verified": false
       }
     ]
@@ -1070,56 +975,11 @@
     ]
   },
   {
-    "appId": 2118574072,
+    "appId": 1793449133,
     "links": [
       {
-        "url": "https://github.com/simonw",
-        "source": "https://github.com/simonw/download-tiles",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 57628666,
-    "links": [
-      {
-        "url": "https://github.com/derhuerst",
-        "source": "https://github.com/derhuerst/query-overpass",
-        "verified": false
-      },
-      {
-        "url": "https://liberapay.com/derhuerst",
-        "source": "https://github.com/derhuerst/query-overpass",
-        "verified": false
-      },
-      {
-        "url": "https://patreon.com/derhuerst",
-        "source": "https://github.com/derhuerst/query-overpass",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1856450399,
-    "links": [
-      {
-        "url": "https://buymeacoffee.com/offlined",
-        "source": "https://github.com/Aruvaro-Chulvi/OFFLINED",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 395997774,
-    "links": [
-      {
-        "url": "https://github.com/sboulema",
-        "source": "https://github.com/sboulema/MapViewer",
-        "verified": false
-      },
-      {
-        "url": "https://www.paypal.me/sboulema",
-        "source": "https://github.com/sboulema/MapViewer",
+        "url": "https://github.com/Conroy1988",
+        "source": "https://github.com/Conroy1988/missionchief-toolkit-assets",
         "verified": false
       }
     ]
@@ -1130,126 +990,6 @@
       {
         "url": "https://github.com/osmus",
         "source": "https://github.com/fieldpapers/fp-tiler",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 242727084,
-    "links": [
-      {
-        "url": "https://buymeacoffee.com/prot10",
-        "source": "https://github.com/Prot10/MyTripPlanner",
-        "verified": false
-      },
-      {
-        "url": "https://paypal.me/andreaprotani99",
-        "source": "https://github.com/Prot10/MyTripPlanner",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1076435661,
-    "links": [
-      {
-        "url": "https://github.com/jbelien",
-        "source": "https://github.com/jbelien/openstreetmap-calendar-widget",
-        "verified": false
-      },
-      {
-        "url": "https://liberapay.com/jbelien",
-        "source": "https://github.com/jbelien/openstreetmap-calendar-widget",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1514339043,
-    "links": [
-      {
-        "url": "https://www.buymeacoffee.com/ttntm",
-        "source": "https://github.com/ttntm/hugo-leaflet-store-locator",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 581421966,
-    "links": [
-      {
-        "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KF943RX59TYDE&currency_code=EUR&source=url",
-        "source": "https://github.com/alexboia/WP-Trip-Summary",
-        "verified": false
-      },
-      {
-        "url": "https://ko-fi.com/alexandruboia",
-        "source": "https://github.com/alexboia/WP-Trip-Summary",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 507005267,
-    "links": [
-      {
-        "url": "https://liberapay.com/juancarlospaco/donate",
-        "source": "https://github.com/juancarlospaco/nim-overpass",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 509704537,
-    "links": [
-      {
-        "url": "https://github.com/DantSu",
-        "source": "https://github.com/DantSu/php-osm-static-api",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 704849934,
-    "links": [
-      {
-        "url": "https://github.com/Luzifer",
-        "source": "https://github.com/Luzifer/staticmap",
-        "verified": false
-      },
-      {
-        "url": "https://www.paypal.me/luzifer",
-        "source": "https://github.com/Luzifer/staticmap",
-        "verified": false
-      },
-      {
-        "url": "https://ko-fi.com/luziferus",
-        "source": "https://github.com/Luzifer/staticmap",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 415893982,
-    "links": [
-      {
-        "url": "https://github.com/coderdojo-japan",
-        "source": "https://github.com/coderdojo-japan/map.coderdojo.jp",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 664424130,
-    "links": [
-      {
-        "url": "https://github.com/maplibre",
-        "source": "https://github.com/maplibre/maplibre-navigation-android-legacy",
-        "verified": false
-      },
-      {
-        "url": "https://opencollective.com/maplibre",
-        "source": "https://github.com/maplibre/maplibre-navigation-android-legacy",
         "verified": false
       }
     ]
@@ -1280,11 +1020,16 @@
     ]
   },
   {
-    "appId": 884865472,
+    "appId": 1141483064,
     "links": [
       {
-        "url": "https://github.com/enzet",
-        "source": "https://github.com/enzet/Roentgen",
+        "url": "https://github.com/dieghernan",
+        "source": "https://github.com/dieghernan/nominatimlite",
+        "verified": false
+      },
+      {
+        "url": "https://ko-fi.com/dieghernan",
+        "source": "https://github.com/dieghernan/nominatimlite",
         "verified": false
       }
     ]
@@ -1300,16 +1045,21 @@
     ]
   },
   {
-    "appId": 1141483064,
+    "appId": 884865472,
     "links": [
       {
-        "url": "https://github.com/dieghernan",
-        "source": "https://github.com/dieghernan/nominatimlite",
+        "url": "https://github.com/enzet",
+        "source": "https://github.com/enzet/Roentgen",
         "verified": false
-      },
+      }
+    ]
+  },
+  {
+    "appId": 1777603890,
+    "links": [
       {
-        "url": "https://ko-fi.com/dieghernan",
-        "source": "https://github.com/dieghernan/nominatimlite",
+        "url": "https://onroutemap.de/en/about",
+        "source": "http://www.wikidata.org/entity/Q138413099",
         "verified": false
       }
     ]
@@ -1335,31 +1085,11 @@
     ]
   },
   {
-    "appId": 1777603890,
+    "appId": 27405417,
     "links": [
       {
-        "url": "https://onroutemap.de/en/about",
-        "source": "http://www.wikidata.org/entity/Q138413099",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1682183215,
-    "links": [
-      {
-        "url": "https://opencollective.com/playzinhoagro",
-        "source": "https://github.com/Gustavo22Soaresh/osm_projects",
-        "verified": false
-      }
-    ]
-  },
-  {
-    "appId": 1735924464,
-    "links": [
-      {
-        "url": "https://github.com/protomaps",
-        "source": "https://github.com/protomaps/docs",
+        "url": "https://github.com/dechristopher",
+        "source": "https://github.com/dechristopher/lod",
         "verified": false
       }
     ]
@@ -1375,16 +1105,6 @@
     ]
   },
   {
-    "appId": 1784604781,
-    "links": [
-      {
-        "url": "https://github.com/simonw",
-        "source": "https://github.com/simonw/timezones-api",
-        "verified": false
-      }
-    ]
-  },
-  {
     "appId": 1272090988,
     "links": [
       {
@@ -1395,21 +1115,21 @@
     ]
   },
   {
-    "appId": 27405417,
+    "appId": 1735924464,
     "links": [
       {
-        "url": "https://github.com/dechristopher",
-        "source": "https://github.com/dechristopher/lod",
+        "url": "https://github.com/protomaps",
+        "source": "https://github.com/protomaps/docs",
         "verified": false
       }
     ]
   },
   {
-    "appId": 1550836352,
+    "appId": 1682183215,
     "links": [
       {
-        "url": "https://github.com/osmus",
-        "source": "https://github.com/fieldpapers/josm-fieldpapers",
+        "url": "https://opencollective.com/playzinhoagro",
+        "source": "https://github.com/Gustavo22Soaresh/osm_projects",
         "verified": false
       }
     ]
@@ -1430,6 +1150,26 @@
       {
         "url": "https://paypal.me/ThomasRosen",
         "source": "https://github.com/qiekub/api",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1784604781,
+    "links": [
+      {
+        "url": "https://github.com/simonw",
+        "source": "https://github.com/simonw/timezones-api",
+        "verified": false
+      }
+    ]
+  },
+  {
+    "appId": 1550836352,
+    "links": [
+      {
+        "url": "https://github.com/osmus",
+        "source": "https://github.com/fieldpapers/josm-fieldpapers",
         "verified": false
       }
     ]
@@ -1530,16 +1270,16 @@
     ]
   },
   {
-    "appId": 104470202,
+    "appId": 1221193415,
     "links": [
       {
-        "url": "https://pay.web.money/d/kgfx",
-        "source": "https://github.com/artem78/s60-maps",
+        "url": "https://github.com/qgis",
+        "source": "https://github.com/qgis/QGIS",
         "verified": true
       },
       {
-        "url": "https://yoomoney.ru/to/4100119506196001",
-        "source": "https://github.com/artem78/s60-maps",
+        "url": "https://qgis.org/funding",
+        "source": "https://github.com/qgis/QGIS",
         "verified": true
       }
     ]
@@ -1550,6 +1290,21 @@
       {
         "url": "https://github.com/zbycz",
         "source": "https://github.com/zbycz/osmapp",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 104470202,
+    "links": [
+      {
+        "url": "https://pay.web.money/d/kgfx",
+        "source": "https://github.com/artem78/s60-maps",
+        "verified": true
+      },
+      {
+        "url": "https://yoomoney.ru/to/4100119506196001",
+        "source": "https://github.com/artem78/s60-maps",
         "verified": true
       }
     ]
@@ -1585,21 +1340,6 @@
     ]
   },
   {
-    "appId": 1221193415,
-    "links": [
-      {
-        "url": "https://github.com/qgis",
-        "source": "https://github.com/qgis/QGIS",
-        "verified": true
-      },
-      {
-        "url": "https://qgis.org/funding",
-        "source": "https://github.com/qgis/QGIS",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 829610776,
     "links": [
       {
@@ -1610,26 +1350,31 @@
     ]
   },
   {
-    "appId": 1171811023,
-    "links": [
-      {
-        "url": "https://github.com/Zaczero",
-        "source": "https://github.com/openstreetmap-ng/openstreetmap-ng",
-        "verified": true
-      },
-      {
-        "url": "https://liberapay.com/Zaczero",
-        "source": "https://github.com/openstreetmap-ng/openstreetmap-ng",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 2046783486,
     "links": [
       {
         "url": "https://github.com/zbycz",
         "source": "https://github.com/jvaclavik/openclimbing",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1614136195,
+    "links": [
+      {
+        "url": "https://github.com/ToastHawaii",
+        "source": "https://github.com/ToastHawaii/public-bookcase-map",
+        "verified": true
+      },
+      {
+        "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JFWXTYPKBD2YA&source=url",
+        "source": "https://github.com/ToastHawaii/public-bookcase-map",
+        "verified": true
+      },
+      {
+        "url": "https://brave.com/brave-rewards/",
+        "source": "https://github.com/ToastHawaii/public-bookcase-map",
         "verified": true
       }
     ]
@@ -1655,21 +1400,16 @@
     ]
   },
   {
-    "appId": 1614136195,
+    "appId": 1171811023,
     "links": [
       {
-        "url": "https://github.com/ToastHawaii",
-        "source": "https://github.com/ToastHawaii/public-bookcase-map",
+        "url": "https://github.com/Zaczero",
+        "source": "https://github.com/openstreetmap-ng/openstreetmap-ng",
         "verified": true
       },
       {
-        "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JFWXTYPKBD2YA&source=url",
-        "source": "https://github.com/ToastHawaii/public-bookcase-map",
-        "verified": true
-      },
-      {
-        "url": "https://brave.com/brave-rewards/",
-        "source": "https://github.com/ToastHawaii/public-bookcase-map",
+        "url": "https://liberapay.com/Zaczero",
+        "source": "https://github.com/openstreetmap-ng/openstreetmap-ng",
         "verified": true
       }
     ]
@@ -1730,6 +1470,16 @@
     ]
   },
   {
+    "appId": 2076790178,
+    "links": [
+      {
+        "url": "https://github.com/tumic0",
+        "source": "https://github.com/tumic0/GPXSee",
+        "verified": true
+      }
+    ]
+  },
+  {
     "appId": 1058305148,
     "links": [
       {
@@ -1750,11 +1500,11 @@
     ]
   },
   {
-    "appId": 2076790178,
+    "appId": 1596276999,
     "links": [
       {
-        "url": "https://github.com/tumic0",
-        "source": "https://github.com/tumic0/GPXSee",
+        "url": "https://opencollective.com/gpxstudio",
+        "source": "https://github.com/gpxstudio/gpx.studio",
         "verified": true
       }
     ]
@@ -1770,11 +1520,11 @@
     ]
   },
   {
-    "appId": 1596276999,
+    "appId": 1051456084,
     "links": [
       {
-        "url": "https://opencollective.com/gpxstudio",
-        "source": "https://github.com/gpxstudio/gpx.studio",
+        "url": "https://github.com/hotosm",
+        "source": "https://github.com/hotosm/tasking-manager",
         "verified": true
       }
     ]
@@ -1785,16 +1535,6 @@
       {
         "url": "https://liberapay.com/dsantini",
         "source": "https://github.com/Danysan1/osm-wikidata-map-framework",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1051456084,
-    "links": [
-      {
-        "url": "https://github.com/hotosm",
-        "source": "https://github.com/hotosm/tasking-manager",
         "verified": true
       }
     ]
@@ -1870,6 +1610,51 @@
     ]
   },
   {
+    "appId": 624994743,
+    "links": [
+      {
+        "url": "https://github.com/frillweeman",
+        "source": "https://github.com/FoggedLens/deflock",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1211652955,
+    "links": [
+      {
+        "url": "https://github.com/kauevestena",
+        "source": "https://github.com/kauevestena/osm_sidewalkreator",
+        "verified": true
+      },
+      {
+        "url": "https://patreon.com/kauevestena",
+        "source": "https://github.com/kauevestena/osm_sidewalkreator",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1807210006,
+    "links": [
+      {
+        "url": "https://github.com/minad",
+        "source": "https://github.com/minad/osm",
+        "verified": true
+      },
+      {
+        "url": "https://liberapay.com/minad",
+        "source": "https://github.com/minad/osm",
+        "verified": true
+      },
+      {
+        "url": "https://www.paypal.me/danielmendler",
+        "source": "https://github.com/minad/osm",
+        "verified": true
+      }
+    ]
+  },
+  {
     "appId": 795128613,
     "links": [
       {
@@ -1900,71 +1685,11 @@
     ]
   },
   {
-    "appId": 1211652955,
-    "links": [
-      {
-        "url": "https://github.com/kauevestena",
-        "source": "https://github.com/kauevestena/osm_sidewalkreator",
-        "verified": true
-      },
-      {
-        "url": "https://patreon.com/kauevestena",
-        "source": "https://github.com/kauevestena/osm_sidewalkreator",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 624994743,
-    "links": [
-      {
-        "url": "https://github.com/frillweeman",
-        "source": "https://github.com/FoggedLens/deflock",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1807210006,
-    "links": [
-      {
-        "url": "https://github.com/minad",
-        "source": "https://github.com/minad/osm",
-        "verified": true
-      },
-      {
-        "url": "https://liberapay.com/minad",
-        "source": "https://github.com/minad/osm",
-        "verified": true
-      },
-      {
-        "url": "https://www.paypal.me/danielmendler",
-        "source": "https://github.com/minad/osm",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 1653024580,
     "links": [
       {
         "url": "https://liberapay.com/pietervdvn",
         "source": "https://github.com/pietervdvn/MapComplete",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 139765459,
-    "links": [
-      {
-        "url": "https://github.com/jbelien",
-        "source": "https://github.com/jbelien/osm-report",
-        "verified": true
-      },
-      {
-        "url": "https://liberapay.com/jbelien",
-        "source": "https://github.com/jbelien/osm-report",
         "verified": true
       }
     ]
@@ -1990,11 +1715,16 @@
     ]
   },
   {
-    "appId": 653154800,
+    "appId": 139765459,
     "links": [
       {
-        "url": "https://liberapay.com/pietervdvn",
-        "source": "https://github.com/pietervdvn/MapComplete",
+        "url": "https://github.com/jbelien",
+        "source": "https://github.com/jbelien/osm-report",
+        "verified": true
+      },
+      {
+        "url": "https://liberapay.com/jbelien",
+        "source": "https://github.com/jbelien/osm-report",
         "verified": true
       }
     ]
@@ -2010,7 +1740,7 @@
     ]
   },
   {
-    "appId": 1672908022,
+    "appId": 239472130,
     "links": [
       {
         "url": "https://liberapay.com/pietervdvn",
@@ -2020,7 +1750,17 @@
     ]
   },
   {
-    "appId": 239472130,
+    "appId": 653154800,
+    "links": [
+      {
+        "url": "https://liberapay.com/pietervdvn",
+        "source": "https://github.com/pietervdvn/MapComplete",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1672908022,
     "links": [
       {
         "url": "https://liberapay.com/pietervdvn",
@@ -2045,21 +1785,6 @@
       {
         "url": "https://liberapay.com/thomersch",
         "source": "https://github.com/thomersch/openstreetmap-calendar",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 496582976,
-    "links": [
-      {
-        "url": "https://buymeacoffee.com/wanderertrails",
-        "source": "https://github.com/open-wanderer/wanderer",
-        "verified": true
-      },
-      {
-        "url": "https://liberapay.com/wanderer",
-        "source": "https://github.com/open-wanderer/wanderer",
         "verified": true
       }
     ]
@@ -2110,16 +1835,6 @@
     ]
   },
   {
-    "appId": 1943534205,
-    "links": [
-      {
-        "url": "https://github.com/hotosm",
-        "source": "https://github.com/hotosm/tasking-manager",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 1302547582,
     "links": [
       {
@@ -2140,6 +1855,31 @@
       {
         "url": "https://opencollective.com/maplibre",
         "source": "https://github.com/maplibre/martin",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1943534205,
+    "links": [
+      {
+        "url": "https://github.com/hotosm",
+        "source": "https://github.com/hotosm/tasking-manager",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 496582976,
+    "links": [
+      {
+        "url": "https://buymeacoffee.com/wanderertrails",
+        "source": "https://github.com/open-wanderer/wanderer",
+        "verified": true
+      },
+      {
+        "url": "https://liberapay.com/wanderer",
+        "source": "https://github.com/open-wanderer/wanderer",
         "verified": true
       }
     ]
@@ -2190,41 +1930,6 @@
     ]
   },
   {
-    "appId": 1178836685,
-    "links": [
-      {
-        "url": "https://liberapay.com/pietervdvn",
-        "source": "https://github.com/pietervdvn/MapComplete",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 2000494321,
-    "links": [
-      {
-        "url": "https://github.com/lonvia",
-        "source": "https://github.com/osm-search/Nominatim",
-        "verified": true
-      },
-      {
-        "url": "https://nominatim.org/funding/",
-        "source": "https://github.com/osm-search/Nominatim",
-        "verified": true
-      }
-    ]
-  },
-  {
-    "appId": 1503986844,
-    "links": [
-      {
-        "url": "https://numfocus.org/donate-to-grass",
-        "source": "https://github.com/OSGeo/grass",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 96239850,
     "links": [
       {
@@ -2250,6 +1955,41 @@
     ]
   },
   {
+    "appId": 2000494321,
+    "links": [
+      {
+        "url": "https://github.com/lonvia",
+        "source": "https://github.com/osm-search/Nominatim",
+        "verified": true
+      },
+      {
+        "url": "https://nominatim.org/funding/",
+        "source": "https://github.com/osm-search/Nominatim",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1178836685,
+    "links": [
+      {
+        "url": "https://liberapay.com/pietervdvn",
+        "source": "https://github.com/pietervdvn/MapComplete",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1503986844,
+    "links": [
+      {
+        "url": "https://numfocus.org/donate-to-grass",
+        "source": "https://github.com/OSGeo/grass",
+        "verified": true
+      }
+    ]
+  },
+  {
     "appId": 788052325,
     "links": [
       {
@@ -2270,16 +2010,6 @@
     ]
   },
   {
-    "appId": 1244795925,
-    "links": [
-      {
-        "url": "https://osm2pgsql.org/sponsors/",
-        "source": "https://github.com/osm2pgsql-dev/osm2pgsql",
-        "verified": true
-      }
-    ]
-  },
-  {
     "appId": 1818741197,
     "links": [
       {
@@ -2295,6 +2025,46 @@
       {
         "url": "https://donorbox.org/trufi-association",
         "source": "https://github.com/trufi-association/trufi-core",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1087799834,
+    "links": [
+      {
+        "url": "https://github.com/osmus",
+        "source": "https://github.com/OSMCha/osmcha-frontend",
+        "verified": true
+      },
+      {
+        "url": "https://github.com/osmus",
+        "source": "https://github.com/OSMCha/osmcha",
+        "verified": true
+      },
+      {
+        "url": "https://github.com/osmus",
+        "source": "https://github.com/OSMCha/osmcha-django",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1307236812,
+    "links": [
+      {
+        "url": "https://mapshaper.org/sponsor.html",
+        "source": "http://www.wikidata.org/entity/Q122212032",
+        "verified": true
+      },
+      {
+        "url": "https://github.com/mbloch",
+        "source": "https://github.com/mbloch/mapshaper",
+        "verified": true
+      },
+      {
+        "url": "https://ko-fi.com/mapshaper",
+        "source": "https://github.com/mbloch/mapshaper",
         "verified": true
       }
     ]
@@ -2325,21 +2095,256 @@
     ]
   },
   {
-    "appId": 1307236812,
+    "appId": 1013405773,
     "links": [
       {
-        "url": "https://mapshaper.org/sponsor.html",
-        "source": "http://www.wikidata.org/entity/Q122212032",
+        "url": "https://github.com/dennisguse",
+        "source": "https://github.com/OpenTracksApp/OSMDashboard",
         "verified": true
       },
       {
-        "url": "https://github.com/mbloch",
-        "source": "https://github.com/mbloch/mapshaper",
+        "url": "https://liberapay.com/OpenTracks",
+        "source": "https://github.com/OpenTracksApp/OSMDashboard",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1020603280,
+    "links": [
+      {
+        "url": "paypal.me/ChristianPogea",
+        "source": "https://github.com/bassmaster187/TeslaLogger",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 377009001,
+    "links": [
+      {
+        "url": "https://github.com/fdittgen-png",
+        "source": "https://github.com/fdittgen-png/tankstellen",
         "verified": true
       },
       {
-        "url": "https://ko-fi.com/mapshaper",
-        "source": "https://github.com/mbloch/mapshaper",
+        "url": "https://www.paypal.me/FlorianDITTGEN",
+        "source": "https://github.com/fdittgen-png/tankstellen",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 942353502,
+    "links": [
+      {
+        "url": "https://github.com/docentYT",
+        "source": "https://github.com/docentYT/osm_easy_api",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1839811463,
+    "links": [
+      {
+        "url": "https://patreon.com/EmGi3D",
+        "source": "https://github.com/EmGi96/TrailPrint3D",
+        "verified": true
+      },
+      {
+        "url": "https://buymeacoffee.com/emgi",
+        "source": "https://github.com/EmGi96/TrailPrint3D",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1099317708,
+    "links": [
+      {
+        "url": "https://github.com/StrandedKitty",
+        "source": "https://github.com/StrandedKitty/streets-gl",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 610503169,
+    "links": [
+      {
+        "url": "https://buymeacoffee.com/louisdev",
+        "source": "https://github.com/louis-e/arnis",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1738540382,
+    "links": [
+      {
+        "url": "https://github.com/dabreegster",
+        "source": "https://github.com/a-b-street/abstreet",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1924445357,
+    "links": [
+      {
+        "url": "https://github.com/hotosm",
+        "source": "https://github.com/hotosm/openaerialmap",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 434886589,
+    "links": [
+      {
+        "url": "https://github.com/osmus",
+        "source": "https://github.com/osmus/OpenTrailMap",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 40129325,
+    "links": [
+      {
+        "url": "https://github.com/hyperknot",
+        "source": "https://github.com/hyperknot/openfreemap",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 141112900,
+    "links": [
+      {
+        "url": "https://room-tba.uplbtools.me/donate",
+        "source": "https://github.com/uplbtools/room-tba",
+        "verified": true
+      },
+      {
+        "url": "https://room-tba.uplbtools.me/sponsors",
+        "source": "https://github.com/uplbtools/room-tba",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 636322889,
+    "links": [
+      {
+        "url": "https://github.com/travishathaway",
+        "source": "https://github.com/travishathaway/osmprj",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1617463153,
+    "links": [
+      {
+        "url": "https://github.com/pauldendulk",
+        "source": "https://github.com/Mapsui/Mapsui",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 947937705,
+    "links": [
+      {
+        "url": "https://github.com/joomla",
+        "source": "https://github.com/joomla-framework/openstreetmap-api",
+        "verified": true
+      },
+      {
+        "url": "https://community.joomla.org/sponsorship-campaigns.html",
+        "source": "https://github.com/joomla-framework/openstreetmap-api",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1405189850,
+    "links": [
+      {
+        "url": "https://liberapay.com/zoff/donate",
+        "source": "https://github.com/zoff99/toloshare_material",
+        "verified": true
+      },
+      {
+        "url": "https://blockstream.info/address/1TRifA7eNLHZEcCTj43eYVWHBbLqTuXkS",
+        "source": "https://github.com/zoff99/toloshare_material",
+        "verified": true
+      },
+      {
+        "url": "https://buy.stripe.com/6oE00FbLieDMc7ecMN",
+        "source": "https://github.com/zoff99/toloshare_material",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1724949204,
+    "links": [
+      {
+        "url": "https://github.com/kiwix",
+        "source": "https://github.com/openzim/maps",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1122113191,
+    "links": [
+      {
+        "url": "https://ko-fi.com/jakobsteiner",
+        "source": "https://github.com/steinerjakob/FireYak",
+        "verified": true
+      },
+      {
+        "url": "https://buymeacoffee.com/steinerjakob",
+        "source": "https://github.com/steinerjakob/FireYak",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 724087467,
+    "links": [
+      {
+        "url": "https://github.com/OpenGIS",
+        "source": "https://github.com/OpenGIS/waymark-js",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 1820627045,
+    "links": [
+      {
+        "url": "https://osmcode.org/sponsors.html",
+        "source": "https://github.com/osmcode/osmium-tool",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "appId": 880338358,
+    "links": [
+      {
+        "url": "https://github.com/liskin",
+        "source": "https://github.com/liskin/strava-map-switcher",
+        "verified": true
+      },
+      {
+        "url": "https://www.paypal.me/lisknisi/10EUR",
+        "source": "https://github.com/liskin/strava-map-switcher",
         "verified": true
       }
     ]

@@ -190,7 +190,7 @@ export function DownloadSlide({ app }: { app: App }) {
           </>
         ))}
 
-      {!app.website && !some(app.install) && app.sourceCode && (
+      {!app.website && !some(app.install) && !!app.sourceCode && (
         <>
           <div className="mt-6 mb-2">
             <Trans
