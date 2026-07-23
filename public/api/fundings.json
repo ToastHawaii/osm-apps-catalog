@@ -365,7 +365,7 @@
       {
         "url": "https://github.com/kiwix",
         "source": "https://github.com/openzim/maps",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -415,7 +415,7 @@
       {
         "url": "https://github.com/OpenGIS",
         "source": "https://github.com/OpenGIS/waymark-js",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -425,7 +425,7 @@
       {
         "url": "https://osmcode.org/sponsors.html",
         "source": "https://github.com/osmcode/osmium-tool",
-        "verified": false
+        "verified": true
       }
     ]
   },
@@ -435,12 +435,12 @@
       {
         "url": "https://github.com/liskin",
         "source": "https://github.com/liskin/strava-map-switcher",
-        "verified": false
+        "verified": true
       },
       {
         "url": "https://www.paypal.me/lisknisi/10EUR",
         "source": "https://github.com/liskin/strava-map-switcher",
-        "verified": false
+        "verified": true
       }
     ]
   },
