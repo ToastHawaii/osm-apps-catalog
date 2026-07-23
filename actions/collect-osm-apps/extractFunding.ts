@@ -1,6 +1,6 @@
 import { Funding } from "@actions/lib/getValidatedFundings";
 import { App } from "@shared/data/App";
-import { chain, some } from "lodash";
+import { chain } from "lodash";
 
 export function extractFunding(apps: App[], validatedFundings: Funding[]) {
   const newFundings = chain(apps)
@@ -13,12 +13,7 @@ export function extractFunding(apps: App[], validatedFundings: Funding[]) {
         verified:
           !!validatedFundings
             .find((v) => a.id === v.appId)
-            ?.links.some((l) => l.url === url && l.verified) ||
-          (!a.website &&
-            !some(a.install) &&
-            !!a.sourceCode &&
-            a.source.length === 1 &&
-            a.source[0].name === "GitHub"),
+            ?.links.some((l) => l.url === url && l.verified),
       })),
     }))
     .sortBy((f) => !!f.links?.some((l) => l.verified))
