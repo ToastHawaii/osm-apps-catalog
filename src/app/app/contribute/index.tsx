@@ -81,11 +81,8 @@ export function Contribute({ app }: { app: App }) {
         </DrawerDialog>
 
         <Activity
-          title={
-            <span className="text-pink-600">
-              {t("app.contribute.activity.donate.title")}
-            </span>
-          }
+          className="text-pink-600"
+          title={t("app.contribute.activity.donate.title")}
           description={
             <span className="text-pink-600">
               {t("app.contribute.activity.donate.description", {
@@ -96,7 +93,7 @@ export function Contribute({ app }: { app: App }) {
           icon={
             <HugeiconsIcon
               icon={FavouriteCircleIcon}
-              className="inline-block text-pink-600"
+              className="inline-block"
               strokeWidth={2}
             />
           }

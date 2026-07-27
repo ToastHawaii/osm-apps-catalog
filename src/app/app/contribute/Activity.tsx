@@ -38,6 +38,7 @@ export type Links = Link[];
 
 export function Activity(
   props: {
+    className?: string | undefined;
     title: ReactNode;
     description: ReactNode;
     icon: IconSvgElement | ReactElement;
@@ -59,7 +60,7 @@ export function Activity(
 ) {
   useGoatCounterEvents();
 
-  const { title, description, icon } = props;
+  const { title, description, icon, className = "" } = props;
 
   const disabled =
     !("link" in props && props.link) &&
@@ -113,7 +114,7 @@ export function Activity(
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Item size="xs" className="" asChild>
+          <Item size="xs" className={className} asChild>
             <button className="text-start">{item}</button>
           </Item>
         </DropdownMenuTrigger>
@@ -144,7 +145,7 @@ export function Activity(
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Item variant="muted" size="xs">
+          <Item variant="muted" size="xs" className={className}>
             <ItemMedia variant="image" className="opacity-40">
               {!isValidElement(icon) ? (
                 <HugeiconsIcon
