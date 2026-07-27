@@ -47,13 +47,13 @@ function PageHeader() {
     <div className="sticky left-0 text-center">
       <p className="description" style={{ margin: "5px 10px" }}>
         <Trans
-          i18nKey={`category.all.description.filtered`}
+          i18nKey="category.all.description.filtered"
           values={{
             numberOfApps: 1,
             totalNumberOfApps: apps.length,
           }}
           components={{
-            o: <ExternalLink href="https://openstreetmap.org/" />,
+            o: <ExternalLink href="https://openstreetmap.org/about" />,
           }}
         />
 

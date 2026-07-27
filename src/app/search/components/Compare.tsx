@@ -50,6 +50,8 @@ import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
 import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
 import { getMastodon } from "@shared/utils/links/getMastodon";
 import { getLemmy } from "@shared/utils/links/getLemmy";
+import { Formatted } from "@components/common/Formatted";
+import { newUrl } from "@shared/utils/url";
 
 export function Compare({
   apps,
@@ -65,6 +67,11 @@ export function Compare({
   const { t } = useTranslation();
 
   useGoatCounterEvents();
+
+  function getDelimiter(app) {
+    const desc = plainText(app.description || app.subtitle || "");
+    return desc ? (desc.endsWith(".") ? " " : " – ") : "";
+  }
 
   return (
     <>
@@ -178,24 +185,21 @@ export function Compare({
             hasValue: (app) => !!(app.description || app.subtitle),
             renderToHtml: (app) => (
               <>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: app.description || app.subtitle || "",
-                  }}
-                ></span>
+                <Formatted htmlText={app.description || app.subtitle || ""} />
                 {app.documentation && (
                   <>
-                    {plainText(app.description || app.subtitle || "")
-                      ? plainText(
-                          app.description || app.subtitle || "",
-                        ).endsWith(".")
-                        ? " "
-                        : " – "
-                      : ""}
-                    <ExternalLink href="https://openstreetmap.org/">
-                      {t("list.documentation")}
+                    {getDelimiter(app)}
+                    <ExternalLink
+                      href={app.documentation}
+                      icon
+                      data-goatcounter-click="/app/more"
+                      data-goatcounter-title="Goes to the learn more page of an app."
+                      data-goatcounter-referrer="https://osm-apps.org/"
+                    >
+                      {t("app.learnMore", {
+                        website: newUrl(app.documentation).hostname,
+                      })}
                     </ExternalLink>
-                    ,
                   </>
                 )}
               </>

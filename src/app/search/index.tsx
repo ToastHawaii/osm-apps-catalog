@@ -102,13 +102,13 @@ export function Search({ apps }: { apps: App[] }) {
         <p className="description" style={{ margin: "5px 10px" }}>
           {state.category === "all" && filteredApps.length !== apps.length ? (
             <Trans
-              i18nKey={`category.all.description.filtered`}
+              i18nKey="category.all.description.filtered"
               values={{
                 numberOfApps: filteredApps.length,
                 totalNumberOfApps: apps.length,
               }}
               components={{
-                o: <ExternalLink href="https://openstreetmap.org/" />,
+                o: <ExternalLink href="https://openstreetmap.org/about" />,
               }}
             />
           ) : (
@@ -118,7 +118,7 @@ export function Search({ apps }: { apps: App[] }) {
                 numberOfApps: filteredApps.length,
               }}
               components={{
-                o: <ExternalLink href="https://openstreetmap.org/" />,
+                o: <ExternalLink href="https://openstreetmap.org/about" />,
                 s: <a href={routes.docsScore()} />,
               }}
             />
