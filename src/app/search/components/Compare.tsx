@@ -68,7 +68,7 @@ export function Compare({
 
   useGoatCounterEvents();
 
-  function getDelimiter(app) {
+  function getDelimiter(app: App) {
     const desc = plainText(app.description || app.subtitle || "");
     return desc ? (desc.endsWith(".") ? " " : " – ") : "";
   }
