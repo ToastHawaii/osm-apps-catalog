@@ -18,17 +18,28 @@ export function equalsIgnoreCase(a: string | undefined, b: string | undefined) {
     : a === b;
 }
 
+/**
+ * @returns returns false when a or b are undefined or empty
+ */
 export function equalsString(a: string | undefined, b: string | undefined) {
-  return a && b && a === b;
+  return !!(a && b && a === b);
 }
 
+/**
+ * @returns returns false when a or b are undefined or empty
+ */
 export function equalsName(a: string, b: string) {
-  return (
+  return !!(
+    a &&
+    b &&
     a.toUpperCase().replaceAll("-", " ").replaceAll("_", " ") ===
-    b.toUpperCase().replaceAll("-", " ").replaceAll("_", " ")
+      b.toUpperCase().replaceAll("-", " ").replaceAll("_", " ")
   );
 }
 
+/**
+ * @returns returns false when a or b are undefined or empty
+ */
 export function equalsWebsite(a: string | undefined, b: string | undefined) {
   if (!a || !b) {
     return false;

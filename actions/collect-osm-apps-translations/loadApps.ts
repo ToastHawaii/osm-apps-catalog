@@ -37,7 +37,7 @@ export async function loadApps(/*githubToken: string*/) {
           includeRepositoryForUniqueCheck: app.source[0].name === "GitHub",
           checkWebsiteWithRepo: app.source[0].name === "taginfo",
           includeSourceForUniqueCheck: app.source[0].name === "Wikidata",
-          // The language of github is only recognised automatically based on the description, so if
+          // The language of github is only recognized automatically based on the description, so if
           // there is another source, use language from there
           onlyAddLanguageIfEmpty: app.source[0].name === "GitHub",
         }),

@@ -13,14 +13,14 @@ export function addOrMergeApp(
     onlyAddLanguageIfEmpty: boolean;
   },
 ) {
-  const duplicates = apps.filter((app) => equals(app, obj, options));
+  const duplicate = apps.find((app) => equals(app, obj, options));
 
-  if (duplicates.length === 0) {
-    const existingApp = knownApps.filter((app) => equals(app, obj, options));
+  if (!duplicate) {
+    const existingApp = knownApps.find((app) => equals(app, obj, options));
 
     // only add if en app is already known
-    if (existingApp.length > 0) {
-      obj.id = existingApp[0].id;
+    if (existingApp) {
+      obj.id = existingApp.id;
       apps.push(obj);
     } else {
       console.log(
@@ -28,8 +28,6 @@ export function addOrMergeApp(
       );
     }
   } else {
-    const app = duplicates[0];
-
-    mergeApps(app, obj, options);
+    mergeApps(duplicate, obj, options);
   }
 }

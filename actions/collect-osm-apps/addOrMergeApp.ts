@@ -12,9 +12,9 @@ export function addOrMergeApp(
     onlyAddLanguageIfEmpty: boolean;
   },
 ) {
-  const duplicates = apps.filter((app) => equals(app, obj, options));
+  const duplicate = apps.find((app) => equals(app, obj, options));
 
-  if (duplicates.length === 0) {
+  if (!duplicate) {
     // only add if external sources exists
     if (
       obj.name !== "" &&
@@ -33,8 +33,6 @@ export function addOrMergeApp(
       apps.push(obj);
     }
   } else {
-    const app = duplicates[0];
-
-    mergeApps(app, obj, options);
+    mergeApps(duplicate, obj, options);
   }
 }
