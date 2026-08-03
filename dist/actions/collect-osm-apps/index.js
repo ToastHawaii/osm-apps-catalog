@@ -141920,7 +141920,12 @@ function enrichId(apps) {
 
 function display(a) {
     const topics = a.cache?.topics || string_upperCase(a.topics);
-    return array_some(topics, ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"]);
+    return array_some(topics, [
+        "DISPLAY",
+        "VIEWING TOOL",
+        "MAP VISUALIZATION",
+        "SLIPPY MAP",
+    ]);
 }
 const mobilePlatforms = (/* unused pure expression or super */ null && ([
     "ANDROID",
