@@ -4,7 +4,12 @@ import { some } from "@shared/utils/array";
 
 export function display(a: App) {
   const topics = a.cache?.topics || upperCase(a.topics);
-  return some(topics, ["DISPLAY", "VIEWING TOOL", "MAP VISUALIZATION"]);
+  return some(topics, [
+    "DISPLAY",
+    "VIEWING TOOL",
+    "MAP VISUALIZATION",
+    "SLIPPY MAP",
+  ]);
 }
 
 const mobilePlatforms = [
