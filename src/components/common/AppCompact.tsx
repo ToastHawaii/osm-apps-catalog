@@ -64,7 +64,9 @@ export function AppCompact({
           )}
         </Link>
       </Item>
-      {!!score && <Score app={app} position="right" />}
+      {!!score && (
+        <Score className="rounded-tr-lg" app={app} position="right" />
+      )}
     </div>
   );
 }
