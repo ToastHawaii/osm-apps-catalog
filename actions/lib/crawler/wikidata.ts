@@ -3,52 +3,57 @@ import { App } from "@shared/data/App";
 import { convertToHttps, newUrl } from "@shared/utils/url";
 import { getJson } from "@shared/utils/jsonRequest";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
-import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import {
+  isFreeAndOpenSourceLicense,
+  isFreeAndOpenSourceSoftware,
+} from "@actions/lib/isFreeAndOpenSource";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 import { platformFilter } from "@actions/lib/platformFilter";
 import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
+import { uniq, upperFirst } from "lodash";
 
 function extractGenre(result: any) {
+  const types = [
+    "ROUTE PLANNING SOFTWARE",
+    "ROUTE PLANNING TOOL",
+    "OPENSTREETMAP ROUTING TOOL",
+    "ROUTING SOFTWARE",
+    "RENDERING SOFTWARE",
+    "OPENSTREETMAP EXTRACTION TOOL",
+    "OPENSTREETMAP EDITOR SOFTWARE",
+    "STREET-LEVEL IMAGERY SERVICE",
+    "OPENSTREETMAP CHANGESET REVIEW TOOL",
+    "TASKING MANAGER",
+    "CONVERTER",
+    "OPENSTREETMAP VIEWING TOOL",
+    "OPENSTREETMAP WELCOMING TOOL",
+    "OPENSTREETMAP MONITORING TOOL",
+    "AUTOMOTIVE NAVIGATION SYSTEM",
+    "OSM HASHTAG TOOL",
+    "OPENSTREETMAP COMPARING TOOL",
+  ];
+
   const genre = [];
 
-  if (result.viewing?.value === "y") {
-    genre.push("Viewing tool");
-  }
+  genre.push(
+    ...(result.types?.value || "")
+      .split(";")
+      .filter((v: string) => types.includes(v.toUpperCase()))
+      .map((v: string) =>
+        v
+          .replaceAll("OpenStreetMap ", "")
+          .replaceAll("OSM  ", "")
+          .replaceAll("street-level imagery service", "street-level imagery"),
+      )
+      .map(upperFirst),
+  );
 
-  if (result.routing?.value === "y") {
-    genre.push("Routing tool");
-  }
-
-  if (result.editor?.value === "y") {
-    genre.push("Editor tool");
-  }
-
-  if (result.comparing?.value === "y") {
-    genre.push("Comparing tool");
-  }
-
-  if (result.hashtagTool?.value === "y") {
-    genre.push("Hashtag tool");
-  }
-
-  if (result.monitoring?.value === "y") {
-    genre.push("Monitoring tool");
-  }
-
-  if (result.changsetReview?.value === "y") {
-    genre.push("Changeset review tool");
-  }
-
-  if (result.welcomingTool?.value === "y") {
-    genre.push("Welcoming tool");
-  }
-
-  if (result.streetImgSv?.value === "y" || result.streetImg?.value === "y") {
+  if (result.streetImg?.value === "y") {
     genre.push("Street-level imagery");
   }
 
-  return genre;
+  return uniq(genre);
 }
 
 function extractIrc(value: any) {
@@ -90,7 +95,9 @@ export function transform(result: any) {
         : "",
     documentation: result.doc?.value || result.docDef?.value || "",
     author: result.authors?.value || "",
-    libre: isFreeAndOpenSource(result.license?.value),
+    libre:
+      isFreeAndOpenSourceSoftware(result.types?.value) ||
+      isFreeAndOpenSourceLicense(result.license?.value),
     license: (result.license?.value || "").split(";").filter((v: any) => v),
     sourceCode: result.sourceCode?.value || "",
     programmingLanguages: (result.progLgs?.value || "")
@@ -124,6 +131,7 @@ export function transform(result: any) {
             : undefined,
           result.apple?.value ? "iOS" : undefined,
           result.microsoft?.value ? "Windows" : undefined,
+          ...(result.types?.value || "").split(";"),
         ]
           .filter(platformFilter)
           .map((p) => getPlatformDisplay(p) || p),
@@ -366,19 +374,12 @@ GROUP BY ?item
   `
 SELECT DISTINCT 
   ?item
+  (GROUP_CONCAT(DISTINCT ?instanceOf; SEPARATOR = ";") AS ?types)
   (GROUP_CONCAT(DISTINCT ?topic; SEPARATOR = ";") AS ?topics)
   (GROUP_CONCAT(DISTINCT ?genre; SEPARATOR = ";") AS ?genres)
   (GROUP_CONCAT(DISTINCT ?subject; SEPARATOR = ";") AS ?subjects)
   (GROUP_CONCAT(DISTINCT ?fow; SEPARATOR = ";") AS ?fows)
   (GROUP_CONCAT(DISTINCT ?depict; SEPARATOR = ";") AS ?depicts)
-  ?viewing
-  ?routing
-  ?editor
-  ?comparing
-  ?hashtagTool
-  ?monitoring
-  ?changsetReview
-  ?welcomingTool
   ?streetImg
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
@@ -400,6 +401,11 @@ WHERE {
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
   FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
   FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+
+  OPTIONAL { 
+    ?item wdt:P31/rdfs:label ?instanceOf.
+    FILTER((LANG(?instanceOf) = "mul" || LANG(?instanceOf) = "en"))
+  }
 
   OPTIONAL { 
     ?item wdt:P366/rdfs:label ?topic.
@@ -427,46 +433,6 @@ WHERE {
   }
 
   OPTIONAL { 
-    ?item wdt:P31 wd:Q122264265.
-    BIND("y" AS ?viewing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122264957.
-    BIND("y" AS ?routing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q130404096.
-    BIND("y" AS ?routing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q98163019.
-    BIND("y" AS ?editor)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122264344.
-    BIND("y" AS ?comparing)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122270779.
-    BIND("y" AS ?hashtagTool)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q122270784.
-    BIND("y" AS ?monitoring)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q125191237.
-    BIND("y" AS ?changsetReview)
-  }
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q125191788.
-    BIND("y" AS ?welcomingTool)
-  }  
-  OPTIONAL { 
-    ?item wdt:P31 wd:Q86715518.
-    BIND("y" AS ?streetImgSv)
-  }  
-  OPTIONAL { 
     ?item p:P3712 ?goalStat. 
     ?goalStat ps:P3712 ?goal. 
     FILTER(?goal = wd:Q275969)
@@ -475,15 +441,6 @@ WHERE {
   }
 }
 GROUP BY ?item 
-         ?viewing 
-         ?routing 
-         ?editor 
-         ?comparing 
-         ?hashtagTool 
-         ?monitoring 
-         ?changsetReview 
-         ?welcomingTool
-         ?streetImgSv
          ?streetImg
 `,
   // Platform

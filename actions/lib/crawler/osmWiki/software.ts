@@ -18,7 +18,7 @@ import {
 import { App } from "@shared/data/App";
 import { uniq, upperFirst } from "lodash";
 import { plainText } from "@shared/utils/plainText";
-import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { isFreeAndOpenSourceLicense } from "@actions/lib/isFreeAndOpenSource";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { toWikimediaUrl } from "@actions/lib/image";
 import { languageFilter } from "@actions/lib/languageFilter";
@@ -68,7 +68,7 @@ export function transform(
     gratis: source["price"]
       ? some([source["price"].toUpperCase()], ["GRATIS", "FREE", "0"])
       : undefined,
-    libre: isFreeAndOpenSource(source["license"]),
+    libre: isFreeAndOpenSourceLicense(source["license"]),
     price: source["price"],
     license: processWikiText(source["license"] || "")
       .split(splitByCommaButNotInsideBraceRegex)

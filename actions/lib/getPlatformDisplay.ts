@@ -159,6 +159,19 @@ const platforms: {
       "web browser",
       "web application",
       "pwa",
+      // wikidata
+      "website",
+      "web page",
+      "progressive web app",
+      "web portal",
+      "online encyclopedia",
+      "web map",
+      "web map application",
+      "web mapping platform",
+      "interactive web map",
+      "tiled web map",
+      "Leaflet OSM map",
+      "OpenStreetMap based web map",
     ],
     version: [],
   },
@@ -180,11 +193,11 @@ export function getPlatformDisplay(value: string) {
 
   for (const platform of platforms) {
     for (const version of platform.version) {
-      if (version.synonym.find((s) => equalsIgnoreCase(s, value)))
+      if (version.synonym.some((s) => equalsIgnoreCase(s, value)))
         return platform.name;
     }
 
-    if (platform.synonym.find((s) => equalsIgnoreCase(s, value)))
+    if (platform.synonym.some((s) => equalsIgnoreCase(s, value)))
       return platform.name;
   }
   return "";

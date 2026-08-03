@@ -15,7 +15,7 @@ import {
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { toWikimediaUrl } from "@actions/lib/image";
-import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { isFreeAndOpenSourceLicense } from "@actions/lib/isFreeAndOpenSource";
 import { languageFilter } from "@actions/lib/languageFilter";
 import { languageValueFormat } from "@actions/lib/languageValueFormat";
 
@@ -75,7 +75,7 @@ export function transform(
     ]),
     libre:
       source["tiles_license"] || source["style_license"]
-        ? isFreeAndOpenSource([
+        ? isFreeAndOpenSourceLicense([
             source["tiles_license"],
             source["style_license"],
           ])

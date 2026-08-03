@@ -5,7 +5,7 @@ import { equalsIgnoreCase } from "@shared/utils/string";
 import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
 import { getProgrammingLanguageDisplay } from "@actions/lib/getProgrammingLanguageDisplay";
-import { isFreeAndOpenSource } from "@actions/lib/isFreeAndOpenSource";
+import { isFreeAndOpenSourceLicense } from "@actions/lib/isFreeAndOpenSource";
 import { createOctokit } from "@actions/lib/crawler/createOctokit";
 import { getBlackList } from "@actions/lib/getBlackList";
 
@@ -131,7 +131,7 @@ export function transformGitHubResult(eld: any, result: any) {
       ? result.url + "/wiki/"
       : result.url || "",
     author: `<a href='${result.owner.url}' target='_blank' rel='noreferrer'>${result.owner.login}</a> and other <a href='${result.url}/graphs/contributors' target='_blank' rel='noreferrer'>contributors</a>`,
-    libre: isFreeAndOpenSource(result.licenseInfo?.spdxId),
+    libre: isFreeAndOpenSourceLicense(result.licenseInfo?.spdxId),
     license:
       result.licenseInfo?.spdxId !== "NOASSERTION" && result.licenseInfo?.spdxId
         ? [result.licenseInfo.spdxId]

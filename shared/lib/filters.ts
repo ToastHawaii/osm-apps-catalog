@@ -178,9 +178,11 @@ export function calcRoute(a: App) {
   return some(topics, [
     "ROUTING",
     "ROUTER",
+    "ROUTING SOFTWARE",
     "ROUTING TOOL",
-    "ROUTE PLANNING SOFTWARE",
     "ROUTE PLANNING",
+    "ROUTE PLANNING SOFTWARE",
+    "ROUTE PLANNING TOOL",
   ]);
 }
 
@@ -226,6 +228,7 @@ export function edit(a: App) {
       "EDITOR",
       "EDITOR SOFTWARE",
       "EDITOR TOOL",
+      "GAME WITH A PURPOSE",
     ])
   );
 }
@@ -276,6 +279,7 @@ export function convert(a: App) {
     "DATA CONVERSION",
     "RENDER",
     "RENDERER",
+    "RENDERING SOFTWARE",
     "MAP RENDERER",
     "OPENSTREETMAP RENDERER",
   ]);
@@ -293,7 +297,7 @@ export function print(a: App) {
 
 export function maps3D(a: App) {
   const topics = a.cache?.topics || upperCase(a.topics);
-  return some(topics, ["3D"]);
+  return some(topics, ["3D", "3D MAP"]);
 }
 
 export function isochrone(a: App) {
@@ -330,6 +334,16 @@ export function library(a: App) {
     "OVERPASS API",
     "NOMINATIM API",
     "OSRM API",
+    // Wikidata
+    "JAVASCRIPT LIBRARY",
+    "SOFTWARE LIBRARY",
+    "APPLICATION PROGRAMMING INTERFACE",
+    "ONLINE SERVICE",
+    "SERVICE PROVIDER",
+    "INTERNET MAP SERVICE",
+    "OSM RASTER TILE PROVIDER",
+    "OSM-BASED SERVICE",
+    "OSM VECTOR TILE PROVIDER",
   ]);
 }
 
