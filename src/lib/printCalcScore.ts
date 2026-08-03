@@ -40,6 +40,8 @@ export function printCalcScore(apps: App[]) {
   console.info("30.03.2026: 2.042 (1982 Apps)");
   console.info("15.04.2026: 2.056 (1982 Apps)");
   console.info("02.06.2026: 2.056 (2012 Apps)");
+  console.info('Enrich with information from wikidata "instance of"');
+  console.info("03.08.2026: 2.063 (2030 Apps)");
 
   console.info("Today: " + average);
 }

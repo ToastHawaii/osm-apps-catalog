@@ -43,7 +43,7 @@ function extractGenre(result: any) {
       .map((v: string) =>
         v
           .replaceAll("OpenStreetMap ", "")
-          .replaceAll("OSM  ", "")
+          .replaceAll("OSM ", "")
           .replaceAll("street-level imagery service", "street-level imagery"),
       )
       .map(upperFirst),
@@ -118,25 +118,27 @@ export function transform(result: any) {
       ...toValues(result.fows?.value),
       ...toValues(result.depicts?.value),
     ],
-    platform: [
-      ...new Set(
-        [
+    platform: uniq(
+      [
+        ...[
           ...(result.platforms?.value || "").split(";"),
           ...(result.os?.value || "").split(";"),
-          result.asin?.value ||
-          result.google?.value ||
-          result.huawei?.value ||
-          result.fDroid?.value
-            ? "Android"
-            : undefined,
-          result.apple?.value ? "iOS" : undefined,
-          result.microsoft?.value ? "Windows" : undefined,
-          ...(result.types?.value || "").split(";"),
         ]
           .filter(platformFilter)
           .map((p) => getPlatformDisplay(p) || p),
-      ),
-    ],
+        result.asin?.value ||
+        result.google?.value ||
+        result.huawei?.value ||
+        result.fDroid?.value
+          ? "Android"
+          : undefined,
+        result.apple?.value ? "iOS" : undefined,
+        result.microsoft?.value ? "Windows" : undefined,
+        ...(result.types?.value || "")
+          .split(";")
+          .map((p: string) => getPlatformDisplay(p)),
+      ].filter((v) => v),
+    ),
     coverage: [],
     install: {
       asin: result.asin?.value,
