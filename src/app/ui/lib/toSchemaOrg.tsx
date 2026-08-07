@@ -27,6 +27,9 @@ export function toSchemaOrg(app: App) {
     description:
       plainText(app.subtitle || app.descriptionShort || app.description) ||
       undefined,
+    sameAs: [
+      app.source.filter((s) => s.name !== "ServiceItem").map((s) => s.url),
+    ],
     keywords: app.topics.join(","),
     image: app.logos[0] || undefined,
     screenshot: app.images[0] || undefined,
