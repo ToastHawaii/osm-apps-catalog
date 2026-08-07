@@ -25,5 +25,12 @@
     "repository": ["plante-app-team/plante"],
     "author": [],
     "reason": "This repository was archived and the official website is offline."
+  },
+  {
+    "name": ["cov19testmap"],
+    "repository": ["IneffableKoD/cov19testmap"],
+    "author": [],
+    "reason": "The official website is offline."
   }
 ]
+
