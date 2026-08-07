@@ -132366,11 +132366,7 @@ function transformGitHubResult(eld, result) {
         description: result.descriptionHTML || "",
         images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
         logos: [],
-        website: result.homepageUrl
-            ? newUrl(!result.homepageUrl.toUpperCase().startsWith("HTTP")
-                ? "https://" + result.homepageUrl
-                : result.homepageUrl).toString()
-            : "",
+        website: toUrl(result.homepageUrl),
         documentation: result.hasWikiEnabled
             ? result.url + "/wiki/"
             : result.url || "",
@@ -132414,7 +132410,7 @@ function transformGitHubResult(eld, result) {
             issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
         },
         funding: result.fundingLinks.map((l) => ({
-            url: l.url.replace(/^https:\/\/github\.com\//, "https://github.com/sponsors/"),
+            url: toUrl(l.url.replace(/^https:\/\/github\.com\//, "https://github.com/sponsors/")),
             source: result.url,
         })),
         source: [
@@ -133560,10 +133556,10 @@ async function loadAppsFromTagInfoProjects() {
     const source = "https://taginfo.openstreetmap.org/projects/";
     const result = projectObjects.data.map((obj) => ({
         name: obj.name,
-        website: newUrl(obj.project_url).toString(),
+        website: toUrl(obj.project_url),
         images: [],
-        logos: obj.icon_url ? [obj.icon_url] : [],
-        documentation: obj.doc_url,
+        logos: obj.icon_url ? [toUrl(obj.icon_url)] : [],
+        documentation: toUrl(obj.doc_url),
         source: [
             {
                 name: "taginfo",
