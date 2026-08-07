@@ -50,6 +50,29 @@ export function Router() {
           routes.app({ app: parseInt(searchParams.get("app") || "", 10) }),
         );
       }
+      if (searchParams.get("wiki")) {
+        // redirect to app detail page to support linking from wiki.openstreetmap.org
+
+        if (apps.length) {
+          const app = apps.find((a) =>
+            a.source.some(
+              (s) =>
+                (s.name === "Software" || s.name === "Layer") &&
+                s.id === searchParams.get("wiki"),
+            ),
+          );
+
+          if (!app) {
+            return <NotFound />;
+          }
+
+          navigate(routes.app({ app: app.id }));
+        }
+      }
+      if (searchParams.get("search")) {
+        // redirect to search page to support a stable route
+        navigate(routes.search({ search: searchParams.get("search") || "" }));
+      }
 
       return isTechDomain ? <Tech apps={apps} /> : <Home apps={apps} />;
     default:
