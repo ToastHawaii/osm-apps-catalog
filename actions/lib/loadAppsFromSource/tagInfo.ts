@@ -1,5 +1,5 @@
 import { getJson } from "@shared/utils/jsonRequest";
-import { newUrl } from "@shared/utils/url";
+import { toUrl } from "@shared/utils/url";
 
 interface ApiResult {
   /** URL of the request. */
@@ -41,10 +41,10 @@ export async function loadAppsFromTagInfoProjects() {
     (obj) =>
       ({
         name: obj.name,
-        website: newUrl(obj.project_url).toString(),
+        website: toUrl(obj.project_url),
         images: [],
-        logos: obj.icon_url ? [obj.icon_url] : [],
-        documentation: obj.doc_url,
+        logos: obj.icon_url ? [toUrl(obj.icon_url)] : [],
+        documentation: toUrl(obj.doc_url),
         source: [
           {
             name: "taginfo",

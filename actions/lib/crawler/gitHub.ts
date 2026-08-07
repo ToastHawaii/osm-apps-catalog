@@ -1,6 +1,6 @@
 import { chain, uniqBy, upperFirst, words } from "lodash";
 
-import { newUrl } from "@shared/utils/url";
+import { toUrl } from "@shared/utils/url";
 import { equalsIgnoreCase } from "@shared/utils/string";
 import { getFrameworkDisplay } from "@actions/lib/getFrameworkDisplay";
 import { getPlatformDisplay } from "@actions/lib/getPlatformDisplay";
@@ -120,13 +120,7 @@ export function transformGitHubResult(eld: any, result: any) {
     description: result.descriptionHTML || "",
     images: result.usesCustomOpenGraphImage ? [result.openGraphImageUrl] : [],
     logos: [],
-    website: result.homepageUrl
-      ? newUrl(
-          !result.homepageUrl.toUpperCase().startsWith("HTTP")
-            ? "https://" + result.homepageUrl
-            : result.homepageUrl,
-        ).toString()
-      : "",
+    website: toUrl(result.homepageUrl),
     documentation: result.hasWikiEnabled
       ? result.url + "/wiki/"
       : result.url || "",
@@ -171,9 +165,11 @@ export function transformGitHubResult(eld: any, result: any) {
       issueTracker: result.hasIssuesEnabled ? result.url + "/issues/" : "",
     },
     funding: result.fundingLinks.map((l: any) => ({
-      url: (l.url as string).replace(
-        /^https:\/\/github\.com\//,
-        "https://github.com/sponsors/",
+      url: toUrl(
+        (l.url as string).replace(
+          /^https:\/\/github\.com\//,
+          "https://github.com/sponsors/",
+        ),
       ),
       source: result.url,
     })),
