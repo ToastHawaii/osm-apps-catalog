@@ -110,7 +110,7 @@ export function Contribute({ app }: { app: App }) {
                       url.search;
 
                     let icon;
-                    switch (url.hostname.toLowerCase()) {
+                    switch (trimStart(url.hostname.toLowerCase(), "www.")) {
                       case "opencollective.com":
                         icon = (
                           <HugeiconsIcon
