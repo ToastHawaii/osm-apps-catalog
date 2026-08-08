@@ -102,7 +102,8 @@ export function Contribute({ app }: { app: App }) {
             app.hasFunding
               ? fundings
                   .find((f) => f.appId === app.id)
-                  ?.links.map((f) => {
+                  ?.links.filter((l) => l.verified)
+                  .map((f) => {
                     const url = newUrl(f.url);
                     const urlDisplay =
                       trimStart(url.hostname, "www.") +
