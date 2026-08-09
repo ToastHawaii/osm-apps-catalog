@@ -47,7 +47,7 @@ export function AppCompact({
           to={routes.app({ app: app.id })}
 
           data-goatcounter-click={`/app/${app.id}`}
-          data-goatcounter-title="Goes to the detail page of an app."
+          data-goatcounter-title={app.name}
           data-goatcounter-referrer="https://osm-apps.org/"
         >
           <ItemMedia className="size-15">
