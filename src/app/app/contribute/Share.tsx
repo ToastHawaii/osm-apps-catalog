@@ -5,7 +5,7 @@ import {
   NeuralNetworkIcon,
   RedditIcon,
   Share03Icon,
-  Share05Icon,
+  Share08Icon,
   TelegramIcon,
   Tick01Icon,
 } from "@hugeicons/core-free-icons";
@@ -106,7 +106,7 @@ export function Share({ app }: { app: App }) {
       description={t("app.contribute.activity.share.description", {
         app: app.name,
       })}
-      icon={Share05Icon}
+      icon={Share08Icon}
       links={links}
     />
   );
