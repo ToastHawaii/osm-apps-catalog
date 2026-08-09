@@ -62,6 +62,15 @@ export function SearchComponent({
         onChange={(e) => {
           setInnerValue(e.currentTarget.value);
           onChange(e.currentTarget.value);
+
+          if (window.goatcounter) {
+            window.goatcounter.count({
+              path: `/search`,
+              title: "Has started a search.",
+              referrer: "https://osm-apps.org/",
+              event: true,
+            });
+          }
         }}
         onFocus={() => {
           setHasFocus(true);

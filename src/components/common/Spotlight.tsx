@@ -103,7 +103,13 @@ export function Spotlight({
                     backgroundColor: `rgb(${defaultColor.r} ${defaultColor.g} ${defaultColor.b} / 40%)`,
                   }}
                 >
-                  <Link to={routes.app({ app: app.id })}>
+                  <Link
+                    to={routes.app({ app: app.id })}
+
+                    data-goatcounter-click={`/app/${app.id}`}
+                    data-goatcounter-title="Goes to the detail page of an app."
+                    data-goatcounter-referrer="https://osm-apps.org/"
+                  >
                     <ItemContent className="grid p-0 md:grid-cols-2">
                       <div className="justify-items-center">
                         <div className="grid">

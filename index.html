@@ -16,7 +16,6 @@
   <meta name="apple-mobile-web-app-title" content="OSM Apps" />
   <link rel="manifest" href="/icons/site.webmanifest" />
 
-
   <link rel="preload" href="/api/apps/all.json" as="fetch" crossorigin />
 
   <link rel="stylesheet"
@@ -27,8 +26,17 @@
 
   <script src="/serviceWorkerRegister.js"></script>
 
-  <script data-goatcounter="https://osm-apps.goatcounter.com/count"
-          data-goatcounter-settings='{"path": "/"}' async src="//gc.zgo.at/count.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+
+    window.goatcounter = {
+      path: params.get("app")
+        ? `app/${params.get("app")}`
+        : "/"
+    };
+  </script>
+  <script data-goatcounter="https://osm-apps.goatcounter.com/count" async
+          src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>

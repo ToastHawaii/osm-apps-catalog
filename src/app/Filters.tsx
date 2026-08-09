@@ -8,9 +8,11 @@ import { useAppsData } from "@hooks/useAppsData";
 import { useCurrentRoute } from "@hooks/useCurrentRoute";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { upperCase } from "@shared/utils/string";
+import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 
 export function Filters() {
   const { t } = useTranslation();
+  useGoatCounterEvents();
   const navigate = useNavigate();
   const currentRoute = useCurrentRoute();
   const [searchParams] = useSearchParams();
@@ -103,6 +105,10 @@ export function Filters() {
           size="sm"
           variant="primary"
           onPressedChange={() => setShowMorePlatforms(true)}
+
+          data-goatcounter-click="/?showMorePlatforms=1"
+          data-goatcounter-title='Click on "show more platforms"'
+          data-goatcounter-referrer="https://osm-apps.org/"
         >
           {t("filters.morePlatforms")}
         </Toggle>

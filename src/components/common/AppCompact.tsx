@@ -43,7 +43,13 @@ export function AppCompact({
         role="listitem"
         className="h-full shadow-md"
       >
-        <Link to={routes.app({ app: app.id })}>
+        <Link
+          to={routes.app({ app: app.id })}
+
+          data-goatcounter-click={`/app/${app.id}`}
+          data-goatcounter-title="Goes to the detail page of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
           <ItemMedia className="size-15">
             <AppLogo app={app} />
           </ItemMedia>
