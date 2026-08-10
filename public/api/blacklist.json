@@ -31,6 +31,18 @@
     "repository": ["IneffableKoD/cov19testmap"],
     "author": [],
     "reason": "The official website is offline."
+  },
+  {
+    "name": ["Dopewars Reup"],
+    "repository": ["sworrl/dopewars-reup"],
+    "author": [],
+    "reason": "Contains glorification of drugs."
+  },
+  {
+    "name": ["Script.openstreetmap"],
+    "repository": ["brianhornsby/script.openstreetmap"],
+    "author": [],
+    "reason": "This repository was archived and the official website is offline."
   }
 ]
 
