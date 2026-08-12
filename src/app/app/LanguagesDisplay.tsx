@@ -108,7 +108,7 @@ export function LanguageDisplay({ app }: { app: App }) {
           {findIgnoreCase(userLanguages, app.cache.languages)
             ? t("app.inUserLanguage", {
                 language: findIgnoreCase(userLanguages, app.cache.languages),
-                numberOfLanguages: appLanguages.length,
+                numberOfLanguages: appLanguages.length - 1,
               })
             : multilingualDisplay}
           <HugeiconsIcon icon={ArrowDown01Icon} strokeWidth={2} />
