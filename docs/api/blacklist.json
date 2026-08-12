@@ -43,6 +43,12 @@
     "repository": ["brianhornsby/script.openstreetmap"],
     "author": [],
     "reason": "This repository was archived and the official website is offline."
+  },
+  {
+    "name": ["Trekarta"],
+    "repository": ["andreynovikov/trekarta"],
+    "author": [],
+    "reason": "This repository was archived."
   }
 ]
 
