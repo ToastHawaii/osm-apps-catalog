@@ -287,7 +287,7 @@
   "score.criteria.worldwideData": "die App deckt weltweite Kartendaten ab",
   "score.learnMore": "Mehr erfahren",
   "score.result": "- {{description}} ({{points}} Punkte)",
-  "score.results": "<h5>Gemeinschaftsbeitragswertung\n</h5>Insgesamt: {{total}} von 10 Punkten\n\n<h6>Erforderliche Massnahmen für eine höhere Punktzahl:</h6>\n{{notFulfilled}}\n<LearnMoreButton/>\nStimmt etwas nicht oder fehlt etwas? Sie können dabei helfen, die Dokumentation zu verbessern. Gehen Sie auf die Detailseite der App und klicken Sie auf \"{{-editInformationTitle}}\".\n\n<h6>Erfüllt:</h6>\n{{fulfilled}}",
+  "score.results": "<h5>Gemeinschaftsbeitragswertung</h5>Insgesamt: {{total}} von 10 Punkten\n\n<h6>Erforderliche Massnahmen für eine höhere Punktzahl:</h6>\n{{notFulfilled}}\n<LearnMoreButton/>\nStimmt etwas nicht oder fehlt etwas? Du kannst dabei helfen, die Dokumentation zu verbessern. Geh auf die Detailseite der App und klicke auf \"{{-editInformationTitle}}\".\n\n<h6>Erfüllt:</h6>\n{{fulfilled}}",
   "select.search.noResults": "Kein Resultat",
   "select.search.placeholder": "Suche",
   "share.wiki": "Kopierte {{group}} Tabelle in die Zwischenablage, formatiert für wiki.openstreetmap.org.",
