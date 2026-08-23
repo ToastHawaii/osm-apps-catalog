@@ -1,113 +1,117 @@
 {
-    "web": {
-        "label": "Indirizzo web"
-    },
-    "date": {
-        "label": "Data di pubblicazione"
-    },
-    "license": {
-        "label": "Licenza"
-    },
-    "status": {
-        "label": "Stato",
-        "description": "Stato attuale del progetto."
-    },
-    "logo": {
-        "label": "Logo"
-    },
-    "name": {
-        "label": "Nome",
-        "description": "Nome ufficiale, o il nome più comunemente usato"
-    },
-    "version": {
-        "description": "Ultima versione",
-        "label": "Versione"
-    },
-    "repo": {
-        "label": "Codice sorgente",
-        "description": "URL per visualizzare o scaricare il codice sorgente (ad esempio, un repository Git, Subversion o CVS)"
-    },
-    "description": {
-        "label": "Descrizione",
-        "description": "Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)"
-    },
-    "price": {
-        "label": "Prezzo",
-        "description": "Costi se proprietari. Se il prezzo è vuoto, l'applicazione è gratuita."
-    },
-    "author": {
-        "label": "Autore",
-        "description": "Nome dell'autore o collegamento alla sua pagina utente di OSM-wiki"
-    },
-    "platform": {
-        "label": "Piattaforme supportate",
-        "description": "Elenco delle piattaforme su cui è utilizzabile."
-    },
-    "genre": {
-        "label": "Genere",
-        "description": "Categoria principale di questo strumento."
-    },
-    "languages": {
-        "label": "Lingue",
-        "description": "Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate"
-    },
-    "coverage": {
-        "label": "Copertura",
-        "description": "Copertura o regione per cui l'app è destinata. Formato: \"Continente, Nazione, Regione, ...\". Usa \"Worldwide\" o lascia vuoto per un uso globale."
-    },
-    "code": {
-        "label": "Codice",
-        "description": "Lista dei linguaggi di programmazione utilizzati."
-    },
-    "framework": {
-        "label": "Framework",
-        "description": "Lista di framework utilizzati."
-    },
-    "bbWorldID": {
-        "label": "ID BlackBerry",
-        "description": "ID dell'applicazione BlackBerry World"
-    },
-    "fDroidID": {
-        "label": "ID di F-Droid",
-        "description": "ID dell'applicazione su F-Droid"
-    },
-    "googlePlayID": {
-        "label": "ID di Google Play",
-        "description": "ID dell'applicazione su Google Play Store"
-    },
-    "microsoftAppID": {
-        "label": "ID Microsoft"
-    },
-    "3D": {
-        "label": "Vista 3D"
-    },
-    "showWebsite": {
-        "label": "Mostra la pagina web"
-    },
-    "languagesurl": {
-        "description": "Collegamento alla lista completa delle lingue supportate, descritte in un altra pagina (per esempio una repository o una pagina del portale per il software)"
-    },
-    "firefoxMarketplaceID": {
-        "label": "ID di Firefox Marketplace",
-        "description": "ID dell'applicazione su Firefox Marketplace"
-    },
-    "huaweiAppGalleryID": {
-        "label": "ID di Huawei AppGallery",
-        "description": "ID dell'applicazione su Huawei AppGallery"
-    },
-    "appleStoreID": {
-        "label": "ID AppStore"
-    },
-    "navigating": {
-        "label": "Naviga"
-    },
-    "dangerWarnings": {
-        "description": "[Accessibilità]"
-    },
-    "screenshot": {
-        "label": "Screenshot"
-    },
-    "lang": {
-        "description": "Lingua in cui vengono visualizzati i testi del modello."
-    }
+  "web": {
+    "label": "Indirizzo web"
+  },
+  "date": {
+    "label": "Data di pubblicazione"
+  },
+  "license": {
+    "label": "Licenza"
+  },
+  "status": {
+    "label": "Stato",
+    "description": "Stato attuale del progetto."
+  },
+  "logo": {
+    "label": "Logo",
+    "description": "Icona o logo del software"
+  },
+  "name": {
+    "label": "Nome",
+    "description": "Nome ufficiale, o il nome più comunemente usato"
+  },
+  "version": {
+    "description": "Ultima versione",
+    "label": "Versione"
+  },
+  "repo": {
+    "label": "Codice sorgente",
+    "description": "URL per visualizzare o scaricare il codice sorgente (ad esempio, un repository Git, Subversion o CVS)"
+  },
+  "description": {
+    "label": "Descrizione",
+    "description": "Breve descrizione. Cosa lo distingue da altri strumenti? (Scrivi la tua descrizione, non copiarla dal sito web)"
+  },
+  "price": {
+    "label": "Prezzo",
+    "description": "Costi se proprietari. Se il prezzo è vuoto, l'applicazione è gratuita."
+  },
+  "author": {
+    "label": "Autore",
+    "description": "Nome dell'autore o collegamento alla sua pagina utente di OSM-wiki"
+  },
+  "platform": {
+    "label": "Piattaforme supportate",
+    "description": "Elenco delle piattaforme su cui è utilizzabile."
+  },
+  "genre": {
+    "label": "Genere",
+    "description": "Categoria principale di questo strumento."
+  },
+  "languages": {
+    "label": "Lingue",
+    "description": "Lingue supportate (lista di codici di lingue validi separati da punto e virgola) o numero di lingue supportate"
+  },
+  "coverage": {
+    "label": "Copertura",
+    "description": "Copertura o regione per cui l'app è destinata. Formato: \"Continente, Nazione, Regione, ...\". Usa \"Worldwide\" o lascia vuoto per un uso globale."
+  },
+  "code": {
+    "label": "Codice",
+    "description": "Lista dei linguaggi di programmazione utilizzati."
+  },
+  "framework": {
+    "label": "Framework",
+    "description": "Lista di framework utilizzati."
+  },
+  "bbWorldID": {
+    "label": "ID BlackBerry",
+    "description": "ID dell'applicazione BlackBerry World"
+  },
+  "fDroidID": {
+    "label": "ID di F-Droid",
+    "description": "ID dell'applicazione su F-Droid"
+  },
+  "googlePlayID": {
+    "label": "ID di Google Play",
+    "description": "ID dell'applicazione su Google Play Store"
+  },
+  "microsoftAppID": {
+    "label": "ID Microsoft"
+  },
+  "3D": {
+    "label": "Vista 3D"
+  },
+  "showWebsite": {
+    "label": "Mostra la pagina web"
+  },
+  "languagesurl": {
+    "description": "Collegamento alla lista completa delle lingue supportate, descritte in un altra pagina (per esempio una repository o una pagina del portale per il software)"
+  },
+  "firefoxMarketplaceID": {
+    "label": "ID di Firefox Marketplace",
+    "description": "ID dell'applicazione su Firefox Marketplace"
+  },
+  "huaweiAppGalleryID": {
+    "label": "ID di Huawei AppGallery",
+    "description": "ID dell'applicazione su Huawei AppGallery"
+  },
+  "appleStoreID": {
+    "label": "ID AppStore"
+  },
+  "navigating": {
+    "label": "Naviga"
+  },
+  "dangerWarnings": {
+    "description": "[Accessibilità]"
+  },
+  "screenshot": {
+    "label": "Screenshot"
+  },
+  "lang": {
+    "description": "Lingua in cui vengono visualizzati i testi del modello."
+  },
+  "map": {
+    "label": "Mostra mappa"
+  }
 }
