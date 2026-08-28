@@ -1,11 +1,11 @@
 import { App } from "@shared/data/App";
-import { equals } from "@actions/lib/equalApp";
+import { findEqualApp } from "@actions/lib/findEqualApp";
 import { mergeApps } from "@actions/lib/mergeApps";
 
 export function addOrMergeApp(
   apps: App[],
   knownApps: App[],
-  obj: App,
+  app: App,
   options: {
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
@@ -13,21 +13,21 @@ export function addOrMergeApp(
     onlyAddLanguageIfEmpty: boolean;
   },
 ) {
-  const duplicate = apps.find((app) => equals(app, obj, options));
+  const duplicate = findEqualApp(apps, app, options);
 
   if (!duplicate) {
-    const existingApp = knownApps.find((app) => equals(app, obj, options));
+    const existingApp = findEqualApp(knownApps, app, options);
 
     // only add if en app is already known
     if (existingApp) {
-      obj.id = existingApp.id;
-      apps.push(obj);
+      app.id = existingApp.id;
+      apps.push(app);
     } else {
       console.log(
-        `Could not find existing app for ${obj.name} (${obj.source[0].url})`,
+        `Could not find existing app for ${app.name} (${app.source[0].url})`,
       );
     }
   } else {
-    mergeApps(duplicate, obj, options);
+    mergeApps(duplicate, app, options);
   }
 }

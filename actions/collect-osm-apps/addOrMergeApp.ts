@@ -1,10 +1,10 @@
 import { App } from "@shared/data/App";
-import { equals } from "@actions/lib/equalApp";
+import { findEqualApp } from "@actions/lib/findEqualApp";
 import { mergeApps } from "@actions/lib/mergeApps";
 
 export function addOrMergeApp(
   apps: App[],
-  obj: App,
+  app: App,
   options: {
     includeRepositoryForUniqueCheck: boolean;
     checkWebsiteWithRepo: boolean;
@@ -12,27 +12,27 @@ export function addOrMergeApp(
     onlyAddLanguageIfEmpty: boolean;
   },
 ) {
-  const duplicate = apps.find((app) => equals(app, obj, options));
+  const duplicate = findEqualApp(apps, app, options);
 
   if (!duplicate) {
     // only add if external sources exists
     if (
-      obj.name !== "" &&
-      (obj.website ||
-        obj.documentation ||
-        obj.install.appleStoreID ||
-        obj.install.asin ||
-        obj.install.fDroidID ||
-        obj.install.googlePlayID ||
-        obj.install.obtainiumLink ||
-        obj.install.huaweiAppGalleryID ||
-        obj.install.macAppStoreID ||
-        obj.install.microsoftAppID ||
-        obj.sourceCode)
+      app.name !== "" &&
+      (app.website ||
+        app.documentation ||
+        app.install.appleStoreID ||
+        app.install.asin ||
+        app.install.fDroidID ||
+        app.install.googlePlayID ||
+        app.install.obtainiumLink ||
+        app.install.huaweiAppGalleryID ||
+        app.install.macAppStoreID ||
+        app.install.microsoftAppID ||
+        app.sourceCode)
     ) {
-      apps.push(obj);
+      apps.push(app);
     }
   } else {
-    mergeApps(duplicate, obj, options);
+    mergeApps(duplicate, app, options);
   }
 }

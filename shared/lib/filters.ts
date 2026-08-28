@@ -342,6 +342,7 @@ export function library(a: App) {
     // Wikidata
     "JAVASCRIPT LIBRARY",
     "SOFTWARE LIBRARY",
+    "SOFTWARE PACKAGE",
     "APPLICATION PROGRAMMING INTERFACE",
     "ONLINE SERVICE",
     "SERVICE PROVIDER",

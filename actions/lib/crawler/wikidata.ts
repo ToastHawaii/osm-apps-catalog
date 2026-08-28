@@ -232,7 +232,7 @@ SELECT DISTINCT
   ?modified 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
   UNION { ?item wdt:P2283 wd:Q936. }
@@ -385,7 +385,7 @@ SELECT DISTINCT
   ?streetImg
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
   UNION { ?item wdt:P2283 wd:Q936. }
@@ -459,7 +459,7 @@ SELECT DISTINCT
   (SAMPLE(?microsoft) AS ?microsoft) 
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
   UNION { ?item wdt:P2283 wd:Q936. }
@@ -504,7 +504,7 @@ SELECT DISTINCT
   (MAX(?date) AS ?lastRelease)
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
   UNION { ?item wdt:P2283 wd:Q936. }
@@ -551,7 +551,7 @@ WHERE
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
     WHERE {
       ?item (wdt:P31/(wdt:P279*)) ?type.
-      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
       { ?item wdt:P144 wd:Q936. }
       UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
       UNION { ?item wdt:P2283 wd:Q936. }
@@ -596,7 +596,7 @@ function buildTranslationQuery(propId: string, fieldName: string) {
 SELECT DISTINCT ?item ?lg ?${fieldName} 
   WHERE {
     ?item (wdt:P31/(wdt:P279*)) ?type.
-    FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+    FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
     { ?item wdt:P144 wd:Q936. }
     UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
     UNION { ?item wdt:P2283 wd:Q936. }
@@ -637,7 +637,7 @@ SELECT DISTINCT
   ?modified
 WHERE {
   ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959))
+  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
   { ?item wdt:P144 wd:Q936. }
   UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
   UNION { ?item wdt:P2283 wd:Q936. }

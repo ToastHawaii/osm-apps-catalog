@@ -31,6 +31,7 @@ const ignoredTopics = [
   "application",
   "app",
   "static-website",
+  "static-site",
 
   // Hosting/Dev platform
   "github-page",
