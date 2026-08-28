@@ -49,6 +49,35 @@
     "repository": ["andreynovikov/trekarta"],
     "author": [],
     "reason": "This repository was archived."
+  },
+  {
+    "name": ["Pac Man Go React"],
+    "repository": ["ngraton/pac-man-go-react"],
+    "author": [],
+    "reason": "The official website is offline."
+  },
+  {
+    "name": ["Safe Cycling Map"],
+    "repository": ["jakecoppinger/safe-cycling-map"],
+    "author": [],
+    "reason": "The official website is broken."
+  },
+  {
+    "name": ["Hk Photos Map"],
+    "repository": ["Tom-the-Bomb/hk-photos-map"],
+    "author": [],
+    "reason": "A personal website."
+  },
+  {
+    "name": ["OpenPianosMap"],
+    "repository": ["brunetton/OpenPianosMap"],
+    "author": [],
+    "reason": "The official website is offline."
+  },
+  {
+    "name": ["MarioVieilledent.github.io"],
+    "repository": ["MarioVieilledent/MarioVieilledent.github.io"],
+    "author": [],
+    "reason": "A personal website."
   }
 ]
-
