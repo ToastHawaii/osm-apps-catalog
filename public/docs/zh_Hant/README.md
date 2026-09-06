@@ -125,7 +125,7 @@ OSM Apps 目錄並不會儲存個人資料。
 
 ## 聲明
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
+開放街圖與 OSM 皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會](https://osmfoundation.org/)轄下的相關專案。
 
 ---
 
