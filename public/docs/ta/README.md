@@ -125,7 +125,7 @@ In December 2025, the **OpenStreetMap foundation** funded the development of [Re
 
 ## மறுப்பு
 
-திறதெருவரைபட மற்றும் ஓஎச்எம் என்பது திறதெருவரைபட அறக்கட்டளையின் வர்த்தக முத்திரையாகும், மேலும் இது அவர்களின் அனுமதியுடன் பயன்படுத்தப்படுகிறது. இந்தத் திட்டம் [திறதெருவரைபட அறக்கட்டளை](https://osmfoundation.org/) உடன்அங்கீகரிக்கப்படவில்லை அல்லது இணைக்கப்படவில்லை.
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
 
 ---
 

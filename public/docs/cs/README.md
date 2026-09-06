@@ -125,7 +125,7 @@ V prosinci 2025 **Nadace OpenStreetMap** financovala vývoj [Redesignu OSM Apps 
 
 ## Odmítnutí odpovědnosti
 
-OpenStreetMap a OSM je ochranná známka nadace OpenStreetMap Foundation a je použita s jejím svolením. Tento projekt není podporován nadací [OpenStreetMap Foundation] (https://osmfoundation.org/) ani s ní není spojen.
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
 
 ---
 

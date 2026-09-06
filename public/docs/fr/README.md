@@ -125,7 +125,7 @@ En décembre 2025, la **Fondation OpenStreetMap** a financé le projet [« Refon
 
 ## Clause de non-responsabilité
 
-OpenStreetMap et OSM sont des marques déposées de la Fondation OpenStreetMap, utilisées avec son autorisation. Ce projet n'est ni soutenu ni affilié à la [Fondation OpenStreetMap](https://osmfoundation.org/), à l'exception du financement ponctuel décrit ci-dessus.
+OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
 
 ---
 
