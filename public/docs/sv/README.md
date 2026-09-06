@@ -125,7 +125,7 @@ In December 2025, the **OpenStreetMap foundation** funded the development of [Re
 
 ## Ansvarsfriskrivning
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
+OpenStreetMap och OSM är ett varumärke för OpenStreetMap Foundation och används med deras tillstånd. Detta projekt stöds inte av eller är anslutet till [OpenStreetMap Foundation](https://osmfoundation.org/), förutom engångsfinansiering som beskrivs ovan.
 
 ---
 
