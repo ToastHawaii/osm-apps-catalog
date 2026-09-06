@@ -125,7 +125,7 @@ Im Dezember 2025 finanzierte die **OpenStreetMap Foundation** die Entwicklung de
 
 ## Haftungsausschluss
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
+OpenStreetMap und OSM sind Markenzeichen der OpenStreetMap Foundation und werden mit deren Erlaubnis verwendet. Dieses Projekt wird nicht von der [OpenStreetMap Foundation](https://osmfoundation.org/) unterstützt und ist auch nicht mit ihr verbunden, mit Ausnahme der oben genannten einmaligen Finanzierung.
 
 ---
 
