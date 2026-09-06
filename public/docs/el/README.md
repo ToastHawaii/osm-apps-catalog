@@ -125,7 +125,7 @@ _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλ
 
 ## Αποποίηση
 
-OpenStreetMap and OSM is a trademark of the OpenStreetMap Foundation, and is used with their permission. This project is not endorsed by or affiliated with the [OpenStreetMap Foundation](https://osmfoundation.org/), except for the one-time funding described above.
+Τα OpenStreetMap και OSM είναι σήματα κατατεθέντα του Ιδρύματος OpenStreetMap, και χρησιμοποιούνται με την άδεια του. Αυτό το εγχείρημα δεν στηρίζεται από ούτε έχει σχέση με το [Ίδρυμα OpenStreetMap](https://osmfoundation.org/), εκτός από την εφάπαξ χρηματοδότηση που περιγράφεται παραπάνω.
 
 ---
 
