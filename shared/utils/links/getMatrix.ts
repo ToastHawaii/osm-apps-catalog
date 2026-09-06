@@ -15,7 +15,7 @@ function getMatrixRoom(
 
     // See https://matrix-org.github.io/matrix-appservice-irc/latest/bridged_networks.html
     const matrix_irc_bridges: Record<string, string | undefined> = {
-      // The freenode IRC bridge offically was shut down on 2021-12-20.
+      // The freenode IRC bridge officially was shut down on 2021-12-20.
       // "irc.freenode.net": `#freenode_${channel}:matrix.org`,
       "irc.oftc.net": `#_oftc_${channel}:matrix.org`,
       // The Libera Chat IRC bridge was shut down on 2023-11-28.

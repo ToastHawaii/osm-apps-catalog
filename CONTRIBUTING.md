@@ -3,9 +3,9 @@
 
 Thank you for your interest in contributing to the OSM Apps Catalog. There are plenty of ways to get involved, and for most of them, you don't need to know anything about programming.
 
-- One easy way to support is **give the project a ⭐**.
+- One easy way to support is to **give the project a ⭐**.
 - The OSM App Catalog isn't nearly as well-known as it should be. **Help spread the word.** For example, share it on social media, write a blog post, or talk to others about it.
-- **Add OSM apps** you know to the Catalog or improve some from [the list of apps that need to be documented](https://github.com/ToastHawaii/osm-apps-catalog/issues/282). [Check out the article on the OSM App Catalog in the OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog) to learn how to document new apps. The english meta data is updated every day and all other languages once per week. 
+- **Add OSM apps** you know to the Catalog or improve some from [the list of apps that need to be documented](https://github.com/ToastHawaii/osm-apps-catalog/issues/282). [Check out the article on the OSM App Catalog in the OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog) to learn how to document new apps. The English meta data is updated every day and all other languages once per week. 
 
 ## Translations
 
@@ -16,14 +16,14 @@ Feel free to [add new languages](https://hosted.weblate.org/new-lang/osm-apps-ca
 
 Enhance an existing translation by rephrasing it or fixing errors. Strings in OSM Apps Catalog Interface are not carved in stone. Even the original English ones are debatable. If you think the phrasing is misleading or just confusing you are welcome to provide a better text directly in [Weblate](https://hosted.weblate.org/projects/osm-apps-catalog).
 
-You also can [create a issue](https://github.com/ToastHawaii/osm-apps-catalog/issues) or [write to me directly](https://wiki.openstreetmap.org/wiki/User:ToastHawaii) regarding translation issues or poor text layout.
+You also can [create an issue](https://github.com/ToastHawaii/osm-apps-catalog/issues) or [write to me directly](https://wiki.openstreetmap.org/wiki/User:ToastHawaii) regarding translation issues or poor text layout.
 
 Follow this [link to improve the translations from the user interface](https://hosted.weblate.org/projects/osm-apps-catalog).
 
 ### Meta data / descriptions from the apps
 The texts relating to the apps descriptions come from the [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki_Translation), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction) and other sources. These should be translated directly in the wikis. 
 
-You can find the sources by going to the detail view of an app in the [OSM Apps Catalog](https://osm-apps.org/) and click on "Edit / Update Information" in the "Get involved" section.
+You can find the sources by going to the detail view of an app in the [OSM Apps Catalog](https://osm-apps.org/) and clicking on "Edit / Update Information" in the "Get involved" section.
 
 ## Issues
 [Report bugs](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md), [discuss ideas](https://github.com/ToastHawaii/osm-apps-catalog/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement) and [propose features](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) for the OSM Apps Catalog.
@@ -57,17 +57,17 @@ npm run actions:collect-osm-apps-translations:start # collect all app meta data 
 >
 > To debug the action locally you need to [create a personal access tokens](https://github.com/settings/personal-access-tokens) and a `.env` file in the repo ([example](https://github.com/github/local-action/blob/main/.env.example)) and add a line `INPUT_GHTOKEN=github_pat_...`
 > 
-> It is needed for the GitHub API calls. If you not need to test this this part you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
+> It is needed for the GitHub API calls. If you do not need to test this part you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
 
 ### Code submissions 
-Please take a moment to read the the [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines) before proceeding. Everyone should feel comfortable contributing to the OSM Apps Catalog.
+Please take a moment to read the [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines) before proceeding. Everyone should feel comfortable contributing to the OSM Apps Catalog.
 
 The best way to start is with a [good first issue](https://github.com/ToastHawaii/osm-apps-catalog/contribute).
 
 #### You have a bug fix?
 Simply [start a ticket using the bug template](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md). Commit your bug fix as a pull request referring to the ticket.
 
-#### You want add a new feature? 
+#### You want to add a new feature? 
 [Start a ticket using the feature template](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) and describe what you want to do. Usually there is some discussion and refinement of the feature. Once all concerns are settled you can start a pull request.
 
 *Please keep in mind that I am strongly committed to supporting free and open-source software and keeping the UI low barrier. Please don't be too disappointed if I reject a pull request.*
