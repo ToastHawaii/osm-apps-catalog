@@ -51,7 +51,7 @@ export default function TagList({ items }: { items: string[] }) {
   }, [items, heightIsCalculated]);
 
   useEffect(() => {
-    // handel resize the window
+    // handle resize the window
     const handleResize = () => {
       setVisibleCount(items.length);
       setHeightIsCalculated(false);

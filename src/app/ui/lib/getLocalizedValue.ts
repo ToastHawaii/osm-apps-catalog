@@ -13,7 +13,7 @@ export function getLocalizedValue(
   }
 
   if (setting[locale]) {
-    // excact match found
+    // exact match found
     return setting[locale];
   }
 
