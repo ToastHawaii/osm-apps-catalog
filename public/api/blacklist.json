@@ -79,5 +79,11 @@
     "repository": ["MarioVieilledent/MarioVieilledent.github.io"],
     "author": [],
     "reason": "A personal website."
+  },
+  {
+    "name": ["Wustopia"],
+    "repository": ["exmatrikulator/wustopia"],
+    "author": [],
+    "reason": "The official website is offline."
   }
 ]
