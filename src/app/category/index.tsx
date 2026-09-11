@@ -10,7 +10,6 @@ import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
 import { upperCase } from "@shared/utils/string";
-import { Category as CategoryType } from "@lib/Category";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -27,10 +26,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     }
 
     let techView = false;
-    let category: CategoryType | undefined = homeCategories(
-      t,
-      filteredApps,
-    ).find((c) => c.id === id);
+    let category = homeCategories(t, filteredApps).find((c) => c.id === id);
 
     if (!category) {
       category = techCategories(t, appsCopy).find((c) => c.id === id);

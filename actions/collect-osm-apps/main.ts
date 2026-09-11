@@ -16,6 +16,7 @@ import { enrichScoreTotal } from "./enrichScoreTotal";
 import { enrichWithGitHub } from "@actions/collect-osm-apps/enrichWithGitHub";
 import { createOctokit } from "@actions/lib/crawler/createOctokit";
 import { extractFunding } from "@actions/collect-osm-apps/extractFunding";
+import { enrichStats } from "@actions/collect-osm-apps/enrichStats";
 
 /**
  * The main function for the action.
@@ -36,6 +37,8 @@ export async function run(): Promise<void> {
     enrichFirstCrawled(apps, knownApps);
     enrichFocus(apps, knownApps);
     enrichSpotlight(apps, knownApps);
+
+    await enrichStats(apps);
 
     // Shuffle before sorting to get a random order for apps with the same score
     shuffle(apps);

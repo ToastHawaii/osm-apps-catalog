@@ -26,4 +26,4 @@ jobs:
         uses: ./actions/collect-osm-apps
         with:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
-
+          goatcounterToken: ${{ secrets.GOATCOUNTER }}

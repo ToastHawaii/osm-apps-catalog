@@ -20,7 +20,6 @@ import {
 } from "@shared/lib/filters";
 import { TFunction } from "i18next";
 import { featureFlags } from "../../featureFlags";
-import { Category } from "@lib/Category";
 import {
   DefaultHide,
   DefaultHierarchyForEdit,
@@ -29,11 +28,12 @@ import {
   DefaultPrioritize,
   DefaultTagsReorganization,
 } from "@lib/tagsReorganizer";
+import { chain } from "lodash";
 
 export function categories(
   t: TFunction<"translation", undefined>,
   apps: App[],
-): Category[] {
+) {
   return [
     {
       id: "universalMapApps",
@@ -63,9 +63,15 @@ export function categories(
 
           ...DefaultHierarchyForEdit,
 
-          ["feature.routing-hike", "feature.routing-foot"],
+          ["feature.routing-hike", "feature.routing-foot"] as [
+            ifExists: string,
+            hide: string,
+          ],
 
-          ["feature.offline-routing", "feature.routing"],
+          ["feature.offline-routing", "feature.routing"] as [
+            ifExists: string,
+            hide: string,
+          ],
         ],
         hide: [
           ...DefaultHide,
@@ -129,7 +135,10 @@ export function categories(
 
           ...DefaultHierarchyForEdit,
 
-          ["feature.offline-routing", "feature.routing"],
+          ["feature.offline-routing", "feature.routing"] as [
+            ifExists: string,
+            hide: string,
+          ],
         ],
 
         hide: [
@@ -200,7 +209,10 @@ export function categories(
 
           ...DefaultHierarchyForEdit,
 
-          ["feature.offline-routing", "feature.routing"],
+          ["feature.offline-routing", "feature.routing"] as [
+            ifExists: string,
+            hide: string,
+          ],
         ],
         hide: [...DefaultHide, "feature.routing"],
       },
@@ -283,7 +295,10 @@ export function categories(
         ],
 
         hierarchy: [
-          ["feature.routing-wheelchair", "feature.accessibility-wheelchair"],
+          [
+            "feature.routing-wheelchair",
+            "feature.accessibility-wheelchair",
+          ] as [ifExists: string, hide: string],
 
           ...DefaultHierarchyForNavigation,
 
@@ -365,6 +380,25 @@ export function categories(
       description: (numberOfApps: number) =>
         t("category.print.description", { numberOfApps }),
       nextIndex: () => apps.findIndex((app) => print(app)),
+      tagsReorganization: DefaultTagsReorganization,
+    },
+    {
+      id: "trend",
+      name: () => t("category.trend"),
+      description: (numberOfApps: number) =>
+        t("category.trend.description", { numberOfApps }),
+      sorted: () =>
+        chain(apps)
+          .sortBy((a) => a.views)
+          .reverse()
+          .take(10),
+      getAll: function () {
+        return this.sorted().value();
+      },
+      nextIndex: function () {
+        const latest = this.sorted().take(1).value();
+        return apps.findIndex((app) => app.id === latest[0].id);
+      },
       tagsReorganization: DefaultTagsReorganization,
     },
   ];

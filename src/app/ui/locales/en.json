@@ -205,6 +205,8 @@
   "category.newAdditions.description": "The latest discoveries that have been added to the OSM Apps catalog.",
   "category.print": "Print your own map",
   "category.print.description": "{{numberOfApps}} tools for creating a file for a printout.",
+  "category.trend": "Trending apps",
+  "category.trend.description": "This week’s most viewed apps.",
   "category.publicTransport": "Traveling by public transport",
   "category.publicTransport.description": "{{numberOfApps}} apps that make traveling by public transport easier.",
   "category.qa": "OpenStreetMap quality assurance",

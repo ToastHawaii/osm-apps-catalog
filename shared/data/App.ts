@@ -148,6 +148,7 @@ export interface App {
   lastFocus: string;
   lastSpotlight: string;
   score: number;
+  views?: number;
   cache: {
     score?: {
       total: number;
