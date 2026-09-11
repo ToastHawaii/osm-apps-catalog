@@ -216,6 +216,8 @@
   "category.tourism.description": "{{numberOfApps}} applications pour découvrir une ville ou trouver un endroit où passer la nuit.",
   "category.trackRec": "Enregistrer et partager des visites",
   "category.trackRec.description": "{{numberOfApps}} outils pour enregistrer des traces GPS, des données de déplacement ou des notes de terrain, par exemple pour une cartographie ultérieure.",
+  "category.trend": "Applications tendance",
+  "category.trend.description": "Les applications les plus consultées cette semaine.",
   "category.universalMapApps": "Applications de cartographie universelles",
   "category.universalMapApps.description": "{{numberOfApps}} applications cartographiques pour découvrir des lieux intéressants, planifier un voyage ou améliorer la carte.",
   "category.wheelchair": "En déplacement avec un fauteuil roulant ou une poussette",
