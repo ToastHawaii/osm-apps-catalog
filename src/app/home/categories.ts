@@ -389,8 +389,8 @@ export function categories(
         t("category.trend.description", { numberOfApps }),
       sorted: () =>
         chain(apps)
+          .filter((a) => !!a.views)
           .sortBy((a) => a.views)
-          .reverse()
           .take(10),
       getAll: function () {
         return this.sorted().value();

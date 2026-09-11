@@ -14,7 +14,7 @@ export async function getStats() {
     return (
       (await (
         await fetch(
-          `https://osm-apps.goatcounter.com/api/v0/stats/hits?start=${currentMinus7}&end=${currentDate}&group=day&limit=20`,
+          `https://osm-apps.goatcounter.com/api/v0/stats/hits?start=${currentMinus7}&end=${currentDate}&group=day&limit=50`,
           {
             headers: {
               Authorization: `Bearer ${core.getInput("goatcounterToken")}`,

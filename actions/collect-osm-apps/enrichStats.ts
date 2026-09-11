@@ -8,7 +8,7 @@ export async function enrichStats(apps: App[]) {
     const app = apps.find((app) => app.id === s.app);
 
     if (app) {
-      app.views = s.count;
+      app.views = (app.views || 0) + s.count;
     }
   });
 }
