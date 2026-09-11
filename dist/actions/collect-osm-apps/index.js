@@ -143313,7 +143313,7 @@ async function getStats() {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     const currentMinus7 = formatDate(sevenDaysAgo);
     try {
-        return (await (await fetch(`https://osm-apps.goatcounter.com/api/v0/stats/hits?start=${currentMinus7}&end=${currentDate}&group=day&limit=20`, {
+        return (await (await fetch(`https://osm-apps.goatcounter.com/api/v0/stats/hits?start=${currentMinus7}&end=${currentDate}&group=day&limit=50`, {
             headers: {
                 Authorization: `Bearer ${getInput("goatcounterToken")}`,
             },
@@ -143337,7 +143337,7 @@ async function enrichStats(apps) {
     stats.forEach((s) => {
         const app = apps.find((app) => app.id === s.app);
         if (app) {
-            app.views = s.count;
+            app.views = (app.views || 0) + s.count;
         }
     });
 }
