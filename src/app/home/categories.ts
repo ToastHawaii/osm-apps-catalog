@@ -391,6 +391,7 @@ export function categories(
         chain(apps)
           .filter((a) => !!a.views)
           .sortBy((a) => a.views)
+          .reverse()
           .take(10),
       getAll: function () {
         return this.sorted().value();
