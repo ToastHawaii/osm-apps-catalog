@@ -398,6 +398,9 @@ export function categories(
       },
       nextIndex: function () {
         const latest = this.sorted().take(1).value();
+        if (!latest[0]) {
+          return -1;
+        }
         return apps.findIndex((app) => app.id === latest[0].id);
       },
       tagsReorganization: DefaultTagsReorganization,
