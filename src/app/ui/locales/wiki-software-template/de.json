@@ -1,372 +1,372 @@
 {
-    "lang": {
-        "label": "Sprache der Vorlage",
-        "description": "Sprache, in der die Texte der Vorlage angezeigt werden."
-    },
-    "name": {
-        "label": "Name",
-        "description": "Offizieller Name, ansonsten der verbreitetste"
-    },
-    "license": {
-        "label": "Lizenz",
-        "description": "Welche freie Lizenz oder proprietär?"
-    },
-    "price": {
-        "label": "Preis",
-        "description": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos."
-    },
-    "repo": {
-        "label": "Quellcode",
-        "description": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)"
-    },
-    "screenshot": {
-        "label": "Bildschirmfoto"
-    },
-    "description": {
-        "label": "Beschreibung",
-        "description": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)"
-    },
-    "author": {
-        "label": "Autor",
-        "description": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
-    },
-    "platform": {
-        "label": "Plattform",
-        "description": "Liste der Plattformen, auf denen es läuft."
-    },
-    "languages": {
-        "label": "Sprachen",
-        "description": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen"
-    },
-    "code": {
-        "label": "Code",
-        "description": "Liste der verwendeten Programmiersprachen."
-    },
-    "framework": {
-        "label": "Framework",
-        "description": "Liste der verwendeten Frameworks."
-    },
-    "version": {
-        "label": "Version",
-        "description": "Aktuellste Version"
-    },
-    "map": {
-        "label": "Karte anzeigen",
-        "description": "[Kartenanzeige] Kann eine Karte angezeigt werden?"
-    },
-    "rotateMap": {
-        "label": "Karte drehen",
-        "description": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?"
-    },
-    "3D": {
-        "label": "3D-Ansicht",
-        "description": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?"
-    },
-    "routing": {
-        "description": "Funktionen: Können Sie eine Route berechnen oder sonst wie planen?",
-        "label": "Routenplanung"
-    },
-    "createRouteManually": {
-        "label": "Route von Hand eingeben",
-        "description": "[Routenplanung]"
-    },
-    "calculateRoute": {
-        "label": "Route berechnen",
-        "description": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
-    },
-    "turnRestrictions": {
-        "label": "Abbiegebeschränkungen",
-        "description": "[Routing] Kann es mit Abbiegeverboten umgehen?"
-    },
-    "calculateRouteOffline": {
-        "label": "Route berechnen ohne Internet",
-        "description": "[Routing] Braucht es Internet, um eine Route zu berechnen?"
-    },
-    "navigating": {
-        "label": "Navigieren",
-        "description": "[Navigation] Kann man mit einem Kompass navigieren?"
-    },
-    "findLocation": {
-        "label": "Finde eine Position",
-        "description": "[Navigation] Kann man nach einer Straße/einem Ort suchen?"
-    },
-    "findNearbyPOI": {
-        "label": "Finde POI in der Nähe",
-        "description": "[Navigation] Kann es Points of Interest anzeigen?"
-    },
-    "navToPoint": {
-        "label": "Navigiere zu einem Punkt",
-        "description": "[Navigation] Kann es einen zu einem bestimmten Punkt führen?"
-    },
-    "voice": {
-        "label": "Navigation mit Sprachansage",
-        "description": "[Navigation] Kann es Befehle mit einer Computerstimme geben?"
-    },
-    "withoutGPS": {
-        "label": "Funktioniert ohne GPS",
-        "description": "[Navigation] Funktioniert auch ohne GPS?"
-    },
-    "predefinedRoute": {
-        "label": "Folge einer vordefinierten Route",
-        "description": "[Navigation] Kann anderen GPS-Tracks folgen?"
-    },
-    "tracking": {
-        "label": "Track aufzeichnen",
-        "description": "[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?"
-    },
-    "customInterval": {
-        "label": "Einstellbares Aufzeichnungsintervall",
-        "description": "[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?"
-    },
-    "fastWayPointAdding": {
-        "label": "Knöpfe zum schnellen Setzen von Wegpunkten",
-        "description": "[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?"
-    },
-    "monitoring": {
-        "label": "Monitoring",
-        "description": "[Streckenüberwachung] Kann man GPS-Daten überwachen?"
-    },
-    "showTrack": {
-        "label": "Zeige aktuellen Track",
-        "description": "[Streckenüberwachung] Zeigt es den aktuellen Kurs an?"
-    },
-    "showExistingTrack": {
-        "label": "Öffne existierenden Track",
-        "description": "[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?"
-    },
-    "showAltitudeDiagram": {
-        "label": "Höhendiagramm",
-        "description": "[Streckenüberwachung]"
-    },
-    "showDOP": {
-        "label": "Zeige DOP-Wert",
-        "description": "[Streckenüberwachung] Zeigt es die Signalqualität an?"
-    },
-    "showSatellites": {
-        "label": "Zeige Satelliten",
-        "description": "[Streckenüberwachung] Zeigt es Satelliten an?"
-    },
-    "showNMEAlive": {
-        "label": "Zeige NMEA-Livedaten",
-        "description": "[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?"
-    },
-    "sendPosition": {
-        "label": "Sende aktuelle Position",
-        "description": "[Streckenüberwachung] Kann man seine Position an andere senden?"
-    },
-    "addPOI": {
-        "label": "POI hinzufügen",
-        "description": "[Editor] Kann man Punkte hinzufügen?"
-    },
-    "editPOI": {
-        "label": "POI bearbeiten/löschen",
-        "description": "[Editor] Kann man Punkte bearbeiten?"
-    },
-    "editGeom": {
-        "label": "Geometrie bearbeiten",
-        "description": "[Editor] Kann man Knoten/Wege bearbeiten?"
-    },
-    "editTags": {
-        "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
-        "description": "[Editor] Kann man bestehende Tags bearbeiten?"
-    },
-    "offsetDBsupport": {
-        "label": "Unterstützt Luftbildversatz DB",
-        "description": "[Editor] Unterstützt es die Bildoffset-DB?"
-    },
-    "uploadOSMData": {
-        "label": "Zu OSM hochladen",
-        "description": "[Editor] Kann man Änderungen direkt an OSM senden?"
-    },
-    "textOnlyUI": {
-        "label": "Komplett ohne Grafik bedienbar",
-        "description": "[Barrierefreiheit] Text in Braille kompatible Schnittstelle?"
-    },
-    "brailleUI": {
-        "label": "Braille-Oberfläche",
-        "description": "[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?"
-    },
-    "explorerMode": {
-        "label": "Erkundungsmodus",
-        "description": "[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?"
-    },
-    "publicTransportMode": {
-        "label": "ÖPNV-Modus",
-        "description": "[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?"
-    },
-    "dangerWarnings": {
-        "label": "Gefahrenwarnungen",
-        "description": "[Barrierefreiheit]"
-    },
-    "screenReader": {
-        "label": "Screenreader",
-        "description": "[Barrierefreiheit] Liste der unterstützten Screenreader"
-    },
-    "screenReaderLang": {
-        "label": "Screenreader-Sprachen",
-        "description": "[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen"
-    },
-    "status": {
-        "label": "Status",
-        "description": "Aktueller Status des Projekts."
-    },
-    "web": {
-        "label": "Internetadresse"
-    },
-    "date": {
-        "label": "Veröffentlichungsdatum",
-        "description": "Letztes Veröffentlichungsdatum"
-    },
-    "coverage": {
-        "label": "Abdeckung",
-        "description": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."
-    },
-    "mapData": {
-        "label": "Kartendaten",
-        "description": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"
-    },
-    "microsoftAppID": {
-        "label": "Microsoft ID",
-        "description": "Microsoft Store Windows-Anwendungs-UUID"
-    },
-    "obtainiumLink": {
-        "label": "Obtainium Updater Verweis",
-        "description": "Verweis zu Obtainium updater Informationen"
-    },
-    "appleStoreID": {
-        "label": "AppStore ID",
-        "description": "iTunes App Store Anwendungs-D"
-    },
-    "editRelations": {
-        "label": "Relationen bearbeiten",
-        "description": "[Editor] Kann man Relationen bearbeiten?"
-    },
-    "genre": {
-        "label": "Genre",
-        "description": "Hauptkategorie für dieses Tool."
-    },
-    "googlePlayID": {
-        "label": "Google Play ID",
-        "description": "Google Play Store Anwendungs-ID"
-    },
-    "datasource": {
-        "label": "Quelle",
-        "description": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"
-    },
-    "logo": {
-        "label": "Logo",
-        "description": "Software-Icon oder -Logo"
-    },
-    "fDroidID": {
-        "label": "F-Droid ID",
-        "description": "F-Droid-Anwendungs-ID"
-    },
-    "bbWorldID": {
-        "label": "BlackBerry ID",
-        "description": "BlackBerry World-Anwendungs-ID"
-    },
-    "languagesurl": {
-        "label": "Sprachen-URL",
-        "description": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository)."
-    },
-    "asin": {
-        "label": "Amazon Identifikation",
-        "description": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"
-    },
-    "firefoxMarketplaceID": {
-        "label": "Firefox Marketplace ID",
-        "description": "Mozilla Firefox Marktplatz-Anwendungs-ID"
-    },
-    "huaweiAppGalleryID": {
-        "label": "Huawei AppGallery ID",
-        "description": "Huawei AppGallery Anwendungs-ID"
-    },
-    "macAppStoreID": {
-        "label": "Mac AppStore ID",
-        "description": "Mac App Store Anwendungs-ID"
-    },
-    "showPhoneNumber": {
-        "description": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
-        "label": "Zeigt Telefonnummer"
-    },
-    "showOpeningHours": {
-        "label": "Zeigt die Betriebszeiten an",
-        "description": "[POI-Informationen] Zeigt die Betriebszeiten des POI an."
-    },
-    "createRouteViaWaypoints": {
-        "label": "Route über Wegpunkte erstellen",
-        "description": "[Routenplanung] Kann Route über Wegpunkte berechnen"
-    },
-    "showWebsite": {
-        "label": "Website anzeigen",
-        "description": "[POI Information] Zeigt den Link zur Website vom POI an"
-    },
-    "profiles": {
-        "label": "Routing Profile",
-        "description": "[Routing] Welche Profile werden beim Routing unterstützt?"
-    },
-    "routingProviders": {
-        "description": "[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?",
-        "label": "Routing-Anbieter"
-    },
-    "avoidTraffic": {
-        "label": "Verkehr vermeiden",
-        "description": "[Routing] Optimiert die App die Route, um Staus zu vermeiden?"
-    },
-    "trafficProvider": {
-        "label": "Verkehrsanbieter",
-        "description": "[Routing] Anbieter der Verkehrsdatenquelle."
-    },
-    "keepOnRoad": {
-        "label": "Auf der Straße bleiben",
-        "description": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"
-    },
-    "turnLanes": {
-        "label": "Fahrspurführung",
-        "description": "[Navigation] Unterstützt es die Fahrspurführung?"
-    },
-    "uploadGPX": {
-        "label": "GPX zu OSM hochladen",
-        "description": "[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?"
-    },
-    "trackFormats": {
-        "label": "Track-Formate",
-        "description": "[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?"
-    },
-    "viewNotes": {
-        "label": "Notizen anzeigen",
-        "description": "[Editor] Kann man OSM-Notizen anzeigen?"
-    },
-    "addWay": {
-        "label": "Weg hinzufügen",
-        "description": "[Editor] Kann man Wege hinzufpgen?"
-    },
-    "editNotes": {
-        "label": "Notizen bearbeiten",
-        "description": "[Editor] Kann man OSM-Notizen kommentieren/schließen?"
-    },
-    "createNotes": {
-        "label": "Notizen erstellen",
-        "description": "[Editor] Kann man OSM-Notizen anlegen?"
-    },
-    "geotagging": {
-        "label": "Geotagging",
-        "description": "[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?"
-    },
-    "showSpeed": {
-        "label": "Geschwindigkeit anzeigen",
-        "description": "[Streckenüberwachung]"
-    },
-    "editSource": {
-        "label": "Offline benutzen",
-        "description": "[Editor] Kannst man offline arbeiten?"
-    },
-    "rendererOutputFormats": {
-        "label": "Renderer-Ausgabeformate",
-        "description": "[Renderer] Unterstützte Ausgabeformate."
-    },
-    "accessibility": {
-        "label": "Unterstützung der Barrierefreiheit",
-        "description": "[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?"
-    }
+  "lang": {
+    "label": "Sprache der Vorlage",
+    "description": "Sprache, in der die Texte der Vorlage angezeigt werden."
+  },
+  "name": {
+    "label": "Name",
+    "description": "Offizieller Name, ansonsten der verbreitetste"
+  },
+  "license": {
+    "label": "Lizenz",
+    "description": "Welche freie Lizenz oder proprietär?"
+  },
+  "price": {
+    "label": "Preis",
+    "description": "Kosten, wenn proprietär. Wenn der Preis nicht angegeben ist, ist die Anwendung kostenlos."
+  },
+  "repo": {
+    "label": "Quellcode",
+    "description": "URL zum Anzeigen oder Herunterladen des Quellcodes (z. B. ein Git-, Subversion- oder CVS-Repository)"
+  },
+  "screenshot": {
+    "label": "Bildschirmfoto"
+  },
+  "description": {
+    "label": "Beschreibung",
+    "description": "Kurzbeschreibung. Was unterscheidet es von anderen Tools? (Schreibe deine eigene Beschreibung, kopiere sie nicht einfach von der Website)"
+  },
+  "author": {
+    "label": "Autor",
+    "description": "Name des Autors/der Autorin oder ein Link zu dessen/deren OSM-Wiki-Benutzerseite"
+  },
+  "platform": {
+    "label": "Plattform",
+    "description": "Liste der Plattformen, auf denen es läuft."
+  },
+  "languages": {
+    "label": "Sprachen",
+    "description": "Unterstützte Sprachen (Liste der gültigen Sprachcodes, getrennt durch Semikolon) oder Anzahl der unterstützten Sprachen"
+  },
+  "code": {
+    "label": "Code",
+    "description": "Liste der verwendeten Programmiersprachen."
+  },
+  "framework": {
+    "label": "Framework",
+    "description": "Liste der verwendeten Frameworks."
+  },
+  "version": {
+    "label": "Version",
+    "description": "Aktuellste Version"
+  },
+  "map": {
+    "label": "Karte anzeigen",
+    "description": "[Kartenanzeige] Kann eine Karte angezeigt werden?"
+  },
+  "rotateMap": {
+    "label": "Karte drehen",
+    "description": "[Kartenanzeige] Wird die Karte in Fahrt-/Gehrichtung gedreht?"
+  },
+  "3D": {
+    "label": "3D-Ansicht",
+    "description": "[Kartenanzeige] Gibt es eine 3D- oder 2,5D-Ansicht?"
+  },
+  "routing": {
+    "description": "[Routenplanung] Kann eine Route berechnet oder sonst wie geplant werden?",
+    "label": "Routenplanung"
+  },
+  "createRouteManually": {
+    "label": "Route von Hand eingeben",
+    "description": "[Routenplanung]"
+  },
+  "calculateRoute": {
+    "label": "Route berechnen",
+    "description": "[Routenplanung] Kann es eine Route mit Hilfe der Routenplanung berechnen?"
+  },
+  "turnRestrictions": {
+    "label": "Abbiegebeschränkungen",
+    "description": "[Routing] Kann es mit Abbiegeverboten umgehen?"
+  },
+  "calculateRouteOffline": {
+    "label": "Route berechnen ohne Internet",
+    "description": "[Routing] Braucht es Internet, um eine Route zu berechnen?"
+  },
+  "navigating": {
+    "label": "Navigieren",
+    "description": "[Navigation] Kann man mit einem Kompass navigieren?"
+  },
+  "findLocation": {
+    "label": "Finde eine Position",
+    "description": "[Navigation] Kann man nach einer Straße/einem Ort suchen?"
+  },
+  "findNearbyPOI": {
+    "label": "Finde POI in der Nähe",
+    "description": "[Navigation] Kann es Points of Interest anzeigen?"
+  },
+  "navToPoint": {
+    "label": "Navigiere zu einem Punkt",
+    "description": "[Navigation] Kann es einen zu einem bestimmten Punkt führen?"
+  },
+  "voice": {
+    "label": "Navigation mit Sprachansage",
+    "description": "[Navigation] Kann es Befehle mit einer Computerstimme geben?"
+  },
+  "withoutGPS": {
+    "label": "Funktioniert ohne GPS",
+    "description": "[Navigation] Funktioniert auch ohne GPS?"
+  },
+  "predefinedRoute": {
+    "label": "Folge einer vordefinierten Route",
+    "description": "[Navigation] Kann anderen GPS-Tracks folgen?"
+  },
+  "tracking": {
+    "label": "Track aufzeichnen",
+    "description": "[Streckenaufzeichnung] Kann man einen GPS-Track aufzeichnen?"
+  },
+  "customInterval": {
+    "label": "Einstellbares Aufzeichnungsintervall",
+    "description": "[Streckenaufzeichnung] Kann man das Intervall manuell einstellen?"
+  },
+  "fastWayPointAdding": {
+    "label": "Knöpfe zum schnellen Setzen von Wegpunkten",
+    "description": "[Streckenaufzeichnung] Ist es einfach, einen neuen Wegpunkt hinzuzufügen?"
+  },
+  "monitoring": {
+    "label": "Monitoring",
+    "description": "[Streckenüberwachung] Kann man GPS-Daten überwachen?"
+  },
+  "showTrack": {
+    "label": "Zeige aktuellen Track",
+    "description": "[Streckenüberwachung] Zeigt es den aktuellen Kurs an?"
+  },
+  "showExistingTrack": {
+    "label": "Öffne existierenden Track",
+    "description": "[Streckenüberwachung] Kann es vorhandene Tracks laden, so dass man ihnen folgen kann?"
+  },
+  "showAltitudeDiagram": {
+    "label": "Höhendiagramm",
+    "description": "[Streckenüberwachung]"
+  },
+  "showDOP": {
+    "label": "Zeige DOP-Wert",
+    "description": "[Streckenüberwachung] Zeigt es die Signalqualität an?"
+  },
+  "showSatellites": {
+    "label": "Zeige Satelliten",
+    "description": "[Streckenüberwachung] Zeigt es Satelliten an?"
+  },
+  "showNMEAlive": {
+    "label": "Zeige NMEA-Livedaten",
+    "description": "[Streckenüberwachung] Kann man den GPS-Rohdatenstrom sehen?"
+  },
+  "sendPosition": {
+    "label": "Sende aktuelle Position",
+    "description": "[Streckenüberwachung] Kann man seine Position an andere senden?"
+  },
+  "addPOI": {
+    "label": "POI hinzufügen",
+    "description": "[Editor] Kann man Punkte hinzufügen?"
+  },
+  "editPOI": {
+    "label": "POI bearbeiten/löschen",
+    "description": "[Editor] Kann man Punkte bearbeiten?"
+  },
+  "editGeom": {
+    "label": "Geometrie bearbeiten",
+    "description": "[Editor] Kann man Knoten/Wege bearbeiten?"
+  },
+  "editTags": {
+    "label": "Beliebige Tags an vorhandenen OSM-Objekten bearbeiten",
+    "description": "[Editor] Kann man bestehende Tags bearbeiten?"
+  },
+  "offsetDBsupport": {
+    "label": "Unterstützt Luftbildversatz DB",
+    "description": "[Editor] Unterstützt es die Bildoffset-DB?"
+  },
+  "uploadOSMData": {
+    "label": "Zu OSM hochladen",
+    "description": "[Editor] Kann man Änderungen direkt an OSM senden?"
+  },
+  "textOnlyUI": {
+    "label": "Komplett ohne Grafik bedienbar",
+    "description": "[Barrierefreiheit] Text in Braille kompatible Schnittstelle?"
+  },
+  "brailleUI": {
+    "label": "Braille-Oberfläche",
+    "description": "[Barrierefreiheit] Eine spezielle Braille-Schnittstelle?"
+  },
+  "explorerMode": {
+    "label": "Erkundungsmodus",
+    "description": "[Barrierefreiheit] Hat einen Erkundungsmodus (alle sich nähernden Objekte melden)?"
+  },
+  "publicTransportMode": {
+    "label": "ÖPNV-Modus",
+    "description": "[Barrierefreiheit] Unterstützt das Routing mit öffentlichen Verkehrsmitteln?"
+  },
+  "dangerWarnings": {
+    "label": "Gefahrenwarnungen",
+    "description": "[Barrierefreiheit]"
+  },
+  "screenReader": {
+    "label": "Screenreader",
+    "description": "[Barrierefreiheit] Liste der unterstützten Screenreader"
+  },
+  "screenReaderLang": {
+    "label": "Screenreader-Sprachen",
+    "description": "[Barrierefreiheit] Liste der unterstützten Screenreader-Sprachen"
+  },
+  "status": {
+    "label": "Status",
+    "description": "Aktueller Status des Projekts."
+  },
+  "web": {
+    "label": "Internetadresse"
+  },
+  "date": {
+    "label": "Veröffentlichungsdatum",
+    "description": "Letztes Veröffentlichungsdatum"
+  },
+  "coverage": {
+    "label": "Abdeckung",
+    "description": "Abdeckung oder Zielregion der App. Formatierung: „Kontinent, Land, Region, ...“. Verwende „Weltweit“ oder lass es leer, wenn du es global verwenden willst."
+  },
+  "mapData": {
+    "label": "Kartendaten",
+    "description": "[Kartenanzeige] Karten, die mit vorberechneten/gerasterten Bildern (Raster) oder „on the fly“ (Vektor) erstellt werden?"
+  },
+  "microsoftAppID": {
+    "label": "Microsoft ID",
+    "description": "Microsoft Store Windows-Anwendungs-UUID"
+  },
+  "obtainiumLink": {
+    "label": "Obtainium Updater Verweis",
+    "description": "Verweis zu Obtainium updater Informationen"
+  },
+  "appleStoreID": {
+    "label": "AppStore ID",
+    "description": "iTunes App Store Anwendungs-D"
+  },
+  "editRelations": {
+    "label": "Relationen bearbeiten",
+    "description": "[Editor] Kann man Relationen bearbeiten?"
+  },
+  "genre": {
+    "label": "Genre",
+    "description": "Hauptkategorie für dieses Tool."
+  },
+  "googlePlayID": {
+    "label": "Google Play ID",
+    "description": "Google Play Store Anwendungs-ID"
+  },
+  "datasource": {
+    "label": "Quelle",
+    "description": "[Kartenanzeige] Können alle Kartendaten offline abgespeichert werden? Eine separate Datei herunterladen?"
+  },
+  "logo": {
+    "label": "Logo",
+    "description": "Software-Icon oder -Logo"
+  },
+  "fDroidID": {
+    "label": "F-Droid ID",
+    "description": "F-Droid-Anwendungs-ID"
+  },
+  "bbWorldID": {
+    "label": "BlackBerry ID",
+    "description": "BlackBerry World-Anwendungs-ID"
+  },
+  "languagesurl": {
+    "label": "Sprachen-URL",
+    "description": "Link zu der tatsächlichen vollständigen Liste der unterstützten Sprachen, die auf einer anderen Seite beschrieben wird (z. B. einer Portalseite für die Software oder einem Repository)."
+  },
+  "asin": {
+    "label": "Amazon Identifikation",
+    "description": "Amazon Standard-Identifikationsnummer für den Amazon Appstore für Android"
+  },
+  "firefoxMarketplaceID": {
+    "label": "Firefox Marketplace ID",
+    "description": "Mozilla Firefox Marktplatz-Anwendungs-ID"
+  },
+  "huaweiAppGalleryID": {
+    "label": "Huawei AppGallery ID",
+    "description": "Huawei AppGallery Anwendungs-ID"
+  },
+  "macAppStoreID": {
+    "label": "Mac AppStore ID",
+    "description": "Mac App Store Anwendungs-ID"
+  },
+  "showPhoneNumber": {
+    "description": "[POI-Informationen] Zeigt die Telefonnummer des POI an",
+    "label": "Zeigt Telefonnummer"
+  },
+  "showOpeningHours": {
+    "label": "Zeigt die Betriebszeiten an",
+    "description": "[POI-Informationen] Zeigt die Betriebszeiten des POI an."
+  },
+  "createRouteViaWaypoints": {
+    "label": "Route über Wegpunkte erstellen",
+    "description": "[Routenplanung] Kann Route über Wegpunkte berechnen"
+  },
+  "showWebsite": {
+    "label": "Website anzeigen",
+    "description": "[POI Information] Zeigt den Link zur Website vom POI an"
+  },
+  "profiles": {
+    "label": "Routing Profile",
+    "description": "[Routing] Welche Profile werden beim Routing unterstützt?"
+  },
+  "routingProviders": {
+    "description": "[Routing] Welche(r) Routing-Dienst(e) wird/werden verwendet?",
+    "label": "Routing-Anbieter"
+  },
+  "avoidTraffic": {
+    "label": "Verkehr vermeiden",
+    "description": "[Routing] Optimiert die App die Route, um Staus zu vermeiden?"
+  },
+  "trafficProvider": {
+    "label": "Verkehrsanbieter",
+    "description": "[Routing] Anbieter der Verkehrsdatenquelle."
+  },
+  "keepOnRoad": {
+    "label": "Auf der Straße bleiben",
+    "description": "[Navigation] Kann es dabei helfen, das Fahrzeug auf der berechneten Route zu halten?"
+  },
+  "turnLanes": {
+    "label": "Fahrspurführung",
+    "description": "[Navigation] Unterstützt es die Fahrspurführung?"
+  },
+  "uploadGPX": {
+    "label": "GPX zu OSM hochladen",
+    "description": "[Streckenaufzeichnung] Kann man Tracks direkt an OSM senden?"
+  },
+  "trackFormats": {
+    "label": "Track-Formate",
+    "description": "[Streckenaufzeichnung] In welchen Speicherformaten kann der GPS-Track gespeichert werden?"
+  },
+  "viewNotes": {
+    "label": "Notizen anzeigen",
+    "description": "[Editor] Kann man OSM-Notizen anzeigen?"
+  },
+  "addWay": {
+    "label": "Weg hinzufügen",
+    "description": "[Editor] Kann man Wege hinzufpgen?"
+  },
+  "editNotes": {
+    "label": "Notizen bearbeiten",
+    "description": "[Editor] Kann man OSM-Notizen kommentieren/schließen?"
+  },
+  "createNotes": {
+    "label": "Notizen erstellen",
+    "description": "[Editor] Kann man OSM-Notizen anlegen?"
+  },
+  "geotagging": {
+    "label": "Geotagging",
+    "description": "[Streckenaufzeichnung] Werden weitere Mapping-Techniken unterstützt?"
+  },
+  "showSpeed": {
+    "label": "Geschwindigkeit anzeigen",
+    "description": "[Streckenüberwachung]"
+  },
+  "editSource": {
+    "label": "Offline benutzen",
+    "description": "[Editor] Kannst man offline arbeiten?"
+  },
+  "rendererOutputFormats": {
+    "label": "Renderer-Ausgabeformate",
+    "description": "[Renderer] Unterstützte Ausgabeformate."
+  },
+  "accessibility": {
+    "label": "Unterstützung der Barrierefreiheit",
+    "description": "[Barrierefreiheit] Hilft es behinderten Menschen in irgendeiner Form?"
+  }
 }
