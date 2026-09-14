@@ -216,6 +216,8 @@
   "category.tourism.description": "{{numberOfApps}} alkalmazás városok megismeréséhez vagy szálláskereséshez.",
   "category.trackRec": "Utazások felvétele és megosztása",
   "category.trackRec.description": "{{numberOfApps}} eszköz GPS-nyomvonalak, mozgási adatok vagy terepen rögzített jegyzetek felvételéhez (pl. későbbi térképrajzoláshoz).",
+  "category.trend": "Néppszerű",
+  "category.trend.description": "Az elmúlt hét napban legtöbbször megtekintett alkalmazások.",
   "category.universalMapApps": "Általános térképalkalmazás",
   "category.universalMapApps.description": "{{numberOfApps}} térképalkalmazás érdekes helyek felfedezéséhez, utazás tervezéséhez és a térkép javításához.",
   "category.wheelchair": "Kerekesszékkel vagy babakocsival közlekedőknek",
