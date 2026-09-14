@@ -8,6 +8,8 @@ export async function enrichStats(apps: App[]) {
     const app = apps.find((app) => app.id === s.app);
 
     if (app) {
+      // one app can be multiple times in the stats one for direct link and one
+      // for exploring the catalog
       app.views = (app.views || 0) + s.count;
     }
   });
