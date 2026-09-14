@@ -130638,15 +130638,9 @@ function addOrMergeApp(apps, knownApps, app, options) {
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/getKnownApps.ts
+
 async function getKnownApps() {
-    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
-    try {
-        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
-    }
-    catch (e) {
-        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
-        throw e;
-    }
+    return (await getJson("https://osm-apps.org/api/apps/all.json"));
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/crawler/wikidata.ts

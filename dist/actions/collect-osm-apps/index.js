@@ -132297,16 +132297,58 @@ function isFreeAndOpenSourceSoftware(value) {
     return array_some(string_upperCase(value), list);
 }
 
-;// CONCATENATED MODULE: ./actions/lib/getBlackList.ts
-async function getBlackList() {
-    console.info(`Load: https://osm-apps.org/api/blacklist.json`);
+;// CONCATENATED MODULE: ./shared/utils/delay.ts
+function delay(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+}
+
+;// CONCATENATED MODULE: ./shared/utils/isDevelopment.ts
+const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
+
+;// CONCATENATED MODULE: ./shared/utils/jsonRequest.ts
+
+
+
+async function getJson(url, params = {}, headers = {}, isRetry = false) {
+    const requestUrl = [url, utilQsString(params)].filter((s) => s).join("?");
+    if (isDevelopment) {
+        const response = await fetch(url.startsWith("https://osm-apps.org/")
+            ? url.replace("https://osm-apps.org/", "https://raw.githubusercontent.com/ToastHawaii/osm-apps-catalog/refs/heads/main/docs/")
+            : "https://corsproxy.io/?" +
+                encodeURIComponent(requestUrl) +
+                // change to avoid caching during testing
+                "%262026-04-15");
+        return await response.json();
+    }
+    console.info(`Load: ${requestUrl}`);
     try {
-        return (await (await fetch("https://osm-apps.org/api/blacklist.json", {})).json());
+        const response = await fetch(requestUrl, {
+            headers: {
+                ...headers,
+                ...{
+                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+            },
+        });
+        return await response.json();
     }
     catch (e) {
-        console.error(`Error on loading https://osm-apps.org/api/blacklist.json: ${JSON.stringify(e)}`);
+        console.error(`Error on loading ${requestUrl}: ${JSON.stringify(e)}`);
+        if (!isRetry) {
+            // retry one time after a delay of 3 seconds
+            await delay(3000);
+            return getJson(url, params, headers, true);
+        }
         throw e;
     }
+}
+
+;// CONCATENATED MODULE: ./actions/lib/getBlackList.ts
+
+async function getBlackList() {
+    return (await getJson("https://osm-apps.org/api/blacklist.json"));
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/crawler/gitHub.ts
@@ -132594,54 +132636,6 @@ async function loadAppsFromGitHub(octokit) {
     const result = objs.map((source) => transformGitHubResult(dynamic, source));
     console.info("Found " + result.length + " projects in GitHub");
     return result;
-}
-
-;// CONCATENATED MODULE: ./shared/utils/delay.ts
-function delay(ms) {
-    return new Promise((r) => setTimeout(r, ms));
-}
-
-;// CONCATENATED MODULE: ./shared/utils/isDevelopment.ts
-const isDevelopment = typeof window !== "undefined" && window.location.host.startsWith("localhost");
-
-;// CONCATENATED MODULE: ./shared/utils/jsonRequest.ts
-
-
-
-async function getJson(url, params = {}, headers = {}, isRetry = false) {
-    const requestUrl = [url, utilQsString(params)].filter((s) => s).join("?");
-    if (isDevelopment) {
-        const response = await fetch(url.startsWith("https://osm-apps.org/")
-            ? url.replace("https://osm-apps.org/", "https://raw.githubusercontent.com/ToastHawaii/osm-apps-catalog/refs/heads/main/docs/")
-            : "https://corsproxy.io/?" +
-                encodeURIComponent(requestUrl) +
-                // change to avoid caching during testing
-                "%262026-04-15");
-        return await response.json();
-    }
-    console.info(`Load: ${requestUrl}`);
-    try {
-        const response = await fetch(requestUrl, {
-            headers: {
-                ...headers,
-                ...{
-                    "User-Agent": "OsmAppsCatalogBot/1.0 (osm-apps.org;markus@zottelig.ch)",
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json",
-                },
-            },
-        });
-        return await response.json();
-    }
-    catch (e) {
-        console.error(`Error on loading ${requestUrl}: ${JSON.stringify(e)}`);
-        if (!isRetry) {
-            // retry one time after a delay of 3 seconds
-            await delay(3000);
-            return getJson(url, params, headers, true);
-        }
-        throw e;
-    }
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/crawler/osmWiki/requestTemplates.ts
@@ -142235,15 +142229,9 @@ async function generateSitemap(apps) {
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/getKnownApps.ts
+
 async function getKnownApps() {
-    console.info(`Load: https://osm-apps.org/api/apps/all.json`);
-    try {
-        return (await (await fetch("https://osm-apps.org/api/apps/all.json", {})).json());
-    }
-    catch (e) {
-        console.error(`Error on loading https://osm-apps.org/api/apps/all.json: ${JSON.stringify(e)}`);
-        throw e;
-    }
+    return (await getJson("https://osm-apps.org/api/apps/all.json"));
 }
 
 ;// CONCATENATED MODULE: ./actions/lib/getValidatedFundings.ts
@@ -143305,6 +143293,7 @@ function extractFunding(apps, validatedFundings) {
 
 ;// CONCATENATED MODULE: ./actions/lib/getStats.ts
 
+
 async function getStats() {
     const today = new Date();
     const formatDate = (date) => date.toISOString().split("T")[0];
@@ -143312,22 +143301,20 @@ async function getStats() {
     const sevenDaysAgo = new Date(today);
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     const currentMinus7 = formatDate(sevenDaysAgo);
-    try {
-        return (await (await fetch(`https://osm-apps.goatcounter.com/api/v0/stats/hits?start=${currentMinus7}&end=${currentDate}&group=day&limit=50`, {
-            headers: {
-                Authorization: `Bearer ${getInput("goatcounterToken")}`,
-            },
-        })).json()).hits
-            .filter((hit) => /app\/\d+$/.test(hit.path))
-            .map((hit) => ({
-            app: parseInt(hit.path.match(/app\/(\d+)$/)?.[1], 10),
-            count: hit.count,
-        }));
-    }
-    catch (e) {
-        console.error(`Error on loading stats from osm-apps.goatcounter.com: ${JSON.stringify(e)}`);
-        throw e;
-    }
+    return ((await getJson("https://osm-apps.goatcounter.com/api/v0/stats/hits", {
+        start: currentMinus7,
+        end: currentDate,
+        group: "day",
+        limit: 50,
+    }, {
+        Authorization: `Bearer ${getInput("goatcounterToken")}`,
+    })).hits
+        // get all stats to apps
+        .filter((hit) => /app\/\d+$/.test(hit.path))
+        .map((hit) => ({
+        app: parseInt(hit.path.match(/app\/(\d+)$/)?.[1], 10),
+        count: hit.count,
+    })));
 }
 
 ;// CONCATENATED MODULE: ./actions/collect-osm-apps/enrichStats.ts
@@ -143337,6 +143324,8 @@ async function enrichStats(apps) {
     stats.forEach((s) => {
         const app = apps.find((app) => app.id === s.app);
         if (app) {
+            // one app can be multiple times in the stats one for direct link and one
+            // for exploring the catalog
             app.views = (app.views || 0) + s.count;
         }
     });
