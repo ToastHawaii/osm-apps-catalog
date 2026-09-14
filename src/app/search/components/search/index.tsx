@@ -63,7 +63,7 @@ export function SearchComponent({
           setInnerValue(e.currentTarget.value);
           onChange(e.currentTarget.value);
 
-          if (window.goatcounter) {
+          if (window.goatcounter?.count) {
             window.goatcounter.count({
               path: `/search`,
               title: "Has started a search.",

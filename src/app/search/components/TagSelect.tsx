@@ -60,7 +60,7 @@ export function TagSelect({
             return;
           }
           const onlyNewValues = difference(newValues, selected);
-          if (window.goatcounter && onlyNewValues.length > 0) {
+          if (window.goatcounter?.count && onlyNewValues.length > 0) {
             window.goatcounter.count({
               path: `/?tag=${onlyNewValues.join()}`,
               title: "Has selected a tag.",
