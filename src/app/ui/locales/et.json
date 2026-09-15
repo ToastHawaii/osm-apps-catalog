@@ -216,6 +216,8 @@
   "category.tourism.description": "{{numberOfApps}} rakendust, mis aitavad avastada uusi kohti või leida endale majutust.",
   "category.trackRec": "Salvesta ja jaga teekondi",
   "category.trackRec.description": "{{numberOfApps}} tarvikut võimaldavad salvestada GPS-i radu, liikumisandmeid või välitööde märkmeid näiteks jagamiseks või hilisemaks töötlemiseks.",
+  "category.trend": "Populaarsust koguvad rakendused",
+  "category.trend.description": "Viimase seitsme päeva jooksul enimvaadatud rakendused.",
   "category.universalMapApps": "Universaalsed kaardirakendused",
   "category.universalMapApps.description": "{{numberOfApps}} kaardirakendust huvitavate kohtade avastamiseks, reisi planeerimiseks ja kaardi täiustamiseks.",
   "category.wheelchair": "Ratastooli või lapsevankri kasutajatele",
