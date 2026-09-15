@@ -112,7 +112,7 @@ export function Activity(
     }
 
     return (
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Item size="xs" className={className} asChild>
             <button className="text-start">{item}</button>
