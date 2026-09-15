@@ -216,6 +216,8 @@
   "category.tourism.description": "{{numberOfApps}} εφαρμογές για να ανακαλύψετε μια πόλη ή για να βρείτε ένα μέρος να μείνετε το βράδυ.",
   "category.trackRec": "Καταγραφή και διαμοιρασμός ίχνους",
   "category.trackRec.description": "{{numberOfApps}} εργαλεία για καταγραφή ιχνών GPS, δεδομένα κίνησης ή σημειώσεις πεδίου για π.χ. χαρτογράφηση αργότερα.",
+  "category.trend": "Εφαρμογές σε τάση",
+  "category.trend.description": "Οι πιο προβεβλημένες εφαρμογές των τελευταίων εφτά ημερών.",
   "category.universalMapApps": "Παγκόσμιες εφαρμογές χαρτών",
   "category.universalMapApps.description": "{{numberOfApps}} εφαρμογές χαρτών για ανακάλυψη ενδιαφερόντων τοποθεσιών, σχεδιασμό διαδρομής ή βελτίωση του χάρτη.",
   "category.wheelchair": "Εν κινήσει με αναπηρικό αμαξίδιο ή καροτσάκι",
