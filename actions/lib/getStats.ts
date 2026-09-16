@@ -2,13 +2,14 @@ import * as core from "@actions/core";
 import { getJson } from "@shared/utils/jsonRequest";
 
 export async function getStats() {
-  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
 
   const formatDate = (date: Date) => date.toISOString().split("T")[0];
-  const currentDate = formatDate(today);
+  const currentDate = formatDate(yesterday);
 
-  const sevenDaysAgo = new Date(today);
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const sevenDaysAgo = new Date(yesterday);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 8);
   const currentMinus7 = formatDate(sevenDaysAgo);
 
   return (
