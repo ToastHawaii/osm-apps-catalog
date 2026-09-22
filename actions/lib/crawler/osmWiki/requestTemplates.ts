@@ -3,67 +3,121 @@ import { findClosingBracketIndex } from "@shared/utils/string";
 
 type Template = Record<string, string>;
 
+type TemplateObject = Template & {
+  communicationChannels: Template;
+};
+
+interface EmbeddedPage {
+  pageid: number;
+  ns: number;
+  title: string;
+}
+
+interface Revision {
+  timestamp: string;
+  slots: {
+    main: {
+      content: string;
+    };
+  };
+}
+
+interface EmbeddedInResponse {
+  continue?: {
+    eicontinue: string;
+  };
+  query: {
+    embeddedin: EmbeddedPage[];
+  };
+}
+
+interface PagesResponse {
+  query: {
+    pages: Record<
+      string,
+      {
+        pageid: number;
+        title: string;
+        revisions: Revision[];
+      }
+    >;
+  };
+}
+
 export async function requestTemplates(
   template: string,
   languageMode: "en" | "notEn",
-) {
-  const objects: (Template & {
-    communicationChannels: Template;
-  })[] = [];
-  let con;
+): Promise<TemplateObject[]> {
+  const objects: TemplateObject[] = [];
+
+  let eicontinue: string | undefined;
 
   do {
     const params: Record<string, string> = {
       list: "embeddedin",
-      eititle: "Template:" + template,
+      eititle: `Template:${template}`,
+
+      // Only search the main/article namespace.
+      // This excludes User:, Talk:, Template:, etc.
+      // User namespace is not a good source since other users may not want to
+      // or may not feel comfortable editing the entries there..
+      einamespace: "0",
+
       eilimit: "500",
     };
-    if (con) params.eicontinue = con;
 
-    const response = await osmMediaApiQuery(params);
+    if (eicontinue) {
+      params.eicontinue = eicontinue;
+    }
+
+    const response = await osmMediaApiQuery<EmbeddedInResponse>(params);
 
     objects.push(
       ...(await processPagesByTemplateResult(response, template, languageMode)),
     );
 
-    con = response.continue?.eicontinue;
-  } while (con);
+    eicontinue = response.continue?.eicontinue;
+  } while (eicontinue);
 
   return objects;
 }
 
-async function osmMediaApiQuery(params: Record<string, string>) {
+async function osmMediaApiQuery<T>(params: Record<string, string>) {
   const base = "https://wiki.openstreetmap.org/w/api.php";
 
-  params["origin"] = "*";
-  params["action"] = "query";
-  params["formatversion"] = "2";
-  params["format"] = "json";
-
-  return await getJson(base, params);
+  return (await getJson(base, {
+    ...params,
+    origin: "*",
+    action: "query",
+    formatversion: "2",
+    format: "json",
+  })) as T;
 }
 
 const languages =
   "af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue";
 
+const languagePrefixRegex = new RegExp(`^(${languages}):`, "i");
+
 async function processPagesByTemplateResult(
-  response: { continue: { eicontinue: any }; query: { embeddedin: any } },
+  response: EmbeddedInResponse,
   template: string,
   languageMode: "en" | "notEn",
-) {
+): Promise<TemplateObject[]> {
   const pages = response.query.embeddedin;
 
-  const objects: (Template & {
-    communicationChannels: Template;
-  })[] = [];
-  let ids = [];
-  for (const p in pages) {
+  const objects: TemplateObject[] = [];
+  let ids: number[] = [];
+
+  for (const page of pages) {
+    const isLanguagePage = languagePrefixRegex.test(page.title);
+
     if (languageMode === "en") {
-      if (!new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
-        ids.push(pages[p].pageid);
+      if (!isLanguagePage) {
+        ids.push(page.pageid);
       }
-    } else if (new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
-      ids.push(pages[p].pageid);
+    } else if (isLanguagePage) {
+      ids.push(page.pageid);
     }
 
     if (ids.length >= 50) {
@@ -79,33 +133,31 @@ async function processPagesByTemplateResult(
   return objects;
 }
 
-async function loadPages(ids: string[], template: string) {
+async function loadPages(ids: number[], template: string) {
   const params: Record<string, string> = {
     prop: "revisions",
     rvprop: "content|timestamp",
+    rvslots: "main",
     pageids: ids.join("|"),
-    rvslots: "*",
   };
 
-  const response = await osmMediaApiQuery(params);
+  const response = await osmMediaApiQuery<PagesResponse>(params);
 
-  const pages = response.query.pages;
+  const objects: TemplateObject[] = [];
 
-  const objects: (Template & {
-    communicationChannels: Template;
-  })[] = [];
-  for (const p in pages) {
-    const content = pages[p].revisions[0].slots.main.content;
+  for (const page of Object.values(response.query.pages)) {
+    const content = page.revisions[0].slots.main.content;
     const pageObjects = parsePage(content, template);
-    for (const o of pageObjects) {
-      o.language = pages[p].title.includes(":")
-        ? pages[p].title.split(":")[0]
+    for (const object of pageObjects) {
+      object.language = languagePrefixRegex.test(page.title)
+        ? page.title.split(":", 1)[0]
         : "en";
-      o.sourceWiki = pages[p].title;
-      o.timestamp = pages[p].revisions[0].timestamp;
+      object.sourceWiki = page.title;
+      object.timestamp = page.revisions[0].timestamp;
     }
     objects.push(...pageObjects);
   }
+
   return objects;
 }
 
