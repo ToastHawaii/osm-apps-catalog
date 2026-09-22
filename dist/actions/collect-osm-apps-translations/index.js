@@ -129184,42 +129184,52 @@ async function getJson(url, params = {}, headers = {}, isRetry = false) {
 
 async function requestTemplates(template, languageMode) {
     const objects = [];
-    let con;
+    let eicontinue;
     do {
         const params = {
             list: "embeddedin",
-            eititle: "Template:" + template,
+            eititle: `Template:${template}`,
+            // Only search the main/article namespace.
+            // This excludes User:, Talk:, Template:, etc.
+            // User namespace is not a good source since other users may not want to
+            // or may not feel comfortable editing the entries there..
+            einamespace: "0",
             eilimit: "500",
         };
-        if (con)
-            params.eicontinue = con;
+        if (eicontinue) {
+            params.eicontinue = eicontinue;
+        }
         const response = await osmMediaApiQuery(params);
         objects.push(...(await processPagesByTemplateResult(response, template, languageMode)));
-        con = response.continue?.eicontinue;
-    } while (con);
+        eicontinue = response.continue?.eicontinue;
+    } while (eicontinue);
     return objects;
 }
 async function osmMediaApiQuery(params) {
     const base = "https://wiki.openstreetmap.org/w/api.php";
-    params["origin"] = "*";
-    params["action"] = "query";
-    params["formatversion"] = "2";
-    params["format"] = "json";
-    return await getJson(base, params);
+    return (await getJson(base, {
+        ...params,
+        origin: "*",
+        action: "query",
+        formatversion: "2",
+        format: "json",
+    }));
 }
 const languages = "af|ast|az|id|ms|bs|br|ca|cs|da|de|et|en|es|eo|eu|fr|fy|gl|hr|ia|is|it|ht|gcf|ku|lv|lb|lt|hu|nl|no|nn|oc|pl|pnb|pt|ro|sq|sk|sl|sr-latn|fi|sv|tl|vi|tr|diq|el|be|bg|mk|mn|ru|sr|uk|hy|he|ar|fa|ps|ne|bn|ta|ml|si|th|my|ka|ko|tzm|zh-hans|zh-hant|ja|yue";
+const languagePrefixRegex = new RegExp(`^(${languages}):`, "i");
 async function processPagesByTemplateResult(response, template, languageMode) {
     const pages = response.query.embeddedin;
     const objects = [];
     let ids = [];
-    for (const p in pages) {
+    for (const page of pages) {
+        const isLanguagePage = languagePrefixRegex.test(page.title);
         if (languageMode === "en") {
-            if (!new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
-                ids.push(pages[p].pageid);
+            if (!isLanguagePage) {
+                ids.push(page.pageid);
             }
         }
-        else if (new RegExp(`^(${languages}):`, "ig").test(pages[p].title)) {
-            ids.push(pages[p].pageid);
+        else if (isLanguagePage) {
+            ids.push(page.pageid);
         }
         if (ids.length >= 50) {
             objects.push(...(await loadPages(ids, template)));
@@ -129235,21 +129245,20 @@ async function loadPages(ids, template) {
     const params = {
         prop: "revisions",
         rvprop: "content|timestamp",
+        rvslots: "main",
         pageids: ids.join("|"),
-        rvslots: "*",
     };
     const response = await osmMediaApiQuery(params);
-    const pages = response.query.pages;
     const objects = [];
-    for (const p in pages) {
-        const content = pages[p].revisions[0].slots.main.content;
+    for (const page of Object.values(response.query.pages)) {
+        const content = page.revisions[0].slots.main.content;
         const pageObjects = parsePage(content, template);
-        for (const o of pageObjects) {
-            o.language = pages[p].title.includes(":")
-                ? pages[p].title.split(":")[0]
+        for (const object of pageObjects) {
+            object.language = languagePrefixRegex.test(page.title)
+                ? page.title.split(":", 1)[0]
                 : "en";
-            o.sourceWiki = pages[p].title;
-            o.timestamp = pages[p].revisions[0].timestamp;
+            object.sourceWiki = page.title;
+            object.timestamp = page.revisions[0].timestamp;
         }
         objects.push(...pageObjects);
     }
