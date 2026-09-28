@@ -117,7 +117,7 @@ Some information provided by the user's browser (such as language or platform) m
 The website is hosted on Github Pages. The [GitHub documentation on GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) says:
 
 > ### Data collection
->
+> 
 > When a GitHub Pages site is visited, the visitor's IP address is logged and stored for security purposes, regardless of whether the visitor has signed into GitHub or not. For more information about GitHub's security practices, see [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Sponsors
