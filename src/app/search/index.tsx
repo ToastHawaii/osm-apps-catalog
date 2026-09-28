@@ -35,7 +35,9 @@ import { SearchComponent } from "./components/search";
 import { TopicSelect } from "./components/TopicSelect";
 
 // @ts-expect-error used to load styles
-import "../../index.scss";
+import "slim-select/styles";
+// @ts-expect-error used to load styles
+import "../../styles.css";
 // @ts-expect-error used to load styles
 import "../../index.css";
 

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { App } from "@shared/data/App";
 
 // @ts-expect-error used to load styles
-import "./styles.scss";
+import "./styles.css";
 
 function Suggestions({ apps }: { apps: App[] }) {
   const topics = chain(apps)

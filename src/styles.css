@@ -1,5 +1,3 @@
-@import "slim-select/styles";
-
 .radio-btn input {
   display: none;
 }
@@ -57,8 +55,6 @@
 #compare {
   width: max-content;
 }
-
-
 
 #compare .cell {
   min-width: 160px;
@@ -121,13 +117,11 @@
 #compare .param-text span div {
   display: inline;
 }
-#compare .table-row.focus {
-  .param-title {
-    color: #333;
-  }
-  .cell {
-    background: rgb(255 245 191);
-  }
+#compare .table-row.focus .param-title {
+  color: #333;
+}
+#compare .table-row.focus .cell {
+  background: rgb(255 245 191);
 }
 
 #compare .params-group-title {
@@ -142,9 +136,6 @@
 .ss-main {
   width: 240px;
   max-width: 100%;
-}
-
-.ss-main {
   margin: 3px 0;
 }
 
@@ -181,12 +172,12 @@
   font-size: 12px;
   padding: 3px 5px;
   border-radius: 4px;
+}
 
-  &.active,
-  &:hover {
-    color: #007aff;
-    border: 1px solid #007aff;
-  }
+.show-all.active,
+.show-all:hover {
+  color: #007aff;
+  border: 1px solid #007aff;
 }
 
 .filter-value {
@@ -206,15 +197,16 @@
   font-size: smaller;
   margin: 0;
   line-height: 1.5;
+}
 
-  a {
-    color: var(--primary);
-    text-underline-offset: 4px;
-    &:hover {
-      @media (hover: hover) {
-        text-decoration-line: underline;
-      }
-    }
+.table-row p a {
+  color: var(--ss-primary-color);
+  text-underline-offset: 4px;
+}
+
+@media (hover: hover) {
+  .table-row p a:hover {
+    text-decoration-line: underline;
   }
 }
 
@@ -241,6 +233,7 @@
 .cell .corner-badge-left {
   left: 0;
 }
+
 .corner-badge-left {
   position: absolute;
   left: -10px;
@@ -339,12 +332,10 @@
 }
 
 html.theme-mode-dark {
-  & {
-    filter: invert(100%) hue-rotate(180deg);
-  }
+  filter: invert(100%) hue-rotate(180deg);
+}
 
-  & img,
-  & input[type="image"] {
-    filter: invert(100%) hue-rotate(-180deg);
-  }
+html.theme-mode-dark img,
+html.theme-mode-dark input[type="image"] {
+  filter: invert(100%) hue-rotate(-180deg);
 }
