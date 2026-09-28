@@ -106276,14 +106276,24 @@ class LazyResult {
 
     if (visit.iterator !== 0) {
       let iterator = visit.iterator
+      // Advance past the child we just finished visiting. Like
+      // `Container#each`, the index is incremented only after a child has
+      // been fully processed, so a node inserted right after the current
+      // child is not skipped by the `existIndex < index` adjustment in
+      // `Container#insertAfter()` (which would fire exit events too early).
+      if (visit.descending) {
+        visit.descending = false
+        node.indexes[iterator] += 1
+      }
       let child
       while ((child = node.nodes[node.indexes[iterator]])) {
-        node.indexes[iterator] += 1
         if (!child[isClean]) {
           child[isClean] = true
+          visit.descending = true
           stack.push(toStack(child))
           return
         }
+        node.indexes[iterator] += 1
       }
       visit.iterator = 0
       delete node.indexes[iterator]
@@ -106321,12 +106331,22 @@ class LazyResult {
 
       if (visit.iterator !== 0) {
         let iterator = visit.iterator
+        // Advance past the child we just finished visiting. Like
+        // `Container#each`, the index is incremented only after a child has
+        // been fully processed. Incrementing before (as this loop used to)
+        // makes a node inserted right after the current child get skipped by
+        // the `existIndex < index` adjustment in `Container#insertAfter()`,
+        // which fires exit events before those new siblings are visited.
+        if (visit.descending) {
+          visit.descending = false
+          visitNode.indexes[iterator] += 1
+        }
         let child
         let descended = false
         while ((child = visitNode.nodes[visitNode.indexes[iterator]])) {
-          visitNode.indexes[iterator] += 1
           if (!child[isClean]) {
             child[isClean] = true
+            visit.descending = true
             stack.push({
               eventIndex: 0,
               events: getEvents(child),
@@ -106336,6 +106356,7 @@ class LazyResult {
             descended = true
             break
           }
+          visitNode.indexes[iterator] += 1
         }
         if (descended) continue
         visit.iterator = 0
@@ -106397,6 +106418,7 @@ let list = {
   },
 
   split(string, separators, last) {
+    if (typeof string !== 'string') return []
     let array = []
     let current = ''
     let split = false
@@ -106427,7 +106449,8 @@ let list = {
       }
 
       if (split) {
-        if (current !== '') array.push(current.trim())
+        let value = current.trim()
+        if (last || value !== '') array.push(value)
         current = ''
         split = false
       } else {
@@ -106435,7 +106458,8 @@ let list = {
       }
     }
 
-    if (last || current !== '') array.push(current.trim())
+    let value = current.trim()
+    if (last || value !== '') array.push(value)
     return array
   }
 }
@@ -106527,9 +106551,10 @@ class MapGenerator {
         }
       }
     } else if (this.css) {
+      let annotation = '/*# sourceMappingURL='
       let startIndex
-      while ((startIndex = this.css.lastIndexOf('/*#')) !== -1) {
-        let endIndex = this.css.indexOf('*/', startIndex + 3)
+      while ((startIndex = this.css.lastIndexOf(annotation)) !== -1) {
+        let endIndex = this.css.indexOf('*/', startIndex + annotation.length)
         if (endIndex === -1) break
         while (startIndex > 0 && this.css[startIndex - 1] === '\n') {
           startIndex--
@@ -107887,8 +107912,11 @@ class Parser {
       if (prev && prev.type === 'rule' && !prev.raws.ownSemicolon) {
         prev.raws.ownSemicolon = this.spaces
         this.spaces = ''
+        // `ownSemicolon` also holds the spaces before the semicolon, but
+        // the position above is the semicolon itself, so the node ends
+        // right after it.
         prev.source.end = this.getPosition(token[2])
-        prev.source.end.offset += prev.raws.ownSemicolon.length
+        prev.source.end.offset++
       }
     }
   }
@@ -108197,7 +108225,7 @@ postcss.plugin = function plugin(name, initializer) {
           ': postcss.plugin was deprecated. Migration guide:\n' +
           'https://evilmartians.com/chronicles/postcss-8-plugin-migration'
       )
-      if (process.env.LANG && process.env.LANG.startsWith('cn')) {
+      if (process.env.LANG && process.env.LANG.startsWith('zh')) {
         /* c8 ignore next 7 */
         // eslint-disable-next-line no-console
         console.warn(
@@ -108268,9 +108296,19 @@ postcss.default = postcss
 "use strict";
 
 
-let { existsSync, readFileSync } = __nccwpck_require__(9896)
+let { existsSync, readFileSync, realpathSync } = __nccwpck_require__(9896)
 let { dirname, isAbsolute, join, relative, sep } = __nccwpck_require__(6928)
 let { SourceMapConsumer, SourceMapGenerator } = __nccwpck_require__(2362)
+
+function realPath(path) {
+  try {
+    return realpathSync(path)
+  } catch {
+    // Missing or dangling: keep the literal path. The existsSync() check below
+    // still gates the read, and a path that does not exist cannot escape.
+    return path
+  }
+}
 
 function fromBase64(str) {
   if (Buffer) {
@@ -108357,7 +108395,9 @@ class PreviousMap {
       if (!/\.map$/i.test(path)) return undefined
       if (!cssFile) return undefined
 
-      let rel = relative(dirname(cssFile), path)
+      // Compare *resolved* paths: relative() is textual, so without this a
+      // symlink at or below the CSS file's directory points the map outside it.
+      let rel = relative(realPath(dirname(cssFile)), realPath(path))
       if (rel === '..' || rel.startsWith('..' + sep) || isAbsolute(rel)) {
         return undefined
       }
@@ -108447,7 +108487,7 @@ let Root = __nccwpck_require__(973)
 
 class Processor {
   constructor(plugins = []) {
-    this.version = '8.5.23'
+    this.version = '8.5.28'
     this.plugins = this.normalize(plugins)
   }
 
@@ -108733,6 +108773,14 @@ function atruleStart(str, node) {
   return name + afterName + params
 }
 
+// `*--x` is not a custom property: the parser checks the first token, and the
+// `*`/`_` hack prefix moves from `prop` into `before` only after that.
+function isCustomProperty(node) {
+  if (!node.prop.startsWith('--')) return false
+  let before = node.raws.before
+  return typeof before === 'undefined' || !/\S$/.test(before)
+}
+
 function pushBody(str, stack, node) {
   let nodes = node.nodes
   let last = nodes.length - 1
@@ -108754,7 +108802,7 @@ function pushBody(str, stack, node) {
       !childSemicolon &&
       i < nodes.length - 1 &&
       ((child.type === 'atrule' && !child.nodes) ||
-        (child.type === 'decl' && child.prop.startsWith('--')))
+        (child.type === 'decl' && isCustomProperty(child)))
     ) {
       childSemicolon = true
     }
@@ -109108,6 +109156,9 @@ class Stringifier {
   }
 
   root(node) {
+    if (node.source && node.source.input.hasBOM) {
+      this.builder('\uFEFF', node, 'start')
+    }
     this.body(node)
     if (node.raws.after) {
       let after = node.raws.after
@@ -109720,6 +109771,8 @@ Warning.default = Warning
           return "SuspenseList";
         case REACT_ACTIVITY_TYPE:
           return "Activity";
+        case REACT_VIEW_TRANSITION_TYPE:
+          return "ViewTransition";
       }
       if ("object" === typeof type)
         switch (
@@ -110074,8 +110127,15 @@ Warning.default = Warning
     }
     function lazyInitializer(payload) {
       if (-1 === payload._status) {
-        var ioInfo = payload._ioInfo;
-        null != ioInfo && (ioInfo.start = ioInfo.end = performance.now());
+        var resolveDebugValue = null,
+          rejectDebugValue = null,
+          ioInfo = payload._ioInfo;
+        null != ioInfo &&
+          ((ioInfo.start = ioInfo.end = performance.now()),
+          (ioInfo.value = new Promise(function (resolve, reject) {
+            resolveDebugValue = resolve;
+            rejectDebugValue = reject;
+          })));
         ioInfo = payload._result;
         var thenable = ioInfo();
         thenable.then(
@@ -110084,7 +110144,14 @@ Warning.default = Warning
               payload._status = 1;
               payload._result = moduleObject;
               var _ioInfo = payload._ioInfo;
-              null != _ioInfo && (_ioInfo.end = performance.now());
+              if (null != _ioInfo) {
+                _ioInfo.end = performance.now();
+                var debugValue =
+                  null == moduleObject ? void 0 : moduleObject.default;
+                resolveDebugValue(debugValue);
+                _ioInfo.value.status = "fulfilled";
+                _ioInfo.value.value = debugValue;
+              }
               void 0 === thenable.status &&
                 ((thenable.status = "fulfilled"),
                 (thenable.value = moduleObject));
@@ -110095,7 +110162,12 @@ Warning.default = Warning
               payload._status = 2;
               payload._result = error;
               var _ioInfo2 = payload._ioInfo;
-              null != _ioInfo2 && (_ioInfo2.end = performance.now());
+              null != _ioInfo2 &&
+                ((_ioInfo2.end = performance.now()),
+                _ioInfo2.value.then(noop, noop),
+                rejectDebugValue(error),
+                (_ioInfo2.value.status = "rejected"),
+                (_ioInfo2.value.reason = error));
               void 0 === thenable.status &&
                 ((thenable.status = "rejected"), (thenable.reason = error));
             }
@@ -110103,7 +110175,6 @@ Warning.default = Warning
         );
         ioInfo = payload._ioInfo;
         if (null != ioInfo) {
-          ioInfo.value = thenable;
           var displayName = thenable.displayName;
           "string" === typeof displayName && (ioInfo.name = displayName);
         }
@@ -110137,6 +110208,60 @@ Warning.default = Warning
     }
     function releaseAsyncTransition() {
       ReactSharedInternals.asyncTransitions--;
+    }
+    function startTransition(scope) {
+      var prevTransition = ReactSharedInternals.T,
+        currentTransition = {};
+      currentTransition.types =
+        null !== prevTransition ? prevTransition.types : null;
+      currentTransition._updatedFibers = new Set();
+      ReactSharedInternals.T = currentTransition;
+      try {
+        var returnValue = scope(),
+          onStartTransitionFinish = ReactSharedInternals.S;
+        null !== onStartTransitionFinish &&
+          onStartTransitionFinish(currentTransition, returnValue);
+        "object" === typeof returnValue &&
+          null !== returnValue &&
+          "function" === typeof returnValue.then &&
+          (ReactSharedInternals.asyncTransitions++,
+          returnValue.then(releaseAsyncTransition, releaseAsyncTransition),
+          returnValue.then(noop, reportGlobalError));
+      } catch (error) {
+        reportGlobalError(error);
+      } finally {
+        null === prevTransition &&
+          currentTransition._updatedFibers &&
+          ((scope = currentTransition._updatedFibers.size),
+          currentTransition._updatedFibers.clear(),
+          10 < scope &&
+            console.warn(
+              "Detected a large number of updates inside startTransition. If this is due to a subscription please re-write it to use React provided hooks. Otherwise concurrent mode guarantees are off the table."
+            )),
+          null !== prevTransition &&
+            null !== currentTransition.types &&
+            (null !== prevTransition.types &&
+              prevTransition.types !== currentTransition.types &&
+              console.error(
+                "We expected inner Transitions to have transferred the outer types set and that you cannot add to the outer Transition while inside the inner.This is a bug in React."
+              ),
+            (prevTransition.types = currentTransition.types)),
+          (ReactSharedInternals.T = prevTransition);
+      }
+    }
+    function addTransitionType(type) {
+      var transition = ReactSharedInternals.T;
+      if (null !== transition) {
+        var transitionTypes = transition.types;
+        null === transitionTypes
+          ? (transition.types = [type])
+          : -1 === transitionTypes.indexOf(type) && transitionTypes.push(type);
+      } else
+        0 === ReactSharedInternals.asyncTransitions &&
+          console.error(
+            "addTransitionType can only be called inside a `startTransition()` callback. It must be associated with a specific Transition."
+          ),
+          startTransition(addTransitionType.bind(null, type));
     }
     function enqueueTask(task) {
       if (null === enqueueTaskImpl)
@@ -110238,6 +110363,7 @@ Warning.default = Warning
       REACT_MEMO_TYPE = Symbol.for("react.memo"),
       REACT_LAZY_TYPE = Symbol.for("react.lazy"),
       REACT_ACTIVITY_TYPE = Symbol.for("react.activity"),
+      REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"),
       MAYBE_ITERATOR_SYMBOL = Symbol.iterator,
       didWarnStateUpdateForUnmountedComponent = {},
       ReactNoopUpdateQueue = {
@@ -110415,6 +110541,7 @@ Warning.default = Warning
     exports.PureComponent = PureComponent;
     exports.StrictMode = REACT_STRICT_MODE_TYPE;
     exports.Suspense = REACT_SUSPENSE_TYPE;
+    exports.ViewTransition = REACT_VIEW_TRANSITION_TYPE;
     exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE =
       ReactSharedInternals;
     exports.__COMPILER_RUNTIME = deprecatedAPIs;
@@ -110529,6 +110656,7 @@ Warning.default = Warning
         }
       };
     };
+    exports.addTransitionType = addTransitionType;
     exports.cache = function (fn) {
       return function () {
         return fn.apply(null, arguments);
@@ -110619,6 +110747,7 @@ Warning.default = Warning
     exports.createElement = function (type, config, children) {
       for (var i = 2; i < arguments.length; i++)
         validateChildKeys(arguments[i]);
+      var propName;
       i = {};
       var key = null;
       if (null != config)
@@ -110659,13 +110788,18 @@ Warning.default = Warning
             ? type.displayName || type.name || "Unknown"
             : type
         );
-      var propName = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++;
+      (propName = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++)
+        ? ((childArray = Error.stackTraceLimit),
+          (Error.stackTraceLimit = 10),
+          (childrenLength = Error("react-stack-top-frame")),
+          (Error.stackTraceLimit = childArray))
+        : (childrenLength = unknownOwnerDebugStack);
       return ReactElement(
         type,
         key,
         i,
         getOwner(),
-        propName ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
+        childrenLength,
         propName ? createTask(getTaskName(type)) : unknownOwnerDebugTask
       );
     };
@@ -110764,44 +110898,7 @@ Warning.default = Warning
       });
       return compare;
     };
-    exports.startTransition = function (scope) {
-      var prevTransition = ReactSharedInternals.T,
-        currentTransition = {};
-      currentTransition._updatedFibers = new Set();
-      ReactSharedInternals.T = currentTransition;
-      try {
-        var returnValue = scope(),
-          onStartTransitionFinish = ReactSharedInternals.S;
-        null !== onStartTransitionFinish &&
-          onStartTransitionFinish(currentTransition, returnValue);
-        "object" === typeof returnValue &&
-          null !== returnValue &&
-          "function" === typeof returnValue.then &&
-          (ReactSharedInternals.asyncTransitions++,
-          returnValue.then(releaseAsyncTransition, releaseAsyncTransition),
-          returnValue.then(noop, reportGlobalError));
-      } catch (error) {
-        reportGlobalError(error);
-      } finally {
-        null === prevTransition &&
-          currentTransition._updatedFibers &&
-          ((scope = currentTransition._updatedFibers.size),
-          currentTransition._updatedFibers.clear(),
-          10 < scope &&
-            console.warn(
-              "Detected a large number of updates inside startTransition. If this is due to a subscription please re-write it to use React provided hooks. Otherwise concurrent mode guarantees are off the table."
-            )),
-          null !== prevTransition &&
-            null !== currentTransition.types &&
-            (null !== prevTransition.types &&
-              prevTransition.types !== currentTransition.types &&
-              console.error(
-                "We expected inner Transitions to have transferred the outer types set and that you cannot add to the outer Transition while inside the inner.This is a bug in React."
-              ),
-            (prevTransition.types = currentTransition.types)),
-          (ReactSharedInternals.T = prevTransition);
-      }
-    };
+    exports.startTransition = startTransition;
     exports.unstable_useCacheRefresh = function () {
       return resolveDispatcher().useCacheRefresh();
     };
@@ -110891,7 +110988,7 @@ Warning.default = Warning
     exports.useTransition = function () {
       return resolveDispatcher().useTransition();
     };
-    exports.version = "19.2.8";
+    exports.version = "19.3.0";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
       "function" ===
         typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
@@ -110928,6 +111025,7 @@ var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"),
   REACT_MEMO_TYPE = Symbol.for("react.memo"),
   REACT_LAZY_TYPE = Symbol.for("react.lazy"),
   REACT_ACTIVITY_TYPE = Symbol.for("react.activity"),
+  REACT_VIEW_TRANSITION_TYPE = Symbol.for("react.view_transition"),
   MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 function getIteratorFn(maybeIterable) {
   if (null === maybeIterable || "object" !== typeof maybeIterable) return null;
@@ -111170,85 +111268,126 @@ function mapChildren(children, func, context) {
 }
 function lazyInitializer(payload) {
   if (-1 === payload._status) {
-    var ctor = payload._result;
-    ctor = ctor();
-    ctor.then(
+    var ctor = payload._result,
+      thenable = ctor();
+    thenable.then(
       function (moduleObject) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 1), (payload._result = moduleObject);
+          (payload._status = 1),
+            (payload._result = moduleObject),
+            void 0 === thenable.status &&
+              ((thenable.status = "fulfilled"),
+              (thenable.value = moduleObject));
       },
       function (error) {
         if (0 === payload._status || -1 === payload._status)
-          (payload._status = 2), (payload._result = error);
+          (payload._status = 2),
+            (payload._result = error),
+            void 0 === thenable.status &&
+              ((thenable.status = "rejected"), (thenable.reason = error));
       }
     );
-    -1 === payload._status && ((payload._status = 0), (payload._result = ctor));
+    -1 === payload._status &&
+      ((payload._status = 0), (payload._result = thenable));
   }
   if (1 === payload._status) return payload._result.default;
   throw payload._result;
 }
 var reportGlobalError =
-    "function" === typeof reportError
-      ? reportError
-      : function (error) {
-          if (
-            "object" === typeof window &&
-            "function" === typeof window.ErrorEvent
-          ) {
-            var event = new window.ErrorEvent("error", {
-              bubbles: !0,
-              cancelable: !0,
-              message:
-                "object" === typeof error &&
-                null !== error &&
-                "string" === typeof error.message
-                  ? String(error.message)
-                  : String(error),
-              error: error
-            });
-            if (!window.dispatchEvent(event)) return;
-          } else if (
-            "object" === typeof process &&
-            "function" === typeof process.emit
-          ) {
-            process.emit("uncaughtException", error);
-            return;
-          }
-          console.error(error);
-        },
-  Children = {
-    map: mapChildren,
-    forEach: function (children, forEachFunc, forEachContext) {
-      mapChildren(
-        children,
-        function () {
-          forEachFunc.apply(this, arguments);
-        },
-        forEachContext
+  "function" === typeof reportError
+    ? reportError
+    : function (error) {
+        if (
+          "object" === typeof window &&
+          "function" === typeof window.ErrorEvent
+        ) {
+          var event = new window.ErrorEvent("error", {
+            bubbles: !0,
+            cancelable: !0,
+            message:
+              "object" === typeof error &&
+              null !== error &&
+              "string" === typeof error.message
+                ? String(error.message)
+                : String(error),
+            error: error
+          });
+          if (!window.dispatchEvent(event)) return;
+        } else if (
+          "object" === typeof process &&
+          "function" === typeof process.emit
+        ) {
+          process.emit("uncaughtException", error);
+          return;
+        }
+        console.error(error);
+      };
+function startTransition(scope) {
+  var prevTransition = ReactSharedInternals.T,
+    currentTransition = {};
+  currentTransition.types =
+    null !== prevTransition ? prevTransition.types : null;
+  ReactSharedInternals.T = currentTransition;
+  try {
+    var returnValue = scope(),
+      onStartTransitionFinish = ReactSharedInternals.S;
+    null !== onStartTransitionFinish &&
+      onStartTransitionFinish(currentTransition, returnValue);
+    "object" === typeof returnValue &&
+      null !== returnValue &&
+      "function" === typeof returnValue.then &&
+      returnValue.then(noop, reportGlobalError);
+  } catch (error) {
+    reportGlobalError(error);
+  } finally {
+    null !== prevTransition &&
+      null !== currentTransition.types &&
+      (prevTransition.types = currentTransition.types),
+      (ReactSharedInternals.T = prevTransition);
+  }
+}
+function addTransitionType(type) {
+  var transition = ReactSharedInternals.T;
+  if (null !== transition) {
+    var transitionTypes = transition.types;
+    null === transitionTypes
+      ? (transition.types = [type])
+      : -1 === transitionTypes.indexOf(type) && transitionTypes.push(type);
+  } else startTransition(addTransitionType.bind(null, type));
+}
+var Children = {
+  map: mapChildren,
+  forEach: function (children, forEachFunc, forEachContext) {
+    mapChildren(
+      children,
+      function () {
+        forEachFunc.apply(this, arguments);
+      },
+      forEachContext
+    );
+  },
+  count: function (children) {
+    var n = 0;
+    mapChildren(children, function () {
+      n++;
+    });
+    return n;
+  },
+  toArray: function (children) {
+    return (
+      mapChildren(children, function (child) {
+        return child;
+      }) || []
+    );
+  },
+  only: function (children) {
+    if (!isValidElement(children))
+      throw Error(
+        "React.Children.only expected to receive a single React element child."
       );
-    },
-    count: function (children) {
-      var n = 0;
-      mapChildren(children, function () {
-        n++;
-      });
-      return n;
-    },
-    toArray: function (children) {
-      return (
-        mapChildren(children, function (child) {
-          return child;
-        }) || []
-      );
-    },
-    only: function (children) {
-      if (!isValidElement(children))
-        throw Error(
-          "React.Children.only expected to receive a single React element child."
-        );
-      return children;
-    }
-  };
+    return children;
+  }
+};
 exports.Activity = REACT_ACTIVITY_TYPE;
 exports.Children = Children;
 exports.Component = Component;
@@ -111257,6 +111396,7 @@ exports.Profiler = REACT_PROFILER_TYPE;
 exports.PureComponent = PureComponent;
 exports.StrictMode = REACT_STRICT_MODE_TYPE;
 exports.Suspense = REACT_SUSPENSE_TYPE;
+exports.ViewTransition = REACT_VIEW_TRANSITION_TYPE;
 exports.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE =
   ReactSharedInternals;
 exports.__COMPILER_RUNTIME = {
@@ -111265,6 +111405,7 @@ exports.__COMPILER_RUNTIME = {
     return ReactSharedInternals.H.useMemoCache(size);
   }
 };
+exports.addTransitionType = addTransitionType;
 exports.cache = function (fn) {
   return function () {
     return fn.apply(null, arguments);
@@ -111358,28 +111499,7 @@ exports.memo = function (type, compare) {
     compare: void 0 === compare ? null : compare
   };
 };
-exports.startTransition = function (scope) {
-  var prevTransition = ReactSharedInternals.T,
-    currentTransition = {};
-  ReactSharedInternals.T = currentTransition;
-  try {
-    var returnValue = scope(),
-      onStartTransitionFinish = ReactSharedInternals.S;
-    null !== onStartTransitionFinish &&
-      onStartTransitionFinish(currentTransition, returnValue);
-    "object" === typeof returnValue &&
-      null !== returnValue &&
-      "function" === typeof returnValue.then &&
-      returnValue.then(noop, reportGlobalError);
-  } catch (error) {
-    reportGlobalError(error);
-  } finally {
-    null !== prevTransition &&
-      null !== currentTransition.types &&
-      (prevTransition.types = currentTransition.types),
-      (ReactSharedInternals.T = prevTransition);
-  }
-};
+exports.startTransition = startTransition;
 exports.unstable_useCacheRefresh = function () {
   return ReactSharedInternals.H.useCacheRefresh();
 };
@@ -111446,7 +111566,7 @@ exports.useSyncExternalStore = function (
 exports.useTransition = function () {
   return ReactSharedInternals.H.useTransition();
 };
-exports.version = "19.2.8";
+exports.version = "19.3.0";
 
 
 /***/ }),
@@ -122956,6 +123076,9 @@ function parseFeed(feed, options = parseFeedDefaultOptions) {
 /******/ 	__nccwpck_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/asset-relocator-loader */
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
@@ -123026,10 +123149,6 @@ function parseFeed(feed, options = parseFeedDefaultOptions) {
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat */
-/******/ 	
-/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /******/ 	/* webpack/runtime/require chunk loading */
 /******/ 	(() => {
@@ -128836,7 +128955,7 @@ const getChildren = node => {
   const children = node.props?.children ?? node.children;
   return node.props?.i18nIsDynamicList ? getAsArray(children) : children;
 };
-const hasValidReactChildren = children => Array.isArray(children) && children.every(isValidElement);
+const hasValidReactChildren = children => getAsArray(children).every(isValidElement);
 const getAsArray = data => Array.isArray(data) ? data : [data];
 const mergeProps = (source, target) => {
   const newTarget = {
@@ -129754,7 +129873,7 @@ function IcuTransWithoutContext({
       ...i18n.options.interpolation.defaultVariables
     };
   }
-  const translation = t(i18nKey, {
+  const translation = t(i18nKey || defaultTranslation, {
     defaultValue: defaultTranslation,
     ...mergedValues,
     ns: namespaces
@@ -129910,6 +130029,7 @@ const useTranslation_useTranslation = (ns, props = {}) => {
   const finalI18n = i18n || {};
   const wrapperRef = useRef(null);
   const wrapperLangRef = useRef();
+  const languageKey = inst => `${inst.language}|${inst.resolvedLanguage}|${inst.languages?.join(',')}`;
   const createI18nWrapper = original => {
     const descriptors = Object.getOwnPropertyDescriptors(original);
     if (descriptors.__original) delete descriptors.__original;
@@ -129928,7 +130048,7 @@ const useTranslation_useTranslation = (ns, props = {}) => {
   };
   const ret = useMemo(() => {
     const original = finalI18n;
-    const lang = original?.language;
+    const lang = original && languageKey(original);
     let i18nWrapper = original;
     if (original) {
       if (wrapperRef.current && wrapperRef.current.__original === original) {
@@ -130561,7 +130681,7 @@ Browser.type = 'languageDetector';
 
 
 ;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
-const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.activity.connect.bluesky":"Join on Bluesky","app.contribute.activity.connect.description":"Get in touch with the {{app}} community, discuss and support other users","app.contribute.activity.connect.forum":"Join on the forum","app.contribute.activity.connect.forumTag":"Check out the discussions about {{app}} on the OSM Community Forum","app.contribute.activity.connect.gitHubDiscussions":"Join GitHub Discussions","app.contribute.activity.connect.hint":"No social media channels are documented in the sources.","app.contribute.activity.connect.lemmy":"Join on Lemmy","app.contribute.activity.connect.mastodon":"Join on Mastodon","app.contribute.activity.connect.matrix":"Join on Matrix","app.contribute.activity.connect.reddit":"Join on Reddit","app.contribute.activity.connect.slack":"Join on Slack","app.contribute.activity.connect.telegram":"Join on Telegram","app.contribute.activity.connect.title":"Connect & Help other","app.contribute.activity.contributeCode.description":"Develop new features, help fix bugs, and review code","app.contribute.activity.contributeCode.hint":"There is no link to the source code documented in the wikis.","app.contribute.activity.contributeCode.title":"Get involved into coding","app.contribute.activity.contributeMapData.description":"Add info about points of interest or other map data used by {{app}} to OSM","app.contribute.activity.contributeMapData.title":"Contribute map data","app.contribute.activity.contributeTranslation.description":"Add translations to make {{app}} accessible for more people around the world","app.contribute.activity.contributeTranslation.hint":"There is no link documented in the wikis that shows where you can contribute translations.","app.contribute.activity.contributeTranslation.title":"Translate text","app.contribute.activity.donate.description":"Donate to {{app}} to support this project","app.contribute.activity.donate.hint":"No founding links are documented in the sources or there are not verified.","app.contribute.activity.donate.title":"Donate money","app.contribute.activity.editInformation.description":"Edit the details about {{app}} in the source wikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMap Wiki","app.contribute.activity.editInformation.title":"Edit / Update Information","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.getIt.description":"Find your way to install or use {{app}}","app.contribute.activity.getIt.title":"Get the app","app.contribute.activity.rateAndReview.appleAppStore":"Rate on Apple App Store","app.contribute.activity.rateAndReview.asin":"Rate on Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Give a star on Codeberg","app.contribute.activity.rateAndReview.description":"Rate and / or review {{app}} in the app stores","app.contribute.activity.rateAndReview.github":"Give a star on GitHub","app.contribute.activity.rateAndReview.gitlab":"Give a star on GitLab","app.contribute.activity.rateAndReview.googlePlay":"Rate on Google Play","app.contribute.activity.rateAndReview.hint":"No AppStore with review or code repository is documented in the wikis.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Rate in HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Rate and review","app.contribute.activity.reportBugs.description":"Report bugs, discuss ideas, and propose features for {{app}}","app.contribute.activity.reportBugs.hint":"No link to issue tracker is documented in the sources.","app.contribute.activity.reportBugs.title":"Report bugs","app.contribute.activity.share.bluesky":"Share on Bluesky","app.contribute.activity.share.copied":"Copied!","app.contribute.activity.share.copy":"Copy to clipboard","app.contribute.activity.share.description":"Share {{app}} on your social networks","app.contribute.activity.share.fediverse":"Share on Fediverse","app.contribute.activity.share.mastodon":"Toot on Mastodon","app.contribute.activity.share.more":"More options","app.contribute.activity.share.reddit":"Share on Reddit","app.contribute.activity.share.telegram":"Share via Telegram","app.contribute.activity.share.textToShare":"Have you heard of the {{name}} app yet? {{-description}}\\nI think OpenStreetMap is awesome! Check out the app in the OSM Apps Catalog: {{-link}}","app.contribute.activity.share.title":"Spread the word","app.contribute.app.editInformation.wikiOsm.create":"Create a page for {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Edit \\"{{name}}\\" page","app.contribute.app.editInformation.wikidata.create":"Create item","app.contribute.app.editInformation.wikidata.edit":"Edit item","app.contribute.app.editInformation.wikidata.search":"Start a search to check that {{app}} doesn\'t already exists","app.contribute.app.spendTime":"Support {{app}}","app.contribute.appDevelopment":"App development","app.contribute.community":"Community","app.contribute.hint":"Why can\'t contributions be made?","app.contribute.osm.spendMoney":"Donate to OpenStreetMap","app.contribute.osm.spendTime":"Contribute to OpenStreetMap","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.download.android":"For Android","app.download.button":"Visit","app.download.contributeSlide.description":"Find your way to contribute","app.download.downloadSlide.description":"Find your way to install or use it","app.download.forYourDevice":"for your device","app.download.fromCodeRepository":"Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.","app.download.ios":"For iOS","app.download.libreSoftwareNeedsSupport":"{{app}} is free and open-source software.\\nIt is built and maintained by contributors, and has ongoing costs.\\n\\nIf you find it useful, you may want to support it in some way.","app.download.macos":"For MacOS","app.download.needsHelpSlide.description":"Before you continue","app.download.osmNeedsSupport":"{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\\nThis data is available to use freely, but it is the result of ongoing work — mapping, coding, and hosting it takes continuous effort, and has ongoing costs to keep it available and up to date.\\n\\nIf you find {{app}} useful, you might consider supporting OpenStreetMap in some way.","app.download.skipButton":"Continue to Download/Visit","app.download.visitWebApp":"Visit the official website for more information about {{app}} and to get to the <strong>Web App</strong>.","app.download.visitWebsite":"Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.","app.download.windows":"For Windows","app.getInvolved":"Get involved","app.helpTranslate":"Help improve the translation","app.helpTranslate.hint.label":"Why help with translation?","app.helpTranslate.hint.text":"Even small improvements can help make the app easier to understand and more accessible for everyone.\\nIn most cases, this can be done without much technical knowledge.","app.helpTranslateTo":"Help improve the English translation","app.imageAlt":"Image from {{name}}.","app.inUserLanguage":"{{language}} and {{numberOfLanguages}} more","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visit Official Website","app.keywords":"Keywords","app.languages":"Languages","app.lastRelease":"Last release","app.learnMore":"Learn more at {{website}}","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Code repository","app.tag.attribute.foss":"Free & open-source","app.tag.attribute.free":"Free of charge","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.location-search":"Location search","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.record-track":"Record GPS track","app.tag.feature.routing":"Route planning","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.voice-guidance":"Navigation with voice","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.trend":"Trending apps","category.trend.description":"The most-viewed apps of the past seven days.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","close":"Close","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.more":"More","list.moreInfos":"More Information","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.learnMore":"Learn more","score.result":"- {{description}} ({{points}} points)","score.results":"<h5>Community Contribution Score</h5>Total: {{total}} out of 10 points\\n\\n<h6>Actions required for a higher score:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on \\"{{-editInformationTitle}}\\".\\n\\n<h6>Fulfilled:</h6>\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
+const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.activity.connect.bluesky":"Join on Bluesky","app.contribute.activity.connect.description":"Get in touch with the {{app}} community, discuss and support other users","app.contribute.activity.connect.forum":"Join on the forum","app.contribute.activity.connect.forumTag":"Check out the discussions about {{app}} on the OSM Community Forum","app.contribute.activity.connect.gitHubDiscussions":"Join GitHub Discussions","app.contribute.activity.connect.hint":"No social media channels are documented in the sources.","app.contribute.activity.connect.lemmy":"Join on Lemmy","app.contribute.activity.connect.mastodon":"Join on Mastodon","app.contribute.activity.connect.matrix":"Join on Matrix","app.contribute.activity.connect.reddit":"Join on Reddit","app.contribute.activity.connect.slack":"Join on Slack","app.contribute.activity.connect.telegram":"Join on Telegram","app.contribute.activity.connect.title":"Connect & Help other","app.contribute.activity.contributeCode.description":"Develop new features, help fix bugs, and review code","app.contribute.activity.contributeCode.hint":"There is no link to the source code documented in the wikis.","app.contribute.activity.contributeCode.title":"Get involved into coding","app.contribute.activity.contributeMapData.description":"Add info about points of interest or other map data used by {{app}} to OSM","app.contribute.activity.contributeMapData.title":"Contribute map data","app.contribute.activity.contributeTranslation.description":"Add translations to make {{app}} accessible for more people around the world","app.contribute.activity.contributeTranslation.hint":"There is no link documented in the wikis that shows where you can contribute translations.","app.contribute.activity.contributeTranslation.title":"Translate text","app.contribute.activity.donate.description":"Donate to {{app}} to support this project","app.contribute.activity.donate.hint":"No founding links are documented in the sources or there are not verified.","app.contribute.activity.donate.title":"Donate money","app.contribute.activity.editInformation.description":"Edit the details about {{app}} in the source wikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMap Wiki","app.contribute.activity.editInformation.title":"Edit / Update Information","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.getIt.description":"Find the best way to use {{app}} on your device.","app.contribute.activity.getIt.title":"Get the app","app.contribute.activity.rateAndReview.appleAppStore":"Rate on Apple App Store","app.contribute.activity.rateAndReview.asin":"Rate on Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Give a star on Codeberg","app.contribute.activity.rateAndReview.description":"Rate and / or review {{app}} in the app stores","app.contribute.activity.rateAndReview.github":"Give a star on GitHub","app.contribute.activity.rateAndReview.gitlab":"Give a star on GitLab","app.contribute.activity.rateAndReview.googlePlay":"Rate on Google Play","app.contribute.activity.rateAndReview.hint":"No AppStore with review or code repository is documented in the wikis.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Rate in HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Rate and review","app.contribute.activity.reportBugs.description":"Report bugs, discuss ideas, and propose features for {{app}}","app.contribute.activity.reportBugs.hint":"No link to issue tracker is documented in the sources.","app.contribute.activity.reportBugs.title":"Report bugs","app.contribute.activity.share.bluesky":"Share on Bluesky","app.contribute.activity.share.copied":"Copied!","app.contribute.activity.share.copy":"Copy to clipboard","app.contribute.activity.share.description":"Share {{app}} on your social networks","app.contribute.activity.share.fediverse":"Share on Fediverse","app.contribute.activity.share.mastodon":"Toot on Mastodon","app.contribute.activity.share.more":"More options","app.contribute.activity.share.reddit":"Share on Reddit","app.contribute.activity.share.telegram":"Share via Telegram","app.contribute.activity.share.textToShare":"Have you heard of the {{name}} app yet? {{-description}}\\nI think OpenStreetMap is awesome! Check out the app in the OSM Apps Catalog: {{-link}}","app.contribute.activity.share.title":"Spread the word","app.contribute.app.editInformation.wikiOsm.create":"Create a page for {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Edit \\"{{name}}\\" page","app.contribute.app.editInformation.wikidata.create":"Create item","app.contribute.app.editInformation.wikidata.edit":"Edit item","app.contribute.app.editInformation.wikidata.search":"Start a search to check that {{app}} doesn\'t already exists","app.contribute.app.spendTime":"Support {{app}}","app.contribute.appDevelopment":"App development","app.contribute.community":"Community","app.contribute.hint":"Why can\'t contributions be made?","app.contribute.osm.spendMoney":"Donate to OpenStreetMap","app.contribute.osm.spendTime":"Contribute to OpenStreetMap","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.download.android":"For Android","app.download.button":"Get the app","app.download.contributeSlide.description":"Find your way to contribute","app.download.downloadSlide.description":"Choose how to continue","app.download.forYourDevice":"for your device","app.download.fromCodeRepository":"Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.","app.download.ios":"For iPhone & iPad","app.download.libreSoftwareNeedsSupport":"{{app}} is free and open-source software.\\nIt is built and maintained by contributors, and has ongoing costs.\\n\\nIf you find it useful, you may want to support it in some way.","app.download.macos":"For MacOS","app.download.needsHelpSlide.description":"Before you continue","app.download.osmNeedsSupport":"{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\\nThis data is available to use freely, but it is the result of ongoing work — mapping, coding, and hosting it takes continuous effort, and has ongoing costs to keep it available and up to date.\\n\\nIf you find {{app}} useful, you might consider supporting OpenStreetMap in some way.","app.download.skipButton":"Continue to Download/Visit","app.download.visitWebApp":"Visit the official website for more information about {{app}} and to get to the <strong>Web App</strong>.","app.download.visitWebsite":"Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.","app.download.windows":"For Windows","app.getInvolved":"Get involved","app.helpTranslate":"Help improve the translation","app.helpTranslate.hint.label":"Why help with translation?","app.helpTranslate.hint.text":"Even small improvements can help make the app easier to understand and more accessible for everyone.\\nIn most cases, this can be done without much technical knowledge.","app.helpTranslateTo":"Help improve the English translation","app.imageAlt":"Image from {{name}}.","app.inUserLanguage":"{{language}} and {{numberOfLanguages}} more","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visit Official Website","app.keywords":"Keywords","app.languages":"Languages","app.lastRelease":"Last release","app.learnMore":"Learn more at {{website}}","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Code repository","app.tag.attribute.foss":"Free & open-source","app.tag.attribute.free":"Free of charge","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.location-search":"Location search","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.record-track":"Record GPS track","app.tag.feature.routing":"Route planning","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.voice-guidance":"Navigation with voice","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.trend":"Trending apps","category.trend.description":"The most-viewed apps of the past seven days.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","close":"Close","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.more":"More","list.moreInfos":"More Information","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.learnMore":"Learn more","score.result":"- {{description}} ({{points}} points)","score.results":"<h5>Community Contribution Score</h5>Total: {{total}} out of 10 points\\n\\n<h6>Actions required for a higher score:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on \\"{{-editInformationTitle}}\\".\\n\\n<h6>Fulfilled:</h6>\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
 const cs_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Vyvinul","app.community":"Komunita","app.community.bluesky":"Bluesky","app.community.forum":"Fórum","app.community.forumTag":"Štítek fóra","app.community.githubDiscussions":"Diskuse na GitHubu","app.community.issueTracker":"Problémy","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrixová místnost","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Skupina na Telegram","app.contribute":"Přispějte","app.contribute.activity.connect.bluesky":"Připojte se na Bluesky","app.contribute.activity.connect.description":"Spojte se s komunitou {{app}}, diskutujte a podporujte ostatní uživatele","app.contribute.activity.connect.forum":"Připojte se k fóru","app.contribute.activity.connect.forumTag":"Podívejte se na diskuze o {{app}} na komunitním fóru OSM","app.contribute.activity.connect.gitHubDiscussions":"Zapojte se do diskusí na GitHubu","app.contribute.activity.connect.hint":"Ve zdrojích nejsou zdokumentovány žádné kanály sociálních médií.","app.contribute.activity.connect.lemmy":"Připojte se na Lemmy","app.contribute.activity.connect.mastodon":"Připojte se na Mastodon","app.contribute.activity.connect.matrix":"Připojte se na Matrix","app.contribute.activity.connect.reddit":"Připojte se na Reddit","app.contribute.activity.connect.slack":"Připojte se na Slack","app.contribute.activity.connect.telegram":"Připojte se na Telegram","app.contribute.activity.connect.title":"Spojte se a pomozte ostatním","app.contribute.activity.contributeCode.description":"Vyvíjejte nové funkce, pomáhejte opravovat chyby a kontrolujte kód","app.contribute.activity.contributeCode.hint":"Ve wiki není uveden žádný odkaz na zdrojový kód.","app.contribute.activity.contributeCode.title":"Začněte programovat","app.contribute.activity.contributeMapData.description":"Přidejte do OSM informace o zajímavostech nebo další mapová data, která aplikace {{app}} využívá","app.contribute.activity.contributeMapData.title":"Přispějte mapovými daty","app.contribute.activity.contributeTranslation.description":"Přidejte překlady, aby byla aplikace {{app}} dostupná pro více lidí po celém světě","app.contribute.activity.contributeTranslation.hint":"Na wiki není uveden žádný odkaz, který by ukazoval, kde lze přispívat překlady.","app.contribute.activity.contributeTranslation.title":"Přeložit text","app.contribute.activity.editInformation.description":"Upravte podrobnosti o {{app}} ve zdrojových wiki","app.contribute.activity.editInformation.osmWiki":"OpenStreetMap Wiki","app.contribute.activity.editInformation.title":"Upravit / Aktualizovat informace","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.rateAndReview.appleAppStore":"Ohodnoťte v Apple App Store","app.contribute.activity.rateAndReview.asin":"Ohodnoťte v Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Ohodnoťte na Codebergu","app.contribute.activity.rateAndReview.description":"Ohodnoťte a/nebo napište recenzi na aplikaci {{app}} v obchodech s aplikacemi","app.contribute.activity.rateAndReview.github":"Dejte hvězdičku na GitHubu","app.contribute.activity.rateAndReview.gitlab":"Dejte hvězdičku na GitLabu","app.contribute.activity.rateAndReview.googlePlay":"Ohodnoťte na Google Play","app.contribute.activity.rateAndReview.hint":"Na wiki nejsou popsány žádné obchody s aplikacemi ani repozitáře kódu.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Ohodnoťte v HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Ohodnoťte a napište recenzi","app.contribute.activity.reportBugs.description":"Hlašte chyby, diskutujte o nápadech a navrhujte nové funkce pro {{app}}","app.contribute.activity.reportBugs.hint":"Ve zdrojových kódech není uveden žádný odkaz na systém pro sledování chyb.","app.contribute.activity.reportBugs.title":"Nahlašte chyby","app.contribute.activity.share.bluesky":"Sdílejte na Bluesky","app.contribute.activity.share.copied":"Zkopírováno!","app.contribute.activity.share.copy":"Kopírovat do schránky","app.contribute.activity.share.description":"Sdílejte aplikaci {{app}} na sociálních sítích","app.contribute.activity.share.fediverse":"Sdílet na Fediverse","app.contribute.activity.share.mastodon":"Toot na Mastodon","app.contribute.activity.share.more":"Další možnosti","app.contribute.activity.share.reddit":"Sdílet na Reddit","app.contribute.activity.share.telegram":"Sdílet přes Telegram","app.contribute.activity.share.textToShare":"Už jste slyšeli o aplikaci {{name}}? {{-description}}\\nMyslím, že OpenStreet Map je úžasná! Podívejte se na aplikaci v katalogu aplikací OSM: {{-link}}","app.contribute.activity.share.title":"Dejte vědět","app.contribute.app.editInformation.wikiOsm.create":"Vytvořit stránku pro {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Upravit stránku \\"{{name}}\\"","app.contribute.app.editInformation.wikidata.create":"Vytvořit položku","app.contribute.app.editInformation.wikidata.edit":"Upravit položku","app.contribute.app.editInformation.wikidata.search":"Začněte hledat abyste ověřili, zda {{app}} již existuje","app.contribute.app.spendTime":"Podpora {{app}}","app.contribute.appDevelopment":"Vývoj aplikace","app.contribute.community":"Komunita","app.contribute.hint":"Proč není možné přispívat?","app.contribute.osm.spendMoney":"Přispějte OpenStreetMap","app.contribute.osm.spendTime":"Přispějte do OpenStreetMap","app.contribute.toCommunity":"Pro komunitu","app.contribute.toCommunity.welcome":"Přivítejte nové uživatele","app.contribute.toData":"K datům OSM","app.contribute.toData.edit":"Upravujte mapová data","app.contribute.toData.qa":"Zajistěte kvalitu","app.contribute.toData.review":"Zkontrolujte úpravy","app.contribute.toData.tracks":"Nahrávejte a sdílejte trasy","app.contribute.toSoftware":"Na software","app.contribute.toSoftware.develop":"Vyvíjejte kód","app.contribute.toSoftware.discuss":"Diskutujte a sdílejte nápady","app.contribute.toSoftware.document":"Zlepšete dokumentaci","app.contribute.toSoftware.test":"Testujte a poskytněte zpětnou vazbu","app.contribute.toSoftware.translate":"Pomozte přeložit","app.coverage":"Pokrytí","app.download.android":"Pro Android","app.download.button":"Ke stažení / Navštivte","app.download.contributeSlide.description":"Najděte si způsob, jak přispět","app.download.downloadSlide.description":"Najděte způsob, jak ji instalovat nebo používat","app.download.forYourDevice":"ve vašem zařízení","app.download.fromCodeRepository":"Více informací o {{app}} a návod k instalaci pro <platforms/> verzi. Můžete potřebovat některé technické znalosti pro instalaci aplikace ze zdrojového kódu.","app.download.ios":"Pro iOS","app.download.libreSoftwareNeedsSupport":"{{app}} je svobodný a open-source software.\\nJe vyvíjen a spravován přispěvateli a jsou s ním spojeny průběžné náklady.\\n\\nPokud zjistíte, že je užitečný, můžete ho podpořit nějakým způsobem.","app.download.macos":"Pro MacOS","app.download.needsHelpSlide.description":"Než budete pokračovat","app.download.osmNeedsSupport":"{{app}} využívá mapová data z OpenStreetMap, projektu vytvořeného a spravovaného celosvětovou komunitou přispěvatelů.\\nTato data jsou k dispozici ke svobodnému použití, jsou však výsledkem neustálé práce – mapování, programování a provozování vyžadují neustálé úsilí a s jejich udržováním a aktualizací jsou spojeny průběžné náklady.\\n\\nPokud vám {{app}} připadá užitečná, zvažte prosím, zda byste nemohli OpenStreetMap nějakým způsobem podpořit.","app.download.skipButton":"Pokračovat ke stažení / k návštěvě","app.download.visitWebApp":"Navštivte webové stránky pro více info o aplikaci {{app}} a získejte ji na <strong>Web App</strong>.","app.download.visitWebsite":"Navštivte webové stránky pro více info o aplikaci {{app}} a zjistěte návod k instalaci pro verzi <platforms/>.","app.download.windows":"Pro Windows","app.getInvolved":"Zapojte se","app.helpTranslate":"Pomozte zlepšit překlad","app.helpTranslate.hint.label":"Proč pomáhat s překladem?","app.helpTranslate.hint.text":"Dokonce i malá vylepšení mohou pomoci, aby aplikace usnadnila pochopení a byla dostupnější pro každého.\\nVe většině případů to může být provedeno bez technických znalostí.","app.helpTranslateTo":"Pomozte vylepšit anglický překlad","app.imageAlt":"Obrázek z {{name}}.","app.inUserLanguage":"{{language}} a {{numberOfLanguages}} dalších","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Navštivte webové stránky","app.keywords":"Klíčová slova","app.languages":"Jazyky","app.lastRelease":"Poslední verze","app.learnMore":"Další info na {{website}}","app.license":"Licence","app.platforms":"Platformy","app.price":"Cena","app.programmingLanguages":"Naprogramováno v","app.source":"Zdroj","app.source.description":"Zdroj odkud pochází data.","app.source.firstCrawled":"První načteno: {{added}}","app.source.lastChange":"Poslední změna: {{date}}","app.sourceCode":"Úložiště kódu","app.tag.attribute.foss":"Zdarma a s otevřeným zdrojovým kódem","app.tag.attribute.free":"Zdarma","app.tag.feature.accessibility-blind":"Přístupnost pro nevidomé","app.tag.feature.accessibility-wheelchair":"Bezbariérový přístup pro invalidní vozíky","app.tag.feature.create-notes":"Vytváření poznámky OSM","app.tag.feature.edit-map":"Úpravy OSM dat","app.tag.feature.location-search":"Vyhledávání polohy","app.tag.feature.navigation":"Navigace","app.tag.feature.offline-edit":"Úpravy OSM dat offline","app.tag.feature.offline-maps":"Offline mapy","app.tag.feature.offline-routing":"Vypočítání trasy bez internetu","app.tag.feature.record-track":"Zaznamenání GPS trasy","app.tag.feature.routing":"Plánování trasy","app.tag.feature.routing-bike":"Plánování trasy pro cyklistiku","app.tag.feature.routing-car":"Plánování trasy pro řízení","app.tag.feature.routing-foot":"Plánování trasy pro pěší turistiku","app.tag.feature.routing-hike":"Plánování trasy pro pěší turistiku","app.tag.feature.routing-manual":"Ruční plánování trasy","app.tag.feature.routing-motorbike":"Plánování trasy pro motocyklisty","app.tag.feature.routing-publicTransport":"Plánování tras pro veřejnou dopravu","app.tag.feature.routing-wheelchair":"Plánování trasy pro invalidní vozíky","app.tag.feature.upload-track":"Přispění trasy do OSM","app.tag.feature.voice-guidance":"Navigace s hlasem","app.unmaintained":"(<icon/> Neudržovaný)","app.unmaintained.wiki":"({{icon}} Neudržovaný)","app.website":"Webová stránka","category.3d":"Prohlížení světa ve 3D","category.3d.description":"{{numberOfApps}} aplikací, které podporují 3D mapy nebo jinak zobrazují či upravují 3D data z OpenStreetMap.","category.all.description":"{{numberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} z {{totalNumberOfApps}} aplikací, které používají <o>OpenStreetMap</o>.","category.calcRoute":"Plánování trasy","category.calcRoute.description":"{{numberOfApps}} aplikací, které podporují výpočet trasy a plánování cesty.","category.changeset":"Kontrola úprav a správa komunity","category.changeset.description":"{{numberOfApps}} nástrojů pro monitorování aktivit v databázi OSM, sledování kampaní (např. hashtagů) a vítání nových mapovačů.","category.contributePhoto":"Nahrajte fotografie pro mapování","category.contributePhoto.description":"{{numberOfApps}} aplikací pro shromažďování a přispívání snímků na úrovni ulic pro mapování a další účely.","category.convert":"Převody a vykreslení","category.convert.description":"{{numberOfApps}} zdrojů pro převod a vykreslování dat souvisejících s OpenStreetMap.","category.country":"Aplikace pro {{country}}","category.country.description":"{{numberOfApps}} aplikací vytvořených pro {{country}}.","category.cycling":"Cyklistika","category.cycling.description":"{{numberOfApps}} aplikací pro cyklistickou jízdu.","category.diversity":"Jeden svět. Mnoho map.","category.diversity.description":"{{numberOfApps}} tematických map pro různé způsoby života, postoje a situace.","category.edit":"Vylepšete mapu","category.edit.description":"{{numberOfApps}} aplikací, které podporují přidávání nebo úpravy dat OpenStreetMap.","category.focus":"Probíhající projekty","category.focus.description":"Objevte každý den deset probíhajících projektů. Mohou být malé a zatím ne příliš známé. Podpořte je a pomozte šířit informace.","category.food":"Najít jídlo","category.food.description":"{{numberOfApps}} aplikací pro vyhledávání restaurací a dalších míst, kde si můžete dát chutné jídlo.","category.foss":"Svobodný a otevřený zdrojový kód","category.foss.description":"{{numberOfApps}} aplikací nebo knihoven, které jsou k dispozici na základě licence, která vám dává právo je používat, sdílet, upravovat a distribuovat.","category.hiking":"Turistika","category.hiking.description":"{{numberOfApps}} aplikací pro horské dobrodružství.","category.indoor":"Mapování uvnitř budov","category.indoor.description":"{{numberOfApps}} aplikací, které zobrazují a/nebo upravují údaje o interiéru.","category.isochrone":"Isochronní mapy","category.isochrone.description":"{{numberOfApps}} aplikací, které podporují výpočet map dosažitelnosti, např. pro chodce a cyklisty.","category.latestUpdates":"Nejnovější aktualizace","category.latestUpdates.description":"{{numberOfApps}} aplikace řazené podle data posledního vydání.","category.library":"Balíčky a knihovny","category.library.description":"{{numberOfApps}} zdrojů pro práci s daty souvisejícími s OpenStreetMap.","category.mobile":"Použití offline","category.mobile.description":"{{numberOfApps}} aplikací vyvinutých pro mobilní zařízení nebo podporující offline použití.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} aplikací, které podporují navigaci.","category.newAdditions":"Nové přírůstky","category.newAdditions.description":"Nejnovější objevy, které byly přidány do katalogu aplikací OSM.","category.print":"Vytiskněte si vlastní mapu","category.print.description":"Nástroje ({{numberOfApps}}) pro vytvoření souboru pro tisk.","category.publicTransport":"Cestování veřejnou dopravou","category.publicTransport.description":"{{numberOfApps}} aplikací, které usnadňují cestování veřejnou dopravou.","category.qa":"Zajištění kvality OpenStreetMap","category.qa.description":"Nástroje {{numberOfApps}} pro zkoumání dat OSM za účelem nalezení chyb, nekonzistencí nebo problematických změn.","category.resolveNotes":"Vyřešte poznámky k mapě","category.resolveNotes.description":"Nástroje {{numberOfApps}} pro kontrolu a řešení poznámek k mapám odeslaných uživateli, které pomáhají udržovat data OSM přesná a aktuální.","category.showAll":"Zobrazit vše","category.tourism":"Cestování a turistika","category.tourism.description":"{{numberOfApps}} aplikací pro objevování města nebo nalezení místa k přenocování.","category.trackRec":"Nahrávání a sdílení prohlídek","category.trackRec.description":"{{numberOfApps}} nástrojů pro záznam GPS tras, dat o pohybu nebo terénních poznámek např. pro pozdější mapování.","category.universalMapApps":"Univerzální mapové aplikace","category.universalMapApps.description":"{{numberOfApps}} mapových aplikací pro objevování zajímavých míst, plánování výletů nebo vylepšování mapy.","category.wheelchair":"Na cestách s invalidním vozíkem nebo kočárkem","category.wheelchair.description":"{{numberOfApps}} aplikací pro vyhledávání bezbariérových míst a plánování tras vhodných pro vozíčkáře. Upozorňujeme, že místa a trasy přístupné pro vozíčkáře jsou obecně vhodné i pro kočárky.","category.winterSport":"Zimní sporty","category.winterSport.description":"{{numberOfApps}} aplikací pro lyžování a další zimní sporty.","close":"Zavřít","compare":"Porovnat","compare.group.header.accessibility":"Přístupnost","compare.group.header.editing":"Úpravy","compare.group.header.general":"Obecné","compare.group.header.map":"Zobrazení mapy","compare.group.header.monitoring":"Monitorování","compare.group.header.navigating":"Navigace","compare.group.header.rendering":"Vykreslování","compare.group.header.routing":"Hledání trasy","compare.group.header.tracking":"Sledování","compare.share":"Sdílet na wiki.openstreetmap.org","compare.unknown":"neznámý","filter":{"resetFilters":"Odebrat přednastavené filtry"},"filter.category.all":"Vše","filter.category.latest":"Nejnovější","filter.coverage":"Pokrytí","filter.language":"Jazyk","filter.moreFilters":"Filtry","filter.platform":"Platforma","filter.preset":"Filtr je pro vás přednastavený:","filter.preview":"Filtr je nastaven na:","filter.programmingLanguage":"Naprogramováno v","filter.search":"Hledat","filter.tag":"Funkce","filter.topic":"Téma","filters.morePlatforms":"Více platforem","introductionPanel.description":"Zde najdete {{numberOfApps}} mapových aplikací pro každou situaci: offline turistiku, plánování cyklotras, objevování míst vhodných pro děti, hledání nejbližší toalety...\\nObjevte OpenStreetMap – mapu světa vytvořenou ve spolupráci uživatelů.","introductionPanel.description.whileLoading":"Zde najdete mapové aplikace pro každou situaci: offline turistiku, plánování cyklotras, objevování míst vhodných pro děti, hledání nejbližší toalety...\\nObjevte OpenStreetMap – mapu světa vytvořenou ve spolupráci uživatelů.","introductionPanel.title":"Vítejte v katalogu aplikací OSM","list":"Seznam","list.more":"Více","list.moreInfos":"Více informací","multilingual":"Vícejazyčný","nav.about":"O aplikaci","nav.back":"Zpět","nav.leaveTech":"Opustit technický náhled","nav.search":"Hledat","nav.tech":"Pro technické nadšence","noResults":"Žádné výsledky","notFound":"Nenašli jste, co hledáte?","notFound.desc":"Pomocí následujících služeb si můžete vytvořit vlastní tematické mapy bez znalosti programování. Možná již někdo vytvořil mapu, kterou hledáte, nebo si můžete vytvořit vlastní tematickou mapu.","pageNotFound":"Stránka nenalezena","relatedApps":"{{numberOfApps}} souvisejících aplikací","score.criteria.accessibilitySupported":"je podporována přístupnost (např. kompatibilita se čtečkou obrazovky nebo výpočet trasy pro vozíčkáře)","score.criteria.addingAndEditingPossible":"je možné přidávat a upravovat body zájmu, cesty atd","score.criteria.communityChannelExists":"existuje komunikační kanál pro komunitu (např. fórum, Mastodon)","score.criteria.copyleftLicense":"licence je copyleftová (např. GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"aplikace zobrazuje mapy nebo data OSM","score.criteria.documentationLink":"je k dispozici odkaz na dokumentaci","score.criteria.documentedMultiplePlatforms":"aplikace je zdokumentována na více platformách (např. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"aplikace je zdarma","score.criteria.issueTracker":"existuje nástroj pro sledování problémů","score.criteria.lastUpdateThreeMonths":"poslední aktualizace proběhla během posledních 3 měsíců","score.criteria.lastUpdateYear":"poslední aktualizace proběhla během posledního roku","score.criteria.multipleLanguages":"aplikace podporuje více jazyků (min. 3 jazyky)","score.criteria.multiplePlatforms":"aplikace je dostupná na více platformách (např. web, Android, iOS)","score.criteria.openSource":"aplikace má otevřený zdrojový kód","score.criteria.openSourceChannel":"kanál je hostován na platformách s otevřeným zdrojovým kódem (např. Matrix)","score.criteria.openSourceStores":"aplikace je dostupná prostřednictvím obchodů s otevřeným zdrojovým kódem (např. F-Droid)","score.criteria.sourceCodeReference":"odkaz na zdrojový kód je zdokumentován","score.criteria.supportsContributions":"aplikace podporuje příspěvky (editace, analýzy atd.) do OpenStreetMap","score.criteria.tenLanguages":"aplikace je k dispozici nejméně v 10 jazycích","score.criteria.translationContributions":"je možné přispět k překladům","score.criteria.worldwideData":"aplikace pokrývá mapové podklady celého světa","score.learnMore":"Zjistěte více","score.result":"- {{description}} ({{points}} bodů)","score.results":"Skóre příspěvků komunity\\nCelkem: {{total}} z 10 bodů\\n\\nKroky potřebné k dosažení vyššího skóre:\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nJe něco v nepořádku nebo něco chybí? Můžete pomoci vylepšit dokumentaci. Přejděte na stránku s podrobnostmi o aplikaci a klikněte na „{{-editInformationTitle}}“.\\n\\nSplněno:\\n{{fulfilled}}","select.search.noResults":"Žádné výsledky","select.search.placeholder":"Hledat","share.wiki":"Zkopírována tabulka {{group}} do schránky ve formátu pro wiki.openstreetmap.org.","techView.introductionPanel.description":"Zde najdete pokročilé nástroje a programové knihovny pro práci s daty souvisejícími s OpenStreetMap.","techView.introductionPanel.title":"Katalog aplikací OSM pro technicky zdatné","techViewPanel.action":"Přepněte se na technický pohled!","techViewPanel.description":"V technickém zobrazení si prohlédněte knihovny a technické aplikace OpenStreetMap.","techViewPanel.title":"Jste technicky zdatní?","toggleTheme.dark":"Tmavý","toggleTheme.light":"Světlý","toggleTheme.screenReader":"Přepnout motiv","toggleTheme.system":"Systémový","wiki.generatedBy":"Vytvořeno pomocí OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"Tato tabulka byla vygenerována [{{link}} OSM Apps Catalog] k datu {{date}}.","wiki.none":"žádný"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/de.json
@@ -131204,14 +131324,29 @@ Package npmjs.com/package/eld
 
 
 
-const languageData = {
-    langCodes: {}, langScore: [], ngrams: {}, type: '', avgScore: avgScore
+/**
+ * Creates a fresh, independent language-data container. Each eld instance (see createEld() in
+ * languageDetector.js) owns one of these, instead of every instance sharing a single module-level
+ * object. This is what allows two different imports/instances to hold two different databases
+ * (e.g. 'large' and 'small') at the same time, in the same process, without conflicting.
+ *
+ * @returns {Object}
+ */
+function createLanguageData() {
+    return {
+        langCodes: {}, langScore: [], ngrams: {}, type: '', avgScore: avgScore
+    }
 }
 
 /**
+ * Mutates a given languageData instance in place with a loaded ngrams database.
+ * Kept as a pure function of its arguments (no reference to any shared/module-level state) so it
+ * only ever affects the instance explicitly passed to it.
+ *
+ * @param {Object} languageData instance created by createLanguageData()
  * @param {Object} data
  */
-function setNgrams(data) {
+function setNgrams(languageData, data) {
     languageData.langCodes = data.languages
     languageData.langScore = Array(Object.keys(data.languages).length).fill(0)
     languageData.ngrams = data.ngrams
@@ -131252,7 +131387,7 @@ try {
 
 const separators = separatorsRegex;
 
-const matchDomains = new RegExp('([A-Za-z0-9-]+.)+com(/S*|[^' + unicodeRegex.L.bmp + '])', 'g')
+const matchDomains = new RegExp('([A-Za-z0-9-]+\\.)+com(\\/\\S*|[^' + unicodeRegex.L.bmp + '])', 'g')
 ;// CONCATENATED MODULE: ./node_modules/eld/src/dictionary.js
 /*
 Copyright 2023 Nito T.M.
@@ -131512,11 +131647,138 @@ Package npmjs.com/package/eld
 
 
 
+/** @type {string} */
+const loadError = 'No database loaded, use load()'
 
 // Project is ES2015
-const eld = (function () {
 
-    return {
+/**
+ * Creates a new eld instance: its own loaded database and settings
+ *
+ * Every entry file (src/entries/static.*.js, src/entries/dynamic.js) calls this once at
+ * module-evaluation time to build the object it exports - this is what makes e.g. `eld/large` and
+ * `eld/small` behave independently even when both are imported in the same process.
+ *
+ * `loadData` is returned separately from `instance` on purpose: it's an internal hook used only by
+ * entry files to inject a loaded ngrams database, and is deliberately not attached to the public
+ * `instance` object, since static entries must stay fixed-size (no load() on static imports).
+ *
+ * @returns {{instance: Object, loadData: function(Object): void}}
+ */
+function createEld() {
+    /** @type {Object} This instance's own database, never shared with any other instance */
+    let languageData = createLanguageData()
+
+    /** @type {boolean|Array} */
+    let subset = false
+
+    /** @type {boolean} When true, detect() cleans input text with getCleanTxt() */
+    let doCleanText = false
+
+    /** @type {boolean} Guards against spamming the console in tight loops - warns once per instance */
+    let warnedNonStringInput = false
+
+    /**
+     * detect() identifies the natural language of a UTF-8 string
+     * Returns an object, with a variable named 'language', with an ISO 639-1 code or empty string
+     * { language: 'es', getScores(): {'es': 0.5, 'et': 0.2}, isReliable(): true }
+     *
+     * @param {string} text UTF-8
+     * @returns {{language: string, getScores(): Object, isReliable(): boolean}} class LanguageResult
+     */
+    function detect(text) {
+        if (typeof text !== 'string') {
+            if (!warnedNonStringInput) {
+					 // Returning an empty result instead of throwing. Shown once per instance.
+                console.warn('eld: detect() expects a string, received ' + typeof text)
+                warnedNonStringInput = true
+            }
+            return new LanguageResult('', [], 0, {})
+        }
+        if (!languageData.type) throw new Error(loadError)
+
+        text = text.substring(0, 1000)
+
+        if (doCleanText) {
+            // Removes Urls, emails, alphanumerical & numbers
+            text = getCleanTxt(text)
+        }
+
+        const byteWords = textProcessor(text)
+        const byteNgrams = getByteNgrams(byteWords)
+        let results = calculateScores(byteNgrams, languageData)
+
+        if (subset) {
+            results = filterLangSubset(results, subset)
+        }
+
+        const langID = getMaxLang(results)
+        if (langID !== false) {
+            const language = languageData.langCodes[langID]
+            const numNgrams = Object.keys(byteNgrams).length
+            return new LanguageResult(language, results, numNgrams, languageData.langCodes)
+        }
+
+        return new LanguageResult('', [], 0, {})
+    }
+
+    /**
+     * Public function to change doCleanText value
+     *
+     * @param {boolean} bool
+     */
+    function enableTextCleanup(bool) {
+        doCleanText = Boolean(bool)
+    }
+
+    /**
+     * Creates a subset of languages, from which detect() will filter excluded languages from the results
+     * Call setLanguageSubset(false) to delete the subset
+     *
+     * @param {Array|boolean} languages
+     * @returns {Object} Returns list of the validated languages for the new subset
+     */
+    function setLanguageSubset(languages) {
+        subset = makeSubset(languages, languageData)
+        if (subset) {
+            return isoLanguages(subset, languageData.langCodes)
+        }
+        return {}
+    }
+
+    /**
+     * Creates a download, only available for the web browser, with a file containing the ngrams database, of the
+     * validated languages from the array argument. Does not affect this instance's active subset.
+     *
+     * @param {Array} languages
+     */
+    function saveSubset(languages) {
+        const langArray = makeSubset(languages, languageData)
+        saveLanguageSubset.saveSubset(langArray, languageData.ngrams, languageData.langCodes, languageData.type)
+    }
+
+    function info() {
+        return {
+            'Data type': languageData.type,
+            'Languages': languageData.langCodes,
+            'Subset': subset ? isoLanguages(subset, languageData.langCodes) : false,
+            // 'Text cleanup enabled': doCleanText ? 'True' : 'False',
+        }
+    }
+
+    /**
+     * Internal hook, used only by entry files to load a database into THIS instance.
+     * Not exposed on `instance` - see the doc comment on createEld() above.
+     *
+     * @param {Object} data
+     * @returns {string} the loaded database's type, falsy if nothing ended up loaded
+     */
+    function loadData(data) {
+        setNgrams(languageData, data)
+        return languageData.type
+    }
+
+    const instance = {
         detect,
         enableTextCleanup,
         /** @deprecated Use `enableTextCleanup` instead. */
@@ -131525,61 +131787,11 @@ const eld = (function () {
         /** @deprecated Use `setLanguageSubset` instead. */
         dynamicLangSubset: setLanguageSubset,
         saveSubset,
-        info: languageDetector_info
-    }
-})()
-
-/** @type {boolean|Array} */
-let subset = false
-
-/** @type {boolean} When true, detect() cleans input text with getCleanTxt() */
-let doCleanText = false
-
-/** @type {string} */
-let loadError = 'No database loaded, use load()'
-
-/**
- * detect() identifies the natural language of a UTF-8 string
- * Returns an object, with a variable named 'language', with an ISO 639-1 code or empty string
- * { language: 'es', getScores(): {'es': 0.5, 'et': 0.2}, isReliable(): true }
- *
- * @param {string} text UTF-8
- * @returns {{language: string, getScores(): Object, isReliable(): boolean}} class LanguageResult
- */
-function detect(text) {
-    if (typeof text !== 'string') return new LanguageResult('', [], 0, {})
-    if (!languageData.type) throw new Error(loadError)
-
-    if (doCleanText) {
-        // Removes Urls, emails, alphanumerical & numbers
-        text = getCleanTxt(text)
+		  // getCleanTxt: getCleanTxt,
+        info
     }
 
-    const byteWords = textProcessor(text)
-    const byteNgrams = getByteNgrams(byteWords)
-    let results = calculateScores(byteNgrams)
-
-    if (subset) {
-        results = filterLangSubset(results)
-    }
-
-    const langID = getMaxLang(results)
-    if (langID !== false) {
-        const language = languageData.langCodes[langID]
-        const numNgrams = Object.keys(byteNgrams).length
-        return new LanguageResult(language, results, numNgrams, languageData.langCodes)
-    }
-
-    return new LanguageResult('', [], 0, {})
-}
-
-/**
- * Public function to change doCleanText value
- *
- * @param {boolean} bool
- */
-function enableTextCleanup(bool) {
-    doCleanText = Boolean(bool)
+    return { instance, loadData }
 }
 
 /**
@@ -131605,7 +131817,6 @@ function getCleanTxt(str) {
  * @returns {Array}
  */
 function textProcessor(text) {
-    text = text.substring(0, 1000)
     // Normalize special characters/word separators
     text = text.replace(separators, ' ')
     text = text.trim().toLowerCase()
@@ -131644,9 +131855,10 @@ function getByteNgrams(words) {
  * Calculate scores for each language from the given Ngrams
  *
  * @param {Object} byteNgrams
+ * @param {Object} languageData
  * @returns {Array}
  */
-function calculateScores(byteNgrams) {
+function calculateScores(byteNgrams, languageData) {
     let bytes, lang, thisByte
     let langScore = [...languageData.langScore]
     let baseNgramScore = 53; // In order to reduce DB size we subtract minimum score
@@ -131724,9 +131936,10 @@ function strToUtf8Bytes(str) {
  * Filters languages not included in the subset, from the result scores
  *
  * @param {Array} results
+ * @param {Array} subset
  * @returns {Array}
  */
-function filterLangSubset(results) {
+function filterLangSubset(results, subset) {
     let subResults = [];
     // const keepSet = new Set(subset);
     for (let i = 0; i < results.length; i++) {
@@ -131738,14 +131951,17 @@ function filterLangSubset(results) {
 }
 
 /**
- * Validates an expected array of ISO 639-1 language code strings, given by the user, and creates a subset of the valid
- * languages compared against the current database available languages
+ * Validates an expected array of ISO 639-1 language code strings, given by the user, and creates a subset of the
+ * valid languages compared against the current database available languages. Pure function: does not read or
+ * write any instance state, it just computes what the new subset value should be.
  *
  * @param {Array|boolean} languages
+ * @param {Object} languageData
  * @returns {Array|boolean}
  */
-function makeSubset(languages) {
+function makeSubset(languages, languageData) {
     if (!languageData.type) throw new Error(loadError)
+    let subset = false
     if (languages) {
         subset = []
         for (let key in languages) {
@@ -131760,37 +131976,8 @@ function makeSubset(languages) {
         } else {
             subset = false
         }
-    } else {
-        subset = false
     }
     return subset
-}
-
-/**
- * Creates a subset of languages, from which detect() will filter excluded languages from the results
- * Call setLanguageSubset(false) to delete the subset
- *
- * @param {Array|boolean} languages
- * @returns {Object} Returns list of the validated languages for the new subset
- */
-function setLanguageSubset(languages) {
-    let result = makeSubset(languages)
-    if (result) {
-        return isoLanguages(result, languageData.langCodes)
-    }
-    return {}
-}
-
-/**
- * Creates a download, only available for the web browser, with a file containing the ngrams database, of the validated
- * languages from the array argument
- *
- * @param {Array} languages
- */
-function saveSubset(languages) {
-    const langArray = makeSubset(languages)
-    makeSubset(false) // remove the global subset, we only need the filtered langArray
-    saveLanguageSubset.saveSubset(langArray, languageData.ngrams, languageData.langCodes, languageData.type)
 }
 
 function getMaxLang(obj) {
@@ -131807,48 +131994,58 @@ function getMaxLang(obj) {
     return maxKey;
 }
 
-function languageDetector_info() {
-    return {
-        'Data type': languageData.type,
-        'Languages': languageData.langCodes,
-        'Subset': subset ? isoLanguages(subset, languageData.langCodes) : false
-    }
-}
 
 
 ;// CONCATENATED MODULE: ./node_modules/eld/src/entries/dynamic.js
 
 
-
 /**
- * @param {string} name File inside /ngrams/, with ELD ngrams data format
- * @returns {boolean|undefined} true if file was loaded
+ * Builds one independent eld instance with its own load()/loadNgrams(), not preloaded with any
+ * database. Called once at module-evaluation time for the default export, and again by
+ * newInstance() for anyone who explicitly wants another isolated dynamic instance (its own
+ * loaded database, subset and text-cleanup settings) in the same process - e.g. one part of an
+ * app running 'large' and another running 'small' at the same time, without either affecting the
+ * other.
+ *
+ * @returns {Object}
  */
-async function load(name = 'medium') {
-    if (typeof name !== 'string') throw new TypeError('file name must be a string');
-    let filename = name.replace(/\.js$/, '')
-    if (filename.includes('..')) {
-        // reject directory climbing attempts
-        throw new Error('invalid ngrams name (\"..\" not allowed)');
-    }
-    if (!/^[A-Za-z0-9._-]+$/.test(filename)) {
-        throw new Error('invalid ngrams name (only A-Za-z0-9._- allowed)');
-    }
-    return __nccwpck_require__(8484)("./" + filename + ".js").then((module) => {
-        if (module.ngramsData) {
-            setNgrams(module.ngramsData)
-            if (languageData.type) {
+function build() {
+    const { instance, loadData } = createEld()
+
+    /**
+     * @param {string} name File inside /ngrams/, with ELD ngrams data format
+     * @returns {boolean|undefined} true if file was loaded
+     */
+    async function load(name = 'medium') {
+        if (typeof name !== 'string') throw new TypeError('file name must be a string');
+        let filename = name.replace(/\.js$/, '')
+        if (filename.includes('..')) {
+            // reject directory climbing attempts
+            throw new Error('invalid ngrams name (\"..\" not allowed)');
+        }
+        if (!/^[A-Za-z0-9._-]+$/.test(filename)) {
+            throw new Error('invalid ngrams name (only A-Za-z0-9._- allowed)');
+        }
+        return __nccwpck_require__(8484)("./" + filename + ".js").then((module) => {
+            if (module.ngramsData && loadData(module.ngramsData)) {
                 return true
             }
-        }
-        throw new Error('invalid data at loaded database file');
-    })
+            throw new Error('invalid data at loaded database file');
+        })
+    }
+
+    instance.load = load
+    instance.loadNgrams = load
+    instance.newInstance = build
+
+    return instance
 }
 
-const withLoader = {...eld, load, loadNgrams: load};
+const eld = build();
 
 
-/* harmony default export */ const dynamic = (withLoader);
+/* harmony default export */ const dynamic = (eld);
+
 ;// CONCATENATED MODULE: ./actions/lib/getFrameworkDisplay.ts
 
 const frameworks = [
@@ -143149,18 +143346,13 @@ function throttling(octokit, octokitOptions) {
   if (typeof connection !== "undefined") {
     common.connection = connection;
   }
-  if (groups.global == null) {
-    createGroups(Bottleneck, common);
-  }
   const state = Object.assign(
     {
       clustering: connection != null,
       triggersNotification,
       fallbackSecondaryRateRetryAfter: 60,
       retryAfterBaseValue: 1e3,
-      retryLimiter: new Bottleneck(),
-      id,
-      ...groups
+      id
     },
     octokitOptions.throttle
   );
@@ -143177,65 +143369,84 @@ function throttling(octokit, octokitOptions) {
         })
     `);
   }
-  const events = {};
-  const emitter = new Bottleneck.Events(events);
-  events.on("secondary-limit", state.onSecondaryRateLimit);
-  events.on("rate-limit", state.onRateLimit);
-  events.on(
-    "error",
-    (e) => octokit.log.warn("Error in throttling-plugin limit handler", e)
-  );
-  state.retryLimiter.on("failed", async function(error, info) {
-    const [state2, request, options] = info.args;
-    const { pathname } = new URL(options.url, "http://github.test");
-    const shouldRetryGraphQL = pathname.startsWith("/graphql") && error.status !== 401;
-    if (!(shouldRetryGraphQL || error.status === 403 || error.status === 429)) {
+  let initialized = false;
+  const initializeBottleneck = () => {
+    if (initialized) {
       return;
     }
-    const retryCount = ~~request.retryCount;
-    request.retryCount = retryCount;
-    options.request.retryCount = retryCount;
-    const { wantRetry, retryAfter = 0 } = await (async function() {
-      if (/\bsecondary rate\b/i.test(error.message)) {
-        const retryAfter2 = Number(error.response.headers["retry-after"]) || state2.fallbackSecondaryRateRetryAfter;
-        const wantRetry2 = await emitter.trigger(
-          "secondary-limit",
-          retryAfter2,
-          options,
-          octokit,
-          retryCount
-        );
-        return { wantRetry: wantRetry2, retryAfter: retryAfter2 };
-      }
-      if (error.response.headers != null && error.response.headers["x-ratelimit-remaining"] === "0" || (error.response.data?.errors ?? []).some(
-        (error2) => error2.type === "RATE_LIMITED"
-      )) {
-        const rateLimitReset = new Date(
-          ~~error.response.headers["x-ratelimit-reset"] * 1e3
-        ).getTime();
-        const retryAfter2 = Math.max(
-          // Add one second so we retry _after_ the reset time
-          // https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#exceeding-the-rate-limit
-          Math.ceil((rateLimitReset - Date.now()) / 1e3) + 1,
-          0
-        );
-        const wantRetry2 = await emitter.trigger(
-          "rate-limit",
-          retryAfter2,
-          options,
-          octokit,
-          retryCount
-        );
-        return { wantRetry: wantRetry2, retryAfter: retryAfter2 };
-      }
-      return {};
-    })();
-    if (wantRetry) {
-      request.retryCount++;
-      return retryAfter * state2.retryAfterBaseValue;
+    initialized = true;
+    if (groups.global == null) {
+      createGroups(Bottleneck, common);
     }
+    state.global = state.global ?? groups.global;
+    state.auth = state.auth ?? groups.auth;
+    state.search = state.search ?? groups.search;
+    state.write = state.write ?? groups.write;
+    state.notifications = state.notifications ?? groups.notifications;
+    state.retryLimiter = state.retryLimiter ?? new Bottleneck();
+    const events = {};
+    const emitter = new Bottleneck.Events(events);
+    events.on("secondary-limit", state.onSecondaryRateLimit);
+    events.on("rate-limit", state.onRateLimit);
+    events.on(
+      "error",
+      (e) => octokit.log.warn("Error in throttling-plugin limit handler", e)
+    );
+    state.retryLimiter.on("failed", async function(error, info) {
+      const [state2, request, options] = info.args;
+      const { pathname } = new URL(options.url, "http://github.test");
+      const shouldRetryGraphQL = pathname.startsWith("/graphql") && error.status !== 401;
+      if (!(shouldRetryGraphQL || error.status === 403 || error.status === 429)) {
+        return;
+      }
+      const retryCount = ~~request.retryCount;
+      request.retryCount = retryCount;
+      options.request.retryCount = retryCount;
+      const { wantRetry, retryAfter = 0 } = await (async function() {
+        if (/\bsecondary rate\b/i.test(error.message)) {
+          const retryAfter2 = Number(error.response.headers["retry-after"]) || state2.fallbackSecondaryRateRetryAfter;
+          const wantRetry2 = await emitter.trigger(
+            "secondary-limit",
+            retryAfter2,
+            options,
+            octokit,
+            retryCount
+          );
+          return { wantRetry: wantRetry2, retryAfter: retryAfter2 };
+        }
+        if (error.response.headers != null && error.response.headers["x-ratelimit-remaining"] === "0" || (error.response.data?.errors ?? []).some(
+          (error2) => error2.type === "RATE_LIMITED"
+        )) {
+          const rateLimitReset = new Date(
+            ~~error.response.headers["x-ratelimit-reset"] * 1e3
+          ).getTime();
+          const retryAfter2 = Math.max(
+            // Add one second so we retry _after_ the reset time
+            // https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#exceeding-the-rate-limit
+            Math.ceil((rateLimitReset - Date.now()) / 1e3) + 1,
+            0
+          );
+          const wantRetry2 = await emitter.trigger(
+            "rate-limit",
+            retryAfter2,
+            options,
+            octokit,
+            retryCount
+          );
+          return { wantRetry: wantRetry2, retryAfter: retryAfter2 };
+        }
+        return {};
+      })();
+      if (wantRetry) {
+        request.retryCount++;
+        return retryAfter * state2.retryAfterBaseValue;
+      }
+    });
+  };
+  octokit.hook.wrap("request", (request, options) => {
+    initializeBottleneck();
+    return dist_bundle_wrapRequest(state, request, options);
   });
-  octokit.hook.wrap("request", dist_bundle_wrapRequest.bind(null, state));
   return {};
 }
 throttling.VERSION = plugin_throttling_dist_bundle_VERSION;
