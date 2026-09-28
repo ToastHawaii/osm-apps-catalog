@@ -1,4 +1,5 @@
 import { getLastMod } from "@actions/lib/getLastMod";
+import { isLikelyLogo } from "@lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";
 import { chain } from "lodash";
 
@@ -25,8 +26,10 @@ export function enrichSpotlight(apps: App[], knownApps: App[]) {
         getLastMod(a.source[0]) > yesterday &&
         !!a.name &&
         !!(a.subtitle || a.description) &&
-        a.logos.length > 0 &&
-        a.images.length > 0 &&
+        (a.logos.length > 0 ||
+          a.images.filter((i) => isLikelyLogo(i)).length > 0) &&
+        a.images.filter((i) => !isLikelyLogo(i) && !i.includes("/250px-"))
+          .length > 0 &&
         !a.unmaintained,
     )
     .sortBy((a) => a.lastSpotlight)

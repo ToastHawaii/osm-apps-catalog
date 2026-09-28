@@ -44,8 +44,8 @@ export function AppLogo({
       className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
-      dynamicSrc={logos.length > 0 ? `${logos.join(" ")}` : undefined}
-      alt={t("app.imageAlt", { name: app.name })}
+      dynamicSrc={logos.join(" ")}
+      alt={t("app.logoAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />
   );
