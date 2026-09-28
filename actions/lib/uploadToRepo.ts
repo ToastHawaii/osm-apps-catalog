@@ -6,8 +6,6 @@ export async function uploadToRepo(
   commitMessage: string,
   octokit: ReturnType<typeof createOctokit>,
 ): Promise<void> {
- 
-
   if (!files.length) {
     return;
   }

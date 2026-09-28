@@ -1,5 +1,6 @@
 export const SupportedLanguages = [
   "en",
+  "ar",
   "cs",
   "de",
   "el",
@@ -11,7 +12,9 @@ export const SupportedLanguages = [
   "it",
   "ja",
   "ko",
+  "lv",
   "no",
+  "nl",
   "pl",
   "pt",
   "ru",
@@ -36,6 +39,7 @@ export const SitemapLanguages = [
   "hu",
   "sv",
   "ta",
+  "tr",
   "uk",
   "zh-hant",
 ] as const;
