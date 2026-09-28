@@ -25,6 +25,23 @@ The texts relating to the apps descriptions come from the [OpenStreetMap Wiki](h
 
 You can find the sources by going to the detail view of an app in the [OSM Apps Catalog](https://osm-apps.org/) and clicking on "Edit / Update Information" in the "Get involved" section.
 
+### How to document or improve apps from the catalog backlog (#282)
+
+The backlog of apps with missing or incomplete metadata is tracked in [Issue #282](https://github.com/ToastHawaii/osm-apps-catalog/issues/282). Because the catalog aggregates metadata automatically via scheduled GitHub Actions from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/OSM_Apps_Catalog#Contribute), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), GitHub, and the [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects), you can improve app entries directly in the upstream sources:
+
+1. **Supplying core metadata (Website, License, Source Repo, Social Links):**
+   - For apps missing basic details (such as `pkoby.github.io`, `veganguide.org`, `hikar.org`, `Bikemap`, `GPSBabel`, `TigerMap`, `Cartes.app`, or `AxonCity`), create or update the corresponding **OpenStreetMap Wiki** software page (`Template:Software2`) or **Wikidata** item with official website (`P856`), software license (`P275`), source code repository (`P1324`), and platform (`P400`).
+   - For social links (e.g. adding the Mastodon link for `Lokjo`), set the Mastodon address property (`P4033`) on Wikidata or in the OSM Wiki infobox.
+2. **Disambiguating related projects and forks:**
+   - **`MapOSMatic` vs. `MyOSMatic`:** Document clearly in their respective descriptions and source links that `MyOSMatic` is the actively maintained fork/instance of `MapOSMatic`.
+   - **`Maptoposter online` vs. `Maptoposter`:** Distinguish the browser-based web generator (`https://maptoposter.0v0.one/`) from the upstream CLI/library tool so both entries show distinct platforms and URLs.
+   - **`OpenSeaMap` ecosystem:** Clarify the relationship between the main OpenSeaMap project, the web chart viewer, and the dedicated iOS and Android applications in Wikidata and OSM Wiki.
+3. **Recording worldwide vs. regional coverage:**
+   - For global tools (`OsmAnd`, `Every Door`, `JOSM`, `Vespucci`, `MapRoulette`, `OpenStop`, `QGIS`, `OSMTracker for Android`, `GPSPrune`, `SCEE`), ensure the operating area / coverage in the OSM Wiki template or Wikidata item reflects worldwide availability rather than a single region.
+
+Once updated in the wiki or Wikidata, the daily `collect-osm-apps` workflow automatically pulls the enriched metadata into the catalog. Leave a comment on [#282](https://github.com/ToastHawaii/osm-apps-catalog/issues/282) so the checklist can be updated.
+
+
 ## Issues
 [Report bugs](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=bug_report.md), [discuss ideas](https://github.com/ToastHawaii/osm-apps-catalog/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement) and [propose features](https://github.com/ToastHawaii/osm-apps-catalog/issues/new?template=feature_request.md) for the OSM Apps Catalog.
 
