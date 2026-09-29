@@ -2978,11 +2978,77 @@ class Request {
     }
   }
 
-  onUpgrade (statusCode, headers, socket) {
+  /**
+   * @param {number|null} statusCode
+   * @param {Buffer[]|null} headers
+   * @param {import('node:stream').Duplex} socket
+   * @param {string} [statusText]
+   */
+  onUpgrade (statusCode, headers, socket, statusText = '') {
+    this.onFinally()
+
     assert(!this.aborted)
     assert(!this.completed)
 
-    return this[kHandler].onUpgrade(statusCode, headers, socket)
+    if (statusCode !== null) {
+      this.#publishUpgradeHeaders(statusCode, headers, statusText)
+    }
+
+    const result = this[kHandler].onUpgrade(statusCode, headers, socket)
+
+    if (!this.aborted) {
+      this.completed = true
+      if (statusCode !== null) {
+        this.#publishUpgradeTrailers()
+      }
+    }
+
+    return result
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {import('node:http2').IncomingHttpHeaders} headers
+   * @param {(headers: import('node:http2').IncomingHttpHeaders) => Buffer[]} parseHeaders
+   * @param {string} [statusText]
+   */
+  onUpgradeResponse (statusCode, headers, parseHeaders, statusText = '') {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.headers.hasSubscribers) {
+      this.#publishUpgradeHeaders(statusCode, parseHeaders(headers), statusText)
+    }
+    this.#publishUpgradeTrailers()
+  }
+
+  /**
+   * @param {Error} error
+   */
+  onUpgradeError (error) {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.error.hasSubscribers) {
+      channels.error.publish({ request: this, error })
+    }
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {Buffer[]} headers
+   * @param {string} statusText
+   */
+  #publishUpgradeHeaders (statusCode, headers, statusText) {
+    if (channels.headers.hasSubscribers) {
+      channels.headers.publish({ request: this, response: { statusCode, headers, statusText } })
+    }
+  }
+
+  #publishUpgradeTrailers () {
+    if (channels.trailers.hasSubscribers) {
+      channels.trailers.publish({ request: this, trailers: [] })
+    }
   }
 
   onComplete (trailers) {
@@ -4886,7 +4952,7 @@ class Parser {
   }
 
   onUpgrade (head) {
-    const { upgrade, client, socket, headers, statusCode } = this
+    const { upgrade, client, socket, headers, statusCode, statusText } = this
 
     assert(upgrade)
     assert(client[kSocket] === socket)
@@ -4921,9 +4987,10 @@ class Parser {
     client.emit('disconnect', client[kUrl], [client], new InformationalError('upgrade'))
 
     try {
-      request.onUpgrade(statusCode, headers, socket)
-    } catch (err) {
-      util.destroy(socket, err)
+      request.onUpgrade(statusCode, headers, socket, statusText)
+    } catch (error) {
+      util.errorRequest(client, request, error)
+      util.destroy(socket, error)
     }
 
     client[kResume]()
@@ -5330,7 +5397,7 @@ async function connectH1 (client, socket) {
 
 function clearIdleSocketValidation (socket) {
   if (socket[kIdleSocketValidationTimeout]) {
-    clearTimeout(socket[kIdleSocketValidationTimeout])
+    clearImmediate(socket[kIdleSocketValidationTimeout])
     socket[kIdleSocketValidationTimeout] = null
   }
 
@@ -5339,15 +5406,23 @@ function clearIdleSocketValidation (socket) {
 
 function scheduleIdleSocketValidation (client, socket) {
   socket[kIdleSocketValidation] = 1
-  socket[kIdleSocketValidationTimeout] = setTimeout(() => {
+  // Yield to the check phase (after poll) so unsolicited bytes / FIN / RST
+  // already pending on this idle keep-alive socket are processed before the
+  // next request is written (GHSA-35p6-xmwp-9g52).
+  //
+  // setTimeout(0) pays Node's ~1ms timer floor on every sequential reuse
+  // (#5493). setImmediate avoids that, but an *unref'd* Immediate lets poll
+  // block for ~500ms when the event loop is otherwise idle (#5600 / #5606).
+  // A ref'd Immediate both keeps the pending request alive and makes poll
+  // return immediately — the hybrid those issues asked for.
+  socket[kIdleSocketValidationTimeout] = setImmediate(() => {
     socket[kIdleSocketValidationTimeout] = null
     socket[kIdleSocketValidation] = 2
 
     if (client[kSocket] === socket && !socket.destroyed) {
       client[kResume]()
     }
-  }, 0)
-  socket[kIdleSocketValidationTimeout].unref?.()
+  })
 }
 
 /**
@@ -5496,12 +5571,22 @@ function writeH1 (client, request) {
   const socket = client[kSocket]
   clearIdleSocketValidation(socket)
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    util.errorRequest(client, request, err || new RequestAbortedError())
+    if (request.completed) {
+      if (request.upgrade || request.method === 'CONNECT') {
+        util.destroy(socket, new InformationalError('aborted'))
+      }
+      return
+    }
+
+    util.errorRequest(client, request, error || new RequestAbortedError())
 
     util.destroy(body)
     util.destroy(socket, new InformationalError('aborted'))
@@ -5959,6 +6044,7 @@ module.exports = connectH1
 
 
 const assert = __nccwpck_require__(4589)
+const { errorMonitor } = __nccwpck_require__(8474)
 const { pipeline } = __nccwpck_require__(7075)
 const util = __nccwpck_require__(1671)
 const {
@@ -6033,6 +6119,15 @@ function parseH2Headers (headers) {
   }
 
   return result
+}
+
+/**
+ * @param {import('node:http2').IncomingHttpHeaders} headers
+ * @returns {Buffer[]}
+ */
+function parseH2ResponseHeaders (headers) {
+  const { [HTTP2_HEADER_STATUS]: _statusCode, ...realHeaders } = headers
+  return parseH2Headers(realHeaders)
 }
 
 async function connectH2 (client, socket) {
@@ -6255,22 +6350,32 @@ function writeH2 (client, request) {
   headers[HTTP2_HEADER_AUTHORITY] = host || `${hostname}${port ? `:${port}` : ''}`
   headers[HTTP2_HEADER_METHOD] = method
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    err = err || new RequestAbortedError()
+    if (request.completed) {
+      if (method === 'CONNECT' && stream != null) {
+        util.destroy(stream, error || new RequestAbortedError())
+      }
+      return
+    }
 
-    util.errorRequest(client, request, err)
+    error = error || new RequestAbortedError()
+
+    util.errorRequest(client, request, error)
 
     if (stream != null) {
-      util.destroy(stream, err)
+      util.destroy(stream, error)
     }
 
     // We do not destroy the socket as we can continue using the session
     // the stream get's destroyed and the session remains to create new streams
-    util.destroy(body, err)
+    util.destroy(body, error)
     client[kQueue][client[kRunningIdx]++] = null
     client[kResume]()
   }
@@ -6289,25 +6394,57 @@ function writeH2 (client, request) {
 
   if (method === 'CONNECT') {
     session.ref()
-    // We are already connected, streams are pending, first request
-    // will create a new stream. We trigger a request to create the stream and wait until
-    // `ready` event is triggered
     // We disabled endStream to allow the user to write to the stream
     stream = session.request(headers, { endStream: false, signal })
+    let upgradeResponseFinished = false
 
-    if (stream.id && !stream.pending) {
-      request.onUpgrade(null, null, stream)
-      ++session[kOpenStreams]
-      client[kQueue][client[kRunningIdx]++] = null
-    } else {
-      stream.once('ready', () => {
-        request.onUpgrade(null, null, stream)
-        ++session[kOpenStreams]
-        client[kQueue][client[kRunningIdx]++] = null
-      })
+    /**
+     * @param {import('node:http2').IncomingHttpHeaders} headers
+     */
+    const onResponse = (headers) => {
+      upgradeResponseFinished = true
+      stream.off(errorMonitor, onUpgradeError)
+      request.onUpgradeResponse(Number(headers[HTTP2_HEADER_STATUS]), headers, parseH2ResponseHeaders)
     }
 
+    /**
+     * @param {Error} error
+     */
+    const onUpgradeError = (error) => {
+      upgradeResponseFinished = true
+      stream.off('response', onResponse)
+      request.onUpgradeError(error)
+    }
+
+    const onReady = () => {
+      try {
+        request.onUpgrade(null, null, stream)
+      } catch (error) {
+        stream.off('response', onResponse)
+        abort(error)
+        return
+      }
+
+      if (request.aborted) {
+        return
+      }
+
+      stream.off('error', abort)
+      stream.once(errorMonitor, onUpgradeError)
+      client[kQueue][client[kRunningIdx]++] = null
+    }
+
+    stream.once('response', onResponse)
+    stream.once('error', abort)
+    ++session[kOpenStreams]
+    onReady()
+
     stream.once('close', () => {
+      if (!upgradeResponseFinished && request.completed) {
+        stream.off('response', onResponse)
+        stream.off(errorMonitor, onUpgradeError)
+        request.onUpgradeError(new InformationalError(`HTTP/2: "stream error" received - code ${stream.rstCode}`))
+      }
       session[kOpenStreams] -= 1
       if (session[kOpenStreams] === 0) session.unref()
     })
@@ -9019,6 +9156,7 @@ class RetryHandler {
     this.end = null
     this.etag = null
     this.resume = null
+    this.headersSent = false
 
     // Handle possible onConnect duplication
     this.handler.onConnect(reason => {
@@ -9029,6 +9167,20 @@ class RetryHandler {
         this.reason = reason
       }
     })
+  }
+
+  checkpointResponseEnd (headers, resume) {
+    if (this.end == null && this.opts.method !== 'HEAD') {
+      const contentLength = headers['content-length']
+      this.end = contentLength != null ? Number(contentLength) - 1 : null
+
+      assert(
+        this.end == null || Number.isFinite(this.end),
+        'invalid content-length'
+      )
+    }
+
+    this.resume = this.end != null ? resume : null
   }
 
   onRequestSent () {
@@ -9119,7 +9271,12 @@ class RetryHandler {
     this.retryCount += 1
 
     if (statusCode >= 300) {
-      if (this.retryOpts.statusCodes.includes(statusCode) === false) {
+      // Only expose a response if no earlier attempt has reached the caller.
+      // Otherwise abort this attempt so the error settles the existing body
+      // instead of replacing it with a new response.
+      if (!this.headersSent && this.retryOpts.statusCodes.includes(statusCode) === false) {
+        this.headersSent = true
+        this.checkpointResponseEnd(headers, resume)
         return this.handler.onHeaders(
           statusCode,
           rawHeaders,
@@ -9188,8 +9345,15 @@ class RetryHandler {
 
       const { start, size, end = size - 1 } = contentRange
 
-      assert(this.start === start, 'content-range mismatch')
-      assert(this.end == null || this.end === end, 'content-range mismatch')
+      if (this.start !== start || (this.end != null && this.end !== end)) {
+        this.abort(
+          new RequestRetryError('Content-Range mismatch', statusCode, {
+            headers,
+            data: { count: this.retryCount }
+          })
+        )
+        return false
+      }
 
       this.resume = resume
       return true
@@ -9201,6 +9365,7 @@ class RetryHandler {
         const range = parseRangeHeader(headers['content-range'])
 
         if (range == null) {
+          this.headersSent = true
           return this.handler.onHeaders(
             statusCode,
             rawHeaders,
@@ -9239,6 +9404,7 @@ class RetryHandler {
       )
 
       this.resume = resume
+      this.headersSent = true
       this.etag = headers.etag != null ? headers.etag : null
 
       // Weak etags are not useful for comparison nor cache
@@ -9278,7 +9444,7 @@ class RetryHandler {
   }
 
   onError (err) {
-    if (this.aborted || isDisturbed(this.opts.body)) {
+    if (this.aborted || isDisturbed(this.opts.body) || (this.headersSent && this.resume == null)) {
       return this.handler.onError(err)
     }
 
@@ -13764,6 +13930,49 @@ const COLON = 0x3A
  */
 const SPACE = 0x20
 
+const DATA = Buffer.from('data')
+const EVENT = Buffer.from('event')
+const ID = Buffer.from('id')
+const RETRY = Buffer.from('retry')
+
+function isASCIINumberBytes (buffer, start) {
+  if (start >= buffer.length) {
+    return false
+  }
+
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] < 0x30 || buffer[i] > 0x39) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isValidLastEventIdBytes (buffer, start) {
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] === 0x00) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isFieldName (line, length, field) {
+  if (length !== field.length) {
+    return false
+  }
+
+  for (let i = 0; i < length; i++) {
+    if (line[i] !== field[i]) {
+      return false
+    }
+  }
+
+  return true
+}
+
 /**
  * @typedef {object} EventSourceStreamEvent
  * @type {object}
@@ -13804,11 +14013,14 @@ class EventSourceStream extends Transform {
   eventEndCheck = false
 
   /**
-   * @type {Buffer}
+   * @type {Buffer[]}
    */
-  buffer = null
+  chunks = []
 
+  chunkIndex = 0
   pos = 0
+  lineChunkIndex = 0
+  linePos = 0
 
   event = {
     data: undefined,
@@ -13847,92 +14059,20 @@ class EventSourceStream extends Transform {
       return
     }
 
-    // Cache the chunk in the buffer, as the data might not be complete while
-    // processing it
-    // TODO: Investigate if there is a more performant way to handle
-    // incoming chunks
-    // see: https://github.com/nodejs/undici/issues/2630
-    if (this.buffer) {
-      this.buffer = Buffer.concat([this.buffer, chunk])
-    } else {
-      this.buffer = chunk
-    }
+    this.chunks.push(chunk)
 
     // Strip leading byte-order-mark if we opened the stream and started
     // the processing of the incoming data
     if (this.checkBOM) {
-      switch (this.buffer.length) {
-        case 1:
-          // Check if the first byte is the same as the first byte of the BOM
-          if (this.buffer[0] === BOM[0]) {
-            // If it is, we need to wait for more data
-            callback()
-            return
-          }
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-
-          // The buffer only contains one byte so we need to wait for more data
-          callback()
-          return
-        case 2:
-          // Check if the first two bytes are the same as the first two bytes
-          // of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1]
-          ) {
-            // If it is, we need to wait for more data, because the third byte
-            // is needed to determine if it is the BOM or not
-            callback()
-            return
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-          break
-        case 3:
-          // Check if the first three bytes are the same as the first three
-          // bytes of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // If it is, we can drop the buffered data, as it is only the BOM
-            this.buffer = Buffer.alloc(0)
-            // Set the checkBOM flag to false as we don't need to check for the
-            // BOM anymore
-            this.checkBOM = false
-
-            // Await more data
-            callback()
-            return
-          }
-          // If it is not the BOM, we can start processing the data
-          this.checkBOM = false
-          break
-        default:
-          // The buffer is longer than 3 bytes, so we can drop the BOM if it is
-          // present
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // Remove the BOM from the buffer
-            this.buffer = this.buffer.subarray(3)
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          this.checkBOM = false
-          break
+      if (this.handleBOM()) {
+        callback()
+        return
       }
     }
 
-    while (this.pos < this.buffer.length) {
+    while (this.hasCurrentByte()) {
+      const byte = this.currentByte()
+
       // If the previous line ended with an end-of-line, we need to check
       // if the next character is also an end-of-line.
       if (this.eventEndCheck) {
@@ -13945,10 +14085,9 @@ class EventSourceStream extends Transform {
         if (this.crlfCheck) {
           // If the current character is a line feed, we can remove it
           // from the buffer and reset the crlfCheck flag
-          if (this.buffer[this.pos] === LF) {
-            this.buffer = this.buffer.subarray(this.pos + 1)
-            this.pos = 0
+          if (byte === LF) {
             this.crlfCheck = false
+            this.consumeCurrentByte()
 
             // It is possible that the line feed is not the end of the
             // event. We need to check if the next character is an
@@ -13964,19 +14103,17 @@ class EventSourceStream extends Transform {
           this.crlfCheck = false
         }
 
-        if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+        if (byte === LF || byte === CR) {
           // If the current character is a carriage return, we need to
           // set the crlfCheck flag to true, as we need to check if the
           // next character is a line feed so we can remove it from the
           // buffer
-          if (this.buffer[this.pos] === CR) {
+          if (byte === CR) {
             this.crlfCheck = true
           }
 
-          this.buffer = this.buffer.subarray(this.pos + 1)
-          this.pos = 0
-          if (
-            this.event.data !== undefined || this.event.event || this.event.id || this.event.retry) {
+          this.consumeCurrentByte()
+          if (this.hasPendingEvent()) {
             this.processEvent(this.event)
           }
           this.clearEvent()
@@ -13990,22 +14127,18 @@ class EventSourceStream extends Transform {
 
       // If the current character is an end-of-line, we can process the
       // line
-      if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+      if (byte === LF || byte === CR) {
         // If the current character is a carriage return, we need to
         // set the crlfCheck flag to true, as we need to check if the
         // next character is a line feed
-        if (this.buffer[this.pos] === CR) {
+        if (byte === CR) {
           this.crlfCheck = true
         }
 
         // In any case, we can process the line as we reached an
         // end-of-line character
-        this.parseLine(this.buffer.subarray(0, this.pos), this.event)
-
-        // Remove the processed line from the buffer
-        this.buffer = this.buffer.subarray(this.pos + 1)
-        // Reset the position as we removed the processed line from the buffer
-        this.pos = 0
+        this.parseLine(this.readLine(), this.event)
+        this.consumeCurrentByte()
         // A line was processed and this could be the end of the event. We need
         // to check if the next line is empty to determine if the event is
         // finished.
@@ -14013,7 +14146,7 @@ class EventSourceStream extends Transform {
         continue
       }
 
-      this.pos++
+      this.advanceCursor()
     }
 
     callback()
@@ -14038,64 +14171,53 @@ class EventSourceStream extends Transform {
       return
     }
 
-    let field = ''
-    let value = ''
+    let fieldLength = line.length
+    let valueStart = line.length
 
     // If the line contains a U+003A COLON character (:)
     if (colonPosition !== -1) {
-      // Collect the characters on the line before the first U+003A COLON
-      // character (:), and let field be that string.
-      // TODO: Investigate if there is a more performant way to extract the
-      // field
-      // see: https://github.com/nodejs/undici/issues/2630
-      field = line.subarray(0, colonPosition).toString('utf8')
+      fieldLength = colonPosition
 
       // Collect the characters on the line after the first U+003A COLON
       // character (:), and let value be that string.
       // If value starts with a U+0020 SPACE character, remove it from value.
-      let valueStart = colonPosition + 1
+      valueStart = colonPosition + 1
       if (line[valueStart] === SPACE) {
         ++valueStart
       }
-      // TODO: Investigate if there is a more performant way to extract the
-      // value
-      // see: https://github.com/nodejs/undici/issues/2630
-      value = line.subarray(valueStart).toString('utf8')
-
-      // Otherwise, the string is not empty but does not contain a U+003A COLON
-      // character (:)
-    } else {
-      // Process the field using the steps described below, using the whole
-      // line as the field name, and the empty string as the field value.
-      field = line.toString('utf8')
-      value = ''
     }
 
-    // Modify the event with the field name and value. The value is also
-    // decoded as UTF-8
-    switch (field) {
-      case 'data':
-        if (event[field] === undefined) {
-          event[field] = value
-        } else {
-          event[field] += `\n${value}`
-        }
-        break
-      case 'retry':
-        if (isASCIINumber(value)) {
-          event[field] = value
-        }
-        break
-      case 'id':
-        if (isValidLastEventId(value)) {
-          event[field] = value
-        }
-        break
-      case 'event':
-        if (value.length > 0) {
-          event[field] = value
-        }
-        break
+    if (isFieldName(line, fieldLength, DATA)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (event.data === undefined) {
+        event.data = value
+      } else {
+        event.data += `\n${value}`
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, RETRY)) {
+      if (isASCIINumberBytes(line, valueStart)) {
+        event.retry = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, ID)) {
+      if (isValidLastEventIdBytes(line, valueStart)) {
+        event.id = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, EVENT)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (value.length > 0) {
+        event.event = value
+      }
     }
   }
 
@@ -14125,12 +14247,151 @@ class EventSourceStream extends Transform {
   }
 
   clearEvent () {
-    this.event = {
-      data: undefined,
-      event: undefined,
-      id: undefined,
-      retry: undefined
+    this.event.data = undefined
+    this.event.event = undefined
+    this.event.id = undefined
+    this.event.retry = undefined
+  }
+
+  hasPendingEvent () {
+    return this.event.data !== undefined ||
+      this.event.event !== undefined ||
+      this.event.id !== undefined ||
+      this.event.retry !== undefined
+  }
+
+  hasCurrentByte () {
+    return this.chunkIndex < this.chunks.length &&
+      this.pos < this.chunks[this.chunkIndex].length
+  }
+
+  currentByte () {
+    return this.chunks[this.chunkIndex][this.pos]
+  }
+
+  consumeCurrentByte () {
+    this.advanceCursor()
+    this.syncLineStartToCursor()
+  }
+
+  advanceCursor () {
+    this.pos++
+
+    while (this.chunkIndex < this.chunks.length && this.pos >= this.chunks[this.chunkIndex].length) {
+      this.chunkIndex++
+      this.pos = 0
     }
+  }
+
+  syncLineStartToCursor () {
+    this.lineChunkIndex = this.chunkIndex
+    this.linePos = this.pos
+    this.dropConsumedChunks()
+  }
+
+  dropConsumedChunks () {
+    while (this.lineChunkIndex > 0) {
+      this.chunks.shift()
+      this.lineChunkIndex--
+      this.chunkIndex--
+    }
+
+    if (this.chunkIndex === this.chunks.length) {
+      this.chunks.length = 0
+      this.chunkIndex = 0
+      this.pos = 0
+      this.lineChunkIndex = 0
+      this.linePos = 0
+    }
+  }
+
+  readLine () {
+    if (this.lineChunkIndex === this.chunkIndex) {
+      return this.chunks[this.chunkIndex].subarray(this.linePos, this.pos)
+    }
+
+    const chunks = []
+    let length = 0
+
+    for (let i = this.lineChunkIndex; i <= this.chunkIndex; i++) {
+      const chunk = this.chunks[i]
+      const start = i === this.lineChunkIndex ? this.linePos : 0
+      const end = i === this.chunkIndex ? this.pos : chunk.length
+      const slice = chunk.subarray(start, end)
+      length += slice.length
+      chunks.push(slice)
+    }
+
+    return Buffer.concat(chunks, length)
+  }
+
+  peekBufferedByte (offset) {
+    let chunkIndex = this.lineChunkIndex
+    let pos = this.linePos
+
+    while (chunkIndex < this.chunks.length) {
+      const chunk = this.chunks[chunkIndex]
+      const remaining = chunk.length - pos
+
+      if (offset < remaining) {
+        return chunk[pos + offset]
+      }
+
+      offset -= remaining
+      chunkIndex++
+      pos = 0
+    }
+  }
+
+  discardLeadingBytes (count) {
+    while (count > 0 && this.lineChunkIndex < this.chunks.length) {
+      const chunk = this.chunks[this.lineChunkIndex]
+      const remaining = chunk.length - this.linePos
+
+      if (count < remaining) {
+        this.linePos += count
+        count = 0
+      } else {
+        count -= remaining
+        this.lineChunkIndex++
+        this.linePos = 0
+      }
+    }
+
+    this.chunkIndex = this.lineChunkIndex
+    this.pos = this.linePos
+    this.dropConsumedChunks()
+  }
+
+  handleBOM () {
+    const first = this.peekBufferedByte(0)
+    const second = this.peekBufferedByte(1)
+    const third = this.peekBufferedByte(2)
+
+    if (second === undefined) {
+      if (first === BOM[0]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return true
+    }
+
+    if (third === undefined) {
+      if (first === BOM[0] && second === BOM[1]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return false
+    }
+
+    if (first === BOM[0] && second === BOM[1] && third === BOM[2]) {
+      this.discardLeadingBytes(3)
+    }
+
+    this.checkBOM = false
+    return !this.hasCurrentByte()
   }
 }
 
@@ -25422,7 +25683,7 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
         // is specified, the server needs to include the same field and one of
         // the selected subprotocol values in its response for the connection to
         // be established.
-        if (!requestProtocols.includes(secProtocol)) {
+        if (requestProtocols === null || !requestProtocols.includes(secProtocol)) {
           failWebsocketConnection(ws, 'Protocol was not set in the opening handshake.')
           return
         }
@@ -26187,7 +26448,12 @@ class PerMessageDeflate {
 
         if (this.#maxPayloadSize > 0 && this.#inflate[kLength] > this.#maxPayloadSize) {
           callback(new MessageSizeExceededError())
+          // The inflater may still hold buffered input that can emit a late
+          // zlib error. Remove the data listener, then deterministically stop
+          // the stream so a subsequent 'error' cannot fire without a listener
+          // (which would terminate the process as an unhandled error event).
           this.#inflate.removeAllListeners()
+          this.#inflate.destroy()
           this.#inflate = null
           return
         }
@@ -30789,11 +31055,77 @@ class Request {
     }
   }
 
-  onUpgrade (statusCode, headers, socket) {
+  /**
+   * @param {number|null} statusCode
+   * @param {Buffer[]|null} headers
+   * @param {import('node:stream').Duplex} socket
+   * @param {string} [statusText]
+   */
+  onUpgrade (statusCode, headers, socket, statusText = '') {
+    this.onFinally()
+
     assert(!this.aborted)
     assert(!this.completed)
 
-    return this[kHandler].onUpgrade(statusCode, headers, socket)
+    if (statusCode !== null) {
+      this.#publishUpgradeHeaders(statusCode, headers, statusText)
+    }
+
+    const result = this[kHandler].onUpgrade(statusCode, headers, socket)
+
+    if (!this.aborted) {
+      this.completed = true
+      if (statusCode !== null) {
+        this.#publishUpgradeTrailers()
+      }
+    }
+
+    return result
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {import('node:http2').IncomingHttpHeaders} headers
+   * @param {(headers: import('node:http2').IncomingHttpHeaders) => Buffer[]} parseHeaders
+   * @param {string} [statusText]
+   */
+  onUpgradeResponse (statusCode, headers, parseHeaders, statusText = '') {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.headers.hasSubscribers) {
+      this.#publishUpgradeHeaders(statusCode, parseHeaders(headers), statusText)
+    }
+    this.#publishUpgradeTrailers()
+  }
+
+  /**
+   * @param {Error} error
+   */
+  onUpgradeError (error) {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.error.hasSubscribers) {
+      channels.error.publish({ request: this, error })
+    }
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {Buffer[]} headers
+   * @param {string} statusText
+   */
+  #publishUpgradeHeaders (statusCode, headers, statusText) {
+    if (channels.headers.hasSubscribers) {
+      channels.headers.publish({ request: this, response: { statusCode, headers, statusText } })
+    }
+  }
+
+  #publishUpgradeTrailers () {
+    if (channels.trailers.hasSubscribers) {
+      channels.trailers.publish({ request: this, trailers: [] })
+    }
   }
 
   onComplete (trailers) {
@@ -32697,7 +33029,7 @@ class Parser {
   }
 
   onUpgrade (head) {
-    const { upgrade, client, socket, headers, statusCode } = this
+    const { upgrade, client, socket, headers, statusCode, statusText } = this
 
     assert(upgrade)
     assert(client[kSocket] === socket)
@@ -32732,9 +33064,10 @@ class Parser {
     client.emit('disconnect', client[kUrl], [client], new InformationalError('upgrade'))
 
     try {
-      request.onUpgrade(statusCode, headers, socket)
-    } catch (err) {
-      util.destroy(socket, err)
+      request.onUpgrade(statusCode, headers, socket, statusText)
+    } catch (error) {
+      util.errorRequest(client, request, error)
+      util.destroy(socket, error)
     }
 
     client[kResume]()
@@ -33141,7 +33474,7 @@ async function connectH1 (client, socket) {
 
 function clearIdleSocketValidation (socket) {
   if (socket[kIdleSocketValidationTimeout]) {
-    clearTimeout(socket[kIdleSocketValidationTimeout])
+    clearImmediate(socket[kIdleSocketValidationTimeout])
     socket[kIdleSocketValidationTimeout] = null
   }
 
@@ -33150,15 +33483,23 @@ function clearIdleSocketValidation (socket) {
 
 function scheduleIdleSocketValidation (client, socket) {
   socket[kIdleSocketValidation] = 1
-  socket[kIdleSocketValidationTimeout] = setTimeout(() => {
+  // Yield to the check phase (after poll) so unsolicited bytes / FIN / RST
+  // already pending on this idle keep-alive socket are processed before the
+  // next request is written (GHSA-35p6-xmwp-9g52).
+  //
+  // setTimeout(0) pays Node's ~1ms timer floor on every sequential reuse
+  // (#5493). setImmediate avoids that, but an *unref'd* Immediate lets poll
+  // block for ~500ms when the event loop is otherwise idle (#5600 / #5606).
+  // A ref'd Immediate both keeps the pending request alive and makes poll
+  // return immediately — the hybrid those issues asked for.
+  socket[kIdleSocketValidationTimeout] = setImmediate(() => {
     socket[kIdleSocketValidationTimeout] = null
     socket[kIdleSocketValidation] = 2
 
     if (client[kSocket] === socket && !socket.destroyed) {
       client[kResume]()
     }
-  }, 0)
-  socket[kIdleSocketValidationTimeout].unref?.()
+  })
 }
 
 /**
@@ -33307,12 +33648,22 @@ function writeH1 (client, request) {
   const socket = client[kSocket]
   clearIdleSocketValidation(socket)
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    util.errorRequest(client, request, err || new RequestAbortedError())
+    if (request.completed) {
+      if (request.upgrade || request.method === 'CONNECT') {
+        util.destroy(socket, new InformationalError('aborted'))
+      }
+      return
+    }
+
+    util.errorRequest(client, request, error || new RequestAbortedError())
 
     util.destroy(body)
     util.destroy(socket, new InformationalError('aborted'))
@@ -33770,6 +34121,7 @@ module.exports = connectH1
 
 
 const assert = __nccwpck_require__(4589)
+const { errorMonitor } = __nccwpck_require__(8474)
 const { pipeline } = __nccwpck_require__(7075)
 const util = __nccwpck_require__(7375)
 const {
@@ -33844,6 +34196,15 @@ function parseH2Headers (headers) {
   }
 
   return result
+}
+
+/**
+ * @param {import('node:http2').IncomingHttpHeaders} headers
+ * @returns {Buffer[]}
+ */
+function parseH2ResponseHeaders (headers) {
+  const { [HTTP2_HEADER_STATUS]: _statusCode, ...realHeaders } = headers
+  return parseH2Headers(realHeaders)
 }
 
 async function connectH2 (client, socket) {
@@ -34066,22 +34427,32 @@ function writeH2 (client, request) {
   headers[HTTP2_HEADER_AUTHORITY] = host || `${hostname}${port ? `:${port}` : ''}`
   headers[HTTP2_HEADER_METHOD] = method
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    err = err || new RequestAbortedError()
+    if (request.completed) {
+      if (method === 'CONNECT' && stream != null) {
+        util.destroy(stream, error || new RequestAbortedError())
+      }
+      return
+    }
 
-    util.errorRequest(client, request, err)
+    error = error || new RequestAbortedError()
+
+    util.errorRequest(client, request, error)
 
     if (stream != null) {
-      util.destroy(stream, err)
+      util.destroy(stream, error)
     }
 
     // We do not destroy the socket as we can continue using the session
     // the stream get's destroyed and the session remains to create new streams
-    util.destroy(body, err)
+    util.destroy(body, error)
     client[kQueue][client[kRunningIdx]++] = null
     client[kResume]()
   }
@@ -34100,25 +34471,57 @@ function writeH2 (client, request) {
 
   if (method === 'CONNECT') {
     session.ref()
-    // We are already connected, streams are pending, first request
-    // will create a new stream. We trigger a request to create the stream and wait until
-    // `ready` event is triggered
     // We disabled endStream to allow the user to write to the stream
     stream = session.request(headers, { endStream: false, signal })
+    let upgradeResponseFinished = false
 
-    if (stream.id && !stream.pending) {
-      request.onUpgrade(null, null, stream)
-      ++session[kOpenStreams]
-      client[kQueue][client[kRunningIdx]++] = null
-    } else {
-      stream.once('ready', () => {
-        request.onUpgrade(null, null, stream)
-        ++session[kOpenStreams]
-        client[kQueue][client[kRunningIdx]++] = null
-      })
+    /**
+     * @param {import('node:http2').IncomingHttpHeaders} headers
+     */
+    const onResponse = (headers) => {
+      upgradeResponseFinished = true
+      stream.off(errorMonitor, onUpgradeError)
+      request.onUpgradeResponse(Number(headers[HTTP2_HEADER_STATUS]), headers, parseH2ResponseHeaders)
     }
 
+    /**
+     * @param {Error} error
+     */
+    const onUpgradeError = (error) => {
+      upgradeResponseFinished = true
+      stream.off('response', onResponse)
+      request.onUpgradeError(error)
+    }
+
+    const onReady = () => {
+      try {
+        request.onUpgrade(null, null, stream)
+      } catch (error) {
+        stream.off('response', onResponse)
+        abort(error)
+        return
+      }
+
+      if (request.aborted) {
+        return
+      }
+
+      stream.off('error', abort)
+      stream.once(errorMonitor, onUpgradeError)
+      client[kQueue][client[kRunningIdx]++] = null
+    }
+
+    stream.once('response', onResponse)
+    stream.once('error', abort)
+    ++session[kOpenStreams]
+    onReady()
+
     stream.once('close', () => {
+      if (!upgradeResponseFinished && request.completed) {
+        stream.off('response', onResponse)
+        stream.off(errorMonitor, onUpgradeError)
+        request.onUpgradeError(new InformationalError(`HTTP/2: "stream error" received - code ${stream.rstCode}`))
+      }
       session[kOpenStreams] -= 1
       if (session[kOpenStreams] === 0) session.unref()
     })
@@ -36830,6 +37233,7 @@ class RetryHandler {
     this.end = null
     this.etag = null
     this.resume = null
+    this.headersSent = false
 
     // Handle possible onConnect duplication
     this.handler.onConnect(reason => {
@@ -36840,6 +37244,20 @@ class RetryHandler {
         this.reason = reason
       }
     })
+  }
+
+  checkpointResponseEnd (headers, resume) {
+    if (this.end == null && this.opts.method !== 'HEAD') {
+      const contentLength = headers['content-length']
+      this.end = contentLength != null ? Number(contentLength) - 1 : null
+
+      assert(
+        this.end == null || Number.isFinite(this.end),
+        'invalid content-length'
+      )
+    }
+
+    this.resume = this.end != null ? resume : null
   }
 
   onRequestSent () {
@@ -36930,7 +37348,12 @@ class RetryHandler {
     this.retryCount += 1
 
     if (statusCode >= 300) {
-      if (this.retryOpts.statusCodes.includes(statusCode) === false) {
+      // Only expose a response if no earlier attempt has reached the caller.
+      // Otherwise abort this attempt so the error settles the existing body
+      // instead of replacing it with a new response.
+      if (!this.headersSent && this.retryOpts.statusCodes.includes(statusCode) === false) {
+        this.headersSent = true
+        this.checkpointResponseEnd(headers, resume)
         return this.handler.onHeaders(
           statusCode,
           rawHeaders,
@@ -36999,8 +37422,15 @@ class RetryHandler {
 
       const { start, size, end = size - 1 } = contentRange
 
-      assert(this.start === start, 'content-range mismatch')
-      assert(this.end == null || this.end === end, 'content-range mismatch')
+      if (this.start !== start || (this.end != null && this.end !== end)) {
+        this.abort(
+          new RequestRetryError('Content-Range mismatch', statusCode, {
+            headers,
+            data: { count: this.retryCount }
+          })
+        )
+        return false
+      }
 
       this.resume = resume
       return true
@@ -37012,6 +37442,7 @@ class RetryHandler {
         const range = parseRangeHeader(headers['content-range'])
 
         if (range == null) {
+          this.headersSent = true
           return this.handler.onHeaders(
             statusCode,
             rawHeaders,
@@ -37050,6 +37481,7 @@ class RetryHandler {
       )
 
       this.resume = resume
+      this.headersSent = true
       this.etag = headers.etag != null ? headers.etag : null
 
       // Weak etags are not useful for comparison nor cache
@@ -37089,7 +37521,7 @@ class RetryHandler {
   }
 
   onError (err) {
-    if (this.aborted || isDisturbed(this.opts.body)) {
+    if (this.aborted || isDisturbed(this.opts.body) || (this.headersSent && this.resume == null)) {
       return this.handler.onError(err)
     }
 
@@ -41575,6 +42007,49 @@ const COLON = 0x3A
  */
 const SPACE = 0x20
 
+const DATA = Buffer.from('data')
+const EVENT = Buffer.from('event')
+const ID = Buffer.from('id')
+const RETRY = Buffer.from('retry')
+
+function isASCIINumberBytes (buffer, start) {
+  if (start >= buffer.length) {
+    return false
+  }
+
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] < 0x30 || buffer[i] > 0x39) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isValidLastEventIdBytes (buffer, start) {
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] === 0x00) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isFieldName (line, length, field) {
+  if (length !== field.length) {
+    return false
+  }
+
+  for (let i = 0; i < length; i++) {
+    if (line[i] !== field[i]) {
+      return false
+    }
+  }
+
+  return true
+}
+
 /**
  * @typedef {object} EventSourceStreamEvent
  * @type {object}
@@ -41615,11 +42090,14 @@ class EventSourceStream extends Transform {
   eventEndCheck = false
 
   /**
-   * @type {Buffer}
+   * @type {Buffer[]}
    */
-  buffer = null
+  chunks = []
 
+  chunkIndex = 0
   pos = 0
+  lineChunkIndex = 0
+  linePos = 0
 
   event = {
     data: undefined,
@@ -41658,92 +42136,20 @@ class EventSourceStream extends Transform {
       return
     }
 
-    // Cache the chunk in the buffer, as the data might not be complete while
-    // processing it
-    // TODO: Investigate if there is a more performant way to handle
-    // incoming chunks
-    // see: https://github.com/nodejs/undici/issues/2630
-    if (this.buffer) {
-      this.buffer = Buffer.concat([this.buffer, chunk])
-    } else {
-      this.buffer = chunk
-    }
+    this.chunks.push(chunk)
 
     // Strip leading byte-order-mark if we opened the stream and started
     // the processing of the incoming data
     if (this.checkBOM) {
-      switch (this.buffer.length) {
-        case 1:
-          // Check if the first byte is the same as the first byte of the BOM
-          if (this.buffer[0] === BOM[0]) {
-            // If it is, we need to wait for more data
-            callback()
-            return
-          }
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-
-          // The buffer only contains one byte so we need to wait for more data
-          callback()
-          return
-        case 2:
-          // Check if the first two bytes are the same as the first two bytes
-          // of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1]
-          ) {
-            // If it is, we need to wait for more data, because the third byte
-            // is needed to determine if it is the BOM or not
-            callback()
-            return
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-          break
-        case 3:
-          // Check if the first three bytes are the same as the first three
-          // bytes of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // If it is, we can drop the buffered data, as it is only the BOM
-            this.buffer = Buffer.alloc(0)
-            // Set the checkBOM flag to false as we don't need to check for the
-            // BOM anymore
-            this.checkBOM = false
-
-            // Await more data
-            callback()
-            return
-          }
-          // If it is not the BOM, we can start processing the data
-          this.checkBOM = false
-          break
-        default:
-          // The buffer is longer than 3 bytes, so we can drop the BOM if it is
-          // present
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // Remove the BOM from the buffer
-            this.buffer = this.buffer.subarray(3)
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          this.checkBOM = false
-          break
+      if (this.handleBOM()) {
+        callback()
+        return
       }
     }
 
-    while (this.pos < this.buffer.length) {
+    while (this.hasCurrentByte()) {
+      const byte = this.currentByte()
+
       // If the previous line ended with an end-of-line, we need to check
       // if the next character is also an end-of-line.
       if (this.eventEndCheck) {
@@ -41756,10 +42162,9 @@ class EventSourceStream extends Transform {
         if (this.crlfCheck) {
           // If the current character is a line feed, we can remove it
           // from the buffer and reset the crlfCheck flag
-          if (this.buffer[this.pos] === LF) {
-            this.buffer = this.buffer.subarray(this.pos + 1)
-            this.pos = 0
+          if (byte === LF) {
             this.crlfCheck = false
+            this.consumeCurrentByte()
 
             // It is possible that the line feed is not the end of the
             // event. We need to check if the next character is an
@@ -41775,19 +42180,17 @@ class EventSourceStream extends Transform {
           this.crlfCheck = false
         }
 
-        if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+        if (byte === LF || byte === CR) {
           // If the current character is a carriage return, we need to
           // set the crlfCheck flag to true, as we need to check if the
           // next character is a line feed so we can remove it from the
           // buffer
-          if (this.buffer[this.pos] === CR) {
+          if (byte === CR) {
             this.crlfCheck = true
           }
 
-          this.buffer = this.buffer.subarray(this.pos + 1)
-          this.pos = 0
-          if (
-            this.event.data !== undefined || this.event.event || this.event.id || this.event.retry) {
+          this.consumeCurrentByte()
+          if (this.hasPendingEvent()) {
             this.processEvent(this.event)
           }
           this.clearEvent()
@@ -41801,22 +42204,18 @@ class EventSourceStream extends Transform {
 
       // If the current character is an end-of-line, we can process the
       // line
-      if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+      if (byte === LF || byte === CR) {
         // If the current character is a carriage return, we need to
         // set the crlfCheck flag to true, as we need to check if the
         // next character is a line feed
-        if (this.buffer[this.pos] === CR) {
+        if (byte === CR) {
           this.crlfCheck = true
         }
 
         // In any case, we can process the line as we reached an
         // end-of-line character
-        this.parseLine(this.buffer.subarray(0, this.pos), this.event)
-
-        // Remove the processed line from the buffer
-        this.buffer = this.buffer.subarray(this.pos + 1)
-        // Reset the position as we removed the processed line from the buffer
-        this.pos = 0
+        this.parseLine(this.readLine(), this.event)
+        this.consumeCurrentByte()
         // A line was processed and this could be the end of the event. We need
         // to check if the next line is empty to determine if the event is
         // finished.
@@ -41824,7 +42223,7 @@ class EventSourceStream extends Transform {
         continue
       }
 
-      this.pos++
+      this.advanceCursor()
     }
 
     callback()
@@ -41849,64 +42248,53 @@ class EventSourceStream extends Transform {
       return
     }
 
-    let field = ''
-    let value = ''
+    let fieldLength = line.length
+    let valueStart = line.length
 
     // If the line contains a U+003A COLON character (:)
     if (colonPosition !== -1) {
-      // Collect the characters on the line before the first U+003A COLON
-      // character (:), and let field be that string.
-      // TODO: Investigate if there is a more performant way to extract the
-      // field
-      // see: https://github.com/nodejs/undici/issues/2630
-      field = line.subarray(0, colonPosition).toString('utf8')
+      fieldLength = colonPosition
 
       // Collect the characters on the line after the first U+003A COLON
       // character (:), and let value be that string.
       // If value starts with a U+0020 SPACE character, remove it from value.
-      let valueStart = colonPosition + 1
+      valueStart = colonPosition + 1
       if (line[valueStart] === SPACE) {
         ++valueStart
       }
-      // TODO: Investigate if there is a more performant way to extract the
-      // value
-      // see: https://github.com/nodejs/undici/issues/2630
-      value = line.subarray(valueStart).toString('utf8')
-
-      // Otherwise, the string is not empty but does not contain a U+003A COLON
-      // character (:)
-    } else {
-      // Process the field using the steps described below, using the whole
-      // line as the field name, and the empty string as the field value.
-      field = line.toString('utf8')
-      value = ''
     }
 
-    // Modify the event with the field name and value. The value is also
-    // decoded as UTF-8
-    switch (field) {
-      case 'data':
-        if (event[field] === undefined) {
-          event[field] = value
-        } else {
-          event[field] += `\n${value}`
-        }
-        break
-      case 'retry':
-        if (isASCIINumber(value)) {
-          event[field] = value
-        }
-        break
-      case 'id':
-        if (isValidLastEventId(value)) {
-          event[field] = value
-        }
-        break
-      case 'event':
-        if (value.length > 0) {
-          event[field] = value
-        }
-        break
+    if (isFieldName(line, fieldLength, DATA)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (event.data === undefined) {
+        event.data = value
+      } else {
+        event.data += `\n${value}`
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, RETRY)) {
+      if (isASCIINumberBytes(line, valueStart)) {
+        event.retry = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, ID)) {
+      if (isValidLastEventIdBytes(line, valueStart)) {
+        event.id = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, EVENT)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (value.length > 0) {
+        event.event = value
+      }
     }
   }
 
@@ -41936,12 +42324,151 @@ class EventSourceStream extends Transform {
   }
 
   clearEvent () {
-    this.event = {
-      data: undefined,
-      event: undefined,
-      id: undefined,
-      retry: undefined
+    this.event.data = undefined
+    this.event.event = undefined
+    this.event.id = undefined
+    this.event.retry = undefined
+  }
+
+  hasPendingEvent () {
+    return this.event.data !== undefined ||
+      this.event.event !== undefined ||
+      this.event.id !== undefined ||
+      this.event.retry !== undefined
+  }
+
+  hasCurrentByte () {
+    return this.chunkIndex < this.chunks.length &&
+      this.pos < this.chunks[this.chunkIndex].length
+  }
+
+  currentByte () {
+    return this.chunks[this.chunkIndex][this.pos]
+  }
+
+  consumeCurrentByte () {
+    this.advanceCursor()
+    this.syncLineStartToCursor()
+  }
+
+  advanceCursor () {
+    this.pos++
+
+    while (this.chunkIndex < this.chunks.length && this.pos >= this.chunks[this.chunkIndex].length) {
+      this.chunkIndex++
+      this.pos = 0
     }
+  }
+
+  syncLineStartToCursor () {
+    this.lineChunkIndex = this.chunkIndex
+    this.linePos = this.pos
+    this.dropConsumedChunks()
+  }
+
+  dropConsumedChunks () {
+    while (this.lineChunkIndex > 0) {
+      this.chunks.shift()
+      this.lineChunkIndex--
+      this.chunkIndex--
+    }
+
+    if (this.chunkIndex === this.chunks.length) {
+      this.chunks.length = 0
+      this.chunkIndex = 0
+      this.pos = 0
+      this.lineChunkIndex = 0
+      this.linePos = 0
+    }
+  }
+
+  readLine () {
+    if (this.lineChunkIndex === this.chunkIndex) {
+      return this.chunks[this.chunkIndex].subarray(this.linePos, this.pos)
+    }
+
+    const chunks = []
+    let length = 0
+
+    for (let i = this.lineChunkIndex; i <= this.chunkIndex; i++) {
+      const chunk = this.chunks[i]
+      const start = i === this.lineChunkIndex ? this.linePos : 0
+      const end = i === this.chunkIndex ? this.pos : chunk.length
+      const slice = chunk.subarray(start, end)
+      length += slice.length
+      chunks.push(slice)
+    }
+
+    return Buffer.concat(chunks, length)
+  }
+
+  peekBufferedByte (offset) {
+    let chunkIndex = this.lineChunkIndex
+    let pos = this.linePos
+
+    while (chunkIndex < this.chunks.length) {
+      const chunk = this.chunks[chunkIndex]
+      const remaining = chunk.length - pos
+
+      if (offset < remaining) {
+        return chunk[pos + offset]
+      }
+
+      offset -= remaining
+      chunkIndex++
+      pos = 0
+    }
+  }
+
+  discardLeadingBytes (count) {
+    while (count > 0 && this.lineChunkIndex < this.chunks.length) {
+      const chunk = this.chunks[this.lineChunkIndex]
+      const remaining = chunk.length - this.linePos
+
+      if (count < remaining) {
+        this.linePos += count
+        count = 0
+      } else {
+        count -= remaining
+        this.lineChunkIndex++
+        this.linePos = 0
+      }
+    }
+
+    this.chunkIndex = this.lineChunkIndex
+    this.pos = this.linePos
+    this.dropConsumedChunks()
+  }
+
+  handleBOM () {
+    const first = this.peekBufferedByte(0)
+    const second = this.peekBufferedByte(1)
+    const third = this.peekBufferedByte(2)
+
+    if (second === undefined) {
+      if (first === BOM[0]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return true
+    }
+
+    if (third === undefined) {
+      if (first === BOM[0] && second === BOM[1]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return false
+    }
+
+    if (first === BOM[0] && second === BOM[1] && third === BOM[2]) {
+      this.discardLeadingBytes(3)
+    }
+
+    this.checkBOM = false
+    return !this.hasCurrentByte()
   }
 }
 
@@ -53233,7 +53760,7 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
         // is specified, the server needs to include the same field and one of
         // the selected subprotocol values in its response for the connection to
         // be established.
-        if (!requestProtocols.includes(secProtocol)) {
+        if (requestProtocols === null || !requestProtocols.includes(secProtocol)) {
           failWebsocketConnection(ws, 'Protocol was not set in the opening handshake.')
           return
         }
@@ -53998,7 +54525,12 @@ class PerMessageDeflate {
 
         if (this.#maxPayloadSize > 0 && this.#inflate[kLength] > this.#maxPayloadSize) {
           callback(new MessageSizeExceededError())
+          // The inflater may still hold buffered input that can emit a late
+          // zlib error. Remove the data listener, then deterministically stop
+          // the stream so a subsequent 'error' cannot fire without a listener
+          // (which would terminate the process as an unhandled error event).
           this.#inflate.removeAllListeners()
+          this.#inflate.destroy()
           this.#inflate = null
           return
         }
@@ -59444,11 +59976,77 @@ class Request {
     }
   }
 
-  onUpgrade (statusCode, headers, socket) {
+  /**
+   * @param {number|null} statusCode
+   * @param {Buffer[]|null} headers
+   * @param {import('node:stream').Duplex} socket
+   * @param {string} [statusText]
+   */
+  onUpgrade (statusCode, headers, socket, statusText = '') {
+    this.onFinally()
+
     assert(!this.aborted)
     assert(!this.completed)
 
-    return this[kHandler].onUpgrade(statusCode, headers, socket)
+    if (statusCode !== null) {
+      this.#publishUpgradeHeaders(statusCode, headers, statusText)
+    }
+
+    const result = this[kHandler].onUpgrade(statusCode, headers, socket)
+
+    if (!this.aborted) {
+      this.completed = true
+      if (statusCode !== null) {
+        this.#publishUpgradeTrailers()
+      }
+    }
+
+    return result
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {import('node:http2').IncomingHttpHeaders} headers
+   * @param {(headers: import('node:http2').IncomingHttpHeaders) => Buffer[]} parseHeaders
+   * @param {string} [statusText]
+   */
+  onUpgradeResponse (statusCode, headers, parseHeaders, statusText = '') {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.headers.hasSubscribers) {
+      this.#publishUpgradeHeaders(statusCode, parseHeaders(headers), statusText)
+    }
+    this.#publishUpgradeTrailers()
+  }
+
+  /**
+   * @param {Error} error
+   */
+  onUpgradeError (error) {
+    assert(!this.aborted)
+    assert(this.completed)
+
+    if (channels.error.hasSubscribers) {
+      channels.error.publish({ request: this, error })
+    }
+  }
+
+  /**
+   * @param {number} statusCode
+   * @param {Buffer[]} headers
+   * @param {string} statusText
+   */
+  #publishUpgradeHeaders (statusCode, headers, statusText) {
+    if (channels.headers.hasSubscribers) {
+      channels.headers.publish({ request: this, response: { statusCode, headers, statusText } })
+    }
+  }
+
+  #publishUpgradeTrailers () {
+    if (channels.trailers.hasSubscribers) {
+      channels.trailers.publish({ request: this, trailers: [] })
+    }
   }
 
   onComplete (trailers) {
@@ -61352,7 +61950,7 @@ class Parser {
   }
 
   onUpgrade (head) {
-    const { upgrade, client, socket, headers, statusCode } = this
+    const { upgrade, client, socket, headers, statusCode, statusText } = this
 
     assert(upgrade)
     assert(client[kSocket] === socket)
@@ -61387,9 +61985,10 @@ class Parser {
     client.emit('disconnect', client[kUrl], [client], new InformationalError('upgrade'))
 
     try {
-      request.onUpgrade(statusCode, headers, socket)
-    } catch (err) {
-      util.destroy(socket, err)
+      request.onUpgrade(statusCode, headers, socket, statusText)
+    } catch (error) {
+      util.errorRequest(client, request, error)
+      util.destroy(socket, error)
     }
 
     client[kResume]()
@@ -61796,7 +62395,7 @@ async function connectH1 (client, socket) {
 
 function clearIdleSocketValidation (socket) {
   if (socket[kIdleSocketValidationTimeout]) {
-    clearTimeout(socket[kIdleSocketValidationTimeout])
+    clearImmediate(socket[kIdleSocketValidationTimeout])
     socket[kIdleSocketValidationTimeout] = null
   }
 
@@ -61805,15 +62404,23 @@ function clearIdleSocketValidation (socket) {
 
 function scheduleIdleSocketValidation (client, socket) {
   socket[kIdleSocketValidation] = 1
-  socket[kIdleSocketValidationTimeout] = setTimeout(() => {
+  // Yield to the check phase (after poll) so unsolicited bytes / FIN / RST
+  // already pending on this idle keep-alive socket are processed before the
+  // next request is written (GHSA-35p6-xmwp-9g52).
+  //
+  // setTimeout(0) pays Node's ~1ms timer floor on every sequential reuse
+  // (#5493). setImmediate avoids that, but an *unref'd* Immediate lets poll
+  // block for ~500ms when the event loop is otherwise idle (#5600 / #5606).
+  // A ref'd Immediate both keeps the pending request alive and makes poll
+  // return immediately — the hybrid those issues asked for.
+  socket[kIdleSocketValidationTimeout] = setImmediate(() => {
     socket[kIdleSocketValidationTimeout] = null
     socket[kIdleSocketValidation] = 2
 
     if (client[kSocket] === socket && !socket.destroyed) {
       client[kResume]()
     }
-  }, 0)
-  socket[kIdleSocketValidationTimeout].unref?.()
+  })
 }
 
 /**
@@ -61962,12 +62569,22 @@ function writeH1 (client, request) {
   const socket = client[kSocket]
   clearIdleSocketValidation(socket)
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    util.errorRequest(client, request, err || new RequestAbortedError())
+    if (request.completed) {
+      if (request.upgrade || request.method === 'CONNECT') {
+        util.destroy(socket, new InformationalError('aborted'))
+      }
+      return
+    }
+
+    util.errorRequest(client, request, error || new RequestAbortedError())
 
     util.destroy(body)
     util.destroy(socket, new InformationalError('aborted'))
@@ -62425,6 +63042,7 @@ module.exports = connectH1
 
 
 const assert = __nccwpck_require__(4589)
+const { errorMonitor } = __nccwpck_require__(8474)
 const { pipeline } = __nccwpck_require__(7075)
 const util = __nccwpck_require__(1544)
 const {
@@ -62499,6 +63117,15 @@ function parseH2Headers (headers) {
   }
 
   return result
+}
+
+/**
+ * @param {import('node:http2').IncomingHttpHeaders} headers
+ * @returns {Buffer[]}
+ */
+function parseH2ResponseHeaders (headers) {
+  const { [HTTP2_HEADER_STATUS]: _statusCode, ...realHeaders } = headers
+  return parseH2Headers(realHeaders)
 }
 
 async function connectH2 (client, socket) {
@@ -62721,22 +63348,32 @@ function writeH2 (client, request) {
   headers[HTTP2_HEADER_AUTHORITY] = host || `${hostname}${port ? `:${port}` : ''}`
   headers[HTTP2_HEADER_METHOD] = method
 
-  const abort = (err) => {
-    if (request.aborted || request.completed) {
+  /**
+   * @param {Error} [error]
+   */
+  const abort = (error) => {
+    if (request.aborted) {
       return
     }
 
-    err = err || new RequestAbortedError()
+    if (request.completed) {
+      if (method === 'CONNECT' && stream != null) {
+        util.destroy(stream, error || new RequestAbortedError())
+      }
+      return
+    }
 
-    util.errorRequest(client, request, err)
+    error = error || new RequestAbortedError()
+
+    util.errorRequest(client, request, error)
 
     if (stream != null) {
-      util.destroy(stream, err)
+      util.destroy(stream, error)
     }
 
     // We do not destroy the socket as we can continue using the session
     // the stream get's destroyed and the session remains to create new streams
-    util.destroy(body, err)
+    util.destroy(body, error)
     client[kQueue][client[kRunningIdx]++] = null
     client[kResume]()
   }
@@ -62755,25 +63392,57 @@ function writeH2 (client, request) {
 
   if (method === 'CONNECT') {
     session.ref()
-    // We are already connected, streams are pending, first request
-    // will create a new stream. We trigger a request to create the stream and wait until
-    // `ready` event is triggered
     // We disabled endStream to allow the user to write to the stream
     stream = session.request(headers, { endStream: false, signal })
+    let upgradeResponseFinished = false
 
-    if (stream.id && !stream.pending) {
-      request.onUpgrade(null, null, stream)
-      ++session[kOpenStreams]
-      client[kQueue][client[kRunningIdx]++] = null
-    } else {
-      stream.once('ready', () => {
-        request.onUpgrade(null, null, stream)
-        ++session[kOpenStreams]
-        client[kQueue][client[kRunningIdx]++] = null
-      })
+    /**
+     * @param {import('node:http2').IncomingHttpHeaders} headers
+     */
+    const onResponse = (headers) => {
+      upgradeResponseFinished = true
+      stream.off(errorMonitor, onUpgradeError)
+      request.onUpgradeResponse(Number(headers[HTTP2_HEADER_STATUS]), headers, parseH2ResponseHeaders)
     }
 
+    /**
+     * @param {Error} error
+     */
+    const onUpgradeError = (error) => {
+      upgradeResponseFinished = true
+      stream.off('response', onResponse)
+      request.onUpgradeError(error)
+    }
+
+    const onReady = () => {
+      try {
+        request.onUpgrade(null, null, stream)
+      } catch (error) {
+        stream.off('response', onResponse)
+        abort(error)
+        return
+      }
+
+      if (request.aborted) {
+        return
+      }
+
+      stream.off('error', abort)
+      stream.once(errorMonitor, onUpgradeError)
+      client[kQueue][client[kRunningIdx]++] = null
+    }
+
+    stream.once('response', onResponse)
+    stream.once('error', abort)
+    ++session[kOpenStreams]
+    onReady()
+
     stream.once('close', () => {
+      if (!upgradeResponseFinished && request.completed) {
+        stream.off('response', onResponse)
+        stream.off(errorMonitor, onUpgradeError)
+        request.onUpgradeError(new InformationalError(`HTTP/2: "stream error" received - code ${stream.rstCode}`))
+      }
       session[kOpenStreams] -= 1
       if (session[kOpenStreams] === 0) session.unref()
     })
@@ -65485,6 +66154,7 @@ class RetryHandler {
     this.end = null
     this.etag = null
     this.resume = null
+    this.headersSent = false
 
     // Handle possible onConnect duplication
     this.handler.onConnect(reason => {
@@ -65495,6 +66165,20 @@ class RetryHandler {
         this.reason = reason
       }
     })
+  }
+
+  checkpointResponseEnd (headers, resume) {
+    if (this.end == null && this.opts.method !== 'HEAD') {
+      const contentLength = headers['content-length']
+      this.end = contentLength != null ? Number(contentLength) - 1 : null
+
+      assert(
+        this.end == null || Number.isFinite(this.end),
+        'invalid content-length'
+      )
+    }
+
+    this.resume = this.end != null ? resume : null
   }
 
   onRequestSent () {
@@ -65585,7 +66269,12 @@ class RetryHandler {
     this.retryCount += 1
 
     if (statusCode >= 300) {
-      if (this.retryOpts.statusCodes.includes(statusCode) === false) {
+      // Only expose a response if no earlier attempt has reached the caller.
+      // Otherwise abort this attempt so the error settles the existing body
+      // instead of replacing it with a new response.
+      if (!this.headersSent && this.retryOpts.statusCodes.includes(statusCode) === false) {
+        this.headersSent = true
+        this.checkpointResponseEnd(headers, resume)
         return this.handler.onHeaders(
           statusCode,
           rawHeaders,
@@ -65654,8 +66343,15 @@ class RetryHandler {
 
       const { start, size, end = size - 1 } = contentRange
 
-      assert(this.start === start, 'content-range mismatch')
-      assert(this.end == null || this.end === end, 'content-range mismatch')
+      if (this.start !== start || (this.end != null && this.end !== end)) {
+        this.abort(
+          new RequestRetryError('Content-Range mismatch', statusCode, {
+            headers,
+            data: { count: this.retryCount }
+          })
+        )
+        return false
+      }
 
       this.resume = resume
       return true
@@ -65667,6 +66363,7 @@ class RetryHandler {
         const range = parseRangeHeader(headers['content-range'])
 
         if (range == null) {
+          this.headersSent = true
           return this.handler.onHeaders(
             statusCode,
             rawHeaders,
@@ -65705,6 +66402,7 @@ class RetryHandler {
       )
 
       this.resume = resume
+      this.headersSent = true
       this.etag = headers.etag != null ? headers.etag : null
 
       // Weak etags are not useful for comparison nor cache
@@ -65744,7 +66442,7 @@ class RetryHandler {
   }
 
   onError (err) {
-    if (this.aborted || isDisturbed(this.opts.body)) {
+    if (this.aborted || isDisturbed(this.opts.body) || (this.headersSent && this.resume == null)) {
       return this.handler.onError(err)
     }
 
@@ -70230,6 +70928,49 @@ const COLON = 0x3A
  */
 const SPACE = 0x20
 
+const DATA = Buffer.from('data')
+const EVENT = Buffer.from('event')
+const ID = Buffer.from('id')
+const RETRY = Buffer.from('retry')
+
+function isASCIINumberBytes (buffer, start) {
+  if (start >= buffer.length) {
+    return false
+  }
+
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] < 0x30 || buffer[i] > 0x39) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isValidLastEventIdBytes (buffer, start) {
+  for (let i = start; i < buffer.length; i++) {
+    if (buffer[i] === 0x00) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function isFieldName (line, length, field) {
+  if (length !== field.length) {
+    return false
+  }
+
+  for (let i = 0; i < length; i++) {
+    if (line[i] !== field[i]) {
+      return false
+    }
+  }
+
+  return true
+}
+
 /**
  * @typedef {object} EventSourceStreamEvent
  * @type {object}
@@ -70270,11 +71011,14 @@ class EventSourceStream extends Transform {
   eventEndCheck = false
 
   /**
-   * @type {Buffer}
+   * @type {Buffer[]}
    */
-  buffer = null
+  chunks = []
 
+  chunkIndex = 0
   pos = 0
+  lineChunkIndex = 0
+  linePos = 0
 
   event = {
     data: undefined,
@@ -70313,92 +71057,20 @@ class EventSourceStream extends Transform {
       return
     }
 
-    // Cache the chunk in the buffer, as the data might not be complete while
-    // processing it
-    // TODO: Investigate if there is a more performant way to handle
-    // incoming chunks
-    // see: https://github.com/nodejs/undici/issues/2630
-    if (this.buffer) {
-      this.buffer = Buffer.concat([this.buffer, chunk])
-    } else {
-      this.buffer = chunk
-    }
+    this.chunks.push(chunk)
 
     // Strip leading byte-order-mark if we opened the stream and started
     // the processing of the incoming data
     if (this.checkBOM) {
-      switch (this.buffer.length) {
-        case 1:
-          // Check if the first byte is the same as the first byte of the BOM
-          if (this.buffer[0] === BOM[0]) {
-            // If it is, we need to wait for more data
-            callback()
-            return
-          }
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-
-          // The buffer only contains one byte so we need to wait for more data
-          callback()
-          return
-        case 2:
-          // Check if the first two bytes are the same as the first two bytes
-          // of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1]
-          ) {
-            // If it is, we need to wait for more data, because the third byte
-            // is needed to determine if it is the BOM or not
-            callback()
-            return
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          // BOM anymore
-          this.checkBOM = false
-          break
-        case 3:
-          // Check if the first three bytes are the same as the first three
-          // bytes of the BOM
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // If it is, we can drop the buffered data, as it is only the BOM
-            this.buffer = Buffer.alloc(0)
-            // Set the checkBOM flag to false as we don't need to check for the
-            // BOM anymore
-            this.checkBOM = false
-
-            // Await more data
-            callback()
-            return
-          }
-          // If it is not the BOM, we can start processing the data
-          this.checkBOM = false
-          break
-        default:
-          // The buffer is longer than 3 bytes, so we can drop the BOM if it is
-          // present
-          if (
-            this.buffer[0] === BOM[0] &&
-            this.buffer[1] === BOM[1] &&
-            this.buffer[2] === BOM[2]
-          ) {
-            // Remove the BOM from the buffer
-            this.buffer = this.buffer.subarray(3)
-          }
-
-          // Set the checkBOM flag to false as we don't need to check for the
-          this.checkBOM = false
-          break
+      if (this.handleBOM()) {
+        callback()
+        return
       }
     }
 
-    while (this.pos < this.buffer.length) {
+    while (this.hasCurrentByte()) {
+      const byte = this.currentByte()
+
       // If the previous line ended with an end-of-line, we need to check
       // if the next character is also an end-of-line.
       if (this.eventEndCheck) {
@@ -70411,10 +71083,9 @@ class EventSourceStream extends Transform {
         if (this.crlfCheck) {
           // If the current character is a line feed, we can remove it
           // from the buffer and reset the crlfCheck flag
-          if (this.buffer[this.pos] === LF) {
-            this.buffer = this.buffer.subarray(this.pos + 1)
-            this.pos = 0
+          if (byte === LF) {
             this.crlfCheck = false
+            this.consumeCurrentByte()
 
             // It is possible that the line feed is not the end of the
             // event. We need to check if the next character is an
@@ -70430,19 +71101,17 @@ class EventSourceStream extends Transform {
           this.crlfCheck = false
         }
 
-        if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+        if (byte === LF || byte === CR) {
           // If the current character is a carriage return, we need to
           // set the crlfCheck flag to true, as we need to check if the
           // next character is a line feed so we can remove it from the
           // buffer
-          if (this.buffer[this.pos] === CR) {
+          if (byte === CR) {
             this.crlfCheck = true
           }
 
-          this.buffer = this.buffer.subarray(this.pos + 1)
-          this.pos = 0
-          if (
-            this.event.data !== undefined || this.event.event || this.event.id || this.event.retry) {
+          this.consumeCurrentByte()
+          if (this.hasPendingEvent()) {
             this.processEvent(this.event)
           }
           this.clearEvent()
@@ -70456,22 +71125,18 @@ class EventSourceStream extends Transform {
 
       // If the current character is an end-of-line, we can process the
       // line
-      if (this.buffer[this.pos] === LF || this.buffer[this.pos] === CR) {
+      if (byte === LF || byte === CR) {
         // If the current character is a carriage return, we need to
         // set the crlfCheck flag to true, as we need to check if the
         // next character is a line feed
-        if (this.buffer[this.pos] === CR) {
+        if (byte === CR) {
           this.crlfCheck = true
         }
 
         // In any case, we can process the line as we reached an
         // end-of-line character
-        this.parseLine(this.buffer.subarray(0, this.pos), this.event)
-
-        // Remove the processed line from the buffer
-        this.buffer = this.buffer.subarray(this.pos + 1)
-        // Reset the position as we removed the processed line from the buffer
-        this.pos = 0
+        this.parseLine(this.readLine(), this.event)
+        this.consumeCurrentByte()
         // A line was processed and this could be the end of the event. We need
         // to check if the next line is empty to determine if the event is
         // finished.
@@ -70479,7 +71144,7 @@ class EventSourceStream extends Transform {
         continue
       }
 
-      this.pos++
+      this.advanceCursor()
     }
 
     callback()
@@ -70504,64 +71169,53 @@ class EventSourceStream extends Transform {
       return
     }
 
-    let field = ''
-    let value = ''
+    let fieldLength = line.length
+    let valueStart = line.length
 
     // If the line contains a U+003A COLON character (:)
     if (colonPosition !== -1) {
-      // Collect the characters on the line before the first U+003A COLON
-      // character (:), and let field be that string.
-      // TODO: Investigate if there is a more performant way to extract the
-      // field
-      // see: https://github.com/nodejs/undici/issues/2630
-      field = line.subarray(0, colonPosition).toString('utf8')
+      fieldLength = colonPosition
 
       // Collect the characters on the line after the first U+003A COLON
       // character (:), and let value be that string.
       // If value starts with a U+0020 SPACE character, remove it from value.
-      let valueStart = colonPosition + 1
+      valueStart = colonPosition + 1
       if (line[valueStart] === SPACE) {
         ++valueStart
       }
-      // TODO: Investigate if there is a more performant way to extract the
-      // value
-      // see: https://github.com/nodejs/undici/issues/2630
-      value = line.subarray(valueStart).toString('utf8')
-
-      // Otherwise, the string is not empty but does not contain a U+003A COLON
-      // character (:)
-    } else {
-      // Process the field using the steps described below, using the whole
-      // line as the field name, and the empty string as the field value.
-      field = line.toString('utf8')
-      value = ''
     }
 
-    // Modify the event with the field name and value. The value is also
-    // decoded as UTF-8
-    switch (field) {
-      case 'data':
-        if (event[field] === undefined) {
-          event[field] = value
-        } else {
-          event[field] += `\n${value}`
-        }
-        break
-      case 'retry':
-        if (isASCIINumber(value)) {
-          event[field] = value
-        }
-        break
-      case 'id':
-        if (isValidLastEventId(value)) {
-          event[field] = value
-        }
-        break
-      case 'event':
-        if (value.length > 0) {
-          event[field] = value
-        }
-        break
+    if (isFieldName(line, fieldLength, DATA)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (event.data === undefined) {
+        event.data = value
+      } else {
+        event.data += `\n${value}`
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, RETRY)) {
+      if (isASCIINumberBytes(line, valueStart)) {
+        event.retry = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, ID)) {
+      if (isValidLastEventIdBytes(line, valueStart)) {
+        event.id = line.toString('utf8', valueStart)
+      }
+      return
+    }
+
+    if (isFieldName(line, fieldLength, EVENT)) {
+      const value = line.toString('utf8', valueStart)
+
+      if (value.length > 0) {
+        event.event = value
+      }
     }
   }
 
@@ -70591,12 +71245,151 @@ class EventSourceStream extends Transform {
   }
 
   clearEvent () {
-    this.event = {
-      data: undefined,
-      event: undefined,
-      id: undefined,
-      retry: undefined
+    this.event.data = undefined
+    this.event.event = undefined
+    this.event.id = undefined
+    this.event.retry = undefined
+  }
+
+  hasPendingEvent () {
+    return this.event.data !== undefined ||
+      this.event.event !== undefined ||
+      this.event.id !== undefined ||
+      this.event.retry !== undefined
+  }
+
+  hasCurrentByte () {
+    return this.chunkIndex < this.chunks.length &&
+      this.pos < this.chunks[this.chunkIndex].length
+  }
+
+  currentByte () {
+    return this.chunks[this.chunkIndex][this.pos]
+  }
+
+  consumeCurrentByte () {
+    this.advanceCursor()
+    this.syncLineStartToCursor()
+  }
+
+  advanceCursor () {
+    this.pos++
+
+    while (this.chunkIndex < this.chunks.length && this.pos >= this.chunks[this.chunkIndex].length) {
+      this.chunkIndex++
+      this.pos = 0
     }
+  }
+
+  syncLineStartToCursor () {
+    this.lineChunkIndex = this.chunkIndex
+    this.linePos = this.pos
+    this.dropConsumedChunks()
+  }
+
+  dropConsumedChunks () {
+    while (this.lineChunkIndex > 0) {
+      this.chunks.shift()
+      this.lineChunkIndex--
+      this.chunkIndex--
+    }
+
+    if (this.chunkIndex === this.chunks.length) {
+      this.chunks.length = 0
+      this.chunkIndex = 0
+      this.pos = 0
+      this.lineChunkIndex = 0
+      this.linePos = 0
+    }
+  }
+
+  readLine () {
+    if (this.lineChunkIndex === this.chunkIndex) {
+      return this.chunks[this.chunkIndex].subarray(this.linePos, this.pos)
+    }
+
+    const chunks = []
+    let length = 0
+
+    for (let i = this.lineChunkIndex; i <= this.chunkIndex; i++) {
+      const chunk = this.chunks[i]
+      const start = i === this.lineChunkIndex ? this.linePos : 0
+      const end = i === this.chunkIndex ? this.pos : chunk.length
+      const slice = chunk.subarray(start, end)
+      length += slice.length
+      chunks.push(slice)
+    }
+
+    return Buffer.concat(chunks, length)
+  }
+
+  peekBufferedByte (offset) {
+    let chunkIndex = this.lineChunkIndex
+    let pos = this.linePos
+
+    while (chunkIndex < this.chunks.length) {
+      const chunk = this.chunks[chunkIndex]
+      const remaining = chunk.length - pos
+
+      if (offset < remaining) {
+        return chunk[pos + offset]
+      }
+
+      offset -= remaining
+      chunkIndex++
+      pos = 0
+    }
+  }
+
+  discardLeadingBytes (count) {
+    while (count > 0 && this.lineChunkIndex < this.chunks.length) {
+      const chunk = this.chunks[this.lineChunkIndex]
+      const remaining = chunk.length - this.linePos
+
+      if (count < remaining) {
+        this.linePos += count
+        count = 0
+      } else {
+        count -= remaining
+        this.lineChunkIndex++
+        this.linePos = 0
+      }
+    }
+
+    this.chunkIndex = this.lineChunkIndex
+    this.pos = this.linePos
+    this.dropConsumedChunks()
+  }
+
+  handleBOM () {
+    const first = this.peekBufferedByte(0)
+    const second = this.peekBufferedByte(1)
+    const third = this.peekBufferedByte(2)
+
+    if (second === undefined) {
+      if (first === BOM[0]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return true
+    }
+
+    if (third === undefined) {
+      if (first === BOM[0] && second === BOM[1]) {
+        return true
+      }
+
+      this.checkBOM = false
+      return false
+    }
+
+    if (first === BOM[0] && second === BOM[1] && third === BOM[2]) {
+      this.discardLeadingBytes(3)
+    }
+
+    this.checkBOM = false
+    return !this.hasCurrentByte()
   }
 }
 
@@ -81888,7 +82681,7 @@ function establishWebSocketConnection (url, protocols, client, ws, onEstablish, 
         // is specified, the server needs to include the same field and one of
         // the selected subprotocol values in its response for the connection to
         // be established.
-        if (!requestProtocols.includes(secProtocol)) {
+        if (requestProtocols === null || !requestProtocols.includes(secProtocol)) {
           failWebsocketConnection(ws, 'Protocol was not set in the opening handshake.')
           return
         }
@@ -82653,7 +83446,12 @@ class PerMessageDeflate {
 
         if (this.#maxPayloadSize > 0 && this.#inflate[kLength] > this.#maxPayloadSize) {
           callback(new MessageSizeExceededError())
+          // The inflater may still hold buffered input that can emit a late
+          // zlib error. Remove the data listener, then deterministically stop
+          // the stream so a subsequent 'error' cannot fire without a listener
+          // (which would terminate the process as an unhandled error event).
           this.#inflate.removeAllListeners()
+          this.#inflate.destroy()
           this.#inflate = null
           return
         }
@@ -128856,7 +129654,7 @@ Browser.type = 'languageDetector';
 
 
 ;// CONCATENATED MODULE: ./src/app/ui/locales/en.json
-const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.activity.connect.bluesky":"Join on Bluesky","app.contribute.activity.connect.description":"Get in touch with the {{app}} community, discuss and support other users","app.contribute.activity.connect.forum":"Join on the forum","app.contribute.activity.connect.forumTag":"Check out the discussions about {{app}} on the OSM Community Forum","app.contribute.activity.connect.gitHubDiscussions":"Join GitHub Discussions","app.contribute.activity.connect.hint":"No social media channels are documented in the sources.","app.contribute.activity.connect.lemmy":"Join on Lemmy","app.contribute.activity.connect.mastodon":"Join on Mastodon","app.contribute.activity.connect.matrix":"Join on Matrix","app.contribute.activity.connect.reddit":"Join on Reddit","app.contribute.activity.connect.slack":"Join on Slack","app.contribute.activity.connect.telegram":"Join on Telegram","app.contribute.activity.connect.title":"Connect & Help other","app.contribute.activity.contributeCode.description":"Develop new features, help fix bugs, and review code","app.contribute.activity.contributeCode.hint":"There is no link to the source code documented in the wikis.","app.contribute.activity.contributeCode.title":"Get involved into coding","app.contribute.activity.contributeMapData.description":"Add info about points of interest or other map data used by {{app}} to OSM","app.contribute.activity.contributeMapData.title":"Contribute map data","app.contribute.activity.contributeTranslation.description":"Add translations to make {{app}} accessible for more people around the world","app.contribute.activity.contributeTranslation.hint":"There is no link documented in the wikis that shows where you can contribute translations.","app.contribute.activity.contributeTranslation.title":"Translate text","app.contribute.activity.donate.description":"Donate to {{app}} to support this project","app.contribute.activity.donate.hint":"No founding links are documented in the sources or there are not verified.","app.contribute.activity.donate.title":"Donate money","app.contribute.activity.editInformation.description":"Edit the details about {{app}} in the source wikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMap Wiki","app.contribute.activity.editInformation.title":"Edit / Update Information","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.getIt.description":"Find the best way to use {{app}} on your device.","app.contribute.activity.getIt.title":"Get the app","app.contribute.activity.rateAndReview.appleAppStore":"Rate on Apple App Store","app.contribute.activity.rateAndReview.asin":"Rate on Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Give a star on Codeberg","app.contribute.activity.rateAndReview.description":"Rate and / or review {{app}} in the app stores","app.contribute.activity.rateAndReview.github":"Give a star on GitHub","app.contribute.activity.rateAndReview.gitlab":"Give a star on GitLab","app.contribute.activity.rateAndReview.googlePlay":"Rate on Google Play","app.contribute.activity.rateAndReview.hint":"No AppStore with review or code repository is documented in the wikis.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Rate in HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Rate and review","app.contribute.activity.reportBugs.description":"Report bugs, discuss ideas, and propose features for {{app}}","app.contribute.activity.reportBugs.hint":"No link to issue tracker is documented in the sources.","app.contribute.activity.reportBugs.title":"Report bugs","app.contribute.activity.share.bluesky":"Share on Bluesky","app.contribute.activity.share.copied":"Copied!","app.contribute.activity.share.copy":"Copy to clipboard","app.contribute.activity.share.description":"Share {{app}} on your social networks","app.contribute.activity.share.fediverse":"Share on Fediverse","app.contribute.activity.share.mastodon":"Toot on Mastodon","app.contribute.activity.share.more":"More options","app.contribute.activity.share.reddit":"Share on Reddit","app.contribute.activity.share.telegram":"Share via Telegram","app.contribute.activity.share.textToShare":"Have you heard of the {{name}} app yet? {{-description}}\\nI think OpenStreetMap is awesome! Check out the app in the OSM Apps Catalog: {{-link}}","app.contribute.activity.share.title":"Spread the word","app.contribute.app.editInformation.wikiOsm.create":"Create a page for {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Edit \\"{{name}}\\" page","app.contribute.app.editInformation.wikidata.create":"Create item","app.contribute.app.editInformation.wikidata.edit":"Edit item","app.contribute.app.editInformation.wikidata.search":"Start a search to check that {{app}} doesn\'t already exists","app.contribute.app.spendTime":"Support {{app}}","app.contribute.appDevelopment":"App development","app.contribute.community":"Community","app.contribute.hint":"Why can\'t contributions be made?","app.contribute.osm.spendMoney":"Donate to OpenStreetMap","app.contribute.osm.spendTime":"Contribute to OpenStreetMap","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.download.android":"For Android","app.download.button":"Get the app","app.download.contributeSlide.description":"Find your way to contribute","app.download.downloadSlide.description":"Choose how to continue","app.download.forYourDevice":"for your device","app.download.fromCodeRepository":"Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.","app.download.ios":"For iPhone & iPad","app.download.libreSoftwareNeedsSupport":"{{app}} is free and open-source software.\\nIt is built and maintained by contributors, and has ongoing costs.\\n\\nIf you find it useful, you may want to support it in some way.","app.download.macos":"For MacOS","app.download.needsHelpSlide.description":"Before you continue","app.download.osmNeedsSupport":"{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\\nThis data is available to use freely, but it is the result of ongoing work — mapping, coding, and hosting it takes continuous effort, and has ongoing costs to keep it available and up to date.\\n\\nIf you find {{app}} useful, you might consider supporting OpenStreetMap in some way.","app.download.skipButton":"Continue to Download/Visit","app.download.visitWebApp":"Visit the official website for more information about {{app}} and to get to the <strong>Web App</strong>.","app.download.visitWebsite":"Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.","app.download.windows":"For Windows","app.getInvolved":"Get involved","app.helpTranslate":"Help improve the translation","app.helpTranslate.hint.label":"Why help with translation?","app.helpTranslate.hint.text":"Even small improvements can help make the app easier to understand and more accessible for everyone.\\nIn most cases, this can be done without much technical knowledge.","app.helpTranslateTo":"Help improve the English translation","app.imageAlt":"Image from {{name}}","app.logoAlt":"Logo from {{name}}","app.screenshotAlt":"Screenshot from {{name}}","app.inUserLanguage":"{{language}} and {{numberOfLanguages}} more","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visit Official Website","app.keywords":"Keywords","app.languages":"Languages","app.lastRelease":"Last release","app.learnMore":"Learn more at {{website}}","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Code repository","app.tag.attribute.foss":"Free & open-source","app.tag.attribute.free":"Free of charge","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.location-search":"Location search","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.record-track":"Record GPS track","app.tag.feature.routing":"Route planning","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.voice-guidance":"Navigation with voice","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.trend":"Trending apps","category.trend.description":"The most-viewed apps of the past seven days.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","close":"Close","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.more":"More","list.moreInfos":"More Information","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.learnMore":"Learn more","score.result":"- {{description}} ({{points}} points)","score.results":"<h5>Community Contribution Score</h5>Total: {{total}} out of 10 points\\n\\n<h6>Actions required for a higher score:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on \\"{{-editInformationTitle}}\\".\\n\\n<h6>Fulfilled:</h6>\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
+const en_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Developed by","app.community":"Community","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Forum tag","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Issues","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrix room","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegram group","app.contribute":"Contribute","app.contribute.activity.connect.bluesky":"Join on Bluesky","app.contribute.activity.connect.description":"Get in touch with the {{app}} community, discuss and support other users","app.contribute.activity.connect.forum":"Join on the forum","app.contribute.activity.connect.forumTag":"Check out the discussions about {{app}} on the OSM Community Forum","app.contribute.activity.connect.gitHubDiscussions":"Join GitHub Discussions","app.contribute.activity.connect.hint":"No social media channels are documented in the sources.","app.contribute.activity.connect.lemmy":"Join on Lemmy","app.contribute.activity.connect.mastodon":"Join on Mastodon","app.contribute.activity.connect.matrix":"Join on Matrix","app.contribute.activity.connect.reddit":"Join on Reddit","app.contribute.activity.connect.slack":"Join on Slack","app.contribute.activity.connect.telegram":"Join on Telegram","app.contribute.activity.connect.title":"Connect & Help other","app.contribute.activity.contributeCode.description":"Develop new features, help fix bugs, and review code","app.contribute.activity.contributeCode.hint":"There is no link to the source code documented in the wikis.","app.contribute.activity.contributeCode.title":"Get involved into coding","app.contribute.activity.contributeMapData.description":"Add info about points of interest or other map data used by {{app}} to OSM","app.contribute.activity.contributeMapData.title":"Contribute map data","app.contribute.activity.contributeTranslation.description":"Add translations to make {{app}} accessible for more people around the world","app.contribute.activity.contributeTranslation.hint":"There is no link documented in the wikis that shows where you can contribute translations.","app.contribute.activity.contributeTranslation.title":"Translate text","app.contribute.activity.donate.description":"Donate to {{app}} to support this project","app.contribute.activity.donate.hint":"No funding links are documented in the sources or they are not verified.","app.contribute.activity.donate.title":"Donate money","app.contribute.activity.editInformation.description":"Edit the details about {{app}} in the source wikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMap Wiki","app.contribute.activity.editInformation.title":"Edit / Update Information","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.getIt.description":"Find the best way to use {{app}} on your device.","app.contribute.activity.getIt.title":"Get the app","app.contribute.activity.rateAndReview.appleAppStore":"Rate on Apple App Store","app.contribute.activity.rateAndReview.asin":"Rate on Amazon AppStore","app.contribute.activity.rateAndReview.codeberg":"Give a star on Codeberg","app.contribute.activity.rateAndReview.description":"Rate and / or review {{app}} in the app stores","app.contribute.activity.rateAndReview.github":"Give a star on GitHub","app.contribute.activity.rateAndReview.gitlab":"Give a star on GitLab","app.contribute.activity.rateAndReview.googlePlay":"Rate on Google Play","app.contribute.activity.rateAndReview.hint":"No AppStore with review or code repository is documented in the wikis.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Rate in HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Rate and review","app.contribute.activity.reportBugs.description":"Report bugs, discuss ideas, and propose features for {{app}}","app.contribute.activity.reportBugs.hint":"No link to issue tracker is documented in the sources.","app.contribute.activity.reportBugs.title":"Report bugs","app.contribute.activity.share.bluesky":"Share on Bluesky","app.contribute.activity.share.copied":"Copied!","app.contribute.activity.share.copy":"Copy to clipboard","app.contribute.activity.share.description":"Share {{app}} on your social networks","app.contribute.activity.share.fediverse":"Share on Fediverse","app.contribute.activity.share.mastodon":"Toot on Mastodon","app.contribute.activity.share.more":"More options","app.contribute.activity.share.reddit":"Share on Reddit","app.contribute.activity.share.telegram":"Share via Telegram","app.contribute.activity.share.textToShare":"Have you heard of the {{name}} app yet? {{-description}}\\nI think OpenStreetMap is awesome! Check out the app in the OSM Apps Catalog: {{-link}}","app.contribute.activity.share.title":"Spread the word","app.contribute.app.editInformation.wikiOsm.create":"Create a page for {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Edit \\"{{name}}\\" page","app.contribute.app.editInformation.wikidata.create":"Create item","app.contribute.app.editInformation.wikidata.edit":"Edit item","app.contribute.app.editInformation.wikidata.search":"Start a search to check that {{app}} doesn\'t already exists","app.contribute.app.spendTime":"Support {{app}}","app.contribute.appDevelopment":"App development","app.contribute.community":"Community","app.contribute.hint":"Why can\'t contributions be made?","app.contribute.osm.spendMoney":"Donate to OpenStreetMap","app.contribute.osm.spendTime":"Contribute to OpenStreetMap","app.contribute.toCommunity":"To Community","app.contribute.toCommunity.welcome":"Welcome new users","app.contribute.toData":"To OSM data","app.contribute.toData.edit":"Edit map data","app.contribute.toData.qa":"Perform quality assurance","app.contribute.toData.review":"Review edits","app.contribute.toData.tracks":"Record & share tracks","app.contribute.toSoftware":"To software","app.contribute.toSoftware.develop":"Develop code","app.contribute.toSoftware.discuss":"Discuss & share ideas","app.contribute.toSoftware.document":"Improve the documentation","app.contribute.toSoftware.test":"Test & provide feedback","app.contribute.toSoftware.translate":"Help translate","app.coverage":"Coverage","app.download.android":"For Android","app.download.button":"Get the app","app.download.contributeSlide.description":"Find your way to contribute","app.download.downloadSlide.description":"Choose how to continue","app.download.forYourDevice":"for your device","app.download.fromCodeRepository":"Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.","app.download.ios":"For iPhone & iPad","app.download.libreSoftwareNeedsSupport":"{{app}} is free and open-source software.\\nIt is built and maintained by contributors, and has ongoing costs.\\n\\nIf you find it useful, you may want to support it in some way.","app.download.macos":"For MacOS","app.download.needsHelpSlide.description":"Before you continue","app.download.osmNeedsSupport":"{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\\nThis data is available to use freely, but it is the result of ongoing work — mapping, coding, and hosting it takes continuous effort, and has ongoing costs to keep it available and up to date.\\n\\nIf you find {{app}} useful, you might consider supporting OpenStreetMap in some way.","app.download.skipButton":"Continue to Download/Visit","app.download.visitWebApp":"Visit the official website for more information about {{app}} and to get to the <strong>Web App</strong>.","app.download.visitWebsite":"Visit the official website for more information about {{app}} and installation instructions for the <platforms/> version.","app.download.windows":"For Windows","app.getInvolved":"Get involved","app.helpTranslate":"Help improve the translation","app.helpTranslate.hint.label":"Why help with translation?","app.helpTranslate.hint.text":"Even small improvements can help make the app easier to understand and more accessible for everyone.\\nIn most cases, this can be done without much technical knowledge.","app.helpTranslateTo":"Help improve the English translation","app.imageAlt":"Image from {{name}}","app.logoAlt":"Logo from {{name}}","app.screenshotAlt":"Screenshot from {{name}}","app.inUserLanguage":"{{language}} and {{numberOfLanguages}} more","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visit Official Website","app.keywords":"Keywords","app.languages":"Languages","app.lastRelease":"Last release","app.learnMore":"Learn more at {{website}}","app.license":"License","app.platforms":"Platforms","app.price":"Price","app.programmingLanguages":"Programmed in","app.source":"Source","app.source.description":"Source where this data comes from.","app.source.firstCrawled":"First crawled: {{added}}","app.source.lastChange":"Last change: {{date}}","app.sourceCode":"Code repository","app.tag.attribute.foss":"Free & open-source","app.tag.attribute.free":"Free of charge","app.tag.feature.accessibility-blind":"Accessibility for blinds","app.tag.feature.accessibility-wheelchair":"Accessibility for wheelchairs","app.tag.feature.create-notes":"Create OSM notes","app.tag.feature.edit-map":"Edit OSM data","app.tag.feature.location-search":"Location search","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Edit OSM data offline","app.tag.feature.offline-maps":"Offline maps","app.tag.feature.offline-routing":"Calculate route without internet","app.tag.feature.record-track":"Record GPS track","app.tag.feature.routing":"Route planning","app.tag.feature.routing-bike":"Route planning for cycling","app.tag.feature.routing-car":"Route planning for driving","app.tag.feature.routing-foot":"Route planning for walking","app.tag.feature.routing-hike":"Route planning for hiking","app.tag.feature.routing-manual":"Manual route planning","app.tag.feature.routing-motorbike":"Route planning for motorcycling","app.tag.feature.routing-publicTransport":"Route planning for public transport","app.tag.feature.routing-wheelchair":"Route planning for wheelchairs","app.tag.feature.upload-track":"Contribute track to OSM","app.tag.feature.voice-guidance":"Navigation with voice","app.unmaintained":"(<icon/> Unmaintained)","app.unmaintained.wiki":"({{icon}} Unmaintained)","app.website":"Website","category.3d":"Viewing the world in 3D","category.3d.description":"{{numberOfApps}} apps that support 3D maps or otherwise display or edit 3D data from OpenStreetMap.","category.all.description":"{{numberOfApps}} apps that use <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} of {{totalNumberOfApps}} apps that use <o>OpenStreetMap</o>.","category.calcRoute":"Plan a route","category.calcRoute.description":"{{numberOfApps}} apps that support route calculation and trip planning.","category.changeset":"Review edits & Community-Management","category.changeset.description":"{{numberOfApps}} tools for monitoring activities in the OSM database, tracking campaigns (e.g., hashtags), welcoming new mappers.","category.contributePhoto":"Upload photos for mapping","category.contributePhoto.description":"{{numberOfApps}} apps for collecting and contributing street-level images for mapping and other purposes.","category.convert":"Convert & Render","category.convert.description":"{{numberOfApps}} resources for converting and rendering OpenStreetMap related data.","category.country":"Apps for {{country}}","category.country.description":"{{numberOfApps}} apps made for {{country}}.","category.cycling":"Cycling","category.cycling.description":"{{numberOfApps}} apps for a bike ride.","category.diversity":"One world. Many maps.","category.diversity.description":"{{numberOfApps}} themed maps for different ways of life, attitudes and situations.","category.edit":"Improve the map","category.edit.description":"{{numberOfApps}} apps that support adding or editing OpenStreetMap data.","category.focus":"Ongoing projects","category.focus.description":"Discover ten ongoing projects every day. They may be small and not yet very well known. Support them and help spread the word.","category.food":"Find food","category.food.description":"{{numberOfApps}} apps for finding restaurants and other places where you can get tasty food.","category.foss":"Free and opensource","category.foss.description":"{{numberOfApps}} apps or libraries that are available under a license that gives you the right to use, share, modify, and distribute it.","category.hiking":"Hiking","category.hiking.description":"{{numberOfApps}} apps for a mountain adventure.","category.indoor":"Indoor mapping","category.indoor.description":"{{numberOfApps}} apps that showing and or editing indoor data.","category.isochrone":"Isochrone maps","category.isochrone.description":"{{numberOfApps}} apps that support the calculation of reachability maps, e.g., for pedestrians and cyclists.","category.latestUpdates":"Latest updates","category.latestUpdates.description":"{{numberOfApps}} apps sorted by last release date.","category.library":"Packages & libraries","category.library.description":"{{numberOfApps}} resources for working with OpenStreetMap related data.","category.mobile":"Offline use","category.mobile.description":"{{numberOfApps}} apps developed for mobile devices or that support offline use.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} apps that support navigation.","category.newAdditions":"New additions","category.newAdditions.description":"The latest discoveries that have been added to the OSM Apps catalog.","category.print":"Print your own map","category.print.description":"{{numberOfApps}} tools for creating a file for a printout.","category.trend":"Trending apps","category.trend.description":"The most-viewed apps of the past seven days.","category.publicTransport":"Traveling by public transport","category.publicTransport.description":"{{numberOfApps}} apps that make traveling by public transport easier.","category.qa":"OpenStreetMap quality assurance","category.qa.description":"{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.","category.resolveNotes":"Resolve map notes","category.resolveNotes.description":"{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.","category.showAll":"Show all","category.tourism":"Travel & tourism","category.tourism.description":"{{numberOfApps}} apps for discovering a city or find somewhere to stay for the night.","category.trackRec":"Record and share tours","category.trackRec.description":"{{numberOfApps}} tools for recording GPS tracks, movement data, or field notes for e.g. later mapping.","category.universalMapApps":"Universal map apps","category.universalMapApps.description":"{{numberOfApps}} map apps for discovering interesting places, planning a trip or improving the map.","category.wheelchair":"On the go with a wheelchair or pushchair","category.wheelchair.description":"{{numberOfApps}} apps for finding accessible locations and planning wheelchair-friendly routes. Please note that locations and routes that are accessible to wheelchairs are generally also suitable for pushchairs.","category.winterSport":"Winter sport","category.winterSport.description":"{{numberOfApps}} apps for skiing and other winter sports.","close":"Close","compare":"Compare","compare.group.header.accessibility":"Accessibility","compare.group.header.editing":"Editing","compare.group.header.general":"General","compare.group.header.map":"Map display","compare.group.header.monitoring":"Monitoring","compare.group.header.navigating":"Navigating","compare.group.header.rendering":"Rendering","compare.group.header.routing":"Routing","compare.group.header.tracking":"Tracking","compare.share":"Share in wiki.openstreetmap.org","compare.unknown":"unknown","filter.category.all":"All","filter.category.latest":"Latest","filter.coverage":"Coverage","filter.language":"Language","filter.moreFilters":"Filters","filter.platform":"Platform","filter.preset":"The filter is preset for you:","filter.preview":"The filter is set to:","filter.programmingLanguage":"Programmed in","filter.resetFilters":"Remove preset filters","filter.search":"Search","filter.tag":"Feature","filter.topic":"Topic","filters.morePlatforms":"More platforms","introductionPanel.description":"Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.description.whileLoading":"Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\\nDiscover OpenStreetMap – a collaboratively created map of the world.","introductionPanel.title":"Welcome to the OSM Apps Catalog","list":"List","list.more":"More","list.moreInfos":"More Information","multilingual":"Multilingual","nav.about":"About","nav.back":"Back","nav.leaveTech":"Leave tech view","nav.search":"Search","nav.tech":"For tech enthusiasts","noResults":"No results","notFound":"Not found what you\'re looking for?","notFound.desc":"With the following services you can create your own theme maps without any programming knowledge. Perhaps someone has already created the map you are looking for, or you can create your own theme map.","pageNotFound":"Page not found","relatedApps":"{{numberOfApps}} related apps","score.criteria.accessibilitySupported":"accessibility is supported (e.g. screen reader compatibility or route calculation for wheelchair users)","score.criteria.addingAndEditingPossible":"adding and editing POIs, ways, etc., is possible","score.criteria.communityChannelExists":"a communication channel for the community exists (e.g. forum, Mastodon)","score.criteria.copyleftLicense":"the license is a copyleft license (e.g., GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"the app displays maps or OSM data","score.criteria.documentationLink":"a documentation link is available","score.criteria.documentedMultiplePlatforms":"the app is documented on multiple platforms (e.g. OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"the app is free of charge","score.criteria.issueTracker":"an issue tracker exists","score.criteria.lastUpdateThreeMonths":"the last update occurred within the last 3 months","score.criteria.lastUpdateYear":"the last update occurred within the last year","score.criteria.multipleLanguages":"the app supports multiple languages (min. 3 languages)","score.criteria.multiplePlatforms":"the app is available on multiple platforms (e.g. Web, Android, iOS)","score.criteria.openSource":"the app is open source","score.criteria.openSourceChannel":"a channel is hosted on open-source platforms (e.g. Matrix)","score.criteria.openSourceStores":"the app is accessible via open-source stores (e.g. F-Droid)","score.criteria.sourceCodeReference":"a reference to the source code is documented","score.criteria.supportsContributions":"the app supports contributions (editing, analyzing, etc.) to OpenStreetMap","score.criteria.tenLanguages":"the app is available in at least 10 languages","score.criteria.translationContributions":"contributions to translations are possible","score.criteria.worldwideData":"the app covers worldwide map data","score.learnMore":"Learn more","score.result":"- {{description}} ({{points}} points)","score.results":"<h5>Community Contribution Score</h5>Total: {{total}} out of 10 points\\n\\n<h6>Actions required for a higher score:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nIs something wrong or missing? You can help improve the documentation. Go to the app’s details page and click on \\"{{-editInformationTitle}}\\".\\n\\n<h6>Fulfilled:</h6>\\n{{fulfilled}}","select.search.noResults":"No results","select.search.placeholder":"Search","share.wiki":"Copied {{group}} table to the clipboard formatted for wiki.openstreetmap.org.","techView.introductionPanel.description":"Here you will find advanced tools and program libraries for working with OpenStreetMap-related data.","techView.introductionPanel.title":"OSM Apps Catalog for techies","techViewPanel.action":"Switch to the tech view!","techViewPanel.description":"See OpenStreetMap libraries and technical apps in the tech view.","techViewPanel.title":"Are you tech-savvy?","toggleTheme.dark":"Dark","toggleTheme.light":"Light","toggleTheme.screenReader":"Toggle theme","toggleTheme.system":"System","wiki.generatedBy":"Generated by OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"This table was generated by the [{{link}} OSM Apps Catalog] at {{date}}.","wiki.none":"none"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/ar.json
 const ar_namespaceObject = {};
 ;// CONCATENATED MODULE: ./src/app/ui/locales/cs.json
