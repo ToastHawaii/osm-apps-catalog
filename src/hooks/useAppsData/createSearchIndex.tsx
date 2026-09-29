@@ -17,6 +17,7 @@ export function createSearchIndex(
           plainText(app.subtitle || ""),
           plainText(app.description),
           plainText(app.descriptionShort || ""),
+          app.website,
           ...app.tags.map((tag) => t(`app.tag.${tag}`)),
           ...app.topics,
           ...app.platform,
