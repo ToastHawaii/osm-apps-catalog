@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import "./ui/lib/i18n";
 import { Router } from "@app/Router";
 import Layout from "@app/Layout";
+import { TooltipProvider } from "@components/ui/tooltip";
 
 export function render() {
   const root = ReactDOM.createRoot(
@@ -15,7 +16,13 @@ export function render() {
     <StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route
+            element={
+              <TooltipProvider>
+                <Layout />
+              </TooltipProvider>
+            }
+          >
             <Route path="/" element={<Router />} />
           </Route>
         </Routes>

@@ -25,6 +25,7 @@
     "@vercel/ncc": "0.45.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
+    "cn": "0.4.0",
     "eld": "2.1.0",
     "embla-carousel-autoplay": "8.6.0",
     "embla-carousel-react": "8.6.0",
