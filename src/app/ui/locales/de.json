@@ -35,6 +35,7 @@
   "app.contribute.activity.contributeTranslation.hint": "In den Wikis ist kein Link dokumentiert, der angibt, wo man Übersetzungen beitragen kann.",
   "app.contribute.activity.contributeTranslation.title": "Texte übersetzen",
   "app.contribute.activity.donate.description": "Spende etwas an {{app}}, um dieses Projekt weiterhin zu ermöglichen",
+  "app.contribute.activity.donate.hint": "In den Quellen sind keine Verknüpfungen zur Finanzierung dokumentiert oder diese sind nicht verifiziert.",
   "app.contribute.activity.donate.title": "Spende Geld",
   "app.contribute.activity.editInformation.description": "Bearbeite die Details zu {{app}} in den Wikis",
   "app.contribute.activity.editInformation.osmWiki": "OpenStreetMap Wiki",
