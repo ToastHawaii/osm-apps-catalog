@@ -115839,6 +115839,15 @@ function cloneSort(comparator) {
   return templateFn(comparator);
 }
 
+let isEvalAllowed = (function () {
+  try {
+    new Function('return 0')();
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
 /**
  * Sort the given array in-place with the given comparator function.
  *
@@ -115850,7 +115859,7 @@ function cloneSort(comparator) {
 
 let sortCache = new WeakMap();
 exports.g = function (ary, comparator, start = 0) {
-  let doQuickSort = sortCache.get(comparator);
+  let doQuickSort = isEvalAllowed ? sortCache.get(comparator) : SortTemplate(comparator);
   if (doQuickSort === void 0) {
     doQuickSort = cloneSort(comparator);
     sortCache.set(comparator, doQuickSort);
@@ -115877,6 +115886,14 @@ var binarySearch = __nccwpck_require__(1846);
 var ArraySet = (__nccwpck_require__(1670)/* .ArraySet */ .C);
 var base64VLQ = __nccwpck_require__(3503);
 var quickSort = (__nccwpck_require__(8814)/* .quickSort */ .g);
+
+// Upper bound for a section's `offset.line` in an indexed source map. A flat
+// map spends one ';' per generated line, so a tiny indexed map with a huge
+// offset.line turns into a huge amount of work and memory once its mappings
+// are copied into a SourceMapGenerator (CVE-2026-93749). Ten million lines is
+// far beyond any real generated file. Columns are VLQ-encoded as deltas and
+// don't amplify, so they only need to be valid integers.
+var MAX_SECTION_OFFSET_LINE = 1e7;
 
 function SourceMapConsumer(aSourceMap, aSourceMapURL) {
   var sourceMap = aSourceMap;
@@ -116802,6 +116819,7 @@ function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
     line: -1,
     column: 0
   };
+  var maxOffsetLine = 0;
   this._sections = sections.map(function (s) {
     if (s.url) {
       // The url field will require support for asynchronicity.
@@ -116812,11 +116830,31 @@ function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
     var offsetLine = util.getArg(offset, 'line');
     var offsetColumn = util.getArg(offset, 'column');
 
+    if (!isValidOffset(offsetLine) || !isValidOffset(offsetColumn)) {
+      throw new Error('Section offset line and column must be non-negative integers.');
+    }
+    if (offsetLine > MAX_SECTION_OFFSET_LINE) {
+      throw new Error('Section offset line must not exceed ' + MAX_SECTION_OFFSET_LINE + '.');
+    }
+
     if (offsetLine < lastOffset.line ||
         (offsetLine === lastOffset.line && offsetColumn < lastOffset.column)) {
       throw new Error('Section offsets must be ordered and non-overlapping.');
     }
     lastOffset = offset;
+
+    var consumer = new SourceMapConsumer(util.getArg(s, 'map'), aSourceMapURL);
+
+    // Offsets of a nested indexed map add up with this one, so apply the
+    // bound to the total.
+    var totalOffsetLine = offsetLine + (consumer._maxOffsetLine || 0);
+    if (totalOffsetLine > MAX_SECTION_OFFSET_LINE) {
+      throw new Error('Section offset line must not exceed ' + MAX_SECTION_OFFSET_LINE +
+                      ', including offsets of nested sections.');
+    }
+    if (totalOffsetLine > maxOffsetLine) {
+      maxOffsetLine = totalOffsetLine;
+    }
 
     return {
       generatedOffset: {
@@ -116825,9 +116863,24 @@ function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
         generatedLine: offsetLine + 1,
         generatedColumn: offsetColumn + 1
       },
-      consumer: new SourceMapConsumer(util.getArg(s, 'map'), aSourceMapURL)
+      consumer: consumer
     }
   });
+
+  // The largest offset.line of any section, including nested sections.
+  this._maxOffsetLine = maxOffsetLine;
+}
+
+/**
+ * Section offsets come from untrusted input and are used as line/column
+ * numbers, so only accept non-negative safe integers (rejects NaN, Infinity,
+ * strings, fractions, etc).
+ */
+function isValidOffset(aValue) {
+  return typeof aValue === 'number' &&
+    aValue >= 0 &&
+    aValue <= 9007199254740991 && // Number.MAX_SAFE_INTEGER
+    Math.floor(aValue) === aValue;
 }
 
 IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
@@ -116845,8 +116898,12 @@ Object.defineProperty(IndexedSourceMapConsumer.prototype, 'sources', {
   get: function () {
     var sources = [];
     for (var i = 0; i < this._sections.length; i++) {
-      for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
-        sources.push(this._sections[i].consumer.sources[j]);
+      // Read the getter once per section: for a nested indexed map it is
+      // itself this getter, and re-reading it per item is exponential in the
+      // nesting depth (CVE-2026-93749).
+      var sectionSources = this._sections[i].consumer.sources;
+      for (var j = 0; j < sectionSources.length; j++) {
+        sources.push(sectionSources[j]);
       }
     }
     return sources;
@@ -117410,10 +117467,12 @@ SourceMapGenerator.prototype._serializeMappings =
 
       if (mapping.generatedLine !== previousGeneratedLine) {
         previousGeneratedColumn = 0;
-        while (mapping.generatedLine !== previousGeneratedLine) {
-          next += ';';
-          previousGeneratedLine++;
-        }
+        // One ';' per skipped line. Build large gaps with a single flat
+        // string: appending ';' one by one creates a rope node per line, which
+        // can exhaust the heap for a big gap (CVE-2026-93749).
+        var lineDelta = mapping.generatedLine - previousGeneratedLine;
+        next += lineDelta === 1 ? ';' : ';'.repeat(lineDelta);
+        previousGeneratedLine = mapping.generatedLine;
       }
       else {
         if (i > 0) {
@@ -117626,6 +117685,13 @@ SourceNode.fromStringWithSourceMap =
       // to the SourceNode without any mapping.
       // Each line is added as separate string.
       while (lastGeneratedLine < mapping.generatedLine) {
+        if (remainingLinesIndex >= remainingLines.length) {
+          // The generated code is exhausted. Skip the rest instead of adding
+          // empty lines one by one: a mapping may point far past the end of
+          // the code (e.g. an indexed map section with a huge offset.line).
+          lastGeneratedLine = mapping.generatedLine;
+          break;
+        }
         node.add(shiftNextLine());
         lastGeneratedLine++;
       }
