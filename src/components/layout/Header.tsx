@@ -6,7 +6,6 @@ import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { useCurrentRouteName } from "@hooks/useCurrentRouteName";
 import { useRoute } from "@hooks/useRoute";
-import { featureFlags } from "../../featureFlags";
 import { usePreviousRoute } from "@hooks/usePreviousRoute";
 
 import { Button } from "@components/ui/button";
@@ -19,7 +18,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu";
 import { Badge } from "@components/ui/badge";
-import { ThemeModeToggle } from "@components/layout/ThemeModeToggle";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowLeft02Icon,
@@ -143,7 +141,7 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <a href={routes.docs({ lang: i18n.resolvedLanguage })}>
+                <a href={routes.docsAbout({ lang: i18n.resolvedLanguage })}>
                   <HugeiconsIcon
                     className="size-5 md:hidden"
                     icon={HelpCircleIcon}
@@ -153,11 +151,6 @@ export function Header() {
                 </a>
               </NavigationMenuLink>
             </NavigationMenuItem>
-            {featureFlags.showThemeModeToggle && (
-              <NavigationMenuItem>
-                <ThemeModeToggle />
-              </NavigationMenuItem>
-            )}
           </NavigationMenuList>
         </NavigationMenu>
       </div>

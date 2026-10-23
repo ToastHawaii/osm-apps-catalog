@@ -1,3 +1,4 @@
+import { Footer } from "@components/layout/Footer";
 import { Header } from "@components/layout/Header";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { AppStateProvider } from "@hooks/useAppsData";
@@ -104,6 +105,7 @@ export default function Layout() {
           <div id="content">
             <Header />
             <Outlet />
+            <Footer />
           </div>
         </AppsFundingStateProvider>
       </AppStateProvider>

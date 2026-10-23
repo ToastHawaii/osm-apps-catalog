@@ -17,37 +17,42 @@ export function ThemeModeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <HugeiconsIcon
-            icon={Sun03Icon}
-            className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all [html.theme-mode-dark_&]:scale-0 [html.theme-mode-dark_&]:-rotate-90"
-          />
-          <HugeiconsIcon
-            icon={Moon02Icon}
-            className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all [html.theme-mode-dark_&]:scale-100 [html.theme-mode-dark_&]:rotate-0"
-          />
-          <span className="sr-only">{t("toggleTheme.screenReader")}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className="hidden [html.theme-mode-dark_&]:block"
-        >
-          {t("toggleTheme.light")}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className="[html.theme-mode-dark_&]:hidden"
-        >
-          {t("toggleTheme.dark")}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          {t("toggleTheme.system")}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="relative">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label={t("toggleTheme.screenReader")}
+          >
+            <HugeiconsIcon
+              icon={Sun03Icon}
+              className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all [html.theme-mode-dark_&]:scale-0 [html.theme-mode-dark_&]:-rotate-90"
+            />
+            <HugeiconsIcon
+              icon={Moon02Icon}
+              className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all [html.theme-mode-dark_&]:scale-100 [html.theme-mode-dark_&]:rotate-0"
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            onClick={() => setTheme("light")}
+            className="hidden [html.theme-mode-dark_&]:block"
+          >
+            {t("toggleTheme.light")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setTheme("dark")}
+            className="[html.theme-mode-dark_&]:hidden"
+          >
+            {t("toggleTheme.dark")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>
+            {t("toggleTheme.system")}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

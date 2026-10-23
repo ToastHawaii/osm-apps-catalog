@@ -44,10 +44,14 @@ export function routeFactory(domain?: string) {
     list: build<{ platforms?: string[] }>("list"),
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),
-    docs: (query?: { lang?: string }) =>
+    docsAbout: (query?: { lang?: string }) =>
       query?.lang && query?.lang.toLowerCase() !== "en"
         ? `/docs/${toReadmeLanguage(query.lang)}/`
         : "/docs/",
+    docsPrivacy: (query?: { lang?: string }) =>
+      query?.lang && query?.lang.toLowerCase() !== "en"
+        ? `/docs/${toReadmeLanguage(query.lang)}/privacy/`
+        : "/docs/privacy/",
     docsScore: () => "/docs/score",
   };
 }
