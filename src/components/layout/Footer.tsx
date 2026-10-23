@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@components/ui/button";
 import { Separator } from "@components/ui/separator";
 import { ThemeModeToggle } from "@components/layout/ThemeModeToggle";
-import { GithubIcon } from "@hugeicons/core-free-icons";
+import { ExternalLinkIcon, GithubIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Combobox } from "@components/ui/combobox";
 import { useRoute } from "@hooks/useRoute";
@@ -113,6 +113,11 @@ export function Footer() {
                 <span className="ml-2 hidden sm:inline">
                   {t("footer.github")}
                 </span>
+                <HugeiconsIcon
+                  className="hidden sm:inline"
+                  icon={ExternalLinkIcon}
+                  strokeWidth={2}
+                />
               </a>
             </Button>
 
