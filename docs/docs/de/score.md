@@ -2,14 +2,16 @@
 
 Der Community Contribution Score ist ein für diesen App-Katalog entwickelte Bewertung.
 Er ermöglicht es, diejenigen Apps hervorzuheben, welche zur OpenStreetMap-Gemeinschaft beitragen.
-Zu einer guten Bewertung führt
+Der Score wird automatisch anhand der dokumentierten Metadaten einer App berechnet.
+
+Zu einer guten Bewertung führt:
 
 - eine offene Software,
 - die das Anzeigen und Bearbeiten der Karte ermöglicht,
 - für viele Menschen zugänglich,
 - und gut dokumentiert ist.
 
-[Klick hier für den Katalog](https://osm-apps.org)
+[➜ Klick hier für den Katalog](https://osm-apps.org)
 
 ## Spezifikation
 
@@ -129,4 +131,4 @@ Der Score wird durch das Addieren der Punkte aus allen Kategorien berechnet. Die
 
 ## Diskussion
 
-Wenn Sie Vorschläge haben, wie die Berechnung der Punktzahl angepasst werden sollte, können Sie diese [hier](https://github.com/ToastHawaii/osm-apps-catalog/discussions/123) diskutieren.
+Wenn du Vorschläge hast, wie die Berechnung der Punktzahl angepasst werden sollte, können wir diese [hier](https://github.com/ToastHawaii/osm-apps-catalog/discussions/123) diskutieren.

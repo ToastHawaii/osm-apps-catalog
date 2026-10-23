@@ -86752,7 +86752,7 @@ module.exports = charenc;
 /***/ 3706:
 /***/ (function(module) {
 
-!function(t,e){ true?module.exports=e():0}(this,(function(){"use strict";var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",c="month",f="quarter",h="year",d="date",l="Invalid Date",$=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(t){var e=["th","st","nd","rd"],n=t%100;return"["+t+(e[(n-20)%10]||e[n]||e[0])+"]"}},m=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},v={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,c),s=n-i<0,u=e.clone().add(r+(s?-1:1),c);return+(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return{M:c,y:h,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:f}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},g="en",D={};D[g]=M;var p="$isDayjsObject",S=function(t){return t instanceof _||!(!t||!t[p])},w=function t(e,n,r){var i;if(!e)return g;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else{var a=e.name;D[a]=e,i=a}return!r&&i&&(g=i),i||!r&&g},O=function(t,e){if(S(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},b=v;b.l=w,b.i=S,b.w=function(t,e){return O(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=w(t.locale,null,!0),this.parse(t),this.$x=this.$x||t.x||{},this[p]=!0}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(b.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match($);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.init()},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},m.$utils=function(){return b},m.isValid=function(){return!(this.$d.toString()===l)},m.isSame=function(t,e){var n=O(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return O(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<O(t)},m.$g=function(t,e,n){return b.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!b.u(e)||e,f=b.p(t),l=function(t,e){var i=b.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},$=function(t,e){return b.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,v="set"+(this.$u?"UTC":"");switch(f){case h:return r?l(1,0):l(31,11);case c:return r?l(1,M):l(0,M+1);case o:var g=this.$locale().weekStart||0,D=(y<g?y+7:y)-g;return l(r?m-D:m+(6-D),M);case a:case d:return $(v+"Hours",0);case u:return $(v+"Minutes",1);case s:return $(v+"Seconds",2);case i:return $(v+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=b.p(t),f="set"+(this.$u?"UTC":""),l=(n={},n[a]=f+"Date",n[d]=f+"Date",n[c]=f+"Month",n[h]=f+"FullYear",n[u]=f+"Hours",n[s]=f+"Minutes",n[i]=f+"Seconds",n[r]=f+"Milliseconds",n)[o],$=o===a?this.$D+(e-this.$W):e;if(o===c||o===h){var y=this.clone().set(d,1);y.$d[l]($),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d}else l&&this.$d[l]($);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[b.p(t)]()},m.add=function(r,f){var d,l=this;r=Number(r);var $=b.p(f),y=function(t){var e=O(l);return b.w(e.date(e.date()+Math.round(t*r)),l)};if($===c)return this.set(c,this.$M+r);if($===h)return this.set(h,this.$y+r);if($===a)return y(1);if($===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[$]||1,m=this.$d.getTime()+r*M;return b.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||l;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=b.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,c=n.months,f=n.meridiem,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].slice(0,s)},d=function(t){return b.s(s%12||12,t,"0")},$=f||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r};return r.replace(y,(function(t,r){return r||function(t){switch(t){case"YY":return String(e.$y).slice(-2);case"YYYY":return b.s(e.$y,4,"0");case"M":return a+1;case"MM":return b.s(a+1,2,"0");case"MMM":return h(n.monthsShort,a,c,3);case"MMMM":return h(c,a);case"D":return e.$D;case"DD":return b.s(e.$D,2,"0");case"d":return String(e.$W);case"dd":return h(n.weekdaysMin,e.$W,o,2);case"ddd":return h(n.weekdaysShort,e.$W,o,3);case"dddd":return o[e.$W];case"H":return String(s);case"HH":return b.s(s,2,"0");case"h":return d(1);case"hh":return d(2);case"a":return $(s,u,!0);case"A":return $(s,u,!1);case"m":return String(u);case"mm":return b.s(u,2,"0");case"s":return String(e.$s);case"ss":return b.s(e.$s,2,"0");case"SSS":return b.s(e.$ms,3,"0");case"Z":return i}return null}(t)||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,l){var $,y=this,M=b.p(d),m=O(r),v=(m.utcOffset()-this.utcOffset())*e,g=this-m,D=function(){return b.m(y,m)};switch(M){case h:$=D()/12;break;case c:$=D();break;case f:$=D()/3;break;case o:$=(g-v)/6048e5;break;case a:$=(g-v)/864e5;break;case u:$=g/n;break;case s:$=g/e;break;case i:$=g/t;break;default:$=g}return l?$:b.a($)},m.daysInMonth=function(){return this.endOf(c).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=w(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return b.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),k=_.prototype;return O.prototype=k,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",c],["$y",h],["$D",d]].forEach((function(t){k[t[1]]=function(e){return this.$g(e,t[0],t[1])}})),O.extend=function(t,e){return t.$i||(t(e,_,O),t.$i=!0),O},O.locale=w,O.isDayjs=S,O.unix=function(t){return O(1e3*t)},O.en=D[g],O.Ls=D,O.p={},O}));
+!function(t,e){ true?module.exports=e():0}(this,(function(){"use strict";var t=1e3,e=6e4,n=36e5,r="millisecond",i="second",s="minute",u="hour",a="day",o="week",c="month",f="quarter",h="year",d="date",l="Invalid Date",$=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,y=/\[([^\]]+)]|YYYY|YY|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,M={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),ordinal:function(t){var e=["th","st","nd","rd"],n=t%100;return"["+t+(e[(n-20)%10]||e[n]||e[0])+"]"}},m=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},v={s:m,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+m(r,2,"0")+":"+m(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,c),s=n-i<0,u=e.clone().add(r+(s?-1:1),c);return+(-(r+(n-i)/(s?i-u:u-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(t){return{M:c,y:h,w:o,d:a,D:d,h:u,m:s,s:i,ms:r,Q:f}[t]||String(t||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},g="en",D={};D[g]=M;var p="$isDayjsObject",S=function(t){return t instanceof _||!(!t||!t[p])},w=function t(e,n,r){var i;if(!e)return g;if("string"==typeof e){var s=e.toLowerCase();D[s]&&(i=s),n&&(D[s]=n,i=s);var u=e.split("-");if(!i&&u.length>1)return t(u[0])}else{var a=e.name;D[a]=e,i=a}return!r&&i&&(g=i),i||!r&&g},O=function(t,e){if(S(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new _(n)},b=v;b.l=w,b.i=S,b.w=function(t,e){return O(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var _=function(){function M(t){this.$L=w(t.locale,null,!0),this.parse(t),this.$x=this.$x||t.x||{},this[p]=!0}var m=M.prototype;return m.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(b.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match($);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.init()},m.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},m.$utils=function(){return b},m.isValid=function(){return!(this.$d.toString()===l)},m.isSame=function(t,e){var n=O(t);return this.startOf(e)<=n&&n<=this.endOf(e)},m.isAfter=function(t,e){return O(t)<this.startOf(e)},m.isBefore=function(t,e){return this.endOf(e)<O(t)},m.$g=function(t,e,n){return b.u(t)?this[e]:this.set(n,t)},m.unix=function(){return Math.floor(this.valueOf()/1e3)},m.valueOf=function(){return this.$d.getTime()},m.startOf=function(t,e){var n=this,r=!!b.u(e)||e,f=b.p(t),l=function(t,e){var i=b.w(n.$u?Date.UTC(n.$y,e,t):new Date(n.$y,e,t),n);return r?i:i.endOf(a)},$=function(t,e){return b.w(n.toDate()[t].apply(n.toDate("s"),(r?[0,0,0,0]:[23,59,59,999]).slice(e)),n)},y=this.$W,M=this.$M,m=this.$D,v="set"+(this.$u?"UTC":"");switch(f){case h:return r?l(1,0):l(31,11);case c:return r?l(1,M):l(0,M+1);case o:var g=this.$locale().weekStart||0,D=(y<g?y+7:y)-g;return l(r?m-D:m+(6-D),M);case a:case d:return $(v+"Hours",0);case u:return $(v+"Minutes",1);case s:return $(v+"Seconds",2);case i:return $(v+"Milliseconds",3);default:return this.clone()}},m.endOf=function(t){return this.startOf(t,!1)},m.$set=function(t,e){var n,o=b.p(t),f="set"+(this.$u?"UTC":""),l=(n={},n[a]=f+"Date",n[d]=f+"Date",n[c]=f+"Month",n[h]=f+"FullYear",n[u]=f+"Hours",n[s]=f+"Minutes",n[i]=f+"Seconds",n[r]=f+"Milliseconds",n)[o],$=o===a?this.$D+(e-this.$W):e;if(o===c||o===h){var y=this.clone().set(d,1);y.$d[l]($),y.init(),this.$d=y.set(d,Math.min(this.$D,y.daysInMonth())).$d}else l&&this.$d[l]($);return this.init(),this},m.set=function(t,e){return this.clone().$set(t,e)},m.get=function(t){return this[b.p(t)]()},m.add=function(r,f){var d,l=this;r=Number(r);var $=b.p(f),y=function(t){var e=O(l);return b.w(e.date(e.date()+Math.round(t*r)),l)};if($===c)return this.set(c,this.$M+r);if($===h)return this.set(h,this.$y+r);if($===a)return y(1);if($===o)return y(7);var M=(d={},d[s]=e,d[u]=n,d[i]=t,d)[$]||1,m=this.$d.getTime()+r*M;return b.w(m,this)},m.subtract=function(t,e){return this.add(-1*t,e)},m.format=function(t){var e=this,n=this.$locale();if(!this.isValid())return n.invalidDate||l;var r=t||"YYYY-MM-DDTHH:mm:ssZ",i=b.z(this),s=this.$H,u=this.$m,a=this.$M,o=n.weekdays,c=n.months,f=n.meridiem,h=function(t,n,i,s){return t&&(t[n]||t(e,r))||i[n].slice(0,s)},d=function(t){return b.s(s%12||12,t,"0")},$=f||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r};return r.replace(y,(function(t,r){return r||function(t){switch(t){case"YY":return String(e.$y).slice(-2);case"YYYY":return b.s(e.$y,4,"0");case"M":return a+1;case"MM":return b.s(a+1,2,"0");case"MMM":return h(n.monthsShort,a,c,3);case"MMMM":return h(c,a);case"D":return e.$D;case"DD":return b.s(e.$D,2,"0");case"d":return String(e.$W);case"dd":return h(n.weekdaysMin,e.$W,o,2);case"ddd":return h(n.weekdaysShort,e.$W,o,3);case"dddd":return o[e.$W];case"H":return String(s);case"HH":return b.s(s,2,"0");case"h":return d(1);case"hh":return d(2);case"a":return $(s,u,!0);case"A":return $(s,u,!1);case"m":return String(u);case"mm":return b.s(u,2,"0");case"s":return String(e.$s);case"ss":return b.s(e.$s,2,"0");case"SSS":return b.s(e.$ms,3,"0");case"Z":return i}return null}(t)||i.replace(":","")}))},m.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},m.diff=function(r,d,l){var $,y=this,M=b.p(d),m=O(r),v=(m.utcOffset()-this.utcOffset())*e,g=this-m,D=function(){return b.m(y,m)};switch(M){case h:$=D()/12;break;case c:$=D();break;case f:$=D()/3;break;case o:$=(g-v)/6048e5;break;case a:$=(g-v)/864e5;break;case u:$=g/n;break;case s:$=g/e;break;case i:$=g/t;break;default:$=g}return l?$:b.a($)},m.daysInMonth=function(){return this.endOf(c).$D},m.$locale=function(){return D[this.$L]},m.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=w(t,e,!0);return r&&(n.$L=r),n},m.clone=function(){return b.w(this.$d,this)},m.toDate=function(){return new Date(this.valueOf())},m.toJSON=function(){return this.isValid()?this.toISOString():null},m.toISOString=function(){return this.$d.toISOString()},m.toString=function(){return this.$d.toUTCString()},M}(),Y=_.prototype;return O.prototype=Y,[["$ms",r],["$s",i],["$m",s],["$H",u],["$W",a],["$M",c],["$y",h],["$D",d]].forEach((function(t){Y[t[1]]=function(e){return this.$g(e,t[0],t[1])}})),O.extend=function(t,e){return t.$i||(t(e,_,O),t.$i=!0),O},O.locale=w,O.isDayjs=S,O.unix=function(t){return O(1e3*t)},O.en=D[g],O.Ls=D,O.p={},O}));
 
 /***/ }),
 
@@ -86951,8 +86951,6 @@ function isSlowBuffer (obj) {
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
@@ -107225,8 +107223,21 @@ let list = {
     let inQuote = false
     let prevQuote = ''
     let escape = false
+    let inComment = false
 
-    for (let letter of string) {
+    for (let i = 0; i < string.length; i++) {
+      let letter = string[i]
+
+      if (inComment) {
+        current += letter
+        if (letter === '*' && string[i + 1] === '/') {
+          current += '/'
+          i += 1
+          inComment = false
+        }
+        continue
+      }
+
       if (escape) {
         escape = false
       } else if (letter === '\\') {
@@ -107238,6 +107249,11 @@ let list = {
       } else if (letter === '"' || letter === "'") {
         inQuote = true
         prevQuote = letter
+      } else if (letter === '/' && string[i + 1] === '*') {
+        current += '/*'
+        i += 1
+        inComment = true
+        continue
       } else if (letter === '(') {
         func += 1
       } else if (letter === ')') {
@@ -107349,16 +107365,22 @@ class MapGenerator {
         }
       }
     } else if (this.css) {
+      // Single forward pass. Removing every annotation from the whole
+      // string separately would be O(n^2) on many annotations.
       let annotation = '/*# sourceMappingURL='
+      let css = ''
+      let cursor = 0
       let startIndex
-      while ((startIndex = this.css.lastIndexOf(annotation)) !== -1) {
+      while ((startIndex = this.css.indexOf(annotation, cursor)) !== -1) {
         let endIndex = this.css.indexOf('*/', startIndex + annotation.length)
         if (endIndex === -1) break
-        while (startIndex > 0 && this.css[startIndex - 1] === '\n') {
+        while (startIndex > cursor && this.css[startIndex - 1] === '\n') {
           startIndex--
         }
-        this.css = this.css.slice(0, startIndex) + this.css.slice(endIndex + 2)
+        css += this.css.slice(cursor, startIndex)
+        cursor = endIndex + 2
       }
+      if (cursor > 0) this.css = css + this.css.slice(cursor)
     }
   }
 
@@ -108850,6 +108872,9 @@ class Parser {
     let token, type
     let length = tokens.length
     let value = ''
+    // Last character of `value`. Reading it from `value` would flatten
+    // the string concatenation on every comment and make parsing O(n^2).
+    let last = ''
     let clean = true
     let next, prev
 
@@ -108862,16 +108887,18 @@ class Parser {
         prev = tokens[i - 1] ? tokens[i - 1][0] : 'empty'
         next = tokens[i + 1] ? tokens[i + 1][0] : 'empty'
         if (!SAFE_COMMENT_NEIGHBOR[prev] && !SAFE_COMMENT_NEIGHBOR[next]) {
-          if (value.slice(-1) === ',') {
+          if (last === ',') {
             clean = false
           } else {
             value += token[1]
+            last = token[1].slice(-1)
           }
         } else {
           clean = false
         }
       } else {
         value += token[1]
+        last = token[1].slice(-1)
       }
     }
     if (!clean) {
@@ -109285,7 +109312,7 @@ let Root = __nccwpck_require__(973)
 
 class Processor {
   constructor(plugins = []) {
-    this.version = '8.5.28'
+    this.version = '8.5.31'
     this.plugins = this.normalize(plugins)
   }
 
@@ -109522,21 +109549,9 @@ Container.registerRule(Rule)
 "use strict";
 
 
-// Escapes sequences that could break out of an HTML <style> context.
-// Uses CSS unicode escaping (\3c = '<') which is valid CSS and parsed
-// correctly by all compliant CSS consumers.
-const STYLE_TAG = /(<)(\/?style\b)/gi
-const COMMENT_OPEN = /(<)(!--)/g
-
 // Characters that end an at-rule name, mirroring RE_AT_END in the tokenizer.
 // Params starting with anything else need a space to stay separate tokens.
 const AT_NAME_END = /[\t\n\f\r "#'()/;[\\\]{}]/
-
-function escapeHTMLInCSS(str) {
-  if (typeof str !== 'string') return str
-  if (!str.includes('<')) return str
-  return str.replace(STYLE_TAG, '\\3c $2').replace(COMMENT_OPEN, '\\3c $2')
-}
 
 const DEFAULT_RAW = {
   after: '\n',
@@ -109572,11 +109587,12 @@ function atruleStart(str, node) {
 }
 
 // `*--x` is not a custom property: the parser checks the first token, and the
-// `*`/`_` hack prefix moves from `prop` into `before` only after that.
+// `*`/`_` hack prefix moves from `prop` into `before` only after that. A free
+// semicolon in front of the declaration also ends up in `before`.
 function isCustomProperty(node) {
   if (!node.prop.startsWith('--')) return false
   let before = node.raws.before
-  return typeof before === 'undefined' || !/\S$/.test(before)
+  return typeof before === 'undefined' || !/[^\s;]$/.test(before)
 }
 
 function pushBody(str, stack, node) {
@@ -109614,17 +109630,17 @@ function pushBody(str, stack, node) {
 
 function pushBlock(str, stack, node, start) {
   let between = str.raw(node, 'between', 'beforeOpen')
-  str.builder(escapeHTMLInCSS(start + between) + '{', node, 'start')
+  str.builder(start + between + '{', node, 'start')
 
   let hasNodes = node.nodes && node.nodes.length
   let close = () => {
     let after = hasNodes
       ? str.raw(node, 'after')
       : str.raw(node, 'after', 'emptyBody')
-    if (after) str.builder(escapeHTMLInCSS(after))
+    if (after) str.builder(after)
     str.builder('}', node, 'end')
     if (node.type === 'rule' && node.raws.ownSemicolon) {
-      str.builder(escapeHTMLInCSS(node.raws.ownSemicolon), node, 'end')
+      str.builder(node.raws.ownSemicolon, node, 'end')
     }
   }
 
@@ -109647,7 +109663,7 @@ class Stringifier {
       this.block(node, start)
     } else {
       let end = (node.raws.between || '') + (semicolon ? ';' : '')
-      this.builder(escapeHTMLInCSS(start + end), node)
+      this.builder(start + end, node)
     }
   }
 
@@ -109682,7 +109698,7 @@ class Stringifier {
 
   block(node, start) {
     let between = this.raw(node, 'between', 'beforeOpen')
-    this.builder(escapeHTMLInCSS(start + between) + '{', node, 'start')
+    this.builder(start + between + '{', node, 'start')
 
     let after
     if (node.nodes && node.nodes.length) {
@@ -109692,7 +109708,7 @@ class Stringifier {
       after = this.raw(node, 'after', 'emptyBody')
     }
 
-    if (after) this.builder(escapeHTMLInCSS(after))
+    if (after) this.builder(after)
     this.builder('}', node, 'end')
   }
 
@@ -109719,7 +109735,7 @@ class Stringifier {
       let child = entry.node
       let before = this.raw(child, 'before')
       if (before) {
-        this.builder(entry.document ? before : escapeHTMLInCSS(before))
+        this.builder(before)
       }
 
       if (expandable && child.type === 'rule') {
@@ -109735,7 +109751,7 @@ class Stringifier {
   comment(node) {
     let left = this.raw(node, 'left', 'commentLeft')
     let right = this.raw(node, 'right', 'commentRight')
-    this.builder(escapeHTMLInCSS('/*' + left + node.text + right + '*/'), node)
+    this.builder('/*' + left + node.text + right + '*/', node)
   }
 
   decl(node, semicolon) {
@@ -109749,7 +109765,7 @@ class Stringifier {
     }
 
     if (semicolon) string += ';'
-    this.builder(escapeHTMLInCSS(string), node)
+    this.builder(string, node)
   }
 
   document(node) {
@@ -109954,21 +109970,20 @@ class Stringifier {
   }
 
   root(node) {
-    if (node.source && node.source.input.hasBOM) {
+    let inDocument = node.parent && node.parent.type === 'document'
+    if (!inDocument && node.source && node.source.input.hasBOM) {
       this.builder('\uFEFF', node, 'start')
     }
     this.body(node)
     if (node.raws.after) {
-      let after = node.raws.after
-      let isDocument = node.parent && node.parent.type === 'document'
-      this.builder(isDocument ? after : escapeHTMLInCSS(after))
+      this.builder(node.raws.after)
     }
   }
 
   rule(node) {
     this.block(node, this.rawValue(node, 'selector'))
     if (node.raws.ownSemicolon) {
-      this.builder(escapeHTMLInCSS(node.raws.ownSemicolon), node, 'end')
+      this.builder(node.raws.ownSemicolon, node, 'end')
     }
   }
 
@@ -110001,9 +110016,91 @@ Stringifier.default = Stringifier
 
 let Stringifier = __nccwpck_require__(8931)
 
+const STYLE_TAG = /(<)(\/?style\b)/gi
+const COMMENT_OPEN = /(<)(!--)/g
+
+function escapeHTMLInCSS(str) {
+  if (!str.includes('<')) return str
+  return str.replace(STYLE_TAG, '\\3c $2').replace(COMMENT_OPEN, '\\3c $2')
+}
+
+function cutEscaped(chunks, css, escaped) {
+  let parts = []
+  let at = 0
+  let into = 0
+  for (let i = 0; i < chunks.length; i += 3) {
+    let from = into
+    let end = at + chunks[i].length
+    while (at < end) {
+      if (css[at] === escaped[into]) {
+        at += 1
+        into += 1
+      } else {
+        // The `<` of this pair was replaced by the `\3c ` in front of it
+        at += 1
+        into += 4
+      }
+    }
+    parts.push(escaped.slice(from, into))
+  }
+  return parts
+}
+
+class SafeStringifier extends Stringifier {
+  escapeHTML(print) {
+    let builder = this.builder
+    let chunks, css
+    this.builder = (str, child, type) => {
+      if (chunks) {
+        css += str
+        chunks.push(str, child, type)
+      } else if (str.includes('<')) {
+        // Dangerous sequences start with `<`, so everything before
+        // the first `<` is safe to pass through. The rest is buffered
+        // to escape it as a whole.
+        css = str
+        chunks = [str, child, type]
+      } else {
+        builder(str, child, type)
+      }
+    }
+    print()
+    this.builder = builder
+    if (!chunks) return
+
+    let escaped = escapeHTMLInCSS(css)
+    if (escaped === css) {
+      // Keep the chunks to get a precise source map
+      for (let i = 0; i < chunks.length; i += 3) {
+        builder(chunks[i], chunks[i + 1], chunks[i + 2])
+      }
+    } else {
+      let parts = cutEscaped(chunks, css, escaped)
+      for (let i = 0; i < chunks.length; i += 3) {
+        builder(parts[i / 3], chunks[i + 1], chunks[i + 2])
+      }
+    }
+  }
+
+  root(node) {
+    if (node.parent && node.parent.type === 'document') {
+      // Document raws around the Root hold markup and are kept as is since CSS in Document can be marked with <style>
+      this.escapeHTML(() => this.body(node))
+      if (node.raws.after) this.builder(node.raws.after)
+    } else {
+      this.escapeHTML(() => super.root(node))
+    }
+  }
+}
+
 function stringify(node, builder) {
-  let str = new Stringifier(builder)
-  str.stringify(node)
+  let str = new SafeStringifier(builder)
+  // Root escapes its own output and keeps markup in Document raws
+  if (node.type === 'root' || node.type === 'document') {
+    str.stringify(node)
+  } else {
+    str.escapeHTML(() => str.stringify(node))
+  }
 }
 
 module.exports = stringify
@@ -112413,6 +112510,22 @@ const svgAnimationTags = [
 // `href` are covered.
 const alwaysUrlAttributes = [ 'href' ];
 
+// Our own diagnostics. A console-shaped `logger` option takes them instead of
+// the console; missing methods fall back to it.
+const severities = [ 'debug', 'info', 'warn', 'error' ];
+
+function loggerFor(options) {
+  const source = (options && options.logger) || console;
+  const logger = {};
+  for (const severity of severities) {
+    logger[severity] = typeof source[severity] === 'function'
+      ? (...args) => source[severity](...args)
+      // eslint-disable-next-line no-console
+      : (...args) => console[severity](...args);
+  }
+  return logger;
+}
+
 function each(obj, cb) {
   if (obj) {
     Object.keys(obj).forEach(function (key) {
@@ -112520,6 +112633,8 @@ function sanitizeHtml(html, options, _recursing) {
   options = Object.assign({}, sanitizeHtml.defaults, options);
   options.parser = Object.assign({}, htmlParserDefaults, options.parser);
 
+  const logger = loggerFor(options);
+
   const tagAllowed = function (name) {
     return options.allowedTags === false ||
       (options.allowedTags || []).indexOf(name) > -1;
@@ -112528,7 +112643,12 @@ function sanitizeHtml(html, options, _recursing) {
   // vulnerableTags
   vulnerableTags.forEach(function (tag) {
     if (tagAllowed(tag) && !options.allowVulnerableTags) {
-      console.warn(`\n\n⚠️ Your \`allowedTags\` option includes, \`${tag}\`, which is inherently\nvulnerable to XSS attacks. Please remove it from \`allowedTags\`.\nOr, to disable this warning, add the \`allowVulnerableTags\` option\nand ensure you are accounting for this risk.\n\n`);
+      logger.warn(
+        `Your \`allowedTags\` option includes \`${tag}\`, which is inherently ` +
+        'vulnerable to XSS attacks. Please remove it from `allowedTags`, or, ' +
+        'to disable this warning, add the `allowVulnerableTags` option and ' +
+        'ensure you are accounting for this risk.'
+      );
     }
   });
 
@@ -112622,6 +112742,15 @@ function sanitizeHtml(html, options, _recursing) {
   let transformMap;
   let skipText;
   let skipTextDepth;
+  // Browsers (with scripting enabled) parse <noscript> content as raw text up
+  // to the first `</noscript`, but htmlparser2 parses it as markup, so an end
+  // tag for an ancestor can make htmlparser2 close the <noscript> implicitly
+  // much earlier. `rawTextEnd` is the source offset where the browser ends the
+  // <noscript> being discarded, and `skipRawText` is set while htmlparser2 has
+  // already closed it but the browser has not, so that we keep discarding
+  // until we reach that offset (GHSA-x3q4-9hxx-gx8m).
+  let rawTextEnd;
+  let skipRawText;
   let addedText = false;
 
   initializeState();
@@ -112631,6 +112760,7 @@ function sanitizeHtml(html, options, _recursing) {
       if (options.onOpenTag) {
         options.onOpenTag(name, attribs);
       }
+      updateRawTextRegion();
 
       // If `enforceHtmlBoundary` is `true` and this has found the opening
       // `html` tag, reset the state.
@@ -112638,6 +112768,9 @@ function sanitizeHtml(html, options, _recursing) {
         initializeState();
       }
 
+      if (skipRawText) {
+        return;
+      }
       if (skipText) {
         skipTextDepth++;
         return;
@@ -112679,6 +112812,9 @@ function sanitizeHtml(html, options, _recursing) {
           if (nonTextTagsArray.indexOf(name) !== -1) {
             skipText = true;
             skipTextDepth = 1;
+            if (frame.tag.toLowerCase() === 'noscript') {
+              rawTextEnd = findRawTextEnd('noscript', parser.endIndex + 1);
+            }
           }
         }
       }
@@ -112778,6 +112914,14 @@ function sanitizeHtml(html, options, _recursing) {
               }
             }
 
+            // `<meta http-equiv="refresh" content="0;url=...">` navigates to a
+            // URL embedded in `content`, so scheme check that URL too
+            // (GHSA-cv27-6wvh-8x7j). Other meta `content` values are left alone.
+            if (name === 'meta' && a.toLowerCase() === 'content' && isRefresh(attribs) && naughtyRefresh(value)) {
+              delete frame.attribs[a];
+              return;
+            }
+
             if (name === 'script' && a === 'src') {
 
               let allowed = true;
@@ -112844,7 +112988,7 @@ function sanitizeHtml(html, options, _recursing) {
               try {
                 let parsed = parseSrcset(value);
                 parsed.forEach(function(value) {
-                  if (naughtyHref(a, value.url)) {
+                  if (naughtyHref(name, value.url)) {
                     value.evil = true;
                   }
                 });
@@ -112916,7 +113060,14 @@ function sanitizeHtml(html, options, _recursing) {
                   }
                 } catch (e) {
                   if (typeof window !== 'undefined') {
-                    console.warn('Failed to parse "' + name + ' {' + value + '}' + '", If you\'re running this in a browser, we recommend to disable style parsing: options.parseStyleAttributes: false, since this only works in a node environment due to a postcss dependency, More info: https://github.com/apostrophecms/sanitize-html/issues/547');
+                    logger.warn(
+                      `Failed to parse "${name} {${value}}". If you are ` +
+                      'running this in a browser, we recommend disabling ' +
+                      'style parsing with the parseStyleAttributes option, ' +
+                      'since it only works in a node environment due to a ' +
+                      'postcss dependency. More info: ' +
+                      'https://github.com/apostrophecms/sanitize-html/issues/547'
+                    );
                   }
                   delete frame.attribs[a];
                   return;
@@ -112957,7 +113108,8 @@ function sanitizeHtml(html, options, _recursing) {
       frame.openingTagLength = result.length - frame.tagPosition;
     },
     ontext: function(text) {
-      if (skipText) {
+      updateRawTextRegion();
+      if (skipText || skipRawText) {
         return;
       }
       const lastFrame = stack[stack.length - 1];
@@ -113011,6 +113163,16 @@ function sanitizeHtml(html, options, _recursing) {
         // htmlparser2, so their contents are decoded and must be escaped below
         // like any other text (important to prevent XSS via entity-encoded
         // payloads such as <option>&lt;script&gt;...&lt;/script&gt;</option>).
+      } else if (
+        // htmlparser2 treats <iframe> as a raw-text element, so markup inside
+        // (including after an unclosed <iframe>) arrives as a single text node.
+        // When the iframe is discarded, re-sanitize that fallback markup as HTML
+        // instead of escaping it as plain text (issue #5550).
+        tag === 'iframe' &&
+        !tagAllowed(tag) &&
+        options.disallowedTagsMode === 'discard'
+      ) {
+        result += sanitizeHtml(text, options);
       } else if (!addedText) {
         const escaped = escapeHtml(text, false);
         if (options.textFilter) {
@@ -113029,10 +113191,24 @@ function sanitizeHtml(html, options, _recursing) {
         options.onCloseTag(name, isImplied);
       }
 
-      if (skipText) {
+      updateRawTextRegion();
+      if (skipRawText) {
+        // Still inside the browser's raw text: only close elements that were
+        // opened before the discarded region, so the output stays balanced.
+        const lastFrame = stack[stack.length - 1];
+        if (!lastFrame || lastFrame.tag !== name) {
+          return;
+        }
+      } else if (skipText) {
         skipTextDepth--;
         if (!skipTextDepth) {
           skipText = false;
+          if (rawTextEnd !== null) {
+            // htmlparser2 closed the element implicitly (e.g. an ancestor's
+            // end tag) before the browser would. Close its frame below, but
+            // keep discarding up to the browser's end tag.
+            skipRawText = true;
+          }
         } else {
           return;
         }
@@ -113135,6 +113311,27 @@ function sanitizeHtml(html, options, _recursing) {
     transformMap = {};
     skipText = false;
     skipTextDepth = 0;
+    rawTextEnd = null;
+    skipRawText = false;
+  }
+
+  // Leave the raw text region once the parser reaches the offset where the
+  // browser ends it.
+  function updateRawTextRegion() {
+    if (rawTextEnd !== null && parser.startIndex >= rawTextEnd) {
+      rawTextEnd = null;
+      skipRawText = false;
+    }
+  }
+
+  // Offset of the end tag that ends a raw text element in a browser: the
+  // first case-insensitive `</name` followed by HTML whitespace, `/` or `>`.
+  // With no such end tag the element runs to the end of the input.
+  function findRawTextEnd(tagName, from) {
+    const re = new RegExp('</' + tagName + '[\\t\\n\\f\\r />]', 'ig');
+    re.lastIndex = from;
+    const match = re.exec(html);
+    return match ? match.index : Infinity;
   }
 
   function escapeHtml(s, quote) {
@@ -113173,6 +113370,86 @@ function sanitizeHtml(html, options, _recursing) {
     });
   }
 
+  function isRefresh(attribs) {
+    return Object.keys(attribs).some(function(a) {
+      return a.toLowerCase() === 'http-equiv' &&
+        String(attribs[a]).trim().toLowerCase() === 'refresh';
+    });
+  }
+
+  // True if the `content` of a `<meta http-equiv="refresh">` must be dropped:
+  // its destination URL fails the scheme policy, or it cannot be parsed as a
+  // refresh at all (a browser would ignore it then, so nothing is lost).
+  // Extracts the URL the way the HTML standard's "shared declarative refresh
+  // steps" do, so that spelling, separator, quoting and case variations of
+  // `url=`, or no `url=` at all, all yield the URL a browser would navigate to.
+  function naughtyRefresh(content) {
+    const input = String(content);
+    const isWhitespace = function(c) {
+      return c === ' ' || c === '\t' || c === '\n' || c === '\f' || c === '\r';
+    };
+    let position = 0;
+    const skipWhitespace = function() {
+      while (position < input.length && isWhitespace(input[position])) {
+        position++;
+      }
+    };
+    const lowerAt = function(i) {
+      return (input[i] || '').toLowerCase();
+    };
+    skipWhitespace();
+    const timeStart = position;
+    while (position < input.length && /[0-9.]/.test(input[position])) {
+      position++;
+    }
+    if (position === timeStart) {
+      return true;
+    }
+    if (position < input.length) {
+      const c = input[position];
+      if (c !== ';' && c !== ',' && !isWhitespace(c)) {
+        return true;
+      }
+      skipWhitespace();
+      if (input[position] === ';' || input[position] === ',') {
+        position++;
+      }
+      skipWhitespace();
+    }
+    if (position >= input.length) {
+      // No URL: refreshes the current document
+      return false;
+    }
+    let url = input.slice(position);
+    let quoted = true;
+    if (lowerAt(position) === 'u') {
+      quoted = false;
+      if (lowerAt(position + 1) === 'r' && lowerAt(position + 2) === 'l') {
+        position += 3;
+        skipWhitespace();
+        if (input[position] === '=') {
+          position++;
+          skipWhitespace();
+          quoted = true;
+        }
+      }
+    }
+    if (quoted) {
+      const quote = input[position];
+      if (quote === '"' || quote === '\'') {
+        position++;
+      }
+      url = input.slice(position);
+      if (quote === '"' || quote === '\'') {
+        const end = url.indexOf(quote);
+        if (end !== -1) {
+          url = url.slice(0, end);
+        }
+      }
+    }
+    return naughtyHref('meta', url);
+  }
+
   // True if this is an SVG SMIL animation element that animates a URL-bearing
   // attribute, e.g. `<animate attributeName="href" values="#safe;javascript:...">`.
   //
@@ -113188,12 +113465,14 @@ function sanitizeHtml(html, options, _recursing) {
   // animation on the strength of its target instead. Animations of attributes
   // that are not URL sinks, such as `fill` or `opacity`, are unaffected.
   function animatesUrlAttribute(name, attribs) {
-    if (svgAnimationTags.indexOf(name.toLowerCase()) === -1) {
+    // In an XML serialization a prefixed name such as `svg:animate` is the same
+    // element as `animate`, so match on the local name (GHSA-374f-7chj-9948).
+    if (svgAnimationTags.indexOf(localPart(name)) === -1) {
       return false;
     }
     const schemeCheckedAttributes = options.allowedSchemesAppliedToAttributes || [];
     return Object.keys(attribs || {}).some(function(attributeName) {
-      if (attributeName.toLowerCase() !== 'attributename') {
+      if (localPart(attributeName) !== 'attributename') {
         return false;
       }
       const target = (attribs[attributeName] || '').trim().toLowerCase();
@@ -113204,6 +113483,12 @@ function sanitizeHtml(html, options, _recursing) {
         schemeCheckedAttributes.indexOf(target) !== -1 ||
         schemeCheckedAttributes.indexOf(localName) !== -1;
     });
+  }
+
+  // Lowercased name with any namespace prefix removed.
+  function localPart(name) {
+    const lower = name.toLowerCase();
+    return lower.slice(lower.lastIndexOf(':') + 1);
   }
 
   function parseUrl(value) {
