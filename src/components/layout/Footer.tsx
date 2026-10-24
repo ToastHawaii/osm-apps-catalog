@@ -17,9 +17,10 @@ export function Footer() {
   return (
     <>
       <Separator />
-      <div className="mx-auto max-w-7xl px-8 py-4 md:px-18 md:py-6">
-        <div className="flex items-center justify-between">
-          <div className="shrink-0">
+
+      <div className="mx-auto max-w-7xl px-8 py-2 md:px-18 md:py-4">
+        <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:gap-0">
+          <div className="flex items-center gap-2">
             <LanguageSelect />
           </div>
 

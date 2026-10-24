@@ -8,6 +8,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@components/ui/popover";
+import { Button } from "@components/ui/button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { ExternalLink } from "@components/common/ExternalLink";
 
 export function LanguageSelect() {
   const { t, i18n } = useTranslation();
@@ -93,22 +102,64 @@ export function LanguageSelect() {
   const currentLang = i18n.language || "en";
 
   return (
-    <Select
-      value={currentLang}
-      onValueChange={(lng) => {
-        i18n.changeLanguage(lng);
-      }}
-    >
-      <SelectTrigger>
-        <SelectValue placeholder={t("footer.languagePlaceholder")} />
-      </SelectTrigger>
-      <SelectContent>
-        {supportedLanguages.map((lang) => (
-          <SelectItem key={lang.value} value={lang.value}>
-            {lang.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <>
+      <Select
+        value={currentLang}
+        onValueChange={(lng) => {
+          i18n.changeLanguage(lng);
+        }}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder={t("footer.languagePlaceholder")} />
+        </SelectTrigger>
+        <SelectContent>
+          {supportedLanguages.map((lang) => (
+            <SelectItem key={lang.value} value={lang.value}>
+              {lang.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            className="p-1"
+            size="xs"
+            title={t("footer.helpTranslate.hint.label")}
+          >
+            {i18n.language === i18n.resolvedLanguage ? (
+              <img
+                src={`https://hosted.weblate.org/widget/osm-apps-catalog/osm-apps-catalog/${i18n.language}/svg-badge.svg?capitalize=1`}
+                alt={t("footer.languageSelectTranslationBadgeAlt")}
+              />
+            ) : (
+              <span className="text-sm text-muted-foreground">
+                {t("footer.languageMissingTranslation")}
+              </span>
+            )}
+            <HugeiconsIcon
+              className="size-4"
+              icon={InformationCircleIcon}
+              aria-label={t("footer.helpTranslate.hint.label")}
+            />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent align="center" className="w-60 whitespace-pre-line">
+          {t("footer.helpTranslate.hint.text")}
+          <br />
+          <br />
+          {i18n.language === i18n.resolvedLanguage
+            ? t("footer.helpTranslate.hint.translated")
+            : t("footer.helpTranslate.hint.notTranslated")}
+          <ExternalLink
+            href={`https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog/${i18n.language}/`}
+            icon
+          >
+            {t("footer.helpTranslate")}
+          </ExternalLink>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 }
