@@ -99,7 +99,28 @@ export function LanguageSelect() {
     { value: "yue", label: "粵語" },
   ];
 
-  const currentLang = i18n.language || "en";
+  function getCurrentSupportedLanguage() {
+    if (i18n.language) {
+      const lang = supportedLanguages.find(
+        (lang) => lang.value === i18n.language,
+      );
+      if (lang) {
+        return lang.value;
+      }
+
+      if (i18n.language.includes("-")) {
+        const baseLang = i18n.language.split("-")[0];
+        const lang = supportedLanguages.find((lang) => lang.value === baseLang);
+        if (lang) {
+          return lang.value;
+        }
+      }
+    }
+
+    return "en";
+  }
+
+  const currentLang = getCurrentSupportedLanguage();
 
   return (
     <>
@@ -128,9 +149,9 @@ export function LanguageSelect() {
             size="xs"
             title={t("footer.helpTranslate.hint.label")}
           >
-            {i18n.language === i18n.resolvedLanguage ? (
+            {currentLang === i18n.resolvedLanguage ? (
               <img
-                src={`https://hosted.weblate.org/widget/osm-apps-catalog/osm-apps-catalog/${i18n.language}/svg-badge.svg?capitalize=1`}
+                src={`https://hosted.weblate.org/widget/osm-apps-catalog/osm-apps-catalog/${currentLang}/svg-badge.svg?capitalize=1`}
                 alt={t("footer.languageSelectTranslationBadgeAlt")}
               />
             ) : (
@@ -149,11 +170,11 @@ export function LanguageSelect() {
           {t("footer.helpTranslate.hint.text")}
           <br />
           <br />
-          {i18n.language === i18n.resolvedLanguage
+          {currentLang === i18n.resolvedLanguage
             ? t("footer.helpTranslate.hint.translated")
             : t("footer.helpTranslate.hint.notTranslated")}
           <ExternalLink
-            href={`https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog/${i18n.language}/`}
+            href={`https://hosted.weblate.org/projects/osm-apps-catalog/osm-apps-catalog/${currentLang}/`}
             icon
           >
             {t("footer.helpTranslate")}
