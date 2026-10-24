@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@components/ui/button";
@@ -56,7 +55,7 @@ export function Footer() {
             </Button>
 
             <Button variant="ghost" size="sm" asChild>
-              <Link to={routes.docs.privacy()}>{t("footer.privacy")}</Link>
+              <a href={routes.docs.privacy()}>{t("footer.privacy")}</a>
             </Button>
 
             <ThemeModeToggle />

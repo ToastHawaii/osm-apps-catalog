@@ -52,6 +52,15 @@ export async function generateSitemap(apps: App[]) {
       })),
     })),
   );
+  links.push({
+    url: routes.docs.privacy(),
+    priority: 0.1,
+    lastmod: lastUpdate,
+    links: SitemapLanguages.map((lang) => ({
+      lang,
+      url: routes.docs.privacy({ lang }),
+    })),
+  });
 
   // Create a stream to write to
   const stream = new SitemapStream({
