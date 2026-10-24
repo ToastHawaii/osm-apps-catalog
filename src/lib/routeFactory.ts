@@ -50,8 +50,8 @@ export function routeFactory(domain?: string) {
         : "/docs/",
     docsPrivacy: (query?: { lang?: string }) =>
       query?.lang && query?.lang.toLowerCase() !== "en"
-        ? `/docs/${toReadmeLanguage(query.lang)}/privacy/`
-        : "/docs/privacy/",
+        ? `/docs/${toReadmeLanguage(query.lang)}/privacy`
+        : "/docs/privacy",
     docsScore: () => "/docs/score",
   };
 }
