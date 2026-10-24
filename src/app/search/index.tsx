@@ -121,7 +121,7 @@ export function Search({ apps }: { apps: App[] }) {
               }}
               components={{
                 o: <ExternalLink href="https://openstreetmap.org/about" />,
-                s: <a href={routes.docsScore()} />,
+                s: <a href={routes.docs.score()} />,
               }}
             />
           )}

@@ -26,7 +26,7 @@ import {
 } from "@hugeicons/core-free-icons";
 
 export function Header() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const routes = useRoute();
   const currentRoute = useCurrentRouteName();
@@ -141,7 +141,7 @@ export function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <a href={routes.docsAbout({ lang: i18n.resolvedLanguage })}>
+                <a href={routes.docs.about()}>
                   <HugeiconsIcon
                     className="size-5 md:hidden"
                     icon={HelpCircleIcon}

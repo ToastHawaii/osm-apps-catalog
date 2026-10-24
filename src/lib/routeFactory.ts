@@ -8,7 +8,7 @@ export interface Query {
   lang?: string;
 }
 
-export function routeFactory(domain?: string) {
+export function routeFactory(domain?: string, language?: string) {
   function build(
     view?: string,
   ): (params?: Query, options?: { full?: boolean }) => string;
@@ -44,14 +44,20 @@ export function routeFactory(domain?: string) {
     list: build<{ platforms?: string[] }>("list"),
     compare: build<{ platforms?: string[] }>("compare"),
     explore: build<{ category: string; platforms?: string[] }>("explore"),
-    docsAbout: (query?: { lang?: string }) =>
-      query?.lang && query?.lang.toLowerCase() !== "en"
-        ? `/docs/${toReadmeLanguage(query.lang)}/`
-        : "/docs/",
-    docsPrivacy: (query?: { lang?: string }) =>
-      query?.lang && query?.lang.toLowerCase() !== "en"
-        ? `/docs/${toReadmeLanguage(query.lang)}/privacy`
-        : "/docs/privacy",
-    docsScore: () => "/docs/score",
+    docs: {
+      about: (query?: { lang?: string }) => {
+        const lang = query?.lang || language;
+        return lang && lang !== "en"
+          ? `/docs/${toReadmeLanguage(lang)}/`
+          : "/docs/";
+      },
+      privacy: (query?: { lang?: string }) => {
+        const lang = query?.lang || language;
+        return lang && lang !== "en"
+          ? `/docs/${toReadmeLanguage(lang)}/privacy`
+          : "/docs/privacy";
+      },
+      score: () => "/docs/score",
+    },
   };
 }

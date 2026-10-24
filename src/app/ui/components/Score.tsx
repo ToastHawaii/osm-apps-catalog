@@ -100,7 +100,7 @@ export function Score({
               components={{
                 LearnMoreButton: (
                   <Button asChild>
-                    <a className="my-3 block" href={routes.docsScore()}>
+                    <a className="my-3 block" href={routes.docs.score()}>
                       {t("score.learnMore")}
                     </a>
                   </Button>

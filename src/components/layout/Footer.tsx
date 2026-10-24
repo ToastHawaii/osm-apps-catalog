@@ -11,7 +11,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useRoute } from "@hooks/useRoute";
 
 export function Footer() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const routes = useRoute();
 
   return (
@@ -48,9 +48,7 @@ export function Footer() {
             </Button>
 
             <Button variant="ghost" size="sm" asChild>
-              <Link to={routes.docsPrivacy({ lang: i18n.resolvedLanguage })}>
-                {t("footer.privacy")}
-              </Link>
+              <Link to={routes.docs.privacy()}>{t("footer.privacy")}</Link>
             </Button>
 
             <ThemeModeToggle />
