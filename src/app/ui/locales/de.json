@@ -257,7 +257,6 @@
   "filters.morePlatforms": "Weitere Plattformen",
   "footer.github": "GitHub",
   "footer.privacy": "Datenschutz",
-  "footer.translate": "Bei der Übersetzung helfen",
   "introductionPanel.description": "Hier findest du {{numberOfApps}} Kartenapps für jede Gelegenheit: offline Wandern, Veloroute planen, kinderfreundliche Orte erkunden, die nächste Toilette finden...\nEntdecke OpenStreetMap – die gemeinsam gestaltete Karte der Welt.",
   "introductionPanel.description.whileLoading": "Hier findest du Kartenapps für jede Gelegenheit: offline Wandern, Veloroute planen, kinderfreundliche Orte erkunden, die nächste Toilette finden...\nEntdecke OpenStreetMap – die gemeinsam gestaltete Karte der Welt.",
   "introductionPanel.title": "Willkommen im OSM-App-Katalog",
