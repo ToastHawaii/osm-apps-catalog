@@ -9,10 +9,17 @@ import { LanguageSelect } from "@components/layout/LanguageSelect";
 import { ExternalLinkIcon, GithubIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useRoute } from "@hooks/useRoute";
+import { useAppsData } from "@hooks/useAppsData";
 
 export function Footer() {
   const { t } = useTranslation();
   const routes = useRoute();
+
+  const { apps } = useAppsData();
+
+  if (apps.length === 0) {
+    return null;
+  }
 
   return (
     <>
