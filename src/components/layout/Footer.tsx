@@ -25,7 +25,7 @@ export function Footer() {
       <Separator />
 
       <div className="mx-auto max-w-7xl px-8 py-2 md:px-18 md:py-4">
-        <div className="flex flex-col items-center justify-between gap-2 md:flex-row md:gap-0">
+        <div className="flex flex-col flex-wrap items-center justify-between gap-y-2 md:flex-row">
           <div className="flex items-center gap-2">
             <LanguageSelect />
           </div>
@@ -33,7 +33,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
               <a
-                href="https://github.com/ToastHawaii/osm-apps-catalog"
+                href={routes.external.repository()}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t("footer.github")}
@@ -43,21 +43,26 @@ export function Footer() {
                   className="size-5"
                   strokeWidth={2}
                 />
-                <span className="ml-2 hidden sm:inline">
-                  {t("footer.github")}
-                </span>
-                <HugeiconsIcon
-                  className="hidden sm:inline"
-                  icon={ExternalLinkIcon}
-                  strokeWidth={2}
-                />
+                <span className="ms-1">{t("footer.github")}</span>
+                <HugeiconsIcon icon={ExternalLinkIcon} strokeWidth={2} />
               </a>
             </Button>
+          </div>
 
+          <div className="flex items-center justify-end gap-2">
             <Button variant="ghost" size="sm" asChild>
               <a href={routes.docs.privacy()}>{t("footer.privacy")}</a>
             </Button>
-
+            <Button variant="ghost" size="sm" asChild>
+              <a
+                href={routes.external.feedback()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t("footer.feedback")}
+                <HugeiconsIcon icon={ExternalLinkIcon} strokeWidth={2} />
+              </a>
+            </Button>
             <ThemeModeToggle />
           </div>
         </div>
