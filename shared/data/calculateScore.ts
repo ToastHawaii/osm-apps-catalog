@@ -199,7 +199,7 @@ export const Criterias: {
 ];
 
 export function calculateScore(app: App) {
-  // Community Contribution Score (A - E)
+  // Open Community Score (A - E)
   // A >= 8
   // B >= 6
   // C >= 4
