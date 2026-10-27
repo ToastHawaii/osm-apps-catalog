@@ -2,7 +2,7 @@
 
 _Nem csak egy van, hanem több ezer_
 
-Ez a katalógus olyan alkalmazásokat mutat be, amelyek az OpenStreetMap adatait használják. Naponta frissül. Az alkalmazások [közösségi hozzájárulási pontszámuk](/docs/score) alapján vannak értékelve és sorba rendezve.
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
@@ -17,6 +17,7 @@ Az alkalmazás [GNU Affero General Public License v3.0](https://github.com/Toast
 [![GitHub tárhely](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Támogatók
+
 2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/) keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb közönség elérése érdekében](https://github.com/osmfoundation/ewg_bidding/issues/31) című fejlesztéshez.
 
 ## Felelősségi nyilatkozat

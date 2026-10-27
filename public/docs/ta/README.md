@@ -2,7 +2,7 @@
 
 _ஒன்று மட்டும் இல்லை, ஆயிரக்கணக்கில் உள்ளன._
 
-இந்தப் பட்டியல் திறதெருவரைபட தரவைப் பயன்படுத்தும் பயன்பாடுகள் மற்றும் சேவைகளைக் காட்டுகிறது. இது ஒவ்வொரு நாளும் புதுப்பிக்கப்படுகிறது. பயன்பாடுகள் [சமூக பங்களிப்பு மதிப்பெண்](/docs/score) ஆல் மதிப்பிடப்பட்டு வரிசைப்படுத்தப்படுகின்றன.
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
@@ -17,6 +17,7 @@ The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.op
 [![GitHub Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Sponsors
+
 In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## மறுப்பு
