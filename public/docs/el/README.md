@@ -2,7 +2,7 @@
 
 _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες._
 
-Αυτός ο κατάλογος εμφανίζει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές αξιολογούνται και ταξινομούνται βάσει του [Σκορ Συνεισφοράς Κοινότητας](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
 
@@ -17,6 +17,7 @@ _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλ
 [![Αποθετήριο GitHub](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Χορηγοί
+
 Τον Δεκέμβριου του 2025, το **Ίδρυμα OpenStreetMap** χρηματοδότησε την ανάπτυξη του [Επανασχεδιασμού του OSM Apps Catalog για την προσέγγιση ενός ευρύτερου κοινού](https://github.com/osmfoundation/ewg_bidding/issues/31) εντός του πλαισίου του [προγράμματος μικροεπιχορηγήσεων](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Αποποίηση

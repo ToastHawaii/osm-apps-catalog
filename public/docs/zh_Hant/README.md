@@ -2,7 +2,7 @@
 
 _ 這不只一款，而是有上千個_
 
-這份目錄會顯示使用開放街圖資料的程式與服務，每日會更新。這些程式會以[社群貢獻分數](/docs/score)來評分與排序。
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 從[開放街圖 Wiki](https://wiki.openstreetmap.org/wiki/Wiki)、[Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction),、[GitHub](https://en.wikipedia.org/wiki/GitHub) 以及 [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects)整合的 metadata。
 
@@ -17,6 +17,7 @@ _ 這不只一款，而是有上千個_
 [![GitHub 倉櫥](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## 贊助者
+
 2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)的機制贊助 [OSM Apps Catalog 重新設計來接觸更廣大群眾] (https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
 
 ## 聲明

@@ -2,7 +2,7 @@
 
 _Det finns inte bara en, det finns tusentals._
 
-Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data. Den uppdateras varje dag. Apparna är rankade och sorterade av [Community Contribution Score](/docs/score).
+Denna katalog visar applikationer och tjänster som använder OpenStreetMap-data. Den uppdateras varje dag. Apparna är rankade och sorterade av [Open Community Score](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
@@ -17,6 +17,7 @@ Appen är licensierad under [GNU Affero General Public License v3.0](https://git
 [![GitHub Repository](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Sponsors
+
 In December 2025, the **OpenStreetMap foundation** funded the development of [Redesign of the OSM Apps Catalog to reach a wider audience](https://github.com/osmfoundation/ewg_bidding/issues/31) within the frame of the [microgrants program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Ansvarsfriskrivning

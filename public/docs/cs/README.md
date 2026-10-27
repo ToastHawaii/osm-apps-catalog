@@ -2,7 +2,7 @@
 
 _Není jen jeden, jsou jich tisíce._
 
-Tento katalog zobrazuje aplikace a služby, které využívají data OpenStreetMap. Je aktualizován každý den. Aplikace jsou hodnoceny a seřazeny podle [skóre přínosu pro komunitu](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 Metadata pro aplikace jsou shromažďována z [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) a [seznamu projektu Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) a následně zkombinována.
 
@@ -17,6 +17,7 @@ Aplikace je licencována pod [GNU Affero General Public License v3.0](https://gi
 [![Repozitář GitHubu](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Sponzoři
+
 V prosinci 2025 **Nadace OpenStreetMap** financovala vývoj [Redesignu OSM Apps katalogu, aby se dosáhlo širšího publika](https://github.com/osmfoundation/ewg_bidding/issues/31) v rámci [programu mikrograntů](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Odmítnutí odpovědnosti
