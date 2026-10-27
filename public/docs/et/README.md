@@ -2,7 +2,7 @@
 
 _Pole ainult ühte, neid on tuhandeid._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
+See iga päev uuendatav kataloog loetleb rakendusi ja teenuseid, mis kasutavad OpenStreetMapi andmeid. Rakendused on hinnatud ja järjestatud panuse alusel kogukonda - [Open Community Score](/docs/score).
 
 Rakenduste metateave on kogutud järgnevatest allikatest [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) ja [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) ning seejärel kombineeritud.
 
