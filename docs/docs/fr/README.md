@@ -2,7 +2,7 @@
 
 _Il n'y en a pas qu'un, il y en a des milliers._
 
-Ce catalogue présente les applications et services utilisant les données OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées et triées selon le [score de contribution communautaire](/docs/score).
+This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
 
 Les métadonnées relatives aux applications sont collectées à partir de [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) et [la liste du projet Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects), puis regroupées.
 
@@ -17,6 +17,7 @@ L'application est sous licence [GNU Affero General Public License v3.0](https://
 [ ![Dépôt GitHub](/assets/GitHub-Repository-black.svg)](https://github.com/ToastHawaii/osm-apps-catalog)
 
 ## Sponsors
+
 En décembre 2025, la **Fondation OpenStreetMap** a financé le projet [« Refonte du catalogue des applications OSM pour toucher un public plus large »](https://github.com/osmfoundation/ewg_bidding/issues/31) dans le cadre du [programme de micro-subventions](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/).
 
 ## Clause de non-responsabilité

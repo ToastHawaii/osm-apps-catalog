@@ -1,25 +1,18 @@
-# Privacy Policy
+# 隐私政策
 
-The OSM Apps Catalog does not store personal user data.
+OSM 应用目录不存储用户的个人数据。
 
-For anonymized usage statistics, the project uses
-[GoatCounter](https://www.goatcounter.com/), a privacy-friendly analytics
-service. No personally identifiable information is collected. ([Check collected
-usage data](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+为了获取匿名使用统计数据，该项目使用了
+[GoatCounter](https://www.goatcounter.com/)，这是一项注重隐私的分析服务。不会收集任何可识别个人身份的信息。([查看收集的使用数据](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
 
-Some information provided by the user's browser (such as language or platform)
-may be used locally to improve the user experience. This data is processed
-within the browser and is not stored or transmitted to external servers (except
-for anonymized analytics as described above).
+用户浏览器提供的一些信息（例如语言或平台）可能会在本地用于改善用户体验。这些数据在浏览器内进行处理，不会存储或传输至外部服务器（如上文所述的匿名分析除外）。
 
-The website is hosted on Github Pages. The [GitHub documentation on GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-says:
+本网站托管在 GitHub Pages 上。[关于 GitHub Pages 的 GitHub
+文档](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+指出：
 
-> ## Data collection
+> ## 数据收集
 > 
-> When a GitHub Pages site is visited, the visitor's IP address is logged and
-> stored for security purposes, regardless of whether the visitor has signed
-> into GitHub or not. For more information about GitHub's security practices,
-> see [GitHub Privacy
-> Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+> 访问 GitHub Pages 网站时，无论访问者是否已登录 GitHub，出于安全目的，访问者的 IP 地址都会被记录并存储。有关 GitHub
+> 安全实践的更多信息，请参阅 [GitHub 隐私声明]
+> (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)。
