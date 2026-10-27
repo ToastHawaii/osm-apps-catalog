@@ -102,10 +102,16 @@ export default function Layout() {
       <AppStateProvider>
         <AppsFundingStateProvider>
           <ScrollRestoration />
-          <div id="content">
-            <Header />
-            <Outlet />
-            <Footer />
+          <div id="content" className="flex flex-col">
+            <div>
+              <Header />
+            </div>
+            <div className="grow">
+              <Outlet />
+            </div>
+            <div>
+              <Footer />
+            </div>
           </div>
         </AppsFundingStateProvider>
       </AppStateProvider>

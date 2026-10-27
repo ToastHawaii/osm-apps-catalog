@@ -42,7 +42,7 @@ export function Header() {
 
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
-      <div className="flex px-1 py-2 md:px-8 md:py-4">
+      <header className="flex px-1 py-2 md:px-8 md:py-4">
         {showBackButton && (
           <Button variant="ghost" onClick={() => history.back()}>
             <HugeiconsIcon
@@ -153,7 +153,7 @@ export function Header() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-      </div>
+      </header>
       <Separator />
     </div>
   );

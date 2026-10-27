@@ -24,7 +24,7 @@ export function Footer() {
     <>
       <Separator />
 
-      <div className="mx-auto max-w-7xl px-8 py-2 md:px-18 md:py-4">
+      <footer className="mx-auto max-w-7xl px-8 py-2 md:px-18 md:py-4">
         <div className="flex flex-col flex-wrap items-center justify-between gap-y-2 md:flex-row">
           <div className="flex items-center gap-2">
             <LanguageSelect />
@@ -66,7 +66,7 @@ export function Footer() {
             <ThemeModeToggle />
           </div>
         </div>
-      </div>
+      </footer>
     </>
   );
 }
