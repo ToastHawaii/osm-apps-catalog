@@ -15,6 +15,7 @@ import { getAsin } from "@shared/utils/links/getAsin";
 import { getFDroid } from "@shared/utils/links/getFDroid";
 import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
 import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
+import { featureFlags } from "../../../featureFlags";
 
 export function toSchemaOrg(app: App) {
   return JSON.stringify({
@@ -56,19 +57,21 @@ export function toSchemaOrg(app: App) {
           price: "0",
         }
       : undefined,
-    review: {
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        bestRating: "10",
-        worstRating: "0",
-        ratingValue: round(app.score),
-      },
-      author: {
-        "@type": "Organization",
-        name: "OSM Apps Catalog",
-        url: "https://osm-apps.org/",
-      },
-    },
+    review: featureFlags.addScoreToSchemaOrg
+      ? {
+          "@type": "Review",
+          reviewRating: {
+            "@type": "Rating",
+            bestRating: "10",
+            worstRating: "0",
+            ratingValue: round(app.score),
+          },
+          author: {
+            "@type": "Organization",
+            name: "OSM Apps Catalog",
+            url: "https://osm-apps.org/",
+          },
+        }
+      : undefined,
   });
 }
