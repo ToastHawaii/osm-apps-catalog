@@ -2,7 +2,7 @@
 
 _There isn't just one, there are thousands._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
+Questo catalogo mostra applicazioni e servizi che usano i dati di OpenStreetMap. Viene aggiornato quotidianamente. Le app sono valutate e ordinate secondo il [Open Community Score](/docs/score).
 
 The metadata for the apps is collected from [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) and [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) and combined.
 
