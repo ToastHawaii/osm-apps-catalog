@@ -1,28 +1,43 @@
 # Datenschutzerklärung
 
-Der OSM-App-Katalog speichert keine personenbezogenen Nutzerdaten.
+The OSM Apps Catalog does not store personal data itself. However, third-party
+services used for hosting, usage analytics, and feedback may process certain
+information, as described below.
 
-Für anonymisierte Nutzungsstatistiken nutzt das Projekt
-[GoatCounter](https://www.goatcounter.com/), einen datenschutzfreundlichen
-Analysedienst. Es werden keine personenbezogenen Daten erfasst. ([Erfasste
-Nutzungsdaten
-einsehen](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+## Usage Analytics
 
-Bestimmte Informationen, die vom Browser des Nutzers bereitgestellt werden (wie
-beispielsweise Sprache oder Plattform), können lokal verwendet werden, um das
-Nutzungserlebnis zu verbessern. Diese Daten werden innerhalb des Browsers
-verarbeitet und weder gespeichert noch an externe Server übermittelt (mit
-Ausnahme der oben beschriebenen anonymisierten Analysen).
+The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
+analytics service, to collect usage statistics.
 
-Die Website wird auf GitHub Pages gehostet. In den [Nutzungsinformationen zu
-GitHub
-Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-heißt es:
+You can view the collected statistics in the [OSM Apps Catalog usage
+statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-> ## Datenerhebung
-> 
-> Wenn eine GitHub Pages-Website aufgerufen wird, wird die IP-Adresse des
-> Besuchers aus Sicherheitsgründen protokolliert und gespeichert, unabhängig
-> davon, ob der Besucher bei GitHub angemeldet ist oder nicht. Weitere
-> Informationen zu den Sicherheitsmaßnahmen von GitHub finden Sie in der
-> [GitHub-Datenschutzerklärung](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+## Browser-Side Processing
+
+Some browser information, such as language and platform, may be processed
+locally to improve the user experience. This information is not stored by the
+project or transmitted to external servers for this purpose.
+
+## Hosting
+
+The website is hosted on GitHub Pages. According to [GitHub's
+documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
+GitHub logs visitors' IP addresses for security purposes.
+
+For more information, see the [GitHub Privacy
+Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+## Feedback
+
+The project uses Formbricks Cloud to collect feedback through the "Give
+Feedback" feature.
+
+Survey responses are collected without storing respondents' IP addresses,
+country information, or device data. Providing an email address is optional and
+allows the project maintainer to respond to feedback.
+
+The maintainer deletes feedback after reviewing it. Deleted responses are
+permanently removed from Formbricks' backups within 90 days.
+
+For more information about how the survey provider processes data, see the
+[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).
