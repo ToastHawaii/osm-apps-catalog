@@ -55,12 +55,11 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="sm" asChild>
               <a
-                href={routes.external.feedback()}
+                href={routes.docs.feedback()}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {t("footer.feedback")}
-                <HugeiconsIcon icon={ExternalLinkIcon} strokeWidth={2} />
               </a>
             </Button>
             <ThemeModeToggle />

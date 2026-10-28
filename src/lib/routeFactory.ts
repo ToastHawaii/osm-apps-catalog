@@ -58,13 +58,10 @@ export function routeFactory(domain?: string, language?: string) {
           : "/docs/privacy";
       },
       score: () => "/docs/score",
+      feedback: () => "/docs/feedback",
     },
     external: {
       repository: () => "https://github.com/ToastHawaii/osm-apps-catalog",
-      feedback: (query?: { lang?: string }) => {
-        const lang = query?.lang || language;
-        return `https://app.formbricks.com/s/cmvmged2vfy8j01ssyrykgta6${lang ? `?lang=${lang}` : ""}`;
-      },
     },
   };
 }
