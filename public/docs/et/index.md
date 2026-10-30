@@ -1,6 +1,6 @@
 ---
-title: "About"
-description: "There isn't just one, there are thousands."
+title: "Teave"
+description: "Pole ainult ühte, neid on tuhandeid."
 ---
 
 # Teave OSM rakenduste kataloogi kohta
