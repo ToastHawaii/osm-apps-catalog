@@ -1,6 +1,6 @@
 ---
-title: "About"
-description: "There isn't just one, there are thousands."
+title: "Über"
+description: "Es gibt nicht nur eine, sondern Tausende."
 ---
 
 # Über den OSM Apps Katalog
