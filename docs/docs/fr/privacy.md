@@ -1,3 +1,8 @@
+---
+title: "Politique de confidentialité"
+description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+---
+
 # Politique de confidentialité
 
 The OSM Apps Catalog does not store personal data itself. However, third-party

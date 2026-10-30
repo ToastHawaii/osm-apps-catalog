@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "Il n'y en a pas qu'un, il y en a des milliers."
+---
+
 # À propos du catalogue des applications d'OSM
 
 _Il n'y en a pas qu'un, il y en a des milliers._
