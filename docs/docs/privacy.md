@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback"
+description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
 ---
 
 # Privacy Policy

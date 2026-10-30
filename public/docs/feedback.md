@@ -1,6 +1,6 @@
 ---
 title: "Feedback"
-description: "Feedback form for submitting comments and suggestions about the OSM Apps Catalog"
+description: "Feedback form for submitting comments and suggestions about the OSM Apps Catalog."
 ---
 
   <iframe
