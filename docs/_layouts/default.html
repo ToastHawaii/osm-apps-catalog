@@ -1,12 +1,10 @@
 {% assign parts = page.url | split: "/" %}
 
-{% assign lang = parts[1] | default: "en" %}
+{% assign lang = parts[0] | default: "en" %}
 
-{% assign path = parts[2] %}
-{% if path == nil or path == "" %}
-  {% assign path = "/docs" %}
-{% else %}
-  {% assign path = "/docs/" | append: path %}
+{% assign path = "/docs" %}
+{% if parts[2] != nil and parts[2] != "" %}
+  {% assign path = path | append: "/" | append: parts[2] | remove: ".html" %}
 {% endif %}
 
 <!DOCTYPE html>
@@ -54,7 +52,8 @@
   <script src="/serviceWorkerRegister.js"></script>
 
   <script data-goatcounter="https://osm-apps.goatcounter.com/count"
-          data-goatcounter-settings='{"path": "{{ path }}"}' async src="//gc.zgo.at/count.js"></script>
+          data-goatcounter-settings='{"path": "{{ path }}"}' async
+          src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
