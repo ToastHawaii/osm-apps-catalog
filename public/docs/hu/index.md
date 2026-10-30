@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "Nem csak egy van, hanem több ezer"
 ---
 
 # OSM Apps Catalog – névjegy
