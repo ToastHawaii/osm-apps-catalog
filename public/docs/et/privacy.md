@@ -1,9 +1,9 @@
 ---
-title: "Privacy Policy"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+title: "Andmekaitsepõhimõtted"
+description: "Andmekaitsepõhimõtted, milles selgitatakse andmete kogumist ja töötlemist kolmandate osapoolte teenuste poolt, mida kasutatakse analüütika, veebimajutuse ja tagasiside eesmärgil."
 ---
 
-# Privacy Policy
+# Andmekaitsepõhimõtted
 
 OSM-i rakenduste kataloog (OSM Apps Catalog) ise isikuandmeid ei säilita. Siiski
 võivad hostingut, kasutamisanalüüsi ja tagasiside kogumist pakkuvad kolmandate
