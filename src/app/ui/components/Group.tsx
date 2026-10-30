@@ -6,7 +6,11 @@ import { Param } from "./Param";
 import { notNo } from "@shared/utils/string";
 import { App } from "@shared/data/App";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import {
+  ArrowDown01Icon,
+  ArrowRight01Icon,
+  Share08Icon,
+} from "@hugeicons/core-free-icons";
 
 export function Group({
   id,
@@ -122,8 +126,13 @@ ${wikiTable}`);
                 alert(t("share.wiki", { group: display }));
               }}
             >
-              <i className="fas fa-share-alt"></i>
-            </a>{" "}
+              <HugeiconsIcon
+                icon={Share08Icon}
+                className="inline-block"
+                strokeWidth={2}
+                size={20}
+              />
+            </a>
           </div>
         </div>
         {!hidden && elements}

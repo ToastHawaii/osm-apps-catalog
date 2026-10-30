@@ -1,7 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { AppStoreIcon } from "@hugeicons/core-free-icons";
+
 import { App } from "@shared/data/App";
-import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
+import { useGoatCounterEvents } from "@hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
 import { ExternalLink } from "@components/common/ExternalLink";
 import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
@@ -24,13 +27,15 @@ export function AppleStoreLink({ app }: { app: App }) {
       className="download"
       href={link}
       title={t("app.install.appleStore")}
-      data-goatcounter-click={`/app/download${
-        contribute(app) ? "?category=edit" : ""
-      }`}
+      data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <i className="fab fa-app-store-ios fa-fw"></i>
+      <HugeiconsIcon
+        icon={AppStoreIcon}
+        strokeWidth={2}
+        className="inline-block"
+      />
     </ExternalLink>
   );
 }

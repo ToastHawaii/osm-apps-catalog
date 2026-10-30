@@ -1,4 +1,6 @@
 import React from "react";
+import { Pen, AddSquareIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export function SourceDisplayText({
   name,
@@ -8,9 +10,19 @@ export function SourceDisplayText({
   create?: boolean | undefined;
 }) {
   const icon = !create ? (
-    <i className="fas fa-pen"></i>
+    <HugeiconsIcon
+      className="inline-block"
+      icon={Pen}
+      strokeWidth={2}
+      size={16}
+    />
   ) : (
-    <i className="fas fa-plus"></i>
+    <HugeiconsIcon
+      className="inline-block"
+      icon={AddSquareIcon}
+      strokeWidth={2}
+      size={16}
+    />
   );
 
   switch (name) {

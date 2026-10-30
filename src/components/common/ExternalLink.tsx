@@ -4,17 +4,20 @@ import { cn } from "@lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-const externalLinkVariants = cva("underline-offset-4 hover:underline", {
-  variants: {
-    variant: {
-      default: "text-primary",
-      muted: "text-muted-foreground",
+const externalLinkVariants = cva(
+  "underline-offset-4 hover:underline align-middle",
+  {
+    variants: {
+      variant: {
+        default: "text-primary",
+        muted: "text-muted-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
     },
   },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+);
 
 export function ExternalLink({
   className,

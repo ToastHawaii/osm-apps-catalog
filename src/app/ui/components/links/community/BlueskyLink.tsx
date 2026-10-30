@@ -1,5 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { BlueskyIcon } from "@hugeicons/core-free-icons";
+
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { ExternalLink } from "@components/common/ExternalLink";
@@ -25,7 +28,11 @@ export function BlueskyLink({ app }: { app: App }) {
       data-goatcounter-title="Follows a community link of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <img src="/assets/bluesky.svg" style={{ height: "18px" }} alt="Bluesky" />
+      <HugeiconsIcon
+        icon={BlueskyIcon}
+        strokeWidth={2}
+        className="inline-block"
+      />
     </ExternalLink>
   );
 }

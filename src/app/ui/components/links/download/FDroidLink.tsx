@@ -1,5 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CopyleftIcon } from "@hugeicons/core-free-icons";
+
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
@@ -22,13 +25,15 @@ export function FDroidLink({ app }: { app: App }) {
       className="download"
       href={link}
       title={t("app.install.fDroid")}
-      data-goatcounter-click={`/app/download${
-        contribute(app) ? "?category=edit" : ""
-      }`}
+      data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <i className="fab fa-android fa-fw"></i>
+      <HugeiconsIcon
+        icon={CopyleftIcon}
+        strokeWidth={2}
+        className="inline-block"
+      />
     </ExternalLink>
   );
 }

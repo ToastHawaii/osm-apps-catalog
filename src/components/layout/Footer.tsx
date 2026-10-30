@@ -54,13 +54,7 @@ export function Footer() {
               <a href={routes.docs.privacy()}>{t("footer.privacy")}</a>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <a
-                href={routes.docs.feedback()}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("footer.feedback")}
-              </a>
+              <a href={routes.docs.feedback()}>{t("footer.feedback")}</a>
             </Button>
             <ThemeModeToggle />
           </div>

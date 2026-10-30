@@ -1,7 +1,11 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { some } from "lodash";
-import { Alert02Icon, LanguageSkillIcon } from "@hugeicons/core-free-icons";
+import {
+  Alert02Icon,
+  LanguageSkillIcon,
+  SourceCodeIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import { Badges } from "../../ui/components/Badges";
@@ -121,8 +125,8 @@ export function Compare({
                     <FDroidLink app={app} />
                     <ObtainiumLink app={app} />
                     <GooglePlayLink app={app} />
-                    <AsinLink app={app} />
                     <HuaweiAppGalleryLink app={app} />
+                    <AsinLink app={app} />
                     <AppleStoreLink app={app} />
                     <MicrosoftAppLink app={app} />
                   </>
@@ -289,6 +293,7 @@ export function Compare({
                     data-goatcounter-click="/app/translation-contribution"
                     data-goatcounter-title="Goes to the translation contribution page of an app."
                     data-goatcounter-referrer="https://osm-apps.org/"
+                    icon
                   >
                     {app.languages.length > 0 ? (
                       <Badges values={app.languages} />
@@ -300,7 +305,6 @@ export function Compare({
                         size={16}
                       />
                     )}
-                    <i className="fas fa-external-link-alt"></i>
                   </ExternalLink>
                 ) : (
                   <Badges values={app.languages} />
@@ -489,7 +493,7 @@ export function Compare({
                   data-goatcounter-title="Goes to source code of an app."
                   data-goatcounter-referrer="https://osm-apps.org/"
                 >
-                  <i className="fas fa-code"></i>
+                  <HugeiconsIcon icon={SourceCodeIcon} strokeWidth={2} />
                 </ExternalLink>
               ) : null,
             renderToWiki: (app) =>

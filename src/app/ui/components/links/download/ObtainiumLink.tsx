@@ -1,5 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Diamond02Icon } from "@hugeicons/core-free-icons";
+
 import { App } from "@shared/data/App";
 import { useGoatCounterEvents } from "../../../../../hooks/useGoatCounterEvents";
 import { contribute } from "@shared/lib/filters";
@@ -19,16 +22,15 @@ export function ObtainiumLink({ app }: { app: App }) {
       className="download"
       href={app.install.obtainiumLink}
       title={t("app.install.obtainium")}
-      data-goatcounter-click={`/app/download${
-        contribute(app) ? "?category=edit" : ""
-      }`}
+      data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <i
-        className="fas fa-gem fa-fw"
-        style={{ transform: "rotate(315deg)" }}
-      ></i>
+      <HugeiconsIcon
+        icon={Diamond02Icon}
+        strokeWidth={2}
+        className="inline-block rotate-315"
+      />
     </ExternalLink>
   );
 }
