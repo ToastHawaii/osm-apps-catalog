@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "Nem csak egy van, hanem több ezer"
+---
+
 # OSM Apps Catalog – névjegy
 
 _Nem csak egy van, hanem több ezer_

@@ -1,3 +1,8 @@
+---
+title: "Zásady ochrany osobních údajů"
+description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+---
+
 # Zásady ochrany osobních údajů
 
 The OSM Apps Catalog does not store personal data itself. However, third-party

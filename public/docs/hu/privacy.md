@@ -1,10 +1,15 @@
-# Adatvédelmi tájékoztató
+---
+title: "Adatvédelmi irányelvek"
+description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+---
+
+# Adatvédelmi irányelvek
 
 The OSM Apps Catalog does not store personal data itself. However, third-party
 services used for hosting, usage analytics, and feedback may process certain
 information, as described below.
 
-## Usage Analytics
+## Felhasználási elemzések
 
 The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
 analytics service, to collect usage statistics.
@@ -12,7 +17,7 @@ analytics service, to collect usage statistics.
 You can view the collected statistics in the [OSM Apps Catalog usage
 statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-## Browser-Side Processing
+## Böngészőoldali feldolgozás
 
 Some browser information, such as language and platform, may be processed
 locally to improve the user experience. This information is not stored by the
@@ -27,7 +32,7 @@ GitHub logs visitors' IP addresses for security purposes.
 For more information, see the [GitHub Privacy
 Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Feedback
+## Visszajelzés
 
 The project uses Formbricks Cloud to collect feedback through the "Give
 Feedback" feature.

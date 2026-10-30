@@ -1,3 +1,8 @@
+---
+title: "Teave"
+description: "Pole ainult ühte, neid on tuhandeid."
+---
+
 # Teave OSM rakenduste kataloogi kohta
 
 _Pole ainult ühte, neid on tuhandeid._

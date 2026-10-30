@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "There isn't just one, there are thousands."
+---
+
 # About OSM Apps Catalog
 
 _There isn't just one, there are thousands._

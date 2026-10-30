@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "Det finns inte bara en, det finns tusentals."
+---
+
 # Om OSM Apps-katalogen
 
 _Det finns inte bara en, det finns tusentals._

@@ -1,43 +1,50 @@
+---
+title: "Andmekaitsepõhimõtted"
+description: "Andmekaitsepõhimõtted, milles selgitatakse andmete kogumist ja töötlemist kolmandate osapoolte teenuste poolt, mida kasutatakse analüütika, veebimajutuse ja tagasiside eesmärgil."
+---
+
 # Andmekaitsepõhimõtted
 
-The OSM Apps Catalog does not store personal data itself. However, third-party
-services used for hosting, usage analytics, and feedback may process certain
-information, as described below.
+OSM-i rakenduste kataloog (OSM Apps Catalog) ise isikuandmeid ei säilita. Siiski
+võivad hostingut, kasutamisanalüüsi ja tagasiside kogumist pakkuvad kolmandate
+osapoolte teenused töödelda teatud andmeid, nagu allpool kirjeldatud.
 
-## Usage Analytics
+## Veebisaidi kasutuse analüüs
 
-The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
-analytics service, to collect usage statistics.
+Selles projektis on kasutusstatistika jaoks töös
+[GoatCounter](https://www.goatcounter.com/), privaatsussõbralik
+analüütikateenus.
 
-You can view the collected statistics in the [OSM Apps Catalog usage
-statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
+OSM-i rakenduste kataloogi kohta kogutud statistikat [võid näha
+siin](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-## Browser-Side Processing
+## Brauseripoolne andmetöötlus
 
-Some browser information, such as language and platform, may be processed
-locally to improve the user experience. This information is not stored by the
-project or transmitted to external servers for this purpose.
+Mõningaid brauseriandmeid, nagu keel ja platvorm, võidakse kasutajakogemuse
+parandamiseks töödelda kohapeal. Projekti raames ei salvestata neid andmeid ega
+edastata neid sel eesmärgil välistele serveritele.
 
-## Hosting
+## Hostinguteenus
 
-The website is hosted on GitHub Pages. According to [GitHub's
-documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
-GitHub logs visitors' IP addresses for security purposes.
+Sellele veebisaidile pakub majutusteenust GitHub Pages. Vastavalt [GitHubi
+dokumentatsioonile](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
+logib GitHub turvalisuse nimel kasutajate IP-aadresse.
 
-For more information, see the [GitHub Privacy
-Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+Lisateavet leiad [GitHubi Andmekaitsepõhimõtete
+dokumendist](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Feedback
+## Tagasiside
 
-The project uses Formbricks Cloud to collect feedback through the "Give
-Feedback" feature.
+„Jaga tagasisidet“ funktsionaalsuse jaoks on siin saidis kasutusel teenus
+Formbricks Cloud.
 
-Survey responses are collected without storing respondents' IP addresses,
-country information, or device data. Providing an email address is optional and
-allows the project maintainer to respond to feedback.
+Küsitluse vastused kogutakse ilma vastajate IP-aadresse, riigiandmeid või
+seadmeandmeid salvestamata. E-posti aadressi lisamine on vabatahtlik ja
+võimaldab projekti haldajal tagasisidele vastata.
 
-The maintainer deletes feedback after reviewing it. Deleted responses are
-permanently removed from Formbricks' backups within 90 days.
+Serveri haldaja kustutab tagasiside peale selle ülevaatamist. Formbricks
+kustutab vastused varukoopiatest 90 päeva jooksul.
 
-For more information about how the survey provider processes data, see the
-[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).
+Lisateavet selle kohta, kuidas teenusepakkuja töötleb ankeetide andmeid leiad
+[Formbricksi Andmekaitsepõhimõtete
+dokumendist](https://formbricks.com/privacy-policy).
