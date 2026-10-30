@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "這不只一款，而是有上千個"
 ---
 
 # 關於 OSM Apps 目錄
