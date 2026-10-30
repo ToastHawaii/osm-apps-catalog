@@ -1,6 +1,6 @@
 {% assign parts = page.url | split: "/" %}
 
-{% assign lang = parts[0] | default: "en" %}
+{% assign lang = parts[1] | default: "en" %}
 
 {% assign path = "/docs" %}
 {% if parts[2] != nil and parts[2] != "" %}
