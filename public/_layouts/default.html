@@ -4,11 +4,13 @@
 {% assign path = "/docs" %}
 
 {% if parts[2] != nil and parts[2] != "" %}
-  {% assign lang = parts[2] %}
-  {% assign path = path | append: "/" | append: parts[3] | remove: ".html" %}
-{% else %}
-  {% if parts[1] != nil and parts[1] != "" %}
-    {% assign path = path | append: "/" | append: parts[1] | remove: ".html" %}
+  {% if parts[2] contains ".html" %}
+    {% assign path = path | append: "/" | append: parts[2] | remove: ".html" %}
+  {% else %}
+    {% assign lang = parts[2] %}
+    {% if parts[3] != nil and parts[3] != "" %}
+      {% assign path = path | append: "/" | append: parts[3] | remove: ".html" %}
+    {% endif %}
   {% endif %}
 {% endif %}
 
