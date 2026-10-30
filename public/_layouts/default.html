@@ -1,11 +1,22 @@
+{% assign parts = page.url | split: "/" %}
+
+{% assign lang = parts[1] | default: "en" %}
+
+{% assign path = parts[2] %}
+{% if path == nil or path == "" %}
+  {% assign path = "/docs" %}
+{% else %}
+  {% assign path = "/docs/" | append: path %}
+{% endif %}
+
 <!DOCTYPE html>
-<html lang="{{ page.lang }}">
+<html lang="{{ lang }}">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>{{ page.title }}</title>
+  <title>{{ page.title }} – OSM Apps Catalog</title>
   <meta name="description" content="{{ page.description }}" />
 
   <meta name="mobile-web-app-capable" content="yes" />
@@ -43,7 +54,7 @@
   <script src="/serviceWorkerRegister.js"></script>
 
   <script data-goatcounter="https://osm-apps.goatcounter.com/count"
-          data-goatcounter-settings='{"path": "/docs"}' async src="//gc.zgo.at/count.js"></script>
+          data-goatcounter-settings='{"path": "{{ path }}"}' async src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
@@ -59,8 +70,6 @@
   <main class="container-lg px-3 my-5 markdown-body">
     <article>{{ content }}</article>
   </main>
-
-  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
 </body>
 
 </html>

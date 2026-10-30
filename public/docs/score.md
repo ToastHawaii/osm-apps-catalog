@@ -1,3 +1,8 @@
+---
+title: "Open Community Score"
+description: "A rating system from A to E that evaluates how apps in the catalog contribute to the OpenStreetMap community and enable user contributions."
+---
+
 # Open Community Score (Beta)
 
 The Open Community Score is a rating, specially developed for this app catalog.
