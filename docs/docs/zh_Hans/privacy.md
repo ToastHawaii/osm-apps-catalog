@@ -1,18 +1,43 @@
 # 隐私政策
 
-OSM 应用目录不存储用户的个人数据。
+The OSM Apps Catalog does not store personal data itself. However, third-party
+services used for hosting, usage analytics, and feedback may process certain
+information, as described below.
 
-为了获取匿名使用统计数据，该项目使用了
-[GoatCounter](https://www.goatcounter.com/)，这是一项注重隐私的分析服务。不会收集任何可识别个人身份的信息。([查看收集的使用数据](https://osm-apps.goatcounter.com/?hl-period=month&group=day))
+## Usage Analytics
 
-用户浏览器提供的一些信息（例如语言或平台）可能会在本地用于改善用户体验。这些数据在浏览器内进行处理，不会存储或传输至外部服务器（如上文所述的匿名分析除外）。
+The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
+analytics service, to collect usage statistics.
 
-本网站托管在 GitHub Pages 上。[关于 GitHub Pages 的 GitHub
-文档](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
-指出：
+You can view the collected statistics in the [OSM Apps Catalog usage
+statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-> ## 数据收集
-> 
-> 访问 GitHub Pages 网站时，无论访问者是否已登录 GitHub，出于安全目的，访问者的 IP 地址都会被记录并存储。有关 GitHub
-> 安全实践的更多信息，请参阅 [GitHub 隐私声明]
-> (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)。
+## Browser-Side Processing
+
+Some browser information, such as language and platform, may be processed
+locally to improve the user experience. This information is not stored by the
+project or transmitted to external servers for this purpose.
+
+## Hosting
+
+The website is hosted on GitHub Pages. According to [GitHub's
+documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
+GitHub logs visitors' IP addresses for security purposes.
+
+For more information, see the [GitHub Privacy
+Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+## Feedback
+
+The project uses Formbricks Cloud to collect feedback through the "Give
+Feedback" feature.
+
+Survey responses are collected without storing respondents' IP addresses,
+country information, or device data. Providing an email address is optional and
+allows the project maintainer to respond to feedback.
+
+The maintainer deletes feedback after reviewing it. Deleted responses are
+permanently removed from Formbricks' backups within 90 days.
+
+For more information about how the survey provider processes data, see the
+[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).

@@ -26,11 +26,7 @@ export function WebsiteLink({ app }: { app: App }) {
       data-goatcounter-title="Goes to a download page of an app."
       data-goatcounter-referrer="https://osm-apps.org/"
     >
-      <HugeiconsIcon
-        icon={Map}
-        strokeWidth={2}
-        className="inline-block"
-      />
+      <HugeiconsIcon icon={Map} strokeWidth={2} className="inline-block" />
     </ExternalLink>
   );
 }

@@ -2,7 +2,7 @@
 
 _Nem csak egy van, hanem több ezer_
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
+Ez a katalógus OpenStreetMap-adatokat felhasználó alkalmazásokat és szolgáltatásokat mutat be. Naponta frissül. Az alkalmazások az [Open Community Score](/docs/score) alapján vannak értékelve és rangsorolva.
 
 Az alkalmazások metaadatainak forrása: [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) és [Taginfo projektlista](https://wiki.openstreetmap.org/wiki/Taginfo/Projects).
 
