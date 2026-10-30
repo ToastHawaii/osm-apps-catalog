@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες."
 ---
 
 # Σχετικά με το OSM Apps Catalog
