@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "Není jen jeden, jsou jich tisíce."
 ---
 
 # O katalogu aplikací OSM
