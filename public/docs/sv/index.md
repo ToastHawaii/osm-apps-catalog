@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "There isn't just one, there are thousands."
+---
+
 # Om OSM Apps-katalogen
 
 _Det finns inte bara en, det finns tusentals._

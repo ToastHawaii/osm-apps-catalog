@@ -1,3 +1,8 @@
+---
+title: "About"
+description: "There isn't just one, there are thousands."
+---
+
 # Teave OSM rakenduste kataloogi kohta
 
 _Pole ainult ühte, neid on tuhandeid._
