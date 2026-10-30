@@ -23,7 +23,7 @@ Az alkalmazás [GNU Affero General Public License v3.0](https://github.com/Toast
 
 ## Támogatók
 
-2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási program](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/) keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb közönség elérése érdekében](https://github.com/osmfoundation/ewg_bidding/issues/31) című fejlesztéshez.
+2025 decemberében az **OpenStreetMap Alapítvány** a [mikrotámogatási program](https://github.com/osmfoundation/ewg_bidding/issues/31) keretében finanszírozást nyújtott az [OSM Apps Catalog újratervezése a szélesebb közönség elérése érdekében](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/) című fejlesztéshez.
 
 ## Felelősségi nyilatkozat
 

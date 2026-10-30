@@ -23,11 +23,11 @@ This catalog shows apps and services that use OpenStreetMap data. It is updated 
 
 ## 贊助者
 
-2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://blog.openstreetmap.org/2025/12/14/announcing-the-2025-microgrant-program-grantees/)的機制贊助 [OSM Apps Catalog 重新設計來接觸更廣大群眾] (https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
+2025年12月時候，**開放街圖基金會**藉由[微型贊助專案](https://github.com/osmfoundation/ewg_bidding/issues/31)的機制贊助 [OSM Apps Catalog 重新設計來接觸更廣大群眾] (https://github.com/osmfoundation/ewg_bidding/issues/31)的開發工作。
 
 ## 聲明
 
-開放街圖與 OSM 皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會](https://osmfoundation.org/)轄下的相關專案。
+開放街圖與 OSM 皆為開放街圖基金會的註冊商標，都得取得相關授權允許。除了前述提及的一次性贊助專案之外，這項專案並沒有獲得[開放街圖基金會](https://osmfoundation.org/)的推薦或是屬於[開放街圖基金會]{2}轄下的相關專案。
 
 ---
 
