@@ -3,11 +3,9 @@
 {% assign lang = "en" %}
 {% assign path = "/docs" %}
 
-{% if parts[1] == "de" or parts[1] == "en" %}
-  {% assign lang = parts[1] %}
-  {% if parts[2] != nil and parts[2] != "" %}
-    {% assign path = path | append: "/" | append: parts[2] | remove: ".html" %}
-  {% endif %}
+{% if parts[2] != nil and parts[2] != "" %}
+  {% assign lang = parts[2] %}
+  {% assign path = path | append: "/" | append: parts[3] | remove: ".html" %}
 {% else %}
   {% if parts[1] != nil and parts[1] != "" %}
     {% assign path = path | append: "/" | append: parts[1] | remove: ".html" %}
@@ -15,7 +13,7 @@
 {% endif %}
 
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="{{ page.url }}">
 
 <head>
   <meta charset="utf-8" />
