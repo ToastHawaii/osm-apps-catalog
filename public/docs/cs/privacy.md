@@ -1,9 +1,9 @@
 ---
 title: "Privacy Policy"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback"
+description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
 ---
 
-# Zásady ochrany osobních údajů
+# Privacy Policy
 
 The OSM Apps Catalog does not store personal data itself. However, third-party
 services used for hosting, usage analytics, and feedback may process certain
