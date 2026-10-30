@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "Їх не один, їх тисячі."
 ---
 
 # Про каталог програм OSM
