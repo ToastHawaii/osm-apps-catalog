@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "There isn't just one, there are thousands."
+description: "Il n'y en a pas qu'un, il y en a des milliers."
 ---
 
 # À propos du catalogue des applications d'OSM
