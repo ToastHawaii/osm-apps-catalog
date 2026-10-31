@@ -1,48 +1,54 @@
 ---
 title: "Πολιτική Απορρήτου"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+description: "Η πολιτική απορρήτου εξηγεί τη συλλογή δεδομένων και επεξεργασία τους από υπηρεσίες τρίτων μερών που χρησιμοποιούνται για στατιστικές αναλύσεις, φιλοξενία και ανατροφοδότηση."
 ---
 
 # Πολιτική Απορρήτου
 
-The OSM Apps Catalog does not store personal data itself. However, third-party
-services used for hosting, usage analytics, and feedback may process certain
-information, as described below.
+Το ίδιο το OSM Apps Catalog δεν αποθηκεύει προσωπικά δεδομένα. Ωστόσο, υπηρεσίες
+τρίτων μερών που χρησιμοποιούνται για φιλοξενία, στατιστικά χρήσης και
+ανατροφοδότηση, ίσως επεξεργάζονται συγκεκριμένες πληροφορίες, όπως
+περιγράφονται παρακάτω.
 
-## Usage Analytics
+## Στατιστικά χρήσης
 
-The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
-analytics service, to collect usage statistics.
+Το εγχείρημα χρησιμοποιεί το [GoatCounter](https://www.goatcounter.com/), μια
+υπηρεσία στατιστικών αναλύσεων φιλική στο απόρρητο, για συλλογή στατιστικών
+χρήσης.
 
-You can view the collected statistics in the [OSM Apps Catalog usage
-statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
+Μπορείτα να δείτε τα στατιστικά που συλλέγονται στα [στατιστικά χρήσης του OSM
+Apps Catalog](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-## Browser-Side Processing
+## Επεξεργασία από πλευράς περιηγητή
 
-Some browser information, such as language and platform, may be processed
-locally to improve the user experience. This information is not stored by the
-project or transmitted to external servers for this purpose.
+Μερικές πληροφορίες του προγράμματος περιήγησης, όπως η γλώσσα και η πλατφόρμα,
+μπορεί να γίνονται επεξεργασία τοπικά για τη βελτίωση της εμπειρίας χρήστη.
+Αυτές οι πληροφορίες δεν αποθηκεύονται από το εγχείρημα, ούτε μεταδίδονται σε
+εξωτερικούς διακομιστές γι' αυτόν το σκοπό.
 
-## Hosting
+## Φιλοξενία
 
-The website is hosted on GitHub Pages. According to [GitHub's
-documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
-GitHub logs visitors' IP addresses for security purposes.
+Ο ιστότοπος φιλοξενείται στις Σελίδες GitHub. Σύμφωνα με την [τεκμηρίωση του
+GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
+το GitHub καταγράφει τις IP διευθύνσεις των επισκεπτών για λόγους ασφαλείας.
 
-For more information, see the [GitHub Privacy
-Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+Για περισσότερες πληροφορίες, δείτε τη [Δήλωση Απορρήτου
+GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Feedback
+## Ανατροφοδότηση
 
-The project uses Formbricks Cloud to collect feedback through the "Give
-Feedback" feature.
+Το εγχείρημα χρησιμοποιεί το Formbricks Cloud για συλλογή σχολίων μέσω της
+λειτουργίας "Δώστε ανατροφοδότηση".
 
-Survey responses are collected without storing respondents' IP addresses,
-country information, or device data. Providing an email address is optional and
-allows the project maintainer to respond to feedback.
+Οι απαντήσεις της έρευνας συλλέγονται χωρίς να αποθηκεύονται οι IP διευθύνσεις,
+πληροφορία χώρας ή δεδομένα συσκευής των συμμετεχόντων. Το να δώσετε τη
+διεύθυνση email είναι προαιρετικό και επιτρέπει στον προγραμματιστή του
+εγχειρήματος να απαντά στα σχόλια.
 
-The maintainer deletes feedback after reviewing it. Deleted responses are
-permanently removed from Formbricks' backups within 90 days.
+Ο προγραμματιστής διαγράφει τα σχόλια αφότου τα αξιολογήσει. Οι διαγραμμένες
+απαντήσεις αφαιρούνται μόνιμα από τα αντίγραφα ασφαλείας του Formbricks εντός 90
+ημερών.
 
-For more information about how the survey provider processes data, see the
-[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).
+Για περισσότερες πληροφορίες σχετικά με το πώς γίνεται η επεξεργασία δεδομένων
+από τον πάροχο της έρευνας, δείτε την [Πολιτική Απορρήτου
+Formbricks](https://formbricks.com/privacy-policy).
