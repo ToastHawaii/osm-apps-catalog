@@ -1,48 +1,52 @@
 ---
 title: "Adatvédelmi irányelvek"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+description: "Adatvédelmi nyilatkozat, amely ismerteti az elemzés, a tárhelyszolgáltatás és a visszajelzések céljából harmadik féltől igénybe vett szolgáltatásokkal végzett adatgyűjtést és -feldolgozást."
 ---
 
 # Adatvédelmi irányelvek
 
-The OSM Apps Catalog does not store personal data itself. However, third-party
-services used for hosting, usage analytics, and feedback may process certain
-information, as described below.
+Az OSM Apps Catalog önmagában nem tárol személyes adatokat. Azonban a
+tárhelyszolgáltatáshoz, a felhasználási elemzésekhez és a visszajelzésekhez
+igénybe vett harmadik fél által nyújtott szolgáltatások feldolgozhatnak bizonyos
+információkat az alábbiakban leírtak szerint.
 
 ## Felhasználási elemzések
 
-The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
-analytics service, to collect usage statistics.
+A projekt a [GoatCounter](https://www.goatcounter.com/) nevű, adatvédelmi
+szempontból biztonságos elemzési szolgáltatást használja a felhasználási
+statisztika gyűjtésére.
 
-You can view the collected statistics in the [OSM Apps Catalog usage
-statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
+Az összegyűjtött adatokat az [OSM Apps Catalog felhasználási
+statisztikáinál](https://osm-apps.goatcounter.com/?hl-period=month&group=day)
+tekintheted meg.
 
 ## Böngészőoldali feldolgozás
 
-Some browser information, such as language and platform, may be processed
-locally to improve the user experience. This information is not stored by the
-project or transmitted to external servers for this purpose.
+Egyes böngészőadatok – például a nyelv és a platform – helyileg feldolgozhatók a
+felhasználói élmény javítása érdekében. Ezeket az adatokat a projekt nem
+tárolja, és ilyen célból nem továbbítja külső szerverekre sem.
 
-## Hosting
+## Tárhelyszolgáltatás
 
-The website is hosted on GitHub Pages. According to [GitHub's
-documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
-GitHub logs visitors' IP addresses for security purposes.
+A webhelyet a GitHub Pages tárolja. A [GitHub
+dokumentációja](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)
+szerint a GitHub biztonsági okokból naplózza a látogatók IP-címét.
 
-For more information, see the [GitHub Privacy
-Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+További információkért lásd a [GitHub adatvédelmi
+nyilatkozatát](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 ## Visszajelzés
 
-The project uses Formbricks Cloud to collect feedback through the "Give
-Feedback" feature.
+A projekt „Visszajelzés” funkciója a Formbricks Cloud szolgáltatást használja.
 
-Survey responses are collected without storing respondents' IP addresses,
-country information, or device data. Providing an email address is optional and
-allows the project maintainer to respond to feedback.
+A felmérésekre adott válaszok összegyűjtése során nem tárolódnak a válaszadók
+IP-címei, országra vonatkozó adatai vagy eszközadatai. Az e-mail-cím megadása
+nem kötelező, ám a projekt felelőse csak így válaszolhat a visszajelzésekre.
 
-The maintainer deletes feedback after reviewing it. Deleted responses are
-permanently removed from Formbricks' backups within 90 days.
+Miután áttekintette őket, a rendszergazda törli az értékeléseket. A törölt
+válaszok 90 napon belül a Formbricks biztonsági másolataiból is véglegesen
+eltávolíttatnak.
 
-For more information about how the survey provider processes data, see the
-[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).
+Ha többet szeretnél megtudni arról, hogy a felmérés szolgáltatója hogyan kezeli
+az adatokat, olvasd el a [Formbricks adatvédelmi
+irányelveit](https://formbricks.com/privacy-policy).
