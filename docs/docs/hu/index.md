@@ -1,11 +1,11 @@
 ---
-title: "About"
-description: "Nem csak egy van, hanem több ezer"
+title: "Névjegy"
+description: "Nem csak egy; több ezer."
 ---
 
 # OSM Apps Catalog – névjegy
 
-_Nem csak egy van, hanem több ezer_
+_Nem csak egy; több ezer_
 
 Ez a katalógus OpenStreetMap-adatokat felhasználó alkalmazásokat és szolgáltatásokat mutat be. Naponta frissül. Az alkalmazások az [Open Community Score](/docs/score) alapján vannak értékelve és rangsorolva.
 
