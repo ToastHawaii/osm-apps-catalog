@@ -51,10 +51,10 @@ export function Footer() {
 
           <div className="flex items-center justify-end gap-2">
             <Button variant="ghost" size="sm" asChild>
-              <a href={routes.docs.privacy()}>{t("footer.privacy")}</a>
+              <a href={routes.docs.feedback()}>{t("footer.feedback")}</a>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <a href={routes.docs.feedback()}>{t("footer.feedback")}</a>
+              <a href={routes.docs.privacy()}>{t("footer.privacy")}</a>
             </Button>
             <ThemeModeToggle />
           </div>
