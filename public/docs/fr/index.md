@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "À propos"
 description: "Il n'y en a pas qu'un, il y en a des milliers."
 ---
 
@@ -7,7 +7,7 @@ description: "Il n'y en a pas qu'un, il y en a des milliers."
 
 _Il n'y en a pas qu'un, il y en a des milliers._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
+Ce catalogue présente les applications et les services qui utilisent les données d'OpenStreetMap. Il est mis à jour quotidiennement. Les applications sont notées et classées selon l'[Open Community Score](/docs/score).
 
 Les métadonnées relatives aux applications sont collectées à partir de [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) et [la liste du projet Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects), puis regroupées.
 
