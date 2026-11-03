@@ -1,48 +1,55 @@
 ---
 title: "Politique de confidentialité"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+description: "Politique de confidentialité décrivant la collecte et le traitement des données par des services tiers utilisés à des fins d'analyse, d'hébergement et de recueil d'avis."
 ---
 
 # Politique de confidentialité
 
-The OSM Apps Catalog does not store personal data itself. However, third-party
-services used for hosting, usage analytics, and feedback may process certain
-information, as described below.
+Le catalogue d'applications OSM ne stocke pas lui-même de données à caractère
+personnel. Toutefois, les services tiers utilisés pour l'hébergement, l'analyse
+de l'utilisation et les retours d'expérience peuvent traiter certaines
+informations, comme décrit ci-dessous.
 
-## Usage Analytics
+## Analyse de l'utilisation
 
-The project uses [GoatCounter](https://www.goatcounter.com/), a privacy-friendly
-analytics service, to collect usage statistics.
+Le projet utilise [GoatCounter](https://www.goatcounter.com/), un service
+d'analyse respectueux de la vie privée, pour collecter des statistiques
+d'utilisation.
 
-You can view the collected statistics in the [OSM Apps Catalog usage
-statistics](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
+Vous pouvez consulter les statistiques recueillies dans les [statistiques
+d'utilisation du catalogue OSM
+Apps](https://osm-apps.goatcounter.com/?hl-period=month&group=day).
 
-## Browser-Side Processing
+## Traitement côté navigateur
 
-Some browser information, such as language and platform, may be processed
-locally to improve the user experience. This information is not stored by the
-project or transmitted to external servers for this purpose.
+Certaines informations relatives au navigateur, telles que la langue et la
+plateforme, peuvent être traitées localement afin d'améliorer l'expérience
+utilisateur. Ces informations ne sont ni stockées par le projet ni transmises à
+des serveurs externes à cette fin.
 
-## Hosting
+## Hébergement
 
-The website is hosted on GitHub Pages. According to [GitHub's
-documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
-GitHub logs visitors' IP addresses for security purposes.
+Le site web est hébergé sur GitHub Pages. Selon la [documentation de
+GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection),
+GitHub enregistre les adresses IP des visiteurs à des fins de sécurité.
 
-For more information, see the [GitHub Privacy
-Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+Pour plus d'informations, consultez la [Déclaration de confidentialité de
+GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Feedback
+## Commentaires
 
-The project uses Formbricks Cloud to collect feedback through the "Give
-Feedback" feature.
+Le projet utilise Formbricks Cloud pour recueillir les commentaires des
+utilisateurs via la fonctionnalité « Donner son avis ».
 
-Survey responses are collected without storing respondents' IP addresses,
-country information, or device data. Providing an email address is optional and
-allows the project maintainer to respond to feedback.
+Les réponses au sondage sont recueillies sans que les adresses IP des
+participants, les informations relatives à leur pays ou les données relatives à
+leur appareil ne soient enregistrées. La fourniture d'une adresse e-mail est
+facultative et permet au responsable du projet de répondre aux commentaires.
 
-The maintainer deletes feedback after reviewing it. Deleted responses are
-permanently removed from Formbricks' backups within 90 days.
+Le modérateur supprime les commentaires après les avoir examinés. Les réponses
+supprimées sont définitivement effacées des sauvegardes de Formbricks dans un
+délai de 90 jours.
 
-For more information about how the survey provider processes data, see the
-[Formbricks Privacy Policy](https://formbricks.com/privacy-policy).
+Pour plus d'informations sur la manière dont le prestataire chargé de l'enquête
+traite les données, consultez la [Politique de confidentialité de
+Formbricks](https://formbricks.com/privacy-policy).
