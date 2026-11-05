@@ -149,7 +149,9 @@ export function transform(result: any) {
       microsoftAppID: result.microsoft?.value,
     },
     hasGoal: {
-      crowdsourcingStreetLevelImagery: result.streetImg,
+      crowdsourcingStreetLevelImagery: result.streetImg
+        ? result.streetImg.value === "y"
+        : undefined,
     },
     community: {
       forum: result.forum?.value || result.forumDef?.value,
