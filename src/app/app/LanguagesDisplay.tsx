@@ -20,49 +20,106 @@ import {
   Popover,
 } from "@components/ui/popover";
 
+function isWeblateUrl(urlString: string) {
+  const url = new URL(urlString);
+
+  return ["hosted.weblate.org"].includes(url.hostname.toLowerCase());
+}
+
+function convertToWeblateBadgeUrl(url: string) {
+  const urlObj = new URL(url);
+  const pathParts = urlObj.pathname.split("/").filter(Boolean);
+
+  if (pathParts.length >= 2 && pathParts[0] === "projects") {
+    const project = pathParts[1];
+    const subProject = pathParts.length >= 3 ? pathParts[2] : undefined;
+
+    if (subProject) {
+      return `https://hosted.weblate.org/widget/${project}/${subProject}/svg-badge.svg?capitalize=1`;
+    }
+    return `https://hosted.weblate.org/widget/${project}/svg-badge.svg?capitalize=1`;
+  }
+
+  if (pathParts.length >= 1 && pathParts[0] === "engage") {
+    const project = pathParts[1];
+    return `https://hosted.weblate.org/widget/${project}/svg-badge.svg?capitalize=1`;
+  }
+
+  return undefined;
+}
+
+function WeblateBadge({ url }: { url: string }) {
+  const { t } = useTranslation();
+
+  const badgeUrl = convertToWeblateBadgeUrl(url);
+
+  if (!badgeUrl) {
+    return null;
+  }
+
+  return (
+    <img
+      className="inline"
+      src={badgeUrl}
+      alt={t("footer.languageSelectTranslationBadgeAlt")}
+    />
+  );
+}
+
 function TranslationContribute({
-  app,
+  languagesUrl,
   userLanguage,
 }: {
-  app: App;
+  languagesUrl: string;
   userLanguage: string;
 }) {
   const { t } = useTranslation();
 
   return (
-    <span className="inline-flex items-center gap-1">
-      <ExternalLink
-        href={app.languagesUrl}
-        data-goatcounter-click="/app/translation-contribution"
-        data-goatcounter-title="Goes to the translation contribution page of an app."
-        data-goatcounter-referrer="https://osm-apps.org/"
-        icon
-      >
-        {" "}
-        {!userLanguage && equalsIgnoreCase(userLanguage, "en")
-          ? t("app.helpTranslate")
-          : t("app.helpTranslateTo")}
-      </ExternalLink>{" "}
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            className="p-1"
-            size="xs"
-            title={t("app.helpTranslate.hint.label")}
-          >
-            <HugeiconsIcon
-              className="size-4"
-              icon={InformationCircleIcon}
-              aria-label={t("app.helpTranslate.hint.label")}
-            />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent align="center" className="w-60 whitespace-pre-line">
-          {t("app.helpTranslate.hint.text")}
-        </PopoverContent>
-      </Popover>
-    </span>
+    <>
+      {isWeblateUrl(languagesUrl) && (
+        <a
+          href={languagesUrl}
+          data-goatcounter-click="/app/translation-contribution"
+          data-goatcounter-title="Goes to the translation contribution page of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+        >
+          <WeblateBadge url={languagesUrl} />
+        </a>
+      )}
+      <span className="inline-flex items-center gap-1">
+        <ExternalLink
+          href={languagesUrl}
+          data-goatcounter-click="/app/translation-contribution"
+          data-goatcounter-title="Goes to the translation contribution page of an app."
+          data-goatcounter-referrer="https://osm-apps.org/"
+          icon
+        >
+          {!userLanguage && equalsIgnoreCase(userLanguage, "en")
+            ? t("app.helpTranslate")
+            : t("app.helpTranslateTo")}
+        </ExternalLink>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              className="p-1"
+              size="xs"
+              title={t("app.helpTranslate.hint.label")}
+            >
+              <HugeiconsIcon
+                className="size-4"
+                icon={InformationCircleIcon}
+                aria-label={t("app.helpTranslate.hint.label")}
+              />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="center" className="w-60 whitespace-pre-line">
+            {t("app.helpTranslate.hint.text")}
+          </PopoverContent>
+        </Popover>
+      </span>
+    </>
   );
 }
 
@@ -94,7 +151,10 @@ export function LanguageDisplay({ app }: { app: App }) {
         {!!app.languagesUrl && (
           <>
             {" "}
-            <TranslationContribute app={app} userLanguage={userLanguages[0]} />
+            <TranslationContribute
+              languagesUrl={app.languagesUrl}
+              userLanguage={userLanguages[0]}
+            />
           </>
         )}
       </>
@@ -120,7 +180,10 @@ export function LanguageDisplay({ app }: { app: App }) {
         </PopoverHeader>
         {appLanguages.join(", ")}
         {!!app.languagesUrl && (
-          <TranslationContribute app={app} userLanguage={userLanguages[0]} />
+          <TranslationContribute
+            languagesUrl={app.languagesUrl}
+            userLanguage={userLanguages[0]}
+          />
         )}
       </PopoverContent>
     </Popover>
