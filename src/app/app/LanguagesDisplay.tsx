@@ -23,26 +23,28 @@ import {
 function isWeblateUrl(urlString: string) {
   const url = new URL(urlString);
 
-  return ["hosted.weblate.org"].includes(url.hostname.toLowerCase());
+  return ["hosted.weblate.org", "translate.codeberg.org"].includes(
+    url.hostname.toLowerCase(),
+  );
 }
 
-function convertToWeblateBadgeUrl(url: string) {
-  const urlObj = new URL(url);
-  const pathParts = urlObj.pathname.split("/").filter(Boolean);
+function convertToWeblateBadgeUrl(urlString: string) {
+  const url = new URL(urlString);
+  const pathParts = url.pathname.split("/").filter(Boolean);
 
   if (pathParts.length >= 2 && pathParts[0] === "projects") {
     const project = pathParts[1];
     const subProject = pathParts.length >= 3 ? pathParts[2] : undefined;
 
     if (subProject) {
-      return `https://hosted.weblate.org/widget/${project}/${subProject}/svg-badge.svg?capitalize=1`;
+      return `https://${url.hostname}/widget/${project}/${subProject}/svg-badge.svg?capitalize=1`;
     }
-    return `https://hosted.weblate.org/widget/${project}/svg-badge.svg?capitalize=1`;
+    return `https://${url.hostname}/widget/${project}/svg-badge.svg?capitalize=1`;
   }
 
   if (pathParts.length >= 1 && pathParts[0] === "engage") {
     const project = pathParts[1];
-    return `https://hosted.weblate.org/widget/${project}/svg-badge.svg?capitalize=1`;
+    return `https://${url.hostname}/widget/${project}/svg-badge.svg?capitalize=1`;
   }
 
   return undefined;
@@ -58,11 +60,7 @@ function WeblateBadge({ url }: { url: string }) {
   }
 
   return (
-    <img
-      className="inline"
-      src={badgeUrl}
-      alt={t("footer.languageSelectTranslationBadgeAlt")}
-    />
+    <img className="inline" src={badgeUrl} alt={t("app.translationStatus")} />
   );
 }
 

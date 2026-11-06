@@ -160,6 +160,7 @@
   "app.tag.feature.routing-wheelchair": "Route planning for wheelchairs",
   "app.tag.feature.upload-track": "Contribute track to OSM",
   "app.tag.feature.voice-guidance": "Navigation with voice",
+  "app.translationStatus": "Translation status",
   "app.unmaintained": "(<icon/> Unmaintained)",
   "app.unmaintained.wiki": "({{icon}} Unmaintained)",
   "app.website": "Website",
