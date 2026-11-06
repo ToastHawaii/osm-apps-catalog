@@ -160,6 +160,7 @@
   "app.tag.feature.routing-wheelchair": "輪椅路徑規劃",
   "app.tag.feature.upload-track": "貢獻軌跡到 OSM",
   "app.tag.feature.voice-guidance": "語音導航",
+  "app.translationStatus": "翻譯進度",
   "app.unmaintained": "（<icon/> 未維護）",
   "app.unmaintained.wiki": "（{{icon}} 未維護）",
   "app.website": "網站",
