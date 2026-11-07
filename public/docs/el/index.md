@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "Σχετικά με"
 description: "Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες."
 ---
 
@@ -7,7 +7,7 @@ description: "Δεν υπάρχει μόνο μία εφαρμογή, υπάρχ
 
 _Δεν υπάρχει μόνο μία εφαρμογή, υπάρχουν χιλιάδες._
 
-This catalog shows apps and services that use OpenStreetMap data. It is updated every day. The apps are rated and sorted by the [Open Community Score](/docs/score).
+Αυτός ο κατάλογος δείχνει εφαρμογές και υπηρεσίες που χρησιμοποιούν δεδομένα OpenStreetMap. Ενημερώνεται κάθε μέρα. Οι εφαρμογές βαθμολογούνται και ταξινομούνται βάσει του [Σκορ Ανοιχτής Κοινότητας](/docs/score).
 
 Τα μεταδεδομένα για τις εφαρμογές έχουν συλλεχθεί από [OpenStreetMap Wiki](https://wiki.openstreetmap.org/wiki/Wiki), [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction), [GitHub](https://en.wikipedia.org/wiki/GitHub) και [λίστα εγχειρημάτων του Taginfo](https://wiki.openstreetmap.org/wiki/Taginfo/Projects) και συνδυάστηκαν.
 
