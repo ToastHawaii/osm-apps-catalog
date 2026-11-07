@@ -46,7 +46,7 @@
   "app.contribute.activity.rateAndReview.appleAppStore": "Αξιολογήστε στο App Store της Apple",
   "app.contribute.activity.rateAndReview.asin": "Αξιολογήστε στο Amazon AppStore",
   "app.contribute.activity.rateAndReview.codeberg": "Δώστε ένα αστέρι στο Codeberg",
-  "app.contribute.activity.rateAndReview.description": "Αξιολογήστε και / ή γράψτε κριτική για το {{app}} στα καταστήματα εφαρμογών",
+  "app.contribute.activity.rateAndReview.description": "Αξιολογήστε και/ή γράψτε κριτική για το {{app}} στα καταστήματα εφαρμογών",
   "app.contribute.activity.rateAndReview.github": "Δώστε ένα αστέρι στο GitHub",
   "app.contribute.activity.rateAndReview.gitlab": "Δώστε ένα αστέρι στο GitLab",
   "app.contribute.activity.rateAndReview.googlePlay": "Αξιολογήστε στο Google Play",
