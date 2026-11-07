@@ -185,7 +185,7 @@ export function Details({ app }: { app: App }) {
                   data-goatcounter-referrer="https://osm-apps.org/"
                 >
                   {t("app.learnMore", {
-                    website: newUrl(app.documentation).hostname,
+                    website: newUrl(app.documentation).host,
                   })}
                 </ExternalLink>
               </>

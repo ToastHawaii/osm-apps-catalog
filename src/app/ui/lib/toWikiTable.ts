@@ -3,6 +3,7 @@ import { getLocalizedValue } from "./getLocalizedValue";
 import { equalsIgnoreCase, equalsYes } from "@shared/utils/string";
 import i18next from "i18next";
 import { App } from "@shared/data/App";
+import { newUrl } from "@shared/utils/url";
 
 function isUnknown(value: string | string[] | undefined): value is undefined {
   if (Array.isArray(value)) {
@@ -76,7 +77,7 @@ export function toWikiTable(
       return 0;
     });
 
-  const url = new URL(document.location.href);
+  const url = newUrl(document.location.href);
   url.searchParams.set("lang", lang);
 
   const rows = params.map((p) => {

@@ -8,13 +8,11 @@ import {
   AppStoreIcon,
   MicrosoftIcon,
   StarAward02Icon,
-  Github01Icon,
   SourceCodeSquareIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { getUserOS } from "@lib/utils/getUserOS";
 import { App } from "@shared/data/App";
-import { isGitHubUrl } from "@shared/utils/isGitHubUrl";
 import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
 import { getAsin } from "@shared/utils/links/getAsin";
 import { getFDroid } from "@shared/utils/links/getFDroid";
@@ -22,6 +20,7 @@ import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
 import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
 import { getMicrosoftStore } from "@shared/utils/links/getMicrosoftStore";
 import { ReactJoin } from "@shared/utils/ReactJoin";
+import { getHostIcon } from "@shared/utils/url";
 import { some } from "lodash";
 import React from "react";
 import { useTranslation, Trans } from "react-i18next";
@@ -206,11 +205,7 @@ export function DownloadSlide({ app }: { app: App }) {
           <div className="flex flex-wrap gap-2">
             <DownloadButton
               app={app}
-              icon={
-                isGitHubUrl(app.sourceCode)
-                  ? Github01Icon
-                  : SourceCodeSquareIcon
-              }
+              icon={getHostIcon(app.sourceCode, SourceCodeSquareIcon)}
               label={t("app.sourceCode")}
               href={app.sourceCode}
             />

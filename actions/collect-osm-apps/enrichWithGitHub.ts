@@ -7,6 +7,7 @@ import {
 } from "@actions/lib/crawler/gitHub";
 import { mergeApps } from "@actions/lib/mergeApps";
 import { App } from "@shared/data/App";
+import { hasHost, newUrl } from "@shared/utils/url";
 
 export function getGithubOwnerRepo(urlString: string | undefined) {
   if (!urlString) {
@@ -14,11 +15,9 @@ export function getGithubOwnerRepo(urlString: string | undefined) {
   }
 
   try {
-    const url = new URL(urlString);
+    const url = newUrl(urlString);
 
-    if (
-      !["github.com", "www.github.com"].includes(url.hostname.toLowerCase())
-    ) {
+    if (!hasHost(url, ["github.com"])) {
       return undefined;
     }
 

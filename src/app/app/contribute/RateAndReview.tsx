@@ -18,6 +18,7 @@ import { getAppleAppStore } from "@shared/utils/links/getAppleAppStore";
 import { getAsin } from "@shared/utils/links/getAsin";
 import { getGooglePlay } from "@shared/utils/links/getGooglePlay";
 import { getHuaweiAppGallery } from "@shared/utils/links/getHuaweiAppGallery";
+import { extractHost } from "@shared/utils/url";
 
 export function RateAndReview({ app }: { app: App }) {
   const { t } = useTranslation();
@@ -77,9 +78,8 @@ export function RateAndReview({ app }: { app: App }) {
   {
     const link = app.sourceCode;
     if (link) {
-      switch (new URL(link).hostname) {
+      switch (extractHost(link)) {
         case "codeberg.org":
-        case "www.codeberg.org":
           links.push({
             icon: MountainIcon,
             title: t("app.contribute.activity.rateAndReview.codeberg"),
@@ -87,7 +87,6 @@ export function RateAndReview({ app }: { app: App }) {
           });
           break;
         case "gitlab.com":
-        case "www.gitlab.com":
           links.push({
             icon: GitlabIcon,
             title: t("app.contribute.activity.rateAndReview.gitlab"),
@@ -95,7 +94,6 @@ export function RateAndReview({ app }: { app: App }) {
           });
           break;
         case "github.com":
-        case "www.github.com":
           links.push({
             icon: Github01Icon,
             title: t("app.contribute.activity.rateAndReview.github"),

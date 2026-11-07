@@ -35,7 +35,7 @@ import { DrawerDialog } from "@components/common/DrawerDialog";
 import { DownloadSlide } from "@app/app/download/DownloadSlide";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useAppsFundingData } from "@hooks/useAppsFundingData";
-import { newUrl } from "@shared/utils/url";
+import { extractHost, newUrl } from "@shared/utils/url";
 import { trimStart, trimEnd } from "lodash";
 
 export function Contribute({ app }: { app: App }) {
@@ -111,7 +111,7 @@ export function Contribute({ app }: { app: App }) {
                       url.search;
 
                     let icon;
-                    switch (trimStart(url.hostname.toLowerCase(), "www.")) {
+                    switch (extractHost(url)) {
                       case "opencollective.com":
                         icon = (
                           <HugeiconsIcon

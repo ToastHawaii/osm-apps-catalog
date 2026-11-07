@@ -10,6 +10,7 @@ import { languageCodeToDisplay } from "@app/ui/lib/language";
 import { useUserContext } from "@hooks/useUserContext";
 import { App } from "@shared/data/App";
 import { equalsIgnoreCase, findIgnoreCase } from "@shared/utils/string";
+import { hasHost, newUrl } from "@shared/utils/url";
 
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Button } from "@components/ui/button";
@@ -20,16 +21,8 @@ import {
   Popover,
 } from "@components/ui/popover";
 
-function isWeblateUrl(urlString: string) {
-  const url = new URL(urlString);
-
-  return ["hosted.weblate.org", "translate.codeberg.org"].includes(
-    url.hostname.toLowerCase(),
-  );
-}
-
 function convertToWeblateBadgeUrl(urlString: string) {
-  const url = new URL(urlString);
+  const url = newUrl(urlString);
   const pathParts = url.pathname.split("/").filter(Boolean);
 
   if (pathParts.length >= 2 && pathParts[0] === "projects") {
@@ -75,7 +68,10 @@ function TranslationContribute({
 
   return (
     <>
-      {isWeblateUrl(languagesUrl) && (
+      {hasHost(languagesUrl, [
+        "hosted.weblate.org",
+        "translate.codeberg.org",
+      ]) && (
         <a
           href={languagesUrl}
           data-goatcounter-click="/app/translation-contribution"

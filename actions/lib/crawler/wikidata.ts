@@ -56,7 +56,7 @@ function extractGenre(result: any) {
   return uniq(genre);
 }
 
-function extractIrc(value: any) {
+function extractIrc(value: string | undefined) {
   if (!value) return undefined;
 
   const url = newUrl(value);

@@ -4,6 +4,7 @@ import { App } from "@shared/data/App";
 import { calculateFilter } from "@shared/data/calculateFilter";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { extractHost, hasHost } from "@shared/utils/url";
 
 export function AppLogo({
   app,
@@ -23,12 +24,14 @@ export function AppLogo({
   if (
     app.website &&
     // do not want icons from popular websites
-    !app.website.includes("github.com") &&
-    !app.website.includes("sourceforge.net") &&
-    !app.website.includes("apple.com") &&
-    !app.website.includes("steampowered.com")
+    !hasHost(app.website, [
+      "github.com",
+      "sourceforge.net",
+      "apple.com",
+      "steampowered.com",
+    ])
   ) {
-    const base = `https://${new URL(app.website).host}/favicon.`;
+    const base = `https://${extractHost(app.website)}/favicon.`;
     logos.push(base + "png");
     logos.push(base + "ico");
     logos.push(base + "svg");
