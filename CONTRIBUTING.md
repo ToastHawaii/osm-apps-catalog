@@ -60,7 +60,7 @@ npm run actions:collect-osm-apps-translations:start # collect all app meta data 
 > It is needed for the GitHub API calls. If you do not need to test this part you can also comment out `const octokit = createOctokit(core.getInput("ghToken"));` and all lines that use `octokit`.
 
 ### Code submissions 
-Please take a moment to read the [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog?tab=contributing-ov-file#contributing-guidelines) before proceeding. Everyone should feel comfortable contributing to the OSM Apps Catalog.
+Please take a moment to read the [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CODE_OF_CONDUCT.md) before proceeding. Everyone should feel comfortable contributing to the OSM Apps Catalog.
 
 The best way to start is with a [good first issue](https://github.com/ToastHawaii/osm-apps-catalog/contribute).
 
