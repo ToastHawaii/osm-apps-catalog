@@ -33,7 +33,7 @@ You can [upvote features](https://github.com/ToastHawaii/osm-apps-catalog/issues
 ## Code
 The OSM Apps Catalog is a single-page application (SPA) with no server-side backend. The data is collected by GitHub Actions, which run once a day (or once a week), gather data from various sources, and generate [JSON files](https://github.com/ToastHawaii/osm-apps-catalog/tree/main/docs/api/apps).
 
-More infos in the AI docs here: [<img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki" valign="sub"/>](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
+More infos in the AI docs here: [<img src="https://img.shields.io/badge/Ask-DeepWiki-blue" alt="Ask DeepWiki" valign="sub"/>](https://deepwiki.com/ToastHawaii/osm-apps-catalog) *(Not everything is correct. But it’s a good starting point if you don’t want to dive straight into the code.)*
 
 ### Run locally · [<img src="https://img.shields.io/badge/dependencies-explore-orange?link=https%3A%2F%2Fnpmgraph.js.org%2F%3Fq%3Dhttps%253A%252F%252Fgithub.com%252FToastHawaii%252Fosm-apps-catalog%252Fblob%252Fmain%252Fpackage.json%23color%3Doutdated%26zoom%3Dw%26sizing%3D" alt="Dependencies" valign="text-top"/>](https://npmgraph.js.org/?q=https%3A%2F%2Fgithub.com%2FToastHawaii%2Fosm-apps-catalog%2Fblob%2Fmain%2Fpackage.json#color=outdated&zoom=w&sizing=)
 
