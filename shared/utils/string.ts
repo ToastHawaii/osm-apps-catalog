@@ -112,8 +112,8 @@ export function trim(value: string | undefined): string {
 
 export function toDate(value: string) {
   value = trim(value);
-  if (/^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}$/gi.test(value)) return value;
-  else return "";
+  const match = value.match(/^[0-9]{1,4}-[0-9]{1,2}-[0-9]{1,2}/);
+  return match ? match[0] : "";
 }
 
 export function textToColor(s: string) {

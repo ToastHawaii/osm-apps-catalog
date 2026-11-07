@@ -190,9 +190,9 @@ export async function requestGitHub(octokit: ReturnType<typeof createOctokit>) {
   let hasNextPage = true;
   let cursor: string | undefined = undefined;
 
-  const newerThen5Year = new Date();
-  newerThen5Year.setFullYear(newerThen5Year.getFullYear() - 5);
-  const pushedAfter = newerThen5Year.toISOString().substring(0, 10);
+  const fiveYearsAgo = new Date();
+  fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5);
+  const pushedAfter = fiveYearsAgo.toISOString().substring(0, 10);
   while (hasNextPage && results.length < 1000) {
     const json: any = await searchByTopic(pushedAfter, "desc", octokit, cursor);
     results.push(...json.search.nodes);
@@ -241,6 +241,9 @@ export async function searchByRepos(
   return results;
 }
 
+/**
+ * @param pushedAfter date of last commit, should be newer
+ */
 async function searchByTopic(
   pushedAfter: string,
   sort: string,

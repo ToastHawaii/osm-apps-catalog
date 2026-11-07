@@ -161,6 +161,19 @@ async function loadPages(ids: number[], template: string) {
   return objects;
 }
 
+/** remove html comments and historic artifacts */
+function removeIrrelevantContent(content: string) {
+  let previous;
+  do {
+    previous = content;
+    content = content.replace(
+      /(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)|{{Historic[_ ]artifact[_ ]start(.|\n)*?{{Historic[_ ]artifact[_ ]end}}/g,
+      "",
+    );
+  } while (content !== previous);
+  return content;
+}
+
 function parsePage(content: string, template: string) {
   const objects: (Template & { communicationChannels: Template })[] = [];
 
@@ -169,10 +182,7 @@ function parsePage(content: string, template: string) {
     communicationChannels = parsePage(content, "Communication channels")[0];
   }
 
-  content = content.replace(
-    /(<!--.*?-->)|(<!--[\w\W\n\s]+?-->)|{{Historic artifact start(.|\n)*?{{Historic artifact end}}/g,
-    "",
-  );
+  content = removeIrrelevantContent(content);
 
   const regexTemplate = new RegExp("{{" + template.replace(" ", "[_ ]"), "gi");
   let start = content.search(regexTemplate);

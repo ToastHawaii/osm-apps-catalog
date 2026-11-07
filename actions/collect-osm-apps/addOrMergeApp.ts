@@ -2,6 +2,22 @@ import { App } from "@shared/data/App";
 import { findEqualApp } from "@actions/lib/findEqualApp";
 import { mergeApps } from "@actions/lib/mergeApps";
 
+function isDeprecated(app: App) {
+  if (!app.unmaintained) {
+    return false;
+  }
+
+  if (!app.lastRelease) {
+    // without a date we do not know when the last change was
+    return false;
+  }
+
+  const lastRelease = new Date(app.lastRelease);
+  const tenYearsAgo = new Date();
+  tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
+  return lastRelease < tenYearsAgo;
+}
+
 export function addOrMergeApp(
   apps: App[],
   app: App,
@@ -15,9 +31,9 @@ export function addOrMergeApp(
   const duplicate = findEqualApp(apps, app, options);
 
   if (!duplicate) {
-    // only add if external sources exists
     if (
       app.name !== "" &&
+      // only add if external sources exists
       (app.website ||
         app.documentation ||
         app.install.appleStoreID ||
@@ -28,7 +44,8 @@ export function addOrMergeApp(
         app.install.huaweiAppGalleryID ||
         app.install.macAppStoreID ||
         app.install.microsoftAppID ||
-        app.sourceCode)
+        app.sourceCode) &&
+      !isDeprecated(app)
     ) {
       apps.push(app);
     }
