@@ -37,7 +37,7 @@ export function Router() {
       }
 
       pushNewRecentlyViewed(id);
-      
+
       return <AppPage app={app} />;
     }
 
