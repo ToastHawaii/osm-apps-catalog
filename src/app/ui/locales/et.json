@@ -160,6 +160,7 @@
   "app.tag.feature.routing-wheelchair": "Teekonnakoostamine ratastooliga liikumiseks",
   "app.tag.feature.upload-track": "GPS-raja lisamine kaastööna OSM-i",
   "app.tag.feature.voice-guidance": "Tee juhatamine hääljuhistega",
+  "app.translationStatus": "Tõlke olek",
   "app.unmaintained": "(<icon/> hüljatud projekt)",
   "app.unmaintained.wiki": "({{icon}} hüljatud projekt)",
   "app.website": "Veebisait",
