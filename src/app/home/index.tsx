@@ -15,11 +15,16 @@ import { Link } from "react-router";
 import { useRoute } from "@hooks/useRoute";
 import { Button } from "@components/ui/button";
 import { upperCase } from "@shared/utils/string";
+import { useRecentlyViewed } from "@hooks/useRecentlyViewed";
+import { featureFlags } from "../../featureFlags";
+
+const MaxNumberOfAppsPerCategory = 6;
 
 export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const routes = useRoute();
   const platforms = usePlatformUrlParam();
+  const [recentlyViewed] = useRecentlyViewed();
 
   const platformsUpper = upperCase(platforms);
   const { spotlight, categories } = useMemo(() => {
@@ -53,8 +58,7 @@ export function Home({ apps }: { apps: App[] }) {
     // Add apps to categories so that the highest-scored apps are seen first
     let row = 0;
     let col = 0;
-    const maxNumberOfAppsPerCategory = 6;
-    while (col < maxNumberOfAppsPerCategory + categories.length - 1) {
+    while (col < MaxNumberOfAppsPerCategory + categories.length - 1) {
       if (row >= categories.length) {
         row = 0;
         col++;
@@ -63,7 +67,7 @@ export function Home({ apps }: { apps: App[] }) {
 
       const category = categories[row];
 
-      if (category.apps.length >= maxNumberOfAppsPerCategory) {
+      if (category.apps.length >= MaxNumberOfAppsPerCategory) {
         row++;
         continue;
       }
@@ -118,6 +122,20 @@ export function Home({ apps }: { apps: App[] }) {
             }}
             apps={spotlight}
           />
+          {featureFlags.showRecentlyViewed && (
+            <Category
+              id={"recently-viewed"}
+              name={"Recently viewed"}
+              apps={
+                recentlyViewed
+                  .slice(0, MaxNumberOfAppsPerCategory - 1)
+                  .map((recentlyViewedAppId) =>
+                    apps.find((app) => app.id === recentlyViewedAppId),
+                  )
+                  .filter((a) => a) as typeof apps
+              }
+            />
+          )}
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (

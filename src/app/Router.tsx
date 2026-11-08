@@ -10,9 +10,11 @@ import { AppPage } from "@app/app";
 import { NotFound } from "@app/notFound";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { useRoute } from "@hooks/useRoute";
+import { useRecentlyViewed } from "@hooks/useRecentlyViewed";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
+  const [, pushNewRecentlyViewed] = useRecentlyViewed();
 
   const [searchParams] = useSearchParams();
   const isTechDomain = useIsTechDomain();
@@ -34,6 +36,8 @@ export function Router() {
         return <NotFound />;
       }
 
+      pushNewRecentlyViewed(id);
+      
       return <AppPage app={app} />;
     }
 
