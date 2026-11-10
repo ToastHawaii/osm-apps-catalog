@@ -132050,7 +132050,7 @@ const el_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Αναπτύ�
 ;// CONCATENATED MODULE: ./src/app/ui/locales/es.json
 const locales_es_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Autor","app.community":"Comunidad","app.community.bluesky":"Bluesky","app.community.forum":"Foro","app.community.forumTag":"Foro","app.community.githubDiscussions":"Discusiones en GitHub","app.community.issueTracker":"Problemas","app.community.mastodon":"Mastodon","app.community.matrix":"Sala de Matrix","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Grupo de Telegram","app.coverage":"Cobertura","app.install.appleStore":"App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.languages":"Idiomas","app.lastRelease":"Última edición","app.license":"Licencia","app.platforms":"Plataformas","app.price":"Precio","app.source":"Fuente","app.source.description":"La fuente de donde provienen estos datos.","app.sourceCode":"Código fuente","app.unmaintained":"(<icon/> Sin mantenimiento)","app.unmaintained.wiki":"({{icon}} Sin mantenimiento)","app.website":"Página web","category.all.description":"Muestra {{numberOfApps}} aplicaciones del wiki de OpenStreetMap, Wikidata y taginfo, ordenadas por puntuación de colaboración de la comunidad.","category.edit":"Contribuir","category.edit.description":"Muestra {{numberOfApps}} aplicaciones que permiten añadir, editar o analizar datos de OpenStreetMap o grabar geotracks.","category.focus":"Enfoque","category.focus.description":"Muestra diez aplicaciones de las páginas actualizadas más recientemente.","category.latestUpdates.description":"Muestra {{numberOfApps}} aplicaciones ordenadas por la última fecha de lanzamiento.","category.mobile":"Ir a","category.mobile.description":"Muestra {{numberOfApps}} aplicaciones desarrolladas para dispositivos móviles o que admiten el uso sin conexión.","category.navigation":"Encuentra tu camino","category.navigation.description":"Muestra {{numberOfApps}} las aplicaciones que admiten enrutamiento o navegación.","compare":"Comparar","compare.group.header.accessibility":"Accesibilidad","compare.group.header.editing":"Editar","compare.group.header.general":"General","compare.group.header.map":"Visualización del mapa","compare.group.header.monitoring":"Seguimiento","compare.group.header.navigating":"Navegando","compare.group.header.rendering":"Renderizado","compare.group.header.routing":"Enrutamiento","compare.group.header.tracking":"Rastreo","compare.share":"Compartir en wiki.openstreetmap.org","compare.unknown":"desconocido","filter.category.all":"Todo","filter.category.latest":"Última","filter.coverage":"Cobertura","filter.language":"Idioma","filter.platform":"Plataforma","filter.search":"Buscar","filter.topic":"Tema","list":"Lista","list.moreInfos":"Información","multilingual":"Multilingüe","nav.about":"Acerca de","noResults":"Sin resultados","notFound":"¿No encuentras lo que buscas?","notFound.desc":"Con los siguientes servicios puedes crear tus propios mapas temáticos sin conocimientos de programación. Puede que alguien ya haya creado el mapa que buscas, o puedes crear tu propio mapa temático.","relatedApps":"{{numberOfApps}} aplicaciones relacionadas","score.criteria.accessibilitySupported":"Se admite la accesibilidad (por ejemplo, compatibilidad con lectores de pantalla)","score.criteria.addingAndEditingPossible":"Es posible añadir y editar POI, caminos, etc","score.criteria.communityChannelExists":"Existe un canal para la comunidad (por ejemplo, foro, Mastodon)","score.criteria.copyleftLicense":"La licencia es una licencia copyleft (por ejemplo, GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"La aplicación muestra mapas o datos OSM","score.criteria.documentationLink":"Hay un enlace a la documentación disponible","score.criteria.documentedMultiplePlatforms":"La aplicación está documentada en múltiples plataformas (por ejemplo, OSM-Wiki, taginfo, Wikidata)","score.criteria.freeOfCharge":"La aplicación es gratuita","score.criteria.issueTracker":"Existe un rastreador de problemas","score.criteria.lastUpdateThreeMonths":"La última actualización se produjo en los últimos 3 meses","score.criteria.lastUpdateYear":"La última actualización se produjo durante el último año","score.criteria.multipleLanguages":"La aplicación soporta varios idiomas (mínimo 3 idiomas)","score.criteria.multiplePlatforms":"La aplicación está disponible en múltiples plataformas (por ejemplo, Web, Android, iOS)","score.criteria.openSource":"La aplicación es de código abierto","score.criteria.openSourceChannel":"Un canal está alojado en plataformas de código abierto (por ejemplo, Matrix)","score.criteria.openSourceStores":"La aplicación es accesible a través de tiendas de código abierto (por ejemplo, F-Droid)","score.criteria.sourceCodeReference":"se documenta una referencia al código fuente","score.criteria.supportsContributions":"La aplicación admite colaboraciones (edición, análisis, etc.) a OpenStreetMap","score.criteria.tenLanguages":"La aplicación está disponible en al menos 10 idiomas","score.criteria.translationContributions":"Son posibles colaboraciones a las traducciones","score.criteria.worldwideData":"La aplicación cubre datos de mapas de todo el mundo","score.result":"- {{description}} ({{points}} puntos)","score.results":"Puntuación de la contribución comunitaria\\nTotal: {{total}} puntos\\n\\nAcciones requeridas para una puntuación más alta:\\n{{notFulfilled}}\\n\\nCumplido:\\n{{fulfilled}}","share.wiki":"Copiada la tabla {{group}} al portapapeles con formato para wiki.openstreetmap.org.","wiki.generatedBy":"Creado por OSM Apps Catalog","wiki.generatedByOsmAppsCatalog":"Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.","wiki.none":"ninguno"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/et.json
-const et_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Arendaja","app.community":"Kogukond","app.community.bluesky":"Bluesky","app.community.forum":"Foorum","app.community.forumTag":"Foorumi silt","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Veahaldus","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrixi jututuba","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegrami grupp","app.contribute":"Tee kaastööd","app.contribute.activity.connect.bluesky":"Liitu Bluesky\'s","app.contribute.activity.connect.description":"Suhtle {{app}} rakenduse kogukonnaga, aruta ühiseid teemasid ja aita teisi","app.contribute.activity.connect.forum":"Liitu foorumiga","app.contribute.activity.connect.forumTag":"Vestlusi „{{app}}“ rakenduse teemal võid leida OSM-i kogukonna foorumist","app.contribute.activity.connect.gitHubDiscussions":"Liitu GitHubi foorumis","app.contribute.activity.connect.hint":"Lähteandmetes pole teavet sotsiaalmeediakanalite kohta.","app.contribute.activity.connect.lemmy":"Liitu Lemmy\'s","app.contribute.activity.connect.mastodon":"Liitu Mastodonis","app.contribute.activity.connect.matrix":"Liitu Matrixis","app.contribute.activity.connect.reddit":"Liitu Redditis","app.contribute.activity.connect.slack":"Liitu Slackis","app.contribute.activity.connect.telegram":"Liitu Telegramis","app.contribute.activity.connect.title":"Suhtle ja aita teisi","app.contribute.activity.contributeCode.description":"Arenda uut funktsionaalsust, aita parandada vigu ja vaata lähtekoodi üle","app.contribute.activity.contributeCode.hint":"Vikis pole dokumenteeritud linki lähtekoodile.","app.contribute.activity.contributeCode.title":"Osale koodi kirjutamisel","app.contribute.activity.contributeMapData.description":"Lisa OSM-i teavet huvipunktide ja muu kaardi sisu kohta - kõike seda kasutab {{app}}","app.contribute.activity.contributeMapData.title":"Tee kaastööd kaardi koostamisel","app.contribute.activity.contributeTranslation.description":"Lisa tõlkeid ja muuda {{app}} kasutatavaks inimeste jaoks üle maailma","app.contribute.activity.contributeTranslation.hint":"Vikis pole dokumenteeritud linki teenusele, kus saad rakendust tõlkida.","app.contribute.activity.contributeTranslation.title":"Tõlgi tekste","app.contribute.activity.donate.description":"Seda projekti saad toetada siin: {{app}}","app.contribute.activity.donate.hint":"Lähtekoodis ei ole rahastamise linke kirjas või need ei ole kontrollitud.","app.contribute.activity.donate.title":"Toeta rahaliselt","app.contribute.activity.editInformation.description":"{{app}} - muuda minu üksikasju lähtevikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMapi viki","app.contribute.activity.editInformation.title":"Muuda või uuenda teavet","app.contribute.activity.editInformation.wikidata":"Vikiandmed","app.contribute.activity.getIt.description":"Leia sulle sobiv rakenduse kasutamise viis sinu seadmes: {{app}}.","app.contribute.activity.getIt.title":"Asu rakendust kasutama","app.contribute.activity.rateAndReview.appleAppStore":"Hinda Apple\'i rakendustepoes","app.contribute.activity.rateAndReview.asin":"Hinda Amazoni rakendustepoes","app.contribute.activity.rateAndReview.codeberg":"Märgi Codebergis tähekesega","app.contribute.activity.rateAndReview.description":"{{app}} - hinda mind rakendustepoes või koosta seal ka arvustus","app.contribute.activity.rateAndReview.github":"Märgi GitHubis tähekesega","app.contribute.activity.rateAndReview.gitlab":"Märgi GitLabis tähekesega","app.contribute.activity.rateAndReview.googlePlay":"Hinda Google Play rakendustepoes","app.contribute.activity.rateAndReview.hint":"Vikis pole dokumenteeritud ühtegi rakendustepoodi, kus saad koostada arvustusi.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Hinda HUAWEI AppGallery rakendustepoes","app.contribute.activity.rateAndReview.title":"Hinda ja koosta arvustus","app.contribute.activity.reportBugs.description":"{{app}} - teata vigadest, arutle uute ideede üle ja tee ettepanekuid","app.contribute.activity.reportBugs.hint":"Vikis pole dokumenteeritud ühtegi veahalduse teenuse linki.","app.contribute.activity.reportBugs.title":"Teata vigadest","app.contribute.activity.share.bluesky":"Jaga Bluesky\'s","app.contribute.activity.share.copied":"Kopeeritud!","app.contribute.activity.share.copy":"Kopeeri lõikelauale","app.contribute.activity.share.description":"Jaga rakendus oma sotsiaalvõrkudes - {{app}}","app.contribute.activity.share.fediverse":"Jaga Födiversumis","app.contribute.activity.share.mastodon":"Postita Mastodonis","app.contribute.activity.share.more":"Lisavalikud","app.contribute.activity.share.reddit":"Jaga Redditis","app.contribute.activity.share.telegram":"Jaga Telegramis","app.contribute.activity.share.textToShare":"Kas {{name}} rakendus on sulle tuttav? {{-description}}\\nMinu arvates OpenStreetMap on suurepärane! Lisateave OSM-i rakenduste kataloogis: {{-link}}","app.contribute.activity.share.title":"Levita sõna","app.contribute.app.editInformation.wikiOsm.create":"Koosta leht rakenduse jaoks: {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Muuda rakenduse lehte: {{name}}","app.contribute.app.editInformation.wikidata.create":"Lisa kirje","app.contribute.app.editInformation.wikidata.edit":"Muuda kirjet","app.contribute.app.editInformation.wikidata.search":"Esmalt otsi ja vaata, kas {{app}} juba on kataloogis olemas","app.contribute.app.spendTime":"Toeta rakendust: {{app}}","app.contribute.appDevelopment":"Rakenduse arendus","app.contribute.community":"Kogukond","app.contribute.hint":"Miks ei saa teha kaastööd?","app.contribute.osm.spendMoney":"Toeta OpenStreetMapi","app.contribute.osm.spendTime":"Tee kaastööd OpenStreetMapile","app.contribute.toCommunity":"Kogukonnale","app.contribute.toCommunity.welcome":"Juhata teed uutele kasutajatele","app.contribute.toData":"OpenStreerMapi andmetele","app.contribute.toData.edit":"Muuda kaardiandmeid","app.contribute.toData.qa":"Kontrolli kvaliteeti","app.contribute.toData.review":"Vaata üle kaardimuudatusi","app.contribute.toData.tracks":"Salvesta ja jaga GPS-radu","app.contribute.toSoftware":"Tarkvarale","app.contribute.toSoftware.develop":"Kirjuta lähtekoodi","app.contribute.toSoftware.discuss":"Osale keskusteludes ja jaga ideesid","app.contribute.toSoftware.document":"Täienda dokumentatsiooni","app.contribute.toSoftware.test":"Testi ja jaga tagasisidet","app.contribute.toSoftware.translate":"Aita tõlkida","app.coverage":"Katvus","app.download.android":"Androidi jaoks","app.download.button":"Laadi rakendus alla","app.download.contributeSlide.description":"Leia oma viis osalemiseks","app.download.downloadSlide.description":"Vali, kuidas tahad jätkata","app.download.forYourDevice":"sinu seadme jaoks","app.download.fromCodeRepository":"Lisateavet „{{app}}“ rakenduse kohta ja <platforms/>-i versiooni paigaldusjuhiseid leiad lähtekoodihoidlast. Rakenduse paigaldamiseks lähtekoodist võib vaja minna mõningaid tehnilisi teadmisi.","app.download.ios":"iPhone\'i ja iPadi jaoks","app.download.libreSoftwareNeedsSupport":"{{app}} on tasuta ja avatud lähtekoodiga tarkvara.\\nSelle on loonud ja seda haldavad projekti kaastöötajad ning sellega kaasnevad tegevuskulud.\\n\\nKui leiad, et rakendus on kasulik, võiksid seda mingil viisil toetada.","app.download.macos":"MacOS-ijaoks","app.download.needsHelpSlide.description":"Enne, kui jätkad","app.download.osmNeedsSupport":"{{app}} kasutab OpenStreetMapis andmeid , mis on ülemaailmse kogukonna loodud ja hallatav projekt.\\nNeid andmeid võib vabalt kasutada, kuid need on pideva töö tulemus - kaardistamine, arendus ja andmete hoidmine nõuab pidevat pingutust ning nende kättesaadavuse ja ajakohasuse tagamine toob kaasa pidevaid kulusid.\\n\\nKui leiad, et {{app}} on kasulik, võiksid kaaluda OpenStreetMapi toetamist mingil viisil.","app.download.skipButton":"Jätka allalaadimisega","app.download.visitWebApp":"{{app}} - lisateavet leiad ametlikust veebisaidist ja samast saad avada <strong>veebirakenduse</strong>.","app.download.visitWebsite":"{{app}} - lisateavet leiad ametlikust veebisaidist ja samast leiad paigaldusjuhendi <platforms/>i platvormi jaoks.","app.download.windows":"Windowsi jaoks","app.getInvolved":"Osale","app.helpTranslate":"Aita tõlget täiendada","app.helpTranslate.hint.label":"Miks peaksid aitama tõlkimisel?","app.helpTranslate.hint.text":"Isegi väikesed parandused võivad aidata muuta rakendust arusaadavamaks ja kõigile kättesaadavamaks.\\nEnamasti saad seda teha ilma suuremate tehniliste teadmisteta.","app.helpTranslateTo":"Aita parandada eestikeelset tõlget","app.imageAlt":"Pilt rakendusest {{name}}","app.inUserLanguage":"{{language}} ja veel {{numberOfLanguages}} keelt","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Vaata ametlikku veebisaiti","app.keywords":"Märksõnad","app.languages":"Keeled","app.lastRelease":"Viimati uuendatud","app.learnMore":"Lisateave: {{website}}","app.license":"Litsents","app.logoAlt":"Logi rakendusest {{name}}","app.platforms":"Platvormid","app.price":"Hind","app.programmingLanguages":"Programmeerimiskeel","app.screenshotAlt":"Ekraanitõmmis rakendusest {{name}}","app.source":"Andmeallikas","app.source.description":"Nende andmete allikas.","app.source.firstCrawled":"Esimene kord veebist vaadatud: {{added}}","app.source.lastChange":"Viimane muutmine: {{date}}","app.sourceCode":"Lähtekoodi hoidla","app.tag.attribute.foss":"Vaba ja avatud lähtekoodiga","app.tag.attribute.free":"Tasuta","app.tag.feature.accessibility-blind":"Hõlbustus ja ligipääsetavus vaegnägijatele ja pimedatele","app.tag.feature.accessibility-wheelchair":"Hõlbustus ja ligipääsetavus ratastooliga liikumisel","app.tag.feature.create-notes":"OSM-i märkmete lisamine","app.tag.feature.edit-map":"OSM-i andmete muutmine","app.tag.feature.location-search":"Asukoha tuvastamine","app.tag.feature.navigation":"Tee juhatamine","app.tag.feature.offline-edit":"OSM-i andmete muutmine ilma võrguühenduseta","app.tag.feature.offline-maps":"Võrguühenduseta kaardid","app.tag.feature.offline-routing":"Teekonna koostamine ilma võrguühenduseta","app.tag.feature.record-track":"GPS-raja salvestamine","app.tag.feature.routing":"Teekonna kavandamine","app.tag.feature.routing-bike":"Teekonna koostamine rattasõiduks","app.tag.feature.routing-car":"Teekonna koostamine autosõiduks","app.tag.feature.routing-foot":"Teekonna koostamine jalutamiseks","app.tag.feature.routing-hike":"Teekonna koostamine matkamiseks","app.tag.feature.routing-manual":"Teekonna koostamine käsitsi","app.tag.feature.routing-motorbike":"Teekonna koostamine mootorrattasõiduks","app.tag.feature.routing-publicTransport":"Teekonna koostamine ühistranspordiga","app.tag.feature.routing-wheelchair":"Teekonnakoostamine ratastooliga liikumiseks","app.tag.feature.upload-track":"GPS-raja lisamine kaastööna OSM-i","app.tag.feature.voice-guidance":"Tee juhatamine hääljuhistega","app.unmaintained":"(<icon/> hüljatud projekt)","app.unmaintained.wiki":"({{icon}} hüljatud projekt)","app.website":"Veebisait","category.3d":"Maailm 3D-vaates","category.3d.description":"{{numberOfApps}} rakendust, mis toetavad 3D-kaarte või muul viisil kuvavad või muudavad OpenStreetMapist pärinevaid 3D-andmeid.","category.all.description":"{{numberOfApps}} <o>OpenStreetMap</o>pi kasutavat rakendust.","category.all.description.filtered":"{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.","category.calcRoute":"Kavanda oma teekonda","category.calcRoute.description":"{{numberOfApps}} rakendust, mis toetavad marsruudi arvutamist ja reisi planeerimist.","category.changeset":"Muudatuste jälgimine ja kogukonnahaldus","category.changeset.description":"{{numberOfApps}} tarvikut, mis võimaldavad jälgida muudatusi OSM-i andmekogus, pidada arvet kampaaniate üle (nt. teemaviidete alusel) või tervitada uusi kasutajaid.","category.contributePhoto":"Laadi üles kaardistamiseks vajalikke fotosid","category.contributePhoto.description":"{{numberOfApps}} rakendust, mis atavad koguda tänavatasandi fotosid nii kaardistamiseks, kui muudel eesmärkidel.","category.convert":"Teisenda ja renderda","category.convert.description":"{{numberOfApps}} ressurssi OpenStreetMapi andmete teisendamiseks ja renderdamiseks.","category.country":"Rakendused riigi jaoks: {{country}}","category.country.description":"{{numberOfApps}} rakendust, mis on loodud {{country}} jaoks.","category.cycling":"Rattasõit","category.cycling.description":"{{numberOfApps}} rakendust on rattasõidul abiks.","category.diversity":"Üks maailm. Palju kaarte.","category.diversity.description":"{{numberOfApps}} erinevatel teemadel kaarti, mis kajastavad erinevaid elustiile, suhtumisi ja olukordi.","category.edit":"Täienda kaarti","category.edit.description":"{{numberOfApps}} rakendust, mis võimaldavad lisada või muuta OpenStreetMapi andmeid.","category.focus":"Käimasolevad projektid","category.focus.description":"Avasta iga päev kümme käimasolevat projekti. Nad võivad olla veel väikesed ja tundmatud. Toeta neid projekte ja levita vastavat teavet.","category.food":"Söögikohtade otsing","category.food.description":"{{numberOfApps}} rakendust, mille abil saad leida restorane ja muid kohti, kus pakutakse maitsvat toitu.","category.foss":"Avatud lähtekoodiga ja tasuta tarkvara","category.foss.description":"{{numberOfApps}} rakendust või teeki, mis on saadaval litsentsiga, mis annab sulle õiguse neid kasutada, jagada, muuta ja levitada.","category.hiking":"Matkamine","category.hiking.description":"{{numberOfApps}} rakendust on abiks mäeseiklusel.","category.indoor":"Siseruumide kaardistamine","category.indoor.description":"{{numberOfApps}} rakendust siseruumide andmete kuvamiseks ja/või muutmiseks.","category.isochrone":"Isokroonkaardid","category.isochrone.description":"{{numberOfApps}} rakendust, mis toetavad kättesaadavuskaartide arvutamist, näiteks jalakäijate ja jalgratturite jaoks.","category.latestUpdates":"Viimased uuendused","category.latestUpdates.description":"{{numberOfApps}} rakendust järjestatuna viimase versiooni kuupäeva alusel.","category.library":"Paketid ja teegid","category.library.description":"{{numberOfApps}} ressurssi OpenStreetMapi andmetega töötamiseks.","category.mobile":"Võrguühenduseta kasutus","category.mobile.description":"{{numberOfApps}} rakendust, mis on mõeldud kasutamiseks nutiseadmetes või toetavad vallasrežiimi.","category.navigation":"Tee juhatamine","category.navigation.description":"{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.","category.newAdditions":"Viimased täiendused","category.newAdditions.description":"OSM-i rakenduste kataloogi hiljuti lisandunud sisu.","category.print":"Trüki oma kaart välja","category.print.description":"{{numberOfApps}} tarvikut väljatrükkimiseks mõeldud kaardi koostamiseks.","category.publicTransport":"Ühistranspordi kasutamine","category.publicTransport.description":"{{numberOfApps}} rakendust, mis teevad ühistranspordi kasutamise mugavamaks.","category.qa":"OpenStreetMapi kvaliteeditagamine","category.qa.description":"{{numberOfApps}} tarvikut võimaldavad vigade ja vastuolude leidmiseks ning problemaatiliste muudatuste tuvastamiseks uurida OSM-i andmeid.","category.resolveNotes":"Lahenda kaardimärkusi","category.resolveNotes.description":"{{numberOfApps}} rakendust, mis aitavad üle vaadata ja lahendada kasutajate lisatud kaardimärkeid, tagades sellega OSM-i andmete täpsuse ja ajakohasuse.","category.showAll":"Näita kõiki","category.tourism":"Reisimine ja turism","category.tourism.description":"{{numberOfApps}} rakendust, mis aitavad avastada uusi kohti või leida endale majutust.","category.trackRec":"Salvesta ja jaga teekondi","category.trackRec.description":"{{numberOfApps}} tarvikut võimaldavad salvestada GPS-i radu, liikumisandmeid või välitööde märkmeid näiteks jagamiseks või hilisemaks töötlemiseks.","category.trend":"Populaarsust koguvad rakendused","category.trend.description":"Viimase seitsme päeva jooksul enimvaadatud rakendused.","category.universalMapApps":"Universaalsed kaardirakendused","category.universalMapApps.description":"{{numberOfApps}} kaardirakendust huvitavate kohtade avastamiseks, reisi planeerimiseks ja kaardi täiustamiseks.","category.wheelchair":"Ratastooli või lapsevankri kasutajatele","category.wheelchair.description":"{{numberOfApps}} rakendust, mis aitavad leida kohti, kuhu saab mugavalt ligi ratastooliga ning koostada vastavaid teekondi. Ja loomulikult on samad kohad ja teekonnad kasutatavad ka lapsevankriga.","category.winterSport":"Talisport","category.winterSport.description":"{{numberOfApps}} rakendust, mis kajastavad suusatamist ja muid talispordialasid.","close":"Sulge","compare":"Võrdle","compare.group.header.accessibility":"Ligipääsetavus","compare.group.header.editing":"Kaardi muutmine","compare.group.header.general":"Üldist","compare.group.header.map":"Kaardivaade","compare.group.header.monitoring":"Monitooring","compare.group.header.navigating":"Tee juhatamine","compare.group.header.rendering":"Esitusvalmendus","compare.group.header.routing":"Teekonna koostamine","compare.group.header.tracking":"Radade loomine","compare.share":"Jaga vikis wiki.openstreetmap.org","compare.unknown":"teadmata","filter.category.all":"Kõik","filter.category.latest":"Viimatimuudetud","filter.coverage":"Piirkond","filter.language":"Keel","filter.moreFilters":"Filtrid","filter.platform":"Platvorm","filter.preset":"Eelseadistatud filter sinu jaoks:","filter.preview":"Filtritingimused on:","filter.programmingLanguage":"Programmeerimiskeel","filter.resetFilters":"Eemalda eelseadistatud filtrid","filter.search":"Otsi","filter.tag":"Omadus","filter.topic":"Teema","filters.morePlatforms":"Täiendavad platvormid","footer.feedback":"Jaga tagasisidet","footer.github":"GitHub","footer.helpTranslate":"Aita tõlkida. Ka väikesed parandused on abiks. Sul pole vaja spetsiifilist oskusteavet.","footer.helpTranslate.hint.label":"Teave tõlkimise kohta","footer.helpTranslate.hint.notTranslated":"Selle kataloogi kasutajaliides pole veel antud keelde tõlgitud. Küll aga võib olla, et mõnede rakenduste kirjeldused on tõlgitud.","footer.helpTranslate.hint.text":"Veebirakenduse „Osm Apps Catalog“ kasutajaliidest ja rakenduste kirjeldusi on tõlkinud kogukonna liikmed.","footer.helpTranslate.hint.translated":"Protsent näitab kui suur osa selle kataloogi kasutajaliidesest on seni antud keelde tõlgitud. Küll aga pole rakenduste kirjeldused sellesse näitajasse kaasatud.","footer.languageMissingTranslation":"Pole saadaval","footer.languagePlaceholder":"Vali keel","footer.languageSelectTranslationBadgeAlt":"Tõlkimise olek","footer.privacy":"Privaatsus","introductionPanel.description":"Siit leiad {{numberOfApps}} kaardirakendust igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\\nSee on OpenStreetMap - ühiselt loodud maailmakaart.","introductionPanel.description.whileLoading":"Siit leiad kaardirakendusi igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\\nSee on OpenStreetMap - ühiselt loodud maailmakaart.","introductionPanel.title":"Tere tulemast OSM-i rakenduste kataloogi","list":"Loend","list.more":"Detailne vaade","list.moreInfos":"Lisateave","multilingual":"Mitmekeelne","nav.about":"Veebirakenduse teave","nav.back":"Tagasi","nav.leaveTech":"Välju tehnilisest vaatest","nav.search":"Otsi","nav.tech":"OSM-i entusiastidele","noResults":"Tulemusi pole","notFound":"Kas sa ei leidnud, mida otsisid?","notFound.desc":"Järgnevate teenuste abil saad luua sulle meeldivaid kaarte ja selleks pole vaja programmeerimisoskusi. Keegi võib juba olla loonud sulle huvipakkuva kaardi ning kui ei, siis saad seda ise teha.","pageNotFound":"Lehte ei leidu","relatedApps":"{{numberOfApps}} seotud rakendust","score.criteria.accessibilitySupported":"rakendusel on ligipääsetavuse funktsionaalsus (näiteks ekraanilugeja või teekonna koostamine ratastoolis liikujatele)","score.criteria.addingAndEditingPossible":"huvipunktide, joonte jne lisamine ning muutmine on võimalik","score.criteria.communityChannelExists":"kogukonnal on olemas suhtluskanalid (näiteks foorum, jututuba või Mastodon)","score.criteria.copyleftLicense":"kasutusel on vaba tarkvara litsents (näiteks GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"rakendus kuvab kaartde või OSMi andmeid","score.criteria.documentationLink":"olemas on viide dokumentatsioonile","score.criteria.documentedMultiplePlatforms":"rakendus on dokumenteeritud mitmes keskkonnas (näiteks OSMi Viki, siltide andmekogu, Vikiandmed)","score.criteria.freeOfCharge":"rakendus on tasuta saadaval","score.criteria.issueTracker":"olemas on rakenduse veahaldus","score.criteria.lastUpdateThreeMonths":"rakenduse viimane versioon on välja antud möödunud 3 kuu jooksul","score.criteria.lastUpdateYear":"rakenduse viimane versioon on välja antud möödunud aasta jooksul","score.criteria.multipleLanguages":"rakendus on antud välja mitmekeelsena (vähemalt 3 keelt)","score.criteria.multiplePlatforms":"rakendus on saadaval mitmetel platvormidel (näiteks veebis, Androidile ja iOSis)","score.criteria.openSource":"rakendus põhineb avatud lähtekoodil","score.criteria.openSourceChannel":"suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)","score.criteria.openSourceStores":"rakendus on saadaval avatud lähtekoodil põhinevate rakenduste poes (näiteks F-Droid)","score.criteria.sourceCodeReference":"lähtekoodi viited on dokumenteeritud","score.criteria.supportsContributions":"rakendus võimaldab teha kaastööd OpenStreetMapile (muutmine, analüüs, jne)","score.criteria.tenLanguages":"rakendus on saadaval vähemalt kümnes keeles","score.criteria.translationContributions":"rakendus on tõlgitav","score.criteria.worldwideData":"rakendus katab kaardiandmeid üle maailma","score.learnMore":"Loe lisaks","score.result":"- {{description}} ({{points}} punkti)","score.results":"<h5>Panus kogukonna arendusse</h5>Kokku: {{total}} punkti 10-st\\n\\n<h6>Need tegevused tagaks suurema punktiskoori:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nKas midagi on valesti või puudu? Sa saad osaleda dokumentatsiooni täiendamisel. Ava rakenduse vaade ja klõpsa lingil „{{-editInformationTitle}}“.\\n\\n<h6>Juba korras:</h6>\\n{{fulfilled}}","select.search.noResults":"Tulemusi pole","select.search.placeholder":"Otsi","share.wiki":"Kopeerisime „{{group}}“ tabeli lõikelauale arvestades vorminguga wiki.openstreetmap.org jaoks.","techView.introductionPanel.description":"Siit leiad edasijõudnutele mõeldud tööriistu ja tarkvarateeke OpenStreetMapi andmetega töötamiseks.","techView.introductionPanel.title":"OSM-i rakenduste kataloog entusiastidele ja asjatundjatele","techViewPanel.action":"Lülitu tehnilisele vaatele!","techViewPanel.description":"Vaata OpenStreetMapi teeke ja tarvikuid tehnilises vaates.","techViewPanel.title":"Kas oled OSM-i entusiast või tehnikaasjatundja?","toggleTheme.dark":"Tume","toggleTheme.light":"Hele","toggleTheme.screenReader":"Vaheta teemat","toggleTheme.system":"Süsteem","wiki.generatedBy":"Koostaja: OSMi rakenduste kataloog","wiki.generatedByOsmAppsCatalog":"Selle tabeli koostas [{{link}} OSMi rakenduste kataloog] {{date}}.","wiki.none":"puudub"}');
+const et_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Arendaja","app.community":"Kogukond","app.community.bluesky":"Bluesky","app.community.forum":"Foorum","app.community.forumTag":"Foorumi silt","app.community.githubDiscussions":"GitHub Discussions","app.community.issueTracker":"Veahaldus","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Matrixi jututuba","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Telegrami grupp","app.contribute":"Tee kaastööd","app.contribute.activity.connect.bluesky":"Liitu Bluesky\'s","app.contribute.activity.connect.description":"Suhtle {{app}} rakenduse kogukonnaga, aruta ühiseid teemasid ja aita teisi","app.contribute.activity.connect.forum":"Liitu foorumiga","app.contribute.activity.connect.forumTag":"Vestlusi „{{app}}“ rakenduse teemal võid leida OSM-i kogukonna foorumist","app.contribute.activity.connect.gitHubDiscussions":"Liitu GitHubi foorumis","app.contribute.activity.connect.hint":"Lähteandmetes pole teavet sotsiaalmeediakanalite kohta.","app.contribute.activity.connect.lemmy":"Liitu Lemmy\'s","app.contribute.activity.connect.mastodon":"Liitu Mastodonis","app.contribute.activity.connect.matrix":"Liitu Matrixis","app.contribute.activity.connect.reddit":"Liitu Redditis","app.contribute.activity.connect.slack":"Liitu Slackis","app.contribute.activity.connect.telegram":"Liitu Telegramis","app.contribute.activity.connect.title":"Suhtle ja aita teisi","app.contribute.activity.contributeCode.description":"Arenda uut funktsionaalsust, aita parandada vigu ja vaata lähtekoodi üle","app.contribute.activity.contributeCode.hint":"Vikis pole dokumenteeritud linki lähtekoodile.","app.contribute.activity.contributeCode.title":"Osale koodi kirjutamisel","app.contribute.activity.contributeMapData.description":"Lisa OSM-i teavet huvipunktide ja muu kaardi sisu kohta - kõike seda kasutab {{app}}","app.contribute.activity.contributeMapData.title":"Tee kaastööd kaardi koostamisel","app.contribute.activity.contributeTranslation.description":"Lisa tõlkeid ja muuda {{app}} kasutatavaks inimeste jaoks üle maailma","app.contribute.activity.contributeTranslation.hint":"Vikis pole dokumenteeritud linki teenusele, kus saad rakendust tõlkida.","app.contribute.activity.contributeTranslation.title":"Tõlgi tekste","app.contribute.activity.donate.description":"Seda projekti saad toetada siin: {{app}}","app.contribute.activity.donate.hint":"Lähtekoodis ei ole rahastamise linke kirjas või need ei ole kontrollitud.","app.contribute.activity.donate.title":"Toeta rahaliselt","app.contribute.activity.editInformation.description":"{{app}} - muuda minu üksikasju lähtevikis","app.contribute.activity.editInformation.osmWiki":"OpenStreetMapi viki","app.contribute.activity.editInformation.title":"Muuda või uuenda teavet","app.contribute.activity.editInformation.wikidata":"Vikiandmed","app.contribute.activity.getIt.description":"Leia sulle sobiv rakenduse kasutamise viis sinu seadmes: {{app}}.","app.contribute.activity.getIt.title":"Asu rakendust kasutama","app.contribute.activity.rateAndReview.appleAppStore":"Hinda Apple\'i rakendustepoes","app.contribute.activity.rateAndReview.asin":"Hinda Amazoni rakendustepoes","app.contribute.activity.rateAndReview.codeberg":"Märgi Codebergis tähekesega","app.contribute.activity.rateAndReview.description":"{{app}} - hinda mind rakendustepoes või koosta seal ka arvustus","app.contribute.activity.rateAndReview.github":"Märgi GitHubis tähekesega","app.contribute.activity.rateAndReview.gitlab":"Märgi GitLabis tähekesega","app.contribute.activity.rateAndReview.googlePlay":"Hinda Google Play rakendustepoes","app.contribute.activity.rateAndReview.hint":"Vikis pole dokumenteeritud ühtegi rakendustepoodi, kus saad koostada arvustusi.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Hinda HUAWEI AppGallery rakendustepoes","app.contribute.activity.rateAndReview.title":"Hinda ja koosta arvustus","app.contribute.activity.reportBugs.description":"{{app}} - teata vigadest, arutle uute ideede üle ja tee ettepanekuid","app.contribute.activity.reportBugs.hint":"Vikis pole dokumenteeritud ühtegi veahalduse teenuse linki.","app.contribute.activity.reportBugs.title":"Teata vigadest","app.contribute.activity.share.bluesky":"Jaga Bluesky\'s","app.contribute.activity.share.copied":"Kopeeritud!","app.contribute.activity.share.copy":"Kopeeri lõikelauale","app.contribute.activity.share.description":"Jaga rakendus oma sotsiaalvõrkudes - {{app}}","app.contribute.activity.share.fediverse":"Jaga Födiversumis","app.contribute.activity.share.mastodon":"Postita Mastodonis","app.contribute.activity.share.more":"Lisavalikud","app.contribute.activity.share.reddit":"Jaga Redditis","app.contribute.activity.share.telegram":"Jaga Telegramis","app.contribute.activity.share.textToShare":"Kas {{name}} rakendus on sulle tuttav? {{-description}}\\nMinu arvates OpenStreetMap on suurepärane! Lisateave OSM-i rakenduste kataloogis: {{-link}}","app.contribute.activity.share.title":"Levita sõna","app.contribute.app.editInformation.wikiOsm.create":"Koosta leht rakenduse jaoks: {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Muuda rakenduse lehte: {{name}}","app.contribute.app.editInformation.wikidata.create":"Lisa kirje","app.contribute.app.editInformation.wikidata.edit":"Muuda kirjet","app.contribute.app.editInformation.wikidata.search":"Esmalt otsi ja vaata, kas {{app}} juba on kataloogis olemas","app.contribute.app.spendTime":"Toeta rakendust: {{app}}","app.contribute.appDevelopment":"Rakenduse arendus","app.contribute.community":"Kogukond","app.contribute.hint":"Miks ei saa teha kaastööd?","app.contribute.osm.spendMoney":"Toeta OpenStreetMapi","app.contribute.osm.spendTime":"Tee kaastööd OpenStreetMapile","app.contribute.toCommunity":"Kogukonnale","app.contribute.toCommunity.welcome":"Juhata teed uutele kasutajatele","app.contribute.toData":"OpenStreerMapi andmetele","app.contribute.toData.edit":"Muuda kaardiandmeid","app.contribute.toData.qa":"Kontrolli kvaliteeti","app.contribute.toData.review":"Vaata üle kaardimuudatusi","app.contribute.toData.tracks":"Salvesta ja jaga GPS-radu","app.contribute.toSoftware":"Tarkvarale","app.contribute.toSoftware.develop":"Kirjuta lähtekoodi","app.contribute.toSoftware.discuss":"Osale keskusteludes ja jaga ideesid","app.contribute.toSoftware.document":"Täienda dokumentatsiooni","app.contribute.toSoftware.test":"Testi ja jaga tagasisidet","app.contribute.toSoftware.translate":"Aita tõlkida","app.coverage":"Katvus","app.download.android":"Androidi jaoks","app.download.button":"Laadi rakendus alla","app.download.contributeSlide.description":"Leia oma viis osalemiseks","app.download.downloadSlide.description":"Vali, kuidas tahad jätkata","app.download.forYourDevice":"sinu seadme jaoks","app.download.fromCodeRepository":"Lisateavet „{{app}}“ rakenduse kohta ja <platforms/>-i versiooni paigaldusjuhiseid leiad lähtekoodihoidlast. Rakenduse paigaldamiseks lähtekoodist võib vaja minna mõningaid tehnilisi teadmisi.","app.download.ios":"iPhone\'i ja iPadi jaoks","app.download.libreSoftwareNeedsSupport":"{{app}} on tasuta ja avatud lähtekoodiga tarkvara.\\nSelle on loonud ja seda haldavad projekti kaastöötajad ning sellega kaasnevad tegevuskulud.\\n\\nKui leiad, et rakendus on kasulik, võiksid seda mingil viisil toetada.","app.download.macos":"MacOS-ijaoks","app.download.needsHelpSlide.description":"Enne, kui jätkad","app.download.osmNeedsSupport":"{{app}} kasutab OpenStreetMapis andmeid , mis on ülemaailmse kogukonna loodud ja hallatav projekt.\\nNeid andmeid võib vabalt kasutada, kuid need on pideva töö tulemus - kaardistamine, arendus ja andmete hoidmine nõuab pidevat pingutust ning nende kättesaadavuse ja ajakohasuse tagamine toob kaasa pidevaid kulusid.\\n\\nKui leiad, et {{app}} on kasulik, võiksid kaaluda OpenStreetMapi toetamist mingil viisil.","app.download.skipButton":"Jätka allalaadimisega","app.download.visitWebApp":"{{app}} - lisateavet leiad ametlikust veebisaidist ja samast saad avada <strong>veebirakenduse</strong>.","app.download.visitWebsite":"{{app}} - lisateavet leiad ametlikust veebisaidist ja samast leiad paigaldusjuhendi <platforms/>i platvormi jaoks.","app.download.windows":"Windowsi jaoks","app.getInvolved":"Osale","app.helpTranslate":"Aita tõlget täiendada","app.helpTranslate.hint.label":"Miks peaksid aitama tõlkimisel?","app.helpTranslate.hint.text":"Isegi väikesed parandused võivad aidata muuta rakendust arusaadavamaks ja kõigile kättesaadavamaks.\\nEnamasti saad seda teha ilma suuremate tehniliste teadmisteta.","app.helpTranslateTo":"Aita parandada eestikeelset tõlget","app.imageAlt":"Pilt rakendusest {{name}}","app.inUserLanguage":"{{language}} ja veel {{numberOfLanguages}} keelt","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Vaata ametlikku veebisaiti","app.keywords":"Märksõnad","app.languages":"Keeled","app.lastRelease":"Viimati uuendatud","app.learnMore":"Lisateave: {{website}}","app.license":"Litsents","app.logoAlt":"Logi rakendusest {{name}}","app.platforms":"Platvormid","app.price":"Hind","app.programmingLanguages":"Programmeerimiskeel","app.screenshotAlt":"Ekraanitõmmis rakendusest {{name}}","app.source":"Andmeallikas","app.source.description":"Nende andmete allikas.","app.source.firstCrawled":"Esimene kord veebist vaadatud: {{added}}","app.source.lastChange":"Viimane muutmine: {{date}}","app.sourceCode":"Lähtekoodi hoidla","app.tag.attribute.foss":"Vaba ja avatud lähtekoodiga","app.tag.attribute.free":"Tasuta","app.tag.feature.accessibility-blind":"Hõlbustus ja ligipääsetavus vaegnägijatele ja pimedatele","app.tag.feature.accessibility-wheelchair":"Hõlbustus ja ligipääsetavus ratastooliga liikumisel","app.tag.feature.create-notes":"OSM-i märkmete lisamine","app.tag.feature.edit-map":"OSM-i andmete muutmine","app.tag.feature.location-search":"Asukoha tuvastamine","app.tag.feature.navigation":"Tee juhatamine","app.tag.feature.offline-edit":"OSM-i andmete muutmine ilma võrguühenduseta","app.tag.feature.offline-maps":"Võrguühenduseta kaardid","app.tag.feature.offline-routing":"Teekonna koostamine ilma võrguühenduseta","app.tag.feature.record-track":"GPS-raja salvestamine","app.tag.feature.routing":"Teekonna kavandamine","app.tag.feature.routing-bike":"Teekonna koostamine rattasõiduks","app.tag.feature.routing-car":"Teekonna koostamine autosõiduks","app.tag.feature.routing-foot":"Teekonna koostamine jalutamiseks","app.tag.feature.routing-hike":"Teekonna koostamine matkamiseks","app.tag.feature.routing-manual":"Teekonna koostamine käsitsi","app.tag.feature.routing-motorbike":"Teekonna koostamine mootorrattasõiduks","app.tag.feature.routing-publicTransport":"Teekonna koostamine ühistranspordiga","app.tag.feature.routing-wheelchair":"Teekonnakoostamine ratastooliga liikumiseks","app.tag.feature.upload-track":"GPS-raja lisamine kaastööna OSM-i","app.tag.feature.voice-guidance":"Tee juhatamine hääljuhistega","app.translationStatus":"Tõlke olek","app.unmaintained":"(<icon/> hüljatud projekt)","app.unmaintained.wiki":"({{icon}} hüljatud projekt)","app.website":"Veebisait","category.3d":"Maailm 3D-vaates","category.3d.description":"{{numberOfApps}} rakendust, mis toetavad 3D-kaarte või muul viisil kuvavad või muudavad OpenStreetMapist pärinevaid 3D-andmeid.","category.all.description":"{{numberOfApps}} <o>OpenStreetMap</o>pi kasutavat rakendust.","category.all.description.filtered":"{{numberOfApps}}/{{totalNumberOfApps}} <o>OpenStreetMappi</o> kasutavat rakendust.","category.calcRoute":"Kavanda oma teekonda","category.calcRoute.description":"{{numberOfApps}} rakendust, mis toetavad marsruudi arvutamist ja reisi planeerimist.","category.changeset":"Muudatuste jälgimine ja kogukonnahaldus","category.changeset.description":"{{numberOfApps}} tarvikut, mis võimaldavad jälgida muudatusi OSM-i andmekogus, pidada arvet kampaaniate üle (nt. teemaviidete alusel) või tervitada uusi kasutajaid.","category.contributePhoto":"Laadi üles kaardistamiseks vajalikke fotosid","category.contributePhoto.description":"{{numberOfApps}} rakendust, mis atavad koguda tänavatasandi fotosid nii kaardistamiseks, kui muudel eesmärkidel.","category.convert":"Teisenda ja renderda","category.convert.description":"{{numberOfApps}} ressurssi OpenStreetMapi andmete teisendamiseks ja renderdamiseks.","category.country":"Rakendused riigi jaoks: {{country}}","category.country.description":"{{numberOfApps}} rakendust, mis on loodud {{country}} jaoks.","category.cycling":"Rattasõit","category.cycling.description":"{{numberOfApps}} rakendust on rattasõidul abiks.","category.diversity":"Üks maailm. Palju kaarte.","category.diversity.description":"{{numberOfApps}} erinevatel teemadel kaarti, mis kajastavad erinevaid elustiile, suhtumisi ja olukordi.","category.edit":"Täienda kaarti","category.edit.description":"{{numberOfApps}} rakendust, mis võimaldavad lisada või muuta OpenStreetMapi andmeid.","category.focus":"Käimasolevad projektid","category.focus.description":"Avasta iga päev kümme käimasolevat projekti. Nad võivad olla veel väikesed ja tundmatud. Toeta neid projekte ja levita vastavat teavet.","category.food":"Söögikohtade otsing","category.food.description":"{{numberOfApps}} rakendust, mille abil saad leida restorane ja muid kohti, kus pakutakse maitsvat toitu.","category.foss":"Avatud lähtekoodiga ja tasuta tarkvara","category.foss.description":"{{numberOfApps}} rakendust või teeki, mis on saadaval litsentsiga, mis annab sulle õiguse neid kasutada, jagada, muuta ja levitada.","category.hiking":"Matkamine","category.hiking.description":"{{numberOfApps}} rakendust on abiks mäeseiklusel.","category.indoor":"Siseruumide kaardistamine","category.indoor.description":"{{numberOfApps}} rakendust siseruumide andmete kuvamiseks ja/või muutmiseks.","category.isochrone":"Isokroonkaardid","category.isochrone.description":"{{numberOfApps}} rakendust, mis toetavad kättesaadavuskaartide arvutamist, näiteks jalakäijate ja jalgratturite jaoks.","category.latestUpdates":"Viimased uuendused","category.latestUpdates.description":"{{numberOfApps}} rakendust järjestatuna viimase versiooni kuupäeva alusel.","category.library":"Paketid ja teegid","category.library.description":"{{numberOfApps}} ressurssi OpenStreetMapi andmetega töötamiseks.","category.mobile":"Võrguühenduseta kasutus","category.mobile.description":"{{numberOfApps}} rakendust, mis on mõeldud kasutamiseks nutiseadmetes või toetavad vallasrežiimi.","category.navigation":"Tee juhatamine","category.navigation.description":"{{numberOfApps}} rakendust, mis pakuvad tee juhatamise võimalust.","category.newAdditions":"Viimased täiendused","category.newAdditions.description":"OSM-i rakenduste kataloogi hiljuti lisandunud sisu.","category.print":"Trüki oma kaart välja","category.print.description":"{{numberOfApps}} tarvikut väljatrükkimiseks mõeldud kaardi koostamiseks.","category.publicTransport":"Ühistranspordi kasutamine","category.publicTransport.description":"{{numberOfApps}} rakendust, mis teevad ühistranspordi kasutamise mugavamaks.","category.qa":"OpenStreetMapi kvaliteeditagamine","category.qa.description":"{{numberOfApps}} tarvikut võimaldavad vigade ja vastuolude leidmiseks ning problemaatiliste muudatuste tuvastamiseks uurida OSM-i andmeid.","category.resolveNotes":"Lahenda kaardimärkusi","category.resolveNotes.description":"{{numberOfApps}} rakendust, mis aitavad üle vaadata ja lahendada kasutajate lisatud kaardimärkeid, tagades sellega OSM-i andmete täpsuse ja ajakohasuse.","category.showAll":"Näita kõiki","category.tourism":"Reisimine ja turism","category.tourism.description":"{{numberOfApps}} rakendust, mis aitavad avastada uusi kohti või leida endale majutust.","category.trackRec":"Salvesta ja jaga teekondi","category.trackRec.description":"{{numberOfApps}} tarvikut võimaldavad salvestada GPS-i radu, liikumisandmeid või välitööde märkmeid näiteks jagamiseks või hilisemaks töötlemiseks.","category.trend":"Populaarsust koguvad rakendused","category.trend.description":"Viimase seitsme päeva jooksul enimvaadatud rakendused.","category.universalMapApps":"Universaalsed kaardirakendused","category.universalMapApps.description":"{{numberOfApps}} kaardirakendust huvitavate kohtade avastamiseks, reisi planeerimiseks ja kaardi täiustamiseks.","category.wheelchair":"Ratastooli või lapsevankri kasutajatele","category.wheelchair.description":"{{numberOfApps}} rakendust, mis aitavad leida kohti, kuhu saab mugavalt ligi ratastooliga ning koostada vastavaid teekondi. Ja loomulikult on samad kohad ja teekonnad kasutatavad ka lapsevankriga.","category.winterSport":"Talisport","category.winterSport.description":"{{numberOfApps}} rakendust, mis kajastavad suusatamist ja muid talispordialasid.","close":"Sulge","compare":"Võrdle","compare.group.header.accessibility":"Ligipääsetavus","compare.group.header.editing":"Kaardi muutmine","compare.group.header.general":"Üldist","compare.group.header.map":"Kaardivaade","compare.group.header.monitoring":"Monitooring","compare.group.header.navigating":"Tee juhatamine","compare.group.header.rendering":"Esitusvalmendus","compare.group.header.routing":"Teekonna koostamine","compare.group.header.tracking":"Radade loomine","compare.share":"Jaga vikis wiki.openstreetmap.org","compare.unknown":"teadmata","filter.category.all":"Kõik","filter.category.latest":"Viimatimuudetud","filter.coverage":"Piirkond","filter.language":"Keel","filter.moreFilters":"Filtrid","filter.platform":"Platvorm","filter.preset":"Eelseadistatud filter sinu jaoks:","filter.preview":"Filtritingimused on:","filter.programmingLanguage":"Programmeerimiskeel","filter.resetFilters":"Eemalda eelseadistatud filtrid","filter.search":"Otsi","filter.tag":"Omadus","filter.topic":"Teema","filters.morePlatforms":"Täiendavad platvormid","footer.feedback":"Jaga tagasisidet","footer.github":"GitHub","footer.helpTranslate":"Aita tõlkida. Ka väikesed parandused on abiks. Sul pole vaja spetsiifilist oskusteavet.","footer.helpTranslate.hint.label":"Teave tõlkimise kohta","footer.helpTranslate.hint.notTranslated":"Selle kataloogi kasutajaliides pole veel antud keelde tõlgitud. Küll aga võib olla, et mõnede rakenduste kirjeldused on tõlgitud.","footer.helpTranslate.hint.text":"Veebirakenduse „Osm Apps Catalog“ kasutajaliidest ja rakenduste kirjeldusi on tõlkinud kogukonna liikmed.","footer.helpTranslate.hint.translated":"Protsent näitab kui suur osa selle kataloogi kasutajaliidesest on seni antud keelde tõlgitud. Küll aga pole rakenduste kirjeldused sellesse näitajasse kaasatud.","footer.languageMissingTranslation":"Pole saadaval","footer.languagePlaceholder":"Vali keel","footer.languageSelectTranslationBadgeAlt":"Tõlkimise olek","footer.privacy":"Privaatsus","introductionPanel.description":"Siit leiad {{numberOfApps}} kaardirakendust igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\\nSee on OpenStreetMap - ühiselt loodud maailmakaart.","introductionPanel.description.whileLoading":"Siit leiad kaardirakendusi igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\\nSee on OpenStreetMap - ühiselt loodud maailmakaart.","introductionPanel.title":"Tere tulemast OSM-i rakenduste kataloogi","list":"Loend","list.more":"Detailne vaade","list.moreInfos":"Lisateave","multilingual":"Mitmekeelne","nav.about":"Veebirakenduse teave","nav.back":"Tagasi","nav.leaveTech":"Välju tehnilisest vaatest","nav.search":"Otsi","nav.tech":"OSM-i entusiastidele","noResults":"Tulemusi pole","notFound":"Kas sa ei leidnud, mida otsisid?","notFound.desc":"Järgnevate teenuste abil saad luua sulle meeldivaid kaarte ja selleks pole vaja programmeerimisoskusi. Keegi võib juba olla loonud sulle huvipakkuva kaardi ning kui ei, siis saad seda ise teha.","pageNotFound":"Lehte ei leidu","relatedApps":"{{numberOfApps}} seotud rakendust","score.criteria.accessibilitySupported":"rakendusel on ligipääsetavuse funktsionaalsus (näiteks ekraanilugeja või teekonna koostamine ratastoolis liikujatele)","score.criteria.addingAndEditingPossible":"huvipunktide, joonte jne lisamine ning muutmine on võimalik","score.criteria.communityChannelExists":"kogukonnal on olemas suhtluskanalid (näiteks foorum, jututuba või Mastodon)","score.criteria.copyleftLicense":"kasutusel on vaba tarkvara litsents (näiteks GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"rakendus kuvab kaartde või OSMi andmeid","score.criteria.documentationLink":"olemas on viide dokumentatsioonile","score.criteria.documentedMultiplePlatforms":"rakendus on dokumenteeritud mitmes keskkonnas (näiteks OSMi Viki, siltide andmekogu, Vikiandmed)","score.criteria.freeOfCharge":"rakendus on tasuta saadaval","score.criteria.issueTracker":"olemas on rakenduse veahaldus","score.criteria.lastUpdateThreeMonths":"rakenduse viimane versioon on välja antud möödunud 3 kuu jooksul","score.criteria.lastUpdateYear":"rakenduse viimane versioon on välja antud möödunud aasta jooksul","score.criteria.multipleLanguages":"rakendus on antud välja mitmekeelsena (vähemalt 3 keelt)","score.criteria.multiplePlatforms":"rakendus on saadaval mitmetel platvormidel (näiteks veebis, Androidile ja iOSis)","score.criteria.openSource":"rakendus põhineb avatud lähtekoodil","score.criteria.openSourceChannel":"suhtluskanalid põhinevad avatud tarkvaral ja protokollil (näiteks Matrix)","score.criteria.openSourceStores":"rakendus on saadaval avatud lähtekoodil põhinevate rakenduste poes (näiteks F-Droid)","score.criteria.sourceCodeReference":"lähtekoodi viited on dokumenteeritud","score.criteria.supportsContributions":"rakendus võimaldab teha kaastööd OpenStreetMapile (muutmine, analüüs, jne)","score.criteria.tenLanguages":"rakendus on saadaval vähemalt kümnes keeles","score.criteria.translationContributions":"rakendus on tõlgitav","score.criteria.worldwideData":"rakendus katab kaardiandmeid üle maailma","score.learnMore":"Loe lisaks","score.result":"- {{description}} ({{points}} punkti)","score.results":"<h5>Panus kogukonna arendusse</h5>Kokku: {{total}} punkti 10-st\\n\\n<h6>Need tegevused tagaks suurema punktiskoori:</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nKas midagi on valesti või puudu? Sa saad osaleda dokumentatsiooni täiendamisel. Ava rakenduse vaade ja klõpsa lingil „{{-editInformationTitle}}“.\\n\\n<h6>Juba korras:</h6>\\n{{fulfilled}}","select.search.noResults":"Tulemusi pole","select.search.placeholder":"Otsi","share.wiki":"Kopeerisime „{{group}}“ tabeli lõikelauale arvestades vorminguga wiki.openstreetmap.org jaoks.","techView.introductionPanel.description":"Siit leiad edasijõudnutele mõeldud tööriistu ja tarkvarateeke OpenStreetMapi andmetega töötamiseks.","techView.introductionPanel.title":"OSM-i rakenduste kataloog entusiastidele ja asjatundjatele","techViewPanel.action":"Lülitu tehnilisele vaatele!","techViewPanel.description":"Vaata OpenStreetMapi teeke ja tarvikuid tehnilises vaates.","techViewPanel.title":"Kas oled OSM-i entusiast või tehnikaasjatundja?","toggleTheme.dark":"Tume","toggleTheme.light":"Hele","toggleTheme.screenReader":"Vaheta teemat","toggleTheme.system":"Süsteem","wiki.generatedBy":"Koostaja: OSMi rakenduste kataloog","wiki.generatedByOsmAppsCatalog":"Selle tabeli koostas [{{link}} OSMi rakenduste kataloog] {{date}}.","wiki.none":"puudub"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/fr.json
 const fr_namespaceObject = /*#__PURE__*/JSON.parse('{"app.author":"Développé par","app.community":"Communauté","app.community.bluesky":"Bluesky","app.community.forum":"Forum","app.community.forumTag":"Étiquette du forum","app.community.githubDiscussions":"Discussions GitHub","app.community.issueTracker":"Problèmes","app.community.lemmy":"Lemmy","app.community.mastodon":"Mastodon","app.community.matrix":"Salon Matrix","app.community.reddit":"Reddit","app.community.slack":"Slack","app.community.telegram":"Groupe Telegram","app.contribute":"Contribuer","app.contribute.activity.connect.bluesky":"Rejoignez-nous sur Bluesky","app.contribute.activity.connect.description":"Rejoignez la communauté {{app}}, échangez avec les autres utilisateurs et aidez-les","app.contribute.activity.connect.forum":"Rejoignez-nous sur le forum","app.contribute.activity.connect.forumTag":"Consultez les discussions sur {{app}} sur le forum de la communauté OSM","app.contribute.activity.connect.gitHubDiscussions":"Rejoignez les discussions sur GitHub","app.contribute.activity.connect.hint":"Aucun réseau social n\'est mentionné dans les sources.","app.contribute.activity.connect.lemmy":"Rejoignez-nous sur Lemmy","app.contribute.activity.connect.mastodon":"Rejoignez-nous sur Mastodon","app.contribute.activity.connect.matrix":"Rejoignez-nous sur Matrix","app.contribute.activity.connect.reddit":"Rejoignez-nous sur Reddit","app.contribute.activity.connect.slack":"Rejoignez-nous sur Slack","app.contribute.activity.connect.telegram":"Rejoignez-nous sur Telegram","app.contribute.activity.connect.title":"Connectez-vous & Aidez les autres","app.contribute.activity.contributeCode.description":"Développer de nouvelles fonctionnalités, contribuer à la correction des bugs et relire le code","app.contribute.activity.contributeCode.hint":"Il n\'existe aucun lien vers le code source documenté dans les wikis.","app.contribute.activity.contributeCode.title":"Lancez-vous dans la programmation","app.contribute.activity.contributeMapData.description":"Ajouter des informations sur les points d\'intérêt ou d\'autres données cartographiques utilisées par {{app}} à OSM","app.contribute.activity.contributeMapData.title":"Partager des données cartographiques","app.contribute.activity.contributeTranslation.description":"Ajoutez des traductions pour rendre {{app}} accessible à davantage de personnes à travers le monde","app.contribute.activity.contributeTranslation.hint":"Il n\'existe aucun lien documenté dans les wikis indiquant où l\'on peut contribuer aux traductions.","app.contribute.activity.contributeTranslation.title":"Traduire le texte","app.contribute.activity.donate.description":"Faites un don à {{app}} pour soutenir ce projet","app.contribute.activity.donate.hint":"Aucun lien de financement n\'est mentionné dans les sources ou ceux-ci n\'ont pas été vérifiés.","app.contribute.activity.donate.title":"Faire un don","app.contribute.activity.editInformation.description":"Modifier les informations concernant {{app}} dans les wikis sources","app.contribute.activity.editInformation.osmWiki":"Wiki OpenStreetMap","app.contribute.activity.editInformation.title":"Modifier / Mettre à jour les informations","app.contribute.activity.editInformation.wikidata":"Wikidata","app.contribute.activity.getIt.description":"Découvrez comment tirer le meilleur parti de {{app}} sur votre appareil.","app.contribute.activity.getIt.title":"Téléchargez l\'application","app.contribute.activity.rateAndReview.appleAppStore":"Évaluer sur l\'App Store d\'Apple","app.contribute.activity.rateAndReview.asin":"Note sur l\'AppStore d\'Amazon","app.contribute.activity.rateAndReview.codeberg":"Donnez une étoile sur Codeberg","app.contribute.activity.rateAndReview.description":"Notez et/ou donnez votre avis sur {{app}} dans les boutiques d\'applications","app.contribute.activity.rateAndReview.github":"Donnez une étoile sur GitHub","app.contribute.activity.rateAndReview.gitlab":"Donnez une étoile sur GitLab","app.contribute.activity.rateAndReview.googlePlay":"Notez-nous sur Google Play","app.contribute.activity.rateAndReview.hint":"Aucun App Store avec système d\'évaluation ou dépôt de code n\'est répertorié dans les wikis.","app.contribute.activity.rateAndReview.huaweiAppGallery":"Notez l\'application dans HUAWEI AppGallery","app.contribute.activity.rateAndReview.title":"Notez et donnez votre avis","app.contribute.activity.reportBugs.description":"Signalez les bugs, échangez des idées et proposez des fonctionnalités pour {{app}}","app.contribute.activity.reportBugs.hint":"Aucun lien vers le système de suivi des problèmes n\'est documenté dans les sources.","app.contribute.activity.reportBugs.title":"Signaler un bug","app.contribute.activity.share.bluesky":"Partager sur Bluesky","app.contribute.activity.share.copied":"Copié !","app.contribute.activity.share.copy":"Copier dans le presse-papiers","app.contribute.activity.share.description":"Partagez {{app}} sur vos réseaux sociaux","app.contribute.activity.share.fediverse":"Partager sur le Fediverse","app.contribute.activity.share.mastodon":"Publiez un message sur Mastodon","app.contribute.activity.share.more":"Plus d\'options","app.contribute.activity.share.reddit":"Partager sur Reddit","app.contribute.activity.share.telegram":"Partager via Telegram","app.contribute.activity.share.textToShare":"Connaissez-vous déjà l\'application {{name}} ? {{-description}}\\nJe trouve qu\'OpenStreetMap est génial ! Découvrez l\'application dans le catalogue des applications OSM : {{-link}}","app.contribute.activity.share.title":"Faites passer le mot","app.contribute.app.editInformation.wikiOsm.create":"Créer une page pour {{app}}","app.contribute.app.editInformation.wikiOsm.edit":"Modifier la page « {{name}} »","app.contribute.app.editInformation.wikidata.create":"Créer un élément","app.contribute.app.editInformation.wikidata.edit":"Modifier un élément","app.contribute.app.editInformation.wikidata.search":"Lancez une recherche pour vérifier que {{app}} n\'existe pas déjà","app.contribute.app.spendTime":"Assistance pour {{app}}","app.contribute.appDevelopment":"Développement d\'applications","app.contribute.community":"Communauté","app.contribute.hint":"Pourquoi ne peut-on pas faire de dons ?","app.contribute.osm.spendMoney":"Faites un don à OpenStreetMap","app.contribute.osm.spendTime":"Contribuez à OpenStreetMap","app.contribute.toCommunity":"À la communauté","app.contribute.toCommunity.welcome":"Accueillir les nouveaux utilisateurs","app.contribute.toData":"Aux données OSM","app.contribute.toData.edit":"Modifier les données de la carte","app.contribute.toData.qa":"S\'assurer de la qualité","app.contribute.toData.review":"Examiner des modifications","app.contribute.toData.tracks":"Enregistrer et partager des traces","app.contribute.toSoftware":"Au logiciel","app.contribute.toSoftware.develop":"Contribuer au code","app.contribute.toSoftware.discuss":"Discuter et partager des idées","app.contribute.toSoftware.document":"Améliorer la documentation","app.contribute.toSoftware.test":"Tester et faire des retours","app.contribute.toSoftware.translate":"Aider à traduire","app.coverage":"Couverture","app.download.android":"Pour Android","app.download.button":"Téléchargez l\'application","app.download.contributeSlide.description":"Découvrez comment vous pouvez apporter votre contribution","app.download.downloadSlide.description":"Choisissez comment continuer","app.download.forYourDevice":"pour votre appareil","app.download.fromCodeRepository":"Consultez le référentiel de code pour obtenir plus d\'informations sur {{app}} et les instructions d\'installation pour la version <platforms/>. L\'installation de l\'application à partir du code source peut nécessiter certaines connaissances techniques.","app.download.ios":"Pour iPhone et iPad","app.download.libreSoftwareNeedsSupport":"{{app}} est un logiciel libre et open source.\\nIl est développé et maintenu par des contributeurs, et son fonctionnement engendre des coûts.\\n\\nSi vous le trouvez utile, vous pouvez envisager de le soutenir d\'une manière ou d\'une autre.","app.download.macos":"Pour macOS","app.download.needsHelpSlide.description":"Avant de continuer","app.download.osmNeedsSupport":"{{app}} utilise les données cartographiques d\'OpenStreetMap, un projet créé et géré par une communauté mondiale de contributeurs.\\nCes données sont libres d\'accès, mais elles sont le fruit d\'un travail continu : la cartographie, le codage et l\'hébergement nécessitent des efforts constants et entraînent des coûts permanents pour garantir leur disponibilité et leur mise à jour.\\n\\nSi vous trouvez {{app}} utile, vous pourriez envisager de soutenir OpenStreetMap d\'une manière ou d\'une autre.","app.download.skipButton":"Continuer le téléchargement/la visite","app.download.visitWebApp":"Rendez-vous sur le site officiel pour en savoir plus sur {{app}} et accéder à l\'<strong>application Web</strong>.","app.download.visitWebsite":"Rendez-vous sur le site officiel pour obtenir plus d\'informations sur {{app}} et les instructions d\'installation pour la version <platforms/>.","app.download.windows":"Pour Windows","app.getInvolved":"Impliquez-vous","app.helpTranslate":"Aidez-nous à améliorer la traduction","app.helpTranslate.hint.label":"Pourquoi proposer une aide à la traduction ?","app.helpTranslate.hint.text":"Même de petites améliorations peuvent contribuer à rendre l\'application plus intuitive et plus accessible à tous.\\nDans la plupart des cas, cela peut se faire sans nécessiter de grandes connaissances techniques.","app.helpTranslateTo":"Aidez-nous à améliorer la traduction en français","app.imageAlt":"Image de {{name}}","app.inUserLanguage":"{{language}} et {{numberOfLanguages}} autres","app.install.appleStore":"Apple App Store","app.install.asin":"Amazon Appstore","app.install.fDroid":"F-Droid","app.install.googlePlay":"Google Play","app.install.huaweiAppGallery":"Huawei App Gallery","app.install.microsoftApp":"Microsoft Store","app.install.obtainium":"Obtainium","app.install.website":"Visitez le site officiel","app.keywords":"Mots-clés","app.languages":"Langues","app.lastRelease":"Dernière version","app.learnMore":"Pour en savoir plus, rendez-vous sur {{website}}","app.license":"Licence","app.logoAlt":"Logo de {{name}}","app.platforms":"Plateformes","app.price":"Prix","app.programmingLanguages":"Programmé en","app.screenshotAlt":"Capture d\'écran de {{name}}","app.source":"Source","app.source.description":"Source des données.","app.source.firstCrawled":"Première exploration : {{added}}","app.source.lastChange":"Dernière modification : {{date}}","app.sourceCode":"Dépôt de code","app.tag.attribute.foss":"Gratuit & open source","app.tag.attribute.free":"Gratuit","app.tag.feature.accessibility-blind":"Accessibilité pour les personnes malvoyantes","app.tag.feature.accessibility-wheelchair":"Accessibilité aux fauteuils roulants","app.tag.feature.create-notes":"Créer des notes OSM","app.tag.feature.edit-map":"Modifier les données OSM","app.tag.feature.location-search":"Recherche de lieux","app.tag.feature.navigation":"Navigation","app.tag.feature.offline-edit":"Modifier les données OSM hors ligne","app.tag.feature.offline-maps":"Cartes hors ligne","app.tag.feature.offline-routing":"Calculer un itinéraire sans connexion Internet","app.tag.feature.record-track":"Enregistrer un tracé GPS","app.tag.feature.routing":"Planification d\'itinéraire","app.tag.feature.routing-bike":"Planification d\'itinéraires à vélo","app.tag.feature.routing-car":"Planification d\'itinéraire pour la conduite","app.tag.feature.routing-foot":"Planification d\'itinéraires pour la marche","app.tag.feature.routing-hike":"Planification d\'itinéraires de randonnée","app.tag.feature.routing-manual":"Planification manuelle d\'itinéraire","app.tag.feature.routing-motorbike":"Planification d\'itinéraires pour la moto","app.tag.feature.routing-publicTransport":"Planification d\'itinéraires pour les transports publics","app.tag.feature.routing-wheelchair":"Planification d\'itinéraires pour les fauteuils roulants","app.tag.feature.upload-track":"Ajouter un tracé à OSM","app.tag.feature.voice-guidance":"Navigation vocale","app.translationStatus":"État de la traduction","app.unmaintained":"(<icon/> Non maintenu)","app.unmaintained.wiki":"({{icon}} Non maintenu)","app.website":"Site Internet","category.3d":"Voir le monde en 3D","category.3d.description":"{{numberOfApps}} applications qui prennent en charge les cartes 3D ou qui affichent ou modifient des données 3D provenant d\'OpenStreetMap.","category.all.description":"Affichage de {{numberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","category.all.description.filtered":"{{numberOfApps}} sur {{totalNumberOfApps}} applications qui utilisent <o>OpenStreetMap</o>.","category.calcRoute":"Planifier un itinéraire","category.calcRoute.description":"{{numberOfApps}} applications qui prennent en charge le calcul d\'itinéraire et la planification de voyage.","category.changeset":"Révision des Modifications et Gestion de la Communauté","category.changeset.description":"{{numberOfApps}} outils pour surveiller les activités dans la base de données OSM, suivre les campagnes (par exemple, les hashtags), accueillir les nouveaux contributeurs.","category.contributePhoto":"Importer des photos pour la cartographie","category.contributePhoto.description":"{{numberOfApps}} applications permettant de collecter et de partager des images au niveau de la rue à des fins de cartographie et autres.","category.convert":"Convertir & Rendu","category.convert.description":"{{numberOfApps}} ressources pour la conversion et le rendu des données liées à OpenStreetMap.","category.country":"Applications pour {{country}}","category.country.description":"{{numberOfApps}} applications conçues pour {{country}}.","category.cycling":"Cyclisme","category.cycling.description":"{{numberOfApps}} applications pour une balade à vélo.","category.diversity":"Un seul monde. De nombreuses cartes.","category.diversity.description":"{{numberOfApps}} cartes thématiques illustrant différents modes de vie, attitudes et situations.","category.edit":"Améliorer la carte","category.edit.description":"{{numberOfApps}} applications qui prennent en charge l\'ajout ou la modification de données OpenStreetMap.","category.focus":"Projets en cours","category.focus.description":"Découvrez chaque jour dix projets en cours. Ils sont peut-être modestes et pas encore très connus. Soutenez-les et faites-les connaître autour de vous.","category.food":"Trouver où manger","category.food.description":"{{numberOfApps}} applications pour trouver des restaurants et d\'autres endroits où déguster de bons petits plats.","category.foss":"Gratuit et open source","category.foss.description":"{{numberOfApps}} applications ou bibliothèques disponibles sous une licence qui vous donne le droit de les utiliser, de les partager, de les modifier et de les distribuer.","category.hiking":"Randonnée","category.hiking.description":"{{numberOfApps}} applications pour une aventure en montagne.","category.indoor":"Cartographie intérieure","category.indoor.description":"{{numberOfApps}} applications permettant d\'afficher et/ou de modifier des données intérieures.","category.isochrone":"Cartes isochrones","category.isochrone.description":"{{numberOfApps}} applications qui prennent en charge le calcul des cartes d\'accessibilité, par exemple pour les piétons et les cyclistes.","category.latestUpdates":"Dernières mises à jour","category.latestUpdates.description":"Affiche les {{numberOfApps}} applications classées par date de sortie.","category.library":"Paquets et bibliothèques","category.library.description":"{{numberOfApps}} ressources pour travailler avec des données liées à OpenStreetMap.","category.mobile":"Utilisation hors ligne","category.mobile.description":"Affiche les {{numberOfApps}} applications développées pour les appareils mobiles ou qui permettent une utilisation hors ligne.","category.navigation":"Navi","category.navigation.description":"{{numberOfApps}} applications prenant en charge la navigation.","category.newAdditions":"Nouveautés","category.newAdditions.description":"Les dernières découvertes ajoutées au catalogue des applications OSM.","category.print":"Imprimez votre propre carte","category.print.description":"{{numberOfApps}} outils permettant de créer un fichier pour l\'impression.","category.publicTransport":"Se déplacer en transports en commun","category.publicTransport.description":"{{numberOfApps}} applications qui facilitent les déplacements en transports en commun.","category.qa":"Assurance Qualité OpenStreetMap","category.qa.description":"{{numberOfApps}} outils pour examiner les données OSM afin de trouver des erreurs, des incohérences ou des changements problématiques.","category.resolveNotes":"Résoudre des notes de carte","category.resolveNotes.description":"{{numberOfApps}} outils permettant d\'examiner et de traiter les remarques cartographiques soumises par les utilisateurs, contribuant ainsi à garantir l\'exactitude et l\'actualité des données OSM.","category.showAll":"Afficher tout","category.tourism":"Voyages et Tourisme","category.tourism.description":"{{numberOfApps}} applications pour découvrir une ville ou trouver un endroit où passer la nuit.","category.trackRec":"Enregistrer et partager des visites","category.trackRec.description":"{{numberOfApps}} outils pour enregistrer des traces GPS, des données de déplacement ou des notes de terrain, par exemple pour une cartographie ultérieure.","category.trend":"Applications tendance","category.trend.description":"Les applications les plus consultées au cours des sept derniers jours.","category.universalMapApps":"Applications de cartographie universelles","category.universalMapApps.description":"{{numberOfApps}} applications cartographiques pour découvrir des lieux intéressants, planifier un voyage ou améliorer la carte.","category.wheelchair":"En déplacement avec un fauteuil roulant ou une poussette","category.wheelchair.description":"{{numberOfApps}} applications pour trouver des lieux accessibles et planifier des itinéraires adaptés aux fauteuils roulants. Veuillez noter que les lieux et les itinéraires accessibles aux fauteuils roulants conviennent généralement aussi aux poussettes.","category.winterSport":"Sports d\'hiver","category.winterSport.description":"{{numberOfApps}} applications pour le ski et les autres sports d\'hiver.","close":"Fermer","compare":"Comparer","compare.group.header.accessibility":"Accessibilité","compare.group.header.editing":"Édition","compare.group.header.general":"Général","compare.group.header.map":"Affichage de carte","compare.group.header.monitoring":"Suivi","compare.group.header.navigating":"Navigation","compare.group.header.rendering":"Rendu","compare.group.header.routing":"Guidage","compare.group.header.tracking":"Traçage","compare.share":"Partager dans wiki.openstreetmap.org","compare.unknown":"inconnu","filter.category.all":"Tout","filter.category.latest":"Les plus récents","filter.coverage":"Couverture","filter.language":"Langue","filter.moreFilters":"Filtres","filter.platform":"Plateforme","filter.preset":"Les filtres présélectionnés sont :","filter.preview":"Les filtres définis sont :","filter.programmingLanguage":"Programmé en","filter.resetFilters":"Supprimer les filtres prédéfinis","filter.search":"Rechercher","filter.tag":"Fonctionnalité","filter.topic":"Sujet","filters.morePlatforms":"Plus de plateformes","footer.feedback":"Donner son avis","footer.github":"GitHub","footer.helpTranslate":"Aidez-nous à traduire. Même les plus petites améliorations sont les bienvenues. Aucun compte ni aucune connaissance technique n\'est requis.","footer.helpTranslate.hint.label":"À propos de la traduction","footer.helpTranslate.hint.notTranslated":"L\'interface du catalogue n\'a pas encore été traduite dans cette langue. Cependant, certaines descriptions d\'applications ont peut-être été traduites.","footer.helpTranslate.hint.text":"L\'interface du catalogue Osm Apps ainsi que les descriptions des applications sont traduites par la communauté.","footer.helpTranslate.hint.translated":"Ce pourcentage indique la part de l\'interface utilisateur du catalogue qui a été traduite dans cette langue à ce jour. Les descriptions des applications ne sont toutefois pas prises en compte.","footer.languageMissingTranslation":"Indisponible","footer.languagePlaceholder":"Sélectionnez une langue","footer.languageSelectTranslationBadgeAlt":"État de la traduction","footer.privacy":"Confidentialité","introductionPanel.description":"Vous trouverez ici {{numberOfApps}} applications cartographiques pour toutes les situations : randonnée hors ligne, planification d’itinéraires à vélo, découverte de lieux adaptés aux enfants, localisation des toilettes les plus proches…\\nDécouvrez OpenStreetMap – une carte du monde créée collaborativement.","introductionPanel.description.whileLoading":"Vous trouverez ici des applications cartographiques pour toutes les situations : randonnée hors ligne, planification d’itinéraires à vélo, découverte de lieux adaptés aux enfants, localisation des toilettes les plus proches…\\nDécouvrez OpenStreetMap – une carte du monde créée collaborativement.","introductionPanel.title":"Bienvenue dans le Catalogue d\'applications OSM","list":"Liste","list.more":"Plus","list.moreInfos":"Plus d\'informations","multilingual":"Multilingue","nav.about":"À propos","nav.back":"Retour","nav.leaveTech":"Quitter la vue technique","nav.search":"Rechercher","nav.tech":"Pour les passionnés d\'OSM","noResults":"Aucun résultat","notFound":"Vous n\'avez pas trouvé ce que vous cherchiez ?","notFound.desc":"Les services suivants vous permettent de créer vos propres cartes thématiques sans aucune connaissance en programmation. Il se peut que quelqu\'un ait déjà créé la carte que vous recherchez, ou vous pouvez créer votre propre carte thématique.","pageNotFound":"Page introuvable","relatedApps":"{{numberOfApps}} applications associées","score.criteria.accessibilitySupported":"l\'accessibilité est prise en charge (par ex. compatibilité avec les lecteurs d\'écran ou calcul d\'itinéraire pour les personnes en fauteuil roulant)","score.criteria.addingAndEditingPossible":"l\'ajout et l\'édition de points d\'interêt, chemins, etc est possible","score.criteria.communityChannelExists":"un canal de communication existe pour la communauté (par ex. forum, Mastodon)","score.criteria.copyleftLicense":"la licence est de type copyleft (par ex. GPL, ODbL, MPL, CC)","score.criteria.displaysMaps":"l\'application affiche des cartes ou des données OSM","score.criteria.documentationLink":"un lien vers la documentation est disponible","score.criteria.documentedMultiplePlatforms":"l\'application est documentée sur plusieurs plateformes (par ex. Wiki OSM, taginfo, Wikidata)","score.criteria.freeOfCharge":"l\'application est gratuite","score.criteria.issueTracker":"il existe un outil de suivi des problèmes","score.criteria.lastUpdateThreeMonths":"la dernière mise à jour a eu lieu dans les 3 derniers mois","score.criteria.lastUpdateYear":"la dernière mise à jour à eu lieu dans l\'année","score.criteria.multipleLanguages":"l\'application prend en charge plusieurs langues (3 langues minimum)","score.criteria.multiplePlatforms":"l\'application est disponible sur plusieurs plateformes (par ex. Web, Android, iOS)","score.criteria.openSource":"l\'application est open source","score.criteria.openSourceChannel":"un canal est hébergé sur des plateformes open source (par ex. Matrix)","score.criteria.openSourceStores":"l\'application est disponible sur des magasins open source (par ex. F-Droid)","score.criteria.sourceCodeReference":"une référence au code source est documentée","score.criteria.supportsContributions":"l\'application prend en charge les contributions (édition, analyse, etc) à OpenStreetMap","score.criteria.tenLanguages":"l\'application est disponible dans au moins 10 langues","score.criteria.translationContributions":"il est possible de contribuer aux traductions","score.criteria.worldwideData":"l\'application couvre des données cartographiques à l\'échelle mondiale","score.learnMore":"En savoir plus","score.result":"- {{description}} ({{points}} points)","score.results":"<h5>Score de la communauté ouverte</h5>Total : {{total}} sur 10 points\\n\\n<h6>Actions requises pour améliorer le score :</h6>\\n{{notFulfilled}}\\n<LearnMoreButton/>\\nQuelque chose ne va pas ou manque ? Vous pouvez aider à améliorer la documentation. Allez sur la page des détails de l\'application et cliquez sur « {{-editInformationTitle}} ».\\n\\n<h6>Validées :</h6>\\n{{fulfilled}}","select.search.noResults":"Aucun résultat","select.search.placeholder":"Rechercher","share.wiki":"Copie du tableau {{group}} dans le presse-papier formaté pour wiki.openstreetmap.org.","techView.introductionPanel.description":"Vous trouverez ici des outils avancés et des bibliothèques de programmes pour travailler avec les données liées à OpenStreetMap.","techView.introductionPanel.title":"Catalogue d\'applications OSM pour les passionnés et les technophiles","techViewPanel.action":"Passez à la vue technique !","techViewPanel.description":"Consultez la rubrique « Bibliothèques et outils OpenStreetMap » dans la section « Aspects techniques » pour découvrir comment travailler avec OSM.","techViewPanel.title":"Êtes-vous un passionné d\'OSM ou un féru de technologie ?","toggleTheme.dark":"Sombre","toggleTheme.light":"Clair","toggleTheme.screenReader":"Basculer le thème","toggleTheme.system":"Système","wiki.generatedBy":"Généré par le Catalogue des applications OSM","wiki.generatedByOsmAppsCatalog":"Ce tableau a été généré par le [{{link}} Catalogue des applications OSM] le {{date}}.","wiki.none":"aucun"}');
 ;// CONCATENATED MODULE: ./src/app/ui/locales/hu.json
@@ -135440,6 +135440,22 @@ async function request(query) {
     params["format"] = "json";
     return await getJson(base, params);
 }
+const Filter = `
+  # instance of / subclass of
+  ?item (wdt:P31*/wdt:P279*) ?type
+  FILTER(?type IN(wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q134215473, wd:Q41362222))
+  { # based on / uses / main subject
+    VALUES ?v { wd:Q936 wd:Q125124940 wd:Q116859711 wd:Q25822543 wd:Q121746037 wd:Q121563476 }
+    ?item (wdt:P144|wdt:P2283|wdt:P921) ?v
+  }
+  UNION
+  { # instance of / subclass of
+    VALUES ?v { wd:Q121560942 wd:Q125118130 wd:Q125121154 wd:Q121746037 wd:Q121563476 }
+    ?item (wdt:P31*/wdt:P279*) ?v
+  }
+  # discontinuation date | abolished | end time
+  FILTER NOT EXISTS { ?item wdt:P2669|wdt:P576|wdt:P582 ?x }
+`;
 const AppQueries = [
     // Base
     `
@@ -135461,20 +135477,29 @@ SELECT DISTINCT
   (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?author; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
+  # Programming languages
   (GROUP_CONCAT(DISTINCT ?progLg; SEPARATOR = ";") AS ?progLgs)
+  # Languages
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
+  # Contribution languages URL
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
-   (SAMPLE(?asin) AS ?asin) 
+
+  # Installation
+  (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?google) AS ?google) 
   (SAMPLE(?huawei) AS ?huawei) 
   (SAMPLE(?fDroid) AS ?fDroid) 
   (SAMPLE(?apple) AS ?apple) 
   (SAMPLE(?microsoft) AS ?microsoft) 
+
+  # Community
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
   (SAMPLE(?lemmy) AS ?lemmy) 
-  (SAMPLE(?issues) AS ?issues) 
+  (SAMPLE(?issues) AS ?issues)
+
+  # Telegram
   (SAMPLE(?telegDef) AS ?telegDef)
   (SAMPLE(?teleg) AS ?teleg)
   (SAMPLE(?subreddit) AS ?subreddit) 
@@ -135482,144 +135507,117 @@ SELECT DISTINCT
   (SAMPLE(?donation) AS ?donation) 
   ?modified 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en" }
 
   OPTIONAL {
-    ?item schema:description ?desc.
+    ?item schema:description ?desc
     FILTER(LANG(?desc) = "mul" || LANG(?desc) = "en")
   }
-
   OPTIONAL {
-    ?item wdt:P1451 ?motto.
+    ?item wdt:P1451 ?motto
     FILTER(LANG(?motto) = "mul" || LANG(?motto) = "en")
   }
-    
   OPTIONAL { 
-    ?item wdt:P1680 ?subtitle. 
+    ?item wdt:P1680 ?subtitle
     FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
   }
-
-  OPTIONAL { ?item wdt:P8972 ?icon. }
-  OPTIONAL { ?item wdt:P154 ?logo. }
-  OPTIONAL { ?item wdt:P18 ?img. }
-  OPTIONAL { ?item wdt:P373 ?common. }
-  OPTIONAL { ?item wdt:P10 ?video. }
-  OPTIONAL { ?item wdt:P856 ?webDef. }
-  OPTIONAL { 
-    ?item p:P856 ?webStat. 
-    ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLg.
-    ?webLg wdt:P218 ?webLgCode 
+  OPTIONAL { ?item wdt:P8972 ?icon }
+  OPTIONAL { ?item wdt:P154 ?logo }
+  OPTIONAL { ?item wdt:P18 ?img }
+  OPTIONAL { ?item wdt:P373 ?common }
+  OPTIONAL { ?item wdt:P10 ?video }
+  OPTIONAL { ?item wdt:P856 ?webDef }
+  OPTIONAL {
+    ?item p:P856 ?webStat.
+    ?webStat ps:P856 ?web;
+      pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode
     FILTER(?webLgCode = "en")
   }
-  OPTIONAL { 
-    ?item p:P1343 ?docDefStat. 
-    ?docDefStat pq:P2699 ?docDef.
-    }
-  OPTIONAL { 
-    ?item p:P973 ?docStat. 
-    ?docStat ps:P973 ?doc.
-    ?docStat pq:P407 ?docLg.
-    ?docLg wdt:P218 ?docLgCode 
+  OPTIONAL {
+    ?item p:P1343 ?docDefStat.
+    ?docDefStat pq:P2699 ?docDef
+  }
+  OPTIONAL {
+    ?item p:P973 ?docStat.
+    ?docStat ps:P973 ?doc;
+      pq:P407 ?docLg.
+    ?docLg wdt:P218 ?docLgCode
     FILTER(?docLgCode = "en")
   }
-  OPTIONAL { ?item wdt:P10027 ?forumDef. }
-  OPTIONAL { 
-    ?item p:P10027 ?forumStat. 
-    ?forumStat ps:P10027 ?forum.
-    ?forumStat pq:P407 ?forumLg.
-    ?forumLg wdt:P218 ?forumLgCode 
+  OPTIONAL { ?item wdt:P10027 ?forumDef }
+  OPTIONAL {
+    ?item p:P10027 ?forumStat.
+    ?forumStat ps:P10027 ?forum;
+      pq:P407 ?forumLg.
+    ?forumLg wdt:P218 ?forumLgCode
     FILTER(?forumLgCode = "en")
   }
   OPTIONAL {
     ?item wdt:P178 ?aItem.
-
     OPTIONAL {
-      ?aItem rdfs:label ?aEn.
+      ?aItem rdfs:label ?aEn
       FILTER(LANG(?aEn) = "en")
     }
-
     OPTIONAL {
-      ?aItem rdfs:label ?aMul.
+      ?aItem rdfs:label ?aMul
       FILTER(LANG(?aMul) = "mul")
     }
-
     BIND(COALESCE(?aEn, ?aMul) AS ?author)
   }
-  OPTIONAL { ?item wdt:P1324 ?sourceCode. }
+  OPTIONAL { ?item wdt:P1324 ?sourceCode }
   OPTIONAL {
     ?item wdt:P277 ?plItem.
-
     OPTIONAL {
-      ?plItem rdfs:label ?plEn.
+      ?plItem rdfs:label ?plEn
       FILTER(LANG(?plEn) = "en")
     }
-
     OPTIONAL {
-      ?plItem rdfs:label ?plMul.
+      ?plItem rdfs:label ?plMul
       FILTER(LANG(?plMul) = "mul")
     }
-
     BIND(COALESCE(?plEn, ?plMul) AS ?progLg)
   }
   OPTIONAL {
     ?item wdt:P407 ?lg.
-    OPTIONAL { ?lg wdt:P218 ?lgCode. }
-    OPTIONAL { ?lg wdt:P219 ?lgCode. }
+    OPTIONAL { ?lg wdt:P218 ?lgCode }
+    OPTIONAL { ?lg wdt:P219 ?lgCode }
     BIND(IF(?lg = wd:Q20923490, "mul", ?lgCode) AS ?languageCode)
   }
-  OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
-  OPTIONAL { ?item wdt:P5749 ?asin. }
-  OPTIONAL { ?item wdt:P3597 ?fDroid. }
-  OPTIONAL { ?item wdt:P3418 ?google. }
-  OPTIONAL { ?item wdt:P8940 ?huawei. }
-  OPTIONAL { ?item wdt:P3861 ?apple. }
-  OPTIONAL { ?item wdt:P5885 ?microsoft. }
-  OPTIONAL { ?item wdt:P11478 ?matrix. }
-  OPTIONAL { ?item wdt:P4033 ?mastodon. }
-  OPTIONAL { ?item wdt:P11947 ?lemmy. }
-  OPTIONAL { ?item wdt:P12361 ?bluesky. }
-  OPTIONAL { ?item wdt:P1401 ?issues. }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?telegDef; 
-     pq:P3831 wd:Q87410646.
+  OPTIONAL { ?item wdt:P11254 ?lgsUrl }
+  OPTIONAL { ?item wdt:P5749 ?asin }
+  OPTIONAL { ?item wdt:P3597 ?fDroid }
+  OPTIONAL { ?item wdt:P3418 ?google }
+  OPTIONAL { ?item wdt:P8940 ?huawei }
+  OPTIONAL { ?item wdt:P3861 ?apple }
+  OPTIONAL { ?item wdt:P5885 ?microsoft }
+  OPTIONAL { ?item wdt:P11478 ?matrix }
+  OPTIONAL { ?item wdt:P4033 ?mastodon }
+  OPTIONAL { ?item wdt:P11947 ?lemmy }
+  OPTIONAL { ?item wdt:P12361 ?bluesky }
+  OPTIONAL { ?item wdt:P1401 ?issues }
+  OPTIONAL {
+    ?item p:P3789 ?telegStat.
+    ?telegStat ps:P3789 ?telegDef;
+      pq:P3831 wd:Q87410646
   }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?teleg; 
-     pq:P3831 wd:Q87410646.
-    ?telegStat pq:P407 ?telegLg.
-    ?telegLg wdt:P218 ?telegLgCode 
+  OPTIONAL {
+    ?item p:P3789 ?telegStat.
+    ?telegStat ps:P3789 ?teleg;
+      pq:P3831 wd:Q87410646;
+      pq:P407 ?telegLg.
+    ?telegLg wdt:P218 ?telegLgCode
     FILTER(?telegLgCode = "en")
   }
-  OPTIONAL { ?item wdt:P3984 ?subreddit. }
-  OPTIONAL { ?item wdt:P1613 ?irc. }
-  OPTIONAL { ?item wdt:P13631 ?donation. }
+  OPTIONAL { ?item wdt:P3984 ?subreddit }
+  OPTIONAL { ?item wdt:P1613 ?irc }
+  OPTIONAL { ?item wdt:P13631 ?donation }
   ?item schema:dateModified ?modified
 }
 GROUP BY ?item 
-         ?itemLabel 
+         ?itemLabel
          ?desc
          ?modified
 `,
@@ -135635,61 +135633,43 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?depict; SEPARATOR = ";") AS ?depicts)
   ?streetImg
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { 
-    ?item wdt:P31/rdfs:label ?instanceOf.
+    ?item wdt:P31/rdfs:label ?instanceOf
     FILTER((LANG(?instanceOf) = "mul" || LANG(?instanceOf) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P366/rdfs:label ?topic.
+    ?item wdt:P366/rdfs:label ?topic
     FILTER((LANG(?topic) = "mul" || LANG(?topic) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P136/rdfs:label ?genre.
+    ?item wdt:P136/rdfs:label ?genre
     FILTER((LANG(?genre) = "mul" || LANG(?genre) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P921/rdfs:label ?subject.
+    ?item wdt:P921/rdfs:label ?subject
     FILTER((LANG(?subject) = "mul" || LANG(?subject) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P101/rdfs:label ?fow.
+    ?item wdt:P101/rdfs:label ?fow
     FILTER((LANG(?fow) = "mul" || LANG(?fow) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P180/rdfs:label ?depict.
+    ?item wdt:P180/rdfs:label ?depict
     FILTER((LANG(?depict) = "mul" || LANG(?depict) = "en"))
   }
 
   OPTIONAL { 
-    ?item p:P3712 ?goalStat. 
-    ?goalStat ps:P3712 ?goal. 
+    ?item p:P3712 ?goalStat.
+    ?goalStat ps:P3712 ?goal.
     FILTER(?goal = wd:Q275969)
-    ?goalStat pq:P12913 wd:Q96470821. 
+    ?goalStat pq:P12913 wd:Q96470821.
     BIND("y" AS ?streetImg)
   }
 }
@@ -135709,32 +135689,14 @@ SELECT DISTINCT
   (SAMPLE(?apple) AS ?apple) 
   (SAMPLE(?microsoft) AS ?microsoft) 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { 
-    ?item wdt:P306/rdfs:label ?osLabel.
+    ?item wdt:P306/rdfs:label ?osLabel
     FILTER((LANG(?osLabel) = "mul" || LANG(?osLabel) = "en"))
   }
   OPTIONAL { 
-    ?item wdt:P400/rdfs:label ?platform.
+    ?item wdt:P400/rdfs:label ?platform
     FILTER((LANG(?platform) = "mul" || LANG(?platform) = "en"))
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
@@ -135754,25 +135716,7 @@ SELECT DISTINCT
   (SAMPLE(?web) AS ?web)
   (MAX(?date) AS ?lastRelease)
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
@@ -135782,8 +135726,8 @@ WHERE {
     ?webLg wdt:P218 ?webLgCode 
     FILTER(?webLgCode = "en")
   }
-      
-  ?item p:P348/pq:P577 ?date.
+
+  ?item p:P348/pq:P577 ?date
 }
 GROUP BY ?item
 `,
@@ -135801,25 +135745,7 @@ WHERE
       ?item
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
     WHERE {
-      ?item (wdt:P31/(wdt:P279*)) ?type.
-      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-      { ?item wdt:P144 wd:Q936. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-      UNION { ?item wdt:P2283 wd:Q936. }
-      UNION { ?item wdt:P144 wd:Q125124940. }
-      UNION { ?item wdt:P2283 wd:Q125124940. }
-      UNION { ?item wdt:P144 wd:Q116859711. }
-      UNION { ?item wdt:P2283 wd:Q116859711. }
-      UNION { ?item wdt:P144 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q121746037. }
-      UNION { ?item wdt:P2283 wd:Q121563476. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-      FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
       OPTIONAL { ?item wdt:P856 ?webDef. }
       OPTIONAL { 
@@ -135831,7 +135757,7 @@ WHERE
       }
           
       ?item wdt:P275 ?license.
-      ?license wdt:P1813 ?licenseShortName.
+      ?license wdt:P1813 ?licenseShortName
     }
     GROUP BY ?item 
              ?license
@@ -135845,25 +135771,7 @@ function buildTranslationQuery(propId, fieldName) {
     return `
 SELECT DISTINCT ?item ?lg ?${fieldName} 
   WHERE {
-    ?item (wdt:P31/(wdt:P279*)) ?type.
-    FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-    { ?item wdt:P144 wd:Q936. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-    UNION { ?item wdt:P2283 wd:Q936. }
-    UNION { ?item wdt:P144 wd:Q125124940. }
-    UNION { ?item wdt:P2283 wd:Q125124940. }
-    UNION { ?item wdt:P144 wd:Q116859711. }
-    UNION { ?item wdt:P2283 wd:Q116859711. }
-    UNION { ?item wdt:P144 wd:Q25822543. }
-    UNION { ?item wdt:P2283 wd:Q25822543. }
-    UNION { ?item wdt:P2283 wd:Q121746037. }
-    UNION { ?item wdt:P2283 wd:Q121563476. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-    FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-    FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
     ?item p:${propId} ?stat.
     ?stat ps:${propId} ?${fieldName}.
@@ -135872,7 +135780,7 @@ SELECT DISTINCT ?item ?lg ?${fieldName}
       ?lgEntity wdt:P218 ?lg. # ISO 639-1 code
     }
 
-    # Exclude English, Multilanguage and empty language codes
+    # Exclude English, multiple languages and empty language codes
     FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 
   }
@@ -135885,25 +135793,7 @@ SELECT DISTINCT
   ?desc 
   ?modified
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   {
     ?item rdfs:label ?itemLabel.
@@ -135947,7 +135837,7 @@ WHERE {
 
   ?item schema:dateModified ?modified
   
-  # Exclude English, Multilanguage and empty language codes
+  # Exclude English, multiple languages and empty language codes
   FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 }
 ORDER BY ?item 
