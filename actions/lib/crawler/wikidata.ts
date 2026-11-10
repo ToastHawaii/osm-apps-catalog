@@ -191,6 +191,23 @@ export async function request(query: string) {
   return await getJson(base, params);
 }
 
+const Filter = `
+  # instance of / subclass of
+  ?item (wdt:P31*/wdt:P279*) ?type
+  FILTER(?type IN(wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q134215473, wd:Q41362222))
+  { # based on / uses / main subject
+    VALUES ?v { wd:Q936 wd:Q125124940 wd:Q116859711 wd:Q25822543 wd:Q121746037 wd:Q121563476 }
+    ?item (wdt:P144|wdt:P2283|wdt:P921) ?v
+  }
+  UNION
+  { # instance of / subclass of
+    VALUES ?v { wd:Q121560942 wd:Q125118130 wd:Q125121154 wd:Q121746037 wd:Q121563476 }
+    ?item (wdt:P31*/wdt:P279*) ?v
+  }
+  # discontinuation date | abolished | end time
+  FILTER NOT EXISTS { ?item wdt:P2669|wdt:P576|wdt:P582 ?x }
+`;
+
 export const AppQueries = [
   // Base
   `
@@ -212,20 +229,29 @@ SELECT DISTINCT
   (SAMPLE(?forum) AS ?forum)
   (GROUP_CONCAT(DISTINCT ?author; SEPARATOR = ", ") AS ?authors)
   (SAMPLE(?sourceCode) AS ?sourceCode)
+  # Programming languages
   (GROUP_CONCAT(DISTINCT ?progLg; SEPARATOR = ";") AS ?progLgs)
+  # Languages
   (GROUP_CONCAT(DISTINCT ?lgCode; SEPARATOR = ";") AS ?lgs)
+  # Contribution languages URL
   (SAMPLE(?lgsUrl) AS ?lgsUrl) 
-   (SAMPLE(?asin) AS ?asin) 
+
+  # Installation
+  (SAMPLE(?asin) AS ?asin) 
   (SAMPLE(?google) AS ?google) 
   (SAMPLE(?huawei) AS ?huawei) 
   (SAMPLE(?fDroid) AS ?fDroid) 
   (SAMPLE(?apple) AS ?apple) 
   (SAMPLE(?microsoft) AS ?microsoft) 
+
+  # Community
   (SAMPLE(?matrix) AS ?matrix) 
   (SAMPLE(?bluesky) AS ?bluesky) 
   (SAMPLE(?mastodon) AS ?mastodon) 
   (SAMPLE(?lemmy) AS ?lemmy) 
-  (SAMPLE(?issues) AS ?issues) 
+  (SAMPLE(?issues) AS ?issues)
+
+  # Telegram
   (SAMPLE(?telegDef) AS ?telegDef)
   (SAMPLE(?teleg) AS ?teleg)
   (SAMPLE(?subreddit) AS ?subreddit) 
@@ -233,144 +259,117 @@ SELECT DISTINCT
   (SAMPLE(?donation) AS ?donation) 
   ?modified 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "mul,en" }
 
   OPTIONAL {
-    ?item schema:description ?desc.
+    ?item schema:description ?desc
     FILTER(LANG(?desc) = "mul" || LANG(?desc) = "en")
   }
-
   OPTIONAL {
-    ?item wdt:P1451 ?motto.
+    ?item wdt:P1451 ?motto
     FILTER(LANG(?motto) = "mul" || LANG(?motto) = "en")
   }
-    
   OPTIONAL { 
-    ?item wdt:P1680 ?subtitle. 
+    ?item wdt:P1680 ?subtitle
     FILTER(LANG(?subtitle) = "mul" || LANG(?subtitle) = "en")
   }
-
-  OPTIONAL { ?item wdt:P8972 ?icon. }
-  OPTIONAL { ?item wdt:P154 ?logo. }
-  OPTIONAL { ?item wdt:P18 ?img. }
-  OPTIONAL { ?item wdt:P373 ?common. }
-  OPTIONAL { ?item wdt:P10 ?video. }
-  OPTIONAL { ?item wdt:P856 ?webDef. }
-  OPTIONAL { 
-    ?item p:P856 ?webStat. 
-    ?webStat ps:P856 ?web.
-    ?webStat pq:P407 ?webLg.
-    ?webLg wdt:P218 ?webLgCode 
+  OPTIONAL { ?item wdt:P8972 ?icon }
+  OPTIONAL { ?item wdt:P154 ?logo }
+  OPTIONAL { ?item wdt:P18 ?img }
+  OPTIONAL { ?item wdt:P373 ?common }
+  OPTIONAL { ?item wdt:P10 ?video }
+  OPTIONAL { ?item wdt:P856 ?webDef }
+  OPTIONAL {
+    ?item p:P856 ?webStat.
+    ?webStat ps:P856 ?web;
+      pq:P407 ?webLg.
+    ?webLg wdt:P218 ?webLgCode
     FILTER(?webLgCode = "en")
   }
-  OPTIONAL { 
-    ?item p:P1343 ?docDefStat. 
-    ?docDefStat pq:P2699 ?docDef.
-    }
-  OPTIONAL { 
-    ?item p:P973 ?docStat. 
-    ?docStat ps:P973 ?doc.
-    ?docStat pq:P407 ?docLg.
-    ?docLg wdt:P218 ?docLgCode 
+  OPTIONAL {
+    ?item p:P1343 ?docDefStat.
+    ?docDefStat pq:P2699 ?docDef
+  }
+  OPTIONAL {
+    ?item p:P973 ?docStat.
+    ?docStat ps:P973 ?doc;
+      pq:P407 ?docLg.
+    ?docLg wdt:P218 ?docLgCode
     FILTER(?docLgCode = "en")
   }
-  OPTIONAL { ?item wdt:P10027 ?forumDef. }
-  OPTIONAL { 
-    ?item p:P10027 ?forumStat. 
-    ?forumStat ps:P10027 ?forum.
-    ?forumStat pq:P407 ?forumLg.
-    ?forumLg wdt:P218 ?forumLgCode 
+  OPTIONAL { ?item wdt:P10027 ?forumDef }
+  OPTIONAL {
+    ?item p:P10027 ?forumStat.
+    ?forumStat ps:P10027 ?forum;
+      pq:P407 ?forumLg.
+    ?forumLg wdt:P218 ?forumLgCode
     FILTER(?forumLgCode = "en")
   }
   OPTIONAL {
     ?item wdt:P178 ?aItem.
-
     OPTIONAL {
-      ?aItem rdfs:label ?aEn.
+      ?aItem rdfs:label ?aEn
       FILTER(LANG(?aEn) = "en")
     }
-
     OPTIONAL {
-      ?aItem rdfs:label ?aMul.
+      ?aItem rdfs:label ?aMul
       FILTER(LANG(?aMul) = "mul")
     }
-
     BIND(COALESCE(?aEn, ?aMul) AS ?author)
   }
-  OPTIONAL { ?item wdt:P1324 ?sourceCode. }
+  OPTIONAL { ?item wdt:P1324 ?sourceCode }
   OPTIONAL {
     ?item wdt:P277 ?plItem.
-
     OPTIONAL {
-      ?plItem rdfs:label ?plEn.
+      ?plItem rdfs:label ?plEn
       FILTER(LANG(?plEn) = "en")
     }
-
     OPTIONAL {
-      ?plItem rdfs:label ?plMul.
+      ?plItem rdfs:label ?plMul
       FILTER(LANG(?plMul) = "mul")
     }
-
     BIND(COALESCE(?plEn, ?plMul) AS ?progLg)
   }
   OPTIONAL {
     ?item wdt:P407 ?lg.
-    OPTIONAL { ?lg wdt:P218 ?lgCode. }
-    OPTIONAL { ?lg wdt:P219 ?lgCode. }
+    OPTIONAL { ?lg wdt:P218 ?lgCode }
+    OPTIONAL { ?lg wdt:P219 ?lgCode }
     BIND(IF(?lg = wd:Q20923490, "mul", ?lgCode) AS ?languageCode)
   }
-  OPTIONAL { ?item wdt:P11254 ?lgsUrl. }
-  OPTIONAL { ?item wdt:P5749 ?asin. }
-  OPTIONAL { ?item wdt:P3597 ?fDroid. }
-  OPTIONAL { ?item wdt:P3418 ?google. }
-  OPTIONAL { ?item wdt:P8940 ?huawei. }
-  OPTIONAL { ?item wdt:P3861 ?apple. }
-  OPTIONAL { ?item wdt:P5885 ?microsoft. }
-  OPTIONAL { ?item wdt:P11478 ?matrix. }
-  OPTIONAL { ?item wdt:P4033 ?mastodon. }
-  OPTIONAL { ?item wdt:P11947 ?lemmy. }
-  OPTIONAL { ?item wdt:P12361 ?bluesky. }
-  OPTIONAL { ?item wdt:P1401 ?issues. }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?telegDef; 
-     pq:P3831 wd:Q87410646.
+  OPTIONAL { ?item wdt:P11254 ?lgsUrl }
+  OPTIONAL { ?item wdt:P5749 ?asin }
+  OPTIONAL { ?item wdt:P3597 ?fDroid }
+  OPTIONAL { ?item wdt:P3418 ?google }
+  OPTIONAL { ?item wdt:P8940 ?huawei }
+  OPTIONAL { ?item wdt:P3861 ?apple }
+  OPTIONAL { ?item wdt:P5885 ?microsoft }
+  OPTIONAL { ?item wdt:P11478 ?matrix }
+  OPTIONAL { ?item wdt:P4033 ?mastodon }
+  OPTIONAL { ?item wdt:P11947 ?lemmy }
+  OPTIONAL { ?item wdt:P12361 ?bluesky }
+  OPTIONAL { ?item wdt:P1401 ?issues }
+  OPTIONAL {
+    ?item p:P3789 ?telegStat.
+    ?telegStat ps:P3789 ?telegDef;
+      pq:P3831 wd:Q87410646
   }
-  OPTIONAL { 
-    ?item p:P3789 ?telegStat. 
-    ?telegStat ps:P3789 ?teleg; 
-     pq:P3831 wd:Q87410646.
-    ?telegStat pq:P407 ?telegLg.
-    ?telegLg wdt:P218 ?telegLgCode 
+  OPTIONAL {
+    ?item p:P3789 ?telegStat.
+    ?telegStat ps:P3789 ?teleg;
+      pq:P3831 wd:Q87410646;
+      pq:P407 ?telegLg.
+    ?telegLg wdt:P218 ?telegLgCode
     FILTER(?telegLgCode = "en")
   }
-  OPTIONAL { ?item wdt:P3984 ?subreddit. }
-  OPTIONAL { ?item wdt:P1613 ?irc. }
-  OPTIONAL { ?item wdt:P13631 ?donation. }
+  OPTIONAL { ?item wdt:P3984 ?subreddit }
+  OPTIONAL { ?item wdt:P1613 ?irc }
+  OPTIONAL { ?item wdt:P13631 ?donation }
   ?item schema:dateModified ?modified
 }
 GROUP BY ?item 
-         ?itemLabel 
+         ?itemLabel
          ?desc
          ?modified
 `,
@@ -386,61 +385,43 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?depict; SEPARATOR = ";") AS ?depicts)
   ?streetImg
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { 
-    ?item wdt:P31/rdfs:label ?instanceOf.
+    ?item wdt:P31/rdfs:label ?instanceOf
     FILTER((LANG(?instanceOf) = "mul" || LANG(?instanceOf) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P366/rdfs:label ?topic.
+    ?item wdt:P366/rdfs:label ?topic
     FILTER((LANG(?topic) = "mul" || LANG(?topic) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P136/rdfs:label ?genre.
+    ?item wdt:P136/rdfs:label ?genre
     FILTER((LANG(?genre) = "mul" || LANG(?genre) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P921/rdfs:label ?subject.
+    ?item wdt:P921/rdfs:label ?subject
     FILTER((LANG(?subject) = "mul" || LANG(?subject) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P101/rdfs:label ?fow.
+    ?item wdt:P101/rdfs:label ?fow
     FILTER((LANG(?fow) = "mul" || LANG(?fow) = "en"))
   }
 
   OPTIONAL { 
-    ?item wdt:P180/rdfs:label ?depict.
+    ?item wdt:P180/rdfs:label ?depict
     FILTER((LANG(?depict) = "mul" || LANG(?depict) = "en"))
   }
 
   OPTIONAL { 
-    ?item p:P3712 ?goalStat. 
-    ?goalStat ps:P3712 ?goal. 
+    ?item p:P3712 ?goalStat.
+    ?goalStat ps:P3712 ?goal.
     FILTER(?goal = wd:Q275969)
-    ?goalStat pq:P12913 wd:Q96470821. 
+    ?goalStat pq:P12913 wd:Q96470821.
     BIND("y" AS ?streetImg)
   }
 }
@@ -460,32 +441,14 @@ SELECT DISTINCT
   (SAMPLE(?apple) AS ?apple) 
   (SAMPLE(?microsoft) AS ?microsoft) 
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { 
-    ?item wdt:P306/rdfs:label ?osLabel.
+    ?item wdt:P306/rdfs:label ?osLabel
     FILTER((LANG(?osLabel) = "mul" || LANG(?osLabel) = "en"))
   }
   OPTIONAL { 
-    ?item wdt:P400/rdfs:label ?platform.
+    ?item wdt:P400/rdfs:label ?platform
     FILTER((LANG(?platform) = "mul" || LANG(?platform) = "en"))
   }
   OPTIONAL { ?item wdt:P5749 ?asin. }
@@ -505,25 +468,7 @@ SELECT DISTINCT
   (SAMPLE(?web) AS ?web)
   (MAX(?date) AS ?lastRelease)
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   OPTIONAL { ?item wdt:P856 ?webDef. }
   OPTIONAL { 
@@ -533,8 +478,8 @@ WHERE {
     ?webLg wdt:P218 ?webLgCode 
     FILTER(?webLgCode = "en")
   }
-      
-  ?item p:P348/pq:P577 ?date.
+
+  ?item p:P348/pq:P577 ?date
 }
 GROUP BY ?item
 `,
@@ -552,25 +497,7 @@ WHERE
       ?item
       (SAMPLE(?licenseShortName) AS ?licenseShortName)
     WHERE {
-      ?item (wdt:P31/(wdt:P279*)) ?type.
-      FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-      { ?item wdt:P144 wd:Q936. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-      UNION { ?item wdt:P2283 wd:Q936. }
-      UNION { ?item wdt:P144 wd:Q125124940. }
-      UNION { ?item wdt:P2283 wd:Q125124940. }
-      UNION { ?item wdt:P144 wd:Q116859711. }
-      UNION { ?item wdt:P2283 wd:Q116859711. }
-      UNION { ?item wdt:P144 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q25822543. }
-      UNION { ?item wdt:P2283 wd:Q121746037. }
-      UNION { ?item wdt:P2283 wd:Q121563476. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-      UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-      FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-      FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
       OPTIONAL { ?item wdt:P856 ?webDef. }
       OPTIONAL { 
@@ -582,7 +509,7 @@ WHERE
       }
           
       ?item wdt:P275 ?license.
-      ?license wdt:P1813 ?licenseShortName.
+      ?license wdt:P1813 ?licenseShortName
     }
     GROUP BY ?item 
              ?license
@@ -597,25 +524,7 @@ function buildTranslationQuery(propId: string, fieldName: string) {
   return `
 SELECT DISTINCT ?item ?lg ?${fieldName} 
   WHERE {
-    ?item (wdt:P31/(wdt:P279*)) ?type.
-    FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-    { ?item wdt:P144 wd:Q936. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-    UNION { ?item wdt:P2283 wd:Q936. }
-    UNION { ?item wdt:P144 wd:Q125124940. }
-    UNION { ?item wdt:P2283 wd:Q125124940. }
-    UNION { ?item wdt:P144 wd:Q116859711. }
-    UNION { ?item wdt:P2283 wd:Q116859711. }
-    UNION { ?item wdt:P144 wd:Q25822543. }
-    UNION { ?item wdt:P2283 wd:Q25822543. }
-    UNION { ?item wdt:P2283 wd:Q121746037. }
-    UNION { ?item wdt:P2283 wd:Q121563476. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-    UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-    FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-    FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
     ?item p:${propId} ?stat.
     ?stat ps:${propId} ?${fieldName}.
@@ -624,7 +533,7 @@ SELECT DISTINCT ?item ?lg ?${fieldName}
       ?lgEntity wdt:P218 ?lg. # ISO 639-1 code
     }
 
-    # Exclude English, Multilanguage and empty language codes
+    # Exclude English, multiple languages and empty language codes
     FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 
   }
@@ -638,25 +547,7 @@ SELECT DISTINCT
   ?desc 
   ?modified
 WHERE {
-  ?item (wdt:P31/(wdt:P279*)) ?type.
-  FILTER(?type IN (wd:Q7397, wd:Q86715518, wd:Q4505959, wd:Q121746037))
-  { ?item wdt:P144 wd:Q936. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121560942. }
-  UNION { ?item wdt:P2283 wd:Q936. }
-  UNION { ?item wdt:P144 wd:Q125124940. }
-  UNION { ?item wdt:P2283 wd:Q125124940. }
-  UNION { ?item wdt:P144 wd:Q116859711. }
-  UNION { ?item wdt:P2283 wd:Q116859711. }
-  UNION { ?item wdt:P144 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q25822543. }
-  UNION { ?item wdt:P2283 wd:Q121746037. }
-  UNION { ?item wdt:P2283 wd:Q121563476. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125118130. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q125121154. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121746037. }
-  UNION { ?item (wdt:P31/(wdt:P279*)) wd:Q121563476. }
-  FILTER NOT EXISTS { ?item wdt:P2669 ?discontinued. }
-  FILTER NOT EXISTS { ?item wdt:P576 ?abolished. }
+${Filter}
 
   {
     ?item rdfs:label ?itemLabel.
@@ -700,7 +591,7 @@ WHERE {
 
   ?item schema:dateModified ?modified
   
-  # Exclude English, Multilanguage and empty language codes
+  # Exclude English, multiple languages and empty language codes
   FILTER(?lg != "en" && ?lg != "mul" && BOUND(?lg))
 }
 ORDER BY ?item 
