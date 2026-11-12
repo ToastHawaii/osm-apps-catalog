@@ -18,7 +18,7 @@ import { Badge } from "@components/ui/badge";
 import { Card, CardContent, CardHeader } from "@components/ui/card";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { useRoute } from "@hooks/useRoute";
-import { useExternalLinkTracking } from "@hooks/useExternalLinkTracking";
+import { useDownloadTracking } from "@hooks/useDownloadTracking";
 import {
   DefaultTagsReorganization,
   tagsReorganizer,
@@ -27,16 +27,15 @@ import {
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { newUrl } from "@shared/utils/url";
-import { NeedsHelpSlide } from "@app/app/download/NeedsHelpSlide";
+import { SupportOpenStreetMap } from "@app/app/support/SupportOpenStreetMap";
+import { SupportLibreSoftware } from "@app/app/support/SupportLibreSoftware";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
   const isTechView = useIsTechDomain();
   const routes = useRoute();
 
-  const { showDonationBanner, hideDonationBanner } = useExternalLinkTracking(
-    app.id,
-  );
+  const { showSupportPanel } = useDownloadTracking();
 
   const images = useAppImages(app);
 
@@ -157,9 +156,9 @@ export function Details({ app }: { app: App }) {
 
   return (
     <>
-      {!app.libre && showDonationBanner && (
-        <div className="relative mx-auto max-w-3xl py-2 text-left">
-          <NeedsHelpSlide app={app} onClose={hideDonationBanner} />
+      {!app.libre && showSupportPanel && (
+        <div className="relative mx-auto max-w-3xl py-2 text-left px-6 md:px-0">
+          <SupportOpenStreetMap app={app} />
         </div>
       )}
       <div className="relative mx-auto max-w-3xl py-2 text-left">
@@ -204,8 +203,8 @@ export function Details({ app }: { app: App }) {
               )}
             </div>
             <div className="mt-8">
-              {app.libre && showDonationBanner && (
-                <NeedsHelpSlide app={app} onClose={hideDonationBanner} />
+              {app.libre && showSupportPanel && (
+                <SupportLibreSoftware app={app} />
               )}
               <h2 className="mt-4 text-xl font-semibold">
                 {t("app.getInvolved")}

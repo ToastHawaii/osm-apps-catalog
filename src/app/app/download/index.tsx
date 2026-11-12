@@ -8,6 +8,7 @@ import { App } from "@shared/data/App";
 
 export function Download({ app }: { app: App }) {
   const { t } = useTranslation();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <DrawerDialog
@@ -15,8 +16,10 @@ export function Download({ app }: { app: App }) {
       trigger={<Button>{t("app.download.button")}</Button>}
       title={app.name}
       description={t("app.download.downloadSlide.description")}
+      onOpenChange={setOpen}
+      open={open}
     >
-      <DownloadSlide app={app} />
+      <DownloadSlide app={app} onDownloadClick={() => setOpen(false)} />
     </DrawerDialog>
   );
 }

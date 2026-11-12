@@ -1,51 +1,25 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-
 import { Button } from "@components/ui/button";
 import {
   Card,
+  CardHeader,
+  CardTitle,
   CardAction,
   CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@components/ui/card";
-import { App } from "@shared/data/App";
-import { ExternalLink } from "@components/common/ExternalLink";
+import { useDownloadTracking } from "@hooks/useDownloadTracking";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { App } from "@shared/data/App";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { ExternalLink } from "@components/common/ExternalLink";
 
-export function NeedsHelpSlide({
-  app,
-  onClose,
-}: {
-  app: App;
-  onClose: () => void;
-}): React.ReactNode {
+export function SupportOpenStreetMap({ app }: { app: App }) {
   const { t } = useTranslation();
+  const { hideSupportPanel } = useDownloadTracking();
 
-  return app.libre ? (
-    <Card className="bg-linear-110 from-yellow-300 to-pink-500" size="sm">
-      <CardHeader>
-        <CardTitle>
-          {t("app.download.libreSoftwareNeedsSupport.title", { app: app.name })}
-        </CardTitle>
-        <CardAction>
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            onClick={onClose}
-            aria-label={t("close")}
-          >
-            <HugeiconsIcon strokeWidth={2} icon={Cancel01Icon} />
-          </Button>
-        </CardAction>
-      </CardHeader>
-      <CardContent className="whitespace-pre-line">
-        {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
-      </CardContent>
-    </Card>
-  ) : (
+  return (
     <Card className="bg-linear-110 from-amber-400 to-green-500" size="sm">
       <CardHeader>
         <CardTitle>
@@ -55,7 +29,7 @@ export function NeedsHelpSlide({
           <Button
             variant="ghost"
             size="icon-sm"
-            onClick={onClose}
+            onClick={hideSupportPanel}
             aria-label={t("close")}
           >
             <HugeiconsIcon strokeWidth={2} icon={Cancel01Icon} />

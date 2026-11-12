@@ -37,7 +37,13 @@ function getUsersPlatformFirst(
   ]);
 }
 
-export function DownloadSlide({ app }: { app: App }) {
+export function DownloadSlide({
+  app,
+  onDownloadClick,
+}: {
+  app: App;
+  onDownloadClick?: () => void;
+}) {
   const { t } = useTranslation();
 
   const userOS = ["Web", getUserOS()].filter((p) => p) as string[];
@@ -116,7 +122,13 @@ export function DownloadSlide({ app }: { app: App }) {
     variant: "default" | "outline" = "default",
   ) {
     return links[platform].map((link) => (
-      <DownloadButton app={app} {...link} key={link.key} variant={variant} />
+      <DownloadButton
+        app={app}
+        {...link}
+        key={link.key}
+        variant={variant}
+        onClick={onDownloadClick}
+      />
     ));
   }
 
@@ -152,6 +164,7 @@ export function DownloadSlide({ app }: { app: App }) {
               app={app}
               label={t("app.install.website")}
               href={app.website}
+              onClick={onDownloadClick}
             />
           </div>
         </>
@@ -208,6 +221,7 @@ export function DownloadSlide({ app }: { app: App }) {
               icon={getHostIcon(app.sourceCode, SourceCodeSquareIcon)}
               label={t("app.sourceCode")}
               href={app.sourceCode}
+              onClick={onDownloadClick}
             />
           </div>
         </>

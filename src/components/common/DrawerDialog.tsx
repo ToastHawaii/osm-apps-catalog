@@ -31,6 +31,7 @@ export function DrawerDialog({
   children,
   actions,
   size,
+  open,
   onOpenChange,
 }: PropsWithChildren<{
   title?: string | undefined;
@@ -38,22 +39,16 @@ export function DrawerDialog({
   trigger: JSX.Element;
   actions?: JSX.Element | undefined;
   size?: "lg" | undefined;
+  open: boolean;
   onOpenChange?: ((open: boolean) => void) | undefined;
 }>) {
-  const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const { t } = useTranslation();
 
   if (isDesktop) {
     return (
-      <Dialog
-        open={open}
-        onOpenChange={(open) => {
-          setOpen(open);
-          onOpenChange?.(open);
-        }}
-      >
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent
           className={size === "lg" ? "max-w-[752px]! min-w-auto" : "max-w-110"}
@@ -81,13 +76,7 @@ export function DrawerDialog({
   }
 
   return (
-    <Drawer
-      open={open}
-      onOpenChange={(open) => {
-        setOpen(open);
-        onOpenChange?.(open);
-      }}
-    >
+    <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
       <DrawerContent>
         {(!!title || !!description) && (

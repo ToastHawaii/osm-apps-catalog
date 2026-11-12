@@ -40,6 +40,7 @@ import { trimStart, trimEnd } from "lodash";
 
 export function Contribute({ app }: { app: App }) {
   const { t } = useTranslation();
+  const [open, setOpen] = React.useState(false);
 
   const { fundings } = useAppsFundingData();
 
@@ -76,8 +77,10 @@ export function Contribute({ app }: { app: App }) {
           }
           title={app.name}
           description={t("app.download.downloadSlide.description")}
+          onOpenChange={setOpen}
+          open={open}
         >
-          <DownloadSlide app={app} />
+          <DownloadSlide app={app} onDownloadClick={() => setOpen(false)} />
         </DrawerDialog>
 
         <Activity

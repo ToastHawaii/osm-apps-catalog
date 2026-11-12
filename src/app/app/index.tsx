@@ -10,6 +10,7 @@ import { useAppsData } from "@hooks/useAppsData";
 
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Details } from "@app/app/Details";
+import { DownloadTrackingProvider } from "@hooks/useDownloadTracking";
 
 function PageMeta({ app }: { app: App }) {
   return (
@@ -78,7 +79,9 @@ export function AppPage({ app }: { app: App }) {
       <PageHeader />
       <div className="text-center">
         <main>
-          <Details app={app} />
+          <DownloadTrackingProvider appId={app.id}>
+            <Details app={app} />
+          </DownloadTrackingProvider>
         </main>
       </div>
     </>
