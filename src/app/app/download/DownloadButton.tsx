@@ -6,6 +6,7 @@ import { Button } from "@components/ui/button";
 import { cn } from "@lib/utils";
 import { App } from "@shared/data/App";
 import { contribute } from "@shared/lib/filters";
+import { useExternalLinkTracking } from "@hooks/useExternalLinkTracking";
 
 export function DownloadButton({
   app,
@@ -22,12 +23,15 @@ export function DownloadButton({
   href: string | undefined;
   variant?: "default" | "outline";
 }) {
+  const { markExternalLinkClicked } = useExternalLinkTracking(app.id);
+
   return (
     <Button className="grow md:flex-none" variant={variant} asChild>
       <ExternalLink
         variant={null}
         icon
         href={href}
+        onClick={markExternalLinkClicked}
         data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
         data-goatcounter-title="Goes to a download page of an app."
         data-goatcounter-referrer="https://osm-apps.org/"

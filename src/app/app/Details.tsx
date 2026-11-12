@@ -18,6 +18,7 @@ import { Badge } from "@components/ui/badge";
 import { Card, CardContent, CardHeader } from "@components/ui/card";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { useRoute } from "@hooks/useRoute";
+import { useExternalLinkTracking } from "@hooks/useExternalLinkTracking";
 import {
   DefaultTagsReorganization,
   tagsReorganizer,
@@ -26,11 +27,16 @@ import {
 import { App } from "@shared/data/App";
 import { plainText } from "@shared/utils/plainText";
 import { newUrl } from "@shared/utils/url";
+import { NeedsHelpSlide } from "@app/app/download/NeedsHelpSlide";
 
 export function Details({ app }: { app: App }) {
   const { t } = useTranslation();
   const isTechView = useIsTechDomain();
   const routes = useRoute();
+
+  const { showDonationBanner, hideDonationBanner } = useExternalLinkTracking(
+    app.id,
+  );
 
   const images = useAppImages(app);
 
@@ -150,75 +156,89 @@ export function Details({ app }: { app: App }) {
   }
 
   return (
-    <div className="relative mx-auto max-w-3xl py-2 text-left">
-      <Card className="rounded-none shadow-md md:rounded-2xl">
-        <CardHeader className="flex flex-wrap items-center gap-6">
-          <div className="size-25 place-items-center content-center">
-            <AppLogo app={app} />
-          </div>
-          <h1 className="text-2xl font-semibold">{app.name}</h1>
+    <>
+      {!app.libre && showDonationBanner && (
+        <div className="relative mx-auto max-w-3xl py-2 text-left">
+          <NeedsHelpSlide app={app} onClose={hideDonationBanner} />
+        </div>
+      )}
+      <div className="relative mx-auto max-w-3xl py-2 text-left">
+        <Card className="rounded-none shadow-md md:rounded-2xl">
+          <CardHeader className="flex flex-wrap items-center gap-6">
+            <div className="size-25 place-items-center content-center">
+              <AppLogo app={app} />
+            </div>
+            <h1 className="text-2xl font-semibold">{app.name}</h1>
 
-          <Download app={app} />
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          <div className="flex flex-wrap gap-2">
-            {tagItems.map((tag) => (
-              <Badge key={tag} variant="outline" asChild>
-                <Link to={routes.search({ tags: [tag] })}>
-                  {t(`app.tag.${tag}`)}
-                </Link>
-              </Badge>
-            ))}
-          </div>
-          {images.length > 0 && <Gallery images={images} />}
+            <Download app={app} />
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="flex flex-wrap gap-2">
+              {tagItems.map((tag) => (
+                <Badge key={tag} variant="outline" asChild>
+                  <Link to={routes.search({ tags: [tag] })}>
+                    {t(`app.tag.${tag}`)}
+                  </Link>
+                </Badge>
+              ))}
+            </div>
+            {images.length > 0 && <Gallery images={images} />}
 
-          <div className="text-base">
-            <Formatted htmlText={app.description || app.subtitle || ""} />
-            {app.documentation && (
-              <>
-                {getDelimiter()}
-                <ExternalLink
-                  href={app.documentation}
-                  icon
-                  data-goatcounter-click="/app/more"
-                  data-goatcounter-title="Goes to the learn more page of an app."
-                  data-goatcounter-referrer="https://osm-apps.org/"
+            <div className="text-base">
+              <Formatted htmlText={app.description || app.subtitle || ""} />
+              {app.documentation && (
+                <>
+                  {getDelimiter()}
+                  <ExternalLink
+                    href={app.documentation}
+                    icon
+                    data-goatcounter-click="/app/more"
+                    data-goatcounter-title="Goes to the learn more page of an app."
+                    data-goatcounter-referrer="https://osm-apps.org/"
+                  >
+                    {t("app.learnMore", {
+                      website: newUrl(app.documentation).host,
+                    })}
+                  </ExternalLink>
+                </>
+              )}
+            </div>
+            <div className="mt-8">
+              {app.libre && showDonationBanner && (
+                <NeedsHelpSlide app={app} onClose={hideDonationBanner} />
+              )}
+              <h2 className="mt-4 text-xl font-semibold">
+                {t("app.getInvolved")}
+              </h2>
+            </div>
+            <Card>
+              <CardContent>
+                <Contribute app={app} />
+              </CardContent>
+            </Card>
+
+            <h2 className="mt-12 text-xl font-semibold">
+              {t("list.moreInfos")}
+            </h2>
+            <div className="w-full text-sm sm:columns-2 sm:gap-6">
+              {metaData.map((d, i) => (
+                <dl
+                  key={i}
+                  className="mb-4 flex break-inside-avoid items-center justify-between gap-4 border-b py-2 last:border-b-0 sm:block sm:border-0 sm:py-0"
                 >
-                  {t("app.learnMore", {
-                    website: newUrl(app.documentation).host,
-                  })}
-                </ExternalLink>
-              </>
-            )}
-          </div>
-          <h2 className="mt-12 text-xl font-semibold">
-            {t("app.getInvolved")}
-          </h2>
-          <Card>
-            <CardContent>
-              <Contribute app={app} />
-            </CardContent>
-          </Card>
-
-          <h2 className="mt-12 text-xl font-semibold">{t("list.moreInfos")}</h2>
-          <div className="w-full text-sm sm:columns-2 sm:gap-6">
-            {metaData.map((d, i) => (
-              <dl
-                key={i}
-                className="mb-4 flex break-inside-avoid items-center justify-between gap-4 border-b py-2 last:border-b-0 sm:block sm:border-0 sm:py-0"
-              >
-                <dt className="text-muted-foreground">{d.title}</dt>
-                <dd className="text-right sm:text-left">{d.value}</dd>
-              </dl>
-            ))}
-          </div>
-        </CardContent>
-      </Card>{" "}
-      <Score
-        app={app}
-        position="right"
-        className="rounded-tr-none md:rounded-tr-lg"
-      />
-    </div>
+                  <dt className="text-muted-foreground">{d.title}</dt>
+                  <dd className="text-right sm:text-left">{d.value}</dd>
+                </dl>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <Score
+          app={app}
+          position="right"
+          className="rounded-tr-none md:rounded-tr-lg"
+        />
+      </div>
+    </>
   );
 }

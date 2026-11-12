@@ -2,41 +2,66 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardFooter } from "@components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@components/ui/card";
 import { App } from "@shared/data/App";
 import { ExternalLink } from "@components/common/ExternalLink";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export function NeedsHelpSlide({
   app,
-  onSupportClick,
+  onClose,
 }: {
   app: App;
-  onSupportClick: () => void;
+  onClose: () => void;
 }): React.ReactNode {
   const { t } = useTranslation();
 
   return app.libre ? (
-    <>
-      <Card className="bg-linear-110 from-yellow-300 to-pink-500" size="sm">
-        <CardContent className="whitespace-pre-line">
-          {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
-        </CardContent>
-        <CardFooter className="flex-wrap gap-3">
-          <Button size="xs" onClick={onSupportClick}>
-            {t("app.contribute.app.spendTime", { app: app.name })}
+    <Card className="bg-linear-110 from-yellow-300 to-pink-500" size="sm">
+      <CardHeader>
+        <CardTitle>
+          {t("app.download.libreSoftwareNeedsSupport.title", { app: app.name })}
+        </CardTitle>
+        <CardAction>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onClose}
+            aria-label={t("close")}
+          >
+            <HugeiconsIcon strokeWidth={2} icon={Cancel01Icon} />
           </Button>
-          {/* 
-            <Button size="xs" asChild>
-              <ExternalLink href="" icon>
-                Donate money
-              </ExternalLink>
-            </Button> 
-          */}
-        </CardFooter>
-      </Card>
-    </>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="whitespace-pre-line">
+        {t("app.download.libreSoftwareNeedsSupport", { app: app.name })}
+      </CardContent>
+    </Card>
   ) : (
     <Card className="bg-linear-110 from-amber-400 to-green-500" size="sm">
+      <CardHeader>
+        <CardTitle>
+          {t("app.download.osmNeedsSupport.title", { app: app.name })}
+        </CardTitle>
+        <CardAction>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onClose}
+            aria-label={t("close")}
+          >
+            <HugeiconsIcon strokeWidth={2} icon={Cancel01Icon} />
+          </Button>
+        </CardAction>
+      </CardHeader>
       <CardContent className="whitespace-pre-line">
         <p>{t("app.download.osmNeedsSupport", { app: app.name })}</p>
       </CardContent>
