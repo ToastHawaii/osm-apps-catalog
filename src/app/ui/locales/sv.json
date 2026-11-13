@@ -124,7 +124,6 @@
   "score.criteria.translationContributions": "bidrag till översättningar är möjliga",
   "score.criteria.worldwideData": "appen täcker globala kartdata",
   "score.result": "{{description}} ({{points}} poäng)",
-  "score.results": "Community Contribution Score\nTotalt: {{total}} poäng\n\nÅtgärder som krävs för en högre poäng:\n{{notFulfilled}}\n\nFulfylld:\n{{fulfilled}}",
   "select.search.noResults": "Inga resultat",
   "select.search.placeholder": "Sök",
   "share.wiki": "Kopierad {{group}} tabell till klippbordet formaterat för wiki.openstreetmap.org.",

@@ -150,7 +150,6 @@
   "score.criteria.translationContributions": "மொழிபெயர்ப்புகளுக்கான பங்களிப்புகள் சாத்தியமாகும்",
   "score.criteria.worldwideData": "பயன்பாடு உலகளாவிய வரைபடத் தரவை உள்ளடக்கியது",
   "score.result": "- {{description}} ({{points}} புள்ளிகள்)",
-  "score.results": "சமூக பங்களிப்பு மதிப்பெண்\n மொத்தம்: {{total}} புள்ளிகள்\n\n அதிக மதிப்பெண்ணுக்கு தேவையான நடவடிக்கைகள்:\n {{notFulfilled}}}\n\n நிறைவேறியது:\n {{fulfilled}}}",
   "select.search.noResults": "முடிவுகள் இல்லை",
   "select.search.placeholder": "தேடல்",
   "share.wiki": "Wiki.openstreetmap.org க்காக வடிவமைக்கப்பட்ட இடைநிலைப்பலகைக்கு {{group}} அட்டவணை நகலெடுக்கப்பட்டது.",

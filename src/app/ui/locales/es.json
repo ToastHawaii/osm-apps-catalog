@@ -89,7 +89,6 @@
   "score.criteria.translationContributions": "Son posibles colaboraciones a las traducciones",
   "score.criteria.worldwideData": "La aplicación cubre datos de mapas de todo el mundo",
   "score.result": "- {{description}} ({{points}} puntos)",
-  "score.results": "Puntuación de la contribución comunitaria\nTotal: {{total}} puntos\n\nAcciones requeridas para una puntuación más alta:\n{{notFulfilled}}\n\nCumplido:\n{{fulfilled}}",
   "share.wiki": "Copiada la tabla {{group}} al portapapeles con formato para wiki.openstreetmap.org.",
   "wiki.generatedBy": "Creado por OSM Apps Catalog",
   "wiki.generatedByOsmAppsCatalog": "Esta tabla fue generada por el [{{link}} Catálogo de aplicaciones OSM] en {{date}}.",

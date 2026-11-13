@@ -118,7 +118,6 @@
   "score.criteria.translationContributions": "можливий внесок у переклади",
   "score.criteria.worldwideData": "додаток охоплює дані карт усього світу",
   "score.result": "- {{description}} ({{points}} бали)",
-  "score.results": "Оцінка внеску в спільноту\nВсього: {{total}} балів\n\nДії, необхідні для отримання вищого балу:\n{{notFulfilled}}\n\nВиконано:\n{{fulfilled}}",
   "select.search.noResults": "Немає результатів",
   "select.search.placeholder": "Пошук",
   "share.wiki": "Таблицю {{group}} скопійовано в буфер обміну, відформатовану для wiki.openstreetmap.org.",

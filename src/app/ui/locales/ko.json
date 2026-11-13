@@ -32,7 +32,6 @@
   "score.criteria.openSourceStores": "앱은 오픈 소스 스토어(예: F-Droid)를 통해 액세스할 수 있습니다",
   "score.criteria.supportsContributions": "앱은 OpenStreetMap에 기여 (편집, 분석 등)을 지원합니다",
   "score.criteria.tenLanguages": "앱은 10 l 언어에서 사용할 수 있습니다",
-  "score.results": "커뮤니티 공헌 점수\n합계: {{total}} 점\n\n더 높은 점수에 필요한 작업:\n{{notFulfilled}} (주)\n\n공급 능력:\n{{fulfilled}}",
   "share.wiki": "복사 {{group}} wiki.openstreetmap.org에 포맷 된 클립 보드에 테이블.",
   "techView.introductionPanel.description": "여기에서 새로 제공되는 Dely에서 사과받습니다.",
   "techViewPanel.description": "TeetStip의 OpenStreetMap 라이브러리 및 기술 앱을 참조하십시오.",
