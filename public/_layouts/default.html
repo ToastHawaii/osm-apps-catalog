@@ -61,6 +61,18 @@
   <script data-goatcounter="https://osm-apps.goatcounter.com/count"
           data-goatcounter-settings='{"path": "{{ path }}"}' async
           src="//gc.zgo.at/count.js"></script>
+
+  <script>
+    const path = window.location.pathname;
+
+    if (path.startsWith('/app/')) {
+      const appPath = path.substring(5);
+
+      window.location.replace(
+        '/?app=' + encodeURIComponent(appPath)
+      );
+    }
+  </script>
 </head>
 
 <body>
