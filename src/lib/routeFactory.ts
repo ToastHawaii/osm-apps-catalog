@@ -14,7 +14,7 @@ export function routeFactory(domain?: string, language?: string) {
   ): (params?: Query, options?: { full?: boolean }) => string;
   function build<T extends Params>(
     page?: string,
-  ): (params: T & Query, options?: { full?: boolean }) => string;
+  ): (params?: T & Query, options?: { full?: boolean }) => string;
   function build<T extends Params | undefined>(page?: string) {
     return (params: T & Query, options?: { full?: boolean }) => {
       const base = options?.full ? `${document.location.origin}/` : "/";

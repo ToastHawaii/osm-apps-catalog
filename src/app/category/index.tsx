@@ -10,6 +10,7 @@ import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
 import { upperCase } from "@shared/utils/string";
+import { NotFound } from "@app/notFound";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     }
 
     if (!category) {
-      throw new Error(`Category not found: ${id}`);
+      return {};
     }
 
     const categoryApps = [];
@@ -57,6 +58,10 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
       techView,
     };
   }, [apps.length, platforms.join(",")]);
+
+  if (!category) {
+    return <NotFound />;
+  }
 
   return (
     <>

@@ -4,7 +4,7 @@ import { cn } from "@lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-const externalLinkVariants = cva(
+export const linkVariants = cva(
   "underline-offset-4 hover:underline align-middle",
   {
     variants: {
@@ -25,14 +25,14 @@ export function ExternalLink({
   icon,
   ...props
 }: React.ComponentProps<"a"> &
-  VariantProps<typeof externalLinkVariants> & {
+  VariantProps<typeof linkVariants> & {
     asChild?: boolean;
     icon?: boolean | undefined;
   }) {
   return (
     <a
       data-variant={variant}
-      className={cn(externalLinkVariants({ variant, className }))}
+      className={cn(linkVariants({ variant, className }))}
       target="_blank"
       rel="noreferrer"
       {...{
