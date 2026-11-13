@@ -1,6 +1,6 @@
 import React from "react";
 import { App } from "@shared/data/App";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { calculateScore } from "@shared/data/calculateScore";
 import {
   Popover,
@@ -68,47 +68,65 @@ export function Score({
         </PopoverTrigger>
         <PopoverContent
           align="end"
-          className="max-h-[60vh] w-150 max-w-[90vw]! overflow-y-auto whitespace-pre-line"
+          className="max-h-[60vh] w-150 max-w-[90vw]! overflow-y-auto"
         >
           <div>
-            <Trans
-              i18nKey="score.results"
-              values={{
+            <h5 className="text-lg font-semibold">{t("score.title")}</h5>
+            <p className="mb-3">
+              {t("score.total", {
                 total: score.total,
-                fulfilled: score.details
-                  .filter((d) => d.fulfilled)
-                  .map((e) =>
-                    t("score.result", {
-                      description: t("score.criteria." + e.translationKey),
-                      points: e.points,
-                    }),
-                  )
-                  .join("\n"),
-                notFulfilled: score.details
-                  .filter((d) => !d.fulfilled)
-                  .map((e) =>
-                    t("score.result", {
-                      description: t("score.criteria." + e.translationKey),
-                      points: e.points,
-                    }),
-                  )
-                  .join("\n"),
+              })}
+            </p>
+
+            {score.details.some((d) => !d.fulfilled) && (
+              <>
+                <h6 className="font-semibold">{t("score.actionsRequired")}</h6>
+                <ul className="ms-5 list-disc">
+                  {score.details
+                    .filter((d) => !d.fulfilled)
+                    .map((e) => (
+                      <li key={e.translationKey}>
+                        {t("score.result", {
+                          description: t("score.criteria." + e.translationKey),
+                          points: e.points,
+                        })}
+                      </li>
+                    ))}
+                </ul>
+              </>
+            )}
+
+            <Button asChild>
+              <a className="my-6 block" href={routes.docs.score()}>
+                {t("score.learnMore")}
+              </a>
+            </Button>
+
+            <p className="mb-3">
+              {t("score.isSomethingWrong", {
                 editInformationTitle: t(
                   "app.contribute.activity.editInformation.title",
                 ),
-              }}
-              components={{
-                LearnMoreButton: (
-                  <Button asChild>
-                    <a className="my-3 block" href={routes.docs.score()}>
-                      {t("score.learnMore")}
-                    </a>
-                  </Button>
-                ),
-                h5: <h5 className="text-lg font-semibold" />,
-                h6: <h6 className="font-semibold" />,
-              }}
-            />
+              })}
+            </p>
+
+            {score.details.some((d) => d.fulfilled) && (
+              <>
+                <h6 className="font-semibold">{t("score.fulfilled")}</h6>
+                <ul className="ms-5 mb-3 list-disc">
+                  {score.details
+                    .filter((d) => d.fulfilled)
+                    .map((e) => (
+                      <li key={e.translationKey}>
+                        {t("score.result", {
+                          description: t("score.criteria." + e.translationKey),
+                          points: e.points,
+                        })}
+                      </li>
+                    ))}
+                </ul>
+              </>
+            )}
           </div>
         </PopoverContent>
       </Popover>

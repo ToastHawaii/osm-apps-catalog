@@ -157,7 +157,7 @@ export function Details({ app }: { app: App }) {
   return (
     <>
       {!app.libre && showSupportPanel && (
-        <div className="relative mx-auto max-w-3xl py-2 text-left px-6 md:px-0">
+        <div className="relative mx-auto max-w-3xl px-6 py-2 text-left md:px-0">
           <SupportOpenStreetMap app={app} />
         </div>
       )}
