@@ -98,7 +98,7 @@
   "app.download.forYourDevice": "for your device",
   "app.download.fromCodeRepository": "Visit the code repository for more information about {{app}} and installation instructions for <platforms/> version. You may need some technical knowledge to install the app from source code.",
   "app.download.ios": "For iPhone & iPad",
-  "app.download.libreSoftwareNeedsSupport": "{{app}} is free and open-source software, built and maintained by contributors.\nKeeping the project running takes time, effort and resources.\n\nIf you enjoy using CoMaps, perhaps there's a way you'd like to contribute to its future.",
+  "app.download.libreSoftwareNeedsSupport": "{{app}} is free and open-source software, built and maintained by contributors.\nKeeping the project running takes time, effort and resources.\n\nIf you enjoy using {{app}}, perhaps there's a way you'd like to contribute to its future.",
   "app.download.libreSoftwareNeedsSupport.title": "Support {{app}}",
   "app.download.macos": "For MacOS",
   "app.download.osmNeedsSupport": "{{app}} uses map data from OpenStreetMap, a project created and maintained by a global community of contributors.\nThe map data is freely available to use. Keeping it useful and up to date takes ongoing effort, from mapping and coding to maintaining the infrastructure.\n\nIf you find the map data useful, perhaps there's a way you'd like to support OpenStreetMap.",
