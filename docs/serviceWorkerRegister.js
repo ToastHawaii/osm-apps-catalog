@@ -1,1 +1,3 @@
-"serviceWorker"in navigator&&navigator.serviceWorker.register("/serviceWorker.js");
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/serviceWorker.js");
+}
