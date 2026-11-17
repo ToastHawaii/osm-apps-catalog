@@ -1,6 +1,8 @@
 {
   "name": "OSM Apps Catalog",
   "short_name": "OSM Apps",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/icons/web-app-manifest-192x192.png",
