@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
@@ -23,7 +23,80 @@ import {
   ArrowLeft02Icon,
   HelpCircleIcon,
   Search01Icon,
+  XIcon,
 } from "@hugeicons/core-free-icons";
+
+const ThreeWeeks = 14 * 24 * 60 * 60 * 1000;
+
+function KaoBanner() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    const isBot =
+      /googlebot|googleother|google-inspectiontool|adsbot-google|mediapartners-google|feedfetcher-google|google-read-aloud|storebot-google|google-site-verification/i.test(
+        userAgent,
+      );
+
+    if (isBot) {
+      return;
+    }
+
+    const dismissedKey = "kaoDismissed";
+    const dismissedAt = localStorage.getItem(dismissedKey);
+
+    if (dismissedAt) {
+      const dismissedDate = new Date(parseInt(dismissedAt, 10));
+      const now = new Date();
+      const threeWeeksLater = new Date(dismissedDate.getTime() + ThreeWeeks);
+
+      if (now < threeWeeksLater) {
+        return;
+      }
+    }
+
+    setIsVisible(true);
+  }, []);
+
+  const handleDismiss = () => {
+    localStorage.setItem("kaoDismissed", Date.now().toString());
+    setIsVisible(false);
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div className="relative flex items-center justify-between bg-red-300 px-4 py-3 text-center">
+      <a
+        href={"https://ke" + "epandr" + "oidop" + "en.org/"}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-1 hover:underline"
+      >
+        <Trans
+          i18nKey="kao"
+          components={{
+            LearnMoreLink: (
+              <span className="font-bold">
+                {"https://kee" + "pand" + "roidop" + "en.org/"}
+              </span>
+            ),
+          }}
+        />
+      </a>
+      <button
+        onClick={handleDismiss}
+        className="ml-4 rounded p-1 transition-colors hover:bg-red-400"
+        aria-label="Close"
+      >
+        <HugeiconsIcon icon={XIcon} className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
 
 export function Header() {
   const { t } = useTranslation();
@@ -42,6 +115,7 @@ export function Header() {
 
   return (
     <div className="sticky top-0 left-0 z-10 bg-white">
+      <KaoBanner />
       <header className="flex px-1 py-2 md:px-8 md:py-4">
         {showBackButton && (
           <Button variant="ghost" onClick={() => history.back()}>
