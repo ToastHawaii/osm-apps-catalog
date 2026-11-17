@@ -268,6 +268,7 @@
   "introductionPanel.description": "Siit leiad {{numberOfApps}} kaardirakendust igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\nSee on OpenStreetMap - ühiselt loodud maailmakaart.",
   "introductionPanel.description.whileLoading": "Siit leiad kaardirakendusi igaks olukorraks: võrguühenduseta matkamiseks, rattamarsruutide kavandamiseks, lapsesõbralike kohtade avastamiseks või lähima tualeti leidmiseks...\nSee on OpenStreetMap - ühiselt loodud maailmakaart.",
   "introductionPanel.title": "Tere tulemast OSM-i rakenduste kataloogi",
+  "kao": "Alates 2027. aastast pole Android enam vaba! Paljude selles kataloogis leiduvate rakendustega võib tekkida probleeme. Lisateave: <LearnMoreLink/>",
   "list": "Loend",
   "list.more": "Detailne vaade",
   "list.moreInfos": "Lisateave",
