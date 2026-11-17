@@ -1,10 +1,12 @@
 import { Footer } from "@components/layout/Footer";
 import { Header } from "@components/layout/Header";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { XIcon } from "@hugeicons/core-free-icons";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { AppStateProvider } from "@hooks/useAppsData";
 import { AppsFundingStateProvider } from "@hooks/useAppsFundingData";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Outlet, useLocation, useSearchParams } from "react-router";
 
 export function ScrollRestoration() {
@@ -92,6 +94,78 @@ export function ScrollRestoration() {
   return null;
 }
 
+const ThreeWeeks = 14 * 24 * 60 * 60 * 1000;
+
+function KaoBanner() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    const isBot =
+      /googlebot|googleother|google-inspectiontool|adsbot-google|mediapartners-google|feedfetcher-google|google-read-aloud|storebot-google|google-site-verification/i.test(
+        userAgent,
+      );
+
+    if (isBot) {
+      return;
+    }
+
+    const dismissedKey = "kaoDismissed";
+    const dismissedAt = localStorage.getItem(dismissedKey);
+
+    if (dismissedAt) {
+      const dismissedDate = new Date(parseInt(dismissedAt, 10));
+      const now = new Date();
+      const threeWeeksLater = new Date(dismissedDate.getTime() + ThreeWeeks);
+
+      if (now < threeWeeksLater) {
+        return;
+      }
+    }
+
+    setIsVisible(true);
+  }, []);
+
+  const handleDismiss = () => {
+    localStorage.setItem("kaoDismissed", Date.now().toString());
+    setIsVisible(false);
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div className="relative flex items-center justify-between bg-red-300 px-4 py-3 text-center">
+      <a
+        href={"https://ke" + "epandr" + "oidop" + "en.org/"}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-1 hover:underline"
+      >
+        <Trans
+          i18nKey="kao"
+          components={{
+            LearnMoreLink: (
+              <span className="font-bold">
+                {"https://kee" + "pand" + "roidop" + "en.org/"}
+              </span>
+            ),
+          }}
+        />
+      </a>
+      <button
+        onClick={handleDismiss}
+        className="ml-4 rounded p-1 transition-colors hover:bg-red-400"
+        aria-label="Close"
+      >
+        <HugeiconsIcon icon={XIcon} className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}
+
 export default function Layout() {
   const { i18n } = useTranslation();
 
@@ -102,6 +176,7 @@ export default function Layout() {
       <AppStateProvider>
         <AppsFundingStateProvider>
           <ScrollRestoration />
+          <KaoBanner />
           <div id="content" className="flex flex-col">
             <Header />
             <div className="grow">

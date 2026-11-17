@@ -268,6 +268,7 @@
   "introductionPanel.description": "Here you will find {{numberOfApps}} map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\nDiscover OpenStreetMap – a collaboratively created map of the world.",
   "introductionPanel.description.whileLoading": "Here you will find map apps for every situation: offline hiking, planning bike routes, exploring child-friendly places, finding the nearest toilet...\nDiscover OpenStreetMap – a collaboratively created map of the world.",
   "introductionPanel.title": "Welcome to the OSM Apps Catalog",
+  "kao": "Android will no longer be free starting in 2027! Many apps in this catalog will run into problems. Learn more: <LearnMoreLink/>",
   "list": "List",
   "list.more": "More",
   "list.moreInfos": "More Information",
