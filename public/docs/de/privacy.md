@@ -1,6 +1,6 @@
 ---
 title: "Datenschutzerklärung"
-description: "Privacy policy explaining data collection and processing by third-party services used for analytics, hosting, and feedback."
+description: "Datenschutzerklärung zur Erläuterung der Datenerhebung und -verarbeitung durch Dienste von Drittanbietern, die für Analysen, Hosting und Feedback genutzt werden."
 ---
 
 # Datenschutzerklärung
