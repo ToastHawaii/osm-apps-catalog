@@ -3,7 +3,10 @@ import { SupportedLanguages } from "@shared/lib/SupportedLanguages";
 import { templateData } from "./templateData";
 
 import templateEn from "../locales/wiki-software-template/en.json";
+import templateAr from "../locales/wiki-software-template/ar.json";
+import templateBg from "../locales/wiki-software-template/bg.json";
 import templateCs from "../locales/wiki-software-template/cs.json";
+import templateDa from "../locales/wiki-software-template/da.json";
 import templateDe from "../locales/wiki-software-template/de.json";
 import templateEl from "../locales/wiki-software-template/el.json";
 import templateEs from "../locales/wiki-software-template/es.json";
@@ -14,12 +17,15 @@ import templateId from "../locales/wiki-software-template/id.json";
 import templateIt from "../locales/wiki-software-template/it.json";
 import templateJa from "../locales/wiki-software-template/ja.json";
 import templateKo from "../locales/wiki-software-template/ko.json";
+import templateLv from "../locales/wiki-software-template/lv.json";
 import templateNb_NO from "../locales/wiki-software-template/nb-NO.json";
+import templateNl from "../locales/wiki-software-template/nl.json";
 import templatePl from "../locales/wiki-software-template/pl.json";
 import templatePt from "../locales/wiki-software-template/pt.json";
 import templateRu from "../locales/wiki-software-template/ru.json";
 import templateSv from "../locales/wiki-software-template/sv.json";
 import templateTa from "../locales/wiki-software-template/ta.json";
+import templateTh from "../locales/wiki-software-template/th.json";
 import templateTr from "../locales/wiki-software-template/tr.json";
 import templateUk from "../locales/wiki-software-template/uk.json";
 import templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
@@ -87,7 +93,10 @@ export function convertToJson() {
 export function convertFromJson() {
   const files = {
     en: templateEn,
+    ar: templateAr,
+    bg: templateBg,
     cs: templateCs,
+    da: templateDa,
     de: templateDe,
     el: templateEl,
     es: templateEs,
@@ -98,12 +107,15 @@ export function convertFromJson() {
     it: templateIt,
     ja: templateJa,
     ko: templateKo,
+    lv: templateLv,
     no: templateNb_NO,
+    nl: templateNl,
     pl: templatePl,
     pt: templatePt,
     ru: templateRu,
     sv: templateSv,
     ta: templateTa,
+    th: templateTh,
     tr: templateTr,
     uk: templateUk,
     "zh-hans": templateZh_Hans,

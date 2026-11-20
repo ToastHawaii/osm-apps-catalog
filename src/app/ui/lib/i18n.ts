@@ -4,7 +4,9 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en from "../locales/en.json";
 import ar from "../locales/ar.json";
+import bg from "../locales/bg.json";
 import cs from "../locales/cs.json";
+import da from "../locales/da.json";
 import de from "../locales/de.json";
 import el from "../locales/el.json";
 import es from "../locales/es.json";
@@ -23,6 +25,7 @@ import pt from "../locales/pt.json";
 import ru from "../locales/ru.json";
 import sv from "../locales/sv.json";
 import ta from "../locales/ta.json";
+import th from "../locales/th.json";
 import tr from "../locales/tr.json";
 import uk from "../locales/uk.json";
 import zh_Hans from "../locales/zh_Hans.json";
@@ -31,7 +34,9 @@ import zh_Hant from "../locales/zh_Hant.json";
 // do not forget to update templateData.json
 import templateEn from "../locales/wiki-software-template/en.json";
 import templateAr from "../locales/wiki-software-template/ar.json";
+import templateBg from "../locales/wiki-software-template/bg.json";
 import templateCs from "../locales/wiki-software-template/cs.json";
+import templateDa from "../locales/wiki-software-template/da.json";
 import templateDe from "../locales/wiki-software-template/de.json";
 import templateEl from "../locales/wiki-software-template/el.json";
 import templateEs from "../locales/wiki-software-template/es.json";
@@ -50,6 +55,7 @@ import templatePt from "../locales/wiki-software-template/pt.json";
 import templateRu from "../locales/wiki-software-template/ru.json";
 import templateSv from "../locales/wiki-software-template/sv.json";
 import templateTa from "../locales/wiki-software-template/ta.json";
+import templateTh from "../locales/wiki-software-template/th.json";
 import templateTr from "../locales/wiki-software-template/tr.json";
 import templateUk from "../locales/wiki-software-template/uk.json";
 import templateZh_Hans from "../locales/wiki-software-template/zh_Hans.json";
@@ -87,7 +93,9 @@ i18next
     resources: {
       en: { translation: { ...en, "app.props": templateEn } },
       ar: { translation: { ...ar, "app.props": templateAr } },
+      bg: { translation: { ...bg, "app.props": templateBg } },
       cs: { translation: { ...cs, "app.props": templateCs } },
+      da: { translation: { ...da, "app.props": templateDa } },
       de: { translation: { ...de, "app.props": templateDe } },
       el: { translation: { ...el, "app.props": templateEl } },
       es: { translation: { ...es, "app.props": templateEs } },
@@ -106,6 +114,7 @@ i18next
       ru: { translation: { ...ru, "app.props": templateRu } },
       sv: { translation: { ...sv, "app.props": templateSv } },
       ta: { translation: { ...ta, "app.props": templateTa } },
+      th: { translation: { ...th, "app.props": templateTh } },
       tr: { translation: { ...tr, "app.props": templateTr } },
       uk: { translation: { ...uk, "app.props": templateUk } },
       "zh-hant": { translation: { ...zh_Hant, "app.props": templateZh_Hant } },
