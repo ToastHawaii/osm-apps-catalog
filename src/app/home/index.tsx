@@ -15,8 +15,6 @@ import { Link } from "react-router";
 import { useRoute } from "@hooks/useRoute";
 import { Button } from "@components/ui/button";
 import { upperCase } from "@shared/utils/string";
-import { useRecentlyViewed } from "@hooks/useRecentlyViewed";
-import { featureFlags } from "../../featureFlags";
 
 const MaxNumberOfAppsPerCategory = 6;
 
@@ -24,7 +22,6 @@ export function Home({ apps }: { apps: App[] }) {
   const { t } = useTranslation();
   const routes = useRoute();
   const platforms = usePlatformUrlParam();
-  const [recentlyViewed] = useRecentlyViewed();
 
   const platformsUpper = upperCase(platforms);
   const { spotlight, categories } = useMemo(() => {
@@ -122,20 +119,6 @@ export function Home({ apps }: { apps: App[] }) {
             }}
             apps={spotlight}
           />
-          {featureFlags.showRecentlyViewed && (
-            <Category
-              id={"recently-viewed"}
-              name={"Recently viewed"}
-              apps={
-                recentlyViewed
-                  .slice(0, MaxNumberOfAppsPerCategory - 1)
-                  .map((recentlyViewedAppId) =>
-                    apps.find((app) => app.id === recentlyViewedAppId),
-                  )
-                  .filter((a) => a) as typeof apps
-              }
-            />
-          )}
           {categories
             .filter((category) => category.apps.length > 0)
             .map((category) => (

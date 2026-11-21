@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
 import { Search } from "@app/search";
@@ -10,11 +10,10 @@ import { AppPage } from "@app/app";
 import { NotFound } from "@app/notFound";
 import { useIsTechDomain } from "@hooks/useIsTechDomain";
 import { useRoute } from "@hooks/useRoute";
-import { useRecentlyViewed } from "@hooks/useRecentlyViewed";
+import { pushRecentlyViewed } from "@lib/recentlyViewed";
 
 export function Router() {
   const apps = useAppsData().apps.slice();
-  const [, pushNewRecentlyViewed] = useRecentlyViewed();
 
   const [searchParams] = useSearchParams();
   const isTechDomain = useIsTechDomain();
@@ -22,21 +21,25 @@ export function Router() {
   const navigate = useNavigate();
   const routes = useRoute();
 
+  const appId = parseInt(searchParams.get("app") || "", 10);
+
+  useEffect(() => {
+    if (appId && apps.some((app) => app.id === appId)) {
+      pushRecentlyViewed(appId);
+    }
+  }, [appId, apps.length]);
+
   switch (searchParams.get("page")) {
     case "app": {
       if (apps.length === 0) {
         return null;
       }
 
-      const id = parseInt(searchParams.get("app") || "", 10);
-
-      const app = apps.find((a) => a.id === id);
+      const app = apps.find((a) => a.id === appId);
 
       if (!app) {
         return <NotFound />;
       }
-
-      pushNewRecentlyViewed(id);
 
       return <AppPage app={app} />;
     }
@@ -50,9 +53,7 @@ export function Router() {
     case null:
       if (searchParams.get("app")) {
         // redirect to app detail page to support a stable route
-        navigate(
-          routes.app({ app: parseInt(searchParams.get("app") || "", 10) }),
-        );
+        navigate(routes.app({ app: appId }));
       }
       if (searchParams.get("wiki")) {
         // redirect to app detail page to support linking from wiki.openstreetmap.org

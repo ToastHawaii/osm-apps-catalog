@@ -29,12 +29,36 @@ import {
   DefaultTagsReorganization,
 } from "@lib/tagsReorganizer";
 import { chain } from "lodash";
+import { getRecentlyViewed } from "@lib/recentlyViewed";
 
 export function categories(
   t: TFunction<"translation", undefined>,
   apps: App[],
 ) {
   return [
+    {
+      id: "recentlyViewed",
+      name: () => t("category.recentlyViewed"),
+      description: (numberOfApps: number) =>
+        t("category.recentlyViewed.description", { numberOfApps }),
+      sorted: () => {
+        const recentlyViewed = getRecentlyViewed();
+        return chain(apps)
+          .filter((a) => recentlyViewed.includes(a.id))
+          .sortBy((a) => recentlyViewed.indexOf(a.id));
+      },
+      getAll: function () {
+        return this.sorted().value();
+      },
+      nextIndex: function () {
+        const latest = this.sorted().take(1).value();
+        if (!latest[0]) {
+          return -1;
+        }
+        return apps.findIndex((app) => app.id === latest[0].id);
+      },
+      tagsReorganization: DefaultTagsReorganization,
+    },
     {
       id: "universalMapApps",
       name: () => t("category.universalMapApps"),
