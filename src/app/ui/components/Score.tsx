@@ -54,6 +54,10 @@ export function Score({
       " absolute top-2 right-0 md:rounded-tr-lg rounded-bl-sm px-1 py-0.5 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30";
   }
 
+  const hasWikiSource = app.source.some(
+    (s) => s.name === "Software" || s.name === "Layer" || s.name === "Wikidata",
+  );
+
   return (
     <div>
       <Popover>
@@ -77,6 +81,25 @@ export function Score({
                 total: score.total,
               })}
             </p>
+
+            {hasWikiSource && score.total < 2 && (
+              <p className="mb-3">
+                {t("score.hint.below2", { app: app.name })}
+              </p>
+            )}
+            {!hasWikiSource && score.total < 4 && (
+              <p className="mb-3">
+                {t("score.hint.below4AndNoneWikiEntry", { app: app.name })}
+              </p>
+            )}
+            {!app.libre && score.total >= 4 && (
+              <p className="mb-3">
+                {t("score.hint.proprietary", { app: app.name })}
+              </p>
+            )}
+            {!!app.libre && score.total >= 6 && (
+              <p className="mb-3">{t("score.hint.libre", { app: app.name })}</p>
+            )}
 
             {score.details.some((d) => !d.fulfilled) && (
               <>
