@@ -215,6 +215,7 @@
   "category.qa": "OpenStreetMap quality assurance",
   "category.qa.description": "{{numberOfApps}} tools for examining OSM data to find errors, inconsistencies, or problematic changes.",
   "category.recentlyViewed": "Recently viewed",
+  "category.recentlyViewed.clear": "Clear",
   "category.recentlyViewed.description": "The apps that you have viewed most recently.",
   "category.resolveNotes": "Resolve map notes",
   "category.resolveNotes.description": "{{numberOfApps}} tools to review and resolve map notes submitted by users, helping keep OSM data accurate and up-to-date.",

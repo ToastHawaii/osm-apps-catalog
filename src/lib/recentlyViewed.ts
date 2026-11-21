@@ -10,3 +10,7 @@ export function pushRecentlyViewed(id: number) {
   const apps = getRecentlyViewed();
   set("RecentlyViewed", uniq([id, ...apps]));
 }
+
+export function clearRecentlyViewed() {
+  set("RecentlyViewed", []);
+}

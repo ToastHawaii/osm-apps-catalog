@@ -49,7 +49,7 @@ export function Category({
         <Button
           variant="outline"
           size="xs"
-          className="col-start-2 self-end justify-self-end text-sm underline-offset-4 hover:underline"
+          className="col-start-2 self-end justify-self-end text-sm"
           asChild
         >
           <Link

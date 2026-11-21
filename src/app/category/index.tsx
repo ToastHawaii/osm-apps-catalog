@@ -9,11 +9,17 @@ import { Filters } from "@app/Filters";
 import { usePlatformUrlParam } from "@hooks/usePlatformUrlParam";
 import { PagedList } from "@app/ui/PagedList";
 import { AppCompact } from "@components/common/AppCompact";
+import { Button } from "@components/ui/button";
+import { clearRecentlyViewed } from "@lib/recentlyViewed";
 import { upperCase } from "@shared/utils/string";
 import { NotFound } from "@app/notFound";
+import { useRoute } from "@hooks/useRoute";
+import { useNavigate } from "react-router";
 
 export function Category({ apps, id }: { apps: App[]; id: string }) {
   const { t } = useTranslation();
+  const { home } = useRoute();
+  const navigate = useNavigate();
 
   const platforms = upperCase(usePlatformUrlParam());
 
@@ -59,6 +65,11 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
     };
   }, [apps.length, platforms.join(",")]);
 
+  function handleClearHistory() {
+    clearRecentlyViewed();
+    navigate(home());
+  }
+
   if (!category) {
     return <NotFound />;
   }
@@ -76,14 +87,28 @@ export function Category({ apps, id }: { apps: App[]; id: string }) {
         {!techView && <Filters />}
 
         <div id="list">
-          <h2 className="px-8 pt-3 text-left text-2xl font-semibold md:px-18">
-            {category.name()}
-          </h2>
-          {category.description && (
-            <p className="px-8 text-sm text-muted-foreground md:px-18">
-              {category.description(category.apps.length)}
-            </p>
-          )}
+          <div className="flex items-end justify-between gap-4 px-8 pt-3 md:px-18">
+            <div>
+              <h2 className="text-left text-2xl font-semibold">
+                {category.name()}
+              </h2>
+              {category.description && (
+                <p className="text-sm text-muted-foreground">
+                  {category.description(category.apps.length)}
+                </p>
+              )}
+            </div>
+            {id === "recentlyViewed" && (
+              <Button
+                variant="outline"
+                size="xs"
+                className="-me-2 text-sm"
+                onClick={handleClearHistory}
+              >
+                {t("category.recentlyViewed.clear")}
+              </Button>
+            )}
+          </div>
           <div className="grid auto-rows-fr gap-x-4 gap-y-2 px-6 md:grid-cols-2 md:px-16 lg:grid-cols-3">
             <PagedList
               items={category.apps}
