@@ -1,5 +1,7 @@
 import React from "react";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
+import { QRCodeSVG } from "qrcode.react";
+import { useTranslation } from "react-i18next";
 
 import { ExternalLink } from "@components/common/ExternalLink";
 import { Button } from "@components/ui/button";
@@ -7,6 +9,11 @@ import { cn } from "@lib/utils";
 import { App } from "@shared/data/App";
 import { contribute } from "@shared/lib/filters";
 import { useDownloadTracking } from "@hooks/useDownloadTracking";
+import {
+  HoverCardTrigger,
+  HoverCardContent,
+  HoverCard,
+} from "@components/ui/hover-card";
 
 export function DownloadButton({
   app,
@@ -25,6 +32,7 @@ export function DownloadButton({
   variant?: "default" | "outline";
   onClick?: () => void;
 }) {
+  const { t } = useTranslation();
   const { markDownloadClicked } = useDownloadTracking();
 
   const handleClick = () => {
@@ -33,27 +41,35 @@ export function DownloadButton({
   };
 
   return (
-    <Button className="grow md:flex-none" variant={variant} asChild>
-      <ExternalLink
-        variant={null}
-        icon
-        href={href}
-        onClick={handleClick}
-        data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
-        data-goatcounter-title="Goes to a download page of an app."
-        data-goatcounter-referrer="https://osm-apps.org/"
-      >
-        {icon && (
-          <HugeiconsIcon
-            icon={icon}
-            className={cn("inline-block", iconClassName)}
-            strokeWidth={1.4}
-            size={22}
-            style={{ width: 22, height: 22 }}
-          />
-        )}{" "}
-        {label}
-      </ExternalLink>
-    </Button>
+    <HoverCard openDelay={200} closeDelay={100}>
+      <HoverCardTrigger asChild>
+        <Button className="grow md:flex-none" variant={variant} asChild>
+          <ExternalLink
+            variant={null}
+            icon
+            href={href}
+            onClick={handleClick}
+            data-goatcounter-click={`/app/download${contribute(app) ? "?category=edit" : ""}`}
+            data-goatcounter-title="Goes to a download page of an app."
+            data-goatcounter-referrer="https://osm-apps.org/"
+          >
+            {icon && (
+              <HugeiconsIcon
+                icon={icon}
+                className={cn("inline-block", iconClassName)}
+                strokeWidth={1.4}
+                size={22}
+                style={{ width: 22, height: 22 }}
+              />
+            )}{" "}
+            {label}
+          </ExternalLink>
+        </Button>
+      </HoverCardTrigger>{" "}
+      <HoverCardContent className="w-52 p-6 pb-3 text-center">
+        <QRCodeSVG className="mb-2" value={href as string} size={160} />
+        {t("app.install.qrCode")}
+      </HoverCardContent>
+    </HoverCard>
   );
 }
