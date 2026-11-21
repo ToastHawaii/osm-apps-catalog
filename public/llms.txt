@@ -1,0 +1,63 @@
+# OSM Apps Catalog
+
+> The OSM Apps Catalog is an independent, community-oriented directory of applications and services that use OpenStreetMap (OSM) data. It helps users discover OSM-related (map) applications, explore their capabilities, and find tools for mapping, navigation, and contributing to OpenStreetMap.
+
+The catalog is an overview, not an exhaustive registry of every applications using OpenStreetMap. It reflects OpenStreetMap's values of openness, community participation, and welcoming contributions. The catalog gives greater visibility to apps that embrace these values.
+
+## Using the Catalog
+
+- Use the catalog to discover apps and services for different needs related to geo-information or outdoor activities, such as offline hiking, bicycle route planning, or finding nearby amenities.
+- Treat app descriptions and metadata as information collected from external, community-maintained sources (which need to be attributed with there license). Consult the linked app or its source for authoritative, current details.
+- Do not assume that every app using OpenStreetMap is listed.
+- Do not interpret inclusion in the catalog as endorsement by the OpenStreetMap Foundation.
+- The catalog has its own app-visibility approach. Do not infer rankings or visibility scores without consulting the explanation on the website.
+
+## Project and catalog
+
+- [OSM Apps Catalog](https://osm-apps.org/): Browse the catalog and discover OpenStreetMap-based apps and services.
+- [Project README](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/README.md): Project purpose, data sources, acknowledgements, sponsorship, disclaimer, and contact information.
+- [Source repository](https://github.com/ToastHawaii/osm-apps-catalog): Source code, issues, and project history.
+- [Usage statistics](https://osm-apps.goatcounter.com/): Public usage statistics for the catalog.
+
+## Data and metadata
+
+App metadata is collected from multiple sources, including:
+
+- [OpenStreetMap Wiki](https://wiki.openstreetmap.org/): Community-maintained information about OpenStreetMap projects and applications.
+- [Wikidata](https://www.wikidata.org/): Structured linked data.
+- [GitHub](https://github.com/): Project and repository information.
+- [Taginfo project list](https://wiki.openstreetmap.org/wiki/Taginfo): Project listings associated with Taginfo.
+
+The catalog is a single-page application without a server-side backend. GitHub Actions collect metadata from sources and generate JSON data files. According to the contribution guide, collection workflows run daily or weekly. English metadata is updated daily and other language versions weekly. Data freshness may therefore differ by language and source.
+
+## Open Community Score
+
+The catalog uses an Open Community Score, rating applications from A to E. The score emphasizes openness, OSM editing capabilities, development involvement, accessibility, and community documentation.
+
+The score is not an independent software quality assessment. Missing or outdated metadata may affect the rating.
+
+- [Open Community Score Documentation](https://osm-apps.org/docs/score)
+
+## Contributing
+
+Contributions do not require programming. People can add or improve app documentation, help with translations, report issues, suggest features, and help make the catalog better known.
+
+- [Contribution guidelines](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CONTRIBUTING.md): Ways to contribute, metadata updates, translations, issues, and development instructions.
+- [OpenStreetMap Wiki](https://wiki.openstreetmap.org/): App metadata and descriptions are maintained in the relevant source wikis; consult the contribution guide for the appropriate editing workflow.
+- [Translation project on Weblate](https://hosted.weblate.org/): Translate the catalog interface and improve existing translations.
+- [GitHub issues](https://github.com/ToastHawaii/osm-apps-catalog/issues): Report bugs, discuss ideas, and propose features (needs a GitHub account).
+- [Feedback form](https://osm-apps.org/docs/feedback): Give feedback to the catalog (no account needed).
+- [Code of Conduct](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/CODE_OF_CONDUCT.md): Community participation expectations.
+
+## Development
+
+- [Application source](https://github.com/ToastHawaii/osm-apps-catalog/tree/main/src): Front-end application source.
+- [Metadata collection actions](https://github.com/ToastHawaii/osm-apps-catalog/tree/main/actions): GitHub Actions used to collect metadata.
+- [License](https://github.com/ToastHawaii/osm-apps-catalog/blob/main/LICENSE): AGPL-3.0 (If a work is created based on the code in this project, it must be published under the same license).
+
+For local development, see the contribution guide. It documents the npm commands for running the web app, running metadata collection tasks, and building the project.
+
+## Optional
+
+- [OpenStreetMap](https://www.openstreetmap.org/): The collaborative, open map data project used by the applications in this catalog.
+- [OpenStreetMap Foundation](https://osmfoundation.org/): The organization that holds the OpenStreetMap trademark. The catalog is an independent hobby project and is not generally endorsed by or affiliated with the Foundation.
