@@ -33,9 +33,9 @@ export function AppLogo({
     ])
   ) {
     const base = `https://${extractHost(app.website)}/favicon.`;
+    logos.push(base + "svg");
     logos.push(base + "png");
     logos.push(base + "ico");
-    logos.push(base + "svg");
     logos.push(base + "gif");
   }
 
@@ -45,7 +45,7 @@ export function AppLogo({
 
   return (
     <LazyImage
-      className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full"
+      className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full [[src$='.svg?width=250']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
       dynamicSrc={logos.join(" ")}

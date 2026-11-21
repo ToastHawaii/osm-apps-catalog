@@ -17,7 +17,7 @@ export function AppScreenshot({
     <LazyImage
       className="img inline-block rounded-md"
       dynamicSrc={app.images.filter((i) => !isLikelyLogo(i)).join(" ")}
-      mediaWikiMaxSize={1280}
+      mediaWikiMaxSize={500}
       alt={t("app.screenshotAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />
