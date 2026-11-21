@@ -15,11 +15,10 @@ export function AppImage({
   const { t } = useTranslation();
 
   const defaultImage =
-    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+    "https://wiki.openstreetmap.org/w/images/c/ca/Map-14.svg";
 
   const images = [
-    ...app.images.filter((i) => !isLikelyLogo(i) && i.includes("/250px-")),
-    ...app.images.filter((i) => !isLikelyLogo(i) && !i.includes("/250px-")),
+    ...app.images.filter((i) => !isLikelyLogo(i)),
     ...app.images.filter((i) => isLikelyLogo(i)),
     ...app.logos,
   ];
@@ -35,6 +34,7 @@ export function AppImage({
       src={defaultImage}
       dynamicSrc={images.join(" ")}
       alt={t("app.imageAlt", { name: app.name })}
+      mediaWikiMaxSize={1280}
       loadOnInit={loadOnInit}
     />
   );

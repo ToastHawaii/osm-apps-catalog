@@ -1,88 +1,23 @@
-import md5 from "md5";
-import { httpRegex } from "@shared/utils/url";
-import { startsWithIgnoreCase } from "@shared/utils/string";
-
 function extractFromWikiText(input: string) {
   const match = input.match(/\[\[(?:File|Image):([^|\]]+)/i);
   return match?.[1].trim();
 }
 
-export function toWikimediaUrl(source: string, size: number) {
-  if (!source) return [] as string[];
+/**
+ * For a osm.wiki file or image create a list of possible files urls.
+ * The target can be the osm.wiki or commons.
+ */
+export function toWikimediaUrl(fileName: string) {
+  if (!fileName) return [];
 
-  if (httpRegex.test(source)) {
-    return [source];
-  } else if (startsWithIgnoreCase(source, "File:")) {
-    const fileName = source.substring(5, source.length);
+  const extracted = extractFromWikiText(fileName);
+  if (extracted) {
+    fileName = extracted;
+  }
 
-    return [
-      ...generateOsmWikimediaUrls(fileName, size),
-      ...generateCommonsWikimediaUrls(fileName, size),
-    ];
-  } else if (extractFromWikiText(source)) {
-    const fileName = extractFromWikiText(source) as string;
-
-    return [
-      ...generateOsmWikimediaUrls(fileName, size),
-      ...generateCommonsWikimediaUrls(fileName, size),
-    ];
-  } else if (
-    startsWithIgnoreCase(source, "https://wiki.openstreetmap.org/wiki/File:")
-  )
-    return generateOsmWikimediaUrls(source.substring(41, source.length), size);
-  else if (
-    startsWithIgnoreCase(source, "http://wiki.openstreetmap.org/wiki/File:")
-  )
-    return generateOsmWikimediaUrls(source.substring(40, source.length), size);
-  else if (
-    startsWithIgnoreCase(source, "https://commons.wikimedia.org/wiki/File:")
-  )
-    return generateCommonsWikimediaUrls(
-      source.substring(40, source.length),
-      size,
-    );
-  else if (
-    startsWithIgnoreCase(source, "http://commons.wikimedia.org/wiki/File:")
-  )
-    return generateCommonsWikimediaUrls(
-      source.substring(39, source.length),
-      size,
-    );
-  else
-    return [
-      ...generateOsmWikimediaUrls(source, size),
-      ...generateCommonsWikimediaUrls(source, size),
-    ];
-}
-
-function generateOsmWikimediaUrls(fileName: string, size: number) {
-  return generateWikimediaUrls(
-    "https://wiki.openstreetmap.org/w/images",
-    fileName,
-    size,
-  );
-}
-
-function generateCommonsWikimediaUrls(fileName: string, size: number) {
-  return generateWikimediaUrls(
-    "https://upload.wikimedia.org/wikipedia/commons",
-    fileName,
-    size,
-  );
-}
-
-function generateWikimediaUrls(base: string, fileName: string, size: number) {
-  fileName = decodeURI(fileName).replace(/ /g, "_");
-  const hash = md5(fileName);
+  const encodedFileName = encodeURIComponent(fileName.replace(/ /g, "_"));
 
   return [
-    `${base}/thumb/${hash.substring(0, 1)}/${hash.substring(
-      0,
-      2,
-    )}/${fileName}/${size}px-${fileName}${
-      fileName.toUpperCase().endsWith(".SVG") ? ".png" : ""
-    }`,
-
-    `${base}/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${fileName}`,
+    `https://wiki.openstreetmap.org/wiki/Special:FilePath/${encodedFileName}`,
   ];
 }

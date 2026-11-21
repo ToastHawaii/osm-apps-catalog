@@ -38,8 +38,9 @@ export function transform(
     unmaintained: equalsIgnoreCase(source["status"], "unmaintained"),
     lastRelease: toDate(source["date"]) || "",
     description: appendFullStop(processWikiText(source["description"] || "")),
-    images: toWikimediaUrl(source["screenshot"], 250),
-    logos: toWikimediaUrl(source["logo"], 250),
+    images: toWikimediaUrl(source["screenshot"]
+    ),
+    logos: toWikimediaUrl(source["logo"]),
     imageWiki: source["screenshot"] || source["logo"],
     website: toUrl(extractWebsite(source["web"])),
     documentation: toWikiUrl(source.sourceWiki) || "",

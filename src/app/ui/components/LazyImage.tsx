@@ -1,3 +1,4 @@
+import { addWidthToMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
 import { omit } from "lodash";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -18,6 +19,7 @@ export async function isImage(src: string) {
 export function LazyImage(
   props: {
     dynamicSrc: string | undefined;
+    mediaWikiMaxSize: number;
     loadOnInit?: boolean | undefined;
   } & Pick<
     React.ImgHTMLAttributes<HTMLImageElement>,
@@ -33,7 +35,12 @@ export function LazyImage(
   async function loadImage(element: Element) {
     const sources = (imgProps["data-dynamic-src"] || "").split(" ");
 
-    for (const src of sources) {
+    const normalizedSources = addWidthToMediaWikiUrls(
+      sources,
+      props.mediaWikiMaxSize,
+    );
+
+    for (const src of normalizedSources) {
       if (document.body.contains(element) && (await isImage(src))) {
         setImgProps((p) => ({ ...p, src, style: undefined }));
         break;

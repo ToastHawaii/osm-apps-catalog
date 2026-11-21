@@ -15,10 +15,9 @@ export function AppLogo({
 }) {
   const { t } = useTranslation();
 
-  const defaultLogo =
-    "https://wiki.openstreetmap.org/w/images/thumb/c/ca/Map-14.svg/140px-Map-14.svg.png";
+  const defaultLogo = "https://wiki.openstreetmap.org/w/images/c/ca/Map-14.svg";
 
-  const logos = [...app.logos, ...app.images.filter((i) => isLikelyLogo(i))];
+  const logos = [...app.logos, ...app.images.filter(isLikelyLogo)];
 
   // as a fallback we try to use the favicon from the given website as logo
   if (
@@ -28,7 +27,9 @@ export function AppLogo({
       "github.com",
       "sourceforge.net",
       "apple.com",
+      "apps.apple.com",
       "steampowered.com",
+      "codeberg.org",
     ])
   ) {
     const base = `https://${extractHost(app.website)}/favicon.`;
@@ -49,6 +50,7 @@ export function AppLogo({
       src={defaultLogo}
       dynamicSrc={logos.join(" ")}
       alt={t("app.logoAlt", { name: app.name })}
+      mediaWikiMaxSize={250}
       loadOnInit={loadOnInit}
     />
   );

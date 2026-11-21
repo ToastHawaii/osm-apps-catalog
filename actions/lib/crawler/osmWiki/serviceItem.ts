@@ -31,7 +31,7 @@ export function transform(source: Record<string, string>) {
       extractNameWebsiteWiki(source["name"], source.sourceWiki).name,
     ),
     description: appendFullStop(processWikiText(source["descr"] || "")),
-    images: toWikimediaUrl(source["image"], 250),
+    images: toWikimediaUrl(source["image"]),
     logos: [],
     imageWiki: source["image"],
     source: [

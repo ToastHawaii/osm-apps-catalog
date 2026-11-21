@@ -26,10 +26,10 @@ export function enrichSpotlight(apps: App[], knownApps: App[]) {
         getLastMod(a.source[0]) > yesterday &&
         !!a.name &&
         !!(a.subtitle || a.description) &&
-        (a.logos.length > 0 ||
-          a.images.filter((i) => isLikelyLogo(i)).length > 0) &&
-        a.images.filter((i) => !isLikelyLogo(i) && !i.includes("/250px-"))
-          .length > 0 &&
+        // has a logo
+        (a.logos.length > 0 || a.images.some(isLikelyLogo)) &&
+        // has a screenshot
+        a.images.some((i) => !isLikelyLogo(i)) &&
         !a.unmaintained,
     )
     .sortBy((a) => a.lastSpotlight)

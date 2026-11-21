@@ -106,7 +106,7 @@ export function Compare({
           {
             label: () => "",
             description: () => "",
-            hasValue: (app) => app.images.length > 0,
+            hasValue: (app) => !!app.imageWiki,
             renderToHtml: (app) => <AppImage app={app} />,
             renderToWiki: (app) =>
               app.imageWiki ? `[[File:${app.imageWiki}|160px]]` : "",
