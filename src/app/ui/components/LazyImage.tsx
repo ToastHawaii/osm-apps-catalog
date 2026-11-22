@@ -1,4 +1,4 @@
-import { addWidthToMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
+import { setWidthOnMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
 import { omit } from "lodash";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -35,7 +35,7 @@ export function LazyImage(
   async function loadImage(element: Element) {
     const sources = (imgProps["data-dynamic-src"] || "").split(" ");
 
-    const normalizedSources = addWidthToMediaWikiUrls(
+    const normalizedSources = setWidthOnMediaWikiUrls(
       sources,
       props.mediaWikiMaxSize,
     );

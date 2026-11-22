@@ -1,5 +1,5 @@
 import { isImage } from "@app/ui/components/LazyImage";
-import { addWidthToMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
+import { setWidthOnMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
 import { isLikelyLogo } from "@lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";
 import { chain } from "lodash";
@@ -55,7 +55,7 @@ export function useAppImages(app: App) {
 
   useEffect(() => {
     processImages(
-      addWidthToMediaWikiUrls(
+      setWidthOnMediaWikiUrls(
         app.images.filter((i) => !isLikelyLogo(i)),
         1280,
       ),
