@@ -29,10 +29,11 @@ export function AppImage({
 
   return (
     <LazyImage
-      className="img inline-block rounded-sm"
+      className="img inline-block rounded-sm [[src$='.svg']]:w-25"
       style={{ filter: app.cache.filter }}
       src={defaultImage}
       dynamicSrc={images.join(" ")}
+      sizes="250px"
       alt={t("app.imageAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />

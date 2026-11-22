@@ -45,10 +45,11 @@ export function AppLogo({
 
   return (
     <LazyImage
-      className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full [[src$='.svg?width=250']]:size-full"
+      className="max-h-full rounded-lg object-contain [[src$='.svg']]:size-full"
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
       dynamicSrc={logos.join(" ")}
+      sizes="60px"
       alt={t("app.logoAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />

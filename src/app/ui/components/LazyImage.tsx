@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
+import { getMediaWikiSrcSet } from "@app/ui/lib/addWidthToMediaWikiUrls";
+
 export function LazyImage(
   props: {
     dynamicSrc: string | undefined;
     loadOnInit?: boolean | undefined;
   } & Pick<
     React.ImgHTMLAttributes<HTMLImageElement>,
-    "src" | "style" | "className" | "alt"
+    "src" | "sizes" | "style" | "className" | "alt"
   >,
 ) {
   const {
@@ -43,6 +45,10 @@ export function LazyImage(
   const currentSrc =
     candidates[Math.min(candidateIndex, candidates.length - 1)];
 
+  // For MediaWiki images the browser picks the right size itself from the
+  // srcset instead of loading the fixed src size.
+  const srcSet = getMediaWikiSrcSet(currentSrc);
+
   // onLoad does not fire for images that completed before the effect ran
   // (e.g. restored from cache), so check for that as well.
   useEffect(() => {
@@ -67,6 +73,7 @@ export function LazyImage(
       {...imgProps}
       loading={loadOnInit ? "eager" : "lazy"}
       src={currentSrc}
+      srcSet={srcSet}
       style={loadedDynamic ? undefined : style}
       onLoad={handleLoad}
       onError={handleError}
