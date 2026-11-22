@@ -34,7 +34,6 @@ export function AppImage({
       src={defaultImage}
       dynamicSrc={images.join(" ")}
       alt={t("app.imageAlt", { name: app.name })}
-      mediaWikiMaxSize={1280}
       loadOnInit={loadOnInit}
     />
   );

@@ -50,7 +50,6 @@ export function AppLogo({
       src={defaultLogo}
       dynamicSrc={logos.join(" ")}
       alt={t("app.logoAlt", { name: app.name })}
-      mediaWikiMaxSize={250}
       loadOnInit={loadOnInit}
     />
   );

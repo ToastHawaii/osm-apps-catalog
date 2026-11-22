@@ -1,4 +1,4 @@
-import { isImage } from "@app/ui/components/LazyImage";
+import { isImage } from "@lib/utils/isImage";
 import { setWidthOnMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
 import { isLikelyLogo } from "@lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";

@@ -1,143 +1,75 @@
-import { setWidthOnMediaWikiUrls } from "@app/ui/lib/addWidthToMediaWikiUrls";
-import { omit } from "lodash";
-import React, { useState, useRef, useEffect } from "react";
-
-export async function isImage(src: string) {
-  return new Promise<HTMLImageElement | undefined>((resolve) => {
-    const img = new Image();
-    img.addEventListener("load", () => {
-      resolve(img);
-    });
-    img.addEventListener("error", () => {
-      resolve(undefined);
-    });
-    img.src = src;
-    if (img.complete) resolve(img);
-  });
-}
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 export function LazyImage(
   props: {
     dynamicSrc: string | undefined;
-    mediaWikiMaxSize: number;
     loadOnInit?: boolean | undefined;
   } & Pick<
     React.ImgHTMLAttributes<HTMLImageElement>,
     "src" | "style" | "className" | "alt"
   >,
 ) {
-  const [imgProps, setImgProps] = useState({
-    ...omit(props, "dynamicSrc", "loadOnInit"),
-    "data-dynamic-src": props.dynamicSrc,
-  });
+  const {
+    dynamicSrc,
+    loadOnInit,
+    src: fallbackSrc,
+    style,
+    ...imgProps
+  } = props;
+
+  // Candidates tried in order until one loads: the dynamic sources first,
+  // then the static `src` fallback. The browser decides when to actually
+  // request them via `loading="lazy"`, the chain is resolved on `onError`.
+  const dynamicCandidates = useMemo(
+    () => (dynamicSrc || "").split(" ").filter(Boolean),
+    [dynamicSrc],
+  );
+  const candidates = useMemo(
+    () =>
+      fallbackSrc ? [...dynamicCandidates, fallbackSrc] : dynamicCandidates,
+    [dynamicCandidates, fallbackSrc],
+  );
+
+  const [candidateIndex, setCandidateIndex] = useState(0);
+  const [loadedDynamic, setLoadedDynamic] = useState(!dynamicSrc);
   const elementRef = useRef<HTMLImageElement>(null);
 
-  async function loadImage(element: Element) {
-    const sources = (imgProps["data-dynamic-src"] || "").split(" ");
-
-    const normalizedSources = setWidthOnMediaWikiUrls(
-      sources,
-      props.mediaWikiMaxSize,
-    );
-
-    for (const src of normalizedSources) {
-      if (document.body.contains(element) && (await isImage(src))) {
-        setImgProps((p) => ({ ...p, src, style: undefined }));
-        break;
-      }
-    }
-    setImgProps((p) => ({ ...p, "data-dynamic-src": undefined }));
-  }
-
-  let scrollTop = 0;
-  let scrollLeft = 0;
-
-  async function lazyLoadImages(reset?: boolean) {
-    if (reset) {
-      scrollTop = 0;
-      scrollLeft = 0;
-    }
-
-    const contentElement = document.getElementById("content") as HTMLDivElement;
-
-    const element = elementRef.current;
-    if (!contentElement || !element) {
-      return;
-    }
-
-    if (
-      !scrollTop ||
-      contentElement.scrollTop > scrollTop + contentElement.clientHeight
-    ) {
-      scrollTop = contentElement.scrollTop + contentElement.clientHeight;
-
-      (async () => {
-        const boundingClientRect = element.getBoundingClientRect();
-        if (
-          boundingClientRect.top < contentElement?.clientHeight * 3 &&
-          boundingClientRect.left < contentElement?.clientWidth * 2
-        ) {
-          await loadImage(element);
-        }
-      })();
-    }
-
-    if (
-      !scrollLeft ||
-      contentElement.scrollLeft > scrollLeft + contentElement.clientWidth
-    ) {
-      scrollLeft = contentElement.scrollLeft + contentElement.clientWidth;
-
-      (async () => {
-        const boundingClientRect = element.getBoundingClientRect();
-        if (
-          boundingClientRect.top < contentElement?.clientHeight * 3 &&
-          boundingClientRect.left < contentElement?.clientWidth * 2
-        ) {
-          loadImage(element);
-        }
-      })();
-    }
-  }
-
-  function getScrollParent(node: Element | null) {
-    if (node == null) {
-      return null;
-    }
-
-    if (node.scrollHeight > node.clientHeight) {
-      return node;
-    } else {
-      return getScrollParent(node.parentNode as Element);
-    }
-  }
-
+  // Reset the candidate chain when the dynamic sources change.
   useEffect(() => {
-    if (!imgProps["data-dynamic-src"] || !elementRef.current) {
-      return;
+    setCandidateIndex(0);
+    setLoadedDynamic(!dynamicSrc);
+  }, [dynamicSrc]);
+
+  const currentSrc =
+    candidates[Math.min(candidateIndex, candidates.length - 1)];
+
+  // onLoad does not fire for images that completed before the effect ran
+  // (e.g. restored from cache), so check for that as well.
+  useEffect(() => {
+    const element = elementRef.current;
+    if (element?.complete && element.naturalWidth > 0) {
+      const attr = element.getAttribute("src");
+      setLoadedDynamic((attr ?? undefined) !== fallbackSrc);
     }
-    if (props.loadOnInit) {
-      loadImage(elementRef.current);
-    }
-
-    const element = getScrollParent(elementRef.current);
-
-    lazyLoadImages(false);
-
-    function handleEvent() {
-      lazyLoadImages();
-    }
-
-    element?.addEventListener("scroll", handleEvent);
-    element?.addEventListener("load", handleEvent);
-    element?.addEventListener("resize", handleEvent);
-
-    return () => {
-      element?.removeEventListener("scroll", handleEvent);
-      element?.removeEventListener("load", handleEvent);
-      element?.removeEventListener("resize", handleEvent);
-    };
   });
 
-  return <img ref={elementRef} {...omit(imgProps, "data-dynamic-src")} />;
+  function handleLoad() {
+    setLoadedDynamic(currentSrc !== fallbackSrc);
+  }
+
+  function handleError() {
+    setCandidateIndex((i) => Math.min(i + 1, candidates.length - 1));
+  }
+
+  return (
+    <img
+      ref={elementRef}
+      {...imgProps}
+      loading={loadOnInit ? "eager" : "lazy"}
+      src={currentSrc}
+      style={loadedDynamic ? undefined : style}
+      onLoad={handleLoad}
+      onError={handleError}
+    />
+  );
 }
