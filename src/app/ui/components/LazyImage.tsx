@@ -1,31 +1,31 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-
-import { getMediaWikiSrcSet } from "@app/ui/lib/addWidthToMediaWikiUrls";
+import { MediaWikiWidth, getMediaWikiSrcSet } from "@app/ui/lib/addWidthToMediaWikiUrls";
 
 export function LazyImage(
   props: {
     dynamicSrc: string | undefined;
+    expectedWidth: MediaWikiWidth;
     loadOnInit?: boolean | undefined;
   } & Pick<
     React.ImgHTMLAttributes<HTMLImageElement>,
-    "src" | "sizes" | "style" | "className" | "alt"
+    "src" | "style" | "className" | "alt"
   >,
 ) {
   const {
     dynamicSrc,
+    expectedWidth,
     loadOnInit,
     src: fallbackSrc,
     style,
     ...imgProps
   } = props;
 
-  // Candidates tried in order until one loads: the dynamic sources first,
-  // then the static `src` fallback. The browser decides when to actually
-  // request them via `loading="lazy"`, the chain is resolved on `onError`.
+  // Candidates tried in order until one loads.
   const dynamicCandidates = useMemo(
     () => (dynamicSrc || "").split(" ").filter(Boolean),
     [dynamicSrc],
   );
+
   const candidates = useMemo(
     () =>
       fallbackSrc ? [...dynamicCandidates, fallbackSrc] : dynamicCandidates,
@@ -34,9 +34,13 @@ export function LazyImage(
 
   const [candidateIndex, setCandidateIndex] = useState(0);
   const [loadedDynamic, setLoadedDynamic] = useState(!dynamicSrc);
+
+  // Remember candidates for which srcSet was rejected.
+  const [srcSetDisabledFor, setSrcSetDisabledFor] = useState<string>();
+
   const elementRef = useRef<HTMLImageElement>(null);
 
-  // Reset the candidate chain when the dynamic sources change.
+  // Reset the candidate chain when dynamic sources change.
   useEffect(() => {
     setCandidateIndex(0);
     setLoadedDynamic(!dynamicSrc);
@@ -45,21 +49,38 @@ export function LazyImage(
   const currentSrc =
     candidates[Math.min(candidateIndex, candidates.length - 1)];
 
-  // For MediaWiki images the browser picks the right size itself from the
-  // srcset instead of loading the fixed src size.
-  const srcSet = getMediaWikiSrcSet(currentSrc);
+  // Build a density-based srcSet for MediaWiki images.
+  const srcSet = currentSrc
+    ? getMediaWikiSrcSet(currentSrc, expectedWidth)
+    : undefined;
 
-  // onLoad does not fire for images that completed before the effect ran
-  // (e.g. restored from cache), so check for that as well.
+  // Use either srcSet or src, never both.
+  const useSrcSet = srcSet !== undefined && srcSetDisabledFor !== currentSrc;
+
+  // Handle images that completed before the effect ran.
   useEffect(() => {
     const element = elementRef.current;
+
     if (element?.complete && element.naturalWidth > 0) {
-      const attr = element.getAttribute("src");
-      setLoadedDynamic((attr ?? undefined) !== fallbackSrc);
+      setLoadedDynamic(currentSrc !== fallbackSrc);
     }
   });
 
-  function handleLoad() {
+  function handleLoad(event: React.SyntheticEvent<HTMLImageElement>) {
+    const img = event.currentTarget;
+
+    if (useSrcSet) {
+      const actualPixelWidth = img.naturalWidth * window.devicePixelRatio;
+
+      const desiredPixelWidth = expectedWidth * window.devicePixelRatio;
+
+      // MediaWiki returned an image smaller than requested.
+      // Disable srcSet and load the original source instead.
+      if (actualPixelWidth < desiredPixelWidth) {
+        setSrcSetDisabledFor(currentSrc);
+      }
+    }
+
     setLoadedDynamic(currentSrc !== fallbackSrc);
   }
 
@@ -72,8 +93,8 @@ export function LazyImage(
       ref={elementRef}
       {...imgProps}
       loading={loadOnInit ? "eager" : "lazy"}
-      src={currentSrc}
-      srcSet={srcSet}
+      src={useSrcSet ? undefined : currentSrc}
+      srcSet={useSrcSet ? srcSet : undefined}
       style={loadedDynamic ? undefined : style}
       onLoad={handleLoad}
       onError={handleError}

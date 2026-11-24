@@ -49,7 +49,7 @@ export function AppLogo({
       style={{ filter: app.cache.filter }}
       src={defaultLogo}
       dynamicSrc={logos.join(" ")}
-      sizes="60px"
+      expectedWidth={60}
       alt={t("app.logoAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />

@@ -33,7 +33,7 @@ export function AppImage({
       style={{ filter: app.cache.filter }}
       src={defaultImage}
       dynamicSrc={images.join(" ")}
-      sizes="250px"
+      expectedWidth={250}
       alt={t("app.imageAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />

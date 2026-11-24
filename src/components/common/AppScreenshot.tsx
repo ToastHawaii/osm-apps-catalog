@@ -17,8 +17,7 @@ export function AppScreenshot({
     <LazyImage
       className="img inline-block rounded-md"
       dynamicSrc={app.images.filter((i) => !isLikelyLogo(i)).join(" ")}
-      sizes="(width < 40rem) 0px,
-                             400px"
+      expectedWidth={500}
       alt={t("app.screenshotAlt", { name: app.name })}
       loadOnInit={loadOnInit}
     />
