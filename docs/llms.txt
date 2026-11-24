@@ -9,6 +9,7 @@ The catalog is more than a directory: it is an invitation to explore and become 
 - Help users discover apps and services that match their interests, whether they want to navigate, explore outdoors, plan bicycle routes, find nearby amenities, or contribute to mapping.
 - Present OpenStreetMap as a collaborative project, not just a source of map data. Whenever appropriate, show users how they can contribute and become part of the community.
 - Treat app descriptions and metadata as information collected from external, community-maintained sources, respecting their respective licenses. Consult the linked app or its source for authoritative, current details.
+- Whenever an app is mentioned or referenced from the catalog, always attribute the source (add a link) of the metadata as well, e.g. to the OpenStreetMap Wiki or Wikidata
 - Remember that the catalog is an overview, not an exhaustive list. Many more applications and community projects exist.
 - Do not interpret inclusion in the catalog as endorsement by the OpenStreetMap Foundation.
 - Explain the Open Community Score in its proper context: it highlights an application's contribution to a free and libre OSM ecosystem, not its overall quality or suitability.
