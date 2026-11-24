@@ -1,7 +1,7 @@
 import React from "react";
 import { App } from "@shared/data/App";
 import { useTranslation } from "react-i18next";
-import { calculateScore } from "@shared/data/calculateScore";
+import { calculateScore, Criterias } from "@shared/data/calculateScore";
 import {
   Popover,
   PopoverContent,
@@ -10,6 +10,47 @@ import {
 import { useRoute } from "@hooks/useRoute";
 import { Button } from "@components/ui/button";
 import { cn } from "@lib/utils";
+
+function Category({
+  category,
+  text,
+  details,
+}: {
+  category: (typeof Criterias)[number]["category"];
+  text?: string | undefined;
+  details: NonNullable<App["cache"]["score"]>["details"];
+}) {
+  const { t } = useTranslation();
+
+  details = details.filter((d) =>
+    Criterias.some(
+      (c) => c.category === category && d.translationKey === c.translationKey,
+    ),
+  );
+
+  if (details.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <h4 className="mt-3 font-semibold">
+        {t(`score.category.${category}.title`)}
+      </h4>
+      {!!text && <p className="mb-1 text-muted-foreground">{text}</p>}
+      <ul className="ms-5 list-disc">
+        {details.map((d) => (
+          <li key={d.translationKey}>
+            {t("score.result", {
+              description: t(`score.criteria.${d.translationKey}`),
+              points: d.points,
+            })}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 export function Score({
   app,
@@ -58,6 +99,9 @@ export function Score({
     (s) => s.name === "Software" || s.name === "Layer" || s.name === "Wikidata",
   );
 
+  const fulfilled = score.details.filter((d) => d.fulfilled);
+  const notFulfilled = score.details.filter((d) => !d.fulfilled);
+
   return (
     <div>
       <Popover>
@@ -75,7 +119,7 @@ export function Score({
           className="max-h-[60vh] w-150 max-w-[90vw]! overflow-y-auto"
         >
           <div>
-            <h5 className="text-lg font-semibold">{t("score.title")}</h5>
+            <h4 className="text-xl font-semibold">{t("score.title")}</h4>
             <p className="mb-3">
               {t("score.total", {
                 total: score.total,
@@ -101,21 +145,31 @@ export function Score({
               <p className="mb-3">{t("score.hint.libre", { app: app.name })}</p>
             )}
 
-            {score.details.some((d) => !d.fulfilled) && (
+            {notFulfilled.length > 0 && (
               <>
-                <h6 className="font-semibold">{t("score.actionsRequired")}</h6>
-                <ul className="ms-5 list-disc">
-                  {score.details
-                    .filter((d) => !d.fulfilled)
-                    .map((e) => (
-                      <li key={e.translationKey}>
-                        {t("score.result", {
-                          description: t("score.criteria." + e.translationKey),
-                          points: e.points,
-                        })}
-                      </li>
-                    ))}
-                </ul>
+                <h5 className="mb-3 text-lg font-semibold">
+                  {t("score.actionsRequired")}
+                </h5>
+                <Category
+                  category="osmParticipation"
+                  details={notFulfilled}
+                  text={t("score.category.osmParticipation.hint")}
+                />
+                <Category
+                  category="developmentParticipation"
+                  details={notFulfilled}
+                  text={t("score.category.developmentParticipation.hint")}
+                />
+                <Category
+                  category="availabilityAccessibility"
+                  details={notFulfilled}
+                  text={t("score.category.availabilityAccessibility.hint")}
+                />
+                <Category
+                  category="communityChannelsDocumentation"
+                  details={notFulfilled}
+                  text={t("score.category.communityChannelsDocumentation.hint")}
+                />
               </>
             )}
 
@@ -133,21 +187,24 @@ export function Score({
               })}
             </p>
 
-            {score.details.some((d) => d.fulfilled) && (
+            {fulfilled.length > 0 && (
               <>
-                <h6 className="font-semibold">{t("score.fulfilled")}</h6>
-                <ul className="ms-5 mb-3 list-disc">
-                  {score.details
-                    .filter((d) => d.fulfilled)
-                    .map((e) => (
-                      <li key={e.translationKey}>
-                        {t("score.result", {
-                          description: t("score.criteria." + e.translationKey),
-                          points: e.points,
-                        })}
-                      </li>
-                    ))}
-                </ul>
+                <h5 className="mb-3 text-lg font-semibold">
+                  {t("score.fulfilled")}
+                </h5>
+                <Category category="osmParticipation" details={fulfilled} />
+                <Category
+                  category="developmentParticipation"
+                  details={fulfilled}
+                />
+                <Category
+                  category="availabilityAccessibility"
+                  details={fulfilled}
+                />
+                <Category
+                  category="communityChannelsDocumentation"
+                  details={fulfilled}
+                />
               </>
             )}
           </div>
