@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { MediaWikiWidth, getMediaWikiSrcSet } from "@app/ui/lib/addWidthToMediaWikiUrls";
+import {
+  MediaWikiWidth,
+  getMediaWikiSrcSet,
+} from "@app/ui/lib/addWidthToMediaWikiUrls";
 
 export function LazyImage(
   props: {
