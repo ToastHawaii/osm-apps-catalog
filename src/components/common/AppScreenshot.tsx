@@ -1,4 +1,5 @@
 import { LazyImage } from "@app/ui/components/LazyImage";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { isLikelyLogo } from "@lib/utils/isLikelyLogo";
 import { App } from "@shared/data/App";
 import React from "react";
@@ -12,6 +13,11 @@ export function AppScreenshot({
   loadOnInit?: boolean | undefined;
 }) {
   const { t } = useTranslation();
+  const isAtLeastSm = useMediaQuery("(min-width: 640px)");
+
+  if (!isAtLeastSm) {
+    return null;
+  }
 
   return (
     <LazyImage
