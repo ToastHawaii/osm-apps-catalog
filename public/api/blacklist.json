@@ -70,5 +70,11 @@
     "repository": ["exmatrikulator/wustopia"],
     "author": [],
     "reason": "The official website is offline."
+  },
+  {
+    "name": ["Streetcomplete Mapstyle"],
+    "repository": ["streetcomplete/streetcomplete-mapstyle"],
+    "author": [],
+    "reason": "Feedback from a user: “This isn’t an app: …”. The repository has been archived for 6 years and is probably no longer relevant."
   }
 ]

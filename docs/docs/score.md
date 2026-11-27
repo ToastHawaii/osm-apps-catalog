@@ -1,12 +1,11 @@
 ---
 title: "Open Community Score"
-description: "A rating system from A to E that evaluates how apps in the catalog supports the OpenStreetMap community and enable user contributions."
+description: "A rating system from A to E that evaluates how apps in the catalog embrace the values of OpenStreetMap"
 ---
 
 # Open Community Score (Beta)
 
-The Open Community Score is a rating, specially developed for this app catalog.
-It highlights apps that supports the OpenStreetMap community and enable users to easily contribute to OpenStreetMap themselves. The score is calculated automatically based on an app’s documented metadata.
+The Open Community Score is a rating, specially developed for this app catalog. It highlights apps that embrace the values of OpenStreetMap and an open and free community. The score is calculated automatically based on an app’s documented metadata.
 
 To achieve a high score, an app should be:
 
