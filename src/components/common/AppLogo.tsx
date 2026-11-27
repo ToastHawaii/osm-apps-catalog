@@ -30,6 +30,7 @@ export function AppLogo({
       "apps.apple.com",
       "steampowered.com",
       "codeberg.org",
+      "wiki.openstreetmap.org",
     ])
   ) {
     const base = `https://${extractHost(app.website)}/favicon.`;
