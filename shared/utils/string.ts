@@ -102,7 +102,13 @@ export function findClosingBracketIndex(str: string, pos: number) {
 }
 
 export function appendFullStop(value: string): string {
-  if (value && value[value.length - 1] !== ".") return `${value}.`;
+  if (
+    value &&
+    value[value.length - 1] !== "." &&
+    value[value.length - 1] !== "?" &&
+    value[value.length - 1] !== "!"
+  )
+    return `${value}.`;
   return value;
 }
 

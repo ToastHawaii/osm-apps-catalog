@@ -74,7 +74,11 @@ export function Compare({
 
   function getDelimiter(app: App) {
     const desc = plainText(app.description || app.subtitle || "");
-    return desc ? (desc.endsWith(".") ? " " : " – ") : "";
+    return desc
+      ? desc.endsWith(".") || desc.endsWith("?") || desc.endsWith("!")
+        ? " "
+        : " – "
+      : "";
   }
 
   return (

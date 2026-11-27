@@ -151,7 +151,11 @@ export function Details({ app }: { app: App }) {
 
   function getDelimiter() {
     const desc = plainText(app.description || app.subtitle || "");
-    return desc ? (desc.endsWith(".") ? " " : " – ") : "";
+    return desc
+      ? desc.endsWith(".") || desc.endsWith("?") || desc.endsWith("!")
+        ? " "
+        : " – "
+      : "";
   }
 
   return (
